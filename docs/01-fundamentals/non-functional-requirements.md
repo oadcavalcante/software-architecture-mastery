@@ -2,7 +2,7 @@
 id: non-functional-requirements
 title: Requisitos Não-Funcionais
 sidebar_position: 8
-description: Quão bem o sistema faz o que faz — e por que sem número não são requisitos.
+description: Quão bem o sistema faz o que faz, e por que sem número não são requisitos.
 doc_type: foundation
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-requirements]
 related: [quality-attributes, constraints]
 canonical_for: [requisitos não-funcionais, non-functional requirements]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -29,7 +29,7 @@ São eles que decidem a arquitetura. E são os que quase sempre chegam sem núme
 ## O Problema
 
 "O sistema precisa ser rápido e confiável" aparece em praticamente todo
-documento de requisitos. A frase não é um requisito — é um desejo, e um que
+documento de requisitos. A frase não é um requisito: é um desejo, e um que
 ninguém contestaria.
 
 Um requisito precisa poder ser verificado. "Rápido" não pode: não há teste que o
@@ -50,9 +50,9 @@ pulada do levantamento.
 
 Falta qualquer uma e ele volta a ser desejo.
 
-**Métrica** — o que é medido, sem ambiguidade.
-**Número e janela** — o valor e o período em que vale.
-**Consequência** — o que acontece se não for atendido.
+**Métrica**: o que é medido, sem ambiguidade.
+**Número e janela**: o valor e o período em que vale.
+**Consequência**: o que acontece se não for atendido.
 
 ```text
 desejo:     "As buscas precisam ser rápidas."
@@ -64,7 +64,7 @@ requisito:  95% das buscas respondem em menos de 300 ms,
 ```
 
 A terceira parte é a que costuma faltar e a que mais importa. Sem consequência
-declarada, o número é arbitrário — e um número arbitrário não sobrevive à
+declarada, o número é arbitrário. E um número arbitrário não sobrevive à
 primeira conversa sobre custo.
 
 ### Percentil, não média, em requisito de latência
@@ -90,7 +90,7 @@ indisponibilidade por mês e por ano está em
 
 Levar esse custo para a mesa é o que transforma "você quer 99,9% ou 99,99%?" numa
 decisão informada. Sem ele, a resposta tende ao número maior, porque pedir não
-custa nada a quem pede — com ele, frequentemente vira "99,9% está bom".
+custa nada a quem pede. Com ele, frequentemente vira "99,9% está bom".
 
 ### Nem todo atributo se aplica igualmente
 
@@ -104,7 +104,7 @@ Um documento que lista dez atributos como "alta prioridade" não priorizou nada.
 
 **Se você não consegue escrever o teste que verifica, não é requisito.**
 
-O teste não precisa ser automatizado — pode ser uma consulta a um painel, uma
+O teste não precisa ser automatizado: pode ser uma consulta a um painel, uma
 medição mensal. Precisa ser possível olhar para o sistema e dizer, sem
 discussão, se atende ou não.
 
@@ -129,7 +129,7 @@ precisa virar métrica, número, janela e consequência antes de entrar no
 documento.
 
 **Pedir o máximo por precaução.** Stakeholders pedem 99,99% porque não custa
-pedir. Custa — só que o custo aparece na engenharia. Apresentar o custo de cada
+pedir. Custa, só que o custo aparece na engenharia. Apresentar o custo de cada
 nove antes da pergunta muda a resposta na maioria dos casos.
 
 **Usar média em vez de percentil.** Ver acima. É o erro técnico mais comum da
@@ -175,21 +175,21 @@ Requisitos resultantes:
   com transmissão em até 24 h.
 
 O terceiro requisito não estava no pedido original e é o que mais afeta a
-arquitetura — exige fila durável, reconciliação e máquina de estados.
+arquitetura: exige fila durável, reconciliação e máquina de estados.
 
 Note também que a janela restrita no primeiro requisito reduz substancialmente o
 custo, sem perder nada que o negócio precisasse.
 
 ## Conceitos Relacionados
 
-- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — a taxonomia por trás destes
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md): a taxonomia por trás destes
   requisitos.
-- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md) — quais
+- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md): quais
   destes requisitos são poucos o bastante para dirigir a estrutura.
-- [Restrições](/01-fundamentals/constraints.md) — o que não é negociável.
-- [Latência](/06-distributed-systems/latency.md) — por que a cauda existe, e por
+- [Restrições](/01-fundamentals/constraints.md): o que não é negociável.
+- [Latência](/06-distributed-systems/latency.md): por que a cauda existe, e por
   que o percentil é o número honesto.
-- [Confiabilidade](/12-reliability/index.md) — onde SLI, SLO e SLA formalizam
+- [Confiabilidade](/12-reliability/index.md): onde SLI, SLO e SLA formalizam
   isto.
 
 ## Exercício Prático
@@ -208,7 +208,7 @@ Onde não souber a consequência, essa é a pergunta a levar ao stakeholder.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 —
-  capítulos sobre SLO e orçamento de erro.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
+  Capítulos sobre SLO e orçamento de erro.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
-  4ª ed., 2021 — cenários de atributo de qualidade.
+  4ª ed., 2021. Cenários de atributo de qualidade.

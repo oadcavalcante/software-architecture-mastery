@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
 canonical_for: [dependency management]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -50,14 +50,14 @@ The rule that organizes the subject:
 
 > **Depend in the direction of stability.**
 
-A component is stable when it changes little — because many things depend on it, or
+A component is stable when it changes little, because many things depend on it, or
 because it represents something that does not vary. An unstable component changes
 frequently.
 
 If the stable one depends on the unstable one, every change in the unstable one
 breaks the stable one. The arrow has to point the other way.
 
-In the common case, a business rule changes by company decision — rare — and an
+In the common case, a business rule changes by company decision (rare), and an
 infrastructure detail changes with versions, providers and protocols. Where that
 comparison holds, the detail should depend on the rule, not the reverse. It does
 not always hold: for the cases where the detail is the stable side, see
@@ -81,7 +81,7 @@ graph LR
 
 The crucial detail, and the one most often got wrong: **the interface belongs to
 the stable side**. If the `OrderRepository` interface lives in the infrastructure
-package, nothing was inverted — the domain still depends on infrastructure, just
+package, nothing was inverted: the domain still depends on infrastructure, just
 through one extra file.
 
 ### Cycles
@@ -89,7 +89,7 @@ through one extra file.
 A dependency cycle means the modules involved are, in practice, one: they cannot be
 compiled, tested, understood or deployed separately.
 
-Detecting them is cheap — static analysis handles it — and the value is high,
+Detecting them is cheap (static analysis handles it), and the value is high,
 because a cycle is the most common sign of a boundary in the wrong place. How they
 appear and the two ways of breaking them are in
 [dependency direction](/02-software-design/dependency-direction.md).
@@ -119,14 +119,14 @@ Inverting a dependency is worth it when:
 - The side that changes more is being depended on by the side that changes less.
 - You need to test the stable side without the unstable one.
 - There is a real expectation of replacing the implementation.
-- The dependency crosses a boundary you want to keep — of module, of team, of
-  system.
+- The dependency crosses a boundary you want to keep (of module, of team, of
+  system).
 
 ## When Not to Use
 
-The conditions under which inverting costs more than it solves — two equally
+The conditions under which inverting costs more than it solves (two equally
 stable sides, an abstraction that does not hold up, a trivially replaceable
-detail, a small system with a single implementation — are in
+detail, a small system with a single implementation) are in
 [dependency inversion](/02-software-design/dependency-inversion.md).
 
 At the graph level there is one more case: **when the uncomfortable direction is a
@@ -136,12 +136,12 @@ introducing an abstraction, check whether the code is simply in the wrong module
 
 ## Alternatives
 
-- **Accept the direction and isolate the contact point** — leave the dependency
+- **Accept the direction and isolate the contact point**: leave the dependency
   direct, but concentrate it in one place. Cheaper than inverting and it solves the
   common case.
-- **An adapter at the boundary** — translate on the way in rather than abstracting
+- **An adapter at the boundary**: translate on the way in rather than abstracting
   in the middle.
-- **Duplicate the type** — define your own type instead of depending on the
+- **Duplicate the type**: define your own type instead of depending on the
   library's. Cheap, and it keeps the external type from spreading.
 
 ## Trade-offs
@@ -196,7 +196,7 @@ runs.
 ## Real-World Example
 
 A pricing service had its business rule depending directly on the exchange-rate
-provider's client — the library's `ExchangeRateResponse` type appeared in fifteen
+provider's client: the library's `ExchangeRateResponse` type appeared in fifteen
 method signatures in the domain.
 
 When the provider was discontinued, the migration touched all fifteen points, the
@@ -207,7 +207,7 @@ The subsequent fix was not to create a generic exchange-rate provider interface.
 was simpler: define an own type, `Quote`, in the domain, and an adapter that
 translates the provider's response into it.
 
-Two observations. The abstraction ended up at the contact point — one file — rather
+Two observations. The abstraction ended up at the contact point (one file) rather
 than as an interface running through the system. And the domain came to depend on a
 concept of its own, not on a third party's format.
 
@@ -215,9 +215,9 @@ At the next migration, two years later, one file changed.
 
 ## Related Concepts
 
-- [Coupling](/01-fundamentals/coupling.md) — what dependencies are made of.
-- [Abstraction](/01-fundamentals/abstraction.md) — the mechanism of inversion, and its cost.
-- [Architecture vs. Implementation](/01-fundamentals/architecture-vs-implementation.md) — how to
+- [Coupling](/01-fundamentals/coupling.md): what dependencies are made of.
+- [Abstraction](/01-fundamentals/abstraction.md): the mechanism of inversion, and its cost.
+- [Architecture vs. Implementation](/01-fundamentals/architecture-vs-implementation.md): how to
   enforce the decided direction.
 
 ## Practical Exercise
@@ -237,7 +237,7 @@ touch.
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component coupling
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Component coupling
   and stability principles.
-- Documentation for `jdeps`, `dependency-cruiser`, `import-linter` — graph analysis
+- Documentation for `jdeps`, `dependency-cruiser`, `import-linter`. Graph analysis
   tools by language.

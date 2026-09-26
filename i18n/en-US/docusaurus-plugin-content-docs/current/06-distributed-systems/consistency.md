@@ -2,7 +2,7 @@
 id: consistency
 title: Consistency
 sidebar_position: 9
-description: What a read can observe — a spectrum of guarantees, not a switch.
+description: "What a read can observe: a spectrum of guarantees, not a switch."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [eventual-consistency, strong-consistency, cap]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -30,15 +30,15 @@ is a **spectrum of guarantees**, and each operation in a system can require a di
 ## Problem
 
 With one copy of the data, the question about replicas does not exist: the read sees the last
-write committed. What remains is ordering concurrent transactions — isolation, not replication.
+write committed. What remains is ordering concurrent transactions: isolation, not replication.
 
-With replicas — and replicas exist for availability and for scale — the write reaches them at
+With replicas (and replicas exist for availability and for scale), the write reaches them at
 different moments. A read can land on a replica that has not received it yet.
 
 The user changes their own name, the screen reloads, and the old name appears. That is not a code
 defect: it is the consequence of reading from a lagging replica.
 
-The discussion usually degenerates into "we want strong consistency" — with nobody having
+The discussion usually degenerates into "we want strong consistency", with nobody having
 established **for which operations**, and with the cost in latency and availability never put on
 the table.
 
@@ -56,7 +56,7 @@ It is about transactions; linearizability is about individual operations. The tw
 
 **Causal consistency.** Operations related by cause and effect are seen in the correct order by
 everyone; independent operations can be seen in different orders. It preserves the order the user
-perceives without requiring global coordination — more ordering coverage than the session
+perceives without requiring global coordination: more ordering coverage than the session
 guarantees, at a lower cost than linearizability.
 
 **[Eventual consistency](/06-distributed-systems/eventual-consistency.md).** In the absence of new
@@ -69,7 +69,7 @@ Between strong and eventual there are guarantees that solve most of the problems
 at a much lower cost:
 
 **[Read your own writes](/20-trade-offs/strong-vs-eventual-consistency.md).** Whoever wrote sees
-what they wrote. It solves the case of the name that does not update — which is the most common
+what they wrote. It solves the case of the name that does not update, which is the most common
 complaint about eventual consistency.
 
 **Monotonic reads.** Once you have seen a value, you will not see an earlier one. It prevents the
@@ -77,7 +77,7 @@ complaint about eventual consistency.
 
 **Monotonic writes.** Your writes are applied in the order you made them.
 
-Those three are rarely discussed and solve almost all the perception of inconsistency — because
+Those three are rarely discussed and solve almost all the perception of inconsistency, because
 the user notices their own inconsistency, and tolerates other people's.
 
 ### Per operation, not per system
@@ -102,7 +102,7 @@ The point [PACELC](/06-distributed-systems/pacelc.md) formalizes and
 between replicas, and coordination costs network round trips.
 
 That holds **all the time**, not only during a partition. In a multi-region configuration, a
-linearizable write pays the inter-region latency — tens or hundreds of milliseconds — on every
+linearizable write pays the inter-region latency (tens or hundreds of milliseconds) on every
 operation.
 
 Partitions are rare. Latency is permanent.
@@ -117,7 +117,7 @@ The question without those three complements has no answer.
 
 Strong consistency when:
 
-- The data controls a finite resource — stock, a seat, a balance.
+- The data controls a finite resource: stock, a seat, a balance.
 - An irreversible decision depends on the value read.
 - There is a regulatory requirement for instantaneous accuracy.
 - The cost of being wrong exceeds the cost of the latency.
@@ -139,12 +139,12 @@ undoes the boundary. See
 
 ## Alternatives
 
-- **Session guarantees** — the underestimated middle ground.
-- **Causal consistency** — when the order between related operations matters, but the global order
+- **Session guarantees**: the underestimated middle ground.
+- **Causal consistency**: when the order between related operations matters, but the global order
   does not.
-- **Reading from the primary for critical operations** — strong consistency where it matters, a
+- **Reading from the primary for critical operations**: strong consistency where it matters, a
   replica for the rest.
-- **Accept and reconcile** — let it diverge and fix it through a process.
+- **Accept and reconcile**: let it diverge and fix it through a process.
 
 ## Trade-offs
 
@@ -180,14 +180,14 @@ project: either you pay for coordination on the reads that do not need it, or yo
 where the decision is irreversible.
 
 **Not asking the business for the acceptable delay.** Engineering settles the number on its own
-and errs on the expensive side — strong consistency where minutes of delay would have been
+and errs on the expensive side: strong consistency where minutes of delay would have been
 accepted.
 
 **Not knowing which guarantees the database actually offers.** The configured isolation level is
 rarely what its name suggests.
 
 **Ignoring session guarantees.** Escalating straight to strong consistency when the complaint was
-the user not seeing their own write — paying for global coordination to solve a session problem.
+the user not seeing their own write, paying for global coordination to solve a session problem.
 
 **Not measuring replication lag.** The window in which a read can be stale never becomes known,
 and the first thing to measure it is the incident.
@@ -206,7 +206,7 @@ lag at peak hours, products with one unit were sold up to four times.
 
 Both causes are the same, and the fixes were different.
 
-For the first case, the required guarantee was **read your own writes** — not global strong
+For the first case, the required guarantee was **read your own writes**, not global strong
 consistency. The implementation: after a write, that user's reads go to the primary for a period.
 Low cost, complaint eliminated.
 
@@ -214,7 +214,7 @@ For the second, the required guarantee was **linearizability**, because stock co
 resource and the decision is irreversible. The check and the reservation went back to the primary,
 in a transaction.
 
-The recorded conclusion: the move to replicas was not wrong — 90% of the reads stayed on them. The
+The recorded conclusion: the move to replicas was not wrong; 90% of the reads stayed on them. The
 error was treating all reads as equivalent.
 
 And the conversation that paid off most was with the business: asking about the acceptable delay
@@ -224,10 +224,10 @@ only stock and the user's own orders needed a guarantee.
 ## Related Concepts
 
 - [Eventual Consistency](/06-distributed-systems/eventual-consistency.md) and
-  [Strong Consistency](/06-distributed-systems/strong-consistency.md) — the ends of the spectrum.
-- [CAP](/06-distributed-systems/cap.md) and [PACELC](/06-distributed-systems/pacelc.md) — the
+  [Strong Consistency](/06-distributed-systems/strong-consistency.md): the ends of the spectrum.
+- [CAP](/06-distributed-systems/cap.md) and [PACELC](/06-distributed-systems/pacelc.md): the
   theoretical limits.
-- [Replication](/06-distributed-systems/replication.md) — where the divergence comes from.
+- [Replication](/06-distributed-systems/replication.md): where the divergence comes from.
 - [Conflict Resolution](/06-distributed-systems/conflict-resolution.md).
 
 ## Practical Exercise
@@ -246,7 +246,7 @@ intersection of "does not tolerate delay" with "reads from a replica" is the nex
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapters 5 and 9.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapters 5 and 9.
 - Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.
 - Viotti, Paolo; Vukolić, Marko. *Consistency in Non-Transactional Distributed Storage Systems*.
-  ACM Computing Surveys, 2016 — the full map of the spectrum.
+  ACM Computing Surveys, 2016. The full map of the spectrum.

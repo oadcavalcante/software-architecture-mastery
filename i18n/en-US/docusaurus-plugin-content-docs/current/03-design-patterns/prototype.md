@@ -2,7 +2,7 @@
 id: prototype
 title: Prototype
 sidebar_position: 4
-description: Creating by copying rather than by construction — and why it almost disappeared.
+description: Creating by copying rather than by construction, and why it almost disappeared.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, memento, flyweight]
 canonical_for: [prototype, cloning]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Prototype creates new objects by **copying** an existing instance, rather than
 constructing them from scratch.
 
 It is one of the GoF patterns that appear least in modern code, and it is worth understanding
-why — as much as the cases where it is still the right answer.
+why, as much as the cases where it is still the right answer.
 
 ## Problem
 
@@ -34,13 +34,13 @@ already exists.
 
 Three original situations:
 
-Costly construction — the object requires a database query, a heavy computation or
+Costly construction: the object requires a database query, a heavy computation or
 reading a file, and you already have one ready.
 
-Complex configuration — the object has thirty tuned parameters, and creating a variant
+Complex configuration: the object has thirty tuned parameters, and creating a variant
 requires repeating the twenty-nine identical ones.
 
-Type unknown at compile time — you need another object "like this one", without knowing
+Type unknown at compile time: you need another object "like this one", without knowing
 the concrete class.
 
 ## Core Concepts
@@ -52,7 +52,7 @@ same state.
 
 The question that decides the implementation: **shallow or deep copy?**
 
-A shallow copy duplicates the references — the original and the copy point at the same
+A shallow copy duplicates the references: the original and the copy point at the same
 inner objects. Altering a sub-object through the copy alters the original.
 
 A deep copy duplicates recursively. It is correct and expensive, and it has to deal with
@@ -66,7 +66,7 @@ ones cannot.
 
 Three reasons.
 
-**Immutability.** Immutable objects do not need cloning — they can be shared. Where
+**Immutability.** Immutable objects do not need cloning: they can be shared. Where
 cloning would be used, an operation that returns a new instance with one field changed is
 used instead.
 
@@ -94,28 +94,28 @@ a [Liskov](/02-software-design/solid.md) violation the compiler does not detect.
 **When the object is immutable.** Share it. There is nothing to copy.
 
 **When constructing is cheap.** No I/O and no computation, just allocation and field
-assignment — the common case. Cloning there pays the shallow-copy risk and the per-class
+assignment, the common case. Cloning there pays the shallow-copy risk and the per-class
 clone method for nothing in return.
 
 **When the deep copy is complex or ambiguous.** If the object holds references to
-resources, connections or external identity, "copying" has no obvious meaning — and a
+resources, connections or external identity, "copying" has no obvious meaning, and a
 copy with the same identifier is a defect.
 
 **When a copying library exists.** Implementing cloning by hand in each class is
 maintenance that goes stale with every new field.
 
 **For objects with identity.** A domain entity with an identifier should not be cloned
-without handling the identifier — and forgetting that produces two entities with the same
+without handling the identifier, and forgetting that produces two entities with the same
 identity.
 
 ## Alternatives
 
-- **Immutability with derivation operations** — `order.withDiscount(x)` returns a new
+- **Immutability with derivation operations**: `order.withDiscount(x)` returns a new
   instance. It replaces the pattern in most cases.
-- **[Builder](/03-design-patterns/builder.md) from an existing one** — construct a variant
+- **[Builder](/03-design-patterns/builder.md) from an existing one**: construct a variant
   explicitly.
-- **Copy by serialization** — generic, slower, with no per-class code.
-- **An explicit copy function** — with no hierarchy, and the behaviour visible.
+- **Copy by serialization**: generic, slower, with no per-class code.
+- **An explicit copy function**: with no hierarchy, and the behaviour visible.
 
 ## Trade-offs
 
@@ -154,7 +154,7 @@ for the pattern.
 ## Real-World Example
 
 A diagram editor needed to duplicate elements. An element has geometry, style, text,
-connections and metadata — and duplicating is a domain operation, with a clear meaning for
+connections and metadata, and duplicating is a domain operation, with a clear meaning for
 the user.
 
 The first implementation used a shallow copy. The defect appeared two weeks later:
@@ -162,10 +162,10 @@ changing the style of a duplicated element changed the original, because both po
 the same style object.
 
 The fix was not making the copy deep everywhere. It was separating what is shareable from
-what is not: style became immutable and came to be shared deliberately — which also
+what is not: style became immutable and came to be shared deliberately. That also
 reduced memory, in the spirit of [Flyweight](/03-design-patterns/flyweight.md). Geometry
 and text came to be copied. Connections are not copied, because a duplicated element
-starts disconnected — which is the domain's rule.
+starts disconnected, which is the domain's rule.
 
 The lesson is there: "deep copy" is not the right answer by default. The answer is
 deciding, field by field, what duplication means in the domain.
@@ -174,8 +174,8 @@ deciding, field by field, what duplication means in the domain.
 
 **JavaScript.** The name coincides and the mechanism does not. The language's prototype
 is **delegation**: `Object.create(p)` points at `p` and property lookup walks the chain at
-runtime — nothing is copied. The GoF pattern copies. Whoever looks for the pattern in
-JavaScript finds `structuredClone` and the spread, and the spread is shallow — the trap
+runtime. Nothing is copied. The GoF pattern copies. Whoever looks for the pattern in
+JavaScript finds `structuredClone` and the spread, and the spread is shallow: the trap
 from this document's first section.
 
 **Graphical editors and modelling tools.** Duplicating an element is a domain operation,
@@ -185,20 +185,20 @@ and the pattern models that directly.
 changing a few fields.
 
 **Test frameworks.** A well-built reference object from which per-scenario variations are
-derived — which is conceptually what the test builder solves, by another route.
+derived, which is conceptually what the test builder solves, by another route.
 
 In languages with support for immutability, the last case migrated to derivation
 operations: `config.with(timeout: 30)` returns a new instance with no explicit cloning.
 That is Prototype with another syntax, and the shallow-copy risk does not vanish with the
 syntax: a derivation operation **is** a shallow copy, and the unaltered fields go through by
-reference. What removes the risk is the remaining parts being immutable — with a mutable map
+reference. What removes the risk is the remaining parts being immutable. With a mutable map
 or list inside, `config.with(timeout: 30)` falls into the same trap described above.
 
 ## Related Concepts
 
-- [Factory Method](/03-design-patterns/factory-method.md) — creation by construction.
-- [Memento](/03-design-patterns/memento.md) — state capture, with a different purpose.
-- [Flyweight](/03-design-patterns/flyweight.md) — deliberate sharing instead of copying.
+- [Factory Method](/03-design-patterns/factory-method.md): creation by construction.
+- [Memento](/03-design-patterns/memento.md): state capture, with a different purpose.
+- [Flyweight](/03-design-patterns/flyweight.md): deliberate sharing instead of copying.
 
 ## Practical Exercise
 
@@ -217,4 +217,4 @@ identifier in the copy?
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3rd ed., 2018 — on the problems of inherited cloning.
+- Bloch, Joshua. *Effective Java*. 3rd ed., 2018. On the problems of inherited cloning.

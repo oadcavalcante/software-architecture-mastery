@@ -2,7 +2,7 @@
 id: pipes-and-filters
 title: Pipes and Filters
 sidebar_position: 29
-description: Decompor o processamento em etapas independentes conectadas por fluxo — simples, composável e limitado.
+description: "Decompor o processamento em etapas independentes conectadas por fluxo: simples, composável e limitado."
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [event-driven, chain-of-responsibility, decorator]
 canonical_for: [pipes and filters, pipeline]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -22,8 +22,8 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 Pipes and Filters decompõe o processamento em uma sequência de etapas
-independentes — os filtros — conectadas por canais que transportam dados — os
-tubos.
+independentes (os filtros) conectadas por canais que transportam dados (os
+tubos).
 
 Cada filtro não sabe o que veio antes nem o que vem depois. Isso é o que torna as
 etapas recombináveis.
@@ -53,7 +53,7 @@ graph LR
 ```
 
 O contrato entre filtros é o formato do dado no tubo. Enquanto ele for respeitado, um
-filtro pode ser inserido ou removido sem alterar os vizinhos — o que é encaixe mecânico, e
+filtro pode ser inserido ou removido sem alterar os vizinhos. Isso é encaixe mecânico, e
 não intercambialidade. A ordem continua sendo restrição do domínio: no Exemplo Real, o
 cálculo de impostos não pode preceder o enriquecimento com o cadastro, e nenhum contrato de
 formato diz isso.
@@ -64,8 +64,8 @@ A propriedade que dá valor ao estilo: um filtro sem estado entre invocações p
 ser executado em paralelo, repetido em caso de falha, e reutilizado em outro
 fluxo.
 
-Um filtro com estado — que acumula, que depende da ordem, que mantém contexto
-entre itens — perde essas três propriedades. É legítimo e precisa ser reconhecido
+Um filtro com estado (que acumula, que depende da ordem, que mantém contexto
+entre itens) perde essas três propriedades. É legítimo e precisa ser reconhecido
 como diferente.
 
 ### O formato do tubo é o acoplamento
@@ -73,7 +73,7 @@ como diferente.
 O estilo não elimina acoplamento; ele o concentra no formato do dado.
 
 Um formato muito específico torna os filtros pouco recombináveis. Um formato muito
-genérico — um mapa de chaves, por exemplo — permite recombinação e elimina
+genérico (um mapa de chaves, por exemplo) permite recombinação e elimina
 verificação: um filtro que espera um campo que o anterior não produziu falha em
 execução.
 
@@ -81,10 +81,10 @@ O compromisso entre os dois é a decisão de projeto do estilo.
 
 ### Sincronia e assincronia
 
-**Síncrono, em processo** — os filtros são funções compostas. Simples, e o fluxo
+**Síncrono, em processo**: os filtros são funções compostas. Simples, e o fluxo
 inteiro falha junto.
 
-**Assíncrono, com filas** — cada filtro é um consumidor. Absorve picos, escala
+**Assíncrono, com filas**: cada filtro é um consumidor. Absorve picos, escala
 por etapa, e traz duplicação, ordem e mensagens envenenadas. Ver
 [Nível 04](/06-distributed-systems/index.md).
 
@@ -101,7 +101,7 @@ A escolha muda a natureza do que se está construindo.
 ## Quando Não Usar
 
 **Quando o processamento não é sequencial.** Fluxos com ramificação condicional,
-junções e ciclos ficam artificiais como pipeline — e a modelagem correta é um
+junções e ciclos ficam artificiais como pipeline, e a modelagem correta é um
 grafo, não uma linha.
 
 **Quando os filtros precisam de contexto compartilhado.** Se cada etapa precisa
@@ -119,12 +119,12 @@ garantir atomicidade sobre um lote atravessa a estrutura.
 
 ## Alternativas
 
-- **Função composta** — pipeline síncrono sem infraestrutura, quando não há
+- **Função composta**: pipeline síncrono sem infraestrutura, quando não há
   requisito de escala por etapa.
-- **[Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md)** — quando a semântica é
+- **[Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md)**: quando a semântica é
   "primeiro que trata para", não "todos transformam".
-- **Grafo de tarefas** — quando há ramificação e junção.
-- **Processamento em lote monolítico** — quando as etapas nunca são recombinadas.
+- **Grafo de tarefas**: quando há ramificação e junção.
+- **Processamento em lote monolítico**: quando as etapas nunca são recombinadas.
 
 ## Trade-offs
 
@@ -156,32 +156,32 @@ bloqueia os seguintes.
 
 ## Erros Comuns
 
-**Modelar fluxo ramificado como pipeline.** O padrão pressupõe passos em sequência. Quando o fluxo se divide por condição e reconverge, o encaixe exige tubos com desvio e filtros que sabem o caminho — e o que restou não é mais um pipeline, é uma máquina de estados mal escrita.
+**Modelar fluxo ramificado como pipeline.** O padrão pressupõe passos em sequência. Quando o fluxo se divide por condição e reconverge, o encaixe exige tubos com desvio e filtros que sabem o caminho, e o que restou não é mais um pipeline, é uma máquina de estados mal escrita.
 
 **Formato de tubo excessivamente genérico.** Um mapa aberto entre todos os filtros parece flexibilidade e é o oposto: nenhum filtro declara o que exige, o acoplamento vira invisível, e a única forma de descobrir a ordem correta é executar.
 
 **Não tratar backpressure em pipeline assíncrono.** O filtro mais lento define a vazão do conjunto; sem sinal de backpressure, o buffer anterior a ele cresce até estourar memória ou disco. A falha aparece longe da causa.
 
-**Filtros com efeitos colaterais não idempotentes.** Reprocessar o pipeline é a operação natural do padrão — depois de falha, para corrigir defeito, para recompor histórico. Um filtro que cobra ou envia e-mail a cada passagem torna essa operação impossível.
+**Filtros com efeitos colaterais não idempotentes.** Reprocessar o pipeline é a operação natural do padrão: depois de falha, para corrigir defeito, para recompor histórico. Um filtro que cobra ou envia e-mail a cada passagem torna essa operação impossível.
 
 ## Onde ele aparece na prática
 
 **Tubos de linha de comando do Unix.** A origem, e um exemplo que ensina a distinção:
-`grep | sort | uniq`. Só o `grep` é sem estado — `sort` precisa da entrada inteira antes de
+`grep | sort | uniq`. Só o `grep` é sem estado: `sort` precisa da entrada inteira antes de
 emitir a primeira linha, e `uniq` compara cada item com o anterior. Um pipeline real mistura
 os dois tipos, e é o `sort` no meio que impede paralelizar e obriga a esperar o fim da
 entrada.
 
-**Pipelines de dados.** Ingestão, limpeza, enriquecimento e carga — onde o padrão mais
+**Pipelines de dados.** Ingestão, limpeza, enriquecimento e carga: onde o padrão mais
 aparece hoje, com filas entre as etapas em vez do tubo em memória.
 
-**Compiladores.** Análise léxica, sintática, semântica, otimização, geração — cada
+**Compiladores.** Análise léxica, sintática, semântica, otimização, geração: cada
 fase consome a saída da anterior.
 
 **Processamento de mídia.** Decodificar, redimensionar, marcar, codificar.
 
 O Unix é instrutivo por uma razão específica: o formato do tubo é texto simples, o
-mais genérico possível. Isso deu recombinação universal e nenhuma verificação — a
+mais genérico possível. Isso deu recombinação universal e nenhuma verificação: a
 troca que o estilo faz, levada ao extremo, com sucesso duradouro em um domínio e
 consequências ruins em outros.
 
@@ -201,18 +201,18 @@ ganhou testes próprios com entrada sintética.
 Dois problemas apareceram e valem mais que o ganho.
 
 O primeiro: o filtro de enriquecimento consultava o cadastro por registro e derrubou o
-serviço de cadastro — sem ter sido paralelizado. Ele continuou com uma instância; o que
+serviço de cadastro, sem ter sido paralelizado. Ele continuou com uma instância; o que
 mudou foi a **taxa**. No método de 400 linhas, cada consulta ao cadastro só acontecia depois
 do cálculo de impostos do registro anterior, que era 80% do tempo: o gargalo cadenciava
 tudo. Decomposto, o enriquecimento passou a rodar na vazão do conjunto, cerca de uma ordem
 de grandeza maior, e o cadastro recebeu essa taxa de uma vez.
 
 É a lição que vale mais que o ganho de escala: decompor não muda o total de chamadas às
-dependências, muda a velocidade com que elas chegam — e quem estava protegido pelo gargalo
+dependências, muda a velocidade com que elas chegam, e quem estava protegido pelo gargalo
 deixa de estar. A correção foi processar em lotes e adicionar limitação de taxa.
 
 O segundo: um registro malformado fazia o filtro de validação lançar exceção, e a
-mensagem voltava para a fila indefinidamente — bloqueando a fila inteira. Dead-letter
+mensagem voltava para a fila indefinidamente, bloqueando a fila inteira. Dead-letter
 queue e alerta corrigiram, e deveriam estar lá desde o início.
 
 Ambos são consequências previsíveis de tornar o pipeline assíncrono, e ambos
@@ -220,10 +220,10 @@ foram descobertos em produção.
 
 ## Conceitos Relacionados
 
-- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md) — cadeia com semântica de
+- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md): cadeia com semântica de
   parada.
-- [Decorator](/03-design-patterns/decorator.md) — camadas que envolvem, não etapas que transformam.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — quando os tubos são filas.
+- [Decorator](/03-design-patterns/decorator.md): camadas que envolvem, não etapas que transformam.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): quando os tubos são filas.
 - [Integração](/08-integration-architecture/index.md).
 
 ## Exercício Prático
@@ -232,7 +232,7 @@ Escolha um processamento em lote do seu sistema e identifique as etapas
 sequenciais.
 
 Meça o tempo de cada uma. Se uma consome a maior parte, ela é candidata a escalar
-sozinha — e esse é o argumento concreto para decompor.
+sozinha, e esse é o argumento concreto para decompor.
 
 ## Perguntas de Entrevista
 

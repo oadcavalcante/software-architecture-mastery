@@ -2,7 +2,7 @@
 id: decorator
 title: Decorator
 sidebar_position: 9
-description: Adding behaviour by composition at runtime — and the cost of stacking layers.
+description: Adding behaviour by composition at runtime, and the cost of stacking layers.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [proxy, composite, strategy]
 canonical_for: [decorator]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Decorator adds responsibilities to an object dynamically, wrapping it in another
 object that implements the same interface.
 
 It is the alternative to inheritance for extending behaviour, and it solves the same
-combinatorial explosion problem [Bridge](/03-design-patterns/bridge.md) solves — by
+combinatorial explosion problem [Bridge](/03-design-patterns/bridge.md) solves, by
 another route.
 
 ## Problem
@@ -48,7 +48,7 @@ new Buffer(new Compression(new Cipher(baseStream)))
 ### The structure
 
 Compare the concrete component with the decorator: one arrow leaves the first, two
-leave the second — and both land on the same box.
+leave the second, and both land on the same box.
 
 ```mermaid
 graph LR
@@ -69,13 +69,13 @@ The property that makes the pattern work: **the decorator is indistinguishable f
 the original object to whoever uses it.** If it adds methods to the interface, it can
 no longer be stacked transparently.
 
-That limits the pattern to behaviours that do not change the contract — logging,
+That limits the pattern to behaviours that do not change the contract: logging,
 caching, validation, measurement, access control.
 
 ### Order matters
 
 Stacking compress-then-encrypt produces a different result from
-encrypt-then-compress — and the second compresses badly, because encrypted data is
+encrypt-then-compress. And the second compresses badly, because encrypted data is
 incompressible.
 
 It is worth rereading the stack above with that in mind: on the write path, the
@@ -123,12 +123,12 @@ the same with less code and with the order declared in one place.
 
 ## Alternatives
 
-- **Middleware or interceptors** — the same concept, with the order declared
+- **Middleware or interceptors**: the same concept, with the order declared
   explicitly. Preferable in frameworks that offer them.
-- **[Strategy](/03-design-patterns/strategy.md)** — when what varies is the algorithm,
+- **[Strategy](/03-design-patterns/strategy.md)**: when what varies is the algorithm,
   not an additional layer.
-- **Direct composition** — pass the dependencies and call them in order.
-- **[Proxy](/03-design-patterns/proxy.md)** — when the goal is controlling access.
+- **Direct composition**: pass the dependencies and call them in order.
+- **[Proxy](/03-design-patterns/proxy.md)**: when the goal is controlling access.
 
 ## Trade-offs
 
@@ -169,7 +169,7 @@ carry.
 
 **Java input and output streams.** The canonical example:
 `new BufferedReader(new InputStreamReader(new FileInputStream(f)))`. It is also the
-example that draws the most criticism — the verbosity and the need to know the correct
+example that draws the most criticism: the verbosity and the need to know the correct
 order are cited as the cost of the pattern taken too far.
 
 **HTTP middleware.** Authentication, logging, compression and rate limiting stacked.
@@ -181,7 +181,7 @@ while preserving the interface.
 **HTTP clients with retry and caching.** Each concern is a layer.
 
 The comparative lesson: the pattern is the same in all four, but where the order is
-declared centrally — middleware — it works far better than where each caller assembles
+declared centrally (middleware), it works far better than where each caller assembles
 it.
 
 ## Real-World Example
@@ -197,8 +197,8 @@ stack in a different order for a second service: they put caching **after** retr
 The effect: transient failures were retried, and the final error response entered the
 cache. A two-second outage became five minutes of errors served from cache.
 
-The fix was not merely reordering. It was extracting an assembly function —
-`standardClient(target)` — that builds the stack in the correct order and is the only
+The fix was not merely reordering. It was extracting an assembly function,
+`standardClient(target)`, that builds the stack in the correct order and is the only
 supported path.
 
 The pattern stayed; what changed was taking the ordering decision out of the hands of
@@ -222,8 +222,8 @@ documentation.
 reconstructs the passage through the stack in the logs, which is where production
 debugging happens.
 
-**Expose the composition.** A method that describes the assembled stack — the layer
-names, in order — allows checking at runtime what is active. It costs ten lines and
+**Expose the composition.** A method that describes the assembled stack (the layer
+names, in order) allows checking at runtime what is active. It costs ten lines and
 answers the question that comes up most in an incident.
 
 The structural alternative remains middleware, where the framework already offers all
@@ -231,15 +231,15 @@ four.
 
 ## Related Concepts
 
-- [Proxy](/03-design-patterns/proxy.md) — same structure, intent of control.
-- [Composite](/03-design-patterns/composite.md) — a similar recursive structure.
-- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md) — a chain
+- [Proxy](/03-design-patterns/proxy.md): same structure, intent of control.
+- [Composite](/03-design-patterns/composite.md): a similar recursive structure.
+- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md): a chain
   with stopping semantics.
-- [Strategy](/03-design-patterns/strategy.md) — algorithm variation.
+- [Strategy](/03-design-patterns/strategy.md): algorithm variation.
 
 ## Practical Exercise
 
-Look in your system for stacks of objects that wrap each other — HTTP clients,
+Look in your system for stacks of objects that wrap each other: HTTP clients,
 repositories with caching, streams.
 
 For each stack, answer: does the order matter? Where is it documented? What happens if

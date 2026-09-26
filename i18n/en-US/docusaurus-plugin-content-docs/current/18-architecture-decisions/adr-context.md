@@ -2,7 +2,7 @@
 id: adr-context
 title: Decision Context
 sidebar_position: 4
-description: The forces in play at the time — the section that decides whether the ADR will be worth anything in two years.
+description: "The forces in play at the time: the section that decides whether the ADR will be worth anything in two years."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-structure, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ The context answers one question: **why did this decision have to be made, and u
 conditions?**
 
 It is the section that determines whether the ADR will be useful in the future. A decision
-recorded with no context can only be obeyed. A decision with context can be **reassessed** —
+recorded with no context can only be obeyed. A decision with context can be **reassessed**,
 because it is possible to check whether the conditions that produced it still hold.
 
 And it is the section authors write worst, with a characteristic failure: they describe the
@@ -126,7 +126,7 @@ A rare and valuable record: the uncertainties at the time.
 ```
 
 That changes the future reading. A decision made under declared uncertainty is revisitable
-without criticizing the author — the information simply did not exist. A decision presented
+without criticizing the author: the information simply did not exist. A decision presented
 as certain and later wrong looks like an error of judgment.
 
 And it helps identify the right moment to revisit: when the uncertainty is resolved.
@@ -183,14 +183,14 @@ decision, it isn't context.
 
 ## When to Use
 
-- In every ADR — it is the section that cannot be omitted.
+- In every ADR: it is the section that cannot be omitted.
 - With more care the more irreversible the decision is.
 - Especially when there are temporary constraints in play: they are the ones that change
   most.
 
 ## When Not to Use
 
-Detailed context — numbered forces, origins, uncertainties — costs hours of gathering. There
+Detailed context (numbered forces, origins, uncertainties) costs hours of gathering. There
 are decisions where that cost doesn't pay back:
 
 **A decision reversible in days.** If undoing it costs less than gathering the numbers, a
@@ -199,21 +199,21 @@ Y-Statement records enough; reassessing later is cheaper by simply redoing the d
 **A decision of local scope**, affecting only one team's code, which the team can reverse
 without negotiating with anyone. The memory of whoever made it is still around.
 
-**A constraint already recorded in an immutable, dated document** — a contract, a legal
+**A constraint already recorded in an immutable, dated document**: a contract, a legal
 opinion, an incident report. Copying it into the ADR creates two versions that can diverge;
 referencing it, with the date, preserves the origin.
 
 ## Alternatives
 
-- **Y-Statement** — compresses context and decision into one sentence, for smaller cases.
-- **A reference to a requirements document** — works if the document is immutable and
+- **Y-Statement**: compresses context and decision into one sentence, for smaller cases.
+- **A reference to a requirements document**: works if the document is immutable and
   dated; doesn't work if it is a living document.
-- **A list of forces** instead of prose — easier to write and to verify later.
+- **A list of forces** instead of prose: easier to write and to verify later.
 
 The last is underrated when the forces are independent and each can be checked on its own:
 in a review, each list item is struck out or kept, while prose hides which premise fell.
-When the forces condition each other — the deadline only mattered because of the team's
-size — three to six paragraphs of prose carry the relationship the list loses.
+When the forces condition each other (the deadline only mattered because of the team's
+size), three to six paragraphs of prose carry the relationship the list loses.
 
 ## Trade-offs
 
@@ -249,10 +249,10 @@ is worth less.
 ## Common Mistakes
 
 **Writing the context after the decision**, as justification. The text selects the forces
-that pointed to the chosen option and leaves out the ones pointing the other way — which are
+that pointed to the chosen option and leaves out the ones pointing the other way. Those are
 the ones a future review would need to weigh.
 
-**Omitting the deadline** as a force — one of the most common and the least recorded.
+**Omitting the deadline** as a force, one of the most common and the least recorded.
 Without it, a choice made under urgency looks like technical preference, and outlives the
 deadline that justified it.
 
@@ -300,8 +300,8 @@ The last item was decisive and had never been recorded. The solution in question
 offering the approval flow in 2022. The constraint that motivated building ceased to exist
 two years before anyone noticed.
 
-And the four-stage requirement had been simplified by the editorial team itself in 2023 —
-that is, it no longer existed on the business side either.
+And the four-stage requirement had been simplified by the editorial team itself in 2023.
+That is, it no longer existed on the business side either.
 
 What was decided:
 
@@ -310,7 +310,7 @@ What was decided:
 **A context rule** for new ADRs: every constraint needs an origin and a condition that would
 invalidate it. The template sentence adopted was "this decision changes if ___".
 
-**A review of ADRs for costly decisions** every 12 months — just checking whether the
+**A review of ADRs for costly decisions** every 12 months: just checking whether the
 recorded constraints still hold, without reopening the decision. A 15-minute exercise per
 ADR.
 
@@ -320,7 +320,7 @@ In the first review round, 7 of the 34 ADRs for costly decisions had constraints
 longer existed. Two were superseded. See
 [superseding](/18-architecture-decisions/superseding-decisions.md).
 
-The recorded lesson: the original context was neither dishonest nor lazy — it looked
+The recorded lesson: the original context was neither dishonest nor lazy; it looked
 complete. The phrase "specific editorial requirements" precisely described what everyone
 knew in 2021. The problem is that "everyone knew" is exactly the information that
 evaporates.
@@ -328,11 +328,11 @@ evaporates.
 ## Related Concepts
 
 - [ADR Structure](/18-architecture-decisions/adr-structure.md).
-- [Alternatives](/18-architecture-decisions/adr-alternatives.md) — the reversal condition.
-- [Superseding](/18-architecture-decisions/superseding-decisions.md) — what you do when the
+- [Alternatives](/18-architecture-decisions/adr-alternatives.md): the reversal condition.
+- [Superseding](/18-architecture-decisions/superseding-decisions.md): what you do when the
   context changes.
-- [Quality Attributes](/01-fundamentals/quality-attributes.md) — the numbers.
-- [Decision-Making](/23-architecture-leadership/decision-making.md) — reversibility and rigor.
+- [Quality Attributes](/01-fundamentals/quality-attributes.md): the numbers.
+- [Decision-Making](/23-architecture-leadership/decision-making.md): reversibility and rigor.
 
 ## Practical Exercise
 

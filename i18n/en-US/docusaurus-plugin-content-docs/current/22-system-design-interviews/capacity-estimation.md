@@ -2,7 +2,7 @@
 id: capacity-estimation
 title: Capacity Estimation in Interviews
 sidebar_position: 3
-description: Not to get the number right — so the architecture has a declared scale and decisions have a criterion.
+description: Not to get the number right, but so the architecture has a declared scale and decisions have a criterion.
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [back-of-envelope, high-level-architecture, interview-scaling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -33,7 +33,7 @@ with an estimate      "12 thousand reads/s against
                       is what the cache targets"   the decision has a basis
 ```
 
-That changes what should be estimated. Not every possible number — only the ones that change a
+That changes what should be estimated. Not every possible number, only the ones that change a
 decision. A 20-line estimate in which no result alters the design is time lost with the appearance
 of rigor.
 
@@ -46,7 +46,7 @@ lacks justification. When the interviewer asks "why partition?", the answer is a
 instead of a calculation.
 
 **Estimating everything.** The candidate computes requests per second, storage, bandwidth, number
-of servers, cache memory, concurrent connections, growth rate over five years — and consumes twelve
+of servers, cache memory, concurrent connections, growth rate over five years, and consumes twelve
 minutes. Half those numbers influence no choice.
 
 ```text
@@ -55,8 +55,8 @@ number that rarely decides  outbound bandwidth in GB/s, the exact
                             number of servers, 5-year growth
 ```
 
-The second group appears because it looks rigorous. The evaluator is not counting numbers — they
-are watching whether you know which one matters.
+The second group appears because it looks rigorous. The evaluator is watching whether you know which one matters, not
+counting numbers.
 
 ## Core Concepts
 
@@ -75,7 +75,7 @@ materialization; write-dominated ones call for partitioning and asynchronous ing
 The second decides the sizing. Working with the average is the most common error, and the
 difference between average and peak is usually 3× to 10×.
 
-The third decides storage and its tiering. The fourth decides whether caching is viable — if the
+The third decides storage and its tiering. The fourth decides whether caching is viable: if the
 hot set fits in memory at a reasonable cost, many decisions become simple.
 
 The fourth number is the most forgotten and the one with the most leverage. It requires an
@@ -85,7 +85,7 @@ in links, in profiles, a small fraction accounts for most of the accesses. Decla
 problem into a gigabyte problem.
 
 Candidates who do not make that distinction end up proposing solutions sized for the total volume,
-when the volume that matters is the hot one — and the difference between the two is usually two
+when the volume that matters is the hot one, and the difference between the two is usually two
 orders of magnitude.
 
 ### Simplify the numbers aggressively
@@ -113,11 +113,11 @@ and latency references.
  With a 3× peak, I get to 45 thousand per second."
 ```
 
-The reasoning is what is being evaluated, not the total. Under a rubric that scores the process —
-the usual format for system design —, a candidate who gets the arithmetic wrong and explains the
+The reasoning is what is being evaluated, not the total. Under a rubric that scores the process
+(the usual format for system design), a candidate who gets the arithmetic wrong and explains the
 path correctly is evaluated better than one who gets it right in silence.
 
-And declaring each assumption — "5 opens per user" — lets the interviewer adjust: "it's actually
+And declaring each assumption ("5 opens per user") lets the interviewer adjust: "it's actually
 20". The number changes, the method does not.
 
 ### Connect each number to a decision
@@ -140,7 +140,7 @@ A number with no declared consequence is arithmetic. A number with a consequence
 
 That connection also protects against a common trap: arriving at a number and not noticing that it
 contradicts what you were about to propose. A candidate who computes 120 writes per second and then
-proposes write partitioning is ignoring their own calculation — and the evaluator will notice.
+proposes write partitioning is ignoring their own calculation, and the evaluator will notice.
 Stating the consequence right after the number makes that contradiction impossible to sustain.
 
 ### Estimate storage with the record size
@@ -153,7 +153,7 @@ Stating the consequence right after the number makes that contradiction impossib
 ```
 
 Step 2 is where most candidates freeze. The way out is to decompose: a text post has an identifier,
-an author, content, timestamps and metadata — something between 300 bytes and 1 KB. Declaring "I'll
+an author, content, timestamps and metadata, something between 300 bytes and 1 KB. Declaring "I'll
 assume 500 bytes" and moving on is the correct answer.
 
 And remember that replication and indexes multiply: a factor of 3× to 5× over the raw data is a
@@ -184,14 +184,14 @@ judgment, which is worth more than the calculation.
 
 **When the interviewer already gives the numbers.** "It's 50 thousand reads per second and 2 TB"
 closes the step: recomputing what was handed over spends minutes that pay off more in the design.
-Derive only what is missing — almost always the hot set.
+Derive only what is missing, almost always the hot set.
 
 **When the problem has no scale dimension.** API design, object-oriented modeling, the state
 machine of an order: no decision depends on requests per second, and the time pays off more in
 contracts, invariants, and edge cases.
 
 **When the scale fits on one server with room to spare.** An internal tool with 200 users has no
-number that changes the design; say so in one sentence — "any relational database handles it" —
+number that changes the design; say so in one sentence ("any relational database handles it")
 and move on to what is actually hard in the problem.
 
 **When the interview format skips the step.** Rounds focused on deep-diving a single component
@@ -200,11 +200,11 @@ listen to the question.
 
 ## Alternatives
 
-- **Declare the order of magnitude** — "we're in the tens of thousands per second" — when time is
+- **Declare the order of magnitude**: "we're in the tens of thousands per second", when time is
   tight.
-- **Estimate on demand** — do the calculation at the moment the decision appears, instead of all of
+- **Estimate on demand**: do the calculation at the moment the decision appears, instead of all of
   it at the start.
-- **Ask for the number** — if the interviewer has one in mind, using it is faster and equally
+- **Ask for the number**: if the interviewer has one in mind, using it is faster and equally
   valid.
 
 The second is underestimated and frequently better: a calculation done at the moment it decides
@@ -314,15 +314,16 @@ conscious.
 
 The correct answer checks what changes: the hot set still fits in memory, so the cache still
 handles it; what changes is the number of cache instances and the need for geographic distribution.
-The architecture does not change — the capacity does. Recognizing that is the point.
+The architecture does not change, only the capacity does, and recognizing
+that is the point.
 
 ## Related Concepts
 
-- [Back-of-the-Envelope Calculation](/22-system-design-interviews/back-of-envelope.md) — the
+- [Back-of-the-Envelope Calculation](/22-system-design-interviews/back-of-envelope.md): the
   references.
 - [Functional vs. Non-Functional](/22-system-design-interviews/functional-vs-nonfunctional.md).
 - [Bottleneck Identification](/22-system-design-interviews/bottleneck-identification.md).
-- [Capacity Planning](/05-system-design/capacity-planning.md) — the version with no time pressure.
+- [Capacity Planning](/05-system-design/capacity-planning.md): the version with no time pressure.
 
 ## Practical Exercise
 

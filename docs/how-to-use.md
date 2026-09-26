@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -34,7 +34,7 @@ achar o ponto de entrada honesto.
 | É arquiteto e quer atuar acima do sistema | Níveis 06 e 07, usando o restante por consulta |
 
 Pular níveis é legítimo. O que não funciona é pular e não voltar quando um
-conceito aparecer como pressuposto — cada documento declara seus pré-requisitos
+conceito aparecer como pressuposto. Cada documento declara seus pré-requisitos
 justamente para tornar isso visível.
 
 ## O ritmo
@@ -44,7 +44,7 @@ capacidade. Você lê sobre consistência eventual, concorda, e seis meses depoi
 não consegue decidir se o seu caso a tolera.
 
 O sinal de que o ritmo está certo é conseguir aplicar o conceito a um sistema que
-você conhece. Se não conseguir, releia — ou vá para o exercício, que existe
+você conhece. Se não conseguir, releia, ou vá para o exercício, que existe
 exatamente para forçar isso.
 
 ## Os exercícios
@@ -55,7 +55,7 @@ acontece.
 Cada um traz uma seção **Discussão** recolhida. Ela não é gabarito: é uma linha
 de raciocínio possível, com as premissas declaradas. Abrir antes de tentar
 desperdiça o exercício, porque o valor está em descobrir qual restrição você não
-tinha considerado — e isso só aparece depois de você ter considerado algumas.
+tinha considerado. E isso só aparece depois de você ter considerado algumas.
 
 Os exercícios 03 a 07 compartilham o mesmo sistema e o evoluem. Faça-os em
 sequência: a lição central é sentir o custo de decisões tomadas cedo.
@@ -65,15 +65,15 @@ sequência: a lição central é sentir o custo de decisões tomadas cedo.
 Mesma regra, mais forte. Leia contexto, requisitos e restrições. **Pare antes das
 opções de arquitetura.** Esboce a sua em vinte minutos. Só então continue.
 
-O objetivo não é acertar. É comparar o seu recorte de restrições com o do texto.
+O objetivo é comparar o seu recorte de restrições com o do texto, não acertar.
 
 ## Sobre os trade-offs
 
 A seção 20 é a espinha dorsal conceitual do material. Se você tiver tempo para
-uma seção só, é ela — mas ela rende muito mais depois do Nível 04, porque quatro
-dos quinze trade-offs listados — consistência versus disponibilidade,
+uma seção só, é ela, mas ela rende muito mais depois do Nível 04, porque quatro
+dos quinze trade-offs listados (consistência versus disponibilidade,
 consistência forte versus eventual, síncrono versus assíncrono, monolito versus
-microsserviços — pressupõem o problema que só um sistema distribuído cria.
+microsserviços) pressupõem o problema que só um sistema distribuído cria.
 
 ## O que este material não faz
 
@@ -81,7 +81,7 @@ Não dá respostas prontas. Boa parte dos documentos termina com uma decisão
 condicionada a restrições, e não com uma recomendação.
 
 Isso é deliberado. A competência que o percurso desenvolve é justamente a de
-enunciar as condições — e material que entrega conclusões sem elas treina o
+enunciar as condições, e material que entrega conclusões sem elas treina o
 hábito contrário.
 
 ## Idioma

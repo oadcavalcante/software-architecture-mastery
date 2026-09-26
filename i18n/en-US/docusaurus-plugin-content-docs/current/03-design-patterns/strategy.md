@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [state, template-method, bridge]
 canonical_for: [strategy]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ interchangeable.
 
 It is the pattern that turns up in more places in application code than any other, almost
 always in the degenerate form of a function passed as an argument. And it is where the
-ceremony of the full version — interface, implementations, selection — most often charges
+ceremony of the full version (interface, implementations, selection) most often charges
 without delivering: with two variants nobody is going to extend, an `if` says the same
 thing in fewer lines.
 
@@ -57,7 +57,7 @@ And it prevents variation at runtime: the choice is in the code, not in the data
 
 ### The structure
 
-Only the context's arrow is solid — the other two mark implementation, not use.
+Only the context's arrow is solid: the other two mark implementation, not use.
 
 ```mermaid
 graph LR
@@ -72,7 +72,7 @@ behaviour without touching the context.
 ### Strategy is composition over inheritance applied
 
 What [Template Method](/03-design-patterns/template-method.md) does with inheritance,
-Strategy does with composition — and so it inherits the advantages: variation at
+Strategy does with composition, and so it inherits the advantages: variation at
 runtime, no coupling to the base's implementation, and multiple combinable axes.
 
 ### In languages with first-class functions, it is a function
@@ -84,7 +84,7 @@ solves the same thing with less code:
 calculate(amount, rate -> amount * rate)
 ```
 
-That is not a minor simplification — it is the form the pattern takes in most modern
+That is not a minor simplification: it is the form the pattern takes in most modern
 code, and the reason "Strategy" appears less often as an explicit name even while
 being used constantly.
 
@@ -94,7 +94,7 @@ The pattern does not say who chooses the strategy. Three options, with different
 consequences: the client chooses and injects; a factory chooses from a piece of
 data; or configuration defines it.
 
-The second merely moves the `switch` into the factory — which is a real improvement
+The second merely moves the `switch` into the factory. That is a real improvement
 (it exists once, not in every operation), but does not eliminate it.
 
 ## When to Use
@@ -120,15 +120,15 @@ never exercised.
 Use the function.
 
 **When the strategies need different data.** If each requires distinct parameters,
-the common interface becomes a set of optional parameters — and the pattern is
+the common interface becomes a set of optional parameters, and the pattern is
 forcing a uniformity that does not exist.
 
 ## Alternatives
 
-- **A function as a parameter** — the modern form of the same pattern.
-- **A simple conditional** — for two stable variants.
-- **A dispatch table** — a map from key to function, when the selection is by value.
-- **Polymorphism on the object itself** — if the variation follows the data's type,
+- **A function as a parameter**: the modern form of the same pattern.
+- **A simple conditional**: for two stable variants.
+- **A dispatch table**: a map from key to function, when the selection is by value.
+- **Polymorphism on the object itself**: if the variation follows the data's type,
   the method can live there.
 
 ## Trade-offs
@@ -174,7 +174,7 @@ is passed in. In modern languages, a function.
 
 **Encoding and compression.** Libraries that accept the algorithm as a parameter.
 
-**Retry policies.** Fixed wait, exponential, with jitter — each a strategy, chosen by
+**Retry policies.** Fixed wait, exponential, with jitter: each a strategy, chosen by
 configuration.
 
 **Shipping, tax and discount calculation.** The most common use in business systems,
@@ -191,7 +191,7 @@ A subscription system calculated discounts with a 200-line method and seven bran
 first month, annual, coupon, referral, partnership, employee, reactivation.
 
 The conditional existed in three places: value calculation, simulation display and
-the financial report. All three had diverged — the report did not know about
+the financial report. All three had diverged: the report did not know about
 "reactivation", added six months earlier.
 
 Extracting into strategies resolved the divergence by construction: one place per
@@ -206,10 +206,10 @@ Not every case needs a class.
 
 ## Related Concepts
 
-- [State](/03-design-patterns/state.md) — similar, with internal transitions.
-- [Template Method](/03-design-patterns/template-method.md) — the inheritance
+- [State](/03-design-patterns/state.md): similar, with internal transitions.
+- [Template Method](/03-design-patterns/template-method.md): the inheritance
   version.
-- [Bridge](/03-design-patterns/bridge.md) — two dimensions, not one.
+- [Bridge](/03-design-patterns/bridge.md): two dimensions, not one.
 - [Composition vs. Inheritance](/02-software-design/composition-vs-inheritance.md).
 
 ## Practical Exercise

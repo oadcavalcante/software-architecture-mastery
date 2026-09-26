@@ -2,7 +2,7 @@
 id: security
 title: Arquitetura de Segurança
 sidebar_position: 0
-description: Projetar sistemas que resistem a quem quer quebrá-los — decisões estruturais, não uma camada adicionada no fim.
+description: "Projetar sistemas que resistem a quem quer quebrá-los: decisões estruturais, não uma camada adicionada no fim."
 doc_type: index
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [cloud-architecture, integration-architecture, reliability]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -26,40 +26,40 @@ Esta seção trata de projetar sistemas que resistem a quem quer quebrá-los.
 Segurança é frequentemente tratada como uma etapa: constrói-se o sistema, e depois
 alguém faz uma revisão, roda uma varredura e aponta correções.
 
-Isso funciona para uma classe de problema — configuração errada, biblioteca
-desatualizada — e não funciona para a que importa. As falhas graves são quase sempre
+Isso funciona para uma classe de problema (configuração errada, biblioteca
+desatualizada) e não funciona para a que importa. As falhas graves são quase sempre
 **estruturais**: uma fronteira de confiança no lugar errado, uma permissão ampla
 demais concedida no início, um dado que não deveria estar ali.
 
 Varredura de código e de dependência não decide onde fica a fronteira de confiança.
-Ferramenta de postura e de uso de permissão chega a expor os outros dois — permissão
-nunca exercida, dado onde não deveria estar —, mas expõe o sintoma; a decisão
+Ferramenta de postura e de uso de permissão chega a expor os outros dois (permissão
+nunca exercida, dado onde não deveria estar), mas expõe o sintoma; a decisão
 continua sendo de arquitetura.
 
 O segundo problema é de enquadramento. "Segurança" é discutida como se fosse uma
-propriedade binária — o sistema é seguro ou não é. Ela é, na prática, um conjunto de
-decisões sobre **contra quem**, **protegendo o quê**, e **a que custo** — que é
+propriedade binária: o sistema é seguro ou não é. Ela é, na prática, um conjunto de
+decisões sobre **contra quem**, **protegendo o quê**, e **a que custo**. É
 exatamente a forma de qualquer outro trade-off arquitetural.
 
 ## O que você vai encontrar aqui
 
-**Identidade e acesso.** Identidade, OAuth 2.0, OpenID Connect e JWT — os quatro
+**Identidade e acesso.** Identidade, OAuth 2.0, OpenID Connect e JWT: os quatro
 tratados pelo que resolvem e pelo que costumam ser usados errado. JWT ganha atenção
 específica ao problema de revogação, que é onde a maioria das implementações falha.
 
-**Autorização.** Modelos de autorização — por papel, por atributo, por relação — com
+**Autorização.** Modelos de autorização (por papel, por atributo, por relação) com
 o critério para escolher, que raramente é discutido.
 
 **Os princípios que decidem estrutura.** Menor privilégio, fronteiras de confiança
 seguras, confiança zero e defesa em profundidade. São eles que determinam o tamanho
 do dano quando algo dá errado.
 
-**Segurança de rede.** Segmentação, microssegmentação e filtragem de saída — onde
+**Segurança de rede.** Segmentação, microssegmentação e filtragem de saída: onde
 os princípios acima deixam de ser intenção e viram limite concreto ao movimento
 lateral de quem já entrou.
 
 **Segredos e criptografia.** Gestão de segredos, criptografia em trânsito e em
-repouso, e gestão de chaves — o tópico onde a intuição mais engana.
+repouso, e gestão de chaves: o tópico onde a intuição mais engana.
 
 **Modelagem de ameaças.** A prática que transforma "vamos pensar em segurança" em
 uma lista concreta de decisões. É o documento de maior retorno da seção.
@@ -67,10 +67,10 @@ uma lista concreta de decisões. É o documento de maior retorno da seção.
 **Proteção de dados e auditabilidade.** O que guardar, como proteger, e como provar
 o que aconteceu.
 
-**Modos de falha de segurança.** Como um sistema falha quando falha — e por que
+**Modos de falha de segurança.** Como um sistema falha quando falha, e por que
 falhar fechado precisa ser decisão consciente.
 
-**Confiança na cadeia de suprimentos.** Dependências, artefatos e esteiras — o vetor
+**Confiança na cadeia de suprimentos.** Dependências, artefatos e esteiras: o vetor
 que mais cresceu.
 
 ## Ordem de leitura
@@ -83,10 +83,10 @@ o alcance de qualquer comprometimento, e são as duas decisões que mais mudam o
 resultado de um incidente.
 
 **Identidade**, **OAuth 2.0**, **OpenID Connect** e **JWT** formam um bloco e devem
-ser lidos em sequência — os três últimos só fazem sentido sobre o primeiro.
+ser lidos em sequência: os três últimos só fazem sentido sobre o primeiro.
 
 Deixe **criptografia** e **gestão de chaves** juntos para o fim. Eles são densos, e
-a lição principal — não implemente você mesmo — é rápida de aceitar e difícil de
+a lição principal (não implemente você mesmo) é rápida de aceitar e difícil de
 respeitar sob pressão.
 
 ## Ao terminar
@@ -101,7 +101,7 @@ Reconhece que a pergunta não é "é seguro?", e sim "resiste a quem, protegendo
 e o que acontece quando falhar?".
 
 E entende que a maior parte do trabalho de segurança em arquitetura é **reduzir o
-alcance do dano**, não impedir o comprometimento — porque o comprometimento
+alcance do dano**, não impedir o comprometimento, porque o comprometimento
 eventualmente acontece.
 
 ## Continua em

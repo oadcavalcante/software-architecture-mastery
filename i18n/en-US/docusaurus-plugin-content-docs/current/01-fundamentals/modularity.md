@@ -2,7 +2,7 @@
 id: modularity
 title: Modularity
 sidebar_position: 11
-description: Dividing the system into parts with explicit boundaries — and what the division costs.
+description: Dividing the system into parts with explicit boundaries, and what the division costs.
 doc_type: concept
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [coupling, cohesion, separation-of-concerns]
 canonical_for: [modularity, module]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -25,7 +25,7 @@ Modularity is the division of a system into parts with explicit boundaries, each
 understandable and changeable without needing to understand the others.
 
 It is the property nearly all the others depend on. Without it, there is no way to
-reason about one part of the system in isolation — and a system you cannot reason
+reason about one part of the system in isolation, and a system you cannot reason
 about in parts is a system that only fits whole in somebody's head.
 
 ## Problem
@@ -37,7 +37,7 @@ alteration requires checking more places, and the chance of a side effect
 increases with every line added. There comes a point where simple changes take
 weeks because nobody can state what else will be affected.
 
-Modularity limits the reach of a change. The goal is not to have small parts — it
+Modularity limits the reach of a change. The goal is not to have small parts; it
 is for a typical change to fit inside one of them.
 
 That formulation is the one that matters, and it differs from the usual one. The
@@ -50,7 +50,7 @@ happen fit inside one module?".
 
 A module is defined by two things: what it exposes and what it hides.
 
-What it exposes is the contract — other modules may depend on it. What it hides is
+What it exposes is the contract: other modules may depend on it. What it hides is
 what can change without anyone needing to know. A module that exposes everything
 is not a module; it is a grouping of files.
 
@@ -58,8 +58,8 @@ The central idea, formulated by Parnas in 1972 and still poorly applied:
 **modules should be divided by what they hide, not by the steps of the
 processing.**
 
-The mechanics of that hiding — what a contract can expose without giving the
-secret away — are in [encapsulation](/02-software-design/encapsulation.md).
+The mechanics of that hiding (what a contract can expose without giving the
+secret away) are in [encapsulation](/02-software-design/encapsulation.md).
 
 ### The axis of division
 
@@ -68,16 +68,16 @@ The question that decides where to draw the boundary: **what changes together?**
 Things that change for the same reason belong to the same module. Things that
 change for independent reasons belong to different modules.
 
-That leads to a counter-intuitive result. The common technical division —
-controllers in one place, services in another, repositories in a third — groups
+That leads to a counter-intuitive result. The common technical division
+(controllers in one place, services in another, repositories in a third) groups
 things that change for different reasons and separates things that change
 together. Adding a field to a registration touches all three directories.
 
-A division by business capability — billing, catalogue, delivery — groups what
+A division by business capability (billing, catalogue, delivery) groups what
 changes together. The same alteration touches one place.
 
-The diagram below follows a single alteration — a new field on the product
-registration — and shows how many modules it reaches in each arrangement.
+The diagram below follows a single alteration (a new field on the product
+registration) and shows how many modules it reaches in each arrangement.
 
 ```mermaid
 graph LR
@@ -101,7 +101,7 @@ graph LR
 ### A nominal boundary is not a boundary
 
 A directory called `billing` prevents nothing. Real modularity requires the
-boundary to be enforced — by a language module, static analysis or an architecture
+boundary to be enforced: by a language module, static analysis or an architecture
 test. See
 [architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md).
 
@@ -127,7 +127,7 @@ broken and the module is not delivering what modules exist to deliver.
 - When the system no longer fits in one person's context.
 - When different people or teams work on different parts and conflict.
 - When a part needs to be replaced or tested in isolation.
-- When a part has a distinct quality requirement — something that must scale or
+- When a part has a distinct quality requirement: something that must scale or
   fail separately.
 
 ## When Not to Use
@@ -137,7 +137,7 @@ in navigation and indirection. In a two-thousand-line system, that cost exceeds
 the benefit.
 
 **When you do not yet know where the boundaries are.** Modularizing too early,
-before understanding the domain, freezes the wrong boundaries — and a wrong
+before understanding the domain, freezes the wrong boundaries, and a wrong
 boundary is more expensive than an absent one, because every change pays a tax to
 cross it.
 
@@ -145,7 +145,7 @@ The safest path in a new domain is to start with weak internal boundaries and
 harden them as the axes of change reveal themselves.
 
 **When the proposed division corresponds to no real axis of change.** Modules
-created out of aesthetic symmetry — "we have one per layer" — add indirection
+created out of aesthetic symmetry ("we have one per layer") add indirection
 without limiting the reach of change.
 
 **When the cost of the boundary exceeds the benefit at that level.** Separating
@@ -155,11 +155,11 @@ pipeline.
 
 ## Alternatives
 
-- **A cohesive monolith without internal modules** — viable in small systems and
+- **A cohesive monolith without internal modules**: viable in small systems and
   teams of up to three or four people.
-- **Modularity by convention** — cheaper, and it holds while the team is stable
+- **Modularity by convention**: cheaper, and it holds while the team is stable
   and small; it degrades with turnover.
-- **Separation by process** — maximum modularity, maximum cost. See
+- **Separation by process**: maximum modularity, maximum cost. See
   [microservices](/03-design-patterns/microservices.md).
 
 ## Trade-offs
@@ -181,7 +181,7 @@ not a constant.
 
 ## Failure Modes
 
-**A leaking module.** It exposes internal structure in the contract — returns the
+**A leaking module.** It exposes internal structure in the contract: returns the
 persistence object, accepts the framework's type. Consumers end up depending on
 the secret, and the boundary stops protecting.
 
@@ -222,22 +222,22 @@ An analysis of commits over six months showed that 80% of them touched three of
 the four directories. The modularity was nominal: four out of five changes crossed
 the division, because the modules corresponded to no axis of change.
 
-The reorganization by capability — `catalogue`, `cart`, `order`, `payment`,
-`delivery`, each with its own internal structure — brought 70% of commits down to
+The reorganization by capability (`catalogue`, `cart`, `order`, `payment`,
+`delivery`, each with its own internal structure) brought 70% of commits down to
 touching a single directory.
 
 Two observations about the result. First: not one line of business logic changed;
 only the distribution of files and the enforced boundaries. Second: the remaining
 30% revealed real coupling between `order` and `payment` that the old structure
-had hidden — and which became an explicit decision to make, rather than noise.
+had hidden, and which became an explicit decision to make, rather than noise.
 
 ## Related Concepts
 
-- [Coupling](/01-fundamentals/coupling.md) and [Cohesion](/01-fundamentals/cohesion.md) — how you measure whether
+- [Coupling](/01-fundamentals/coupling.md) and [Cohesion](/01-fundamentals/cohesion.md): how you measure whether
   the division is good.
-- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md) — the principle that guides
+- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md): the principle that guides
   where to divide.
-- [Modular Design](/02-software-design/modular-design.md) — the practical application.
+- [Modular Design](/02-software-design/modular-design.md): the practical application.
 
 ## Practical Exercise
 
@@ -257,7 +257,7 @@ module.
 ## Further Exploration
 
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
-  Modules*. CACM, 1972 — the paper that establishes decomposition by information
+  Modules*. CACM, 1972. The paper that establishes decomposition by information
   hiding, against decomposition by processing steps.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component cohesion
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Component cohesion
   principles.

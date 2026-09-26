@@ -2,7 +2,7 @@
 id: consensus
 title: Consensus
 sidebar_position: 17
-description: Making several nodes agree despite failures — what consensus guarantees, what it costs, and why to consume it instead of implementing it.
+description: "Making several nodes agree despite failures: what consensus guarantees, what it costs, and why to consume it instead of implementing it."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leader-election]
 related: [leader-election, distributed-locks, cap]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Consensus is making a group of nodes agree on a value, in such a way that the de
 final and survives failures.
 
 The theory has been settled since the 1980s; what usually fails is the implementation, and the
-defects concentrate in two places — safety under a partition and cluster membership change, which
+defects concentrate in two places: safety under a partition and cluster membership change, which
 happy-path testing does not exercise. This document's practical recommendation is direct: **consume
 consensus, do not implement it.**
 
@@ -36,12 +36,12 @@ transaction was committed, what the cluster's current configuration is.
 
 If two nodes arrive at different answers, the system becomes incoherent in an unrecoverable way.
 
-What makes it hard is not agreeing when everything works — it is agreeing **despite** nodes that go
+What makes it hard is not agreeing when everything works but agreeing **despite** nodes that go
 down, messages that are lost and slow nodes that look dead.
 
 And there is an uncomfortable theoretical result: the FLP theorem shows that, in an asynchronous
 system where a node can fail, **no deterministic algorithm guarantees consensus in finite time**.
-Not because the algorithms are bad — it is impossible.
+Not because the algorithms are bad, but because it is impossible.
 
 ## Core Concepts
 
@@ -52,11 +52,11 @@ guarantee correctness and termination in a perfectly asynchronous system; random
 terminate with probability 1, which is not the same guarantee.
 
 Practical algorithms work around it using **time**: timeouts to suspect failure. That sacrifices the
-theoretical guarantee of termination — under pathological conditions, the election may not conclude
-— in exchange for working in practice.
+theoretical guarantee of termination (under pathological conditions, the election may not conclude)
+in exchange for working in practice.
 
 What they never sacrifice is **safety**: even if they do not decide, they never decide wrongly. Two
-conflicting decisions are impossible — under the crash-and-omission failure model, which is what
+conflicting decisions are impossible, under the crash-and-omission failure model, which is what
 Raft, Paxos and Zab assume; a Byzantine failure and silent disk corruption are outside it.
 
 That is the correct hierarchy: safety always, progress when the network cooperates.
@@ -82,7 +82,7 @@ That is why consensus clusters have an odd number of nodes.
 
 Each decision requires at least one round trip with the majority. That means:
 
-**Latency.** A coordinated write costs the latency to the majority — which in a multi-region
+**Latency.** A coordinated write costs the latency to the majority, which in a multi-region
 configuration is the geographic distance.
 
 **Limited throughput.** Every decision goes through the leader and the majority. Consensus does not
@@ -98,8 +98,8 @@ that a returning node restores itself; upgrading a version is a rolling restart 
 preserved throughout. And since every decision is written to disk before it is confirmed, a slow
 disk becomes low throughput for the whole cluster.
 
-That is why consensus is used for the **control plane** — who the leader is, what the configuration
-is — and rarely for the data plane, where the volume is high.
+That is why consensus is used for the **control plane** (who the leader is, what the configuration
+is), and rarely for the data plane, where the volume is high.
 
 ### The algorithms
 
@@ -119,8 +119,8 @@ Most systems use consensus without anyone implementing it:
 Distributed databases, to elect a partition leader. Coordination systems, to maintain configuration.
 Container orchestrators, for cluster state. Streaming platforms, for partition metadata.
 
-The practical decision is almost never "implement consensus". It is "use a system that already
-implements it" — and choosing which.
+The practical decision is almost never "implement consensus" but "use a system that already
+implements it", and choosing which.
 
 ## Mental Model
 
@@ -131,7 +131,7 @@ answers.
 
 - The decision has to be unique and final.
 - Two divergent answers would be unrecoverable.
-- The volume of decisions is low — the control plane, not the data plane.
+- The volume of decisions is low: the control plane, not the data plane.
 - The minority side's unavailability is acceptable.
 
 ## When Not to Use
@@ -149,13 +149,13 @@ single-execution guarantee.
 
 ## Alternatives
 
-- **An off-the-shelf coordination service** — ZooKeeper, etcd, Consul. Consensus as a service.
-- **A database with transactions** — for many cases, a transaction in a single database gives the
+- **An off-the-shelf coordination service**: ZooKeeper, etcd, Consul. Consensus as a service.
+- **A database with transactions**: for many cases, a transaction in a single database gives the
   necessary guarantee with no consensus cluster.
-- **Commutative operations** — avoiding the need. See
+- **Commutative operations**: avoiding the need. See
   [conflict resolution](/06-distributed-systems/conflict-resolution.md).
-- **Idempotency** — allowing multiple execution instead of guaranteeing a single one.
-- **A lock with a deadline and fencing** — weaker and sufficient for one-off coordination. See
+- **Idempotency**: allowing multiple execution instead of guaranteeing a single one.
+- **A lock with a deadline and fencing**: weaker and sufficient for one-off coordination. See
   [distributed locks](/06-distributed-systems/distributed-locks.md).
 
 ## Trade-offs
@@ -176,7 +176,7 @@ of 3 with 2 nodes down does nothing.
 
 **An even cluster.** No gain in tolerance and more latency.
 
-**Consensus nodes in the same zone.** A zone failure takes down the majority — it nullifies the
+**Consensus nodes in the same zone.** A zone failure takes down the majority and nullifies the
 purpose.
 
 **Consensus on the critical data path.** Unacceptable latency discovered in production.
@@ -205,7 +205,7 @@ The estimate was two months. The review changed the path with two questions.
 
 **"Is the routine idempotent?"** It was not, and it could be. It posted adjustment entries; adding a
 key per reconciliation period, with a uniqueness constraint and written in the same transaction as
-the entry, made multiple execution harmless. Without the uniqueness it would not work — two
+the entry, made multiple execution harmless. Without the uniqueness it would not work: two
 simultaneous executions both read "does not exist" and both post. See
 [idempotency](/06-distributed-systems/idempotency.md).
 
@@ -213,13 +213,13 @@ simultaneous executions both read "does not exist" and both post. See
 entries.
 
 With the routine idempotent, the single-execution guarantee stopped being necessary. All that
-remained was avoiding the waste of executing twice — which a simple lock with a deadline in the
+remained was avoiding the waste of executing twice, which a simple lock with a deadline in the
 database solves, with no cluster at all.
 
 The implementation took three days.
 
 Two years later, there was an occasion when two instances executed simultaneously because of a lock
-failure. The result was duplicated work and zero inconsistency — exactly what idempotency guarantees.
+failure. The result was duplicated work and zero inconsistency: exactly what idempotency guarantees.
 
 What the team learned: consensus would have solved the problem, and the problem did not need
 consensus. The question that saved two months was "what happens if it executes twice?", and it comes
@@ -227,10 +227,10 @@ before any discussion of an algorithm.
 
 ## Related Concepts
 
-- [Leader Election](/06-distributed-systems/leader-election.md) — the most common application.
-- [Distributed Locks](/06-distributed-systems/distributed-locks.md) — the weaker alternative.
-- [CAP](/06-distributed-systems/cap.md) — why consensus is CP.
-- [Idempotency](/06-distributed-systems/idempotency.md) — what frequently removes the need for
+- [Leader Election](/06-distributed-systems/leader-election.md): the most common application.
+- [Distributed Locks](/06-distributed-systems/distributed-locks.md): the weaker alternative.
+- [CAP](/06-distributed-systems/cap.md): why consensus is CP.
+- [Idempotency](/06-distributed-systems/idempotency.md): what frequently removes the need for
   consensus.
 
 ## Practical Exercise
@@ -238,7 +238,7 @@ before any discussion of an algorithm.
 If your system has an operation that "can only happen once", answer: what happens if it happens
 twice?
 
-If the answer is "nothing serious", you do not need consensus — you need idempotency, which is far
+If the answer is "nothing serious", you do not need consensus: you need idempotency, which is far
 cheaper.
 
 ## Interview Questions

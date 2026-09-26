@@ -2,7 +2,7 @@
 id: business-architecture
 title: Arquitetura de Negócio
 sidebar_position: 2
-description: A camada que conecta tecnologia a estratégia — e por que ela costuma ser pulada.
+description: A camada que conecta tecnologia a estratégia, e por que ela costuma ser pulada.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [business-capabilities, capability-mapping, technical-strategy]
 canonical_for: [arquitetura de negócio, fluxo de valor, ator de negócio, objetivo de negócio]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 A arquitetura de negócio descreve **o que a organização faz e como ela cria valor**, sem
 mencionar tecnologia.
 
-Ela é a camada que conecta decisões técnicas a objetivos de negócio — e é a que mais
+Ela é a camada que conecta decisões técnicas a objetivos de negócio, e é a que mais
 frequentemente é pulada, porque parece distante do trabalho de engenharia.
 
 O custo de pulá-la é concreto: decisões técnicas que não conseguem ser justificadas em
@@ -42,7 +42,7 @@ negócio      "quanto isso custa? e o que ganhamos?"
 tecnologia   "..."
 ```
 
-O problema não é falta de razão — a razão existe. É que ela está expressa em vocabulário
+O problema não é falta de razão: a razão existe. É que ela está expressa em vocabulário
 que não conecta a nada que o negócio decide.
 
 A arquitetura de negócio fornece o vocabulário intermediário.
@@ -78,7 +78,7 @@ cliente solicita apólice
   → emissão          20 min
 ```
 
-O mapeamento revela onde o tempo é gasto — e frequentemente contradiz a intuição.
+O mapeamento revela onde o tempo é gasto, e frequentemente contradiz a intuição.
 
 Isso muda a priorização técnica: otimizar a emissão, que já leva 20 minutos, não muda
 nada. O gargalo está na análise, e a pergunta passa a ser o que a torna lenta.
@@ -96,7 +96,7 @@ com métrica "reduzir o tempo de emissão de apólice de 4 dias para 1"
 O segundo permite conectar uma decisão técnica a um resultado verificável. O primeiro,
 não.
 
-E é o que permite avaliar depois se a decisão funcionou — ver
+E é o que permite avaliar depois se a decisão funcionou. Ver
 [estratégia técnica](/15-enterprise-architecture/technical-strategy.md), na parte de apostas.
 
 ### O vocabulário precisa ser o do negócio
@@ -109,7 +109,7 @@ técnico   "microsserviço de cotação"
 negócio   "capacidade de cotar"
 ```
 
-Ver [linguagem ubíqua](/04-domain-driven-design/ubiquitous-language.md) — é o mesmo
+Ver [linguagem ubíqua](/04-domain-driven-design/ubiquitous-language.md): é o mesmo
 princípio, aplicado no nível organizacional.
 
 E a validação é simples: alguém do negócio consegue ler o artefato e reconhecer a
@@ -117,14 +117,14 @@ organização nele?
 
 ### Ela não pertence à tecnologia
 
-A arquitetura de negócio descreve o negócio. Ela deveria ser mantida com — idealmente
-por — as áreas de negócio.
+A arquitetura de negócio descreve o negócio. Ela deveria ser mantida com (idealmente
+por) as áreas de negócio.
 
 Quando a tecnologia a mantém sozinha, dois problemas: ela envelhece, porque a tecnologia
 não sabe das mudanças de negócio; e ela é vista como artefato de TI, não sendo usada nas
 decisões que importam.
 
-O papel da arquitetura corporativa é **facilitar e conectar** — trazer a lente que liga
+O papel da arquitetura corporativa é **facilitar e conectar**: trazer a lente que liga
 capacidades a sistemas e a custo. Ver
 [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
@@ -150,7 +150,7 @@ ela, a justificativa técnica não compete por orçamento.
 
 - Para justificar investimento técnico.
 - Antes de programas de modernização.
-- Para identificar onde otimizar — fluxos de valor.
+- Para identificar onde otimizar (fluxos de valor).
 - Em decisões de construir ou comprar.
 - Quando a conversa entre negócio e tecnologia não avança.
 
@@ -167,7 +167,7 @@ existe; basta citar essa medição na justificativa técnica.
 
 **Quando objetivos com métrica já existem.** Se a organização adota objetivos e
 resultados-chave, ancorar a decisão técnica num resultado-chave existente substitui a
-construção de objetivos próprios — ver Alternativas.
+construção de objetivos próprios (ver Alternativas).
 
 **Como exercício documental** sem uso em decisão. Um artefato que não entra na discussão
 de orçamento ou de priorização não justifica o custo de manter.
@@ -178,10 +178,10 @@ a formalização adiciona cerimônia sem benefício.
 
 ## Alternativas
 
-- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)** — o subconjunto de maior
+- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)**: o subconjunto de maior
   retorno, isoladamente útil.
-- **Mapeamento de fluxo de valor** — quando o problema é fluxo, não investimento.
-- **Objetivos e resultados-chave** — se a organização já os usa, conectar-se a eles é
+- **Mapeamento de fluxo de valor**: quando o problema é fluxo, não investimento.
+- **Objetivos e resultados-chave**: se a organização já os usa, conectar-se a eles é
   mais barato que criar artefato novo.
 
 A última merece consideração: quando o negócio já tem um mecanismo de definição de
@@ -224,7 +224,7 @@ não o reconhece como descrição de si mesmo.
 artefato envelhece antes de ser usado numa decisão.
 
 **Não medir tempo por etapa** nos fluxos de valor. Sem o tempo, o investimento vai para a
-etapa mais visível, não para o gargalo — no exemplo abaixo, seria a emissão de 20 min, e
+etapa mais visível, não para o gargalo: no exemplo abaixo, seria a emissão de 20 min, e
 não a fila de subscrição de 2,2 dias.
 
 **Não conectar a objetivos com métrica.** A decisão é aprovada, mas ninguém consegue dizer
@@ -234,13 +234,13 @@ depois se funcionou.
 correta, e sem nada que o negócio decida.
 
 **Não validar com quem executa o trabalho.** Os tempos saem do sistema, não da operação, e
-esperas fora dele — documentos do cliente, filas manuais — somem do mapa.
+esperas fora dele (documentos do cliente, filas manuais) somem do mapa.
 
 ## Exemplo Real
 
 Uma seguradora tinha um pedido de modernização do sistema de subscrição parado havia dois
-anos. A justificativa técnica era sólida — tecnologia obsoleta, mantenedor único, difícil
-de mudar — e nunca competia com iniciativas de produto no orçamento.
+anos. A justificativa técnica era sólida (tecnologia obsoleta, mantenedor único, difícil
+de mudar) e nunca competia com iniciativas de produto no orçamento.
 
 O mapeamento do fluxo de valor de emissão de apólice mudou a conversa:
 
@@ -265,7 +265,7 @@ A fila de análise humana existia porque o sistema só conseguia automatizar 30%
 Os outros 70% iam para uma equipe de oito analistas.
 
 O sistema conseguia automatizar pouco porque adicionar uma regra de subscrição exigia
-mudança de código, com release trimestral — o que significava que as regras estavam
+mudança de código, com release trimestral, o que significava que as regras estavam
 desatualizadas e cobriam poucos casos.
 
 Essa era a mesma limitação que a justificativa técnica apontava, agora expressa em termos
@@ -288,14 +288,14 @@ A iniciativa foi aprovada no ciclo seguinte.
 Dois anos depois, o tempo médio de emissão estava em 2,6 dias, e a automação em 74%.
 
 A avaliação posterior aponta: a justificativa técnica estava correta desde o início. Ela
-falhava porque descrevia a **causa** — tecnologia obsoleta — sem conectar ao **efeito**
+falhava porque descrevia a **causa** (tecnologia obsoleta) sem conectar ao **efeito**
 que o negócio media. O mapeamento do fluxo levou três semanas e fez essa conexão.
 
 ## Conceitos Relacionados
 
-- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o elemento central.
-- [Mapeamento de Capacidades](/15-enterprise-architecture/capability-mapping.md) — o método.
-- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md) — a conexão com investimento.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md): o elemento central.
+- [Mapeamento de Capacidades](/15-enterprise-architecture/capability-mapping.md): o método.
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md): a conexão com investimento.
 - [Linguagem Ubíqua](/04-domain-driven-design/ubiquitous-language.md).
 
 ## Exercício Prático
@@ -304,7 +304,7 @@ Mapeie o fluxo de valor de ponta a ponta de um processo importante da sua organi
 com o tempo de cada etapa.
 
 A etapa que consome a maior fração do tempo é onde a discussão de investimento deveria
-estar — e frequentemente não está.
+estar, e frequentemente não está.
 
 ## Perguntas de Entrevista
 
@@ -315,5 +315,5 @@ estar — e frequentemente não está.
 ## Para Aprofundar
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de negócio.
-- Rother, Mike; Shook, John. *Learning to See*. LEI, 1999 — mapeamento de fluxo de valor.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Arquitetura de negócio.
+- Rother, Mike; Shook, John. *Learning to See*. LEI, 1999. Mapeamento de fluxo de valor.

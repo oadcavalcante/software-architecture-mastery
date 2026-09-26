@@ -2,7 +2,7 @@
 id: build-vs-buy
 title: Build vs. Buy
 sidebar_position: 11
-description: Building costs what nobody budgets — and the math only closes when headcount enters it.
+description: Building costs what nobody budgets, and the math only closes when headcount enters it.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [saas]
 related: [managed-vs-self-hosted, cost-vs-reliability, centralization-vs-decentralization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,8 +28,8 @@ real axis   does this capability differentiate the business, and is the total co
             of building and maintaining it lower than that of buying it?
 ```
 
-The two halves err in opposite directions. The first is overestimated — teams consider
-differentiating capabilities the market has solved for years. The second is underestimated —
+The two halves err in opposite directions. The first is overestimated; teams consider
+differentiating capabilities the market has solved for years. The second is underestimated;
 the cost of building systematically omits the most expensive item: **headcount, forever**.
 
 The aggregate result is a strong bias in favor of building, which appears consistently in
@@ -46,7 +46,7 @@ build             $800/month in infrastructure, "plus some engineering
 ```
 
 "Some engineering time" is where the decision gets lost. Measured afterwards, it is usually 0.5
-to 2 full-time people, permanently — which at market rates exceeds the license by a wide margin.
+to 2 full-time people, permanently. At market rates, that exceeds the license by a wide margin.
 
 And there are costs that never even enter the math:
 
@@ -118,7 +118,7 @@ build   available in months
 The interval has an opportunity cost that is rarely added up: what the organization does not do,
 and what it costs not to have the capability during the period.
 
-In markets with a window — a regulatory requirement with a date, a competitor advancing — time
+In markets with a window (a regulatory requirement with a date, a competitor advancing), time
 can be the dominant factor and make the cost comparison irrelevant.
 
 ### The build bias is predictable
@@ -134,7 +134,7 @@ buying requires a procurement process, which is tedious
 ```
 
 The last is underestimated as a cause. In organizations with a heavy procurement process, teams
-build to avoid six months of negotiation — and the technical decision is decided by
+build to avoid six months of negotiation, and the technical decision is decided by
 administrative friction.
 
 ### Buying is not the end of the decision
@@ -187,7 +187,7 @@ explicit: "we will build if the tool blocks X".
 
 ## Mental Model
 
-**Build what differentiates; buy the rest.** And always add the headcount cost — it is what
+**Build what differentiates; buy the rest.** And always add the headcount cost: it is what
 inverts most conclusions.
 
 ## When to Use
@@ -196,7 +196,7 @@ Build when:
 
 - The capability is a reason customers choose you.
 - No market solution meets a central requirement, verified.
-- The total cost, with headcount, is lower — with the number computed.
+- The total cost, with headcount, is lower, with the number computed.
 - Control over its evolution is strategic.
 
 Buy when:
@@ -210,14 +210,14 @@ Buy when:
 ## When Not to Use
 
 **Without including headcount cost** in the comparison. Building consumes engineers for years,
-not only in the first year — and that is almost always the largest item in the math.
+not only in the first year, and that is almost always the largest item in the math.
 
 **Without testing whether the capability really differentiates.** The test is direct: would a
 customer choose the company because of it? If not, building spends the capacity that would
 differentiate on something that does not.
 
 **Building to avoid a procurement process.** The decision starts being made by bureaucracy, not
-by merit — and the cost of the procurement friction is paid in years of maintenance.
+by merit, and the cost of the procurement friction is paid in years of maintenance.
 
 **Buying what is the product.** Outsourcing the core hands the vendor the pace of evolution of
 what the company sells.
@@ -227,11 +227,11 @@ an irreversible one, and it is the question that must be asked before signing.
 
 ## Alternatives
 
-- **Buy and extend** — use the market base and build only the differentiating part on top of it.
-- **Open source operated by us** — a middle ground between building and buying, with its own
+- **Buy and extend**: use the market base and build only the differentiating part on top of it.
+- **Open source operated by us**: a middle ground between building and buying, with its own
   operational cost. See [managed vs. self-hosted](/20-trade-offs/managed-vs-self-hosted.md).
-- **Buy now, build later** — with the decision recorded and the reversal condition.
-- **Build the minimum** — the 10% version that serves the case, without generalizing.
+- **Buy now, build later**: with the decision recorded and the reversal condition.
+- **Build the minimum**: the 10% version that serves the case, without generalizing.
 
 The first is the right answer more often than either extreme, and the one that most requires
 discipline not to turn into endless customization.
@@ -272,7 +272,7 @@ discipline not to turn into endless customization.
 
 **Not applying the "has a customer ever chosen us because of it?" test.**
 
-**Underestimating maintenance** — use 15% to 25% per year.
+**Underestimating maintenance**: use 15% to 25% per year.
 
 **Not adding the opportunity cost** of the time until it is ready.
 
@@ -280,7 +280,7 @@ discipline not to turn into endless customization.
 
 ## Real-World Example
 
-An e-commerce company decided in 2022 to build its own customer communication platform —
+An e-commerce company decided in 2022 to build its own customer communication platform:
 transactional email, notifications and campaigns.
 
 The comparison recorded at the time:
@@ -310,7 +310,7 @@ The delivery rate was the data point that changed the conversation. Seven percen
 undelivered emails, over the company's volume, were estimated at about $68,000 per month of
 unrealized revenue.
 
-The migration to the market solution took five months and met the expected resistance — the team
+The migration to the market solution took five months and met the expected resistance: the team
 that built it defended the platform through three prioritization cycles.
 
 Results one year later:
@@ -332,7 +332,7 @@ What the organization changed in its decision process:
 **Differentiation test** explicit in the ADR: the question "has a customer ever chosen the
 company because of it?" must be answered in writing. Transactional communication clearly failed.
 
-**Simplified procurement process** for tools below a threshold — the investigation had revealed
+**Simplified procurement process** for tools below a threshold: the investigation had revealed
 that two of the four previous build projects existed to avoid the procurement process.
 
 **Reversal condition recorded** in purchases: what would make the company build.
@@ -352,7 +352,7 @@ intuition was to build, and the number changed the decision.
 
 What the team learned: the 2022 build was not badly executed. The platform worked. It merely cost
 six times more than the alternative, in a capability where the company would never have an
-advantage — and the math that would have shown that took twenty minutes to do.
+advantage, and the math that would have shown that took twenty minutes to do.
 
 ## Related Concepts
 
@@ -378,6 +378,6 @@ decision did not include.
 
 ## Further Reading
 
-- Moore, Geoffrey. *Living on the Fault Line*. HarperBusiness, 2000 — core and context.
+- Moore, Geoffrey. *Living on the Fault Line*. HarperBusiness, 2000. Core and context.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

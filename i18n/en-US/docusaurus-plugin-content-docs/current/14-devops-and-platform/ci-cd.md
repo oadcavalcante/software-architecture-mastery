@@ -2,7 +2,7 @@
 id: ci-cd
 title: Continuous Integration and Delivery
 sidebar_position: 1
-description: Three frequently confused terms — and why most teams do not practice the first.
+description: Three frequently confused terms, and why most teams do not practice the first.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [deployment-strategies, feature-flags, environment-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ runs tests on a long-lived branch **is not** continuous integration.
 
 ## Problem
 
-Long-lived branches accumulate divergence. The longer they are separated, the harder the integration — and
+Long-lived branches accumulate divergence. The longer they are separated, the harder the integration, and
 the conflict is not only textual: it is semantic, between changes that assumed different states of the
 code.
 
@@ -57,13 +57,13 @@ no longer a way to estimate it.
 The practice, without mincing words: **every developer integrates into the main branch at least once a
 day**.
 
-That is incompatible with feature branches that live for weeks. And the immediate objection — "but the
-feature is not ready" — has an answer:
+That is incompatible with feature branches that live for weeks. And the immediate objection ("but the
+feature is not ready") has an answer:
 
 **Integrating is not releasing.** Incomplete code can be in the main branch, as long as it is not
 reachable. See [feature flags](/14-devops-and-platform/feature-flags.md).
 
-**Splitting the change.** Most features can be delivered in slices that break nothing — structure first,
+**Splitting the change.** Most features can be delivered in slices that break nothing: structure first,
 behavior afterward.
 
 **The expand and contract pattern.** Add the new, migrate, remove the old — in three integrations, instead
@@ -109,7 +109,7 @@ See [schema evolution](/08-integration-architecture/schema-evolution.md).
 
 ### Continuous deployment is a decision, not the goal
 
-Going to production automatically on every change requires high confidence in the automated verification —
+Going to production automatically on every change requires high confidence in the automated verification,
 and not every context accommodates it.
 
 ```text
@@ -138,7 +138,7 @@ in production       smoke tests, canary, monitoring
 ```
 
 The principle: fail as early and as cheaply as possible. And accept that part of the verification happens
-**in production** — which changes the posture about reversibility.
+**in production**, which changes the posture about reversibility.
 
 See [canary](/14-devops-and-platform/canary.md).
 
@@ -150,18 +150,18 @@ established, the pipeline stops being a signal.
 The treatment needs to be aggressive: a flaky test is removed or fixed, with a deadline. Keeping it
 "because sometimes it catches something" costs more than it returns.
 
-And the flakiness needs to be measured — the proportion of runs that fail and pass on a rerun — or it grows
+And the flakiness needs to be measured (the proportion of runs that fail and pass on a rerun) or it grows
 with nobody noticing.
 
 ## Mental Model
 
-**Integrating frequently makes each integration cheap.** The rest — delivery, deployment — is what you do
+**Integrating frequently makes each integration cheap.** The rest (delivery, deployment) is what you do
 with a trustworthy main branch.
 
 ## When to Use
 
 - Continuous integration and delivery whenever more than one person changes the same code and it goes to
-  production repeatedly — the exceptions are in the next section.
+  production repeatedly. The exceptions are in the next section.
 - Continuous deployment where rollback is fast and the verification is trustworthy.
 - High priority when there are several teams in the same code.
 
@@ -176,7 +176,7 @@ field through a recall or a technician visit, there is no production to feed on 
 rollback in minutes.
 
 **Continuous deployment of an irreversible change.** A migration that deletes or transforms data with no
-way back, or a message already sent to third parties, calls for a human decision before it ships — even in
+way back, or a message already sent to third parties, calls for a human decision before it ships, even in
 a team that deploys everything else automatically.
 
 **Daily trunk integration with external contributors.** In the fork-and-pull-request model of open source
@@ -185,10 +185,10 @@ on every pull request still holds; daily integration by everyone does not.
 
 ## Alternatives
 
-- **Delivery on a fixed cadence** — weekly or biweekly, with larger batches. Legitimate in regulated
+- **Delivery on a fixed cadence**: weekly or biweekly, with larger batches. Legitimate in regulated
   contexts.
-- **Short-lived branches** — one to two days, integrated quickly. A practicable middle ground.
-- **Trunk-based development with flags** — the form that sustains daily integration. See
+- **Short-lived branches**: one to two days, integrated quickly. A practicable middle ground.
+- **Trunk-based development with flags**: the form that sustains daily integration. See
   [feature flags](/14-devops-and-platform/feature-flags.md).
 
 ## Trade-offs
@@ -232,7 +232,7 @@ the pipeline only automates late integration.
 **Feature branches of weeks.** The merge conflict grows with the time and with the number of open branches,
 and integration becomes a risky event instead of routine.
 
-**Tolerating flaky tests.** A test that fails sometimes teaches the team to rerun without looking — and
+**Tolerating flaky tests.** A test that fails sometimes teaches the team to rerun without looking, and
 from then on the whole suite stops being a signal.
 
 **Not measuring the pipeline's time.** Above ten or fifteen minutes, people stop waiting for the result and
@@ -272,7 +272,7 @@ isolating the cause took hours.
 The changes, in order:
 
 **The pipeline from 38 to 7 minutes.** Parallelization, dependency caching, and moving the slow tests to a
-later stage. That alone changed the behavior — people started integrating more.
+later stage. That alone changed the behavior: people started integrating more.
 
 **Flaky tests** measured and treated. Eleven were removed, four fixed. The rule became: it failed twice
 with no code change, it leaves the pipeline within 48 hours.
@@ -289,14 +289,14 @@ lifetime fell from 17 days to 1.4.
 Result in nine months: time between integration and production from 11 days to 4 hours, deployments from 2
 per month to 31 per week, and incidents caused by deployment cut in half.
 
-The recorded conclusion: the tooling was correct from the start. What was missing was the practice — and
+The recorded conclusion: the tooling was correct from the start. What was missing was the practice, and
 the change that unblocked the most was reducing the pipeline's time, which was seen as an infrastructure
 detail.
 
 ## Related Concepts
 
 - [Deployment Strategies](/14-devops-and-platform/deployment-strategies.md).
-- [Feature Flags](/14-devops-and-platform/feature-flags.md) — what allows integrating without releasing.
+- [Feature Flags](/14-devops-and-platform/feature-flags.md): what allows integrating without releasing.
 - [Environment Management](/14-devops-and-platform/environment-management.md).
 - [Schema Evolution](/08-integration-architecture/schema-evolution.md).
 
@@ -304,7 +304,7 @@ detail.
 
 Measure your team's average branch lifetime and your pipeline's time.
 
-If the branches live more than two days, you do not practice continuous integration — and if the pipeline
+If the branches live more than two days, you do not practice continuous integration, and if the pipeline
 takes more than ten minutes, that is probably the cause.
 
 ## Interview Questions

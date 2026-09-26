@@ -2,7 +2,7 @@
 id: adr-004-kafka
 title: "ADR-004 — Adopt Kafka for Domain Events"
 sidebar_position: 13
-description: An example of an ADR that supersedes another — with what changed in the context recorded explicitly.
+description: An example of an ADR that supersedes another, with what changed in the context recorded explicitly.
 doc_type: adr
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [superseding-decisions]
 related: [superseding-decisions, adr-context, adr-consequences]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -74,7 +74,7 @@ internal platform              exists since 2024, with a standardized
                                pipeline and monitoring
 ```
 
-**All four reversal conditions were met** — the one on the number of consumers, which
+**All four reversal conditions were met**: the one on the number of consumers, which
 required more than three, was exceeded by 2.
 
 Current constraints:
@@ -90,11 +90,11 @@ Current constraints:
 We will adopt **Kafka** as the domain event bus for the Verano platform.
 
 Order, payment and delivery events start being published to Kafka topics. Writing remains
-transactional through an **outbox** in PostgreSQL, with publication afterwards — the queue
+transactional through an **outbox** in PostgreSQL, with publication afterwards. The queue
 in a table stops being the delivery mechanism and becomes only the outbox.
 
 **We will not** use Kafka for request-response communication: queries between modules stay
-synchronous. **We will not** migrate background processing of internal tasks — scheduled
+synchronous. **We will not** migrate background processing of internal tasks: scheduled
 jobs and maintenance routines stay in a table.
 
 This decision applies to Verano's domain events. Integrations with external systems remain
@@ -108,7 +108,7 @@ independent consumers would require replicating the table per consumer. The conn
 contention could be mitigated; the rest could not.
 
 *Would win again if:* the number of consumers returned to one and the reprocessing
-requirement disappeared — which is not plausible.
+requirement disappeared, which is not plausible.
 
 **The provider's managed messaging service.** Discarded on a specific criterion: it doesn't
 offer long retention with reprocessing by offset, which is the data team's requirement. It
@@ -140,7 +140,7 @@ only per partition](/06-distributed-systems/ordering.md), which requires choosin
 asynchronous flows becomes harder and requires distributed tracing.
 
 **Negative (long-term).** The event schemas become **public contracts**. Changing them will
-require versioning and a coexistence period — today an event is changed with a migration.
+require versioning and a coexistence period. Today an event is changed with a migration.
 
 **Neutral.** The outbox continues to exist; what changes is the publication destination.
 
@@ -150,10 +150,10 @@ adopting ADR-002 took.
 
 ## Warning Signal
 
-- Operational effort above **1.5 engineer/month** for two quarters — triggers reassessment
-  of managed Kafka.
+- Operational effort above **1.5 engineer/month** for two quarters (triggers reassessment
+  of managed Kafka).
 - More than **two incidents per quarter** with a root cause in the cluster.
-- Fewer than **three active consumers** in 12 months — the reuse premise was not confirmed.
+- Fewer than **three active consumers** in 12 months (the reuse premise was not confirmed).
 - Consumer lag above **1 minute** recurrently.
 
 ## What to notice in this example
@@ -166,7 +166,7 @@ of whoever arrived later. See
 ADR-002's reversal conditions were **verified by measurement**, not judged. The review
 became a verification.
 
-The alternative that nearly won — managed Kafka — is recorded as such, with the number that
+The alternative that nearly won (managed Kafka) is recorded as such, with the number that
 knocked it down and the condition that would bring it back. See
 [alternatives](/18-architecture-decisions/adr-alternatives.md).
 
@@ -177,6 +177,6 @@ reversibility recorded as a consequence.
 
 - [Superseding](/18-architecture-decisions/superseding-decisions.md),
   [Context](/18-architecture-decisions/adr-context.md).
-- [ADR-002](/18-architecture-decisions/adr-002-async-processing.md) — the predecessor.
+- [ADR-002](/18-architecture-decisions/adr-002-async-processing.md): the predecessor.
 - [Messaging](/06-distributed-systems/messaging.md).
 - [Delivery Guarantees](/06-distributed-systems/delivery-guarantees.md).

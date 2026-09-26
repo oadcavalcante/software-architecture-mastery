@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [reliability, cloud-architecture, security]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ Esta seção trata do caminho entre decidir uma mudança e ela estar em produç�
 ## O problema desta seção
 
 Arquitetura costuma ser discutida como estrutura do sistema. Mas o **caminho da
-mudança** — quanto tempo leva, quantas pessoas aprovam, o que pode ser revertido — é
+mudança** (quanto tempo leva, quantas pessoas aprovam, o que pode ser revertido) é
 uma propriedade arquitetural como qualquer outra, e frequentemente a que mais limita.
 
 Um sistema bem estruturado com implantação que leva três semanas entrega menos que um
@@ -32,7 +32,7 @@ sistema mediano com implantação de quinze minutos.
 
 E há uma crença que os dados desmentem: a de que velocidade e estabilidade se opõem. As
 organizações que entregam mais frequentemente também falham menos e se recuperam mais
-rápido — porque as mesmas práticas produzem os dois resultados. Lotes pequenos são mais
+rápido, porque as mesmas práticas produzem os dois resultados. Lotes pequenos são mais
 fáceis de testar, de reverter e de diagnosticar.
 
 O segundo problema é organizacional. Boa parte do atrito não é técnico: é aprovação,
@@ -49,7 +49,7 @@ que aparece quando não é.
 
 **Contêineres na entrega.** O artefato imutável promovido entre ambientes.
 
-**Estratégias de implantação.** Blue-green, canary e implantação em ondas — cada uma com
+**Estratégias de implantação.** Blue-green, canary e implantação em ondas, cada uma com
 o que ela custa e o que ela protege.
 
 **Feature flags.** A separação entre implantar e liberar, e a dívida que elas acumulam.
@@ -66,14 +66,14 @@ fosse.
 
 ## Ordem de leitura
 
-Comece por **integração e entrega contínuas** — ele define o vocabulário que o resto
+Comece por **integração e entrega contínuas**: ele define o vocabulário que o resto
 usa, e desfaz a confusão mais comum da área.
 
 Depois **estratégias de implantação**, que organiza blue-green, canary e ondas como
 escolhas com critérios, não como alternativas de gosto.
 
-**Feature flags** merece atenção especial: é a técnica de maior impacto desta seção —
-pelo que a separação entre implantar e liberar habilita — e a que mais acumula dívida
+**Feature flags** merece atenção especial: é a técnica de maior impacto desta seção
+(pelo que a separação entre implantar e liberar habilita) e a que mais acumula dívida
 silenciosa.
 
 Deixe **engenharia de plataforma** para o fim. Ela reorganiza tudo o que veio antes numa
@@ -90,7 +90,7 @@ hábito.
 Reconhece que reverter rápido vale mais que acertar na primeira tentativa, e projeta
 para isso.
 
-E entende que uma plataforma interna que ninguém quer usar não é uma plataforma — é
+E entende que uma plataforma interna que ninguém quer usar não é uma plataforma: é
 mais um obstáculo com boas intenções.
 
 ## Continua em

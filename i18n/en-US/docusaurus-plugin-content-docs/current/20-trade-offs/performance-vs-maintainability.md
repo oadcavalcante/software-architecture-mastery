@@ -2,7 +2,7 @@
 id: performance-vs-maintainability
 title: Performance vs. Maintainability
 sidebar_position: 3
-description: The conflict is real in very few places — and the cost of treating it as global is high.
+description: The conflict is real in very few places, and the cost of treating it as global is high.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [simplicity-vs-flexibility, speed-vs-quality, abstraction-vs-complexity]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 This pair is real and it is **local**. In almost all code, performance and readability do not
-conflict — clear code is fast enough, and fast code can be clear.
+conflict: clear code is fast enough, and fast code can be clear.
 
 The conflict appears in a small fraction:
 
@@ -37,8 +37,8 @@ real axis   is this snippet on the measured critical path, and does the gain
             justify the permanent readability cost?
 ```
 
-The expensive error is not choosing wrong in one snippet. It is treating the trade-off as global
-— optimizing what does not matter, or refusing to optimize what does.
+The expensive error is not choosing wrong in one snippet. It is treating the trade-off as global:
+optimizing what does not matter, or refusing to optimize what does.
 
 ## Problem
 
@@ -53,7 +53,7 @@ denormalization as a precaution
 hand-built queries "because the mapper is slow"
 ```
 
-The aggregate gain is imperceptible — most of that code is not on the hot path. The aggregate
+The aggregate gain is imperceptible: most of that code is not on the hot path. The aggregate
 cost is not: the whole system becomes harder to change.
 
 **Refusal to optimize.** The opposite, justified by "premature optimization is the root of all
@@ -73,7 +73,7 @@ with measurement      the bottleneck is usually in one or two places
 ```
 
 Profiles of real systems are consistently uneven: a small fraction of the code accounts for most
-of the time. That means **most performance decisions do not have to be made** — the code can be
+of the time. That means **most performance decisions do not have to be made**: the code can be
 written for clarity at no cost.
 
 See [bottleneck analysis](/05-system-design/bottleneck-analysis.md).
@@ -141,7 +141,7 @@ high latency    the problem is chained synchronous calls
 In those cases, the fix **improves** readability and performance at the same time. Before
 accepting the trade-off, it is worth checking whether it exists. In information systems, the
 profile almost always points first at data access and call topology rather than at micro-decisions
-in code — and that is a reason to profile before optimizing, not a number that excuses the
+in code, and that is a reason to profile before optimizing, not a number that excuses the
 profile.
 
 See [indexing](/07-data-architecture/indexing.md).
@@ -154,7 +154,7 @@ architectural decision   gain of orders of magnitude
 ```
 
 Caching, pagination, asynchronous processing, deliberate denormalization and protocol choice
-change performance at a scale no loop optimization reaches — and several of them have their own
+change performance at a scale no loop optimization reaches, and several of them have their own
 maintainability cost, which is the trade-off that actually matters.
 
 ### Signs of the wrong choice
@@ -202,30 +202,30 @@ Prefer readability when:
 - There is no measurement pointing at the snippet.
 - The system is within budget.
 - The gain is marginal.
-- The real problem is architectural — data access, call topology.
+- The real problem is architectural: data access, call topology.
 
 ## When Not to Use
 
-**As a global decision** — optimizing everything, or refusing to optimize.
+**As a global decision**: optimizing everything, or refusing to optimize.
 
 **Without measurement.** With no profile, intuition points at the code you remember writing, not
 at what consumes time.
 
-**Without a defined budget** — with no target, the discussion is endless.
+**Without a defined budget**: with no target, the discussion is endless.
 
 **Before checking whether the conflict is false.** A missing index and a query in a loop cost zero
-clarity to fix — accepting the trade-off before looking is paying for nothing.
+clarity to fix. Accepting the trade-off before looking is paying for nothing.
 
-**Without recording why** — the strange code becomes permanent.
+**Without recording why**: the strange code becomes permanent.
 
-**To justify bad code** — performance is no excuse for a bad name or a 300-line function.
+**To justify bad code**: performance is no excuse for a bad name or a 300-line function.
 
 ## Alternatives
 
-- **Architectural fix** — cache, pagination, async; larger gain, different cost.
-- **Better algorithm or data structure** — frequently faster *and* clearer.
-- **Hardware** — sometimes cheaper than weeks of engineering; compare the numbers.
-- **Isolate the hot code** — concentrate what is unreadable in a small, well-tested module,
+- **Architectural fix**: cache, pagination, async; larger gain, different cost.
+- **Better algorithm or data structure**: frequently faster *and* clearer.
+- **Hardware**: sometimes cheaper than weeks of engineering; compare the numbers.
+- **Isolate the hot code**: concentrate what is unreadable in a small, well-tested module,
   instead of spreading it.
 
 The last is the most useful technique in this topic: the readability cost stays contained.
@@ -292,8 +292,8 @@ decision logic (what was optimized)                  80 ms
 measured p99                                       2,100 ms
 ```
 
-Before the three weeks, the decision logic measured 380 ms — the same 2,400 ms with that item in
-place. The three weeks did return 300 real milliseconds, and they were spent on the passage that
+Before the three weeks, the decision logic measured 380 ms (the same 2,400 ms with that item in
+place). The three weeks did return 300 real milliseconds, and they were spent on the passage that
 accounted for 16% of the time, while the 2,020 ms of queries and bureau went untouched.
 
 What was done afterwards:
@@ -309,7 +309,7 @@ already brought back, and the two left over got a missing index.
 **The bureau call parallelized** with the local queries, since there was no dependency between
 them: 610 ms stopped adding up and became the floor.
 
-**The code optimizations were reverted**, except one — a score calculation function executed
+**The code optimizations were reverted**, except one: a score calculation function executed
 40,000 times per decision, which stayed as a manual loop with a comment recording the measurement
 and the reversal condition. The reversal was measured before being accepted: the other
 optimizations had no isolable gain, and the decision logic stayed at the same 80 ms. The three
@@ -345,7 +345,7 @@ average change time in decision code             reduced, with no formal measure
 
 The point the team underlines: the initial three weeks were not a waste of effort, they were a
 waste of direction. The team had the technical ability to optimize and did not have the habit of
-measuring first — and intuition about where the time was was off by an order of magnitude.
+measuring first, and intuition about where the time was was off by an order of magnitude.
 
 ## Related Concepts
 

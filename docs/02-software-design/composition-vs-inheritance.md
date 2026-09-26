@@ -2,7 +2,7 @@
 id: composition-vs-inheritance
 title: Composição vs. Herança
 sidebar_position: 10
-description: Duas formas de reúso com custos opostos — e por que a herança cobra no lugar errado.
+description: Duas formas de reúso com custos opostos, e por que a herança cobra no lugar errado.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [solid, interfaces, code-smells]
 canonical_for: [composição, herança, composição sobre herança]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 Herança e composição são duas formas de reusar comportamento. A orientação
-clássica — *prefira composição a herança* — é boa e é frequentemente aplicada sem
+clássica, *prefira composição a herança*, é boa e é frequentemente aplicada sem
 o critério que a torna útil.
 
 O critério: **herança declara que um tipo é substituível por outro. Composição
@@ -37,7 +37,7 @@ superclasse de graça, e a economia é imediata e visível.
 O custo não é imediato nem visível, e vem em três formas.
 
 **Acoplamento total.** A subclasse depende da implementação da superclasse, não
-só da sua interface. Mudanças internas na superclasse quebram subclasses — o que
+só da sua interface. Mudanças internas na superclasse quebram subclasses. É o que
 Gamma et al. chamam de quebra de encapsulamento entre classes.
 
 **Rigidez de eixo.** Uma hierarquia comete-se a um eixo de variação. Se depois
@@ -85,7 +85,7 @@ diferença entre crescimento multiplicativo e aditivo.
 Herança não é sempre errada. Ela é a escolha certa quando:
 
 - A relação é genuinamente de subtipagem, verificada pelo teste acima.
-- A hierarquia é rasa — um nível — e fechada.
+- A hierarquia é rasa (um nível) e fechada.
 - A superclasse é abstrata e existe para definir contrato, não para compartilhar
   implementação.
 
@@ -96,8 +96,8 @@ declaração de contrato, e não traz o acoplamento à implementação.
 
 A distinção que dissolve boa parte do debate.
 
-**Herança de interface** — implementar um contrato — é barata e segura.
-**Herança de implementação** — herdar código — é onde os três custos aparecem.
+**Herança de interface** (implementar um contrato) é barata e segura.
+**Herança de implementação** (herdar código) é onde os três custos aparecem.
 
 A orientação "prefira composição" é, na prática, "prefira composição a herança de
 implementação".
@@ -113,7 +113,7 @@ me tratar como o tipo base sem nenhuma ressalva?* Se houver ressalva, componha.
 - A substituibilidade é verdadeira sem exceção.
 - A hierarquia é rasa e o conjunto de subtipos é conhecido e fechado.
 - A superclasse é abstrata e define contrato.
-- O framework exige — muitos exigem, e resistir custa mais que aceitar.
+- O framework exige: muitos exigem, e resistir custa mais que aceitar.
 
 **Composição** no restante, que é a maioria.
 
@@ -128,7 +128,7 @@ implementação e a dificuldade de rastrear de onde um comportamento vem.
 **Herança com mais de um eixo de variação.** Explode combinatoriamente.
 
 **Composição quando ela produz delegação cega.** Se a classe composta apenas
-repassa vinte métodos ao objeto interno, ela não está compondo — está imitando
+repassa vinte métodos ao objeto interno, ela não está compondo: está imitando
 herança com mais código. Ali, ou a herança era adequada, ou a fronteira está
 errada.
 
@@ -137,10 +137,10 @@ objeto injetado pode ficar tão difícil de seguir quanto uma hierarquia profund
 
 ## Alternativas
 
-- **Funções de primeira classe** — quando o que varia é um comportamento simples,
+- **Funções de primeira classe**: quando o que varia é um comportamento simples,
   passar uma função é mais leve que ambas.
-- **Traits ou mixins** — em linguagens que os oferecem, ficam entre os dois.
-- **Duplicação** — para dois casos com semelhança superficial, ver
+- **Traits ou mixins**: em linguagens que os oferecem, ficam entre os dois.
+- **Duplicação**: para dois casos com semelhança superficial, ver
   [DRY](/02-software-design/dry.md).
 
 ## Trade-offs
@@ -159,7 +159,7 @@ objeto injetado pode ficar tão difícil de seguir quanto uma hierarquia profund
 **Hierarquia explosiva.** Segundo eixo de variação aparece e o número de classes
 multiplica.
 
-**Subclasse que recusa.** Sobrescreve um método para lançar exceção — violação de
+**Subclasse que recusa.** Sobrescreve um método para lançar exceção: violação de
 Liskov declarada.
 
 **Problema da classe base frágil.** Mudança interna na superclasse quebra
@@ -215,21 +215,21 @@ Diante de uma escolha concreta, quatro perguntas em ordem:
 
 A primeira pergunta elimina a maior parte dos casos. A terceira é a que mais
 salva: herdar de interface ou classe abstrata pura é seguro em qualquer
-hierarquia; herdar código só se sustenta sob a condição da quarta pergunta —
-hierarquia rasa e fechada.
+hierarquia; herdar código só se sustenta sob a condição da quarta pergunta
+(hierarquia rasa e fechada).
 
 Um caso limite que vale nomear: **frameworks que exigem herança**. Estender uma
 classe base de framework para obter o comportamento dele é herança de
 implementação com todos os seus custos, e frequentemente não há alternativa.
-A mitigação é manter essa classe fina — que ela seja um adaptador que delega
+A mitigação é manter essa classe fina: que ela seja um adaptador que delega
 para código seu, e não o lugar onde a lógica mora.
 
 ## Conceitos Relacionados
 
-- [SOLID](/02-software-design/solid.md) — o princípio de substituição de Liskov.
-- [Encapsulamento](/02-software-design/encapsulation.md) — o que a herança de implementação quebra.
-- [Interfaces](/02-software-design/interfaces.md) — herança de contrato.
-- [Code Smells](/02-software-design/code-smells.md) — como reconhecer hierarquias problemáticas.
+- [SOLID](/02-software-design/solid.md): o princípio de substituição de Liskov.
+- [Encapsulamento](/02-software-design/encapsulation.md): o que a herança de implementação quebra.
+- [Interfaces](/02-software-design/interfaces.md): herança de contrato.
+- [Code Smells](/02-software-design/code-smells.md): como reconhecer hierarquias problemáticas.
 
 ## Exercício Prático
 
@@ -248,9 +248,9 @@ sinal de que composição serviria melhor.
 
 ## Para Aprofundar
 
-- Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994 — a formulação
+- Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994. A formulação
   original de "prefira composição a herança".
 - Liskov, Barbara; Wing, Jeannette. *A Behavioral Notion of Subtyping*. TOPLAS,
   1994.
-- Bloch, Joshua. *Effective Java*. 3ª ed., 2018 — "favoreça composição sobre
+- Bloch, Joshua. *Effective Java*. 3ª ed., 2018. "favoreça composição sobre
   herança".

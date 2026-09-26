@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-characteristics]
 related: [architecture-as-decisions, architecture-governance]
 canonical_for: [architecture principles]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -25,7 +25,7 @@ Architecture principles are stated guidance that helps whoever is deciding, at t
 moment they decide, choose consistently with what the organization has already
 concluded.
 
-They exist because whoever architects is not present at every decision — and the
+They exist because whoever architects is not present at every decision, and the
 alternative to principles is not centralizing everything, it is inconsistency.
 
 ## Problem
@@ -40,9 +40,9 @@ option, and therefore helps in no decision.
 
 The test, then, is the **inverse test**: invert the principle; if the inverted
 sentence is obviously absurd, the original is empty. "We prioritize simplicity"
-inverted becomes "we prioritize complexity" — absurd, so empty; "we prefer simpler
+inverted becomes "we prioritize complexity" (absurd, so empty); "we prefer simpler
 solutions even when they limit future use cases" inverted becomes "we accept
-complexity to cover future cases" — defensible, and companies do in fact adopt it.
+complexity to cover future cases" (defensible, and companies do in fact adopt it).
 The mechanics of the test, and what to do with the principles that fail it, are in
 [Principles in Operation](/19-architecture-governance/governance-principles.md);
 here it serves only to show why most published principles decide nothing.
@@ -113,7 +113,7 @@ revisiting when there are eighty.
 **A principle is a decision made once so it does not have to be made every time.**
 
 If the same discussion recurs every quarter with the same outcome, it is a
-candidate to become a principle. If the outcome varies by case, it is not — it is
+candidate to become a principle. If the outcome varies by case, it is not: it is
 judgement, and a principle does not replace judgement.
 
 ## When to Use
@@ -128,7 +128,7 @@ judgement, and a principle does not replace judgement.
 ## When Not to Use
 
 **When the right answer varies by case.** There, a principle becomes a
-straitjacket and the team works around it silently — which is worse than having no
+straitjacket and the team works around it silently. That is worse than having no
 principle, because the violation stops being discussable.
 
 **When the principle has no defensible opposite.** See the inverse test. It helps
@@ -138,16 +138,16 @@ nobody and takes up attention.
 formal principles are ceremony; the conversation settles it.
 
 **When you do not intend to revisit them.** A principle written and never
-re-examined becomes a ghost constraint — it shaped decisions and no longer holds.
+re-examined becomes a ghost constraint: it shaped decisions and no longer holds.
 
 ## Alternatives
 
-- **A standard** — when the decision recurs and the answer is single, prescribe
+- **A standard**: when the decision recurs and the answer is single, prescribe
   instead of guiding.
-- **A fitness function** — when the property can be verified automatically,
+- **A fitness function**: when the property can be verified automatically,
   verifying is cheaper and more reliable than guiding.
-- **An ADR** — when the decision is specific rather than a recurring class.
-- **A conversation** — when the team is small.
+- **An ADR**: when the decision is specific rather than a recurring class.
+- **A conversation**: when the team is small.
 
 ## Trade-offs
 
@@ -180,8 +180,8 @@ false impression that guidance exists.
 
 ## Real-World Example
 
-A mid-sized company had nine published principles. Seven failed the inverse test
-— "we prioritize quality", "we pick the right tool for each problem", and
+A mid-sized company had nine published principles. Seven failed the inverse test:
+"we prioritize quality", "we pick the right tool for each problem", and
 variations.
 
 The two that survived:
@@ -197,7 +197,7 @@ Both eliminate options, both have a defensible opposite, and both cite the concr
 reason.
 
 The detail that gives the outcome: eighteen months later, the platform team had
-fifteen people and an on-call rota. The first principle was revised — not removed,
+fifteen people and an on-call rota. The first principle was revised: not removed,
 but rewritten with a different cost threshold.
 
 It could only be revised because the reason was written down. The seven empty
@@ -216,7 +216,7 @@ principles apply and how", the principle is consulted at the moment it matters,
 rather than afterwards.
 
 **In architecture review.** As a standard question, not as an audit: which
-principle guided this choice? The answer "none" is information — either a principle
+principle guided this choice? The answer "none" is information: either a principle
 is missing, or this is a genuinely new case.
 
 **As an automated check, where possible.** A principle about dependency direction
@@ -225,21 +225,21 @@ can become a test. There it stops depending on anyone remembering.
 **In onboarding.** It is where the cost of not knowing the principles is highest
 and where the return on teaching them is immediate.
 
-The place that does not work is a wiki page updated once and never cited again —
-which is where most architecture principles live.
+The place that does not work is a wiki page updated once and never cited again.
+That is where most architecture principles live.
 
 ## Related Concepts
 
-- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md) — where
+- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md): where
   principles derive from.
-- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md) — what
+- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md): what
   principles guide.
-- [Governance](/19-architecture-governance/index.md) — how principles operate
+- [Governance](/19-architecture-governance/index.md): how principles operate
   across teams.
 
 ## Practical Exercise
 
-Take your team's architecture principles — written or tacit.
+Take your team's architecture principles, written or tacit.
 
 Apply the inverse test to each. Write the opposite and ask: would any competent
 company adopt this?
@@ -257,5 +257,5 @@ characteristic they tie to. Rewrite the ones that do not.
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020.
-- Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019 — on
+- Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019. On
   autonomy and alignment across teams.

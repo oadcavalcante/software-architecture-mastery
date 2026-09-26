@@ -2,7 +2,7 @@
 id: abstraction-vs-complexity
 title: Abstração vs. Complexidade
 sidebar_position: 15
-description: Abstração esconde complexidade ou acrescenta — e a diferença é medível pela profundidade.
+description: Abstração esconde complexidade ou acrescenta, e a diferença é medível pela profundidade.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [simplicity-vs-flexibility, coupling-vs-duplication, performance-vs-maintainability]
 canonical_for: [abstração contra complexidade, profundidade de abstração, camada rasa, abstração vazada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-29
 
 Abstração existe para reduzir o que precisa ser entendido de cada vez. Quando funciona, é a
 ferramenta mais poderosa da engenharia de software. Quando não funciona, ela **acrescenta**
-complexidade em vez de escondê-la — e o resultado é pior que a ausência dela.
+complexidade em vez de escondê-la, e o resultado é pior que a ausência dela.
 
 A diferença é medível:
 
@@ -34,7 +34,7 @@ eixo real   quanto esta abstração esconde, dividido pelo quanto ela
 
 Ousterhout chama isso de profundidade: uma abstração **profunda** tem interface pequena
 sobre implementação substancial. Uma **rasa** tem interface tão complexa quanto o que
-esconde — e nesse caso a camada é custo puro.
+esconde, e nesse caso a camada é custo puro.
 
 ## Problema
 
@@ -45,13 +45,13 @@ Controlador → Serviço → ServiçoImpl → Repositório → RepositórioImpl 
 ```
 
 Sete camadas em que quatro apenas repassam. Acrescentar um campo exige tocar sete arquivos,
-e nenhum dos sete esconde nada de ninguém — quem lê precisa atravessar todos para entender o
+e nenhum dos sete esconde nada de ninguém: quem lê precisa atravessar todos para entender o
 que acontece.
 
 O erro simétrico é ausência de abstração: lógica de negócio misturada a acesso a dados, a
 transporte e a formatação, em funções longas onde nada tem nome.
 
-Os dois produzem o mesmo sintoma — dificuldade de entender —, e por isso são frequentemente
+Os dois produzem o mesmo sintoma (dificuldade de entender), e por isso são frequentemente
 confundidos. A resposta ao segundo é abstrair; ao primeiro, remover camada.
 
 ## Conceitos Centrais
@@ -80,8 +80,8 @@ abstração fechada   uso sem conhecer o que está por baixo
 abstração vazada    é preciso conhecer os dois níveis
 ```
 
-Quando o comportamento subjacente atravessa a interface — desempenho, erro específico,
-limite, semântica de transação —, o usuário precisa entender a abstração **e** o que ela
+Quando o comportamento subjacente atravessa a interface (desempenho, erro específico,
+limite, semântica de transação), o usuário precisa entender a abstração **e** o que ela
 esconde. O custo dobra em vez de reduzir.
 
 Exemplos comuns:
@@ -92,7 +92,7 @@ cliente HTTP que esconde tempo excedido            → é preciso saber a rede
 fila abstraída sobre semânticas diferentes         → é preciso saber o mecanismo
 ```
 
-Isso não condena a abstração — significa que a comparação deve ser feita contando o custo
+Isso não condena a abstração; significa que a comparação deve ser feita contando o custo
 real, que inclui o nível de baixo.
 
 ### Interface pequena não é interface simplista
@@ -103,7 +103,7 @@ simplista   esconde o que o usuário precisa decidir, e ele acaba
             contornando a abstração
 ```
 
-Uma abstração que esconde algo essencial força o contorno — e código que contorna a
+Uma abstração que esconde algo essencial força o contorno, e código que contorna a
 abstração é o pior estado: paga-se a camada e usa-se o nível de baixo mesmo assim.
 
 ### Camada sem valor é reconhecível
@@ -127,7 +127,7 @@ lê-la                  toda vez, por todos
 ```
 
 Uma abstração mal escolhida cobra de cada pessoa que entra no código, para sempre. É por isso
-que "eu entendo, é simples" não é argumento — a pergunta é se alguém que chega em dois anos
+que "eu entendo, é simples" não é argumento: a pergunta é se alguém que chega em dois anos
 entenderá sem explicação.
 
 Ver [complexidade](/01-fundamentals/complexity.md).
@@ -184,7 +184,7 @@ Abstraia quando:
 
 - A implementação é substancial e a interface pode ser pequena.
 - Há mais de um caso real, com variação conhecida.
-- A abstração fecha — o usuário não precisa do nível de baixo.
+- A abstração fecha: o usuário não precisa do nível de baixo.
 - O nome expressa intenção, não mecanismo.
 - O que se esconde é volátil e o que se expõe é estável.
 
@@ -211,14 +211,14 @@ eixo da variação; aqui se decide **esconder** uma implementação atrás de um
 segundo caso já basta porque a interface não precisa acomodar variação nenhuma — precisa
 esconder algo volátil. Se a abstração também unifica duplicação, vale o piso de lá.
 
-**Para parecer organizado** — organização visual não é abstração.
+**Para parecer organizado**: organização visual não é abstração.
 
 ## Alternativas
 
-- **Nomear** — extrair função com nome de intenção; o mais barato.
-- **Módulo com fronteira, sem interface** — agrupamento sem indireção.
-- **Composição em vez de hierarquia** — evita profundidade de herança.
-- **Achatar** — remover camada e aceitar o concreto onde ele é claro.
+- **Nomear**: extrair função com nome de intenção; o mais barato.
+- **Módulo com fronteira, sem interface**: agrupamento sem indireção.
+- **Composição em vez de hierarquia**: evita profundidade de herança.
+- **Achatar**: remover camada e aceitar o concreto onde ele é claro.
 
 A última é a mais subutilizada: retirar uma camada de repasse melhora legibilidade e
 desempenho ao mesmo tempo, e quase nunca é proposta.
@@ -294,7 +294,7 @@ regras de negócio na camada de Serviço             presentes em 12 de 41 casos
 ```
 
 A última linha é o diagnóstico. Em 29 das 41 entidades, a camada de serviço não continha
-nenhuma lógica — ela existia porque o guia mandava.
+nenhuma lógica: ela existia porque o guia mandava.
 
 E o efeito colateral: como a estrutura padrão não acomodava a lógica que de fato existia,
 regras acabavam nos controladores e nos mapeadores, que era onde havia espaço.
@@ -305,7 +305,7 @@ A revisão do guia:
 responder "o que eu não preciso saber por causa dela?". Se a resposta for "nada", ela não é
 criada.
 
-**Interface só com segundo implementador** — ou com necessidade concreta de substituição em
+**Interface só com segundo implementador**, ou com necessidade concreta de substituição em
 teste que não seja atendida de outra forma.
 
 **Entidades simples sem camada de serviço.** Controlador conversa com repositório
@@ -336,8 +336,8 @@ O dado que a equipe destaca: as regras de negócio pararam de vazar para os cont
 **depois** que as camadas foram reduzidas. A estrutura excessiva não estava protegendo o
 domínio; ela estava empurrando a lógica para onde coubesse.
 
-Na retrospectiva: o guia original tinha sido escrito com boa intenção — padronizar
-para facilitar a leitura entre serviços. Ele padronizou a forma e não a substância, e a
+Na retrospectiva: o guia original tinha sido escrito com boa intenção (padronizar
+para facilitar a leitura entre serviços). Ele padronizou a forma e não a substância, e a
 forma sem substância é exatamente o que Ousterhout chama de camada rasa: custo de leitura
 para todos, benefício para ninguém.
 

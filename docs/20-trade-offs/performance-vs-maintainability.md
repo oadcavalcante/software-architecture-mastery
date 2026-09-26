@@ -2,7 +2,7 @@
 id: performance-vs-maintainability
 title: Desempenho vs. Manutenibilidade
 sidebar_position: 3
-description: O conflito é real em pouquíssimos lugares — e o custo de tratá-lo como global é alto.
+description: O conflito é real em pouquíssimos lugares, e o custo de tratá-lo como global é alto.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [simplicity-vs-flexibility, speed-vs-quality, abstraction-vs-complexity]
 canonical_for: [desempenho contra manutenibilidade, orçamento de desempenho, otimização localizada, código quente]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Este par é real e é **local**. Em quase todo o código, desempenho e legibilidade não
-conflitam — código claro é rápido o bastante, e código rápido pode ser claro.
+conflitam: código claro é rápido o bastante, e código rápido pode ser claro.
 
 O conflito aparece numa fração pequena:
 
@@ -37,7 +37,7 @@ eixo real   este trecho está no caminho crítico medido, e o ganho
             justifica o custo permanente de legibilidade?
 ```
 
-O erro caro não é escolher errado num trecho. É tratar o trade-off como global — otimizando
+O erro caro não é escolher errado num trecho. É tratar o trade-off como global, otimizando
 o que não importa, ou recusando otimizar o que importa.
 
 ## Problema
@@ -53,7 +53,7 @@ desnormalização por precaução
 consultas montadas à mão "porque o mapeador é lento"
 ```
 
-O ganho agregado é imperceptível — a maior parte desse código não está no caminho quente. O
+O ganho agregado é imperceptível: a maior parte desse código não está no caminho quente. O
 custo agregado não é: o sistema inteiro fica mais difícil de mudar.
 
 **Recusa a otimizar.** O oposto, justificado por "otimização prematura é a raiz de todo
@@ -74,7 +74,7 @@ com medição   o gargalo costuma estar em um ou dois lugares
 
 Perfis de sistemas reais são consistentemente desiguais: uma fração pequena do código
 responde pela maior parte do tempo. Isso significa que **a maior parte das decisões de
-desempenho não precisa ser tomada** — o código pode ser escrito para clareza sem custo.
+desempenho não precisa ser tomada**: o código pode ser escrito para clareza sem custo.
 
 Ver [análise de gargalo](/05-system-design/bottleneck-analysis.md).
 
@@ -90,7 +90,7 @@ custa clareza para sempre e ganha 0,3%.
 
 E há um efeito adicional: hardware, compiladores e bibliotecas melhoram. Otimizações
 manuais de dez anos atrás podem ser hoje mais lentas que a versão simples, quando impedem a
-plataforma de otimizar — desenrolar de laço que bloqueia vetorização, cache manual de objeto
+plataforma de otimizar: desenrolar de laço que bloqueia vetorização, cache manual de objeto
 que atrapalha a alocação, chamada indireta escrita para evitar uma que o compilador hoje
 resolve em linha. Não é regra: é a razão para remedir antes de manter.
 
@@ -143,7 +143,7 @@ latência alta          o problema é chamada síncrona encadeada
 Nesses casos, a correção **melhora** legibilidade e desempenho ao mesmo tempo. Antes de
 aceitar o trade-off, vale verificar se ele existe. Em sistemas de informação, o perfil quase
 sempre aponta primeiro para acesso a dados e topologia de chamadas, e não para microdecisões
-de código — e essa é uma razão para perfilar antes de otimizar, não um número que dispense o
+de código. E essa é uma razão para perfilar antes de otimizar, não um número que dispense o
 perfil.
 
 Ver [indexação](/07-data-architecture/indexing.md).
@@ -156,7 +156,7 @@ decisão arquitetural       ganho de ordens de grandeza
 ```
 
 Cache, paginação, processamento assíncrono, desnormalização deliberada e escolha de
-protocolo mudam desempenho em escala que nenhuma otimização de laço alcança — e várias delas
+protocolo mudam desempenho em escala que nenhuma otimização de laço alcança, e várias delas
 têm custo de manutenibilidade próprio, que é o trade-off que de fato importa.
 
 ### Sinais de escolha errada
@@ -205,31 +205,31 @@ Prefira legibilidade quando:
 - Não há medição apontando o trecho.
 - O sistema está dentro do orçamento.
 - O ganho é marginal.
-- O problema real é arquitetural — acesso a dados, topologia de chamadas.
+- O problema real é arquitetural: acesso a dados, topologia de chamadas.
 
 ## Quando Não Usar
 
-**Como decisão global** — otimizar tudo, ou recusar otimizar.
+**Como decisão global**: otimizar tudo, ou recusar otimizar.
 
 **Sem medição.** Sem perfil, a intuição aponta para o código que se lembra de ter escrito, não
 para o que consome tempo.
 
-**Sem orçamento definido** — sem alvo, a discussão é interminável.
+**Sem orçamento definido**: sem alvo, a discussão é interminável.
 
 **Antes de verificar se o conflito é falso.** Índice ausente e consulta em laço custam clareza
-zero para corrigir — aceitar o trade-off antes de olhar é pagar por nada.
+zero para corrigir: aceitar o trade-off antes de olhar é pagar por nada.
 
-**Sem registrar o porquê** — o código estranho vira permanente.
+**Sem registrar o porquê**: o código estranho vira permanente.
 
-**Para justificar código ruim** — desempenho não é desculpa para nome ruim nem para função
+**Para justificar código ruim**: desempenho não é desculpa para nome ruim nem para função
 de 300 linhas.
 
 ## Alternativas
 
-- **Correção arquitetural** — cache, paginação, assíncrono; ganho maior, custo diferente.
-- **Melhor algoritmo ou estrutura de dados** — frequentemente mais rápido *e* mais claro.
-- **Hardware** — às vezes mais barato que semanas de engenharia; compare os números.
-- **Isolar o código quente** — concentrar o que é ilegível num módulo pequeno e bem testado,
+- **Correção arquitetural**: cache, paginação, assíncrono; ganho maior, custo diferente.
+- **Melhor algoritmo ou estrutura de dados**: frequentemente mais rápido *e* mais claro.
+- **Hardware**: às vezes mais barato que semanas de engenharia; compare os números.
+- **Isolar o código quente**: concentrar o que é ilegível num módulo pequeno e bem testado,
   em vez de espalhar.
 
 A última é a técnica mais útil deste tema: o custo de legibilidade fica contido.
@@ -296,8 +296,8 @@ lógica de decisão (o que foi otimizado)              80 ms
 p99 medido                                        2 100 ms
 ```
 
-Antes das três semanas, a lógica de decisão media 380 ms — os mesmos 2 400 ms com essa parcela
-no lugar. As três semanas renderam 300 ms reais, e foram gastas no trecho que respondia por
+Antes das três semanas, a lógica de decisão media 380 ms (os mesmos 2 400 ms com essa parcela
+no lugar). As três semanas renderam 300 ms reais, e foram gastas no trecho que respondia por
 16% do tempo, enquanto os 2 020 ms de consultas e bureau ficaram intocados.
 
 O que foi feito depois:
@@ -313,7 +313,7 @@ consulta já trazia, e as duas que sobraram ganharam um índice que faltava.
 **Chamada ao bureau paralelizada** com as consultas locais, já que não havia dependência
 entre elas: 610 ms deixaram de somar e passaram a ser o piso.
 
-**As otimizações de código foram revertidas**, exceto uma — uma função de cálculo de escore
+**As otimizações de código foram revertidas**, exceto uma: uma função de cálculo de escore
 executada 40 mil vezes por decisão, que ficou como laço manual com comentário registrando
 medição e condição de reversão. A reversão foi medida antes de ser aceita: as demais
 otimizações não tinham ganho isolável, e a lógica de decisão ficou nos mesmos 80 ms. As três
@@ -349,7 +349,7 @@ tempo médio de mudança em código de decisão      reduzido, sem medida formal
 
 O ponto que a equipe sublinha: as três semanas iniciais não foram desperdício de esforço, foram
 desperdício de direção. A equipe tinha capacidade técnica para otimizar e não tinha o hábito
-de medir antes — e a intuição sobre onde estava o tempo errou por uma ordem de grandeza.
+de medir antes, e a intuição sobre onde estava o tempo errou por uma ordem de grandeza.
 
 ## Conceitos Relacionados
 

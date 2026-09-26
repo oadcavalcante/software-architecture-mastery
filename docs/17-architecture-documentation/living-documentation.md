@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, documentation-standards, component-diagrams]
 canonical_for: [documentação viva, documentação derivada, fonte única de verdade documental, diagrama como código]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,14 +22,14 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Documentação escrita à mão desatualiza quando nada a amarra ao sistema. O problema não é
-disciplina — é que a informação existe em dois lugares e nada obriga os dois a concordarem.
+disciplina: é que a informação existe em dois lugares e nada obriga os dois a concordarem.
 
 Documentação viva ataca a causa: **derivar a documentação do artefato que já é verdade**,
 de modo que divergir da fonte seja impossível enquanto a extração roda, e não apenas
 indesejável.
 
-E a decisão central deste tema não é qual ferramenta usar. É **o que pode ser derivado e o
-que não pode** — porque a maior parte do valor arquitetural está justamente no que a
+E a decisão central deste tema não é qual ferramenta usar, e sim **o que pode ser derivado e o
+que não pode**, porque a maior parte do valor arquitetural está justamente no que a
 máquina não sabe.
 
 ## Problema
@@ -46,7 +46,7 @@ ninguém consulta
 ninguém atualiza
 ```
 
-E o remédio habitual — processo, lembrete, revisão obrigatória — combate o sintoma. Ele
+E o remédio habitual (processo, lembrete, revisão obrigatória) combate o sintoma. Ele
 depende de alguém fazer, toda vez, um trabalho que não dá retorno imediato a quem faz.
 
 Ver [princípios de documentação](/17-architecture-documentation/documentation-principles.md), onde a meia-vida da
@@ -68,12 +68,12 @@ matriz de quem chama quem    do service mesh ou dos registros
 ```
 
 O padrão é claro: **estrutura é derivável**. O que existe, como se conecta, o que roda
-onde — tudo isso está declarado em algum lugar executável.
+onde: tudo isso está declarado em algum lugar executável.
 
 Ver [rastreamento distribuído](/13-observability/distributed-tracing.md) para a última
 categoria, a mais confiável para o que roda com frequência: ela mostra o que acontece, não o
-que se declarou. E é cega para o que a janela e a amostragem não pegam — o job trimestral, o
-caminho de contingência —, que a verificação contra o inventário declarado cobre.
+que se declarou. E é cega para o que a janela e a amostragem não pegam (o job trimestral, o
+caminho de contingência), que a verificação contra o inventário declarado cobre.
 
 ### O que não pode ser derivado
 
@@ -103,7 +103,7 @@ diferenças são legíveis
 o texto é útil mesmo sem renderizar
 ```
 
-Não é derivação — o texto ainda é escrito à mão, e ainda pode divergir. O ganho está no
+Não é derivação: o texto ainda é escrito à mão, e ainda pode divergir. O ganho está no
 processo: um diagrama em texto no repositório é revisado junto com a mudança que o afeta,
 e o gatilho é natural.
 
@@ -125,7 +125,7 @@ o dono declarado existe?
 os links resolvem?
 ```
 
-Isso preserva a curadoria — layout, ênfase, agrupamento — e elimina a divergência
+Isso preserva a curadoria (layout, ênfase, agrupamento) e elimina a divergência
 silenciosa. Quando a verificação falha, uma pessoa decide o que corrigir: o documento ou o
 sistema.
 
@@ -161,7 +161,7 @@ layout aquém do curado      recorrente
 O cálculo: derivação se paga onde a informação **muda com frequência** e é **consultada
 com frequência**. Onde algum dos dois é baixo, escrever à mão e verificar é mais barato.
 
-Este é o caso do diagrama de contexto — ele quase não muda, e derivá-lo seria construir
+Este é o caso do diagrama de contexto: ele quase não muda, e derivá-lo seria construir
 maquinaria para um problema que não existe. Ver
 [diagramas de contexto](/17-architecture-documentation/context-diagrams.md).
 
@@ -180,28 +180,28 @@ máquina documenta.
 
 ## Quando Não Usar
 
-**Para justificativa e decisões** — não é derivável.
+**Para justificativa e decisões**: não é derivável.
 
-**Onde a informação muda ou é consultada pouco** — se o artefato muda menos que a cadência
+**Onde a informação muda ou é consultada pouco**: se o artefato muda menos que a cadência
 de revisão manual, ou quase ninguém o abre, o custo não se paga.
 
-**Quando o gerado passa de uns doze nós** e a fonte não tem chave de agrupamento — domínio,
-time, contexto — para reparti-lo: o resultado é o diagrama de 180 nós do Exemplo Real.
+**Quando o gerado passa de uns doze nós** e a fonte não tem chave de agrupamento (domínio,
+time, contexto) para reparti-lo: o resultado é o diagrama de 180 nós do Exemplo Real.
 
-**Sem alguém responsável pela ferramenta** — a ferramenta vira a nova dívida.
+**Sem alguém responsável pela ferramenta**: a ferramenta vira a nova dívida.
 
-**Como substituto de escrever** — o resultado é documentação completa e sem sentido.
+**Como substituto de escrever**: o resultado é documentação completa e sem sentido.
 
 O último merece ênfase: uma organização que gera tudo e escreve nada tem diagramas
 corretos e nenhuma explicação de por que o sistema é assim.
 
 ## Alternativas
 
-- **Escrita com gatilho** — atualizar quando o evento correspondente ocorre. Ver
+- **Escrita com gatilho**: atualizar quando o evento correspondente ocorre. Ver
   [padrões de documentação](/17-architecture-documentation/documentation-standards.md).
-- **Verificação automática** — mais barata que geração, preserva curadoria.
-- **Diagrama como código** — meio-termo, ganho de processo.
-- **Aceitar o envelhecimento** com data visível — legítimo para o que muda pouco.
+- **Verificação automática**: mais barata que geração, preserva curadoria.
+- **Diagrama como código**: meio-termo, ganho de processo.
+- **Aceitar o envelhecimento** com data visível, legítimo para o que muda pouco.
 
 ## Trade-offs
 
@@ -266,15 +266,15 @@ Os diagramas eram corretos e ilegíveis. O uso do portal caiu ainda mais.
 
 A segunda tentativa separou por natureza da informação:
 
-**Derivado** — inventário de serviços, dependências reais a partir do rastreamento,
+**Derivado**: inventário de serviços, dependências reais a partir do rastreamento,
 topologia de implantação, contratos de API, esquemas de dados. Tudo atualizado
 continuamente, disponível como consulta e não como diagrama gigante.
 
-**Escrito e verificado** — diagramas de contexto e de contêiner por domínio, desenhados à
+**Escrito e verificado**: diagramas de contexto e de contêiner por domínio, desenhados à
 mão, com agrupamento e ênfase curados. Uma verificação diária compara os contêineres
 desenhados com os serviços implantados e abre um alerta ao dono quando divergem.
 
-**Escrito, sem verificação possível** — justificativas, ADRs, riscos, intenções de
+**Escrito, sem verificação possível**: justificativas, ADRs, riscos, intenções de
 evolução.
 
 **Agrupamento por domínio** aplicado aos dados derivados: em vez de um diagrama de 180
@@ -295,15 +295,15 @@ produção.
 
 A geração completa falhou não por ser tecnicamente errada, mas por
 ignorar que curadoria é conteúdo. O agrupamento por domínio e a ênfase em certas relações
-são informação arquitetural — e são exatamente o que a extração automática não tem como
+são informação arquitetural, e são exatamente o que a extração automática não tem como
 saber.
 
 ## Conceitos Relacionados
 
-- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md) — a meia-vida.
-- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md) — os gatilhos.
-- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md) — onde a geração mais se paga.
-- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a fonte mais
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md): a meia-vida.
+- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md): os gatilhos.
+- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md): onde a geração mais se paga.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md): a fonte mais
   confiável de dependências.
 
 ## Exercício Prático

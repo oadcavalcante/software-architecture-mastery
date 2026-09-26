@@ -2,7 +2,7 @@
 id: sharding
 title: Sharding
 sidebar_position: 15
-description: Partitioning across separate instances — and what changes when a partition becomes a server.
+description: Partitioning across separate instances and what changes when a partition becomes a server.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partitioning]
 related: [partitioning, replication, database-scaling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,19 +29,19 @@ domain of modeling and enters that of operations.
 
 ## Problem
 
-Partitioning within one instance — tables partitioned by range, for example — improves maintenance
+Partitioning within one instance (tables partitioned by range, for example) improves maintenance
 and some query patterns. It does not increase capacity: CPU, memory and disk remain shared.
 
 When one instance's limit is reached, the partition has to move to another machine. Then three
 things change.
 
-**The query has to know where to go.** Someone — the application, a router, the driver — has to map
+**The query has to know where to go.** Someone (the application, a router, the driver) has to map
 key to instance.
 
 **Joins and transactions across shards cease to exist** as a database operation. What was a `JOIN`
 becomes two queries and an aggregation in the application.
 
-**Each shard is a database to operate.** Backup, monitoring, upgrades, sizing, failover — multiplied
+**Each shard is a database to operate.** Backup, monitoring, upgrades, sizing, failover: multiplied
 by the number of shards.
 
 ## Core Concepts
@@ -60,7 +60,7 @@ know there are shards. It adds a hop and a component on the critical path.
 friction, and it ties the architecture to that product.
 
 The first is the most common in systems that evolved into sharding, and the most expensive to
-maintain — because the routing decision appears in dozens of places.
+maintain, because the routing decision appears in dozens of places.
 
 ### The shard directory
 
@@ -68,11 +68,11 @@ The key-to-shard mapping can be:
 
 **Algorithmic.** `hash(key) mod N`, or
 [consistent hashing](/06-distributed-systems/partitioning.md). Stateless, and rebalancing recomputes
-positions — with `mod N`, almost every key changes destination when N changes; with consistent
+positions: with `mod N`, almost every key changes destination when N changes; with consistent
 hashing, about `1/N` of them.
 
-**By directory.** A table that says where each range lives. Flexible — it allows moving a specific
-key, giving a dedicated shard to a large tenant — and it adds a lookup before every access, plus a
+**By directory.** A table that says where each range lives. Flexible (it allows moving a specific
+key, giving a dedicated shard to a large tenant), and it adds a lookup before every access, plus a
 component that has to be highly available.
 
 The directory is what allows handling imbalance case by case, and it is what mature multi-tenant
@@ -86,7 +86,7 @@ Writes for the keys in transit have to go to both places, or be blocked. Reads h
 side is authoritative. And the process consumes bandwidth and resources on both nodes.
 
 The technique that reduces the pain is **logical shards**: creating far more logical partitions than
-physical instances — 1024 partitions across 8 instances, for example. Adding an instance moves whole
+physical instances (1024 partitions across 8 instances, for example). Adding an instance moves whole
 partitions, with no key recomputation.
 
 It is the approach practically every modern partitioned system adopts.
@@ -96,7 +96,7 @@ It is the approach practically every modern partitioned system adopts.
 In a multi-tenant system, imbalance is the rule, not the exception: one large customer can have more
 data than a thousand small ones.
 
-That breaks hash partitioning by tenant — that customer's shard saturates while the others sit idle.
+That breaks hash partitioning by tenant: that customer's shard saturates while the others sit idle.
 
 The ways out: a dedicated shard for the large ones, or partitioning the large ones internally by a
 second dimension. Both require the directory.
@@ -132,11 +132,11 @@ of them avoids building the routing and the operations.
 
 ## Alternatives
 
-- **Vertical scaling** — the previous step, almost always not exhausted.
-- **[Replication](/06-distributed-systems/replication.md)** — if the bottleneck is reads.
-- **Archiving** — reducing the active volume.
-- **A distributed database** — delegating the sharding to the product.
-- **Logical partitioning on one instance** — improves maintenance without distributing.
+- **Vertical scaling**: the previous step, almost always not exhausted.
+- **[Replication](/06-distributed-systems/replication.md)**: if the bottleneck is reads.
+- **Archiving**: reducing the active volume.
+- **A distributed database**: delegating the sharding to the product.
+- **Logical partitioning on one instance**: improves maintenance without distributing.
 
 ## Trade-offs
 
@@ -157,7 +157,7 @@ of them avoids building the routing and the operations.
 
 **Rebalancing during a peak.** It competes with the traffic.
 
-**Directory unavailable.** Without it, no query knows where to go — it becomes a single point of
+**Directory unavailable.** Without it, no query knows where to go. It becomes a single point of
 failure and has to be replicated.
 
 **An unforeseen cross-shard transaction.** Discovered when the requirement appears.
@@ -167,14 +167,14 @@ failure and has to be replicated.
 ## Common Mistakes
 
 **Sharding before you need it.** It adds routing, prevents joins and transactions across partitions,
-and complicates every query — a cost paid from day one for a limit that may never arrive.
+and complicates every query: a cost paid from day one for a limit that may never arrive.
 
 **Not using logical shards.** Mapping the key straight to the physical machine ties the number of
 partitions to the number of servers, and growing then requires remapping everything. Many logical
 partitions over few physical ones make growth a change to a routing table.
 
 **Ignoring tenant imbalance.** Partitioning by customer looks natural until the largest customer
-alone exceeds one partition's capacity — and it cannot be split by the chosen key.
+alone exceeds one partition's capacity, and it cannot be split by the chosen key.
 
 **Spreading the routing through the application.** Every point that computes which partition holds
 the data is a place to change when the partitioning scheme changes, and a place where the rule can
@@ -193,26 +193,26 @@ Two problems in eighteen months.
 **Imbalance.** Three large corporate customers landed on the same shard by hash coincidence. That
 shard had 60% of the data and saturated while the other seven operated at 15% utilization.
 
-With a simple hash, the only way out would be changing the number of shards — and for any target
+With a simple hash, the only way out would be changing the number of shards, and for any target
 that was not a multiple of 8 that would redistribute almost every key.
 
 **Unviable rebalancing.** Doubling from 8 to 16 is the cheapest case of `mod N`: the key with
 `h mod 8 = r` lands on `r` or `r+8` under mod 16, so half of them stay put. Even so it meant moving
-half the data with dual writes — weeks of migration — with no guarantee of fixing the problem: the
+half the data with dual writes (weeks of migration), with no guarantee of fixing the problem: the
 three large customers had a one-in-four chance of staying together on the same shard.
 
 The redesign adopted the two techniques that were missing.
 
 **1024 logical shards** mapped to 8 instances through a directory. Adding instances came to mean
-moving whole logical shards — each one copied as a replica and promoted — instead of coordinating
+moving whole logical shards (each one copied as a replica and promoted) instead of coordinating
 dual writes key by key.
 
 **A directory instead of a pure hash.** That made it possible to move the three large customers to
-dedicated instances, individually — something impossible with algorithmic mapping.
+dedicated instances, individually: something impossible with algorithmic mapping.
 
 The migration to the new scheme took six weeks, key by key with dual writes. After it, going from
-8 to 12 instances moved a third of the dataset in four hours. The difference is not in the volume —
-it is of the same order — it is in copying whole shards instead of coordinating every key.
+8 to 12 instances moved a third of the dataset in four hours. The difference is not in the volume,
+which is of the same order, but in copying whole shards instead of coordinating every key.
 
 The detail the team highlights: logical shards and a directory are decisions that cost little at the
 start and are expensive to retrofit. Both were in the reference documentation nobody read before
@@ -220,9 +220,9 @@ implementing.
 
 ## Related Concepts
 
-- [Partitioning](/06-distributed-systems/partitioning.md) — the concept and the choice of key.
-- [Replication](/06-distributed-systems/replication.md) — each shard needs its replicas.
-- [Hotspots](/11-scalability/index.md) — the imbalance.
+- [Partitioning](/06-distributed-systems/partitioning.md): the concept and the choice of key.
+- [Replication](/06-distributed-systems/replication.md): each shard needs its replicas.
+- [Hotspots](/11-scalability/index.md): the imbalance.
 - [Database Scaling](/11-scalability/index.md).
 
 ## Practical Exercise
@@ -242,6 +242,6 @@ If it is not, check: is there a natural key? What would happen to a query that d
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 6.
-- Public architecture write-ups on sharding from large-scale platforms — Slack's, Notion's and
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 6.
+- Public architecture write-ups on sharding from large-scale platforms: Slack's, Notion's and
   Figma's are especially detailed.

@@ -2,7 +2,7 @@
 id: observability
 title: Observability
 sidebar_position: 0
-description: Being able to answer questions you did not anticipate — the difference between monitoring and observability.
+description: "Being able to answer questions you did not anticipate: the difference between monitoring and observability."
 doc_type: index
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [reliability, scalability, devops-and-platform]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -28,20 +28,20 @@ Monitoring answers questions you anticipated: is the CPU high? Did the error rat
 Observability is the ability to answer questions you did **not** anticipate: why did those 200 specific
 requests, from customers on a specific plan, get slow at 2 p.m. yesterday?
 
-The distinction is not semantic. It decides whether, during an incident, you can investigate — or only
+The distinction is not semantic. It decides whether, during an incident, you can investigate, or only
 confirm that something is wrong.
 
 And it matters because the incidents that cause damage almost always come from scenarios nobody
 anticipated. See [resilience](/12-reliability/resilience.md). An anticipated scenario is the one handled
 by a mechanism; what is left over demands investigation.
 
-The second problem is economic. Telemetry costs — collection, transport, storage, querying — and the cost
+The second problem is economic. Telemetry costs (collection, transport, storage, querying) and the cost
 grows faster than the system. Much of what is collected is never queried, and naive reduction removes
 exactly what is missed in an investigation.
 
 ## What you will find here
 
-**The three signals.** Logs, metrics and traces — what each one answers well, what it answers badly, and
+**The three signals.** Logs, metrics and traces: what each one answers well, what it answers badly, and
 why all three are necessary.
 
 **Distributed tracing.** How to follow a request through dozens of services, with context propagation and
@@ -49,7 +49,7 @@ sampling.
 
 **Correlation identifiers.** The section's cheapest technique and the prerequisite for almost everything.
 
-**Telemetry.** Instrumentation, collection and the cost — treated as an architectural decision, because it
+**Telemetry.** Instrumentation, collection and the cost, treated as an architectural decision, because it
 is.
 
 **Alerting.** What deserves to wake somebody up, and why most existing alerts do not.
@@ -72,7 +72,7 @@ Then **golden signals**, which give a concrete starting point for instrumenting.
 
 **Logs**, **metrics** and **traces** form a block. Read all three before deciding where to invest.
 
-**Alerting** deserves special attention if your team is on call — it is the document that most reduces
+**Alerting** deserves special attention if your team is on call: it is the document that most reduces
 operational suffering.
 
 Leave **debuggability** for the end. It reorganizes everything that came before into a design property.
@@ -81,7 +81,7 @@ Leave **debuggability** for the end. It reorganizes everything that came before 
 
 You instrument to answer questions that have not been asked yet, instead of to fill dashboards.
 
-You can follow a request through the system and say where it spent time — with no manual log correlation.
+You can follow a request through the system and say where it spent time, with no manual log correlation.
 
 You recognize that most of a typical system's alerts should not exist, and you know which criterion to
 apply.

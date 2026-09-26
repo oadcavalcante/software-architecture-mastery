@@ -2,7 +2,7 @@
 id: context-mapping
 title: Context Mapping
 sidebar_position: 8
-description: How bounded contexts relate — and why the relationship pattern is organizational before it is technical.
+description: How bounded contexts relate, and why the relationship pattern is organizational before it is technical.
 doc_type: concept
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context]
 related: [anti-corruption-layer, strategic-ddd, integration-architecture]
 canonical_for: [context mapping, context map]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,8 +25,7 @@ Context mapping is the practice of identifying an organization's bounded context
 **kind of relationship** between them.
 
 What makes the technique valuable is not the drawing. It is that the relationship patterns
-describe **power and dependency between teams**, not merely technical integration — and
-naming that makes negotiable what was previously implicit.
+describe **power and dependency between teams**, not merely technical integration. Naming that makes negotiable what was previously implicit.
 
 ## Problem
 
@@ -70,7 +69,7 @@ individually.
 **Shared kernel.** Two contexts deliberately share a small part of the model. It reduces
 duplication and couples both teams on every change.
 
-**Separate ways.** No integration. Duplicating is cheaper than integrating — a legitimate
+**Separate ways.** No integration. Duplicating is cheaper than integrating: a legitimate
 conclusion and rarely considered.
 
 ### The pattern reflects the organization
@@ -88,7 +87,7 @@ The observation that makes the technique useful:
 
 Choosing a pattern the organization does not sustain does not work. Declaring
 customer-supplier when the supplier is another business unit with no obligation produces
-recurring frustration — the real pattern is conformist, and naming it allows deciding whether
+recurring frustration. The real pattern is conformist, and naming it allows deciding whether
 building an anti-corruption layer is worth it.
 
 ### Upstream and downstream
@@ -115,7 +114,7 @@ the pattern, and it is organizational.
 - When designing the integration between new contexts.
 - When understanding an existing landscape before modifying it.
 - When recurring conflicts between teams involve technical dependency.
-- Before deciding to extract a service — the pattern informs the cost.
+- Before deciding to extract a service: the pattern informs the cost.
 
 ## When Not to Use
 
@@ -132,13 +131,13 @@ negotiate becomes a position to defend.
 
 ## Alternatives
 
-- **A technical integration diagram** — it wins when the power relation is already agreed
-  and what is missing is a dependency inventory: an impact survey, an infrastructure
-  migration. It shows the connections and not who owes what to whom.
-- **Team Topologies** — it wins when the problem is the design of the teams, not the contract
+- **A technical integration diagram**: it wins when the power relation is already agreed
+  and what is missing is a dependency inventory (an impact survey, an infrastructure
+  migration). It shows the connections and not who owes what to whom.
+- **Team Topologies**: it wins when the problem is the design of the teams, not the contract
   between contexts: the map names the friction, Team Topologies changes who answers for what.
   See [Level 07](/23-architecture-leadership/index.md).
-- **A corporate integration landscape** — it wins when the boundaries that decide are between
+- **A corporate integration landscape**: it wins when the boundaries that decide are between
   units or companies, and the pair of contexts is too fine a detail. See
   [Level 06](/15-enterprise-architecture/index.md).
 
@@ -195,8 +194,8 @@ The symptom: every change to records broke scheduling, and the records team resp
 they had not been told about the usage.
 
 The mapping revealed that the two teams believed they were in different relationships.
-Scheduling thought it was customer-supplier — that records had an obligation to maintain the
-contract. Records thought scheduling was conformist — that it consumed at its own risk.
+Scheduling thought it was customer-supplier: that records had an obligation to maintain the
+contract. Records thought scheduling was conformist: that it consumed at its own risk.
 
 Neither was wrong about their own understanding. Nobody had declared the pattern.
 
@@ -205,22 +204,22 @@ capacity to maintain compatibility with every consumer, and scheduling did not h
 weight to demand it.
 
 The decision was an anti-corruption layer on the scheduling side, with the cost accepted
-explicitly — about two weeks of construction and maintenance as records evolved.
+explicitly: about two weeks of construction and maintenance as records evolved.
 
 Over the following eighteen months, records changed the model three times. Scheduling adjusted
 the translation each time, within hours, with no production breakage and no conflict between
 the teams.
 
-What changed was not the technical dependency — it is still there. It was the pattern having
+What changed was not the technical dependency, which is still there. It was the pattern having
 a name, and the cost having an owner.
 
 ## Related Concepts
 
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — what is mapped.
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — one of the
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): what is mapped.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): one of the
   patterns, in detail.
-- [Strategic DDD](/04-domain-driven-design/strategic-ddd.md) — the synthesis.
-- [Integration](/08-integration-architecture/index.md) — the mechanisms.
+- [Strategic DDD](/04-domain-driven-design/strategic-ddd.md): the synthesis.
+- [Integration](/08-integration-architecture/index.md): the mechanisms.
 
 ## Practical Exercise
 
@@ -237,6 +236,6 @@ answers diverge, you have found a source of recurring conflict that had no name.
 
 ## Further Exploration
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — the strategic design part.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. The strategic design part.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.

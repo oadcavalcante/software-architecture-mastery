@@ -2,7 +2,7 @@
 id: adr-004-kafka
 title: "ADR-004 — Adotar Kafka para Eventos de Domínio"
 sidebar_position: 13
-description: Exemplo de ADR que supera outro — com o que mudou no contexto registrado explicitamente.
+description: Exemplo de ADR que supera outro, com o que mudou no contexto registrado explicitamente.
 doc_type: adr
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [superseding-decisions]
 related: [superseding-decisions, adr-context, adr-consequences]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -74,7 +74,7 @@ plataforma interna             existe desde 2024, com esteira e
                                monitoração padronizadas
 ```
 
-**As quatro condições de reversão foram atingidas** — a de número de consumidores, que
+**As quatro condições de reversão foram atingidas**: a de número de consumidores, que
 exigia mais de três, foi excedida por 2.
 
 Restrições atuais:
@@ -91,12 +91,12 @@ Vamos adotar **Kafka** como barramento de eventos de domínio da plataforma Vera
 
 Os eventos de pedido, pagamento e entrega passam a ser publicados em tópicos Kafka. A
 gravação continua transacional via **caixa de saída** no PostgreSQL, com publicação
-posterior — a fila em tabela deixa de ser o meio de entrega e passa a ser apenas a caixa de
+posterior. A fila em tabela deixa de ser o meio de entrega e passa a ser apenas a caixa de
 saída.
 
 **Não vamos** usar Kafka para comunicação de requisição-resposta: consultas entre módulos
 continuam síncronas. **Não vamos** migrar o processamento em segundo plano de tarefas
-internas — agendamentos e rotinas de manutenção permanecem em tabela.
+internas: agendamentos e rotinas de manutenção permanecem em tabela.
 
 Esta decisão vale para eventos de domínio da Verano. Integrações com sistemas externos
 continuam por HTTP e webhooks.
@@ -109,7 +109,7 @@ independentes exigiriam replicar a tabela por consumidor. A contenção de conex
 ser mitigada, o restante não.
 
 *Voltaria a ganhar se:* o número de consumidores voltasse a um e o requisito de
-reprocessamento desaparecesse — o que não é plausível.
+reprocessamento desaparecesse. Isso não é plausível.
 
 **Serviço gerenciado de mensageria do provedor.** Descartada por um critério específico: não
 oferece retenção longa com reprocessamento por posição, que é o requisito do time de dados.
@@ -142,7 +142,7 @@ apenas por partição](/06-distributed-systems/ordering.md), o que exige escolhe
 fluxos assíncronos fica mais difícil e exige rastreamento distribuído.
 
 **Negativas (longo prazo).** Os esquemas de evento viram **contratos públicos**. Alterá-los
-passará a exigir versionamento e período de coexistência — hoje um evento é alterado com
+passará a exigir versionamento e período de coexistência. Hoje um evento é alterado com
 uma migração.
 
 **Neutras.** A caixa de saída continua existindo; o que muda é o destino da publicação.
@@ -153,10 +153,10 @@ semanas que a adoção do ADR-002 levou.
 
 ## Sinal de Alerta
 
-- Esforço operacional acima de **1,5 engenheiro/mês** por dois trimestres — dispara a
-  reavaliação do Kafka gerenciado.
+- Esforço operacional acima de **1,5 engenheiro/mês** por dois trimestres (dispara a
+  reavaliação do Kafka gerenciado).
 - Mais de **dois incidentes por trimestre** com causa no agrupamento.
-- Menos de **três consumidores ativos** em 12 meses — a premissa de reuso não se confirmou.
+- Menos de **três consumidores ativos** em 12 meses (a premissa de reuso não se confirmou).
 - Atraso de consumo acima de **1 minuto** de forma recorrente.
 
 ## O que observar neste exemplo
@@ -168,7 +168,7 @@ depois. Ver [superação](/18-architecture-decisions/superseding-decisions.md).
 As condições de reversão do ADR-002 foram **verificadas com medição**, não julgadas. A
 revisão virou verificação.
 
-A alternativa que quase venceu — Kafka gerenciado — está registrada como tal, com o número
+A alternativa que quase venceu, Kafka gerenciado, está registrada como tal, com o número
 que a derrubou e a condição que a traria de volta. Ver
 [alternativas](/18-architecture-decisions/adr-alternatives.md).
 
@@ -178,6 +178,6 @@ As consequências nomeiam **o que fica mais difícil de mudar**, com estimativa 
 ## Conceitos Relacionados
 
 - [Superação](/18-architecture-decisions/superseding-decisions.md), [Contexto](/18-architecture-decisions/adr-context.md).
-- [ADR-002](/18-architecture-decisions/adr-002-async-processing.md) — o antecessor.
+- [ADR-002](/18-architecture-decisions/adr-002-async-processing.md): o antecessor.
 - [Mensageria](/06-distributed-systems/messaging.md).
 - [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).

@@ -2,7 +2,7 @@
 id: backpressure
 title: Backpressure
 sidebar_position: 30
-description: Signaling that you cannot keep up — and why a buffer only postpones the collapse.
+description: Signaling that you cannot keep up, and why a buffer only postpones the collapse.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [rate-limiting, queues, retries]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,16 +32,16 @@ Producer and consumer rarely have the same capacity. When the producer is faster
 go somewhere.
 
 The instinctive answer is a buffer. It absorbs short peaks, and it does not solve a sustained
-imbalance — it only moves the problem in time.
+imbalance: it only moves the problem in time.
 
 And when the buffer fills, three things can happen:
 
-**Block the producer.** It stops accepting new work — which propagates the pressure backwards, until
+**Block the producer.** It stops accepting new work. That propagates the pressure backwards, until
 it reaches whoever originated it.
 
 **Discard.** Work is lost, and someone has to decide which.
 
-**Grow until memory runs out.** The process dies, and **all** of the buffer is lost — not only the
+**Grow until memory runs out.** The process dies, and **all** of the buffer is lost, not only the
 excess.
 
 The third is what happens by omission, and it is the worst of the three.
@@ -53,23 +53,23 @@ The third is what happens by omission, and it is the worst of the three.
 An in-memory queue with no limit looks resilient and is a time bomb.
 
 Under a sustained imbalance, it grows until it exhausts memory. And when the process dies,
-everything is lost — including the work that had already been accepted and acknowledged to the
+everything is lost, including the work that had already been accepted and acknowledged to the
 producer.
 
 Against the unbounded one, a bounded buffer that rejects when full trades total loss for a loss
-proportional to the excess, immediate and visible. Which answer to give when it fills — reject,
-block, discard by age or by priority — is the decision of the next section; having a limit is what
+proportional to the excess, immediate and visible. Which answer to give when it fills (reject,
+block, discard by age or by priority) is the decision of the next section; having a limit is what
 makes that decision possible.
 
 ### The answers when capacity runs out
 
-**Block.** The producer waits. Suitable when it can wait — a batch job, a queue consumer.
+**Block.** The producer waits. Suitable when it can wait: a batch job, a queue consumer.
 Unsuitable when there is a user waiting.
 
 **Discard the newest.** Reject what arrives. Simple, and it preserves old work that may already be
 obsolete.
 
-**Discard the oldest.** Preserves the recent. Suitable for data whose value decays — telemetry,
+**Discard the oldest.** Preserves the recent. Suitable for data whose value decays: telemetry,
 quotes, a vehicle's position.
 
 **Discard by priority.** Reject the least important and preserve the critical. It requires
@@ -77,14 +77,14 @@ classifying, and it is what lets a saturated system keep serving what matters.
 
 **Sample.** Process a fraction. Suitable for metrics and analytics.
 
-The choice depends on what the data means — and that is a business decision.
+The choice depends on what the data means, and that is a business decision.
 
 ### Backpressure has to cross the chain
 
 If a consumer signals pressure and the producer merely queues internally, the problem has only
 moved.
 
-The signal has to propagate to the **origin** — typically the user or the external system — which is
+The signal has to propagate to the **origin** (typically the user or the external system), which is
 where the load can actually be reduced.
 
 In a chain, that means each link has to have a limit and react to the next one's signal. A link with
@@ -96,7 +96,7 @@ it dies.
 A consumer that **fetches** messages when it can does not receive more than it can process. The pace
 control is inherent to the model.
 
-A consumer that **receives** pushed messages needs an explicit mechanism — a credit window,
+A consumer that **receives** pushed messages needs an explicit mechanism: a credit window,
 acknowledgment with a limit on in-flight messages, or pressure signaling.
 
 It is one of the reasons modern streaming systems adopt pull with long polling.
@@ -114,7 +114,7 @@ That has to be explicit: which load is disposable, and what the client receives 
 
 Backpressure is not a one-off setting: every queue acquires a limit to calibrate, and the right
 number depends on the consumer's throughput and on what the business accepts losing. Two new series
-show up on the dashboard — depth and the discard counter — and one without the other misleads: a
+show up on the dashboard (depth and the discard counter), and one without the other misleads: a
 steady depth with a climbing discard count is saturation, not slack. And rejection becomes a
 contract: the client has to know what it gets when it is refused, and whatever cannot be discarded
 needs a durable path of its own. That cost is permanent, and it is what decides the cases where the
@@ -130,16 +130,16 @@ system has a limit; the difference is whether it was designed.
 - Producer and consumer with different capacities.
 - Variable load with peaks.
 - Chains of asynchronous processing.
-- Consuming a continuous stream — telemetry, events, streaming.
+- Consuming a continuous stream: telemetry, events, streaming.
 
 ## When Not to Use
 
 **Total production bounded by construction.** A batch of known size, a closed work list: if
-everything that can come in fits in the process's memory, the limit already exists — it just is not
+everything that can come in fits in the process's memory, the limit already exists. It just is not
 in the queue. What changes that conclusion is the input becoming continuous.
 
 **A one-hop chain whose producer is already bounded at the origin.** A cron that runs one instance at
-a time, a fixed pool of synchronous connections — the origin cannot produce more than the consumer
+a time, a fixed pool of synchronous connections: the origin cannot produce more than the consumer
 accepts, and signaling pressure is signaling to nobody.
 
 **Excess cheaper than the mechanism.** A limit to calibrate per queue, a counter to follow and a
@@ -151,11 +151,11 @@ sizing.
 
 ## Alternatives
 
-- **[Rate limiting](/05-system-design/rate-limiting.md)** — limit at the entrance instead of
+- **[Rate limiting](/05-system-design/rate-limiting.md)**: limit at the entrance instead of
   reacting at the exit. Preventive, and it requires knowing the capacity.
-- **Scale the consumer** — when the imbalance is one of capacity, not of peaks.
-- **Degrade** — process more cheaply under pressure. It wins when there is a cheaper answer that
-  still serves — an approximate result, without enrichment; when every partial answer is useless,
+- **Scale the consumer**: when the imbalance is one of capacity, not of peaks.
+- **Degrade**: process more cheaply under pressure. It wins when there is a cheaper answer that
+  still serves (an approximate result, without enrichment); when every partial answer is useless,
   discarding is more honest.
 
 ## Trade-offs
@@ -185,7 +185,7 @@ is still small.
 
 **Stalled chain.** Blocking propagates to the origin and stalls everything.
 
-**Growing latency.** The queue grows and the wait time with it — the system "works" and responds too
+**Growing latency.** The queue grows and the wait time with it: the system "works" and responds too
 late to have value.
 
 **Discarding the critical.** With no priority, what matters is lost.
@@ -195,7 +195,7 @@ late to have value.
 ## Common Mistakes
 
 **An in-memory queue with no limit.** The language's default structure asks for no limit, and
-accepting that default is deciding that the excess goes to the heap — work already acknowledged to
+accepting that default is deciding that the excess goes to the heap: work already acknowledged to
 the producer now depends on the process staying alive.
 
 **Not monitoring the depth.** It is the metric that anticipates the problem.
@@ -205,7 +205,7 @@ the wait onto whoever cannot wait: the user gives up, retries, and the load one 
 grows.
 
 **Not classifying what can be discarded.** Without asking the business which data is disposable, the
-discarding ends up decided by arrival order — and the rare, critical event goes out along with the
+discarding ends up decided by arrival order, and the rare, critical event goes out along with the
 repeated telemetry.
 
 **Increasing the buffer as a fix.** It postpones and aggravates.
@@ -219,11 +219,11 @@ database. The queue had no limit.
 
 During a database maintenance that lasted 30 minutes, the processor stopped writing.
 
-The queue grew. In 9 minutes, the process's memory was exhausted and it died — taking with it
+The queue grew. In 9 minutes, the process's memory was exhausted and it died, taking with it
 **all** the positions in memory, including the ones that had been accepted before the maintenance.
 
-On restart, the service started accepting positions again, the queue started growing again — the
-database was still under maintenance — and the process died again, every nine minutes. Three times.
+On restart, the service started accepting positions again, the queue started growing again (the
+database was still under maintenance), and the process died again, every nine minutes, three times.
 
 About 4.3 million positions were lost: three nine-minute buffers, at 160 thousand positions per
 minute. The final three minutes of queue survived and were written when the database came back.
@@ -235,10 +235,10 @@ The fixes changed the strategy, not the buffer size.
 **Discarding the oldest** when the limit is reached. For tracking, a vehicle's most recent position
 is the one that matters; one from 8 minutes ago has little value.
 
-**A durable queue** for what cannot be discarded — the alarm events, which are rare and critical.
+**A durable queue** for what cannot be discarded: the alarm events, which are rare and critical.
 They moved to a separate channel, with persistence.
 
-**A depth alert** above 60% of the limit — which, with the processor stopped and at 160 thousand
+**A depth alert** above 60% of the limit, which, with the processor stopped and at 160 thousand
 positions per minute, gives less than eight seconds before discarding begins. It is not an advance
 warning: it serves to timestamp the start of the discarding, and it is the depth series over the
 days, alongside the counter, that anticipates the imbalance.
@@ -248,20 +248,20 @@ recorded counter, alarms preserved in the durable queue, no process killed, and 
 at the end of the maintenance.
 
 The decision that made that possible was not technical: it was asking the business **which data can
-be lost** — and the answer, that a common position can and an alarm cannot, made it possible to
+be lost**. And the answer, that a common position can and an alarm cannot, made it possible to
 handle the two differently.
 
 ## Related Concepts
 
-- [Queues](/05-system-design/queues.md) — the durable buffer.
-- [Rate Limiting](/05-system-design/rate-limiting.md) — the control at the entrance.
-- [Retries](/06-distributed-systems/retries.md) — which aggravates the pressure when badly
+- [Queues](/05-system-design/queues.md): the durable buffer.
+- [Rate Limiting](/05-system-design/rate-limiting.md): the control at the entrance.
+- [Retries](/06-distributed-systems/retries.md): which aggravates the pressure when badly
   configured.
-- [Reliability](/12-reliability/index.md) — degradation and load shedding.
+- [Reliability](/12-reliability/index.md): degradation and load shedding.
 
 ## Practical Exercise
 
-Look for in-memory queues in your system — buffers, channels, pending work lists. For each one,
+Look for in-memory queues in your system: buffers, channels, pending work lists. For each one,
 check whether there is a limit.
 
 For the ones with none, compute: how long an imbalance can the process take before exhausting
@@ -275,6 +275,6 @@ memory?
 
 ## Further Reading
 
-- Reactive Streams — the backpressure specification for asynchronous streams.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — load shedding and graceful
+- Reactive Streams: the backpressure specification for asynchronous streams.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Load shedding and graceful
   degradation.

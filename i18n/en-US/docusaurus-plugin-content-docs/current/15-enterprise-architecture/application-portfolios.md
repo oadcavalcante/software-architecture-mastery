@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, current-state-architecture, integration-landscapes]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -44,7 +44,7 @@ invisible duplication — two systems doing the same thing
 nobody knows the total cost of ownership of anything
 ```
 
-And the hardest decision — retiring — practically never happens, because it requires
+And the hardest decision, retiring, practically never happens, because it requires
 someone to assert that something can be shut down, with the associated risk.
 
 ## Core Concepts
@@ -66,8 +66,8 @@ low value, poor health    → retire
 ```
 
 The second quadrant is what the assessment exists to find. It contains the risk nobody
-named: systems the business depends on, maintained by few people, on obsolete technology
-— and that don't generate enough incidents to attract attention.
+named: systems the business depends on, maintained by few people, on obsolete technology,
+and that don't generate enough incidents to attract attention.
 
 ### What makes up each dimension
 
@@ -89,7 +89,7 @@ The second line of health is the one that usually dominates real risk and the on
 appears least in technical assessments: a modern system with a single maintainer is more
 fragile than an old system with five.
 
-See [business capabilities](/15-enterprise-architecture/business-capabilities.md) — mapping to capabilities is what
+See [business capabilities](/15-enterprise-architecture/business-capabilities.md): mapping to capabilities is what
 gives you the value dimension.
 
 ### Total cost, not infrastructure cost
@@ -139,7 +139,7 @@ The value dimension cannot be assessed by engineering. A system that looks techn
 marginal may be the one sustaining the most critical process.
 
 And the inverse: a system that consumes a lot of engineering attention may be irrelevant
-to the business — and that finding, reached jointly, is what authorizes reducing
+to the business. And that finding, reached jointly, is what authorizes reducing
 investment in it.
 
 ### The portfolio should be derived where possible
@@ -156,7 +156,7 @@ A portfolio filled in entirely by hand goes stale within months.
 
 And derivation fails silently too: a broken integration, a cloud account outside the
 collection, or a server without an agent stops feeding the inventory without raising an
-error. The collection has to be monitored like any other system — age of the latest data
+error. The collection has to be monitored like any other system; age of the latest data
 per source is the minimum indicator.
 
 ### The assessment has to happen periodically
@@ -174,7 +174,7 @@ two years ago may have lost two of its three maintainers since then, without any
 raising an alert.
 
 An annual review of both dimensions, with health revisited every six months, is what
-keeps the portfolio informative. And part of it can be derived — incident frequency,
+keeps the portfolio informative. And part of it can be derived: incident frequency,
 dependency age, number of people who submitted changes in the last year.
 
 That last metric is a cheap and surprisingly reliable indicator of knowledge
@@ -200,7 +200,7 @@ knows who maintains each thing, a formal inventory costs more than it reveals; o
 assessment, below, delivers the same decisions.
 
 **Nobody with authority to carry out the decisions.** If no one can order a retirement or
-redirect budget, the assessment produces a list of recommendations nobody follows — and
+redirect budget, the assessment produces a list of recommendations nobody follows, and
 the inventory becomes a dead document by the second review.
 
 **The set changing faster than the assessment cycle.** During an ongoing merger or a mass
@@ -210,11 +210,11 @@ stabilizes.
 
 ## Alternatives
 
-- **[Business capabilities](/15-enterprise-architecture/business-capabilities.md)** — the business lens, without the
+- **[Business capabilities](/15-enterprise-architecture/business-capabilities.md)**: the business lens, without the
   per-application detail.
-- **Service catalog** — derived, technical, without assessment. See
+- **Service catalog**: derived, technical, without assessment. See
   [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
-- **On-demand assessment** — assess only what is under discussion, instead of everything.
+- **On-demand assessment**: assess only what is under discussion, instead of everything.
 
 The last one is economical: a complete portfolio of 200 applications is expensive to
 maintain, and most decisions involve few of them at a time.
@@ -260,10 +260,10 @@ maintain, and most decisions involve few of them at a time.
 
 **Accepting self-declared value.** Ask each area to rate its own systems and nearly all
 come out as high value, and the axis stops separating anything. Value needs an anchor:
-the mapping to business capabilities, usage data, or a forced distribution — at most a
-third of the set at the top level.
+the mapping to business capabilities, usage data, or a forced distribution (at most a
+third of the set at the top level).
 
-**Filling everything in by hand.** A manual inventory is out of date the following month. What holds up is what is derived from sources that already exist — cloud, repositories, billing.
+**Filling everything in by hand.** A manual inventory is out of date the following month. What holds up is what is derived from sources that already exist: cloud, repositories, billing.
 
 ## Real-World Example
 
@@ -284,11 +284,11 @@ low value, poor health     44   ← retirement candidates
 Three findings:
 
 **The risk quadrant.** Of the 31, eight had a single maintainer, and three had a
-maintainer with retirement expected in under two years. None of them generated incidents
-— they worked, and for that reason they were invisible.
+maintainer with retirement expected in under two years. None of them generated incidents:
+they worked, and for that reason they were invisible.
 
 **Integration cost.** The 210 applications had 1,400 integrations. One low-value
-application in the bottom quadrant had 38 integrations — the cost of maintaining it was
+application in the bottom quadrant had 38 integrations: the cost of maintaining it was
 far greater than its infrastructure cost.
 
 **Unused applications.** Access monitoring over 120 days showed that 23 of the 44
@@ -305,7 +305,7 @@ The retirement process:
 **Disposal** after the period, with data archived per regulatory retention.
 
 Of the 44 candidates, 31 were retired. Seven revealed consumers during the restriction
-period — all identified without an incident, because restricted access alerted rather
+period, all identified without an incident, because restricted access alerted rather
 than failed. Six were kept for a regulatory retention requirement.
 
 Direct savings: licenses and infrastructure for the 31. Indirect savings, larger: 290
@@ -320,9 +320,9 @@ discussion, because none was breaking.
 
 ## Related Concepts
 
-- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md) — the value dimension.
+- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md): the value dimension.
 - [Current State Architecture](/15-enterprise-architecture/current-state-architecture.md).
-- [Integration Landscapes](/15-enterprise-architecture/integration-landscapes.md) — the hidden cost.
+- [Integration Landscapes](/15-enterprise-architecture/integration-landscapes.md): the hidden cost.
 - [Legacy Modernization](/16-legacy-modernization/index.md).
 
 ## Practical Exercise
@@ -342,5 +342,5 @@ quadrant.
 ## Further Reading
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
-- Gartner. *TIME model* — tolerate, invest, migrate, eliminate.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — application architecture.
+- Gartner. *TIME model*. Tolerate, invest, migrate, eliminate.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Application architecture.

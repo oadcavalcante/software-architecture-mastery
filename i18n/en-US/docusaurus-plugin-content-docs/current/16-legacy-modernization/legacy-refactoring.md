@@ -2,7 +2,7 @@
 id: legacy-refactoring
 title: Legacy Refactoring
 sidebar_position: 6
-description: Improving the structure without understanding everything — with characterization tests as the net.
+description: Improving the structure without understanding everything, with characterization tests as the net.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-systems]
 related: [legacy-systems, incremental-modernization, rebuilding]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ The way out of that cycle is the set of techniques from
 capture the current behavior, and **seams** to insert test points without altering
 behavior.
 
-That makes it possible to improve the structure of a system nobody fully understands —
+That makes it possible to improve the structure of a system nobody fully understands,
 which is the real situation.
 
 ## Problem
@@ -45,7 +45,7 @@ unknown behavior      nobody knows what should happen
 ```
 
 The temptation, faced with that, is to rewrite. See
-[rebuilding](/16-legacy-modernization/rebuilding.md) — it is more expensive and riskier than it looks.
+[rebuilding](/16-legacy-modernization/rebuilding.md): it is more expensive and riskier than it looks.
 
 ## Core Concepts
 
@@ -69,8 +69,8 @@ The procedure:
 5. repeat for the cases that matter
 ```
 
-That looks strange — writing tests that assert the current behavior, including the wrong
-behavior — and that is exactly the point: you don't know what is right, and you need
+That looks strange (writing tests that assert the current behavior, including the wrong
+behavior), and that is exactly the point: you don't know what is right, and you need
 protection before changing anything.
 
 And the resulting tests are documentation: the executable description of what the system
@@ -88,7 +88,7 @@ by linking      replace the implementation at load time
 ```
 
 The technique that opens up most cases: **extract and override**. The problematic
-fragment — a call to an external system, a clock access, a file read — is extracted into
+fragment (a call to an external system, a clock access, a file read) is extracted into
 a method, which the test overrides.
 
 The change is minimal and mechanical, and it makes the code testable without changing the
@@ -132,10 +132,10 @@ protection.
 
 ### Mechanical changes first
 
-Refactorings the tool performs — rename, extract method, move — are low risk even without
+Refactorings the tool performs (rename, extract method, move) are low risk even without
 tests, in a statically typed language: the tool preserves the references the compiler can
 see. It does not see a name used through reflection, inside a string (SQL, serialization,
-configuration, injection by name) or across an external boundary — and in legacy code that
+configuration, injection by name) or across an external boundary. And in legacy code that
 coupling by name is common. Before renaming or moving, search for the name as text.
 
 Using them to make the code comprehensible **before** any behavior change is a cheap
@@ -152,7 +152,7 @@ what makes it possible to decide what to do.
 
 ### When to stop
 
-Legacy refactoring never ends — it is continuous. What needs a criterion is when to stop
+Legacy refactoring never ends: it is continuous. What needs a criterion is when to stop
 within a session:
 
 ```text
@@ -162,7 +162,7 @@ the code is good enough for the change that has to be made
 Chasing the ideal turns a two-day change into a two-week one, and the review becomes
 impossible.
 
-See [incremental modernization](/16-legacy-modernization/incremental-modernization.md) — the limit of opportunistic
+See [incremental modernization](/16-legacy-modernization/incremental-modernization.md): the limit of opportunistic
 refactoring.
 
 ## Mental Model
@@ -193,16 +193,16 @@ risky shortcut is cheaper than the net.
 
 **When the behavior is not deterministically observable.** Output that depends on
 concurrency, arrival order or external state that cannot be pinned down cannot be frozen in
-a characterization test — with no viable net, containment is usually the way out.
+a characterization test. With no viable net, containment is usually the way out.
 
 ## Alternatives
 
-- **[Rebuilding](/16-legacy-modernization/rebuilding.md)** — when the model is wrong.
-- **Containment** — isolate the legacy system behind an interface, without improving it
+- **[Rebuilding](/16-legacy-modernization/rebuilding.md)**: when the model is wrong.
+- **Containment**: isolate the legacy system behind an interface, without improving it
   internally. See
   [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Freeze** — stop changing the module, build the new one outside.
-- **Do nothing** — when the module doesn't change.
+- **Freeze**: stop changing the module, build the new one outside.
+- **Do nothing**: when the module doesn't change.
 
 ## Trade-offs
 
@@ -241,7 +241,7 @@ legitimate change.
 production, and without tests there is no way to tell which change caused it.
 
 **Trying to understand everything before starting.** The change is postponed for weeks, and
-the understanding goes stale before it is used — the code keeps changing while it is being
+the understanding goes stale before it is used: the code keeps changing while it is being
 studied.
 
 **Refactoring the whole system.** The effort becomes a project, competes with product work
@@ -259,7 +259,7 @@ every legitimate refactoring, and the team starts switching them off.
 
 ## Real-World Example
 
-A logistics company had a shipping cost module — 4,000 lines, a main method of 900, with
+A logistics company had a shipping cost module: 4,000 lines, a main method of 900, with
 no tests at all.
 
 Changes there took weeks and produced defects frequently. The internal proposal was to
@@ -272,7 +272,7 @@ new shipping option.
 extracted from production. There were 220 cases, covering the combinations of option,
 region, weight and customer.
 
-The characterization revealed six behaviors nobody knew about — including a discount
+The characterization revealed six behaviors nobody knew about, including a discount
 applied to three specific customers, with identifiers in the code, with no comment.
 
 **Week 2 — seams.** Three rigid dependencies were extracted: the price table lookup, the
@@ -282,7 +282,7 @@ verified by the characterization tests.
 **Week 3 — mechanical refactoring.** The 900-line method was decomposed into 14 named
 methods, using automated extraction. No behavior change; the tests kept passing.
 
-Only at that point did the code become comprehensible — and the revealed structure showed
+Only at that point did the code become comprehensible, and the revealed structure showed
 that the calculation had three clear stages that had been interleaved.
 
 **Week 4 — the change.** The new option was added in about 40 lines, at an extension
@@ -300,20 +300,20 @@ change it.
 
 What was recorded afterwards: the first three weeks delivered nothing visible, and they
 were what made the fourth possible. The proposal to rewrite would have discarded the six
-unknown behaviors — including the active commercial agreement.
+unknown behaviors, including the active commercial agreement.
 
 ## Related Concepts
 
-- [Legacy Systems](/16-legacy-modernization/legacy-systems.md) — the embedded knowledge.
-- [Rebuilding](/16-legacy-modernization/rebuilding.md) — when refactoring is not enough.
+- [Legacy Systems](/16-legacy-modernization/legacy-systems.md): the embedded knowledge.
+- [Rebuilding](/16-legacy-modernization/rebuilding.md): when refactoring is not enough.
 - [Incremental Modernization](/16-legacy-modernization/incremental-modernization.md).
-- [Refactoring](/02-software-design/refactoring.md) — the fundamentals.
+- [Refactoring](/02-software-design/refactoring.md): the fundamentals.
 
 ## Practical Exercise
 
 Choose a piece of untested code your team has to change soon.
 
-Write a characterization test before any change — using the procedure of letting it fail
+Write a characterization test before any change, using the procedure of letting it fail
 to discover the real value. What you find is usually surprising.
 
 ## Interview Questions

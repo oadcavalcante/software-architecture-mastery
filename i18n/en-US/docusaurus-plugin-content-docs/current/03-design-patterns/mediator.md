@@ -2,7 +2,7 @@
 id: mediator
 title: Mediator
 sidebar_position: 16
-description: Centralizing communication between objects — and the risk of the mediator becoming the whole system.
+description: Centralizing communication between objects, and the risk of the mediator becoming the whole system.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observer]
 related: [observer, facade, command]
 canonical_for: [mediator]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Mediator defines an object that encapsulates how a set of objects interact. They stop
 referencing each other directly and communicate through the mediator.
 
-The pattern trades a web of relationships for a star — and the question that decides
+The pattern trades a web of relationships for a star, and the question that decides
 whether that is good is whether the centre of the star stays understandable.
 
 ## Problem
@@ -43,7 +43,7 @@ one place.
 
 ### The structure
 
-Each colleague connects to the mediator twice, there and back: six arrows in all — the
+Each colleague connects to the mediator twice, there and back: six arrows in all, the
 same number that three colleagues knowing each other directly would produce.
 
 ```mermaid
@@ -60,14 +60,14 @@ Each colleague notifies the mediator; it decides what to do and drives the other
 
 A frequent confusion, and the distinction is practical.
 
-**[Observer](/03-design-patterns/observer.md)** — the subject announces and does not
+**[Observer](/03-design-patterns/observer.md)**: the subject announces and does not
 know who reacts. The reactions are independent and the order does not matter.
 
-**Mediator** — knows everyone and coordinates. The order and the dependencies between
+**Mediator**: knows everyone and coordinates. The order and the dependencies between
 the reactions are exactly what it encapsulates.
 
 When order matters and there are dependencies between reactions, Observer is the wrong
-structure — it has nowhere to keep the sequence. Which coordinator takes its place depends
+structure: it has nowhere to keep the sequence. Which coordinator takes its place depends
 on the nature of the coordination, and the Alternatives cover that: a mediator when it is
 interaction among peers, a state machine when it is a transition, an application service
 when it is a use case.
@@ -78,7 +78,7 @@ when it is a use case.
 lines of conditionals that know every colleague.
 
 That is a trade, not a solution: the coupling left the colleagues and moved to the
-centre. If the mediator becomes incomprehensible, the system got worse — before, the
+centre. If the mediator becomes incomprehensible, the system got worse: before, the
 coupling was distributed and locally understandable; now it is concentrated in an
 object nobody can read whole.
 
@@ -89,10 +89,10 @@ rather than only their events and public operations.
 
 Three practices.
 
-Keep the mediator **declarative** where possible — a table of "event X triggers Y and
+Keep the mediator **declarative** where possible: a table of "event X triggers Y and
 Z" is auditable; a chain of conditionals is not.
 
-Split it by area of coordination when it grows — two mediators with distinct scopes
+Split it by area of coordination when it grows: two mediators with distinct scopes
 are better than one that knows everything.
 
 Do not let business rules migrate there. The mediator coordinates; the rule belongs to
@@ -114,7 +114,7 @@ mediator.
 which is simpler.
 
 **When the mediator would know the colleagues' internal details.** That does not reduce
-coupling — it concentrates it.
+coupling; it concentrates it.
 
 **When the coordination is genuinely a business rule.** It belongs to the domain, not
 to an interface coordinator.
@@ -124,12 +124,12 @@ mediator is aggravating the problem, not using the pattern.
 
 ## Alternatives
 
-- **[Observer](/03-design-patterns/observer.md)** — independent reactions.
-- **[Facade](/03-design-patterns/facade.md)** — when the goal is simplifying access,
+- **[Observer](/03-design-patterns/observer.md)**: independent reactions.
+- **[Facade](/03-design-patterns/facade.md)**: when the goal is simplifying access,
   not coordinating interaction.
-- **A state machine** — when the coordination is about transitions. See
+- **A state machine**: when the coordination is about transitions. See
   [State](/03-design-patterns/state.md).
-- **An application service** — when the coordination is a use case, that is where it
+- **An application service**: when the coordination is a use case, that is where it
   belongs.
 
 ## Trade-offs
@@ -173,19 +173,19 @@ does not materialize and the cost is paid.
 enabling, visibility and validation across fields.
 
 **In-process message buses.** Mediator libraries in .NET and equivalents dispatch
-requests to handlers — which is Mediator as a decoupling mechanism, not a coordination
+requests to handlers. That is Mediator as a decoupling mechanism, not a coordination
 one.
 
 **Air traffic controllers.** The classic analogy: aircraft do not coordinate among
 themselves; they talk to the tower.
 
 **Workflow orchestrators.** A coordinator that drives services in order and handles
-failures — that is Mediator at system scale, and the alternative is choreography. See
+failures: that is Mediator at system scale, and the alternative is choreography. See
 [event-driven architecture](/03-design-patterns/event-driven.md).
 
 The last brings the pattern's most important distinction at scale: **orchestration
-versus choreography**. Mediator is orchestration — a centre that knows. Observer is
-choreography — each part reacts to what it sees. The choice between the two reappears
+versus choreography**. Mediator is orchestration: a centre that knows. Observer is
+choreography: each part reacts to what it sees. The choice between the two reappears
 in sagas and in service integration.
 
 ## Real-World Example
@@ -203,19 +203,19 @@ others to recompute when it changes. The loop became impossible because the tabl
 acyclic and that is verified.
 
 Eighteen months later, the mediator had grown to 280 lines and became hard to read
-again — because eligibility rules had migrated there.
+again, because eligibility rules had migrated there.
 
 The second fix extracted eligibility into the domain. The mediator went back to doing
 only interface coordination, and settled at 90 lines.
 
 The pattern worked both times. What failed in between was letting business rules
-migrate into the coordinator — which is the predicted mode of degeneration.
+migrate into the coordinator. That is the predicted mode of degeneration.
 
 ## Related Concepts
 
-- [Observer](/03-design-patterns/observer.md) — choreography rather than orchestration.
-- [Facade](/03-design-patterns/facade.md) — simplify access, not coordinate.
-- [State](/03-design-patterns/state.md) — when the coordination is about transitions.
+- [Observer](/03-design-patterns/observer.md): choreography rather than orchestration.
+- [Facade](/03-design-patterns/facade.md): simplify access, not coordinate.
+- [State](/03-design-patterns/state.md): when the coordination is about transitions.
 
 ## Practical Exercise
 
@@ -235,5 +235,5 @@ many are business rules.
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003
-  — orchestration and choreography at system scale.
+- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003.
+  Orchestration and choreography at system scale.

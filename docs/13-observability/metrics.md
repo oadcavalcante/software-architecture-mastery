@@ -2,7 +2,7 @@
 id: metrics
 title: Métricas
 sidebar_position: 2
-description: Números agregados com custo constante — e a cardinalidade, que é o que os torna caros.
+description: Números agregados com custo constante, e a cardinalidade, que é o que os torna caros.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, golden-signals, dashboards]
 canonical_for: [métrica, contador, medidor, histograma, cardinalidade de métrica]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -68,7 +68,7 @@ registra tudo e a taxa é derivada.
 
 E histograma para latência de requisições sob tráfego contínuo: a latência de uma
 requisição individual não tem significado agregado, a distribuição tem. Medidor só
-serve quando há uma medição por período — a duração da última execução de um job em
+serve quando há uma medição por período: a duração da última execução de um job em
 lote, por exemplo.
 
 ### Percentis não somam
@@ -84,7 +84,7 @@ A + B em sequência: p99 ≠ 200 ms
 Percentis de fontes diferentes não podem ser somados nem promediados. A média dos p99
 de dez instâncias **não é** o p99 do serviço.
 
-Isso exige que os histogramas sejam agregados corretamente — somando os intervalos, não
+Isso exige que os histogramas sejam agregados corretamente, somando os intervalos, não
 os percentis calculados. Sistemas que armazenam apenas o percentil calculado por
 instância não permitem agregação correta.
 
@@ -102,13 +102,13 @@ mau rótulo    muitos valores, ilimitados, imprevisíveis
 ```
 
 O caso da URL completa é o mais insidioso: `/pedidos/4471` como rótulo cria uma série
-por pedido. A rota precisa ser o padrão — `/pedidos/{id}` — não o valor.
+por pedido. A rota precisa ser o padrão (`/pedidos/{id}`), não o valor.
 
 E há um efeito de composição: dois rótulos de cardinalidade média multiplicam. Cem
 valores em um e cem no outro produzem dez mil séries.
 
-Quando a pergunta genuinamente exige alta cardinalidade — "quais clientes específicos
-estão sofrendo?" —, a resposta são [logs](/13-observability/logs.md) ou [traces](/13-observability/traces.md), não
+Quando a pergunta genuinamente exige alta cardinalidade ("quais clientes específicos
+estão sofrendo?"), a resposta são [logs](/13-observability/logs.md) ou [traces](/13-observability/traces.md), não
 métricas.
 
 ### Agregação perde informação, irreversivelmente
@@ -132,7 +132,7 @@ consegue investigá-los.
 Pedidos por minuto, contratações por hora, valor transacionado.
 
 Elas detectam o que as métricas técnicas não detectam: um sistema tecnicamente saudável
-que parou de fazer o que deveria — porque uma integração quebrou, uma regra ficou
+que parou de fazer o que deveria, porque uma integração quebrou, uma regra ficou
 errada, ou um botão sumiu da interface.
 
 E são as que comunicam com o negócio. Um alerta de "pedidos caíram 40% em relação ao
@@ -145,8 +145,8 @@ Ver [sinais dourados](/13-observability/golden-signals.md) e [SLI](/12-reliabili
 Uma métrica criada para investigar um problema específico permanece depois que o
 problema foi resolvido.
 
-Elas acumulam, custam, e enchem painéis. A revisão periódica — quais métricas não são
-consultadas nem alertadas há doze meses — costuma permitir remover uma fração
+Elas acumulam, custam, e enchem painéis. A revisão periódica (quais métricas não são
+consultadas nem alertadas há doze meses) costuma permitir remover uma fração
 significativa.
 
 ## Modelo Mental
@@ -167,7 +167,7 @@ que separa as duas.
 
 **Quando a dimensão que interessa tem valores ilimitados.** Se o produto dos rótulos
 passa de algumas dezenas de milhares de séries por métrica, cada valor novo é uma série
-nova e o custo deixa de ser constante — é o caso do identificador de cliente, de pedido
+nova e o custo deixa de ser constante. É o caso do identificador de cliente, de pedido
 ou de sessão. A dimensão vai para um campo de log ou atributo de trace.
 
 **Quando a pergunta é sobre um caso específico.** A agregação acontece na coleta; o
@@ -180,16 +180,16 @@ consulta servem melhor, ao custo de armazenamento maior.
 
 ## Alternativas
 
-- **[Logs](/13-observability/logs.md)** — para contexto individual e cardinalidade alta.
-- **[Traces](/13-observability/traces.md)** — para o caminho e a decomposição do tempo.
-- **Eventos agregáveis** — armazenar eventos ricos e agregar na consulta, em vez de
+- **[Logs](/13-observability/logs.md)**: para contexto individual e cardinalidade alta.
+- **[Traces](/13-observability/traces.md)**: para o caminho e a decomposição do tempo.
+- **Eventos agregáveis**: armazenar eventos ricos e agregar na consulta, em vez de
   agregar na coleta. Custa mais armazenamento e preserva a capacidade de fazer
   perguntas novas.
-- **Exemplares** — métricas que carregam ponteiros para traces representativos,
+- **Exemplares**: métricas que carregam ponteiros para traces representativos,
   ligando o agregado ao individual.
 
 A última merece nota: não é alternativa às métricas, é recurso do próprio sistema de
-métricas — resolve parcialmente a perda de informação da agregação sem abrir mão do
+métricas. Resolve parcialmente a perda de informação da agregação sem abrir mão do
 custo constante.
 
 ## Trade-offs
@@ -225,17 +225,17 @@ atraso.
 
 **Coleta com atraso.** A métrica chega tarde demais para alertar.
 
-**Reinício zerando contador** sem que o sistema trate — produz taxa negativa.
+**Reinício zerando contador** sem que o sistema trate: produz taxa negativa.
 
 ## Erros Comuns
 
-**Usar identificador como rótulo.** Identificador de usuário ou de pedido cria uma série temporal por valor. É a explosão de cardinalidade — o custo do sistema de métricas cresce sem limite e ele para de responder.
+**Usar identificador como rótulo.** Identificador de usuário ou de pedido cria uma série temporal por valor. É a explosão de cardinalidade: o custo do sistema de métricas cresce sem limite e ele para de responder.
 
 **URL completa em vez de padrão de rota.** `/pedidos/8231` gera uma série por pedido; `/pedidos/{id}` gera uma. É a forma mais comum de explodir cardinalidade sem perceber.
 
 **Média para latência.** Não é possível reconstruir percentis a partir de médias, então a informação da cauda é perdida no momento da coleta e não volta.
 
-**Não instrumentar métricas de negócio.** Pedidos por minuto detecta incidente que nenhuma métrica técnica pega — como o fluxo que passou a falhar em silêncio no lado do cliente.
+**Não instrumentar métricas de negócio.** Pedidos por minuto detecta incidente que nenhuma métrica técnica pega, como o fluxo que passou a falhar em silêncio no lado do cliente.
 
 **Não revisar métricas obsoletas.** Séries que ninguém consulta continuam sendo coletadas e armazenadas, e o custo cresce por acúmulo sem nenhum benefício.
 
@@ -247,7 +247,7 @@ Uma plataforma de assinaturas teve o sistema de métricas indisponível por 6 ho
 meio de um incidente.
 
 A causa: uma métrica adicionada duas semanas antes incluía o identificador do plano do
-cliente como rótulo. Os planos eram poucos — cerca de vinte. Mas o campo usado era o
+cliente como rótulo. Os planos eram poucos: cerca de vinte. Mas o campo usado era o
 identificador da **assinatura**, não do plano, por um erro de nomenclatura no código.
 
 Com 340 mil assinaturas ativas, a métrica gerou 340 mil séries temporais. O sistema
@@ -262,27 +262,27 @@ As correções:
 métrica mal instrumentada passou a falhar sozinha, sem derrubar o resto.
 
 **Revisão de rótulos** em todas as métricas. Foram encontrados mais três casos de alta
-cardinalidade — URL completa em vez de rota, em dois serviços, e identificador de
+cardinalidade: URL completa em vez de rota, em dois serviços, e identificador de
 sessão em um.
 
 **Divisão de trabalho explícita**, documentada: métricas para agregado, logs para
 individual. A métrica que motivou o problema foi substituída por um campo no evento
 canônico de log.
 
-**Exemplares** ligando as métricas de latência a traces representativos — o que resolveu
+**Exemplares** ligando as métricas de latência a traces representativos, o que resolveu
 a necessidade original que levou alguém a adicionar o identificador como rótulo.
 
 **Revisão semestral** de métricas não consultadas. A primeira removeu 40% delas.
 
 O que a equipe aprendeu: o erro que causou tudo foi um nome de variável trocado. O que
-o transformou em incidente de 6 horas foi não haver limite de cardinalidade — uma
+o transformou em incidente de 6 horas foi não haver limite de cardinalidade: uma
 proteção que o sistema de métricas oferecia e ninguém tinha configurado.
 
 ## Conceitos Relacionados
 
-- [Logs](/13-observability/logs.md) — para o individual.
-- [Traces](/13-observability/traces.md) — para o caminho.
-- [Sinais Dourados](/13-observability/golden-signals.md) — o que instrumentar.
+- [Logs](/13-observability/logs.md): para o individual.
+- [Traces](/13-observability/traces.md): para o caminho.
+- [Sinais Dourados](/13-observability/golden-signals.md): o que instrumentar.
 - [Alertas](/13-observability/alerting.md).
 
 ## Exercício Prático
@@ -301,6 +301,6 @@ de cardinalidade em formação.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 10.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 10.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
 - OpenTelemetry — especificação de métricas.

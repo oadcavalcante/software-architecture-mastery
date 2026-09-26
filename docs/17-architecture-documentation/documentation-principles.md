@@ -2,7 +2,7 @@
 id: documentation-principles
 title: Princípios de Documentação
 sidebar_position: 1
-description: O que decide se a documentação vai ser lida — leitor, propósito e o nível de detalhe que sobrevive.
+description: "O que decide se a documentação vai ser lida: leitor, propósito e o nível de detalhe que sobrevive."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [living-documentation, architecture-views, diagram-quality]
 canonical_for: [leitor da documentação, meia-vida da documentação, documentação sob demanda]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -21,10 +21,10 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-A pergunta que decide se um documento vai ser lido não é sobre conteúdo. É: **quem vai
+A pergunta que decide se um documento vai ser lido é: **quem vai
 ler, e que pergunta essa pessoa tem?**
 
-Documentação escrita sem essa resposta é escrita para "documentar" — e produz artefatos
+Documentação escrita sem essa resposta é escrita para "documentar", e produz artefatos
 que ninguém procura, porque não foram feitos para responder a nada.
 
 O segundo critério é temporal: o nível de detalhe determina quanto tempo o documento
@@ -42,7 +42,7 @@ sem dono
 consultada nunca
 ```
 
-Seis meses depois ela está errada. Um ano depois, ela é perigosa — porque quem a
+Seis meses depois ela está errada. Um ano depois, ela é perigosa, porque quem a
 encontra assume que ela descreve o sistema.
 
 E a reação típica ao perceber isso é produzir mais documentação, com mais rigor. O
@@ -81,7 +81,7 @@ detalhe de implementação   semanas
 ```
 
 Isso não significa nunca documentar detalhe. Significa saber que documentar detalhe cria
-uma obrigação de manutenção — e decidir se ela vale.
+uma obrigação de manutenção, e decidir se ela vale.
 
 A regra prática: **documente à mão o que envelhece devagar; derive o que envelhece
 rápido.** Ver
@@ -108,7 +108,7 @@ o que foi tentado e não funcionou
 Ver [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 Um comentário de três linhas explicando por que um trecho estranho existe vale mais que
-uma página descrevendo o que ele faz — porque o que ele faz está ali, e o porquê não.
+uma página descrevendo o que ele faz, porque o que ele faz está ali, e o porquê não.
 
 ### Perto do código, não num repositório separado
 
@@ -122,7 +122,7 @@ em ferramenta separada  atualizada por alguém que lembra
 O critério prático: **a documentação muda no mesmo commit que a mudança que a torna
 desatualizada?** Se não, ela vai divergir.
 
-Isso não impede publicá-la em outro lugar — a fonte fica no repositório, e a publicação é
+Isso não impede publicá-la em outro lugar: a fonte fica no repositório, e a publicação é
 derivada.
 
 ### Documentação sob demanda
@@ -138,8 +138,8 @@ ninguém pergunta       →  não havia necessidade
 Isso garante leitor e pergunta reais, e evita o custo de documentar o que ninguém quer
 saber.
 
-O limite: ela falha para o conhecimento que só se descobre necessário quando é tarde — o
-porquê de uma decisão, depois que quem a tomou saiu. Esse tipo precisa ser registrado no
+O limite: ela falha para o conhecimento que só se descobre necessário quando é tarde (o
+porquê de uma decisão, depois que quem a tomou saiu). Esse tipo precisa ser registrado no
 momento, não sob demanda.
 
 ### Menos, e correto
@@ -154,7 +154,7 @@ duvidosa        as pessoas verificam no código — e o documento vira custo pur
 E há um efeito de contaminação: um documento errado num conjunto reduz a confiança em
 todos.
 
-Isso favorece a estratégia de manter pouco e manter bem — com data de revisão visível, e
+Isso favorece a estratégia de manter pouco e manter bem, com data de revisão visível, e
 com o que não é mantido removido em vez de deixado para trás.
 
 ### O custo de manter é o custo real
@@ -172,7 +172,7 @@ A terceira linha é a que a maior parte das organizações escolhe sem perceber.
 aparece em nenhum planejamento, e reaparece como incidente, retrabalho e desconfiança.
 
 Isso dá um critério de decisão antes de escrever qualquer documento: **quem vai manter
-isto, e com qual gatilho?** Sem resposta, o documento nasce com prazo de validade curto — e
+isto, e com qual gatilho?** Sem resposta, o documento nasce com prazo de validade curto, e
 o melhor a fazer costuma ser escrever menos.
 
 ## Modelo Mental
@@ -190,12 +190,12 @@ só a escrita humana captura.
 ## Quando Não Usar
 
 **Quando o detalhe que se pretende escrever muda mais rápido que o ciclo de revisão.** Todo
-nível de detalhe cria uma obrigação recorrente, e o detalhe fino é o que envelhece primeiro —
+nível de detalhe cria uma obrigação recorrente, e o detalhe fino é o que envelhece primeiro,
 porque é o que mais muda. Aí o caminho é derivá-lo, não escrevê-lo.
 
 **Quando o conhecimento ainda não foi descoberto.** Documentação sob demanda tem um limite:
-ela só registra o que alguém já perguntou. Para o que se descobre tarde — a razão de uma
-restrição, o que se tentou e não funcionou —, esperar a pergunta significa perder a resposta
+ela só registra o que alguém já perguntou. Para o que se descobre tarde (a razão de uma
+restrição, o que se tentou e não funcionou), esperar a pergunta significa perder a resposta
 junto com quem a tinha.
 
 **Quando não há resposta para "quem mantém, e com qual gatilho".** Sem as duas, o documento
@@ -208,11 +208,11 @@ segunda fonte que vai divergir, e a divergência custa mais que a ausência.
 
 ## Alternativas
 
-- **Código legível** — nomes e estrutura que dispensam explicação do que faz.
-- **Testes como especificação** — descrevem o comportamento de forma verificável. Ver
+- **Código legível**: nomes e estrutura que dispensam explicação do que faz.
+- **Testes como especificação**: descrevem o comportamento de forma verificável. Ver
   [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
-- **Registros de decisão** — o porquê, no formato próprio.
-- **Sessões de transferência** — quando o conhecimento é tácito e a escrita não captura.
+- **Registros de decisão**: o porquê, no formato próprio.
+- **Sessões de transferência**: quando o conhecimento é tácito e a escrita não captura.
 
 A última é subestimada: alguns tipos de conhecimento se transferem melhor por
 acompanhamento que por documento.
@@ -253,7 +253,7 @@ comportamento a mexer no texto, e a divergência só aparece quando alguém conf
 
 **Documentar tudo no mesmo nível.** O que muda toda semana e o que não muda há três anos merecem tratamentos opostos: um vira verificação automatizada, o outro vira texto.
 
-**Não datar nem indicar responsável.** Sem os dois, o leitor não sabe se pode confiar nem a quem perguntar — e assume que está atualizado.
+**Não datar nem indicar responsável.** Sem os dois, o leitor não sabe se pode confiar nem a quem perguntar, e assume que está atualizado.
 
 **Manter documentação que ninguém confia.** Um documento sabidamente errado é pior que a ausência dele, porque induz decisão errada em quem não sabia que estava errado.
 
@@ -282,7 +282,7 @@ projetos.
 
 A reformulação:
 
-**Os 300 foram removidos.** Não arquivados — removidos, com o histórico preservado no
+**Os 300 foram removidos.** Não arquivados: removidos, com o histórico preservado no
 sistema de versão. Manter reduzia a confiança no conjunto.
 
 **Um documento por sistema**, no repositório do próprio sistema, com estrutura fixa:
@@ -314,10 +314,10 @@ acervo que ninguém consultava e em que ninguém confiava.
 
 ## Conceitos Relacionados
 
-- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — como manter.
-- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md) — organizar por leitor.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md): como manter.
+- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md): organizar por leitor.
 - [Qualidade de Diagrama](/17-architecture-documentation/diagram-quality.md).
-- [Decisões de Arquitetura](/18-architecture-decisions/index.md) — o porquê.
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md): o porquê.
 
 ## Exercício Prático
 

@@ -2,7 +2,7 @@
 id: managed-services
 title: Serviços Gerenciados
 sidebar_position: 7
-description: Comprar operação em vez de fazê-la — a decisão econômica central da nuvem, e o que ela cobra depois.
+description: "Comprar operação em vez de fazê-la: a decisão econômica central da nuvem, e o que ela cobra depois."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [vendor-lock-in, cost-architecture, serverless, managed-vs-self-hosted]
 canonical_for: [serviço gerenciado, autogerido, custo total de operação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -27,7 +27,7 @@ instala, atualiza, replica, faz cópia de segurança, monitora e recupera.
 Você paga mais por unidade de recurso e deixa de fazer o trabalho.
 
 É a decisão econômica central da nuvem, e ela costuma ser tomada pelo critério
-errado — comparando preço de lista com o custo de uma máquina, em vez de comparar
+errado: comparando preço de lista com o custo de uma máquina, em vez de comparar
 **custo total de operação**.
 
 ## Problema
@@ -45,7 +45,7 @@ configuração e teste de cópia de segurança, réplica, plano de recuperação
 sobreaviso e o tempo de alguém aprender a fazer tudo isso.
 
 Uma fração de uma pessoa dedicada a isso custa mais que a diferença. E a
-comparação honesta é essa — não preço contra preço.
+comparação honesta é essa, não preço contra preço.
 
 ## Conceitos Centrais
 
@@ -57,7 +57,7 @@ gerenciado, esse alguém é do provedor.
 **Atualização e correção.** A esteira de segurança de um banco autogerido é
 trabalho contínuo e obrigatório. Adiar acumula risco.
 
-**Cópia de segurança testada.** Não a que existe — a que já foi restaurada. Ver
+**Cópia de segurança testada.** Não a que existe, mas a que já foi restaurada. Ver
 [replicação de dados](/07-data-architecture/data-replication.md).
 
 **Conhecimento profundo.** Ajustar um banco sob carga exige experiência específica
@@ -76,7 +76,7 @@ algumas opções simplesmente não são expostas.
 **Extensões e recursos.** Uma extensão de banco que você usa pode não estar
 disponível.
 
-**Janela de manutenção.** O provedor reinicia quando decide, dentro da janela — e
+**Janela de manutenção.** O provedor reinicia quando decide, dentro da janela, e
 sua aplicação precisa tolerar isso.
 
 **Diagnóstico profundo.** Sem acesso à máquina, certos problemas viram ticket de
@@ -95,7 +95,7 @@ Trabalho que não diferencia deve ser comprado quando comprável. Isso libera as
 pessoas para o que só elas podem fazer.
 
 A exceção honesta: em escala muito grande, a diferença de preço passa a pagar um
-time dedicado — e aí autogerir volta a fazer sentido, com números na mesa.
+time dedicado. E aí autogerir volta a fazer sentido, com números na mesa.
 
 ### Gerenciado não é infalível
 
@@ -113,7 +113,7 @@ serviços têm retenção padrão curta.
 ausente. Ver [indexação](/07-data-architecture/indexing.md).
 
 **O provedor tem incidentes.** Com o serviço numa única região e num único
-fornecedor, a única ação é esperar — o que precisa estar no plano. O que muda essa
+fornecedor, a única ação é esperar. Isso precisa estar no plano. O que muda essa
 condição é redundância paga à parte: [multi-região](/09-cloud-architecture/multi-region.md)
 e [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
@@ -149,7 +149,7 @@ delas vale mais aplicado a outra coisa, a troca é boa.
 
 **Quando o componente é o diferencial.**
 
-**Quando o serviço não atende um requisito específico** — versão, extensão,
+**Quando o serviço não atende um requisito específico**: versão, extensão,
 configuração.
 
 **Em escala onde a diferença paga um time**, com os números verificados.
@@ -157,17 +157,17 @@ configuração.
 **Quando a dependência é inaceitável.** Ver
 [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
-**Quando a exigência de durabilidade passa do teto do serviço** — retenção
+**Quando a exigência de durabilidade passa do teto do serviço**: retenção
 regulatória maior que o máximo configurável, ou multi-zona que o plano contratado
 não expõe.
 
 ## Alternativas
 
-- **Autogerido** — controle total, trabalho total.
-- **Gerenciado por terceiro** — não pelo provedor de nuvem; reduz a dependência de
+- **Autogerido**: controle total, trabalho total.
+- **Gerenciado por terceiro**: não pelo provedor de nuvem; reduz a dependência de
   um único fornecedor mantendo o benefício operacional.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — o grau seguinte.
-- **Código aberto com operador** — no [Kubernetes](/09-cloud-architecture/kubernetes.md), automatiza parte
+- **[Serverless](/09-cloud-architecture/serverless.md)**: o grau seguinte.
+- **Código aberto com operador**: no [Kubernetes](/09-cloud-architecture/kubernetes.md), automatiza parte
   da operação sem sair do controle. Custo intermediário, e alguém ainda precisa
   operar o operador.
 
@@ -222,7 +222,7 @@ infraestrutura era cerca de 40% do que seria com serviços gerenciados.
 
 O levantamento do que isso consumia, feito ao longo de um trimestre:
 
-**1,5 pessoa equivalente** dedicada a operação desses quatro componentes —
+**1,5 pessoa equivalente** dedicada a operação desses quatro componentes:
 atualizações, ajuste, incidentes, cópias.
 
 **14 incidentes** no ano, dos quais 9 relacionados a esses componentes.
@@ -231,13 +231,13 @@ atualizações, ajuste, incidentes, cópias.
 pendentes, porque a atualização exigia janela que nunca era priorizada.
 
 **Restauração nunca testada.** A primeira tentativa, feita durante o levantamento,
-falhou — o procedimento documentado estava desatualizado.
+falhou: o procedimento documentado estava desatualizado.
 
 A migração para gerenciado foi feita em três dos quatro componentes:
 
 **Banco, cache e fila** migrados. A fatura de infraestrutura subiu, e a conta total
-caiu: cerca de 1,1 das 1,5 pessoa voltou para o produto — a busca continuou
-consumindo o restante —, e os incidentes dos três componentes migrados, 7 dos 9,
+caiu: cerca de 1,1 das 1,5 pessoa voltou para o produto (a busca continuou
+consumindo o restante), e os incidentes dos três componentes migrados, 7 dos 9,
 foram para 1 no ano seguinte.
 
 **Busca permaneceu autogerida.** O serviço gerenciado disponível não suportava um
@@ -247,24 +247,24 @@ deliberada, registrada, com o custo operacional aceito.
 Dois problemas na migração:
 
 **Retenção de cópia.** O padrão do serviço gerenciado era 7 dias. O requisito
-regulatório era 5 anos. Foi configurado — e só foi percebido porque alguém
+regulatório era 5 anos. Foi configurado, e só foi percebido porque alguém
 perguntou; a suposição era "o gerenciado cuida disso".
 
 **Janela de manutenção.** O provedor reiniciava a instância durante a janela, e a
 aplicação não tolerava reconexão. Três incidentes até o tratamento de reconexão
 ser implementado.
 
-O que a equipe registra: a comparação que sustentava a decisão anterior — 40% do
-preço — era verdadeira e irrelevante. Ninguém tinha colocado o custo das pessoas na
+O que a equipe registra: a comparação que sustentava a decisão anterior (40% do
+preço) era verdadeira e irrelevante. Ninguém tinha colocado o custo das pessoas na
 mesma planilha, porque ele já estava pago.
 
 ## Conceitos Relacionados
 
-- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md) — o outro lado.
-- [Serverless](/09-cloud-architecture/serverless.md) — o grau seguinte.
+- [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md): o outro lado.
+- [Serverless](/09-cloud-architecture/serverless.md): o grau seguinte.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
-- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md) — a conta detalhada.
-- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — o que verificar.
+- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md): a conta detalhada.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md): o que verificar.
 
 ## Exercício Prático
 

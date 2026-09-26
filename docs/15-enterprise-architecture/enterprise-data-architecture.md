@@ -2,7 +2,7 @@
 id: enterprise-data-architecture
 title: Arquitetura de Dados Corporativa
 sidebar_position: 4
-description: Dados que atravessam sistemas — propriedade, dados mestres e o custo da ausência de decisão.
+description: "Dados que atravessam sistemas: propriedade, dados mestres e o custo da ausência de decisão."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [integration-landscapes, application-architecture, data-ownership]
 canonical_for: [dados mestres, fragmentação de dados, fluxo de dados corporativo, sistema de registro]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Os fundamentos de dados estão em
 [arquitetura de dados](/07-data-architecture/index.md). Aqui interessa o que muda no
 nível organizacional: **dados que atravessam sistemas**.
 
-A decisão central é de propriedade — qual sistema é a fonte da verdade de cada dado — e
+A decisão central é de propriedade (qual sistema é a fonte da verdade de cada dado), e
 ela é, entre todas as decisões de arquitetura corporativa, a de maior alcance e a menos
 tomada explicitamente.
 
@@ -66,14 +66,14 @@ sistema de registro   detém o dado, aceita escrita, é autoritativo
 consumidor            lê, mantém cópia se precisar, nunca é autoritativo
 ```
 
-Isso não significa banco único — significa **autoridade única**. Cópias podem existir
+Isso não significa banco único. Significa **autoridade única**. Cópias podem existir
 para desempenho ou autonomia; elas são derivadas, e a divergência se resolve sempre a
 favor da fonte.
 
 Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 A decisão de qual sistema é o registro de cada entidade é o núcleo desta área, e ela
-frequentemente não existe — os sistemas se estabeleceram como fonte por acidente
+frequentemente não existe: os sistemas se estabeleceram como fonte por acidente
 histórico.
 
 ### Dados mestres são o caso difícil
@@ -105,7 +105,7 @@ resolve bem.
 **Hub com sincronização.** Um sistema central que reconcilia e distribui. Complexo, e a
 reconciliação nunca é perfeita.
 
-A primeira é a que mais frequentemente funciona e a menos considerada — porque exige
+A primeira é a que mais frequentemente funciona e a menos considerada, porque exige
 escolher um sistema existente, o que gera disputa política.
 
 ### A fragmentação tem um custo mensurável
@@ -120,7 +120,7 @@ integrações mantidas apenas para sincronizar
 oportunidades perdidas por não conseguir responder perguntas
 ```
 
-Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md) — uma fração alta das
+Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md): uma fração alta das
 integrações de uma organização existe apenas para propagar dados que estão duplicados.
 
 ### Fluxo importa tanto quanto propriedade
@@ -152,7 +152,7 @@ medição contínua               não uma auditoria anual
 processo de correção           quem corrige, em quanto tempo
 ```
 
-Ver [consistência de dados](/07-data-architecture/data-consistency.md) — a
+Ver [consistência de dados](/07-data-architecture/data-consistency.md): a
 reconciliação periódica é o mecanismo que torna a qualidade verificável.
 
 ### Dados analíticos precisam de propriedade também
@@ -194,15 +194,15 @@ leitura síncrona dos consumidores nem pode ser reforçado, declará-lo fonte tr
 divergência para indisponibilidade. Resolva a capacidade antes, ou aceite a fragmentação
 por enquanto.
 
-**Dado local de um sistema.** Nem todo dado precisa de fonte única — o que só um sistema
+**Dado local de um sistema.** Nem todo dado precisa de fonte única: o que só um sistema
 usa é dele.
 
 ## Alternativas
 
-- **Registro por consenso** — declarar um sistema existente como fonte.
+- **Registro por consenso**: declarar um sistema existente como fonte.
 - **Serviço dedicado de dados mestres.**
-- **Consolidação virtual** — índice sem mover dados.
-- **Aceitar a fragmentação** — decisão legítima quando o custo de resolver supera o de
+- **Consolidação virtual**: índice sem mover dados.
+- **Aceitar a fragmentação**: decisão legítima quando o custo de resolver supera o de
   conviver, desde que registrada.
 
 A última merece consideração séria: consolidar dados mestres é um projeto de anos, e nem
@@ -225,8 +225,8 @@ sempre se paga.
 
 A dependência da primeira tabela é operacional. A fonte vira dependência de
 disponibilidade de todo consumidor que escreve ou lê o dado, e precisa de SLO à altura
-do mais exigente deles. Cada consumidor precisa decidir o que faz quando ela cai —
-recusar a operação, ou seguir com a cópia e aceitar dado velho —, e as cópias derivadas
+do mais exigente deles. Cada consumidor precisa decidir o que faz quando ela cai
+(recusar a operação, ou seguir com a cópia e aceitar dado velho), e as cópias derivadas
 precisam de política de invalidação: expiração por tempo, ou evento de mudança publicado
 pela fonte.
 
@@ -254,7 +254,7 @@ sistemas para um armazenamento só, o custo explode, e a iniciativa morre antes 
 declarar qualquer fonte.
 
 **Criar hub como solução.** Sem decidir quem é dono de cada campo, o hub vira mais um
-cadastro divergente — a reconciliação passa a ter dez lados em vez de nove.
+cadastro divergente: a reconciliação passa a ter dez lados em vez de nove.
 
 **Não medir o custo da fragmentação.** Sem número, a decisão de propriedade perde toda
 disputa de prioridade para funcionalidade nova.
@@ -279,20 +279,20 @@ impossível responder quantos pacientes únicos a rede atendia
 uma multa regulatória por dados inconsistentes em relatório
 ```
 
-Nove sistemas, e nenhum era a fonte — cada um se considerava.
+Nove sistemas, e nenhum era a fonte: cada um se considerava.
 
 A abordagem escolhida foi registro por consenso: o sistema de agendamento, que já tinha o
 cadastro mais completo e era o ponto de entrada da maioria dos pacientes, foi declarado a
 fonte.
 
-Isso gerou disputa — três áreas defenderam que o sistema delas deveria ser a fonte — e a
+Isso gerou disputa (três áreas defenderam que o sistema delas deveria ser a fonte), e a
 decisão foi tomada com critério declarado: onde o dado nasce com mais frequência, e onde
 a qualidade é maior.
 
 A execução, em fases:
 
 **Fase 1.** Os outros oito sistemas passaram a ler da fonte, mantendo os cadastros
-próprios para escrita — e cada escrita local passou a ser enviada também à fonte. Em
+próprios para escrita, e cada escrita local passou a ser enviada também à fonte. Em
 conflito, prevalecia o valor da fonte, e o caso ia para uma fila de revisão. Isso já
 reduziu divergências visíveis ao paciente.
 
@@ -316,14 +316,14 @@ fonte levou quatro meses de negociação, e ela era o pré-requisito de tudo.
 
 ## Conceitos Relacionados
 
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — os fundamentos.
-- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md) — o custo da propagação.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): os fundamentos.
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md): o custo da propagação.
 - [Arquitetura de Aplicação](/15-enterprise-architecture/application-architecture.md).
 - [Consistência de Dados](/07-data-architecture/data-consistency.md).
 
 ## Exercício Prático
 
-Escolha uma entidade central da sua organização — cliente, produto — e liste em quantos
+Escolha uma entidade central da sua organização (cliente, produto) e liste em quantos
 sistemas ela existe.
 
 Depois pergunte, para cada um: este é a fonte, ou uma cópia? Se mais de um responder

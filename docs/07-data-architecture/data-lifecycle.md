@@ -2,7 +2,7 @@
 id: data-lifecycle
 title: Ciclo de Vida do Dado
 sidebar_position: 21
-description: Retenção, arquivamento e apagamento — as decisões que ninguém toma até a conta ou o regulador chegar.
+description: "Retenção, arquivamento e apagamento: as decisões que ninguém toma até a conta ou o regulador chegar."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-ownership, data-partitioning, data-lakes]
 canonical_for: [ciclo de vida do dado, política de retenção, arquivamento, apagamento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -34,7 +34,7 @@ existir.
 
 ## Problema
 
-"Guardar tudo" não é uma decisão — é a ausência de uma.
+"Guardar tudo" não é uma decisão, é a ausência de uma.
 
 E ela tem custos que se acumulam:
 
@@ -62,7 +62,7 @@ apagado      não existe mais
 A transição entre eles deveria ser automática e baseada em política, não em alguém
 lembrar.
 
-A maioria dos sistemas tem apenas o primeiro estágio — e uma tabela que só cresce.
+A maioria dos sistemas tem apenas o primeiro estágio, e uma tabela que só cresce.
 
 ### Retenção é decisão de negócio e jurídica
 
@@ -103,21 +103,21 @@ exigem decisão de arquitetura antes, não depois.
 Quando o dado histórico tem valor analítico e o dado pessoal não pode ser mantido,
 a saída é remover o que identifica e preservar o resto.
 
-A saída só vale se for anonimização de fato, e não pseudonimização — a diferença, e
+A saída só vale se for anonimização de fato, e não pseudonimização. A diferença, e
 por que "removemos o nome" não basta, está em
 [proteção de dados](/10-security/data-protection.md#pseudonimização-e-anonimização-não-são-a-mesma-coisa).
 
 O que o ciclo de vida acrescenta: dado pseudonimizado continua pessoal e continua
 sujeito ao máximo de retenção; só o anonimizado sai do relógio. Por isso a
-anonimização é uma transição com data — executada quando o prazo do dado pessoal
-vence —, e quando a análise precisa só de totais, a
+anonimização é uma transição com data (executada quando o prazo do dado pessoal
+vence), e quando a análise precisa só de totais, a
 agregação é a transição mais segura, porque descarta o detalhe que permitiria
 reidentificar.
 
 ### Criptografia por titular resolve o caso imutável
 
-Para dados que não podem ser apagados fisicamente — event sourcing, arquivos
-imutáveis — a técnica é a
+Para dados que não podem ser apagados fisicamente (event sourcing, arquivos
+imutáveis), a técnica é a
 [cifragem por titular](/10-security/encryption.md#cifragem-por-titular-resolve-o-apagamento):
 apagar passa a ser descartar a chave, e retroagir exige reescrever o histórico.
 
@@ -136,7 +136,7 @@ Nada disso é possível sem saber onde os dados estão.
 Um inventário mínimo por conjunto: quais dados pessoais contém, qual a base legal,
 qual a retenção definida, quem é o [dono](/07-data-architecture/data-ownership.md), quais são as cópias.
 
-Sem isso, uma solicitação de apagamento não pode ser atendida com honestidade — o
+Sem isso, uma solicitação de apagamento não pode ser atendida com honestidade: o
 que se responde é "apagamos onde achamos".
 
 ## Modelo Mental
@@ -164,7 +164,7 @@ registrada de guardar.
 
 **Dado sob obrigação de preservação.** Litígio, investigação ou fiscalização em
 curso congelam o apagamento daquele conjunto ou titular. O ciclo automático não se
-aplica enquanto durar a obrigação — apagar nesse período é destruição de prova —, e
+aplica enquanto durar a obrigação (apagar nesse período é destruição de prova), e
 por isso a política precisa de um mecanismo de suspensão antes de precisar dele.
 
 **Sistema com desligamento datado.** Se o sistema sai de operação em meses e os
@@ -174,11 +174,11 @@ já deveria ter sido apagado.
 
 ## Alternativas
 
-- **Arquivamento** — mover para armazenamento frio em vez de apagar.
-- **Anonimização** — preservar valor analítico sem dado pessoal.
-- **Agregação** — guardar o resumo e descartar o detalhe.
-- **Criptografia por titular** — para armazenamentos imutáveis.
-- **Retenção por partição** — descarte instantâneo. Ver
+- **Arquivamento**: mover para armazenamento frio em vez de apagar.
+- **Anonimização**: preservar valor analítico sem dado pessoal.
+- **Agregação**: guardar o resumo e descartar o detalhe.
+- **Criptografia por titular**: para armazenamentos imutáveis.
+- **Retenção por partição**: descarte instantâneo. Ver
   [particionamento](/07-data-architecture/data-partitioning.md).
 
 ## Trade-offs
@@ -218,7 +218,7 @@ entrar na conta.
 ## Erros Comuns
 
 **Não definir retenção.** O padrão vira guardar para sempre, e a primeira discussão
-de prazo acontece sob pressão — na conta que dobrou ou no pedido de exclusão que não
+de prazo acontece sob pressão: na conta que dobrou ou no pedido de exclusão que não
 se consegue atender.
 
 **Definir retenção só na engenharia, sem o jurídico.** A engenharia escolhe um
@@ -230,7 +230,7 @@ warehouse, no índice de busca e nas cópias de segurança; a resposta ao titula
 "apagado" e não é verdade.
 
 **Arquivar sem testar a recuperação.** Formato obsoleto, mídia falha ou chave
-perdida só se revelam no dia em que uma auditoria ou um processo pede o dado — e aí
+perdida só se revelam no dia em que uma auditoria ou um processo pede o dado, e aí
 o arquivo é dado perdido.
 
 **Tratar remoção do nome como anonimização.** O conjunto é mantido além do prazo
@@ -257,8 +257,8 @@ apagado.
 O custo aparecia de forma difusa: a conta de armazenamento e de cópias de segurança
 crescia junto com o volume, e a manutenção de índices da tabela de pedidos já não
 cabia na janela noturna. Ninguém tratava isso como problema de política até que a
-solicitação de exclusão de um único cliente levou cinco semanas para ser respondida
-— e foi respondida de forma incompleta.
+solicitação de exclusão de um único cliente levou cinco semanas para ser respondida,
+e foi respondida de forma incompleta.
 
 A resposta travou em dois pontos que só existiam porque o dado nunca tinha saído do
 primeiro estágio:
@@ -289,7 +289,7 @@ reduzida de 1 ano para 90 dias.
 resolvia a necessidade real dos analistas.
 
 **Processo de apagamento** automatizado, cobrindo os sistemas próprios, com
-procedimento documentado para os terceiros — e trilha de auditoria do que foi
+procedimento documentado para os terceiros, e trilha de auditoria do que foi
 apagado.
 
 A leitura que a equipe faz: a solicitação era de um único cliente. O trabalho que ela
@@ -298,20 +298,20 @@ existisse desde o início.
 
 ## Conceitos Relacionados
 
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — quem decide a retenção.
-- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — descarte eficiente.
-- [Data Lake](/07-data-architecture/data-lakes.md) — onde o problema é mais difícil.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): quem decide a retenção.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md): descarte eficiente.
+- [Data Lake](/07-data-architecture/data-lakes.md): onde o problema é mais difícil.
 - [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
-- [Proteção de Dados](/10-security/data-protection.md) — pseudonimização,
+- [Proteção de Dados](/10-security/data-protection.md): pseudonimização,
   anonimização e o inventário do ponto de vista da segurança.
-- [Criptografia](/10-security/encryption.md) — cifragem por titular.
-- [Gestão de Chaves](/10-security/key-management.md) — por que descartar chave é
+- [Criptografia](/10-security/encryption.md): cifragem por titular.
+- [Gestão de Chaves](/10-security/key-management.md): por que descartar chave é
   exceção, e não regra.
 
 ## Exercício Prático
 
 Escolha um conjunto de dados pessoais do seu sistema e liste **todos** os lugares
-onde ele existe — incluindo cópias de segurança, registros de aplicação e
+onde ele existe, incluindo cópias de segurança, registros de aplicação e
 exportações.
 
 Depois pergunte quanto tempo levaria para apagá-lo de todos. A resposta é a medida
@@ -325,8 +325,8 @@ da sua exposição.
 
 ## Para Aprofundar
 
-- Lei Geral de Proteção de Dados (Lei 13.709/2018) — princípios de necessidade e
+- Lei Geral de Proteção de Dados (Lei 13.709/2018): princípios de necessidade e
   de finalidade.
 - Sweeney, Latanya. *Simple Demographics Often Identify People Uniquely*, 2000.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
-  capítulo 12.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
+  Capítulo 12.

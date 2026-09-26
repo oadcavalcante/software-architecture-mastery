@@ -2,7 +2,7 @@
 id: correlation-ids
 title: Correlation Identifiers
 sidebar_position: 5
-description: The section's cheapest technique — and the prerequisite for investigating anything in a distributed system.
+description: The section's cheapest technique, and the prerequisite for investigating anything in a distributed system.
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, debuggability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A correlation identifier is a unique value generated at a request's entry point and **propagated** through
 every component that takes part in serving it.
 
-With it, you can gather every log, every message and every event belonging to the same operation — even if
+With it, you can gather every log, every message and every event belonging to the same operation, even if
 they passed through twelve services and three queues.
 
 The cost of putting it in place is low next to that of full distributed tracing, and it is a prerequisite
@@ -39,7 +39,7 @@ With no correlation, the investigation goes like this: search the order service'
 that time; find candidates; search the payment service for nearby logs; try to match by time and by user
 identifier; repeat for each service in the chain.
 
-That takes hours, frequently does not conclude, and gets worse with volume — at peak hours, there are
+That takes hours, frequently does not conclude, and gets worse with volume: at peak hours, there are
 hundreds of operations per second and nothing distinguishes one from another.
 
 With correlation, it is one query.
@@ -62,13 +62,13 @@ Many products display that value in error messages for that reason.
 
 ### Accept the caller's identifier
 
-If the caller already has an identifier — because the call is part of a larger operation — it should be
+If the caller already has an identifier (because the call is part of a larger operation), it should be
 reused, not replaced.
 
 That allows correlating across organizational boundaries: a partner who sends their identifier makes the
 operation traceable on both sides.
 
-The rule: accept it if it comes; generate it if it does not. And, for safety, validate the format — an
+The rule: accept it if it comes; generate it if it does not. And, for safety, validate the format: an
 identifier coming from outside enters logs and queries, and it is worth treating as untrusted input.
 
 ### The asynchronous hops are where the propagation breaks
@@ -98,8 +98,8 @@ a session identifier      groups the user's journey
 a user identifier         allows seeing everything from one person
 ```
 
-The distinction between the first two matters: one business operation can involve several requests — a
-retry, a subsequent asynchronous call. The request one separates them; the correlation one gathers them.
+The distinction between the first two matters: one business operation can involve several requests (a
+retry, a subsequent asynchronous call). The request one separates them; the correlation one gathers them.
 
 See [distributed tracing](/13-observability/distributed-tracing.md), which formalizes that with traces and
 spans.
@@ -149,7 +149,7 @@ separate story.
 
 ## When Not to Use
 
-**When there is already end-to-end distributed tracing.** Correlation is its minimal subset — keeping a
+**When there is already end-to-end distributed tracing.** Correlation is its minimal subset: keeping a
 scheme of your own alongside it duplicates propagation, header and instrumentation to answer the same
 question with less information.
 
@@ -157,7 +157,7 @@ question with less information.
 operation, and the identifier crosses nothing.
 
 **When the chain that matters passes through a third party that does not forward the header.** The
-identifier dies there, and what is left is partial coverage — worse than none, because it gives confidence
+identifier dies there, and what is left is partial coverage, worse than none, because it gives confidence
 where there is none. If the critical hop is precisely that one, the effort pays off better in
 reconciliation by business key.
 
@@ -166,11 +166,11 @@ has no guarantee of eternal uniqueness and it belongs to no aggregate.
 
 ## Alternatives
 
-- **[Distributed tracing](/13-observability/distributed-tracing.md)** — the complete version, with the
+- **[Distributed tracing](/13-observability/distributed-tracing.md)**: the complete version, with the
   call structure and timings. Correlation is its minimal subset.
-- **Correlation by time and user** — what you do with no identifier. Slow, imprecise and unviable at
+- **Correlation by time and user**: what you do with no identifier. Slow, imprecise and unviable at
   volume.
-- **A business identifier** — an order number, for example. It works for investigating that domain, and it
+- **A business identifier**: an order number, for example. It works for investigating that domain, and it
   does not cover what happens before it exists.
 
 ## Trade-offs
@@ -225,13 +225,13 @@ The purchase flow passed through seven services and two queues. The logs existed
 they did not connect.
 
 The typical investigation: take the approximate time the customer gave, search each service, try to match
-by time and by the customer's document number — which appeared in some logs and not in others.
+by time and by the customer's document number, which appeared in some logs and not in others.
 
 Implementing correlation took three weeks:
 
 **Generation at the gateway**, accepting an external identifier when present.
 
-**A context propagated automatically** by a shared library, including the queue hops — the identifier came
+**A context propagated automatically** by a shared library, including the queue hops: the identifier came
 to travel in the message's metadata.
 
 **Automatic inclusion in the logs**, without depending on the developer remembering.
@@ -248,7 +248,7 @@ implementations. Standardizing required a period of accepting all of them.
 **Background work with no context.** Processes triggered by a scheduler had no originating request. The
 solution was generating an identifier per run and explicitly recording what originated it.
 
-**The customer's document number used as correlation** in two services — which spread personal data through
+**The customer's document number used as correlation** in two services. That spread personal data through
 logs and through a third party's system. Replaced by an opaque identifier.
 
 Three weeks of work eliminated, on their own, the largest source of time spent on investigation. No tool
@@ -256,8 +256,8 @@ was bought.
 
 ## Related Concepts
 
-- [Distributed Tracing](/13-observability/distributed-tracing.md) — the complete version.
-- [Logs](/13-observability/logs.md) — where the identifier needs to appear.
+- [Distributed Tracing](/13-observability/distributed-tracing.md): the complete version.
+- [Logs](/13-observability/logs.md): where the identifier needs to appear.
 - [Debuggability](/13-observability/debuggability.md).
 - [Auditability](/10-security/auditability.md).
 
@@ -265,7 +265,7 @@ was bought.
 
 Take an error reported by a user and try to reconstruct the request's complete path through your logs.
 
-How long it takes — and how much you can reconstruct — is the measure of your current correlation.
+How long it takes, and how much you can reconstruct, is the measure of your current correlation.
 
 ## Interview Questions
 
@@ -277,7 +277,7 @@ How long it takes — and how much you can reconstruct — is the measure of you
 
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing Infrastructure*. Google,
   2010.
-- W3C. *Trace Context*, Recommendation, 2021 — standardizes `traceparent` and `tracestate`, which carry
+- W3C. *Trace Context*, Recommendation, 2021. Standardizes `traceparent` and `tracestate`, which carry
   **trace** context; it does not define a generic correlation header. Level 2 remains a candidate
   recommendation draft.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.

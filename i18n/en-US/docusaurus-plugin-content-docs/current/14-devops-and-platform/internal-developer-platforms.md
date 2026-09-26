@@ -2,7 +2,7 @@
 id: internal-developer-platforms
 title: Internal Developer Platforms
 sidebar_position: 11
-description: The paved road's implementation — self-service, with what the developer actually needs.
+description: "The paved road's implementation: self-service, with what the developer actually needs."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [platform-engineering]
 related: [platform-engineering, environment-management, ci-cd]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ An internal developer platform is the concrete implementation of the paved road:
 teams consume by **self-service**, with no dependence on anybody.
 
 The defining word is *self-service*. A platform where creating an environment requires opening a ticket is
-not a platform — it is an infrastructure team with a new name.
+not a platform. It is an infrastructure team with a new name.
 
 See [platform engineering](/14-devops-and-platform/platform-engineering.md) for the discipline; here, what
 it delivers and how.
@@ -96,12 +96,12 @@ infrastructure   what that service uses
 It answers questions that, without it, require asking people: who owns this? who depends on this service?
 what breaks if I change this?
 
-To do that it needs to be **derived** — from the pipeline, the infrastructure declaration, the observed
-traffic — not filled in by hand. Updating a manual catalog is on the path of no delivery, so it drifts as
+To do that it needs to be **derived** (from the pipeline, the infrastructure declaration, the observed
+traffic), not filled in by hand. Updating a manual catalog is on the path of no delivery, so it drifts as
 fast as services are born, change owners and die; and a catalog that answers wrong is worse than none,
 because whoever consults it stops asking people.
 
-See [data ownership](/07-data-architecture/data-ownership.md) — it is the same principle applied to
+See [data ownership](/07-data-architecture/data-ownership.md): it is the same principle applied to
 services.
 
 ### The interaction model decides the adoption
@@ -115,7 +115,7 @@ a declaration in the repository  versioned, reviewable, integrated into the flow
 The third is what sustains daily use: the team declares what it needs in a file, alongside the code, and
 the platform converges. See [infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md).
 
-The portal is complementary — for discovering what exists and for rare actions.
+The portal is complementary: for discovering what exists and for rare actions.
 
 Platforms that offer **only** a portal produce a predictable behavior: people automate around it, with
 direct API calls, and the platform loses the control the portal was supposed to give.
@@ -132,7 +132,7 @@ one-off cases             that only one team needs
 The last deserves attention: a platform that absorbs every exception becomes a product with hundreds of
 parameters, impossible to maintain.
 
-The correct answer for the one-off case is stepping off the paved road — the team implements it, and the
+The correct answer for the one-off case is stepping off the paved road: the team implements it, and the
 platform stays simple.
 
 ### Deprecation needs to be planned
@@ -148,7 +148,7 @@ tracking who still uses it
 
 See [integration contracts](/08-integration-architecture/integration-contracts.md).
 
-Platforms that break teams with no notice lose their trust — and recovering takes far longer than breaking
+Platforms that break teams with no notice lose their trust, and recovering takes far longer than breaking
 it.
 
 ## Mental Model
@@ -167,8 +167,8 @@ in the code, not in a person.
 
 **With no self-service.** A ticket is not a platform.
 
-**With few consuming teams.** The platform has a fixed cost — a dedicated team maintaining the template,
-the provisioning and the catalog — and what it eliminates is duplication across teams. With three or four
+**With few consuming teams.** The platform has a fixed cost (a dedicated team maintaining the template,
+the provisioning and the catalog), and what it eliminates is duplication across teams. With three or four
 teams, the duplication is smaller than that cost; the math is in
 [platform engineering](/14-devops-and-platform/platform-engineering.md).
 
@@ -182,11 +182,11 @@ is in operating what already exists.
 
 ## Alternatives
 
-- **Template repositories** — the minimum viable: an example with everything configured, copied by the
+- **Template repositories**: the minimum viable, an example with everything configured, copied by the
   teams.
-- **Shared libraries and modules** — standards in code, with no platform.
-- **A commercial platform** — buying it. See [SaaS](/09-cloud-architecture/saas.md).
-- **An enabling team** — building capability instead of abstracting.
+- **Shared libraries and modules**: standards in code, with no platform.
+- **A commercial platform**: buying it. See [SaaS](/09-cloud-architecture/saas.md).
+- **An enabling team**: building capability instead of abstracting.
 
 The first is underestimated: a well-maintained template repository, with the pipeline, telemetry and
 deployment ready, delivers a good part of a platform's value at a fraction of the cost.
@@ -228,21 +228,21 @@ documented manual path and a production deployment able to run without the porta
 
 ## Common Mistakes
 
-**Not offering real self-service** — the ticket queue stays, and teams keep avoiding creating services.
+**Not offering real self-service**: the ticket queue stays, and teams keep avoiding creating services.
 
-**A hand-filled catalog** — it drifts, stops answering who owns what, and the answer goes back to asking
+**A hand-filled catalog**: it drifts, stops answering who owns what, and the answer goes back to asking
 people.
 
-**Having no programmable interface** — teams automate around it, with direct API calls, and the platform
+**Having no programmable interface**: teams automate around it, with direct API calls, and the platform
 loses the control it should have.
 
-**Accepting every special case** — each exception becomes a parameter, and the platform reaches the
+**Accepting every special case**: each exception becomes a parameter, and the platform reaches the
 Real-World Example's 20 unmaintainable parameters.
 
-**Not planning deprecation** — the removal breaks teams with no notice, and the lost trust takes longer to
+**Not planning deprecation**: the removal breaks teams with no notice, and the lost trust takes longer to
 come back than the removed capability.
 
-**Not reviewing the template's defaults** — they propagate to everything that is created.
+**Not reviewing the template's defaults**: they propagate to everything that is created.
 
 ## Real-World Example
 
@@ -268,8 +268,8 @@ The platform was built in phases, prioritized by the time each stage consumed:
 **Phase 1 — service creation.** A template generating the repository, pipeline, deployment, telemetry and
 alerts configured. From 8 days to 4 minutes.
 
-**Phase 2 — infrastructure by declaration.** The team declares in a file what it needs — a database, a
-queue, a cache — and the platform provisions it, with limits and tagging applied automatically. From 5 days
+**Phase 2 — infrastructure by declaration.** The team declares in a file what it needs (a database, a
+queue, a cache), and the platform provisions it, with limits and tagging applied automatically. From 5 days
 to 10 minutes.
 
 **Phase 3 — self-service secrets**, with permissions derived from the service. From 3 days to about 1
@@ -295,15 +295,15 @@ cases step off the paved road, with the platform delivering the generated config
 point.
 
 The point the team underlines: the behavior change was larger than the time change. With service creation
-in minutes, the teams came to decompose appropriately — and the bloated services problem, which was treated
+in minutes, the teams came to decompose appropriately. And the bloated services problem, which was treated
 as an architecture question, was a consequence of the friction.
 
 ## Related Concepts
 
-- [Platform Engineering](/14-devops-and-platform/platform-engineering.md) — the discipline.
+- [Platform Engineering](/14-devops-and-platform/platform-engineering.md): the discipline.
 - [Environment Management](/14-devops-and-platform/environment-management.md).
 - [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md).
-- [Least Privilege](/10-security/least-privilege.md) — the template's defaults.
+- [Least Privilege](/10-security/least-privilege.md): the template's defaults.
 
 ## Practical Exercise
 

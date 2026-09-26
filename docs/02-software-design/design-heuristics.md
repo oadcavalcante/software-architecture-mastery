@@ -2,7 +2,7 @@
 id: design-heuristics
 title: Heurísticas de Design
 sidebar_position: 18
-description: Regras práticas que orientam sem prescrever — e por que heurística é o formato certo para design.
+description: Regras práticas que orientam sem prescrever, e por que heurística é o formato certo para design.
 doc_type: foundation
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [solid, kiss, design-patterns]
 canonical_for: [heurísticas de design, design heuristics]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -32,22 +32,22 @@ responsabilidade", "funções devem ser curtas", "prefira composição a heranç
 
 Regras têm duas propriedades ruins nesse domínio.
 
-**Não admitem exceção sem virar hipocrisia.** Quando o caso não encaixa — e casos
-não encaixam com frequência — o time contorna em silêncio. A regra deixa de ser
+**Não admitem exceção sem virar hipocrisia.** Quando o caso não encaixa (e casos
+não encaixam com frequência), o time contorna em silêncio. A regra deixa de ser
 discutível, o que é pior do que não tê-la.
 
 **Escondem o raciocínio.** Quem segue uma regra não aprende a decidir. Diante de
 uma situação nova, não tem nada.
 
 Heurística resolve os dois. Ela vem com a força do argumento explícita, o que
-permite pesá-la contra outras considerações — e o exercício de pesar é o que
+permite pesá-la contra outras considerações, e o exercício de pesar é o que
 desenvolve julgamento.
 
 O que ela introduz é o custo do formato: heurística não é verificável. Uma regra
 passa por linter e por revisão sem discussão; uma heurística exige julgamento a
 cada aplicação e dá cobertura a quem prefere não exercê-lo ("é heurística, não se
 aplica aqui"). Para quem ainda não tem julgamento formado, a regra rende mais no
-curto prazo — o que ela não rende é o julgamento.
+curto prazo. O que ela não rende é o julgamento.
 
 ## Conceitos Centrais
 
@@ -61,8 +61,8 @@ prioridade:
 3. **Não contém duplicação.**
 4. **Tem o mínimo de elementos.**
 
-A ordem é a parte que importa. Quando 3 e 4 conflitam com 2, a intenção vence —
-o que legitima duplicação que torna o código mais claro. É a versão mais enxuta
+A ordem é a parte que importa. Quando 3 e 4 conflitam com 2, a intenção vence.
+Isso legitima duplicação que torna o código mais claro. É a versão mais enxuta
 de tudo o que [SOLID](/02-software-design/solid.md) e [Clean Code](/02-software-design/clean-code.md) tentam capturar.
 
 A ordem entre 2 e 3 não é consensual: a 2ª edição (2004) reapresenta os mesmos
@@ -133,7 +133,7 @@ primeira aplicação.
 **Coletar heurísticas sem entender os argumentos.** Vira lista de slogans.
 
 **Achar que o conflito entre elas é um problema a resolver.** Leva a podar o
-conjunto até sobrar uma heurística por situação — que é a regra de volta, com
+conjunto até sobrar uma heurística por situação, o que é a regra de volta, com
 outro nome.
 
 **Aplicar sem verificar o contexto.** Toda heurística tem uma faixa. "Espere a
@@ -147,21 +147,21 @@ até que se aponte o custo concreto.
 
 Uma revisão de código travou entre duas posições, ambas defensáveis.
 
-*Posição A:* a lógica de validação está duplicada em dois módulos — extraia para
+*Posição A:* a lógica de validação está duplicada em dois módulos. Extraia para
 um módulo comum. Heurística invocada: não duplique conhecimento.
 
-*Posição B:* os dois módulos pertencem a contextos diferentes e vão divergir —
-mantenha separado. Heurística invocada: duplicação é mais barata que a abstração
+*Posição B:* os dois módulos pertencem a contextos diferentes e vão divergir.
+Mantenha separado. Heurística invocada: duplicação é mais barata que a abstração
 errada.
 
 Nenhuma das duas está errada. O impasse se resolveu com uma terceira heurística:
-*coisas que mudam juntas ficam juntas* — reformulada como pergunta empírica.
+*coisas que mudam juntas ficam juntas*, reformulada como pergunta empírica.
 
 O histórico respondeu: nos catorze meses anteriores, as duas validações haviam
 sido alteradas cinco vezes, sempre separadamente, e por pedidos de áreas
 diferentes.
 
-A posição B venceu, e a duplicação foi anotada com a razão — para que a próxima
+A posição B venceu, e a duplicação foi anotada com a razão, para que a próxima
 pessoa não a "corrigisse".
 
 O que resolveu não foi eleger a heurística mais forte. Foi encontrar a que podia
@@ -169,15 +169,15 @@ ser verificada com dado.
 
 ## Conceitos Relacionados
 
-- [KISS](/02-software-design/kiss.md) e [YAGNI](/02-software-design/yagni.md) — duas heurísticas em detalhe.
-- [SOLID](/02-software-design/solid.md) — cinco heurísticas frequentemente lidas como regras.
-- [Clean Code](/02-software-design/clean-code.md) — o conjunto local.
-- [Trade-offs](/20-trade-offs/index.md) — o que fazer quando duas conflitam.
+- [KISS](/02-software-design/kiss.md) e [YAGNI](/02-software-design/yagni.md): duas heurísticas em detalhe.
+- [SOLID](/02-software-design/solid.md): cinco heurísticas frequentemente lidas como regras.
+- [Clean Code](/02-software-design/clean-code.md): o conjunto local.
+- [Trade-offs](/20-trade-offs/index.md): o que fazer quando duas conflitam.
 
 ## Exercício Prático
 
 Escreva as cinco heurísticas que você de fato usa ao tomar decisões de design.
-Não as que acha que deveria usar — as que usa.
+Não as que acha que deveria usar, mas as que usa.
 
 Para cada uma, escreva o argumento por trás e um caso em que ela não se aplica.
 
@@ -192,8 +192,8 @@ provavelmente estão mal formuladas.
 
 ## Para Aprofundar
 
-- Beck, Kent. *Extreme Programming Explained*. Addison-Wesley, 1999 (2ª ed., 2004)
-  — as quatro regras de design simples.
+- Beck, Kent. *Extreme Programming Explained*. Addison-Wesley, 1999 (2ª ed., 2004).
+  As quatro regras de design simples.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
-- Riel, Arthur. *Object-Oriented Design Heuristics*. Addison-Wesley, 1996 — o
+- Riel, Arthur. *Object-Oriented Design Heuristics*. Addison-Wesley, 1996. O
   catálogo clássico.

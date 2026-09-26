@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vendor-lock-in]
 related: [managed-vs-self-hosted, build-vs-buy, simplicity-vs-flexibility]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 Using a provider's services deeply delivers speed and capability the portable layer does not
-have. Keeping portability preserves the option to change, at the cost of giving up part of that —
+have. Keeping portability preserves the option to change, at the cost of giving up part of that,
 every day.
 
 ```text
@@ -32,7 +32,7 @@ real axis   what is the real probability of migrating, and what is the exit cost
 
 Portability is **insurance**: a premium paid continuously against a rare event. Like any
 insurance, it is justified when the continuous premium is low relative to the probability of
-migrating times the exit cost — and not when the fear is large. All three terms are needed: a
+migrating times the exit cost, and not when the fear is large. All three terms are needed: a
 large claim with negligible probability justifies no premium at all, which is the mistake this
 document is about.
 
@@ -55,8 +55,8 @@ how much does portability cost per month, in speed and unused capability?
 ```
 
 Without them, the decision is made out of aversion, and the typical result is an architecture that
-avoids everything the provider offers at its best — queues, functions, managed databases, identity
-— and reimplements worse versions of the same things, to preserve an option that will never be
+avoids everything the provider offers at its best (queues, functions, managed databases, identity)
+and reimplements worse versions of the same things, to preserve an option that will never be
 exercised.
 
 The symmetric error exists and is rarer: deep, unevaluated dependency on a proprietary service
@@ -80,7 +80,7 @@ proprietary data and AI
   services                 very low      very high
 ```
 
-That allows a decision **per component** instead of a global one — and the per-component decision
+That allows a decision **per component** instead of a global one, and the per-component decision
 is almost always superior, because it concentrates the premium where it is cheap.
 
 See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
@@ -95,7 +95,7 @@ migrating.
 
 The estimates below are of **rewrite effort** and assume a data volume that fits a weekend
 cutover window. Above that, the dominant item is not rewriting: it is egress, and it needs its own
-line — volume, egress price, and window.
+line (volume, egress price, and window).
 
 ```text
 component                estimated migration effort
@@ -123,7 +123,7 @@ use the provider's identity          weeks
 keep it portable                     build or operate identity
 ```
 
-The premium is not only infrastructure cost — it is engineering time diverted from the product,
+The premium is not only infrastructure cost: it is engineering time diverted from the product,
 and capability not used. It is continuous and invisible, which is the combination that makes bad
 decisions survive.
 
@@ -142,8 +142,8 @@ meanwhile, it prevented the use of the better capabilities
 It is the same mechanism as [simplicity vs. flexibility](/20-trade-offs/simplicity-vs-flexibility.md):
 an abstraction built from one case has the shape of that case.
 
-What works better is to **isolate** — concentrate the use of the proprietary service in a small,
-identifiable module — without generalizing. The cost is nearly zero and the benefit during
+What works better is to **isolate** (concentrate the use of the proprietary service in a small,
+identifiable module) without generalizing. The cost is nearly zero and the benefit during
 migration is nearly the same.
 
 ### Portability that is almost always worth it
@@ -159,7 +159,7 @@ observability with an open protocol
 ```
 
 All of them reduce the dependency surface, and the capability sacrificed is small enough to make
-them the default — with two known exceptions: a workload that depends on a proprietary extension
+them the default, with two known exceptions: a workload that depends on a proprietary extension
 or engine does not fit the standard engine, and a recently launched service usually reaches the
 multi-provider tool months after the provider. In both cases, the exception is identifiable before
 deciding.
@@ -180,7 +180,7 @@ dissatisfaction with reliability very low     rarely motivates a full migration
 customer requirement            low           partial multi-provider
 ```
 
-The first is the most common and does not require migration — it requires **credibility that
+The first is the most common and does not require migration: it requires **credibility that
 migration is possible**, which is different and cheaper to obtain.
 
 ### Which way the team erred
@@ -197,7 +197,7 @@ ask why proprietary service X is not used
 ```
 
 The third answer is rare, and it is the target. The first two have something in common: no
-number — one fears without estimating, the other forbids without comparing.
+number (one fears without estimating, the other forbids without comparing).
 
 ### Cost of changing your mind
 
@@ -206,7 +206,7 @@ portable → native   cheap: start using what is already available
 native → portable   expensive: extract the dependency after it has spread
 ```
 
-The asymmetry favors portability — but with an important correction: the cost of "native →
+The asymmetry favors portability, but with an important correction: the cost of "native →
 portable" drops a lot if the proprietary use is **isolated** from the start.
 
 That resolves the dilemma in practice: isolate without abstracting, use the provider deeply, and
@@ -221,7 +221,7 @@ cost where it is not, and do not pay for a claim that almost never happens.
 
 Prefer **portability** when:
 
-- It costs little — containers, standard engines, open protocols.
+- It costs little: containers, standard engines, open protocols.
 - There is a contractual or regulatory requirement for multi-provider.
 - There is a concrete probability of migration, with a deadline.
 - The component is critical and the provider's alternative is proprietary.
@@ -235,7 +235,7 @@ Prefer **native** when:
 
 ## When Not to Use
 
-**As a global decision** — the answer is per component.
+**As a global decision**: the answer is per component.
 
 **With preventive abstraction** built from one provider.
 
@@ -247,12 +247,12 @@ Prefer **native** when:
 
 ## Alternatives
 
-- **Isolate without abstracting** — an identifiable module, with no generic layer. It wins when
+- **Isolate without abstracting**: an identifiable module, with no generic layer. It wins when
   the probability of migrating is low but not zero and the service has a functionally equivalent
   substitute: it costs days and removes most of the extraction effort.
-- **Selective portability** — in the layers where it is cheap, native in the rest.
-- **Real multi-provider** — expensive; justifiable only with a concrete requirement.
-- **Native with a documented exit cost** — use it deeply, and keep the estimate up to date.
+- **Selective portability**: in the layers where it is cheap, native in the rest.
+- **Real multi-provider**: expensive; justifiable only with a concrete requirement.
+- **Native with a documented exit cost**: use it deeply, and keep the estimate up to date.
 
 The last is underestimated: knowing that leaving costs four months is different from fearing that
 it is impossible, and it is enough to negotiate.
@@ -340,8 +340,8 @@ observability                    2 weeks
 exit from the 2021 architecture  ~7 weeks
 ```
 
-Seven weeks. That was the claim covered by a premium of 4.5 permanent engineers and delivery 2.3×
-slower — and the disproportion between the two is the finding that opened the discussion.
+Seven weeks was the claim covered by a premium of 4.5 permanent engineers and delivery 2.3×
+slower, and the disproportion between the two is the finding that opened the discussion.
 
 Then for the scenario the policy existed to avoid: the same company having adopted the provider's
 identity and functions, with no isolation.
@@ -380,7 +380,7 @@ an exit cost estimated and recorded in an ADR, reviewed annually.
 **Consolidated exit estimate** presented to the board annually, as a formal answer to the original
 concern.
 
-**Multi-provider only where required by contract** — two customers had that clause, and only for
+**Multi-provider only where required by contract**: two customers had that clause, and only for
 their own data storage.
 
 Results after 18 months:
@@ -395,7 +395,7 @@ consolidated exit cost, estimated                  ~11 months
 
 The exit cost **rose**, and it matters to say from what to what: from seven weeks to eleven
 months. The comparison against the nine months of the hypothetical scenario does not hold, because
-that scenario never existed — comparing today's real against yesterday's hypothetical is the kind
+that scenario never existed: comparing today's real against yesterday's hypothetical is the kind
 of arithmetic that makes a decision look better than it was.
 
 The eleven months break down like this:
@@ -415,7 +415,7 @@ Two readings come out of the table. The first is that isolation did what it prom
 functions, which without isolation would add up to thirty weeks, add up to sixteen. The second is
 that this did not stop the total from rising, because the reform adopted three proprietary
 services the old policy would not let exist. Isolating does not make the exit cheaper in absolute
-terms — it keeps the cost **estimable and contained in the module**, instead of diffuse across the
+terms; it keeps the cost **estimable and contained in the module**, instead of diffuse across the
 system. That is a smaller promise than "portability", and it is the one that gets kept.
 
 This was presented to the board along with the other numbers, and accepted: eleven months of exit,
@@ -429,7 +429,7 @@ entire cloud.
 
 - [Vendor Lock-in](/09-cloud-architecture/vendor-lock-in.md).
 - [Managed vs. Self-Hosted](/20-trade-offs/managed-vs-self-hosted.md).
-- [Simplicity vs. Flexibility](/20-trade-offs/simplicity-vs-flexibility.md) — the same optionality
+- [Simplicity vs. Flexibility](/20-trade-offs/simplicity-vs-flexibility.md): the same optionality
   mechanism.
 - [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md).
 

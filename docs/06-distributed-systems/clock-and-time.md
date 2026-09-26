@@ -2,7 +2,7 @@
 id: clock-and-time
 title: Relógio e Tempo
 sidebar_position: 34
-description: Por que não existe "agora" compartilhado — e por que marcas de tempo não ordenam eventos.
+description: Por que não existe "agora" compartilhado, e por que marcas de tempo não ordenam eventos.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [ordering, conflict-resolution, consensus]
 canonical_for: [relógio, relógio lógico, deriva de relógio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Num sistema distribuído não existe **agora** compartilhado.
 
 Cada máquina tem seu próprio relógio, e eles divergem. Isso significa que comparar
-marcas de tempo de máquinas diferentes não estabelece ordem — e sistemas que
+marcas de tempo de máquinas diferentes não estabelece ordem, e sistemas que
 dependem disso falham de formas sutis e difíceis de reproduzir.
 
 ## Problema
@@ -35,7 +35,7 @@ prevalece, verificar expiração, medir duração.
 Cada um desses usos tem um problema diferente, e todos vêm da mesma raiz: o
 relógio de uma máquina não tem relação confiável com o de outra.
 
-**Deriva.** Relógios de quartzo desviam — tipicamente alguns segundos por dia sem
+**Deriva.** Relógios de quartzo desviam, tipicamente alguns segundos por dia sem
 sincronização.
 
 **Sincronização imperfeita.** NTP corrige, com precisão de dezenas de
@@ -56,7 +56,7 @@ retrocesso. Adequado para **registrar quando algo aconteceu**, para exibir, para
 expiração de credencial de longa duração.
 
 **Relógio monotônico.** Um contador que só cresce, sem relação com o calendário.
-Não retrocede nem salta — mas o NTP ajusta sua frequência, e, conforme o relógio que
+Não retrocede nem salta, mas o NTP ajusta sua frequência, e, conforme o relógio que
 o sistema operacional oferece, o tempo de máquina suspensa pode não ser contado. O
 valor só tem sentido dentro da mesma máquina e do mesmo boot: a origem é arbitrária e
 zera quando a máquina reinicia. Adequado para **medir duração**, timeout e intervalo.
@@ -65,8 +65,8 @@ O erro clássico: medir a duração de uma operação subtraindo dois valores do
 de parede. Se o NTP corrigir no meio, o resultado pode ser negativo ou absurdo.
 
 Dentro do mesmo processo, toda medição de tempo decorrido deveria usar o monotônico.
-Duração que atravessa máquinas ou reinícios — a idade da mensagem mais antiga de uma
-fila, por exemplo — não tem essa opção: subtrai marcas de parede, e o número carrega a
+Duração que atravessa máquinas ou reinícios (a idade da mensagem mais antiga de uma
+fila, por exemplo) não tem essa opção: subtrai marcas de parede, e o número carrega a
 divergência entre os relógios envolvidos, que precisa ser declarada junto com ele.
 
 ### Marca de tempo não ordena eventos
@@ -87,18 +87,18 @@ sequência atribuído por um único ponto, ou a
 Quando a ordem causal importa e o relógio físico não serve:
 
 **Relógio de Lamport.** Um contador por nó, incrementado a cada evento e propagado
-nas mensagens. Se A causou B, o contador de A é menor. A recíproca não vale —
+nas mensagens. Se A causou B, o contador de A é menor. A recíproca não vale:
 contadores menores não implicam causalidade.
 
 **Vetor de versões.** Um contador por nó, mantido como vetor. Permite distinguir
-"A causou B" de "A e B foram concorrentes" — que é o que
+"A causou B" de "A e B foram concorrentes". É o que
 [detecção de conflito](/06-distributed-systems/conflict-resolution.md) exige.
 
 O vetor é mais caro em espaço e é o que de fato responde à pergunta útil.
 
 ### Relógios com incerteza limitada
 
-Alguns sistemas usam hardware especializado — GPS e relógios atômicos — para
+Alguns sistemas usam hardware especializado (GPS e relógios atômicos) para
 limitar a incerteza a poucos milissegundos, e então **esperam** essa incerteza
 antes de confirmar uma transação.
 
@@ -115,7 +115,7 @@ tempo. Se os relógios divergirem:
 Um servidor com relógio atrasado aceita credenciais já expiradas. Um adiantado
 rejeita válidas.
 
-Por isso protocolos de token costumam recomendar uma margem de tolerância — e por
+Por isso protocolos de token costumam recomendar uma margem de tolerância, e por
 isso relógio dessincronizado aparece como "erro de autenticação intermitente que
 some ao tentar de novo".
 
@@ -143,7 +143,7 @@ qualquer comparação de tempo decorrido dentro do mesmo processo.
 **Marca de tempo para resolver conflito.** Ver
 [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
-**Assumir que os relógios estão sincronizados.** Verifique — a deriva acontece, e
+**Assumir que os relógios estão sincronizados.** Verifique: a deriva acontece, e
 frequentemente sem alerta.
 
 **Expiração curta sem margem.** Uma credencial de 30 segundos com relógios
@@ -151,14 +151,14 @@ divergindo 100 ms é frágil.
 
 ## Alternativas
 
-- **Contador de sequência** — atribuído por um único ponto, ordena sem depender de
+- **Contador de sequência**: atribuído por um único ponto, ordena sem depender de
   relógio. Vence quando a ordem é contratual e a vazão cabe num só ponto de passagem;
   cobra esse ponto como teto de vazão e de disponibilidade de toda a escrita.
-- **Versão da entidade** — resolve ordenação e detecção de obsoleto. Vence quando a
+- **Versão da entidade**: resolve ordenação e detecção de obsoleto. Vence quando a
   ordem só precisa valer dentro de cada entidade, e não entre entidades diferentes.
-- **Vetor de versões** — vence quando escritas concorrentes precisam ser distinguidas
+- **Vetor de versões**: vence quando escritas concorrentes precisam ser distinguidas
   das causalmente ordenadas; cobra estado que cresce com o número de nós.
-- **Relógio híbrido** — combina componente físico e lógico. Vence quando se quer
+- **Relógio híbrido**: combina componente físico e lógico. Vence quando se quer
   causalidade sem perder a relação com o calendário; cobra o acoplamento das duas
   partes em todo evento.
 
@@ -213,7 +213,7 @@ tinha o relógio 120 ms adiantado.
 Pela marca de tempo, o primeiro lance parecia posterior. Ele venceu o leilão.
 
 A auditoria dos registros de rede mostrou a ordem real, e o resultado precisou ser
-revertido — com consequência jurídica.
+revertido, com consequência jurídica.
 
 A investigação revelou que a deriva entre os quatro servidores variava entre 15 e
 180 ms ao longo do dia, e ninguém monitorava.
@@ -228,20 +228,20 @@ aproximada.
 
 **Monitoramento de deriva** com alerta acima de 50 ms.
 
-**Medição de duração** migrada para relógio monotônico em todo o sistema — uma
+**Medição de duração** migrada para relógio monotônico em todo o sistema: uma
 auditoria de código encontrou onze lugares que subtraíam marcas de parede.
 
 O detalhe que a equipe destaca: o sistema funcionou por três anos, e a ordem esteve
 errada em uma fração dos leilões esse tempo todo. Só apareceu quando alguém
-contestou — e a ausência de um contador central era conhecida por ninguém, porque
+contestou. E a ausência de um contador central era conhecida por ninguém, porque
 "usar a hora do servidor" parecia óbvio demais para ser questionado.
 
 ## Conceitos Relacionados
 
-- [Ordenação](/06-distributed-systems/ordering.md) — onde relógio não serve.
-- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md) — o mesmo problema.
-- [Timeouts](/06-distributed-systems/timeouts.md) — que precisam de relógio monotônico.
-- [Consenso](/06-distributed-systems/consensus.md) — que estabelece ordem sem depender de relógio.
+- [Ordenação](/06-distributed-systems/ordering.md): onde relógio não serve.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md): o mesmo problema.
+- [Timeouts](/06-distributed-systems/timeouts.md): que precisam de relógio monotônico.
+- [Consenso](/06-distributed-systems/consensus.md): que estabelece ordem sem depender de relógio.
 
 ## Exercício Prático
 
@@ -262,6 +262,6 @@ essa é a descoberta.
 - Lamport, Leslie. *Time, Clocks, and the Ordering of Events in a Distributed
   System*. CACM, 1978.
 - Corbett, James et al. *Spanner: Google's Globally-Distributed Database*. OSDI,
-  2012 — a abordagem de incerteza limitada.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+  2012: a abordagem de incerteza limitada.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 8.

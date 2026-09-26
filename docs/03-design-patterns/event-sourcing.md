@@ -2,7 +2,7 @@
 id: event-sourcing
 title: Event Sourcing
 sidebar_position: 28
-description: Persistir a sequência de fatos em vez do estado — e o custo de versionar eventos para sempre.
+description: Persistir a sequência de fatos em vez do estado, e o custo de versionar eventos para sempre.
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cqrs]
 related: [cqrs, memento, event-driven, distributed-event-sourcing]
 canonical_for: [event sourcing]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,8 +25,8 @@ Event sourcing persiste a **sequência de eventos** que levou ao estado atual, e
 vez do estado. O estado passa a ser derivado: uma função dos eventos.
 
 É [Memento](/03-design-patterns/memento.md) em escala de sistema, e um dos padrões cuja
-adoção é mais assimétrica: barata de tomar, cara de desfazer. Sair é possível — o Exemplo
-Real narra uma saída concluída —, mas custa desproporcionalmente mais do que entrar.
+adoção é mais assimétrica: barata de tomar, cara de desfazer. Sair é possível (o Exemplo
+Real narra uma saída concluída), mas custa desproporcionalmente mais do que entrar.
 
 ## Problema
 
@@ -36,9 +36,9 @@ Um saldo de R$ 1.200 não diz como chegou lá. Um pedido "cancelado" não diz qu
 por quem, nem qual era seu estado antes. Uma alteração sobrescreve o valor
 anterior, e ele deixa de existir.
 
-Para muitos domínios isso é aceitável. Para outros — contabilidade, saúde,
+Para muitos domínios isso é aceitável. Para outros (contabilidade, saúde,
 regulação, qualquer sistema em que "por que este valor é este?" precisa ter
-resposta — é perda de dado que o negócio exige.
+resposta), é perda de dado que o negócio exige.
 
 Event sourcing inverte: os eventos são a fonte de verdade, e o estado é uma
 projeção.
@@ -48,7 +48,7 @@ projeção.
 ### O evento é imutável e definitivo
 
 Uma vez gravado, um evento nunca é alterado nem removido. Corrigir um erro exige
-um **evento compensatório** — o mesmo princípio de um lançamento de estorno em
+um **evento compensatório**: o mesmo princípio de um lançamento de estorno em
 contabilidade.
 
 Isso é o que dá auditabilidade completa e o que torna o padrão rígido.
@@ -81,7 +81,7 @@ a manter compatibilidade de leitura para sempre?"**
 
 ### Projeções e consistência eventual
 
-O estado consultável vem de projeções construídas a partir dos eventos —
+O estado consultável vem de projeções construídas a partir dos eventos,
 tipicamente de forma assíncrona, o que traz
 [CQRS de nível 3](/03-design-patterns/cqrs.md) e sua consistência eventual.
 
@@ -90,12 +90,12 @@ numa projeção se corrige reprocessando, sem perda de dado.
 
 ## Quando Usar
 
-- O histórico é **requisito de negócio**, não conveniência — auditoria
+- O histórico é **requisito de negócio**, não conveniência: auditoria
   regulatória, contabilidade, rastreabilidade legal.
 - É preciso responder "qual era o estado em tal data?".
 - O negócio precisa de análise temporal sobre como as coisas chegaram ao estado
   atual.
-- Novas projeções sobre dados históricos têm valor — reprocessar responde
+- Novas projeções sobre dados históricos têm valor: reprocessar responde
   perguntas que não existiam quando o dado foi gravado.
 
 ## Quando Não Usar
@@ -120,17 +120,17 @@ precisam é o erro mais caro. Ver o exemplo abaixo.
 
 **Quando exclusão de dados é requisito.** Legislação de proteção de dados que
 exige apagar informação pessoal conflita diretamente com eventos imutáveis, e as
-soluções — criptografia com descarte de chave, por exemplo — são complexas e
+soluções (criptografia com descarte de chave, por exemplo) são complexas e
 precisam ser projetadas desde o início.
 
 ## Alternativas
 
-- **Tabela de auditoria** — grava quem mudou o quê e quando, ao lado do estado.
+- **Tabela de auditoria**: grava quem mudou o quê e quando, ao lado do estado.
   Resolve a maioria das necessidades de rastreabilidade.
-- **Versionamento temporal de linha** — tabelas com validade, suportadas
+- **Versionamento temporal de linha**: tabelas com validade, suportadas
   nativamente por alguns bancos.
-- **Registro de alterações** — capturar mudanças sem torná-las a fonte de verdade.
-- **Event sourcing seletivo** — apenas nos agregados que precisam.
+- **Registro de alterações**: capturar mudanças sem torná-las a fonte de verdade.
+- **Event sourcing seletivo**: apenas nos agregados que precisam.
 
 ## Trade-offs
 
@@ -147,7 +147,7 @@ precisam ser projetadas desde o início.
 ## Modos de Falha
 
 **Evento sem versionamento.** Sem marcador de versão no evento, o conversor certo passa a
-ser escolhido por inferência da estrutura — presença ou ausência de campo. Funciona até duas
+ser escolhido por inferência da estrutura: presença ou ausência de campo. Funciona até duas
 versões coincidirem em forma, e aí não há como distingui-las sem reescrever o histórico.
 
 **Reconstrução lenta.** Sem instantâneos, carregar um agregado com dezenas de
@@ -179,10 +179,10 @@ persistência; a outra sobre comunicação. Podem existir separadamente.
 ## Onde ele aparece na prática
 
 **Sistemas contábeis.** O livro-razão é event sourcing por definição, e há
-séculos — lançamentos imutáveis, saldo derivado, correção por estorno.
+séculos: lançamentos imutáveis, saldo derivado, correção por estorno.
 
 **Controle de versão.** O grafo de commits é imutável e só cresce por acréscimo, e
-qualquer estado da árvore é alcançável percorrendo-o — é essa a semelhança. Note que ela
+qualquer estado da árvore é alcançável percorrendo-o: é essa a semelhança. Note que ela
 para aí: Git guarda **snapshots** completos da árvore a cada commit e deriva o *diff*, que
 é o inverso do event sourcing. Os deltas existem só como compressão dentro do packfile.
 
@@ -191,8 +191,8 @@ exigência regulatória de reconstrução.
 
 **Bancos de dados.** Em PostgreSQL, Oracle e SQL Server, o log de escrita antecipada é
 event sourcing usado internamente: a recuperação após queda deriva o estado dele. Nem todo
-banco funciona assim — o SQLite em modo padrão usa diário de desfazer, do qual o estado não
-é derivado —, e nem sempre é o mesmo log: no MySQL a recuperação vem do redo log do InnoDB
+banco funciona assim (o SQLite em modo padrão usa diário de desfazer, do qual o estado não
+é derivado), e nem sempre é o mesmo log: no MySQL a recuperação vem do redo log do InnoDB
 e a replicação vem do binlog, que é outro, lógico e separado.
 
 A contabilidade é o exemplo mais útil, porque mostra o padrão funcionando por
@@ -212,12 +212,12 @@ duas disputas judiciais.
 
 Onde não funcionou: cadastro de corretores, tabelas de produto, configuração de
 comissão. Nenhum tem requisito de histórico além de uma tabela de auditoria. Os
-três acumularam eventos, versões e conversores de compatibilidade — a estrutura de
+três acumularam eventos, versões e conversores de compatibilidade: a estrutura de
 `CorretorAtualizado` mudou quatro vezes, e o código carrega quatro leitores.
 
 A migração de volta para estado persistido nesses três módulos levou dois
 trimestres, porque os eventos antigos precisavam ser reprocessados para produzir o
-estado final e depois descartados — o que exigiu autorização jurídica.
+estado final e depois descartados. Isso exigiu autorização jurídica.
 
 O custo de reverter foi maior que o de nunca ter adotado. É a característica que
 torna essa decisão diferente das outras: **event sourcing é caro de abandonar**, e
@@ -226,9 +226,9 @@ adoção.
 
 ## Conceitos Relacionados
 
-- [CQRS](/03-design-patterns/cqrs.md) — quase sempre acompanha.
-- [Memento](/03-design-patterns/memento.md) — a mesma ideia em memória.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — comunicação, não
+- [CQRS](/03-design-patterns/cqrs.md): quase sempre acompanha.
+- [Memento](/03-design-patterns/memento.md): a mesma ideia em memória.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): comunicação, não
   persistência.
 - [Sagas](/06-distributed-systems/sagas.md).
 
@@ -248,7 +248,7 @@ dois, considere aplicá-lo apenas neles.
 
 ## Para Aprofundar
 
-- Young, Greg. *Versioning in an Event Sourced System*, 2017 — o problema
+- Young, Greg. *Versioning in an Event Sourced System*, 2017. O problema
   central.
 - Fowler, Martin. *Event Sourcing*, 2005.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, team-topologies, architecture-ownership]
 canonical_for: [arquitetura organizacional, desenho de fronteira organizacional, custo de reorganização]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ um sistema acoplado na prática.
 
 ## Problema
 
-Arquitetos frequentemente tratam a organização como dado — uma restrição a contornar, não uma
+Arquitetos frequentemente tratam a organização como dado: uma restrição a contornar, não uma
 variável a propor. Isso acontece por três razões, todas compreensíveis:
 
 ```text
@@ -107,7 +107,7 @@ autoridade   o time pode decidir dentro do seu escopo
 ```
 
 Dar escopo sem capacidade produz um time que depende de outros e não pode dizer isso. Dar escopo e
-capacidade sem autoridade produz um time que sabe o que fazer e precisa pedir permissão — e a
+capacidade sem autoridade produz um time que sabe o que fazer e precisa pedir permissão, e a
 fila dessa permissão passa a ditar o ritmo de entrega, como no exemplo ao fim deste documento.
 
 E a plataforma é o que torna as três viáveis sem duplicar tudo. Ver
@@ -123,7 +123,7 @@ risco de saída               reorganizações provocam desligamentos
 ```
 
 Declarar esse custo numa proposta é o que a torna crível. Uma proposta de reorganização que não
-menciona a queda de produtividade será desacreditada assim que ela ocorrer — e ela vai ocorrer.
+menciona a queda de produtividade será desacreditada assim que ela ocorrer, e ela vai ocorrer.
 
 Declarada de antemão, a mesma queda é uma previsão cumprida, o que aumenta a credibilidade em vez
 de reduzi-la.
@@ -138,10 +138,10 @@ duas por ano                       cinismo organizacional
 ```
 
 Isso significa que reorganizações precisam ser poucas e bem desenhadas. Um arquiteto que propõe
-mudança de estrutura precisa ter alta confiança de que a fronteira proposta é a certa — porque a
+mudança de estrutura precisa ter alta confiança de que a fronteira proposta é a certa, porque a
 próxima correção vai custar muito mais que a primeira.
 
-Ver [contextos delimitados](/04-domain-driven-design/bounded-context.md) — a fronteira de
+Ver [contextos delimitados](/04-domain-driven-design/bounded-context.md): a fronteira de
 domínio é a melhor evidência disponível.
 
 ### Fluxos de decisão são desenháveis
@@ -156,7 +156,7 @@ quem resolve discordância entre times
 quanto tempo cada decisão leva
 ```
 
-Mapear isso frequentemente revela que a lentidão não é técnica nem de estrutura de times — é de
+Mapear isso frequentemente revela que a lentidão não é técnica nem de estrutura de times, e sim de
 quantidade de pessoas que precisam concordar. Ver
 [governança](/23-architecture-leadership/leadership-governance.md).
 
@@ -189,29 +189,29 @@ trabalho é muito mais barato que mudar a formal.
 ## Quando Não Usar
 
 **Quando o mapa de decisão aponta o gargalo.** Se a lentidão está numa fila de aprovação ou num
-comitê, mover pessoas preserva a fila — o caso do exemplo abaixo.
+comitê, mover pessoas preserva a fila, como no caso do exemplo abaixo.
 
 **Quando houve reorganização nos últimos 12 a 18 meses.** A anterior ainda não foi absorvida, e a
 nova cai na faixa de custo de repetição em que as pessoas param de investir em contexto.
 
 **Quando a fronteira proposta não foi validada** contra os
-[contextos delimitados](/04-domain-driven-design/bounded-context.md) — reorganizações repetidas
+[contextos delimitados](/04-domain-driven-design/bounded-context.md): reorganizações repetidas
 custam mais que a primeira, e uma fronteira errada garante a repetição.
 
-**Quando a estrutura de trabalho resolveria** — um ritual conjunto, uma alocação temporária ou a
+**Quando a estrutura de trabalho resolveria**: um ritual conjunto, uma alocação temporária ou a
 transferência de propriedade de um componente, sem mexer na formal.
 
-**Quando não há patrocínio da liderança** de engenharia — a proposta morre na aprovação e consome
+**Quando não há patrocínio da liderança** de engenharia: a proposta morre na aprovação e consome
 o capital político do arquiteto para a próxima.
 
 ## Alternativas
 
-- **Mudar a estrutura de trabalho** — rituais, alocação temporária, propriedade transferida — sem
+- **Mudar a estrutura de trabalho**: rituais, alocação temporária, propriedade transferida, sem
   tocar a formal.
-- **Mudar o fluxo de decisão** — remover aprovadores, delegar limites — frequentemente mais
-  efetivo e mais barato.
+- **Mudar o fluxo de decisão**: remover aprovadores, delegar limites (frequentemente mais
+  efetivo e mais barato).
 - **Adaptar a arquitetura** ao que a estrutura suporta.
-- **Rotação de pessoas** — transfere contexto e cria comunicação onde não havia.
+- **Rotação de pessoas**: transfere contexto e cria comunicação onde não havia.
 
 As duas primeiras deveriam ser sempre consideradas antes da reorganização formal, e raramente
 são.
@@ -257,8 +257,8 @@ a lentidão sobrevive à reorganização.
 **Não declarar a queda de produtividade.** Quando ela chega, é lida como fracasso da proposta, e a
 pressão é por reverter antes de o novo desenho estabilizar.
 
-**Reorganizar por modelo** em vez de por diagnóstico. Copiar um desenho pronto — por produto, por
-camada, por domínio — sem saber onde está o gargalo produz a sequência de 2022 a 2024 do exemplo:
+**Reorganizar por modelo** em vez de por diagnóstico. Copiar um desenho pronto (por produto, por
+camada, por domínio) sem saber onde está o gargalo produz a sequência de 2022 a 2024 do exemplo:
 três reorganizações, cada uma motivada por um sintoma, nenhuma tocando a causa.
 
 ## Exemplo Real
@@ -325,10 +325,10 @@ reorganizações                            0
 ```
 
 A conclusão registrada: as três reorganizações anteriores tinham custado, somadas, cerca de
-14 meses de produtividade reduzida — e nenhuma tocava a causa. A causa estava no fluxo de decisão,
+14 meses de produtividade reduzida, e nenhuma tocava a causa. A causa estava no fluxo de decisão,
 que não aparece em nenhum organograma e não exigia mover ninguém.
 
-E a restrição imposta ao diagnóstico — "não pode ser reorganizar" — foi o que forçou a procurar
+E a restrição imposta ao diagnóstico ("não pode ser reorganizar") foi o que forçou a procurar
 em outro lugar. Ela ficou como prática: toda proposta de reorganização passou a exigir uma seção
 mostrando que mudanças de estrutura de trabalho e de decisão foram consideradas e por que não
 bastam.
@@ -338,7 +338,7 @@ bastam.
 - [Lei de Conway](/23-architecture-leadership/conways-law.md).
 - [Topologias de Time](/23-architecture-leadership/team-topologies.md).
 - [Propriedade de Arquitetura](/23-architecture-leadership/architecture-ownership.md).
-- [Governança](/23-architecture-leadership/leadership-governance.md) — o fluxo de decisão.
+- [Governança](/23-architecture-leadership/leadership-governance.md): o fluxo de decisão.
 
 ## Exercício Prático
 

@@ -2,7 +2,7 @@
 id: serverless
 title: Serverless
 sidebar_position: 6
-description: Não gerenciar capacidade — o que se ganha, e os quatro custos que a apresentação inicial omite.
+description: "Não gerenciar capacidade: o que se ganha, e os quatro custos que a apresentação inicial omite."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, containers, cost-architecture]
 canonical_for: [serverless, função como serviço, partida a frio, escala a zero]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Serverless é o modelo em que você não provisiona nem gerencia capacidade: escreve o
 código, o provedor executa quando há demanda, e cobra pelo que rodou.
 
-O nome é enganoso — há servidores, você é que não os vê. O que caracteriza o modelo
+O nome é enganoso: há servidores, você é que não os vê. O que caracteriza o modelo
 é **escala a zero** e **cobrança por uso**.
 
 Ele resolve bem uma classe específica de problema. E impõe restrições de desenho
@@ -33,7 +33,7 @@ arrependimentos.
 
 ## Problema
 
-Uma aplicação com carga irregular — picos ocasionais, longos períodos ociosos —
+Uma aplicação com carga irregular (picos ocasionais, longos períodos ociosos)
 desperdiça no modelo tradicional: a capacidade fica ligada esperando.
 
 Dimensionar para o pico paga ociosidade; dimensionar para a média falha no pico. E
@@ -46,7 +46,7 @@ Serverless remove a decisão: não há capacidade a dimensionar.
 ### Escala a zero é o que define
 
 Sem requisições, nada roda e nada é cobrado. Com mil requisições simultâneas, mil
-execuções acontecem — até a cota de concorrência da conta, e com o ritmo de
+execuções acontecem, até a cota de concorrência da conta, e com o ritmo de
 crescimento por rajada que o provedor impõe.
 
 Isso é qualitativamente diferente de escalonamento automático, que ajusta um número
@@ -59,7 +59,7 @@ hora por 200 milissegundos custa quase nada.
 ### Os quatro custos
 
 **Partida a frio.** Quando não há instância pronta, a primeira requisição paga a
-inicialização — de dezenas de milissegundos a vários segundos, conforme linguagem e
+inicialização: de dezenas de milissegundos a vários segundos, conforme linguagem e
 tamanho do pacote. Em carga esporádica, uma fração relevante das requisições paga
 isso.
 
@@ -72,7 +72,7 @@ garantido. Ver
 tamanho de payload. Uma operação que ultrapassa qualquer um simplesmente não roda.
 
 **Conexões de banco.** Cada execução concorrente pode abrir uma conexão. Mil
-execuções simultâneas contra um banco relacional esgotam o limite de conexões — e
+execuções simultâneas contra um banco relacional esgotam o limite de conexões, e
 esse é o modo de falha mais comum de serverless com banco tradicional. A solução é
 um intermediário de conexões
 ([escala de banco de dados](/11-scalability/database-scaling.md)), que é
@@ -132,7 +132,7 @@ garantir percentis altos.
 O termo cresceu: bancos, filas e armazenamentos "sem servidor" seguem a mesma
 lógica de cobrança por uso e ausência de capacidade a gerenciar.
 
-Frequentemente essas peças rendem mais que as funções — um banco que escala a zero
+Frequentemente essas peças rendem mais que as funções: um banco que escala a zero
 num ambiente de teste economiza mais que migrar código.
 
 ### Ele acopla fortemente
@@ -175,13 +175,13 @@ capacidade.** Vale quando a capacidade é o problema; não vale quando a latênc
 
 ## Alternativas
 
-- **[Contêineres](/09-cloud-architecture/containers.md) com escalonamento automático** — sem partida a
+- **[Contêineres](/09-cloud-architecture/containers.md) com escalonamento automático**: sem partida a
   frio, sem limite de execução, com capacidade a gerenciar.
-- **Contêineres que escalam a zero** — plataformas que combinam os dois modelos;
+- **Contêineres que escalam a zero**: plataformas que combinam os dois modelos;
   frequentemente o meio-termo certo.
-- **Instância pequena sempre ligada** — para carga baixa mas constante, costuma
+- **Instância pequena sempre ligada**: para carga baixa mas constante, costuma
   ser mais barata e mais previsível.
-- **Fila com trabalhadores** — para processamento assíncrono de longa duração.
+- **Fila com trabalhadores**: para processamento assíncrono de longa duração.
 
 ## Trade-offs
 
@@ -201,7 +201,7 @@ capacidade.** Vale quando a capacidade é o problema; não vale quando a latênc
 
 **Conexões de banco esgotadas.**
 
-**Limite de execução cortando o processamento** — frequentemente com dados
+**Limite de execução cortando o processamento**, frequentemente com dados
 parcialmente processados.
 
 **Custo explodindo com o crescimento.**
@@ -217,13 +217,13 @@ até alguém perceber.
 
 **Adotar como padrão do sistema.** Ele brilha em carga intermitente e picos imprevisíveis. Em serviço de tráfego constante, custa mais que uma instância reservada e adiciona limites que a instância não tem.
 
-**Não calcular o ponto de inversão de custo.** Existe um volume acima do qual pagar por invocação sai mais caro que manter capacidade ligada. Esse número é calculável em uma tarde com as entradas da seção sobre o ponto de inversão — volume, duração e memória medidos contra o preço da instância —, e raramente é calculado.
+**Não calcular o ponto de inversão de custo.** Existe um volume acima do qual pagar por invocação sai mais caro que manter capacidade ligada. Esse número é calculável em uma tarde com as entradas da seção sobre o ponto de inversão (volume, duração e memória medidos contra o preço da instância), e raramente é calculado.
 
 **Conectar direto ao banco relacional.** Cada invocação concorrente tenta a própria conexão, e mil invocações esgotam o limite do banco. É preciso um intermediário de conexões entre os dois.
 
 **Ignorar a partida a frio nos requisitos de latência.** A primeira invocação após ociosidade paga a inicialização inteira. Em percentis altos isso aparece como cauda longa, e o requisito de p99 é onde ela dói.
 
-**Não definir teto de concorrência nem alerta de custo.** A cota padrão da conta é alta demais para servir de proteção, o que significa que um laço acidental escala junto — e o limite passa a ser o cartão de crédito.
+**Não definir teto de concorrência nem alerta de custo.** A cota padrão da conta é alta demais para servir de proteção, o que significa que um laço acidental escala junto, e o limite passa a ser o cartão de crédito.
 
 **Assumir estado entre invocações.** O ambiente às vezes é reaproveitado, o que faz variável global parecer funcionar em teste. Em produção, sob concorrência, ela vaza dado de uma requisição para outra.
 
@@ -232,7 +232,7 @@ até alguém perceber.
 Uma empresa de mídia adotou serverless para o processamento de imagens enviadas
 pelos usuários: redimensionar, gerar miniaturas, extrair metadados.
 
-Caso ideal — orientado a evento, esporádico, curto. O custo caiu para cerca de um
+Caso ideal: orientado a evento, esporádico, curto. O custo caiu para cerca de um
 oitavo do que era com máquinas dedicadas ociosas a maior parte do tempo.
 
 O sucesso motivou migrar também a API principal. Aí os quatro custos apareceram
@@ -240,12 +240,12 @@ todos:
 
 **Partida a frio.** A API tinha requisito de 200 ms no percentil 95. Com partidas a
 frio de 1,2 a 2,8 segundos afetando entre 6% e 9% das requisições em horários de
-baixa — mais que os 5% de cauda que o percentil 95 descarta —, o percentil estourava. Capacidade provisionada resolveu — e ela custa por
+baixa (mais que os 5% de cauda que o percentil 95 descarta), o percentil estourava. Capacidade provisionada resolveu. Mas ela custa por
 tempo ligado, ou seja, elimina a economia que motivou a migração.
 
 **Conexões de banco.** Num pico de 2.000 execuções concorrentes, o banco atingiu o
 limite de conexões e passou a recusar. Um intermediário de conexões foi
-adicionado — mais um componente a operar.
+adicionado: mais um componente a operar.
 
 **Custo invertido.** A API tinha carga alta e razoavelmente constante. O custo
 mensal ficou 3,4 vezes maior que o das instâncias anteriores.
@@ -257,15 +257,15 @@ Depois de sete meses, a API voltou para contêineres com escalonamento automáti
 O processamento de imagens permanece serverless até hoje, e continua sendo a
 escolha certa para aquela carga.
 
-O que a equipe aprendeu: o erro não foi adotar serverless — foi generalizar a
+O que a equipe aprendeu: o erro não foi adotar serverless, e sim generalizar a
 partir de um caso em que ele era perfeito. As duas cargas têm perfis opostos, e a
-diferença estava visível nos dados de tráfego antes da migração. Ninguém olhou.
+diferença estava visível nos dados de tráfego antes da migração, e ninguém olhou.
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md) — o grau anterior.
-- [Contêineres](/09-cloud-architecture/containers.md) — a alternativa.
-- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md) — o ponto de inversão.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md): o grau anterior.
+- [Contêineres](/09-cloud-architecture/containers.md): a alternativa.
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md): o ponto de inversão.
 - [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Exercício Prático

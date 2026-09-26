@@ -2,7 +2,7 @@
 id: application-architecture
 title: Arquitetura de Aplicação
 sidebar_position: 3
-description: Quais sistemas existem e o que cada um faz — e a pergunta de fronteira, que é a decisão real.
+description: Quais sistemas existem e o que cada um faz. E a pergunta de fronteira, que é a decisão real.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [application-portfolios, integration-landscapes, enterprise-data-architecture]
 canonical_for: [arquitetura de aplicação, fronteira de sistema, responsabilidade de sistema]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -33,7 +33,7 @@ organização em que tudo depende de tudo.
 
 ## Problema
 
-Fronteiras entre sistemas raramente são decididas — elas emergem.
+Fronteiras entre sistemas raramente são decididas: elas emergem.
 
 ```text
 um sistema cresce e absorve responsabilidades vizinhas
@@ -43,7 +43,7 @@ uma aquisição traz sistemas com fronteiras de outra organização
 ```
 
 O resultado é um conjunto em que a responsabilidade de cada sistema é histórica, não
-lógica — e mudanças de negócio exigem tocar em vários sistemas, porque a fronteira não
+lógica, e mudanças de negócio exigem tocar em vários sistemas, porque a fronteira não
 corresponde ao domínio.
 
 ## Conceitos Centrais
@@ -83,10 +83,10 @@ maioria toca 3 ou mais      fronteiras erradas
 ```
 
 Esse teste mede diretamente o que a análise de acoplamento técnico só infere: a
-capacidade de mudar. Ele tem dois limites — dez mudanças é uma amostra pequena, e a
+capacidade de mudar. Ele tem dois limites: dez mudanças é uma amostra pequena, e a
 mudança que ninguém tentou porque atravessaria três sistemas não aparece no histórico.
 
-E ele é fácil de aplicar — a informação está no histórico de mudanças.
+E ele é fácil de aplicar: a informação está no histórico de mudanças.
 
 ### Coesão de dados é o critério mais forte
 
@@ -126,7 +126,7 @@ que com menos sistemas maiores. Ver
 
 ### Responsabilidade precisa ser declarada
 
-Cada sistema deveria ter uma frase que descreve o que ele é responsável por — e a frase
+Cada sistema deveria ter uma frase que descreve o que ele é responsável por. E a frase
 não deveria conter "e".
 
 ```text
@@ -147,13 +147,13 @@ com o domínio da organização.
 Isso produz duas situações:
 
 **O produto faz mais que o necessário.** Funcionalidades que a organização já tem em
-outro lugar — e a decisão sobre qual usar precisa ser tomada, ou surge duplicação.
+outro lugar. A decisão sobre qual usar precisa ser tomada, ou surge duplicação.
 
 **O produto faz menos.** Uma parte do domínio fica fora, e precisa ser construída em
 volta.
 
 Ver [SaaS](/09-cloud-architecture/saas.md) e
-[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md) —
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md):
 a camada de tradução é o que impede a fronteira do fornecedor de entrar no domínio.
 
 ### Fronteira de sistema e fronteira de time se influenciam
@@ -163,7 +163,7 @@ sistema, e ela restringe as opções na prática: a comunicação dentro de um t
 frequente; entre times, cara e episódica.
 
 Isso significa que um sistema mantido por dois times tende a desenvolver uma fronteira
-interna que espelha a divisão — e que dois sistemas mantidos pelo mesmo time tendem a
+interna que espelha a divisão, e que dois sistemas mantidos pelo mesmo time tendem a
 acoplar, porque nada impede.
 
 Ver [Team Topologies](/23-architecture-leadership/team-topologies.md) para o
@@ -177,7 +177,7 @@ E o inverso também vale: uma reorganização de times sem revisar as fronteiras
 produz times que precisam coordenar constantemente para mudar o que é deles.
 
 A ordem que funciona: decidir a fronteira pelo domínio, depois alinhar a alocação de
-times a ela — e não o contrário.
+times a ela, e não o contrário.
 
 ## Modelo Mental
 
@@ -200,17 +200,17 @@ está no lugar errado.
 
 **O teste da mudança já passa.** Se a maioria das mudanças recentes toca um sistema só, as fronteiras acompanham o eixo em que o negócio varia; redesenhá-las troca um custo certo por um ganho que o histórico não mostra.
 
-**Duas partes do mesmo time que mudam juntas.** Quando o mesmo time mantém as duas e o histórico mostra que a maioria das mudanças toca ambas, separá-las acrescenta um contrato a manter sem comprar autonomia — a fronteira custa mais do que isola.
+**Duas partes do mesmo time que mudam juntas.** Quando o mesmo time mantém as duas e o histórico mostra que a maioria das mudanças toca ambas, separá-las acrescenta um contrato a manter sem comprar autonomia. A fronteira custa mais do que isola.
 
 **Custo de reorganizar maior que o de conviver.** Uma fronteira errada num domínio que quase não muda cobra pouco; o trabalho compensa onde o negócio muda com frequência e a mudança atravessa sistemas.
 
 ## Alternativas
 
-- **[Bounded context](/04-domain-driven-design/bounded-context.md)** — o mesmo
+- **[Bounded context](/04-domain-driven-design/bounded-context.md)**: o mesmo
   raciocínio, com o método de DDD.
-- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)** — a lente de negócio para
+- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)**: a lente de negócio para
   agrupar.
-- **Manter como está** — decisão legítima quando o custo de reorganizar supera o de
+- **Manter como está**: decisão legítima quando o custo de reorganizar supera o de
   conviver.
 
 ## Trade-offs
@@ -243,7 +243,7 @@ está no lugar errado.
 
 ## Erros Comuns
 
-**Separar por camada.** Um sistema de front-end, um de regras e um de dados garantem que toda mudança de negócio atravesse os três — e exija coordenação de três times para entregar uma funcionalidade.
+**Separar por camada.** Um sistema de front-end, um de regras e um de dados garantem que toda mudança de negócio atravesse os três e exija coordenação de três times para entregar uma funcionalidade.
 
 **Separar por área organizacional.** O organograma muda a cada reorganização; a capacidade de negócio, não. Fronteiras desenhadas sobre o primeiro precisam ser redesenhadas a cada mudança de estrutura.
 
@@ -251,7 +251,7 @@ está no lugar errado.
 
 **Não declarar responsabilidade.** Sem uma frase dizendo do que cada sistema responde, a mesma capacidade aparece em três lugares e nenhum deles é a fonte da verdade.
 
-**Decompor por preferência arquitetural.** Decidir a granularidade pelo estilo escolhido — microsserviços, por exemplo — inverte a ordem: a fronteira vem do domínio, e o estilo vem depois.
+**Decompor por preferência arquitetural.** Decidir a granularidade pelo estilo escolhido (microsserviços, por exemplo) inverte a ordem: a fronteira vem do domínio, e o estilo vem depois.
 
 **Não isolar produtos de mercado.** Sistema de terceiro cujo modelo vaza para o resto amarra a arquitetura ao fornecedor, e a substituição deixa de ser decisão comercial.
 
@@ -272,9 +272,9 @@ tocaram mais de 5    4
 Oitenta e cinco por cento das mudanças atravessavam sistemas.
 
 A análise das fronteiras encontrou a causa: os sistemas tinham sido separados por
-**etapa do processo logístico** — coleta, transporte, entrega, faturamento — enquanto as
-mudanças de negócio eram por **tipo de serviço**: entrega expressa, carga fracionada,
-transporte refrigerado.
+**etapa do processo logístico** (coleta, transporte, entrega, faturamento), enquanto as
+mudanças de negócio eram por **tipo de serviço** (entrega expressa, carga fracionada,
+transporte refrigerado).
 
 Adicionar um tipo de serviço novo exigia mudar os quatro sistemas.
 
@@ -282,13 +282,13 @@ A fronteira estava alinhada ao processo, e o negócio evoluía por serviço.
 
 A reorganização, em dois anos, moveu a fronteira:
 
-**Sistemas por tipo de serviço**, cada um cobrindo o ciclo completo — coleta a
-faturamento — do serviço dele.
+**Sistemas por tipo de serviço**, cada um cobrindo o ciclo completo (coleta a
+faturamento) do serviço dele.
 
 **Capacidades comuns extraídas** para serviços compartilhados: rastreamento,
 geocodificação, emissão de documentos.
 
-**Consolidação.** Os 68 sistemas viraram 41 — a decomposição anterior tinha produzido
+**Consolidação.** Os 68 sistemas viraram 41: a decomposição anterior tinha produzido
 sistemas pequenos demais, com custo de integração alto.
 
 O teste da mudança, repetido dois anos depois:
@@ -301,7 +301,7 @@ tocaram 3 ou mais     2
 
 E o tempo médio de entrega de uma mudança de negócio caiu de 11 semanas para 3.
 
-A fronteira original era razoável quando foi criada — a empresa
+A fronteira original era razoável quando foi criada: a empresa
 tinha um tipo de serviço, e o processo era o único eixo de variação. Ela deixou de fazer
 sentido quando o negócio passou a variar por serviço, e ninguém revisitou.
 

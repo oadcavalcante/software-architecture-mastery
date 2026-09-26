@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [why-adrs-matter, adr-structure, adr-status]
 canonical_for: [ADR, registro de decisão de arquitetura, decisão significativa]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Um **ADR** — *Architecture Decision Record*, registro de decisão de arquitetura — é um
+Um **ADR** (*Architecture Decision Record*, registro de decisão de arquitetura) é um
 documento curto que registra uma decisão arquitetural, o contexto em que ela foi tomada,
 as alternativas consideradas e as consequências aceitas.
 
@@ -29,12 +29,12 @@ Ele foi proposto por Michael Nygard em 2011, e a proposta inteira cabe em uma fr
 **escreva um arquivo curto, no repositório, toda vez que tomar uma decisão que seja difícil
 de reverter.**
 
-O formato é simples de propósito. O que faz um ADR funcionar não é a estrutura — é o que
+O formato é simples de propósito. O que faz um ADR funcionar não é a estrutura, e sim o que
 ele preserva: a razão, que é a parte que o código não guarda.
 
 ## O Problema
 
-Código raramente preserva o raciocínio — e nunca de forma sistemática, para decisões
+Código raramente preserva o raciocínio, e nunca de forma sistemática, para decisões
 que atravessam mais de um arquivo.
 
 ```text
@@ -73,13 +73,13 @@ numerado           referenciável — "ver ADR-014"
 ```
 
 A imutabilidade é a propriedade menos intuitiva e a mais importante. Um ADR não é
-documentação do estado atual — é o **registro de um evento**: em tal data, com tal
+documentação do estado atual, e sim o **registro de um evento**: em tal data, com tal
 informação, decidiu-se assim. Mudar de ideia produz um ADR novo. Ver
 [status](/18-architecture-decisions/adr-status.md) e [superação](/18-architecture-decisions/superseding-decisions.md).
 
 ### O que é uma decisão significativa
 
-O critério de Nygard: **decisões arquiteturalmente significativas** — as que afetam
+O critério de Nygard: **decisões arquiteturalmente significativas**, as que afetam
 estrutura, características não funcionais, dependências, interfaces ou técnicas de
 construção.
 
@@ -97,7 +97,7 @@ Ver [decisões reversíveis e irreversíveis](/18-architecture-decisions/adr-con
 
 Escolher a biblioteca de datas não é ADR. Escolher expor a API como REST ou gRPC é.
 Escolher o nome de uma variável nunca é. Escolher permitir que dois serviços compartilhem
-um banco é — e é exatamente o tipo de decisão que costuma ser tomada sem registro.
+um banco é. E é exatamente o tipo de decisão que costuma ser tomada sem registro.
 
 ### O que um ADR não é
 
@@ -128,28 +128,28 @@ Isso não é detalhe de organização. ADR em wiki separado se desconecta do có
 na revisão e não é encontrado por quem está lendo o sistema. Ver
 [padrões de documentação](/17-architecture-documentation/documentation-standards.md).
 
-Decisões que valem para vários sistemas pertencem a outro nível — governança — e não a um
+Decisões que valem para vários sistemas pertencem a outro nível (governança), e não a um
 repositório específico. Ver
 [governança](/19-architecture-governance/index.md).
 
 ### O custo é baixo e o retorno é assimétrico
 
 Escrever um ADR custa entre vinte minutos e uma hora. Isso é pouco comparado ao esforço já
-gasto na decisão que ele registra — se a decisão levou duas semanas de discussão, o
+gasto na decisão que ele registra: se a decisão levou duas semanas de discussão, o
 registro é 1% do custo.
 
 E o retorno é assimétrico: a maior parte dos ADRs nunca será lida, e os poucos que forem
 serão lidos no momento exato em que alguém está prestes a desfazer algo importante sem
 saber por quê.
 
-É esse perfil — custo baixo, retorno raro e alto — que justifica escrever mesmo sem
+É esse perfil (custo baixo, retorno raro e alto) que justifica escrever mesmo sem
 demanda comprovada, ao contrário da maior parte da documentação. Ver
 [princípios de documentação](/17-architecture-documentation/documentation-principles.md).
 
 ## Por Que Isso Importa
 
 **Porque a razão é o que o código não guarda.** Estrutura permanece visível nos arquivos;
-justificativa não tem onde ficar. O ADR existe para ocupar esse lugar vazio — é a peça do
+justificativa não tem onde ficar. O ADR existe para ocupar esse lugar vazio: é a peça do
 repositório cujo conteúdo é o porquê.
 
 **Porque registrar um evento é diferente de descrever um estado.** Tratar o ADR como
@@ -161,8 +161,8 @@ isso: ela sobrescreve a versão anterior.
 por decisão cara de reverter mantém o conjunto pequeno o bastante para ser lido; um ADR por
 escolha de biblioteca o torna irrelevante em semanas.
 
-O argumento completo — o que a organização perde sem registro, e os efeitos que não dependem
-de ninguém ler o ADR depois — está em
+O argumento completo (o que a organização perde sem registro, e os efeitos que não dependem
+de ninguém ler o ADR depois) está em
 [Por Que ADRs Importam](/18-architecture-decisions/why-adrs-matter.md).
 
 ## Erros Comuns
@@ -170,12 +170,12 @@ de ninguém ler o ADR depois — está em
 **Registrar tudo.** ADR para escolha de biblioteca trivial dilui o conjunto e faz com que
 ninguém leia nenhum.
 
-**Registrar nada.** O extremo oposto, e o mais frequente — o time só descobre quais
+**Registrar nada.** O extremo oposto, e o mais frequente: o time só descobre quais
 decisões precisavam de registro quando alguém já desfez uma delas.
 
 **Editar em vez de superar.** Destrói a propriedade que dá valor ao formato.
 
-**Escrever depois, para o histórico.** Um ADR escrito seis meses depois perde o contexto —
+**Escrever depois, para o histórico.** Um ADR escrito seis meses depois perde o contexto:
 o autor já sabe o desfecho e reconstrói a justificativa em vez de registrá-la.
 
 **Confundir com documentação do sistema.** Leva a manter ADRs "atualizados", o que os
@@ -204,7 +204,7 @@ Nove delas geraram trabalho concreto:
 
 Um caso: um serviço de notificações limitava o envio a 50 mensagens por segundo. Ninguém
 sabia por quê. O limite foi elevado numa otimização, e três dias depois o provedor de SMS
-bloqueou a conta por exceder o contrato — que era de 50 por segundo.
+bloqueou a conta por exceder o contrato, que era de 50 por segundo.
 
 O time passou a escrever ADRs, com uma regra deliberadamente frouxa: **escreva quando a
 discussão passar de uma hora, ou quando você suspeitar que alguém vai perguntar por quê.**
@@ -219,30 +219,30 @@ que mudaram de conclusão durante a escrita     9
 ```
 
 Os 44 nunca consultados são o custo: cerca de 30 horas de escrita. Os 6 que evitaram
-reversões pagaram isso várias vezes — cada reversão indevida anterior tinha custado dias.
+reversões pagaram isso várias vezes: cada reversão indevida anterior tinha custado dias.
 
 E os 9 que mudaram de conclusão durante a escrita foram o efeito não previsto. Em todos, o
 autor começou a escrever a seção de alternativas e percebeu que a opção descartada era
 melhor.
 
 O que o time registra: a regra frouxa foi acertada. Uma tentativa anterior, em outra
-empresa, tinha usado critério estrito e comitê de aprovação — e produziu 4 ADRs em um ano,
+empresa, tinha usado critério estrito e comitê de aprovação, e produziu 4 ADRs em um ano,
 todos escritos para o comitê.
 
 ## Conceitos Relacionados
 
-- [Por Que ADRs Importam](/18-architecture-decisions/why-adrs-matter.md) — o argumento em detalhe.
-- [Estrutura do ADR](/18-architecture-decisions/adr-structure.md) — as seções.
-- [Status](/18-architecture-decisions/adr-status.md) — o ciclo de vida.
-- [Arquitetura como Decisões](/01-fundamentals/architecture-as-decisions.md) — a base
+- [Por Que ADRs Importam](/18-architecture-decisions/why-adrs-matter.md): o argumento em detalhe.
+- [Estrutura do ADR](/18-architecture-decisions/adr-structure.md): as seções.
+- [Status](/18-architecture-decisions/adr-status.md): o ciclo de vida.
+- [Arquitetura como Decisões](/01-fundamentals/architecture-as-decisions.md): a base
   conceitual.
 
 ## Exercício Prático
 
 Pense em uma decisão arquitetural do seu sistema cuja razão você não conhece.
 
-Pergunte a três pessoas por que é assim. Se as respostas divergirem — ou se ninguém souber
-— você encontrou um ADR que deveria ter sido escrito.
+Pergunte a três pessoas por que é assim. Se as respostas divergirem, ou se ninguém souber,
+você encontrou um ADR que deveria ter sido escrito.
 
 ## Perguntas de Entrevista
 

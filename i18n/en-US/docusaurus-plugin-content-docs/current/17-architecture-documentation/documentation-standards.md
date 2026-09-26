@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, architecture-descriptions, living-documentation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ defined: **what is mandatory, who owns it, and when it has to be updated**.
 
 The difficulty is that the policy tends toward one of two extremes. With no policy, each
 team documents differently and most don't document at all. With a heavy policy, you
-produce volume nobody reads — see
+produce volume nobody reads. See
 [documentation principles](/17-architecture-documentation/documentation-principles.md).
 
 The point that works is narrow: **few obligations, with an owner and a trigger, verified
@@ -101,7 +101,7 @@ incident with a structural cause → revise the description
 new integration                 → update the context
 ```
 
-Cadence comes in as a safety net — an annual review for whatever no trigger caught — and
+Cadence comes in as a safety net (an annual review for whatever no trigger caught), and
 not as the main mechanism.
 
 ### Templates help if they can be shortened
@@ -148,7 +148,7 @@ does the diagram reference containers that still exist?
 do the mandatory sections have content beyond the template?
 ```
 
-Not everything is verifiable, and what can be verified cheaply pays for the check — with
+Not everything is verifiable, and what can be verified cheaply pays for the check, with
 one caveat: recency rewards the cosmetic touch, the same defect as calendar-based review,
 and works as an alert, not as a compliance criterion. The last item is the most valuable and
 the least implemented: detecting unreplaced template text catches most of the filling-in
@@ -159,7 +159,7 @@ See [living documentation](/17-architecture-documentation/living-documentation.m
 ### Requirements proportional to criticality
 
 A uniform policy treats an internal service used by three people like a payment system. The
-predictable result is that both get the same effort — which is the minimum possible.
+predictable result is that both get the same effort, which is the minimum possible.
 
 ```text
 high criticality    consolidated description, deployment, runbook, annual review
@@ -171,7 +171,7 @@ The tiering does more than save effort: it communicates priority. When everythin
 mandatory, nothing is important, and teams distribute attention uniformly across things
 that don't deserve uniform attention.
 
-And it requires a criticality classification that should already exist for other reasons —
+And it requires a criticality classification that should already exist for other reasons:
 disaster recovery, incident response, access control.
 
 ## Mental Model
@@ -188,33 +188,33 @@ for itself.
 
 ## When Not to Use
 
-**Without a criticality classification, or a way to create one** — tiering depends on it.
+**Without a criticality classification, or a way to create one**: tiering depends on it.
 Without it, either everything lands in the high tier and the requirements become uniform
 again, or every team declares itself low-criticality to escape the load.
 
-**Without a pipeline to hang the verification on** — third-party packages, low-code
+**Without a pipeline to hang the verification on**: third-party packages, low-code
 platforms and systems with no repository of their own have nowhere to run the check. The
 policy becomes a declaration nobody checks, with the cost of writing one and the outcome of
 not having one.
 
-**For a system with a scheduled shutdown** — requiring the five artifacts for something
+**For a system with a scheduled shutdown**: requiring the five artifacts for something
 that goes away in a few months spends effort on a reader who will never exist; an owner and
 a runbook are enough until the end.
 
-**Uniform across systems of different criticality** — an occasionally used internal system
+**Uniform across systems of different criticality**: an occasionally used internal system
 and a critical system do not deserve the same requirements.
 
-**In a small team with one or two systems** — everyone knows where everything is and who
+**In a small team with one or two systems**: everyone knows where everything is and who
 answers for it; a written policy costs upkeep and conveys nothing a conversation doesn't.
 
 ## Alternatives
 
-- **An informal convention** — works up to about three teams.
-- **A reference example** — pointing at a well-documented system as the standard to
+- **An informal convention**: works up to about three teams.
+- **A reference example**: pointing at a well-documented system as the standard to
   imitate usually works better than a written rule.
-- **Automatic generation** — it eliminates the policy where applicable. See
+- **Automatic generation**: it eliminates the policy where applicable. See
   [living documentation](/17-architecture-documentation/living-documentation.md).
-- **Peer review** — the standard emerges from review instead of being prescribed.
+- **Peer review**: the standard emerges from review instead of being prescribed.
 
 The second is the most underrated: "document it like the payments system" communicates
 faster than twelve pages of rules.
@@ -251,20 +251,20 @@ faster than twelve pages of rules.
 
 **Starting from the template** instead of from the questions that hurt.
 
-**Confusing policy with an approval process** — documentation starts being written for
+**Confusing policy with an approval process**: documentation starts being written for
 the approver, the day before approval, and stops being updated after it.
 
-**Not allowing "not applicable"** — the team fills the inapplicable section with generic
+**Not allowing "not applicable"**: the team fills the inapplicable section with generic
 text, and content verification can no longer tell the filled from the empty.
 
-**Putting everything on a wiki** — the document sits outside code review: the change that
+**Putting everything on a wiki**: the document sits outside code review: the change that
 invalidates it gets merged without anyone seeing it, and the divergence only shows up when
 someone acts on the wrong text.
 
-**Verifying nothing automatically** — compliance is measured once, when the policy
+**Verifying nothing automatically**: compliance is measured once, when the policy
 launches, and decays unnoticed until the next manual survey.
 
-**Not measuring use** — without that, you don't know what to cut.
+**Not measuring use**: without that, you don't know what to cut.
 
 ## Real-World Example
 
@@ -282,20 +282,20 @@ with an identifiable owner                      11
 updated in the last 12 months                   16
 ```
 
-The new policy was deliberately short — one page:
+The new policy was deliberately short, one page:
 
 **Five mandatory artifacts per system**, all in the system's own repository: a README with
 purpose and how to run it, a context diagram, a container diagram, ADRs, and an incident
 runbook.
 
 **Ownership as a role**, declared in a metadata file in the repository, integrated with
-the team registry — which made the owner verifiable and resistant to departures.
+the team registry. That made the owner verifiable and resistant to departures.
 
 **Declared triggers** tied to code review: changes to infrastructure code require revising
 the deployment diagram; a new container requires revising the container diagram.
 
 **The wiki discontinued** for technical system documentation. Content migrated or
-archived, with a redirect pointing to the repository — the step that generated the most
+archived, with a redirect pointing to the repository: the step that generated the most
 resistance and that resolved the most divergence.
 
 **Verification in the pipeline**: the five artifacts exist, have a valid owner, the links
@@ -316,7 +316,7 @@ updated in the last 6 months                    44
 with divergence across places                    0 (there is only one place)
 ```
 
-What the team learned: the most unpopular decision — shutting down the wiki — was the most
+What the team learned: the most unpopular decision (shutting down the wiki) was the most
 effective. As long as two independently editable places existed, divergence was inevitable, and no
 quality policy was going to fix that.
 
@@ -327,9 +327,9 @@ rate for the remaining five.
 ## Related Concepts
 
 - [Documentation Principles](/17-architecture-documentation/documentation-principles.md).
-- [Living Documentation](/17-architecture-documentation/living-documentation.md) — what can be generated.
+- [Living Documentation](/17-architecture-documentation/living-documentation.md): what can be generated.
 - [Architecture Descriptions](/17-architecture-documentation/architecture-descriptions.md).
-- [Governance](/19-architecture-governance/index.md) — where the policy lives.
+- [Governance](/19-architecture-governance/index.md): where the policy lives.
 
 ## Practical Exercise
 
@@ -349,5 +349,5 @@ for the ones that stay.
 ## Further Reading
 
 - Clements, Paul et al. *Documenting Software Architectures*. 2nd ed. Addison-Wesley, 2010.
-- Write the Docs. *Docs as Code* — writethedocs.org/guide/docs-as-code.
+- Write the Docs. *Docs as Code*. Writethedocs.org/guide/docs-as-code.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

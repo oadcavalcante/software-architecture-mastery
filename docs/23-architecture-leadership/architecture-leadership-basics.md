@@ -2,7 +2,7 @@
 id: architecture-leadership-basics
 title: Fundamentos de Liderança em Arquitetura
 sidebar_position: 1
-description: O papel existe sem autoridade formal — e a competência central é fazer uma decisão acontecer sem poder ordená-la.
+description: O papel existe sem autoridade formal, e a competência central é fazer uma decisão acontecer sem poder ordená-la.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: [liderança em arquitetura, autoridade sem cargo, papel do arquiteto sênior, crédito técnico]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -26,7 +26,7 @@ Um arquiteto sênior raramente falha por não saber a resposta correta.
 Falha porque a resposta correta exigia um investimento que ninguém aprovou. Porque dois times
 discordaram e a discordância não se resolveu. Porque a decisão foi comunicada de um jeito que
 quem controla o orçamento não entendeu o risco. Ou porque a arquitetura proposta contrariava a
-estrutura da organização, e a organização venceu — como ela quase sempre vence.
+estrutura da organização, e a organização venceu, como ela quase sempre vence.
 
 ```text
 níveis anteriores   a dificuldade é técnica
@@ -54,7 +54,7 @@ arquitetura correta?", e as pessoas que precisavam agir estavam respondendo a ou
 
 E há um segundo padrão, o oposto: o arquiteto que abandona o técnico. Ele passa a produzir
 estratégia, apresentação e diagrama, e perde a capacidade de avaliar uma proposta em
-profundidade. Em pouco tempo, os times deixam de trazê-lo para as decisões que importam — porque
+profundidade. Em pouco tempo, os times deixam de trazê-lo para as decisões que importam, porque
 ele não acrescenta nada a elas.
 
 O papel exige as duas coisas simultaneamente, e é essa combinação que o torna difícil.
@@ -93,7 +93,7 @@ para operação      o que muda no plantão
 para finanças      qual o efeito na conta, e quando
 ```
 
-Não é simplificar — é mudar o eixo. A diretoria não precisa de uma versão simplificada do
+É mudar o eixo, não simplificar. A diretoria não precisa de uma versão simplificada do
 diagrama; ela precisa da mesma decisão expressa em risco, custo e capacidade.
 
 Arquitetos que apresentam a versão técnica a todos os públicos concluem que "a diretoria não
@@ -108,7 +108,7 @@ decidir agora             risco de errar, e o erro é visível
 ```
 
 A assimetria de visibilidade empurra para o adiamento, e o adiamento é frequentemente a pior
-opção — especialmente quando a decisão trava o trabalho de outras pessoas.
+opção, especialmente quando a decisão trava o trabalho de outras pessoas.
 
 A postura que funciona: decidir com o que se tem, declarar as premissas, registrar a condição que
 faria a decisão mudar, e seguir. Ver
@@ -118,8 +118,8 @@ faria a decisão mudar, e seguir. Ver
 ### A organização é uma restrição de arquitetura
 
 Uma arquitetura que contraria a estrutura de comunicação da organização é erodida até espelhá-la,
-a menos que a estrutura mude junto. Isso não é uma observação sociológica — é uma restrição de
-projeto tão dura quanto latência ou custo.
+a menos que a estrutura mude junto. Isso é uma restrição de
+projeto tão dura quanto latência ou custo, não uma observação sociológica.
 
 Reconhecê-la muda o que se propõe: em vez de desenhar a arquitetura ideal e lamentar que a
 organização não a suporte, o arquiteto sênior propõe a mudança organizacional junto com a
@@ -139,7 +139,7 @@ times que informam a decisão em vez de consultá-la
 "ele não sabe como isso funciona hoje"
 ```
 
-O que preserva a competência não é escrever código em volume — é participar de revisões de
+O que preserva a competência não é escrever código em volume, e sim participar de revisões de
 desenho, ler código de áreas críticas, acompanhar incidentes e sentir o atrito real de operar o
 sistema.
 
@@ -170,7 +170,7 @@ métrica certa    quantas decisões boas foram tomadas na organização,
                  inclusive sem mim
 ```
 
-Um arquiteto cuja ausência trava a organização não construiu capacidade — construiu dependência.
+Um arquiteto cuja ausência trava a organização construiu dependência, não capacidade.
 O trabalho inclui deixar critérios, princípios e precedentes que permitam a decisão acontecer sem
 ele. Ver
 [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
@@ -191,27 +191,27 @@ Este conjunto de posturas se aplica quando:
 
 ## Quando Não Usar
 
-**Onde a decisão é local e reversível** — nesses casos, o time decide e o arquiteto não deveria
+**Onde a decisão é local e reversível**: nesses casos, o time decide e o arquiteto não deveria
 estar na sala.
 
-**Em organização pequena, com um único time decidindo a arquitetura** — não há o que atravessar;
+**Em organização pequena, com um único time decidindo a arquitetura**: não há o que atravessar;
 o papel transversal não se paga, e a mesma pessoa decide como membro do time.
 
-**Em incidente ativo ou exigência regulatória com prazo** — o custo de convencer excede o de
+**Em incidente ativo ou exigência regulatória com prazo**: o custo de convencer excede o de
 errar; decide quem tem autoridade, e o convencimento fica para a revisão posterior.
 
-**Onde a organização concede autoridade formal legítima sobre o tema** — segurança e conformidade,
+**Onde a organização concede autoridade formal legítima sobre o tema**: segurança e conformidade,
 por exemplo. A decisão pode ser determinada; influência ainda serve para a adoção, não para a
 decisão.
 
 ## Alternativas
 
-- **Arquitetura distribuída nos times** — sem papel dedicado, com decisões federadas e um fórum
+- **Arquitetura distribuída nos times**: sem papel dedicado, com decisões federadas e um fórum
   de coordenação. Funciona bem em organizações com cultura técnica forte. Ver
   [governança federada](/19-architecture-governance/federated-governance.md).
-- **Arquiteto embarcado** — dentro do time, sem escopo transversal; mais profundidade, menos
+- **Arquiteto embarcado**: dentro do time, sem escopo transversal; mais profundidade, menos
   alcance.
-- **Autoridade formal real** — vence em domínio regulado, em decisões de segurança e onde o
+- **Autoridade formal real**: vence em domínio regulado, em decisões de segurança e onde o
   arquiteto com autoridade está perto dos times. Perde qualidade quando ele está longe do contexto
   de quem executa: a decisão sai mais rápida e pior.
 
@@ -289,7 +289,7 @@ Os números somam mais que 27 porque várias propostas acumulavam razões.
 As mudanças que a área adotou:
 
 **Toda proposta passou a incluir o custo de oportunidade.** Não apenas o esforço, mas
-explicitamente o que deixaria de ser entregue — negociado com produto antes da apresentação, não
+explicitamente o que deixaria de ser entregue, negociado com produto antes da apresentação, não
 depois.
 
 **Risco em vez de tecnologia** nas apresentações à diretoria. A proposta de substituir um
@@ -300,11 +300,11 @@ indisponibilidade e o custo dela.
 afetados tivessem sido ouvidos e a divergência, se houvesse, estivesse registrada com a posição
 de cada lado.
 
-**Mudança organizacional como parte da proposta**, quando necessária — com a conversa feita junto
+**Mudança organizacional como parte da proposta**, quando necessária, com a conversa feita junto
 à liderança de engenharia antes, e não depois.
 
 **Presença nas conversas iniciais.** Os arquitetos passaram a participar das discussões de
-desenho dos times, cedo, como consultores sem veto — o que resolveu o "chegou tarde demais" e,
+desenho dos times, cedo, como consultores sem veto. Isso resolveu o "chegou tarde demais" e,
 como efeito colateral, recuperou a proximidade técnica.
 
 Dois anos depois, uma nova avaliação com a mesma janela de dezoito meses:
@@ -320,7 +320,7 @@ decisões arquiteturais boas tomadas pelos
 ```
 
 O último número foi o que mudou a autoavaliação da área. Ela passou a se considerar bem-sucedida
-quando os times decidiam bem sozinhos — e não quando ela decidia.
+quando os times decidiam bem sozinhos, e não quando ela decidia.
 
 O ponto que a equipe sublinha: a redução de 31 para 24 propostas foi deliberada. A área passou a
 selecionar batalhas e, pela própria estimativa, o que deixou de levar a comitê eram sobretudo
@@ -330,13 +330,13 @@ preferências de padronização de baixa consequência, que não afetavam risco,
 
 - [Influência Técnica](/23-architecture-leadership/technical-influence.md).
 - [Comunicação](/23-architecture-leadership/communication.md).
-- [Lei de Conway](/23-architecture-leadership/conways-law.md) — a restrição organizacional.
+- [Lei de Conway](/23-architecture-leadership/conways-law.md): a restrição organizacional.
 - [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ## Exercício Prático
 
 Liste as cinco últimas propostas arquiteturais que você fez e marque, para cada uma, se ela foi
-adotada — e, se não, por qual razão.
+adotada e, se não, por qual razão.
 
 Se as razões forem majoritariamente não técnicas, o problema não está na sua análise, e trabalhar
 mais nela não vai resolver.

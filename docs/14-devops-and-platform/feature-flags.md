@@ -2,7 +2,7 @@
 id: feature-flags
 title: Feature Flags
 sidebar_position: 8
-description: Separar implantar de liberar — a técnica de maior impacto, e a que mais acumula dívida.
+description: "Separar implantar de liberar: a técnica de maior impacto, e a que mais acumula dívida."
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, canary, release-management]
 canonical_for: [feature flag, alternância de funcionalidade, dívida de flag, liberação progressiva]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -27,7 +27,7 @@ está ativo.
 Ela separa duas coisas que normalmente andam juntas: **implantar** o código e
 **liberar** a funcionalidade.
 
-Essa separação é a técnica de maior impacto desta seção — ela habilita integração
+Essa separação é a técnica de maior impacto desta seção: ela habilita integração
 contínua com código incompleto, liberação progressiva, reversão sem implantação e
 experimentos.
 
@@ -65,7 +65,7 @@ de permissão   habilita por cliente, plano ou segmento
 ```
 
 As de liberação e de experimento **têm que ser removidas**. As de operação e de permissão
-permanecem — e a última, na verdade, deveria ser modelada como regra de negócio, não como
+permanecem, e a última, na verdade, deveria ser modelada como regra de negócio, não como
 flag.
 
 Misturar os quatro tipos num mesmo mecanismo, sem distinção, é o que produz o acúmulo.
@@ -73,7 +73,7 @@ Misturar os quatro tipos num mesmo mecanismo, sem distinção, é o que produz o
 ### Toda flag temporária precisa de prazo
 
 Uma flag de liberação sem data de remoção nunca é removida. Isso não é falha de
-disciplina — é o comportamento previsível de qualquer item sem dono e sem prazo.
+disciplina: é o comportamento previsível de qualquer item sem dono e sem prazo.
 
 O que funciona:
 
@@ -101,8 +101,8 @@ Isso importa por três razões: não se testa todas as combinações; o comporta
 produção depende de uma configuração que não está no código; e ler o código fica mais
 difícil.
 
-A consequência prática: flags devem ser **independentes**. Duas flags que interagem —
-onde o comportamento de uma depende do estado da outra — são a origem dos defeitos mais
+A consequência prática: flags devem ser **independentes**. Duas flags que interagem
+(onde o comportamento de uma depende do estado da outra) são a origem dos defeitos mais
 difíceis desta técnica.
 
 ### Avaliar exige contexto e não pode falhar aberto
@@ -121,7 +121,7 @@ padrão é "ativo", uma funcionalidade incompleta vai a produção. Ver
 O padrão seguro para flags de liberação é **desativado**; para flags de operação, é o
 último estado conhecido.
 
-E a avaliação precisa ser local — a configuração é distribuída e avaliada em memória, com
+E a avaliação precisa ser local: a configuração é distribuída e avaliada em memória, com
 atualização periódica. Uma chamada de rede por verificação adiciona latência e uma
 dependência crítica no caminho quente.
 
@@ -133,7 +133,7 @@ Flags reduzem o **alcance** do erro, não a probabilidade dele. Uma funcionalida
 quebrada liberada para 1% dos usuários quebra para 1% dos usuários.
 
 Elas são complementares à verificação, não alternativas. Ver
-[canary](/14-devops-and-platform/canary.md) — a diferença é que canary compara métricas automaticamente e
+[canary](/14-devops-and-platform/canary.md) : a diferença é que canary compara métricas automaticamente e
 reverte, enquanto uma flag apenas expõe.
 
 ### Estado de flags é configuração de produção
@@ -185,12 +185,12 @@ de prazo; as permanentes precisam de justificativa.
 
 ## Alternativas
 
-- **Ramos de curta duração** — para mudanças pequenas, integrar em um dia dispensa a
+- **Ramos de curta duração**: para mudanças pequenas, integrar em um dia dispensa a
   flag.
-- **[Canary](/14-devops-and-platform/canary.md)** — expõe gradualmente com comparação automática de métricas.
-- **Configuração por ambiente** — quando a diferença é entre ambientes, não entre
+- **[Canary](/14-devops-and-platform/canary.md)**: expõe gradualmente com comparação automática de métricas.
+- **Configuração por ambiente**: quando a diferença é entre ambientes, não entre
   usuários.
-- **Regra de negócio modelada** — para o que é permanente e depende do plano ou do
+- **Regra de negócio modelada**: para o que é permanente e depende do plano ou do
   perfil.
 
 ## Trade-offs
@@ -232,7 +232,7 @@ de prazo; as permanentes precisam de justificativa.
 
 **Não remover as temporárias.** Cada flag ativa dobra os caminhos possíveis do código. Vinte flags esquecidas produzem um espaço de combinações que nenhum teste cobre.
 
-**Usar flag para regra de negócio.** Regra em painel de configuração escapa de revisão, de teste e de histórico — e passa a mudar comportamento sem rastro.
+**Usar flag para regra de negócio.** Regra em painel de configuração escapa de revisão, de teste e de histórico, e passa a mudar comportamento sem rastro.
 
 **Não definir o comportamento padrão sob falha.** Quando o serviço de flags fica indisponível, o sistema precisa saber qual caminho seguir. Sem valor padrão declarado, a indisponibilidade do serviço de flags vira indisponibilidade do produto.
 
@@ -252,7 +252,7 @@ leitura exigia consultar a configuração de produção para saber qual caminho 
 ativo.
 
 **Defeito por interação.** Duas flags criadas por times diferentes, que sozinhas
-funcionavam, produziam um estado inválido quando ambas ativas — situação que ocorria
+funcionavam, produziam um estado inválido quando ambas ativas, situação que ocorria
 para 3% dos usuários. Levou seis semanas para ser diagnosticado.
 
 **Código morto.** Uma auditoria encontrou 310 flags desligadas havia mais de um ano, com
@@ -281,26 +281,26 @@ mais de dois estados.
 **Avaliação local** com propagação de até 30 segundos, substituindo a chamada de rede
 que existia no caminho de checkout.
 
-Em dezoito meses, as 740 flags viraram **94** — das quais 61 são de operação
+Em dezoito meses, as 740 flags viraram **94**, das quais 61 são de operação
 permanentes, com justificativa registrada.
 
 A lição registrada: a técnica nunca foi o problema, e ela continua sendo a mais
-valiosa que adotaram. O que faltava era o ciclo de vida — criar era fácil e remover não
+valiosa que adotaram. O que faltava era o ciclo de vida: criar era fácil e remover não
 tinha dono.
 
 ## Conceitos Relacionados
 
-- [Integração Contínua](/14-devops-and-platform/ci-cd.md) — o que as flags habilitam.
-- [Canary](/14-devops-and-platform/canary.md) — a liberação com comparação automática.
+- [Integração Contínua](/14-devops-and-platform/ci-cd.md): o que as flags habilitam.
+- [Canary](/14-devops-and-platform/canary.md): a liberação com comparação automática.
 - [Gestão de Releases](/14-devops-and-platform/release-management.md).
-- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — as flags de
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md): as flags de
   operação.
 
 ## Exercício Prático
 
 Conte as flags ativas no seu sistema e classifique-as por tipo.
 
-Depois verifique quantas das temporárias passaram do prazo — ou, se não há prazo, há
+Depois verifique quantas das temporárias passaram do prazo ou, se não há prazo, há
 quanto tempo a mais antiga existe.
 
 ## Perguntas de Entrevista

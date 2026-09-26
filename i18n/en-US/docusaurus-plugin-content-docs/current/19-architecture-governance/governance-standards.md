@@ -2,7 +2,7 @@
 id: governance-standards
 title: Standards in Operation
 sidebar_position: 4
-description: A standard's lifecycle — who writes it, how it gets adopted, and why retiring it is the missing part.
+description: "A standard's lifecycle: who writes it, how it gets adopted, and why retiring it is the missing part."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-principles]
 related: [governance-principles, exceptions, compliance]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ A standard prescribes a choice for a recurring situation. It saves judgment: ins
 team deciding again, the organization decides once.
 
 That saving is real, and it comes with a bill that is rarely drawn up. Every standard has an
-**adoption cost**, a **maintenance cost** and an **exit cost** — and organizations accumulate
+**adoption cost**, a **maintenance cost** and an **exit cost**, and organizations accumulate
 standards as if all three were zero.
 
 The typical result, after a few years:
@@ -39,12 +39,12 @@ forgotten                  15
 ```
 
 See [enterprise standards](/15-enterprise-architecture/standards.md) for scope and
-operationalization; here the focus is the lifecycle — being born, being adopted, and dying.
+operationalization; here the focus is the lifecycle: being born, being adopted, and dying.
 
 ## Problem
 
-Standards are born for a legitimate reason — an incident, an expensive divergence, an audit
-— and they almost never die.
+Standards are born for a legitimate reason (an incident, an expensive divergence, an audit),
+and they almost never die.
 
 ```text
 2020  incident with a serialization library → standard: use library X
@@ -130,7 +130,7 @@ communicated but not adopted     the standard is wrong, or the path is missing
 adopted but not converged        the migration lacks a plan and sponsorship
 ```
 
-Reinforcing the obligation without a path or funding — the default institutional response —
+Reinforcing the obligation without a path or funding, the default institutional response,
 solves none of the three.
 
 ### Retirement is part of the cycle
@@ -148,7 +148,7 @@ The last item is the most forgotten, and it is what keeps retirement from becomi
 abandonment: a discontinued standard with no plan leaves dozens of systems with a choice
 nobody supports any more.
 
-See [superseding decisions](/18-architecture-decisions/superseding-decisions.md) — the
+See [superseding decisions](/18-architecture-decisions/superseding-decisions.md). The
 mechanics are the same.
 
 ### Traceability of the why
@@ -171,7 +171,7 @@ above that  an audit reference, not a decision one
 ```
 
 Every standard consumes the organization's attention, and attention is finite. Adding the
-sixtieth standard doesn't increase coherence — it dilutes the previous fifty-nine.
+sixtieth standard doesn't increase coherence: it dilutes the previous fifty-nine.
 
 That implies an unpopular discipline: **to add a standard, remove another**, unless the new
 one addresses a risk of a different order.
@@ -186,7 +186,7 @@ date, it is already rotting.
 - For recurring decisions whose outcome is already known.
 - Where divergence has a measurable cost.
 - When there is regulatory or security risk.
-- Accompanied by a path — a template, an example, a migration.
+- Accompanied by a path: a template, an example, a migration.
 
 ## When Not to Use
 
@@ -196,22 +196,22 @@ date, it is already rotting.
 
 **Without answering who pays for the migration.**
 
-**Where the context genuinely varies** — teams or platforms with divergent needs, who would
+**Where the context genuinely varies**: teams or platforms with divergent needs, who would
 request exceptions often; that is a principle.
 
-**Above ~15 active standards, without removing another** — the new one dilutes attention to
+**Above ~15 active standards, without removing another**: the new one dilutes attention to
 the existing ones.
 
-**Without measuring adoption** — without that, you don't know whether it exists.
+**Without measuring adoption**: without that, you don't know whether it exists.
 
 ## Alternatives
 
-- **[Principles](/19-architecture-governance/governance-principles.md)** — when the context
+- **[Principles](/19-architecture-governance/governance-principles.md)**: when the context
   varies.
-- **A template** — the standard built in, with no document.
-- **A recommendation with a deadline** — an informal standard, adopted by persuasion before
+- **A template**: the standard built in, with no document.
+- **A recommendation with a deadline**: an informal standard, adopted by persuasion before
   becoming an obligation.
-- **A technology radar** — signals direction without prescribing. See
+- **A technology radar**: signals direction without prescribing. See
   [technology radar](/15-enterprise-architecture/technology-radar.md).
 
 The third is underused: publishing it as a recommendation for six months reveals whether the
@@ -278,8 +278,8 @@ with a linked ADR or justification            11
 referencing a discontinued technology          9
 ```
 
-The 18 impossible to measure were the most revealing: their wording — "systems must adopt
-appropriate configuration management practices" — made it impossible to say whether any
+The 18 impossible to measure were the most revealing: their wording ("systems must adopt
+appropriate configuration management practices") made it impossible to say whether any
 system complied.
 
 And the 9 referencing a discontinued technology were still being cited in reviews.
@@ -287,7 +287,7 @@ And the 9 referencing a discontinued technology were still being cited in review
 The restructuring took nine months:
 
 **From 71 to 19 standards.** Of the 18 non-measurable ones, 15 were removed and 3 reworded
-until they became verifiable; the 22 with adoption below 30% were examined one by one — 15
+until they became verifiable; the 22 with adoption below 30% were examined one by one: 15
 removed, 7 kept with a funded adoption plan; the 31 above 30% were consolidated into 9,
 merged with each other or embedded in templates, where they no longer needed a document.
 
@@ -303,7 +303,7 @@ a migration tool.
 
 **A recommendation stage**: new standards enter as a recommendation for six months, with
 adoption measured. If voluntary adoption stays below 40%, the standard is revised before
-becoming mandatory — the premise being that low voluntary adoption indicates a problem with
+becoming mandatory, the premise being that low voluntary adoption indicates a problem with
 the standard, not with the teams.
 
 Two years later:
@@ -321,7 +321,7 @@ Seven in against six out: the net one is the only regulatory exception to the sw
 during the period.
 
 The 4 revised for low adoption are the figure the team values most. In three of them the
-problem was a missing migration path; in one, the standard was simply wrong — it prescribed
+problem was a missing migration path; in one, the standard was simply wrong: it prescribed
 an approach that didn't work for high-volume systems, and none of the authors had operated
 one.
 
@@ -331,18 +331,18 @@ change with the greatest effect.
 
 ## Related Concepts
 
-- [Enterprise Standards](/15-enterprise-architecture/standards.md) — scope and formulation.
-- [Principles](/19-architecture-governance/governance-principles.md) — when not to prescribe.
-- [Exceptions](/19-architecture-governance/exceptions.md) — what to do about those who cannot
+- [Enterprise Standards](/15-enterprise-architecture/standards.md): scope and formulation.
+- [Principles](/19-architecture-governance/governance-principles.md): when not to prescribe.
+- [Exceptions](/19-architecture-governance/exceptions.md): what to do about those who cannot
   follow.
-- [Compliance](/19-architecture-governance/compliance.md) — how to verify.
+- [Compliance](/19-architecture-governance/compliance.md): how to verify.
 
 ## Practical Exercise
 
 Pick three standards in your organization and answer, for each one: who owns it, when will it
 be reviewed, and what is the measured adoption rate.
 
-The ones without all three answers are not standards — they are documents.
+The ones without all three answers are documents, not standards.
 
 ## Interview Questions
 

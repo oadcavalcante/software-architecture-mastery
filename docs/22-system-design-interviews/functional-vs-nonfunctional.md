@@ -2,7 +2,7 @@
 id: functional-vs-nonfunctional
 title: Requisitos Funcionais vs. Não Funcionais
 sidebar_position: 2
-description: Os funcionais dizem o que construir; os não funcionais dizem como ele precisa ser — e são eles que decidem a arquitetura.
+description: Os funcionais dizem o que construir; os não funcionais dizem como ele precisa ser. São eles que decidem a arquitetura.
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
 canonical_for: [requisito implícito de entrevista]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ uso da distinção numa entrevista, com o relógio correndo.
 
 Encurtar uma URL para mil usuários e para um bilhão são o mesmo requisito funcional e sistemas
 completamente diferentes. É por isso que candidatos que listam apenas funcionalidades produzem
-arquiteturas genéricas — eles não coletaram a informação que diferencia.
+arquiteturas genéricas: eles não coletaram a informação que diferencia.
 
 ## Problema
 
@@ -50,7 +50,7 @@ candidato   "então precisamos de: criar link, redirecionar,
 ```
 
 Três requisitos funcionais e nenhum não funcional. A arquitetura que sai disso é a mesma para
-qualquer escala, qualquer requisito de latência e qualquer necessidade de consistência — o que
+qualquer escala, qualquer requisito de latência e qualquer necessidade de consistência. Isso
 significa que ela não foi decidida, foi lembrada.
 
 O erro oposto, mais raro: listar não funcionais como adjetivos.
@@ -97,7 +97,7 @@ serve.
 Esse é o teste operacional para qualquer requisito não funcional enunciado numa entrevista:
 **qual opção de arquitetura ele descarta?** "Precisa ser rápido" não descarta nenhuma. "p99
 abaixo de 100 ms para leitura global" descarta consulta ao banco primário em outra região,
-descarta cadeias síncronas longas e praticamente obriga cache distribuído — três decisões
+descarta cadeias síncronas longas e praticamente obriga cache distribuído: três decisões
 tomadas por um único número.
 
 Quando o entrevistador não fornece o número, propor um é melhor que omitir. Ele corrige se
@@ -118,12 +118,12 @@ custo           existe orçamento? há restrição de eficiência?
 ```
 
 Percorrer as seis leva menos de um minuto e evita a lacuna mais comum: esquecer de perguntar
-sobre consistência, cuja resposta decide replicação e caminho de escrita — as decisões mais caras
-de reverter depois que o desenho está no quadro.
+sobre consistência, cuja resposta decide replicação e caminho de escrita (as decisões mais caras
+de reverter depois que o desenho está no quadro).
 
 A omissão de consistência tem uma causa identificável: ela é a única das seis que não tem um
 número óbvio associado. Escala tem volume, latência tem milissegundos, disponibilidade tem nonos,
-custo tem reais — consistência tem uma pergunta qualitativa, "o que pode estar desatualizado e
+custo tem reais; consistência tem uma pergunta qualitativa, "o que pode estar desatualizado e
 por quanto tempo".
 
 A forma de torná-la concreta é a mesma: exigir uma janela em unidade de tempo. "Eventualmente
@@ -150,7 +150,7 @@ O mesmo vale para consistência, latência e durabilidade. Ver
 
 ### Prioridade explícita
 
-Quando os não funcionais conflitam — e eles conflitam —, declarar a prioridade antecipa metade
+Quando os não funcionais conflitam (e eles conflitam), declarar a prioridade antecipa metade
 da discussão de trade-off:
 
 ```text
@@ -164,7 +164,7 @@ perguntar.
 
 Declarar prioridade tem um segundo efeito, menos óbvio: ela protege a coerência do desenho. Um
 candidato que declarou "disponibilidade acima de consistência" e depois propõe uma escrita
-síncrona coordenada entre regiões está se contradizendo — e vai ser questionado. A prioridade
+síncrona coordenada entre regiões está se contradizendo, e vai ser questionado. A prioridade
 declarada funciona como uma restrição que mantém as decisões seguintes alinhadas entre si.
 
 Arquiteturas incoerentes são um dos sinais mais fáceis de detectar numa entrevista: elas otimizam
@@ -213,17 +213,17 @@ esclarecê-lo. Nesse caso, basta extrair o número da própria frase.
 **Quando o entrevistador já entregou os números.** Se o enunciado traz volume, latência e
 disponibilidade, refazer a lista é teatro; confirme em uma frase e siga para o desenho.
 
-**Como lista longa** — cinco funcionais e seis não funcionais bastam; mais que isso consome o
+**Como lista longa**: cinco funcionais e seis não funcionais bastam; mais que isso consome o
 tempo do desenho.
 
-**Sem revisitar** — quando o entrevistador muda o enunciado, os requisitos mudam.
+**Sem revisitar**: quando o entrevistador muda o enunciado, os requisitos mudam.
 
 ## Alternativas
 
-- **Uma frase de resumo** — "leitura pesada, tolerante a atraso, disponibilidade acima de
-  consistência" — quando o tempo aperta.
-- **Priorização explícita** — três requisitos ordenados em vez de dez em lista.
-- **Deixar para o entrevistador** — perguntar "qual desses é o mais importante para você?" é
+- **Uma frase de resumo**: "leitura pesada, tolerante a atraso, disponibilidade acima de
+  consistência", quando o tempo aperta.
+- **Priorização explícita**: três requisitos ordenados em vez de dez em lista.
+- **Deixar para o entrevistador**: perguntar "qual desses é o mais importante para você?" é
   legítimo e produtivo.
 
 ## Trade-offs
@@ -262,13 +262,13 @@ tempo do desenho.
 
 **Não declarar o que tolera atraso.**
 
-**Ignorar custo** — em entrevistas para posições sêniores, é diferencial.
+**Ignorar custo**: em entrevistas para posições sêniores, é diferencial.
 
 ## Exemplo de Entrevista
 
 **Problema.** "Projete um serviço de feed de notícias."
 
-**Funcionais** — curtos, porque não decidem:
+**Funcionais** (curtos, porque não decidem):
 
 ```text
 publicar uma postagem
@@ -277,7 +277,7 @@ ver o feed com as postagens de quem se segue
 reagir e comentar
 ```
 
-**Não funcionais** — onde a entrevista acontece:
+**Não funcionais** (onde a entrevista acontece):
 
 ```text
 escala           300 M de usuários ativos diários
@@ -330,14 +330,14 @@ análise.
 **Pergunta de acompanhamento provável:** "e se o requisito fosse de 2 segundos em vez de 30?"
 
 A resposta correta reconhece que isso inviabiliza a distribuição assíncrona para audiências
-grandes, e força ou montagem na leitura ou uma estratégia híbrida — que é exatamente a conversa
+grandes, e força ou montagem na leitura ou uma estratégia híbrida. Essa é exatamente a conversa
 que o avaliador quer ter.
 
 ## Conceitos Relacionados
 
 - [Clarificação de Requisitos](/22-system-design-interviews/requirement-clarification.md).
-- [Estimativa em Entrevista](/22-system-design-interviews/capacity-estimation.md) — os números.
-- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md) — a prioridade declarada.
+- [Estimativa em Entrevista](/22-system-design-interviews/capacity-estimation.md): os números.
+- [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md): a prioridade declarada.
 - [Atributos de Qualidade](/01-fundamentals/quality-attributes.md).
 
 ## Exercício Prático

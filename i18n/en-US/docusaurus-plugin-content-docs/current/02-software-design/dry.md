@@ -2,7 +2,7 @@
 id: dry
 title: DRY
 sidebar_position: 2
-description: Don't repeat knowledge — and why the common reading, about repeating text, does more damage than duplication.
+description: Don't repeat knowledge, and why the common reading, about repeating text, does more damage than duplication.
 doc_type: concept
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, yagni, code-smells]
 canonical_for: [DRY, knowledge duplication]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-DRY — *Don't Repeat Yourself* — is formulated by Hunt and Thomas as:
+DRY (*Don't Repeat Yourself*) is formulated by Hunt and Thomas as:
 
 > Every piece of knowledge must have a single, unambiguous, authoritative
 > representation within a system.
@@ -32,7 +32,7 @@ representing the same rule written twice does, even if the wording differs.
 
 ## Problem
 
-The popular reading — "don't repeat code" — does more damage than the duplication
+The popular reading, "don't repeat code", does more damage than the duplication
 it means to avoid.
 
 The pattern is recognizable. Someone notices two similar snippets and extracts a
@@ -56,8 +56,8 @@ Two questions separate the cases:
 1. If this rule changes, do both places change together, always?
 2. Is there a single business decision behind the two?
 
-Two "yes" answers indicate duplication of knowledge — unify. Any "no" indicates
-coincidence — leave them apart.
+Two "yes" answers indicate duplication of knowledge, so unify. Any "no" indicates
+coincidence, so leave them apart.
 
 | Situation | Verdict |
 |---|---|
@@ -67,7 +67,7 @@ coincidence — leave them apart.
 | Two retry routines with the same shape, for different services | Probably coincidence |
 
 The second case holds for the format: which text counts as an acceptable email is
-a single decision. The validation policy is not — signup may start requiring link
+a single decision. The validation policy is not: signup may start requiring link
 verification while bulk import does not, and then the two change for different
 reasons. See
 [coupling vs. duplication](/20-trade-offs/coupling-vs-duplication.md).
@@ -83,7 +83,7 @@ live in
 [coupling vs. duplication](/20-trade-offs/coupling-vs-duplication.md); what it
 gives DRY is the criterion the first two occurrences lack: with two, "knowledge or
 coincidence?" has no observable answer. The third shows what varies between the
-cases — and what varies is exactly what the abstraction would have to
+cases, and what varies is exactly what the abstraction would have to
 parameterize.
 
 ### DRY crosses boundaries at a cost
@@ -103,7 +103,7 @@ no line in common, and it is the kind that causes silent bugs.
 
 **Between code and database.** A uniqueness constraint in the schema and a
 validation in the application express the same rule. When the rule changes, both
-have to change — and it is common for one to be left behind.
+have to change, and it is common for one to be left behind.
 
 **Between code and configuration.** A default value in the code and another in the
 configuration file. Nobody knows which wins until the incident.
@@ -113,7 +113,7 @@ implemented subtly differently.
 
 **Between services.** Two services replicating the same business validation, each
 on its own, because sharing would couple the teams. Here duplication may be the
-correct decision — but it has to be deliberate and noted, not accidental.
+correct decision, but it has to be deliberate and noted, not accidental.
 
 **Between code and test.** A test that reimplements the logic it checks always
 passes, including when both are wrong for the same reason.
@@ -154,14 +154,14 @@ accounted for.
 
 ## Alternatives
 
-- **Deliberate, annotated duplication** — duplicate, with a comment saying why and
+- **Deliberate, annotated duplication**: duplicate, with a comment saying why and
   which condition would lead to unifying. It wins while it is still unknown whether
   the similarity is knowledge: it costs one line and keeps the next reading from
   deciding by mistake.
-- **Extract only what is stable** — unify the invariant core and leave the edges
+- **Extract only what is stable**: unify the invariant core and leave the edges
   duplicated. It wins when the core is large enough to pay for the extraction and
   the known divergences all sit at the edges.
-- **A shared contract without shared code** — publish a schema instead of a
+- **A shared contract without shared code**: publish a schema instead of a
   library. It wins between teams whose release cycles are already independent,
   where coupling them costs more than reimplementing the reading of the contract.
 
@@ -199,7 +199,7 @@ becomes the criterion, and what gets unified are decisions with no relation to e
 other.
 
 **Extracting at the second occurrence.** Too early to distinguish coincidence from
-knowledge — the abstraction comes out shaped like the first case, and the second
+knowledge: the abstraction comes out shaped like the first case, and the second
 starts entering it through a parameter.
 
 **Treating `OrderDTO` and `OrderEntity` as duplication.** They are different layers
@@ -223,7 +223,7 @@ business rule, and a divergence between displayed and charged would be a serious
 bug.
 
 In the same system, another refactoring unified the delivery address validation
-with the billing address one — same structure, same fields.
+with the billing address one: same structure, same fields.
 
 Eleven months later, the billing address started accepting a PO box and the
 delivery address did not. The validating function gained
@@ -238,12 +238,12 @@ The two cases looked textually alike. Only one was duplicated knowledge.
 
 ## Related Concepts
 
-- [Cohesion](/01-fundamentals/cohesion.md) — the same question about reason for
+- [Cohesion](/01-fundamentals/cohesion.md): the same question about reason for
   change.
-- [Abstraction](/01-fundamentals/abstraction.md) — the cost of abstracting early.
-- [Coupling vs. Duplication](/20-trade-offs/coupling-vs-duplication.md) — the
+- [Abstraction](/01-fundamentals/abstraction.md): the cost of abstracting early.
+- [Coupling vs. Duplication](/20-trade-offs/coupling-vs-duplication.md): the
   trade-off in detail.
-- [Code Smells](/02-software-design/code-smells.md) — how to recognize the
+- [Code Smells](/02-software-design/code-smells.md): how to recognize the
   symptoms.
 
 ## Practical Exercise
@@ -265,5 +265,5 @@ knowledge or only of text?
 ## Further Exploration
 
 - Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2nd ed.,
-  Addison-Wesley, 2019 — the original formulation.
+  Addison-Wesley, 2019. The original formulation.
 - Metz, Sandi. *The Wrong Abstraction*, 2016.

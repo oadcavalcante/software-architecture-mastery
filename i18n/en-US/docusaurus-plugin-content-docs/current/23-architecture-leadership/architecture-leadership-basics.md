@@ -2,7 +2,7 @@
 id: architecture-leadership-basics
 title: Architecture Leadership Basics
 sidebar_position: 1
-description: The role exists with no formal authority — and the core competency is making a decision happen without being able to order it.
+description: The role exists with no formal authority, and the core competency is making a decision happen without being able to order it.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ A senior architect rarely fails for not knowing the correct answer.
 They fail because the correct answer required an investment nobody approved. Because two teams
 disagreed and the disagreement was never resolved. Because the decision was communicated in a way
 that left whoever controls the budget not understanding the risk. Or because the proposed
-architecture went against the organization's structure, and the organization won — as it almost
+architecture went against the organization's structure, and the organization won, as it almost
 always wins.
 
 ```text
@@ -55,7 +55,7 @@ don't?".
 
 And there is a second pattern, the opposite one: the architect who abandons the technical. They
 start producing strategy, presentations and diagrams, and lose the ability to assess a proposal in
-depth. Before long, the teams stop bringing them into the decisions that matter — because they add
+depth. Before long, the teams stop bringing them into the decisions that matter, because they add
 nothing to them.
 
 The role demands both things simultaneously, and it is that combination that makes it hard.
@@ -94,7 +94,7 @@ for operations  what changes on call
 for finance     what the effect on the bill is, and when
 ```
 
-It is not simplifying — it is changing the axis. Leadership doesn't need a simplified version of
+It is changing the axis, not simplifying. Leadership doesn't need a simplified version of
 the diagram; it needs the same decision expressed in risk, cost and capacity.
 
 Architects who present the technical version to every audience conclude that "leadership doesn't
@@ -108,8 +108,8 @@ waiting for more information   costs time, and the cost is invisible
 deciding now                   a risk of being wrong, and the error is visible
 ```
 
-The asymmetry in visibility pushes toward deferring, and deferring is frequently the worse option
-— especially when the decision blocks other people's work.
+The asymmetry in visibility pushes toward deferring, and deferring is frequently the worse option,
+especially when the decision blocks other people's work.
 
 The stance that works: decide with what you have, declare the premises, record the condition that
 would change the decision, and move on. See
@@ -120,7 +120,7 @@ would change the decision, and move on. See
 
 An architecture that goes against the organization's communication structure gets eroded until it
 mirrors that structure, unless the structure changes along with it. That is not a sociological
-observation — it is a design constraint as hard as latency or cost.
+observation but a design constraint as hard as latency or cost.
 
 Recognizing it changes what you propose: instead of designing the ideal architecture and lamenting
 that the organization doesn't support it, the senior architect proposes the organizational change
@@ -141,7 +141,7 @@ teams that inform the decision instead of consulting on it
 "they don't know how this works today"
 ```
 
-What preserves the competence is not writing code in volume — it is taking part in design reviews,
+What preserves the competence is not writing code in volume but taking part in design reviews,
 reading code in critical areas, following incidents and feeling the real friction of operating the
 system.
 
@@ -173,8 +173,8 @@ right metric   how many good decisions were made in the organization,
                including without me
 ```
 
-An architect whose absence blocks the organization has not built capability — they have built
-dependency. The job includes leaving criteria, principles and precedents that let the decision
+An architect whose absence blocks the organization has built
+dependency, not capability. The job includes leaving criteria, principles and precedents that let the decision
 happen without them. See
 [measuring outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
@@ -194,28 +194,28 @@ This set of stances applies when:
 
 ## When Not to Use
 
-**Where the decision is local and reversible** — in those cases, the team decides and the architect
+**Where the decision is local and reversible**: in those cases, the team decides and the architect
 shouldn't be in the room.
 
-**In a small organization, with a single team deciding the architecture** — there is nothing to
+**In a small organization, with a single team deciding the architecture**: there is nothing to
 cross; the cross-cutting role doesn't pay for itself, and the same person decides as a member of
 the team.
 
-**During an active incident or a regulatory requirement with a deadline** — the cost of convincing
+**During an active incident or a regulatory requirement with a deadline**: the cost of convincing
 exceeds the cost of being wrong; whoever holds authority decides, and the convincing is left for
 the review afterwards.
 
-**Where the organization grants legitimate formal authority over the topic** — security and
+**Where the organization grants legitimate formal authority over the topic**: security and
 compliance, for example. The decision can be mandated; influence still serves adoption, not the
 decision itself.
 
 ## Alternatives
 
-- **Architecture distributed across the teams** — with no dedicated role, with federated decisions
+- **Architecture distributed across the teams**: with no dedicated role, with federated decisions
   and a coordination forum. It works well in organizations with a strong technical culture. See
   [federated governance](/19-architecture-governance/federated-governance.md).
-- **An embedded architect** — inside the team, with no cross-cutting scope; more depth, less reach.
-- **Real formal authority** — wins in regulated domains, in security decisions and where the
+- **An embedded architect**: inside the team, with no cross-cutting scope; more depth, less reach.
+- **Real formal authority**: wins in regulated domains, in security decisions and where the
   architect holding authority is close to the teams. It loses quality when that architect is far
   from the context of those who execute: the decision comes out faster and worse.
 
@@ -294,7 +294,7 @@ The numbers add up to more than 27 because several proposals accumulated reasons
 The changes the group adopted:
 
 **Every proposal came to include the opportunity cost.** Not only the effort, but explicitly what
-would stop being delivered — negotiated with product before the presentation, not after.
+would stop being delivered, negotiated with product before the presentation, not after.
 
 **Risk instead of technology** in presentations to leadership. The proposal to replace a component
 stopped being about the component and became about the probability of downtime and its cost.
@@ -302,11 +302,11 @@ stopped being about the component and became about the probability of downtime a
 **Disagreement addressed before the presentation.** No proposal went to committee without the
 affected teams having been heard and the divergence, if any, recorded with each side's position.
 
-**Organizational change as part of the proposal**, where necessary — with the conversation held
+**Organizational change as part of the proposal**, where necessary, with the conversation held
 with engineering leadership beforehand, and not after.
 
 **Presence in the early conversations.** The architects started taking part in the teams' design
-discussions, early, as consultants with no veto — which resolved the "it arrived too late" and, as
+discussions, early, as consultants with no veto. That resolved the "it arrived too late" and, as
 a side effect, restored their technical proximity.
 
 Two years later, a new assessment over the same eighteen-month window:
@@ -322,7 +322,7 @@ good architectural decisions made by the
 ```
 
 The last number is what changed the group's self-assessment. It came to consider itself successful
-when the teams decided well on their own — and not when it decided.
+when the teams decided well on their own, and not when it decided.
 
 The point the team underlines: the reduction from 31 to 24 proposals was deliberate. The group
 started selecting battles and, by its own estimate, what it stopped taking to committee was mostly
@@ -332,13 +332,13 @@ low-consequence standardization preferences that affected neither risk, cost nor
 
 - [Technical Influence](/23-architecture-leadership/technical-influence.md).
 - [Communication](/23-architecture-leadership/communication.md).
-- [Conway's Law](/23-architecture-leadership/conways-law.md) — the organizational constraint.
+- [Conway's Law](/23-architecture-leadership/conways-law.md): the organizational constraint.
 - [Measuring Outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
 ## Practical Exercise
 
 List the last five architectural proposals you made and mark, for each one, whether it was adopted
-— and, if not, for what reason.
+and, if not, for what reason.
 
 If the reasons are mostly non-technical, the problem is not in your analysis, and working harder on
 it will not fix it.

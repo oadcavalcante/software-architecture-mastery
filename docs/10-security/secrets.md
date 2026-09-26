@@ -2,7 +2,7 @@
 id: secrets
 title: Segredos
 sidebar_position: 5
-description: Senhas, chaves e tokens que o sistema precisa guardar — e os lugares onde eles sempre vazam.
+description: Senhas, chaves e tokens que o sistema precisa guardar, e os lugares onde eles sempre vazam.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, supply-chain-trust, least-privilege]
 canonical_for: [segredo, gerenciador de segredos, rotação de credencial, vazamento de segredo]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -27,7 +27,7 @@ chave de API, token de serviço, chave de assinatura, certificado privado.
 Eles têm uma propriedade inconveniente: precisam estar acessíveis ao código em tempo
 de execução, e essa acessibilidade é exatamente o que os expõe.
 
-A estratégia moderna não é guardá-los melhor. É **não tê-los** — substituindo
+A estratégia moderna não é guardá-los melhor. É **não tê-los**, substituindo
 credenciais estáticas por identidade de plataforma e credenciais efêmeras. O que
 sobra recebe gestão adequada.
 
@@ -63,12 +63,12 @@ exigem segredo armazenado.
 temporárias, rotacionadas automaticamente. Nada a guardar. Ver
 [identidade em nuvem](/09-cloud-architecture/cloud-identity.md).
 
-**Federação de identidade** para sistemas externos — esteiras de integração contínua
+**Federação de identidade** para sistemas externos: esteiras de integração contínua
 podem autenticar sem chave estática.
 
 **Certificados de curta duração** em vez de senha.
 
-**Credenciais dinâmicas de banco** — geradas sob demanda, com validade de horas.
+**Credenciais dinâmicas de banco**, geradas sob demanda, com validade de horas.
 
 Cada segredo eliminado é um que não precisa ser rotacionado, auditado nem procurado
 em vazamentos.
@@ -106,7 +106,7 @@ ser conhecida antes.
 
 O padrão que permite rotação sem interrupção é manter **duas credenciais válidas**
 simultaneamente durante a transição: cria-se a nova, atualizam-se os consumidores,
-revoga-se a antiga. Sem isso, rotacionar exige parada — e por isso não é feita.
+revoga-se a antiga. Sem isso, rotacionar exige parada, e por isso não é feita.
 
 ### Detecção precisa ser automática
 
@@ -116,7 +116,7 @@ Confiar em disciplina para não cometer o erro não funciona em escala.
 
 **Varredura no repositório**, incluindo o histórico completo.
 
-**Monitoramento de repositórios públicos** — os provedores oferecem serviços que
+**Monitoramento de repositórios públicos**: os provedores oferecem serviços que
 detectam chaves suas expostas.
 
 **Revogação automática** ao detectar. Uma chave exposta deve ser considerada
@@ -128,7 +128,7 @@ O histórico do sistema de versão preserva tudo. Apagar o arquivo num commit po
 mantém o segredo recuperável por qualquer pessoa com acesso ao repositório.
 
 A única resposta correta é **rotacionar o segredo**. Reescrever o histórico é
-desejável e secundário — clones e bifurcações já existentes continuam com a cópia.
+desejável e secundário: clones e bifurcações já existentes continuam com a cópia.
 
 Times que tratam o problema como "remova o arquivo" deixam a credencial válida.
 
@@ -138,8 +138,8 @@ Usar credenciais de produção em desenvolvimento é comum e transforma cada má
 desenvolvedor num alvo com acesso produtivo.
 
 Credenciais separadas por ambiente, com escopo restrito, contêm o problema. E dados
-de desenvolvimento não deveriam ser cópia de produção — ver
-[proteção de dados](/10-security/data-protection.md).
+de desenvolvimento não deveriam ser cópia de produção (ver
+[proteção de dados](/10-security/data-protection.md)).
 
 ## Modelo Mental
 
@@ -167,7 +167,7 @@ os acessos que importam. Prioridade quando:
 **Segredo em variável de ambiente** quando o gerenciador permite injeção direta. Não é
 pela listagem de processos: `ps` mostra a linha de comando, e o ambiente
 (`/proc/<pid>/environ`) só é legível pelo dono do processo e pelo root. Os vetores reais são
-outros — todo processo filho herda o ambiente, `docker inspect` e o objeto do orquestrador o
+outros: todo processo filho herda o ambiente, `docker inspect` e o objeto do orquestrador o
 exibem, e um despejo de memória o carrega junto.
 
 **Compartilhar credencial entre serviços.** Impede saber quem usou e obriga a
@@ -181,8 +181,8 @@ rotacionar tudo junto.
 
 ## Alternativas
 
-- **Identidade de plataforma** — elimina o segredo.
-- **Credenciais dinâmicas** — geradas sob demanda, curta duração.
+- **Identidade de plataforma**: elimina o segredo.
+- **Credenciais dinâmicas**: geradas sob demanda, curta duração.
 - **Certificados** com autoridade própria, em vez de senha.
 - **Cifragem envelopada** para segredos versionados junto ao código, quando não há
   gerenciador. Ver [gestão de chaves](/10-security/key-management.md).
@@ -223,13 +223,13 @@ rotacionar tudo junto.
 
 ## Erros Comuns
 
-**Não eliminar segredos quando há alternativa.** Identidade atribuída à carga de trabalho dispensa a credencial estática — e o que não existe não aparece em varredura, em despejo nem em repositório.
+**Não eliminar segredos quando há alternativa.** Identidade atribuída à carga de trabalho dispensa a credencial estática, e o que não existe não aparece em varredura, em despejo nem em repositório.
 
 **Remover do repositório sem rotacionar.** O histórico do Git preserva o valor, e clones já feitos também. Segredo commitado é segredo comprometido, e o único remédio é trocá-lo.
 
 **Não auditar acesso.** Sem registro de quem leu qual segredo e quando, não há como delimitar o escopo de um incidente nem detectar leitura anômala.
 
-**Não exercitar rotação.** A rotação que nunca foi feita falha na primeira tentativa, que é justamente durante a suspeita de vazamento — o pior momento para descobrir que algo não está automatizado.
+**Não exercitar rotação.** A rotação que nunca foi feita falha na primeira tentativa, que é justamente durante a suspeita de vazamento: o pior momento para descobrir que algo não está automatizado.
 
 **Usar credencial de produção em desenvolvimento.** Multiplica os lugares onde ela existe, com controle mais fraco em todos eles, e torna impossível saber de onde partiu um acesso.
 
@@ -270,7 +270,7 @@ A reformulação, ao longo de dez meses:
 
 **Eliminação.** O inventário consolidado tinha 214 segredos em uso. Aplicações na nuvem
 passaram a usar identidade de plataforma e a esteira passou a usar federação, o que eliminou
-129 deles — 60%, e a maior parte do que sobrou é credencial de sistema externo, que não tem
+129 deles (60%), e a maior parte do que sobrou é credencial de sistema externo, que não tem
 como ser substituída por identidade.
 
 **Gerenciador de segredos** para o resto, com acesso auditado por segredo.
@@ -285,7 +285,7 @@ distinto. Rotacionar uma deixou de afetar as demais.
 **Filtro de segredos nos registros.**
 
 Na retrospectiva: a chave exposta no repositório público foi o gatilho, e continua sendo o
-achado mais **grave** — é a única com permissão de administrador e a única com uso confirmado
+achado mais **grave**. É a única com permissão de administrador e a única com uso confirmado
 por terceiros, durante quatro meses. O que a auditoria revelou depois é maior em **escala**, e
 é outra categoria de risco: 31 credenciais válidas em repositórios internos, sem nenhuma
 auditoria de uso e sem nenhum alerta em dois anos — nenhuma com abuso detectável, porque não havia
@@ -296,8 +296,8 @@ leva a priorizar errado.
 
 ## Conceitos Relacionados
 
-- [Gestão de Chaves](/10-security/key-management.md) — o caso especial das chaves criptográficas.
-- [Menor Privilégio](/10-security/least-privilege.md) — o escopo do que vaza.
+- [Gestão de Chaves](/10-security/key-management.md): o caso especial das chaves criptográficas.
+- [Menor Privilégio](/10-security/least-privilege.md): o escopo do que vaza.
 - [Confiança na Cadeia de Suprimentos](/10-security/supply-chain-trust.md).
 - [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md).
 
@@ -306,7 +306,7 @@ leva a priorizar errado.
 Rode uma varredura de segredos no **histórico completo** dos seus repositórios, não
 só no estado atual.
 
-Para cada achado, a pergunta não é "ainda está lá?" — é "essa credencial ainda é
+Para cada achado, a pergunta não é "ainda está lá?", e sim "essa credencial ainda é
 válida?".
 
 ## Perguntas de Entrevista

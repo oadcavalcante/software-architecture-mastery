@@ -2,7 +2,7 @@
 id: strategic-ddd
 title: DDD Estratégico
 sidebar_position: 10
-description: A parte do DDD que decide arquitetura — e a que quase sempre é pulada.
+description: A parte do DDD que decide arquitetura, e a que quase sempre é pulada.
 doc_type: foundation
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context, context-mapping]
 related: [tactical-ddd, subdomain, enterprise-architecture]
 canonical_for: [DDD estratégico, strategic design]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 DDD estratégico é a parte que decide **onde as fronteiras ficam** e **onde
 investir**. Ele opera antes de qualquer decisão sobre agregados ou repositórios.
 
-É também a parte que quase sempre é pulada — a maior parte do que se chama de
+É também a parte que quase sempre é pulada: a maior parte do que se chama de
 "adotar DDD" começa e termina no tático.
 
 ## O Problema
@@ -36,8 +36,8 @@ conclui que DDD é um estilo de escrever classes. O sistema ganha `Aggregate`,
 `Repository` e `ValueObject` no nome, e mantém as mesmas fronteiras erradas de
 antes.
 
-O resultado é o pior dos dois mundos: o custo do tático — indireção, cerimônia,
-mais tipos — sem o benefício do estratégico, que é o que de fato muda a
+O resultado é o pior dos dois mundos: o custo do tático (indireção, cerimônia,
+mais tipos) sem o benefício do estratégico, que é o que de fato muda a
 arquitetura.
 
 A ordem correta é a inversa. **As fronteiras vêm primeiro.** Elas decidem onde os
@@ -57,7 +57,7 @@ dividi-lo em áreas.
 [supporting](/04-domain-driven-design/supporting-domain.md) e [generic](/04-domain-driven-design/generic-domain.md). Decidir onde
 investir, onde simplificar e o que comprar.
 
-**[Bounded context](/04-domain-driven-design/bounded-context.md).** Definir as fronteiras do modelo — a
+**[Bounded context](/04-domain-driven-design/bounded-context.md).** Definir as fronteiras do modelo: a
 decisão de maior consequência arquitetural.
 
 **[Ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).** Estabelecer o vocabulário
@@ -93,10 +93,10 @@ Nenhum dos dois exige adotar padrão nenhum.
 
 O custo que ele tem não é de engenharia: é a agenda dos especialistas de domínio e a
 disposição de mexer em fronteiras que já têm dono. Onde os dois faltam, a análise sai
-barata e produz ficção — fronteiras plausíveis que ninguém vai aplicar.
+barata e produz ficção: fronteiras plausíveis que ninguém vai aplicar.
 
 Um time pode aplicar DDD estratégico integralmente e escrever código sem um único
-agregado — e frequentemente isso é a decisão certa.
+agregado, e frequentemente isso é a decisão certa.
 
 ### O instrumento principal é a conversa
 
@@ -104,7 +104,7 @@ agregado — e frequentemente isso é a decisão certa.
 especialistas. O estratégico é feito com pessoas do negócio na sala.
 
 Isso é o que o torna desconfortável em organizações estruturadas por camadas de
-comunicação — e é o pré-requisito real, mais que qualquer conhecimento técnico.
+comunicação, e é o pré-requisito real, mais que qualquer conhecimento técnico.
 
 ## Por Que Isso Importa
 
@@ -112,7 +112,7 @@ comunicação — e é o pré-requisito real, mais que qualquer conhecimento té
 de contexto errada custa anos; um agregado mal desenhado custa uma refatoração.
 
 **Porque decide onde o tático se paga.** Sem a classificação de subdomínios, DDD
-tático é aplicado uniformemente — e desperdiçado em quatro quintos do sistema.
+tático é aplicado uniformemente, e desperdiçado em quatro quintos do sistema.
 
 **Porque conecta arquitetura a negócio.** É a ponte entre
 [contexto de negócio](/01-fundamentals/business-context.md) e estrutura de
@@ -129,11 +129,11 @@ pela engenharia.
 nenhuma decisão não valeu o esforço.
 
 **Definir fronteiras por estrutura organizacional sem verificar o vocabulário.** A
-organização é pista, não resposta — e às vezes a organização é que está errada.
+organização é pista, não resposta, e às vezes a organização é que está errada.
 
 **Fazer uma vez e nunca revisar.** O negócio muda, e as fronteiras envelhecem.
 
-**Confundir subdomínio com bounded context.** Problema versus solução — tratá-los como
+**Confundir subdomínio com bounded context.** Problema versus solução: tratá-los como
 sinônimo leva a desenhar um contexto por subdomínio, e perde a decisão de fronteira
 justamente onde os dois não coincidem.
 
@@ -147,27 +147,27 @@ Seis meses depois, o sistema tinha vocabulário de DDD e os mesmos problemas: to
 mudança atravessava três módulos, e dois times bloqueavam um ao outro
 constantemente.
 
-A análise estratégica, feita depois, levou três semanas — duas sessões de *event
+A análise estratégica, feita depois, levou três semanas: duas sessões de *event
 storming* com síndicos, administradores e a equipe.
 
-O que ela revelou: o sistema estava dividido por entidade — `Condominio`,
-`Unidade`, `Morador`, `Cobranca` — e o negócio operava por três capacidades
+O que ela revelou: o sistema estava dividido por entidade (`Condominio`,
+`Unidade`, `Morador`, `Cobranca`) e o negócio operava por três capacidades
 distintas com vocabulários próprios.
 
-**Gestão predial** — manutenção, ativos, ordens de serviço. "Unidade" ali é um
+**Gestão predial**: manutenção, ativos, ordens de serviço. "Unidade" ali é um
 espaço físico.
 
-**Financeiro** — rateio, cobrança, inadimplência. "Unidade" é uma fração ideal com
+**Financeiro**: rateio, cobrança, inadimplência. "Unidade" é uma fração ideal com
 titular e histórico de débito.
 
-**Convivência** — reservas, assembleias, comunicados. "Unidade" é um grupo de
+**Convivência**: reservas, assembleias, comunicados. "Unidade" é um grupo de
 moradores com direito a voto.
 
 Três significados de "unidade", três bounded contexts, e o sistema tinha uma
 classe `Unidade` com 60 campos servindo aos três.
 
 A reorganização por contexto levou quatro meses. Os agregados e repositórios já
-construídos foram redistribuídos — a maior parte do trabalho tático foi
+construídos foram redistribuídos: a maior parte do trabalho tático foi
 aproveitada, mas dentro das fronteiras certas.
 
 A conclusão que a equipe registrou: o tático não estava errado. Estava aplicado
@@ -176,17 +176,17 @@ tivesse vindo primeiro.
 
 ## Conceitos Relacionados
 
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a decisão central.
-- [Subdomínio](/04-domain-driven-design/subdomain.md) — a divisão do problema.
-- [Context Mapping](/04-domain-driven-design/context-mapping.md) — os relacionamentos.
-- [DDD Tático](/04-domain-driven-design/tactical-ddd.md) — o que vem depois.
-- [Arquitetura Corporativa](/15-enterprise-architecture/index.md) — o mesmo
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): a decisão central.
+- [Subdomínio](/04-domain-driven-design/subdomain.md): a divisão do problema.
+- [Context Mapping](/04-domain-driven-design/context-mapping.md): os relacionamentos.
+- [DDD Tático](/04-domain-driven-design/tactical-ddd.md): o que vem depois.
+- [Arquitetura Corporativa](/15-enterprise-architecture/index.md): o mesmo
   raciocínio acima do sistema.
 
 ## Exercício Prático
 
 Reúna duas pessoas do negócio e mapeie, numa linha do tempo, os eventos que
-acontecem no seu domínio — do início ao fim de um fluxo importante.
+acontecem no seu domínio, do início ao fim de um fluxo importante.
 
 Observe onde os eventos se agrupam e onde o vocabulário muda de dono.
 
@@ -201,7 +201,7 @@ resultado.
 
 ## Para Aprofundar
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — a parte IV.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. A parte IV.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.
-- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — em progresso desde
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016. Em progresso desde
   então; a técnica apareceu antes no artigo homônimo de 2013.

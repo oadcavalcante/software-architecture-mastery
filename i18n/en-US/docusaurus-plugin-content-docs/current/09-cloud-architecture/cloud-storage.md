@@ -2,7 +2,7 @@
 id: cloud-storage
 title: Cloud Storage
 sidebar_position: 12
-description: Objects, blocks and files — three models with different properties, and what each one charges.
+description: "Objects, blocks and files: three models with different properties, and what each one charges."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [file-storage, cdn, cloud-compute, cost-architecture, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -42,7 +42,7 @@ The reflex is to use what is familiar: a disk. An application that writes files 
 doing that in the cloud, with an attached disk.
 
 That works and it traps you: the disk belongs to a zone, it is not shareable, it has a fixed size to
-manage, and it costs per gigabyte provisioned — not used.
+manage, and it costs per gigabyte provisioned, not used.
 
 For most "store files" cases, object storage is cheaper, more durable and more scalable. The migration
 rarely happens because nobody revisits the choice.
@@ -61,10 +61,10 @@ The superficial resemblance is deceptive:
 billing.
 
 **Consistency.** At the three major providers, read-after-write and listing are strongly consistent: a
-freshly written object already shows up in the listing. What arrives late are the asynchronous copies —
+freshly written object already shows up in the listing. What arrives late are the asynchronous copies:
 cross-region replication and inventory reports.
 
-Treating objects like a disk produces bad access patterns — the most common is listing to find something,
+Treating objects like a disk produces bad access patterns: the most common is listing to find something,
 when the key should be derivable.
 
 ### Storage classes and the cost of retrieving
@@ -79,7 +79,7 @@ The saving is real and has a trap: moving data to a cold class and then accessin
 **more expensive** than having left it in the hot class.
 
 The rule: base the transition on real access data, not on presumed age. And check whether the application
-tolerates the destination class's retrieval latency — in deep archival, it can be hours.
+tolerates the destination class's retrieval latency: in deep archival, it can be hours.
 
 ### Lifecycle is configuration, not code
 
@@ -88,7 +88,7 @@ Rules that automatically move and delete objects by age are the cheapest way to 
 And they are also where the retention requirement needs to live. See
 [data lifecycle](/07-data-architecture/data-lifecycle.md).
 
-With no lifecycle rules, storage only grows — and it is the invoice item that grows most silently, because
+With no lifecycle rules, storage only grows, and it is the invoice item that grows most silently, because
 it generates neither errors nor slowness.
 
 ### Versioning protects you from yourself
@@ -99,11 +99,11 @@ It is the protection against accidental deletion and against an attack that encr
 [disaster recovery](/09-cloud-architecture/disaster-recovery.md).
 
 Two consequences to manage: old versions occupy space and are billed, and the lifecycle rule needs to
-handle them explicitly — otherwise, deleting frees nothing.
+handle them explicitly. Otherwise, deleting frees nothing.
 
 ### Durability is not availability
 
-Object storage usually promises extremely high durability — the chance of losing an object is remote.
+Object storage usually promises extremely high durability: the chance of losing an object is remote.
 
 That says nothing about **availability**: the service can be temporarily unreachable, and several
 wide-reaching incidents were exactly that.
@@ -116,7 +116,7 @@ reliability.
 Virtual disks have limits on operations per second and on throughput, generally proportional to size or
 provisioned separately.
 
-A small disk can be a database's bottleneck, and the symptom is slowness with no high CPU — a diagnosis
+A small disk can be a database's bottleneck, and the symptom is slowness with no high CPU, a diagnosis
 that usually takes a while because nobody suspects the disk.
 
 And the burst credit mechanism, present in some classes, produces the worst kind of problem: good
@@ -129,33 +129,33 @@ shared.** The wrong choice shows up on the invoice or at the limit.
 
 ## When to Use
 
-**Objects** — user files, media, backups, analytical data, artifacts, anything read whole.
+**Objects**: user files, media, backups, analytical data, artifacts, anything read whole.
 
-**Blocks** — the operating system, a database, anything that requires a file system with performance.
+**Blocks**: the operating system, a database, anything that requires a file system with performance.
 
-**Files** — when several machines need the same file system and rewriting the application is not an option.
+**Files**: when several machines need the same file system and rewriting the application is not an option.
 
 ## When Not to Use
 
 **Objects as a file system**, when the application depends on partial modification, bulk renames or
-listing to locate things — a sign that the key is not derivable and the wrong model was chosen.
+listing to locate things: a sign that the key is not derivable and the wrong model was chosen.
 
 **Blocks for user files**, from the moment more than one instance needs to read the same file or the volume
 grows with no predictable ceiling. Expensive, stuck in a zone, with a size to manage.
 
 **Files out of convenience**, when the application can read and write whole objects. It is the most
-expensive of the three and only pays off when several machines need shared file system semantics — locks,
-partial writes — and rewriting is not an option.
+expensive of the three and only pays off when several machines need shared file system semantics (locks,
+partial writes) and rewriting is not an option.
 
 **A cold class** when a month's retrieval charges exceed the month's storage saving, or when the
 application does not tolerate the class's retrieval latency.
 
 ## Alternatives
 
-- **[A content delivery network](/05-system-design/cdn.md)** in front of objects — it reduces egress cost and latency.
-- **A database** for structured data — storage is not a substitute.
+- **[A content delivery network](/05-system-design/cdn.md)** in front of objects: it reduces egress cost and latency.
+- **A database** for structured data: storage is not a substitute.
 - **A cache** for what is read repeatedly.
-- **Local ephemeral storage** for temporary processing data — faster and cheaper than a persistent disk.
+- **Local ephemeral storage** for temporary processing data, faster and cheaper than a persistent disk.
 
 ## Trade-offs
 
@@ -186,7 +186,7 @@ application does not tolerate the class's retrieval latency.
 
 **Burst credit exhausted.** Performance collapses under sustained load.
 
-**An object publicly exposed.** A permissive access configuration — one of the most common leaks in the
+**An object publicly exposed.** A permissive access configuration, one of the most common leaks in the
 cloud.
 
 **Expensive listing.** A loop that lists millions of keys.
@@ -215,7 +215,7 @@ Three consequences:
 **Scale.** Each machine needed the same content, and the synchronization between them was a fragile process
 of their own. Adding an instance took 40 minutes copying files.
 
-**Cost.** The disks were provisioned with headroom — 60% idle space paid for in full. And the content was
+**Cost.** The disks were provisioned with headroom: 60% idle space paid for in full. And the content was
 replicated on each machine.
 
 **Zone.** All the content was stuck in the instances' zone.
@@ -223,12 +223,12 @@ replicated on each machine.
 The migration to object storage solved all three, and brought new decisions:
 
 **Lifecycle.** Materials from courses closed more than two years earlier went to an archival class. The
-saving was large — and a month later, a teacher asked for an old course's material, and the retrieval took
+saving was large, and a month later, a teacher asked for an old course's material, and the retrieval took
 5 hours. The rule was adjusted to archive only after four years, with a notice in the interface about the
 latency.
 
 **Versioning.** Enabled after an incident in which a script deleted student uploads. It saved the data. Six
-months later, the storage cost had risen 40% — the old versions were never removed. The lifecycle rule came
+months later, the storage cost had risen 40%: the old versions were never removed. The lifecycle rule came
 to delete non-current versions after 90 days.
 
 **Exposure.** A security review found a set of objects with public access, created during the migration to
@@ -237,7 +237,7 @@ test and never fixed. It contained student uploads.
 **A content delivery network** in front of the videos. The egress cost fell substantially, and the
 experience improved.
 
-The detail the team highlights: the migration was treated as a technology swap — "from disks to objects" —
+The detail the team highlights: the migration was treated as a technology swap ("from disks to objects"),
 and the three decisions that came afterward (class, versioning, permissions) were not in the plan. Each one
 generated an incident before becoming a configuration.
 

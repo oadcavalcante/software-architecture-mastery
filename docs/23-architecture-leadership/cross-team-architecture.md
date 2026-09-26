@@ -2,7 +2,7 @@
 id: cross-team-architecture
 title: Arquitetura entre Times
 sidebar_position: 10
-description: Decisões que atravessam fronteiras — onde nenhum time tem autoridade e a coordenação é o produto.
+description: Decisões que atravessam fronteiras, onde nenhum time tem autoridade e a coordenação é o produto.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [conways-law, technical-influence, negotiating-tradeoffs]
 canonical_for: [decisão que atravessa times, coordenação arquitetural, interface entre times]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 A maior parte das decisões arquiteturais é local: um time decide, implementa, e responde pelo
 resultado. Essas decisões não precisam de arquiteto.
 
-O trabalho de liderança arquitetural começa nas decisões que **atravessam** fronteiras — onde
+O trabalho de liderança arquitetural começa nas decisões que **atravessam** fronteiras, onde
 nenhum time tem autoridade sobre o outro, e onde a consequência de decidir mal é de todos.
 
 ```text
@@ -48,12 +48,12 @@ problema de integração.
 
 **Alguém decide e ninguém adota.** Um arquiteto ou um time decide unilateralmente, os demais não
 participaram, e a decisão é ignorada em silêncio. Ver
-[exceções](/19-architecture-governance/exceptions.md) — o descumprimento invisível é a forma
+[exceções](/19-architecture-governance/exceptions.md): o descumprimento invisível é a forma
 usual.
 
 **Decide-se por escalada.** A discordância sobe para um gestor comum, que decide sem contexto
 técnico. A decisão pode até ser boa, e o custo é que os times aprendem que discordar é uma forma
-de terceirizar a decisão — e passam a escalar mais.
+de terceirizar a decisão, e passam a escalar mais.
 
 ```text
 o padrão saudável   os times decidem, com o arquiteto ajudando
@@ -89,7 +89,7 @@ local         como cada um cumpre o contrato
 ```
 
 Essa divisão é o que permite coordenação com pouco atrito. Discutir a implementação interna de
-outro time consome tempo, gera resistência e não melhora o resultado — o contrato é o que importa
+outro time consome tempo, gera resistência e não melhora o resultado: o contrato é o que importa
 para quem está do outro lado.
 
 Ver [contratos de integração](/08-integration-architecture/integration-contracts.md).
@@ -108,7 +108,7 @@ A segunda sequência é mais lenta e produz adoção. A primeira é mais rápida
 que existe só no documento.
 
 O papel do arquiteto na segunda sequência é diferente e mais difícil: ele estrutura a conversa,
-traz o contexto que os times não têm — histórico, outros sistemas, restrições organizacionais — e
+traz o contexto que os times não têm (histórico, outros sistemas, restrições organizacionais) e
 mantém a discussão em critérios em vez de preferências.
 
 ### Registre a divergência quando ela persistir
@@ -123,7 +123,7 @@ Nem toda discordância se resolve. Quando não se resolve:
 
 Isso faz três coisas. Preserva o argumento de quem discordou, que importa se o risco se
 materializar. Torna a decisão revisável com base em evidência em vez de em nova discussão. E dá
-ao time discordante o reconhecimento de que sua posição foi considerada — o que remove
+ao time discordante o reconhecimento de que sua posição foi considerada. Isso remove
 o motivo mais comum de descumprimento silencioso: não ter sido ouvido.
 
 Ver [decisão em ADR](/18-architecture-decisions/adr-decision.md).
@@ -153,7 +153,7 @@ voluntária costuma ser informação sobre a decisão, não sobre a disciplina d
 ```
 
 Essa frase, sem responder quem paga o esforço, é aspiração. Times têm prioridades próprias, e
-migrar por conformidade compete com entregar valor — e perde.
+migrar por conformidade compete com entregar valor, e perde.
 
 As saídas: financiar a migração centralmente, incluí-la no roteiro negociado de cada time, ou
 fornecer ferramenta que a torne barata. Sem uma delas, a adoção
@@ -172,7 +172,7 @@ Isso significa que reduzir a necessidade de coordenação é frequentemente melh
 melhor. Uma fronteira arquitetural bem escolhida elimina a coordenação; um processo eficiente
 apenas a torna mais barata.
 
-Ver [lei de Conway](/23-architecture-leadership/conways-law.md) — quando a coordenação é constante entre dois times, a
+Ver [lei de Conway](/23-architecture-leadership/conways-law.md): quando a coordenação é constante entre dois times, a
 fronteira provavelmente está no lugar errado.
 
 ## Modelo Mental
@@ -197,7 +197,7 @@ a cada decisão; mover a fronteira é pago uma vez. Se os mesmos dois times coor
 sinal é redesenhar a fronteira, não aperfeiçoar a reunião.
 
 **Quando o contrato já é verificado automaticamente** e a divergência interna não vaza. Um teste de
-contrato que quebra o build diz mais, e mais cedo, que uma rodada de alinhamento — e não consome a
+contrato que quebra o build diz mais, e mais cedo, que uma rodada de alinhamento, e não consome a
 atenção de ninguém.
 
 **Quando a decisão é reversível a custo baixo para quem está do outro lado.** Se errar significa
@@ -206,13 +206,13 @@ barato que semanas de convergência prévia.
 
 ## Alternativas
 
-- **Reduzir a necessidade de coordenação** movendo a fronteira — preferível quando a
+- **Reduzir a necessidade de coordenação** movendo a fronteira: preferível quando a
   coordenação entre os mesmos times é recorrente e o custo de mover a fronteira é pago uma vez.
-- **Autonomia com contrato verificado** — cada time decide dentro do escopo, e a compatibilidade
+- **Autonomia com contrato verificado**: cada time decide dentro do escopo, e a compatibilidade
   é verificada automaticamente.
-- **Um time absorve o escopo** — quando dois times coordenam constantemente, fundi-los pode ser a
+- **Um time absorve o escopo**: quando dois times coordenam constantemente, fundi-los pode ser a
   resposta.
-- **Decisão central** — para o conjunto pequeno de itens em que a autonomia não faz sentido.
+- **Decisão central**: para o conjunto pequeno de itens em que a autonomia não faz sentido.
 
 ## Trade-offs
 
@@ -243,7 +243,7 @@ barato que semanas de convergência prévia.
 
 ## Erros Comuns
 
-**Propor antes de envolver.** A proposta sai tecnicamente boa e é ignorada — como nas duas primeiras
+**Propor antes de envolver.** A proposta sai tecnicamente boa e é ignorada, como nas duas primeiras
 tentativas do Exemplo Real, que ficaram abaixo de 20% de adoção.
 
 **Discutir implementação** em vez de contrato. O time do outro lado resiste à interferência, a
@@ -253,7 +253,7 @@ conversa se alonga, e o contrato que importava sai igual ao que sairia sem ela.
 incidente de integração meses depois.
 
 **Tratar baixa adoção** como indisciplina em vez de informação. A cobrança aumenta, a adesão vira
-formal, e a restrição real que impedia a adoção — como as quatro do Exemplo Real — continua sem
+formal, e a restrição real que impedia a adoção (como as quatro do Exemplo Real) continua sem
 resposta.
 
 **Coordenar demais**, gastando a disposição dos times. Quando chega a decisão que de fato atravessa
@@ -282,12 +282,12 @@ proposta, apresentação. Nas duas, a proposta foi tecnicamente boa e a adoção
 Na terceira tentativa, a sequência mudou:
 
 **Fase de diagnóstico compartilhado.** Em vez de apresentar uma proposta, a área de arquitetura
-apresentou os números — os 14 incidentes, os 23 adaptadores, os 9 dias — e pediu que cada time
+apresentou os números (os 14 incidentes, os 23 adaptadores, os 9 dias) e pediu que cada time
 descrevesse o próprio formato e por que ele era assim.
 
 Isso revelou algo que nenhuma das duas propostas anteriores tinha capturado: quatro dos nove times
-tinham restrições reais que os formatos propostos não atendiam — um por integração com sistema
-externo, dois por requisito regulatório, um por volume.
+tinham restrições reais que os formatos propostos não atendiam (um por integração com sistema
+externo, dois por requisito regulatório, um por volume).
 
 **Grupo de trabalho com um representante por time.** Sete semanas, com a arquitetura estruturando
 a conversa e trazendo o contexto que faltava.
@@ -303,7 +303,7 @@ pelo conjunto mínimo, com a objeção registrada e revisão prevista em 12 mese
 arquitetura construiu uma ferramenta de tradução que cobria 70% dos casos automaticamente.
 
 **Adoção acompanhada publicamente.** Um painel mostrava, por time, quantos eventos já seguiam o
-formato acordado. Sem cobrança — apenas visível.
+formato acordado. Sem cobrança, apenas visível.
 
 Resultados após 14 meses:
 
@@ -316,7 +316,7 @@ incidentes por incompatibilidade            0
 ```
 
 A leitura que a equipe faz: o que mudou entre a segunda e a terceira tentativa não foi a proposta
-técnica — o formato final é 90% igual ao da segunda tentativa, que foi ignorada. O que mudou foi
+técnica. O formato final é 90% igual ao da segunda tentativa, que foi ignorada. O que mudou foi
 quem participou de chegar nele.
 
 E a fase de diagnóstico compartilhado foi o passo mais valioso: apresentar o custo em números,
@@ -334,7 +334,7 @@ partir daí, a conversa deixou de ser sobre se devia haver um padrão e passou a
 
 Identifique uma decisão que atravessa times na sua organização e que está pendente há meses.
 
-Responda: quem tem autoridade para tomá-la? Se a resposta for "ninguém", você encontrou a causa —
+Responda: quem tem autoridade para tomá-la? Se a resposta for "ninguém", você encontrou a causa,
 e a saída é estruturar a conversa, não escalar.
 
 ## Perguntas de Entrevista

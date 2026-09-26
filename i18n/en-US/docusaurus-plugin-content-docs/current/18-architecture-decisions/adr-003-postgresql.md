@@ -2,7 +2,7 @@
 id: adr-003-postgresql
 title: "ADR-003 — PostgreSQL as the Single Primary Database"
 sidebar_position: 12
-description: An example ADR for a decision not to act — refusing a second database, with the cost of the discard named.
+description: "An example ADR for a decision not to act: refusing a second database, with the cost of the discard named."
 doc_type: adr
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 :::note Teaching example
 
 The third of five ADRs from the fictional **Verano** system. This is an example of a
-**decision not to act** — the kind that is invisible in the code and gets re-decided
+**decision not to act**: the kind that is invisible in the code and gets re-decided
 repeatedly with no record.
 
 :::
@@ -40,7 +40,7 @@ repeatedly with no record.
 The catalog module has an open proposal: migrate to a document database. The motivation is
 concrete and is not aesthetic preference.
 
-The catalog models products with attributes that vary by category — a wine has a vintage
+The catalog models products with attributes that vary by category: a wine has a vintage
 and a grape; a detergent has a volume and a fragrance. Today that is handled with a `jsonb`
 column and attribute tables, and the team finds the model uncomfortable.
 
@@ -71,34 +71,34 @@ or would stabilize as the catalog matured.
 
 We will **keep PostgreSQL as the single primary database** for the whole Verano platform.
 
-**We will not** adopt a document database for the catalog. The current model — typed
-columns for what is common, `jsonb` with GIN indexes for what varies by category — stays.
+**We will not** adopt a document database for the catalog. The current model (typed
+columns for what is common, `jsonb` with GIN indexes for what varies by category) stays.
 
 This decision applies to primary storage. A cache and a dedicated search index are not
 primary storage and are not affected by it.
 
 ## Alternatives Considered
 
-**A document database for the catalog.** Discarded because the problem it would solve —
-an uncomfortable model — is not causing measurable harm: the latency meets the requirement,
+**A document database for the catalog.** Discarded because the problem it would solve
+(an uncomfortable model) is not causing measurable harm: the latency meets the requirement,
 and there is no incident attributed to the model. The cost is concrete and immediate: one
 more store to operate, with a team that has no experience.
 
 *Would win again if:* the p99 of filtered search exceeds 300 ms and optimization in
 PostgreSQL is exhausted, **or** if the catalog exceeds ~2 million products and the GIN
-indexes over `jsonb` no longer fit in memory — the point at which keeping the current model
-starts to require partitioning the catalog — **or** if a second independent use case appears
+indexes over `jsonb` no longer fit in memory (the point at which keeping the current model
+starts to require partitioning the catalog), **or** if a second independent use case appears
 that also needs a document model.
 
 **A dedicated search index for the catalog**, keeping PostgreSQL as the source of truth.
-Discarded for now as unnecessary — the latency meets the requirement. But it is considered
+Discarded for now as unnecessary: the latency meets the requirement. But it is considered
 the natural next option, and preferable to the document database, because it doesn't move
 the source of truth.
 
 *Would win again if:* faceted search becomes a product requirement, or the p99 exceeds
 300 ms.
 
-**Migrating the whole platform to a document database.** Discarded — orders and payments
+**Migrating the whole platform to a document database.** Discarded: orders and payments
 require transactions and referential integrity we don't want to implement in the
 application.
 
@@ -118,7 +118,7 @@ they consider inferior.
 **Negative (long-term).** If the catalog's scale grows far beyond what is expected, we will
 do the migration under pressure instead of calmly.
 
-**Neutral.** The decision needs reassessing — a review was recorded for 12 months out.
+**Neutral.** The decision needs reassessing: a review was recorded for 12 months out.
 
 **Risk accepted.** We may be deferring a migration that will be more expensive later. The
 bet is that the cost of operating two databases, now, is greater than the cost of the
@@ -146,14 +146,14 @@ effort on mapping           estimated at 6%
 No condition met. Decision kept.
 
 The catalog team reworked the attribute mapping in April 2024, which reduced the discomfort
-without changing databases. Faceted search entered the product roadmap for 2025 — when that
+without changing databases. Faceted search entered the product roadmap for 2025. When that
 is confirmed, the dedicated index alternative will be reassessed, and not the document
 database one.
 
 ## What to notice in this example
 
 The decision is **not to do something**. Without this ADR, the document database proposal
-would come back every six months, with the same discussion — which is exactly the cost ADRs
+would come back every six months, with the same discussion. That is exactly the cost ADRs
 avoid. See
 [why ADRs matter](/18-architecture-decisions/why-adrs-matter.md).
 
@@ -163,14 +163,14 @@ honest than presenting consensus. See
 [decision](/18-architecture-decisions/adr-decision.md).
 
 One of the alternatives was discarded **for now**, but explicitly marked as the natural next
-option — which tells whoever comes later where the decision is heading.
+option, which tells whoever comes later where the decision is heading.
 
 The warning signal has four conditions, all measurable, and the 2024 review could be done
 in minutes.
 
 ## Related Concepts
 
-- [Decision](/18-architecture-decisions/adr-decision.md) — decisions not to act.
+- [Decision](/18-architecture-decisions/adr-decision.md): decisions not to act.
 - [Consequences](/18-architecture-decisions/adr-consequences.md).
 - [Relational Databases](/07-data-architecture/relational-databases.md).
 - [Document Databases](/07-data-architecture/document-databases.md).

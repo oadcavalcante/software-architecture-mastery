@@ -2,7 +2,7 @@
 id: denormalization
 title: Denormalization
 sidebar_position: 14
-description: Duplicating on purpose — when the cost of joins exceeds the cost of keeping copies current.
+description: Duplicating on purpose, when the cost of joins exceeds the cost of keeping copies current.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [normalization]
 related: [olap, data-modeling, indexing]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-31
 
 Denormalizing is duplicating data on purpose to avoid joins on read.
 
-It is a legitimate and frequently correct decision. What makes it risky is being made by intuition —
-"joins are slow" — instead of by measurement, and with no plan to keep the copies coherent.
+It is a legitimate and frequently correct decision. What makes it risky is being made by intuition
+("joins are slow") instead of by measurement, and with no plan to keep the copies coherent.
 
 The question that governs it: **when the original changes, what happens to the copies?**
 
@@ -36,7 +36,7 @@ analytical query over millions of rows, they dominate the time.
 Denormalizing solves that and creates a new problem: the same information now exists in several
 places, and keeping them coherent becomes the application's responsibility.
 
-The common error is not denormalizing — it is denormalizing without answering what happens on update,
+The common error is not denormalizing; it is denormalizing without answering what happens on update,
 and discovering the answer in production.
 
 ## Core Concepts
@@ -44,7 +44,7 @@ and discovering the answer in production.
 ### Two categories that get confused
 
 **A copy of a historical value.** The price charged, the delivery address, the applied tax rate. Those
-values **should not** change when the registration changes — they are different facts from the current
+values **should not** change when the registration changes: they are different facts from the current
 data.
 
 That is not denormalization: it is correct modeling. See
@@ -64,7 +64,7 @@ resolves a good part of the confusion about the topic.
 
 **Flatten a hierarchy.** Category and subcategory directly on the product.
 
-**Repeat the whole row.** A dimensional model — the whole dimension alongside the fact.
+**Repeat the whole row.** A dimensional model: the whole dimension alongside the fact.
 
 Pre-computed aggregates are the most valuable and the most prone to diverging, because they depend on
 every write going through the same path.
@@ -79,7 +79,7 @@ the cost of a more expensive write and of coupling between the writes.
 
 **Recomputing periodically.** A process rebuilds it. Simple, with a larger divergence window.
 
-The choice depends on how much divergence time the business accepts — a question that has to be asked
+The choice depends on how much divergence time the business accepts: a question that has to be asked
 of the business, not decided technically.
 
 ### Divergence checking is mandatory
@@ -99,7 +99,7 @@ It almost never exists.
 indexed join of a few records costs almost nothing.
 
 Before denormalizing in a transactional system, check the execution plan. The most common cause of a
-slow query is a missing [index](/07-data-architecture/indexing.md) — and denormalizing to work around
+slow query is a missing [index](/07-data-architecture/indexing.md), and denormalizing to work around
 a missing index adds permanent complexity to solve something one line would solve.
 
 ### The write path has to be single
@@ -107,7 +107,7 @@ a missing index adds permanent complexity to solve something one line would solv
 If three services can change the original and only one knows how to update the copy, the divergence is
 a matter of time.
 
-Denormalization requires every write to go through a point that knows about the copies — which is an
+Denormalization requires every write to go through a point that knows about the copies. That is an
 architecture requirement, not an implementation one.
 
 ## Mental Model
@@ -118,7 +118,7 @@ more than you write.
 ## When to Use
 
 - An analytical model. See [OLAP](/07-data-architecture/olap.md).
-- Reads disproportionately more frequent than writes — the deciding arithmetic is reads × cost of
+- Reads disproportionately more frequent than writes: the deciding arithmetic is reads × cost of
   the avoided join against writes to the original × number of copies to update.
 - The join has been measured and is the bottleneck.
 - The copied data changes rarely.
@@ -147,15 +147,15 @@ the copy has no gain to pay for it.
 
 ## Alternatives
 
-- **An adequate [index](/07-data-architecture/indexing.md)** — in a transactional model, check first;
+- **An adequate [index](/07-data-architecture/indexing.md)**: in a transactional model, check first;
   in a dimensional model denormalization is the starting point.
-- **Materialized view** — the database maintains the copy, and the divergence risk depends on how it
+- **Materialized view**: the database maintains the copy, and the divergence risk depends on how it
   refreshes it. SQL Server indexed views and Oracle ON COMMIT refresh update along with the write; in
   PostgreSQL `REFRESH MATERIALIZED VIEW` is on demand, and the view inherits the window of the periodic
   strategy. MySQL does not have the feature.
-- **Cache** — duplication with a deadline: the expiry does not guarantee coherence, it only caps how
+- **Cache**: duplication with a deadline. The expiry does not guarantee coherence, it only caps how
   long the copy can diverge.
-- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — explicit separation with a rebuildable
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)**: explicit separation with a rebuildable
   projection.
 
 The materialized view is underused: where the database refreshes it along with the write, it delivers
@@ -196,8 +196,8 @@ copies fall behind.
 
 ## Common Mistakes
 
-**Denormalizing without measuring.** The complexity becomes permanent, and the real bottleneck —
-often a missing index — is still there.
+**Denormalizing without measuring.** The complexity becomes permanent, and the real bottleneck,
+often a missing index, is still there.
 
 **Not implementing divergence checking.** The first news of the failure comes from a customer or a
 reconciliation, months later.
@@ -227,8 +227,8 @@ Then three new write paths appeared, and none updated the total:
 
 **Order import** from a partner channel, which inserted items in bulk.
 
-The divergence grew in silence for a year and a half. When it was finally measured — by chance, during
-another investigation — **1.8% of orders** had a total different from the sum of the items. At about
+The divergence grew in silence for a year and a half. When it was finally measured (by chance, during
+another investigation), **1.8% of orders** had a total different from the sum of the items. At about
 40,000 orders a month, that was some 13,000 orders, some higher, some lower. The average difference of
 $8 per order added up to more than $100,000 charged wrongly, and reconciliation took months.
 
@@ -248,9 +248,9 @@ checking is a bet on permanent discipline from every future team.
 
 ## Related Concepts
 
-- [Normalization](/07-data-architecture/normalization.md) — the inverse decision.
-- [Indexing](/07-data-architecture/indexing.md) — check first.
-- [OLAP](/07-data-architecture/olap.md) — where denormalizing is the default.
+- [Normalization](/07-data-architecture/normalization.md): the inverse decision.
+- [Indexing](/07-data-architecture/indexing.md): check first.
+- [OLAP](/07-data-architecture/olap.md): where denormalizing is the default.
 - [CQRS](/03-design-patterns/cqrs.md).
 
 ## Practical Exercise

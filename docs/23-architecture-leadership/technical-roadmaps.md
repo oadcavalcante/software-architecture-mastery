@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-strategy-leadership]
 related: [technical-strategy-leadership, architecture-vision, risk-management]
 canonical_for: [roadmap técnico, sequenciamento por valor, fase que termina estável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Um roadmap técnico sequencia o investimento em arquitetura. A parte difícil não é escolher o que
-fazer — a estratégia já escolheu. É escolher **a ordem**.
+fazer (a estratégia já escolheu). É escolher **a ordem**.
 
 ```text
 a ordem errada   nada entrega valor até o fim, e o plano é
@@ -36,7 +36,7 @@ E há uma restrição que o formato típico, descrito abaixo, não respeita e qu
 metade.**
 
 Num horizonte de 12 a 24 meses, o risco que costuma encerrar um projeto técnico não é falta de
-mérito: é mudança de prioridade, troca de liderança ou contingenciamento — e, quando ele se
+mérito: é mudança de prioridade, troca de liderança ou contingenciamento. E, quando ele se
 realiza, o que resta é o que estava concluído.
 
 ## Problema
@@ -51,7 +51,7 @@ fase 4  desligamento do antigo
 ```
 
 Doze a vinte e quatro meses, com valor entregue apenas a partir da fase 2 ou 3. Se o plano for
-interrompido na fase 1 — o que acontece com frequência —, o resultado é infraestrutura sem uso e
+interrompido na fase 1 (o que acontece com frequência), o resultado é infraestrutura sem uso e
 nenhum benefício.
 
 E há o erro de sequência oposto: começar pelo mais valioso sem construir a base, o que produz uma
@@ -69,7 +69,7 @@ critério certo    "o que entrega resultado observável mais cedo,
                   dado o que é tecnicamente possível"
 ```
 
-Frequentemente a resposta é uma capacidade **nova**, e não uma migração — porque ela não tem
+Frequentemente a resposta é uma capacidade **nova**, e não uma migração, porque ela não tem
 regressão a evitar e produz resultado visível. Ver o
 [case de e-commerce](/21-case-studies/ecommerce.md), em que a primeira fase foi a capacidade
 que não existia.
@@ -135,7 +135,7 @@ apresentar junto      a priorização é feita com a informação certa
 ```
 
 Roadmaps técnicos aprovados sem essa conversa são desfeitos na execução, quando a pressão de
-entrega chega — e a desfazer acontece por omissão, sem que ninguém decida.
+entrega chega, e a desfazer acontece por omissão, sem que ninguém decida.
 
 Ver [estratégia técnica](/23-architecture-leadership/technical-strategy-leadership.md).
 
@@ -148,7 +148,7 @@ Ver [estratégia técnica](/23-architecture-leadership/technical-strategy-leader
 Planos técnicos longos são construídos com informação que a execução corrige. Revisar ao fim de
 cada fase, com o que foi aprendido, produz um plano melhor que executar o original até o fim.
 
-O que não funciona é revisar por calendário sem evidência nova — isso vira replanejamento
+O que não funciona é revisar por calendário sem evidência nova: isso vira replanejamento
 recorrente e desgasta o patrocínio.
 
 ## Modelo Mental
@@ -164,8 +164,8 @@ interrupção como o caso a planejar, não como exceção; a questão é o que s
 
 ## Quando Não Usar
 
-**Dívida difusa, sem alvo arquitetural único.** Quando o trabalho é uma soma de melhorias locais —
-dependências desatualizadas, testes frágeis, módulos confusos —, não há sequência a otimizar; um
+**Dívida difusa, sem alvo arquitetural único.** Quando o trabalho é uma soma de melhorias locais
+(dependências desatualizadas, testes frágeis, módulos confusos), não há sequência a otimizar; um
 percentual fixo de capacidade resolve com menos cerimônia.
 
 **Trabalho que cabe em um trimestre.** O faseamento existe para sobreviver a mudanças de
@@ -182,11 +182,11 @@ escolha é antecipar a decisão pela ordem das fases. Primeiro a
 
 ## Alternativas
 
-- **Trabalho contínuo sem roadmap** — alocar um percentual fixo da capacidade a melhoria técnica,
+- **Trabalho contínuo sem roadmap**: alocar um percentual fixo da capacidade a melhoria técnica,
   sem plano de longo prazo. Simples e eficaz para dívida difusa.
-- **Roadmap integrado ao de produto** — um único plano, com itens técnicos e de produto na mesma
+- **Roadmap integrado ao de produto**: um único plano, com itens técnicos e de produto na mesma
   fila. É a forma mais honesta e a mais difícil de conseguir.
-- **Fatiar por capacidade** em vez de por fase — cada entrega é uma capacidade completa.
+- **Fatiar por capacidade** em vez de por fase: cada entrega é uma capacidade completa.
 
 A segunda é a melhor quando a organização permite: ela elimina a ficção de que existem dois
 orçamentos de capacidade.
@@ -280,8 +280,8 @@ fase 4 (4 meses)   desligamento e migração de histórico
 ```
 
 A plataforma passou a ser construída **puxada pela migração**, e não antes dela. Isso produziu
-algum retrabalho — três componentes da plataforma foram refeitos ao serem generalizados na fase 2
-— estimado em cerca de seis semanas.
+algum retrabalho (três componentes da plataforma foram refeitos ao serem generalizados na fase 2),
+estimado em cerca de seis semanas.
 
 O roadmap foi apresentado junto ao de produto, numa única priorização, com a capacidade total
 visível. Isso reduziu a alocação aprovada de 30% para 22%, e a redução foi tratada como
@@ -303,7 +303,7 @@ conclusão                        mês 22 (previsto: 19)
 retrabalho de plataforma         ~6 semanas, previsto e aceito
 ```
 
-A interrupção de três meses aconteceu — como nos dois roadmaps anteriores. A diferença é que
+A interrupção de três meses aconteceu, como nos dois roadmaps anteriores. A diferença é que
 desta vez ela não cancelou nada: o trabalho parou num estado aproveitável, e retomar foi
 possível. Ela caiu no meio da fase 3, e a regra valeu também dentro da fase: cada sistema era
 migrado como unidade que termina estável, e no mês 11 nenhum estava pela metade.
@@ -324,8 +324,8 @@ evitado retrabalho e perdido tudo.
 Pegue um plano técnico em andamento e responda, para cada fase: o que sobra se o trabalho parar
 ao fim dela?
 
-As fases cuja resposta for "nada aproveitável" são as que vão custar tudo se a prioridade mudar —
-e, num plano de mais de um ano, a mudança de prioridade é o caso a planejar, não a exceção.
+As fases cuja resposta for "nada aproveitável" são as que vão custar tudo se a prioridade mudar.
+E, num plano de mais de um ano, a mudança de prioridade é o caso a planejar, não a exceção.
 
 ## Perguntas de Entrevista
 

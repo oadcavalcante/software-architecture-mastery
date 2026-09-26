@@ -2,7 +2,7 @@
 id: vendor-lock-in
 title: Vendor Lock-In
 sidebar_position: 18
-description: The cost of leaving — and why the two extremes, adopting everything and abstracting everything, are equally bad.
+description: The cost of leaving, and why the two extremes, adopting everything and abstracting everything, are equally bad.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, serverless, cloud-native]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Vendor lock-in is the cost of switching providers, measured in time, money and risk.
 
-It is frequently discussed as something binary — "we are stuck" or "we are portable" — and it is not. It is
+It is frequently discussed as something binary ("we are stuck" or "we are portable"), and it is not. It is
 a spectrum, and each service adopted moves you along it.
 
 The mistake is not in depending. It is in depending **without knowing how much leaving costs**, or in
@@ -87,8 +87,8 @@ low value + low cost of leaving    → indifferent
 low value + high cost of leaving   → avoid
 ```
 
-The second quadrant is where most of the interesting decisions are, and where the answer is usually **yes**
-— as long as the decision is recorded, with an estimate of the cost of leaving.
+The second quadrant is where most of the interesting decisions are, and where the answer is usually **yes**,
+as long as the decision is recorded, with an estimate of the cost of leaving.
 
 A managed database that saves one person per year is worth the dependency, even if migrating later costs
 three months.
@@ -102,8 +102,8 @@ Instead of abstracting everything or nothing, isolate what is expensive to switc
 **Business logic with no dependency on the provider's libraries.** The domain core should import nothing
 specific.
 
-**An adapter at the boundaries** of highly coupled services — see
-[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
+**An adapter at the boundaries** of highly coupled services (see
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md)).
 
 That costs little and preserves most of the option. Abstracting the infrastructure too costs a lot and
 preserves the rest.
@@ -136,7 +136,7 @@ There is no absence of dependency. There is choosing which one.
 ## Mental Model
 
 **Every architectural decision creates some dependency.** The question is whether the value of entering
-exceeds the estimated cost of leaving — and whether anybody estimated it.
+exceeds the estimated cost of leaving, and whether anybody estimated it.
 
 ## When to Use
 
@@ -165,9 +165,9 @@ which accepting dependency is wrong, they are the ways of refusing it that cost 
 
 ## Alternatives
 
-- **Selective portability** — isolate what is expensive, accept the rest.
-- **Managed open source services** — the engine is portable; the operation is not.
-- **[Containers](/09-cloud-architecture/containers.md)** — they reduce the compute layer's dependency at a
+- **Selective portability**: isolate what is expensive, accept the rest.
+- **Managed open source services**: the engine is portable; the operation is not.
+- **[Containers](/09-cloud-architecture/containers.md)**: they reduce the compute layer's dependency at a
   low cost.
 - **A documented exit strategy** — instead of technical portability, a plan: what would be needed, how
   long, how much it costs. Cheap and frequently sufficient.
@@ -218,8 +218,8 @@ longer a choice.
 ## Real-World Example
 
 It is the same company as in [managed versus
-self-hosted](/20-trade-offs/managed-vs-self-hosted.md) — 26 engineers, five infrastructure components
-operated in-house — seen along a different axis. There the question is what operating them costs; here it
+self-hosted](/20-trade-offs/managed-vs-self-hosted.md) (26 engineers, five infrastructure components
+operated in-house), seen along a different axis. There the question is what operating them costs; here it
 is what the portability policy bought with that cost.
 
 The company established, at its founding, the rule of not using any proprietary cloud service. Everything
@@ -227,8 +227,8 @@ in containers, everything with self-managed open source software, everything por
 
 Four years later, the balance:
 
-**About 1.1 full-time engineers** — the result of the three-month measurement recorded in the sibling
-document — operating a self-managed database, queue, search, cache and Kubernetes, for a team of 26.
+**About 1.1 full-time engineers** (the result of the three-month measurement recorded in the sibling
+document) operating a self-managed database, queue, search, cache and Kubernetes, for a team of 26.
 
 **The portability was never exercised.** No migration was ever considered in four years.
 
@@ -243,24 +243,24 @@ difference in favor of self-hosting     ~$5,600/month, for four years
 
 And that is precisely why the policy survived four years without review: the cost it imposed did not show
 up in the account the company was looking at. The calculation above excludes the value of the postponed
-product features — which the team judged larger than the difference, and could not estimate.
+product features. The team judged that value larger than the difference, and could not estimate it.
 
 **Delayed delivery.** Several product features were postponed for lack of people, allocated to operations.
 
-The review led to a different policy, classified by the value-against-exit-cost criterion — not by degree
+The review led to a different policy, classified by the value-against-exit-cost criterion, not by degree
 of dependency, which describes the component rather than the decision:
 
 **Adopted without hesitation:** a managed cache, with a compatible protocol and an exit cost measured in
 days. High value, low cost of leaving.
 
-**Adopted with a record:** a managed database and a managed queue, both with open source engines — which
+**Adopted with a record:** a managed database and a managed queue, both with open source engines, which
 reduces the rewrite, but not the three months of data migration and reconfiguration the estimate showed.
 High value and a high cost of leaving fall in the second quadrant, and the second quadrant requires a
 record. Alongside them, a proprietary event processing service, estimated at four months. Two of the three
 engineers went back to the product.
 
 **Kept portable:** the domain core, with no dependency on the provider's libraries, and the data in open
-formats. Also search and the container cluster, which stayed self-managed — search because of a
+formats. Also search and the container cluster, which stayed self-managed: search because of a
 language-specific extension with no managed equivalent, the containers because the dependency was already
 low and migrating would not save operational effort. That is why the net is two engineers, not three.
 
@@ -269,15 +269,15 @@ low and migrating would not save operational effort. That is why the net is two 
 **Created:** an exit strategy document, reviewed annually, with the estimated migration cost per component.
 
 What the team learned: the original policy came from a bad experience one of the founders had had with a
-vendor, years earlier. It was never analyzed in cost — it was a principle, and principles are not compared
+vendor, years earlier. It was never analyzed in cost: it was a principle, and principles are not compared
 against numbers.
 
 The bill for four years of unexercised portability was what changed the conversation.
 
 ## Related Concepts
 
-- [Managed Services](/09-cloud-architecture/managed-services.md) — the decision that generates dependency.
-- [Serverless](/09-cloud-architecture/serverless.md) — the highest degree.
+- [Managed Services](/09-cloud-architecture/managed-services.md): the decision that generates dependency.
+- [Serverless](/09-cloud-architecture/serverless.md): the highest degree.
 - [Cloud Native](/09-cloud-architecture/cloud-native.md).
 - [Trade-offs](/20-trade-offs/index.md).
 

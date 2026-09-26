@@ -2,7 +2,7 @@
 id: adr-consequences
 title: Consequências
 sidebar_position: 7
-description: O que passa a ser verdade depois da decisão — incluindo o que piora.
+description: O que passa a ser verdade depois da decisão, incluindo o que piora.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, superseding-decisions]
 canonical_for: [consequência de decisão, custo aceito, sinal de alerta de decisão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 A seção de consequências registra **o que passa a ser verdade** depois da decisão. Não o
-que se espera, não o que se pretende — o que muda.
+que se espera, não o que se pretende: o que muda.
 
 E a propriedade que separa um ADR honesto de uma peça de convencimento cabe numa regra:
 **toda decisão arquitetural tem consequências negativas, e um ADR que não as nomeia não
@@ -40,11 +40,11 @@ A seção de consequências típica:
 melhor manutenibilidade."
 ```
 
-Três problemas de uma vez. Nada é verificável — não há número nem prazo. Nada é negativo —
+Três problemas de uma vez. Nada é verificável: não há número nem prazo. Nada é negativo,
 como se a decisão fosse gratuita. E nada distingue esta decisão de qualquer outra.
 
-O efeito prático aparece depois: quando o custo se materializa — a operação de uma fila,
-a latência adicional, a complexidade de depuração — ninguém sabe se ele era previsto ou
+O efeito prático aparece depois: quando o custo se materializa (a operação de uma fila,
+a latência adicional, a complexidade de depuração), ninguém sabe se ele era previsto ou
 se algo deu errado. Sem registro, custo previsto e falha se confundem.
 
 ## Conceitos Centrais
@@ -109,7 +109,7 @@ premissa de reuso não se confirmou."
 ```
 
 Isso transforma a decisão em algo com **teste**. Sem esse sinal, uma decisão errada
-tende a permanecer até que um incidente force a revisão — tarde, e sem critério, porque
+tende a permanecer até que um incidente force a revisão: tarde, e sem critério, porque
 ninguém definiu antes o que contaria como evidência contrária.
 
 E o sinal costuma ser diretamente instrumentável. Ver
@@ -156,7 +156,7 @@ o observado é o que calibra o julgamento da equipe.
 
 A forma que respeita a regra: um bloco datado e claramente marcado como posterior, que
 **acrescenta** observação sem alterar uma linha do texto original nem o raciocínio da
-decisão. Se o observado muda o que se decidiria, isso não cabe no bloco — é decisão nova,
+decisão. Se o observado muda o que se decidiria, isso não cabe no bloco: é decisão nova,
 com ADR próprio.
 
 ### Consequências para quem não está na sala
@@ -172,7 +172,7 @@ segurança      uma superfície nova, com revisão a fazer
 finanças       um custo recorrente que não existia
 ```
 
-Registrá-las tem dois efeitos. Elas viram trabalho previsto em vez de surpresa — a tela de
+Registrá-las tem dois efeitos. Elas viram trabalho previsto em vez de surpresa: a tela de
 "em processamento" e o texto de suporte passam a ter dono e prazo. E elas expõem decisões
 cujo custo total é maior que o avaliado, porque parte dele estava sendo empurrada para
 fora da equipe que decidia.
@@ -201,14 +201,14 @@ em três anos, num sistema com desativação prevista em dezoito meses, nunca di
 um dia, a revisão formal custa mais que o erro; o próprio uso já dá o sinal.
 
 **Repetir negativas já registradas em ADR anterior.** Quando a decisão aplica a um caso
-novo uma escolha já tomada — mais um consumidor da mesma fila —, os custos estruturais
+novo uma escolha já tomada (mais um consumidor da mesma fila), os custos estruturais
 estão no ADR original; registre só os que este caso acrescenta e linke o resto.
 
 ## Alternativas
 
-- **Tabela de prós e contras** — mais compacta, perde nuance de horizonte.
-- **Lista de riscos com probabilidade e impacto** — quando o risco domina.
-- **Métricas de acompanhamento** — em vez de prosa, declarar o que será medido.
+- **Tabela de prós e contras**: mais compacta, perde nuance de horizonte.
+- **Lista de riscos com probabilidade e impacto**: quando o risco domina.
+- **Métricas de acompanhamento**: em vez de prosa, declarar o que será medido.
 
 A última é a mais forte quando aplicável: "vamos acompanhar o acúmulo da fila e o tempo de
 operação mensal" é mais acionável que qualquer parágrafo.
@@ -245,7 +245,7 @@ operação mensal" é mais acionável que qualquer parágrafo.
 
 **Escrever consequências como argumentos** a favor da decisão.
 
-**Omitir o custo operacional** — a consequência mais frequentemente esquecida.
+**Omitir o custo operacional**: a consequência mais frequentemente esquecida.
 
 **Não nomear o que fica mais difícil de mudar.**
 
@@ -283,7 +283,7 @@ custo de infraestrutura 4× a estimativa inicial
 ```
 
 Dois problemas diferentes se misturaram. O primeiro: parte do que apareceu era custo
-inerente à escolha — a equipe de três, o ferramental, os esquemas como contrato público — e,
+inerente à escolha (a equipe de três, o ferramental, os esquemas como contrato público) e,
 como **nada tinha sido registrado como custo aceito**, cada custo apareceu como falha,
 gerando pressão para reverter inclusive o que funcionava, como a escalabilidade.
 
@@ -302,8 +302,8 @@ como painel ou alarme quando possível.
 
 **Horizonte declarado** por consequência: imediata, curto ou longo prazo.
 
-**Bloco de revisão datado**, acrescentado 12 meses depois, comparando previsto e observado
-— sem alterar o texto original.
+**Bloco de revisão datado**, acrescentado 12 meses depois, comparando previsto e observado,
+sem alterar o texto original.
 
 Esse último ponto produziu o efeito mais interessante. Depois de dois anos de revisões, um
 padrão ficou visível nos ADRs da organização:
@@ -316,18 +316,18 @@ custos não previstos que apareceram            1,8 por ADR em média
 
 A equipe passou a usar esses números como calibração: um terço dos benefícios previstos
 não se confirma; os custos previstos quase sempre aparecem, mas a taxa não diz nada sobre a
-magnitude — o barramento custou 4× a estimativa —; e cada ADR deve contar, em média, com
+magnitude (o barramento custou 4× a estimativa); e cada ADR deve contar, em média, com
 quase dois custos que ninguém nomeou.
 
 Na retrospectiva: os blocos de revisão a 12 meses foram o artefato mais lido do
-conjunto — mais que os próprios ADRs. Eles ensinam algo que nenhum ADR isolado ensina.
+conjunto, mais que os próprios ADRs. Eles ensinam algo que nenhum ADR isolado ensina.
 
 ## Conceitos Relacionados
 
-- [Decisão](/18-architecture-decisions/adr-decision.md) — o que gera as consequências.
-- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — as consequências não escolhidas.
-- [Superação](/18-architecture-decisions/superseding-decisions.md) — quando o sinal de alerta dispara.
-- [Observabilidade](/13-observability/index.md) — como instrumentar o sinal.
+- [Decisão](/18-architecture-decisions/adr-decision.md): o que gera as consequências.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md): as consequências não escolhidas.
+- [Superação](/18-architecture-decisions/superseding-decisions.md): quando o sinal de alerta dispara.
+- [Observabilidade](/13-observability/index.md): como instrumentar o sinal.
 
 ## Exercício Prático
 

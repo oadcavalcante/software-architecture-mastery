@@ -2,7 +2,7 @@
 id: sharding
 title: Sharding
 sidebar_position: 15
-description: Particionamento em instâncias separadas — e o que muda quando a partição vira um servidor.
+description: Particionamento em instâncias separadas, e o que muda quando a partição vira um servidor.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partitioning]
 related: [partitioning, replication, database-scaling]
 canonical_for: [sharding, shard]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -29,21 +29,21 @@ do domínio da modelagem e entra no da operação.
 
 ## Problema
 
-Particionamento dentro de uma instância — tabelas particionadas por faixa, por
-exemplo — melhora manutenção e alguns padrões de consulta. Não aumenta capacidade:
+Particionamento dentro de uma instância (tabelas particionadas por faixa, por
+exemplo) melhora manutenção e alguns padrões de consulta. Não aumenta capacidade:
 CPU, memória e disco continuam compartilhados.
 
 Quando o limite de uma instância é atingido, a partição precisa ir para outra
 máquina. Aí três coisas mudam.
 
-**A consulta precisa saber onde ir.** Alguém — a aplicação, um roteador, o driver
-— precisa mapear chave para instância.
+**A consulta precisa saber onde ir.** Alguém (a aplicação, um roteador, o driver)
+precisa mapear chave para instância.
 
 **Junções e transações entre shards deixam de existir** como operação do banco.
 O que era `JOIN` vira duas consultas e uma agregação na aplicação.
 
 **Cada shard é um banco a operar.** Backup, monitoramento, atualização,
-dimensionamento, failover — multiplicado pelo número de shards.
+dimensionamento, failover, multiplicado pelo número de shards.
 
 ## Conceitos Centrais
 
@@ -61,7 +61,7 @@ não sabe que há shards. Adiciona um salto e um componente no caminho crítico.
 caminho de menor atrito, e amarra a arquitetura àquele produto.
 
 A primeira é a mais comum em sistemas que evoluíram para sharding, e a que mais
-custa manter — porque a decisão de roteamento aparece em dezenas de lugares.
+custa manter, porque a decisão de roteamento aparece em dezenas de lugares.
 
 ### O diretório de shards
 
@@ -69,11 +69,11 @@ O mapeamento chave-para-shard pode ser:
 
 **Algorítmico.** `hash(chave) mod N`, ou
 [hash consistente](/06-distributed-systems/partitioning.md). Sem estado, e rebalancear
-recalcula posições — com `mod N`, quase toda chave muda de destino quando N muda; com
+recalcula posições: com `mod N`, quase toda chave muda de destino quando N muda; com
 hash consistente, cerca de `1/N` delas.
 
-**Por diretório.** Uma tabela que diz onde cada faixa vive. Flexível — permite
-mover uma chave específica, dar shard dedicado a um inquilino grande — e adiciona
+**Por diretório.** Uma tabela que diz onde cada faixa vive. Flexível (permite
+mover uma chave específica, dar shard dedicado a um inquilino grande), e adiciona
 uma consulta antes de cada acesso, mais um componente que precisa ser altamente
 disponível.
 
@@ -89,7 +89,7 @@ bloqueadas. As leituras precisam saber qual lado é autoritativo. E o processo
 consome banda e recurso dos dois nós.
 
 A técnica que reduz a dor é **shards lógicos**: criar muito mais partições lógicas
-que instâncias físicas — 1024 partições em 8 instâncias, por exemplo. Adicionar
+que instâncias físicas (1024 partições em 8 instâncias, por exemplo). Adicionar
 uma instância move partições inteiras, sem recalcular chaves.
 
 É a abordagem que praticamente todo sistema particionado moderno adota.
@@ -99,7 +99,7 @@ uma instância move partições inteiras, sem recalcular chaves.
 Num sistema multi-inquilino, o desequilíbrio é a regra, não a exceção: um cliente
 grande pode ter mais dados que mil pequenos.
 
-Isso quebra o particionamento por hash do inquilino — o shard daquele cliente
+Isso quebra o particionamento por hash do inquilino: o shard daquele cliente
 satura enquanto os outros ficam ociosos.
 
 As saídas: shard dedicado para os grandes, ou particionar internamente os grandes
@@ -137,11 +137,11 @@ internamente, e adotar um deles evita construir o roteamento e a operação.
 
 ## Alternativas
 
-- **Escala vertical** — o degrau anterior, quase sempre não esgotado.
-- **[Replicação](/06-distributed-systems/replication.md)** — se o gargalo é leitura.
-- **Arquivamento** — reduzir o volume ativo.
-- **Banco distribuído** — delegar o sharding ao produto.
-- **Particionamento lógico numa instância** — melhora manutenção sem distribuir.
+- **Escala vertical**: o degrau anterior, quase sempre não esgotado.
+- **[Replicação](/06-distributed-systems/replication.md)**: se o gargalo é leitura.
+- **Arquivamento**: reduzir o volume ativo.
+- **Banco distribuído**: delegar o sharding ao produto.
+- **Particionamento lógico numa instância**: melhora manutenção sem distribuir.
 
 ## Trade-offs
 
@@ -162,7 +162,7 @@ internamente, e adotar um deles evita construir o roteamento e a operação.
 
 **Rebalanceamento durante pico.** Compete com o tráfego.
 
-**Diretório indisponível.** Sem ele, nenhuma consulta sabe onde ir — ele vira ponto
+**Diretório indisponível.** Sem ele, nenhuma consulta sabe onde ir. Ele vira ponto
 único de falha e precisa ser replicado.
 
 **Transação entre shards não prevista.** Descoberta quando o requisito aparece.
@@ -171,11 +171,11 @@ internamente, e adotar um deles evita construir o roteamento e a operação.
 
 ## Erros Comuns
 
-**Shardar antes de precisar.** Adiciona roteamento, impede junção e transação entre partições, e complica toda consulta — custo pago desde o primeiro dia por um limite que talvez nunca chegue.
+**Shardar antes de precisar.** Adiciona roteamento, impede junção e transação entre partições, e complica toda consulta: custo pago desde o primeiro dia por um limite que talvez nunca chegue.
 
 **Não usar shards lógicos.** Mapear a chave direto para a máquina física amarra o número de partições ao número de servidores, e crescer passa a exigir remapear tudo. Muitas partições lógicas sobre poucas físicas tornam o crescimento uma mudança de tabela de roteamento.
 
-**Ignorar o desequilíbrio de inquilinos.** Particionar por cliente parece natural até o maior cliente sozinho exceder a capacidade de uma partição — e ele não pode ser dividido pela chave escolhida.
+**Ignorar o desequilíbrio de inquilinos.** Particionar por cliente parece natural até o maior cliente sozinho exceder a capacidade de uma partição, e ele não pode ser dividido pela chave escolhida.
 
 **Espalhar o roteamento pela aplicação.** Cada ponto que calcula em qual partição está o dado é um lugar a mudar quando o esquema de partição mudar, e um lugar onde a regra pode divergir.
 
@@ -192,28 +192,28 @@ Dois problemas em dezoito meses.
 coincidência de hash. Esse shard tinha 60% dos dados e saturava enquanto os outros
 sete operavam a 15% de utilização.
 
-Com hash simples, a única saída seria mudar o número de shards — e para qualquer
+Com hash simples, a única saída seria mudar o número de shards, e para qualquer
 alvo que não fosse múltiplo de 8 isso redistribuiria quase todas as chaves.
 
 **Rebalanceamento inviável.** Dobrar de 8 para 16 é o caso mais barato do `mod N`:
 a chave com `h mod 8 = r` cai em `r` ou `r+8` sob mod 16, então metade fica parada.
-Ainda assim eram metade dos dados movidos com escrita dupla — semanas de migração —
+Ainda assim eram metade dos dados movidos com escrita dupla (semanas de migração)
 e sem garantia de resolver o problema: os três clientes grandes tinham uma chance em
 quatro de continuar juntos no mesmo shard.
 
 A reformulação adotou as duas técnicas que faltavam.
 
 **1024 shards lógicos** mapeados para 8 instâncias por um diretório. Adicionar
-instâncias passou a mover shards lógicos inteiros — cada um copiado como réplica e
-promovido — em vez de coordenar escrita dupla chave a chave.
+instâncias passou a mover shards lógicos inteiros (cada um copiado como réplica e
+promovido) em vez de coordenar escrita dupla chave a chave.
 
 **Diretório em vez de hash puro.** Isso permitiu mover os três clientes grandes
-para instâncias dedicadas, individualmente — algo impossível com mapeamento
+para instâncias dedicadas, individualmente: algo impossível com mapeamento
 algorítmico.
 
 A migração para o novo esquema levou seis semanas, chave a chave com escrita dupla.
 Depois dela, a passagem de 8 para 12 instâncias moveu um terço do conjunto em quatro
-horas. A diferença não está no volume — é da mesma ordem —, está em copiar shards
+horas. A diferença não está no volume (é da mesma ordem), está em copiar shards
 inteiros em vez de coordenar cada chave.
 
 O detalhe que a equipe destaca: shards lógicos e diretório são decisões que custam pouco
@@ -222,9 +222,9 @@ que ninguém leu antes de implementar.
 
 ## Conceitos Relacionados
 
-- [Particionamento](/06-distributed-systems/partitioning.md) — o conceito e a escolha da chave.
-- [Replicação](/06-distributed-systems/replication.md) — cada shard precisa das suas réplicas.
-- [Hotspots](/11-scalability/index.md) — o desequilíbrio.
+- [Particionamento](/06-distributed-systems/partitioning.md): o conceito e a escolha da chave.
+- [Replicação](/06-distributed-systems/replication.md): cada shard precisa das suas réplicas.
+- [Hotspots](/11-scalability/index.md): o desequilíbrio.
 - [Escalabilidade de Banco](/11-scalability/index.md).
 
 ## Exercício Prático
@@ -246,7 +246,7 @@ que não a inclui?
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 6.
-- Relatos públicos de arquitetura de sharding de plataformas de grande escala —
+- Relatos públicos de arquitetura de sharding de plataformas de grande escala:
   os de Slack, Notion e Figma são especialmente detalhados.

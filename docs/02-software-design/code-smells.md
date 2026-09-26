@@ -2,7 +2,7 @@
 id: code-smells
 title: Code Smells
 sidebar_position: 16
-description: Sinais de que algo merece atenção — não defeitos, e não uma lista de proibições.
+description: Sinais de que algo merece atenção, e não defeitos nem uma lista de proibições.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [refactoring, technical-debt, dry]
 canonical_for: [code smell, cheiro de código]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -64,7 +64,7 @@ anterior, e sinaliza responsabilidades misturadas.
 **Speculative generality.** Abstração para necessidade que não chegou. Ver
 [YAGNI](/02-software-design/yagni.md).
 
-**Long parameter list.** Frequentemente sinaliza que existe um conceito sem nome —
+**Long parameter list.** Frequentemente sinaliza que existe um conceito sem nome:
 os parâmetros que sempre andam juntos são um objeto.
 
 ### O critério de prioridade
@@ -86,7 +86,7 @@ ciclomática, duplicação textual.
 
 Detectam mal o estrutural: shotgun surgery e divergent change são propriedades do
 **histórico**, não do código num instante. Encontrá-los exige olhar como o
-repositório mudou ao longo do tempo — que é o que ferramentas de análise de
+repositório mudou ao longo do tempo. É o que ferramentas de análise de
 histórico fazem.
 
 ## Modelo Mental
@@ -118,10 +118,10 @@ se mostre o que fica mais caro por causa disso.
 
 ## Alternativas
 
-- **Métricas de histórico** — arquivos que mudam com frequência e junto com
+- **Métricas de histórico**: arquivos que mudam com frequência e junto com
   outros dizem mais que qualquer smell isolado.
-- **Medir esforço real** — quanto tempo leva uma mudança típica naquela área.
-- **Perguntar a quem mantém** — as pessoas que trabalham no código sabem onde
+- **Medir esforço real**: quanto tempo leva uma mudança típica naquela área.
+- **Perguntar a quem mantém**: as pessoas que trabalham no código sabem onde
   dói, e raramente são consultadas com essa pergunta.
 
 ## Trade-offs
@@ -167,11 +167,11 @@ A análise posterior cruzou as 310 corrigidas com o histórico: 280 delas estava
 arquivos alterados menos de duas vezes no ano. Os juros eram próximos de zero.
 
 As 30 restantes estavam em quatro arquivos que apareciam em 60% dos commits.
-Nenhum deles era o de pior pontuação na ferramenta — os problemas ali eram
+Nenhum deles era o de pior pontuação na ferramenta: os problemas ali eram
 shotgun surgery e inappropriate intimacy, que o analisador não detecta.
 
 O trimestre seguinte tratou apenas esses quatro arquivos. O tempo médio de
-entrega caiu perto de 20% — a mesma medida que o trimestre anterior não moveu.
+entrega caiu perto de 20%, a mesma medida que o trimestre anterior não moveu.
 
 A diferença entre os dois trimestres não foi o esforço. Foi olhar para o
 histórico antes de escolher.
@@ -193,17 +193,17 @@ Smells locais frequentemente apontam para problemas de fronteira. A tradução:
 | Speculative generality | Requisito futuro tratado como certo |
 
 A coluna da direita é o que vale corrigir. Corrigir a da esquerda sem a da
-direita produz o mesmo problema com forma diferente — o método de 80 linhas vira
+direita produz o mesmo problema com forma diferente: o método de 80 linhas vira
 oito de dez, e as responsabilidades continuam misturadas.
 
 ## Conceitos Relacionados
 
-- [Refatoração](/02-software-design/refactoring.md) — como corrigir com segurança.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — juros e priorização.
+- [Refatoração](/02-software-design/refactoring.md): como corrigir com segurança.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md): juros e priorização.
 - [Coesão](/01-fundamentals/cohesion.md) e
-  [Acoplamento](/01-fundamentals/coupling.md) — o que os smells estruturais
+  [Acoplamento](/01-fundamentals/coupling.md): o que os smells estruturais
   sinalizam.
-- [Clean Code](/02-software-design/clean-code.md) — o lado local.
+- [Clean Code](/02-software-design/clean-code.md): o lado local.
 
 ## Os smells que valem discutir em revisão
 
@@ -221,9 +221,9 @@ troca que antes só a atenção impedia.
 
 **Feature envy que atravessa fronteira de módulo.** Dentro de um módulo, é
 questão de organização. Atravessando módulos, é sinal de que a fronteira está no
-lugar errado — e fronteira errada custa em toda mudança, não só naquele método.
+lugar errado, e fronteira errada custa em toda mudança, não só naquele método.
 
-**Nome que mente.** Um método chamado `validar` que também persiste — o caso que
+**Nome que mente.** Um método chamado `validar` que também persiste: o caso que
 [Clean Code](/02-software-design/clean-code.md) trata como o pior, porque a
 desconfiança se estende a todos os outros nomes. Dos três, é o que mais rende em
 revisão: o autor ainda tem o contexto para escolher entre corrigir o nome e
@@ -254,7 +254,7 @@ pequena, e a primeira lista é a que importa.
 
 ## Para Aprofundar
 
-- Fowler, Martin. *Refactoring*. 2ª ed., Addison-Wesley, 2018 — o catálogo de
+- Fowler, Martin. *Refactoring*. 2ª ed., Addison-Wesley, 2018. O catálogo de
   smells.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — smells
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Smells
   detectados por histórico.

@@ -2,7 +2,7 @@
 id: soa
 title: SOA
 sidebar_position: 31
-description: Serviços de negócio com integração centralizada — a linhagem que antecede microsserviços.
+description: "Serviços de negócio com integração centralizada: a linhagem que antecede microsserviços."
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [microservices, event-driven, integration-architecture]
 canonical_for: [SOA, arquitetura orientada a serviços, ESB]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -21,12 +21,12 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-SOA — *Service-Oriented Architecture* — organiza a empresa em serviços de negócio
+SOA (*Service-Oriented Architecture*) organiza a empresa em serviços de negócio
 reutilizáveis, com contratos formais e integração mediada por um barramento
 central.
 
 É a linhagem direta de [microsserviços](/03-design-patterns/microservices.md), e entendê-la ajuda a
-entender por que microsserviços fazem certas escolhas — várias delas em reação ao
+entender por que microsserviços fazem certas escolhas, várias delas em reação ao
 que deu errado aqui.
 
 ## Problema
@@ -45,8 +45,8 @@ faça toda a integração passar por um barramento que traduz, roteia e orquestr
 
 ### Serviço de negócio, não técnico
 
-A unidade em SOA é uma capacidade de negócio completa — "gestão de clientes",
-"processamento de pedidos" — e não um componente técnico.
+A unidade em SOA é uma capacidade de negócio completa ("gestão de clientes",
+"processamento de pedidos") e não um componente técnico.
 
 Serviços tendem a ser grandes e a corresponder a áreas da organização.
 
@@ -56,7 +56,7 @@ O ESB é o elemento característico: um componente central por onde a integraç�
 passa, responsável por roteamento, transformação de formato, orquestração,
 protocolo e política.
 
-A intenção é boa — concentrar a complexidade de integração num lugar
+A intenção é boa: concentrar a complexidade de integração num lugar
 especializado, em vez de espalhá-la.
 
 ### O que deu errado
@@ -92,12 +92,12 @@ pontas inteligentes**: a inteligência fica nos serviços; o canal só transport
 
 A linha de reúso é a mais subestimada: SOA perseguia reúso como objetivo, e isso
 produzia serviços genéricos que serviam mal a todos. Microsserviços priorizam
-autonomia sobre reúso — uma inversão deliberada.
+autonomia sobre reúso: uma inversão deliberada.
 
 ## Quando Usar
 
 - Integração entre muitos sistemas heterogêneos, incluindo legado que não muda.
-- Transformação de protocolo e formato é necessária de fato — sistemas que falam
+- Transformação de protocolo e formato é necessária de fato: sistemas que falam
   linguagens incompatíveis.
 - Existe requisito de governança centralizada, frequentemente regulatório.
 - A organização já tem barramento e equipe que o opera.
@@ -109,7 +109,7 @@ autonomia sobre reúso — uma inversão deliberada.
 **Quando não há regra escrita sobre o que pode morar no barramento.** A degeneração não é
 misteriosa: ela começa com uma decisão que depende de dados de dois sistemas e não tem dono
 declarado, e o barramento é o único lugar que enxerga os dois. Sem uma regra que diga o que
-ele pode conter — e alguém que a aplique na revisão —, essa decisão vai para lá, e a
+ele pode conter (e alguém que a aplique na revisão), essa decisão vai para lá, e a
 próxima também.
 
 **Quando a autonomia de release importa.** Coordenação centralizada a impede.
@@ -117,18 +117,18 @@ próxima também.
 **Como caminho para microsserviços.** São modelos com filosofias opostas de
 integração; migrar de um para o outro é mais reescrita que evolução.
 
-**Quando "ESB" é adotado como solução para acoplamento.** Acoplamento não some —
+**Quando "ESB" é adotado como solução para acoplamento.** Acoplamento não some:
 muda de lugar.
 
 ## Alternativas
 
-- **[Microsserviços](/03-design-patterns/microservices.md)** — para sistemas novos com times
+- **[Microsserviços](/03-design-patterns/microservices.md)**: para sistemas novos com times
   autônomos.
-- **API gateway** — roteamento e política sem orquestração nem transformação de
+- **API gateway**: roteamento e política sem orquestração nem transformação de
   negócio. Captura parte do valor do ESB sem a degeneração.
-- **[Arquitetura orientada a eventos](/03-design-patterns/event-driven.md)** — canal simples,
+- **[Arquitetura orientada a eventos](/03-design-patterns/event-driven.md)**: canal simples,
   inteligência nas pontas.
-- **Anti-corruption layer por consumidor** — cada sistema traduz o que consome,
+- **Anti-corruption layer por consumidor**: cada sistema traduz o que consome,
   em vez de um tradutor central. Ver
   [DDD](/04-domain-driven-design/index.md).
 
@@ -154,7 +154,7 @@ muda de lugar.
 **Dados compartilhados entre serviços.** Acoplamento sem contrato.
 
 **Contrato canônico impossível.** A tentativa de definir um modelo único para toda
-a empresa — "cliente canônico" — consome anos e não converge, porque cliente
+a empresa ("cliente canônico") consome anos e não converge, porque cliente
 significa coisas diferentes em áreas diferentes. Ver
 [bounded context](/04-domain-driven-design/bounded-context.md).
 
@@ -166,14 +166,14 @@ oito meses do Exemplo Real: a regra virou responsabilidade de uma equipe que nã
 nenhum dos domínios.
 
 **Perseguir modelo canônico único.** A tentativa consome anos sem convergir, porque cada
-sistema tem uma razão legítima para o seu modelo — e enquanto não converge, nada depende
+sistema tem uma razão legítima para o seu modelo, e enquanto não converge, nada depende
 dela, então o trabalho não aparece como atraso de ninguém.
 
 **Tratar SOA como versão antiga de microsserviços.** As filosofias de integração
 são opostas.
 
 **Adotar ESB para resolver acoplamento.** O acoplamento não some: ele muda de forma, de
-ponto a ponto entre sistemas para radial em torno do barramento — e agora com um time no
+ponto a ponto entre sistemas para radial em torno do barramento, e agora com um time no
 meio de toda mudança.
 
 ## Onde ele aparece na prática
@@ -188,7 +188,7 @@ integração é exigência.
 proprietários e precisam de tradução real.
 
 O caso do legado é o que mantém SOA relevante: quando metade dos sistemas não pode
-ser alterada, alguém precisa traduzir — e um componente central de tradução é uma
+ser alterada, alguém precisa traduzir, e um componente central de tradução é uma
 resposta legítima. O erro é quando ele passa a decidir, e não apenas traduzir.
 
 ## Exemplo Real
@@ -200,14 +200,14 @@ Nos três primeiros anos, funcionou como pretendido: o barramento traduzia
 formatos, roteava, e o cenário de integração ficou visível pela primeira vez.
 
 A degeneração levou cinco anos. Regras de elegibilidade migraram para o
-barramento — porque a decisão dependia de dados de três sistemas, e o ESB era onde
+barramento, porque a decisão dependia de dados de três sistemas, e o ESB era onde
 os três se encontravam. Depois regras de comissionamento. Depois cálculo de
 prêmio.
 
 Ao final, o ESB tinha mais lógica de negócio que qualquer sistema individual, e o
 time que o operava tinha oito meses de fila.
 
-A correção não foi migrar para microsserviços — os sistemas legados continuavam
+A correção não foi migrar para microsserviços: os sistemas legados continuavam
 lá. Foi devolver as regras aos donos: elegibilidade voltou para subscrição,
 comissionamento para o sistema de corretores, prêmio para atuarial.
 
@@ -217,15 +217,15 @@ protocolo e roteamento. Sem condicional de negócio.
 A fila do time caiu para semanas.
 
 O padrão não estava errado para aquele contexto. O que falhou foi não ter uma
-regra explícita sobre o que pode e o que não pode morar no barramento — e essa é
+regra explícita sobre o que pode e o que não pode morar no barramento, e essa é
 uma decisão de governança, não de tecnologia.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](/03-design-patterns/microservices.md) — a reação a este modelo.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — tubos burros, pontas
+- [Microsserviços](/03-design-patterns/microservices.md): a reação a este modelo.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): tubos burros, pontas
   inteligentes.
-- [Integração](/08-integration-architecture/index.md) — API gateway e service
+- [Integração](/08-integration-architecture/index.md): API gateway e service
   mesh.
 - [Modernização de Legado](/16-legacy-modernization/index.md).
 
@@ -234,7 +234,7 @@ uma decisão de governança, não de tecnologia.
 Se sua empresa tem barramento de integração, examine o que há dentro dele.
 
 Classifique cada elemento: é tradução de formato, roteamento, ou decisão de
-negócio? Os da terceira categoria pertencem a algum sistema — identifique qual.
+negócio? Os da terceira categoria pertencem a algum sistema: identifique qual.
 
 ## Perguntas de Entrevista
 
@@ -246,6 +246,6 @@ negócio? Os da terceira categoria pertencem a algum sistema — identifique qua
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
   Addison-Wesley, 2003.
-- Newman, Sam. *Building Microservices*. 2ª ed., O'Reilly, 2021 — a comparação
+- Newman, Sam. *Building Microservices*. 2ª ed., O'Reilly, 2021. A comparação
   com SOA.
 - Erl, Thomas. *SOA: Principles of Service Design*. Prentice Hall, 2007.

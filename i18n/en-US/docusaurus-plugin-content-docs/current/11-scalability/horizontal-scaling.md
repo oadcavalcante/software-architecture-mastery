@@ -2,7 +2,7 @@
 id: horizontal-scaling
 title: Horizontal Scaling
 sidebar_position: 2
-description: More machines — what it requires of the system and why the gain stops being linear.
+description: "More machines: what it requires of the system and why the gain stops being linear."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vertical-scaling]
 related: [vertical-scaling, statelessness, hotspots]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,13 +27,13 @@ The promise is attractive: no physical ceiling, built-in failure tolerance, capa
 investment.
 
 The reality has two caveats that decide the design. First: it requires the system to be **able** to run on
-several machines — which is a property of the design, not a configuration. Second: the gain **stops being
+several machines. That is a property of the design, not a configuration. Second: the gain **stops being
 linear** as soon as the nodes contend for some resource, and when keeping them in agreement costs
 communication there is a point beyond which adding nodes makes the result worse.
 
 ## Problem
 
-Vertical scaling has a ceiling — of size, of cost, of availability. See
+Vertical scaling has a ceiling: of size, of cost, of availability. See
 [vertical scaling](/11-scalability/vertical-scaling.md).
 
 When it is reached, distributing is the way out. And distributing changes the system's nature: what was a
@@ -49,7 +49,7 @@ complexity with no capacity gain.
 
 Before adding the second machine, three properties need to exist:
 
-**No state in the process.** A session in memory, a local cache treated as authoritative, a file on disk —
+**No state in the process.** A session in memory, a local cache treated as authoritative, a file on disk:
 any of them prevents a request from going to any node. See
 [statelessness](/11-scalability/statelessness.md).
 
@@ -62,7 +62,7 @@ Without all three, adding machines creates inconsistent behavior instead of capa
 
 ### The gain is not linear
 
-**Linear scaling** is the ideal case in which N nodes deliver N times the capacity of one — 100%
+**Linear scaling** is the ideal case in which N nodes deliver N times the capacity of one: 100%
 efficiency at any size. The curve below is illustrative, with the shape the universal scalability law
 (Gunther, 2007) predicts for a system with contention and coherence cost:
 
@@ -78,7 +78,7 @@ nodes   capacity    efficiency
 
 Two forces cause the degradation:
 
-**Contention.** Shared resources — the database, the cache, the queue — are contended by more clients.
+**Contention.** Shared resources (the database, the cache, the queue) are contended by more clients.
 Gunther calls this force's intensity the **contention coefficient** (σ): the fraction of the work that
 waits in line for a shared resource. On its own, it flattens the curve toward a ceiling, without a drop.
 
@@ -86,7 +86,7 @@ waits in line for a shared resource. On its own, it flattens the curve toward a 
 number of nodes.
 
 The second is what produces the point at which **more nodes deliver less**. It exists in every system whose
-nodes need to coordinate — shared state, locks, a cache kept coherent — and knowing it — by measuring —
+nodes need to coordinate (shared state, locks, a cache kept coherent), and knowing it, by measuring,
 avoids spending on capacity that does not deliver.
 
 ### The serial fraction is the real ceiling
@@ -99,7 +99,7 @@ nodes would give 1.9×, 3.6×, 6.3× and 10×. At 32 nodes, Amdahl would still p
 the table's 11× is the coherence cost, which Amdahl does not model.
 
 The same arithmetic shows where the inversion happens. At 16 nodes, taking the serial fraction from 4% to
-2% would give about 12× — more than the 11× obtained by doubling to 32 nodes, and without paying for 16
+2% would give about 12×, more than the 11× obtained by doubling to 32 nodes, and without paying for 16
 more machines. On this curve, from somewhere between 8 and 16 nodes, reducing the serial fraction returns
 more than adding nodes. A [hot partition](/11-scalability/hotspots.md) is the form of that fraction that
 shows up least in the design and most in the measurement.
@@ -121,7 +121,7 @@ Scaling horizontally requires looking at **the whole chain**: connections, cache
 third-party limits. Each one has its own limit, and the first one reached defines the whole's ceiling.
 
 A [connection pooler](/11-scalability/database-scaling.md) undoes the proportionality between nodes and
-database connections — it is the control that resolves the most common case.
+database connections: it is the control that resolves the most common case.
 
 ### Elasticity has a startup cost
 
@@ -131,7 +131,7 @@ startup and health checking add up to minutes.
 See [cloud compute](/09-cloud-architecture/cloud-compute.md). Many peaks last less than that.
 
 And there is a second-order effect: new nodes arrive with a cold cache, which temporarily increases the
-load on the layers behind — exactly when they are already under pressure.
+load on the layers behind, exactly when they are already under pressure.
 
 ### Nodes are not identical in practice
 
@@ -177,11 +177,11 @@ expected, and it needs to be measured.
 
 ## Alternatives
 
-- **[Vertical scaling](/11-scalability/vertical-scaling.md)** — with no coordination.
-- **[Caching](/11-scalability/scaling-cache.md)** — it reduces the load instead of increasing the capacity.
-- **[A queue](/11-scalability/queue-based-scaling.md)** — it absorbs a peak with no proportional capacity.
-- **Removing the serial fraction** — when the coordination ceiling has been reached.
-- **Partitioning** — instead of replicating everything, dividing the work. See
+- **[Vertical scaling](/11-scalability/vertical-scaling.md)**: with no coordination.
+- **[Caching](/11-scalability/scaling-cache.md)**: it reduces the load instead of increasing the capacity.
+- **[A queue](/11-scalability/queue-based-scaling.md)**: it absorbs a peak with no proportional capacity.
+- **Removing the serial fraction**: when the coordination ceiling has been reached.
+- **Partitioning**: instead of replicating everything, dividing the work. See
   [partitioning for scale](/11-scalability/scaling-partitioning.md).
 
 ## Trade-offs
@@ -209,7 +209,7 @@ expected, and it needs to be measured.
 
 **The serial fraction dominating.** Capacity added with no effect.
 
-**A thundering herd.** Every node does the same thing at the same time — synchronized cache expiration,
+**A thundering herd.** Every node does the same thing at the same time: synchronized cache expiration,
 simultaneous reconnection.
 
 ## Common Mistakes
@@ -218,7 +218,7 @@ simultaneous reconnection.
 whoever lands on it, and losing one instance takes down the users pinned to it.
 
 **Not sizing the whole chain.** Multiplying the application layer without looking at the database only
-moves the bottleneck — and concentrates more pressure on the component that was already the limit.
+moves the bottleneck, and concentrates more pressure on the component that was already the limit.
 
 **Not measuring the saturation point.** Without knowing at what load one instance saturates, there is no
 way to calculate how many are needed, and scaling becomes trial and error in production.
@@ -238,7 +238,7 @@ it solves it for years.
 A content platform scaled the application layer from 6 to 60 instances to support a launch.
 
 The capacity did not increase proportionally. With 60 instances, the throughput was around 2.3 times that
-of 6 — and the latency was worse than with 20.
+of 6, and the latency was worse than with 20.
 
 The investigation found four limits, each reached at a different point of the expansion:
 
@@ -248,18 +248,18 @@ pooler: 60 instances came to use 150 real connections.
 
 **A session in memory.** Discovered during the incident: the load balancer used session affinity because
 the application kept the cart in memory. That made the distribution follow the session pattern, not the
-load — and the new instances received little traffic because they had no established sessions.
+load, and the new instances received little traffic because they had no established sessions.
 
 **A cold cache.** The new instances came up with no local cache and made queries the old ones did not,
 increasing the load on the database at the moment of greatest pressure.
 
 **A third party's limit.** The recommendation service, external, had a limit of 300 requests per second per
-client. With 60 instances, the limit was reached and the requests started failing — which generated
+client. With 60 instances, the limit was reached and the requests started failing. That generated
 retries, which consumed more of the limit.
 
 The fixes, and each one's effect:
 
-**The connection pooler** — the most impactful on its own.
+**The connection pooler**: the most impactful on its own.
 
 **Sessions externalized** to shared storage, removing the affinity. The distribution came to follow the
 load.
@@ -268,8 +268,8 @@ load.
 
 **A shared cache** for the recommendation service's responses, reducing external calls by 85%.
 
-After the fixes, 40 instances delivered 4.1 times the capacity of 6 — an efficiency near 60%, within the
-curve above — and the measurement showed that above 45 each additional instance added less than 1% of
+After the fixes, 40 instances delivered 4.1 times the capacity of 6 (an efficiency near 60%, within the
+curve above), and the measurement showed that above 45 each additional instance added less than 1% of
 throughput.
 
 That number became the auto scaling's configured ceiling, with an alert when it is reached.
@@ -280,16 +280,16 @@ working.
 
 ## Related Concepts
 
-- [Vertical Scaling](/11-scalability/vertical-scaling.md) — the alternative.
-- [Statelessness](/11-scalability/statelessness.md) — the prerequisite.
-- [Hotspots](/11-scalability/hotspots.md) — why uneven distribution nullifies the gain.
-- [Database Scaling](/11-scalability/database-scaling.md) — the chain's limit.
+- [Vertical Scaling](/11-scalability/vertical-scaling.md): the alternative.
+- [Statelessness](/11-scalability/statelessness.md): the prerequisite.
+- [Hotspots](/11-scalability/hotspots.md): why uneven distribution nullifies the gain.
+- [Database Scaling](/11-scalability/database-scaling.md): the chain's limit.
 
 ## Practical Exercise
 
 Measure your system's capacity with N and with 2N instances, under the same synthetic load.
 
-If the capacity does not grow close to 2×, you have found a limit in the chain — and it is more interesting
+If the capacity does not grow close to 2×, you have found a limit in the chain, and it is more interesting
 than the number of instances.
 
 ## Interview Questions
@@ -300,6 +300,6 @@ than the number of instances.
 
 ## Further Reading
 
-- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007 — the universal scalability law.
+- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007. The universal scalability law.
 - Amdahl, Gene. *Validity of the Single Processor Approach*, 1967.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

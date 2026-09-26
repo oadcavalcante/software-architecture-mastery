@@ -2,7 +2,7 @@
 id: dry
 title: DRY
 sidebar_position: 2
-description: Não repita conhecimento — e por que a leitura comum, sobre repetir texto, causa mais dano que a duplicação.
+description: Não repita conhecimento, e por que a leitura comum, sobre repetir texto, causa mais dano que a duplicação.
 doc_type: concept
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, yagni, code-smells]
 canonical_for: [DRY, duplicação de conhecimento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-DRY — *Don't Repeat Yourself* — é formulado por Hunt e Thomas como:
+DRY (*Don't Repeat Yourself*) é formulado por Hunt e Thomas como:
 
 > Cada porção de conhecimento deve ter uma representação única, não ambígua e
 > autoritativa dentro de um sistema.
@@ -33,7 +33,7 @@ seja diferente.
 
 ## Problema
 
-A leitura popular — "não repita código" — causa mais dano que a duplicação que
+A leitura popular, "não repita código", causa mais dano que a duplicação que
 pretende evitar.
 
 O padrão é reconhecível. Alguém nota dois trechos parecidos e extrai uma função
@@ -57,8 +57,8 @@ Duas perguntas separam os casos:
 1. Se esta regra mudar, os dois lugares mudam juntos, sempre?
 2. Existe uma decisão de negócio única por trás dos dois?
 
-Duas respostas "sim" indicam duplicação de conhecimento — unifique. Qualquer
-"não" indica coincidência — deixe separado.
+Duas respostas "sim" indicam duplicação de conhecimento: unifique. Qualquer
+"não" indica coincidência: deixe separado.
 
 | Situação | Veredito |
 |---|---|
@@ -68,7 +68,7 @@ Duas respostas "sim" indicam duplicação de conhecimento — unifique. Qualquer
 | Duas rotinas de retry com a mesma forma, para serviços diferentes | Provavelmente coincidência |
 
 O segundo caso vale para o formato: qual texto é um e-mail aceitável é uma
-decisão só. A política de validação não — o cadastro pode passar a exigir
+decisão só. A política de validação não: o cadastro pode passar a exigir
 verificação por link e a importação em lote não, e aí os dois mudam por razões
 diferentes. Ver
 [acoplamento vs. duplicação](/20-trade-offs/coupling-vs-duplication.md).
@@ -83,7 +83,7 @@ Espere a terceira ocorrência antes de abstrair. A regra e sua justificativa est
 em [acoplamento vs. duplicação](/20-trade-offs/coupling-vs-duplication.md); o que
 ela dá a DRY é o critério que falta às duas primeiras ocorrências: com duas,
 "conhecimento ou coincidência?" não tem resposta observável. A terceira mostra o
-que varia entre os casos — e o que varia é exatamente o que a abstração teria de
+que varia entre os casos, e o que varia é exatamente o que a abstração teria de
 parametrizar.
 
 ### DRY atravessa fronteiras com custo
@@ -105,7 +105,7 @@ bugs silenciosos.
 
 **Entre código e banco.** Uma restrição de unicidade no esquema e uma validação
 na aplicação expressam a mesma regra. Quando a regra muda, os dois precisam
-mudar — e é comum um ficar para trás.
+mudar, e é comum um ficar para trás.
 
 **Entre código e configuração.** Um valor padrão no código e outro no arquivo de
 configuração. Ninguém sabe qual vence até o incidente.
@@ -115,7 +115,7 @@ implementada de forma sutilmente diferente.
 
 **Entre serviços.** Dois serviços que replicam a mesma validação de negócio, cada
 um por sua conta, porque compartilhar acoplaria os times. Aqui a duplicação pode
-ser a decisão correta — mas precisa ser deliberada e anotada, não acidental.
+ser a decisão correta, mas precisa ser deliberada e anotada, não acidental.
 
 **Entre código e teste.** Um teste que reimplementa a lógica que verifica passa
 sempre, inclusive quando ambos estão errados pela mesma razão.
@@ -156,13 +156,13 @@ contabilizado.
 
 ## Alternativas
 
-- **Duplicação deliberada e anotada** — duplicar, com comentário dizendo por quê e
+- **Duplicação deliberada e anotada**: duplicar, com comentário dizendo por quê e
   qual condição levaria a unificar. Vence enquanto não se sabe se a semelhança é
   conhecimento: custa uma linha e impede que a próxima leitura decida por engano.
-- **Extrair só o que é estável** — unificar o núcleo invariante e deixar as
+- **Extrair só o que é estável**: unificar o núcleo invariante e deixar as
   bordas duplicadas. Vence quando o núcleo é grande o bastante para pagar a
   extração e as divergências conhecidas estão todas nas bordas.
-- **Contrato compartilhado sem código compartilhado** — publicar um esquema em
+- **Contrato compartilhado sem código compartilhado**: publicar um esquema em
   vez de uma biblioteca. Vence entre times cujos ciclos de release já são
   independentes, onde acoplá-los custa mais que reimplementar a leitura do
   contrato.
@@ -200,7 +200,7 @@ significados diferentes.
 semelhança do texto, e o que se unifica são decisões sem relação entre si.
 
 **Extrair na segunda ocorrência.** Cedo demais para distinguir coincidência de
-conhecimento — a abstração sai com a forma do primeiro caso, e o segundo passa a
+conhecimento: a abstração sai com a forma do primeiro caso, e o segundo passa a
 entrar nela por parâmetro.
 
 **Tratar `PedidoDTO` e `PedidoEntidade` como duplicação.** São camadas diferentes
@@ -223,7 +223,7 @@ Um refatoramento unificou os dois em `CalculadoraDeDesconto`. Correto: era a mes
 regra de negócio, e divergência entre exibido e cobrado seria um bug grave.
 
 No mesmo sistema, outro refatoramento unificou a validação de endereço de entrega
-com a de endereço de cobrança — mesma estrutura, mesmos campos.
+com a de endereço de cobrança: mesma estrutura, mesmos campos.
 
 Onze meses depois, endereço de cobrança passou a aceitar caixa postal e endereço
 de entrega não. A função validadora ganhou `permiteCaixaPostal: boolean`. Depois,
@@ -237,11 +237,11 @@ Os dois casos eram textualmente parecidos. Só um era conhecimento duplicado.
 
 ## Conceitos Relacionados
 
-- [Coesão](/01-fundamentals/cohesion.md) — a mesma pergunta sobre razão de mudança.
-- [Abstração](/01-fundamentals/abstraction.md) — o custo de abstrair cedo.
-- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md) — o
+- [Coesão](/01-fundamentals/cohesion.md): a mesma pergunta sobre razão de mudança.
+- [Abstração](/01-fundamentals/abstraction.md): o custo de abstrair cedo.
+- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md): o
   trade-off em detalhe.
-- [Code Smells](/02-software-design/code-smells.md) — como reconhecer os sintomas.
+- [Code Smells](/02-software-design/code-smells.md): como reconhecer os sintomas.
 
 ## Exercício Prático
 
@@ -262,5 +262,5 @@ conhecimento ou apenas de texto?
 ## Para Aprofundar
 
 - Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2ª ed.,
-  Addison-Wesley, 2019 — a formulação original.
+  Addison-Wesley, 2019. A formulação original.
 - Metz, Sandi. *The Wrong Abstraction*, 2016.

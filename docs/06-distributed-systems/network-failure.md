@@ -2,7 +2,7 @@
 id: network-failure
 title: Falha de Rede
 sidebar_position: 2
-description: A rede perde, atrasa, duplica e reordena — e nenhuma dessas falhas é distinguível das outras.
+description: A rede perde, atrasa, duplica e reordena, e nenhuma dessas falhas é distinguível das outras.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [partial-failure, timeouts, failure-detection]
 canonical_for: [falha de rede, partição de rede]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -22,9 +22,9 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 A rede é o meio pelo qual sistemas distribuídos se coordenam, e ela é não
-confiável por natureza — não por defeito de implementação.
+confiável por natureza, não por defeito de implementação.
 
-O que torna isso difícil não é que a rede falhe. É que **os modos de falha são
+O que torna isso difícil não é que a rede falhe, e sim que **os modos de falha são
 indistinguíveis entre si** a partir de um dos lados.
 
 ## Problema
@@ -37,7 +37,7 @@ processada e a resposta se perdeu. Está sendo processada, devagar. O destino es
 
 **Do seu lado, as cinco são idênticas.** Você observa a mesma coisa: silêncio.
 
-Isso não é limitação de ferramenta — é propriedade do problema. Nenhum protocolo
+Isso não é limitação de ferramenta, é propriedade do problema. Nenhum protocolo
 resolve, porque distinguir exigiria informação que não atravessa a rede partida.
 
 Todo o resto deste nível é consequência disso.
@@ -50,7 +50,7 @@ Todo o resto deste nível é consequência disso.
 transmissão. TCP retransmite, o que resolve a perda e aumenta a latência.
 
 **Atraso.** O pacote chega, tarde. Sob congestionamento, a latência sobe por
-ordens de grandeza — e um atraso suficientemente longo é operacionalmente igual a
+ordens de grandeza, e um atraso suficientemente longo é operacionalmente igual a
 perda.
 
 **Duplicação.** Retransmissões podem produzir entrega dupla em camadas acima.
@@ -67,7 +67,7 @@ Partição é o mais raro e o mais consequente, porque durante ela **os dois lad
 continuam operando**.
 
 Se ambos aceitam escritas, os estados divergem e alguém resolve o conflito depois.
-Se apenas um aceita, é preciso decidir qual — e o outro fica indisponível.
+Se apenas um aceita, é preciso decidir qual, e o outro fica indisponível.
 
 Esse é literalmente o dilema de [CAP](/06-distributed-systems/cap.md), e ele existe por causa de partição.
 
@@ -82,7 +82,7 @@ Nem toda partição é limpa. Duas variantes traiçoeiras:
 **Assimétrica.** A mensagem vai de A para B e não volta. A acha que B caiu; B
 recebe requisições e responde no vazio.
 
-**Parcial.** A alcança B, B alcança C, e A não alcança C. Não há dois grupos — há
+**Parcial.** A alcança B, B alcança C, e A não alcança C. Não há dois grupos, há
 uma topologia inconsistente, em que nós diferentes têm visões diferentes de quem
 está vivo.
 
@@ -97,13 +97,13 @@ verificações de saúde, continua recebendo tráfego e continua entregando deva
 Isso propaga a lentidão para quem depende dele, e é a origem de boa parte das
 cascatas. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
-Detectar degradação exige medir latência, não apenas disponibilidade — e é por
+Detectar degradação exige medir latência, não apenas disponibilidade, e é por
 isso que verificação de saúde binária é insuficiente.
 
 ## Modelo Mental
 
 **Silêncio não é informação.** Ele é compatível com sucesso, com falha e com
-lentidão — e projetar assumindo qualquer uma delas produz defeito.
+lentidão, e projetar assumindo qualquer uma delas produz defeito.
 
 ## Quando Usar
 
@@ -133,16 +133,16 @@ duplicação em camadas acima.
 ## Alternativas
 
 Não há alternativa a lidar com falha de rede num sistema distribuído. Há a
-alternativa de **não distribuir** — ver
-[monolito modular](/03-design-patterns/modular-monolith.md).
+alternativa de **não distribuir** (ver
+[monolito modular](/03-design-patterns/modular-monolith.md)).
 
 Dentro do distribuído, o que varia é a estratégia: tolerar e reconciliar, ou
 recusar operar durante a falha.
 
 ## Trade-offs
 
-Durante uma partição, a escolha é entre continuar aceitando escritas — com
-divergência a resolver — e recusar — com indisponibilidade.
+Durante uma partição, a escolha é entre continuar aceitando escritas (com
+divergência a resolver) e recusar (com indisponibilidade).
 
 | Aceitar escritas | Recusar |
 |---|---|
@@ -163,7 +163,7 @@ reconciliação.
 
 **Duplicação por retransmissão.** Sem idempotência, efeito duplicado.
 
-**Detecção falsa.** Um nó lento é declarado morto, removido, e volta — gerando
+**Detecção falsa.** Um nó lento é declarado morto, removido, e volta, gerando
 rebalanceamento desnecessário e instabilidade.
 
 **Partição assimétrica não detectada.** Um lado remove o outro; o outro continua
@@ -185,30 +185,30 @@ que causou a perda. Ver [backoff](/06-distributed-systems/backoff.md).
 
 ## Exemplo Real
 
-Um cluster de banco com três nós — um líder e duas réplicas — em zonas de
+Um cluster de banco com três nós (um líder e duas réplicas) em zonas de
 disponibilidade diferentes.
 
 Uma manutenção de rede isolou a zona do líder das outras duas por 90 segundos.
 
-As duas réplicas pararam de receber sinal do líder. Após 20 segundos sem sinal —
-o tempo de detecção configurado —, elegeram uma nova líder entre si e passaram a
+As duas réplicas pararam de receber sinal do líder. Após 20 segundos sem sinal
+(o tempo de detecção configurado), elegeram uma nova líder entre si e passaram a
 aceitar escritas.
 
 O líder original continuava íntegro, alcançável pela aplicação que rodava na mesma
-zona, e continuou aceitando escritas — sem saber que havia perdido a liderança.
+zona, e continuou aceitando escritas, sem saber que havia perdido a liderança.
 
 Por cerca de 70 dos 90 segundos de partição houve **dois líderes**, ambos
 aceitando escritas, cada um convencido de ser o único.
 
 Ao fim da partição, 1 200 escritas precisaram ser reconciliadas manualmente. 40
-eram conflitantes — o mesmo registro alterado nos dois lados.
+eram conflitantes: o mesmo registro alterado nos dois lados.
 
-O que a equipe descobriu na análise: o cluster tinha proteção contra isso —
-exigência de maioria para aceitar escrita — e ela estava desabilitada, porque
+O que a equipe descobriu na análise: o cluster tinha proteção contra isso
+(exigência de maioria para aceitar escrita), e ela estava desabilitada, porque
 habilitá-la deixa sem escrita o lado minoritário de uma partição. Não é o cluster
 que para: com três nós em três zonas, os dois que sobram formam maioria e seguem
-aceitando escrita — ver
-[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md). Quem
+aceitando escrita (ver
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)). Quem
 fica sem escrever é o líder isolado, e com ele a aplicação que rodava na mesma
 zona.
 
@@ -217,25 +217,25 @@ sem que o negócio soubesse. Para um sistema de saldo, era a troca errada.
 
 A correção foi reabilitar a exigência de maioria e aceitar que a aplicação da
 zona isolada fique sem escrever enquanto durar a partição, em vez de divergência
-de saldo — desta vez com a decisão
+de saldo, desta vez com a decisão
 registrada em [ADR](/18-architecture-decisions/what-is-an-adr.md), e com o negócio na
 conversa.
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](/06-distributed-systems/partial-failure.md) — a consequência para o projeto.
-- [CAP](/06-distributed-systems/cap.md) — a escolha sob partição.
-- [Detecção de Falha](/06-distributed-systems/failure-detection.md) — por que declarar morto é heurística.
-- [Timeouts](/06-distributed-systems/timeouts.md) — a única ferramenta disponível.
-- [Eleição de Líder](/06-distributed-systems/leader-election.md) — cérebro dividido e o fencing que o evita.
+- [Falha Parcial](/06-distributed-systems/partial-failure.md): a consequência para o projeto.
+- [CAP](/06-distributed-systems/cap.md): a escolha sob partição.
+- [Detecção de Falha](/06-distributed-systems/failure-detection.md): por que declarar morto é heurística.
+- [Timeouts](/06-distributed-systems/timeouts.md): a única ferramenta disponível.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md): cérebro dividido e o fencing que o evita.
 
 ## Exercício Prático
 
 Para o seu sistema: o que acontece se a rede entre a aplicação e o banco ficar
 partida por 60 segundos?
 
-Depois a versão mais difícil: e se ficar partida **parcialmente** — a aplicação
-alcança o banco, o banco não alcança a réplica?
+Depois a versão mais difícil: e se ficar partida **parcialmente** (a aplicação
+alcança o banco, o banco não alcança a réplica)?
 
 ## Perguntas de Entrevista
 
@@ -245,7 +245,7 @@ alcança o banco, o banco não alcança a réplica?
 
 ## Para Aprofundar
 
-- Bailis, Peter; Kingsbury, Kyle. *The Network is Reliable*. ACM Queue, 2014 — o
+- Bailis, Peter; Kingsbury, Kyle. *The Network is Reliable*. ACM Queue, 2014. O
   levantamento de partições reais em produção.
-- Kingsbury, Kyle. *Jepsen* — análises de sistemas sob partição.
+- Kingsbury, Kyle. *Jepsen*. Análises de sistemas sob partição.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

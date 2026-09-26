@@ -2,7 +2,7 @@
 id: technical-strategy-leadership
 title: Technical Strategy in Leadership
 sidebar_position: 2
-description: Diagnosis, direction and sacrifice — and the part almost no technical strategy has.
+description: Diagnosis, direction and sacrifice, and the part almost no technical strategy has.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, technical-roadmaps, cost-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Technical strategy is the choice of where to invest engineering capacity, and — more importantly —
+Technical strategy is the choice of where to invest engineering capacity, and, more importantly,
 where **not** to invest it.
 
 ```text
@@ -47,7 +47,7 @@ The typical technical strategy:
 ```
 
 Six fronts, no sacrifice, no numbers. That doesn't guide prioritization, which is a strategy's only
-use — when everything is a priority, prioritization goes back to being done by whoever shouts
+use. When everything is a priority, prioritization goes back to being done by whoever shouts
 loudest.
 
 And there is a second problem: technical strategy disconnected from business strategy. A
@@ -66,7 +66,7 @@ strong   "69% of engineering capacity is in maintenance.
          customizations."
 ```
 
-A diagnosis that bothers nobody is usually not a diagnosis — it is a description. And one that
+A diagnosis that bothers nobody is usually a description, not a diagnosis. And one that
 points at the cause instead of the symptom is what makes the direction derivable.
 
 See [measuring outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
@@ -80,7 +80,7 @@ four or more          attention splits, and most do not
                       Real-World Example, 1.3 of 6 advanced)
 ```
 
-The limit is not capacity — it is attention. An organization executes multiple simultaneous
+The limit is attention, not capacity. An organization executes multiple simultaneous
 initiatives; it does not sustain multiple changes of direction.
 
 Choosing one front and finishing it produces more than starting five.
@@ -114,7 +114,7 @@ already-approved bet. See
 [communication](/23-architecture-leadership/communication.md).
 
 When there is no business bet to tie it to, the uncomfortable question is worth asking: does the
-technical initiative justify itself on its own? Sometimes yes — regulatory risk, knowledge risk,
+technical initiative justify itself on its own? Sometimes yes: regulatory risk, knowledge risk,
 growing cost. Frequently not.
 
 ### A two-to-three-year horizon, revisited annually
@@ -136,8 +136,8 @@ capacity allocated to the strategic front   is the number that reveals
                                             whether the strategy is real
 ```
 
-A strategy with three fronts and 6% of capacity allocated to them is not a strategy — it is an
-intention. Measuring actual allocation, rather than planned allocation, is the most honest
+A strategy with three fronts and 6% of capacity allocated to them is an
+intention, not a strategy. Measuring actual allocation, rather than planned allocation, is the most honest
 assessment instrument.
 
 And when actual allocation is low, the diagnosis is usually one of two: the sacrifice was not
@@ -146,7 +146,7 @@ actually made, or the strategy has no sponsorship.
 ### Strategy is choice, and choices are unpopular
 
 A strategy that pleases every area probably chose nothing. Sacrificing means someone will not get
-what they wanted — and that conversation is part of the work, not a side effect to avoid.
+what they wanted, and that conversation is part of the work, not a side effect to avoid.
 
 Having that conversation in advance, with whoever will be affected by the sacrifice, is what
 prevents it from being silently undone at the first pressure.
@@ -168,7 +168,7 @@ Without sacrifice, it isn't strategy.
 already happens in the prioritization itself, in plain sight; a strategy document adds ceremony
 without adding choice. Use a roadmap directly.
 
-**When the business changes bets on a cycle shorter than the strategy's horizon** — a startup
+**When the business changes bets on a cycle shorter than the strategy's horizon**: a startup
 before product-market fit, for example. A two-to-three-year strategy would be rewritten before it
 produced results. Use an architecture vision and a quarterly roadmap.
 
@@ -178,11 +178,11 @@ the sponsorship first, or restrict the choice to the scope you control.
 
 ## Alternatives
 
-- **A vision with no strategy** — guiding decisions without allocating investment; works when there
+- **A vision with no strategy**: guiding decisions without allocating investment; works when there
   is no capacity to direct.
-- **A roadmap directly** — sequencing deliveries without stating a strategy; works over a short
+- **A roadmap directly**: sequencing deliveries without stating a strategy; works over a short
   horizon.
-- **Strategy per area** — each team defines its own, with minimal coordination; scales better and
+- **Strategy per area**: each team defines its own, with minimal coordination; scales better and
   produces less coherence.
 
 ## Trade-offs
@@ -213,8 +213,8 @@ the sponsorship first, or restrict the choice to the scope you control.
 
 ## Common Mistakes
 
-**Diagnosing the symptom** instead of the cause. The direction attacks the symptom — more people
-on maintenance, instead of eliminating the customizations — and the maintenance share does not
+**Diagnosing the symptom** instead of the cause. The direction attacks the symptom (more people
+on maintenance, instead of eliminating the customizations) and the maintenance share does not
 drop.
 
 **Not declaring what is left behind.** Every new proposal is evaluated from scratch, and the
@@ -224,7 +224,7 @@ capacity reserved for the front is drained by them over the year.
 publication, at the first pressure, and the sacrifice is undone without anyone deciding to undo it.
 
 **Not measuring** the capacity actually allocated. The strategy is judged by the plan, and the gap
-between declared and actual — 9% against 30% in the Real-World Example — only shows up when the
+between declared and actual (9% against 30% in the Real-World Example) only shows up when the
 results don't.
 
 **Writing a strategy** where a roadmap would do. The cycle of diagnosis, sacrifices and
@@ -263,7 +263,7 @@ observability                           only the minimum for the front
 ```
 
 Each sacrifice was discussed in advance with the affected area, and all four drew objections. Two
-were sustained unchanged; two gained partial mitigation — the cost one got a limit ("+14% is the
+were sustained unchanged; two gained partial mitigation: the cost one got a limit ("+14% is the
 ceiling; above that, we reopen it").
 
 **A tie to the business.** The front was stated as a prerequisite of two commercial objectives:
@@ -283,15 +283,15 @@ new client onboarding                    from ~7 months to 9 weeks
 infrastructure cost                      +16% (forecast: +14%)
 ```
 
-The next cycle could have two fronts, because the capacity freed from maintenance now existed —
-which was the strongest argument for keeping the method.
+The next cycle could have two fronts, because the capacity freed from maintenance now existed.
+That was the strongest argument for keeping the method.
 
 The point the team underlines: the decision to have **one** front was the hardest to get approved
 and the one that produced the result. The sacrifice conversations consumed six weeks before
-publication, and they are what prevented the sacrifices from being undone in March — which was the
-pattern of the previous cycles.
+publication, and they are what prevented the sacrifices from being undone in March (which was the
+pattern of the previous cycles).
 
-And the cost deviation — 16% against the 14% ceiling — triggered the agreed reopening. It took
+And the cost deviation (16% against the 14% ceiling) triggered the agreed reopening. It took
 one meeting: the excess came from the load of the new clients that shorter onboarding brought in,
 and the decision was to accept the two points and keep the sacrifice until the next cycle. Having
 declared the ceiling in advance turned the overrun into a decision with an owner and a date,
@@ -299,7 +299,7 @@ rather than into a crisis.
 
 ## Related Concepts
 
-- [Technical Strategy](/15-enterprise-architecture/technical-strategy.md) — the formulation.
+- [Technical Strategy](/15-enterprise-architecture/technical-strategy.md): the formulation.
 - [Architecture Vision](/23-architecture-leadership/architecture-vision.md).
 - [Technical Roadmaps](/23-architecture-leadership/technical-roadmaps.md).
 - [Cost Management](/23-architecture-leadership/cost-management.md).

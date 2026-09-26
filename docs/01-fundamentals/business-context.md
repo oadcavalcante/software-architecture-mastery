@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [problem-space, constraints]
 canonical_for: [contexto de negócio, business context]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -27,7 +27,7 @@ está tentando fazer, com quanto dinheiro, em quanto tempo, sob quais regras, co
 quantas pessoas.
 
 Ignorar esse contexto produz arquiteturas tecnicamente defensáveis e
-organizacionalmente inviáveis — que são as que não sobrevivem.
+organizacionalmente inviáveis, que são as que não sobrevivem.
 
 ## O Problema
 
@@ -37,7 +37,7 @@ valor na medida em que sustentam algo que o negócio precisa.
 
 O sintoma clássico: um time investe seis meses construindo uma plataforma capaz
 de absorver crescimento de cem vezes, para um produto que ainda não sabe se terá
-usuários. A engenharia é boa. A decisão é ruim — porque o risco dominante era de
+usuários. A engenharia é boa. A decisão é ruim, porque o risco dominante era de
 mercado, não de escala, e os seis meses foram gastos reduzindo o risco errado.
 
 O oposto também acontece: um sistema que processa transações financeiras
@@ -64,15 +64,15 @@ de grandeza e justificam investimentos diferentes.
 **Estágio.** Uma empresa buscando encaixe de produto precisa de velocidade de
 mudança acima de tudo, porque vai jogar fora boa parte do que construir. Uma
 empresa em escala precisa de estabilidade, porque o custo de errar aumentou. A
-mesma decisão arquitetural — digamos, investir em abstração para trocar de
-provedor — é prudência numa e desperdício na outra.
+mesma decisão arquitetural (digamos, investir em abstração para trocar de
+provedor) é prudência numa e desperdício na outra.
 
 **Restrições regulatórias.** Chegam prontas, de fora da empresa, e não passam
 por negociação técnica: frequentemente eliminam opções inteiras antes da
 primeira reunião.
 
 **Economia.** Quanto se pode gastar, e em quanto tempo o gasto precisa se pagar,
-não são dados da engenharia — saem do modelo de negócio e do estágio, e é por
+não são dados da engenharia: saem do modelo de negócio e do estágio, e é por
 isso que a mesma cifra é generosa numa empresa e irrisória em outra.
 
 **Organização.** O contexto determina quantas pessoas existem e que competências
@@ -93,7 +93,7 @@ extraído, e as perguntas que funcionam são concretas:
 - Isso precisa estar pronto quando, e o que acontece se atrasar dois meses?
 - Quantas pessoas vão manter isso daqui a um ano?
 
-Perguntas vagas — "quais são os requisitos não-funcionais?" — produzem respostas
+Perguntas vagas ("quais são os requisitos não-funcionais?") produzem respostas
 vagas. Perguntas sobre consequência produzem números.
 
 ### Contexto muda; arquitetura precisa acompanhar
@@ -111,7 +111,7 @@ Antes de qualquer decisão técnica, responda: **qual risco esta decisão reduz,
 esse risco é o maior que temos?**
 
 A pergunta funciona porque força a comparação. Quase toda decisão arquitetural
-reduz algum risco. O que distingue uma boa decisão é reduzir o risco dominante —
+reduz algum risco. O que distingue uma boa decisão é reduzir o risco dominante,
 e o risco dominante é uma propriedade do contexto de negócio, não do sistema.
 
 ## Por Que Isso Importa
@@ -123,7 +123,7 @@ operar?
 
 **Porque é o que permite defender uma decisão.** Um argumento técnico convence
 engenheiros. Um argumento que conecta a decisão técnica a uma consequência de
-negócio convence quem aprova orçamento — e é essa a conversa que determina se a
+negócio convence quem aprova orçamento, e é essa a conversa que determina se a
 arquitetura vai existir.
 
 **Porque evita reduzir o risco errado.** É o desperdício mais comum e o mais
@@ -134,7 +134,7 @@ não era o gargalo.
 ## Erros Comuns
 
 **Tratar contexto como assunto de produto.** Arquitetura decidida sem contexto de
-negócio otimiza por default — normalmente para escala ou pureza técnica, que
+negócio otimiza por default, normalmente para escala ou pureza técnica, que
 raramente são o risco dominante.
 
 **Aceitar "precisa ser rápido e confiável" como requisito.** Não é requisito;
@@ -148,13 +148,13 @@ crescimento nos próximos doze meses e quanto custa adiar a decisão de escala a
 lá.
 
 **Confundir o que o negócio pede com o que o negócio precisa.** Stakeholders
-descrevem soluções — "precisamos de um dashboard em tempo real". O trabalho é
+descrevem soluções: "precisamos de um dashboard em tempo real". O trabalho é
 recuar até o problema: que decisão será tomada com esse dado, e com que atraso
 ela ainda é útil? A resposta frequentemente elimina "tempo real" do requisito, e
 com ele metade da complexidade.
 
 **Presumir contexto em vez de perguntar.** Especialmente sobre regulação e sobre
-custo de dado errado — dois assuntos em que a intuição de engenharia costuma
+custo de dado errado, dois assuntos em que a intuição de engenharia costuma
 estar errada por ordens de grandeza, nos dois sentidos.
 
 ## Exemplo Real
@@ -168,7 +168,7 @@ Três perguntas mudaram o projeto inteiro.
 *Quem consome essa informação?* Operadores de central, que verificam o status
 quando um cliente liga. Não há tela aberta em observação contínua.
 
-*Com que frequência a posição de fato muda de forma relevante?* A cada parada —
+*Com que frequência a posição de fato muda de forma relevante?* A cada parada,
 em média, a cada dezoito minutos.
 
 *O que acontece se a informação estiver cinco minutos atrasada?* Nada. O operador
@@ -180,16 +180,16 @@ esboço original, tem uma fração da complexidade operacional, e atende
 integralmente a necessidade.
 
 A parte que merece atenção: o esboço original não era tecnicamente errado. Ele
-respondia corretamente ao pedido — "tempo real" — que era a solução que o
+respondia corretamente ao pedido ("tempo real"), que era a solução que o
 stakeholder tinha imaginado, não o problema que ele tinha.
 
 ## Conceitos Relacionados
 
-- [Espaço do Problema](/01-fundamentals/problem-space.md) — como separar problema de solução.
-- [Restrições](/01-fundamentals/constraints.md) — o que o contexto impõe e não se negocia.
-- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a conversão do
+- [Espaço do Problema](/01-fundamentals/problem-space.md): como separar problema de solução.
+- [Restrições](/01-fundamentals/constraints.md): o que o contexto impõe e não se negocia.
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md): a conversão do
   contexto em número.
-- [Planejamento de Capacidade](/05-system-design/capacity-planning.md) — o crescimento
+- [Planejamento de Capacidade](/05-system-design/capacity-planning.md): o crescimento
   do contexto traduzido em dimensionamento.
 
 ## Exercício Prático
@@ -199,7 +199,7 @@ da seção "As perguntas que extraem o contexto".
 
 Marque quais você respondeu com fato verificável e quais com suposição.
 
-As suposições são o material da próxima conversa com quem tem a resposta — e, na
+As suposições são o material da próxima conversa com quem tem a resposta. Na
 maioria dos times, elas são a maioria.
 
 ## Perguntas de Entrevista
@@ -211,7 +211,7 @@ maioria dos times, elas são a maioria.
 
 ## Para Aprofundar
 
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 —
-  capítulos sobre alinhamento entre domínio e negócio.
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
+  Capítulos sobre alinhamento entre domínio e negócio.
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — capítulo sobre drivers arquiteturais.
+  2020. Capítulo sobre drivers arquiteturais.

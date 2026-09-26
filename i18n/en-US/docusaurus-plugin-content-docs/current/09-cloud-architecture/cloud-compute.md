@@ -2,7 +2,7 @@
 id: cloud-compute
 title: Cloud Compute
 sidebar_position: 13
-description: Choosing and sizing capacity — families, purchase models and the scaling that is almost never fast enough.
+description: "Choosing and sizing capacity: families, purchase models and the scaling that is almost never fast enough."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, cost-architecture, containers]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ which **size**, and under which **purchase model**.
 
 All three affect cost and performance in different ways, and getting any one wrong costs monthly.
 
-The fourth decision — **scaling** — is what separates a system that responds to peaks from one that goes
+The fourth decision, **scaling**, is what separates a system that responds to peaks from one that goes
 down in them.
 
 ## Problem
@@ -35,7 +35,7 @@ Typical sizing is done out of caution: a comfortable size is chosen, with headro
 
 The result is the industry norm: instances with utilization between 5% and 15%, paid for in full.
 
-On the other side, undersizing leads to saturation under load — and auto scaling, which should solve it, is
+On the other side, undersizing leads to saturation under load. And auto scaling, which should solve it, is
 usually slower than the peak.
 
 Both come from the same absence: nobody measured.
@@ -55,7 +55,7 @@ with an accelerator specialized parallel processing
 ```
 
 Choosing the wrong family is more expensive than choosing the wrong size: an application that needs memory,
-in a general-purpose family, is forced to move up in size — paying for CPU it does not use — until it has
+in a general-purpose family, is forced to move up in size (paying for CPU it does not use) until it has
 enough memory.
 
 The guiding question: **which resource saturates first?** Measuring that before choosing resolves most of
@@ -64,7 +64,7 @@ the waste.
 ### Processor architecture is money left on the table
 
 Instances with alternative-architecture processors usually deliver a better performance-to-price ratio for
-common workloads — web services, applications in interpreted languages or with a virtual machine.
+common workloads: web services, applications in interpreted languages or with a virtual machine.
 
 The barrier is binary and container image compatibility, which today is much smaller than it was.
 
@@ -88,7 +88,7 @@ The practical rule that works:
 **Interruption-tolerant load** → interruptible: batch processing, transcoding, tests, model training.
 
 Interruptible capacity is underused. Genuinely reprocessable workloads can run at a fraction of the price,
-and the requirement — tolerating interruption with short notice — is the same as any system well designed
+and the requirement (tolerating interruption with short notice) is the same as any system well designed
 for the cloud.
 
 ### Scaling is not instantaneous
@@ -110,7 +110,7 @@ The ways to improve it:
 
 **Fast application startup.**
 
-**Scaling on a leading metric** — queue depth, connections — instead of CPU, which reacts late.
+**Scaling on a leading metric** (queue depth, connections) instead of CPU, which reacts late.
 
 **Scheduled scaling** for predictable peaks. When the peak has a known time, it is the only one of the five
 that puts capacity online before the peak, and so it removes the 2-to-5-minute window instead of shortening
@@ -122,15 +122,15 @@ it: if the peak is every Monday at 9 a.m., do not wait for the metric.
 
 An instance at 20% average CPU can be at 95% at peaks. Resizing by the average produces saturation.
 
-Correct sizing looks at the high percentile and the duration of the peaks — and considers whether scaling
+Correct sizing looks at the high percentile and the duration of the peaks, and considers whether scaling
 covers the rest.
 
 ### Restarting needs to be routine
 
 Instances vanish: provider maintenance, hardware failure, interruptible capacity reclaimed.
 
-That requires graceful shutdown — stop accepting new requests, finish the ones in flight, leave the load
-balancing — and no important state on a local disk.
+That requires graceful shutdown (stop accepting new requests, finish the ones in flight, leave the load
+balancing) and no important state on a local disk.
 
 Applications that do not do this lose requests on every scaling event, not only on failures.
 
@@ -142,7 +142,7 @@ decisions are independent.
 ## When to Use
 
 - **A commitment** for the usage floor that has held over the last few months and does not depend on a
-  planned migration — reserving above that floor is paying a discount for idle capacity.
+  planned migration. Reserving above that floor is paying a discount for idle capacity.
 - **On demand** for variation.
 - **Interruptible** for interruption-tolerant processing.
 - **Scheduled scaling** for predictable peaks.
@@ -154,7 +154,7 @@ decisions are independent.
 
 **A commitment before the load stabilizes.**
 
-**Interruptible for load that does not tolerate interruption** — work that cannot be redone from the start,
+**Interruptible for load that does not tolerate interruption**: work that cannot be redone from the start,
 whose checkpoint costs more than redoing it, or whose unit of work lasts longer than the reclaim notice with
 no checkpoint in between.
 
@@ -166,15 +166,15 @@ no checkpoint in between.
 
 ## Alternatives
 
-- **[Containers](/09-cloud-architecture/containers.md)** — better density, faster scaling.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — with no capacity to manage.
-- **[Vertical scaling](/11-scalability/vertical-scaling.md)** — a bigger instance instead of more instances;
+- **[Containers](/09-cloud-architecture/containers.md)**: better density, faster scaling.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: with no capacity to manage.
+- **[Vertical scaling](/11-scalability/vertical-scaling.md)**: a bigger instance instead of more instances;
   simple, with a ceiling and a restart.
-- **[A queue with workers](/11-scalability/queue-based-scaling.md)** — it absorbs the peak without scaling,
+- **[A queue with workers](/11-scalability/queue-based-scaling.md)**: it absorbs the peak without scaling,
   when the operation is asynchronous. The mechanism is in
   [messaging](/06-distributed-systems/messaging.md).
 
-The last deserves emphasis: for many peaks, the right answer is not more capacity — it is not needing to
+The last deserves emphasis: for many peaks, the right answer is not more capacity but not needing to
 process everything at that instant.
 
 ## Trade-offs
@@ -211,7 +211,7 @@ process everything at that instant.
 
 ## Common Mistakes
 
-**Not measuring before sizing.** With no CPU and memory usage profile, the sizing comes from a guess — and
+**Not measuring before sizing.** With no CPU and memory usage profile, the sizing comes from a guess, and
 the guess errs upward, because erring upward does not generate an incident.
 
 **Sizing by the average.** The system needs to serve the peak. Sizing by the average produces degradation
@@ -228,7 +228,7 @@ auto scaling does not fire while latency rises.
 grown. When the peak has a set time, bringing capacity up beforehand eliminates the degradation window.
 
 **Not implementing graceful shutdown.** Without draining connections and finishing the work in flight,
-every scale-down and every deployment discards in-flight requests — which appear as intermittent errors
+every scale-down and every deployment discards in-flight requests, which appear as intermittent errors
 with no apparent cause.
 
 ## Real-World Example
@@ -237,7 +237,7 @@ A ticketing platform had the classic problem: sales open at a set time, and traf
 seconds.
 
 Auto scaling on CPU was the strategy, and it failed every time. The peak arrived, CPU rose, the scaling
-started — and five minutes later, when the capacity was ready, most of the tickets had already been sold or
+started, and five minutes later, when the capacity was ready, most of the tickets had already been sold or
 the users had already given up.
 
 The changes:
@@ -260,16 +260,16 @@ memory-optimized family allowed halving the size with the same performance.
 **Revised purchase models.** The base load on a one-year commitment; report processing and PDF ticket
 generation moved to interruptible capacity.
 
-Combined result: the system came to handle the openings with no degradation, and the monthly cost fell 38%
-— despite the peak capacity having increased.
+Combined result: the system came to handle the openings with no degradation, and the monthly cost fell 38%,
+despite the peak capacity having increased.
 
 The recorded lesson: they had been trying to solve it with scaling threshold adjustments for over a year.
-The answer was not in the scaling — it was in not depending on it for a scheduled event.
+The answer was not in the scaling but in not depending on it for a scheduled event.
 
 ## Related Concepts
 
-- [IaaS](/09-cloud-architecture/iaas.md) — the model.
-- [Containers](/09-cloud-architecture/containers.md) — the packaging alternative.
+- [IaaS](/09-cloud-architecture/iaas.md): the model.
+- [Containers](/09-cloud-architecture/containers.md): the packaging alternative.
 - [Serverless](/09-cloud-architecture/serverless.md).
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
 

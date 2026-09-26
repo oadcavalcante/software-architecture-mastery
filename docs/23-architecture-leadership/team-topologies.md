@@ -2,7 +2,7 @@
 id: team-topologies
 title: Topologias de Time
 sidebar_position: 19
-description: Quatro tipos de time e três modos de interação — o vocabulário que torna o desenho organizacional discutível.
+description: "Quatro tipos de time e três modos de interação: o vocabulário que torna o desenho organizacional discutível."
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, organizational-architecture, architecture-ownership]
 canonical_for: [topologias de time, modo de interação, time habilitador, time de fluxo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Se a arquitetura reproduz a estrutura de comunicação, então desenhar times é uma atividade
-arquitetural — e ela precisa de vocabulário, ou vira improvisação.
+arquitetural, e ela precisa de vocabulário, ou vira improvisação.
 
 *Team Topologies*, de Skelton e Pais, fornece esse vocabulário: quatro tipos de time e três modos
 de interação entre eles.
@@ -56,7 +56,7 @@ ninguém consegue dizer o que cada um faz em uma frase
 ```
 
 E o sintoma mais comum é a **carga cognitiva excessiva**: um time responsável por mais coisas do
-que consegue manter na cabeça. Ele não falha visivelmente — ele fica lento, propenso a erro, e
+que consegue manter na cabeça. Ele não falha visivelmente: ele fica lento, propenso a erro, e
 resistente a mudança. Ver
 [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
@@ -91,7 +91,7 @@ time de plataforma       oferece capacidade de autoatendimento,
 ```
 
 O modo de interação de uma plataforma é **serviço**: o time de fluxo consome quando quer, sem
-pedir. Se ele precisa abrir um chamado e esperar, o modo real é colaboração assimétrica — e o
+pedir. Se ele precisa abrir um chamado e esperar, o modo real é colaboração assimétrica, e o
 gargalo aparece assim que o volume de pedidos passa do que o time de plataforma consegue atender.
 
 Ver [centralização vs. descentralização](/20-trade-offs/centralization-vs-decentralization.md).
@@ -109,7 +109,7 @@ O modo é **facilitação**, e a característica que o define é a data de saíd
 que atua indefinidamente com o mesmo time de fluxo deixou de habilitar e passou a executar.
 
 Times de qualidade, de segurança e de dados frequentemente deveriam ser habilitadores e viram
-executores — o que reproduz a fila que a estrutura existia para evitar.
+executores. Isso reproduz a fila que a estrutura existia para evitar.
 
 ### Subsistema complicado é a exceção
 
@@ -138,7 +138,7 @@ pertinente    o aprendizado do domínio que gera valor (germane)
 
 O tamanho do escopo de um time é limitado pela carga cognitiva que ele suporta, não pela
 capacidade de execução. Um time de oito pessoas responsável por doze serviços de domínios
-distintos não está sobrecarregado de trabalho — está sobrecarregado de contexto.
+distintos não está sobrecarregado de trabalho, e sim de contexto.
 
 O sintoma: as pessoas do time não conseguem explicar o que os outros componentes fazem.
 
@@ -153,14 +153,14 @@ facilitação   quando falta competência, não capacidade
 ```
 
 O erro mais comum é a **colaboração permanente**: dois times que trabalham juntos indefinidamente
-porque a fronteira entre eles nunca foi estabelecida. Colaboração é cara — ela consome atenção dos
-dois — e deve ser tratada como fase, não como estado.
+porque a fronteira entre eles nunca foi estabelecida. Colaboração é cara (ela consome atenção dos
+dois) e deve ser tratada como fase, não como estado.
 
 A pergunta que resolve: "o que precisa ficar claro para que isto vire um contrato?"
 
 ### O modelo é ferramenta de diagnóstico
 
-O uso mais valioso não é reorganizar tudo segundo a taxonomia. É usá-la para nomear o que está
+O uso mais valioso não é reorganizar tudo segundo a taxonomia, e sim usá-la para nomear o que está
 errado:
 
 ```text
@@ -190,14 +190,14 @@ interação é uma escolha que deve mudar quando a fronteira amadurece.
 
 ## Quando Não Usar
 
-**Como reorganização completa** por adoção de modelo — o custo de reorganizar é alto e o modelo é
+**Como reorganização completa** por adoção de modelo: o custo de reorganizar é alto e o modelo é
 melhor como diagnóstico.
 
-**Em organização com poucos times** — com três ou quatro times que cabem numa mesma conversa, as
+**Em organização com poucos times**: com três ou quatro times que cabem numa mesma conversa, as
 dependências já são visíveis a todos, e classificar tipos e modos não revela nada que a conversa
 semanal não mostre.
 
-**Reorganizando times sem mudar a arquitetura** — se os serviços continuam acoplados como antes, a
+**Reorganizando times sem mudar a arquitetura**: se os serviços continuam acoplados como antes, a
 Lei de Conway puxa a comunicação de volta ao desenho antigo, e os novos rótulos passam a descrever
 uma estrutura que não existe.
 
@@ -209,9 +209,9 @@ uma estrutura que não existe.
 
 ## Alternativas
 
-- **Times por domínio, sem taxonomia formal** — funciona bem em organizações pequenas.
-- **Comunidades de prática** — para disseminar competência sem criar time habilitador.
-- **Rotação de pessoas** — transfere conhecimento sem estrutura nova, e é barata.
+- **Times por domínio, sem taxonomia formal**: funciona bem em organizações pequenas.
+- **Comunidades de prática**: para disseminar competência sem criar time habilitador.
+- **Rotação de pessoas**: transfere conhecimento sem estrutura nova, e é barata.
 
 A terceira é subestimada: mover uma pessoa por três meses resolve muitos casos que se tentaria
 resolver com um time habilitador.
@@ -256,7 +256,7 @@ paralelas.
 transferência, e o habilitador passa a executar o trabalho que deveria ensinar.
 
 **Medir carga por número de pessoas** em vez de por contexto. A resposta à lentidão vira
-contratar, e o time maior continua responsável pelos mesmos doze domínios — agora com mais
+contratar, e o time maior continua responsável pelos mesmos doze domínios, agora com mais
 coordenação interna.
 
 **Adotar a taxonomia** como fim em si. Todo time ganha um rótulo, o organograma muda, e os
@@ -268,7 +268,7 @@ Uma empresa de logística com 190 engenheiros tinha 22 times e uma queixa consta
 e ninguém sabia dizer por quê. A capacidade de engenharia crescera 40% em dois anos e a entrega
 não acompanhara.
 
-Um mapeamento classificou os 22 times e os modos de interação reais — não os declarados:
+Um mapeamento classificou os 22 times e os modos de interação reais, não os declarados:
 
 ```text
 times de fluxo, entregando de ponta a ponta          6
@@ -287,7 +287,7 @@ pares em colaboração de fato, não declarada      31
 pares com contrato de serviço funcional           7
 ```
 
-Trinta e um pares em colaboração de fato — cada um representando coordenação recorrente sem
+Trinta e um pares em colaboração de fato, cada um representando coordenação recorrente sem
 fronteira estabelecida. Esse número explicava a lentidão melhor que qualquer análise técnica.
 
 As mudanças, ao longo de 12 meses:
@@ -300,11 +300,11 @@ saída declarada.
 de produto, documentação, e a métrica de "quantos times usam sem abrir chamado". Os pedidos que
 não podiam ser atendidos por autoatendimento viraram itens de roteiro, não filas.
 
-**Os dois habilitadores permanentes** — segurança e dados — passaram a operar por engajamento com
+**Os dois habilitadores permanentes**, segurança e dados, passaram a operar por engajamento com
 prazo. Segurança manteve uma função de verificação automática permanente, que é serviço, e
 transferiu a revisão de desenho para os times, como facilitação com data.
 
-**O subsistema complicado injustificado** — um time que mantinha o motor de precificação — foi
+**O subsistema complicado injustificado**, um time que mantinha o motor de precificação, foi
 dissolvido, e a competência distribuída entre dois times de fluxo, com seis meses de habilitação.
 
 **Colaborações não declaradas** foram tratadas caso a caso: 18 viraram contrato de serviço com
@@ -324,11 +324,11 @@ engenheiros                                          190 (inalterado)
 ```
 
 O último número é o que a liderança destaca: o tempo de entrega caiu quase à metade sem contratar
-ninguém. O gargalo nunca tinha sido capacidade — era coordenação.
+ninguém. O gargalo nunca tinha sido capacidade, e sim coordenação.
 
 O detalhe que a equipe destaca: a medição de "colaborações de fato, não declaradas" foi o instrumento
-decisivo. Ela é simples de obter — contar dependências recorrentes entre times ao longo de um
-trimestre — e a empresa nunca a tinha medido.
+decisivo. Ela é simples de obter (contar dependências recorrentes entre times ao longo de um
+trimestre), e a empresa nunca a tinha medido.
 
 ## Conceitos Relacionados
 

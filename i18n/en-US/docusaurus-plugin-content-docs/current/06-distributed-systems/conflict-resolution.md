@@ -2,7 +2,7 @@
 id: conflict-resolution
 title: Conflict Resolution
 sidebar_position: 33
-description: Two concurrent writes to the same data — and why "last writer wins" discards data in silence.
+description: Two concurrent writes to the same data, and why "last writer wins" discards data in silence.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [replication, clock-and-time, eventual-consistency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 When two concurrent writes change the same data on different replicas, the system has to decide
 which value prevails.
 
-Most systems' default strategy — **last writer wins** — is simple, is what most people use without
+Most systems' default strategy, **last writer wins**, is simple, is what most people use without
 knowing, and **discards data silently**.
 
 ## Problem
@@ -49,13 +49,13 @@ Two problems, and both are serious.
 
 **Clocks diverge.** The "most recent" according to the machine's clock may not be the most recent in
 fact. See [clocks and time](/06-distributed-systems/clock-and-time.md). A machine whose clock is 2
-seconds ahead wins any write made in the following 2 seconds — the skew sets the window in which it
+seconds ahead wins any write made in the following 2 seconds: the skew sets the window in which it
 dominates.
 
 **Silent loss.** The discarded write disappears with no record. There is no error, no alert, no way
 to recover.
 
-It is suitable when the data is genuinely disposable — telemetry, a cache, a vehicle's current
+It is suitable when the data is genuinely disposable: telemetry, a cache, a vehicle's current
 position. It is unsuitable for business data, and it is the default in several systems.
 
 ### The alternatives
@@ -63,18 +63,18 @@ position. It is unsuitable for business data, and it is the default in several s
 **Detect and preserve both.** The system keeps both versions and returns both on read, so that the
 application or the user resolves it. It is what systems like Dynamo do with version vectors.
 
-It preserves everything, and transfers the decision to whoever consumes it — which requires an
+It preserves everything, and transfers the decision to whoever consumes it, which requires an
 interface for that.
 
 **Merge by domain rule.** A shopping cart can combine the items from both versions. A counter can
 sum the increments. The rule comes from the business.
 
 **Structures that converge on their own.** Data types designed so that concurrent operations always
-converge with no coordination — CRDTs. Counters, sets, maps and even collaborative text.
+converge with no coordination: CRDTs. Counters, sets, maps and even collaborative text.
 
 Elegant and limited to what can be expressed as a commutative operation.
 
-**Avoid the conflict.** Ensure each piece of data has a single write point — through
+**Avoid the conflict.** Ensure each piece of data has a single write point, through
 [partitioning](/06-distributed-systems/partitioning.md) or through a single leader.
 
 The last is what most systems should choose, and the least discussed. The price is concentrating
@@ -83,9 +83,9 @@ diverging.
 
 ### Detecting a conflict requires versioning
 
-Comparing timestamps does not detect a conflict — it detects order, badly.
+Comparing timestamps does not detect a conflict; it detects order, badly.
 
-To know that two writes were **concurrent** — neither knew about the other — you need a [version
+To know that two writes were **concurrent** (neither knew about the other), you need a [version
 vector](/06-distributed-systems/clock-and-time.md), which tells descent from parallelism where a
 timestamp only orders.
 
@@ -102,19 +102,19 @@ value:      balance = 150     ← two writes conflict
 operation:  balance -= 50     ← two operations compose
 ```
 
-Commutative operations — adding, adding to a set — do not conflict. It is the basis of CRDTs and a
+Commutative operations (adding, adding to a set) do not conflict. It is the basis of CRDTs and a
 technique applicable without them.
 
 The trade has a price: the write conflict goes away, the redelivery one appears. `balance -= 50`
 applied twice debits twice, and the retry is a certainty on an unstable network or in offline
-synchronization. Each operation needs its own identifier and deduplication on arrival — see
-[idempotency](/06-distributed-systems/idempotency.md).
+synchronization. Each operation needs its own identifier and deduplication on arrival (see
+[idempotency](/06-distributed-systems/idempotency.md)).
 
 ### A conflict may have no automatic resolution
 
 Some conflicts require human judgment: two editors changed the same paragraph in incompatible ways.
 
-In those cases, the correct answer is **to preserve both and present them** — not to choose one. A
+In those cases, the correct answer is **to preserve both and present them**, not to choose one. A
 system that chooses on its own is discarding information it has no way to evaluate.
 
 ## Mental Model
@@ -127,11 +127,11 @@ the default chose for you.
 A resolution strategy is necessary whenever there is more than one write point. The choice among
 them:
 
-- **Last writer wins** — disposable data, where losing is acceptable.
-- **Preserve both** — business data where loss is unacceptable.
-- **Merge by rule** — when the domain defines a natural union.
-- **CRDT** — when the operations are commutative.
-- **Avoid** — whenever possible.
+- **Last writer wins**: disposable data, where losing is acceptable.
+- **Preserve both**: business data where loss is unacceptable.
+- **Merge by rule**: when the domain defines a natural union.
+- **CRDT**: when the operations are commutative.
+- **Avoid**: whenever possible.
 
 ## When Not to Use
 
@@ -148,11 +148,11 @@ reverse.
 
 ## Alternatives
 
-- **A single leader per piece of data** — eliminates the conflict. See
+- **A single leader per piece of data**: eliminates the conflict. See
   [replication](/06-distributed-systems/replication.md).
-- **Partitioning by key** — each key written in only one place.
-- **A transaction with a lock** — serializes the concurrent writes.
-- **Reservation with a deadline** — whoever reserved writes; the others wait.
+- **Partitioning by key**: each key written in only one place.
+- **A transaction with a lock**: serializes the concurrent writes.
+- **Reservation with a deadline**: whoever reserved writes; the others wait.
 
 ## Trade-offs
 
@@ -200,19 +200,19 @@ The server used last writer wins, comparing the device's timestamp.
 
 Two problems.
 
-**Device clocks.** Some devices had the wrong time — one was 3 hours ahead. Each synchronization from
+**Device clocks.** Some devices had the wrong time: one was 3 hours ahead. Each synchronization from
 it overwrote whatever other salespeople had changed in the following 3 hours, because the timestamp
 "won".
 
 **Lost items.** Two salespeople on the same account added items to the same order offline. On
-synchronizing, the second synchronization replaced the whole order — the first one's items
+synchronizing, the second synchronization replaced the whole order: the first one's items
 disappeared.
 
 Neither generated an error. The salespeople found out through the customer's complaint.
 
 The redesign changed the model, not just the strategy.
 
-**Operations instead of state.** The device came to send "added item X", "removed item Y" — instead of
+**Operations instead of state.** The device came to send "added item X", "removed item Y", instead of
 the complete order, each with its own identifier, discarded on arrival if already applied. Additions
 from different salespeople compose naturally; without the deduplication, a resynchronization would
 duplicate the items.
@@ -222,19 +222,19 @@ duplicate the items.
 **Domain resolution** for the remaining cases: a quantity change to the same item by two salespeople
 generates an explicit conflict, presented to the supervisor to decide.
 
-**A conflict metric.** Counting came into existence. It turned out that real conflicts were rare —
-about 0.3% of synchronizations — and that the previous loss came mostly from the clock problem, not
+**A conflict metric.** Counting came into existence. It turned out that real conflicts were rare
+(about 0.3% of synchronizations), and that the previous loss came mostly from the clock problem, not
 from genuine concurrency.
 
 That last number is what the team recorded as the most revealing: what they were losing did not come
-from concurrency but from overwriting by a clock that was ahead — the cause was the strategy, not the
+from concurrency but from overwriting by a clock that was ahead. The cause was the strategy, not the
 scenario.
 
 ## Related Concepts
 
-- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md) — where conflicts arise.
-- [Replication](/06-distributed-systems/replication.md) — multi-leader and leaderless.
-- [Clocks and Time](/06-distributed-systems/clock-and-time.md) — why a timestamp does not decide.
+- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md): where conflicts arise.
+- [Replication](/06-distributed-systems/replication.md): multi-leader and leaderless.
+- [Clocks and Time](/06-distributed-systems/clock-and-time.md): why a timestamp does not decide.
 - [Ordering](/06-distributed-systems/ordering.md).
 
 ## Practical Exercise
@@ -255,4 +255,4 @@ is being discarded.
 
 - DeCandia, Giuseppe et al. *Dynamo: Amazon's Highly Available Key-value Store*. SOSP, 2007.
 - Shapiro, Marc et al. *Conflict-Free Replicated Data Types*, 2011.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 5.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 5.

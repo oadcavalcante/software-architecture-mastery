@@ -2,7 +2,7 @@
 id: distributed-fundamentals
 title: Fundamentos de Sistemas Distribuídos
 sidebar_position: 1
-description: O que muda quando a chamada atravessa a rede — e as oito falácias que todo mundo acredita.
+description: O que muda quando a chamada atravessa a rede, e as oito falácias que todo mundo acredita.
 doc_type: foundation
 level: 4
 difficulty: avançado
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: [sistemas distribuídos, falácias da computação distribuída]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-27
 ---
 
@@ -37,7 +37,7 @@ tempo entre chamar e receber é desprezível.
 Numa chamada de rede, as três deixam de valer.
 
 A chamada tem **três resultados**, não dois: sucesso, falha, e *não sei*. O
-terceiro é o que torna tudo difícil — quando o timeout estoura, você não sabe se
+terceiro é o que torna tudo difícil: quando o timeout estoura, você não sabe se
 a operação aconteceu.
 
 O processo do outro lado pode morrer sem que o seu morra. Isso é
@@ -90,7 +90,7 @@ sequenceDiagram
 Do lado do chamador, "a resposta não chegou" é indistinguível de "a requisição não
 chegou". Repetir pode duplicar; não repetir pode perder.
 
-A única saída é tornar a operação repetível sem efeito adicional — que é
+A única saída é tornar a operação repetível sem efeito adicional. Isso é
 [idempotência](/06-distributed-systems/idempotency.md), e é por isso que ela é o conceito central desta
 seção, não um detalhe.
 
@@ -107,7 +107,7 @@ resolução de conflito. Ver [relógio e tempo](/06-distributed-systems/clock-an
 Um nó não consegue distinguir com certeza entre "o outro caiu" e "o outro está
 lento". Essa impossibilidade é o que torna
 [detecção de falha](/06-distributed-systems/failure-detection.md) um problema de heurística, não de
-verdade — e o que fundamenta os limites de
+verdade, e o que fundamenta os limites de
 [CAP](/06-distributed-systems/cap.md) e [consenso](/06-distributed-systems/consensus.md).
 
 ### A recomendação que precede tudo
@@ -117,7 +117,7 @@ latência, ordenação e duplicação ao seu sistema.
 
 Um monolito bem modularizado não tem nada disso **entre os próprios módulos**. Mas
 basta uma integração externa ou um banco remoto para a falha parcial e o terceiro
-resultado voltarem — ver [falha parcial](/06-distributed-systems/partial-failure.md)
+resultado voltarem. Ver [falha parcial](/06-distributed-systems/partial-failure.md)
 e [monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Por Que Isso Importa
@@ -131,12 +131,12 @@ permanentemente os problemas desta seção. Reconhecê-los antes é o que permit
 decidir se vale.
 
 **Porque idempotência precisa entrar cedo.** Ela é barata de projetar e cara de
-retrofitar — exige mudar o modelo de dados.
+retrofitar: exige mudar o modelo de dados.
 
 ## Erros Comuns
 
 **Tratar chamada remota como local mais lenta.** Ver
-[Proxy](/03-design-patterns/proxy.md): a transparência convida ao erro — o
+[Proxy](/03-design-patterns/proxy.md): a transparência convida ao erro. O
 tratamento de falha que a chamada local dispensa não chega a ser escrito, e a
 falha parcial aparece em produção como exceção não capturada.
 
@@ -149,7 +149,7 @@ escrita mais recente perde para uma anterior cujo relógio estava adiantado, e o
 dado correto é descartado sem erro nenhum no log.
 
 **Repetir sem idempotência.** Cada repetição depois de um timeout acrescenta um
-efeito — é exatamente o incidente do exemplo abaixo.
+efeito. É exatamente o incidente do exemplo abaixo.
 
 **Distribuir por reputação.** O custo é permanente.
 
@@ -163,22 +163,22 @@ clientes foram cobrados duas vezes.
 
 A causa: o provedor de pagamento teve um pico de latência. As respostas passaram a
 levar mais que o timeout de 10 segundos configurado. O cliente HTTP repetia
-automaticamente após timeout — comportamento padrão da biblioteca, que ninguém
+automaticamente após timeout, comportamento padrão da biblioteca, que ninguém
 tinha revisado.
 
 Cada repetição criava uma cobrança nova, porque o endpoint não era idempotente.
 
-Três premissas erradas ao mesmo tempo. Que a latência é estável — ela variou por
-uma ordem de grandeza. Que timeout significa que não aconteceu — significava que
-não se sabia. E que repetir é seguro — só é, se a operação for idempotente.
+Três premissas erradas ao mesmo tempo. Que a latência é estável: ela variou por
+uma ordem de grandeza. Que timeout significa que não aconteceu: significava que
+não se sabia. E que repetir é seguro: só é, se a operação for idempotente.
 
 A correção teve três partes, e a ordem importa.
 
-A repetição automática foi desabilitada para operações não idempotentes — medida
+A repetição automática foi desabilitada para operações não idempotentes, medida
 imediata, aplicada no mesmo dia.
 
 O endpoint ganhou chave de idempotência: o cliente envia um identificador único
-por tentativa lógica — o mesmo em todas as repetições daquela cobrança — e o
+por tentativa lógica (o mesmo em todas as repetições daquela cobrança) e o
 provedor devolve o resultado original se a chave já foi vista.
 
 E o timeout foi recalibrado a partir do percentil 99 medido, não do valor redondo
@@ -191,10 +191,10 @@ tornou visível o que já era falso havia dois anos.
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](/06-distributed-systems/partial-failure.md) — a diferença estrutural.
-- [Idempotência](/06-distributed-systems/idempotency.md) — a resposta ao terceiro resultado.
-- [Timeouts](/06-distributed-systems/timeouts.md) e [Retries](/06-distributed-systems/retries.md) — o que fazer com a ambiguidade.
-- [Monolito Modular](/03-design-patterns/modular-monolith.md) — a alternativa a
+- [Falha Parcial](/06-distributed-systems/partial-failure.md): a diferença estrutural.
+- [Idempotência](/06-distributed-systems/idempotency.md): a resposta ao terceiro resultado.
+- [Timeouts](/06-distributed-systems/timeouts.md) e [Retries](/06-distributed-systems/retries.md): o que fazer com a ambiguidade.
+- [Monolito Modular](/03-design-patterns/modular-monolith.md): a alternativa a
   distribuir.
 
 ## Exercício Prático
@@ -213,10 +213,10 @@ esperando um pico de latência.
 
 ## Para Aprofundar
 
-- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — desenvolve a
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006. Desenvolve a
   lista atribuída a L. Peter Deutsch (as sete primeiras, por volta de 1994) e a James Gosling
   (a oitava), que circulou sem publicação formal com esse título.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 8, sobre os problemas de sistemas distribuídos.
-- Waldo, Jim et al. *A Note on Distributed Computing*, 1994 — o argumento clássico
+- Waldo, Jim et al. *A Note on Distributed Computing*, 1994. O argumento clássico
   contra transparência remota.

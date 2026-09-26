@@ -2,7 +2,7 @@
 id: enterprise-integration-patterns
 title: Enterprise Integration Patterns
 sidebar_position: 11
-description: O vocabulário que descreve o que roteadores, tradutores e agregadores fazem — independente de tecnologia.
+description: O vocabulário que descreve o que roteadores, tradutores e agregadores fazem, independente de tecnologia.
 doc_type: reference
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, event-driven-integration, integration-anti-corruption]
 canonical_for: [enterprise integration patterns, roteador de mensagens, tradutor de mensagens, agregador, separador]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ O catálogo de *Enterprise Integration Patterns*, de Hohpe e Woolf, nomeia as pe
 recorrentes de fluxos de integração assíncrona.
 
 Ele tem mais de vinte anos e continua válido porque descreve **problemas**, não
-tecnologias. Os nomes que ele fixou — roteador, tradutor, agregador, separador —
+tecnologias. Os nomes que ele fixou (roteador, tradutor, agregador, separador)
 são o vocabulário com que se discute integração sem falar de produto.
 
 Este documento é uma referência: o que cada padrão relevante resolve, e onde ele
@@ -38,7 +38,7 @@ lê da fila, olha o campo tipo, e manda pra uma de três filas".
 
 Com nomes: "é um roteador por conteúdo".
 
-A economia não é de palavras. É que o nome carrega os modos de falha conhecidos —
+A economia não é de palavras. É que o nome carrega os modos de falha conhecidos:
 quem diz "agregador" já sabe que precisa decidir o critério de conclusão e o
 tempo limite.
 
@@ -53,7 +53,7 @@ trabalho.
 Notifica.
 
 **Canal de mensagens inválidas.** Destino para mensagens que não podem ser
-interpretadas — formato quebrado, esquema desconhecido. Distinto do próximo.
+interpretadas: formato quebrado, esquema desconhecido. Distinto do próximo.
 
 **Canal de mensagens mortas.** Destino para mensagens válidas que falharam no
 processamento. Ver
@@ -61,7 +61,7 @@ processamento. Ver
 
 A distinção entre os dois últimos é útil e raramente feita: mensagem que **não se
 entende** e mensagem que **não se conseguiu processar** exigem tratamento
-diferente — a primeira é problema de contrato, a segunda de execução.
+diferente. A primeira é problema de contrato, a segunda de execução.
 
 **Canal garantido.** Persiste a mensagem antes de confirmar o recebimento.
 
@@ -71,7 +71,7 @@ Como a mensagem chega a quem deve tratá-la.
 
 **Roteador por conteúdo.** Examina a mensagem e escolhe o destino. É onde a regra de
 negócio tende a se acumular, porque cada destino novo entra como mais uma condicional
-no mesmo ponto — vale a mesma vigilância descrita em
+no mesmo ponto. Vale a mesma vigilância descrita em
 [API gateways](/08-integration-architecture/api-gateways.md).
 
 **Filtro.** Descarta o que não interessa àquele consumidor.
@@ -93,7 +93,7 @@ A terceira linha é a que se esquece, e o resultado é um agregador que segura
 conjuntos incompletos para sempre, consumindo memória.
 
 **Sequenciador.** Restaura a ordem de mensagens que chegaram fora de sequência. Ver
-[ordenação](/06-distributed-systems/ordering.md) — inclusive o custo de buffer e
+[ordenação](/06-distributed-systems/ordering.md), inclusive o custo de buffer e
 o prazo de lacuna.
 
 **Lista de destinatários.** Envia a mesma mensagem para uma lista calculada.
@@ -109,7 +109,7 @@ Como a mensagem muda de forma.
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 **Enriquecedor.** Acrescenta dados buscados em outro lugar. O custo escondido: ele
-introduz uma dependência síncrona no meio de um fluxo assíncrono — se a fonte de
+introduz uma dependência síncrona no meio de um fluxo assíncrono. Se a fonte de
 enriquecimento cai, o fluxo para.
 
 **Filtro de conteúdo.** Remove campos. Útil para não propagar dado sensível
@@ -152,13 +152,13 @@ reprocessamento.
 **Bisbilhoteiro.** Um consumidor extra que observa sem interferir.
 
 **Mensagem de teste.** Injetar mensagens sintéticas periodicamente para verificar
-que o fluxo está vivo — o equivalente a monitorar ausência descrito em
+que o fluxo está vivo, o equivalente a monitorar ausência descrito em
 [integração em lote](/08-integration-architecture/batch-integration.md).
 
 ## Quando usar este catálogo
 
 - Ao desenhar um fluxo com mais de dois passos.
-- Ao discutir integração com outro time — o vocabulário comum economiza reunião.
+- Ao discutir integração com outro time: o vocabulário comum economiza reunião.
 - Ao revisar um fluxo existente, para nomear o que está lá.
 - Ao avaliar ferramentas: elas implementam esses padrões com nomes próprios.
 
@@ -175,36 +175,36 @@ configuração própria e um ponto central que acumula regra de negócio.
 
 **Sem os fundamentos.** Estes padrões pressupõem
 [idempotência](/06-distributed-systems/idempotency.md), tratamento de
-duplicatas e monitoramento de consumidor. Sem isso, eles entregam a forma sem a garantia
-— e a duplicata que o padrão pressupõe tratada chega ao domínio.
+duplicatas e monitoramento de consumidor. Sem isso, eles entregam a forma sem a garantia,
+e a duplicata que o padrão pressupõe tratada chega ao domínio.
 
 ## Erros Comuns
 
 **Agregador sem tempo limite.** Decidir o critério de conclusão e deixar o prazo para
-depois — os conjuntos que nunca completam ficam retidos em memória até alguém
+depois: os conjuntos que nunca completam ficam retidos em memória até alguém
 reiniciar o processo.
 
 **Enriquecedor criando dependência síncrona** num fluxo que deveria ser
 assíncrono.
 
 **Roteador acumulando regra de negócio.** Colocar cada destino novo como condicional no
-roteador em vez de no domínio — a decisão de negócio passa a morar na infraestrutura de
+roteador em vez de no domínio: a decisão de negócio passa a morar na infraestrutura de
 mensageria, onde ninguém a testa.
 
 **Separador sem correlação.** As partes se perdem e não há como reunir.
 
-**Confundir mensagem inválida com mensagem morta.** Apontar as duas para o mesmo canal —
+**Confundir mensagem inválida com mensagem morta.** Apontar as duas para o mesmo canal,
 e o reprocessamento em lote insiste em mensagens que nunca serão interpretadas, enquanto
 as que só falharam ficam misturadas no meio.
 
 **Implementar o catálogo em vez de resolver o problema.** Montar enriquecedor,
-sequenciador e repositório porque estão no livro — cada peça sem problema correspondente
+sequenciador e repositório porque estão no livro: cada peça sem problema correspondente
 vira código a manter e mais um salto a percorrer quando o fluxo for depurado.
 
 ## Exemplo Real
 
-Uma distribuidora recebia pedidos de quatro canais — portal, aplicativo, EDI de
-grandes clientes e planilha por e-mail — com formatos completamente diferentes.
+Uma distribuidora recebia pedidos de quatro canais (portal, aplicativo, EDI de
+grandes clientes e planilha por e-mail) com formatos completamente diferentes.
 
 O processamento era um serviço com condicionais por canal, 3.000 linhas, que
 ninguém queria tocar.
@@ -244,24 +244,24 @@ implementação existir.
 
 ## Conceitos Relacionados
 
-- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md) — a base.
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md): a base.
 - [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
-- [Anticorrupção na Integração](/08-integration-architecture/integration-anti-corruption.md) — o tradutor.
-- [Ordenação](/06-distributed-systems/ordering.md) — o sequenciador.
+- [Anticorrupção na Integração](/08-integration-architecture/integration-anti-corruption.md): o tradutor.
+- [Ordenação](/06-distributed-systems/ordering.md): o sequenciador.
 
 ## Exercício Prático
 
 Pegue o fluxo de integração mais complexo do seu sistema e nomeie cada passo com
 os padrões deste documento.
 
-Onde um passo não tiver nome, provavelmente ele faz duas coisas — e separá-lo é a
+Onde um passo não tiver nome, provavelmente ele faz duas coisas, e separá-lo é a
 próxima refatoração.
 
 ## Para Aprofundar
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley,
-  2003 — a referência.
-- [enterpriseintegrationpatterns.com](https://www.enterpriseintegrationpatterns.com)
-  — o catálogo online, com os diagramas.
-- Hohpe, Gregor. *Conversation Patterns*, 2017 — a continuação sobre fluxos de
+  2003. A referência.
+- [enterpriseintegrationpatterns.com](https://www.enterpriseintegrationpatterns.com):
+  o catálogo online, com os diagramas.
+- Hohpe, Gregor. *Conversation Patterns*, 2017. A continuação sobre fluxos de
   longa duração.

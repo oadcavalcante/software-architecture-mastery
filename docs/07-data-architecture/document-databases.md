@@ -2,7 +2,7 @@
 id: document-databases
 title: Bancos de Documentos
 sidebar_position: 3
-description: Agregados lidos inteiros — e por que "sem esquema" apenas move o esquema para a aplicação.
+description: Agregados lidos inteiros, e por que "sem esquema" apenas move o esquema para a aplicação.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, denormalization]
 canonical_for: [banco de documentos, agregado de documento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Um banco de documentos guarda estruturas aninhadas — tipicamente JSON — como
+Um banco de documentos guarda estruturas aninhadas (tipicamente JSON) como
 unidade de armazenamento e de acesso.
 
 O caso em que ele brilha é específico e reconhecível: **o dado é lido e escrito
@@ -51,7 +51,7 @@ A decisão central da modelagem é: **o que entra num documento e o que fica for
 A regra que funciona: um documento é a unidade que se lê e se escreve junto, e
 sobre a qual a consistência precisa valer.
 
-Um pedido com seus itens é um documento — eles nascem, mudam e são lidos juntos.
+Um pedido com seus itens é um documento: eles nascem, mudam e são lidos juntos.
 Um cliente com todos os seus pedidos não é: os pedidos crescem sem limite e são
 consultados independentemente.
 
@@ -61,25 +61,25 @@ Errar essa fronteira é o erro dominante do modelo, e é caro de corrigir depois
 
 Não existe dado sem estrutura. Existe estrutura que o banco não conhece.
 
-O efeito: a validação migra para a aplicação — e para **todas** as aplicações que
+O efeito: a validação migra para a aplicação, e para **todas** as aplicações que
 escrevem, inclusive scripts de correção e serviços legados.
 
 Na prática, uma coleção com anos de uso acumula três ou quatro formatos
 coexistindo, e o código de leitura vira uma sequência de verificações defensivas.
 
-Isso não é argumento contra o modelo. É argumento para declarar o esquema em
-algum lugar — validação no banco, quando disponível, ou um contrato verificado na
+Isso não é argumento contra o modelo, e sim para declarar o esquema em
+algum lugar: validação no banco, quando disponível, ou um contrato verificado na
 borda.
 
 ### A flexibilidade real é a evolução incremental
 
-O ganho legítimo não é ausência de esquema. É poder adicionar um campo sem
+O ganho legítimo não é ausência de esquema, e sim poder adicionar um campo sem
 alterar milhões de registros existentes.
 
 Numa tabela grande, alterar o esquema exige planejamento. Num documento, o campo
 novo aparece nos registros novos e o código lida com a ausência nos antigos.
 
-Isso é valioso, e é uma vantagem operacional específica — não uma dispensa de
+Isso é valioso, e é uma vantagem operacional específica, não uma dispensa de
 modelagem.
 
 ### Duplicação é escolha, não descuido
@@ -90,10 +90,10 @@ dentro do documento. Ver [desnormalização](/07-data-architecture/denormalizati
 A pergunta que decide: quando o valor original muda, os documentos que o copiaram
 precisam mudar?
 
-Se o dado é uma fotografia do momento — o preço no instante da compra, o endereço
-usado naquela entrega — a cópia é correta e permanente.
+Se o dado é uma fotografia do momento (o preço no instante da compra, o endereço
+usado naquela entrega), a cópia é correta e permanente.
 
-Se é uma referência viva — o nome atual do cliente — copiar cria um problema de
+Se é uma referência viva (o nome atual do cliente), copiar cria um problema de
 atualização em massa.
 
 ### Transação entre documentos existe, e o custo permanece
@@ -146,10 +146,10 @@ documento acaba estourando o limite de tamanho.
 
 ## Alternativas
 
-- **[Relacional](/07-data-architecture/relational-databases.md)** — com coluna de documento, que combina
+- **[Relacional](/07-data-architecture/relational-databases.md)**: com coluna de documento, que combina
   esquema declarado e flexibilidade localizada.
-- **[Chave-valor](/07-data-architecture/key-value-databases.md)** — quando não há consulta por conteúdo.
-- **Índice invertido** — quando a necessidade é busca com relevância.
+- **[Chave-valor](/07-data-architecture/key-value-databases.md)**: quando não há consulta por conteúdo.
+- **Índice invertido**: quando a necessidade é busca com relevância.
 
 A primeira merece destaque: bancos relacionais modernos indexam campos dentro de
 documentos armazenados em coluna. Isso cobre boa parte dos casos sem abrir mão de
@@ -196,11 +196,11 @@ e o custo aparece no código de leitura, que passa a tratar todas as variantes.
 original vira atualização em massa, e até ela terminar os documentos discordam
 entre si.
 
-**Modelar como se fossem tabelas** — um documento por entidade, com referências
+**Modelar como se fossem tabelas**: um documento por entidade, com referências
 entre eles, reproduzindo o relacional sem as garantias dele.
 
 **Escolher por "sem esquema".** A decisão foi tomada pelo que o banco dispensa,
-não pelo padrão de acesso — e quando as consultas cruzam entidades, o modelo
+não pelo padrão de acesso, e quando as consultas cruzam entidades, o modelo
 cobra junções na aplicação.
 
 ## Exemplo Real
@@ -229,21 +229,21 @@ O que permaneceu correto: o artigo em si continua sendo um documento, lido intei
 por rota. O modelo é adequado para ele.
 
 O que a equipe registra: as três correções tinham o mesmo diagnóstico. A fronteira
-do agregado foi definida por conveniência de leitura inicial — "a tela mostra tudo
-junto" — e não por como o dado muda.
+do agregado foi definida por conveniência de leitura inicial ("a tela mostra tudo
+junto"), e não por como o dado muda.
 
 ## Conceitos Relacionados
 
-- [NoSQL](/07-data-architecture/nosql.md) — a categoria e seus problemas.
-- [Bancos Relacionais](/07-data-architecture/relational-databases.md) — a comparação principal.
-- [Desnormalização](/07-data-architecture/denormalization.md) — a duplicação como decisão.
+- [NoSQL](/07-data-architecture/nosql.md): a categoria e seus problemas.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md): a comparação principal.
+- [Desnormalização](/07-data-architecture/denormalization.md): a duplicação como decisão.
 - [Modelagem de Dados](/07-data-architecture/data-modeling.md).
 
 ## Exercício Prático
 
 Pegue o maior documento de uma coleção sua. Veja o tamanho e o que o faz crescer.
 
-Se algo dentro dele cresce sem teto, essa é a fronteira de agregado errada — e o
+Se algo dentro dele cresce sem teto, essa é a fronteira de agregado errada, e o
 problema aparece por escrita falhando, não por lentidão.
 
 ## Perguntas de Entrevista
@@ -255,6 +255,6 @@ problema aparece por escrita falhando, não por lentidão.
 ## Para Aprofundar
 
 - Sadalage, Pramod; Fowler, Martin. *NoSQL Distilled*. Addison-Wesley, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
-  capítulo 2.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — sobre agregados.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
+  Capítulo 2.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Sobre agregados.

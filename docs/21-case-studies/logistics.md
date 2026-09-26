@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, food-delivery, ecommerce]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -41,7 +41,7 @@ cinco dias úteis.
 
 A diferença essencial em relação aos casos de [transporte](/21-case-studies/ride-sharing.md) e
 [delivery](/21-case-studies/food-delivery.md) é o horizonte: aqui o planejamento é feito de véspera, para o dia
-seguinte, com informação completa — e depois a realidade o desmonta. Trânsito, ausência do
+seguinte, com informação completa, e depois a realidade o desmonta. Trânsito, ausência do
 destinatário, veículo quebrado, encomenda extraviada e endereço errado desviam entre 12% e 18%
 do plano diário.
 
@@ -64,15 +64,14 @@ frustrada ou recusa; coletar comprovação; e receber realocação quando a rota
 Para o **cliente final**: acompanhar a encomenda; receber estimativa de janela de entrega;
 reagendar; e escolher ponto alternativo de retirada.
 
-Para o **cliente contratante** — o varejista: enviar as encomendas do dia com prazos; acompanhar
+Para o **cliente contratante** (o varejista): enviar as encomendas do dia com prazos; acompanhar
 desempenho; e receber comprovação de entrega.
 
 E para a **plataforma**: planejar as rotas do dia otimizando ocupação e prazo; replanejar
 continuamente conforme os desvios ocorrem; prever risco de atraso antes de ele acontecer; e
 equilibrar carga entre centros.
 
-O par planejar/replanejar é o núcleo. São dois problemas com naturezas opostas — um em lote com
-informação completa, outro contínuo com informação parcial — e a arquitetura precisa acomodar os
+O par planejar/replanejar é o núcleo. São dois problemas com naturezas opostas (um em lote com informação completa, outro contínuo com informação parcial) e a arquitetura precisa acomodar os
 dois sem que um contamine o outro.
 
 ## Requisitos Não-Funcionais
@@ -120,11 +119,11 @@ A restrição de operação offline é a que mais afeta o desenho do aplicativo 
 Essa distinção parece de vocabulário e é de arquitetura. Um cliente remoto assume que o servidor
 está disponível e trata a ausência de conexão como erro; um sistema local assume o contrário e
 trata a conexão como oportunidade de sincronizar. As duas premissas levam a estruturas de dados,
-tratamento de conflito e experiência de uso completamente diferentes — e converter um no outro
+tratamento de conflito e experiência de uso completamente diferentes. Converter um no outro
 depois é uma reescrita, não um ajuste.
 
 O aplicativo anterior era um cliente remoto com cache. Ele funcionava enquanto havia sinal, e
-degradava de formas imprevisíveis quando não havia — que é exatamente o comportamento que
+degradava de formas imprevisíveis quando não havia. Esse é exatamente o comportamento que
 produzia registros de entrega perdidos.
 
 ## Estimativas de Capacidade
@@ -167,7 +166,7 @@ de cobertura. Isso transforma um problema de 1,26 milhão de paradas em 41 probl
 31 mil, resolvíveis em paralelo.
 
 Reconhecer a decomponibilidade cedo é o que torna a janela de 90 minutos alcançável. Sem ela, o
-problema é intratável no tempo disponível com qualquer técnica — e a tentativa anterior de
+problema é intratável no tempo disponível com qualquer técnica, e a tentativa anterior de
 resolver globalmente foi abandonada depois de produzir planos que não terminavam antes das 2h.
 
 ```text
@@ -245,25 +244,25 @@ dia é caro e lento. Uma arquitetura que otimiza ignorando isso produz planos qu
 executa.
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com prazo em 50%, os totais viram
-5,2 / 7,9 / 6,3 — a Opção B mantém a vantagem. Nenhum cenário testado inverte o resultado, o que é consequência de a Opção C
+5,2 / 7,9 / 6,3. A Opção B mantém a vantagem. Nenhum cenário testado inverte o resultado, o que é consequência de a Opção C
 ter uma limitação estrutural e não apenas um custo maior.
 
 ## Decisão
 
 **Planejamento em lote com replanejamento automático local (Opção B)**, complementado por um
-mecanismo restrito de realocação entre rotas para casos específicos — veículo quebrado, e
+mecanismo restrito de realocação entre rotas para casos específicos: veículo quebrado, e
 encomendas de prazo crítico que a rota atual não conseguirá cumprir.
 
 A realocação entre rotas é acionada por exceção e passa por aprovação da central, que continua
-existindo, mas com 44 pessoas em vez de 142 — tratando exceções em vez de operar o dia inteiro.
+existindo, mas com 44 pessoas em vez de 142, tratando exceções em vez de operar o dia inteiro.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** o volume fosse muito menor — abaixo de algumas centenas de rotas diárias,
+**Opção A venceria se** o volume fosse muito menor: abaixo de algumas centenas de rotas diárias,
 uma central pequena responde bem e a automação não se paga.
 
 **Opção C venceria se** a carga não estivesse fisicamente comprometida com um veículo. É o caso
-de operações com hubs de transferência densos, em que realocar é barato — ou de entregas por
+de operações com hubs de transferência densos, em que realocar é barato, ou de entregas por
 motocicleta a partir de pontos de retirada, em que cada encomenda é independente. A condição
 está registrada: se a malha adotar hubs urbanos de transferência, a Opção C é reavaliada.
 
@@ -293,7 +292,7 @@ classificação de prazo.
 A separação entre **Planejador Noturno** e **Replanejador** é a decisão estrutural do sistema.
 São dois motores diferentes, com objetivos diferentes: o primeiro otimiza globalmente com tempo
 de sobra; o segundo responde localmente em segundos. Tentar usar o mesmo motor para os dois foi a
-tentativa inicial, e falhou pelos dois lados — lento demais para o replanejamento, e simples
+tentativa inicial, e falhou pelos dois lados: lento demais para o replanejamento, e simples
 demais para o plano noturno.
 
 ## Dados
@@ -304,7 +303,7 @@ direto.
 
 **Plano do dia.** Materializado por rota, com a sequência de paradas e as janelas estimadas.
 Escrito uma vez pelo Planejador Noturno e alterado pelo Replanejador ao longo do dia, com
-versionamento — o aplicativo do motorista precisa saber se sua cópia está desatualizada.
+versionamento: o aplicativo do motorista precisa saber se sua cópia está desatualizada.
 
 **Eventos de rastreamento.** Append-only, particionado por dia. Cada evento carrega origem,
 horário do dispositivo e horário do servidor, porque a diferença entre os dois é informação: um
@@ -312,7 +311,7 @@ evento registrado offline chega com atraso, e a ordem cronológica real é a do 
 
 **Comprovação.** Armazenamento de objetos, com os 380 TB dominados por fotos. É o maior item de
 armazenamento e um dos maiores de custo, e foi otimizado por compressão e por redução de
-resolução — as fotos existem para comprovar entrega, não para uso fotográfico.
+resolução: as fotos existem para comprovar entrega, não para uso fotográfico.
 
 **Estado local do aplicativo.** Banco embarcado no dispositivo, com a rota do dia completa e a
 fila de eventos pendentes. É a fonte de verdade enquanto o motorista está offline, e sincroniza
@@ -321,12 +320,10 @@ por reconciliação quando reconecta.
 ## Integração
 
 **Ingestão noturna.** As listas chegam às 21h, com correções até 23h. O sistema aceita a lista
-inicial, começa a preparação — validação de endereço, geocodificação, agrupamento por região —
-e incorpora as correções até o corte.
+inicial, começa a preparação (validação de endereço, geocodificação, agrupamento por região) e incorpora as correções até o corte.
 
 A geocodificação é o gargalo silencioso: cerca de 4% dos endereços não resolvem
-automaticamente, e são 92 mil por noite. A solução foi um cache de endereços já resolvidos —
-que cobre 89% dos casos, porque a maior parte das entregas vai para endereços já visitados — e
+automaticamente, e são 92 mil por noite. A solução foi um cache de endereços já resolvidos (que cobre 89% dos casos, porque a maior parte das entregas vai para endereços já visitados) e
 uma fila de resolução assistida para o resto.
 
 O cache de endereços tem um efeito secundário relevante: ele guarda não a coordenada retornada
@@ -344,7 +341,7 @@ que permite paralelizar completamente e cumprir a janela de 90 minutos.
 
 O motor resolve por decomposição: primeiro agrupa paradas em clusters geográficos, depois
 resolve a ordem dentro de cada cluster, depois atribui clusters a veículos respeitando
-capacidade e jornada. É uma heurística, não uma solução ótima — e a diferença medida contra a
+capacidade e jornada. É uma heurística, não uma solução ótima. A diferença medida contra a
 solução ótima, em instâncias pequenas onde ela é computável, fica entre 3% e 6%.
 
 **Replanejamento.** Disparado por evento: tentativa frustrada, atraso acumulado acima de um
@@ -389,7 +386,7 @@ O planejamento noturno é o pico de computação do sistema, e ele é concentrad
 intenso, 22 horas e meia de ociosidade. A capacidade é provisionada sob demanda para a janela e
 liberada depois, o que reduziu o custo dessa etapa em 74% em relação a capacidade fixa.
 
-O rastreamento público — 41 milhões de consultas por dia — é servido por cache com invalidação
+O rastreamento público (41 milhões de consultas por dia) é servido por cache com invalidação
 por evento, com taxa de acerto de 94%. Quase todas as consultas são repetidas: o destinatário
 consulta várias vezes no mesmo dia.
 
@@ -402,7 +399,7 @@ ensaiado trimestralmente.
 Se o **Replanejador** fica indisponível, as rotas seguem o plano original e a central trata os
 desvios manualmente. É a degradação para o modo da Opção A.
 
-Se o **Serviço de Rota** falha, os aplicativos continuam operando com a cópia local — que é a
+Se o **Serviço de Rota** falha, os aplicativos continuam operando com a cópia local. Essa é a
 propriedade mais valiosa do desenho offline. A entrega do dia não para.
 
 Se o **Rastreamento** fica indisponível, a operação continua e o cliente final não consulta.
@@ -429,8 +426,7 @@ taxa de geocodificação automática
 
 O **desvio do plano** é a métrica mais informativa e a menos óbvia: ela mede quanto da realidade
 o plano não previu, e a análise das causas é o que alimenta a melhoria do planejador. Descobriu-se,
-por exemplo, que 31% dos desvios vinham de janelas de circulação urbana modeladas incorretamente
-— uma correção de dados, não de algoritmo.
+por exemplo, que 31% dos desvios vinham de janelas de circulação urbana modeladas incorretamente: uma correção de dados, não de algoritmo.
 
 O **risco de atraso previsto contra ocorrido** valida o Preditor. Ele existe para acionar a
 central antes do atraso, e um preditor com baixa precisão gera alarmes que consomem a equipe sem
@@ -439,23 +435,22 @@ evitar nada.
 ## Implantação
 
 O planejador noturno é implantado com validação em paralelo: a versão nova roda ao lado da atual
-por duas semanas, e os planos são comparados por métricas de qualidade — ocupação, distância
-total, risco de atraso — antes de qualquer troca.
+por duas semanas, e os planos são comparados por métricas de qualidade (ocupação, distância total, risco de atraso) antes de qualquer troca.
 
 Nenhuma implantação do planejador entre 20h e 2h. Uma falha ali não tem recuperação dentro da
 janela.
 
 A comparação em paralelo do planejador tem uma dificuldade específica que vale registrar: os dois
 planos não podem ser executados, apenas um vai para a operação. A avaliação é feita sobre
-métricas do plano — ocupação, distância, risco previsto — e não sobre resultado real, o que
+métricas do plano (ocupação, distância, risco previsto) e não sobre resultado real, o que
 significa que uma versão pode parecer melhor no papel e produzir pior resultado na rua.
 
 A mitigação foi rodar a versão nova em três centros por duas semanas antes da adoção geral, com
 resultado real medido. Duas das cinco versões avaliadas nesse processo foram rejeitadas apesar de
-métricas de plano melhores — em ambos os casos porque produziam rotas geograficamente compactas
+métricas de plano melhores: em ambos os casos porque produziam rotas geograficamente compactas
 que ignoravam padrões de trânsito não modelados.
 
-O aplicativo do motorista tem ciclo próprio, com compatibilidade retroativa de 6 meses — parte
+O aplicativo do motorista tem ciclo próprio, com compatibilidade retroativa de 6 meses: parte
 da frota agregada usa aparelhos que raramente atualizam.
 
 ## Estratégia de Evolução
@@ -531,7 +526,7 @@ porque a carga está dentro do veículo. Modelar o mundo físico corretamente el
 que uma análise puramente algorítmica teria escolhido.
 
 **O cliente offline é um sistema, não uma tela.** Tratar o aplicativo do motorista como sistema
-local com sincronização — e não como cliente de um servidor — resolveu 6% de registros perdidos
+local com sincronização, e não como cliente de um servidor, resolveu 6% de registros perdidos
 que nenhuma melhoria de conectividade resolveria.
 
 **Os desvios são dados sobre o plano.** Medir quanto da realidade o plano não previu, e analisar
@@ -542,13 +537,12 @@ circulação urbana errados, corrigíveis sem tocar no algoritmo.
 
 - [Case: Transporte por Aplicativo](/21-case-studies/ride-sharing.md).
 - [Case: Delivery de Comida](/21-case-studies/food-delivery.md).
-- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md) — o outro lado da mesma cadeia.
+- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md): o outro lado da mesma cadeia.
 - [Degradação Graciosa](/12-reliability/graceful-degradation.md).
 
 ## Exercício Prático
 
-Liste as restrições de um problema de roteirização do seu contexto — capacidade, janela, prazo,
-jornada — e classifique cada uma como restrição rígida ou penalidade.
+Liste as restrições de um problema de roteirização do seu contexto (capacidade, janela, prazo, jornada) e classifique cada uma como restrição rígida ou penalidade.
 
 A diferença decide o algoritmo: restrições rígidas podem tornar o problema infactível, e
 penalidades não. Confundi-las é a causa mais comum de planejadores que não produzem solução.

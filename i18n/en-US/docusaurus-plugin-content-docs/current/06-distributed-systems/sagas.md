@@ -2,7 +2,7 @@
 id: sagas
 title: Sagas
 sidebar_position: 36
-description: Chained local transactions with compensation — and the real cost of modeling the undo.
+description: Chained local transactions with compensation, and the real cost of modeling the undo.
 doc_type: pattern
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-transactions]
 related: [idempotency, event-driven-systems, distributed-transactions]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,17 +27,17 @@ A saga replaces the distributed transaction with a **sequence of local transacti
 If a step fails, the compensations for the previous steps are executed in reverse order.
 
 What you gain: no distributed locks, no blocking coordinator, each step independent. What you pay:
-visible intermediate states, and the obligation to model the undo — which is the hard part and the
+visible intermediate states, and the obligation to model the undo, which is the hard part and the
 most underestimated.
 
 ## Problem
 
 Without a distributed transaction, a multi-step operation that fails midway leaves partial state.
 
-The saga accepts that the partial state exists and makes it **temporary, named and handled** — instead of
+The saga accepts that the partial state exists and makes it **temporary, named and handled**, instead of
 short and unnamed (2PC) or permanent (nothing).
 
-The difficulty is not in the success flow. It is in answering, for each step, "how do I undo this?" —
+The difficulty is not in the success flow. It is in answering, for each step, "how do I undo this?",
 and discovering that the answer does not always exist.
 
 ## Core Concepts
@@ -53,7 +53,7 @@ compensation:  there was a debit and there was a refund
 ```
 
 The difference is visible to the business and to auditing. And it means there is a window in which
-the uncompensated effect was visible — others may have observed it and acted on it.
+the uncompensated effect was visible: others may have observed it and acted on it.
 
 ### Not everything is compensable
 
@@ -64,7 +64,7 @@ The check that decides a saga's viability: for each step, is there a compensatio
 **Not compensable.** An email sent. A message published to an external channel. A call to a
 third-party API with no cancellation operation. Printing. A physical shipment.
 
-For non-compensable steps, the technique is **to order the saga so they come last** — after every
+For non-compensable steps, the technique is **to order the saga so they come last**, after every
 compensable step has already succeeded.
 
 The reordering is what decides whether the saga has a point of return: with the non-compensable steps
@@ -90,33 +90,33 @@ changes the requirement: the subsequent steps have to be
 
 **Choreography.** Each service reacts to events and emits its own. There is no coordinator.
 
-Low coupling and no central point. On the other hand, the flow exists nowhere — it is distributed
+Low coupling and no central point. On the other hand, the flow exists nowhere: it is distributed
 across the reactions. Debugging requires reconstructing the sequence from several services' logs.
 
 **Orchestration.** One component drives: it calls step 1, and on receiving the response calls step 2,
 and so on.
 
 The flow is explicit, readable and testable. On the other hand, there is a component that knows every
-step — concentrated coupling.
+step: concentrated coupling.
 
 Both styles are developed in
 [event-driven architecture](/03-design-patterns/event-driven.md), the canonical document on the subject.
 What changes in a saga is compensation: it is an order, it has an owner and it has to happen even when
-nobody is listening — and that is why the canonical document says to orchestrate flows with order and
+nobody is listening, and that is why the canonical document says to orchestrate flows with order and
 compensation.
 
 **This document's caveat:** in a saga of two or three steps with no pivot step, choreography is still
 defensible, because there is no compensation order to coordinate. From the moment a pivot exists, the
-canonical rule holds — the difficulty of debugging choreography grows faster than the benefit of the
+canonical rule holds: the difficulty of debugging choreography grows faster than the benefit of the
 decoupling.
 
 ### The saga has to be durable
 
-The saga's state — which step, what has already succeeded — has to survive a restart. If the
+The saga's state (which step, what has already succeeded) has to survive a restart. If the
 orchestrator goes down midway, it has to resume.
 
 That means persisting the state on each transition, and having a process that detects stalled sagas
-and resumes them. Without that, a crash leaves the operation in a permanent intermediate state —
+and resumes them. Without that, a crash leaves the operation in a permanent intermediate state:
 exactly what the saga was supposed to avoid.
 
 ### Compensation fails too
@@ -160,11 +160,11 @@ and the multi-step operation it authorized has already half happened.
 
 ## Alternatives
 
-- **[Distributed transaction](/06-distributed-systems/distributed-transactions.md)** — when atomicity
+- **[Distributed transaction](/06-distributed-systems/distributed-transactions.md)**: when atomicity
   is non-negotiable and the conditions allow.
-- **Transactional outbox** — for the simple database + event case.
-- **Bringing the data together** — a local transaction if the boundary allows.
-- **Batch reconciliation** — for rare divergences, correcting later can be cheaper than compensating
+- **Transactional outbox**: for the simple database + event case.
+- **Bringing the data together**: a local transaction if the boundary allows.
+- **Batch reconciliation**: for rare divergences, correcting later can be cheaper than compensating
   inline.
 
 ## Trade-offs
@@ -231,7 +231,7 @@ cancellation. The complaint was constant.
 The redesign.
 
 **Orchestration.** One service came to drive, with the state persisted on each transition. The
-diagnosis time dropped to minutes — the saga's state is a query.
+diagnosis time dropped to minutes: the saga's state is a query.
 
 **Reordering.** The email was moved to after every bookable step. An explicit pivot step came into
 existence: the payment confirmation. Before it, everything is cancellable; after it, the saga moves
@@ -242,26 +242,26 @@ without a penalty within 30 minutes. That became a requirement of the stretch **
 the saga does not reach payment in 25 minutes, it compensates preemptively, while compensating is still
 free.
 
-After the pivot the rule does not apply — and cannot apply, because there the saga only moves forward.
+After the pivot the rule does not apply, and cannot apply, because there the saga only moves forward.
 For the case where the hotel's window expired with the payment already confirmed, the decision was to
 move the booking to after the pivot: it stopped being a step to compensate and became a step to retry
 until it succeeds. The sagas that pivoted before that change paid the penalty, booked as a known cost
 instead of a surprise in the reconciliation.
 
 That last point is what the team records as the main lesson: **the compensation had a validity
-window**, and nobody had asked. There were sagas that compensated hours later and generated a penalty
-— a cost that showed up in the monthly financial reconciliation with nobody connecting it to the
+window**, and nobody had asked. There were sagas that compensated hours later and generated a penalty:
+a cost that showed up in the monthly financial reconciliation with nobody connecting it to the
 saga.
 
 ## Related Concepts
 
-- [Distributed Transactions](/06-distributed-systems/distributed-transactions.md) — the alternative.
-- [Idempotency](/06-distributed-systems/idempotency.md) — a requirement.
-- [Event-Driven Architecture](/03-design-patterns/event-driven.md) — the canonical document on
+- [Distributed Transactions](/06-distributed-systems/distributed-transactions.md): the alternative.
+- [Idempotency](/06-distributed-systems/idempotency.md): a requirement.
+- [Event-Driven Architecture](/03-design-patterns/event-driven.md): the canonical document on
   choreography and orchestration.
-- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md) — the cost of tracing a flow
+- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md): the cost of tracing a flow
   nobody coordinates.
-- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md) — for compensation that fails.
+- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md): for compensation that fails.
 
 ## Practical Exercise
 
@@ -279,5 +279,5 @@ the saga's order.
 ## Further Reading
 
 - Garcia-Molina, Hector; Salem, Kenneth. *Sagas*. SIGMOD, 1987.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — chapter 4.
-- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021 — chapter 6.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Chapter 4.
+- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021. Chapter 6.

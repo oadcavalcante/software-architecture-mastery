@@ -2,7 +2,7 @@
 id: strong-consistency
 title: Consistência Forte
 sidebar_position: 32
-description: Toda leitura observa a última escrita — e o preço em latência que se paga sempre.
+description: Toda leitura observa a última escrita, e o preço em latência que se paga sempre.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [eventual-consistency, consensus, pacelc]
 canonical_for: [consistência forte, linearizabilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,13 +21,13 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Consistência forte — na forma mais estrita, **linearizabilidade** — garante que o
+Consistência forte (na forma mais estrita, **linearizabilidade**) garante que o
 sistema se comporte como se houvesse uma única cópia dos dados, com todas as
 operações acontecendo instantaneamente numa ordem que respeita o tempo real.
 
 É a garantia que torna o raciocínio simples: a leitura vê a última escrita, ponto.
 
-E ela custa coordenação — o que significa latência, em toda operação, para sempre.
+E ela custa coordenação, o que significa latência, em toda operação, para sempre.
 
 ## Problema
 
@@ -38,11 +38,11 @@ Isso torna a garantia atraente por default: adotá-la elimina uma classe inteira
 raciocínio sobre dado velho, conflito e convergência.
 
 O custo é que ela não escala da mesma forma. Num sistema replicado, cada operação
-que precisa de garantia forte coordena com a maioria das réplicas — e coordenação
+que precisa de garantia forte coordena com a maioria das réplicas, e coordenação
 é ida e volta de rede.
 
 Numa configuração de região única, isso é aceitável. Numa multi-região, é
-frequentemente inviável — e o cálculo é geométrico, não de otimização.
+frequentemente inviável, e o cálculo é geométrico, não de otimização.
 
 ## Conceitos Centrais
 
@@ -56,7 +56,7 @@ A consequência prática: se A completa antes de B começar, B enxerga o efeito 
 Sempre, independentemente de qual réplica atende.
 
 **Serializabilidade** é sobre transações: o resultado equivale a alguma execução
-sequencial. As duas juntas — *strict serializability* — dão a garantia mais forte
+sequencial. As duas juntas (*strict serializability*) dão a garantia mais forte
 disponível.
 
 Confundir as duas é comum. Um banco pode ser serializável e não linearizável: as
@@ -67,8 +67,8 @@ transações são corretas, e uma leitura pode não ver a escrita mais recente.
 Garantir que toda leitura veja a última escrita exige que a escrita seja conhecida
 por quem responde a leitura.
 
-As formas de conseguir isso — escrita na maioria, leitura da maioria, ou leitura do
-líder — todas envolvem comunicação entre nós.
+As formas de conseguir isso (escrita na maioria, leitura da maioria, ou leitura do
+líder) todas envolvem comunicação entre nós.
 
 ```text
 região única, mesma zona          → +1 a 2 ms por operação
@@ -79,17 +79,17 @@ regiões intercontinentais         → +150 ms
 
 Os números são pisos. A operação coordenada só termina quando a réplica mais lenta
 do quórum responde, então a latência observada segue a cauda dessa réplica, não a
-mediana da rede — é por onde a coordenação costuma ser subestimada.
+mediana da rede. É por onde a coordenação costuma ser subestimada.
 
 A última linha é o que torna consistência forte global impraticável para operações
 de alta frequência. Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Limitar o escopo é a técnica principal
 
-A pergunta que resolve a maior parte dos casos não é "forte ou eventual?". É
+A pergunta que resolve a maior parte dos casos não é "forte ou eventual?", mas
 **"forte em relação a quê?"**.
 
-Consistência forte **global** — todas as réplicas do mundo coordenando — é cara.
+Consistência forte **global** (todas as réplicas do mundo coordenando) é cara.
 Consistência forte **por partição** é muito mais barata: coordenar apenas entre as
 réplicas daquela partição, que podem estar próximas.
 
@@ -126,7 +126,7 @@ para quais operações a certeza vale o preço.
 
 ## Quando Usar
 
-- O dado controla um recurso finito — estoque, assento, saldo, cota.
+- O dado controla um recurso finito: estoque, assento, saldo, cota.
 - Uma decisão irreversível depende do valor lido.
 - Há requisito regulatório de exatidão.
 - Duas operações concorrentes produziriam estado inválido.
@@ -149,10 +149,10 @@ eventual, com reconciliação.
 
 ## Alternativas
 
-- **Garantias de sessão** — resolve a percepção do usuário a custo baixo.
-- **Consistência forte por partição** — reduz o escopo da coordenação.
-- **Transação local** — se os dados cabem num nó, a garantia vem de graça.
-- **Reserva com expiração** — em vez de coordenar globalmente, reservar
+- **Garantias de sessão**: resolve a percepção do usuário a custo baixo.
+- **Consistência forte por partição**: reduz o escopo da coordenação.
+- **Transação local**: se os dados cabem num nó, a garantia vem de graça.
+- **Reserva com expiração**: em vez de coordenar globalmente, reservar
   localmente com prazo e confirmar depois.
 
 A última é o padrão usado em bilhetagem e reservas: bloquear localmente por
@@ -196,7 +196,7 @@ réplicas e janela de manutenção viram decisão de arquitetura, não de opera�
 
 ## Erros Comuns
 
-**Adotar uniformemente.** Poucos fluxos de um sistema precisam de consistência forte — saldo, estoque, unicidade. Aplicá-la ao catálogo e ao histórico paga latência e disponibilidade por garantia que ninguém usa.
+**Adotar uniformemente.** Poucos fluxos de um sistema precisam de consistência forte: saldo, estoque, unicidade. Aplicá-la ao catálogo e ao histórico paga latência e disponibilidade por garantia que ninguém usa.
 
 **Não limitar o escopo por partição.** Coordenação entre todos os nós custa muito mais que coordenação dentro de uma partição. Escolher a chave de forma que o invariante caiba numa só é o que torna a garantia pagável.
 
@@ -204,7 +204,7 @@ réplicas e janela de manutenção viram decisão de arquitetura, não de opera�
 
 **Não verificar o que o banco de fato garante na configuração usada.** O nível de isolamento padrão raramente é o mais forte, e ler de réplica frequentemente descarta a garantia que a escrita comprou.
 
-**Não medir o custo de latência da coordenação.** Cada escrita coordenada carrega pelo menos uma ida e volta entre réplicas. Entre zonas isso é alguns milissegundos; entre continentes, mais de cem — e o número muda quais requisitos de resposta são alcançáveis.
+**Não medir o custo de latência da coordenação.** Cada escrita coordenada carrega pelo menos uma ida e volta entre réplicas. Entre zonas isso é alguns milissegundos; entre continentes, mais de cem, e o número muda quais requisitos de resposta são alcançáveis.
 
 ## Exemplo Real
 
@@ -215,19 +215,19 @@ A implementação original usava consistência forte global: o banco replicado e
 regiões, com escrita exigindo maioria.
 
 Cada reserva custava 180 ms de coordenação. Na abertura de vendas de um evento
-grande, com 40 mil pessoas simultâneas, o sistema não dava conta — a coordenação
+grande, com 40 mil pessoas simultâneas, o sistema não dava conta: a coordenação
 serializava.
 
 A reformulação manteve consistência forte e mudou o escopo.
 
 **Particionamento por evento.** Cada evento tem suas réplicas, na região onde ele
 acontece. A coordenação para reservar um assento passou a ser entre réplicas
-regionais: de 180 ms para 8 ms. A reserva custa mais de uma ida e volta coordenada
-— daí o número ficar acima da faixa por operação entre zonas.
+regionais: de 180 ms para 8 ms. A reserva custa mais de uma ida e volta coordenada,
+daí o número ficar acima da faixa por operação entre zonas.
 
 **Reserva com expiração.** Em vez de coordenar durante todo o fluxo de compra, a
-reserva bloqueia o assento por 10 minutos — uma operação coordenada, curta. O
-restante do fluxo — pagamento, cadastro — acontece sem coordenação.
+reserva bloqueia o assento por 10 minutos: uma operação coordenada, curta. O
+restante do fluxo (pagamento, cadastro) acontece sem coordenação.
 
 **Leitura eventual para o mapa de assentos.** A visualização de disponibilidade lê
 de réplica local, com atraso de segundos. O negócio aceitou: se um assento aparece
@@ -240,22 +240,22 @@ Resultado: a garantia de não vender duas vezes permaneceu absoluta, e a capacid
 subiu por mais de uma ordem de grandeza.
 
 A avaliação posterior aponta: nunca esteve em questão abrir mão de consistência forte
-para a reserva. O que estava errado era o **escopo** — coordenar globalmente algo
+para a reserva. O que estava errado era o **escopo**: coordenar globalmente algo
 que é intrinsecamente local a um evento.
 
 ## Conceitos Relacionados
 
-- [Consistência](/06-distributed-systems/consistency.md) — o espectro.
-- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — o outro extremo.
-- [PACELC](/06-distributed-systems/pacelc.md) — o custo permanente.
-- [Consenso](/06-distributed-systems/consensus.md) — o mecanismo por trás.
-- [Particionamento](/06-distributed-systems/partitioning.md) — como reduzir o escopo.
-- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md) —
+- [Consistência](/06-distributed-systems/consistency.md): o espectro.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md): o outro extremo.
+- [PACELC](/06-distributed-systems/pacelc.md): o custo permanente.
+- [Consenso](/06-distributed-systems/consensus.md): o mecanismo por trás.
+- [Particionamento](/06-distributed-systems/partitioning.md): como reduzir o escopo.
+- [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md):
   a janela de inconsistência com número.
 
 ## Exercício Prático
 
-Liste as operações do seu sistema que genuinamente exigem consistência forte — as
+Liste as operações do seu sistema que genuinamente exigem consistência forte: as
 que produziriam estado inválido se duas acontecessem concorrentemente.
 
 Para cada uma, pergunte: qual o menor escopo de coordenação que basta? Se a
@@ -271,7 +271,7 @@ resposta for menor que o escopo atual, há latência sendo paga sem necessidade.
 
 - Herlihy, Maurice; Wing, Jeannette. *Linearizability: A Correctness Condition for
   Concurrent Objects*. TOPLAS, 1990.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 9.
 - Abadi, Daniel. *Consistency Tradeoffs in Modern Distributed Database System
   Design*. IEEE Computer, 2012.

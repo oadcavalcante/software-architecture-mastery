@@ -2,7 +2,7 @@
 id: transactions
 title: Transações
 sidebar_position: 19
-description: ACID e níveis de isolamento — o que cada nível permite acontecer, e por que o padrão surpreende.
+description: "ACID e níveis de isolamento: o que cada nível permite acontecer, e por que o padrão surpreende."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [data-consistency, oltp, indexing]
 canonical_for: [transação, ACID, nível de isolamento, leitura suja, leitura não repetível, leitura fantasma]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Uma transação agrupa operações de forma que todas aconteçam ou nenhuma aconteça, e
 que operações concorrentes não interfiram umas nas outras de formas indesejadas.
 
-A parte da atomicidade é bem compreendida. A parte do **isolamento** não é — e é
+A parte da atomicidade é bem compreendida. A parte do **isolamento** não é, e é
 onde estão os defeitos difíceis: aqueles que passam em todos os testes e aparecem
 só sob concorrência real.
 
@@ -48,7 +48,7 @@ carga e quase impossíveis de reproduzir.
 **Atomicidade.** Tudo ou nada.
 
 **Consistência.** As restrições declaradas continuam válidas. É a letra menos
-interessante — depende do que você declarou.
+interessante: depende do que você declarou.
 
 **Isolamento.** Transações concorrentes não interferem. É a letra que causa
 problemas.
@@ -57,7 +57,7 @@ problemas.
 
 ### As anomalias, em ordem de gravidade
 
-**Leitura suja.** Ler dado de uma transação que ainda não confirmou — e que pode
+**Leitura suja.** Ler dado de uma transação que ainda não confirmou, e que pode
 ser desfeita.
 
 **Leitura não repetível.** Ler o mesmo registro duas vezes na mesma transação e
@@ -71,7 +71,7 @@ filtro.
 dele e escrevem. A segunda sobrescreve o efeito da primeira.
 
 **Distorção de escrita.** Duas transações leem o mesmo conjunto, cada uma verifica
-uma condição, e ambas escrevem — produzindo estado que nenhuma teria permitido
+uma condição, e ambas escrevem, produzindo estado que nenhuma teria permitido
 sozinha.
 
 As duas últimas são as que mais causam prejuízo real, e a última é a mais sutil.
@@ -94,8 +94,8 @@ nome de nível, não detecta.
 **Leitura confirmada** é o padrão da maioria dos bancos. Ele permite leitura não
 repetível, fantasma e atualização perdida.
 
-Se o seu banco roda em leitura confirmada — o padrão do PostgreSQL, do Oracle e do
-SQL Server —, o comportamento padrão admite atualização perdida, e essa é a origem do defeito clássico de "ler saldo, calcular, gravar saldo".
+Se o seu banco roda em leitura confirmada (o padrão do PostgreSQL, do Oracle e do
+SQL Server), o comportamento padrão admite atualização perdida, e essa é a origem do defeito clássico de "ler saldo, calcular, gravar saldo".
 
 ### Distorção de escrita é a que engana
 
@@ -116,7 +116,7 @@ Nenhuma transação leu dado sujo. Nenhuma sobrescreveu escrita da outra. Cada u
 verificou a regra corretamente.
 
 E a regra foi violada. Isso é distorção de escrita, e só o nível serializável
-impede — ou um bloqueio explícito.
+impede, ou um bloqueio explícito.
 
 ### Bloqueio explícito é a saída prática
 
@@ -172,16 +172,16 @@ rollback; a transação só prolonga os bloqueios. Coordene com
 **Transação longa para processamento em lote.** Divida em lotes menores.
 
 **Transação distribuída.** Ver
-[transações distribuídas](/06-distributed-systems/distributed-transactions.md) —
+[transações distribuídas](/06-distributed-systems/distributed-transactions.md):
 outro problema, outro custo.
 
 ## Alternativas
 
-- **Bloqueio explícito** — serializa o registro crítico sem elevar tudo.
-- **Controle otimista por versão** — sem bloqueio, com repetição.
-- **Operação atômica do banco** — `UPDATE saldo = saldo - ?` evita o ciclo
+- **Bloqueio explícito**: serializa o registro crítico sem elevar tudo.
+- **Controle otimista por versão**: sem bloqueio, com repetição.
+- **Operação atômica do banco**: `UPDATE saldo = saldo - ?` evita o ciclo
   ler-calcular-gravar inteiro.
-- **Restrição de unicidade** — deixa o banco rejeitar a duplicata.
+- **Restrição de unicidade**: deixa o banco rejeitar a duplicata.
 
 A terceira é a mais subestimada: boa parte dos casos de atualização perdida
 desaparece ao expressar a mudança como operação relativa em vez de valor absoluto.
@@ -234,13 +234,13 @@ registro.
 ## Exemplo Real
 
 Um sistema de créditos internos tinha a operação de consumo implementada assim:
-ler saldo, verificar se é suficiente, subtrair na aplicação, gravar o novo valor —
+ler saldo, verificar se é suficiente, subtrair na aplicação, gravar o novo valor,
 tudo dentro de uma transação.
 
 O banco usava leitura confirmada, o padrão.
 
 Sob uso normal, funcionava. Quando um cliente disparava várias operações
-simultâneas — o que acontecia em integrações automatizadas — o saldo ficava
+simultâneas (o que acontecia em integrações automatizadas), o saldo ficava
 errado.
 
 Duas transações liam 100, ambas subtraíam 30, ambas gravavam 70. Duas operações
@@ -258,7 +258,7 @@ As correções, em ordem de aplicação:
 >= ?`, verificando quantas linhas foram afetadas. Isso elimina o ciclo
 ler-calcular-gravar e a anomalia junto. Uma linha.
 
-**Restrição de verificação** garantindo saldo não negativo — a rede de segurança no
+**Restrição de verificação** garantindo saldo não negativo: a rede de segurança no
 armazenamento, valendo para todo escritor.
 
 **Registro de movimentação** em vez de apenas o saldo, permitindo auditar e
@@ -270,8 +270,8 @@ acreditava estar protegido por isso. A palavra "transação" foi lida como
 
 ## Conceitos Relacionados
 
-- [Consistência de Dados](/07-data-architecture/data-consistency.md) — o tema no nível do armazenamento.
-- [OLTP](/07-data-architecture/oltp.md) — onde contenção aparece.
+- [Consistência de Dados](/07-data-architecture/data-consistency.md): o tema no nível do armazenamento.
+- [OLTP](/07-data-architecture/oltp.md): onde contenção aparece.
 - [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md).
 - [Bancos Relacionais](/07-data-architecture/relational-databases.md).
 
@@ -291,6 +291,6 @@ Cada um é um caso de atualização perdida esperando concorrência suficiente.
 ## Para Aprofundar
 
 - Berenson, Hal et al. *A Critique of ANSI SQL Isolation Levels*. SIGMOD, 1995.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 7.
 - Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.

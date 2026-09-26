@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, enterprise-governance, enterprise-principles]
 canonical_for: [revisão de arquitetura, revisão por pares, consulta arquitetural]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -36,7 +36,7 @@ A revisão tradicional chega tarde e tem o incentivo errado.
 significa jogar fora esforço, e a inércia é grande.
 
 **Incentivo errado.** Se a revisão pode dizer não, quem propõe otimiza para conseguir o
-sim — apresentando o mínimo, evitando incertezas, e defendendo em vez de discutir.
+sim: apresentando o mínimo, evitando incertezas, e defendendo em vez de discutir.
 
 O resultado é o pior dos dois mundos: um processo que consome tempo e não melhora
 decisões.
@@ -68,15 +68,15 @@ aprovação   quem revisa decide, quem propõe convence
 consulta    quem propõe decide, quem revisa oferece perspectiva
 ```
 
-Na segunda, a responsabilidade permanece com o time — o que é correto, porque é quem tem
+Na segunda, a responsabilidade permanece com o time, o que é correto, porque é quem tem
 o contexto. E o revisor deixa de ser obstáculo a superar, passando a ser recurso a usar.
 
 Isso exige registro: a decisão é do time, e o que foi discutido fica documentado, com o
 que foi considerado e descartado. Ver
 [decisões de arquitetura](/18-architecture-decisions/index.md).
 
-Para as poucas decisões que genuinamente exigem aprovação — alcance amplo, reversão cara
-— ela permanece. Ver
+Para as poucas decisões que genuinamente exigem aprovação (alcance amplo, reversão cara),
+ela permanece. Ver
 [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
 ### O que a revisão deve procurar
@@ -110,7 +110,7 @@ pergunta  "o que acontece se este serviço ficar fora por uma hora?"
 A pergunta expõe uma consequência que o time avalia. A opinião pede que o time defenda a
 escolha contra a preferência de outra pessoa.
 
-Isso não significa que o revisor não tem posição — significa que a posição é apresentada
+Isso não significa que o revisor não tem posição. Significa que a posição é apresentada
 como consequência, não como preferência.
 
 ### Quem revisa
@@ -141,7 +141,7 @@ o que ficou em aberto
 quem participou
 ```
 
-Isso serve à decisão futura — alguém com problema parecido encontra o precedente — e à
+Isso serve à decisão futura (alguém com problema parecido encontra o precedente) e à
 própria revisão, porque o histórico revela padrões: se as mesmas questões aparecem
 repetidamente, elas deveriam virar princípio, padrão ou caminho pavimentado.
 
@@ -156,15 +156,15 @@ revisor com consequência   pondera risco contra custo de não fazer
 ```
 
 Isso não significa que apenas quem constrói pode revisar. Significa que a revisão precisa
-incluir alguém que arque com o resultado — tipicamente o próprio time, cuja decisão
+incluir alguém que arque com o resultado: tipicamente o próprio time, cuja decisão
 permanece.
 
 É outro argumento a favor de consulta em vez de aprovação: na consulta, quem decide é
 quem vai conviver com a decisão, e a opinião externa entra como informação.
 
 E há um efeito de segunda ordem: revisores permanentes, que só revisam, perdem contato
-com as restrições práticas ao longo do tempo. Rotacionar quem revisa — trazendo pessoas
-que estão construindo — mantém a revisão ancorada na realidade.
+com as restrições práticas ao longo do tempo. Rotacionar quem revisa, trazendo pessoas
+que estão construindo, mantém a revisão ancorada na realidade.
 
 ## Modelo Mental
 
@@ -174,7 +174,7 @@ que estão construindo — mantém a revisão ancorada na realidade.
 
 - Decisões de alcance além do time.
 - Decisões difíceis de reverter.
-- Quando o time pede — dentre os gatilhos, é o único que indica que a revisão chega
+- Quando o time pede: dentre os gatilhos, é o único que indica que a revisão chega
   enquanto o desenho ainda está aberto.
 - Padrões novos, que podem virar precedente.
 
@@ -197,11 +197,11 @@ assimetria produz perguntas genéricas e só consome a agenda do time.
 
 ## Alternativas
 
-- **Autorrevisão estruturada** — um roteiro de perguntas aplicado pelo time.
-- **Revisão por pares** — outro time, sem hierarquia.
-- **Consulta informal** — uma conversa, sem processo.
-- **Revisão após o fato** — para decisões reversíveis, olhar padrões trimestralmente.
-- **Caminho pavimentado** — remover a decisão em vez de revisá-la.
+- **Autorrevisão estruturada**: um roteiro de perguntas aplicado pelo time.
+- **Revisão por pares**: outro time, sem hierarquia.
+- **Consulta informal**: uma conversa, sem processo.
+- **Revisão após o fato**: para decisões reversíveis, olhar padrões trimestralmente.
+- **Caminho pavimentado**: remover a decisão em vez de revisá-la.
 
 A última é a mais eficaz: se a mesma decisão é revisada trinta vezes, ela deveria ter
 uma resposta padrão embutida.
@@ -225,8 +225,8 @@ alcança o time que não sabe o que não sabe. A coerência entre times passa a 
 quem procurou quem, e a demanda sobre os arquitetos vira fila quando a consulta dá certo.
 As mitigações são estruturais: gatilhos obrigatórios por alcance e reversibilidade, que
 não dependem da iniciativa do time; o registro público, que mostra quais times decidem
-muito e nunca consultam; e capacidade reservada de revisor — horas de arquiteto por
-semana, manutenção do registro, a sessão trimestral de padrões — orçada como custo
+muito e nunca consultam; e capacidade reservada de revisor (horas de arquiteto por
+semana, manutenção do registro, a sessão trimestral de padrões), orçada como custo
 permanente, não como favor.
 
 ## Modos de Falha
@@ -251,13 +251,13 @@ permanente, não como favor.
 
 **Aprovar em vez de consultar.** Revisão como portão transfere a responsabilidade para o revisor e produz submissão em vez de discussão. Como consultoria, ela melhora a decisão de quem responde por ela.
 
-**Não ter critério escrito.** Sem critérios publicados, a revisão parece arbitrária e depende de quem estava na sala — o que a torna impossível de preparar.
+**Não ter critério escrito.** Sem critérios publicados, a revisão parece arbitrária e depende de quem estava na sala. Isso a torna impossível de preparar.
 
 **Não registrar.** A conclusão se perde e a mesma discussão volta em seis meses, com pessoas diferentes e frequentemente com desfecho oposto.
 
 **Revisar decisões locais.** Revisar o que não atravessa fronteira nenhuma consome o tempo do fórum e ensina os times a evitá-lo.
 
-**Não transformar padrão recorrente** em caminho pavimentado. Se a mesma pergunta chega cinco vezes, a resposta deveria ser um padrão documentado — a sexta não precisaria de reunião.
+**Não transformar padrão recorrente** em caminho pavimentado. Se a mesma pergunta chega cinco vezes, a resposta deveria ser um padrão documentado, e a sexta não precisaria de reunião.
 
 ## Exemplo Real
 
@@ -282,14 +282,14 @@ evitavam mencionar incertezas, e tratavam a sessão como defesa.
 
 A reformulação:
 
-**Autorrevisão obrigatória.** Um roteiro de dez perguntas — alternativas, premissas,
-fronteiras, reversibilidade, operação, alcance — preenchido pelo time antes de qualquer
+**Autorrevisão obrigatória.** Um roteiro de dez perguntas (alternativas, premissas,
+fronteiras, reversibilidade, operação, alcance) preenchido pelo time antes de qualquer
 coisa.
 
 Isso sozinho pegou a maior parte do que o comitê pegava, e mais cedo.
 
 **Consulta voluntária.** Arquitetos disponíveis para conversar durante o desenho, sem
-processo. Passou a ser o formato mais usado — cerca de três conversas por semana,
+processo. Passou a ser o formato mais usado: cerca de três conversas por semana,
 iniciadas pelos times.
 
 **Aprovação apenas para alcance amplo e reversão cara.** Cerca de uma por mês.
@@ -299,25 +299,25 @@ iniciadas pelos times.
 **Registro público** de todas as decisões, pesquisável.
 
 **Revisão trimestral de padrões.** As questões que apareciam repetidamente viraram três
-princípios e dois caminhos pavimentados — removendo a necessidade de revisá-las
+princípios e dois caminhos pavimentados, removendo a necessidade de revisá-las
 individualmente.
 
 Resultado em um ano: espera média de 19 dias para 2, e as mudanças de desenho
 provocadas por revisão passaram de 11 em 184 propostas (6%) para 47 em cerca de 200
 interações registradas entre consultas, revisões por pares e aprovações (perto de um
-quarto) — porque a conversa passou a acontecer quando
+quarto), porque a conversa passou a acontecer quando
 mudar ainda era barato.
 
 A conclusão registrada: o comitê não era inútil, era caro pelo que entregava. E o
-formato — apresentação para aprovação — produzia exatamente o comportamento que
+formato (apresentação para aprovação) produzia exatamente o comportamento que
 impedia a revisão de funcionar.
 
 ## Conceitos Relacionados
 
-- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md) — o que merece revisão.
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md): o que merece revisão.
 - [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
-- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md) — o critério.
-- [Decisões de Arquitetura](/18-architecture-decisions/index.md) — o registro.
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md): o critério.
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md): o registro.
 
 ## Exercício Prático
 

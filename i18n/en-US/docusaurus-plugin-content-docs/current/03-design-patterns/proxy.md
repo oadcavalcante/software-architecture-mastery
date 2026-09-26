@@ -2,7 +2,7 @@
 id: proxy
 title: Proxy
 sidebar_position: 12
-description: A stand-in that controls access to the real object — and the four variants with different costs.
+description: A stand-in that controls access to the real object, and the four variants with different costs.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decorator]
 related: [decorator, adapter, facade]
 canonical_for: [proxy]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-31
 Proxy provides a stand-in that controls access to another object, implementing the
 same interface.
 
-What distinguishes Proxy from [Decorator](/03-design-patterns/decorator.md) —
-structurally identical — is intent: Decorator adds behaviour the client wants; Proxy
+What distinguishes Proxy from [Decorator](/03-design-patterns/decorator.md)
+(structurally identical) is intent: Decorator adds behaviour the client wants; Proxy
 controls access, and the client frequently does not know it exists.
 
 That transparency is the pattern's strength and its risk.
@@ -45,14 +45,14 @@ interface.
 
 The GoF distinguishes four, with quite different cost profiles.
 
-**Virtual** — defers creating the real object until first use. Used for expensive
+**Virtual**: defers creating the real object until first use. Used for expensive
 objects: a high-resolution image, an aggregate with many relations.
 
-**Remote** — locally represents an object in another process or machine. It is what
-makes a network call look like a method call — and it is the most dangerous variant,
+**Remote**: locally represents an object in another process or machine. It is what
+makes a network call look like a method call, and it is the most dangerous variant,
 for the reason below.
 
-**Protection** — checks permission before delegating.
+**Protection**: checks permission before delegating.
 
 **Smart** — adds management: reference counting, on-demand loading of fields, access
 logging.
@@ -64,7 +64,7 @@ important lessons in distributed systems.
 
 A call that looks local may be a network request with latency, timeouts and the
 possibility of partial failure. The code does not distinguish, and the developer
-reasons as if it were local — calling in a loop, without failure handling, without
+reasons as if it were local: calling in a loop, without failure handling, without
 considering latency.
 
 It is the origin of the *fallacies of distributed computing*: the network is
@@ -77,7 +77,7 @@ See [distributed systems](/06-distributed-systems/index.md).
 
 The virtual proxy in object-relational mappers produces the most common performance
 defect in business applications: a loop over a hundred orders, accessing
-`order.getCustomer()`, fires a hundred queries — because each access to the proxy
+`order.getCustomer()`, fires a hundred queries, because each access to the proxy
 loads on demand.
 
 The code looks like it is walking a list in memory. It is making a hundred round
@@ -110,12 +110,12 @@ caches and validates has become a badly named stack of decorators.
 
 ## Alternatives
 
-- **Explicit loading** — `repository.findWithCustomer(id)` rather than a virtual
+- **Explicit loading**: `repository.findWithCustomer(id)` rather than a virtual
   proxy. More verbose and free of surprises.
-- **[Decorator](/03-design-patterns/decorator.md)** — when the behaviour is the
+- **[Decorator](/03-design-patterns/decorator.md)**: when the behaviour is the
   client's choice.
-- **An explicit asynchronous client** — for remote calls.
-- **A permission check at the entry point** — visible and auditable.
+- **An explicit asynchronous client**: for remote calls.
+- **A permission check at the entry point**: visible and auditable.
 
 ## Trade-offs
 
@@ -151,7 +151,7 @@ transaction has already closed.
 **Confusing it with Decorator.** Different intent.
 
 **Using a virtual proxy without understanding N+1.** Loading on demand inside a loop
-turns one query into one per element, and the cost only shows with volume — in
+turns one query into one per element, and the cost only shows with volume. In
 development, with ten records, the pattern seems to work.
 
 **Hiding a remote call behind a local interface.** The caller sees neither latency nor
@@ -169,11 +169,11 @@ question "who accessed this?" comes to have no answer.
 the most widespread use and the one that causes the most performance problems.
 
 **Remote calls in older frameworks.** RMI, CORBA and some RPC clients generate proxies
-that make the network look local. The modern trend is the opposite — clients that
+that make the network look local. The modern trend is the opposite: clients that
 return asynchronous types.
 
 **Dependency injection containers.** Many wrap objects in proxies to apply
-transactions, security and caching — which is the smart variant, frequently invisible
+transactions, security and caching, which is the smart variant, frequently invisible
 to whoever writes the code.
 
 **Service meshes.** The *sidecar* is a network proxy: it intercepts traffic to apply
@@ -196,18 +196,18 @@ queries.
 The immediate fix was loading explicitly in the original query.
 
 The structural fix came later and is the interesting part: the team started using
-explicit projections for listing screens — a type containing exactly the fields the
-screen shows, obtained in one query.
+explicit projections for listing screens (a type containing exactly the fields the
+screen shows, obtained in one query).
 
 That eliminated the entire category of defect, because there is no proxy to fire. The
 cost became visible in the query, which is where it belongs.
 
 ## Related Concepts
 
-- [Decorator](/03-design-patterns/decorator.md) — same structure, different intent.
-- [Adapter](/03-design-patterns/adapter.md) — changes the interface.
-- [Facade](/03-design-patterns/facade.md) — simplifies a subsystem.
-- [Distributed Systems](/06-distributed-systems/index.md) — why remote transparency is
+- [Decorator](/03-design-patterns/decorator.md): same structure, different intent.
+- [Adapter](/03-design-patterns/adapter.md): changes the interface.
+- [Facade](/03-design-patterns/facade.md): simplifies a subsystem.
+- [Distributed Systems](/06-distributed-systems/index.md): why remote transparency is
   dangerous.
 
 ## Practical Exercise
@@ -227,6 +227,6 @@ by a virtual proxy.
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — develops the
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006. Develops the
   list attributed to L. Peter Deutsch (the first seven, around 1994) and to James Gosling
   (the eighth), which circulated under that title without formal publication.

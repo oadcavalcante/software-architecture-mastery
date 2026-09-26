@@ -2,7 +2,7 @@
 id: cloud-architecture
 title: Cloud Architecture
 sidebar_position: 0
-description: Designing on infrastructure you rent — where cost becomes an architectural decision and failure becomes routine.
+description: Designing on infrastructure you rent, where cost becomes an architectural decision and failure becomes routine.
 doc_type: index
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [integration-architecture, scalability, reliability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ training, not architecture.
 What actually changes, from the point of view of whoever designs, is three things.
 
 **Failure stops being the exception.** A machine can disappear at any moment, by the provider's decision.
-That is not a risk to mitigate — it is the operating model, and the system needs to be designed for it. See
+That is the operating model, not a risk to mitigate, and the system needs to be designed for it. See
 [partial failure](/06-distributed-systems/partial-failure.md).
 
 **Cost becomes an architectural decision.** On your own infrastructure, an inefficient design burns
@@ -39,7 +39,7 @@ A bad architectural decision has a monthly and measurable price. See
 [cost architecture](/09-cloud-architecture/cost-architecture.md).
 
 **The dependency is real and needs to be chosen.** Every managed service you adopt is work you will not do
-and freedom you will not have. Pretending that trade does not exist — on either side — is what produces
+and freedom you will not have. Pretending that trade does not exist, on either side, is what produces
 both the suffering of reinventing what already exists and that of not being able to leave.
 
 ## What you will find here
@@ -47,7 +47,7 @@ both the suffering of reinventing what already exists and that of not being able
 **The service models.** IaaS, PaaS and SaaS by what each one transfers in responsibility, not by the
 acronym. Managed services treated as the central decision they are.
 
-**Packaging and orchestration.** Containers and Kubernetes — the latter with the question that precedes
+**Packaging and orchestration.** Containers and Kubernetes, the latter with the question that precedes
 adoption: what concrete problem does it solve that you have today?
 
 **Serverless.** What it delivers, and the four costs the initial presentation omits.
@@ -55,7 +55,7 @@ adoption: what concrete problem does it solve that you have today?
 **Geography.** Regions, availability zones and multi-region. The distinction between the first two is the
 basis of almost every availability decision, and it is routinely confused.
 
-**The building blocks.** Cloud networking, identity, storage and compute — each one by what changes
+**The building blocks.** Cloud networking, identity, storage and compute, each one by what changes
 relative to the local equivalent.
 
 **The decisions nobody makes until they hurt.** Cost architecture, disaster recovery and vendor lock-in.
@@ -73,7 +73,7 @@ Then **managed services**, which is the section's central economic and architect
 **Cost architecture** can be read at any point and is the one with the most immediate return for whoever
 has a system in production now.
 
-Leave **multi-region** and **disaster recovery** for the end, and read them together — they answer the same
+Leave **multi-region** and **disaster recovery** for the end, and read them together: they answer the same
 question at very different prices.
 
 ## By the end
@@ -81,7 +81,7 @@ question at very different prices.
 You design assuming any component can vanish, because in the cloud it can.
 
 You can estimate the cost of an architectural decision before implementing it, and recognize when the
-design is expensive for a structural reason — cross-zone transfer, excessive calls, data sitting with no
+design is expensive for a structural reason: cross-zone transfer, excessive calls, data sitting with no
 policy.
 
 And you can discuss vendor lock-in without the two extremes: neither adopting everything without thinking,

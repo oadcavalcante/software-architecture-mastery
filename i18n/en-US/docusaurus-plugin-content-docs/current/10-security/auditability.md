@@ -2,7 +2,7 @@
 id: auditability
 title: Auditability
 sidebar_position: 13
-description: Proving what happened — and why a log that can be deleted by whoever acted is useless.
+description: Proving what happened, and why a log that can be deleted by whoever acted is useless.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [security-failure-modes, data-protection, least-privilege]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,8 +31,8 @@ compliance     proving to a regulator that the controls work
 detection      noticing the anomalous while it happens
 ```
 
-The three require different things from the log, and a system that serves only the second — the common case
-— does not serve the other two.
+The three require different things from the log, and a system that serves only the second (the common case)
+does not serve the other two.
 
 ## Problem
 
@@ -41,7 +41,7 @@ Most systems have logs. Few can answer an investigation's questions.
 The reasons repeat:
 
 The log has what was easy to record, not what the question requires. There is no identification of who
-acted — only the service. The retention is shorter than the time to discovery. And, most seriously, the log
+acted: only the service. The retention is shorter than the time to discovery. And, most seriously, the log
 is in the same place as the audited system, accessible to whoever compromised it.
 
 ## Core Concepts
@@ -59,7 +59,7 @@ result   success or failure, and why
 ```
 
 Two common absences make the log useless: **who**, when the system records only the service that executed;
-and **failures**, when only success is recorded — and the denied attempt is precisely the attack signal.
+and **failures**, when only success is recorded, and the denied attempt is precisely the attack signal.
 
 ### The log needs to be tamper-proof
 
@@ -77,14 +77,14 @@ The necessary properties:
 
 **Integrity verification.** Hash chaining, or signing, allowing alteration to be detected.
 
-Without that, an attacker with administrative access can delete the trail — and, if they intend to stay in
+Without that, an attacker with administrative access can delete the trail. And, if they intend to stay in
 the environment unnoticed, they have every reason to do it early.
 
 ### Non-repudiation requires more than a log
 
 Proving that **that person** did something, in a way they cannot deny, requires:
 
-**Individual identity.** Shared accounts destroy non-repudiation — there is no way to attribute the action
+**Individual identity.** Shared accounts destroy non-repudiation: there is no way to attribute the action
 to a person.
 
 **Strong authentication.** If the credential is easily stolen, "it was their account" does not prove "it
@@ -101,15 +101,15 @@ Time to discovery is measured in months: the *Cost of a Data Breach* report (IBM
 2024) estimates an average of 194 days to identify a breach. Against that interval, a 30-day retention means
 the investigation starts with no data from the beginning.
 
-The retention needs to cover the typical time to detection, plus margin — which typically means a year or
+The retention needs to cover the typical time to detection, plus margin, which typically means a year or
 more for security events, and whatever regulation requires for the rest.
 
 And old logs can go to cold storage. See [data lifecycle](/07-data-architecture/data-lifecycle.md).
 
 ### The log cannot contain what it protects
 
-The practical paradox: audit logs frequently contain sensitive data — request bodies, parameters, headers
-with credentials.
+The practical paradox: audit logs frequently contain sensitive data (request bodies, parameters, headers
+with credentials).
 
 The log becomes a target, with broader access than the original system. It is a recurring pattern: data
 protected in the database, exposed in readable text in the logging system.
@@ -166,12 +166,12 @@ configuration, and leave the rest to observability, with its retention.
 
 ## Alternatives
 
-- **The platform's audit log** — the cloud provider already records infrastructure actions; using that is
+- **The platform's audit log**: the cloud provider already records infrastructure actions; using that is
   cheaper and more reliable than reimplementing it.
-- **Database change capture** — to track data changes without instrumenting the application.
-- **[Event sourcing](/06-distributed-systems/distributed-event-sourcing.md)** — the history is the model,
+- **Database change capture**: to track data changes without instrumenting the application.
+- **[Event sourcing](/06-distributed-systems/distributed-event-sourcing.md)**: the history is the model,
   and the auditing comes with it.
-- **Temporal versioning** — to know how a record looked at each moment.
+- **Temporal versioning**: to know how a record looked at each moment.
 
 ## Trade-offs
 
@@ -233,7 +233,7 @@ seven people. The logs showed the account, not the person. It was not possible t
 anybody specifically.
 
 **No read logging.** The system recorded changes, not queries. The improper accesses were reads, and left
-no trace in the system — the suspicion arose from a customer who noticed their data was known by somebody.
+no trace in the system: the suspicion arose from a customer who noticed their data was known by somebody.
 
 **60-day retention.** When the investigation started, the first two months no longer existed.
 
@@ -241,7 +241,7 @@ no trace in the system — the suspicion arose from a customer who noticed their
 been none.
 
 The result: the institution knew there had been improper access, did not know by whom or the extent, and
-had to notify every potentially affected customer — around 80,000 — instead of those actually accessed.
+had to notify every potentially affected customer (around 80,000) instead of those actually accessed.
 
 The reformulation:
 
@@ -258,7 +258,7 @@ chaining.
 **Alerts** for anomalous volume per user, access outside business hours and a sequence of queries about
 customers unrelated to the operator's work.
 
-Eleven months later, the alert on queries unrelated to the operator's work detected a similar case in two days — with identification of
+Eleven months later, the alert on queries unrelated to the operator's work detected a similar case in two days, with identification of
 the person, of the 14 records accessed, and with no need for mass notification.
 
 The detail the team highlights: they met the regulatory requirement to "maintain an audit trail". The trail
@@ -267,13 +267,13 @@ existed, and it answered none of the questions the investigation asked.
 ## Related Concepts
 
 - [Security Failure Modes](/10-security/security-failure-modes.md).
-- [Least Privilege](/10-security/least-privilege.md) — individual identity.
+- [Least Privilege](/10-security/least-privilege.md): individual identity.
 - [Data Protection](/10-security/data-protection.md).
-- [Observability](/13-observability/index.md) — the close relative, with another purpose.
+- [Observability](/13-observability/index.md): the close relative, with another purpose.
 
 ## Practical Exercise
 
-Choose a hypothetical incident — somebody improperly accessed a sensitive record six months ago — and try
+Choose a hypothetical incident (somebody improperly accessed a sensitive record six months ago) and try
 to answer: who, what, when, from where.
 
 The questions you cannot answer are your auditing's gaps.
@@ -286,7 +286,7 @@ The questions you cannot answer are your auditing's gaps.
 
 ## Further Reading
 
-- NIST SP 800-92 — guide to security log management.
+- NIST SP 800-92: guide to security log management.
 - Schneier, Bruce; Kelsey, John. *Secure Audit Logs*, 1999.
 - OWASP. *Logging Cheat Sheet*.
 - IBM; Ponemon Institute. *Cost of a Data Breach Report*, 2024.

@@ -2,7 +2,7 @@
 id: component-design
 title: Component Design
 sidebar_position: 14
-description: The unit that gets deployed — how to decide what becomes a component and what stays inside.
+description: "The unit that gets deployed: how to decide what becomes a component and what stays inside."
 doc_type: concept
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [package-design]
 related: [modular-design, boundaries, dependency-direction]
 canonical_for: [component design, deployable component]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -39,7 +39,7 @@ None of those justifies a component. All of them justify a
 
 Splitting into components adds: a deployment pipeline, an artifact to version,
 inter-process or inter-library communication, version incompatibility handling,
-and — if over the network — partial failure, latency and distributed
+and, if over the network, partial failure, latency and distributed
 observability.
 
 That cost only pays off when there is a reason modules do not address.
@@ -59,7 +59,7 @@ separately. A report processor that consumes a lot of memory should not take dow
 request handling.
 
 **An organizational boundary.** Different teams with release autonomy. It is the
-strongest reason in practice and the least technical — see
+strongest reason in practice and the least technical. See
 [Conway's law](/23-architecture-leadership/conways-law.md).
 
 **Reuse by external consumers.** Other systems need the capability without the
@@ -69,7 +69,7 @@ If none applies, an internal module delivers the same logical isolation for a
 fraction of the cost.
 
 When the component is a process with a network contract, the same reasons are cut
-differently — failure isolation becomes a reason of its own, in place of the
+differently: failure isolation becomes a reason of its own, in place of the
 organizational boundary. See
 [service boundaries](/05-system-design/service-boundaries.md).
 
@@ -91,9 +91,9 @@ The order that works: divide into modules first, let the boundaries prove
 themselves in the history, and only then promote to a component the module that
 has one of the four reasons.
 
-The reverse order — deciding components before knowing the axes of change —
+The reverse order (deciding components before knowing the axes of change)
 produces high-cost boundaries in the wrong place. And fixing a component boundary
-costs a migration — of data, of consumers and of the pipeline — where moving a
+costs a migration (of data, of consumers and of the pipeline) where moving a
 module boundary costs a refactoring.
 
 ### A component's contract is public
@@ -137,10 +137,10 @@ morning.
 
 ## Alternatives
 
-- **An internal module** — the right answer in most cases.
-- **A shared library** — a component without a separate process; intermediate
+- **An internal module**: the right answer in most cases.
+- **A shared library**: a component without a separate process; intermediate
   cost, and it couples release cycles.
-- **Same process, resource isolation** — thread or memory limits per module,
+- **Same process, resource isolation**: thread or memory limits per module,
   without separating deployment.
 
 ## Trade-offs
@@ -190,12 +190,12 @@ and it has grown too much".
 
 The four reasons were checked.
 
-*Lifecycle?* No — reports went up together with everything else and nobody
+*Lifecycle?* No, reports went up together with everything else and nobody
 complained.
-*Distinct quality requirement?* Yes — the month-end closing query loaded about
+*Distinct quality requirement?* Yes, the month-end closing query loaded about
 3 GB in a process with a 4 GB heap, ran a few dozen times a day and had already
 taken the application down twice that quarter.
-*Organizational boundary?* No — same team.
+*Organizational boundary?* No, same team.
 *External consumer?* No.
 
 One reason out of four. The extraction happened, but the scope changed because of
@@ -232,18 +232,18 @@ be cleaner apart" to "what comes off the list?".
 
 ## Related Concepts
 
-- [Modular Design](/02-software-design/modular-design.md) — the division that
+- [Modular Design](/02-software-design/modular-design.md): the division that
   precedes this.
-- [Package Design](/02-software-design/package-design.md) — the release unit.
-- [Boundaries](/02-software-design/boundaries.md) — the levels and their costs.
-- [Microservices](/03-design-patterns/microservices.md) — the extreme case.
+- [Package Design](/02-software-design/package-design.md): the release unit.
+- [Boundaries](/02-software-design/boundaries.md): the levels and their costs.
+- [Microservices](/03-design-patterns/microservices.md): the extreme case.
 
 ## Practical Exercise
 
 List your system's deployable components. For each, check which of the four
 reasons apply today.
 
-The ones satisfying none are candidates to go back to being modules — and it is
+The ones satisfying none are candidates to go back to being modules, and it is
 worth estimating how much the team would save in operations.
 
 ## Interview Questions
@@ -254,7 +254,7 @@ worth estimating how much the team would save in operations.
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — components and
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Components and
   their principles.
-- Newman, Sam. *Building Microservices*. 2nd ed., O'Reilly, 2021 — separation
+- Newman, Sam. *Building Microservices*. 2nd ed., O'Reilly, 2021. Separation
   criteria and their costs.

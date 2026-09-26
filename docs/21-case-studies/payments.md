@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [banking, ecommerce, high-volume-events]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -32,12 +32,12 @@ sustentam, não as grandezas.
 
 ## Contexto de Negócio
 
-A **Pagolo** é uma plataforma de pagamentos que processa transações para 41 mil lojistas —
+A **Pagolo** é uma plataforma de pagamentos que processa transações para 41 mil lojistas:
 comércio eletrônico, assinaturas e maquininhas. Volume anual de R$ 38 bilhões.
 
 A empresa não é adquirente: ela orquestra. Cada transação é roteada para um de cinco
 adquirentes parceiros, escolhido por custo, taxa de aprovação e disponibilidade no momento.
-Esse roteamento é o produto — lojistas contratam a Pagolo porque uma transação recusada por
+Esse roteamento é o produto: lojistas contratam a Pagolo porque uma transação recusada por
 um adquirente pode ser aprovada por outro.
 
 Três pressões motivam a revisão da arquitetura:
@@ -55,20 +55,20 @@ conhecida: quando a plataforma não recebe resposta do adquirente e o lojista re
 tentativa, não há garantia consistente de que a segunda tentativa não vira uma segunda
 cobrança.
 
-O terceiro item é o mais grave. Duplicidade em pagamento não é defeito técnico — é dinheiro
+O terceiro item é o mais grave. Duplicidade em pagamento não é defeito técnico: é dinheiro
 tirado de alguém que não autorizou, e é tratado pelo regulador e pelas bandeiras como falha
 de controle.
 
 Vale entender por que ele acontece, porque a causa não é descuido. Quando a Pagolo envia uma
 autorização a um adquirente e o tempo se esgota sem resposta, existem dois cenários
 indistinguíveis do lado de fora: a requisição não chegou, ou chegou, foi processada, e a
-resposta se perdeu. O comportamento do sistema antigo era tratar os dois como o primeiro —
+resposta se perdeu. O comportamento do sistema antigo era tratar os dois como o primeiro:
 marcar a transação como falha e liberar nova tentativa. Nos casos em que o segundo cenário era
 o verdadeiro, a nova tentativa cobrava de novo.
 
 A escolha de assumir falha não foi arbitrária: ela otimiza a taxa de conversão, porque marcar
 como pendente teria feito o lojista perder a venda enquanto esperava. A arquitetura antiga
-trocou correção por conversão sem que ninguém tenha tomado essa decisão explicitamente — e é
+trocou correção por conversão sem que ninguém tenha tomado essa decisão explicitamente. E é
 esse tipo de troca implícita que um case existe para tornar visível.
 
 ## Requisitos Funcionais
@@ -89,7 +89,7 @@ RF-11  Expor a situação de qualquer transação, em qualquer momento do ciclo
 ```
 
 RF-5 é o produto. RF-11 parece trivial e não é: uma transação em um orquestrador tem estado
-distribuído entre a Pagolo, o adquirente, a bandeira e o emissor — e responder "o que
+distribuído entre a Pagolo, o adquirente, a bandeira e o emissor, e responder "o que
 aconteceu com essa cobrança" exige que a plataforma saiba, sempre.
 
 ## Requisitos Não-Funcionais
@@ -164,7 +164,7 @@ problema central do sistema, e é dele que decorre quase toda a arquitetura.
 É útil comparar com o caso de [e-commerce](/21-case-studies/ecommerce.md), onde o volume de escrita também era
 baixo e a conclusão foi que a arquitetura devia otimizar velocidade de mudança. Aqui o volume
 é igualmente baixo e a conclusão é oposta: a arquitetura deve otimizar correção, e velocidade
-de mudança é secundária. A diferença não está nos números de capacidade — está no custo do
+de mudança é secundária. A diferença não está nos números de capacidade: está no custo do
 erro. Um produto exibido com estoque errado gera um cancelamento; uma cobrança duplicada gera
 uma reclamação regulatória.
 
@@ -238,7 +238,7 @@ Correção sob falha pesa 35% porque é o problema declarado: 900 cobranças dup
 diagnóstico.
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com latência em 40% e correção em 20%, os totais
-viram 7,0 / 8,1 / 5,3 — a Opção B ainda vence, o que indica que ela não depende do peso
+viram 7,0 / 8,1 / 5,3: a Opção B ainda vence, o que indica que ela não depende do peso
 escolhido. Com complexidade operacional em 35%, viram 6,5 / 8,0 / 5,1.
 
 ## Decisão
@@ -248,8 +248,8 @@ toda interação externa e um reconciliador que resolve transações paradas.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** o orçamento de latência interna fosse muito mais apertado — abaixo de
-40 ms —, ou se a taxa de ambiguidade dos adquirentes fosse desprezível. Nenhuma das duas é o
+**Opção A venceria se** o orçamento de latência interna fosse muito mais apertado (abaixo de
+40 ms), ou se a taxa de ambiguidade dos adquirentes fosse desprezível. Nenhuma das duas é o
 caso; a primeira é uma restrição que este produto não tem, e a segunda depende de terceiros.
 
 **Opção C venceria se** houvesse muitos consumidores independentes dos mesmos eventos de
@@ -305,7 +305,7 @@ do cofre e devolve apenas o token ao resto da plataforma. Nenhum outro component
 do cartão, o que reduz o escopo de certificação de onze componentes para um.
 
 Os **Conectores de Adquirente** existem porque cinco parceiros produzem cinco semânticas de
-erro incompatíveis. O mesmo cenário — "a transação pode ter sido autorizada, não sabemos" —
+erro incompatíveis. O mesmo cenário ("a transação pode ter sido autorizada, não sabemos")
 aparece como código HTTP 502 em um parceiro, como código de negócio `PENDING` em outro, e
 como resposta 200 com campo vazio em um terceiro. Traduzir isso para um modelo único é o que
 torna o Orquestrador tratável. Ver
@@ -340,14 +340,14 @@ recebida → roteada → em_autorizacao → autorizada → capturada → liquida
 
 O estado **`ambigua`** é o coração do desenho. Ele é atingido quando a plataforma envia uma
 requisição ao adquirente e não obtém resposta conclusiva. Nenhum outro sistema decide o que
-aconteceu — a transação fica explicitamente marcada como desconhecida, e o Reconciliador é o
+aconteceu: a transação fica explicitamente marcada como desconhecida, e o Reconciliador é o
 único componente autorizado a tirá-la desse estado.
 
-Antes desse desenho, o comportamento era assumir recusa e permitir nova tentativa — que é a
+Antes desse desenho, o comportamento era assumir recusa e permitir nova tentativa. Essa é a
 origem exata das 900 duplicidades mensais.
 
 A introdução de um estado explícito para "não sabemos" tem um efeito que vai além da correção:
-ela torna o problema **mensurável**. Antes, casos ambíguos não existiam como categoria — eles
+ela torna o problema **mensurável**. Antes, casos ambíguos não existiam como categoria: eles
 viravam falhas, e a taxa de falha misturava recusas legítimas com desconhecimento. Depois, a
 plataforma passou a ter um número: quantas transações estão em estado desconhecido, e há
 quanto tempo.
@@ -375,7 +375,7 @@ Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 Há uma sutileza que só aparece na implementação: a chave de idempotência do lojista e o
 identificador de requisição enviado ao adquirente **não podem ser o mesmo valor**. Uma
-transação pode legitimamente gerar mais de uma requisição — quando a primeira é recusada por
+transação pode legitimamente gerar mais de uma requisição: quando a primeira é recusada por
 motivo transitório e a plataforma tenta outro adquirente (RF-5). Se os dois identificadores
 fossem um só, a segunda tentativa seria rejeitada como duplicata pela própria plataforma, e o
 produto deixaria de funcionar.
@@ -410,13 +410,13 @@ menos de 60 segundos. Ver
 [disjuntores](/12-reliability/circuit-breakers.md).
 
 **Retentativa em outro adquirente (RF-5).** Só ocorre para recusas classificadas como
-transitórias — indisponibilidade, tempo esgotado, erro de comunicação. Recusa por saldo
+transitórias: indisponibilidade, tempo esgotado, erro de comunicação. Recusa por saldo
 insuficiente, cartão bloqueado ou suspeita de fraude **não** é reprocessada em outro
 parceiro: repetir aumentaria a taxa de aprovação artificialmente e violaria regras de bandeira.
 
 Classificar recusas em transitórias e definitivas foi mais difícil do que parecia. Os cinco
 adquirentes usam códigos diferentes, e vários deles agrupam motivos distintos sob o mesmo
-código — "recusado pelo emissor" pode significar saldo insuficiente, suspeita de fraude ou
+código: "recusado pelo emissor" pode significar saldo insuficiente, suspeita de fraude ou
 indisponibilidade do emissor, todos como o mesmo valor. A tradução foi construída
 empiricamente: cada código foi classificado, e a classificação é revisada trimestralmente com
 base na taxa de sucesso das retentativas.
@@ -457,11 +457,11 @@ fraude no intervalo, e o volume aprovado nesse modo é limitado por valor e por 
 
 O cálculo que sustenta essa decisão foi feito com números e revisado anualmente. Recusar todas
 as transações durante uma hora de indisponibilidade do serviço de fraude custa cerca de
-R$ 4,3 milhões em volume não processado — R$ 38 bilhões ao ano divididos por 8.760 horas —, com
+R$ 4,3 milhões em volume não processado (R$ 38 bilhões ao ano divididos por 8.760 horas), com
 efeito direto sobre lojistas. A perda esperada por fraude aprovada no mesmo intervalo, com os
 limites de valor aplicados, é estimada em R$ 40 mil. A relação de mais de cem para um justifica
 a escolha, e os limites de valor e de lojista existem
-justamente para manter essa relação — sem eles, o modo degradado seria um convite conhecido.
+justamente para manter essa relação: sem eles, o modo degradado seria um convite conhecido.
 
 Esse é um exemplo de decisão que parece de segurança e é comercial: quem responde por ela é a
 diretoria de risco, não a engenharia, e o papel da arquitetura foi tornar o trade-off
@@ -469,7 +469,7 @@ mensurável e o modo degradado controlável.
 
 ## Escalabilidade
 
-O volume de projeto — 700 autorizações por segundo — é modesto e atendido por escala
+O volume de projeto (700 autorizações por segundo) é modesto e atendido por escala
 horizontal simples. O único ponto que exigiu atenção foi o banco de transações:
 
 ```text
@@ -483,7 +483,7 @@ solução                        partição por mês, com a partição corrente
 Assinaturas apresentam um perfil diferente e mais delicado: cobranças recorrentes concentram-se
 nos dias 1, 5, 10, 15 e 20, com picos de até 40× a média. A solução foi **espalhar a cobrança
 dentro de uma janela de 6 horas**, com ordem determinada por hash do identificador da
-assinatura — o que elimina o pico sem alterar o dia contratado.
+assinatura, o que elimina o pico sem alterar o dia contratado.
 
 ## Confiabilidade
 
@@ -501,7 +501,7 @@ Repasse                   99,9%     atrasa dentro do prazo contratual
 ```
 
 A linha do Reconciliador é a que merece nota: ele pode ficar fora por horas sem dano, desde
-que o estado `ambigua` esteja gravado. Isso é consequência direta da decisão de arquitetura —
+que o estado `ambigua` esteja gravado. Isso é consequência direta da decisão de arquitetura:
 persistir o estado antes do passo externo transforma uma falha crítica em atraso.
 
 **RPO zero para transação autorizada.** Réplica síncrona em zona distinta; a confirmação ao
@@ -552,7 +552,7 @@ regra muda com prazo curto, apenas o conector afetado é alterado e implantado.
 
 Essa foi a única parte da arquitetura em que a separação em serviços independentes se
 justificou por prazo, e não por escala ou por time. As bandeiras publicam mudanças
-obrigatórias com janelas de 30 a 60 dias, e a implantação de um conector isolado leva horas —
+obrigatórias com janelas de 30 a 60 dias, e a implantação de um conector isolado leva horas,
 enquanto uma implantação do Orquestrador exige teste de regressão sobre toda a máquina de
 estados.
 
@@ -581,7 +581,7 @@ consulta ao adquirente com o identificador de requisição original. Duplicidade
 60 s, contra os 9 minutos manuais.
 
 **Fase 4 (meses 13–18): conciliação automática.** Casamento automático e classificação de
-divergências. A equipe de conciliação é redirecionada, não reduzida — 9 das 14 pessoas passam
+divergências. A equipe de conciliação é redirecionada, não reduzida: 9 das 14 pessoas passam
 a tratar contestações, que era um gargalo.
 
 **Fase 5 (meses 19–24): assinaturas e contestações.** Retentativa inteligente com base em
@@ -625,7 +625,7 @@ p99 interno                             94 ms (orçamento de 120 ms)
 ```
 
 O ganho de 2,3 pontos percentuais na taxa de aprovação, sobre R$ 38 bilhões, é o maior efeito
-financeiro do projeto — e não era o objetivo declarado. Ele veio de duas mudanças: desviar
+financeiro do projeto, e não era o objetivo declarado. Ele veio de duas mudanças: desviar
 tráfego de adquirentes degradados, e parar de repetir recusas definitivas em outros
 parceiros, o que estava sendo penalizado pelas bandeiras.
 
@@ -649,7 +649,7 @@ foi em correção sob falha parcial, e nenhuma decisão foi motivada por volume.
 ## Conceitos Relacionados
 
 - [Idempotência](/06-distributed-systems/idempotency.md).
-- [Disjuntores](/12-reliability/circuit-breakers.md) — o desvio por saúde.
+- [Disjuntores](/12-reliability/circuit-breakers.md): o desvio por saúde.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 - [Case: Núcleo Bancário Digital](/21-case-studies/banking.md).
 

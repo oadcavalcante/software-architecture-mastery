@@ -2,7 +2,7 @@
 id: least-privilege
 title: Least Privilege
 sidebar_position: 12
-description: Granting only what is necessary — the principle that defines the size of the damage when something goes wrong.
+description: "Granting only what is necessary: the principle that defines the size of the damage when something goes wrong."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, authz-models, cloud-identity]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Least privilege is granting each identity — a person, a service, a process — only the access necessary for
+Least privilege is granting each identity (a person, a service, a process) only the access necessary for
 its function, and nothing beyond.
 
 It is the principle that **defines the size of the damage** when something goes wrong. The compromise is
@@ -70,7 +70,7 @@ and verifiable, whereas reducing by intuition is risky and nobody does it.
 The failure mode specific to people: somebody changes roles and receives the new accesses, without losing
 the old ones.
 
-After a few years and a few changes, that person has access to practically everything — without any
+After a few years and a few changes, that person has access to practically everything, without any
 individual grant having been wrong.
 
 The control is a periodic review by role, not by person: **what does this role need?**, and not **what does
@@ -88,7 +88,7 @@ temporary   access granted for 2 hours, with a justification and a record
 Temporary elevation allows administrative access to exist without being continuously exposed. If somebody's
 credential leaks, it does not come with elevated powers.
 
-It is the highest-impact change for human access, and it is operationally viable — the friction of
+It is the highest-impact change for human access, and it is operationally viable: the friction of
 requesting elevation is small compared to that of having no access at all.
 
 ### A service identity deserves more rigor than a person's
@@ -124,7 +124,7 @@ Least privilege costs: permission errors during development, time to find the ex
 friction.
 
 Pretending it does not cost is what makes the practice get abandoned at the first urgency. What makes it
-sustainable is reducing the friction — temporary elevation that is easy to request, tools that suggest the
+sustainable is reducing the friction: temporary elevation that is easy to request, tools that suggest the
 scope based on usage, development environments more permissive than production.
 
 ## Mental Model
@@ -148,7 +148,7 @@ Granting the minimum always applies. What has a limit is the effort of tightenin
 granted:
 
 **No usable usage log.** If the system does not record which permissions were exercised, or keeps less than
-a full operating cycle, the reduction would be by intuition — it breaks things and discredits the practice.
+a full operating cycle, the reduction would be by intuition: it breaks things and discredits the practice.
 The first step is to turn the log on and wait out the cycle, not to cut.
 
 **A short-lived environment.** A disposable environment that lasts days, with no real data and no
@@ -165,11 +165,11 @@ worse than the permission.
 
 Ways to reduce reach without rewriting the whole policy:
 
-- **Temporary elevation** — the highest return for human access.
-- **Separation by account or environment** — a more robust boundary than policy. See
+- **Temporary elevation**: the highest return for human access.
+- **Separation by account or environment**: a more robust boundary than policy. See
   [secure boundaries](/10-security/secure-boundaries.md).
-- **Short-lived credentials** — it reduces the exploitation window.
-- **Automated permission analysis** — it compares granted with used.
+- **Short-lived credentials**: it reduces the exploitation window.
+- **Automated permission analysis**: it compares granted with used.
 - **Two-person approval** for destructive operations.
 
 ## Trade-offs
@@ -231,7 +231,7 @@ The initial survey:
 
 **86% of the identities** had permissions never exercised in the last 90 days.
 
-**14 people** with permanent administrative access to production — out of a team of 60.
+**14 people** with permanent administrative access to production, out of a team of 60.
 
 **All 23 service identities** with read permission on every storage bucket, because the policy template had
 been copied from the first one.
@@ -239,35 +239,35 @@ been copied from the first one.
 **4 people** who had changed roles kept their previous accesses; one of them had passed through three areas
 and accumulated access to finance, operations and engineering.
 
-**The deployment pipeline** could change access policies — which meant that anybody able to approve a
+**The deployment pipeline** could change access policies. That meant that anybody able to approve a
 pipeline change could grant themselves any permission.
 
 The reduction was done in three phases, with data:
 
-**Phase 1 — cut by usage.** Permissions not exercised in 90 days were removed, with a two-week period in
+**Phase 1: cut by usage.** Permissions not exercised in 90 days were removed, with a two-week period in
 warning mode: instead of denying, record what would be denied. The two weeks were placed over the quarter
 close, when the quarterly routines run. That revealed 11 permissions used only by those routines, which
 would have broken. They were kept.
 
-**Phase 2 — temporary elevation.** Permanent administrative access was removed from the 14 people and
+**Phase 2: temporary elevation.** Permanent administrative access was removed from the 14 people and
 replaced by 4-hour elevation with a justification. Over the following six months, the average was 3
-elevations a week across the entire team — the permanent access was being kept for occasional use.
+elevations a week across the entire team: the permanent access was being kept for occasional use.
 
-**Phase 3 — scope per service.** Each service identity received its own policy, derived from the access
+**Phase 3: scope per service.** Each service identity received its own policy, derived from the access
 logs. Two broke, both from undocumented dependencies the analysis did not catch.
 
 Result after a year: the granted permissions fell by around 80%. Besides the two service breakages from
-phase 3, fixed by adjusting policy, there were three "missing permission" incidents in human access — all
+phase 3, fixed by adjusting policy, there were three "missing permission" incidents in human access, all
 resolved in under an hour through the elevation process.
 
 What was recorded afterward: phase 1 in warning mode is what made everything viable. The original proposal
-was to cut directly, and the operations team had vetoed it — rightly. Two weeks recording what would be
+was to cut directly, and the operations team had vetoed it, rightly. Two weeks recording what would be
 denied turned a risk discussion into a list of exceptions.
 
 ## Related Concepts
 
 - [Secure Boundaries](/10-security/secure-boundaries.md).
-- [Authorization Models](/10-security/authz-models.md) — how to express the permissions.
+- [Authorization Models](/10-security/authz-models.md): how to express the permissions.
 - [Cloud Identity](/09-cloud-architecture/cloud-identity.md).
 - [Auditability](/10-security/auditability.md).
 
@@ -287,7 +287,7 @@ has not happened yet.
 
 ## Further Reading
 
-- Saltzer, Jerome; Schroeder, Michael. *The Protection of Information in Computer Systems*, 1975 — the
+- Saltzer, Jerome; Schroeder, Michael. *The Protection of Information in Computer Systems*, 1975. The
   original formulation.
 - NIST SP 800-53 — access controls.
 - The major cloud providers' access analysis documentation.

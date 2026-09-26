@@ -2,7 +2,7 @@
 id: schema-evolution
 title: Schema Evolution
 sidebar_position: 14
-description: Changing the contract without breaking whoever depends on it — and why versioning is the last option, not the first.
+description: Changing the contract without breaking whoever depends on it, and why versioning is the last option, not the first.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, rest]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Every schema changes. The question is whether the change breaks whoever already depends on it.
 
-The central technique is not versioning — it is making **compatible** changes, so that producer and
+The central technique is not versioning but making **compatible** changes, so that producer and
 consumer can be deployed in any order, with no coordination.
 
 Versioning is what you do when the compatible change is not possible. It is the last resort, and it is
@@ -34,7 +34,7 @@ expensive: versions coexist for years.
 In an integration, producer and consumer are deployed separately and in an unpredictable order. A mobile
 client can go months without updating. An event written today may be read three years from now.
 
-That means that, at any instant, different versions of the schema are in circulation — in both
+That means that, at any instant, different versions of the schema are in circulation, in both
 directions.
 
 A change that requires "deploying the producer and the consumer together" is not executable in most real
@@ -96,7 +96,7 @@ and the data comes to mean something else. A semantic change requires a **new fi
 
 Forward compatibility only works if the consumer ignores fields it does not know.
 
-Consumers that fail on encountering an unknown field make **every** addition a break — and addition is
+Consumers that fail on encountering an unknown field make **every** addition a break, and addition is
 precisely the change that should be free.
 
 That has to be guaranteed from the first consumer, and verified. Several code generators produce strict
@@ -104,7 +104,7 @@ deserialization by default.
 
 ### Renaming is removing plus adding
 
-There is no compatible rename. Every rename is a removal — which breaks forward compatibility — plus an
+There is no compatible rename. Every rename is a removal (which breaks forward compatibility) plus an
 addition, which the new code does not find in old data.
 
 The compatible path is coexistence:
@@ -128,25 +128,25 @@ Step 3 is what requires knowing who consumes it. See
 A central registry that stores the schemas and **validates compatibility at publication** turns the rule
 into automation: an incompatible change is refused before reaching production.
 
-Without it, compatibility depends on discipline and review — which work until the day someone is in a
+Without it, compatibility depends on discipline and review, which work until the day someone is in a
 hurry.
 
 It pays for the cost of operating it when there are several consumers, consumers outside the team's
-control, or persisted events — the conditions under which a break only shows up after it has been written
+control, or persisted events: the conditions under which a break only shows up after it has been written
 or deployed by someone you do not coordinate with.
 
 ### Versioning, when there is no way out
 
 When the change is genuinely incompatible, coexistence remains:
 
-**In the URL** — explicit, easy to route, and the consumer has to change the address.
+**In the URL**: explicit, easy to route, and the consumer has to change the address.
 
-**In a header** — the address stays, and it is less visible.
+**In a header**: the address stays, and it is less visible.
 
-**In the content itself** — the schema carries its version; common in events.
+**In the content itself**: the schema carries its version; common in events.
 
 The real cost is not the choice between the three. It is that **each live version is code to maintain**,
-and removal depends on every consumer migrating — which takes longer than planned whenever some consumer is outside the team's control.
+and removal depends on every consumer migrating, which takes longer than planned whenever some consumer is outside the team's control.
 
 The question before versioning: can this be done as a compatible addition? Most of the time it can, with a
 little more modeling work.
@@ -164,7 +164,7 @@ and the reader only knows the latest.
 ## Mental Model
 
 **Compatible is what allows deploying in any order.** If the change requires coordination, it is
-incompatible — regardless of how small it looks.
+incompatible, regardless of how small it looks.
 
 ## When to Use
 
@@ -192,11 +192,11 @@ of the process.
 
 ## Alternatives
 
-- **A new field instead of a change** — it solves most cases.
-- **Translation at the edge** — a layer converts between versions, isolating the core. See
+- **A new field instead of a change**: it solves most cases.
+- **Translation at the edge**: a layer converts between versions, isolating the core. See
   [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Dual writing** — a period in which both fields are written.
-- **A new endpoint** — instead of versioning the whole API, versioning the operation that changed.
+- **Dual writing**: a period in which both fields are written.
+- **A new endpoint**: instead of versioning the whole API, versioning the operation that changed.
 
 ## Trade-offs
 
@@ -249,7 +249,7 @@ An insurance company published policy events consumed by six systems.
 A field `coverage_amount` was written in currency units. During an expansion to another country, the team
 decided to standardize on cents, to avoid rounding.
 
-The change was made keeping the name and the type — integer. The schema remained valid. The schema
+The change was made keeping the name and the type (integer). The schema remained valid. The schema
 registry approved it. Every test passed.
 
 For **nine days**, the six consumers processed values a hundred times larger. Claims were approved against
@@ -257,8 +257,8 @@ coverage limits inflated a hundredfold. Financial reports came out inconsistent.
 involved reprocessing nine days of events and reviewing hundreds of decisions made.
 
 The registry's structural validation had no way to catch that: the change was compatible in structure and
-incompatible in meaning. Controls of another kind would have — a value-range alert, a range assertion in the
-consumer's contract test, daily reconciliation — and the team only had reconciliation, running too late.
+incompatible in meaning. Controls of another kind would have (a value-range alert, a range assertion in the
+consumer's contract test, daily reconciliation), and the team only had reconciliation, running too late.
 
 The process changes:
 
@@ -273,15 +273,15 @@ approval from a second team, because no structural compatibility rule tells them
 alerts on monetary fields came in as a second line.
 
 **Strict consumer verification.** The audit discovered that two of the six consumers failed on an unknown
-field — that is, even a pure addition would have broken them. It was fixed before any other change.
+field. That is, even a pure addition would have broken them. It was fixed before any other change.
 
 What the team records: the schema registry gave false security. It guarantees the data *fits* the format,
-not that it *means* the same thing — and the team had come to trust it as if it guaranteed both.
+not that it *means* the same thing, and the team had come to trust it as if it guaranteed both.
 
 ## Related Concepts
 
-- [Integration Contracts](/08-integration-architecture/integration-contracts.md) — the context.
-- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — translation at
+- [Integration Contracts](/08-integration-architecture/integration-contracts.md): the context.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md): translation at
   the edge.
 - [Event-Driven Integration](/08-integration-architecture/event-driven-integration.md).
 - [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
@@ -292,7 +292,7 @@ Take the last schema your team changed and classify the change: backward compati
 neither?
 
 Then check whether one of your consumers fails on receiving a field it does not know. If it fails, you
-have no forward compatibility at all — and every addition is a break.
+have no forward compatibility at all, and every addition is a break.
 
 ## Interview Questions
 
@@ -302,6 +302,6 @@ have no forward compatibility at all — and every addition is a break.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 4.
-- Confluent. *Schema Evolution and Compatibility* — documentação do Schema Registry.
-- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021 — chapter 5.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 4.
+- Confluent. *Schema Evolution and Compatibility*. Documentação do Schema Registry.
+- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021. Chapter 5.

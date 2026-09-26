@@ -2,7 +2,7 @@
 id: enterprise-architecture-basics
 title: Fundamentos de Arquitetura Corporativa
 sidebar_position: 1
-description: O problema que a disciplina resolve — e por que a forma tradicional de exercê-la falha.
+description: O problema que a disciplina resolve, e por que a forma tradicional de exercê-la falha.
 doc_type: foundation
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-levels, enterprise-principles, technical-strategy]
 canonical_for: [arquitetura corporativa, otimização local, arquiteto corporativo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -22,13 +22,13 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 Arquitetura corporativa é a prática de tomar decisões que atravessam sistemas, times e
-anos — as que nenhum time isolado consegue tomar bem, porque o alcance excede o campo de
+anos: as que nenhum time isolado consegue tomar bem, porque o alcance excede o campo de
 visão dele.
 
 O problema que ela endereça é real: sem alguém olhando para o conjunto, cada time
 otimiza localmente, e o agregado é pior que a soma das partes.
 
-A forma tradicional de exercê-la — comitês, documentos, aprovações — frequentemente
+A forma tradicional de exercê-la (comitês, documentos, aprovações) frequentemente
 produz mais atrito que valor. Entender por quê é pré-requisito para fazer diferente.
 
 ## Por Que Isso Importa
@@ -46,8 +46,8 @@ tecnologia escolhida por preferência, com custo operacional multiplicado
 
 Nenhum desses é culpa de um time. Cada um fez a escolha razoável dentro do que enxergava.
 
-O custo aparece de forma difusa — mais integrações a manter, mais reconciliação, mais
-tempo para entender o que existe — e por isso raramente é atribuído à sua causa.
+O custo aparece de forma difusa (mais integrações a manter, mais reconciliação, mais
+tempo para entender o que existe), e por isso raramente é atribuído à sua causa.
 
 ## Conceitos Centrais
 
@@ -66,7 +66,7 @@ tecnologias de armazenamento, três conjuntos de conhecimento operacional, e tr�
 custo de sobreaviso.
 
 O trabalho da arquitetura corporativa é tornar esse custo agregado **visível** na hora
-da decisão local — não necessariamente proibir a escolha.
+da decisão local, não necessariamente proibir a escolha.
 
 ### As quatro camadas
 
@@ -88,7 +88,7 @@ A utilidade das camadas é permitir que uma conversa aconteça no nível certo. 
 discussão de investimento acontece na camada de negócio; uma de integração, na de
 aplicação.
 
-E a camada de dados é onde as decisões de maior alcance vivem — propriedade e fluxo de
+E a camada de dados é onde as decisões de maior alcance vivem: propriedade e fluxo de
 informação atravessam tudo. Ver
 [propriedade do dado](/07-data-architecture/data-ownership.md).
 
@@ -127,10 +127,10 @@ crédito distribuído                 o time decide, a arquitetura habilita
 mãos no trabalho                    construir junto, não apenas revisar
 ```
 
-A primeira linha é o ativo principal — não porque o dado seja inacessível aos times,
+A primeira linha é o ativo principal, não porque o dado seja inacessível aos times,
 mas porque cada um enxerga a própria parte e nenhum tem mandato para atravessar todas e
-agregar. Onde outra função já faz essa agregação — uma equipe de plataforma, um
-engenheiro principal —, o ativo é dela, e a arquitetura corporativa precisa de outro.
+agregar. Onde outra função já faz essa agregação (uma equipe de plataforma, um
+engenheiro principal), o ativo é dela, e a arquitetura corporativa precisa de outro.
 
 ### A disciplina é contínua, não um projeto
 
@@ -151,7 +151,7 @@ Artefato sem uso morre. Ver
 Uma falsa oposição comum: ou os times decidem, ou há arquitetura corporativa.
 
 O desenho que funciona combina os dois: decisões descem ao máximo, e a arquitetura
-corporativa cuida do que genuinamente atravessa — com **restrições e critérios**, não com
+corporativa cuida do que genuinamente atravessa, com **restrições e critérios**, não com
 aprovações caso a caso. Ver
 [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
@@ -174,7 +174,7 @@ restrição pede exceção, a exceção é concedida, e o padrão passa a valer 
 reclamou.
 
 **Medir a função pelos artefatos produzidos.** Produz-se o que é contável, e o trabalho
-caro — estar na conversa antes da decisão — não entra na contagem.
+caro (estar na conversa antes da decisão) não entra na contagem.
 
 ## Exemplo Real
 
@@ -200,7 +200,7 @@ derivado do inventário de sistemas e mantido pelos próprios times.
 por sistema, pesquisável, com o que foi decidido e por quê.
 
 **"Não sei o que quebra se eu mudar isto."** Um mapa de dependências derivado do
-rastreamento distribuído — que só enxerga os caminhos instrumentados. As integrações por
+rastreamento distribuído, que só enxerga os caminhos instrumentados. As integrações por
 arquivo e por banco compartilhado ficaram de fora e entraram à mão, e o mapa marca de
 qual origem vem cada aresta. Ver
 [rastreamento distribuído](/13-observability/distributed-tracing.md).
@@ -208,7 +208,7 @@ qual origem vem cada aresta. Ver
 **"Não sei quanto custa isto."** Custo por capacidade, derivado da marcação de recursos.
 Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
-Nenhum desses é aprovação. Todos dependem de atravessar sistemas de vários times —
+Nenhum desses é aprovação. Todos dependem de atravessar sistemas de vários times:
 trabalho que nenhum deles tinha por que fazer sozinho.
 
 Os padrões de 40 itens viraram 6 princípios, e o restante virou caminho pavimentado na
@@ -220,13 +220,13 @@ explícita. Ver
 [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 A avaliação posterior aponta: o trabalho da consultoria não estava tecnicamente errado. Ele
-foi produzido como entregável, e não como serviço contínuo aos times — e por isso morreu
+foi produzido como entregável, e não como serviço contínuo aos times. Por isso morreu
 na entrega.
 
 ## Conceitos Relacionados
 
-- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md) — a alocação de decisões.
-- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — a ferramenta central.
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md): a alocação de decisões.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md): a ferramenta central.
 - [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
 - [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md).
 

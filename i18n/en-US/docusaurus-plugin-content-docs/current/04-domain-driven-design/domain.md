@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-driven-design]
 related: [subdomain, ubiquitous-language, bounded-context]
 canonical_for: [domain, domain model]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ that came from decades of practice and constraints nobody programmed.
 ## The Problem
 
 > Prerequisite: [Domain-Driven Design](/04-domain-driven-design/index.md) establishes the
-> translation chain — expert, analyst, developer — and why nuance is lost at each
+> translation chain (expert, analyst, developer) and why nuance is lost at each
 > conversion. Here the focus is what remains when nobody made a mistake at any step.
 
 The loss is invisible from the inside: each step looks faithful to the previous one, and
@@ -41,7 +41,7 @@ anyone's understanding. A typical conversation:
 > — It is not, it does exactly what was specified.
 > — But that is not what a waiting period means.
 
-Nobody made a mistake at any step. The meaning degraded along the chain — which is why DDD
+Nobody made a mistake at any step. The meaning degraded along the chain. That is why DDD
 eliminates the conversions instead of trying to make them more faithful.
 
 ## Core Concepts
@@ -54,7 +54,7 @@ eliminates the conversions instead of trying to make them more faithful.
 deliberately discards what does not matter for that problem.
 
 A "customer" model for billing holds tax data and payment history. For logistics, it holds
-addresses and delivery restrictions. Neither is more correct — each serves a problem.
+addresses and delivery restrictions. Neither is more correct: each serves a problem.
 
 That observation leads directly to
 [bounded context](/04-domain-driven-design/bounded-context.md): different models, with
@@ -66,22 +66,22 @@ The change of posture DDD requires: the expert is not someone who "requests feat
 are the source of the knowledge the model has to capture.
 
 That means frequent, direct conversations between whoever writes the code and whoever
-understands the business — not mediated requirements. It is uncomfortable in organizations
+understands the business, not mediated requirements. It is uncomfortable in organizations
 structured around layers of communication, and it is the prerequisite for everything else.
 
 ### Domain versus technical complexity
 
 DDD is a response to **domain** complexity, not technical complexity.
 
-A system with trivial business rules and enormous technical challenges — a video processor,
-a caching service — does not benefit from DDD. The complexity is elsewhere.
+A system with trivial business rules and enormous technical challenges (a video processor,
+a caching service) does not benefit from DDD. The complexity is elsewhere.
 
 See [complexity](/01-fundamentals/complexity.md). Applying DDD where the complexity is not
 of the domain adds indirection without addressing the real problem.
 
 ### The model lives in the code
 
-A model that exists in documents and diagrams, and not in the code, is not a model — it is
+A model that exists in documents and diagrams, and not in the code, is not a model but
 documentation. When the two diverge, the code wins, because it is the one that runs.
 
 That means the model is refined continuously, in code, as understanding of the domain
@@ -90,9 +90,9 @@ improves. There is no modelling phase that ends.
 ## Why This Matters
 
 **Because translation is where meaning is lost.** Eliminating the conversions is DDD's
-central mechanism, and everything else —
-[ubiquitous language](/04-domain-driven-design/ubiquitous-language.md),
-[bounded context](/04-domain-driven-design/bounded-context.md), the tactical blocks —
+central mechanism, and everything else
+([ubiquitous language](/04-domain-driven-design/ubiquitous-language.md),
+[bounded context](/04-domain-driven-design/bounded-context.md), the tactical blocks)
 serves that.
 
 **Because it distinguishes where DDD applies.** If the system's complexity is not of the
@@ -125,14 +125,14 @@ used; the model has to keep up.
 ## Real-World Example
 
 A team was building the system for a reinsurance broker. After six months, the model had
-`Contract`, `Client`, `Amount` and `Status` — generic software vocabulary.
+`Contract`, `Client`, `Amount` and `Status`: generic software vocabulary.
 
 An expert, reviewing a screen, remarked that the distinction between "cession" and
 "retrocession" was missing, and that "premium" on the screen was not a premium, it was
 commission.
 
-Nobody on the team knew they were different things. All four terms — cession, retrocession,
-premium, commission — were used daily by the business and none existed in the code.
+Nobody on the team knew they were different things. All four terms (cession, retrocession,
+premium, commission) were used daily by the business and none existed in the code.
 
 Rewriting the model with the domain's vocabulary took two months. What changed was not just
 naming: on naming "retrocession", it became evident that it had rules the generic model did
@@ -143,12 +143,12 @@ They were consequences of the model not representing a distinction the domain ma
 
 ## Related Concepts
 
-- [Subdomain](/04-domain-driven-design/subdomain.md) — the division of the domain.
-- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md) — the mechanism
+- [Subdomain](/04-domain-driven-design/subdomain.md): the division of the domain.
+- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md): the mechanism
   that eliminates translation.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — why there is no single
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): why there is no single
   model.
-- [Problem Space](/01-fundamentals/problem-space.md) — the corresponding concept in Level
+- [Problem Space](/01-fundamentals/problem-space.md): the corresponding concept in Level
   01.
 
 ## Practical Exercise
@@ -157,7 +157,7 @@ List ten terms your business's experts use daily.
 
 Check how many exist in the code with the same name and the same meaning.
 
-The ones that do not are distinctions the domain makes and the model does not — and each is
+The ones that do not are distinctions the domain makes and the model does not, and each is
 a likely source of a defect or a scattered special case.
 
 ## Interview Questions

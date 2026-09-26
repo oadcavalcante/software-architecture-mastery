@@ -2,7 +2,7 @@
 id: messaging
 title: Messaging
 sidebar_position: 19
-description: Communication through durable messages — the models, and what the channel does and does not guarantee.
+description: "Communication through durable messages: the models, and what the channel does and does not guarantee."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [delivery-guarantees, ordering, event-driven-systems]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,15 +27,15 @@ last_reviewed: 2026-08-31
 Messaging is communication through messages brokered by a durable component, instead of direct
 calls.
 
-It decouples producer and consumer in time. And it introduces a set of guarantees — and of absences
-of guarantee — that have to be known before adopting, not discovered in production.
+It decouples producer and consumer in time. And it introduces a set of guarantees (and of absences
+of guarantee) that have to be known before adopting, not discovered in production.
 
 ## Problem
 
 A direct call couples in time: if the destination is down, the origin is down.
 
 Messaging solves that, and the choice of **which model** is usually made by the available tool
-instead of by the consumption pattern — which produces systems where the model does not match the
+instead of by the consumption pattern. That produces systems where the model does not match the
 usage.
 
 The two models have distinct semantics, and confusing them creates expectations the channel does
@@ -60,9 +60,9 @@ consumers.
 **A log** models facts: the event happened and several interested parties react, each at their own
 pace, each with their own position.
 
-The wrong choice shows up like this: using a queue when several systems need the same event — and
+The wrong choice shows up like this: using a queue when several systems need the same event, and
 ending up creating one queue per consumer, with the producer publishing N times. Or using a log to
-distribute work — and having to coordinate who processes what.
+distribute work, and having to coordinate who processes what.
 
 ### The channel is a network
 
@@ -70,13 +70,13 @@ Regardless of the model, the channel inherits the problems of
 [network failure](/06-distributed-systems/network-failure.md), and that produces three guarantees
 the application has to handle:
 
-**[At-least-once delivery](/06-distributed-systems/delivery-guarantees.md)** — duplication will
+**[At-least-once delivery](/06-distributed-systems/delivery-guarantees.md)**: duplication will
 happen.
 
-**[Ordering only per partition](/06-distributed-systems/ordering.md)** — global ordering requires
+**[Ordering only per partition](/06-distributed-systems/ordering.md)**: global ordering requires
 a single partition, and the price is the topic's throughput capped at one consumer.
 
-**Messages that always fail** — they need a
+**Messages that always fail**: they need a
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
 
 None of those is optional. Adopting messaging without handling them is adopting the risk without the
@@ -89,7 +89,7 @@ if the processing fails.
 
 In the queue model, between delivery and acknowledgment the message is invisible to other consumers
 for a period. If that period is shorter than the processing, the message is redelivered while it is
-still being processed — systematic duplication.
+still being processed: systematic duplication.
 
 That value has to be calibrated from the high percentile of the processing time, not estimated.
 
@@ -102,23 +102,23 @@ the last committed position.
 Publishing a message and writing to the database are not atomic. It can write and not publish, or
 publish and fail to write.
 
-The solution is the **outbox** pattern — see
+The solution is the **outbox** pattern (see
 [delivery guarantees](/06-distributed-systems/delivery-guarantees.md), the canonical document on the
-topic: publishing stops being a second write and comes to depend only on the data's transaction.
+topic): publishing stops being a second write and comes to depend only on the data's transaction.
 
-Ignoring that produces silent message loss — there is no error in any log, and the symptom shows up
+Ignoring that produces silent message loss: there is no error in any log, and the symptom shows up
 in the consumer that never received it.
 
 ### Push and pull
 
-**Push** — the broker sends to the consumer. Low latency, and the consumer can be overloaded if
+**Push**: the broker sends to the consumer. Low latency, and the consumer can be overloaded if
 there is no flow control. See
 [backpressure](/06-distributed-systems/backpressure.md).
 
-**Pull** — the consumer fetches when it can. Natural pace control, at the cost of interval latency.
+**Pull**: the consumer fetches when it can. Natural pace control, at the cost of interval latency.
 
 Pull with long polling combines the two: the consumer asks, and the connection stays open until
-there is a message or it expires — pull's pace control with latency close to push's. It is the usual
+there is a message or it expires (pull's pace control with latency close to push's). It is the usual
 form wherever the broker offers it.
 
 ## Mental Model
@@ -131,7 +131,7 @@ for someone or an occurrence for whoever is interested.
 - The producer does not need the response.
 - The consumer can process with a delay.
 - You need to absorb a peak.
-- Several parties are interested in the same fact — there, a log.
+- Several parties are interested in the same fact: there, a log.
 - The work is slow and does not fit in a request.
 
 ## When Not to Use
@@ -152,11 +152,11 @@ the indexes of a database.
 
 ## Alternatives
 
-- **Synchronous call** — when the response matters.
-- **A table as a queue** — for low volume, using the existing database avoids one more component to
+- **Synchronous call**: when the response matters.
+- **A table as a queue**: for low volume, using the existing database avoids one more component to
   operate.
-- **Direct call with retries** — when there is one consumer and it is reliable.
-- **Scheduled processing** — when the tolerated latency is high.
+- **Direct call with retries**: when there is one consumer and it is reliable.
+- **Scheduled processing**: when the tolerated latency is high.
 
 ## Trade-offs
 
@@ -185,12 +185,12 @@ the indexes of a database.
 
 ## Common Mistakes
 
-**Choosing the model by the available tool.** Queues and event logs solve different problems — work
+**Choosing the model by the available tool.** Queues and event logs solve different problems: work
 to be executed once versus a fact many read at their own pace. Using whatever is already installed
 for both forces one of the two cases into the wrong shape.
 
 **Not calibrating the visibility timeout.** If it is shorter than the processing time, the message
-reappears for another consumer while the first is still working — and the effect happens twice.
+reappears for another consumer while the first is still working, and the effect happens twice.
 
 **Not monitoring depth and the oldest message's age.** The two measure distinct things: depth flags
 an input spike, age flags a stalled consumer. A queue with ten messages stuck for two hours is more
@@ -217,7 +217,7 @@ Three problems appeared.
 service and deploying it. Over two years, that happened three times.
 
 **Partial publication.** Publishing to four queues is not atomic. During a momentary broker outage,
-messages went to two queues and not to the other two — and billing processed deliveries support
+messages went to two queues and not to the other two, and billing processed deliveries support
 never knew existed.
 
 **Reprocessing impossible.** When analytics needed to recompute six months of metrics, there was no
@@ -235,17 +235,17 @@ log only accumulates the history from then on, and the six-month retention was a
 paid for in storage. Once that window had passed, analytics recomputed six months in two hours by
 rereading that history.
 
-What the team learned: the queue was not wrong as a technology. It was wrong as a **model** — the
+What the team learned: the queue was not wrong as a technology. It was wrong as a **model**: the
 case was distribution of facts, not of work, and the symptom of having chosen wrong was having to
 publish N times.
 
 ## Related Concepts
 
-- [Delivery Guarantees](/06-distributed-systems/delivery-guarantees.md) — what the channel promises.
+- [Delivery Guarantees](/06-distributed-systems/delivery-guarantees.md): what the channel promises.
 - [Ordering](/06-distributed-systems/ordering.md) and
   [Duplicate Messages](/06-distributed-systems/duplicate-messages.md).
 - [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md).
-- [Queues](/05-system-design/queues.md) — the system design view.
+- [Queues](/05-system-design/queues.md): the system design view.
 
 ## Practical Exercise
 
@@ -264,4 +264,4 @@ is the symptom.
 ## Further Reading
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 11.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 11.

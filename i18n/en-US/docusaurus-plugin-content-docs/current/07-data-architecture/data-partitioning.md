@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-replication, indexing, data-lifecycle]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ only the relevant parts.
 
 The distributed fundamentals are in
 [partitioning](/06-distributed-systems/partitioning.md). Here the focus is its use within one store:
-the benefit that almost always pays off is not query performance — it is **maintenance**.
+the benefit that almost always pays off is **maintenance**, not query performance.
 
 ## Problem
 
@@ -57,7 +57,7 @@ SELECT SUM(amount) FROM sales WHERE sale_date >= '2025-01-01'
 Twelve partitions read instead of sixty. The gain is proportional to the fraction pruned.
 
 And the condition is strict: **the query has to filter by the partition key**. A query that filters by
-customer on a table partitioned by date reads every partition — and becomes slower than the
+customer on a table partitioned by date reads every partition, and becomes slower than the
 unpartitioned table, because now there are sixty accesses instead of one.
 
 That is the point that decides whether partitioning helps or hurts.
@@ -69,20 +69,20 @@ The most reliable benefit and the least cited.
 Deleting six months of data from a large table is an hours-long operation, with locking and transaction
 log growth.
 
-Dropping a partition is a metadata operation — milliseconds, no log growth. The lock
+Dropping a partition is a metadata operation: milliseconds, no log growth. The lock
 exists, but it is exclusive and brief; the risk is that it waits behind a long transaction
 and queues every query on the table behind itself, which is why the drop runs with a lock
 wait timeout.
 
-When retention deletes are already the operational constraint — hours of runtime, a
-contested window — that alone justifies partitioning by time. See
+When retention deletes are already the operational constraint (hours of runtime, a
+contested window), that alone justifies partitioning by time. See
 [data lifecycle](/07-data-architecture/data-lifecycle.md).
 
 ### The strategies
 
 **By range.** Typically time. It is the most common and the one that serves retention.
 
-**By list.** Discrete values — region, country, type. Good when the queries always filter by that
+**By list.** Discrete values: region, country, type. Good when the queries always filter by that
 dimension.
 
 **By hash.** Distributes uniformly. It eliminates concentration and **eliminates partition pruning** for
@@ -104,7 +104,7 @@ Automating creation months in advance is the first operational item for any part
 
 In several databases, a unique index on a partitioned table has to include the partition key.
 
-That means guaranteeing global uniqueness of a field — a document number, for example — may not be
+That means guaranteeing global uniqueness of a field (a document number, for example) may not be
 possible if the table is partitioned by something else.
 
 It is a constraint that usually appears late, after the model is defined.
@@ -116,7 +116,7 @@ Each partition has metadata overhead, and the planner has to evaluate them.
 Thousands of partitions degrade query planning time, sometimes to the point of dominating the execution
 time.
 
-Partitioning by day with seven years of retention gives 2,500 partitions — generally too many. By month
+Partitioning by day with seven years of retention gives 2,500 partitions, generally too many. By month
 gives 84, which is comfortable.
 
 ## Mental Model
@@ -126,7 +126,7 @@ gives 84, which is comfortable.
 ## When to Use
 
 - The table is large and grows continuously.
-- There is a retention policy — deleting by partition is the decisive gain.
+- There is a retention policy: deleting by partition is the decisive gain.
 - The queries consistently filter by one dimension.
 - Maintaining the whole table is already unviable.
 - Old data can move to cheaper storage.
@@ -145,16 +145,16 @@ table fits comfortably in the maintenance window, partitioning is complexity wit
 **With granularity that is too fine.** In the thousands of partitions, planning time
 starts to compete with execution time.
 
-**To solve a slow query.** Check the [index](/07-data-architecture/indexing.md) first — it is the most
+**To solve a slow query.** Check the [index](/07-data-architecture/indexing.md) first: it is the most
 likely cause.
 
 ## Alternatives
 
-- **An adequate [index](/07-data-architecture/indexing.md)** — it solves most slow query cases.
-- **Periodic archiving** — moving old data to another table.
-- **[Columnar](/07-data-architecture/column-stores.md)** — block skipping by minimum and maximum value,
+- **An adequate [index](/07-data-architecture/indexing.md)**: it solves most slow query cases.
+- **Periodic archiving**: moving old data to another table.
+- **[Columnar](/07-data-architecture/column-stores.md)**: block skipping by minimum and maximum value,
   with no partitioning.
-- **Deleting in small batches** — it solves the retention problem without partitioning, at the cost of a
+- **Deleting in small batches**: it solves the retention problem without partitioning, at the cost of a
   continuous process.
 
 ## Trade-offs
@@ -207,14 +207,14 @@ of the field is no longer enforced by the database and becomes the application's
 ## Real-World Example
 
 An industrial monitoring system stored sensor readings: 44 billion rows, growing by 40 million per day,
-with 3 years of retention — the regime in which rate and retention have already balanced out.
+with 3 years of retention (the regime in which rate and retention have already balanced out).
 
 Two problems dominated operations.
 
 **Deleting old data.** The nightly process deleted readings older than 3 years. It took 5 hours,
 generated 40 GB of transaction log and degraded the system while running.
 
-**Index rebuilds.** Impossible — the necessary window did not exist.
+**Index rebuilds.** Impossible: the necessary window did not exist.
 
 Partitioning by month solved both:
 
@@ -228,22 +228,22 @@ Two problems appeared:
 
 **A query by sensor with no period.** The diagnostics screen fetched a sensor's complete history with no
 date filter. Before it read an index; afterwards it came to scan 36 partitions, and became **slower**.
-Fixed by adding a default 30-day period filter in the interface — which, reviewed with the operators,
+Fixed by adding a default 30-day period filter in the interface. Reviewed with the operators, it
 was what they wanted anyway.
 
 **A partition not created.** In the third month, the 1st arrived with no partition. Ingestion stopped at
 00:00 and was down for 40 minutes until someone understood. The automation came to create 6 months in
 advance, with an alert if fewer than 3 remain.
 
-The reading the team takes from it: the gain that justified the project was not query performance — it
-was turning the daily deletion from a risky operation into metadata. The query gain came along and was
+The reading the team takes from it: the gain that justified the project was turning
+the daily deletion from a risky operation into metadata, not query performance. The query gain came along and was
 treated as a bonus.
 
 ## Related Concepts
 
-- [Partitioning](/06-distributed-systems/partitioning.md) — the fundamentals.
-- [Indexing](/07-data-architecture/indexing.md) — check first.
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention.
+- [Partitioning](/06-distributed-systems/partitioning.md): the fundamentals.
+- [Indexing](/07-data-architecture/indexing.md): check first.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): retention.
 - [Data Replication](/07-data-architecture/data-replication.md).
 
 ## Practical Exercise
@@ -251,7 +251,7 @@ treated as a bonus.
 Take the largest table in your database and answer: how is old data deleted today, and how long does
 that operation take?
 
-If the answer is "it is not deleted", the table will grow forever — and that is a decision nobody made.
+If the answer is "it is not deleted", the table will grow forever, and that is a decision nobody made.
 
 ## Interview Questions
 
@@ -261,6 +261,6 @@ If the answer is "it is not deleted", the table will grow forever — and that i
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 6.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 6.
 - Winand, Markus. *SQL Performance Explained*, 2012.
 - Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4th ed. O'Reilly, 2021.

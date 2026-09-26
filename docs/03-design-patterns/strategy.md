@@ -2,7 +2,7 @@
 id: strategy
 title: Strategy
 sidebar_position: 20
-description: Encapsular algoritmos intercambiáveis — e, na maior parte do código de aplicação, uma função basta.
+description: Encapsular algoritmos intercambiáveis. Na maior parte do código de aplicação, uma função basta.
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [state, template-method, bridge]
 canonical_for: [strategy, estratégia]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,8 +25,8 @@ Strategy define uma família de algoritmos, encapsula cada um, e os torna
 intercambiáveis.
 
 É o padrão que aparece em mais lugares do código de aplicação, quase sempre na forma
-degenerada de uma função passada como argumento. E é onde a cerimônia da versão completa —
-interface, implementações, seleção — mais frequentemente cobra sem entregar: com duas
+degenerada de uma função passada como argumento. E é onde a cerimônia da versão completa
+(interface, implementações, seleção) mais frequentemente cobra sem entregar: com duas
 variantes que ninguém vai estender, um `if` diz a mesma coisa em menos linhas.
 
 ## Problema
@@ -55,7 +55,7 @@ E ele impede variação em execução: a escolha está no código, não nos dado
 
 ### A estrutura
 
-Só a seta do contexto é cheia — as outras duas marcam implementação, não uso.
+Só a seta do contexto é cheia: as outras duas marcam implementação, não uso.
 
 ```mermaid
 graph LR
@@ -70,7 +70,7 @@ comportamento sem tocar o contexto.
 ### Strategy é composição sobre herança aplicada
 
 O que [Template Method](/03-design-patterns/template-method.md) faz com herança, Strategy faz com
-composição — e por isso herda as vantagens: variação em execução, sem
+composição, e por isso herda as vantagens: variação em execução, sem
 acoplamento à implementação da base, e múltiplos eixos combináveis.
 
 ### Em linguagens com funções de primeira classe, é uma função
@@ -82,7 +82,7 @@ resolve o mesmo com menos código:
 calcular(valor, taxa -> valor * taxa)
 ```
 
-Isso não é uma simplificação menor — é a forma que o padrão assume na maior parte
+Isso não é uma simplificação menor: é a forma que o padrão assume na maior parte
 do código moderno, e a razão pela qual "Strategy" aparece menos como nome
 explícito mesmo sendo usado o tempo todo.
 
@@ -92,7 +92,7 @@ O padrão não diz quem escolhe a estratégia. Três opções, com consequência
 diferentes: o cliente escolhe e injeta; uma fábrica escolhe a partir de um dado;
 ou a configuração define.
 
-A segunda apenas move o `switch` para a fábrica — o que é uma melhoria real
+A segunda apenas move o `switch` para a fábrica. Isso é uma melhoria real
 (ele existe uma vez, não em cada operação), mas não o elimina.
 
 ## Quando Usar
@@ -118,16 +118,16 @@ exercida.
 método.** Use a função.
 
 **Quando as estratégias precisam de dados diferentes.** Se cada uma exige
-parâmetros distintos, a interface comum vira um conjunto de parâmetros opcionais
-— e o padrão está forçando uma uniformidade que não existe.
+parâmetros distintos, a interface comum vira um conjunto de parâmetros opcionais,
+e o padrão está forçando uma uniformidade que não existe.
 
 ## Alternativas
 
-- **Função como parâmetro** — a forma moderna do mesmo padrão.
-- **Condicional simples** — para duas variantes estáveis.
-- **Tabela de despacho** — um mapa de chave para função, quando a seleção é por
+- **Função como parâmetro**: a forma moderna do mesmo padrão.
+- **Condicional simples**: para duas variantes estáveis.
+- **Tabela de despacho**: um mapa de chave para função, quando a seleção é por
   valor.
-- **Polimorfismo no próprio objeto** — se a variação acompanha o tipo do dado, o
+- **Polimorfismo no próprio objeto**: se a variação acompanha o tipo do dado, o
   método pode morar nele.
 
 ## Trade-offs
@@ -174,7 +174,7 @@ de comparação é passado. Em linguagens modernas, uma função.
 
 **Codificação e compressão.** Bibliotecas que aceitam o algoritmo como parâmetro.
 
-**Políticas de repetição.** Espera fixa, exponencial, com variação aleatória —
+**Políticas de repetição.** Espera fixa, exponencial, com variação aleatória:
 cada uma uma estratégia, escolhida por configuração.
 
 **Cálculo de frete, imposto e desconto.** O uso mais comum em sistemas de
@@ -191,7 +191,7 @@ Um sistema de assinaturas calculava desconto com um método de 200 linhas e sete
 ramos: primeiro mês, anual, cupom, indicação, parceria, funcionário, reativação.
 
 O condicional existia em três lugares: cálculo do valor, exibição da simulação e
-relatório financeiro. Os três tinham divergido — o relatório não conhecia
+relatório financeiro. Os três tinham divergido: o relatório não conhecia
 "reativação", adicionada seis meses antes.
 
 A extração em estratégias resolveu a divergência por construção: passou a existir
@@ -206,9 +206,9 @@ Nem todo caso precisa de uma classe.
 
 ## Conceitos Relacionados
 
-- [State](/03-design-patterns/state.md) — parecido, com transição interna.
-- [Template Method](/03-design-patterns/template-method.md) — a versão com herança.
-- [Bridge](/03-design-patterns/bridge.md) — duas dimensões, não uma.
+- [State](/03-design-patterns/state.md): parecido, com transição interna.
+- [Template Method](/03-design-patterns/template-method.md): a versão com herança.
+- [Bridge](/03-design-patterns/bridge.md): duas dimensões, não uma.
 - [Composição vs. Herança](/02-software-design/composition-vs-inheritance.md).
 
 ## Exercício Prático

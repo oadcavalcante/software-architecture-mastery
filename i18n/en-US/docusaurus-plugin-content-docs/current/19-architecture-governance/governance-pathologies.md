@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-review, measuring-governance]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Governance degenerates in specific, repeated ways. None of them starts as an error — each
+Governance degenerates in specific, repeated ways. None of them starts as an error: each
 pathology is the reasonable response to a real problem, applied for too long or at the wrong
 point.
 
@@ -45,7 +45,7 @@ a delay          → a checkpoint is created
 ```
 
 Each step is defensible. None is reversed. After a few years, the organization has dozens of
-mechanisms, of which a small fraction still addresses a live risk — and the aggregate cost is
+mechanisms, of which a small fraction still addresses a live risk, and the aggregate cost is
 invisible because it is spread across small delays.
 
 The most reliable sign that this has happened: **nobody can name the last governance
@@ -177,12 +177,12 @@ effect    duplicated verification, friction with no corresponding risk
 way out   map each mechanism against the current automated controls
 ```
 
-This is the quietest mode in the catalog, because the mechanism keeps "working" — it merely
+This is the quietest mode in the catalog, because the mechanism keeps "working": it merely
 checks something that can no longer go wrong. Manual approval of network configuration
 survives years after the network came to be declared in code and verified in the pipeline.
 
 The diagnosis is cheap: for each human mechanism, ask what would happen if it were removed
-**today**, with the automated controls that exist today — and not with those that existed
+**today**, with the automated controls that exist today, and not with those that existed
 when it was created.
 
 The difficulty is that the question is rarely asked by whoever operates the mechanism, and
@@ -200,7 +200,7 @@ an expiry date.
 This catalog serves as a checklist:
 
 - When inheriting a governance structure.
-- When proposing a new mechanism — to anticipate how it degenerates.
+- When proposing a new mechanism, to anticipate how it degenerates.
 - In a periodic review of the set of mechanisms.
 - When teams complain about friction without being able to point at a cause.
 
@@ -208,10 +208,10 @@ This catalog serves as a checklist:
 
 **As an accusation.** The people who created the mechanisms were right.
 
-**To remove everything** — the absence of governance has its own cost, and it is worse in
+**To remove everything**: the absence of governance has its own cost, and it is worse in
 large organizations.
 
-**Without measuring first** — removing a mechanism without knowing what it prevents is a
+**Without measuring first**: removing a mechanism without knowing what it prevents is a
 gamble.
 
 **When one person knows every mechanism and its owner.** The catalog diagnoses accumulation
@@ -220,14 +220,14 @@ is fixed one at a time, with no inventory.
 
 ## Alternatives
 
-- **Temporary suspension** — instead of removing, suspend for a quarter and observe.
-- **Scope reduction** — keep the mechanism only for the risk class that justifies it.
-- **Changing the intervention point** — almost always better than removing. See
+- **Temporary suspension**: instead of removing, suspend for a quarter and observe.
+- **Scope reduction**: keep the mechanism only for the risk class that justifies it.
+- **Changing the intervention point**: almost always better than removing. See
   [basics](/19-architecture-governance/governance-basics.md).
-- **Replacement by automation** — the human mechanism becomes a check.
+- **Replacement by automation**: the human mechanism becomes a check.
 
 The first is the most underused and the most informative: it produces evidence instead of an
-argument — provided the window covers at least one expected event. A mechanism that catches
+argument, provided the window covers at least one expected event. A mechanism that catches
 something once every 24 months goes a quarter in silence about 88% of the time (e^(-3/24)),
 suspended or not; for rare, severe risk, a quiet quarter does not authorize removal, and the
 evidence has to come from the record of catches.
@@ -268,7 +268,7 @@ is only reexamined when someone dares to propose taking it out.
 **Not measuring friction.** The removal proposal has no argument against whoever defends the
 mechanism by the risk it prevents: one side brings an incident, the other an impression.
 
-**Confusing ritual with culture** — the meeting that "has always existed" is rarely culture.
+**Confusing ritual with culture**: the meeting that "has always existed" is rarely culture.
 
 **Not asking what the last removed mechanism was.**
 
@@ -278,7 +278,7 @@ A financial services company with 500 engineers ran an inventory of engineering 
 mechanisms, prompted by an internal survey in which "bureaucracy" appeared as the main
 reported obstacle.
 
-The inventory found **34 mechanisms** — committees, approvals, reports, mandatory checks,
+The inventory found **34 mechanisms**: committees, approvals, reports, mandatory checks,
 forms. No single person in the organization knew all of them.
 
 For each one, four questions:
@@ -308,13 +308,13 @@ The reduction program, over 12 months:
 
 **Suspension of 9 mechanisms** for a quarter, chosen from among those with no owner and those
 with no demonstrated effectiveness. Nothing broke in 7 of them; they were removed
-permanently. Two were reinstated — a data exposure report and a dependency check — now with an
+permanently. Two were reinstated (a data exposure report and a dependency check), now with an
 owner and a narrowed scope.
 
 **11 mechanisms converted into automated checks**, moving the intervention point. See
 [fitness functions](/19-architecture-governance/fitness-functions-governance.md).
 
-**8 mechanisms with a narrowed scope** to the risk class that justified them — the most
+**8 mechanisms with a narrowed scope** to the risk class that justified them: the most
 significant went from "every project" to "projects with regulated data or an irreversible
 commitment above a threshold".
 
@@ -347,19 +347,19 @@ owner, which was exactly what had been missing.
 
 ## Related Concepts
 
-- [Governance Basics](/19-architecture-governance/governance-basics.md) — the intervention
+- [Governance Basics](/19-architecture-governance/governance-basics.md): the intervention
   point.
-- [Review](/19-architecture-governance/governance-review.md) — the committee that approves
+- [Review](/19-architecture-governance/governance-review.md): the committee that approves
   everything.
-- [Compliance](/19-architecture-governance/compliance.md) — compliance theater.
-- [Measurement](/19-architecture-governance/measuring-governance.md) — how to know whether a
+- [Compliance](/19-architecture-governance/compliance.md): compliance theater.
+- [Measurement](/19-architecture-governance/measuring-governance.md): how to know whether a
   mechanism works.
 
 ## Practical Exercise
 
 Ask, in your organization: what was the last governance mechanism removed, and when?
 
-If nobody can answer, the set has only grown — and the diagnosis holds regardless of which
+If nobody can answer, the set has only grown, and the diagnosis holds regardless of which
 mechanism you examine first.
 
 ## Interview Questions

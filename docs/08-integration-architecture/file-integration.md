@@ -2,7 +2,7 @@
 id: file-integration
 title: Integração por Arquivo
 sidebar_position: 8
-description: O transporte mais antigo e mais usado entre organizações — e o que ele exige para ser confiável.
+description: O transporte mais antigo e mais usado entre organizações, e o que ele exige para ser confiável.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [batch-integration]
 related: [batch-integration, integration-contracts, data-lifecycle]
 canonical_for: [integração por arquivo, arquivo de controle, escrita atômica]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,24 +24,24 @@ last_reviewed: 2026-08-27
 Trocar arquivos é a forma mais antiga de integração entre sistemas, e continua
 sendo a mais comum entre organizações diferentes.
 
-Bancos, operadoras, governo, seguradoras, folha de pagamento — a maior parte do
+Bancos, operadoras, governo, seguradoras, folha de pagamento: a maior parte do
 volume corporativo trafega como arquivo depositado em algum lugar.
 
 Ela é subestimada porque parece primitiva. Ela é primitiva, e é a que exige menos
 das duas pontas: nenhuma precisa expor endpoint nem manter disponibilidade síncrona
-para a outra — basta um protocolo de transferência e um formato acordado.
+para a outra. Basta um protocolo de transferência e um formato acordado.
 
 ## Problema
 
-Duas organizações que não podem — por regulação, por política, por incompatibilidade
-tecnológica — expor APIs uma à outra ainda precisam trocar dados.
+Duas organizações que não podem (por regulação, por política, por incompatibilidade
+tecnológica) expor APIs uma à outra ainda precisam trocar dados.
 
 Arquivo resolve com o mínimo de acoplamento possível: um formato, um local, uma
 periodicidade. Nenhuma das pontas precisa saber nada sobre a tecnologia da outra.
 
 O preço é que **nenhuma garantia vem junto**. Não há entrega confirmada, não há
 transação, não há esquema validado, não há detecção de duplicata. Tudo isso
-precisa ser construído sobre a troca — e é o que separa integração por arquivo
+precisa ser construído sobre a troca, e é o que separa integração por arquivo
 confiável de fonte permanente de incidente.
 
 ## Conceitos Centrais
@@ -49,7 +49,7 @@ confiável de fonte permanente de incidente.
 ### Escrita atômica: o problema número um
 
 Quem lê pode começar a ler enquanto quem escreve ainda está escrevendo. O
-resultado é um arquivo processado pela metade — e a metade parece completa.
+resultado é um arquivo processado pela metade, e a metade parece completa.
 
 A solução padrão é simples:
 
@@ -59,13 +59,13 @@ A solução padrão é simples:
 3. renomear para o nome final     dados.csv
 ```
 
-A renomeação é atômica quando origem e destino estão no mesmo sistema de arquivos —
-por isso o temporário vai no mesmo diretório do nome final. Nessa condição, o leitor
+A renomeação é atômica quando origem e destino estão no mesmo sistema de arquivos.
+Por isso o temporário vai no mesmo diretório do nome final. Nessa condição, o leitor
 nunca vê um arquivo parcial. Entre pontos de montagem, a renomeação vira cópia mais
 remoção e a janela reabre.
 
-A alternativa, quando a renomeação não é atômica — montagens de rede, armazenamento
-de objetos: um **arquivo de controle** escrito depois, e o leitor só processa quando
+A alternativa, quando a renomeação não é atômica (montagens de rede, armazenamento
+de objetos): um **arquivo de controle** escrito depois, e o leitor só processa quando
 ele existe.
 
 Está entre os defeitos mais frequentes da categoria, e evitá-lo custa uma renomeação.
@@ -103,7 +103,7 @@ A defesa é um rodapé ou um arquivo de controle com a contagem de registros e a
 soma dos valores. O leitor confere antes de processar.
 
 Isso detecta o que muda a contagem ou o campo somado: truncamento e a linha perdida
-num filtro intermediário. Não detecta corrupção fora do campo somado — o Exemplo Real
+num filtro intermediário. Não detecta corrupção fora do campo somado: o Exemplo Real
 deste documento traz um caso que rodou três semanas com contagem e soma batendo. Para
 essa classe, a defesa é validação de esquema e de codificação na entrada.
 
@@ -113,7 +113,7 @@ CSV parece trivial e não é. Delimitador dentro do campo, quebra de linha dentr
 campo, aspas, codificação de caracteres, formato de data, separador decimal.
 
 Cada um desses já derrubou integrações reais. O contrato precisa fixar todos
-explicitamente — inclusive a codificação, que é a causa mais frequente de "os
+explicitamente, inclusive a codificação, que é a causa mais frequente de "os
 acentos vieram errados".
 
 Formatos com esquema declarado evitam a maior parte disso, e nem sempre a outra
@@ -121,7 +121,7 @@ ponta os aceita.
 
 ### Ordem e reprocessamento
 
-Arquivos podem chegar fora de ordem — uma retransmissão de ontem chegando depois
+Arquivos podem chegar fora de ordem: uma retransmissão de ontem chegando depois
 da de hoje. O processamento precisa usar a data do nome, não a de chegada.
 
 E o reprocessamento precisa ser possível: guardar os arquivos originais, com
@@ -145,7 +145,7 @@ outros estilos dão de graça, aqui você constrói.
 ## Quando Usar
 
 - As organizações não podem expor APIs uma à outra.
-- O parceiro só oferece esse canal — bancos, governo, operadoras.
+- O parceiro só oferece esse canal: bancos, governo, operadoras.
 - Volume alto com periodicidade definida.
 - Requisito regulatório de arquivo em formato específico.
 - A integração precisa funcionar sem dependência tecnológica comum.
@@ -171,12 +171,12 @@ que o barramento não dê. Ver [mensageria](/08-integration-architecture/messagi
 
 ## Alternativas
 
-- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — internamente, ou quando o parceiro
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)**: internamente, ou quando o parceiro
   aceita.
-- **API de leitura paginada** — o parceiro busca em vez de receber; elimina
+- **API de leitura paginada**: o parceiro busca em vez de receber; elimina
   entrega e ausência.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — para notificar mudanças individuais.
-- **Armazenamento de objetos com notificação de evento** — arquivo como
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: para notificar mudanças individuais.
+- **Armazenamento de objetos com notificação de evento**: arquivo como
   transporte, com aviso de chegada. Combina o alcance do arquivo com a reação
   imediata.
 
@@ -218,7 +218,7 @@ continua sendo o dado, e a chegada dele vira evento.
 
 **Não registrar arquivos já processados.** Um reenvio da origem ou uma releitura após falha reprocessa o mesmo conteúdo, e o efeito duplica.
 
-**Não alertar sobre ausência.** O arquivo que não chegou não gera erro em lugar nenhum. A verificação precisa ser pela expectativa — devia ter chegado até as 6h e não chegou.
+**Não alertar sobre ausência.** O arquivo que não chegou não gera erro em lugar nenhum. A verificação precisa ser pela expectativa: devia ter chegado até as 6h e não chegou.
 
 **Não conferir contagem e totais.** Transferência truncada produz arquivo sintaticamente válido com menos registros. Sem conferir o rodapé contra o processado, a perda é silenciosa.
 
@@ -236,7 +236,7 @@ Cinco categorias de incidente ao longo de três anos:
 **Arquivos parciais.** Doze das 40 empresas escreviam direto no nome final. O
 processamento noturno às vezes pegava o arquivo pela metade. Beneficiários ficavam
 sem inclusão, e a descoberta vinha do beneficiário tentando usar o plano. Corrigido
-exigindo escrita temporária mais renomeação, ou arquivo de controle — o que a
+exigindo escrita temporária mais renomeação, ou arquivo de controle, o que a
 empresa preferisse.
 
 **Reprocessamento duplicado.** Uma empresa reenviava o arquivo quando tinha dúvida
@@ -250,26 +250,26 @@ soma de conferência, e o processamento passou a recusar arquivos que não batem
 
 **Codificação.** Uma empresa mudou o sistema de origem e passou a enviar em outra
 codificação. Todos os nomes com acento foram gravados corrompidos por três
-semanas, com contagem e soma do rodapé batendo o tempo todo — o campo somado era o
+semanas, com contagem e soma do rodapé batendo o tempo todo: o campo somado era o
 valor, e o valor não tem acento. O contrato não fixava codificação; passou a fixar, com validação na
 entrada.
 
 **Arquivos acumulados.** O diretório tinha três anos de arquivos com CPF, nome e
-dados de saúde de beneficiários — em texto plano, com permissão ampla, porque
+dados de saúde de beneficiários, em texto plano, com permissão ampla, porque
 ninguém tinha definido retenção. Encontrado numa auditoria. Passou a haver
 criptografia em repouso, acesso restrito e retenção de 90 dias, com arquivamento
 cifrado para o que a regulação exige guardar.
 
 Na retrospectiva: nenhuma dessas correções é sofisticada. Todas são
 mecânica conhecida de integração por arquivo, documentada há décadas. Elas não
-existiam porque a integração era tratada como "coisa simples, é só ler um CSV" — e
+existiam porque a integração era tratada como "coisa simples, é só ler um CSV", e
 por isso nunca recebeu projeto.
 
 ## Conceitos Relacionados
 
-- [Integração em Lote](/08-integration-architecture/batch-integration.md) — o processamento.
-- [Contratos de Integração](/08-integration-architecture/integration-contracts.md) — formato e periodicidade.
-- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
+- [Integração em Lote](/08-integration-architecture/batch-integration.md): o processamento.
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md): formato e periodicidade.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md): retenção.
 - [Idempotência](/06-distributed-systems/idempotency.md).
 
 ## Exercício Prático
@@ -289,7 +289,7 @@ Se alguma faltar, ela é um incidente que ainda não aconteceu.
 ## Para Aprofundar
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
-  Addison-Wesley, 2003 — *File Transfer*.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+  Addison-Wesley, 2003, *File Transfer*.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 10.
-- RFC 4180 — formato de arquivos de valores separados por vírgula.
+- RFC 4180: formato de arquivos de valores separados por vírgula.

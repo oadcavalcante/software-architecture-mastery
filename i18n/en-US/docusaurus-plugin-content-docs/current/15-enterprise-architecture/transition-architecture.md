@@ -2,7 +2,7 @@
 id: transition-architecture
 title: Transition Architecture
 sidebar_position: 18
-description: The intermediate states between what exists and what you want — the document most often missing.
+description: "The intermediate states between what exists and what you want: the document most often missing."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [target-architecture]
 related: [target-architecture, current-state-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 The transition architecture describes the **intermediate states** between what exists and
-what you want — each of them a system that works, not a construction site.
+what you want, each of them a system that works, not a construction site.
 
 It is the piece most frequently missing. Organizations have a current state and a target
 state, and between the two a blank space filled in with "we'll migrate along the way".
@@ -35,7 +35,7 @@ spent in the intermediate states, not at the target.
 Without defined intermediate states, migration takes two bad forms.
 
 **A single leap.** You build the new one in parallel for two years and switch all at once.
-The risk is concentrated, validation happens late, and value only appears at the end — if
+The risk is concentrated, validation happens late, and value only appears at the end, if
 it appears.
 
 **Drift.** You start migrating with no defined intermediate destination. Months later, the
@@ -58,12 +58,12 @@ is defensible       if the program stops here, it wasn't wasted
 is reversible       or the cost of going back is known
 ```
 
-The third line is the most important. Modernization programs get interrupted — priorities
+The third line is the most important. Modernization programs get interrupted: priorities
 change, budget changes, people change. An intermediate state that only makes sense as a
 step in a complete plan becomes debt when the plan is abandoned.
 
 And that changes the sequencing: instead of ordering by technical dependency, order by
-value delivered — so that stopping at any point leaves the organization better off than
+value delivered, so that stopping at any point leaves the organization better off than
 before.
 
 ### Coexistence is the rule, not the exception
@@ -133,7 +133,7 @@ the cognitive load of two realities
 This means **long transitions are expensive in a compounding way**, and that shortening
 them has a high return.
 
-And it means a transition plan has to include the cost of being in the middle — which is
+And it means a transition plan has to include the cost of being in the middle. It is
 frequently omitted from estimates, producing programs that cost far more than expected.
 
 ### Define the completion criterion
@@ -172,7 +172,7 @@ cheap, and intermediate states only add coexistence.
 systems and keeping them in sync outweighs the risk the intermediate states would spread.
 
 **An old system impossible to intercept or replicate.** With no interception point and
-no access to the data for replication, the two sides cannot coexist — the intermediate
+no access to the data for replication, the two sides cannot coexist: the intermediate
 states stay on paper.
 
 **The old one serves and changing does not pay off.** Then the question is not how to
@@ -180,10 +180,10 @@ transition, but whether to.
 
 ## Alternatives
 
-- **Single leap** — legitimate for small systems, with viable rollback.
-- **Parallel rewrite with a switch** — when the old system is impossible to intercept.
-- **Freeze and build alongside** — the old one stops evolving, the new one grows.
-- **Don't migrate** — a legitimate decision when the system serves and the cost of
+- **Single leap**: legitimate for small systems, with viable rollback.
+- **Parallel rewrite with a switch**: when the old system is impossible to intercept.
+- **Freeze and build alongside**: the old one stops evolving, the new one grows.
+- **Don't migrate**: a legitimate decision when the system serves and the cost of
   changing does not pay off.
 
 The last one deserves serious consideration and is rarely considered.
@@ -223,7 +223,7 @@ The last one deserves serious consideration and is rarely considered.
 
 **Not defining the source of truth.** During coexistence, both systems hold the same data. Without declaring which one rules, each integration picks its own and divergence becomes a matter of time.
 
-**Having no completion criterion.** Without an objective condition for "done", the transition becomes a permanent state — and the company ends up operating and paying for both systems indefinitely.
+**Having no completion criterion.** Without an objective condition for "done", the transition becomes a permanent state, and the company ends up operating and paying for both systems indefinitely.
 
 **Ordering by technical dependency.** It produces a sequence in which nothing is useful until the end, and the project is cancelled midway having delivered nothing.
 
@@ -233,13 +233,13 @@ The last one deserves serious consideration and is rarely considered.
 
 ## Real-World Example
 
-A bank started replacing its customer record system — 18 years old, used by 23 systems.
+A bank started replacing its customer record system, 18 years old, used by 23 systems.
 
 The original plan: build the new one in parallel, migrate the data, and switch the 23
 integrations over one weekend.
 
-Estimate: 14 months. After 20 months, the new one was built and the switch never happened
-— every attempt to schedule it found a system that wasn't ready, and the risk of
+Estimate: 14 months. After 20 months, the new one was built and the switch never happened:
+every attempt to schedule it found a system that wasn't ready, and the risk of
 switching 23 integrations at once paralyzed the decision.
 
 The rework defined intermediate states, ordered by value:
@@ -255,19 +255,19 @@ known bottleneck.
 the source of truth. This made it possible to validate the new one with real data,
 comparing both sides continuously.
 
-Three months of comparison revealed 14 business-rule divergences — cases the old system
+Three months of comparison revealed 14 business-rule divergences: cases the old system
 handled in undocumented ways.
 
 **State 3 — inverting the source of truth.** The new one became the source, and the old
 one started receiving by replication. The writing systems migrated in waves, by
-criticality — the least critical first.
+criticality, the least critical first.
 
 **State 4 — shutdown.** After 90 days with no logged access to the old one, it was shut
 down.
 
 The completion criterion for each state was explicit, with verifiable metrics.
 
-Total time: 16 months from the rework, reusing the system already built — 36 months in
+Total time: 16 months from the rework, reusing the system already built; 36 months in
 all against the 14 estimated, but with value delivered from the third month of the rework
 on, and with no switchover weekend at all.
 
@@ -275,14 +275,14 @@ And two intermediate states would have been defensible as a stopping point: afte
 the capacity bottleneck was resolved; after state 2, the rule divergences were mapped.
 
 The recorded lesson: the 20 months of the original plan produced no usable value on
-their own — the system built in them only became useful once the intermediate states gave
+their own. The system built in them only became useful once the intermediate states gave
 it a use. What
-was blocking it was not technical — it was that the only moment of value was the last
+was blocking it was not technical; it was that the only moment of value was the last
 one, and it was too risky for anyone to approve.
 
 ## Related Concepts
 
-- [Target Architecture](/15-enterprise-architecture/target-architecture.md) — the destination.
+- [Target Architecture](/15-enterprise-architecture/target-architecture.md): the destination.
 - [Current State Architecture](/15-enterprise-architecture/current-state-architecture.md).
 - [Architecture Roadmaps](/15-enterprise-architecture/architecture-roadmaps.md).
 - [Legacy Modernization](/16-legacy-modernization/index.md).
@@ -292,7 +292,7 @@ one, and it was too risky for anyone to approve.
 Take a migration underway in your context and ask: if it stops today, is what has been
 delivered defensible?
 
-If the answer is no, the current intermediate state was poorly defined — and the program
+If the answer is no, the current intermediate state was poorly defined, and the program
 is vulnerable to the next shift in priority.
 
 ## Interview Questions
@@ -305,4 +305,4 @@ is vulnerable to the next shift in priority.
 
 - Fowler, Martin. *StranglerFigApplication*, 2004.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — transition architectures.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Transition architectures.

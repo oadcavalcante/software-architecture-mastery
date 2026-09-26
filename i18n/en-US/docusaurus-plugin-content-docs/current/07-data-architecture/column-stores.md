@@ -2,7 +2,7 @@
 id: column-stores
 title: Column Stores
 sidebar_position: 5
-description: Storing by column instead of by row — the order-of-magnitude difference in analytical workloads.
+description: "Storing by column instead of by row: the order-of-magnitude difference in analytical workloads."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-warehouses, oltp, data-partitioning]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Columnar storage keeps each column's values together, instead of keeping whole rows in sequence.
 
-The change is one of physical layout, not of logical model — the table is still a table. And it
+The change is one of physical layout, not of logical model: the table is still a table. And it
 produces differences of one to two orders of magnitude in analytical queries.
 
 Understanding **why** is what lets you predict when the gain will appear and when it will not.
@@ -39,7 +39,7 @@ SELECT region, SUM(amount) FROM sales WHERE year = 2025 GROUP BY region
 Three columns from a table that may have fifty.
 
 In row-oriented storage, a row's values are adjacent on disk. To read three columns, you have to bring
-the whole row — the other forty-seven come along and are discarded.
+the whole row: the other forty-seven come along and are discarded.
 
 Over billions of rows, that is most of the work, and no index solves it: the problem is not finding the
 rows, it is that they are wide.
@@ -48,7 +48,7 @@ rows, it is that they are wide.
 
 ### Reading only what is needed
 
-In the columnar layout, each column is stored and compressed separately — in its own file in some
+In the columnar layout, each column is stored and compressed separately: in its own file in some
 systems, in a column block inside a single file in others. Reading three columns reads three of those
 blocks and ignores the other forty-seven.
 
@@ -63,7 +63,7 @@ disappears.
 Values in the same column are of the same type and frequently repeat. A country column has two hundred
 distinct values across billions of rows.
 
-That compresses extraordinarily well — dictionary, run-length, delta — with ratios of five to twenty
+That compresses extraordinarily well (dictionary, run-length, delta), with ratios of five to twenty
 times being common.
 
 And the effect multiplies with the first: fewer columns, each one much smaller.
@@ -73,12 +73,12 @@ that compresses to 150 GB can be processed without touching disk.
 
 ### The physical ordering changes everything
 
-Physically ordering the data by a column — the date, typically — allows skipping whole blocks.
+Physically ordering the data by a column (the date, typically) allows skipping whole blocks.
 
 Each block stores each column's minimum and maximum value. A query filtering by a month discards the
 blocks whose range does not intersect, without reading anything from them.
 
-That makes the choice of ordering as important as the choice of index in OLTP — and it is why period
+That makes the choice of ordering as important as the choice of index in OLTP, and it is why period
 filters are fast and filters on another dimension are not.
 
 ### Why it is bad at OLTP
@@ -87,7 +87,7 @@ filters are fast and filters on another dimension are not.
 
 **Updating a value** requires decompressing a block, changing it and recompressing.
 
-**Reading a whole row by key** requires assembling the row from fifty separate column blocks — the worst possible case.
+**Reading a whole row by key** requires assembling the row from fifty separate column blocks: the worst possible case.
 
 It is not missing tuning. It is the layout working against what the workload needs. See
 [OLTP](/07-data-architecture/oltp.md).
@@ -98,7 +98,7 @@ Columnar wants to receive many records at once. Individual inserts produce small
 that degrades reads.
 
 Columnar systems usually have a compaction process that merges small files. When it does not keep up
-with the write rate, read performance drops progressively — and the diagnosis is counterintuitive,
+with the write rate, read performance drops progressively, and the diagnosis is counterintuitive,
 because the query got worse with no change in volume.
 
 ## Mental Model
@@ -131,11 +131,11 @@ complexity.
 
 ## Alternatives
 
-- **Row-oriented with an index** — sufficient up to moderate volumes.
-- **A columnar index inside a relational database** — several offer it, allowing both workloads in the
+- **Row-oriented with an index**: sufficient up to moderate volumes.
+- **A columnar index inside a relational database**: several offer it, allowing both workloads in the
   same place at medium scale.
-- **Materialized view** — pre-aggregation with no storage change.
-- **Columnar files in object storage** — queried on demand, when the frequency is low.
+- **Materialized view**: pre-aggregation with no storage change.
+- **Columnar files in object storage**: queried on demand, when the frequency is low.
 
 The second option solves many cases: if the volume is large but not enormous, a columnar index over the
 existing table avoids a whole platform.
@@ -157,7 +157,7 @@ existing table avoids a whole platform.
 
 **A query with no ordering filter.** It scans everything, because there is no block to skip.
 
-**`SELECT *` on a wide table.** It nullifies the entire benefit — it reads every column.
+**`SELECT *` on a wide table.** It nullifies the entire benefit: it reads every column.
 
 **A bulk update.** Rewriting and recompressing large blocks.
 
@@ -172,7 +172,7 @@ happen.
 
 **Inserting record by record.**
 
-**Not choosing the physical ordering** — keeping the default wastes the main filtering mechanism.
+**Not choosing the physical ordering**: keeping the default wastes the main filtering mechanism.
 
 **Expecting transactional performance.**
 
@@ -187,7 +187,7 @@ The monthly consumption report per customer took 4 hours.
 
 The migration to columnar produced numbers the team documented:
 
-**Volume on disk.** From 4 TB to 280 GB — 14× compression, mostly in the carrier, call type and area
+**Volume on disk.** From 4 TB to 280 GB: 14× compression, mostly in the carrier, call type and area
 code columns.
 
 **The same query.** From 4 hours to 3 minutes. The gain came from three sources: reading 6 columns
@@ -199,7 +199,7 @@ date.
 Two problems after the migration:
 
 **`SELECT *` in an exploration tool.** Analysts used a tool that generated queries with every column.
-Those queries became **slower** than in relational — they had to assemble 60 columns per row. Solved with
+Those queries became **slower** than in relational: they had to assemble 60 columns per row. Solved with
 mandatory column projection in the access layer.
 
 **Real-time ingestion.** An attempt to write calls individually, as they happened, created millions of
@@ -211,17 +211,17 @@ requirement was daily.
 
 ## Related Concepts
 
-- [OLAP](/07-data-architecture/olap.md) — the workload it serves.
-- [OLTP](/07-data-architecture/oltp.md) — the workload it does not serve.
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — where it usually lives.
-- [Data Partitioning](/07-data-architecture/data-partitioning.md) — it complements block skipping.
+- [OLAP](/07-data-architecture/olap.md): the workload it serves.
+- [OLTP](/07-data-architecture/oltp.md): the workload it does not serve.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): where it usually lives.
+- [Data Partitioning](/07-data-architecture/data-partitioning.md): it complements block skipping.
 
 ## Practical Exercise
 
 Take the heaviest analytical query in your system. Count how many columns it uses and how many the table
 has.
 
-That ratio is a direct estimate of the gain the columnar layout would bring — and if it is close to 1,
+That ratio is a direct estimate of the gain the columnar layout would bring, and if it is close to 1,
 the layout is not your problem.
 
 ## Interview Questions
@@ -234,4 +234,4 @@ the layout is not your problem.
 
 - Abadi, Daniel et al. *The Design and Implementation of Modern Column-Oriented Database Systems*, 2013.
 - Stonebraker, Michael et al. *C-Store: A Column-oriented DBMS*. VLDB, 2005.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 3.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 3.

@@ -2,7 +2,7 @@
 id: messaging-integration
 title: Integração por Mensageria
 sidebar_position: 4
-description: Um intermediário entre as pontas — o que o desacoplamento resolve e o que ele transfere para a operação.
+description: "Um intermediário entre as pontas: o que o desacoplamento resolve e o que ele transfere para a operação."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [event-driven-integration, webhooks, rest]
 canonical_for: [integração por mensageria, fila de integração, intermediário de mensagens]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Em integração por mensageria, quem envia entrega a mensagem a um intermediário e
 segue adiante. Quem recebe consome quando puder.
 
-Os fundamentos — garantias de entrega, ordenação, duplicatas — estão em
+Os fundamentos (garantias de entrega, ordenação, duplicatas) estão em
 [mensageria](/06-distributed-systems/messaging.md). Aqui o foco é a decisão de
 integração: **o que muda quando duas pontas param de se falar diretamente**.
 
@@ -37,7 +37,7 @@ Numa integração síncrona, o chamador depende de o chamado estar disponível
 **agora**. Se o destino está fora, a operação falha.
 
 Numa cadeia de quatro serviços com 99,9% cada, a disponibilidade combinada cai
-para 99,6% — a [indisponibilidade composta](/20-trade-offs/sync-vs-async.md) — e o usuário sente a falha do quarto elo mesmo quando o pedido dele
+para 99,6% (a [indisponibilidade composta](/20-trade-offs/sync-vs-async.md)), e o usuário sente a falha do quarto elo mesmo quando o pedido dele
 já estava validado.
 
 Pior: um destino lento propaga a lentidão. As conexões do chamador ficam presas
@@ -51,11 +51,11 @@ esperando, e a saturação sobe a cadeia inteira. Ver
 O ganho central: o remetente entrega ao intermediário e a operação termina. Se o
 consumidor está fora por duas horas, as mensagens esperam.
 
-Isso desacopla **disponibilidade**, não formato nem semântica — o consumidor
+Isso desacopla **disponibilidade**, não formato nem semântica: o consumidor
 continua precisando entender a mensagem.
 
 E move a dependência: agora as duas pontas dependem do intermediário. Ele passa a
-ser componente crítico, com toda a operação que isso implica — e com custo
+ser componente crítico, com toda a operação que isso implica, e com custo
 próprio: o intermediário gerenciado cobra por volume ou por nó, e o painel, o
 alerta e o plantão que o consumidor parado exige viram custo recorrente de equipe.
 
@@ -167,17 +167,17 @@ capacidade indefinidamente.
 **Quando a ordem estrita entre entidades distintas é obrigatória.**
 
 **Para transferência de grandes volumes.** Ver
-[integração em lote](/08-integration-architecture/batch-integration.md) — mensagens não são o transporte
+[integração em lote](/08-integration-architecture/batch-integration.md). Mensagens não são o transporte
 certo para gigabytes.
 
 ## Alternativas
 
-- **[REST](/08-integration-architecture/rest.md)** — quando a resposta é necessária.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — notificar sem intermediário próprio.
-- **Consulta periódica** — mais simples, e suficiente quando o atraso é
+- **[REST](/08-integration-architecture/rest.md)**: quando a resposta é necessária.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: notificar sem intermediário próprio.
+- **Consulta periódica**: mais simples, e suficiente quando o atraso é
   aceitável. Frequentemente descartada cedo demais.
-- **[Lote](/08-integration-architecture/batch-integration.md)** — para volume alto e periodicidade definida.
-- **Caixa de saída transacional** — resolve o caso "banco mais evento" sem
+- **[Lote](/08-integration-architecture/batch-integration.md)**: para volume alto e periodicidade definida.
+- **Caixa de saída transacional**: resolve o caso "banco mais evento" sem
   mensageria adicional.
 
 ## Trade-offs
@@ -231,8 +231,8 @@ síncrona. Toda venda chamava o estoque para dar baixa.
 
 Duas consequências recorrentes:
 
-**Vendas bloqueadas.** Quando o estoque ficava indisponível — o que acontecia em
-implantações e em picos —, as vendas paravam. Numa Black Friday, foram 40 minutos
+**Vendas bloqueadas.** Quando o estoque ficava indisponível (o que acontecia em
+implantações e em picos), as vendas paravam. Numa Black Friday, foram 40 minutos
 de caixa parado por causa de um serviço que não era o caminho crítico do
 pagamento.
 
@@ -266,26 +266,26 @@ divergências dos quatro itens acima só apareceram no inventário físico.
 As correções vieram todas depois do incidente, e a equipe registra a ordem que
 teria evitado o desgaste:
 
-**Alerta de atraso de consumidor** — meia hora de trabalho, teria pego o primeiro
+**Alerta de atraso de consumidor**: meia hora de trabalho, teria pego o primeiro
 e o terceiro.
 
-**Idempotência por identificador de venda** — teria pego o segundo.
+**Idempotência por identificador de venda**: teria pego o segundo.
 
-**Fila de mensagens mortas** com limite de tentativas — o terceiro.
+**Fila de mensagens mortas** com limite de tentativas: o terceiro.
 
-**Caixa de saída transacional** — o quarto.
+**Caixa de saída transacional**: o quarto.
 
-**Reconciliação diária** entre vendas e movimentações de estoque — a rede de
+**Reconciliação diária** entre vendas e movimentações de estoque: a rede de
 segurança para tudo.
 
 O que a equipe aprendeu: a decisão de migrar para fila estava certa e resolveu o
 problema que motivou a mudança. O erro foi tratar mensageria como "chamada
-assíncrona" — uma troca de mecanismo — quando ela é um conjunto de
+assíncrona" (uma troca de mecanismo) quando ela é um conjunto de
 responsabilidades novas que precisam existir antes da primeira mensagem.
 
 ## Conceitos Relacionados
 
-- [Mensageria](/06-distributed-systems/messaging.md) — os fundamentos.
+- [Mensageria](/06-distributed-systems/messaging.md): os fundamentos.
 - [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
 - [Idempotência](/06-distributed-systems/idempotency.md).
 - [Filas de Mensagens Mortas](/06-distributed-systems/dead-letter-queues.md).
@@ -308,5 +308,5 @@ efeito. Esse número é a sua janela de dano.
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
   Addison-Wesley, 2003.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — capítulo 3.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Capítulo 3.
 - Stopford, Ben. *Designing Event-Driven Systems*. O'Reilly, 2018.

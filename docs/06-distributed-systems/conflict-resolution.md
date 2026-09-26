@@ -2,7 +2,7 @@
 id: conflict-resolution
 title: Resolução de Conflitos
 sidebar_position: 33
-description: Duas escritas concorrentes no mesmo dado — e por que "último a escrever vence" descarta dados em silêncio.
+description: Duas escritas concorrentes no mesmo dado, e por que "último a escrever vence" descarta dados em silêncio.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [replication, clock-and-time, eventual-consistency]
 canonical_for: [resolução de conflitos, último a escrever vence, CRDT]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Quando duas escritas concorrentes alteram o mesmo dado em réplicas diferentes, o
 sistema precisa decidir qual valor prevalece.
 
-A estratégia padrão da maioria dos sistemas — **último a escrever vence** — é
+A estratégia padrão da maioria dos sistemas (**último a escrever vence**) é
 simples, é o que a maioria usa sem saber, e **descarta dados silenciosamente**.
 
 ## Problema
@@ -50,13 +50,13 @@ Dois problemas, e ambos são graves.
 
 **Relógios divergem.** A "mais recente" segundo o relógio da máquina pode não ser a
 mais recente de fato. Ver [relógio e tempo](/06-distributed-systems/clock-and-time.md). Uma máquina com o
-relógio 2 segundos adiantado vence qualquer escrita feita nos 2 segundos seguintes —
+relógio 2 segundos adiantado vence qualquer escrita feita nos 2 segundos seguintes:
 a divergência define a janela em que ela domina.
 
 **Perda silenciosa.** A escrita descartada some sem registro. Não há erro, não há
 alerta, não há como recuperar.
 
-Ela é adequada quando os dados são de fato descartáveis — telemetria, cache,
+Ela é adequada quando os dados são de fato descartáveis: telemetria, cache,
 posição atual de um veículo. É inadequada para dados de negócio, e é o padrão em
 vários sistemas.
 
@@ -66,19 +66,19 @@ vários sistemas.
 na leitura, para que a aplicação ou o usuário resolva. É o que sistemas como
 Dynamo fazem com vetores de versão.
 
-Preserva tudo, e transfere a decisão para quem consome — o que exige interface
+Preserva tudo, e transfere a decisão para quem consome. Isso exige interface
 para isso.
 
 **Mesclar por regra de domínio.** Um carrinho de compras pode unir os itens das duas
 versões. Um contador pode somar os incrementos. A regra vem do negócio.
 
 **Estruturas que convergem sozinhas.** Tipos de dados projetados para que operações
-concorrentes sempre convirjam sem coordenação — CRDTs. Contadores, conjuntos,
+concorrentes sempre convirjam sem coordenação: CRDTs. Contadores, conjuntos,
 mapas e até texto colaborativo.
 
 Elegante e limitado ao que pode ser expresso como operação comutativa.
 
-**Evitar o conflito.** Garantir que cada dado tenha um único ponto de escrita —
+**Evitar o conflito.** Garantir que cada dado tenha um único ponto de escrita,
 por [particionamento](/06-distributed-systems/partitioning.md) ou por líder único.
 
 A última é a que a maioria dos sistemas deveria escolher, e a menos discutida. O preço
@@ -87,9 +87,9 @@ escrever em vez de divergir.
 
 ### Detectar conflito exige versionamento
 
-Comparar marcas de tempo não detecta conflito — detecta ordem, mal.
+Comparar marcas de tempo não detecta conflito: detecta ordem, mal.
 
-Para saber que duas escritas foram **concorrentes** — nenhuma soube da outra — é
+Para saber que duas escritas foram **concorrentes** (nenhuma soube da outra), é
 preciso um [vetor de versões](/06-distributed-systems/clock-and-time.md), que distingue
 descendência de paralelismo onde a marca de tempo apenas ordena.
 
@@ -106,20 +106,20 @@ valor:    saldo = 150        ← duas escritas conflitam
 operação: saldo -= 50        ← duas operações compõem
 ```
 
-Operações comutativas — somar, adicionar a um conjunto — não conflitam. É a base
+Operações comutativas (somar, adicionar a um conjunto) não conflitam. É a base
 dos CRDTs e uma técnica aplicável sem eles.
 
 A troca tem preço: some o conflito de escrita, aparece o de reentrega. `saldo -= 50`
 aplicado duas vezes debita duas vezes, e a retentativa é certa em rede instável ou
 sincronização offline. Cada operação precisa de identificador próprio e de
-deduplicação na chegada — ver [idempotência](/06-distributed-systems/idempotency.md).
+deduplicação na chegada. Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 ### O conflito pode não ter resolução automática
 
 Alguns conflitos exigem julgamento humano: dois editores alteraram o mesmo
 parágrafo de formas incompatíveis.
 
-Nesses casos, a resposta correta é **preservar ambas e apresentar** — não escolher
+Nesses casos, a resposta correta é **preservar ambas e apresentar**, não escolher
 uma. O sistema que escolhe sozinho está descartando informação que não tem como
 avaliar.
 
@@ -133,11 +133,11 @@ escolheu, ou se o padrão escolheu por você.
 Estratégia de resolução é necessária sempre que houver mais de um ponto de
 escrita. A escolha entre elas:
 
-- **Último a escrever vence** — dados descartáveis, onde perder é aceitável.
-- **Preservar ambas** — dados de negócio onde a perda é inaceitável.
-- **Mesclar por regra** — quando o domínio define uma união natural.
-- **CRDT** — quando as operações são comutativas.
-- **Evitar** — sempre que possível.
+- **Último a escrever vence**: dados descartáveis, onde perder é aceitável.
+- **Preservar ambas**: dados de negócio onde a perda é inaceitável.
+- **Mesclar por regra**: quando o domínio define uma união natural.
+- **CRDT**: quando as operações são comutativas.
+- **Evitar**: sempre que possível.
 
 ## Quando Não Usar
 
@@ -154,11 +154,11 @@ perda que ninguém consegue reverter.
 
 ## Alternativas
 
-- **Líder único por dado** — elimina o conflito. Ver
+- **Líder único por dado**: elimina o conflito. Ver
   [replicação](/06-distributed-systems/replication.md).
-- **Particionamento por chave** — cada chave escrita num lugar só.
-- **Transação com bloqueio** — serializa as escritas concorrentes.
-- **Reserva com prazo** — quem reservou escreve; os outros esperam.
+- **Particionamento por chave**: cada chave escrita num lugar só.
+- **Transação com bloqueio**: serializa as escritas concorrentes.
+- **Reserva com prazo**: quem reservou escreve; os outros esperam.
 
 ## Trade-offs
 
@@ -209,20 +209,20 @@ dispositivo.
 
 Dois problemas.
 
-**Relógios de dispositivo.** Alguns aparelhos tinham o relógio errado — um estava
+**Relógios de dispositivo.** Alguns aparelhos tinham o relógio errado: um estava
 3 horas adiantado. Cada sincronização dele sobrescrevia o que outros vendedores
 tivessem alterado nas 3 horas seguintes, porque a marca de tempo "vencia".
 
 **Perda de itens.** Dois vendedores da mesma conta adicionavam itens ao mesmo
 pedido offline. Ao sincronizar, a segunda sincronização substituía o pedido
-inteiro — os itens do primeiro sumiam.
+inteiro: os itens do primeiro sumiam.
 
 Nenhum dos dois gerava erro. Os vendedores descobriam pela reclamação do cliente.
 
 A reformulação mudou o modelo, não só a estratégia.
 
 **Operações em vez de estado.** O dispositivo passou a enviar "adicionou item X",
-"removeu item Y" — em vez do pedido completo, cada uma com identificador próprio,
+"removeu item Y", em vez do pedido completo, cada uma com identificador próprio,
 descartada na chegada se já aplicada. Adições de vendedores diferentes compõem
 naturalmente; sem a deduplicação, uma resincronização duplicaria os itens.
 
@@ -234,18 +234,18 @@ mesmo item por dois vendedores gera conflito explícito, apresentado ao supervis
 para decidir.
 
 **Métrica de conflito.** Passou a haver contagem. Descobriu-se que conflitos reais
-eram raros — cerca de 0,3% das sincronizações — e que a perda anterior vinha
+eram raros (cerca de 0,3% das sincronizações) e que a perda anterior vinha
 majoritariamente do problema de relógio, não de concorrência genuína.
 
 Esse último número é o que a equipe registrou como mais revelador: o que elas
-perdiam não vinha de concorrência, e sim de sobrescrita por relógio adiantado — a
+perdiam não vinha de concorrência, e sim de sobrescrita por relógio adiantado. A
 causa era a estratégia, não o cenário.
 
 ## Conceitos Relacionados
 
-- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — onde conflitos surgem.
-- [Replicação](/06-distributed-systems/replication.md) — múltiplos líderes e sem líder.
-- [Relógio e Tempo](/06-distributed-systems/clock-and-time.md) — por que marca de tempo não decide.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md): onde conflitos surgem.
+- [Replicação](/06-distributed-systems/replication.md): múltiplos líderes e sem líder.
+- [Relógio e Tempo](/06-distributed-systems/clock-and-time.md): por que marca de tempo não decide.
 - [Ordenação](/06-distributed-systems/ordering.md).
 
 ## Exercício Prático
@@ -267,5 +267,5 @@ você não sabe quanto está sendo descartado.
 - DeCandia, Giuseppe et al. *Dynamo: Amazon's Highly Available Key-value Store*.
   SOSP, 2007.
 - Shapiro, Marc et al. *Conflict-Free Replicated Data Types*, 2011.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 5.

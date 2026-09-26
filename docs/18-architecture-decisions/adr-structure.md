@@ -12,7 +12,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [adr-context, adr-decision, adr-consequences, adr-status]
 canonical_for: [estrutura do ADR, formato MADR, título de decisão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -30,7 +30,7 @@ Decisão       o que foi decidido, na voz ativa
 Consequências o que passa a ser verdade, bom e ruim
 ```
 
-Cabe em uma página. Essa brevidade não é economia — é o que torna a prática sustentável e
+Cabe em uma página. Essa brevidade é o que torna a prática sustentável e
 o que impede que o documento vire especificação.
 
 E há uma assimetria de valor entre as seções que quase todo autor iniciante inverte:
@@ -69,7 +69,7 @@ ruim   "Decisão 14"                        — não informa
 O título é o que aparece no índice, e é por ele que alguém encontra a decisão dois anos
 depois. Ele precisa ser legível fora de contexto.
 
-A numeração é sequencial e permanente — números não são reaproveitados, mesmo quando um
+A numeração é sequencial e permanente: números não são reaproveitados, mesmo quando um
 ADR é descontinuado.
 
 ### Status
@@ -102,8 +102,8 @@ O teste: alguém que não estava lá consegue entender por que a decisão era ne
 sob que condições a resposta poderia ser outra? Ver
 [contexto](/18-architecture-decisions/adr-context.md).
 
-O erro característico é escrever contexto como introdução genérica — "estamos construindo
-um sistema de pedidos" — em vez de registrar as forças específicas.
+O erro característico é escrever contexto como introdução genérica ("estamos construindo
+um sistema de pedidos") em vez de registrar as forças específicas.
 
 ### Decisão
 
@@ -118,7 +118,7 @@ passiva ou condicional não é uma decisão.
 
 Ver [decisão](/18-architecture-decisions/adr-decision.md).
 
-É comum que esta seção tenha três linhas. Isso é correto — o volume está no contexto e nas
+É comum que esta seção tenha três linhas. Isso é correto: o volume está no contexto e nas
 consequências.
 
 ### Consequências
@@ -160,7 +160,7 @@ Y-Statement     uma frase estruturada: "no contexto de X, diante de Y,
 Tyree & Akerman mais completo, com interessados e implicações
 ```
 
-O Y-Statement merece nota: ele cabe numa frase e força seis elementos — contexto, preocupação, decisão, alternativas descartadas, objetivo e custo aceito (Zdun et al., 2013). Não tem campo para a condição de reversão. É um bom formato
+O Y-Statement merece nota. Ele cabe numa frase e força seis elementos: contexto, preocupação, decisão, alternativas descartadas, objetivo e custo aceito (Zdun et al., 2013). Não tem campo para a condição de reversão. É um bom formato
 para decisões menores que não justificam um documento.
 
 A escolha entre formatos importa menos que a consistência: um formato usado em toda a
@@ -186,29 +186,29 @@ cabe em duas páginas, provavelmente são várias decisões.
 
 ## Quando Usar
 
-- Ao escrever um ADR que justifica documento próprio — as cinco seções são o mínimo comum.
+- Ao escrever um ADR que justifica documento próprio: as cinco seções são o mínimo comum.
 - Como lista de verificação: se uma seção está vazia, falta pensar.
 - Ao padronizar a prática numa organização.
 
 ## Quando Não Usar
 
-**Acrescentando seções por completude** — cada seção a mais reduz a chance de o ADR ser
+**Acrescentando seções por completude**: cada seção a mais reduz a chance de o ADR ser
 escrito.
 
-**Quando a única alternativa real é o status quo** — sem opção concorrente a comparar, as
+**Quando a única alternativa real é o status quo**: sem opção concorrente a comparar, as
 seções de alternativas e contexto ficam vazias ou repetem a decisão; um Y-Statement registra
 o mesmo em uma frase.
 
-**Quando a decisão é local e se reverte em horas** — escolha interna a um módulo, sem efeito
+**Quando a decisão é local e se reverte em horas**: escolha interna a um módulo, sem efeito
 em contrato, dado persistido ou outro time. O registro certo é um comentário ao lado do
 código; um arquivo de ADR custa mais que refazer a decisão.
 
 ## Alternativas
 
-- **Y-Statement** — uma frase, para decisões menores.
-- **MADR** — quando os critérios de comparação precisam ser explícitos.
-- **Formato próprio** — legítimo, desde que uniforme e curto.
-- **Comentário no código** — para decisões locais, um comentário explicando o porquê é o
+- **Y-Statement**: uma frase, para decisões menores.
+- **MADR**: quando os critérios de comparação precisam ser explícitos.
+- **Formato próprio**: legítimo, desde que uniforme e curto.
+- **Comentário no código**: para decisões locais, um comentário explicando o porquê é o
   registro certo.
 
 A última é subutilizada: nem toda decisão merece arquivo, e muitas merecem três linhas de
@@ -256,7 +256,7 @@ comentário ao lado do código que elas explicam.
 
 **Omitir a condição de reversão** nas alternativas.
 
-**Numerar por data** em vez de sequencialmente — dificulta a referência.
+**Numerar por data** em vez de sequencialmente: dificulta a referência.
 
 ## Exemplo Real
 
@@ -274,7 +274,7 @@ sem data                                       41
 com título não descritivo                      52
 ```
 
-O problema prático não era a variedade de formatos — era a ausência sistemática das mesmas
+O problema prático não era a variedade de formatos. Era a ausência sistemática das mesmas
 duas coisas: alternativas e consequências negativas. Os times que usavam o formato Nygard
 puro simplesmente não tinham campo para alternativas, e os demais deixavam em branco.
 
@@ -292,7 +292,7 @@ devolvido na revisão.
 **Ao menos uma consequência negativa.** A premissa: toda decisão arquitetural tem custo, e
 um ADR que não o nomeia não pensou nele.
 
-**Y-Statement autorizado** para decisões menores, dispensado da condição de reversão — a
+**Y-Statement autorizado** para decisões menores, dispensado da condição de reversão: a
 cláusula de alternativas descartadas conta como alternativa. Isso fez o volume subir, porque muitas
 decisões que não valiam um documento passaram a ser registradas em uma frase.
 
@@ -310,7 +310,7 @@ consultados ao menos uma vez                   38
 ```
 
 Exigir uma consequência negativa foi a regra de maior efeito. Ela
-custava uma linha e mudava a natureza do documento — de peça de convencimento para
+custava uma linha e mudava a natureza do documento: de peça de convencimento para
 registro de trade-off aceito.
 
 E o Y-Statement resolveu um problema que ninguém tinha nomeado: decisões médias, que não
@@ -318,10 +318,10 @@ justificavam um documento, antes não eram registradas de forma alguma.
 
 ## Conceitos Relacionados
 
-- [Contexto](/18-architecture-decisions/adr-context.md) — a seção que carrega o valor.
-- [Decisão](/18-architecture-decisions/adr-decision.md) — a mais curta.
-- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — o acréscimo essencial.
-- [Consequências](/18-architecture-decisions/adr-consequences.md) — onde o custo é nomeado.
+- [Contexto](/18-architecture-decisions/adr-context.md): a seção que carrega o valor.
+- [Decisão](/18-architecture-decisions/adr-decision.md): a mais curta.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md): o acréscimo essencial.
+- [Consequências](/18-architecture-decisions/adr-consequences.md): onde o custo é nomeado.
 
 ## Exercício Prático
 
@@ -341,5 +341,5 @@ A ausência das três é o perfil típico do ADR escrito para justificar em vez 
 ## Para Aprofundar
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
-- *MADR — Markdown Any Decision Records* — adr.github.io/madr.
+- *MADR. Markdown Any Decision Records* — adr.github.io/madr.
 - Zdun, Uwe et al. *Sustainable Architectural Design Decisions*. IEEE Software, 2013.

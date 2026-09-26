@@ -2,7 +2,7 @@
 id: template-method
 title: Template Method
 sidebar_position: 21
-description: The base class defines the skeleton and the subclass fills the gaps — inheritance where composition is usually better.
+description: "The base class defines the skeleton and the subclass fills the gaps: inheritance where composition is usually better."
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [strategy, factory-method, composition-vs-inheritance]
 canonical_for: [template method]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,7 +37,7 @@ Importing data: open the source, validate the format, transform, write, close. T
 sequence is always the same; validating and transforming depend on the format.
 
 Without the pattern, each importer repeats the whole sequence. When the sequence
-changes — adding an audit record between transform and write — all of them have to
+changes (adding an audit record between transform and write) all of them have to
 change, and someone forgets.
 
 ## Core Concepts
@@ -68,8 +68,8 @@ framework code and so little in application code.
 
 ### Hooks versus abstract operations
 
-**Abstract operation** — the subclass is required to implement it.
-**Hook** — has an empty or trivial default implementation; the subclass may override.
+**Abstract operation**: the subclass is required to implement it.
+**Hook**: has an empty or trivial default implementation; the subclass may override.
 
 Hooks give flexibility and create a problem: whoever reads the subclass does not know
 which exist without reading the base. The more hooks, the less predictable the
@@ -80,7 +80,7 @@ behaviour.
 Template Method inherits all the costs of
 [implementation inheritance](/02-software-design/composition-vs-inheritance.md): one
 axis of variation, coupling to the base's implementation, and the fragile base class
-problem — changing the base breaks subclasses nobody touched.
+problem (changing the base breaks subclasses nobody touched).
 
 Strategy solves the same problem by composition, without those costs.
 
@@ -109,10 +109,10 @@ arguments gives the same skeleton without tying down the hierarchy.
 
 ## Alternatives
 
-- **[Strategy](/03-design-patterns/strategy.md)** — composition in place of
+- **[Strategy](/03-design-patterns/strategy.md)**: composition in place of
   inheritance. The main alternative.
-- **Functions passed as parameters** — `process(validate, transform)`.
-- **A template method that receives the steps** — with no hierarchy, the skeleton
+- **Functions passed as parameters**: `process(validate, transform)`.
+- **A template method that receives the steps**: with no hierarchy, the skeleton
   becomes a function that accepts the variations.
 
 ## Trade-offs
@@ -154,7 +154,7 @@ dependency.
 
 ## Where it appears in practice
 
-**Test frameworks.** The lifecycle — set up, execute, assert, tear down — is a
+**Test frameworks.** The lifecycle (set up, execute, assert, tear down) is a
 template; your methods fill the gaps.
 
 **Servlets and controllers.** The base class handles the protocol; you implement the
@@ -188,12 +188,12 @@ import(reader, writer)
   open · validate · transform · write · close
 ```
 
-Eleven readers, three writers. The sequence stayed guaranteed — it is in the function,
+Eleven readers, three writers. The sequence stayed guaranteed: it is in the function,
 not in an inherited base.
 
 The detail worth keeping: the pattern was not wrong while there was one axis. It
 stopped serving when the second appeared, which is exactly the limitation stated in
-"when not to use" — and the same one that brought down
+"when not to use", and the same one that brought down
 [Factory Method](/03-design-patterns/factory-method.md) in an analogous case.
 
 ## How to convert to Strategy
@@ -201,7 +201,7 @@ stopped serving when the second appeared, which is exactly the limitation stated
 The conversion is mechanical when the pattern stops serving, and the steps are worth
 knowing.
 
-**One.** Identify the abstract operations — the gaps the subclasses fill. Each set that
+**One.** Identify the abstract operations: the gaps the subclasses fill. Each set that
 varies together is a strategy.
 
 **Two.** Turn each set into an interface. If it is a single operation, a function is
@@ -224,13 +224,13 @@ values.
 
 The step that usually stalls is the fourth: if the subclasses shared state with the
 base through protected fields, that state has to become an explicit parameter. It is
-laborious and it is precisely the coupling the conversion eliminates — the shared state
+laborious and it is precisely the coupling the conversion eliminates: the shared state
 was a hidden dependency between base and subclass.
 
 ## Related Concepts
 
-- [Strategy](/03-design-patterns/strategy.md) — the composition alternative.
-- [Factory Method](/03-design-patterns/factory-method.md) — frequently used inside a
+- [Strategy](/03-design-patterns/strategy.md): the composition alternative.
+- [Factory Method](/03-design-patterns/factory-method.md): frequently used inside a
   template.
 - [Composition vs. Inheritance](/02-software-design/composition-vs-inheritance.md).
 
@@ -251,4 +251,4 @@ hooks, indicates that composition would serve better.
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3rd ed., 2018 — on designing for inheritance.
+- Bloch, Joshua. *Effective Java*. 3rd ed., 2018. On designing for inheritance.

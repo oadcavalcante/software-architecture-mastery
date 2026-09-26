@@ -2,7 +2,7 @@
 id: iaas
 title: IaaS
 sidebar_position: 1
-description: Alugar infraestrutura crua — o modelo com mais controle e mais trabalho, e onde ele ainda é a resposta.
+description: "Alugar infraestrutura crua: o modelo com mais controle e mais trabalho, e onde ele ainda é a resposta."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [paas, managed-services, cloud-compute, cloud-native]
 canonical_for: [IaaS, infraestrutura como serviço, modelo de responsabilidade compartilhada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-IaaS — infraestrutura como serviço — é alugar os blocos crus: máquinas virtuais,
+IaaS (infraestrutura como serviço) é alugar os blocos crus: máquinas virtuais,
 discos, redes, endereços.
 
 O provedor cuida do datacenter, do hardware e da camada de virtualização. Do
@@ -115,7 +115,7 @@ configuração específica.
 **Licenciamento que exige máquina dedicada.**
 
 **Migração de sistema legado.** Mover como está é o caminho mais rápido para sair de
-um datacenter — etapa legítima, não destino; o argumento completo está em
+um datacenter (etapa legítima, não destino); o argumento completo está em
 [nativo de nuvem](/09-cloud-architecture/cloud-native.md).
 
 **Escala muito grande com carga previsível.** Onde a diferença de preço paga um
@@ -138,7 +138,7 @@ operada por terceiros, com janelas que você acomoda em vez de escolher.
 
 A consequência prática: mesmo em IaaS, a aplicação precisa tolerar reinício
 programado. Sistemas migrados de datacenter que assumiam disponibilidade contínua
-da máquina descobrem isso na primeira notificação de manutenção — tipicamente com
+da máquina descobrem isso na primeira notificação de manutenção, tipicamente com
 poucos dias de antecedência.
 
 ## Modelo Mental
@@ -162,21 +162,21 @@ concreto, está pagando o trabalho à toa.
 
 **Sem processo de correção de segurança.**
 
-**Para componentes que existem como serviço gerenciado** — banco, fila, cache — sem
+**Para componentes que existem como serviço gerenciado** (banco, fila, cache) sem
 razão específica.
 
-**Sem quem opere a camada** — ninguém de sobreaviso para a instância que cai e
+**Sem quem opere a camada**: ninguém de sobreaviso para a instância que cai e
 ninguém responsável pela esteira de correções.
 
 **Tratando instâncias como servidores permanentes.**
 
 ## Alternativas
 
-- **[PaaS](/09-cloud-architecture/paas.md)** — o provedor cuida do sistema e do tempo de execução.
-- **[Serviços gerenciados](/09-cloud-architecture/managed-services.md)** — para os componentes de
+- **[PaaS](/09-cloud-architecture/paas.md)**: o provedor cuida do sistema e do tempo de execução.
+- **[Serviços gerenciados](/09-cloud-architecture/managed-services.md)**: para os componentes de
   infraestrutura.
-- **[Contêineres](/09-cloud-architecture/containers.md)** — empacotamento consistente sobre IaaS.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a gerenciar.
+- **[Contêineres](/09-cloud-architecture/containers.md)**: empacotamento consistente sobre IaaS.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: sem capacidade a gerenciar.
 
 ## Trade-offs
 
@@ -228,7 +228,7 @@ se acumula, como no Exemplo Real abaixo.
 
 ## Exemplo Real
 
-Uma empresa de varejo migrou seu datacenter para IaaS em quatro meses — 60 máquinas
+Uma empresa de varejo migrou seu datacenter para IaaS em quatro meses: 60 máquinas
 virtuais, replicando o ambiente anterior.
 
 A migração foi bem-sucedida no objetivo imediato: sair do datacenter antes do
@@ -244,7 +244,7 @@ inventário revelou que ninguém sabia recriar 12 delas do zero.
 algumas fora de suporte.
 
 **Zona única.** Todas numa zona, porque foi o padrão na criação. A migração
-replicara a topologia do datacenter — que tinha um prédio só.
+replicara a topologia do datacenter, que tinha um prédio só.
 
 **Custo.** A fatura era 30% maior que o custo do datacenter anterior, porque as
 máquinas foram dimensionadas com a mesma folga de capital imobilizado que fazia
@@ -256,7 +256,7 @@ o trabalho operacional correspondente.
 A segunda fase, ao longo de um ano:
 
 **Infraestrutura como código** para tudo. As 12 instâncias irreproduzíveis foram as
-mais difíceis — em dois casos foi preciso reconstruir a partir de engenharia
+mais difíceis: em dois casos foi preciso reconstruir a partir de engenharia
 reversa do que estava rodando.
 
 **Banco, fila e cache migrados** para gerenciado.
@@ -270,16 +270,16 @@ reversa do que estava rodando.
 lugar.
 
 A migração como estava foi a decisão certa para o prazo
-que tinham. O erro foi considerá-la concluída — o plano de modernização existia no
+que tinham. O erro foi considerá-la concluída: o plano de modernização existia no
 papel e ficou dois anos sem prioridade, acumulando risco de segurança e custo.
 
 ## Conceitos Relacionados
 
-- [PaaS](/09-cloud-architecture/paas.md) e [SaaS](/09-cloud-architecture/saas.md) — os outros modelos.
+- [PaaS](/09-cloud-architecture/paas.md) e [SaaS](/09-cloud-architecture/saas.md) : os outros modelos.
 - [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 - [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
-- [Nativo de Nuvem](/09-cloud-architecture/cloud-native.md) — por que a migração como está é etapa, não destino.
+- [Nativo de Nuvem](/09-cloud-architecture/cloud-native.md): por que a migração como está é etapa, não destino.
 
 ## Exercício Prático
 

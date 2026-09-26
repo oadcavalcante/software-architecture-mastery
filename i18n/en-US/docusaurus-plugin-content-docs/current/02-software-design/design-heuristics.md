@@ -2,7 +2,7 @@
 id: design-heuristics
 title: Design Heuristics
 sidebar_position: 18
-description: Rules of thumb that guide without prescribing — and why a heuristic is the right format for design.
+description: Rules of thumb that guide without prescribing, and why a heuristic is the right format for design.
 doc_type: foundation
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [solid, kiss, design-patterns]
 canonical_for: [design heuristics]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,21 +34,21 @@ inheritance".
 Rules have two bad properties in this domain.
 
 **They admit no exception without becoming hypocrisy.** When the case does not fit
-— and cases frequently do not — the team works around it silently. The rule stops
+(and cases frequently do not), the team works around it silently. The rule stops
 being discussable, which is worse than not having it.
 
 **They hide the reasoning.** Whoever follows a rule does not learn to decide.
 Facing a new situation, they have nothing.
 
 A heuristic solves both. It comes with the force of its argument made explicit,
-which allows weighing it against other considerations — and the exercise of
+which allows weighing it against other considerations, and the exercise of
 weighing is what develops judgement.
 
 What it introduces is the cost of the format: a heuristic is not checkable. A rule
 passes a linter and a review without discussion; a heuristic demands judgement at
 every application, and it gives cover to whoever would rather not exercise it ("it
 is a heuristic, it does not apply here"). For whoever has no judgement formed yet,
-the rule pays off more in the short term — what it does not pay off is the
+the rule pays off more in the short term. What it does not pay off is the
 judgement.
 
 ## Core Concepts
@@ -63,8 +63,8 @@ order:
 3. **Contains no duplication.**
 4. **Has the fewest elements.**
 
-The order is the part that matters. When 3 and 4 conflict with 2, intent wins —
-which legitimizes duplication that makes the code clearer. It is the leanest version
+The order is the part that matters. When 3 and 4 conflict with 2, intent wins.
+That legitimizes duplication that makes the code clearer. It is the leanest version
 of everything [SOLID](/02-software-design/solid.md) and
 [Clean Code](/02-software-design/clean-code.md) try to capture.
 
@@ -140,7 +140,7 @@ at the first application.
 slogans.
 
 **Thinking the conflict between them is a problem to solve.** It leads to pruning
-the set until one heuristic is left per situation — which is the rule back again,
+the set until one heuristic is left per situation. That is the rule back again,
 under another name.
 
 **Applying without checking the context.** Every heuristic has a range. "Wait for
@@ -154,20 +154,20 @@ critique until you point at the concrete cost.
 
 A code review stalled between two positions, both defensible.
 
-*Position A:* the validation logic is duplicated in two modules — extract it into a
+*Position A:* the validation logic is duplicated in two modules. Extract it into a
 common module. Heuristic invoked: don't duplicate knowledge.
 
-*Position B:* the two modules belong to different contexts and will diverge — keep
+*Position B:* the two modules belong to different contexts and will diverge. Keep
 them separate. Heuristic invoked: duplication is cheaper than the wrong
 abstraction.
 
 Neither is wrong. The deadlock was resolved by a third heuristic: *things that
-change together stay together* — reformulated as an empirical question.
+change together stay together*, reformulated as an empirical question.
 
 The history answered it: over the previous fourteen months, the two validations had
 been changed five times, always separately, and at the request of different areas.
 
-Position B won, and the duplication was annotated with the reason — so that the next
+Position B won, and the duplication was annotated with the reason, so that the next
 person would not "fix" it.
 
 What resolved it was not electing the strongest heuristic. It was finding the one
@@ -175,16 +175,16 @@ that could be checked against data.
 
 ## Related Concepts
 
-- [KISS](/02-software-design/kiss.md) and [YAGNI](/02-software-design/yagni.md) —
+- [KISS](/02-software-design/kiss.md) and [YAGNI](/02-software-design/yagni.md):
   two heuristics in detail.
-- [SOLID](/02-software-design/solid.md) — five heuristics frequently read as rules.
-- [Clean Code](/02-software-design/clean-code.md) — the local set.
-- [Trade-offs](/20-trade-offs/index.md) — what to do when two conflict.
+- [SOLID](/02-software-design/solid.md): five heuristics frequently read as rules.
+- [Clean Code](/02-software-design/clean-code.md): the local set.
+- [Trade-offs](/20-trade-offs/index.md): what to do when two conflict.
 
 ## Practical Exercise
 
 Write down the five heuristics you actually use when making design decisions. Not
-the ones you think you should use — the ones you use.
+the ones you think you should use, but the ones you use.
 
 For each, write the argument behind it and a case where it does not apply.
 
@@ -199,8 +199,8 @@ probably badly formulated.
 
 ## Further Exploration
 
-- Beck, Kent. *Extreme Programming Explained*. Addison-Wesley, 1999 (2nd ed., 2004)
-  — the four rules of simple design.
+- Beck, Kent. *Extreme Programming Explained*. Addison-Wesley, 1999 (2nd ed., 2004).
+  The four rules of simple design.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
-- Riel, Arthur. *Object-Oriented Design Heuristics*. Addison-Wesley, 1996 — the
+- Riel, Arthur. *Object-Oriented Design Heuristics*. Addison-Wesley, 1996. The
   classic catalogue.

@@ -2,7 +2,7 @@
 id: slo
 title: SLO
 sidebar_position: 11
-description: O alvo acordado — e o orçamento de erro, que transforma confiabilidade em decisão operacional.
+description: O alvo acordado e o orçamento de erro, que transforma confiabilidade em decisão operacional.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [sli]
 related: [sli, sla, availability-metrics]
 canonical_for: [SLO, objetivo de nível de serviço, orçamento de erro, taxa de consumo]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -21,13 +21,13 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Um SLO — objetivo de nível de serviço — é o **alvo** para um [SLI](/12-reliability/sli.md): "99,9% das
+Um SLO (objetivo de nível de serviço) é o **alvo** para um [SLI](/12-reliability/sli.md): "99,9% das
 requisições de checkout atendidas em menos de 4 segundos, medido em 28 dias".
 
 Ele é a decisão que falta na maioria dos sistemas. Sem alvo, "confiável" é opinião, e
 qualquer incidente parece igualmente grave.
 
-E o SLO traz junto o mecanismo que o torna operacional: o **orçamento de erro** — a
+E o SLO traz junto o mecanismo que o torna operacional: o **orçamento de erro**, a
 quantidade de falha permitida pelo alvo. Ele transforma confiabilidade de aspiração em
 número que se gasta.
 
@@ -42,7 +42,7 @@ roteiro do que pode esperar. O time reage a tudo, e o roteiro nunca avança.
 próprio, e perde toda disputa com uma funcionalidade que tem prazo e cliente pedindo.
 
 O SLO resolve as duas ao dar um limite: acima dele, o sistema está bom o suficiente e o
-trabalho vai para produto; abaixo, a confiabilidade tem prioridade — e isso foi
+trabalho vai para produto; abaixo, a confiabilidade tem prioridade, e isso foi
 acordado antes, não negociado durante a crise.
 
 ## Conceitos Centrais
@@ -57,7 +57,7 @@ SLO de 99,9% em 28 dias
 ```
 
 O orçamento é para ser **gasto**. Um sistema que fica em 99,99% quando o alvo é 99,9%
-está sobre-investindo em confiabilidade — recursos que poderiam estar em produto.
+está sobre-investindo em confiabilidade: recursos que poderiam estar em produto.
 
 E o consumo do orçamento vira regra operacional:
 
@@ -68,7 +68,7 @@ orçamento esgotado         → congelar funcionalidades, priorizar estabilidade
 ```
 
 Essa é a contribuição prática mais importante do conceito: uma regra acordada
-antecipadamente sobre quando parar de entregar e começar a consertar — que evita a
+antecipadamente sobre quando parar de entregar e começar a consertar, e é ela que evita a
 discussão política durante o incidente.
 
 ### O alvo vem do negócio, com o custo na mesa
@@ -97,12 +97,12 @@ conversa do alvo.
 
 Perseguir zero falha é caro, impossível e contraproducente.
 
-Impossível porque as dependências falham — inclusive o provedor de nuvem, a rede do
+Impossível porque as dependências falham, inclusive o provedor de nuvem, a rede do
 usuário, o DNS.
 
 Contraproducente porque o esforço marginal para eliminar a última fração de falha
 supera qualquer valor entregue, e porque um alvo inatingível deixa de orientar
-decisões — se nunca é atingido, o orçamento nunca informa nada.
+decisões: se nunca é atingido, o orçamento nunca informa nada.
 
 E há um efeito perverso: se o usuário experimenta 99,9% por causa da rede dele, subir o
 serviço de 99,9% para 99,99% não muda nada que ele perceba.
@@ -131,7 +131,7 @@ consumindo 6×              o orçamento do mês acaba em 5 dias
 consumindo 36×             acaba em 20 horas — página alguém agora
 ```
 
-Isso substitui o alerta por limiar — "taxa de erro acima de 1%" — que dispara em
+Isso substitui o alerta por limiar ("taxa de erro acima de 1%"), que dispara em
 picos irrelevantes e não dispara em degradação lenta e sustentada.
 
 E permite graduar a resposta: consumo alto e rápido acorda alguém; consumo moderado e
@@ -179,10 +179,10 @@ decorativo.
 
 ## Alternativas
 
-- **Alerta por limiar** — mais simples, dispara em ruído e perde degradação lenta.
-- **Acompanhamento de incidentes** — contagem e duração, sem alvo. Descreve o passado,
+- **Alerta por limiar**: mais simples, dispara em ruído e perde degradação lenta.
+- **Acompanhamento de incidentes**: contagem e duração, sem alvo. Descreve o passado,
   não orienta decisão.
-- **SLO por classe de serviço** — alvos diferentes para jornadas de criticidade
+- **SLO por classe de serviço**: alvos diferentes para jornadas de criticidade
   diferente. Frequentemente o desenho certo.
 
 ## Trade-offs
@@ -203,7 +203,7 @@ decorativo.
 Adotar SLO também tem custo contínuo, independente do alvo escolhido: o SLI precisa de
 pipeline de medição confiável, o alerta de taxa de consumo precisa de duas janelas
 mantidas e calibradas por jornada, e o alvo precisa ser revisto a cada mudança relevante
-de negócio. Cada SLO adicional multiplica esse trabalho — por isso poucos alvos
+de negócio. Cada SLO adicional multiplica esse trabalho, e por isso poucos alvos
 acompanhados valem mais que muitos ignorados.
 
 ## Modos de Falha
@@ -212,7 +212,7 @@ acompanhados valem mais que muitos ignorados.
 
 **Alvo inatingível.** Perde valor de orientação.
 
-**Alvo frouxo demais.** É atingido com folga todo mês, inclusive quando o serviço piora — e
+**Alvo frouxo demais.** É atingido com folga todo mês, inclusive quando o serviço piora, e
 aí ele deixa de informar qualquer coisa.
 
 **Definido sem o negócio.** Ninguém respeita o congelamento.
@@ -265,16 +265,16 @@ sobreaviso; acima de 3 vezes por seis horas gera tarefa priorizada.
 
 O que aconteceu nos primeiros seis meses:
 
-**Rastreamento estourou o orçamento duas vezes.** O congelamento aconteceu — sem
+**Rastreamento estourou o orçamento duas vezes.** O congelamento aconteceu sem
 discussão, porque a regra estava acordada. As duas causas eram a mesma: uma dependência
 externa de geolocalização sem circuit breaker. Corrigida, a jornada estabilizou.
 
-**Criação de remessa ficou em 99,995%** — consumindo um décimo do orçamento de 99,95%. Pela
+**Criação de remessa ficou em 99,995%**, consumindo um décimo do orçamento de 99,95%. Pela
 régua do próprio orçamento, isso é sobre-investimento: havia redundância e verificações que o
 alvo não exigia, e o risco liberado não estava sendo usado para entregar. Parte do esforço foi
 realocada.
 
-**Relatório gerencial ficou em 98,2%**, abaixo do alvo — e a análise mostrou que ninguém
+**Relatório gerencial ficou em 98,2%**, abaixo do alvo, e a análise mostrou que ninguém
 se importava. O alvo foi renegociado para 97%, e o time parou de tratar as falhas dali
 como urgentes.
 
@@ -282,15 +282,15 @@ O que a equipe aprendeu: o efeito mais valioso não foi técnico. Foi a discuss�
 trimestral entre produto e engenharia deixar de existir, porque passou a haver um
 número acordado que respondia à pergunta.
 
-E o terceiro caso — reduzir um alvo — foi o mais difícil de aceitar culturalmente, e o
+E o terceiro caso (reduzir um alvo) foi o mais difícil de aceitar culturalmente, e o
 que mais liberou capacidade.
 
 ## Conceitos Relacionados
 
-- [SLI](/12-reliability/sli.md) — o que é medido.
-- [SLA](/12-reliability/sla.md) — o compromisso externo.
+- [SLI](/12-reliability/sli.md): o que é medido.
+- [SLA](/12-reliability/sla.md): o compromisso externo.
 - [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
-- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — verifica se o alvo se sustenta.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md): verifica se o alvo se sustenta.
 
 ## Exercício Prático
 
@@ -308,6 +308,6 @@ aceitável? A resposta calibra o alvo melhor que qualquer discussão técnica.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulos 3 e 4.
-- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018 — capítulos 2 a 5.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulos 3 e 4.
+- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018. Capítulos 2 a 5.
 - Google. *SRE Workbook: Alerting on SLOs*.

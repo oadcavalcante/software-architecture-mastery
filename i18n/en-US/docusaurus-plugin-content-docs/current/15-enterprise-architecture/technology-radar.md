@@ -2,7 +2,7 @@
 id: technology-radar
 title: Technology Radar
 sidebar_position: 14
-description: The mechanism that replaces the approved technology list — with movement and context.
+description: The mechanism that replaces the approved technology list, with movement and context.
 doc_type: pattern
 level: 6
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-principles, technical-strategy]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ assess   worth understanding, with no commitment
 hold     we start nothing new with it, and there is a recorded reason
 ```
 
-It replaces the approved technology list — which is binary, context-free, and freezes.
+It replaces the approved technology list, which is binary, context-free, and freezes.
 
 ## Problem
 
@@ -67,7 +67,7 @@ already tried something and why it didn't work saves the next person who would h
 the same idea.
 
 And the movement communicates direction: a technology that sat in "assess" for two years
-without moving says something — probably that nobody has real interest in it.
+without moving says something, probably that nobody has real interest in it.
 
 ### Each item needs a justification and context
 
@@ -78,7 +78,7 @@ good   "Kafka — adopt for high-volume streams with retention;
         which requires less operation"
 ```
 
-The justification is what lets the reader decide whether their case applies — and it is
+The justification is what lets the reader decide whether their case applies, and it is
 what keeps the decision reviewable when context changes.
 
 Without it, the radar becomes a list with nice names.
@@ -99,7 +99,7 @@ Public radars are useful as a reference and do not replace your own: they reflec
 context of whoever publishes them.
 
 A technology in "adopt" at a consultancy with hundreds of projects may be inappropriate
-in an organization with eight engineers — because the operational cost that justifies it
+in an organization with eight engineers, because the operational cost that justifies it
 there doesn't exist here. See
 [managed services](/09-cloud-architecture/managed-services.md).
 
@@ -114,7 +114,7 @@ list it replaced.
 What works: a periodic review with the teams participating, in which whoever used a
 technology reports on the experience.
 
-That makes it a **learning-sharing** mechanism as well as guidance — and it is what keeps
+That makes it a **learning-sharing** mechanism as well as guidance, and it is what keeps
 it alive, because people take part in building it.
 
 ### Review frequency
@@ -148,8 +148,8 @@ conversation, and the quarterly review becomes ceremony over decisions everyone 
 knows.
 
 **When technological divergence is low for another reason.** If the paved road already
-embeds the choices — the pipeline only builds on this runtime, the platform only provisions
-this database —, the radar describes what the tooling already decides. That is what happened
+embeds the choices (the pipeline only builds on this runtime, the platform only provisions
+this database), the radar describes what the tooling already decides. That is what happened
 at the end of the Real-World Example, and it is a sign of success, not of failure.
 
 **When nobody is going to keep the review going.** A radar that ages is worse than not
@@ -162,16 +162,16 @@ exceptions, which is the opposite of what that case asks for.
 
 **Without periodic review.**
 
-**At the wrong granularity** — dozens of libraries, when what matters are the structural
+**At the wrong granularity**: dozens of libraries, when what matters are the structural
 decisions.
 
 ## Alternatives
 
-- **Paved road** — instead of recommending, offer it ready. See
+- **Paved road**: instead of recommending, offer it ready. See
   [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
-- **[Standards](/15-enterprise-architecture/standards.md)** — when the specific choice is mandatory.
-- **Decision records** — the history of what was chosen and why.
-- **Community of practice** — sharing learning without a formal artifact.
+- **[Standards](/15-enterprise-architecture/standards.md)**: when the specific choice is mandatory.
+- **Decision records**: the history of what was chosen and why.
+- **Community of practice**: sharing learning without a formal artifact.
 
 The paved road is stronger than the radar: it makes the recommendation the easiest
 option, instead of depending on someone consulting a document.
@@ -242,23 +242,23 @@ Replacing it with a radar changed three things:
 **Mandatory justification.** Each item came to have context: what it is for, when not to
 use it, what was learned.
 
-Migrating from the list to the radar required writing that context — and 18 of the 60
+Migrating from the list to the radar required writing that context, and 18 of the 60
 items had nobody who knew why they were there. They were removed.
 
 **A "hold" ring with a reason.** Seven technologies went to "hold" with an account of
-what had been tried and why it hadn't worked. One of them — a graph database — had been
+what had been tried and why it hadn't worked. One of them, a graph database, had been
 tried by three different teams in four years, each unaware of the previous ones.
 
 **Built with the teams.** Quarterly review, with reports from those who used them. The
 first session took three hours and produced fourteen usage reports that were written down
-nowhere — including two cases in which different teams had abandoned the same technology
+nowhere, including two cases in which different teams had abandoned the same technology
 for the same reason, unaware of each other.
 
-**Movement recorded.** In eighteen months, 23 movements — nine entries into assess, six
+**Movement recorded.** In eighteen months, 23 movements: nine entries into assess, six
 promotions to trial, five to adopt, three to hold.
 
 And one change that came later: the technologies in "adopt" started being built into the
-platform's paved road. That reduced the need to consult the radar — using the recommended
+platform's paved road. That reduced the need to consult the radar: using the recommended
 option became the easiest path. See
 [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
 
@@ -271,7 +271,7 @@ list, found no useful answer, and moved on.
 
 ## Related Concepts
 
-- [Standards](/15-enterprise-architecture/standards.md) — the mandatory prescription.
+- [Standards](/15-enterprise-architecture/standards.md): the mandatory prescription.
 - [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md).
 - [Technical Strategy](/15-enterprise-architecture/technical-strategy.md).
 - [Internal Developer Platforms](/14-devops-and-platform/internal-developer-platforms.md).
@@ -281,7 +281,7 @@ list, found no useful answer, and moved on.
 List the technologies actually in use across your services and compare with the approved
 list, if there is one.
 
-The difference measures how much the list describes reality — and, if it is large, it is
+The difference measures how much the list describes reality. If it is large, it is
 guiding nothing.
 
 ## Interview Questions
@@ -292,7 +292,7 @@ guiding nothing.
 
 ## Further Reading
 
-- Thoughtworks. *Technology Radar*, vol. 29, 2023 — one edition as an anchor for the
+- Thoughtworks. *Technology Radar*, vol. 29, 2023. One edition as an anchor for the
   format; the rest are published and show items moving between rings.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Ford, Neal et al. *Building Evolutionary Architectures*. 2nd ed. O'Reilly, 2022.

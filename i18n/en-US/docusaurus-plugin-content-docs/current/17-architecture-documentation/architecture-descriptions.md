@@ -2,7 +2,7 @@
 id: architecture-descriptions
 title: Architecture Descriptions
 sidebar_position: 10
-description: The document that brings it all together — when it serves and when it's compliance theater.
+description: "The document that brings it all together: when it serves and when it's compliance theater."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-views]
 related: [architecture-views, documentation-standards, documentation-principles]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ An architecture description is the **consolidated artifact** that brings a syste
 place.
 
 It is the most complete form of architectural documentation, and the one with the worst
-reputation — because most descriptions produced in the industry are written to satisfy a
+reputation, because most descriptions produced in the industry are written to satisfy a
 process, not to be read.
 
 The distinction between a useful description and compliance theater is observable: **the
@@ -47,7 +47,7 @@ what is already known to be wrong?
 No diagram answers those. The rationale is textual by nature, and it is what is lost most
 when the people who decided leave.
 
-At the same time, the traditional remedy — a large, formal document — fails for another
+At the same time, the traditional remedy (a large, formal document) fails for another
 reason: it is written once, at the start, when the least is known, and never revised.
 
 ## Core Concepts
@@ -69,7 +69,7 @@ risks and debt         what is known to be wrong
 The last two are the most often missing and the most valuable. A description that only
 asserts successes is not trustworthy.
 
-See [quality attributes](/01-fundamentals/quality-attributes.md) for the qualities item —
+See [quality attributes](/01-fundamentals/quality-attributes.md) for the qualities item:
 "the system must be scalable" is not a requirement.
 
 ### arc42
@@ -86,7 +86,7 @@ arc42 is a twelve-section template, free and widely used:
 ```
 
 The value lies less in the list and more in two properties: it **forces** the sections
-people skip — constraints, decisions, risks, glossary — and it lets empty sections be
+people skip (constraints, decisions, risks, glossary) and it lets empty sections be
 declared empty, which is information.
 
 Section 11 is what most distinguishes an honest description from a compliance piece.
@@ -109,7 +109,7 @@ diverge, and requires the divergence to be **recorded rather than hidden**.
 ### Rationale is the most durable content
 
 Structure changes; the reason for having chosen a structure stays relevant even after the
-structure changes — because it tells you whether the change contradicts a real constraint.
+structure changes, because it tells you whether the change contradicts a real constraint.
 
 ```text
 "we chose X"                    ages
@@ -125,8 +125,8 @@ consolidated description should point at them instead of duplicating them.
 The pattern that works: the description is **written or revised after** the system exists,
 describing what it is, with the decisions recorded along the way.
 
-A description written before construction is a proposal, and it is worth something as such
-— provided it is labeled that way and revised afterwards.
+A description written before construction is a proposal, and it is worth something as such,
+provided it is labeled that way and revised afterwards.
 
 The classic anti-pattern is the document approved at the start of the project, filed away,
 and never compared with what was built.
@@ -161,19 +161,19 @@ decisions, it is marketing.
 **To satisfy a process**, with no identified reader.
 
 **When a single team builds, runs and consumes the system**, with no external stakeholder,
-no regulatory requirement and a single deployment unit — then a README covering context,
+no regulatory requirement and a single deployment unit, then a README covering context,
 constraints, decisions (or links to ADRs) and known risks is the description.
 
 **Duplicating what already exists** in ADRs and diagrams, instead of pointing at them.
 
-**With no owner and no review cadence** — it is born with a short shelf life.
+**With no owner and no review cadence**: it is born with a short shelf life.
 
 ## Alternatives
 
-- **A set of ADRs** — the rationale, incremental, with no consolidated document.
-- **A structured README** — for small systems, five sections suffice.
-- **Standalone [views](/17-architecture-documentation/architecture-views.md)** — when only the structure matters.
-- **A landing page with an index** — the description as an index to artifacts that already
+- **A set of ADRs**: the rationale, incremental, with no consolidated document.
+- **A structured README**: for small systems, five sections suffice.
+- **Standalone [views](/17-architecture-documentation/architecture-views.md)**: when only the structure matters.
+- **A landing page with an index**: the description as an index to artifacts that already
   exist, with no content of its own.
 
 The last is frequently the best: the consolidated description as **navigation**, not as a
@@ -211,7 +211,7 @@ repository of duplicated text.
 
 ## Common Mistakes
 
-**Filling in every template section** for completeness, including those that don't apply —
+**Filling in every template section** for completeness, including those that don't apply,
 instead of declaring them empty.
 
 **Omitting discarded alternatives.**
@@ -219,7 +219,7 @@ instead of declaring them empty.
 **Writing it at the start and never revising it.**
 
 **Not dating sections individually.** After a partial review, the reader can't tell which
-part was checked and which is three years old — and treats all of it as current.
+part was checked and which is three years old, and treats all of it as current.
 
 **Consolidating by copying** instead of by reference.
 
@@ -250,13 +250,13 @@ meet the institution's performance and availability requirements".
 The rework:
 
 **The format replaced by arc42**, with explicit permission to declare sections not
-applicable — which reduced the average length from 40 to 14 pages.
+applicable. That reduced the average length from 40 to 14 pages.
 
 **Decisions moved into ADRs**, referenced by the description instead of copied. See
 [architecture decisions](/18-architecture-decisions/index.md).
 
 **A risks section mandatory and non-empty.** A description with no recorded risks is sent
-back — the premise being that every system has some.
+back, the premise being that every system has some.
 
 **Qualities with numbers.** Every quality requirement needs a metric and a source. See
 [quality attributes](/01-fundamentals/quality-attributes.md).
@@ -269,16 +269,16 @@ system by someone outside the team.
 Eighteen months later, out of the same 61 descriptions: 54 updated in the last 12 months
 (before, 9 in 24), 49 with real risks recorded, and the consultation rate rose to 41 systems.
 
-The team's recorded conclusion — a hypothesis, since the six changes went in together and
-none was measured in isolation: the change with the greatest effect was not the format. It
+The team's recorded conclusion (a hypothesis, since the six changes went in together and
+none was measured in isolation): the change with the greatest effect was not the format. It
 was allowing sections to be declared empty. As long as filling in everything was mandatory,
 generic text was the rational answer.
 
 ## Related Concepts
 
-- [Architecture Views](/17-architecture-documentation/architecture-views.md) — the structural content.
-- [Architecture Decisions](/18-architecture-decisions/index.md) — the rationale.
-- [Documentation Standards](/17-architecture-documentation/documentation-standards.md) — the policy.
+- [Architecture Views](/17-architecture-documentation/architecture-views.md): the structural content.
+- [Architecture Decisions](/18-architecture-decisions/index.md): the rationale.
+- [Documentation Standards](/17-architecture-documentation/documentation-standards.md): the policy.
 - [Documentation Principles](/17-architecture-documentation/documentation-principles.md).
 
 ## Practical Exercise
@@ -296,6 +296,6 @@ If all three are missing, the description is a compliance piece.
 
 ## Further Reading
 
-- ISO/IEC/IEEE 42010:2022 — *Architecture description*.
-- Starke, Gernot; Hruschka, Peter. *arc42* — arc42.org.
+- ISO/IEC/IEEE 42010:2022. *Architecture description*.
+- Starke, Gernot; Hruschka, Peter. *arc42*. Arc42.org.
 - Clements, Paul et al. *Documenting Software Architectures*. 2nd ed. Addison-Wesley, 2010.

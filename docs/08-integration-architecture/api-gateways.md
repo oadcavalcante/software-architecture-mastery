@@ -2,7 +2,7 @@
 id: api-gateways
 title: API Gateways
 sidebar_position: 9
-description: Um ponto de entrada para muitas APIs — o que ele resolve de verdade e como vira gargalo.
+description: "Um ponto de entrada para muitas APIs: o que ele resolve de verdade e como vira gargalo."
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [service-mesh, rest, graphql]
 canonical_for: [API gateway, backend para frontend, gateway de borda]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -25,8 +25,8 @@ Um API gateway é um ponto único de entrada que fica na frente de vários servi
 concentra o que é comum a todas as chamadas: autenticação, limite de taxa,
 roteamento, registro.
 
-Ele resolve um problema concreto — evitar que cada serviço reimplemente as mesmas
-preocupações de borda — e cria um risco igualmente concreto: virar o lugar onde
+Ele resolve um problema concreto (evitar que cada serviço reimplemente as mesmas
+preocupações de borda) e cria um risco igualmente concreto: virar o lugar onde
 lógica de negócio se acumula até que ninguém possa mudá-lo.
 
 A pergunta que organiza tudo: **isto é preocupação de borda ou de domínio?**
@@ -70,7 +70,7 @@ domínio, muda com o negócio, e no gateway fica longe de quem a entende.
 enviar com base em condição de negócio, não.
 
 **Orquestração de vários serviços.** Um gateway que chama três serviços e combina
-respostas virou aplicação. Se isso é necessário, é um serviço de composição — que
+respostas virou aplicação. Se isso é necessário, é um serviço de composição, que
 pode até ficar atrás do gateway, mas não *ser* o gateway.
 
 **Estado.** Cache é aceitável; estado de sessão de negócio, não.
@@ -93,7 +93,7 @@ time que constrói aquele cliente.
 Isso resolve o gargalo organizacional: o time de frontend deixa de esperar o time
 de plataforma para mudar um formato.
 
-O custo é duplicação entre os BFFs, e ela é frequentemente aceitável — a
+O custo é duplicação entre os BFFs, e ela é frequentemente aceitável: a
 alternativa é um gateway genérico que serve mal a todos.
 
 ### Ele é ponto único de falha por construção
@@ -103,7 +103,7 @@ crítico: várias instâncias, sem estado, verificação de saúde, e capacidade
 dimensionada para o pico agregado.
 
 E exige atenção a um modo de falha específico: **uma configuração errada derruba
-tudo**. Uma regra de roteamento mal escrita não afeta um serviço — afeta todos.
+tudo**. Uma regra de roteamento mal escrita não afeta um serviço, e sim todos.
 
 Por isso a configuração do gateway merece o mesmo processo que código: revisão,
 versionamento, ambiente de teste e implantação gradual.
@@ -138,7 +138,7 @@ negócio que entra nele é uma que sai de onde deveria estar.
 - Vários serviços expostos externamente.
 - Autenticação e limite de taxa uniformes.
 - Clientes diversos com necessidades de formato diferentes.
-- Tradução entre protocolos — REST fora, gRPC dentro.
+- Tradução entre protocolos: REST fora, gRPC dentro.
 - Ponto único para observabilidade de borda.
 - API pública com parceiros e cotas.
 
@@ -158,11 +158,11 @@ negócio que entra nele é uma que sai de onde deveria estar.
 
 ## Alternativas
 
-- **Balanceador com roteamento** — cobre o básico sem componente novo.
-- **Biblioteca compartilhada** — autenticação e registro em cada serviço, sem
+- **Balanceador com roteamento**: cobre o básico sem componente novo.
+- **Biblioteca compartilhada**: autenticação e registro em cada serviço, sem
   salto extra. Exige atualizar todos a cada mudança.
-- **[Malha de serviço](/08-integration-architecture/service-mesh.md)** — para o tráfego interno.
-- **BFF** — em vez de um gateway genérico.
+- **[Malha de serviço](/08-integration-architecture/service-mesh.md)**: para o tráfego interno.
+- **BFF**: em vez de um gateway genérico.
 
 ## Trade-offs
 
@@ -212,7 +212,7 @@ o conjunto.
 **Não dimensionar para o pico agregado.**
 
 **Deixar o gateway ser o único lugar com autorização.** Ver
-[segurança](/10-security/index.md) — defesa em profundidade exige que o serviço
+[segurança](/10-security/index.md): defesa em profundidade exige que o serviço
 também verifique.
 
 ## Exemplo Real
@@ -231,8 +231,8 @@ escondia campos conforme o perfil, um roteamento que dependia do valor da apóli
 Em três anos, o gateway tinha 4.000 linhas de configuração com lógica, e ninguém
 conseguia dizer o que acontecia com uma requisição sem executá-la.
 
-**Configuração derrubando produção.** Uma regra de roteamento mal escrita —
-publicada direto, sem teste — deixou **todos** os nove serviços inacessíveis por
+**Configuração derrubando produção.** Uma regra de roteamento mal escrita
+(publicada direto, sem teste) deixou **todos** os nove serviços inacessíveis por
 22 minutos. Não havia ambiente de teste para a configuração nem implantação
 gradual.
 
@@ -241,7 +241,7 @@ mudança de contrato exigia entrar na fila deles. Uma mudança de campo levava t
 semanas, das quais duas eram espera.
 
 **Autorização dividida.** Parte das regras estava no gateway, parte nos serviços.
-Uma auditoria encontrou um endpoint em que a verificação existia só no gateway — e
+Uma auditoria encontrou um endpoint em que a verificação existia só no gateway, e
 que era alcançável internamente sem passar por ele.
 
 As correções, ao longo de um ano:
@@ -253,29 +253,29 @@ o time de negócio consegue lê-la.
 **Configuração como código**, com revisão, ambiente de teste e implantação
 gradual. Publicação direta deixou de ser possível.
 
-**BFFs por cliente** — corretor, segurado e parceiro — cada um mantido pelo time
+**BFFs por cliente** (corretor, segurado e parceiro), cada um mantido pelo time
 do respectivo cliente. As duas semanas de fila desapareceram; a mudança de campo passou a
 levar cerca de uma semana, que é o trabalho em si.
 
 **Autorização em profundidade, com a divisão nomeada.** O gateway verifica o que é de
-borda — token válido, escopo, cota — e cada serviço verifica o que é de domínio: se *este*
+borda (token válido, escopo, cota) e cada serviço verifica o que é de domínio: se *este*
 corretor pode ver *esta* apólice. A redundância existe só na primeira camada, e foi aceita
 conscientemente; o que acabou foi a regra de domínio morando no gateway.
 
 O que a equipe registra: o gateway nunca foi um erro. O erro foi não ter uma regra
-escrita sobre o que pode entrar nele — e, sem regra, cada exceção individual era
+escrita sobre o que pode entrar nele. E, sem regra, cada exceção individual era
 razoável.
 
 ## Conceitos Relacionados
 
-- [Malha de Serviço](/08-integration-architecture/service-mesh.md) — o tráfego interno.
-- [REST](/08-integration-architecture/rest.md) e [GraphQL](/08-integration-architecture/graphql.md) — o que ele expõe.
+- [Malha de Serviço](/08-integration-architecture/service-mesh.md): o tráfego interno.
+- [REST](/08-integration-architecture/rest.md) e [GraphQL](/08-integration-architecture/graphql.md): o que ele expõe.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 
 ## Exercício Prático
 
 Abra a configuração do seu gateway e procure qualquer condição que dependa de um
-valor de negócio — perfil, valor, tipo de cliente.
+valor de negócio: perfil, valor, tipo de cliente.
 
 Cada uma dessas é regra de domínio morando na borda, longe de quem a entende.
 
@@ -287,6 +287,6 @@ Cada uma dessas é regra de domínio morando na borda, longe de quem a entende.
 
 ## Para Aprofundar
 
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — capítulo 8.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Capítulo 8.
 - Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021.
 - Calçado, Phil. *The Back-end for Front-end Pattern*, 2015.

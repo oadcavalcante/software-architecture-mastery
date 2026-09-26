@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [what-is-an-adr, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The obvious argument for ADRs — "so we don't forget why we decided" — is true and it is
+The obvious argument for ADRs ("so we don't forget why we decided") is true and it is
 the least interesting one.
 
 The effects that pay off most are three others, and none depends on anyone reading the ADR
@@ -33,7 +33,7 @@ disagreement gets a place      disagreeing with a document differs from disagree
 the decision becomes contestable  with alternatives recorded, revisiting is cheap
 ```
 
-The fourth effect — not rediscovering the reason years later — is real and it is a bonus.
+The fourth effect (not rediscovering the reason years later) is real and it is a bonus.
 
 ## The Problem
 
@@ -47,7 +47,7 @@ the team turns over  institutional memory resets with each complete rotation
 ```
 
 The compound consequence is an organization that **cannot revisit its own decisions**. Each
-one becomes permanent by default — not because it is right, but because nobody knows enough
+one becomes permanent by default, not because it is right, but because nobody knows enough
 to question it.
 
 And there is the opposite, equally expensive: decisions revisited repeatedly because
@@ -86,7 +86,7 @@ while trying to justify          you realize the reason was habit
 ```
 
 That means the ADR pays for itself **before anyone reads it**. It is the strongest argument
-for writing early — during the decision, not after it.
+for writing early: during the decision, not after it.
 
 See [alternatives](/18-architecture-decisions/adr-alternatives.md), which is the section
 where that effect concentrates.
@@ -129,11 +129,11 @@ the topic.
 Whoever joins receives diagrams of what exists and, with ADRs, the reasoning as well.
 
 The practical difference is between "this is the system, accept it" and "this is the
-system, and these were the choices" — the second produces someone able to contribute
+system, and these were the choices". The second produces someone able to contribute
 judgment, not only execution.
 
 And there is a calibration effect: reading ten well-written ADRs teaches the
-organization's own reasoning — with its real constraints — which no generic material
+organization's own reasoning (with its real constraints), which no generic material
 carries.
 
 ### What ADRs don't solve
@@ -150,27 +150,27 @@ they don't solve a lack of time    if nobody has 30 minutes, the problem is else
 ```
 
 And there is the cost the practice creates, which is not the writing time. A collection
-that is never pruned accumulates expired ADRs that keep being read as current — which is
+that is never pruned accumulates expired ADRs that keep being read as current. That is
 why superseding has to be explicit. And the record can be used as authority: "it's in
 ADR-014" ends the very discussion the ADR existed to enable, if nobody opens the document
 to check whether the reason still holds.
 
 ## Why This Matters
 
-**Because the cost of their absence is invisible and continuous.** It appears in no budget
-— it appears as slowness, rework and incidents whose cause is "nobody knew".
+**Because the cost of their absence is invisible and continuous.** It appears in no budget;
+it appears as slowness, rework and incidents whose cause is "nobody knew".
 
 **Because non-revisitable decisions become debt.** A constraint with no known reason keeps
 being respected indefinitely. Systems accumulate those constraints until a significant part
 of the design is a response to conditions that no longer exist.
 
-**Because the benefit doesn't depend on reading.** The effect of writing — exposing fragile
-reasoning — happens even if the document is never opened.
+**Because the benefit doesn't depend on reading.** The effect of writing (exposing fragile
+reasoning) happens even if the document is never opened.
 
 **Because it improves the quality of the debate.** Arguments against documents are more
 honest and more accessible than arguments against people.
 
-**Because the return is asymmetric.** The profile — low cost, rare and high return — is in
+**Because the return is asymmetric.** The profile (low cost, rare and high return) is in
 [what an ADR is](/18-architecture-decisions/what-is-an-adr.md). What it implies here is that
 writing cannot depend on predicted demand: whoever writes does not know which of the ADRs
 will be the one that gets read.
@@ -180,11 +180,11 @@ will be the one that gets read.
 **Selling them as documentation.** That creates an expectation of maintenance and leads to
 disappointment.
 
-**Promising they will be read.** Most will not, and that is fine — that is not the
+**Promising they will be read.** Most will not, and that is fine: that is not the
 argument.
 
-**Imposing them by process.** Mandatory approval shifts the incentive — you write to clear
-the committee, not to think — and that is what the case below observed: 6 generic ADRs in a
+**Imposing them by process.** Mandatory approval shifts the incentive (you write to clear
+the committee, not to think), and that is what the case below observed: 6 generic ADRs in a
 year, against 127 without a committee. Where the decision already goes through a formal
 body, as in a regulated environment, being mandatory may be the only viable format; what
 does not survive is mandatory **and** expensive.
@@ -233,7 +233,7 @@ an ADR?".
 
 **In the system's repository**, reviewed like code.
 
-**A single searchable index**, to answer "has this already been decided?" — which attacked
+**A single searchable index**, to answer "has this already been decided?", which attacked
 the measured problem directly.
 
 Eighteen months later:
@@ -246,7 +246,7 @@ ADRs superseded                                  11
 ```
 
 The 22 closures by reference were worth roughly 400 person-hours, at the average of 18 hours
-per repeated discussion that the survey itself measured — against fewer than 127 hours of
+per repeated discussion that the survey itself measured, against fewer than 127 hours of
 writing, at a ceiling of one hour per ADR. That item pays for the practice on its own even
 if the average is overstated by half.
 
@@ -255,15 +255,15 @@ showed decisions being revisited on the basis of documented context change, rath
 opinion.
 
 The recorded lesson: the absence of a committee was decisive. An earlier attempt, with
-mandatory approval, had produced 6 ADRs in a year — all generic, all written after
+mandatory approval, had produced 6 ADRs in a year, all generic, all written after
 implementation.
 
 ## Related Concepts
 
 - [What an ADR Is](/18-architecture-decisions/what-is-an-adr.md).
-- [Alternatives](/18-architecture-decisions/adr-alternatives.md) — where the writing effect
+- [Alternatives](/18-architecture-decisions/adr-alternatives.md): where the writing effect
   concentrates.
-- [Superseding](/18-architecture-decisions/superseding-decisions.md) — decisions with a
+- [Superseding](/18-architecture-decisions/superseding-decisions.md): decisions with a
   validity.
 - [Architecture as Decisions](/01-fundamentals/architecture-as-decisions.md).
 

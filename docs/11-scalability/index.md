@@ -2,7 +2,7 @@
 id: scalability
 title: Escalabilidade
 sidebar_position: 0
-description: Crescer sem que o custo por unidade cresça junto — e por que a maior parte dos problemas atribuídos a escala não é de escala.
+description: Crescer sem que o custo por unidade cresça junto, e por que a maior parte dos problemas atribuídos a escala não é de escala.
 doc_type: index
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [distributed-systems, data-architecture, reliability]
 canonical_for: []
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -31,7 +31,7 @@ dos projetos de escala mal direcionados. Um sistema pode ser rápido e não esca
 sistema lento pode escalar perfeitamente.
 
 O segundo problema é de diagnóstico. Uma fração grande dos problemas atribuídos a
-escala não é de escala — é
+escala não é de escala: é
 [índice ausente](/07-data-architecture/indexing.md), consulta mal escrita, mistura
 de cargas, ou contenção sobre um único recurso.
 
@@ -45,14 +45,14 @@ que não paraleliza.
 
 ## O que você vai encontrar aqui
 
-**As duas direções.** Escala vertical e horizontal — com a defesa explícita da
+**As duas direções.** Escala vertical e horizontal, com a defesa explícita da
 vertical, que é subestimada e resolve mais casos do que a literatura sugere.
 
 **O pré-requisito.** Ausência de estado, sem a qual escalar horizontalmente não
 funciona.
 
 **Os mecanismos.** Cache, particionamento, replicação e balanceamento vistos pelo
-ângulo da escala — complementando o tratamento de
+ângulo da escala, complementando o tratamento de
 [design de sistemas](/05-system-design/index.md) e de
 [sistemas distribuídos](/06-distributed-systems/index.md).
 
@@ -62,8 +62,8 @@ proporcional. Frequentemente a resposta certa quando a intuição pede mais máq
 **Banco de dados.** O gargalo real da maioria dos sistemas, e o mais difícil de
 escalar.
 
-**Pontos quentes.** O modo de falha que sobrevive a qualquer quantidade de capacidade
-— e que explica por que "temos dez réplicas e mesmo assim caiu".
+**Pontos quentes.** O modo de falha que sobrevive a qualquer quantidade de capacidade,
+e que explica por que "temos dez réplicas e mesmo assim caiu".
 
 **Planejamento de capacidade.** Como saber quando escalar, antes do incidente.
 
@@ -78,7 +78,7 @@ catálogo de técnicas sem critério.
 Depois **pontos quentes**, que explica por que capacidade adicional às vezes não faz
 diferença nenhuma.
 
-**Escala vertical** antes de **horizontal** — a ordem é deliberada, porque a vertical
+**Escala vertical** antes de **horizontal**: a ordem é deliberada, porque a vertical
 é a resposta certa com mais frequência do que se imagina, e a horizontal cobra
 complexidade permanente.
 
@@ -97,7 +97,7 @@ Reconhece que assíncrono e fila resolvem picos que capacidade não resolve, e q
 ponto quente é imune a qualquer quantidade de máquinas.
 
 E sabe defender a decisão de **não** escalar horizontalmente quando uma máquina maior
-resolve — que continua sendo a resposta certa para a maioria dos sistemas.
+resolve. Essa continua sendo a resposta certa para a maioria dos sistemas.
 
 ## Continua em
 

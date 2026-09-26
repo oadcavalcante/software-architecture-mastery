@@ -2,7 +2,7 @@
 id: replatforming
 title: Replataforma
 sidebar_position: 5
-description: Mudar a infraestrutura sem mudar a aplicação — o primeiro passo que destrava os demais.
+description: "Mudar a infraestrutura sem mudar a aplicação: o primeiro passo que destrava os demais."
 doc_type: concept
 level: 6
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, incremental-modernization, cloud-native]
 canonical_for: [replataforma, destravamento operacional, adaptação mínima]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,12 +25,12 @@ Replataformar é mover a aplicação para infraestrutura nova, com alterações 
 código.
 
 Comparada a refatorar, reconstruir ou substituir, é a estratégia mais barata, mais rápida e
-de menor risco — e a mais subestimada, porque não resolve problemas de código e por isso
+de menor risco, e a mais subestimada, porque não resolve problemas de código e por isso
 parece insuficiente.
 
 O que ela entrega é **destravamento**: esteira automatizada, ambientes reproduzíveis,
-observabilidade, implantação frequente. E isso reduz o custo de todo o trabalho posterior
-— inclusive de reconstruir, se for o caso.
+observabilidade, implantação frequente. E isso reduz o custo de todo o trabalho posterior,
+inclusive de reconstruir, se for o caso.
 
 ## Problema
 
@@ -45,7 +45,7 @@ sem telemetria além de arquivos de log no disco
 release trimestral porque cada uma é um evento
 ```
 
-Nesse contexto, qualquer mudança é cara — inclusive as mudanças da própria modernização.
+Nesse contexto, qualquer mudança é cara, inclusive as mudanças da própria modernização.
 
 Replataformar primeiro remove essas restrições, e o trabalho seguinte fica mais barato.
 
@@ -83,7 +83,7 @@ Uma aplicação difícil de mudar continua difícil de mudar depois de replatafo
 [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
 
 Times que esperam que a mudança de infraestrutura resolva problemas de código ficam
-frustrados — e a frustração desacredita uma estratégia que fez exatamente o que deveria.
+frustrados, e a frustração desacredita uma estratégia que fez exatamente o que deveria.
 
 ### Migração como está é etapa, não destino
 
@@ -93,12 +93,12 @@ custo rapidamente.
 E ela precisa de continuação. Ver
 [cloud native](/09-cloud-architecture/cloud-native.md).
 
-Uma aplicação movida para nuvem sem adquirir as propriedades que a nuvem pressupõe —
-ausência de estado, descartabilidade, configuração externa — roda lá e não aproveita
+Uma aplicação movida para nuvem sem adquirir as propriedades que a nuvem pressupõe
+(ausência de estado, descartabilidade, configuração externa) roda lá e não aproveita
 nada, com custo frequentemente maior.
 
 O plano precisa incluir a segunda fase, com prazo. Sem isso, a pressão que moveu a
-primeira — o fim do contrato, o custo — acaba junto com ela, e nada mais força a segunda.
+primeira (o fim do contrato, o custo) acaba junto com ela, e nada mais força a segunda.
 
 ### As adaptações mínimas que valem a pena
 
@@ -128,8 +128,8 @@ integrações por endereço fixo apontando para o ambiente antigo
 ```
 
 A terceira é a que mais surpreende: sistemas antigos acumulam dependências não
-documentadas — um diretório compartilhado, um processo que roda numa máquina esquecida,
-uma tarefa agendada que ninguém sabia que existia.
+documentadas (um diretório compartilhado, um processo que roda numa máquina esquecida,
+uma tarefa agendada que ninguém sabia que existia).
 
 Ver [arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
@@ -140,8 +140,8 @@ desligar.
 
 Uma expectativa comum e frequentemente frustrada: replataformar para nuvem reduz custo.
 
-Ela reduz quando o dimensionamento é revisto. Movida como está — com a mesma capacidade
-provisionada de um datacenter, onde o hardware já estava pago —, ela costuma custar mais.
+Ela reduz quando o dimensionamento é revisto. Movida como está (com a mesma capacidade
+provisionada de um datacenter, onde o hardware já estava pago), ela costuma custar mais.
 
 Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
@@ -165,7 +165,7 @@ Nenhum desses é causado pela replataforma. Eles existiam e eram compensados por
 características do ambiente antigo que ninguém tinha documentado.
 
 Isso tem duas implicações práticas: a estimativa precisa incluir tempo para tratá-los, e o
-período de operação em paralelo precisa ser longo o suficiente para que apareçam — alguns
+período de operação em paralelo precisa ser longo o suficiente para que apareçam. Alguns
 só se manifestam depois de dias de operação contínua.
 
 E há um lado positivo: cada um desses é um defeito latente que a replataforma expõe.
@@ -200,15 +200,15 @@ máquina física, integração por um meio que o destino não oferece. Aí a ada
 ser mínima, e o trabalho é outra estratégia com o nome errado.
 
 **Quando a infraestrutura atual atende e não há prazo.** Sem restrição operacional a
-remover, a replataforma paga o risco da mudança — dependências ocultas, desempenho diferente
-— sem destravar nada.
+remover, a replataforma paga o risco da mudança (dependências ocultas, desempenho diferente)
+sem destravar nada.
 
 ## Alternativas
 
-- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o problema é o código.
-- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando o modelo está errado.
-- **[Substituição](/16-legacy-modernization/replacing.md)** — quando há produto de mercado.
-- **Manter onde está** — quando a infraestrutura atende e não há prazo.
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)**: quando o problema é o código.
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)**: quando o modelo está errado.
+- **[Substituição](/16-legacy-modernization/replacing.md)**: quando há produto de mercado.
+- **Manter onde está**: quando a infraestrutura atende e não há prazo.
 
 ## Trade-offs
 
@@ -258,7 +258,7 @@ remover, a replataforma paga o risco da mudança — dependências ocultas, dese
 Uma empresa de seguros precisava sair do datacenter em 14 meses, por fim de contrato.
 Sessenta aplicações, várias com mais de dez anos.
 
-A decisão foi replataformar, com adaptações mínimas só onde havia estado — refatorar ou
+A decisão foi replataformar, com adaptações mínimas só onde havia estado: refatorar ou
 reconstruir não cabia no prazo.
 
 A execução, em ondas de complexidade crescente:
@@ -271,7 +271,7 @@ aqui: configuração externalizada, registros na saída padrão, estado fora do 
 desligamento gracioso.
 
 Isso adicionou cerca de seis semanas ao total, e foi o que permitiu que essas aplicações
-rodassem com mais de uma instância — o que várias nunca tinham conseguido.
+rodassem com mais de uma instância, o que várias nunca tinham conseguido.
 
 **Onda 3 — as difíceis.** 12 aplicações com dependências obscuras. O inventário encontrou:
 quatro processos agendados em máquinas sem dono, três integrações por diretório
@@ -279,7 +279,7 @@ compartilhado, e uma aplicação que dependia de um arquivo gerado manualmente u
 mês.
 
 Essa última só foi descoberta porque o mês virou durante o período de operação em
-paralelo — e o processo falhou no ambiente novo.
+paralelo, e o processo falhou no ambiente novo.
 
 **Redimensionamento.** A primeira estimativa de custo, com a capacidade replicada, era 40%
 maior que o datacenter. A revisão com utilização real reduziu para 25% menor.
@@ -287,20 +287,20 @@ maior que o datacenter. A revisão com utilização real reduziu para 25% menor.
 **Período em paralelo** de 60 dias por aplicação, com o antigo disponível.
 
 Resultado: saída no prazo, com custo 25% menor e uma capacidade operacional que não
-existia — esteira automatizada, ambientes reproduzíveis, telemetria centralizada.
+existia (esteira automatizada, ambientes reproduzíveis, telemetria centralizada).
 
 E a segunda fase, planejada desde o início, começou no mês 16: refatoração e substituição
 das aplicações que a análise de portfólio indicava. Ver
 [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
 A lição registrada: a replataforma não melhorou nenhuma aplicação. Ela tornou
-possível melhorá-las — o que, antes, exigia uma janela de manutenção e um procedimento
+possível melhorá-las, o que, antes, exigia uma janela de manutenção e um procedimento
 manual para cada mudança.
 
 ## Conceitos Relacionados
 
 - [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
-- [Cloud Native](/09-cloud-architecture/cloud-native.md) — a segunda fase.
+- [Cloud Native](/09-cloud-architecture/cloud-native.md): a segunda fase.
 - [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
 - [Ausência de Estado](/11-scalability/statelessness.md).
 
@@ -309,7 +309,7 @@ manual para cada mudança.
 Para um sistema legado do seu contexto, liste o que a infraestrutura atual impede: esteira,
 ambientes, telemetria, implantação frequente.
 
-Cada item é um custo que a replataforma removeria — e que encarece todo o resto.
+Cada item é um custo que a replataforma removeria, e que encarece todo o resto.
 
 ## Perguntas de Entrevista
 

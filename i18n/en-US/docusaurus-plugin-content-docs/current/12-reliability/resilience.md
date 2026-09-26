@@ -2,7 +2,7 @@
 id: resilience
 title: Resilience
 sidebar_position: 4
-description: Absorbing the unexpected and adapting — what distinguishes resilience from fault tolerance.
+description: "Absorbing the unexpected and adapting: what distinguishes resilience from fault tolerance."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fault-tolerance]
 related: [fault-tolerance, chaos-engineering, graceful-degradation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-31
 Fault tolerance deals with **anticipated** failures: you identified the failure mode and built the
 response.
 
-Resilience is the ability to absorb the **unexpected** — what nobody anticipated, the improbable
-combination, the failure in an unknown mode — and adapt.
+Resilience is the ability to absorb the **unexpected** (what nobody anticipated, the improbable
+combination, the failure in an unknown mode) and adapt.
 
 The distinction is not academic. It changes where you invest: tolerance is engineering of mechanisms;
 resilience includes people, procedures, margin and the ability to learn.
@@ -33,14 +33,14 @@ resilience includes people, procedures, margin and the ability to learn.
 ## Problem
 
 Every tolerance mechanism covers an anticipated scenario. Serious incidents almost always come from
-scenarios nobody anticipated — not because the team was negligent, but because the space of possible
+scenarios nobody anticipated, not because the team was negligent, but because the space of possible
 combinations is too large to enumerate.
 
 A system with ten well-built tolerance mechanisms will still face the situation none of them was designed
 for.
 
 What determines the outcome at that moment is not the list of mechanisms. It is the ability to perceive,
-understand, decide and act under uncertainty — which is the practical definition of resilience.
+understand, decide and act under uncertainty. That is the practical definition of resilience.
 
 ## Core Concepts
 
@@ -54,7 +54,7 @@ learn        turning what happened into capability
 ```
 
 Fault tolerance covers mainly the first, turned into a mechanism. The other three depend on people, tools
-and process — and they are what decides the outcome in the unanticipated scenario.
+and process, and they are what decides the outcome in the unanticipated scenario.
 
 ### Room to maneuver
 
@@ -66,8 +66,8 @@ with margin      capacity headroom, an alternative path, a feature that can be
                  turned off, time before impact
 ```
 
-Margin is what gives **options** during the incident. It costs — idle capacity, alternative paths to
-maintain — and it is what separates a system that degrades from one that collapses.
+Margin is what gives **options** during the incident. It costs (idle capacity, alternative paths to
+maintain), and it is what separates a system that degrades from one that collapses.
 
 See [capacity planning](/11-scalability/scaling-capacity-planning.md) and
 [graceful degradation](/12-reliability/graceful-degradation.md).
@@ -85,7 +85,7 @@ rollback in 2 hours     each decision is final under pressure
 That guides the investment: reversible deployment, per-feature switches, configuration changes with no
 deployment, migrations with a way back.
 
-In incidents triggered by a change, it is what sets the lower bound on duration — and it appears in no
+In incidents triggered by a change, it is what sets the lower bound on duration, and it appears in no
 component diagram, because it is a property of the delivery process, not of the topology.
 
 ### People are part of the system
@@ -104,14 +104,14 @@ clear authority          who decides what, with no escalation
 ```
 
 See [observability](/13-observability/index.md) and, for on-call, [SRE concepts](/13-observability/sre-concepts.md). The difference between monitoring and observability is
-exactly that: the first answers anticipated questions, the second allows formulating new ones — which is
+exactly that: the first answers anticipated questions, the second allows formulating new ones, which is
 what the unknown scenario requires.
 
 ### Learning is the capability that compounds
 
 An incident that generates no learning will be repeated.
 
-The mechanics of the analysis — blameless, focused on conditions, actions with an owner and a deadline —
+The mechanics of the analysis (blameless, focused on conditions, actions with an owner and a deadline)
 are in [SRE concepts](/13-observability/sre-concepts.md#blameless-incident-analysis). What is specific to
 resilience is the cumulative effect: each analysis that turns into a change widens the set of what was
 anticipated, and the next incident needs a more improbable combination to happen.
@@ -125,7 +125,7 @@ A resilient system fails — and absorbs, degrades, recovers and improves.
 Chasing the absence of failure leads to fragility: systems optimized for the expected case, with no margin,
 with no alternatives, that work perfectly until they meet the unexpected.
 
-See [SLO](/12-reliability/slo.md) — the error budget is the formal expression of that idea: failure is
+See [SLO](/12-reliability/slo.md). The error budget is the formal expression of that idea: failure is
 expected and budgeted.
 
 ## Mental Model
@@ -151,7 +151,7 @@ improvisation.
 lost revenue or data, does not pay for permanent idle capacity or monthly tabletop exercises.
 
 **In batch processing with a wide recovery window.** If the job can run again the next night with no
-consequence, rerunning is the response to the unforeseen — and it already exists.
+consequence, rerunning is the response to the unforeseen, and it already exists.
 
 **In a system with no continuous operation.** With nobody on call and no user waiting in real time, the
 ability to respond during the incident has no moment to be exercised; the investment goes to tolerance and
@@ -159,13 +159,13 @@ recovery.
 
 ## Alternatives
 
-There is no alternative to resilience — there are different emphases:
+There is no alternative to resilience, only different emphases:
 
-- **More tolerance mechanisms** — they cover more anticipated scenarios, and not the unanticipated one.
-- **Simplifying** — fewer interactions, fewer unexpected combinations. Frequently the most effective
+- **More tolerance mechanisms**: they cover more anticipated scenarios, and not the unanticipated one.
+- **Simplifying**: fewer interactions, fewer unexpected combinations. Frequently the most effective
   intervention.
-- **Reducing the reach** — smaller, isolated systems fail together less.
-- **Reversibility** — the best isolated return when incidents come from changes: it shortens all of them
+- **Reducing the reach**: smaller, isolated systems fail together less.
+- **Reversibility**: the best isolated return when incidents come from changes. It shortens all of them
   without requiring any to have been anticipated.
 
 ## Trade-offs
@@ -229,7 +229,7 @@ The sequence: a configuration change increased a connection pool's size; that in
 per instance; auto scaling, on adding instances during a peak, exhausted the subnet's address quota; the
 new instances came up and failed; the balancer removed them and added others, in a cycle.
 
-No tolerance mechanism applied — there was no isolated component failure that redundancy or a circuit
+No tolerance mechanism applied: there was no isolated component failure that redundancy or a circuit
 breaker could absorb; the instances failed because of an interaction between three reasonable decisions.
 
 What prolonged the incident:
@@ -243,8 +243,8 @@ deployment: 35 minutes.
 **Concentrated knowledge.** The person who understood the network configuration was unavailable. It took 2
 hours until somebody suspected the address quota.
 
-**Insufficient observability.** There was no metric for available addresses in the subnet. The symptom —
-instances failing at startup — did not point at the cause.
+**Insufficient observability.** There was no metric for available addresses in the subnet. The symptom
+(instances failing at startup) did not point at the cause.
 
 The fixes were about resilience, not tolerance:
 
@@ -254,7 +254,7 @@ The fixes were about resilience, not tolerance:
 
 **Per-feature switches**, allowing load to be reduced with no deployment.
 
-**Infrastructure resource metrics** — addresses, quotas, limits — that did not exist before.
+**Infrastructure resource metrics** (addresses, quotas, limits) that did not exist before.
 
 **Monthly tabletop exercises**, discussing combined scenarios. The third exercise found two other couplings
 nobody had noticed.
@@ -269,14 +269,14 @@ implement.
 
 ## Related Concepts
 
-- [Fault Tolerance](/12-reliability/fault-tolerance.md) — the anticipated.
-- [Chaos Engineering](/12-reliability/chaos-engineering.md) — how to discover the unanticipated.
-- [Graceful Degradation](/12-reliability/graceful-degradation.md) — margin in the form of features.
+- [Fault Tolerance](/12-reliability/fault-tolerance.md): the anticipated.
+- [Chaos Engineering](/12-reliability/chaos-engineering.md): how to discover the unanticipated.
+- [Graceful Degradation](/12-reliability/graceful-degradation.md): margin in the form of features.
 - [Observability](/13-observability/index.md).
 
 ## Practical Exercise
 
-Measure how long it takes to roll back the last change deployed to your system — for real, timed.
+Measure how long it takes to roll back the last change deployed to your system, for real, timed.
 
 That number is the lower bound on the duration of any incident caused by a change.
 

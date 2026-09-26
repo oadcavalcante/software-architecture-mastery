@@ -2,7 +2,7 @@
 id: proxy
 title: Proxy
 sidebar_position: 12
-description: Um substituto que controla acesso ao objeto real — e as quatro variantes com custos diferentes.
+description: Um substituto que controla acesso ao objeto real, e as quatro variantes com custos diferentes.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decorator]
 related: [decorator, adapter, facade]
 canonical_for: [proxy, procurador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Proxy fornece um substituto que controla o acesso a outro objeto, implementando a
 mesma interface.
 
-O que distingue Proxy de [Decorator](/03-design-patterns/decorator.md) — estruturalmente idênticos —
+O que distingue Proxy de [Decorator](/03-design-patterns/decorator.md) (estruturalmente idênticos)
 é a intenção: Decorator adiciona comportamento que o cliente quer; Proxy controla
 acesso, e o cliente frequentemente não sabe que ele existe.
 
@@ -45,16 +45,16 @@ interface.
 
 O GoF distingue quatro, com perfis de custo bem diferentes.
 
-**Virtual** — adia a criação do objeto real até o primeiro uso. Usado para
+**Virtual**: adia a criação do objeto real até o primeiro uso. Usado para
 objetos caros: uma imagem de alta resolução, um agregado com muitas relações.
 
-**Remoto** — representa localmente um objeto em outro processo ou máquina. É o
-que torna uma chamada de rede parecer uma chamada de método — e é a variante mais
+**Remoto**: representa localmente um objeto em outro processo ou máquina. É o
+que torna uma chamada de rede parecer uma chamada de método, e é a variante mais
 perigosa, pelo motivo abaixo.
 
-**De proteção** — verifica permissão antes de delegar.
+**De proteção**: verifica permissão antes de delegar.
 
-**Inteligente** — adiciona gerenciamento: contagem de referências, carga sob
+**Inteligente**: adiciona gerenciamento: contagem de referências, carga sob
 demanda de campos, registro de acesso.
 
 ### A transparência esconde custo
@@ -64,7 +64,7 @@ importantes de sistemas distribuídos.
 
 Uma chamada que parece local pode ser uma requisição de rede com latência,
 timeout e possibilidade de falha parcial. O código não distingue, e o
-desenvolvedor raciocina como se fosse local — chamando em laço, sem tratamento de
+desenvolvedor raciocina como se fosse local: chamando em laço, sem tratamento de
 falha, sem considerar latência.
 
 É a origem das *falácias da computação distribuída*: a rede é confiável, a
@@ -77,7 +77,7 @@ Ver [sistemas distribuídos](/06-distributed-systems/index.md).
 
 O proxy virtual em mapeadores objeto-relacional produz o defeito de desempenho
 mais comum em aplicações de negócio: um laço sobre cem pedidos, acessando
-`pedido.getCliente()`, dispara cem consultas — porque cada acesso ao proxy
+`pedido.getCliente()`, dispara cem consultas, porque cada acesso ao proxy
 carrega sob demanda.
 
 O código parece percorrer uma lista em memória. Ele está fazendo cem viagens ao
@@ -112,11 +112,11 @@ mede, cacheia e valida virou uma pilha de decoradores mal nomeada.
 
 ## Alternativas
 
-- **Carga explícita** — `repositorio.buscarComCliente(id)` em vez de proxy
+- **Carga explícita**: `repositorio.buscarComCliente(id)` em vez de proxy
   virtual. Mais verboso e sem surpresa.
-- **[Decorator](/03-design-patterns/decorator.md)** — quando o comportamento é escolha do cliente.
-- **Cliente assíncrono explícito** — para chamadas remotas.
-- **Verificação de permissão no ponto de entrada** — visível e auditável.
+- **[Decorator](/03-design-patterns/decorator.md)**: quando o comportamento é escolha do cliente.
+- **Cliente assíncrono explícito**: para chamadas remotas.
+- **Verificação de permissão no ponto de entrada**: visível e auditável.
 
 ## Trade-offs
 
@@ -151,7 +151,7 @@ sessão ou a transação já fechou.
 
 **Confundir com Decorator.** Intenção diferente.
 
-**Usar proxy virtual sem entender o N+1.** Carregar sob demanda dentro de um laço transforma uma consulta em uma por elemento, e o custo só aparece com volume — em desenvolvimento, com dez registros, o padrão parece funcionar.
+**Usar proxy virtual sem entender o N+1.** Carregar sob demanda dentro de um laço transforma uma consulta em uma por elemento, e o custo só aparece com volume: em desenvolvimento, com dez registros, o padrão parece funcionar.
 
 **Esconder chamada remota atrás de interface local.** Quem chama não vê latência nem possibilidade de falha, e escreve o código como se fosse memória: sem timeout, sem retentativa, dentro de laço. É a primeira falácia da computação distribuída embalada num padrão.
 
@@ -163,11 +163,11 @@ sessão ou a transação já fechou.
 virtuais. É o uso mais difundido e o que mais causa problemas de desempenho.
 
 **Chamada remota em frameworks antigos.** RMI, CORBA e alguns clientes de RPC
-geram proxies que fazem a rede parecer local. A tendência moderna é o oposto —
+geram proxies que fazem a rede parecer local. A tendência moderna é o oposto:
 clientes que devolvem tipos assíncronos.
 
 **Contêineres de injeção de dependência.** Muitos envolvem os objetos em proxies
-para aplicar transação, segurança e cache — que é a variante inteligente,
+para aplicar transação, segurança e cache. É a variante inteligente,
 frequentemente invisível para quem escreve o código.
 
 **Malhas de serviço.** O *sidecar* é um proxy de rede: intercepta o tráfego para
@@ -190,18 +190,18 @@ viraram cinquenta e uma consultas.
 A correção imediata foi carregar explicitamente na consulta original.
 
 A correção estrutural veio depois e é a que interessa: o time passou a usar
-projeções explícitas para telas de listagem — um tipo que contém exatamente os
-campos que a tela mostra, obtido numa consulta.
+projeções explícitas para telas de listagem (um tipo que contém exatamente os
+campos que a tela mostra, obtido numa consulta).
 
 Isso eliminou a categoria inteira de defeito, porque não há proxy para disparar.
 O custo passou a ser visível na consulta, que é onde ele deve estar.
 
 ## Conceitos Relacionados
 
-- [Decorator](/03-design-patterns/decorator.md) — mesma estrutura, intenção diferente.
-- [Adapter](/03-design-patterns/adapter.md) — muda a interface.
-- [Facade](/03-design-patterns/facade.md) — simplifica um subsistema.
-- [Sistemas Distribuídos](/06-distributed-systems/index.md) — por que a
+- [Decorator](/03-design-patterns/decorator.md): mesma estrutura, intenção diferente.
+- [Adapter](/03-design-patterns/adapter.md): muda a interface.
+- [Facade](/03-design-patterns/facade.md): simplifica um subsistema.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md): por que a
   transparência remota é perigosa.
 
 ## Exercício Prático
@@ -221,6 +221,6 @@ causado por proxy virtual.
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — desenvolve a
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006. Desenvolve a
   lista atribuída a L. Peter Deutsch (as sete primeiras, por volta de 1994) e a James Gosling
   (a oitava), que circulou sem publicação formal com esse título.

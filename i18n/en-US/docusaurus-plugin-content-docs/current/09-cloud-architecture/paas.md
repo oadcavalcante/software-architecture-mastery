@@ -2,7 +2,7 @@
 id: paas
 title: PaaS
 sidebar_position: 2
-description: Shipping code and not thinking about servers — high productivity inside a shape you do not choose.
+description: "Shipping code and not thinking about servers: high productivity inside a shape you do not choose."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, saas, serverless]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-PaaS — platform as a service — receives your code and takes care of the rest: the operating system, the
+PaaS (platform as a service) receives your code and takes care of the rest: the operating system, the
 runtime, the server, scaling, deployment, certificates.
 
 You hand over the application and configure a few things. The platform decides the rest, by its own
@@ -49,7 +49,7 @@ A PaaS assumes things: how the application starts, where the configuration comes
 arrives, how the file system behaves.
 
 Applications that follow those conventions gain a lot. Applications that need something outside them hit a
-wall — and the wall has no door.
+wall, and the wall has no door.
 
 That is why the right evaluation is not about features, but: **what does my system need to do that the
 platform does not allow?**
@@ -70,7 +70,7 @@ Being specific, because it is what decides:
 
 **No system access.** Deep diagnosis becomes a ticket.
 
-None is a defect — all of them are the price of convention.
+None is a defect: all of them are the price of convention.
 
 ### The twelve rules still hold
 
@@ -92,12 +92,12 @@ gives portability across the three models, and it holds even with no PaaS.
 
 ### An internal developer platform
 
-The version built in-house — see
+The version built in-house (see
 [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md) for the full
-treatment: a platform team offers the others a layer with deployment, observability and ready-made
+treatment): a platform team offers the others a layer with deployment, observability and ready-made
 standards, on top of [Kubernetes](/09-cloud-architecture/kubernetes.md) or IaaS.
 
-The goal is the same — removing repetitive work — with the shape defined by the organization itself.
+The goal is the same (removing repetitive work), with the shape defined by the organization itself.
 
 The risk is known: an internal PaaS needs to be treated as a
 [product](/14-devops-and-platform/platform-engineering.md), with users, maintenance and evolution. Treated
@@ -115,16 +115,16 @@ What usually holds you, in increasing order:
 
 **The platform's database and cache.** Exportable, with migration time.
 
-**Proprietary auxiliary services** — queues, schedulers, integrations. With no direct equivalent.
+**Proprietary auxiliary services**: queues, schedulers, integrations, with no direct equivalent.
 
-**The platform's automation** — pipelines, review environments, scaling. It needs to be rebuilt.
+**The platform's automation**: pipelines, review environments, scaling. It needs to be rebuilt.
 
 Knowing where you are on that scale is what allows the exit to be estimated before it is needed. See
 [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 The practical rule that preserves most of the option: use the platform to run the code, and prefer portable
 managed services for the rest. The cost is integrating and configuring each service from outside, giving up
-the ready-made integration that is part of the platform's productivity — small next to rebuilding the top
+the ready-made integration that is part of the platform's productivity. It is small next to rebuilding the top
 two rungs of the scale.
 
 ## Mental Model
@@ -139,7 +139,7 @@ when it is not.
 - Delivery speed is a priority.
 - The platform's defaults meet the requirements.
 - Standardizing deployment across many teams.
-- Ephemeral per-branch environments for review — one of the model's least-used capabilities.
+- Ephemeral per-branch environments for review, one of the model's least-used capabilities.
 
 ## When Not to Use
 
@@ -154,15 +154,15 @@ the bill reached 4 times the equivalent.
 **For legacy software** that assumes a file system and persistent processes.
 
 **When the system will depend on the platform's proprietary auxiliary services and automation** and the
-organization does not accept the cost of rebuilding them on the way out — the top two rungs of the lock-in
+organization does not accept the cost of rebuilding them on the way out: the top two rungs of the lock-in
 scale. See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Alternatives
 
-- **[Containers](/09-cloud-architecture/containers.md) with orchestration** — more control, more work.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — for event-driven workloads.
-- **[IaaS](/09-cloud-architecture/iaas.md)** — full control.
-- **PaaS on Kubernetes** — platforms that give the PaaS experience while keeping the base portable. A
+- **[Containers](/09-cloud-architecture/containers.md) with orchestration**: more control, more work.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: for event-driven workloads.
+- **[IaaS](/09-cloud-architecture/iaas.md)**: full control.
+- **PaaS on Kubernetes**: platforms that give the PaaS experience while keeping the base portable. A
   middle ground that resolves much of the dependency objection.
 
 ## Trade-offs
@@ -194,7 +194,7 @@ scale. See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Common Mistakes
 
-**Choosing without checking the restrictions against the requirements.** Every platform imposes limits — a
+**Choosing without checking the restrictions against the requirements.** Every platform imposes limits: a
 maximum request time, an artifact size, the absence of a persistent disk. Discovering them after building
 costs the whole migration.
 
@@ -216,7 +216,7 @@ engineers, no time spent on infrastructure, fast delivery.
 In the third year, three limits appeared at the same time:
 
 **Long processing.** A new feature required processing large files, exceeding the request time limit. The
-solution was a separate component outside the platform — the first piece of infrastructure of their own.
+solution was a separate component outside the platform: the first piece of infrastructure of their own.
 
 **Cost.** With traffic grown, the PaaS bill reached around 4 times the estimated cost of the equivalent in
 containers. The productivity premium, which was irrelevant at low traffic, became the second-largest item
@@ -230,24 +230,24 @@ twelve rules, because the PaaS had forced it to. There was no local state, the c
 environment, the logs went to standard output.
 
 What the team records: the PaaS was the right choice and stopped being it. Both things are true, and there
-was no way to know in the first year — nor was it worth trying to guess.
+was no way to know in the first year, nor was it worth trying to guess.
 
 What would have helped was estimating, at some point in the second year, the point at which the cost would
 invert. That would have given months of lead time instead of urgency.
 
 ## Related Concepts
 
-- [IaaS](/09-cloud-architecture/iaas.md) — the model below.
-- [SaaS](/09-cloud-architecture/saas.md) — the model above.
-- [Serverless](/09-cloud-architecture/serverless.md) — the model's evolution.
-- [Containers](/09-cloud-architecture/containers.md) — the common alternative.
+- [IaaS](/09-cloud-architecture/iaas.md): the model below.
+- [SaaS](/09-cloud-architecture/saas.md): the model above.
+- [Serverless](/09-cloud-architecture/serverless.md): the model's evolution.
+- [Containers](/09-cloud-architecture/containers.md): the common alternative.
 
 ## Practical Exercise
 
 If you use a PaaS, list three things your system may need to do in the next two years and check whether the
 platform allows them.
 
-And estimate the cost at the volume you expect to have — the inversion point usually arrives sooner than
+And estimate the cost at the volume you expect to have: the inversion point usually arrives sooner than
 predicted.
 
 ## Interview Questions

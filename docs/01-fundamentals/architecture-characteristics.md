@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [architecture-principles, architecture-as-decisions]
 canonical_for: [características arquiteturais, architecture characteristics]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-26
 
 Características arquiteturais são os
 [atributos de qualidade](/01-fundamentals/quality-attributes.md) que a arquitetura precisa
-suportar explicitamente — as que efetivamente dirigem decisões estruturais.
+suportar explicitamente: as que efetivamente dirigem decisões estruturais.
 
 A distinção em relação ao termo mais antigo não é de significado, e sim de uso:
 "atributos de qualidade" é uma taxonomia; "características arquiteturais" é uma
@@ -37,7 +37,7 @@ consegue ser dirigida por dezenas de coisas.
 
 Times que tentam produzem um documento de arquitetura que lista quinze
 características como importantes, e uma arquitetura que na prática foi decidida
-por duas ou três — sem que ninguém tenha declarado quais.
+por duas ou três, sem que ninguém tenha declarado quais.
 
 A consequência é que as decisões subsequentes perdem critério. Diante de uma
 escolha entre duas opções, não há a que perguntar. Cada pessoa aplica a
@@ -53,11 +53,11 @@ A prática que funciona: **escolher no máximo três a cinco características
 dirigentes, ordenadas**.
 
 Três a cinco não é um número arbitrário. É aproximadamente o que um time consegue
-manter presente ao decidir, e é pequeno o suficiente para forçar a escolha —
+manter presente ao decidir, e é pequeno o suficiente para forçar a escolha,
 que é o ponto. Uma lista de quinze não obriga ninguém a abrir mão de nada.
 
 A ordenação importa mais que a lista. Quando duas características entram em
-conflito — e vão entrar — a ordem é o que resolve sem nova reunião.
+conflito (e vão entrar), a ordem é o que resolve sem nova reunião.
 
 ### Explícitas e implícitas
 
@@ -66,14 +66,14 @@ capacidade.
 
 Outras são implícitas e ninguém as pede porque são pressupostas: segurança,
 manutenibilidade, capacidade de ser implantado. Não pedidas não significa não
-exigidas — significa que ninguém vai avisar quando faltarem, até que faltem.
+exigidas: significa que ninguém vai avisar quando faltarem, até que faltem.
 
 Um levantamento que só captura as explícitas produz sistemas rápidos e
 inseguros, ou disponíveis e impossíveis de mudar.
 
 Capturá-las não alarga a lista dirigente: ela continua com três a cinco. Uma
-implícita só entra na lista quando há algo a sacrificar por ela neste sistema —
-do contrário é piso, garantido por prática padrão e verificado fora da lista.
+implícita só entra na lista quando há algo a sacrificar por ela neste sistema.
+Do contrário, é piso, garantido por prática padrão e verificado fora da lista.
 
 ### Toda característica extra tem custo
 
@@ -81,14 +81,14 @@ Cada característica adicionada à lista restringe o espaço de solução e adic
 complexidade.
 
 Isso significa que a pergunta ao considerar incluir mais uma não é "isso é
-desejável?" — quase tudo é. É **"o que estou disposto a sacrificar por isso?"**.
+desejável?", porque quase tudo é, e sim **"o que estou disposto a sacrificar por isso?"**.
 Se a resposta for "nada", a característica não entra na lista; ela é um desejo.
 
 ### Características mudam com o contexto
 
-As características dirigentes de um sistema no primeiro ano — velocidade de
-mudança, custo baixo — raramente são as do quinto ano — disponibilidade,
-manutenibilidade.
+As características dirigentes de um sistema no primeiro ano (velocidade de
+mudança, custo baixo) raramente são as do quinto ano (disponibilidade,
+manutenibilidade).
 
 Revisar a lista periodicamente é o que impede que a arquitetura continue
 otimizada para o que importava antes. Ver
@@ -127,7 +127,7 @@ garantia de não duplicação sob falha" contém uma característica.
 negócio, e o desalinhamento é silencioso.
 
 **Escolher características que ninguém mede.** Uma dirigente sem instrumentação
-não julga decisão nenhuma — [atributos de qualidade](/01-fundamentals/quality-attributes.md)
+não julga decisão nenhuma; [atributos de qualidade](/01-fundamentals/quality-attributes.md)
 trata por que um atributo não medido degrada sem aviso.
 
 ## Exemplo Real
@@ -146,24 +146,24 @@ instância única, processamento em lote noturno, sem redundância, e uso de um
 serviço gerenciado mais caro por transação mas muito mais barato de operar.
 
 As duas arquiteturas não compartilham nenhuma decisão estrutural. Nenhuma das
-duas é melhor — cada uma responde à sua lista.
+duas é melhor: cada uma responde à sua lista.
 
 O que vale notar: o segundo time propôs inicialmente replicação multi-zona, "por
 consistência com o padrão da empresa". A pergunta que encerrou a discussão foi
-qual característica isso servia — e a resposta, disponibilidade, não estava na
+qual característica isso servia, e a resposta (disponibilidade) não estava na
 lista dele. O relatório podia atrasar um dia sem consequência.
 
 A lista curta não impediu uma decisão ruim por autoridade. Impediu por critério.
 
 ## Conceitos Relacionados
 
-- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — a taxonomia de onde as
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md): a taxonomia de onde as
   características são selecionadas.
-- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a forma
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md): a forma
   verificável que cada característica selecionada precisa assumir para virar critério.
-- [Princípios de Arquitetura](/01-fundamentals/architecture-principles.md) — como as
+- [Princípios de Arquitetura](/01-fundamentals/architecture-principles.md): como as
   características viram orientação para decisões distribuídas.
-- [Trade-offs](/20-trade-offs/index.md) — o que acontece quando duas
+- [Trade-offs](/20-trade-offs/index.md): o que acontece quando duas
   características entram em conflito.
 
 ## Exercício Prático
@@ -186,6 +186,6 @@ descobertas são valiosas.
 ## Para Aprofundar
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — a formulação e a prática de seleção.
+  2020. A formulação e a prática de seleção.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
-  4ª ed., 2021 — cenários de atributo de qualidade.
+  4ª ed., 2021. Cenários de atributo de qualidade.

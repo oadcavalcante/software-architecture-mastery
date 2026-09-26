@@ -2,7 +2,7 @@
 id: encapsulation
 title: Encapsulamento
 sidebar_position: 5
-description: Esconder o que pode mudar — e por que getters e setters em tudo é o oposto disso.
+description: Esconder o que pode mudar, e por que getters e setters em tudo é o oposto disso.
 doc_type: concept
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [interfaces, boundaries, solid]
 canonical_for: [encapsulamento, encapsulation, ocultação de informação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Encapsulamento é esconder decisões que podem mudar atrás de uma interface que não
 muda.
 
-A formulação de Parnas — *information hiding* — é mais precisa que a versão que
+A formulação de Parnas (*information hiding*) é mais precisa que a versão que
 se ensina: não se trata de tornar campos privados. Trata-se de decidir **o que o
 resto do sistema não precisa saber**, e garantir que não saiba.
 
@@ -68,12 +68,12 @@ pedido.getItens().add(i)     pedido.adicionarItem(i)
 ```
 
 A coluna da direita permite que o objeto garanta suas invariantes. A da esquerda
-espalha essa responsabilidade por todos os chamadores — e basta um esquecer.
+espalha essa responsabilidade por todos os chamadores, e basta um esquecer.
 
 ### Invariante é o que justifica
 
 Um objeto sem invariante a proteger não precisa de encapsulamento. Uma estrutura
-de dados que só transporta valores — um DTO, um registro de configuração — pode e
+de dados que só transporta valores (um DTO, um registro de configuração) pode e
 deve ser transparente.
 
 Encapsular o que não tem regra a proteger é cerimônia.
@@ -94,7 +94,7 @@ resto é o contrato.
 
 ## Quando Usar
 
-- Quando o objeto tem invariante — uma regra que precisa valer sempre.
+- Quando o objeto tem invariante: uma regra que precisa valer sempre.
 - Quando a representação interna pode mudar e há consumidores.
 - Quando existe uma sequência de operações que precisa ser respeitada.
 - Quando o objeto pertence ao domínio e tem comportamento próprio.
@@ -116,10 +116,10 @@ interno do lado de fora.
 
 ## Alternativas
 
-- **Tipo imutável** — se o objeto não muda, expor os valores é seguro e a
+- **Tipo imutável**: se o objeto não muda, expor os valores é seguro e a
   invariante é garantida na construção.
-- **Registro transparente** — para dados sem regra.
-- **Objeto de valor** — encapsula significado sem esconder valor. Ver
+- **Registro transparente**: para dados sem regra.
+- **Objeto de valor**: encapsula significado sem esconder valor. Ver
   [DDD](/04-domain-driven-design/index.md).
 
 ## Trade-offs
@@ -156,14 +156,14 @@ exatamente a prática errada.
 **Devolver estruturas mutáveis.** O vazamento mais comum e o menos percebido.
 
 **Achar que encapsulamento é sobre segurança.** É sobre custo de mudança. Um
-campo privado não protege contra ninguém — protege contra dependência.
+campo privado não protege contra ninguém: protege contra dependência.
 
 ## Exemplo Real
 
 Uma classe `Assinatura` com `getStatus()`, `setStatus()`, `getDataFim()` e
 `setDataFim()`.
 
-A regra "assinatura cancelada não pode ter a data de fim alterada" existia — em
+A regra "assinatura cancelada não pode ter a data de fim alterada" existia: em
 quatro serviços diferentes, três deles verificando antes de chamar o setter. O
 quarto não verificava.
 
@@ -174,8 +174,8 @@ A correção não foi adicionar a verificação no quarto lugar. Foi mover a reg
 para dentro: `assinatura.estender(novaData)` lança se o status for cancelado, e o
 setter deixou de existir.
 
-Depois disso a regra passou a valer por construção, e o quinto serviço — escrito
-um ano depois por outra pessoa — não teve como errar.
+Depois disso a regra passou a valer por construção, e o quinto serviço, escrito
+um ano depois por outra pessoa, não teve como errar.
 
 O detalhe que importa: a classe tinha campos privados desde sempre. O
 encapsulamento estava ausente mesmo com todos os campos privados.
@@ -194,8 +194,8 @@ cobrança que expõe `Fatura` com todos os campos e relações força os consumi
 a entender o modelo de faturamento, e amarra esse modelo a eles.
 
 A diferença prática entre as duas escalas é o mecanismo. Numa classe,
-visibilidade de linguagem basta. Num módulo, é preciso um mecanismo explícito —
-módulo declarado, teste de arquitetura, análise de dependências — porque a maioria
+visibilidade de linguagem basta. Num módulo, é preciso um mecanismo explícito
+(módulo declarado, teste de arquitetura, análise de dependências), porque a maioria
 das linguagens não impõe fronteira de pacote com força suficiente.
 
 Ver [design modular](/02-software-design/modular-design.md) para o contrato e
@@ -203,9 +203,9 @@ Ver [design modular](/02-software-design/modular-design.md) para o contrato e
 
 ## Conceitos Relacionados
 
-- [Interfaces](/02-software-design/interfaces.md) — o contrato que o encapsulamento expõe.
-- [Abstração](/01-fundamentals/abstraction.md) — o princípio geral.
-- [Fronteiras](/02-software-design/boundaries.md) — encapsulamento em escala maior.
+- [Interfaces](/02-software-design/interfaces.md): o contrato que o encapsulamento expõe.
+- [Abstração](/01-fundamentals/abstraction.md): o princípio geral.
+- [Fronteiras](/02-software-design/boundaries.md): encapsulamento em escala maior.
 
 ## O objeto anêmico e por que ele persiste
 
@@ -222,7 +222,7 @@ estrutura anêmica, e resistir a ele exige configuração adicional que nem todo
 conhece.
 
 A segunda é conceitual. A separação entre dados e comportamento é intuitiva para
-quem vem de programação procedural, e o resultado funciona — o sistema faz o que
+quem vem de programação procedural, e o resultado funciona: o sistema faz o que
 deve. O custo não aparece como defeito; aparece como regra de negócio duplicada
 em vários serviços, e como bugs em que um dos lugares esqueceu de verificar algo.
 
@@ -242,7 +242,7 @@ Escolha uma classe de domínio do seu sistema e liste as regras que deveriam val
 sempre sobre ela.
 
 Para cada regra, encontre onde ela é verificada. Se estiver fora da classe, conte
-em quantos lugares — e verifique se todos verificam.
+em quantos lugares, e verifique se todos verificam.
 
 Os lugares que faltam são bugs que ainda não aconteceram.
 
@@ -256,6 +256,6 @@ Os lugares que faltam são bugs que ainda não aconteceram.
 
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
   Modules*. CACM, 1972.
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 —
-  módulos profundos.
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
+  Módulos profundos.
 - Fowler, Martin. *AnemicDomainModel*, 2003.

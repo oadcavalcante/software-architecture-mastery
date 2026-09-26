@@ -2,7 +2,7 @@
 id: alerting
 title: Alerting
 sidebar_position: 7
-description: What deserves to wake somebody up — and why most existing alerts do not.
+description: What deserves to wake somebody up, and why most existing alerts do not.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, slo, sre-concepts]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ The criterion that justifies that cost is narrow: **something is affecting users
 is a human action that resolves it.**
 
 Most of a typical system's alerts do not pass that test. They exist because somebody, at some point, wanted
-to know about something — and nobody reviewed it afterward.
+to know about something, and nobody reviewed it afterward.
 
 ## Problem
 
@@ -39,7 +39,7 @@ repeats dozens of times over the years.
 Nobody removes any. The result is a volume nobody can process, and the predictable human response:
 **ignore**.
 
-From then on, the alerts stop working — including the good ones. A team receiving forty notifications a day
+From then on, the alerts stop working, including the good ones. A team receiving forty notifications a day
 does not react to the forty-first, even if it is the important one.
 
 Alert fatigue is not a discipline problem. It is the expected consequence of a system that interrupts too
@@ -60,7 +60,7 @@ relevant     it affects users, or is about to
 Failing any one means the alert should be something else: a prioritized task, a dashboard item, or nothing.
 
 The actionability test is the most effective. An alert whose response is "look and see that it passed" is
-not actionable — it is noise with the appearance of information.
+not actionable: it is noise with the appearance of information.
 
 ### Alert on the symptom, not on the cause
 
@@ -69,18 +69,18 @@ a cause     "CPU above 80%"
 a symptom   "the checkout error rate is above the limit"
 ```
 
-Alerting on causes produces two problems: it fires when there is no impact — high CPU can be normal — and
+Alerting on causes produces two problems: it fires when there is no impact (high CPU can be normal) and
 it does not fire when there is impact from a cause nobody anticipated.
 
 Alerting on a symptom covers every cause that shows up in the measured signal, including the ones nobody
 foresaw, at the price of not saying which one it is. Whatever does not show up in the chosen symptom stays
 uncovered, and a transient spike below real impact can still fire.
 
-The causes are still measured — they appear on the dashboard and are used for diagnosis. They simply do not
+The causes are still measured: they appear on the dashboard and are used for diagnosis. They simply do not
 wake anybody up.
 
-The legitimate exception: causes with high predictability and a deadline — "the certificate expires in 14
-days", "the disk is full in 6 hours". They are actionable and they prevent the symptom.
+The legitimate exception: causes with high predictability and a deadline ("the certificate expires in 14
+days", "the disk is full in 6 hours"). They are actionable and they prevent the symptom.
 
 ### Base it on the error budget
 
@@ -113,7 +113,7 @@ The question that classifies it: **if this fires at 3 a.m., does somebody need t
 is no, it is not an on-call alert.
 
 Downgrading to a ticket whatever answers "no" to that question is the fastest intervention for reducing
-fatigue — the work still gets done, at a reasonable hour. What is lost is timely detection of a condition
+fatigue: the work still gets done, at a reasonable hour. What is lost is timely detection of a condition
 that worsens outside business hours; so the downgrade holds only when the condition does not tend to become
 a symptom before the next morning.
 
@@ -159,29 +159,29 @@ nobody prioritized.
 
 - A symptom affecting users, with an action available.
 - Accelerated error budget consumption.
-- A predictable condition with a deadline — a certificate, a quota, a disk.
-- A protection mechanism failing — a lost replica, disabled failover. There is no impact yet, but the next
+- A predictable condition with a deadline: a certificate, a quota, a disk.
+- A protection mechanism failing: a lost replica, disabled failover. There is no impact yet, but the next
   failure is no longer absorbed; it is the predictable-cause exception where the deadline is the time until
   the next failure.
-- The absence of something that should happen — a task not executed, traffic ceased.
+- The absence of something that should happen: a task not executed, traffic ceased.
 
 ## When Not to Use
 
-**On causes** with no direct impact — they fire under normal conditions and train the team to ignore them.
+**On causes** with no direct impact: they fire under normal conditions and train the team to ignore them.
 
-**With no possible action** — waking somebody up to watch does not change the outcome.
+**With no possible action**: waking somebody up to watch does not change the outcome.
 
-**For what can wait for business hours** — the cost of the interruption buys nothing a ticket would not
+**For what can wait for business hours**: the cost of the interruption buys nothing a ticket would not
 deliver.
 
 **With an arbitrary threshold**, when an error budget is available.
 
 ## Alternatives
 
-- **A prioritized ticket** — for what needs action with no urgency.
-- **A dashboard item** — for context.
-- **An [SLO](/12-reliability/slo.md)-based alert** — proportional to the impact.
-- **Automatic remediation** — when the action is always the same, automate instead of alerting. The best
+- **A prioritized ticket**: for what needs action with no urgency.
+- **A dashboard item**: for context.
+- **An [SLO](/12-reliability/slo.md)-based alert**: proportional to the impact.
+- **Automatic remediation**: when the action is always the same, automate instead of alerting. The best
   alert is the one that stops existing.
 
 ## Trade-offs
@@ -216,7 +216,7 @@ deliver.
 
 ## Common Mistakes
 
-**Alerting on causes.** High CPU can be normal; what needs to wake somebody up is a symptom with impact — a
+**Alerting on causes.** High CPU can be normal; what needs to wake somebody up is a symptom with impact: a
 user unable to complete something. Alerting on a cause generates noise and trains the team to ignore it.
 
 **Not classifying between wake-up, ticket and dashboard.** Treating everything as urgent exhausts the
@@ -229,7 +229,7 @@ most firings come to be from rules that no longer make sense.
 transfers to whoever was woken the work of discovering why they were woken.
 
 **Not alerting on absence.** A process that stopped running generates no error. Only checking by
-expectation — it should have happened and it did not — detects that.
+expectation (it should have happened and it did not) detects that.
 
 **Not grouping cascading alerts.** One root cause fires forty notifications from dependent services, and
 the cause's signal is lost among the consequences.
@@ -259,13 +259,13 @@ automated; the other eleven became fix tasks.
 
 The reformulation:
 
-**43 active alerts** — the 27 actionable ones plus the 16 that had never fired because of a configuration
+**43 active alerts**: the 27 actionable ones plus the 16 that had never fired because of a configuration
 defect and now do.
 
 **Error budget alerts** for the three critical journeys, replacing nine of those 43 that were
 threshold-based. The final configuration came to **37**.
 
-**Downgrading to a ticket** for the 34 that needed action with no urgency — the ones that fired and nobody
+**Downgrading to a ticket** for the 34 that needed action with no urgency: the ones that fired and nobody
 acted on, but that described a real condition.
 
 **Cascade grouping**: when a dependency fails, the alerts from the services depending on it are suppressed
@@ -280,21 +280,21 @@ Result: from 31 notifications a day to **1.4**. And the average response time fe
 notification came to be taken seriously.
 
 The learning that stuck: the 115 removed alerts had been created by reasonable people, each in response to
-a real incident. None was an individual mistake — the mistake was never reviewing.
+a real incident. None was an individual mistake. The mistake was never reviewing.
 
 ## Related Concepts
 
-- [Golden Signals](/13-observability/golden-signals.md) — the basis.
-- [SLO](/12-reliability/slo.md) — the proportional alert.
+- [Golden Signals](/13-observability/golden-signals.md): the basis.
+- [SLO](/12-reliability/slo.md): the proportional alert.
 - [SRE Concepts](/13-observability/sre-concepts.md).
-- [Dashboards](/13-observability/dashboards.md) — the destination for what is not an alert.
+- [Dashboards](/13-observability/dashboards.md): the destination for what is not an alert.
 
 ## Practical Exercise
 
 Take the alerts that fired last month and classify each one: did it generate urgent action, deferrable
 action, or no action?
 
-The third category is usually the largest — and removing it is the highest-return intervention available.
+The third category is usually the largest, and removing it is the highest-return intervention available.
 
 ## Interview Questions
 
@@ -304,6 +304,6 @@ The third category is usually the largest — and removing it is the highest-ret
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 6.
-- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018 — chapter 5.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 6.
+- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018. Chapter 5.
 - Ewaschuk, Rob. *My Philosophy on Alerting*, 2013.

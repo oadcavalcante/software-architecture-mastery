@@ -2,7 +2,7 @@
 id: hotspots
 title: Hotspots
 sidebar_position: 11
-description: When the average deceives — one saturated partition with the rest idle, immune to any amount of machines.
+description: "When the average deceives: one saturated partition with the rest idle, immune to any amount of machines."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-partitioning, performance-vs-scalability, database-scaling]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ A hotspot is a part of the system that receives disproportionate load: a partiti
 record.
 
 It is the failure mode that **survives any amount of capacity**. Adding nodes does not help, because the
-problem is not total capacity — it is distribution.
+problem is distribution, not total capacity.
 
 And it is hard to see, because aggregate metrics hide it: the average utilization looks comfortable while
 one partition is at 100%.
@@ -37,7 +37,7 @@ The system has ten partitions. Nine operate at 15% utilization; one is saturated
 The average is 23%. Every dashboard shows headroom. And the system is unavailable for that partition's
 users.
 
-The natural reaction — adding more partitions — does not resolve it: the hot key still goes to a single
+The natural reaction, adding more partitions, does not resolve it: the hot key still goes to a single
 one. Frequently it makes things worse, because the rebalancing consumes capacity and the distribution stays
 uneven.
 
@@ -49,7 +49,7 @@ down".
 ### The origins are few and recognizable
 
 **Naturally uneven distribution.** A few customers with disproportionate volume. It is the rule, not the
-exception — in almost every business, a small fraction of the customers generates most of the traffic.
+exception: in almost every business, a small fraction of the customers generates most of the traffic.
 
 **A low-cardinality partition key.** Partitioning by state, by type, by status. The most common value
 concentrates everything.
@@ -76,15 +76,15 @@ per partition   maximum 100%, minimum 15% → saturated
 
 And the metric that matters is the **ratio between the maximum and the median**. Above 3, there is
 imbalance; above 10, there is a hotspot even before saturation. The ratio does not replace
-the absolute maximum: a partition at 100% is a hotspot whatever the ratio — in the scenario
-above, it comes out below 7.
+the absolute maximum: a partition at 100% is a hotspot whatever the ratio (in the scenario
+above, it comes out below 7).
 
-Without that, the diagnosis depends on somebody being suspicious and going to look — which happens after
+Without that, the diagnosis depends on somebody being suspicious and going to look. That happens after
 the incident.
 
 ### The spreading techniques
 
-**A random suffix on the key.** One hot key becomes several — `product:123:0` through `product:123:9`. The
+**A random suffix on the key.** One hot key becomes several: `product:123:0` through `product:123:9`. The
 writes spread; the read has to query the ten and sum.
 
 It works well for counters and aggregations. It costs complexity on reads.
@@ -109,7 +109,7 @@ contention without changing the distribution.
 A hotspot is not static. Today's product on sale is another tomorrow; the customer who grew becomes the
 biggest.
 
-That means a fixed spreading scheme — decided once, based on the observed distribution — ages.
+That means a fixed spreading scheme (decided once, based on the observed distribution) ages.
 
 The solutions that survive are adaptive: detecting the hot key at runtime and spreading it on demand, or
 rebalancing automatically.
@@ -124,10 +124,10 @@ the stock counter of a popular product
 an aggregate row updated by every sale
 ```
 
-Here the spreading is not of a key — it is of the model. A single counter becomes partial counters summed
+Here the spreading is of the model, not of a key. A single counter becomes partial counters summed
 at read time. A balance becomes a ledger of movements, with the balance derived.
 
-See [transactions](/07-data-architecture/transactions.md) — it is the same contention, seen from the scale
+See [transactions](/07-data-architecture/transactions.md): it is the same contention, seen from the scale
 angle.
 
 ## Mental Model
@@ -140,10 +140,10 @@ goes.
 Attention to hotspots is necessary when:
 
 - There is partitioning or distribution of any kind.
-- The usage distribution among customers is uneven — almost always.
+- The usage distribution among customers is uneven, almost always.
 - There are sequential or low-cardinality keys.
 - There are reference records read or written by everything.
-- Concentrated events are part of the business — sales, launches.
+- Concentrated events are part of the business: sales, launches.
 
 ## When Not to Use
 
@@ -161,10 +161,10 @@ partition saturated and the rest idle, the new nodes receive only the idle share
 
 ## Alternatives
 
-- **A cache** — it absorbs hot reads without touching the distribution.
-- **Isolation per customer** — the operationally simplest solution.
-- **Modeling with no contention** — partial counters, a ledger of movements.
-- **Rate limiting per key** — it does not resolve the distribution, and it prevents one key from consuming
+- **A cache**: it absorbs hot reads without touching the distribution.
+- **Isolation per customer**: the operationally simplest solution.
+- **Modeling with no contention**: partial counters, a ledger of movements.
+- **Rate limiting per key**: it does not resolve the distribution, and it prevents one key from consuming
   all the capacity. See [rate limiting](/05-system-design/rate-limiting.md).
 
 ## Trade-offs
@@ -201,7 +201,7 @@ partition saturated and the rest idle, the new nodes receive only the idle share
 
 **Isolation leaking.** The large customer was isolated, and a shared resource remained.
 
-**A hotspot in the cache.** A heavily accessed key saturates one cache node — the same problem, one layer
+**A hotspot in the cache.** A heavily accessed key saturates one cache node: the same problem, one layer
 up.
 
 ## Common Mistakes
@@ -210,7 +210,7 @@ up.
 dashboard shows 30% usage, one partition is at 100% and it is the one defining the experience.
 
 **Partitioning by a sequential key.** An increasing identifier or a timestamp concentrates all the new
-writes on the last partition — the worst possible case, and the easiest to create without noticing.
+writes on the last partition: the worst possible case, and the easiest to create without noticing.
 
 **Partitioning by a low-cardinality dimension.** A state or category with few values limits the number of
 useful partitions and guarantees imbalance, because the values never have similar volume.
@@ -234,7 +234,7 @@ orders.
 The symptom in production: order creation latency degrading over the course of the day, recovering at
 night, and getting worse week by week. The partitions' average utilization was 11%.
 
-The first reaction, months earlier, had been to double the number of partitions. It changed nothing — the
+The first reaction, months earlier, had been to double the number of partitions. It changed nothing: the
 last partition still received everything, now with half the historical data.
 
 The diagnosis came when somebody added a per-partition metric and saw 100% on one and 5% on the others.
@@ -242,7 +242,7 @@ The diagnosis came when somebody added a per-partition metric and saw 100% on on
 The fixes were on three fronts:
 
 **A composite partition key.** It came to be a cryptographic hash of the customer identifier, plus the
-period. The writes spread, and the per-customer queries — which were the majority — got better, because one
+period. The writes spread, and the per-customer queries, which were the majority, got better, because one
 customer's orders came to be together.
 
 The identifier range query, which existed in two reports, was rewritten to use the date.
@@ -251,7 +251,7 @@ The identifier range query, which existed in two reports, was rewritten to use t
 updated by every sale, with read-compute-write. During sales, dozens of transactions competed for the same
 row.
 
-Replaced by a relative operation with a check — `UPDATE stock SET quantity = quantity - ? WHERE id = ? AND
+Replaced by a relative operation with a check: `UPDATE stock SET quantity = quantity - ? WHERE id = ? AND
 quantity >= ?`. The contention dropped drastically, and the lost update anomaly, which nobody had noticed,
 disappeared along with it.
 
@@ -272,14 +272,14 @@ available.
 - [Partitioning for Scale](/11-scalability/scaling-partitioning.md).
 - [Performance versus Scalability](/11-scalability/performance-vs-scalability.md).
 - [Database Scaling](/11-scalability/database-scaling.md).
-- [Partitioning](/06-distributed-systems/partitioning.md) — the fundamentals.
+- [Partitioning](/06-distributed-systems/partitioning.md): the fundamentals.
 
 ## Practical Exercise
 
 For each partitioned resource in your system, calculate the ratio between the most loaded partition and the
 median.
 
-If you cannot calculate it, that is the gap — and it is the reason the next incident will take a while to
+If you cannot calculate it, that is the gap, and it is the reason the next incident will take a while to
 diagnose.
 
 ## Interview Questions
@@ -290,6 +290,6 @@ diagnose.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 6.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 6.
 - DeCandia, Giuseppe et al. *Dynamo: Amazon's Highly Available Key-value Store*, 2007.
 - Gregg, Brendan. *Systems Performance*. 2nd ed. Addison-Wesley, 2020.

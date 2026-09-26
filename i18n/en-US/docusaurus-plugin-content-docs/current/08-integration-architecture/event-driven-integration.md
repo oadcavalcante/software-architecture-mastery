@@ -2,7 +2,7 @@
 id: event-driven-integration
 title: Event-Driven Integration
 sidebar_position: 5
-description: Publishing facts between systems — and the difference between an internal event and an integration event.
+description: Publishing facts between systems, and the difference between an internal event and an integration event.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, schema-evolution, integration-anti-corruption]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ The fundamentals are in [event-driven systems](/06-distributed-systems/event-dri
 focus is what changes when the event crosses the boundary from one system to another: it stops being an
 internal detail and becomes a **public contract**.
 
-That distinction — an internal event versus an integration event — is the decision that separates
+That distinction (an internal event versus an integration event) is the decision that separates
 architectures that evolve from those that seize up.
 
 ## Problem
@@ -40,7 +40,7 @@ Months later, the internal model needs to change. And it cannot: four systems de
 two of them belong to other teams.
 
 The internal event became a public contract without anybody deciding that. The decoupling that motivated
-the adoption produced a worse coupling — because now the internal model is frozen.
+the adoption produced a worse coupling, because now the internal model is frozen.
 
 ## Core Concepts
 
@@ -76,7 +76,7 @@ Complete decoupling. And the event becomes a broad contract: each published fiel
 
 One point that decides many cases: the fat event carries the state **at the moment of the fact**, and the
 thin one brings the **current** state at query time. For auditing and for historical processing, the first
-is the correct one — the price at the time of the order is not today's price.
+is the correct one: the price at the time of the order is not today's price.
 
 See [normalization](/07-data-architecture/normalization.md).
 
@@ -84,7 +84,7 @@ See [normalization](/07-data-architecture/normalization.md).
 
 `OrderConfirmed`, not `UpdateOrderStatus`.
 
-If the event's name describes what the consumer should do, the publisher is commanding — and knows the
+If the event's name describes what the consumer should do, the publisher is commanding, and it knows the
 consumers, which nullifies the decoupling.
 
 And the vocabulary needs to be the business's, not the table's. `OrderLineInserted` exposes the internal
@@ -97,7 +97,7 @@ change anything safely.
 
 The catalog answers the question the decoupling made difficult: **who breaks if I change this?**
 
-Together with a schema registry — which refuses incompatible changes at publish time — it is what allows
+Together with a schema registry (which refuses incompatible changes at publish time), it is what allows
 events to evolve with no incident. See
 [schema evolution](/08-integration-architecture/schema-evolution.md).
 
@@ -115,7 +115,7 @@ That is the consumer's responsibility, and it is the prerequisite for future com
 Two systems publishing related events have no guaranteed ordering between them. `PaymentApproved` can
 arrive before `OrderCreated`.
 
-The consumer needs to tolerate that — typically by holding the out-of-sequence event or querying the
+The consumer needs to tolerate that, typically by holding the out-of-sequence event or querying the
 current state instead of assuming the ordering.
 
 See [ordering](/06-distributed-systems/ordering.md).
@@ -154,15 +154,15 @@ the asynchronous consequences.
 
 ## Alternatives
 
-- **[REST](/08-integration-architecture/rest.md)** — when the response is necessary.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — events outside the organization, without
+- **[REST](/08-integration-architecture/rest.md)**: when the response is necessary.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: events outside the organization, without
   requiring the partner to consume your broker.
-- **Database change capture** — publishing from the database log, without touching the application. Fast to
-  adopt, and it publishes the internal model — with all the coupling that brings.
-- **Periodic polling** — simpler, and sufficient when the delay is acceptable.
+- **Database change capture**: publishing from the database log, without touching the application. Fast to
+  adopt, and it publishes the internal model, with all the coupling that brings.
+- **Periodic polling**: simpler, and sufficient when the delay is acceptable.
 
 The third deserves the warning: capturing changes to the model's tables is frequently sold as event-driven
-integration, and it is exactly the anti-pattern described above — the table's schema becomes a public
+integration, and it is exactly the anti-pattern described above. The table's schema becomes a public
 contract. Applied to a [transactional outbox](/08-integration-architecture/messaging-integration.md), whose
 rows are already the translated integration event, capture is only the publishing mechanism: the contract is
 still what the translation decided.
@@ -213,17 +213,17 @@ control.
 consumer does. `CustomerRegistered` lets each consumer decide whether to react and how.
 
 **Not maintaining a catalog.** With no place listing the events, their schemas and who consumes them,
-nobody can assess the impact of a change — and the assessment ends up being made in production.
+nobody can assess the impact of a change, and the assessment ends up being made in production.
 
 **Not versioning.** The schema will change. With no explicit version and no coexistence period, the change
-requires every consumer to update at the same instant — the coordination the event model existed to avoid.
+requires every consumer to update at the same instant: the coordination the event model existed to avoid.
 
 **A consumer deserializing the whole event.** Requiring every field makes the consumer break on the
 addition of a new field, which should be a compatible change. Reading only what you use is what lets the
 publisher evolve.
 
 **Confusing database change capture with event integration.** Capturing changes to the model's tables
-publishes the physical schema outward. It is coupling to the database with the appearance of an event — and the worst
+publishes the physical schema outward. It is coupling to the database with the appearance of an event, and the worst
 kind, because it looks decoupled.
 
 ## Real-World Example
@@ -236,7 +236,7 @@ format.
 It worked for eighteen months. Then:
 
 **An impossible refactoring.** The scheduling service needed to separate the concept of an "appointment"
-from a "procedure" — a model change the business demanded. Three consumers depended on the old format, and
+from a "procedure": a model change the business demanded. Three consumers depended on the old format, and
 one belonged to an external partner. The refactoring sat still for seven months.
 
 **Sensitive data spread around.** The event carried the patient's national ID number and date of birth,
@@ -248,7 +248,7 @@ deletion request, all four copies had to be traced. See
 topic.
 
 **A cycle.** `AppointmentScheduled` triggered `InvoiceGenerated`, which on cancellations triggered
-`AppointmentRescheduled` — which published `AppointmentScheduled`. A rare case generated a loop that
+`AppointmentRescheduled`. That one published `AppointmentScheduled`. A rare case generated a loop that
 published 200,000 events overnight.
 
 The reformulation, over a year:
@@ -258,7 +258,7 @@ the fields the consumers needed. The national ID number came out; an opaque pati
 whoever needs the data queries for it with authorization.
 
 **A catalog** with publisher, consumers and schema. It made the unknown consumer visible and allowed the
-cycle to be seen — which nobody had noticed in eighteen months because no diagram existed.
+cycle to be seen. Nobody had noticed it in eighteen months because no diagram existed.
 
 **A schema registry** with mandatory compatibility.
 
@@ -267,15 +267,15 @@ cycle to be seen — which nobody had noticed in eighteen months because no diag
 After that, the refactoring of "appointment" and "procedure" was done in three weeks, without touching a
 single consumer.
 
-The learning that stuck: the translation layer looked like unnecessary ceremony at the start — "it is the
-same data, why copy it?". Its cost is small and constant; the cost of not having it was seven months of a
+The learning that stuck: the translation layer looked like unnecessary ceremony at the start ("it is the
+same data, why copy it?"). Its cost is small and constant; the cost of not having it was seven months of a
 blocked business change.
 
 ## Related Concepts
 
 - [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md).
 - [Messaging Integration](/08-integration-architecture/messaging-integration.md).
-- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — where the
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md): where the
   translation lives.
 - [Schema Evolution](/08-integration-architecture/schema-evolution.md).
 
@@ -284,7 +284,7 @@ blocked business change.
 Take an event your system publishes outward. Ask: if the internal model changes tomorrow, does this event
 change with it?
 
-If the answer is yes, you do not have an integration event — you have your internal model exposed as a
+If the answer is yes, you do not have an integration event. You have your internal model exposed as a
 public contract.
 
 ## Interview Questions

@@ -2,7 +2,7 @@
 id: reliability
 title: Confiabilidade
 sidebar_position: 0
-description: Continuar funcionando quando as partes falham — com um alvo definido, não com "o máximo possível".
+description: Continuar funcionando quando as partes falham, com um alvo definido, não com "o máximo possível".
 doc_type: index
 level: 5
 difficulty: avançado
@@ -13,13 +13,13 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
 # Nível 05 — Confiabilidade
 
-Esta seção trata de continuar funcionando quando as partes falham — porque elas falham.
+Esta seção trata de continuar funcionando quando as partes falham, porque elas falham.
 
 ## O problema desta seção
 
@@ -29,11 +29,11 @@ erram.
 
 A pergunta certa é: **quando algo falhar, o que acontece?**
 
-Isso muda o alvo do trabalho. Em vez de perseguir ausência de falha — que não existe —
+Isso muda o alvo do trabalho. Em vez de perseguir ausência de falha (que não existe),
 o esforço vai para **contenção**: que a falha de uma parte não vire falha do todo, que
 a degradação seja parcial em vez de total, e que a recuperação seja rápida.
 
-O segundo problema é de definição. "Máxima confiabilidade possível" não é um alvo — é
+O segundo problema é de definição. "Máxima confiabilidade possível" não é um alvo, e sim
 uma intenção sem custo associado. Cada nove adicional custa desproporcionalmente mais,
 e a decisão de quantos noves perseguir é do negócio, com o preço na mesa.
 
@@ -42,27 +42,27 @@ importa, e de menos onde importa. E ninguém consegue dizer se o sistema está b
 
 ## O que você vai encontrar aqui
 
-**As medidas.** Métricas de disponibilidade e os fundamentos de confiabilidade — o que
+**As medidas.** Métricas de disponibilidade e os fundamentos de confiabilidade: o que
 os números significam e o que eles escondem.
 
-**Os alvos.** SLI, SLO e SLA — três coisas frequentemente confundidas, com o orçamento
+**Os alvos.** SLI, SLO e SLA: três coisas frequentemente confundidas, com o orçamento
 de erro como o mecanismo que transforma um alvo em decisão operacional.
 
-**As respostas à falha.** Tolerância a falhas, redundância e failover — mecanismos
-para o modo de falha previsto — e resiliência, que trata do não previsto e envolve
+**As respostas à falha.** Tolerância a falhas, redundância e failover (mecanismos
+para o modo de falha previsto) e resiliência, que trata do não previsto e envolve
 pessoas e procedimentos, não só mecanismo. Redundância recebe atenção específica ao que
 a anula: correlação.
 
 **Os padrões de contenção.** Circuit breaker, bulkhead e degradação graciosa. São eles
 que impedem que uma falha localizada se propague.
 
-**O modo de falha que a própria proteção causa.** Tempestades de retentativa — o caso
+**O modo de falha que a própria proteção causa.** Tempestades de retentativa: o caso
 em que a defesa amplifica o problema.
 
 **Recuperação.** Planejamento de recuperação de desastre, com RTO e RPO tratados como
 o que são: decisões de negócio com preço.
 
-**Verificação.** Engenharia do caos — a prática que responde "isso realmente funciona?"
+**Verificação.** Engenharia do caos: a prática que responde "isso realmente funciona?"
 antes do incidente.
 
 ## Ordem de leitura
@@ -75,8 +75,8 @@ de fora porque depende de uma decisão de produto que ninguém pede.
 
 **Circuit breaker**, **bulkhead** e **tempestades de retentativa** formam um bloco e
 devem ser lidos juntos, por motivos diferentes: o circuit breaker quebra o ciclo de
-retentativa, e o bulkhead contém esgotamento de recurso compartilhado — que acontece
-com zero retentativas.
+retentativa, e o bulkhead contém esgotamento de recurso compartilhado (que acontece
+com zero retentativas).
 
 Deixe **engenharia do caos** para o fim, e leia-a como verificação do que os anteriores
 prometeram, não como prática independente.
@@ -86,13 +86,13 @@ prometeram, não como prática independente.
 Você define alvos de confiabilidade em números acordados com o negócio, e sabe o que
 cada nove adicional custa.
 
-Consegue apontar, num desenho, onde uma falha se propaga e onde ela é contida — e
+Consegue apontar, num desenho, onde uma falha se propaga e onde ela é contida, e
 adicionar contenção onde falta.
 
 Reconhece que redundância sem independência não é redundância, e que um plano de
 recuperação nunca exercitado não é um plano.
 
-E entende que a confiabilidade de um sistema é verificada, não presumida — o que
+E entende que a confiabilidade de um sistema é verificada, não presumida. Isso
 significa provocar falhas de propósito, em janela controlada, antes que elas aconteçam
 sozinhas.
 

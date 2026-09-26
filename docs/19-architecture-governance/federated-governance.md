@@ -2,7 +2,7 @@
 id: federated-governance
 title: Governança Federada
 sidebar_position: 8
-description: A decisão fica no time, a coerência fica no contrato — e o que permanece central é pouco.
+description: A decisão fica no time, a coerência fica no contrato, e o que permanece central é pouco.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-standards, governance-pathologies]
 canonical_for: [governança federada, decisão local, externalidade de decisão, contrato entre times]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Governança federada distribui a autoridade de decisão para os times e mantém central apenas
 o que atravessa fronteiras.
 
-O critério que faz o modelo funcionar não é o nível hierárquico da decisão. É a
+O critério que faz o modelo funcionar não é o nível hierárquico da decisão, e sim a
 **externalidade**: quem arca com a consequência.
 
 ```text
@@ -33,7 +33,7 @@ a consequência atravessa fronteira decisão coordenada
 a consequência é da organização    decisão central
 ```
 
-Aplicado com honestidade, esse critério deixa surpreendentemente pouco no centro — e é
+Aplicado com honestidade, esse critério deixa surpreendentemente pouco no centro. É
 exatamente essa redução que faz o modelo entregar velocidade sem perder coerência.
 
 ## Problema
@@ -45,7 +45,7 @@ que cresce com o número de times. A qualidade da decisão cai com a distância 
 a velocidade cai com a escala.
 
 **Autonomia sem contrato.** Cada time decide tudo. Seis formas de autenticação, quatro
-sistemas de fila, quinze formatos de evento. O custo não aparece dentro dos times — aparece
+sistemas de fila, quinze formatos de evento. O custo não aparece dentro dos times, e sim
 entre eles, na integração, na operação compartilhada e no plantão.
 
 ```text
@@ -75,7 +75,7 @@ A pergunta operacional: **se esta decisão der errado, quem paga?** Se a respost
 time", a decisão é dele.
 
 Isso é mais preciso que "decisões técnicas para times, decisões estratégicas para o centro",
-porque decisões aparentemente pequenas — o formato de um evento — têm externalidade alta.
+porque decisões aparentemente pequenas (o formato de um evento) têm externalidade alta.
 
 ### O centro governa interfaces, não implementações
 
@@ -86,8 +86,8 @@ local     como cada time cumpre isso
 ```
 
 Essa divisão é a mesma que separa a interface de um módulo da sua implementação, aplicada à
-organização. Ela preserva a autonomia onde ela produz valor — no como — e a coerência onde
-ela é necessária — no que atravessa.
+organização. Ela preserva a autonomia onde ela produz valor (no como) e a coerência onde
+ela é necessária (no que atravessa).
 
 Ver [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
@@ -124,7 +124,7 @@ A plataforma é o mecanismo pelo qual o centro exerce influência sem exercer au
 
 O caso mais discutido do modelo é o de arquitetura de dados: domínios produzem seus dados
 como produto, com contratos e qualidade declarada, e a governança central define o que todo
-produto de dado precisa ter — não o que ele contém.
+produto de dado precisa ter, e não o que ele contém.
 
 ```text
 central   formato de descoberta, requisitos de qualidade, política de acesso,
@@ -145,7 +145,7 @@ organização pequena                   custo de coordenação maior que o benef
 ```
 
 O primeiro é o mais subestimado. Federação pressupõe que cada time consegue decidir bem
-dentro do seu escopo, e essa premissa não é uniforme. A resposta usual — treinar e apoiar —
+dentro do seu escopo, e essa premissa não é uniforme. A resposta usual (treinar e apoiar)
 é lenta; a alternativa é modular o escopo local por maturidade, o que é desconfortável e
 honesto.
 
@@ -176,31 +176,31 @@ organograma.
 
 ## Quando Não Usar
 
-**Sem plataforma que já entregue identidade, observabilidade e esteira** — cada time
+**Sem plataforma que já entregue identidade, observabilidade e esteira**: cada time
 reconstrói esses itens, e a soma custa mais que a fila central.
 
-**Sem representação** — o conjunto central passa a ser definido para os times, não por eles,
+**Sem representação**: o conjunto central passa a ser definido para os times, não por eles,
 e vira centralização com outro nome.
 
-**Com maturidade muito desigual**, sem apoio diferenciado — o escopo local igual para todos
+**Com maturidade muito desigual**, sem apoio diferenciado: o escopo local igual para todos
 entrega aos times menos maduros decisões que eles ainda não sustentam.
 
-**Quando todos os times cabem num mesmo fórum de decisão** — a fila central ainda é curta, e
+**Quando todos os times cabem num mesmo fórum de decisão**: a fila central ainda é curta, e
 conselho, contratos e plataforma custam mais que ela.
 
-**Sem consequência** para descumprimento de contrato — o contrato vira recomendação, e a
+**Sem consequência** para descumprimento de contrato: o contrato vira recomendação, e a
 coerência volta a depender de boa vontade.
 
-**Com conjunto central crescente** — o modelo já está regredindo para centralização, e
+**Com conjunto central crescente**: o modelo já está regredindo para centralização, e
 federar no papel só esconde isso.
 
 ## Alternativas
 
-- **Centralizada** — mais simples, funciona até certo tamanho.
-- **Comunidade de prática** — coerência voluntária, sem autoridade; funciona com cultura
+- **Centralizada**: mais simples, funciona até certo tamanho.
+- **Comunidade de prática**: coerência voluntária, sem autoridade; funciona com cultura
   técnica forte.
-- **Plataforma sem governança formal** — o caminho pavimentado como único mecanismo.
-- **Federação parcial** — central em segurança e dados, local no resto.
+- **Plataforma sem governança formal**: o caminho pavimentado como único mecanismo.
+- **Federação parcial**: central em segurança e dados, local no resto.
 
 A última é o arranjo mais comum na prática, e frequentemente o certo.
 
@@ -241,10 +241,10 @@ A última é o arranjo mais comum na prática, e frequentemente o certo.
 
 **Não investir em plataforma** antes de distribuir a decisão.
 
-**Não medir se o conjunto central está crescendo** — a regressão para centralização só é
+**Não medir se o conjunto central está crescendo**: a regressão para centralização só é
 percebida quando a fila já voltou.
 
-**Não tratar formato de evento como decisão de alta externalidade** — a incompatibilidade
+**Não tratar formato de evento como decisão de alta externalidade**: a incompatibilidade
 entre produtor e consumidor aparece em produção, como incidente, e não na revisão do time que
 publicou.
 
@@ -267,7 +267,7 @@ tempo médio de integração entre dois times                  de 3 para 9 dias
 ```
 
 Nenhuma dessas decisões foi errada localmente. Todas tinham externalidade que o modelo não
-considerava, porque a divisão era "técnico contra estratégico" — e formato de evento é
+considerava, porque a divisão era "técnico contra estratégico", e formato de evento é
 técnico.
 
 O redesenho, com critério de externalidade:
@@ -307,8 +307,8 @@ adoção de gabarito em serviços novos          91%
 
 A saída de dois itens do conjunto central é o dado que a equipe destaca. Identidade e
 observabilidade deixaram de ser regras escritas porque viraram padrão embutido e verificado:
-o gabarito as traz configuradas, e a esteira da plataforma recusa implantar serviço sem elas
-— é essa verificação, e não o gabarito, que cobre os 9% de serviços novos fora dele e o
+o gabarito as traz configuradas, e a esteira da plataforma recusa implantar serviço sem elas.
+É essa verificação, e não o gabarito, que cobre os 9% de serviços novos fora dele e o
 legado, migrado para a esteira. Nenhum time precisa lembrar da regra, e nenhum consegue
 ignorá-la.
 
@@ -317,13 +317,13 @@ três times fizeram escolhas com efeito agregado significativo na fatura. A exte
 tinha sido percebida antes.
 
 O que a equipe aprendeu: a primeira tentativa não falhou por federação demais. Falhou por
-usar o critério errado para dividir — "técnico contra estratégico" põe do lado local
+usar o critério errado para dividir: "técnico contra estratégico" põe do lado local
 decisões cuja consequência é de todos.
 
 ## Conceitos Relacionados
 
 - [Fundamentos de Governança](/19-architecture-governance/governance-basics.md).
-- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md) — o que
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md): o que
   torna o modelo viável.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 - [Propriedade do Dado](/07-data-architecture/data-ownership.md).

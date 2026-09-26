@@ -2,7 +2,7 @@
 id: application-service
 title: Application Service
 sidebar_position: 15
-description: Orquestrar um caso de uso sem decidir nada do negócio — e o teste que revela quando ele decide.
+description: Orquestrar um caso de uso sem decidir nada do negócio, e o teste que revela quando ele decide.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-service]
 related: [domain-service, aggregate, clean-architecture]
 canonical_for: [application service, serviço de aplicação, caso de uso]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -37,7 +37,7 @@ Se essa coordenação mora na entidade, ela passa a conhecer persistência. Se m
 no controlador HTTP, o caso de uso fica amarrado ao canal e não pode ser acionado
 por fila ou por terminal.
 
-O serviço de aplicação é o lugar dessa coordenação — e é justamente por ser o
+O serviço de aplicação é o lugar dessa coordenação, e é justamente por ser o
 ponto onde tudo se encontra que ele atrai regra de negócio que não deveria estar
 ali.
 
@@ -67,10 +67,10 @@ Diante de um serviço de aplicação, pergunte de cada condicional: **esta decis
 existiria se não houvesse software?**
 
 Verificar se o usuário tem permissão, se o formato da entrada é válido, se o
-recurso existe — coordenação.
+recurso existe: coordenação.
 
 Verificar se um pedido enviado pode ser cancelado, se o limite de crédito
-comporta, se a carência já passou — negócio, e pertence ao domínio.
+comporta, se a carência já passou: negócio, e pertence ao domínio.
 
 ### Ele é a fronteira transacional
 
@@ -79,7 +79,7 @@ responsável por uma decisão arquitetural: **um agregado por transação**, con
 [aggregate](/04-domain-driven-design/aggregate.md).
 
 Quando um caso de uso precisa alterar dois agregados, é aqui que a decisão
-aparece — coordenar por evento, aceitar consistência eventual, ou reconhecer que
+aparece: coordenar por evento, aceitar consistência eventual, ou reconhecer que
 as fronteiras estão erradas.
 
 ### Ele é o caso de uso
@@ -89,8 +89,8 @@ aplicação corresponde ao interator de caso de uso. Em
 [Ports and Adapters](/02-software-design/ports-and-adapters.md), ele implementa
 a porta primária.
 
-Um serviço de aplicação por caso de uso — `CancelarPedido`, `ConfirmarPagamento`
-— é preferível a um serviço com quinze métodos, pela mesma razão de coesão que
+Um serviço de aplicação por caso de uso (`CancelarPedido`, `ConfirmarPagamento`)
+é preferível a um serviço com quinze métodos, pela mesma razão de coesão que
 vale em qualquer lugar.
 
 ## Quando Usar
@@ -103,7 +103,7 @@ vale em qualquer lugar.
 ## Quando Não Usar
 
 **Quando não há coordenação real.** Uma consulta simples que devolve dados não
-precisa passar por um serviço de aplicação — pode ir direto de uma projeção de
+precisa passar por um serviço de aplicação: pode ir direto de uma projeção de
 leitura ao controlador. Ver [CQRS](/03-design-patterns/cqrs.md) de nível 2.
 
 **Como camada obrigatória por simetria.** Serviços de aplicação que apenas
@@ -118,11 +118,11 @@ está no domínio: falta uma entidade ou um serviço de domínio que a acolha.
 
 ## Alternativas
 
-- **Controlador chamando o domínio diretamente** — adequado em casos de uso
+- **Controlador chamando o domínio diretamente**: adequado em casos de uso
   triviais e em subdomínios simples.
-- **Comando com manipulador** — a mesma ideia com outro vocabulário. Ver
+- **Comando com manipulador**: a mesma ideia com outro vocabulário. Ver
   [Command](/03-design-patterns/command.md).
-- **Consulta direta** — para leitura, sem passar pelo domínio.
+- **Consulta direta**: para leitura, sem passar pelo domínio.
 
 ## Trade-offs
 
@@ -174,7 +174,7 @@ senao se assinatura.status == ATIVA:
 ```
 
 A regra dos sete dias é o direito de arrependimento previsto em lei. É decisão de
-negócio, e estava num serviço de aplicação — onde nenhum teste de domínio a
+negócio, e estava num serviço de aplicação, onde nenhum teste de domínio a
 cobria e onde o time de produto não a encontrava ao procurar.
 
 A separação moveu a regra para `Assinatura.cancelar(dataAtual)`, que devolve o
@@ -184,12 +184,12 @@ reembolso que a assinatura determinou.
 Dois ganhos concretos.
 
 Quando a empresa passou a oferecer trinta dias de arrependimento como diferencial
-comercial — acima do mínimo legal —, a alteração foi de uma linha na entidade, com o teste de
+comercial (acima do mínimo legal), a alteração foi de uma linha na entidade, com o teste de
 unidade correspondente. Antes, exigiria encontrar a regra
 entre 700 linhas de coordenação.
 
-E o mesmo cancelamento passou a valer para os três canais que o acionavam —
-portal, atendimento e processo automático de inadimplência — que antes tinham
+E o mesmo cancelamento passou a valer para os três canais que o acionavam
+(portal, atendimento e processo automático de inadimplência), que antes tinham
 implementações ligeiramente divergentes do mesmo cálculo.
 
 A terceira implementação, do processo automático, ainda usava 5 dias. Ninguém
@@ -197,9 +197,9 @@ sabia.
 
 ## Conceitos Relacionados
 
-- [Domain Service](/04-domain-driven-design/domain-service.md) — onde a regra entre agregados mora.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — a fronteira transacional.
-- [Clean Architecture](/02-software-design/clean-architecture.md) — o caso de
+- [Domain Service](/04-domain-driven-design/domain-service.md): onde a regra entre agregados mora.
+- [Aggregate](/04-domain-driven-design/aggregate.md): a fronteira transacional.
+- [Clean Architecture](/02-software-design/clean-architecture.md): o caso de
   uso como círculo.
 - [Ports and Adapters](/02-software-design/ports-and-adapters.md).
 

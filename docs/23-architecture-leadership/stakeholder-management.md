@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, technical-influence, negotiating-tradeoffs]
 canonical_for: [gestão de interessados, mapa de interessados, moeda do interessado, resistência legítima]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Uma decisão arquitetural relevante afeta pessoas que não estão na conversa técnica. Se elas não
-forem consideradas, uma delas vai bloquear a decisão — geralmente tarde, e geralmente com razão.
+forem consideradas, uma delas vai bloquear a decisão, geralmente tarde, e geralmente com razão.
 
 ```text
 interessado   quem tem algo em jogo na decisão
@@ -46,7 +46,7 @@ a proposta volta ao início
 Segurança sempre esteve entre os interessados. Ela foi lembrada tarde porque não participa das
 conversas de desenho, e porque envolvê-la parecia acrescentar atrito.
 
-O atrito foi acrescentado de qualquer forma — mais tarde e mais caro.
+O atrito foi acrescentado de qualquer forma, mais tarde e mais caro.
 
 E há o erro oposto: envolver todo mundo em tudo, o que produz reuniões de doze pessoas, decisão
 lenta e diluição da responsabilidade.
@@ -62,10 +62,10 @@ poder baixo         monitorar              consultar e ouvir
 ```
 
 O quadrante superior esquerdo é o mais perigoso: alguém com poder de bloquear e pouco interesse
-no assunto. Essa pessoa não vai acompanhar a proposta, e vai encontrá-la no momento da decisão —
+no assunto. Essa pessoa não vai acompanhar a proposta, e vai encontrá-la no momento da decisão,
 quando a única ação disponível é objetar.
 
-Mantê-la informada com baixo custo — um resumo de um parágrafo, periodicamente — evita a surpresa
+Mantê-la informada com baixo custo (um resumo de um parágrafo, periodicamente) evita a surpresa
 que produz a objeção tardia.
 
 ### Cada interessado tem uma moeda
@@ -80,7 +80,7 @@ jurídico               obrigação regulatória, exposição
 times de engenharia    autonomia, carga, qualidade de vida
 ```
 
-Descobrir a moeda de alguém não é manipulação — é a condição para a conversa ser útil. Apresentar
+Descobrir a moeda de alguém não é manipulação, e sim a condição para a conversa ser útil. Apresentar
 a mesma proposta a todos na moeda de engenharia produz sete conversas em que seis pessoas não
 conseguem avaliar nada.
 
@@ -128,7 +128,7 @@ Ser explícito sobre em qual categoria cada um está evita duas patologias opost
 consenso universal, que trava a decisão, e a decisão unilateral, que produz descumprimento.
 
 Dizer a alguém "sua opinião é importante e a decisão não é sua" é desconfortável e melhor que
-deixar ambíguo — porque a ambiguidade vira frustração.
+deixar ambíguo, porque a ambiguidade vira frustração.
 
 ### Aliados internos valem mais que argumentos
 
@@ -156,7 +156,7 @@ finanças        aprova o custo recorrente, não só o inicial
 ```
 
 Os dois primeiros raramente têm poder formal de bloquear e são os que mais sofrem com decisões
-mal tomadas — e a ausência deles produz sistemas tecnicamente corretos e operacionalmente
+mal tomadas. A ausência deles produz sistemas tecnicamente corretos e operacionalmente
 insustentáveis.
 
 ## Modelo Mental
@@ -168,7 +168,7 @@ informação.** Envolver cedo custa menos que convencer tarde.
 
 - Em qualquer decisão que afete quem está fora do time.
 - Antes de a proposta amadurecer, não depois.
-- Com o papel de cada um — decidir, consultar, informar — declarado.
+- Com o papel de cada um (decidir, consultar, informar) declarado.
 
 ## Quando Não Usar
 
@@ -177,7 +177,7 @@ só o próprio time consome: se der errado, desfazer custa menos que a rodada de
 evitaria o erro. O mapa existe para proteger contra objeção tardia cara, e aqui ela não é cara.
 
 **O efeito não sai do time que decide.** Sem ninguém de fora pagando plantão, custo, risco ou
-obrigação, não há moeda alheia a descobrir. Mapear vira cerimônia — e ensina aos interessados
+obrigação, não há moeda alheia a descobrir. Mapear vira cerimônia e ensina aos interessados
 reais que o convite não significa nada.
 
 **A urgência não comporta a rodada de consultas.** Num incidente ou diante de um prazo regulatório
@@ -187,11 +187,11 @@ de consultar antes.
 
 ## Alternativas
 
-- **Decisão pequena e reversível** — quando a decisão pode ser revertida barato, envolver menos e
+- **Decisão pequena e reversível**: quando a decisão pode ser revertida barato, envolver menos e
   aprender rápido é melhor.
-- **Piloto com um time** — demonstrar funcionando é mais convincente que qualquer mapa de
+- **Piloto com um time**: demonstrar funcionando é mais convincente que qualquer mapa de
   interessados.
-- **Delegar o convencimento** — quando alguém tem mais crédito com um interessado específico,
+- **Delegar o convencimento**: quando alguém tem mais crédito com um interessado específico,
   usá-lo é mais eficaz.
 
 ## Trade-offs
@@ -231,7 +231,7 @@ de consultar antes.
 
 **Não fazer as conversas individuais.** Objeção descoberta na reunião grande vira disputa pública. Descoberta antes, vira ajuste.
 
-**Não dizer explicitamente** quem decide. Sem isso, todos supõem que opinaram e decidiram — e a decisão é reaberta toda vez que alguém se sente ignorado.
+**Não dizer explicitamente** quem decide. Sem isso, todos supõem que opinaram e decidiram, e a decisão é reaberta toda vez que alguém se sente ignorado.
 
 ## Exemplo Real
 
@@ -243,12 +243,12 @@ A objeção era correta, a proposta tinha nove meses de preparação, e o replan
 meses.
 
 A análise posterior identificou o padrão. O mapeamento de interessados, feito no início, tinha
-listado seis pessoas — todas de engenharia, produto e finanças. Jurídico não constava.
+listado seis pessoas, todas de engenharia, produto e finanças. Jurídico não constava.
 
 A área de arquitetura instituiu um processo, deliberadamente leve:
 
 **Mapa de interessados obrigatório** em toda proposta acima de um limite, com quatro campos por
-pessoa: quem, o que tem em jogo, qual a moeda, e o papel — decide, consulta ou informa.
+pessoa: quem, o que tem em jogo, qual a moeda, e o papel (decide, consulta ou informa).
 
 **Lista de verificação de interessados frequentemente esquecidos**, derivada do histórico:
 operação, suporte, segurança, jurídico, finanças e a área de dados. Cada uma precisa ser
@@ -257,7 +257,7 @@ explicitamente marcada como aplicável ou não.
 **Conversa de cinco minutos** com cada interessado de poder alto, antes de a proposta amadurecer.
 O objetivo declarado é encontrar objeções estruturais cedo, e não convencer.
 
-**Registro de objeções**, com o que foi feito com cada uma — incorporada, mitigada, ou aceita como
+**Registro de objeções**, com o que foi feito com cada uma: incorporada, mitigada, ou aceita como
 risco.
 
 Nos dezoito meses seguintes, sobre 22 propostas:
@@ -274,19 +274,19 @@ O tempo caiu, o que contrariou a expectativa: envolver mais gente cedo tornou o 
 rápido, porque eliminou os retrabalhos.
 
 As duas propostas abandonadas são o resultado que a área considera mais valioso. Ambas tinham
-objeções estruturais que teriam aparecido depois de meses de trabalho — e abandoná-las na segunda
+objeções estruturais que teriam aparecido depois de meses de trabalho, e abandoná-las na segunda
 semana custou quase nada.
 
 A conversa de cinco minutos com jurídico, que teria evitado o incidente
 original, é o item de maior retorno da lista. Os cinco minutos levantam a pergunta; a verificação
-dos contratos que ela dispara custa alguns dias — e evita, ocasionalmente, quatro meses.
+dos contratos que ela dispara custa alguns dias e evita, ocasionalmente, quatro meses.
 
 ## Conceitos Relacionados
 
 - [Comunicação](/23-architecture-leadership/communication.md).
 - [Negociação de Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
 - [Influência Técnica](/23-architecture-leadership/technical-influence.md).
-- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md) — interessados
+- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md): interessados
   e preocupações.
 
 ## Exercício Prático
@@ -294,7 +294,7 @@ dos contratos que ela dispara custa alguns dias — e evita, ocasionalmente, qua
 Pegue uma proposta em andamento e liste os interessados com quatro campos: quem, o que tem em
 jogo, qual a moeda, e o papel.
 
-Depois verifique se operação, suporte, segurança, jurídico, finanças e dados foram considerados —
+Depois verifique se operação, suporte, segurança, jurídico, finanças e dados foram considerados,
 mesmo que para marcar como não aplicáveis.
 
 ## Perguntas de Entrevista

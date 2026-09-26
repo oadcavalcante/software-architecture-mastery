@@ -2,7 +2,7 @@
 id: interfaces
 title: Interfaces
 sidebar_position: 6
-description: The contract between parts — who should define it and why width matters.
+description: "The contract between parts: who should define it and why width matters."
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [dependency-inversion, boundaries, solid]
 canonical_for: [interface, interface contract]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -25,7 +25,7 @@ An interface is the contract between two parts: what one promises to offer and t
 other may assume.
 
 The most consequential decision about an interface is not which methods it has. It
-is **who defines it** — and the correct answer, almost always, is the consumer.
+is **who defines it**, and the correct answer, almost always, is the consumer.
 
 ## Problem
 
@@ -49,7 +49,7 @@ names.
 
 The interface belongs to whoever uses it, not to whoever implements it.
 
-That is more than a question of file organization — although it is that too, and
+That is more than a question of file organization, although it is that too, and
 where the interface lives determines the direction of the dependency (see
 [dependency inversion](/02-software-design/dependency-inversion.md)).
 
@@ -75,8 +75,8 @@ the same class implements both.
 
 ### Interface width versus module depth
 
-Ousterhout formulates the relationship that matters: a good module is **deep** —
-narrow interface, substantial implementation. A shallow module has a wide interface
+Ousterhout formulates the relationship that matters: a good module is **deep**
+(narrow interface, substantial implementation). A shallow module has a wide interface
 and a thin implementation, and for that reason does not pay for the cost of
 existing.
 
@@ -90,7 +90,7 @@ guaranteed about ordering, whether the operation is idempotent, and what holds w
 there is no result.
 
 Two implementations with the same signature and different semantics are not
-substitutable — which is the Liskov violation, applied to interfaces.
+substitutable. That is the Liskov violation, applied to interfaces.
 
 ## Mental Model
 
@@ -101,7 +101,7 @@ the consumer needs to know about the implementation is a failure of the contract
 
 - When there is more than one real implementation.
 - When the dependency has to be substituted in order to test.
-- When the interface crosses a boundary you want to keep — of module, of team, of
+- When the interface crosses a boundary you want to keep: of module, of team, of
   system.
 - When consumer and implementer evolve at different rates.
 
@@ -123,12 +123,12 @@ still needs to know everything about the other side, the interface is decorative
 
 ## Alternatives
 
-- **A function as a parameter** — when what varies is a simple behaviour.
-- **Structural typing** — in languages that offer it, no explicit declaration is
+- **A function as a parameter**: when what varies is a simple behaviour.
+- **Structural typing**: in languages that offer it, no explicit declaration is
   needed.
-- **An adapter at the boundary** — translate on the way in rather than abstracting
+- **An adapter at the boundary**: translate on the way in rather than abstracting
   in the middle.
-- **Use the concrete type** — when there is no second implementation and no need
+- **Use the concrete type**: when there is no second implementation and no need
   for isolated testing.
 
 ## Trade-offs
@@ -180,7 +180,7 @@ distinct need deserves its own.
 A service defined `NotificationProvider` with `send(Message)`, extracted from the
 email client that already existed. `Message` had `subject`, `body` and `recipient`.
 
-When push was added, `Message` gained `title`, `payload` and `action` — all null for
+When push was added, `Message` gained `title`, `payload` and `action`, all null for
 email. Then SMS: `body` limited to 160 characters, `subject` ignored, and one more
 field, `sender`, the short code only that channel requires.
 
@@ -198,13 +198,13 @@ UserNotifier
 Channel selection, formatting and each provider's restrictions moved inside. Each
 provider got its own message type, not a shared one.
 
-The business code lost seven fields of knowledge about notification channels —
-which is exactly what the original interface should have hidden and did not.
+The business code lost seven fields of knowledge about notification channels.
+That is exactly what the original interface should have hidden and did not.
 
 ## Interfaces evolve, and that has to be designed
 
-An internal interface can be refactored in one commit. A published interface —
-consumed by another module with its own release, another team, or another system —
+An internal interface can be refactored in one commit. A published interface
+(consumed by another module with its own release, another team, or another system)
 cannot.
 
 Three techniques, in order of cost:
@@ -229,12 +229,12 @@ the first change breaks a consumer nobody knew existed.
 
 ## Related Concepts
 
-- [Encapsulation](/02-software-design/encapsulation.md) — what the interface
+- [Encapsulation](/02-software-design/encapsulation.md): what the interface
   exposes.
-- [Dependency Inversion](/02-software-design/dependency-inversion.md) — where the
+- [Dependency Inversion](/02-software-design/dependency-inversion.md): where the
   interface lives.
-- [SOLID](/02-software-design/solid.md) — the I and D principles.
-- [Abstraction](/01-fundamentals/abstraction.md) — when it is worth it.
+- [SOLID](/02-software-design/solid.md): the I and D principles.
+- [Abstraction](/01-fundamentals/abstraction.md): when it is worth it.
 
 ## Practical Exercise
 
@@ -252,9 +252,9 @@ difference shows how much knowledge of the implementation is leaking.
 
 ## Further Exploration
 
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 — deep
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018. Deep
   versus shallow modules.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — the interface
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. The interface
   segregation principle.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — interfaces in the
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Interfaces in the
   domain's vocabulary.

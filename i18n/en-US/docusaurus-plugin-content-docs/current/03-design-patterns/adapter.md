@@ -2,7 +2,7 @@
 id: adapter
 title: Adapter
 sidebar_position: 6
-description: Translating between incompatible interfaces — the most useful and least controversial pattern in the catalogue.
+description: Translating between incompatible interfaces, the most useful and least controversial pattern in the catalogue.
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [facade, bridge, proxy]
 canonical_for: [adapter]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,16 +27,16 @@ classes with incompatible interfaces work together.
 It is one of the most directly applicable patterns in the catalogue, and the one that
 demands the least justification: at the boundary with code you do not control,
 translating in a single place is almost always preferable to spreading someone else's
-shape through your domain. The caveat is in "at the boundary" — inside your own code, an
+shape through your domain. The caveat is in "at the boundary": inside your own code, an
 adapter usually signals that the interface should have been different from the start.
 
 ## Problem
 
-Your code expects one interface. The library offers another. You control neither —
+Your code expects one interface. The library offers another. You control neither:
 yours is defined by the domain, theirs by the author.
 
-Three possible responses. Change your code to speak the library's language — which
-spreads the dependency everywhere and ties the domain to it. Change the library —
+Three possible responses. Change your code to speak the library's language, which
+spreads the dependency everywhere and ties the domain to it. Change the library:
 normally impossible. Or translate at a single point.
 
 Adapter is the third. It concentrates the dependency in one place, and it is what
@@ -67,7 +67,7 @@ interface the domain defines; the adapter is what implements it while talking to
 world.
 
 The rule that gives it value: **the library's type does not cross the adapter.** If
-the adapter returns the library's `ExchangeRateResponse`, it adapted nothing — it
+the adapter returns the library's `ExchangeRateResponse`, it adapted nothing. It
 merely moved the dependency.
 
 ### Object adapter and class adapter
@@ -80,10 +80,10 @@ The object one is preferable for the usual reasons of
 
 ### Adapter versus Facade
 
-A frequent confusion. **Adapter** makes one interface look like another — the target
+A frequent confusion. **Adapter** makes one interface look like another: the target
 already exists and is defined by someone else.
 **[Facade](/03-design-patterns/facade.md)** creates a new, simpler interface over a
-subsystem — nobody required it before.
+subsystem: nobody required it before.
 
 Adapter meets an existing contract; Facade invents one.
 
@@ -92,7 +92,7 @@ Adapter meets an existing contract; Facade invents one.
 - Integrating a library or external service whose interface you do not control.
 - Isolating the domain from a third-party type.
 - Making legacy code satisfy a new interface without altering it.
-- Supporting multiple implementations of the same capability — several payment,
+- Supporting multiple implementations of the same capability: several payment,
   email or storage providers.
 
 ## When Not to Use
@@ -106,23 +106,23 @@ merely forwards with the same name and the same types, it is adapting nothing.
 **When it lets the external type leak.** An adapter that returns the library's type
 did not isolate.
 
-**As a preventive layer over everything.** Adapting stable platform libraries —
-collections, dates — is cost with no benefit. See
+**As a preventive layer over everything.** Adapting stable platform libraries
+(collections, dates) is cost with no benefit. See
 [YAGNI](/02-software-design/yagni.md).
 
 **When the incompatibility is semantic, not syntactic.** If the library has a
 different conceptual model from yours, the adapter becomes a complex translator that
-hides the incompatibility instead of resolving it — and the leak shows up in the edge
+hides the incompatibility instead of resolving it, and the leak shows up in the edge
 cases.
 
 ## Alternatives
 
-- **Align the interfaces** — when you control both.
-- **An anti-corruption layer** — the same concept at a larger scale, between systems.
+- **Align the interfaces**: when you control both.
+- **An anti-corruption layer**: the same concept at a larger scale, between systems.
   See [DDD](/04-domain-driven-design/index.md).
-- **Use the external type directly** — when the dependency is stable and the
+- **Use the external type directly**: when the dependency is stable and the
   isolation does not pay off.
-- **[Facade](/03-design-patterns/facade.md)** — when the goal is to simplify, not to
+- **[Facade](/03-design-patterns/facade.md)**: when the goal is to simplify, not to
   make compatible.
 
 ## Trade-offs
@@ -174,7 +174,7 @@ different providers.
 All three share the characteristic that makes Adapter valuable: **the target interface
 was designed first, independently of the implementations**. When the interface is
 extracted from an existing implementation, the result is an adapter that only serves
-that one — see [interfaces](/02-software-design/interfaces.md).
+that one (see [interfaces](/02-software-design/interfaces.md)).
 
 ## Real-World Example
 
@@ -184,8 +184,8 @@ lead time in business days, another in elapsed hours, the third an absolute date
 Without adapters, that difference would be spread across the business rules, with
 per-carrier conditionals at several points.
 
-With one adapter per carrier and a domain `Shipping` type — the lead time always as an
-absolute date, computed from the business-day calendar when necessary — the rule was
+With one adapter per carrier and a domain `Shipping` type (the lead time always as an
+absolute date, computed from the business-day calendar when necessary), the rule was
 left with a single case.
 
 The edge case that only appeared later is instructive: one of the carriers returned a
@@ -200,10 +200,10 @@ formats.
 
 ## Related Concepts
 
-- [Facade](/03-design-patterns/facade.md) — simplify, not make compatible.
-- [Bridge](/03-design-patterns/bridge.md) — separate abstraction from implementation by
+- [Facade](/03-design-patterns/facade.md): simplify, not make compatible.
+- [Bridge](/03-design-patterns/bridge.md): separate abstraction from implementation by
   design.
-- [Proxy](/03-design-patterns/proxy.md) — same interface, additional behaviour.
+- [Proxy](/03-design-patterns/proxy.md): same interface, additional behaviour.
 - [Ports and Adapters](/02-software-design/ports-and-adapters.md).
 
 ## Practical Exercise
@@ -223,4 +223,4 @@ touch.
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — anti-corruption layer.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Anti-corruption layer.

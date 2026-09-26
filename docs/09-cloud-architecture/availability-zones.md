@@ -2,7 +2,7 @@
 id: availability-zones
 title: Zonas de Disponibilidade
 sidebar_position: 9
-description: Datacenters isolados dentro de uma região — a defesa de melhor retorno da nuvem, e a mais mal usada.
+description: "Datacenters isolados dentro de uma região: a defesa de melhor retorno da nuvem, e a mais mal usada."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, multi-region, cloud-networking]
 canonical_for: [zona de disponibilidade, multi-zona, distribuição entre zonas]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Uma zona de disponibilidade é um datacenter — ou um conjunto deles — isolado dos
+Uma zona de disponibilidade é um datacenter (ou um conjunto deles) isolado dos
 demais dentro da mesma [região](/09-cloud-architecture/regions.md): energia, refrigeração e rede
 independentes.
 
@@ -38,7 +38,7 @@ custa muito mais.
 Falhas de datacenter acontecem: energia, refrigeração, rede, incêndio, erro
 humano em manutenção.
 
-Um sistema inteiro numa zona cai junto com ela — e a maioria dos sistemas está
+Um sistema inteiro numa zona cai junto com ela, e a maioria dos sistemas está
 assim sem que ninguém tenha decidido, porque o padrão de criação de recursos é
 "uma zona".
 
@@ -70,7 +70,7 @@ Ver [PACELC](/06-distributed-systems/pacelc.md).
 
 Duas zonas parecem suficientes e não são, por causa de
 [consenso](/06-distributed-systems/consensus.md): sistemas que precisam de
-maioria — bancos com eleição de líder, coordenadores, orquestradores — não
+maioria (bancos com eleição de líder, coordenadores, orquestradores) não
 conseguem formar maioria com metade fora.
 
 ```text
@@ -89,7 +89,7 @@ Uma zona cai. As duas restantes precisam absorver 150% da carga que tinham, e n�
 conseguem.
 
 A regra: a capacidade das zonas restantes precisa suportar o pico. Com três zonas,
-cada uma deve operar em torno de 60% ou menos — ou o escalonamento automático
+cada uma deve operar em torno de 60% ou menos, ou o escalonamento automático
 precisa ser rápido o bastante, o que raramente é durante um evento correlacionado.
 
 Ver [disponibilidade](/06-distributed-systems/availability.md).
@@ -102,8 +102,8 @@ Transferência entre zonas costuma ser cobrada nos dois sentidos. Numa arquitetu
 com muitos serviços conversando entre si, e balanceamento que ignora a zona, a
 maior parte do tráfego atravessa zonas sem necessidade.
 
-Roteamento com preferência de zona — atender preferencialmente na mesma zona,
-cruzando só quando necessário — reduz isso substancialmente, e é uma configuração,
+Roteamento com preferência de zona (atender preferencialmente na mesma zona,
+cruzando só quando necessário) reduz isso substancialmente, e é uma configuração,
 não uma reescrita.
 
 ### Nem todo serviço é multi-zona por padrão
@@ -112,7 +112,7 @@ Serviços gerenciados variam: alguns replicam entre zonas automaticamente, outro
 exigem configuração explícita, e outros são de zona única por natureza.
 
 Volumes de disco, tipicamente, pertencem a uma zona. Uma instância com dados em
-disco local não migra para outra zona — o dado fica onde está.
+disco local não migra para outra zona: o dado fica onde está.
 
 Verificar isso serviço a serviço faz parte do desenho. A suposição de que "está na
 nuvem, então é resiliente" é a origem de indisponibilidades que ninguém esperava.
@@ -126,7 +126,7 @@ Verificações de saúde que apenas checam se o processo responde não detectam 
 o tráfego continua sendo enviado para uma zona doente. Ver
 [detecção de falhas](/06-distributed-systems/failure-detection.md).
 
-Balanceamento sensível a taxa de erro e latência — não só a presença — é o que
+Balanceamento sensível a taxa de erro e latência (não só a presença) é o que
 transforma degradação em remoção automática.
 
 ## Modelo Mental
@@ -161,12 +161,12 @@ distribuir o estado não resolve.
 
 ## Alternativas
 
-- **[Multi-região](/09-cloud-architecture/multi-region.md)** — para desastre regional; muito mais caro.
-- **Cópia de segurança com restauração testada** — quando indisponibilidade
+- **[Multi-região](/09-cloud-architecture/multi-region.md)**: para desastre regional; muito mais caro.
+- **Cópia de segurança com restauração testada**: quando indisponibilidade
   temporária é aceitável.
-- **Serviços gerenciados que já são multi-zona** — transferem o problema. Ver
+- **Serviços gerenciados que já são multi-zona**: transferem o problema. Ver
   [serviços gerenciados](/09-cloud-architecture/managed-services.md).
-- **Zona única com recuperação rápida** — decisão legítima para sistemas de baixa
+- **Zona única com recuperação rápida**: decisão legítima para sistemas de baixa
   criticidade, desde que explícita.
 
 ## Trade-offs
@@ -200,11 +200,11 @@ distribuir o estado não resolve.
 **Custo de transferência inesperado.** Tráfego cruzando zonas sem necessidade.
 
 **Escalonamento automático concentrando numa zona.** Ao repor instâncias, o
-provedor pode alocar onde há capacidade — que pode ser uma zona só.
+provedor pode alocar onde há capacidade. Pode ser uma zona só.
 
 ## Erros Comuns
 
-**Não distribuir, por omissão.** Dentro de uma região, distribuir entre zonas custa a folga de capacidade e o tráfego entre zonas — uma fração do que custa multi-região, e cobre a falha de datacenter, que é a mais frequente das duas. Ficar numa zona só raramente é decisão — é o padrão que ninguém revisou.
+**Não distribuir, por omissão.** Dentro de uma região, distribuir entre zonas custa a folga de capacidade e o tráfego entre zonas: uma fração do que custa multi-região, e cobre a falha de datacenter, que é a mais frequente das duas. Ficar numa zona só raramente é decisão: é o padrão que ninguém revisou.
 
 **Usar duas zonas.** Perder uma significa perder metade da capacidade, então cada zona precisa rodar a 50% para absorver a outra. Com três, a perda de uma exige folga de um terço, e o custo total sai menor.
 
@@ -212,7 +212,7 @@ provedor pode alocar onde há capacidade — que pode ser uma zona só.
 
 **Assumir que o serviço gerenciado é multi-zona.** Muitos oferecem a opção e não a aplicam por padrão, porque ela custa mais. A verificação é por recurso, na configuração real.
 
-**Não configurar preferência de zona no roteamento.** Sem preferência, o tráfego atravessa zonas sem necessidade — o que adiciona latência e, em vários provedores, cobrança por transferência entre zonas.
+**Não configurar preferência de zona no roteamento.** Sem preferência, o tráfego atravessa zonas sem necessidade. Isso adiciona latência e, em vários provedores, cobrança por transferência entre zonas.
 
 **Não testar a perda de uma zona.** É o mecanismo que só será exercido durante incidente. Sem exercício deliberado, descobre-se no dia que uma dependência estava em zona única.
 
@@ -221,18 +221,18 @@ provedor pode alocar onde há capacidade — que pode ser uma zona só.
 Uma plataforma de comércio eletrônico operava em três zonas e considerava-se
 resiliente.
 
-Numa falha real de zona — energia, com duração de 4 horas — o sistema ficou
+Numa falha real de zona (energia, com duração de 4 horas) o sistema ficou
 indisponível por 50 minutos. A investigação encontrou quatro causas independentes:
 
 **Capacidade.** As instâncias operavam a 75% em horário normal. Com uma zona fora,
 as duas restantes precisariam absorver 112% do que suportavam. O escalonamento
-automático começou a subir instâncias, e levou 9 minutos — durante os quais o
+automático começou a subir instâncias, e levou 9 minutos, durante os quais o
 sistema estava saturado.
 
 **Banco em duas zonas.** O banco primário e sua réplica síncrona estavam em duas
 zonas, não três. A zona que caiu tinha o primário. A promoção da réplica
 dependia do serviço de coordenação usado para eleição, que também estava em duas
-zonas e perdeu maioria — sem maioria, não havia quem decidisse. A promoção só
+zonas e perdeu maioria: sem maioria, não havia quem decidisse. A promoção só
 saiu quando a equipe reconfigurou manualmente os membros da coordenação, 6 minutos
 depois.
 
@@ -242,7 +242,7 @@ os outros dois precisaram de restauração.
 
 **Preferência de zona invertida.** Uma configuração de balanceamento fazia o
 tráfego cruzar zonas por padrão. Isso já custava caro, e durante o incidente
-enviou parte das requisições para a zona degradada — que ainda respondia às
+enviou parte das requisições para a zona degradada, que ainda respondia às
 verificações de saúde, apenas com latência muito alta.
 
 As correções:
@@ -256,7 +256,7 @@ de escalonamento.
 
 **Verificação de saúde sensível a latência**, não só a resposta.
 
-**Preferência de zona no roteamento** — que, como efeito colateral, reduziu a
+**Preferência de zona no roteamento**, que, como efeito colateral, reduziu a
 conta de transferência em cerca de 40%.
 
 **Teste periódico de perda de zona**, em produção, em janela controlada. O primeiro
@@ -264,18 +264,18 @@ teste encontrou dois problemas novos.
 
 O que a equipe aprendeu: eles estavam em três zonas e acreditavam estar protegidos.
 Estar distribuído e **sobreviver** à falha são coisas diferentes, e a diferença só
-aparece no teste — ou no incidente.
+aparece no teste, ou no incidente.
 
 ## Conceitos Relacionados
 
-- [Regiões](/09-cloud-architecture/regions.md) — o nível acima.
-- [Multi-Região](/09-cloud-architecture/multi-region.md) — para desastre regional.
+- [Regiões](/09-cloud-architecture/regions.md): o nível acima.
+- [Multi-Região](/09-cloud-architecture/multi-region.md): para desastre regional.
 - [Disponibilidade](/06-distributed-systems/availability.md).
-- [Consenso](/06-distributed-systems/consensus.md) — por que três, não duas.
+- [Consenso](/06-distributed-systems/consensus.md): por que três, não duas.
 
 ## Exercício Prático
 
-Descubra em quantas zonas seu sistema roda hoje — e faça a mesma pergunta para o
+Descubra em quantas zonas seu sistema roda hoje, e faça a mesma pergunta para o
 banco, o cache, os volumes e o serviço de coordenação, separadamente.
 
 Depois calcule: se uma zona sumir agora, as restantes aguentam o pico?

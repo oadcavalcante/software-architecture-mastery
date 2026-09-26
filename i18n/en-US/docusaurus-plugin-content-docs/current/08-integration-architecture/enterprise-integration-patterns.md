@@ -2,7 +2,7 @@
 id: enterprise-integration-patterns
 title: Enterprise Integration Patterns
 sidebar_position: 11
-description: The vocabulary that describes what routers, translators and aggregators do — independent of technology.
+description: The vocabulary that describes what routers, translators and aggregators do, independent of technology.
 doc_type: reference
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, event-driven-integration, integration-anti-corruption]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Hohpe and Woolf's *Enterprise Integration Patterns* catalog names the recurring 
 integration flows.
 
 It is over twenty years old and remains valid because it describes **problems**, not technologies. The
-names it fixed — router, translator, aggregator, splitter — are the vocabulary with which integration is
+names it fixed (router, translator, aggregator, splitter) are the vocabulary with which integration is
 discussed without talking about a product.
 
 This document is a reference: what each relevant pattern solves, and where it costs. It is not meant to be
@@ -38,7 +38,7 @@ look at the type field, and send it to one of three queues".
 
 With names: "it is a content-based router".
 
-The saving is not in words. It is that the name carries the known failure modes — whoever says "aggregator"
+The saving is not in words. It is that the name carries the known failure modes: whoever says "aggregator"
 already knows they need to decide the completion criterion and the time limit.
 
 ## Channels
@@ -49,14 +49,14 @@ How the messages travel.
 
 **A publish-subscribe channel.** One message, all subscribers. It is the topic. It notifies.
 
-**An invalid message channel.** A destination for messages that cannot be interpreted — a broken format, an
+**An invalid message channel.** A destination for messages that cannot be interpreted: a broken format, an
 unknown schema. Distinct from the next one.
 
 **A dead letter channel.** A destination for valid messages that failed in processing. See
 [dead-letter queues](/06-distributed-systems/dead-letter-queues.md).
 
 The distinction between the last two is useful and rarely made: a message that is **not understood** and a
-message that **could not be processed** require different handling — the first is a contract problem, the
+message that **could not be processed** require different handling. The first is a contract problem, the
 second an execution one.
 
 **A guaranteed channel.** It persists the message before acknowledging receipt.
@@ -67,7 +67,7 @@ How the message reaches whoever should handle it.
 
 **A content-based router.** It examines the message and chooses the destination. It is where
 business rules tend to accumulate, because every new destination arrives as one more
-conditional at the same point — the same vigilance described in
+conditional at the same point. The same vigilance described in
 [API gateways](/08-integration-architecture/api-gateways.md) applies.
 
 **A filter.** It discards what does not interest that consumer.
@@ -88,7 +88,7 @@ The third line is the one that gets forgotten, and the result is an aggregator t
 forever, consuming memory.
 
 **A resequencer.** It restores the order of messages that arrived out of sequence. See
-[ordering](/06-distributed-systems/ordering.md) — including the buffer cost and the gap deadline.
+[ordering](/06-distributed-systems/ordering.md), including the buffer cost and the gap deadline.
 
 **A recipient list.** It sends the same message to a computed list.
 
@@ -103,7 +103,7 @@ How the message changes shape.
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md)'s piece.
 
 **A content enricher.** It adds data fetched from somewhere else. The hidden cost: it introduces a
-synchronous dependency in the middle of an asynchronous flow — if the enrichment source goes down, the flow
+synchronous dependency in the middle of an asynchronous flow. If the enrichment source goes down, the flow
 stops.
 
 **A content filter.** It removes fields. Useful for not propagating sensitive data downstream.
@@ -140,13 +140,13 @@ How you see what is happening.
 
 **A wire tap.** An extra consumer that observes without interfering.
 
-**A test message.** Injecting synthetic messages periodically to verify the flow is alive — the equivalent
+**A test message.** Injecting synthetic messages periodically to verify the flow is alive: the equivalent
 of monitoring absence described in [batch integration](/08-integration-architecture/batch-integration.md).
 
 ## When to use this catalog
 
 - When designing a flow with more than two steps.
-- When discussing integration with another team — the common vocabulary saves a meeting.
+- When discussing integration with another team: the common vocabulary saves a meeting.
 - When reviewing an existing flow, to name what is there.
 - When evaluating tools: they implement these patterns under their own names.
 
@@ -162,35 +162,35 @@ along with it, a configuration language of their own and a central point that ac
 
 **Without the fundamentals.** These patterns presuppose
 [idempotency](/06-distributed-systems/idempotency.md), duplicate handling and consumer monitoring. Without
-that, they deliver the shape without the guarantee — and the duplicate the pattern assumes
+that, they deliver the shape without the guarantee, and the duplicate the pattern assumes
 is handled reaches the domain.
 
 ## Common Mistakes
 
 **An aggregator with no time limit.** Deciding the completion criterion and leaving the
-deadline for later — the sets that never complete stay held in memory until someone
+deadline for later: the sets that never complete stay held in memory until someone
 restarts the process.
 
 **An enricher creating a synchronous dependency** in a flow that should be asynchronous.
 
 **A router accumulating business rules.** Putting every new destination in the router as a
-conditional instead of in the domain — the business decision comes to live in the messaging
+conditional instead of in the domain. The business decision comes to live in the messaging
 infrastructure, where nobody tests it.
 
 **A splitter with no correlation.** The parts get lost and there is no way to reassemble them.
 
-**Confusing an invalid message with a dead message.** Pointing both at the same channel —
+**Confusing an invalid message with a dead message.** Pointing both at the same channel,
 and batch reprocessing keeps insisting on messages that will never be interpreted, while
 the ones that merely failed sit mixed in among them.
 
 **Implementing the catalog instead of solving the problem.** Assembling an enricher, a
-resequencer and a message store because they are in the book — each piece with no matching
+resequencer and a message store because they are in the book. Each piece with no matching
 problem becomes code to maintain and one more hop to walk when the flow is debugged.
 
 ## Real-World Example
 
-A distributor received orders from four channels — a portal, an app, EDI from large clients and a
-spreadsheet by email — with completely different formats.
+A distributor received orders from four channels (a portal, an app, EDI from large clients and a
+spreadsheet by email) with completely different formats.
 
 The processing was a service with conditionals per channel, 3,000 lines, that nobody wanted to touch.
 
@@ -226,22 +226,22 @@ aggregator's completion criterion?" before the implementation existed.
 
 ## Related Concepts
 
-- [Messaging Integration](/08-integration-architecture/messaging-integration.md) — the base.
+- [Messaging Integration](/08-integration-architecture/messaging-integration.md): the base.
 - [Event-Driven Integration](/08-integration-architecture/event-driven-integration.md).
-- [Anti-Corruption in Integration](/08-integration-architecture/integration-anti-corruption.md) — the
+- [Anti-Corruption in Integration](/08-integration-architecture/integration-anti-corruption.md): the
   translator.
-- [Ordering](/06-distributed-systems/ordering.md) — the resequencer.
+- [Ordering](/06-distributed-systems/ordering.md): the resequencer.
 
 ## Practical Exercise
 
 Take the most complex integration flow in your system and name each step with the patterns in this
 document.
 
-Where a step has no name, it probably does two things — and splitting it is the next refactoring.
+Where a step has no name, it probably does two things, and splitting it is the next refactoring.
 
 ## Further Reading
 
-- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003 — the reference.
-- [enterpriseintegrationpatterns.com](https://www.enterpriseintegrationpatterns.com) — the online catalog,
+- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003. The reference.
+- [enterpriseintegrationpatterns.com](https://www.enterpriseintegrationpatterns.com): the online catalog,
   with the diagrams.
-- Hohpe, Gregor. *Conversation Patterns*, 2017 — the follow-up on long-running flows.
+- Hohpe, Gregor. *Conversation Patterns*, 2017. The follow-up on long-running flows.

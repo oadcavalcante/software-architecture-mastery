@@ -2,7 +2,7 @@
 id: abstraction
 title: Abstração
 sidebar_position: 15
-description: Expor o que importa e esconder o resto — e por que abstração ruim é pior que nenhuma.
+description: Expor o que importa e esconder o resto, e por que abstração ruim é pior que nenhuma.
 doc_type: concept
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [separation-of-concerns]
 related: [complexity, coupling, modularity]
 canonical_for: [abstração, abstraction]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -33,10 +33,10 @@ entender o que ela esconde, ela adicionou uma camada sem remover nenhuma.
 Abstração é a ferramenta mais poderosa e a mais mal aplicada do design de
 software, porque o custo dela é imediato e o benefício é hipotético.
 
-O custo é uma indireção a mais: alguém vai precisar navegar por ela para entender
-o fluxo, e num incidente esse alguém navega sob pressão — o stack trace ganha
+O custo é uma indireção a mais. Alguém vai precisar navegar por ela para entender
+o fluxo, e num incidente esse alguém navega sob pressão: o stack trace ganha
 quadros, o log nomeia a interface em vez do que falhou, e o erro aparece um nível
-longe de onde nasceu. O benefício é a possibilidade de trocar a implementação —
+longe de onde nasceu. O benefício é a possibilidade de trocar a implementação,
 que só se realiza se a troca acontecer.
 
 Times aplicam abstração por reflexo, e o resultado é o padrão reconhecível de
@@ -46,7 +46,7 @@ benefício.
 
 E existe o caso pior: a abstração errada. Uma abstração que não corresponde ao
 domínio força quem a usa a lutar contra ela, e é mais cara de remover do que
-teria sido não tê-la criado — porque agora há código dependendo dela.
+teria sido não tê-la criado, porque agora há código dependendo dela.
 
 ## Conceitos Centrais
 
@@ -57,13 +57,13 @@ que está do outro lado.
 
 Se o consumidor precisa saber que o repositório usa SQL para escrever a consulta
 corretamente, ou que a fila é Kafka para tratar ordenação, a abstração não está
-escondendo — está apenas interpondo.
+escondendo, está apenas interpondo.
 
 ### Abstração vaza
 
 Toda abstração vaza em algum grau. A questão é quanto e onde.
 
-Um repositório esconde a tecnologia de persistência até que desempenho importe —
+Um repositório esconde a tecnologia de persistência até que desempenho importe:
 aí a diferença entre uma consulta e cinco vira visível e o consumidor precisa
 saber. Um sistema de arquivos abstrai o disco até que latência importe.
 
@@ -86,7 +86,7 @@ reversível; a abstração errada é cara e sticky.
 Uma abstração deve estar num nível consistente. Uma interface que mistura
 operações de alto nível (`processarPedido`) com detalhes de baixo nível
 (`abrirConexao`) obriga o consumidor a raciocinar em dois níveis
-simultaneamente — que é o oposto do que abstração faz.
+simultaneamente, que é o oposto do que abstração faz.
 
 ## Modelo Mental
 
@@ -102,7 +102,7 @@ isso acontece é a medida prática da qualidade da abstração.
 - Quando o detalhe escondido é genuinamente irrelevante para o consumidor.
 - Quando a abstração corresponde a um conceito do domínio, e não a uma
   conveniência técnica.
-- Quando é necessária para testar — substituir uma dependência externa é uma
+- Quando é necessária para testar: substituir uma dependência externa é uma
   razão legítima e frequentemente a única.
 - Quando o conceito se repetiu três vezes ou mais e a forma se estabilizou.
 
@@ -126,12 +126,12 @@ consumidor a saber nada novo, ela não estava escondendo nada.
 
 ## Alternativas
 
-- **Duplicação temporária** — barata, reversível, e informativa: as diferenças
-  entre as cópias revelam qual é o conceito real.
-- **Função em vez de interface** — quando o que varia é comportamento simples,
+- **Duplicação temporária**: barata, reversível, e informativa (as diferenças
+  entre as cópias revelam qual é o conceito real).
+- **Função em vez de interface**: quando o que varia é comportamento simples,
   passar uma função é mais leve que uma hierarquia.
-- **Parametrização** — quando a variação é de valor, não de comportamento.
-- **Adiar** — a alternativa mais subestimada. Uma abstração não criada não custa
+- **Parametrização**: quando a variação é de valor, não de comportamento.
+- **Adiar**: a alternativa mais subestimada. Uma abstração não criada não custa
   nada e continua disponível.
 
 ## Trade-offs
@@ -156,7 +156,7 @@ incerto e futuro. Isso desloca o ônus da prova para quem quer abstrair.
 outro lado: um `if` que existe porque a implementação é esta e não outra.
 
 **Abstração de um.** O sintoma é o nome. `ServicoImpl` para a interface
-`Servico` — quando não há o que distinguir, a implementação não tem como se
+`Servico`: quando não há o que distinguir, a implementação não tem como se
 chamar.
 
 **Abstração errada capturada cedo.** O sintoma é a proliferação de parâmetros
@@ -179,7 +179,7 @@ Três anos depois, o provedor nunca foi trocado. Mas o custo foi maior que a
 interface extra.
 
 A interface expunha `charge(amount, token)`. Stripe suporta captura tardia,
-parcelamento e chaves de idempotência — nada disso cabia na assinatura. Cada
+parcelamento e chaves de idempotência: nada disso cabia na assinatura. Cada
 recurso adicionado ao longo dos três anos exigiu uma decisão: alargar a interface
 (o que a amarrou ao Stripe de todo jeito) ou contorná-la (o que a esvaziou).
 
@@ -187,7 +187,7 @@ O time fez as duas coisas em momentos diferentes. Ao final, a interface tinha
 onze métodos, todos modelados sobre o Stripe, e dois pontos no código que
 acessavam o cliente Stripe diretamente porque a interface não comportava.
 
-A abstração não permitiria trocar de provedor — ela era o Stripe com outro nome.
+A abstração não permitiria trocar de provedor: ela era o Stripe com outro nome.
 
 O que teria funcionado: usar o cliente Stripe diretamente, e introduzir a
 abstração no dia em que um segundo provedor entrasse, com o conhecimento dos dois
@@ -196,9 +196,9 @@ três anos.
 
 ## Conceitos Relacionados
 
-- [Complexidade](/01-fundamentals/complexity.md) — o que a abstração deveria reduzir.
-- [Acoplamento](/01-fundamentals/coupling.md) — o que ela redistribui.
-- [Modularidade](/01-fundamentals/modularity.md) — onde ela materializa fronteiras.
+- [Complexidade](/01-fundamentals/complexity.md): o que a abstração deveria reduzir.
+- [Acoplamento](/01-fundamentals/coupling.md): o que ela redistribui.
+- [Modularidade](/01-fundamentals/modularity.md): onde ela materializa fronteiras.
 
 ## Exercício Prático
 
@@ -218,8 +218,8 @@ Depois escolha uma e remova-a. Observe se algo piorou de fato.
 
 ## Para Aprofundar
 
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 — o
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018. O
   conceito de módulos profundos versus rasos.
 - Spolsky, Joel. *The Law of Leaky Abstractions*, 2002.
-- Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2ª ed., 2019 — sobre
+- Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2ª ed., 2019. Sobre
   DRY como duplicação de conhecimento, não de texto.

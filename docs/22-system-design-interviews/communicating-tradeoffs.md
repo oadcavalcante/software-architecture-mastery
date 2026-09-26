@@ -2,7 +2,7 @@
 id: communicating-tradeoffs
 title: Comunicação de Trade-offs
 sidebar_position: 11
-description: A competência mais valorizada e a menos treinada — dizer o que você abriu mão e sob qual condição escolheria outra coisa.
+description: "A competência mais valorizada e a menos treinada: dizer o que você abriu mão e sob qual condição escolheria outra coisa."
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-structure, failure-handling, interview-common-mistakes]
 canonical_for: [comunicação de trade-off, pensar em voz alta, condição que inverte a escolha]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ A pergunta que o avaliador está respondendo o tempo todo não é "esta arquitet
  que eu não vou revisar?"
 ```
 
-E o que responde a isso não é a solução — é a capacidade de dizer o que ela custa. Uma escolha
+E o que responde a isso é a capacidade de dizer o que ela custa, não a solução. Uma escolha
 apresentada como obviamente correta sinaliza que o candidato não viu o custo; a mesma escolha
 apresentada com o custo nomeado sinaliza que ele viu e decidiu.
 
@@ -46,11 +46,11 @@ Três partes. A terceira é a que quase ninguém diz, e é a que mais vale.
 
 Três padrões.
 
-**Apresentar sem custo.** "Vou usar cache." A afirmação está certa e não demonstra nada — ela não
+**Apresentar sem custo.** "Vou usar cache." A afirmação está certa e não demonstra nada: ela não
 diz o que se perde, nem quando não valeria.
 
 **Desenhar em silêncio.** O candidato pensa bem e fala pouco. O avaliador não avalia pensamento,
-avalia o que é comunicado — e um desenho silencioso é indistinguível de um desenho memorizado.
+avalia o que é comunicado. Um desenho silencioso é indistinguível de um desenho memorizado.
 
 **Hedge permanente.** O oposto: "poderia ser assim, ou assim, depende". Nunca decidir é pior que
 decidir errado. Uma entrevista de arquitetura avalia a capacidade de escolher sob incerteza, e
@@ -74,10 +74,10 @@ não escolher é a única resposta que não demonstra isso.
 ```
 
 A terceira parte é a que separa. Ela demonstra que o candidato entende **por que** a escolha é
-correta neste contexto, e não em geral — que é a diferença entre arquitetura e receita.
+correta neste contexto, e não em geral. Essa é a diferença entre arquitetura e receita.
 
-Ela também tem uma função defensiva. Quando o entrevistador introduz uma variação — "e se o
-requisito de frescor fosse de 2 segundos?" —, o candidato que já enunciou a condição responde em
+Ela também tem uma função defensiva. Quando o entrevistador introduz uma variação ("e se o
+requisito de frescor fosse de 2 segundos?"), o candidato que já enunciou a condição responde em
 segundos, porque a análise já foi feita. O que não a enunciou precisa refazer o raciocínio ao
 vivo, sob pressão, e frequentemente chega a uma resposta inconsistente com o que disse antes.
 
@@ -137,7 +137,7 @@ demonstra que o método foi seguido, não decorado. Ver
  o síncrono."
 ```
 
-Apresentar a alternativa com seus méritos reais — e não como espantalho — mostra que a escolha
+Apresentar a alternativa com seus méritos reais, e não como espantalho, mostra que a escolha
 venceu um concorrente de verdade, e não uma versão enfraquecida montada para perder. Ver
 [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
@@ -160,7 +160,7 @@ Duas respostas ruins: aceitar imediatamente ("boa ideia, vou mudar") e defender 
  caso assim em mente?"
 ```
 
-Isso demonstra que a posição tem base, e que ela é revisável diante de informação nova — que é
+Isso demonstra que a posição tem base, e que ela é revisável diante de informação nova. É
 exatamente o comportamento desejado.
 
 ### Reconheça incerteza sem se paralisar
@@ -177,7 +177,7 @@ O que é mal avaliado é a paralisia.
 
 E fingir domínio é detectável com uma pergunta de acompanhamento, o que torna o custo do fingimento
 alto e o benefício momentâneo. Sinalizar o risco de uma premissa fraca, ao contrário, transfere a
-informação para quem pode corrigi-la — que é o comportamento esperado de alguém que vai tomar
+informação para quem pode corrigi-la. Esse é o comportamento esperado de alguém que vai tomar
 decisões em equipe.
 
 ## Modelo Mental
@@ -198,7 +198,7 @@ estado não tem concorrente plausível; enunciar custo e condição de inversão
 demonstrar o que ninguém duvida. Basta nomear a caixa.
 
 **Decisão já coberta por uma prioridade declarada.** Se "disponibilidade acima de consistência"
-foi dito no início, cada escolha que só aplica essa prioridade dispensa a frase inteira — a
+foi dito no início, cada escolha que só aplica essa prioridade dispensa a frase inteira: a
 condição de inversão é a mesma, e repeti-la dilui as decisões que de fato divergem dela.
 
 **Tempo apertado com o entrevistador pedindo outro ponto.** Nos minutos finais, quando o
@@ -207,10 +207,10 @@ decisões periféricas compete com o que ele quer avaliar. Diga a escolha e siga
 
 ## Alternativas
 
-- **Tabela de comparação** — quando há três opções e o quadro comporta; mais lento e mais claro.
-- **Declarar prioridade uma vez** — "disponibilidade acima de consistência neste sistema" — e
+- **Tabela de comparação**: quando há três opções e o quadro comporta; mais lento e mais claro.
+- **Declarar prioridade uma vez**: "disponibilidade acima de consistência neste sistema", e
   derivar as escolhas seguintes dela.
-- **Perguntar a preferência** — "você prefere que eu otimize para custo ou para latência?" é
+- **Perguntar a preferência**: "você prefere que eu otimize para custo ou para latência?" é
   legítimo e produtivo.
 
 A segunda é eficiente: uma prioridade declarada no início economiza a repetição do trade-off a
@@ -311,15 +311,15 @@ nomeados com mitigação, e a condição que inverteria a decisão.
 ```
 
 A resposta reconhece o mérito da alternativa, identifica a razão específica da recusa, e nomeia o
-contexto em que ela venceria. Nenhuma dessas três partes é sobre conhecimento técnico — todas são
+contexto em que ela venceria. Nenhuma dessas três partes é sobre conhecimento técnico: todas são
 sobre comunicação de decisão.
 
 ## Conceitos Relacionados
 
 - [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md).
-- [Alternativas em ADR](/18-architecture-decisions/adr-alternatives.md) — a mesma disciplina,
+- [Alternativas em ADR](/18-architecture-decisions/adr-alternatives.md): a mesma disciplina,
   por escrito.
-- [Trade-offs](/20-trade-offs/index.md) — o material de argumentação.
+- [Trade-offs](/20-trade-offs/index.md): o material de argumentação.
 - [Erros Comuns](/22-system-design-interviews/interview-common-mistakes.md).
 
 ## Exercício Prático
@@ -327,8 +327,8 @@ sobre comunicação de decisão.
 Pegue uma decisão de arquitetura que você tomou recentemente e escreva a frase de três partes:
 escolhi X porque Y, abri mão de Z, e sob a condição W escolheria outra coisa.
 
-Se você não conseguir preencher a terceira parte, a decisão foi tomada sem alternativa real — o
-que é a mesma lacuna que uma entrevista expõe.
+Se você não conseguir preencher a terceira parte, a decisão foi tomada sem alternativa real. Essa
+é a mesma lacuna que uma entrevista expõe.
 
 ## Perguntas de Entrevista
 

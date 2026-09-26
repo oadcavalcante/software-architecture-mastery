@@ -13,7 +13,7 @@ objective: >
 prerequisites: [context-mapping]
 related: [adapter, bounded-context, legacy-modernization]
 canonical_for: [anti-corruption layer, ACL]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Uma anti-corruption layer é uma camada de tradução entre dois bounded contexts,
 que impede que o modelo de um vaze para dentro do outro.
 
-O nome é forte de propósito: sem ela, o modelo alheio **corrompe** o seu — os
+O nome é forte de propósito: sem ela, o modelo alheio **corrompe** o seu. Os
 conceitos dele passam a habitar o seu domínio, e as decisões dele passam a
 restringir as suas.
 
@@ -36,9 +36,9 @@ serviço de outra área, um fornecedor externo.
 O caminho de menor resistência é consumir o modelo dele diretamente. Os tipos
 chegam, e cada um é um caminho por onde as decisões daquele sistema entram no seu.
 
-O sintoma aparece depois: o domínio ganha conceitos que não são dele — um campo
+O sintoma aparece depois: o domínio ganha conceitos que não são dele (um campo
 que existe porque o legado exige, um estado que só faz sentido no modelo do
-fornecedor, uma regra que existe para contornar uma limitação alheia.
+fornecedor, uma regra que existe para contornar uma limitação alheia).
 
 Quando o sistema externo muda, o seu domínio muda junto. E quando você quer
 substituir o fornecedor, descobre que o modelo dele está espalhado.
@@ -55,7 +55,7 @@ conceitos do outro lado viram conceitos do seu, com semântica própria, e o que
 faz sentido no seu domínio não atravessa.
 
 Se o legado tem sete status de pedido e o seu domínio reconhece três, a camada
-mapeia sete para três. Ela decide o que importa — e essa decisão é de modelagem,
+mapeia sete para três. Ela decide o que importa, e essa decisão é de modelagem,
 não de conversão.
 
 ### Ela protege a semântica, não só os tipos
@@ -66,7 +66,7 @@ O legado devolve prazo negativo quando há erro. Ele usa data zero para "sem
 data". Ele considera um pedido "concluído" incluindo os cancelados.
 
 Cada uma dessas é uma decisão do modelo alheio que não pertence ao seu. A camada
-precisa traduzir isso para o seu vocabulário — ou rejeitar, se não houver
+precisa traduzir isso para o seu vocabulário, ou rejeitar, se não houver
 tradução válida.
 
 Uma camada que apenas converte campos deixa passar essas armadilhas, e elas
@@ -83,7 +83,7 @@ para não pagar acoplamento.
 
 Uma anti-corruption layer permite construir o novo modelo enquanto o legado
 continua operando. Ela é o mecanismo que torna
-[strangler fig](/16-legacy-modernization/strangler-fig.md) viável — o novo sistema fala
+[strangler fig](/16-legacy-modernization/strangler-fig.md) viável: o novo sistema fala
 sua própria linguagem desde o primeiro dia, e a camada absorve o legado.
 
 ## Quando Usar
@@ -106,7 +106,7 @@ genuinamente, traduzir adiciona indireção sem proteger nada.
 com um sistema estável, usada em um lugar, pode não justificar.
 
 **Quando ela se reduz a mapeamento campo a campo.** Se a camada não toma nenhuma
-decisão de modelagem — apenas renomeia campos — ela é um adaptador anêmico. Ou o
+decisão de modelagem (apenas renomeia campos), ela é um adaptador anêmico. Ou o
 modelo externo já servia, ou a tradução real não está sendo feita.
 
 **Quando não há quem a mantenha.** Uma camada desatualizada é pior que nenhuma:
@@ -114,13 +114,13 @@ ela dá a impressão de proteção que não existe.
 
 ## Alternativas
 
-- **Conformista** — adotar o modelo externo deliberadamente, quando a
+- **Conformista**: adotar o modelo externo deliberadamente, quando a
   independência não vale o custo. É uma decisão legítima, desde que declarada.
-- **[Adapter](/03-design-patterns/adapter.md)** — quando a incompatibilidade é
+- **[Adapter](/03-design-patterns/adapter.md)**: quando a incompatibilidade é
   de interface e não de modelo.
-- **Negociar o contrato** — quando há relacionamento cliente-fornecedor real, mudar
+- **Negociar o contrato**: quando há relacionamento cliente-fornecedor real, mudar
   o outro lado pode ser mais barato.
-- **Caminhos separados** — não integrar.
+- **Caminhos separados**: não integrar.
 
 ## Trade-offs
 
@@ -133,7 +133,7 @@ ela dá a impressão de proteção que não existe.
 
 O eixo de **substituição de fornecedor** e o critério de quando a camada se paga estão em
 [tradução de fronteira](/08-integration-architecture/integration-anti-corruption.md), que
-trata o padrão pelo ângulo da integração — inclusive o quadrante que decide entre camada
+trata o padrão pelo ângulo da integração, inclusive o quadrante que decide entre camada
 completa e tradução na borda, e onde a camada mora.
 
 ## Modos de Falha
@@ -151,7 +151,7 @@ correspondente e é mapeado para o mais próximo, sem que ninguém decida se iss
 correto.
 
 **Camada que acumula regra de negócio.** Ela é o ponto de encontro dos dois
-modelos, e regra migra para lá — o mesmo mecanismo que degenera
+modelos, e regra migra para lá: o mesmo mecanismo que degenera
 [fachadas](/03-design-patterns/facade.md) e barramentos.
 
 ## Erros Comuns
@@ -189,7 +189,7 @@ A anti-corruption layer construída depois traduzia para um modelo próprio:
 tipos que importavam ao negócio, e `PontuacaoNormalizada` numa escala própria.
 
 Os 40 tipos de ocorrência viraram quatro. A decisão de quais quatro foi tomada com
-o time de risco — e é exatamente a decisão de modelagem que a camada existe para
+o time de risco, e é exatamente a decisão de modelagem que a camada existe para
 concentrar.
 
 O segundo bureau foi adicionado como uma segunda tradução, com zero alteração no domínio: os
@@ -197,17 +197,17 @@ quatorze pontos de condicional que a integração anterior tinha espalhado pelo 
 negócio viraram nenhum, e o trabalho ficou contido em dois arquivos de mapeamento.
 
 O detalhe que mais rendeu: a camada rejeita respostas do bureau que não podem ser
-traduzidas com segurança — em vez de mapear para o valor mais próximo. Isso
+traduzidas com segurança, em vez de mapear para o valor mais próximo. Isso
 transformou uma classe de defeito silencioso em erro explícito de integração.
 
 ## Conceitos Relacionados
 
-- [Context Mapping](/04-domain-driven-design/context-mapping.md) — onde este padrão se situa.
-- [Adapter](/03-design-patterns/adapter.md) — a versão de interface.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o que se protege.
-- [Tradução de Fronteira](/08-integration-architecture/integration-anti-corruption.md) — o
+- [Context Mapping](/04-domain-driven-design/context-mapping.md): onde este padrão se situa.
+- [Adapter](/03-design-patterns/adapter.md): a versão de interface.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): o que se protege.
+- [Tradução de Fronteira](/08-integration-architecture/integration-anti-corruption.md): o
   mesmo padrão pelo ângulo da integração: quando ele se paga, e onde a camada mora.
-- [Modernização de Legado](/16-legacy-modernization/index.md) — um uso recorrente.
+- [Modernização de Legado](/16-legacy-modernization/index.md): um uso recorrente.
 
 ## Exercício Prático
 

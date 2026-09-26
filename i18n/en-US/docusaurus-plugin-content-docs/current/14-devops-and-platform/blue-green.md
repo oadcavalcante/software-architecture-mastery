@@ -2,7 +2,7 @@
 id: blue-green
 title: Blue-Green
 sidebar_position: 5
-description: Two complete environments and an instant switch — simplicity at the cost of duplicated capacity.
+description: "Two complete environments and an instant switch: simplicity at the cost of duplicated capacity."
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, canary, rolling-deployments]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 In blue-green, there are two complete environments. One serves the traffic; the other is idle.
 
-The deployment happens on the idle one. Once verified, the traffic is **switched** — all at once. If
+The deployment happens on the idle one. Once verified, the traffic is **switched**, all at once. If
 something goes wrong, you switch back.
 
 The property that defines it: **instant rollback**. There is no deployment to undo, there is a route to
@@ -31,7 +31,7 @@ invert.
 
 ## Problem
 
-Reverting a conventional deployment means deploying the previous version — which takes the same time as the
+Reverting a conventional deployment means deploying the previous version, which takes the same time as the
 original deployment, under pressure, with the system degraded.
 
 See [deployment strategies](/14-devops-and-platform/deployment-strategies.md). For high-risk changes, or
@@ -59,13 +59,13 @@ The record's time to live needs to be short, or the switch should happen at a la
 An environment that has just come up has a cold cache, unestablished connections and code the runtime has
 not yet optimized.
 
-Switching 100% of the traffic to it produces a latency spike and, frequently, an outage — which is read as
+Switching 100% of the traffic to it produces a latency spike and, frequently, an outage. That is read as
 "the new version is bad", when the problem is the cold environment.
 
 See [caching for scale](/11-scalability/scaling-cache.md).
 
-What resolves it: warming before the switch — synthetic traffic, or a small fraction of real traffic for a
-few minutes.
+What resolves it: warming before the switch (synthetic traffic, or a small fraction of real traffic for a
+few minutes).
 
 That last case is, in practice, a short canary. See [canary](/14-devops-and-platform/canary.md).
 
@@ -97,7 +97,7 @@ an abrupt cut   they fail
 draining        the old environment finishes what it started, receiving no new ones
 ```
 
-Draining is the correct behavior, and it needs a time limit — a long request cannot hold the switch
+Draining is the correct behavior, and it needs a time limit: a long request cannot hold the switch
 indefinitely.
 
 And the same holds for asynchronous work: the old environment's queue consumers need to stop consuming,
@@ -123,7 +123,7 @@ Its cost is the creation time, and the requirement that the infrastructure be co
 
 It is worth being explicit: **blue-green does not detect problems**.
 
-It makes the rollback cheap. Somebody — or something — still needs to notice that the new version is wrong.
+It makes the rollback cheap. Somebody, or something, still needs to notice that the new version is wrong.
 
 For changes whose problem is not obvious, it needs to be combined with verification. See
 [canary](/14-devops-and-platform/canary.md).
@@ -140,7 +140,7 @@ is what needs to be designed.
 ## When to Use
 
 - The rollback needs to be instant.
-- Infrastructure changes — a runtime version, a base image.
+- Infrastructure changes: a runtime version, a base image.
 - Where the degradation window is expensive.
 - Low-volume systems, where a canary has no significance.
 - When the environment can be created on demand.
@@ -161,12 +161,12 @@ is what needs to be designed.
 
 ## Alternatives
 
-- **[Canary](/14-devops-and-platform/canary.md)** — it detects, exposes less, requires volume.
-- **[Rolling deployment](/14-devops-and-platform/rolling-deployments.md)** — no extra capacity, gradual
+- **[Canary](/14-devops-and-platform/canary.md)**: it detects, exposes less, requires volume.
+- **[Rolling deployment](/14-devops-and-platform/rolling-deployments.md)**: no extra capacity, gradual
   rollback.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — instant rollback with no duplicated
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: instant rollback with no duplicated
   environment, for behavior changes.
-- **Blue-green with a canary on the switch** — switching gradually instead of all at once, combining the
+- **Blue-green with a canary on the switch**: switching gradually instead of all at once, combining the
   two.
 
 The last wins where there is volume for the canary to be statistically significant and
@@ -210,7 +210,7 @@ without adding information.
 unestablished connections produces a latency spike at exactly the moment of the switch.
 
 **Not verifying the state's compatibility.** The two environments share the database. If the new version
-requires a schema the old one does not understand, the rollback — which was the pattern's point — stops
+requires a schema the old one does not understand, the rollback (which was the pattern's point) stops
 being possible.
 
 **Switching by DNS.** The resolution cache keeps clients on the old environment for tens of minutes, and
@@ -223,7 +223,7 @@ into a handful of errors for real users.
 silently fall behind, and the switch reveals that at the worst moment.
 
 **Not turning off the old environment's asynchronous consumers.** Both environments keep processing the
-same queue, with different versions of the code — and the effect depends on which one picked up the
+same queue, with different versions of the code, and the effect depends on which one picked up the
 message.
 
 ## Real-World Example
@@ -238,13 +238,13 @@ Three problems appeared:
 **A latency spike on the switch.** Every switch produced two to three minutes of elevated latency. It was
 diagnosed as "normal warming" for months, until somebody measured: the new environment came up with an
 empty cache and an unestablished connection pool. The solution was sending 5% of the traffic for ten
-minutes before the complete switch — which, in practice, introduced a canary.
+minutes before the complete switch. That, in practice, introduced a canary.
 
 **An unsafe rollback.** In one deployment, the new version wrote a new field into session records. On
 reverting, the old environment did not understand the format and dropped every logged-in user's session.
 Mandatory state compatibility verification came to exist in review.
 
-**Duplicated consumers.** Both environments had active queue consumers. After a deployment, both consumed —
+**Duplicated consumers.** Both environments had active queue consumers. After a deployment, both consumed,
 and for 40 minutes, messages were processed by different versions, with inconsistent results. The switch
 came to turn off the old environment's consumers before anything else.
 
@@ -261,13 +261,13 @@ Blue-green is presented as a traffic switch, and asynchronous traffic does not g
 ## Related Concepts
 
 - [Deployment Strategies](/14-devops-and-platform/deployment-strategies.md).
-- [Canary](/14-devops-and-platform/canary.md) — the detection that is missing.
-- [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md) — the ephemeral environment.
+- [Canary](/14-devops-and-platform/canary.md): the detection that is missing.
+- [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md): the ephemeral environment.
 - [Schema Evolution](/08-integration-architecture/schema-evolution.md).
 
 ## Practical Exercise
 
-If you use blue-green, check what happens to the queue consumers during the switch — and whether a rollback
+If you use blue-green, check what happens to the queue consumers during the switch, and whether a rollback
 would be safe given what the new version wrote.
 
 Both questions usually have no documented answer.

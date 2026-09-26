@@ -2,7 +2,7 @@
 id: olap
 title: OLAP
 sidebar_position: 8
-description: Carga analítica — poucas consultas grandes que varrem muito e agregam, com latência tolerante.
+description: "Carga analítica: poucas consultas grandes que varrem muito e agregam, com latência tolerante."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oltp]
 related: [data-warehouses, column-stores, denormalization]
 canonical_for: [OLAP, carga analítica]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-OLAP — processamento analítico em linha — descreve a carga oposta à
+OLAP (processamento analítico em linha) descreve a carga oposta à
 [transacional](/07-data-architecture/oltp.md): **poucas consultas, cada uma varrendo grandes volumes,
 agregando, com tolerância a latência de segundos ou minutos**.
 
@@ -65,8 +65,8 @@ Uma consulta analítica típica lê poucas colunas de muitas linhas. Armazenamen
 [colunar](/07-data-architecture/column-stores.md) guarda cada coluna junta, então ler duas colunas de
 uma tabela de cinquenta lê apenas o que é preciso.
 
-O ganho não é marginal. Some-se a compressão — valores semelhantes adjacentes
-comprimem muito bem — e a diferença costuma ser de uma a duas ordens de grandeza.
+O ganho não é marginal. Some-se a compressão (valores semelhantes adjacentes
+comprimem muito bem) e a diferença costuma ser de uma a duas ordens de grandeza.
 
 ### Desnormalizar é a escolha certa aqui
 
@@ -74,8 +74,8 @@ O critério que vale em [OLTP](/07-data-architecture/oltp.md) se inverte. Como n
 concorrente e as consultas varrem, [desnormalizar](/07-data-architecture/denormalization.md) elimina
 junções sem custo de manutenção relevante.
 
-É a razão de [modelos dimensionais](/07-data-architecture/data-warehouses.md) — fato
-no centro, dimensões ao redor — dominarem o desenho analítico.
+É a razão de [modelos dimensionais](/07-data-architecture/data-warehouses.md) (fato
+no centro, dimensões ao redor) dominarem o desenho analítico.
 
 ### Pré-agregação troca espaço por tempo
 
@@ -88,12 +88,12 @@ faltar.
 
 ### O dado analítico é histórico, e isso muda tudo
 
-Um fato registrado — uma venda, um clique — não muda depois de escrito. Isso
+Um fato registrado (uma venda, um clique) não muda depois de escrito. Isso
 permite particionar por tempo, comprimir agressivamente, arquivar em armazenamento
 barato e reprocessar sem coordenação.
 
-As mudanças que existem — fato atrasado, correção de carga, apagamento por
-retenção — chegam em lote e por período, não linha a linha. Por isso a unidade de
+As mudanças que existem (fato atrasado, correção de carga, apagamento por
+retenção) chegam em lote e por período, não linha a linha. Por isso a unidade de
 mudança é a partição: apaga-se e regrava-se o dia inteiro, como no Exemplo Real
 abaixo. Um sistema analítico que trata cada registro como mutável individualmente
 está pagando um custo que não precisa pagar.
@@ -105,7 +105,7 @@ previsível: consultas mal escritas, varreduras completas sem filtro de período
 custo que cresce sem teto.
 
 Limite de tempo, cota por usuário e obrigatoriedade de filtro de partição não são
-burocracia — são o que mantém a plataforma viável.
+burocracia: são o que mantém a plataforma viável.
 
 ### Frescor é um requisito a ser perguntado, não presumido
 
@@ -132,7 +132,7 @@ troca.
 ## Modelo Mental
 
 **OLAP é sobre poucas consultas que leem muito.** Colunar, desnormalizado e
-histórico — os três decorrem disso.
+histórico: os três decorrem disso.
 
 ## Quando Usar
 
@@ -160,11 +160,11 @@ complexidade só se paga acima de certo volume.
 
 ## Alternativas
 
-- **Réplica de leitura** — separa a carga sem mudar tecnologia. Suficiente para
+- **Réplica de leitura**: separa a carga sem mudar tecnologia. Suficiente para
   volumes moderados.
-- **Visão materializada** — pré-agregação sem plataforma separada.
-- **[Data warehouse](/07-data-architecture/data-warehouses.md)** — quando há múltiplas fontes.
-- **Consulta direta sobre arquivos** — quando o volume é grande e a frequência
+- **Visão materializada**: pré-agregação sem plataforma separada.
+- **[Data warehouse](/07-data-architecture/data-warehouses.md)**: quando há múltiplas fontes.
+- **Consulta direta sobre arquivos**: quando o volume é grande e a frequência
   baixa.
 
 ## Trade-offs
@@ -205,7 +205,7 @@ números dobram sem erro nenhum.
 
 **Normalizar o modelo analítico.** Normalização otimiza escrita e integridade; consulta analítica quer junções poucas e largas. Um modelo normalizado transforma uma pergunta simples numa junção de oito tabelas.
 
-**Montar plataforma analítica antes de o volume justificar.** Até certo tamanho, uma réplica de leitura com alguns índices responde tudo — sem carga, sem modelagem dimensional e sem mais um sistema para operar.
+**Montar plataforma analítica antes de o volume justificar.** Até certo tamanho, uma réplica de leitura com alguns índices responde tudo, sem carga, sem modelagem dimensional e sem mais um sistema para operar.
 
 **Não expor a data da última atualização nos painéis.** Uma carga quebrada há três dias mostra exatamente a mesma tela de uma carga correta, e a decisão é tomada sobre dado velho sem que ninguém suspeite.
 
@@ -217,7 +217,7 @@ números dobram sem erro nenhum.
 Uma empresa de varejo montou um painel executivo sobre o banco transacional
 replicado. Funcionou por um ano e degradou.
 
-O problema não era o volume total — 200 milhões de linhas de venda. Era o formato:
+O problema não era o volume total (200 milhões de linhas de venda). Era o formato:
 cada consulta do painel fazia junção entre venda, produto, loja e calendário, e
 agregava por mês.
 
@@ -231,7 +231,7 @@ Três problemas apareceram depois.
 **Duplicação silenciosa.** A carga diária falhou no meio e foi reexecutada. Os
 fatos daquele dia entraram duas vezes, e o faturamento apareceu inflado. Ninguém
 notou por seis dias, até um gerente estranhar o número da sua loja. A correção foi
-tornar a carga idempotente — apagar a partição do dia antes de recarregar.
+tornar a carga idempotente: apagar a partição do dia antes de recarregar.
 
 **Custo de auto-atendimento.** Liberado o acesso direto, uma consulta sem filtro
 de período varria cinco anos de dados. Em um mês, o custo de consulta superou o
@@ -242,16 +242,16 @@ cota por usuário.
 isso. Decisões foram tomadas com informação velha. A correção foi trivial e
 deveria ter existido desde o início: um carimbo de "dados até" em cada painel.
 
-A equipe registra a terceira como a mais constrangedora — custou uma linha de
+A equipe registra a terceira como a mais constrangedora: custou uma linha de
 interface, a correção mais barata das três, e foi a única cujo dano caiu sobre as
 decisões e não sobre o custo ou sobre um número que alguém acabou conferindo.
 
 ## Conceitos Relacionados
 
-- [OLTP](/07-data-architecture/oltp.md) — a carga oposta.
-- [Armazenamento Colunar](/07-data-architecture/column-stores.md) — a tecnologia adequada.
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — a plataforma.
-- [Desnormalização](/07-data-architecture/denormalization.md) — o modelo.
+- [OLTP](/07-data-architecture/oltp.md): a carga oposta.
+- [Armazenamento Colunar](/07-data-architecture/column-stores.md): a tecnologia adequada.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): a plataforma.
+- [Desnormalização](/07-data-architecture/denormalization.md): o modelo.
 
 ## Exercício Prático
 
@@ -270,7 +270,7 @@ pico. Esse número costuma ser o argumento que faltava.
 ## Para Aprofundar
 
 - Kimball, Ralph; Ross, Margy. *The Data Warehouse Toolkit*. 3ª ed. Wiley, 2013.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 3.
 - Abadi, Daniel et al. *The Design and Implementation of Modern Column-Oriented
   Database Systems*, 2013.

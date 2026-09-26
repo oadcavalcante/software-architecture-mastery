@@ -2,7 +2,7 @@
 id: subdomain
 title: Subdomínio
 sidebar_position: 2
-description: A divisão do domínio em áreas com características distintas — e a decisão de investimento que ela informa.
+description: A divisão do domínio em áreas com características distintas, e a decisão de investimento que ela informa.
 doc_type: foundation
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [core-domain, supporting-domain, generic-domain, bounded-context]
 canonical_for: [subdomínio, subdomain]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Um subdomínio é uma área do domínio com coesão própria. Uma seguradora tem
 subscrição, sinistro, cobrança, corretagem, contabilidade, atendimento.
 
-A divisão em subdomínios não é organização de código — é análise de negócio. Ela
+A divisão em subdomínios não é organização de código, e sim análise de negócio. Ela
 existe independentemente do software, e o software deveria refletí-la.
 
 ## O Problema
@@ -38,8 +38,8 @@ direções.
 Áreas que diferenciam a empresa recebem menos atenção do que merecem, porque
 competem com o resto por recursos.
 
-E áreas que não diferenciam nada — emissão de nota fiscal, autenticação, envio de
-e-mail — recebem esforço de engenharia que poderia ser comprado pronto.
+E áreas que não diferenciam nada (emissão de nota fiscal, autenticação, envio de
+e-mail) recebem esforço de engenharia que poderia ser comprado pronto.
 
 A divisão em subdomínios existe para tornar essa alocação deliberada.
 
@@ -49,9 +49,9 @@ A divisão em subdomínios existe para tornar essa alocação deliberada.
 
 Distinção que causa confusão constante:
 
-**Subdomínio** é uma divisão do **problema** — do negócio, tal como ele é.
+**Subdomínio** é uma divisão do **problema**: do negócio, tal como ele é.
 
-**[Bounded context](/04-domain-driven-design/bounded-context.md)** é uma divisão da **solução** — do
+**[Bounded context](/04-domain-driven-design/bounded-context.md)** é uma divisão da **solução**: do
 software que você constrói.
 
 O ideal é que cada subdomínio corresponda a um bounded context. Na prática, um
@@ -104,7 +104,7 @@ liberar qualquer capacidade.
 ## Por Que Isso Importa
 
 **Porque a capacidade de engenharia é finita.** A decisão que a classificação
-informa é onde alocá-la — e essa é uma decisão de negócio, não técnica.
+informa é onde alocá-la, e essa é uma decisão de negócio, não técnica.
 
 **Porque orienta onde aplicar DDD tático.** Agregado, repositório e fábrica são
 caros e raramente se pagam fora do core; objeto de valor e entidade rica se pagam
@@ -134,7 +134,7 @@ engenharia.
 
 Uma empresa de gestão de frotas mapeou sete subdomínios.
 
-A classificação inicial, feita pela equipe técnica, marcou cinco como core —
+A classificação inicial, feita pela equipe técnica, marcou cinco como core,
 incluindo roteirização, que era o problema mais interessante e onde três
 engenheiros trabalhavam havia dois anos.
 
@@ -144,7 +144,7 @@ parasse o veículo. Nenhum concorrente fazia isso bem.
 
 Roteirização, apesar de ser o problema mais difícil, era comparável à dos
 concorrentes: bibliotecas maduras resolviam 90% dos casos, e os 10% restantes eram
-restrições próprias da frota — específicas, mas sem diferenciar. Daí supporting, e
+restrições próprias da frota (específicas, mas sem diferenciar). Daí supporting, e
 não generic.
 
 A reclassificação: manutenção preditiva virou o único core; roteirização virou
@@ -155,8 +155,8 @@ Os três engenheiros de roteirização foram para manutenção preditiva. A muda
 saiu de graça: dois anos de roteirização própria viraram uma camada fina sobre a
 biblioteca, e os três levaram meses para render num domínio que não conheciam.
 
-O que interessa aqui não é a decisão específica. É que a classificação feita pela
-engenharia e a feita com o negócio divergiram completamente — e a segunda é a que
+O que interessa aqui não é a decisão específica, e sim que a classificação feita pela
+engenharia e a feita com o negócio divergiram completamente. E a segunda é a que
 importa.
 
 ## Como a divisão sobrevive ao tempo
@@ -179,7 +179,7 @@ sentido quando a escolha muda.
 
 **Mudança na divisão de subdomínios é sinal de mudança estratégica.** Quando o
 negócio cria uma área nova ou funde duas, isso costuma preceder uma reorganização
-do sistema — e antecipar isso é uma das poucas formas de previsão arquitetural que
+do sistema, e antecipar isso é uma das poucas formas de previsão arquitetural que
 funciona.
 
 Vale registrar a divisão de subdomínios em algum lugar durável e revisitá-la
@@ -188,17 +188,17 @@ anualmente. É um documento de meia página que orienta decisões por anos.
 ## Conceitos Relacionados
 
 - [Core Domain](/04-domain-driven-design/core-domain.md), [Supporting](/04-domain-driven-design/supporting-domain.md) e
-  [Generic](/04-domain-driven-design/generic-domain.md) — os três tipos.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a divisão da solução.
-- [Domínio](/04-domain-driven-design/domain.md) — o todo.
+  [Generic](/04-domain-driven-design/generic-domain.md): os três tipos.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): a divisão da solução.
+- [Domínio](/04-domain-driven-design/domain.md): o todo.
 - [Contexto de Negócio](/01-fundamentals/business-context.md).
 
 ## Exercício Prático
 
 Liste os subdomínios do seu negócio e classifique cada um nos três tipos.
 
-Depois compare com onde o esforço de engenharia foi de fato alocado no último ano
-— por número de pessoas e por tempo.
+Depois compare com onde o esforço de engenharia foi de fato alocado no último ano,
+por número de pessoas e por tempo.
 
 O desalinhamento entre as duas listas é o achado.
 
@@ -211,6 +211,6 @@ O desalinhamento entre as duas listas é o achado.
 ## Para Aprofundar
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — em progresso desde
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016. Em progresso desde
   então; a técnica apareceu antes no artigo homônimo de 2013.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.

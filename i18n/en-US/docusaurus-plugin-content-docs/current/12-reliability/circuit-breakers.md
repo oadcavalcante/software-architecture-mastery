@@ -2,7 +2,7 @@
 id: circuit-breakers
 title: Circuit Breakers
 sidebar_position: 14
-description: Stopping the attempts when the failure is persistent — protecting both sides of the call.
+description: Stopping the attempts when the failure is persistent, protecting both sides of the call.
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retry-storms]
 related: [retry-storms, bulkheads, graceful-degradation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 A circuit breaker monitors the calls to a dependency and, when the failure rate passes a threshold,
-**stops trying** — failing immediately for a period.
+**stops trying**, failing immediately for a period.
 
 It protects both sides:
 
@@ -47,7 +47,7 @@ a 10s timeout, 500 req/s to the service that is down
 
 The failure propagates upward, and an optional service takes the whole system down.
 
-See Little's law in [performance versus scalability](/11-scalability/performance-vs-scalability.md) — high
+See Little's law in [performance versus scalability](/11-scalability/performance-vs-scalability.md): high
 latency with constant throughput means high concurrency.
 
 ## Core Concepts
@@ -60,12 +60,12 @@ open       calls fail immediately, with no attempt
 half-open  after the period, some calls pass through to test
 ```
 
-The half-open state is the recovery mechanism: instead of going back to normal all at once — which would
-generate a spike on the service that just recovered — it lets a fraction through.
+The half-open state is the recovery mechanism: instead of going back to normal all at once (which would
+generate a spike on the service that just recovered), it lets a fraction through.
 
 If those calls succeed, it closes. If they fail, it opens again with a longer period.
 
-Without half-open, reopening produces a storm against a fragile service, which goes down again — and the
+Without half-open, reopening produces a storm against a fragile service, which goes down again, and the
 system oscillates.
 
 ### The thresholds need to be measured
@@ -87,7 +87,7 @@ should not open at 5%.
 
 ### Count slowness, not only errors
 
-A service that responds in 30 seconds with success is as damaging as one that fails — it holds the caller's
+A service that responds in 30 seconds with success is as damaging as one that fails: it holds the caller's
 resources for the same amount of time.
 
 Circuit breakers that count only errors do not detect that case, which is the most common in practice:
@@ -98,7 +98,7 @@ real scenario.
 
 ### The open behavior needs to be decided
 
-Opening the circuit is not the solution — it is half of it. The other half is what to do with the request:
+Opening the circuit is only half of the solution. The other half is what to do with the request:
 
 ```text
 fail fast          the caller handles it
@@ -108,7 +108,7 @@ enqueue            process later
 ```
 
 See [graceful degradation](/12-reliability/graceful-degradation.md). A circuit breaker with no fallback
-behavior only trades a slow failure for a fast one — which helps the system and does not help the user.
+behavior only trades a slow failure for a fast one. That helps the system and does not help the user.
 
 ### One circuit per dependency, not per service
 
@@ -116,7 +116,7 @@ If a service exposes ten operations and only one is degraded, opening the circui
 capacity that was working.
 
 The appropriate granularity is per **operation** or per **group of operations with the same failure
-profile** — which relates to [bulkheads](/12-reliability/bulkheads.md).
+profile**, which relates to [bulkheads](/12-reliability/bulkheads.md).
 
 And, in partitioned services, per instance or partition: one degraded partition should not open the circuit
 for the others.
@@ -128,12 +128,12 @@ A circuit that opens with nobody knowing turns a visible problem into a silent o
 The minimum: a state metric per circuit, a count of openings, and an alert when a circuit stays open beyond
 a period.
 
-Without that, the system operates degraded indefinitely — and the degradation is precisely what the circuit
+Without that, the system operates degraded indefinitely, and the degradation is precisely what the circuit
 breaker was designed to make acceptable.
 
 ### Do not apply it to everything
 
-A circuit breaker on every call adds state, configuration and a new failure mode — opening when it should
+A circuit breaker on every call adds state, configuration and a new failure mode: opening when it should
 not.
 
 It is justified where: the dependency is external or unstable, the timeout is significant, a fallback
@@ -172,10 +172,10 @@ What to do with the fast failure is a separate decision.
 
 ## Alternatives
 
-- **An aggressive timeout** — simpler, and it does not protect the destination.
-- **A [bulkhead](/12-reliability/bulkheads.md)** — it limits the damage without stopping the attempts.
-- **A retry budget** — it controls the amplification. See [storms](/12-reliability/retry-storms.md).
-- **Load shedding at the destination** — the destination protects itself, instead of depending on the
+- **An aggressive timeout**: simpler, and it does not protect the destination.
+- **A [bulkhead](/12-reliability/bulkheads.md)**: it limits the damage without stopping the attempts.
+- **A retry budget**: it controls the amplification. See [storms](/12-reliability/retry-storms.md).
+- **Load shedding at the destination**: the destination protects itself, instead of depending on the
   callers.
 
 The last deserves a note: protection at the destination is more reliable than protection distributed among
@@ -210,7 +210,7 @@ callers, because it does not depend on all of them configuring it correctly.
 
 **Slowness not counted.** The most common case does not trigger the circuit.
 
-**A circuit per caller instance.** Each instance learns separately, and the protection takes a while — in
+**A circuit per caller instance.** Each instance learns separately, and the protection takes a while: in
 services with many instances, the destination receives load from all the ones that have not opened yet.
 
 ## Common Mistakes
@@ -222,7 +222,7 @@ call volume. Applied without calibration, they open too early or never.
 minimum volume in the window, the circuit opens on statistical noise.
 
 **Not counting slowness as failure.** The dependency that responds in 30 seconds exhausts threads and takes
-the caller down with no error at all — which is precisely the case the breaker was supposed to cover.
+the caller down with no error at all. That is precisely the case the breaker was supposed to cover.
 
 **Not defining the open behavior.** Opening the circuit without deciding what to respond only trades
 slowness for an error. The value is in the alternative: a cache, a default value or declared degradation.
@@ -238,11 +238,11 @@ brings the failure forward. It serves where degradation is possible.
 A hotel booking platform called an external reviews service on every results page. The timeout was 15
 seconds.
 
-During a degradation of the external service — which started responding in 14 seconds, with no error — the
+During a degradation of the external service (which started responding in 14 seconds, with no error), the
 whole platform became unavailable in 6 minutes.
 
 The cause: 400 requests per second, each stuck for 14 seconds, generated around 5,600 simultaneous
-requests. The connections and threads were exhausted, and the application stopped serving **any** request —
+requests. The connections and threads were exhausted, and the application stopped serving **any** request,
 including the ones that did not need reviews.
 
 An optional service took the platform down.
@@ -256,15 +256,15 @@ and a test with 10% of the traffic in half-open.
 
 **Slowness counted as failure.** Calls above **400 ms** count toward the threshold. The number sits below
 the timeout on purpose: at the timeout boundary the call already becomes an error by itself, and the rule
-would add nothing. Between 400 and 800 ms the call responds successfully and still counts — which is the
+would add nothing. Between 400 and 800 ms the call responds successfully and still counts. That is the
 case only this rule catches.
 
 **A fallback behavior.** An open circuit means displaying the page without reviews, with the block omitted.
 See [graceful degradation](/12-reliability/graceful-degradation.md).
 
-**A bulkhead.** A separate connection pool for external calls, limited to 80 simultaneous — 400 req/s ×
+**A bulkhead.** A separate connection pool for external calls, limited to 80 simultaneous (400 req/s ×
 120 ms require 48 in normal operation, and the headroom follows the sizing in
-[bulkheads](/12-reliability/bulkheads.md) — so that, even
+[bulkheads](/12-reliability/bulkheads.md)), so that, even
 with no circuit breaker, the exhaustion does not reach the main pool. See
 [bulkheads](/12-reliability/bulkheads.md).
 
@@ -274,17 +274,17 @@ Two months later, the same external service degraded again. The circuit opened i
 came to be served without reviews, and no user reported a problem. The incident was recorded as
 degradation, not as unavailability.
 
-The recorded conclusion: the adjustment that mattered most was the timeout — 15 seconds was what let the
+The recorded conclusion: the adjustment that mattered most was the timeout; 15 seconds was what let the
 queue grow. Counting slowness came after, and it is what catches degradation that answers inside the
 timeout without ever failing. The circuit
-breaker's first version, installed months earlier, counted only errors — and it would have stayed closed
+breaker's first version, installed months earlier, counted only errors, and it would have stayed closed
 during the original incident, because the service responded successfully, very slowly.
 
 ## Related Concepts
 
-- [Retry Storms](/12-reliability/retry-storms.md) — what it breaks.
-- [Bulkheads](/12-reliability/bulkheads.md) — the complementary protection.
-- [Graceful Degradation](/12-reliability/graceful-degradation.md) — the open behavior.
+- [Retry Storms](/12-reliability/retry-storms.md): what it breaks.
+- [Bulkheads](/12-reliability/bulkheads.md): the complementary protection.
+- [Graceful Degradation](/12-reliability/graceful-degradation.md): the open behavior.
 - [Timeouts](/06-distributed-systems/timeouts.md).
 
 ## Practical Exercise
@@ -292,7 +292,7 @@ during the original incident, because the service responded successfully, very s
 List your critical path's external calls with each one's timeout.
 
 Multiply the timeout by the request rate. That is the number of simultaneous requests stuck if the
-dependency gets slow — and compare it with your application's concurrency limit.
+dependency gets slow, and compare it with your application's concurrency limit.
 
 ## Interview Questions
 
@@ -302,6 +302,6 @@ dependency gets slow — and compare it with your application's concurrency limi
 
 ## Further Reading
 
-- Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018 — the original formulation.
+- Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018. The original formulation.
 - Fowler, Martin. *CircuitBreaker*, 2014.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 22.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 22.

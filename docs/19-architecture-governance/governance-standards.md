@@ -2,7 +2,7 @@
 id: governance-standards
 title: Padrões em Operação
 sidebar_position: 4
-description: O ciclo de vida de um padrão — quem escreve, como se adota, e por que aposentar é a parte que falta.
+description: "O ciclo de vida de um padrão: quem escreve, como se adota, e por que aposentar é a parte que falta."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-principles]
 related: [governance-principles, exceptions, compliance]
 canonical_for: [ciclo de vida de padrão, aposentadoria de padrão, custo de adoção, autoria de padrão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -25,7 +25,7 @@ Um padrão prescreve uma escolha para uma situação recorrente. Ele economiza j
 vez de cada time decidir de novo, a organização decide uma vez.
 
 Essa economia é real, e vem com uma conta que raramente é feita. Todo padrão tem **custo de
-adoção**, **custo de manutenção** e **custo de saída** — e organizações acumulam padrões
+adoção**, **custo de manutenção** e **custo de saída**, e organizações acumulam padrões
 como se os três fossem zero.
 
 O resultado típico, depois de alguns anos:
@@ -39,11 +39,11 @@ esquecidos                15
 ```
 
 Ver [padrões corporativos](/15-enterprise-architecture/standards.md) para escopo e
-operacionalização; aqui o foco é o ciclo de vida — nascer, ser adotado, e morrer.
+operacionalização; aqui o foco é o ciclo de vida: nascer, ser adotado, e morrer.
 
 ## Problema
 
-Padrões nascem por um motivo legítimo — um incidente, uma divergência cara, uma auditoria —
+Padrões nascem por um motivo legítimo (um incidente, uma divergência cara, uma auditoria)
 e quase nunca morrem.
 
 ```text
@@ -127,7 +127,7 @@ comunicado mas não adotado       o padrão está errado, ou falta caminho
 adotado mas não convergido       falta plano e patrocínio para a migração
 ```
 
-Reforçar obrigatoriedade sem caminho nem financiamento — a resposta institucional padrão —
+Reforçar obrigatoriedade sem caminho nem financiamento (a resposta institucional padrão)
 não resolve nenhum dos três.
 
 ### Aposentadoria é parte do ciclo
@@ -145,8 +145,8 @@ O último item é o mais esquecido, e é o que evita que a aposentadoria vire ab
 padrão descontinuado sem plano deixa dezenas de sistemas com uma escolha que ninguém mais
 sustenta.
 
-Ver [superação de decisões](/18-architecture-decisions/superseding-decisions.md) — a
-mecânica é a mesma.
+Ver [superação de decisões](/18-architecture-decisions/superseding-decisions.md).
+A mecânica é a mesma.
 
 ### Rastreabilidade do porquê
 
@@ -168,7 +168,7 @@ acima      referência de auditoria, não de decisão
 ```
 
 Cada padrão consome atenção da organização, e a atenção é finita. Adicionar o sexagésimo
-padrão não aumenta a coerência — ele dilui os cinquenta e nove anteriores.
+padrão não aumenta a coerência: ele dilui os cinquenta e nove anteriores.
 
 Isso implica uma disciplina impopular: **para adicionar um padrão, remova outro**, a menos
 que o novo endereço um risco de outra ordem.
@@ -183,7 +183,7 @@ ele já está apodrecendo.
 - Para decisões recorrentes cujo resultado já é conhecido.
 - Onde a divergência tem custo mensurável.
 - Quando há risco regulatório ou de segurança.
-- Acompanhado de caminho — gabarito, exemplo, migração.
+- Acompanhado de caminho: gabarito, exemplo, migração.
 
 ## Quando Não Usar
 
@@ -193,20 +193,20 @@ ele já está apodrecendo.
 
 **Sem responder quem paga a migração.**
 
-**Onde o contexto varia de verdade** — times ou plataformas com necessidades divergentes, que
+**Onde o contexto varia de verdade**: times ou plataformas com necessidades divergentes, que
 pediriam exceção com frequência; isso é princípio.
 
-**Acima de ~15 padrões ativos, sem remover outro** — o novo dilui a atenção dos existentes.
+**Acima de ~15 padrões ativos, sem remover outro**: o novo dilui a atenção dos existentes.
 
-**Sem medir adoção** — sem isso, não se sabe se existe.
+**Sem medir adoção**: sem isso, não se sabe se existe.
 
 ## Alternativas
 
-- **[Princípios](/19-architecture-governance/governance-principles.md)** — quando o contexto varia.
-- **Gabarito** — o padrão embutido, sem documento.
-- **Recomendação com prazo** — padrão informal, adotado por convencimento antes de virar
+- **[Princípios](/19-architecture-governance/governance-principles.md)**: quando o contexto varia.
+- **Gabarito**: o padrão embutido, sem documento.
+- **Recomendação com prazo**: padrão informal, adotado por convencimento antes de virar
   obrigação.
-- **Radar tecnológico** — sinaliza direção sem prescrever. Ver
+- **Radar tecnológico**: sinaliza direção sem prescrever. Ver
   [radar tecnológico](/15-enterprise-architecture/technology-radar.md).
 
 A terceira é subutilizada: publicar como recomendação por seis meses revela se o padrão é
@@ -274,8 +274,8 @@ com ADR ou justificativa vinculada           11
 referenciando tecnologia descontinuada        9
 ```
 
-Os 18 impossíveis de medir eram os mais reveladores: sua formulação — "os sistemas devem
-adotar práticas adequadas de gestão de configuração" — não permitia dizer se algum sistema
+Os 18 impossíveis de medir eram os mais reveladores: sua formulação ("os sistemas devem
+adotar práticas adequadas de gestão de configuração") não permitia dizer se algum sistema
 os cumpria.
 
 E os 9 que referenciavam tecnologia descontinuada continuavam sendo citados em revisões.
@@ -283,7 +283,7 @@ E os 9 que referenciavam tecnologia descontinuada continuavam sendo citados em r
 A reestruturação levou nove meses:
 
 **De 71 para 19 padrões.** Dos 18 não mensuráveis, 15 foram removidos e 3 reformulados até
-ficarem verificáveis; os 22 com adoção abaixo de 30% foram examinados um a um — 15
+ficarem verificáveis; os 22 com adoção abaixo de 30% foram examinados um a um: 15
 removidos, 7 mantidos com plano de adoção financiado; os 31 acima de 30% foram
 consolidados em 9, fundidos entre si ou embutidos em gabarito, onde deixaram de precisar
 de documento.
@@ -300,7 +300,7 @@ ferramenta de migração.
 
 **Estágio de recomendação**: padrões novos entram como recomendação por seis meses, com
 adoção medida. Se a adoção voluntária ficar abaixo de 40%, o padrão é revisado antes de
-virar obrigatório — a premissa sendo que baixa adoção voluntária indica problema no padrão,
+virar obrigatório. A premissa é que baixa adoção voluntária indica problema no padrão,
 não nos times.
 
 Dois anos depois:
@@ -318,7 +318,7 @@ Sete entradas contra seis saídas: o saldo de um é a única exceção regulató
 troca no período.
 
 Os 4 revisados por baixa adoção são o dado que a equipe mais valoriza. Em três deles o
-problema era falta de caminho de migração; em um, o padrão estava simplesmente errado — ele
+problema era falta de caminho de migração; em um, o padrão estava simplesmente errado: ele
 prescrevia uma abordagem que não funcionava para sistemas com alto volume, e nenhum dos
 autores tinha operado um sistema assim.
 
@@ -328,17 +328,17 @@ efeito.
 
 ## Conceitos Relacionados
 
-- [Padrões Corporativos](/15-enterprise-architecture/standards.md) — escopo e formulação.
-- [Princípios](/19-architecture-governance/governance-principles.md) — quando não prescrever.
-- [Exceções](/19-architecture-governance/exceptions.md) — o que fazer com quem não pode seguir.
-- [Conformidade](/19-architecture-governance/compliance.md) — como verificar.
+- [Padrões Corporativos](/15-enterprise-architecture/standards.md): escopo e formulação.
+- [Princípios](/19-architecture-governance/governance-principles.md): quando não prescrever.
+- [Exceções](/19-architecture-governance/exceptions.md): o que fazer com quem não pode seguir.
+- [Conformidade](/19-architecture-governance/compliance.md): como verificar.
 
 ## Exercício Prático
 
 Escolha três padrões da sua organização e responda, para cada um: quem é o dono, quando
 será revisto, e qual a taxa de adoção medida.
 
-Os que não tiverem as três respostas não são padrões — são documentos.
+Os que não tiverem as três respostas são documentos, não padrões.
 
 ## Perguntas de Entrevista
 

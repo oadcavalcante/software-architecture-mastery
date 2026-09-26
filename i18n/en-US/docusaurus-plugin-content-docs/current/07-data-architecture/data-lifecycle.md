@@ -2,7 +2,7 @@
 id: data-lifecycle
 title: Data Lifecycle
 sidebar_position: 21
-description: Retention, archiving and erasure — the decisions nobody makes until the bill or the regulator arrives.
+description: "Retention, archiving and erasure: the decisions nobody makes until the bill or the regulator arrives."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-ownership, data-partitioning, data-lakes]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ and regulatory exposure over data that should no longer exist.
 
 ## Problem
 
-"Keep everything" is not a decision — it is the absence of one.
+"Keep everything" is the absence of a decision.
 
 And it has costs that accumulate:
 
@@ -57,7 +57,7 @@ erased       no longer exists
 
 The transition between them should be automatic and policy-based, not dependent on someone remembering.
 
-Most systems have only the first stage — and a table that only grows.
+Most systems have only the first stage, and a table that only grows.
 
 ### Retention is a business and legal decision
 
@@ -98,18 +98,18 @@ an architectural decision beforehand, not afterwards.
 When the historical data has analytical value and the personal data cannot be kept, the way out is
 removing what identifies and preserving the rest.
 
-The way out only holds if it is actual anonymization, not pseudonymization — the difference, and why
+The way out only holds if it is actual anonymization, not pseudonymization. The difference, and why
 "we removed the name" is not enough, is in
 [data protection](/10-security/data-protection.md#pseudonymization-and-anonymization-are-not-the-same-thing).
 
 What the lifecycle adds: pseudonymized data is still personal and still subject to the retention maximum;
-only anonymized data leaves the clock. That is why anonymization is a dated transition — executed when the
-personal data's deadline expires —, and when the analysis only needs totals, aggregation is the safer
+only anonymized data leaves the clock. That is why anonymization is a dated transition (executed when the
+personal data's deadline expires), and when the analysis only needs totals, aggregation is the safer
 transition, because it discards the detail that would allow re-identification.
 
 ### Per-subject encryption solves the immutable case
 
-For data that cannot be physically erased — event sourcing, immutable files — the technique is
+For data that cannot be physically erased (event sourcing, immutable files), the technique is
 [per-subject encryption](/10-security/encryption.md#per-subject-encryption-solves-deletion): erasing
 becomes discarding the key, and retrofitting requires rewriting the history.
 
@@ -126,7 +126,7 @@ None of that is possible without knowing where the data is.
 A minimum inventory per data set: which personal data it contains, what the legal basis is, what retention
 is defined, who the [owner](/07-data-architecture/data-ownership.md) is, what the copies are.
 
-Without that, an erasure request cannot be honestly fulfilled — what you answer is "we erased it where we
+Without that, an erasure request cannot be honestly fulfilled: what you answer is "we erased it where we
 found it".
 
 ## Mental Model
@@ -151,8 +151,8 @@ catalogs: the cost of building and operating automatic transitions exceeds the c
 and there is no legal maximum to respect. A recorded decision to keep it is enough.
 
 **Data under a preservation obligation.** Ongoing litigation, investigation or audit freezes erasure for
-that data set or subject. The automatic cycle does not apply while the obligation lasts — erasing during
-that period is destruction of evidence —, which is why the policy needs a suspension mechanism before it
+that data set or subject. The automatic cycle does not apply while the obligation lasts (erasing during
+that period is destruction of evidence), which is why the policy needs a suspension mechanism before it
 needs one.
 
 **A system with a scheduled shutdown.** If the system goes out of operation in months and the data migrates
@@ -161,11 +161,11 @@ work; it is enough to make sure the migration does not carry what should already
 
 ## Alternatives
 
-- **Archiving** — moving to cold storage instead of erasing.
-- **Anonymization** — preserving analytical value with no personal data.
-- **Aggregation** — keeping the summary and discarding the detail.
-- **Per-subject encryption** — for immutable stores.
-- **Retention by partition** — instantaneous discard. See
+- **Archiving**: moving to cold storage instead of erasing.
+- **Anonymization**: preserving analytical value with no personal data.
+- **Aggregation**: keeping the summary and discarding the detail.
+- **Per-subject encryption**: for immutable stores.
+- **Retention by partition**: instantaneous discard. See
   [partitioning](/07-data-architecture/data-partitioning.md).
 
 ## Trade-offs
@@ -204,7 +204,7 @@ work; it is enough to make sure the migration does not carry what should already
 ## Common Mistakes
 
 **Not defining retention.** The default becomes keeping forever, and the first discussion about deadlines
-happens under pressure — over the bill that doubled or the deletion request that cannot be fulfilled.
+happens under pressure: over the bill that doubled or the deletion request that cannot be fulfilled.
 
 **Defining retention in engineering alone, without legal counsel.** Engineering picks a round number, and
 it lands below the tax minimum or above the data protection maximum; the error only shows up in an audit
@@ -215,7 +215,7 @@ stays in the warehouse, the search index and the backups; the answer to the subj
 is not true.
 
 **Archiving without testing recovery.** An obsolete format, failed media or a lost key only reveal
-themselves on the day an audit or a lawsuit asks for the data — and then the archive is lost data.
+themselves on the day an audit or a lawsuit asks for the data, and then the archive is lost data.
 
 **Treating name removal as anonymization.** The data set is kept past the deadline as if it had left the
 scope, and it is still re-identifiable: it is personal data kept beyond the maximum.
@@ -236,7 +236,7 @@ warm or cold and nothing ever erased.
 
 The cost showed up diffusely: the storage and backup bill grew along with the volume, and index
 maintenance on the orders table no longer fit in the nightly window. Nobody treated it as a policy problem
-until a single customer's deletion request took five weeks to answer — and was answered incompletely.
+until a single customer's deletion request took five weeks to answer, and was answered incompletely.
 
 The response stalled on two points that only existed because the data had never left the first stage:
 
@@ -265,25 +265,25 @@ days.
 need.
 
 **An erasure process** automated, covering the in-house systems, with a documented procedure for the third
-parties — and an audit trail of what was erased.
+parties, and an audit trail of what was erased.
 
 The reading the team takes from it: the request was from a single customer. The work it triggered took six
 months, and would have been a fraction of that if the classification had existed from the start.
 
 ## Related Concepts
 
-- [Data Ownership](/07-data-architecture/data-ownership.md) — who decides the retention.
-- [Data Partitioning](/07-data-architecture/data-partitioning.md) — efficient discard.
-- [Data Lake](/07-data-architecture/data-lakes.md) — where the problem is hardest.
+- [Data Ownership](/07-data-architecture/data-ownership.md): who decides the retention.
+- [Data Partitioning](/07-data-architecture/data-partitioning.md): efficient discard.
+- [Data Lake](/07-data-architecture/data-lakes.md): where the problem is hardest.
 - [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
-- [Data Protection](/10-security/data-protection.md) — pseudonymization, anonymization and the inventory
+- [Data Protection](/10-security/data-protection.md): pseudonymization, anonymization and the inventory
   from the security point of view.
-- [Encryption](/10-security/encryption.md) — per-subject encryption.
-- [Key Management](/10-security/key-management.md) — why discarding a key is the exception, not the rule.
+- [Encryption](/10-security/encryption.md): per-subject encryption.
+- [Key Management](/10-security/key-management.md): why discarding a key is the exception, not the rule.
 
 ## Practical Exercise
 
-Pick a personal data set in your system and list **every** place it exists — including backups,
+Pick a personal data set in your system and list **every** place it exists, including backups,
 application logs and exports.
 
 Then ask how long it would take to erase it from all of them. The answer is the measure of your exposure.
@@ -296,7 +296,7 @@ Then ask how long it would take to erase it from all of them. The answer is the 
 
 ## Further Reading
 
-- Data protection regulation — the principles of necessity and purpose limitation (Brazil's LGPD, Law
+- Data protection regulation: the principles of necessity and purpose limitation (Brazil's LGPD, Law
   13,709/2018, art. 6; the EU's GDPR, art. 5).
 - Sweeney, Latanya. *Simple Demographics Often Identify People Uniquely*, 2000.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 12.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 12.

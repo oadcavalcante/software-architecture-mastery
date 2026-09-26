@@ -2,7 +2,7 @@
 id: authz-models
 title: Modelos de Autorização
 sidebar_position: 16
-description: Por papel, por atributo, por relação — e o critério para escolher, que raramente é discutido.
+description: Por papel, por atributo, por relação, e o critério para escolher, que raramente é discutido.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [least-privilege, identity, secure-boundaries]
 canonical_for: [RBAC, ABAC, ReBAC, política de autorização]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-28
 
 Autorização responde: **este requisitante pode fazer esta ação neste recurso?**
 
-Três modelos dominam, e eles não são alternativas equivalentes — cada um expressa
+Três modelos dominam, e eles não são alternativas equivalentes. Cada um expressa
 bem uma forma diferente de regra:
 
 ```text
@@ -43,11 +43,11 @@ Ele funciona bem até a primeira regra que depende de contexto: "pode aprovar, m
 até dez mil reais", "pode ver, mas só os da própria filial", "pode editar, mas só se
 for o autor".
 
-A saída comum é criar papéis mais específicos — `gerente_filial_sp_ate_10k` — e o
+A saída comum é criar papéis mais específicos (`gerente_filial_sp_ate_10k`), e o
 número de papéis explode. Chega-se a centenas, ninguém sabe o que cada um faz, e
 conceder acesso vira adivinhação.
 
-Isso não é falha de implementação. É o modelo sendo usado para expressar algo que ele
+Isso não é falha de implementação, e sim o modelo sendo usado para expressar algo que ele
 não expressa.
 
 ## Conceitos Centrais
@@ -63,8 +63,8 @@ usuário → papel → permissões
 **Onde funciona bem:** organizações com funções estáveis e bem definidas, regras que
 não dependem do recurso específico, e necessidade de revisar acesso por função.
 
-**Onde quebra:** quando a permissão depende de algo além de quem é o usuário —
-atributo do recurso, contexto da requisição, relação entre os dois.
+**Onde quebra:** quando a permissão depende de algo além de quem é o usuário
+(atributo do recurso, contexto da requisição, relação entre os dois).
 
 O sinal de que quebrou é a explosão de papéis. Se você tem mais papéis que funções
 reais na organização, o modelo está sendo forçado.
@@ -84,7 +84,7 @@ permitir se
 dimensões, e políticas que precisam mudar sem alterar código.
 
 **Onde custa:** a decisão precisa de todos os atributos disponíveis no momento da
-avaliação — o que significa buscá-los, com latência e possibilidade de estarem
+avaliação, o que significa buscá-los, com latência e possibilidade de estarem
 desatualizados.
 
 E depurar "por que este acesso foi negado?" é significativamente mais difícil que no
@@ -104,13 +104,13 @@ usuário é visualizador da pasta X → herda visualização dos documentos
 colaboração. É o modelo de sistemas de arquivos compartilhados e ferramentas
 colaborativas.
 
-**Onde custa:** exige infraestrutura própria — um armazenamento de relações e um
-mecanismo de travessia. E as duas perguntas de listagem não custam a mesma coisa. "Quem tem
+**Onde custa:** exige infraestrutura própria (um armazenamento de relações e um
+mecanismo de travessia). E as duas perguntas de listagem não custam a mesma coisa. "Quem tem
 acesso a este documento?" corre a favor do índice, que é organizado por objeto, embora exija
 resolver recursivamente os conjuntos de usuários que a resposta referencia. Já "que documentos
 esta pessoa vê?" corre contra o índice: é a direção que o artigo original não cobre, e que os
 sistemas derivados dele acrescentaram depois com um índice invertido próprio. Se o produto
-precisa de listagem filtrada por usuário — e produtos de colaboração quase sempre precisam —,
+precisa de listagem filtrada por usuário (e produtos de colaboração quase sempre precisam),
 esse é o custo a orçar, não a verificação.
 
 ### O critério de escolha
@@ -124,8 +124,8 @@ de uma relação entre eles          → relação
 ```
 
 A maioria dos sistemas reais precisa de mais de um. A combinação usual: papéis para
-permissões grosseiras — quem pode acessar a área administrativa — e relação ou
-atributo para as finas — quais registros especificamente.
+permissões grosseiras (quem pode acessar a área administrativa) e relação ou
+atributo para as finas (quais registros especificamente).
 
 Tentar expressar tudo em um único modelo é a origem tanto da explosão de papéis
 quanto de políticas por atributo ilegíveis.
@@ -134,8 +134,8 @@ quanto de políticas por atributo ilegíveis.
 
 Independentemente do modelo, uma separação estrutural se paga quando há mais de um serviço
 aplicando a mesma política, ou quando a política muda com frequência maior que a implantação.
-Em serviço único e política estável, decisão e aplicação no mesmo processo é o desenho certo
-— e o [canônico de autorização](/05-system-design/authorization.md) trata o serviço
+Em serviço único e política estável, decisão e aplicação no mesmo processo é o desenho certo,
+e o [canônico de autorização](/05-system-design/authorization.md) trata o serviço
 centralizado em sistema pequeno como caso de não usar.
 
 **Ponto de decisão.** Avalia a política e responde permitido ou negado.
@@ -152,7 +152,7 @@ memória, com atualização periódica.
 
 A troca tem preço, e é o mesmo que a seção sobre atributos desatualizados descreve, um nível
 acima. Uma revogação só passa a valer na próxima atualização, e a janela de propagação vira um
-número que precisa ser conhecido e declarado — de segundos a minutos, conforme o mecanismo. Se
+número que precisa ser conhecido e declarado, de segundos a minutos, conforme o mecanismo. Se
 a distribuição trava, os serviços continuam decidindo, e decidem por política velha sem que
 nada falhe: é o modo de falha silencioso do desenho, e por isso a idade da política em cada
 serviço precisa ser observável.
@@ -163,14 +163,14 @@ Vale repetir, porque é o erro estrutural mais comum: um serviço que aceita
 `usuario_id` do chamador e confia nele delegou autorização a quem pede.
 
 A decisão precisa ser tomada por quem detém o recurso, com base na identidade
-verificada do token — nunca em parâmetro. Ver
+verificada do token, nunca em parâmetro. Ver
 [fronteiras seguras](/10-security/secure-boundaries.md).
 
 ### Negar por padrão
 
 A política deve ser: nada é permitido a menos que uma regra permita.
 
-O contrário — permitir salvo negação explícita — significa que uma regra esquecida
+O contrário (permitir salvo negação explícita) significa que uma regra esquecida
 abre acesso em vez de fechá-lo. Ver
 [modos de falha de segurança](/10-security/security-failure-modes.md).
 
@@ -185,8 +185,8 @@ modelo errado produz complexidade que ninguém consegue manter.
   revisão por função.
 - **Atributo:** regras dependentes de contexto, limites, condições combinadas.
 - **Relação:** compartilhamento, hierarquia, colaboração, herança.
-- **Combinação:** papel para o grosso, relação ou atributo para o fino — o desenho
-  mais comum.
+- **Combinação:** papel para o grosso, relação ou atributo para o fino (o desenho
+  mais comum).
 
 ## Quando Não Usar
 
@@ -198,18 +198,18 @@ modelo errado produz complexidade que ninguém consegue manter.
 relacional escala mal.
 
 **Relação para autorização que não é sobre compartilhamento.** Se ninguém concede acesso a
-ninguém — se a permissão vem de quem a pessoa é ou de onde ela está —, o grafo é uma estrutura
+ninguém (se a permissão vem de quem a pessoa é ou de onde ela está), o grafo é uma estrutura
 sem arestas interessantes, e a infraestrutura se paga sem entregar nada.
 
 ## Alternativas
 
-- **Lista de controle de acesso** — permissões diretas por recurso. Simples, e não
+- **Lista de controle de acesso**: permissões diretas por recurso. Simples, e não
   escala em número de recursos.
-- **Autorização no banco** — segurança em nível de linha, imposta pelo armazenamento.
+- **Autorização no banco**: segurança em nível de linha, imposta pelo armazenamento.
   Forte, e amarra a política ao banco.
-- **Capacidades** — o token carrega a permissão para um recurso específico. Elegante
+- **Capacidades**: o token carrega a permissão para um recurso específico. Elegante
   para casos como links de compartilhamento.
-- **Serviço de autorização dedicado** — quando a política é complexa e compartilhada
+- **Serviço de autorização dedicado**: quando a política é complexa e compartilhada
   entre muitos serviços.
 
 ## Trade-offs
@@ -249,7 +249,7 @@ sem arestas interessantes, e a infraestrutura se paga sem entregar nada.
 ## Erros Comuns
 
 **Escolher por familiaridade.** Papel é o modelo que todo mundo conhece, então a regra
-dependente de contexto vira um papel novo — e é assim que se chega a 214 papéis, como no
+dependente de contexto vira um papel novo. E é assim que se chega a 214 papéis, como no
 Exemplo Real.
 
 **Criar papéis para expressar contexto.**
@@ -262,13 +262,13 @@ regra vira permissão. Negar por padrão faz o mesmo erro aparecer como chamado 
 
 **Não registrar negações.**
 
-**Não conseguir responder "quem tem acesso a isto?"** — pergunta que toda auditoria
+**Não conseguir responder "quem tem acesso a isto?"**, pergunta que toda auditoria
 faz.
 
 ## Exemplo Real
 
 Uma plataforma de gestão de documentos começou com autorização por papel: três papéis
-— administrador, editor, leitor.
+(administrador, editor, leitor).
 
 Conforme os clientes cresceram, as regras ficaram específicas:
 
@@ -282,7 +282,7 @@ A resposta foi criar papéis: em três anos eram **214 papéis**, com nomes como
 Os problemas resultantes:
 
 **Concessão por adivinhação.** Ninguém sabia qual papel dar. A prática virou copiar
-os papéis de um colega parecido — o que espalhava permissões indevidas.
+os papéis de um colega parecido. Isso espalhava permissões indevidas.
 
 **Auditoria impossível.** A pergunta "quem pode ver este contrato?" não tinha resposta
 sem inspecionar os 214 papéis.
@@ -301,7 +301,7 @@ administrador da organização, membro, convidado, auditor. Eles decidem o que a
 pode fazer no produto.
 
 **Relação para permissões finas.** Quem pode ver qual documento passou a derivar de
-relações — é autor, foi compartilhado, é membro da pasta, é membro da área que
+relações: é autor, foi compartilhado, é membro da pasta, é membro da área que
 contém a pasta.
 
 **Ponto de decisão único**, com política distribuída e avaliada localmente nos
@@ -311,19 +311,19 @@ serviços. As 60 verificações viraram uma chamada padronizada.
 "por que este acesso foi negado?".
 
 Resultado: 214 papéis viraram 4, e as regras que os papéis tentavam expressar
-passaram a ser relações — que é o que elas sempre foram.
+passaram a ser relações, que é o que elas sempre foram.
 
 O ponto que a equipe sublinha: nenhum dos 214 papéis foi criado por engano. Cada um
 resolvia uma necessidade legítima, com o único mecanismo disponível. O erro estava um
-nível acima — no modelo escolhido no primeiro mês, para um produto cujas regras ainda
+nível acima, no modelo escolhido no primeiro mês, para um produto cujas regras ainda
 não existiam.
 
 ## Conceitos Relacionados
 
-- [Menor Privilégio](/10-security/least-privilege.md) — o princípio.
-- [Identidade](/10-security/identity.md) — a pergunta anterior.
-- [Fronteiras Seguras](/10-security/secure-boundaries.md) — onde a decisão é aplicada.
-- [Autorização](/05-system-design/authorization.md) — o nível de design de
+- [Menor Privilégio](/10-security/least-privilege.md): o princípio.
+- [Identidade](/10-security/identity.md): a pergunta anterior.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md): onde a decisão é aplicada.
+- [Autorização](/05-system-design/authorization.md): o nível de design de
   sistemas.
 
 ## Exercício Prático

@@ -2,7 +2,7 @@
 id: communicating-tradeoffs
 title: Communicating Trade-offs
 sidebar_position: 11
-description: The most valued and least trained competency — saying what you gave up and under which condition you would choose otherwise.
+description: "The most valued and least trained competency: saying what you gave up and under which condition you would choose otherwise."
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-structure, failure-handling, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ The question the evaluator is answering the whole time is not "is this architect
  that I am not going to review?"
 ```
 
-And what answers that is not the solution — it is the ability to say what it costs. A choice
+And what answers that is the ability to say what it costs, not the solution. A choice
 presented as obviously correct signals that the candidate did not see the cost; the same choice
 presented with the cost named signals that they saw it and decided.
 
@@ -46,11 +46,11 @@ Three parts. The third is the one almost nobody says, and it is the one worth th
 
 Three patterns.
 
-**Presenting with no cost.** "I'll use a cache." The statement is right and demonstrates nothing —
+**Presenting with no cost.** "I'll use a cache." The statement is right and demonstrates nothing:
 it does not say what is lost, nor when it would not be worth it.
 
 **Drawing in silence.** The candidate thinks well and says little. The evaluator does not evaluate
-thinking, they evaluate what is communicated — and a silent design is indistinguishable from a
+thinking, they evaluate what is communicated, and a silent design is indistinguishable from a
 memorized one.
 
 **Permanent hedging.** The opposite: "it could be this way, or this way, it depends". Never deciding
@@ -75,11 +75,11 @@ uncertainty, and not choosing is the one answer that does not demonstrate that.
 ```
 
 The third part is what separates. It demonstrates that the candidate understands **why** the choice
-is correct in this context, and not in general — which is the difference between architecture and a
+is correct in this context, and not in general. That is the difference between architecture and a
 recipe.
 
-It also has a defensive function. When the interviewer introduces a variation — "and what if the
-freshness requirement were 2 seconds?" — the candidate who already stated the condition answers in
+It also has a defensive function. When the interviewer introduces a variation ("and what if the
+freshness requirement were 2 seconds?"), the candidate who already stated the condition answers in
 seconds, because the analysis has been done. The one who did not state it has to redo the reasoning
 live, under pressure, and frequently arrives at an answer inconsistent with what they said before.
 
@@ -138,7 +138,7 @@ demonstrates that the method was followed, not memorized. See
  the synchronous version."
 ```
 
-Presenting the alternative with its real merits — and not as a straw man — shows that the choice
+Presenting the alternative with its real merits, and not as a straw man, shows that the choice
 beat a real competitor, not a weakened version set up to lose. See
 [alternatives in an ADR](/18-architecture-decisions/adr-alternatives.md).
 
@@ -163,7 +163,7 @@ defending.
 ```
 
 That demonstrates that the position has a basis, and that it is revisable in the face of new
-information — which is exactly the desired behavior.
+information. That is exactly the desired behavior.
 
 ### Acknowledge uncertainty without freezing
 
@@ -179,7 +179,7 @@ faking mastery. What is evaluated badly is paralysis.
 
 And faking mastery is detectable with one follow-up question, which makes the cost of faking high
 and the benefit momentary. Flagging the risk of a weak assumption, by contrast, transfers the
-information to whoever can correct it — which is the expected behavior of someone who will make
+information to whoever can correct it. That is the expected behavior of someone who will make
 decisions in a team.
 
 ## Mental Model
@@ -200,7 +200,7 @@ instances has no plausible competitor; stating a cost and an inversion condition
 demonstrating what nobody doubts. Naming the box is enough.
 
 **A decision already covered by a declared priority.** If "availability over consistency" was
-said at the start, every choice that merely applies that priority can skip the full sentence — the
+said at the start, every choice that merely applies that priority can skip the full sentence: the
 inversion condition is the same, and repeating it dilutes the decisions that actually diverge from
 it.
 
@@ -210,10 +210,10 @@ peripheral decisions competes with what they want to evaluate. State the choice 
 
 ## Alternatives
 
-- **Comparison table** — when there are three options and the board allows it; slower and clearer.
-- **Declare a priority once** — "availability above consistency in this system" — and derive the
+- **Comparison table**: when there are three options and the board allows it; slower and clearer.
+- **Declare a priority once**: "availability above consistency in this system", and derive the
   subsequent choices from it.
-- **Ask about the preference** — "would you rather I optimize for cost or for latency?" is
+- **Ask about the preference**: "would you rather I optimize for cost or for latency?" is
   legitimate and productive.
 
 The second is efficient: a priority declared at the start saves repeating the trade-off at every
@@ -314,15 +314,15 @@ mitigations, and the condition that would invert the decision.
 ```
 
 The answer acknowledges the alternative's merit, identifies the specific reason for declining, and
-names the context in which it would win. None of those three parts is about technical knowledge —
-all of them are about communicating a decision.
+names the context in which it would win. None of those three parts is about technical knowledge.
+All of them are about communicating a decision.
 
 ## Related Concepts
 
 - [Interview Structure](/22-system-design-interviews/interview-structure.md).
-- [Alternatives in an ADR](/18-architecture-decisions/adr-alternatives.md) — the same discipline, in
+- [Alternatives in an ADR](/18-architecture-decisions/adr-alternatives.md): the same discipline, in
   writing.
-- [Trade-offs](/20-trade-offs/index.md) — the argumentation material.
+- [Trade-offs](/20-trade-offs/index.md): the argumentation material.
 - [Common Mistakes](/22-system-design-interviews/interview-common-mistakes.md).
 
 ## Practical Exercise
@@ -330,7 +330,7 @@ all of them are about communicating a decision.
 Take an architectural decision you made recently and write the three-part sentence: I chose X
 because Y, I gave up Z, and under condition W I would choose otherwise.
 
-If you cannot fill in the third part, the decision was made with no real alternative — which is the
+If you cannot fill in the third part, the decision was made with no real alternative. That is the
 same gap an interview exposes.
 
 ## Interview Questions

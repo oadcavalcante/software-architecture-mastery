@@ -2,7 +2,7 @@
 id: containers-in-delivery
 title: Contêineres na Entrega
 sidebar_position: 3
-description: O artefato imutável que atravessa os ambientes — construído uma vez, promovido, nunca reconstruído.
+description: "O artefato imutável que atravessa os ambientes: construído uma vez, promovido, nunca reconstruído."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, environment-management, supply-chain-security]
 canonical_for: [promoção de artefato, construção única, artefato imutável, registro de artefatos]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,7 @@ entrega: **o artefato imutável que atravessa os ambientes**.
 A regra que organiza tudo: **construa uma vez, promova o mesmo artefato**.
 
 Se o binário que vai para produção é reconstruído a partir do código, ele não é o que foi
-testado — ele é outro binário, construído em outro momento, com dependências que podem
+testado. Ele é outro binário, construído em outro momento, com dependências que podem
 ter mudado.
 
 ## Problema
@@ -47,7 +47,7 @@ uma variável de ambiente da esteira mudou
 
 O artefato que vai a produção é diferente do testado, de formas que ninguém consegue
 enumerar. E quando ele quebra, a hipótese "mas passou em teste" está tecnicamente
-errada — o que passou foi outro.
+errada: o que passou foi outro.
 
 ## Conceitos Centrais
 
@@ -63,7 +63,7 @@ errada — o que passou foi outro.
 A promoção é uma mudança de referência, não uma reconstrução. Ver
 [gestão de ambientes](/14-devops-and-platform/environment-management.md).
 
-Isso exige que a imagem não contenha nada específico de ambiente — o que leva ao ponto
+Isso exige que a imagem não contenha nada específico de ambiente. Isso leva ao ponto
 seguinte.
 
 ### Configuração vem de fora
@@ -76,7 +76,7 @@ na imagem     código, dependências, tempo de execução
 de fora       endereços, credenciais, limites, flags, nível de log
 ```
 
-Ver [PaaS](/09-cloud-architecture/paas.md) — as doze regras, cujo item de configuração
+Ver [PaaS](/09-cloud-architecture/paas.md) : as doze regras, cujo item de configuração
 existe exatamente por isso.
 
 O erro característico: imagens separadas por ambiente. Além de quebrar a promoção, ele
@@ -92,7 +92,7 @@ digest     servico@sha256:abc... — imutável, é aquele conteúdo
 Uma etiqueta é um ponteiro. Duas implantações da mesma etiqueta podem rodar códigos
 diferentes.
 
-Em produção, a referência precisa ser por digest — é o que torna a implantação
+Em produção, a referência precisa ser por digest: é o que torna a implantação
 reproduzível e o que permite afirmar que o que roda é o que foi aprovado.
 
 Ver [contêineres](/09-cloud-architecture/containers.md).
@@ -118,7 +118,7 @@ outro conteúdo. Ver
 
 ### Construção reprodutível é o ideal, e o mínimo é fixar
 
-Construção reprodutível — mesma entrada, mesmo artefato byte a byte — permite verificar
+Construção reprodutível (mesma entrada, mesmo artefato byte a byte) permite verificar
 independentemente que o binário corresponde ao código.
 
 Ela é difícil de alcançar completamente. O mínimo praticável:
@@ -132,7 +132,7 @@ sem acesso à rede na etapa de construção final
 
 A última é a mais eficaz das quatro e a menos comum. Dependência sem versão fixa quebra a
 reprodutibilidade: o mesmo commit produz outro artefato. Dependência fixada por hash mas
-baixada da rede continua reprodutível, só não é hermética — a construção passa a depender
+baixada da rede continua reprodutível, só não é hermética: a construção passa a depender
 de um servidor externo estar no ar naquele momento. Cortar a rede na etapa final garante as
 duas propriedades: tudo o que entra foi resolvido e verificado antes.
 
@@ -147,12 +147,12 @@ O ganho é de tamanho, de superfície de ataque e de tempo de implantação. Ver
 [contêineres](/09-cloud-architecture/containers.md).
 
 E há um ganho de entrega frequentemente esquecido: imagens menores são baixadas mais
-rápido, o que reduz o tempo de implantação e de escalonamento — o que importa em
+rápido, o que reduz o tempo de implantação e de escalonamento. Isso importa em
 [implantação em ondas](/14-devops-and-platform/rolling-deployments.md).
 
 ### Camadas e cache decidem o tempo de construção
 
-A mecânica — instruções que mudam raramente antes das que mudam sempre — está em
+A mecânica (instruções que mudam raramente antes das que mudam sempre) está em
 [contêineres](/09-cloud-architecture/containers.md). O que ela decide na entrega é o tempo
 da esteira: com o código copiado antes de instalar dependências, toda alteração reinstala
 tudo, e corrigir a ordem costuma reduzir o tempo de construção em uma ordem de grandeza. É
@@ -180,7 +180,7 @@ Isso importa em três momentos:
 [implantação em ondas](/14-devops-and-platform/rolling-deployments.md).
 
 E há um agravante: nós novos frequentemente não têm a imagem em cache local, então o
-pior caso — download completo — acontece exatamente quando há pressão.
+pior caso (download completo) acontece exatamente quando há pressão.
 
 Reduzir a imagem é, portanto, uma decisão de confiabilidade tanto quanto de custo.
 
@@ -198,22 +198,22 @@ reconstruído, ele não é o que foi testado.
 
 ## Quando Não Usar
 
-**Um único ambiente, sem teste entre construção e produção.** Se o que sai da esteira vai direto para produção — uma ferramenta interna, um protótipo —, não há um "testado" a preservar entre ambientes. A esteira de promoção não compra nada; o que resta de valor, o digest para reverter, qualquer registro já dá.
+**Um único ambiente, sem teste entre construção e produção.** Se o que sai da esteira vai direto para produção (uma ferramenta interna, um protótipo), não há um "testado" a preservar entre ambientes. A esteira de promoção não compra nada; o que resta de valor, o digest para reverter, qualquer registro já dá.
 
 **O laço interno de desenvolvimento.** Na máquina do desenvolvedor, reconstruir a cada alteração é o objetivo. Registrar e promover cada construção local só acrescenta latência a um ciclo que precisa durar segundos; a disciplina começa quando o artefato sai da máquina para a esteira.
 
-**Ambientes efêmeros de pré-visualização.** Um ambiente por pull request, destruído no merge, recebe construções que nunca serão promovidas. Reter essas imagens e torná-las imutáveis custa registro sem proteger nada — ali, retenção de dias e etiquetas descartáveis são a escolha certa, desde que nada dessas construções chegue a produção.
+**Ambientes efêmeros de pré-visualização.** Um ambiente por pull request, destruído no merge, recebe construções que nunca serão promovidas. Reter essas imagens e torná-las imutáveis custa registro sem proteger nada. Ali, retenção de dias e etiquetas descartáveis são a escolha certa, desde que nada dessas construções chegue a produção.
 
 **Bibliotecas consumidas como dependência.** O artefato do produtor é um pacote versionado, e quem o incorpora constrói o próprio artefato. A promoção entre ambientes acontece na aplicação consumidora; para a biblioteca, o que vale é publicar versões imutáveis.
 
 ## Alternativas
 
-- **Pacotes versionados** — para linguagens e contextos em que contêiner não se aplica.
-- **Imagens de máquina** — o mesmo princípio, no nível da máquina virtual.
-- **Artefato de aplicação promovido** — o binário, sem contêiner, com o ambiente
+- **Pacotes versionados**: para linguagens e contextos em que contêiner não se aplica.
+- **Imagens de máquina**: o mesmo princípio, no nível da máquina virtual.
+- **Artefato de aplicação promovido**: o binário, sem contêiner, com o ambiente
   provisionado à parte.
 
-O princípio — construir uma vez, promover — vale para todos; contêiner é a forma mais
+O princípio (construir uma vez, promover) vale para todos; contêiner é a forma mais
 comum de aplicá-lo.
 
 ## Trade-offs
@@ -254,7 +254,7 @@ comum de aplicá-lo.
 
 **Configuração na imagem.** Obriga a reconstruir para mudar de ambiente, o que recria o primeiro problema: a imagem de produção nunca foi a imagem testada.
 
-**Não fixar imagem base por digest.** A etiqueta da base muda sob seus pés, e duas construções do mesmo commit produzem imagens diferentes — o que elimina a reprodutibilidade.
+**Não fixar imagem base por digest.** A etiqueta da base muda sob seus pés, e duas construções do mesmo commit produzem imagens diferentes. Isso elimina a reprodutibilidade.
 
 **Política de retenção que impede reversão.** Apagar imagens antigas por custo elimina o alvo da reversão. Descobre-se durante o incidente.
 
@@ -269,8 +269,8 @@ Um incidente expôs o problema. Uma implantação em produção falhou ao inicia
 erro que não aparecia em nenhum ambiente anterior.
 
 A causa: uma dependência transitiva com faixa de versão aberta tinha publicado uma
-versão nova entre a construção de homologação e a de produção — cerca de 40 minutos de
-diferença.
+versão nova entre a construção de homologação e a de produção (cerca de 40 minutos de
+diferença).
 
 A versão nova tinha uma mudança incompatível. O código era o mesmo; o artefato, não.
 
@@ -288,7 +288,7 @@ de segredos.
 **Sem rede na construção final.** Todas as dependências resolvidas numa etapa anterior,
 com cache interno.
 
-**Retenção de 180 dias** no registro, substituindo os 30 anteriores — que impediam
+**Retenção de 180 dias** no registro, substituindo os 30 anteriores, que impediam
 reverter para versões mais antigas.
 
 **Imutabilidade de etiquetas** habilitada no registro.
@@ -299,14 +299,14 @@ teve efeito direto na frequência de integração. Ver
 [integração contínua](/14-devops-and-platform/ci-cd.md).
 
 O detalhe que a equipe destaca: a construção múltipla existia porque as imagens continham
-configuração — a causa raiz era essa, e ela tinha sido tratada como conveniência por
+configuração. A causa raiz era essa, e ela tinha sido tratada como conveniência por
 anos.
 
 ## Conceitos Relacionados
 
-- [Contêineres](/09-cloud-architecture/containers.md) — os fundamentos.
+- [Contêineres](/09-cloud-architecture/containers.md): os fundamentos.
 - [Integração Contínua](/14-devops-and-platform/ci-cd.md).
-- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md) — a promoção.
+- [Gestão de Ambientes](/14-devops-and-platform/environment-management.md): a promoção.
 - [Segurança da Esteira](/14-devops-and-platform/supply-chain-security.md).
 
 ## Exercício Prático

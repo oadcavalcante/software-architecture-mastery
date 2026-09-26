@@ -2,7 +2,7 @@
 id: enterprise-governance
 title: Enterprise Governance
 sidebar_position: 12
-description: How decisions cross the organization — designed as flow, not as a power structure.
+description: "How decisions cross the organization: designed as flow, not as a power structure."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, architecture-review, enterprise-principles]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Architecture governance is the set of mechanisms by which technical decisions happen
 coherently in an organization with many teams.
 
-It is frequently designed as a **power structure** — who approves what — when it should
+It is frequently designed as a **power structure** (who approves what) when it should
 be designed as a **flow**: how a decision happens, who takes part, and how long it takes.
 
 The difference is practical: the first optimizes control; the second optimizes decision
@@ -60,7 +60,7 @@ by exception   everything proceeds; what departs from the standard passes throug
 ```
 
 See [architecture levels](/15-enterprise-architecture/architecture-levels.md). Most decisions are local and
-reversible — and running them all through a control spends attention where it does not
+reversible, and running them all through a control spends attention where it does not
 pay off.
 
 What makes that viable is the **paved road**: if the standard is built into what the team
@@ -104,7 +104,7 @@ of change is low and the rejection rate is too, the process is waiting.
 
 And the last is the most honest signal: circumvention is not indiscipline, it is a
 response to friction that doesn't pay for itself. See
-[infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md) — the same
+[infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md): the same
 dynamic.
 
 ### Rigor should follow reversibility
@@ -117,7 +117,7 @@ irreversible, broad        approval, with time and written alternatives
 ```
 
 Applying uniform rigor is the most common structural error. It makes the process slow for
-the trivial and insufficient for what matters — because attention is finite and gets
+the trivial and insufficient for what matters, because attention is finite and gets
 diluted.
 
 ### Governance has to be reviewed like any other system
@@ -136,7 +136,7 @@ could it be automated?
 ```
 
 The third question is usually revealing: a control that has caught nothing in years is a
-candidate for removal — provided the second question confirms the incident is no longer
+candidate for removal, provided the second question confirms the incident is no longer
 possible, because a control that deters also records no catches. See
 [measuring governance](/19-architecture-governance/measuring-governance.md) on avoided
 risk.
@@ -150,7 +150,7 @@ of process   checks whether the steps were followed — form filled in, meeting 
 of content   checks whether the decision is good — alternatives, premises, consequences
 ```
 
-The first is easy to operate and does not improve the decision — at most it produces the
+The first is easy to operate and does not improve the decision. At most it produces the
 evidence trail a regulatory audit demands. The second requires judgment and is the one
 that justifies the cost.
 
@@ -161,15 +161,15 @@ ceremony.
 
 Controls have people who create them and nobody who removes them: each one is born from an
 incident, with a clear champion, and removing it requires someone willing to take on the
-risk of the incident returning. The asymmetry and the structural way out — expiry dates
-and periodic review — are covered in
+risk of the incident returning. The asymmetry and the structural way out (expiry dates
+and periodic review) are covered in
 [governance pathologies](/19-architecture-governance/governance-pathologies.md).
 
 What falls to enterprise governance is giving someone, with the same legitimacy as whoever
-creates controls, the responsibility to **reduce** the process — and the friction metrics
+creates controls, the responsibility to **reduce** the process, and the friction metrics
 above are that person's instrument.
 
-Without that owner, governance grows with every incident — and the organization attributes the slowness to
+Without that owner, governance grows with every incident, and the organization attributes the slowness to
 diffuse causes, rather than to the sum of individually reasonable decisions.
 
 ## Mental Model
@@ -203,10 +203,10 @@ paved road, not into the control.
 
 ## Alternatives
 
-- **Paved road** — removes the decision instead of governing it.
-- **Automated verification** — for what is objective.
-- **A record instead of approval** — visibility without a bottleneck.
-- **After-the-fact review** — for the reversible, look at patterns periodically.
+- **Paved road**: removes the decision instead of governing it.
+- **Automated verification**: for what is objective.
+- **A record instead of approval**: visibility without a bottleneck.
+- **After-the-fact review**: for the reversible, look at patterns periodically.
 
 ## Trade-offs
 
@@ -268,7 +268,7 @@ personal data review              8                                        120 h
 five other controls               1 (combined)                             380 hours
 ```
 
-Total: about 1,940 hours a year — close to one full-time person — for 49 findings.
+Total: about 1,940 hours a year (close to one full-time person) for 49 findings.
 
 And the analysis of the 49 showed that 31 could have been detected automatically.
 
@@ -279,13 +279,13 @@ objective security standards and two infrastructure checks became rules in the p
 Cost close to zero, greater coverage.
 
 **Three controls removed.** Including infrastructure approval, which had caught nothing
-in twelve months and whose original cause — an unexpected cost — had been solved by
+in twelve months and whose original cause, an unexpected cost, had been solved by
 budget alerts.
 
 **Committee reduced** to decisions with broad reach and expensive rollback, about one a
 month.
 
-**Security review kept**, with a scope — only systems handling sensitive data — and
+**Security review kept**, with a scope (only systems handling sensitive data) and
 carried out as a consultation during design, not as an approval at the end. See
 [architecture review](/15-enterprise-architecture/architecture-review.md).
 
@@ -294,19 +294,19 @@ carried out as a consultation during design, not as an approval at the end. See
 **Annual review of controls**, with the five questions.
 
 Result: governance cost from 1,940 down to about 400 hours, and the number of findings
-rose to 74 — because automation covers more and human attention came to concentrate on
+rose to 74, because automation covers more and human attention came to concentrate on
 what requires judgment.
 
 The detail the team highlights: infrastructure approval had been created after a cost
 incident, four years earlier. The problem was solved by another mechanism two years
-later, and the control remained — like almost all of them.
+later, and the control remained, like almost all of them.
 
 ## Related Concepts
 
-- [Architecture Levels](/15-enterprise-architecture/architecture-levels.md) — what to govern.
-- [Architecture Review](/15-enterprise-architecture/architecture-review.md) — the mechanism.
+- [Architecture Levels](/15-enterprise-architecture/architecture-levels.md): what to govern.
+- [Architecture Review](/15-enterprise-architecture/architecture-review.md): the mechanism.
 - [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md).
-- [Architecture Governance](/19-architecture-governance/index.md) — the in-depth
+- [Architecture Governance](/19-architecture-governance/index.md): the in-depth
   treatment.
 
 ## Practical Exercise
@@ -315,7 +315,7 @@ List your organization's governance controls and, for each one, answer: how many
 did it catch something in the last twelve months, and how much did it cost in hours?
 
 The ones that caught nothing are candidates for removal, not pure cost: before cutting,
-ask whether the incident that motivated each one is still possible — zero catches is also
+ask whether the incident that motivated each one is still possible. Zero catches is also
 what a control that deters produces.
 
 ## Interview Questions

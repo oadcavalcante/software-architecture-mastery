@@ -2,7 +2,7 @@
 id: architecture-presentations
 title: Architecture Presentations
 sidebar_position: 7
-description: A presentation exists to produce a decision — and most of them ask for none.
+description: A presentation exists to produce a decision, and most of them ask for none.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [communication, stakeholder-management, negotiating-tradeoffs]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,8 +29,8 @@ the question that structures everything
   "what needs to happen by the end of this meeting?"
 ```
 
-Most technical presentations don't answer that question. They present content — context, analysis,
-architecture, plan — and end with nobody knowing what was asked for.
+Most technical presentations don't answer that question. They present content (context, analysis,
+architecture, plan) and end with nobody knowing what was asked for.
 
 The result is predictable: the meeting ends, people vaguely agree, and nothing happens.
 
@@ -46,7 +46,7 @@ time: 45 minutes, with 40 of presenting
 result: "very good, we'll evaluate it"
 ```
 
-No ask was made. "We'll evaluate it" is what people say when they don't know what was asked for —
+No ask was made. "We'll evaluate it" is what people say when they don't know what was asked for,
 and what gets evaluated afterwards is what each person remembered, which is little.
 
 And there is a second problem, specific to technical presentations: **density**. A slide with a
@@ -84,7 +84,7 @@ Four slides, or four paragraphs. The technical detail goes into an appendix, and
 asked about.
 
 That structure works because it answers the questions in the order whoever decides asks them. The
-engineering structure — context, analysis, conclusion — answers in the order whoever built the
+engineering structure (context, analysis, conclusion) answers in the order whoever built the
 analysis produced it, which is a different thing.
 
 ### Reserve half the time for discussion
@@ -94,7 +94,7 @@ a 45-min presentation   20 of presenting, 25 of discussion
 ```
 
 The discussion is where the decision happens. A presentation that takes 40 of the 45 minutes leaves
-five for what matters — and the result is "we'll evaluate it", because there was no time to
+five for what matters, and the result is "we'll evaluate it", because there was no time to
 evaluate.
 
 And there is a practical consequence: if you can't present in twenty minutes, the material is too
@@ -108,7 +108,7 @@ good   three diagrams, each showing one thing
 ```
 
 A diagram in a presentation gets a few seconds of attention. If it requires a minute of study, it
-doesn't communicate — it occupies.
+occupies without communicating.
 
 What works: a diagram with the minimum needed for that moment's message, with the rest removed. See
 [diagram quality](/17-architecture-documentation/diagram-quality.md).
@@ -129,7 +129,7 @@ appearing unconsidered.
 
 ### The individual conversations come first
 
-Decision meetings rarely change positions — they confirm positions formed beforehand. That means
+Decision meetings rarely change positions; they confirm positions formed beforehand. That means
 the persuasion work happens before, individually.
 
 ```text
@@ -146,7 +146,7 @@ the decision. See
 Why writing before presenting forces clarity is covered in
 [communication](/23-architecture-leadership/communication.md#write-before-presenting). What changes
 for the presentation is the role of the meeting: with a two- to four-page document circulated
-beforehand, it stops presenting and starts discussing — people arrive with questions instead of
+beforehand, it stops presenting and starts discussing. People arrive with questions instead of
 with confusion.
 
 A circulated document doesn't guarantee it gets read. That is why the format usually comes with a
@@ -161,7 +161,7 @@ shrink to the ask and the diagrams that support the discussion.
 ```
 
 Thirty seconds at the end, with the record sent afterwards. Without it, each participant's memory
-diverges — and the divergence shows up weeks later, when it is expensive.
+diverges, and the divergence shows up weeks later, when it is expensive.
 
 ## Mental Model
 
@@ -176,7 +176,7 @@ decided.** The detail goes into an appendix.
 
 ## When Not to Use
 
-**When there is no ask** — an informational presentation should be a document.
+**When there is no ask**: an informational presentation should be a document.
 
 **When the decision is reversible and cheap.** An asynchronous comment settles it, and assembling
 an ask, prior conversations and a meeting costs more than getting it wrong and undoing it.
@@ -190,7 +190,7 @@ conversations that actually decide become a parallel decision, and the forum is 
 rubber-stamping.
 
 The practices themselves have a cost. Prior conversations take days and can hollow out the meeting,
-and whoever wasn't consulted arrives knowing the others have already talked — and feels left out.
+and whoever wasn't consulted arrives knowing the others have already talked, and feels left out.
 Pre-reading only works if the audience actually reads; in a group that doesn't, the minutes of
 silence become the whole presentation.
 
@@ -198,9 +198,9 @@ silence become the whole presentation.
 
 - **A document read beforehand**, with the meeting dedicated to discussion. It is superior for
   complex decisions.
-- **Individual conversations only** — when there is no need for a collective decision.
-- **A demonstration** — when there is something working, showing it is worth more than presenting.
-- **Nothing** — not every decision needs a meeting; many are resolved asynchronously.
+- **Individual conversations only**: when there is no need for a collective decision.
+- **A demonstration**: when there is something working, showing it is worth more than presenting.
+- **Nothing**: not every decision needs a meeting; many are resolved asynchronously.
 
 A document read beforehand beats the presentation when two conditions hold together: the decision
 is complex enough that the argument needs to be read, not heard, and the audience has the time and
@@ -240,7 +240,7 @@ the habit of reading ahead. Without the second, it is just a delayed presentatio
 and whoever decides spent the presentation trying to guess where it was going.
 
 **Putting the technical detail in the body.** The discussion drifts toward the detail on the
-screen, and the question that decides — is it worth the cost? — runs out of time.
+screen, and the question that decides (is it worth the cost?) runs out of time.
 
 **Not reserving discussion time.** The objections aren't raised in the room; they show up later, by
 message, when there is no longer anyone to answer them for everyone.
@@ -256,7 +256,7 @@ the divergence shows up in execution, when someone does what they thought was ag
 ## Real-World Example
 
 An insurance company's architecture group had a proposal approval rate of 31%. The presentations
-were considered good — the material was praised — and the decisions didn't come.
+were considered good (the material was praised), and the decisions didn't come.
 
 A review of twelve presentations found the pattern:
 
@@ -303,7 +303,7 @@ meeting, in the individual conversations, which saved weeks of preparation on pr
 wouldn't advance.
 
 The recorded lesson: the technical content of the proposals didn't change. What changed was that it
-stopped taking up the meeting — and that the ask started being made.
+stopped taking up the meeting, and that the ask started being made.
 
 And the five minutes of silence at the start, for reading, was the strangest change and the most
 cited: it ensured everyone arrived at the same starting point, which the presentation never

@@ -2,7 +2,7 @@
 id: distributed-event-sourcing
 title: Distributed Event Sourcing
 sidebar_position: 38
-description: Storing events instead of state — and what changes when the log is the source of truth between services.
+description: Storing events instead of state, and what changes when the log is the source of truth between services.
 doc_type: pattern
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven-systems]
 related: [distributed-cqrs, eventual-consistency, ordering, event-sourcing]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ Inside a service, the event log is an implementation detail: what reads it is th
 wrote it, and changing an event's structure is a refactoring.
 
 When another service reads that log, it stops being a detail and becomes a **contract**. It is the
-same change of nature a table undergoes when a second system starts querying it — and nothing
+same change of nature a table undergoes when a second system starts querying it. And nothing
 announces it: the log still looks internal, and it is the first schema change that reveals it was
 not.
 
@@ -40,7 +40,7 @@ Event sourcing produces, for free, something that looks like a good integration 
 ordered, complete sequence of everything that happened. Publishing it is tempting and costs almost no
 work.
 
-The cost shows up later. The internal log reflects the service's domain model — including the parts
+The cost shows up later. The internal log reflects the service's domain model, including the parts
 that exist out of implementation convenience, and that would change in any refactoring. When it is
 public, each of those parts becomes a commitment to third parties the service's owner does not
 know.
@@ -59,12 +59,12 @@ reading happens over projections, which brings
 Two caveats that only appear when there is more than one service:
 
 **The snapshot belongs to whoever replays, not to the log.** Each consumer keeps its own, in its own
-version of the model. A snapshot published alongside the log is one more format to version — and it
+version of the model. A snapshot published alongside the log is one more format to version, and it
 carries the whole internal model, not the part the other side needs.
 
 **Reprocessing is not a local operation.** Rebuilding a projection that lives in another service means
 re-reading the log from the beginning while it keeps serving, and the projection has to be pure: if
-the replay triggers a side effect — an email, an external call — it triggers it again, now on behalf
+the replay triggers a side effect (an email, an external call), it triggers it again, now on behalf
 of events from years ago. The canonical document covers purity; what changes here is that whoever
 reprocesses and whoever suffers the effect may be different teams.
 
@@ -76,12 +76,12 @@ services.
 That is strong coupling in disguise: changing one service's internal event structure affects everyone
 who consumes them.
 
-The alternative that preserves autonomy: keeping the event log **internal** to the service and
-publishing integration events — a stable, versioned translation of what the rest needs to know.
+The alternative that preserves autonomy is keeping the event log **internal** to the service and
+publishing integration events: a stable, versioned translation of what the rest needs to know.
 
 What the separation buys is concrete: with it, renaming a field, splitting one event in two or fixing
 an aggregate's modelling are internal changes, and the translator absorbs them. Without it, each of
-those is a negotiation with every consumer — and since they have no reason to migrate on your
+those is a negotiation with every consumer, and since they have no reason to migrate on your
 schedule, the internal schema freezes in the shape it had when the first consumer appeared.
 
 The sign that the boundary was lost is not an incident: it is a conversation. Someone proposes
@@ -89,17 +89,17 @@ changing an event's structure and the answer is "we can't, service X depends on 
 
 ### The cost of storage and privacy
 
-The log only grows. That is manageable in cost, and delicate in privacy — but the common formulation
+The log only grows. That is manageable in cost, and delicate in privacy, but the common formulation
 ("the regulation says erase, the log is immutable") is too coarse to decide anything, and it is worth
 separating two kinds of data.
 
 The **business fact** generally cannot be erased: where there is a legal retention obligation, the
-right to erasure yields to it — that is the case for accounting entries and financial movements. In an
+right to erasure yields to it. That is the case for accounting entries and financial movements. In an
 accounts core, erasing the transaction is not merely hard, it is forbidden.
 
 The **identifying personal data** is what has to go. And for it there is a mechanism: per-subject
 encryption with key discard, or keeping the identifiable data out of the log, referenced by a
-pseudonym. Both work, and both have to be designed from the start — adding them later requires
+pseudonym. Both work, and both have to be designed from the start: adding them later requires
 rewriting the history, which is exactly what the pattern does not allow.
 
 The practical conclusion, then, is narrower: the conflict disqualifies adoption when there is personal
@@ -117,7 +117,7 @@ once written, does not change format.
 - The history of how the state was reached has business value.
 - New questions about past data arise frequently.
 - Retroactive correction of a calculation is necessary.
-- The domain is naturally a sequence of facts — accounting, ledger movements, a clinical record.
+- The domain is naturally a sequence of facts: accounting, ledger movements, a clinical record.
 
 ## When Not to Use
 
@@ -128,11 +128,11 @@ decision: exposing the log.
 **Sharing the internal log between services — in any number.** There is no tolerable threshold: the
 first external consumer already freezes the schema, because from then on changing the structure takes
 coordination. With two or three, the coordination is a meeting; with ten, it is a project; and what
-breaks is always the same thing — the change that looked internal.
+breaks is always the same thing: the change that looked internal.
 
 **When the consumer needs a slice, not the stream.** If the other service wants "the current balance"
 or "this customer's orders", giving it the log is handing over the problem of deriving state along
-with the data. What it needs is a query or a projection maintained by the owner — not to reimplement
+with the data. What it needs is a query or a projection maintained by the owner, not to reimplement
 the reduction of the events, with a chance of diverging from the original.
 
 **When there is no way to version what you publish.** Publishing with no explicit version in the event
@@ -144,14 +144,14 @@ The alternatives to *using event sourcing as a way to persist* are in the
 [canonical document](/03-design-patterns/event-sourcing.md). These are the alternatives to **exposing
 the log**:
 
-- **An internal log plus integration events** — the standard answer. A stable, versioned translation
+- **An internal log plus integration events**: the standard answer. A stable, versioned translation
   of what the rest needs to know, maintained by whoever owns the domain.
-- **Publishing through a transactional outbox** — write the integration event in the same transaction
+- **Publishing through a transactional outbox**: write the integration event in the same transaction
   as the fact, and a separate process publishes it. See
   [distributed transactions](/06-distributed-systems/distributed-transactions.md).
-- **A projection maintained by the owner, exposed as a query** — when the consumer wants state, not
+- **A projection maintained by the owner, exposed as a query**: when the consumer wants state, not
   the sequence that produced the state.
-- **Change capture on the output, not on the log** — publishing what changed in the public projection,
+- **Change capture on the output, not on the log**: publishing what changed in the public projection,
   keeping the domain log out of reach.
 
 The first deserves emphasis because it is the one that preserves both things: the service keeps the
@@ -189,7 +189,7 @@ maintaining.
 ## Common Mistakes
 
 **Not separating internal events from integration events.** It is this document's own mistake. The
-decision looks like economy — one format instead of two, no translator to maintain —, and the
+decision looks like economy (one format instead of two, no translator to maintain), and the
 consequence arrives months later, in the form of a refactoring that cannot be done. For the consumer,
 it looks worse still: the event changes shape with no warning, because on the other side nobody knew
 that was a contract.
@@ -202,7 +202,7 @@ The last confusion is frequent and leads teams to believe they already do event 
 
 ## Real-World Example
 
-A fintech adopted event sourcing for the accounts core — an appropriate decision, given the regulatory
+A fintech adopted event sourcing for the accounts core, an appropriate decision, given the regulatory
 auditing requirement and the domain's nature.
 
 What worked: reconstructing any account's balance on any past date became a trivial query, and a
@@ -211,7 +211,7 @@ regulator requirement that would have cost months of work was met in days.
 Four problems appeared over three years.
 
 **Schema.** The transfer event gained fields over time. At the fifth version, the replay code had five
-branches. It was solved with chained converters — each version converts to the next, and the replay
+branches. It was solved with chained converters: each version converts to the next, and the replay
 only knows the latest. The cost was rewriting the entire replay layer.
 
 **Reprocessing with effects.** A notification projection triggered an alert to the customer. A
@@ -220,7 +220,7 @@ separated from effects, and the effects got idempotency control with a window.
 
 **Erasure.** A personal data deletion request arrived and there was no mechanism. The solution was
 per-subject encryption: personal data in the log stored encrypted with a per-customer key, and the
-erasure discards the key. Implementing it retroactively required rewriting the log — the riskiest
+erasure discards the key. Implementing it retroactively required rewriting the log, the riskiest
 operation the team has ever done.
 
 **Undue extension.** Another team adopted event sourcing for the product catalog, for architectural
@@ -232,11 +232,11 @@ the system's default instead of a choice for a specific domain.
 
 ## Related Concepts
 
-- [Distributed CQRS](/06-distributed-systems/distributed-cqrs.md) — which comes with it.
-- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md) — not the same thing.
-- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md) — between write and
+- [Distributed CQRS](/06-distributed-systems/distributed-cqrs.md): which comes with it.
+- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md): not the same thing.
+- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md): between write and
   projection.
-- [Ordering](/06-distributed-systems/ordering.md) — the log depends on it.
+- [Ordering](/06-distributed-systems/ordering.md): the log depends on it.
 
 ## Practical Exercise
 
@@ -255,5 +255,5 @@ If any of them has no answer, an audit table probably solves the real requiremen
 ## Further Reading
 
 - Young, Greg. *Versioning in an Event Sourced System*, 2017.
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 — appendix A.
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013. Appendix A.
 - Fowler, Martin. *Event Sourcing*, 2005.

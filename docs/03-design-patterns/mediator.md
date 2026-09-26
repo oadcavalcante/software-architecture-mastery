@@ -2,7 +2,7 @@
 id: mediator
 title: Mediator
 sidebar_position: 16
-description: Centralizar a comunicação entre objetos — e o risco de o mediador virar o sistema inteiro.
+description: Centralizar a comunicação entre objetos, e o risco de o mediador virar o sistema inteiro.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observer]
 related: [observer, facade, command]
 canonical_for: [mediator, mediador]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Mediator define um objeto que encapsula como um conjunto de objetos interage.
 Eles deixam de se referenciar diretamente e passam a se comunicar pelo mediador.
 
-O padrão troca uma teia de relacionamentos por uma estrela — e a pergunta que
+O padrão troca uma teia de relacionamentos por uma estrela, e a pergunta que
 decide se isso é bom é se o centro da estrela se mantém compreensível.
 
 ## Problema
@@ -44,7 +44,7 @@ ficam num lugar.
 
 ### A estrutura
 
-Cada colega se liga ao mediador duas vezes, ida e volta: seis setas ao todo — o mesmo
+Cada colega se liga ao mediador duas vezes, ida e volta: seis setas ao todo, o mesmo
 que três colegas se conhecendo diretamente produziriam.
 
 ```mermaid
@@ -61,13 +61,13 @@ Cada colega notifica o mediador; ele decide o que fazer e aciona os outros.
 
 Confusão frequente, e a distinção é prática.
 
-**[Observer](/03-design-patterns/observer.md)** — o sujeito anuncia e não sabe quem reage. As reações
+**[Observer](/03-design-patterns/observer.md)**: o sujeito anuncia e não sabe quem reage. As reações
 são independentes e a ordem não importa.
 
-**Mediator** — conhece todos e coordena. A ordem e as dependências entre as
+**Mediator**: conhece todos e coordena. A ordem e as dependências entre as
 reações são exatamente o que ele encapsula.
 
-Quando a ordem importa e há dependência entre as reações, Observer é a estrutura errada —
+Quando a ordem importa e há dependência entre as reações, Observer é a estrutura errada:
 ele não tem onde guardar a sequência. Qual coordenador entra no lugar depende da natureza da
 coordenação, e as Alternativas tratam disso: mediador quando é interação entre pares, máquina
 de estados quando é transição, serviço de aplicação quando é caso de uso.
@@ -78,7 +78,7 @@ de estados quando é transição, serviço de aplicação quando é caso de uso.
 de condicionais que conhecem cada colega.
 
 Isso é uma troca, não uma solução: o acoplamento saiu dos colegas e foi para o
-centro. Se o mediador vira incompreensível, o sistema piorou — antes o
+centro. Se o mediador vira incompreensível, o sistema piorou: antes o
 acoplamento era distribuído e localmente entendível; agora está concentrado num
 objeto que ninguém consegue ler inteiro.
 
@@ -89,10 +89,10 @@ de apenas seus eventos e operações públicas.
 
 Três práticas.
 
-Manter o mediador **declarativo** quando possível — uma tabela de "evento X aciona
+Manter o mediador **declarativo** quando possível: uma tabela de "evento X aciona
 Y e Z" é auditável; uma cadeia de condicionais não.
 
-Dividir por área de coordenação quando ele cresce — dois mediadores com escopos
+Dividir por área de coordenação quando ele cresce: dois mediadores com escopos
 distintos são melhores que um que sabe tudo.
 
 Não deixar regra de negócio migrar para lá. O mediador coordena; a regra pertence
@@ -114,7 +114,7 @@ mediador.
 simples.
 
 **Quando o mediador conheceria detalhes internos dos colegas.** Isso não reduz
-acoplamento — concentra.
+acoplamento: concentra.
 
 **Quando a coordenação é de fato regra de negócio.** Ela pertence ao domínio, não
 a um coordenador de interface.
@@ -124,12 +124,12 @@ trezentas linhas é agravar o problema, não usar o padrão.
 
 ## Alternativas
 
-- **[Observer](/03-design-patterns/observer.md)** — reações independentes.
-- **[Facade](/03-design-patterns/facade.md)** — quando o objetivo é simplificar acesso, não coordenar
+- **[Observer](/03-design-patterns/observer.md)**: reações independentes.
+- **[Facade](/03-design-patterns/facade.md)**: quando o objetivo é simplificar acesso, não coordenar
   interação.
-- **Máquina de estados** — quando a coordenação é sobre transições. Ver
+- **Máquina de estados**: quando a coordenação é sobre transições. Ver
   [State](/03-design-patterns/state.md).
-- **Serviço de aplicação** — quando a coordenação é de caso de uso, o lugar dela é
+- **Serviço de aplicação**: quando a coordenação é de caso de uso, o lugar dela é
   ali.
 
 ## Trade-offs
@@ -173,19 +173,19 @@ se materializa e o custo é pago.
 coordena habilitação, visibilidade e validação entre campos.
 
 **Barramentos de mensagem em processo.** Bibliotecas de mediador em .NET e
-equivalentes despacham requisições a manipuladores — que é Mediator como
+equivalentes despacham requisições a manipuladores. Isso é Mediator como
 mecanismo de desacoplamento, não de coordenação.
 
 **Controladores de tráfego aéreo.** A analogia clássica: aeronaves não coordenam
 entre si; falam com a torre.
 
 **Orquestradores de fluxo.** Um coordenador que aciona serviços na ordem e trata
-falhas — é Mediator em escala de sistema, e a alternativa é coreografia. Ver
+falhas: é Mediator em escala de sistema, e a alternativa é coreografia. Ver
 [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
 
 O último traz a distinção mais importante do padrão em escala: **orquestração
-versus coreografia**. Mediator é orquestração — um centro que sabe. Observer é
-coreografia — cada parte reage ao que vê. A escolha entre as duas reaparece em
+versus coreografia**. Mediator é orquestração: um centro que sabe. Observer é
+coreografia: cada parte reage ao que vê. A escolha entre as duas reaparece em
 sagas e em integração de serviços.
 
 ## Exemplo Real
@@ -203,19 +203,19 @@ outros recalcular quando ele muda. O laço deixou de ser possível porque a tabe
 é acíclica e isso é verificado.
 
 Dezoito meses depois, o mediador tinha crescido para 280 linhas e voltou a ser
-difícil de ler — porque regras de elegibilidade tinham migrado para lá.
+difícil de ler, porque regras de elegibilidade tinham migrado para lá.
 
 A segunda correção extraiu a elegibilidade para o domínio. O mediador voltou a
 fazer só coordenação de interface, e ficou em 90 linhas.
 
 O padrão funcionou nas duas vezes. O que falhou no meio foi deixar regra de
-negócio migrar para o coordenador — que é o modo de degeneração previsto.
+negócio migrar para o coordenador. Esse é o modo de degeneração previsto.
 
 ## Conceitos Relacionados
 
-- [Observer](/03-design-patterns/observer.md) — coreografia em vez de orquestração.
-- [Facade](/03-design-patterns/facade.md) — simplificar acesso, não coordenar.
-- [State](/03-design-patterns/state.md) — quando a coordenação é sobre transições.
+- [Observer](/03-design-patterns/observer.md): coreografia em vez de orquestração.
+- [Facade](/03-design-patterns/facade.md): simplificar acesso, não coordenar.
+- [State](/03-design-patterns/state.md): quando a coordenação é sobre transições.
 
 ## Exercício Prático
 
@@ -236,4 +236,4 @@ quantas são regra de negócio.
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
-  Addison-Wesley, 2003 — orquestração e coreografia em escala de sistema.
+  Addison-Wesley, 2003. Orquestração e coreografia em escala de sistema.

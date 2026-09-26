@@ -2,7 +2,7 @@
 id: grpc
 title: gRPC
 sidebar_position: 3
-description: Contrato forte e transporte binário para comunicação interna — e por que ele raramente serve na borda.
+description: Contrato forte e transporte binário para comunicação interna, e por que ele raramente serve na borda.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, service-mesh, schema-evolution]
 canonical_for: [gRPC, chamada de procedimento remoto, fluxo bidirecional]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -37,7 +37,7 @@ Entre serviços internos, uma API HTTP com JSON paga por coisas que ali não tê
 valor.
 
 Serializar e desserializar texto custa CPU. O contrato frouxo permite divergência
-entre o que uma ponta envia e a outra espera — descoberta em produção. Em
+entre o que uma ponta envia e a outra espera, descoberta em produção. Em
 HTTP/1.1, mesmo com pool de conexões, cada conexão atende uma requisição por
 vez: chamadas concorrentes pedem mais conexões, e uma resposta lenta bloqueia as
 que vêm atrás dela.
@@ -67,7 +67,7 @@ tipicamente não é executável. Ver
 
 ### Evolução por número de campo
 
-Cada campo tem um número, e é ele — não o nome — que identifica o dado no
+Cada campo tem um número, e é ele, não o nome, que identifica o dado no
 formato binário.
 
 ```protobuf
@@ -114,7 +114,7 @@ navegador nem com um cliente HTTP comum. Existem ferramentas próprias, e a curv
 é outra.
 
 **Intermediários.** Balanceadores e gateways precisam entender o protocolo. Um
-balanceador de camada 4 vai distribuir *conexões*, não *chamadas* — e como as
+balanceador de camada 4 vai distribuir *conexões*, não *chamadas*. E como as
 conexões são longas e multiplexadas, a carga fica desbalanceada de forma
 persistente.
 
@@ -138,7 +138,7 @@ trabalho desperdiçado em cascatas de chamadas. Ver
 
 gRPC tem seu conjunto de códigos, com semântica clara sobre o que é retentável.
 A separação entre erro do cliente e do servidor está lá, como em
-[REST](/08-integration-architecture/rest.md) — e as bibliotecas costumam expô-la de forma mais direta.
+[REST](/08-integration-architecture/rest.md), e as bibliotecas costumam expô-la de forma mais direta.
 
 ## Modelo Mental
 
@@ -151,7 +151,7 @@ rigor é lucro; onde não são, o alcance é o que importa.
 - Alta frequência de chamadas, onde serialização e conexão pesam.
 - Contrato forte com geração de código tem valor.
 - Fluxo contínuo em uma ou nas duas direções.
-- Poliglota — vários times, várias linguagens, um contrato.
+- Poliglota: vários times, várias linguagens, um contrato.
 - Já existe [malha de serviço](/08-integration-architecture/service-mesh.md) que entende o protocolo.
 
 ## Quando Não Usar
@@ -172,10 +172,10 @@ serviços não pagam a mudança de ferramental.
 
 ## Alternativas
 
-- **[REST](/08-integration-architecture/rest.md)** — alcance e simplicidade operacional.
-- **[GraphQL](/08-integration-architecture/graphql.md)** — consumo variável.
-- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — assíncrono e desacoplado.
-- **gRPC internamente, REST na borda** — o desenho mais comum entre adoções
+- **[REST](/08-integration-architecture/rest.md)**: alcance e simplicidade operacional.
+- **[GraphQL](/08-integration-architecture/graphql.md)**: consumo variável.
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)**: assíncrono e desacoplado.
+- **gRPC internamente, REST na borda**: o desenho mais comum entre adoções
   bem-sucedidas, com o gateway traduzindo.
 
 A última merece destaque: as duas escolhas não competem quando ocupam camadas
@@ -213,11 +213,11 @@ funciona no navegador.
 
 **Adotar na borda pública.** Navegador não fala gRPC nativamente, e parceiros externos esperam HTTP com JSON. A adoção na borda transfere para cada consumidor o custo de uma tecnologia escolhida por conveniência interna.
 
-**Não declarar `reserved` ao remover campo.** O número do campo pode ser reusado depois para outra coisa, e um cliente antigo passa a interpretar o valor novo com o significado velho — corrupção silenciosa, sem erro de desserialização.
+**Não declarar `reserved` ao remover campo.** O número do campo pode ser reusado depois para outra coisa, e um cliente antigo passa a interpretar o valor novo com o significado velho: corrupção silenciosa, sem erro de desserialização.
 
 **Não configurar balanceamento por chamada.** gRPC multiplexa sobre conexões duradouras, então o balanceamento por conexão fixa cada cliente numa instância. Instâncias novas não recebem tráfego e a carga fica desequilibrada.
 
-**Assumir que o limite de tamanho padrão basta.** O limite padrão de mensagem é modesto, e a falha aparece só quando um registro maior que a média trafega — em produção, num caso específico que testes não cobriram.
+**Assumir que o limite de tamanho padrão basta.** O limite padrão de mensagem é modesto, e a falha aparece só quando um registro maior que a média trafega: em produção, num caso específico que testes não cobriram.
 
 **Não propagar prazo.** O prazo é parte do protocolo e atravessa a cadeia se for repassado. Não repassá-lo faz serviços a jusante continuarem trabalhando por chamadas que o cliente já abandonou.
 
@@ -230,7 +230,7 @@ de HTTP com JSON para gRPC.
 
 Os números medidos após a migração:
 
-**Latência entre serviços** caiu de 12 ms para 4 ms na mediana — a maior parte do
+**Latência entre serviços** caiu de 12 ms para 4 ms na mediana. A maior parte do
 ganho veio da multiplexação de chamadas concorrentes sobre poucas conexões, no
 lugar do pool HTTP/1.1 com uma requisição por conexão, não de serialização.
 
@@ -265,10 +265,10 @@ desempenho.
 
 ## Conceitos Relacionados
 
-- [REST](/08-integration-architecture/rest.md) — a comparação principal.
-- [Malha de Serviço](/08-integration-architecture/service-mesh.md) — onde o balanceamento se resolve.
-- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md) — números de campo.
-- [Timeouts](/06-distributed-systems/timeouts.md) — prazo propagado.
+- [REST](/08-integration-architecture/rest.md): a comparação principal.
+- [Malha de Serviço](/08-integration-architecture/service-mesh.md): onde o balanceamento se resolve.
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md): números de campo.
+- [Timeouts](/06-distributed-systems/timeouts.md): prazo propagado.
 
 ## Exercício Prático
 

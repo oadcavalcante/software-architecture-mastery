@@ -2,7 +2,7 @@
 id: visitor
 title: Visitor
 sidebar_position: 22
-description: Separating operations from the structure they traverse — powerful, rigid, and almost always the wrong choice.
+description: "Separating operations from the structure they traverse: powerful, rigid, and almost always the wrong choice."
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [composite, iterator, strategy]
 canonical_for: [visitor, double dispatch]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,7 +37,7 @@ An object structure with several node types needs several different operations.
 A syntax tree with numbers, operators and variables has to be evaluated, printed,
 optimized, type-checked and serialized.
 
-Putting each operation on the nodes works — but each new operation touches every node
+Putting each operation on the nodes works, but each new operation touches every node
 class, and the classes accumulate unrelated responsibilities.
 
 Visitor inverts that: each operation becomes an object that knows how to handle every
@@ -49,11 +49,11 @@ node type.
 
 The formulation that settles everything. There are two axes of growth:
 
-**New types** — more node types in the structure.
-**New operations** — more things to do with the structure.
+**New types**: more node types in the structure.
+**New operations**: more things to do with the structure.
 
 Among the usual organizations of object-oriented code, none makes both cheap at the same
-time — it is the expression problem, stated by Wadler in 1998. There are encodings that buy
+time: it is the expression problem, stated by Wadler in 1998. There are encodings that buy
 both directions (*object algebras*, *tagless final*), at the cost of even more ceremony and
 of features not every language offers.
 
@@ -63,7 +63,7 @@ of features not every language offers.
 | Adding an operation | **Expensive** — touches every node | Cheap — one class |
 
 Visitor favours operations and penalizes types. Applying it to a structure whose types
-grow is choosing the wrong side of the dilemma — and it is the most common mistake with
+grow is choosing the wrong side of the dilemma, and it is the most common mistake with
 this pattern.
 
 ### Double dispatch
@@ -80,7 +80,7 @@ The `accept` on each node exists only for that. It is mandatory ceremony, and wh
 makes the pattern verbose.
 
 In languages with pattern matching over algebraic types, the same thing is written with
-no hierarchy and no `accept` — which explains why Visitor is rare in functional code.
+no hierarchy and no `accept`, which explains why Visitor is rare in functional code.
 
 ### The readability cost
 
@@ -113,12 +113,12 @@ each operation, and in frequently read code that weighs.
 
 ## Alternatives
 
-- **Pattern matching** — in languages that offer it, it is superior in almost every
+- **Pattern matching**: in languages that offer it, it is superior in almost every
   respect.
-- **A method on the node** — when the operations are few and stable.
-- **[Iterator](/03-design-patterns/iterator.md) with a type conditional** — less
+- **A method on the node**: when the operations are few and stable.
+- **[Iterator](/03-design-patterns/iterator.md) with a type conditional**: less
   elegant, far more readable, and appropriate when there are few types.
-- **A dispatch table** — a map from type to function, with no visitor hierarchy.
+- **A dispatch table**: a map from type to function, with no visitor hierarchy.
 
 ## Trade-offs
 
@@ -145,7 +145,7 @@ contamination.
 **Hierarchy of visitors.** A base visitor with default behaviour and subclasses that
 override: it combines Visitor's costs with inheritance's.
 
-**Implicit traversal order.** Who controls the traversal — the node or the visitor — is
+**Implicit traversal order.** Who controls the traversal (the node or the visitor) is
 not obvious, and changing it breaks visitors that depended on the order.
 
 ## Common Mistakes
@@ -162,8 +162,8 @@ explicitly, not ignore it.
 ## Where it appears in practice
 
 **Compilers and interpreters.** The canonical case and the one that best satisfies the
-condition: a language's grammar is stable for years, and the operations — type checking,
-optimization, code generation, formatting — grow.
+condition: a language's grammar is stable for years, and the operations (type checking,
+optimization, code generation, formatting) grow.
 
 **Static analysis tools.** Each rule is a visitor over the syntax tree. New rules are
 frequent; node types are not.
@@ -173,7 +173,7 @@ frequent; node types are not.
 **Traversal of structured documents.** Transformations over document trees.
 
 All four share the same characteristic, and it is the pattern's test: **the structure
-was defined by an external specification** — a grammar, a format, a standard — and so it
+was defined by an external specification** (a grammar, a format, a standard) and so it
 does not change at the pace of the code. When the structure is yours and evolves with
 the domain, the condition does not hold.
 
@@ -182,7 +182,7 @@ the domain, the condition does not hold.
 A business rules system represented conditions as a tree: comparisons, conjunctions,
 disjunctions, negations, field references.
 
-Five node types, defined by the rules language's grammar — stable from the start.
+Five node types, defined by the rules language's grammar, stable from the start.
 
 The operations grew: evaluate, render for human reading, convert to SQL, estimate cost,
 extract referenced fields, validate.
@@ -190,11 +190,11 @@ extract referenced fields, validate.
 Six visitors, each in a class. Adding an operation never touched the nodes.
 
 The counterexample, in the same system: someone applied Visitor to the domain's document
-hierarchy — contract, policy, endorsement, claim. That hierarchy grew: in two years it
+hierarchy (contract, policy, endorsement, claim). That hierarchy grew: in two years it
 gained five new types.
 
 Each new type touched the four existing visitors. On two occasions a type was added and
-a visitor was not updated — and the defect got through because nothing enforced
+a visitor was not updated, and the defect got through because nothing enforced
 exhaustiveness.
 
 It was reverted to methods on the documents themselves.
@@ -204,10 +204,10 @@ grew.
 
 ## Related Concepts
 
-- [Composite](/03-design-patterns/composite.md) — the structure Visitor usually operates
+- [Composite](/03-design-patterns/composite.md): the structure Visitor usually operates
   on.
-- [Iterator](/03-design-patterns/iterator.md) — traversal with no type distinction.
-- [Strategy](/03-design-patterns/strategy.md) — algorithm variation with no structure.
+- [Iterator](/03-design-patterns/iterator.md): traversal with no type distinction.
+- [Strategy](/03-design-patterns/strategy.md): algorithm variation with no structure.
 
 ## Practical Exercise
 

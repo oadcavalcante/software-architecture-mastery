@@ -2,7 +2,7 @@
 id: 04-scaling-ecommerce
 title: "Exercise 04 — Scaling the E-commerce System"
 sidebar_position: 1
-description: The same system, 40 times bigger — and the exercise 03 decision becomes the constraint.
+description: The same system, 40 times bigger, and the exercise 03 decision becomes the constraint.
 doc_type: exercise
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [03-ecommerce-backend]
 related: [latency, availability, partitioning, hotspots]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -41,7 +41,7 @@ visits/day                  —                   ~2.4 million
 team                        6 engineers         31 engineers
 ```
 
-The system is the same. It works — and three things have started to show up:
+The system is the same. It works, and three things have started to show up:
 
 ```text
 checkout p95                          from 900 ms to 4.2 s
@@ -76,7 +76,7 @@ Produce, in up to 90 minutes:
 1. **Which resource saturates first**, with the reasoning that leads to it.
 2. **What saturates next** after you fix the first. And after that.
 3. The fixes, **in the order you would make them**, with the trigger for each.
-4. **Which of your exercise 03 decisions** you would change today — and which you would keep.
+4. **Which of your exercise 03 decisions** you would change today, and which you would keep.
 5. What you are **not** going to do now, and the number that would change your mind.
 
 Item 4 is the heart of this exercise.
@@ -93,8 +93,8 @@ was the connection exhaustion from order volume or from
 does the catalog's hot set fit in memory?
 ```
 
-The fifth is the one that solves the exercise. The three measurements — latency, unavailability and
-connections — all point to the same place, and it is not volume.
+The fifth is the one that solves the exercise. The three measurements (latency, unavailability and
+connections) all point to the same place, and it is not volume.
 
 ## Assessment Criteria
 
@@ -173,7 +173,7 @@ multi-region                   when the agreed target passes
 brief said a seven-month deadline and six people with no platform. An asynchronous architecture there
 would have cost the deadline and probably the commercial date.
 
-What was missing was not the decision — it was **recording the trigger**. If the exercise 03 ADR had
+What was missing was not the decision but **recording the trigger**. If the exercise 03 ADR had
 said "reassess when the peak passes 20 orders/s or when connections stuck waiting on the
 acquirer pass half the pool", the
 fix would have started before the three campaign episodes.

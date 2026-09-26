@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [food-delivery, logistics, messaging-platform]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -38,14 +38,14 @@ de 96 mil ficam online em um dia típico.
 
 O produto tem uma diferença essencial em relação ao [delivery](/21-case-studies/food-delivery.md): aqui os dois
 lados do casamento se movem, e o passageiro está esperando fisicamente na rua. Um erro de
-atribuição não gera comida fria — gera alguém parado num ponto por vinte minutos.
+atribuição não gera comida fria: gera alguém parado num ponto por vinte minutos.
 
 Duas pressões motivam a revisão da arquitetura:
 
 **Qualidade do casamento.** A atribuição atual é gulosa: cada solicitação é atribuída ao
 motorista mais próximo disponível, no instante em que chega. A área de dados demonstrou, com
 simulação sobre histórico real, que decidir em lotes de poucos segundos reduziria o tempo médio
-de espera em 18% e a quilometragem ociosa dos motoristas em 12% — sem nenhum motorista a mais.
+de espera em 18% e a quilometragem ociosa dos motoristas em 12%, sem nenhum motorista a mais.
 
 **Custo e latência do estado de posição.** O sistema mantém posição de 96 mil motoristas com
 atualização a cada 3 segundos, num banco geoespacial que se tornou o gargalo de latência e o
@@ -85,7 +85,7 @@ custo por corrida                        redução de 30%
 ```
 
 O requisito de 8 segundos para atribuição é confortável em comparação com a percepção comum de
-que o casamento precisa ser instantâneo — e é essa folga que torna a decisão em lote possível.
+que o casamento precisa ser instantâneo, e é essa folga que torna a decisão em lote possível.
 
 ## Restrições
 
@@ -111,13 +111,13 @@ uma decisão, é uma **proposta**. Um algoritmo que ignore a probabilidade de ac
 casamentos ótimos no papel e ruins na prática.
 
 O efeito é concreto e assimétrico. O motorista mais próximo de uma solicitação pode ser
-justamente o que tem menor probabilidade de aceitá-la — porque a corrida vai para uma região de
+justamente o que tem menor probabilidade de aceitá-la, porque a corrida vai para uma região de
 onde é difícil sair, ou porque o valor é baixo para a distância de deslocamento. Atribuir a ele
 e receber recusa custa um ciclo inteiro, e o passageiro espera mais do que esperaria se a
 plataforma tivesse oferecido ao segundo mais próximo, que aceitaria.
 
 Modelar isso exige aceitar que a plataforma não controla o outro lado. É uma restrição jurídica
-— não há vínculo empregatício — que vira uma restrição de arquitetura, e nenhuma quantidade de
+(não há vínculo empregatício) que vira uma restrição de arquitetura, e nenhuma quantidade de
 otimização de distância compensa ignorá-la.
 
 ## Estimativas de Capacidade
@@ -146,13 +146,13 @@ tempo disponível para avaliar                   < 5 s
 ```
 
 Cento e vinte e seis mil combinações a cada cinco segundos, por cidade. Esse é o problema
-computacional que a arquitetura precisa acomodar, e ele não existe no modelo guloso — porque o
+computacional que a arquitetura precisa acomodar, e ele não existe no modelo guloso, porque o
 modelo guloso avalia uma solicitação contra alguns candidatos e pronto.
 
 Na prática a matriz é podada antes de ser resolvida: candidatos a mais de 12 minutos de
 deslocamento são descartados, o que reduz as 126 mil combinações para cerca de 3 mil em regiões
 densas. A poda é o que torna a resolução exata viável dentro do orçamento de tempo, e o limite
-de 12 minutos é um parâmetro por região — em áreas esparsas ele sobe para 25 minutos, porque
+de 12 minutos é um parâmetro por região: em áreas esparsas ele sobe para 25 minutos, porque
 descartar candidatos distantes ali significaria não atender ninguém.
 
 Esse ajuste por densidade é um tema recorrente do sistema: quase todo parâmetro que funciona
@@ -227,7 +227,7 @@ uma previsão ruim degrada o casamento em vez de melhorá-lo. A Opção B entreg
 ganho sem essa dependência.
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com qualidade em 50% e complexidade em 10%, os
-totais viram 5,3 / 7,5 / 7,6 — a Opção C passa à frente por 0,1, o que é empate numa escala
+totais viram 5,3 / 7,5 / 7,6: a Opção C passa à frente por 0,1, o que é empate numa escala
 subjetiva. O cenário corresponde a uma organização com capacidade de ciência
 de dados madura e apetite para operar um modelo em produção no caminho crítico.
 
@@ -252,8 +252,8 @@ a taxa de recusa de 23%.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** o requisito de latência fosse muito mais apertado — abaixo de 2 segundos
-— ou em cidades com densidade tão baixa que raramente há mais de uma solicitação por janela. Na
+**Opção A venceria se** o requisito de latência fosse muito mais apertado (abaixo de 2 segundos)
+ou em cidades com densidade tão baixa que raramente há mais de uma solicitação por janela. Na
 prática, ela permanece em uso: cidades onde a média de solicitações por janela é menor que 1,3
 operam no modo guloso, porque em lote de um elemento os dois algoritmos são idênticos e o
 guloso é mais barato.
@@ -311,8 +311,8 @@ um motorista que recusa uma oferta recebia outra imediatamente, às vezes a mesm
 assédio do aplicativo. A regra é de intervalo mínimo entre ofertas ao mesmo motorista.
 
 **Posições para segurança.** Série temporal comprimida, particionada por dia e região,
-armazenamento barato. Consultada raramente — cerca de 900 vezes por dia, quase todas por
-investigação de incidente — sobre 2,1 bilhões de registros diários.
+armazenamento barato. Consultada raramente (cerca de 900 vezes por dia, quase todas por
+investigação de incidente) sobre 2,1 bilhões de registros diários.
 
 A retenção de 6 meses é regulatória, e o dado é sensível: ele permite reconstruir o deslocamento
 de qualquer pessoa. O acesso exige justificativa registrada e é auditado.
@@ -325,12 +325,12 @@ dado sensível vaza para onde ninguém procurou, e o mapeamento precisa ser exau
 declarar retenção. Ver
 [diagramas de fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md).
 
-**Corrida.** PostgreSQL, máquina de estados explícita, consistência forte. O volume é baixo — 16
-por segundo em média — e a correção é crítica: uma corrida atribuída a dois motoristas é um
+**Corrida.** PostgreSQL, máquina de estados explícita, consistência forte. O volume é baixo (16
+por segundo em média) e a correção é crítica: uma corrida atribuída a dois motoristas é um
 incidente com pessoas envolvidas.
 
-**Matriz de custo.** Efêmera, construída em memória a cada janela e descartada. Não é persistida
-— apenas o resultado da atribuição e as métricas agregadas são guardados, para avaliação do
+**Matriz de custo.** Efêmera, construída em memória a cada janela e descartada. Não é persistida:
+apenas o resultado da atribuição e as métricas agregadas são guardados, para avaliação do
 algoritmo.
 
 ## Integração
@@ -354,7 +354,7 @@ A reentrada com prioridade elevada é o que impede que uma solicitação em regi
 indefinidamente sem atribuição: a cada ciclo não atendido, seu peso na matriz de custo aumenta,
 e o raio de busca por candidatos se amplia.
 
-Após três ciclos sem atribuição — cerca de 50 segundos — o passageiro é avisado de que a espera
+Após três ciclos sem atribuição (cerca de 50 segundos) o passageiro é avisado de que a espera
 está acima do normal e recebe a opção de aguardar com preço dinâmico ou cancelar sem custo.
 
 **Ofertas.** Enviadas por conexão persistente ao aplicativo do motorista, com notificação como
@@ -401,8 +401,8 @@ O problema de atribuição é resolvido por região, o que mantém a matriz num 
 solicitações × 1.400 candidatos numa capital, contra o absurdo que seria resolver nacionalmente.
 
 Regiões são definidas por densidade, não por limite administrativo. Uma capital tem 12 regiões;
-uma cidade média tem uma. A fronteira entre regiões é um problema real — uma solicitação na
-borda pode ter o melhor candidato do outro lado — e é tratado incluindo candidatos das regiões
+uma cidade média tem uma. A fronteira entre regiões é um problema real (uma solicitação na
+borda pode ter o melhor candidato do outro lado) e é tratado incluindo candidatos das regiões
 vizinhas na matriz, com penalidade de custo.
 
 O pico de sexta à noite combinado com chuva é o cenário de dimensionamento. Ele é parcialmente
@@ -410,20 +410,20 @@ previsível: a plataforma consome previsão meteorológica e eleva capacidade pr
 
 ## Confiabilidade
 
-Se o **Motor de Casamento** de uma região falha, aquela região cai para o modo guloso — que é o
+Se o **Motor de Casamento** de uma região falha, aquela região cai para o modo guloso, que é o
 código da Opção A, mantido em produção. A qualidade do casamento piora e o serviço continua.
 
 Se a **Grade de Disponibilidade** fica indisponível, o casamento usa a última posição conhecida
 do armazenamento de segurança, com raio ampliado. É pior e funciona.
 
-Se o **Serviço de Corrida** falha, corridas em andamento continuam — o estado está no aplicativo
-de ambos os lados — e novas atribuições param. É a degradação mais grave.
+Se o **Serviço de Corrida** falha, corridas em andamento continuam (o estado está no aplicativo
+de ambos os lados) e novas atribuições param. É a degradação mais grave.
 
 Se a **Precificação** falha, o preço volta ao base, sem multiplicador. Comercialmente ruim,
 operacionalmente inofensivo.
 
 Se o **Serviço de Segurança** falha, corridas em andamento não são interrompidas, e um alarme de
-severidade máxima é disparado — este é o único componente cuja indisponibilidade é tratada como
+severidade máxima é disparado. Este é o único componente cuja indisponibilidade é tratada como
 incidente crítico mesmo sem efeito imediato no produto.
 
 ## Observabilidade
@@ -443,7 +443,7 @@ A **taxa de aceitação de oferta** é a métrica que valida a probabilidade de 
 matriz de custo. Se a taxa observada divergir da estimada, o modelo de custo está errado e o
 casamento é subótimo mesmo com o algoritmo correto.
 
-Essa realimentação — comparar o previsto com o observado e ajustar — é o que permitiu à
+Essa realimentação (comparar o previsto com o observado e ajustar) é o que permitiu à
 qualidade do casamento continuar melhorando depois do lançamento, sem mudança de arquitetura.
 
 ## Implantação
@@ -457,7 +457,7 @@ Nenhuma mudança estrutural às sextas-feiras, nem em vésperas de feriado.
 A implantação por região tem uma propriedade adicional que se mostrou valiosa: como o algoritmo
 de casamento é o mesmo código operando com parâmetros diferentes por região, uma mudança pode ser
 testada com parâmetros conservadores numa região e agressivos em outra, no mesmo período. Isso
-separou, em várias ocasiões, o efeito da mudança de código do efeito do ajuste de parâmetro —
+separou, em várias ocasiões, o efeito da mudança de código do efeito do ajuste de parâmetro:
 uma distinção que a equipe anterior não conseguia fazer e que produzia conclusões erradas sobre
 o que tinha funcionado.
 
@@ -479,7 +479,7 @@ Resultado medido nas primeiras cidades: tempo médio de espera -15%, quilometrag
 abaixo dos -18% e -12% da simulação, e na direção certa.
 
 **Fase 3 (meses 10–13): probabilidade de aceitação.** Incorporação da estimativa de aceitação na
-matriz de custo. É o que fecha a lacuna com a simulação — o modelo simulado assumia aceitação
+matriz de custo. É o que fecha a lacuna com a simulação: o modelo simulado assumia aceitação
 determinística.
 
 **Fase 4 (meses 14–18): janela por densidade e regiões dinâmicas.** Ajuste da janela por cidade e
@@ -549,7 +549,7 @@ pressão.
 
 ## Conceitos Relacionados
 
-- [Case: Delivery de Comida](/21-case-studies/food-delivery.md) — o mesmo problema, outras restrições.
+- [Case: Delivery de Comida](/21-case-studies/food-delivery.md): o mesmo problema, outras restrições.
 - [Case: Logística](/21-case-studies/logistics.md).
 - [Pontos Quentes](/11-scalability/hotspots.md).
 - [Degradação Graciosa](/12-reliability/graceful-degradation.md).
@@ -557,7 +557,7 @@ pressão.
 ## Exercício Prático
 
 Simule, no papel, três solicitações e três motoristas com distâncias conhecidas. Resolva pelo
-método guloso — atribuindo cada solicitação na ordem de chegada ao mais próximo disponível — e
+método guloso (atribuindo cada solicitação na ordem de chegada ao mais próximo disponível) e
 depois pela atribuição ótima do conjunto.
 
 Construa um exemplo em que o guloso produz uma soma de distâncias 40% pior. Não é difícil, e é o

@@ -2,7 +2,7 @@
 id: organizational-constraints
 title: Organizational Constraints
 sidebar_position: 12
-description: Why technically correct projects fail — and what to do about it.
+description: Why technically correct projects fail, and what to do about it.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-risk, modernization-drivers, incremental-modernization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -60,18 +60,18 @@ month 12    "when does this finish?"
 month 18    new priority, budget reallocated
 ```
 
-What sustains support is not progress communication — it is **visible value delivery**.
+What sustains support is **visible value delivery**, not progress communication.
 
 See [transition architecture](/15-enterprise-architecture/transition-architecture.md).
 A program whose first value appears in month 14 will face that erosion with no defense.
 
 And there has to be more than one sponsor: programs backed by a single person die when
-that person changes role — which, in two-year programs, is likely.
+that person changes role. In two-year programs, that is likely.
 
 ### Concentrated knowledge is a project risk
 
 The legacy system is maintained by few people, and they are necessary for the
-modernization — to explain the behavior, to validate the new one, to resolve what comes
+modernization: to explain the behavior, to validate the new one, to resolve what comes
 up.
 
 ```text
@@ -85,7 +85,7 @@ See [legacy systems](/16-legacy-modernization/legacy-systems.md).
 The treatment: knowledge transfer as the **project's first stage**, not as a consequence.
 Characterization tests, documentation, and pairing.
 
-That costs time before any new code — and it is the investment that most reduces risk.
+That costs time before any new code, and it is the investment that most reduces risk.
 
 ### Misaligned incentives are the least discussed constraint
 
@@ -101,18 +101,18 @@ the department that loses control over a system
 None of those forms of resistance is irrational. They are predictable responses to real
 incentives.
 
-Ignoring them produces passive resistance — information that doesn't surface, deadlines
+Ignoring them produces passive resistance: information that doesn't surface, deadlines
 that slip, problems only discovered late.
 
 The treatment is explicit: identify who loses, and address it. Frequently the solution is
-simple — the person whose knowledge is unique becomes the authority on the new system,
+simple: the person whose knowledge is unique becomes the authority on the new system,
 instead of losing relevance.
 
 ### The team has to keep delivering
 
 Modernization competes with product. In long programs, when the modernization has not yet
 delivered anything the business can notice and has no agreed share of capacity, the
-contest is resolved in favor of product at every prioritization cycle — because product
+contest is resolved in favor of product at every prioritization cycle, because product
 has customers complaining and modernization does not.
 
 ```text
@@ -120,7 +120,7 @@ model that fails    "we'll stop delivering features for a year"
 model that works    modernization and product in parallel, with an agreed proportion
 ```
 
-The proportion — something like 70% product and 30% modernization — is slower and
+The proportion (something like 70% product and 30% modernization) is slower and
 survives.
 
 And it requires the modernization to be sliced into increments that fit that proportion.
@@ -130,7 +130,7 @@ See [incremental modernization](/16-legacy-modernization/incremental-modernizati
 
 Modernization is discovery work: much of what will be done is only known after starting.
 
-Estimating it like construction — with a defined scope and a deadline — produces the
+Estimating it like construction, with a defined scope and a deadline, produces the
 familiar pattern: the project runs late, confidence erodes, and support disappears.
 
 What works better:
@@ -155,7 +155,7 @@ between teams pulls the architecture back toward the old boundaries. See also
 [application architecture](/15-enterprise-architecture/application-architecture.md).
 
 And the inverse: keeping a team dedicated to the modernization, separate from the product
-teams, produces a new system nobody wants to receive — because it was not built by
+teams, produces a new system nobody wants to receive, because it was not built by
 whoever will maintain it.
 
 The model that usually works: the teams that will operate the result take part in
@@ -164,7 +164,7 @@ building it, with support from people who have modernization experience.
 ## Mental Model
 
 **Organizational constraints are part of the project.** Ignoring them does not remove
-them — it merely moves the discovery to the moment when they are fatal.
+them. It merely moves the discovery to the moment when they are fatal.
 
 ## When to Use
 
@@ -177,7 +177,7 @@ This analysis should precede any modernization program, especially when:
 
 ## When Not to Use
 
-The formal analysis — mapping sponsors, knowledge holders and losers — costs weeks of
+The formal analysis (mapping sponsors, knowledge holders and losers) costs weeks of
 conversation and political exposure. It does not pay off when:
 
 **The modernization is short and done by those who operate it.** A change of a few months
@@ -200,12 +200,12 @@ belongs to the moment replacement comes back to the table.
 
 ## Alternatives
 
-- **Smaller slices** — they reduce exposure to shifts in priority.
-- **Opportunistic modernization** — modernize what you touch, with no dedicated program.
+- **Smaller slices**: they reduce exposure to shifts in priority.
+- **Opportunistic modernization**: modernize what you touch, with no dedicated program.
   See [incremental modernization](/16-legacy-modernization/incremental-modernization.md).
-- **Containment** — isolate the legacy system instead of replacing it, when the support
+- **Containment**: isolate the legacy system instead of replacing it, when the support
   isn't there.
-- **Defer** — a legitimate decision when the organizational conditions are not in place.
+- **Defer**: a legitimate decision when the organizational conditions are not in place.
 
 The last one deserves consideration: a program started without sufficient support
 consumes resources and dies halfway, leaving the organization worse off than before.
@@ -247,7 +247,7 @@ consumes resources and dies halfway, leaving the organization worse off than bef
 
 **Not doing knowledge transfer first.** The undocumented rules live in a few people's heads. If they leave midway, what remains is code archaeology.
 
-**Promising a deadline for discovery work.** While the system's real behavior is unknown, any date is fiction — and the missed date erodes the credibility that sustains the rest of the project.
+**Promising a deadline for discovery work.** While the system's real behavior is unknown, any date is fiction, and the missed date erodes the credibility that sustains the rest of the project.
 
 **Depending on one sponsor.** Modernizations take years and sponsors change departments. Without distributed support, one person's departure ends the project.
 
@@ -257,25 +257,25 @@ consumes resources and dies halfway, leaving the organization worse off than bef
 
 ## Real-World Example
 
-An energy company started replacing its billing system — 21 years old, critical,
+An energy company started replacing its billing system: 21 years old, critical,
 maintained by four people.
 
 The project was well designed technically: strangling, defined slices, data migration
 planned.
 
-It was cancelled in month 15 of a planned 24, about 40% complete — the delay of someone who
+It was cancelled in month 15 of a planned 24, about 40% complete: the delay of someone who
 estimated discovery as construction.
 
 The subsequent analysis identified four causes, none technical:
 
-**Support.** The sponsor — a director — left the company in month 11. Their replacement
+**Support.** The sponsor, a director, left the company in month 11. Their replacement
 had no commitment to the program, and in the following budget cycle reallocated the
 resources.
 
 **Late value.** The first slice with value visible to the business was planned for month
 18. In the 15 months executed, nothing perceptible had been delivered.
 
-**Knowledge.** Two of the four people who maintained the system left during the project —
+**Knowledge.** Two of the four people who maintained the system left during the project,
 one of them to a competitor. The knowledge transfer was planned for the final phase.
 
 **Resistance.** The team maintaining the old system saw the project as the end of their
@@ -287,7 +287,7 @@ technique:
 **Three sponsors**, from different areas, with a joint quarterly review.
 
 **First slice with value in month 4.** The sequence was reordered to deliver, early, a
-feature the business had been asking for for years — reissuing a bill with
+feature the business had been asking for for years: reissuing a bill with
 recalculation.
 
 **Knowledge transfer as phase 1.** Four months before any new code, with characterization
@@ -295,14 +295,14 @@ tests and documentation produced by the people who maintained the system.
 
 **The old system's team as protagonists.** The two remaining people were designated
 technical authorities on the new system, with the role formalized. The resistance
-disappeared — they now had something to gain.
+disappeared: they now had something to gain.
 
 **An agreed proportion.** 30% of capacity on modernization, 70% on product, reviewed
 quarterly.
 
 **Estimates as ranges**, per slice, re-estimated at each delivery.
 
-The second attempt took 26 months — more than the 24 originally planned in the first —
+The second attempt took 26 months (more than the 24 originally planned in the first),
 and it was completed.
 
 In the retrospective: the first attempt's technical design was better than the second's.
@@ -321,7 +321,7 @@ considered part of the project's scope.
 For a modernization program underway or planned, list: who sponsors it, who holds the
 unique knowledge, and who loses from the change.
 
-The three lists are viability conditions — and none of them is usually in the plan.
+The three lists are viability conditions, and none of them is usually in the plan.
 
 ## Interview Questions
 

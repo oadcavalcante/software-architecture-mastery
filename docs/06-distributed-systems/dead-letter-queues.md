@@ -2,7 +2,7 @@
 id: dead-letter-queues
 title: Dead-Letter Queues
 sidebar_position: 29
-description: Onde vão as mensagens que não puderam ser processadas — e por que ela precisa de dono.
+description: Onde vão as mensagens que não puderam ser processadas, e por que ela precisa de dono.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [poison-messages]
 related: [poison-messages, retries, observability]
 canonical_for: [dead-letter queue, DLQ]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -33,13 +33,13 @@ um cemitério que dá a impressão de tratamento.
 ## Problema
 
 Sem dead-letter, uma mensagem que sempre falha tem dois destinos ruins: repetir
-indefinidamente — bloqueando — ou ser descartada — perdendo.
+indefinidamente (bloqueando) ou ser descartada (perdendo).
 
 A dead-letter dá o terceiro: sair da fila e ficar guardada para análise.
 
 O problema que ela cria é organizacional: **mensagens acumulam lá e ninguém
 percebe**. Isso é comum e é pior do que parece, porque cada mensagem representa
-uma operação de negócio que não aconteceu — um pedido não faturado, uma cobrança
+uma operação de negócio que não aconteceu: um pedido não faturado, uma cobrança
 não emitida, uma notificação não enviada.
 
 ## Conceitos Centrais
@@ -51,7 +51,7 @@ necessário:
 
 **O conteúdo original**, sem alteração.
 
-**O erro** — exceção, mensagem, rastro de pilha.
+**O erro**: exceção, mensagem, rastro de pilha.
 
 **Quantas tentativas** e quando.
 
@@ -59,7 +59,7 @@ necessário:
 
 **O identificador de correlação**, para ligar aos registros da operação original.
 
-Sem os três últimos, a análise começa por reconstruir o que aconteceu — que é o
+Sem os três últimos, a análise começa por reconstruir o que aconteceu. Esse é o
 trabalho que o contexto existe para evitar.
 
 Vários brokers adicionam parte disso automaticamente em atributos da mensagem;
@@ -83,7 +83,7 @@ configurado e não está funcionando.
 Depois de corrigir a causa, as mensagens da dead-letter são reenviadas para a fila
 principal.
 
-Isso é reprocessamento — e algumas delas podem ter sido **parcialmente
+Isso é reprocessamento, e algumas delas podem ter sido **parcialmente
 processadas** antes de falhar. Se o consumidor gravou algo e falhou depois,
 reprocessar duplica.
 
@@ -102,14 +102,14 @@ consumidor.
 ### Ela não é armazenamento de longo prazo
 
 Mensagens ficam ali para serem analisadas e resolvidas, não guardadas. Um prazo de
-retenção evita acúmulo indefinido — e força o processo a existir, porque a
+retenção evita acúmulo indefinido, e força o processo a existir, porque a
 mensagem some se ninguém agir.
 
 O prazo precisa ser generoso o bastante para cobrir fim de semana e feriado.
 
 ### Depois de analisar, há três destinos
 
-Mensagem em dead-letter não é o fim do processo — é o começo de uma decisão que
+Mensagem em dead-letter não é o fim do processo, e sim o começo de uma decisão que
 precisa ser tomada por alguém:
 
 **Descartar.** A mensagem é inválida e não há o que fazer. Registre o descarte;
@@ -137,7 +137,7 @@ o processo não existe.
 - Todo consumidor em que perder a mensagem custa mais do que operar uma fila a
   mais.
 - Especialmente onde a mensagem representa operação de negócio.
-- Onde a fila tem ordem — o bloqueio é mais grave.
+- Onde a fila tem ordem: o bloqueio é mais grave.
 
 ## Quando Não Usar
 
@@ -151,17 +151,17 @@ tratamento.
 **Sem retenção.** Acumula indefinidamente.
 
 **Para falhas transitórias.** Uma indisponibilidade de banco não deveria mandar
-mensagens para dead-letter — deveria haver retentativa com
+mensagens para dead-letter: deveria haver retentativa com
 [backoff](/06-distributed-systems/backoff.md). Se a dead-letter enche durante uma queda de dependência, a
 classificação de falha está errada.
 
 ## Alternativas
 
-- **Fila de reprocessamento com atraso** — para falhas ambíguas, tentar de novo em
+- **Fila de reprocessamento com atraso**: para falhas ambíguas, tentar de novo em
   horas em vez de desistir.
-- **Descarte com registro** — quando a mensagem é genuinamente descartável e o
+- **Descarte com registro**: quando a mensagem é genuinamente descartável e o
   volume torna a análise inviável. Precisa ser decisão explícita.
-- **Tabela de pendências** — em vez de fila, gravar num banco com interface de
+- **Tabela de pendências**: em vez de fila, gravar num banco com interface de
   análise. Melhor quando o tratamento envolve decisão humana.
 
 A última é subestimada: para mensagens que exigem decisão de negócio, uma tela é
@@ -189,14 +189,14 @@ teriam sucesso.
 
 **Retenção expirando antes da análise.** A mensagem some antes de alguém olhar.
 
-**Dead-letter da dead-letter.** O reprocessamento falha de novo e volta — sem
+**Dead-letter da dead-letter.** O reprocessamento falha de novo e volta. Sem
 limite, é um laço mais lento.
 
 ## Erros Comuns
 
 **Configurar e não alertar.** A fila enche em silêncio e a descoberta acontece quando um cliente reclama de um pedido que sumiu, semanas depois.
 
-**Não incluir o erro junto com a mensagem.** Sem a exceção, o carimbo de tempo e a tentativa em que falhou, quem investiga precisa reproduzir o problema para descobrir o que aconteceu — e frequentemente não consegue.
+**Não incluir o erro junto com a mensagem.** Sem a exceção, o carimbo de tempo e a tentativa em que falhou, quem investiga precisa reproduzir o problema para descobrir o que aconteceu, e frequentemente não consegue.
 
 **Não definir dono.** Uma fila de mensagens mortas sem responsável nomeado não é esvaziada por ninguém; ela vira um cemitério que todos veem no painel e ninguém abre.
 
@@ -206,7 +206,7 @@ limite, é um laço mais lento.
 
 ## Exemplo Real
 
-Um sistema de assinaturas tinha dead-letter configurada em todas as sete filas —
+Um sistema de assinaturas tinha dead-letter configurada em todas as sete filas:
 boa prática seguida corretamente.
 
 Nenhuma tinha alerta.
@@ -218,7 +218,7 @@ mandava para dead-letter.
 Isso durou 23 dias.
 
 4 100 renovações não processadas. Assinaturas venceram sem cobrança, acessos foram
-suspensos, e clientes ligaram — o que finalmente levou alguém a investigar.
+suspensos, e clientes ligaram, o que finalmente levou alguém a investigar.
 
 A descoberta veio de olhar a dead-letter e encontrar 4 100 mensagens, a mais antiga
 de três semanas.
@@ -235,22 +235,22 @@ dead-letter é anomalia, não estatística.
 **Métrica de idade.** Painel com quantidade e idade da mensagem mais antiga por
 fila.
 
-**Idempotência no consumidor de renovação**, com chave por assinatura e período —
-o que teria evitado a cobrança dupla no reprocessamento.
+**Idempotência no consumidor de renovação**, com chave por assinatura e período.
+Isso teria evitado a cobrança dupla no reprocessamento.
 
 **Registro de esquema** entre produtor e consumidor, impedindo que uma mudança
 incompatível seja publicada.
 
-A lição registrada: a dead-letter fez exatamente o que devia — impediu o
+A lição registrada: a dead-letter fez exatamente o que devia. Impediu o
 bloqueio da fila e preservou as mensagens. O que faltou foi a metade
 organizacional do mecanismo.
 
 ## Conceitos Relacionados
 
-- [Poison Messages](/06-distributed-systems/poison-messages.md) — o que vai para lá.
-- [Idempotência](/06-distributed-systems/idempotency.md) — necessária para reprocessar.
-- [Retries](/06-distributed-systems/retries.md) — a classificação que decide o que vai.
-- [Observabilidade](/13-observability/index.md) — alerta e métrica.
+- [Poison Messages](/06-distributed-systems/poison-messages.md): o que vai para lá.
+- [Idempotência](/06-distributed-systems/idempotency.md): necessária para reprocessar.
+- [Retries](/06-distributed-systems/retries.md): a classificação que decide o que vai.
+- [Observabilidade](/13-observability/index.md): alerta e métrica.
 
 ## Exercício Prático
 
@@ -269,5 +269,5 @@ está sendo usado.
 ## Para Aprofundar
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — alertas
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Alertas
   acionáveis.

@@ -2,7 +2,7 @@
 id: architecture-roadmaps
 title: Roteiros de Arquitetura
 sidebar_position: 19
-description: O que fazer e quando — e por que um roteiro sem entrega intermediária não sobrevive.
+description: O que fazer e quando, e por que um roteiro sem entrega intermediária não sobrevive.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: [roteiro de arquitetura, horizonte de roteiro, entrega intermediária]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,7 @@ Um roteiro de arquitetura organiza no tempo o que a
 Ele responde: **o que fazemos primeiro, e o que depende do quê.**
 
 E falha de uma forma característica: um cronograma de dezoito meses com dependências em
-cadeia, em que o valor só aparece no fim — e que não sobrevive à primeira mudança de
+cadeia, em que o valor só aparece no fim, e que não sobrevive à primeira mudança de
 prioridade.
 
 ## Problema
@@ -45,7 +45,7 @@ pessoas entram e saem
 ```
 
 Um roteiro que precisa ser executado inteiro para entregar algo aposta que nenhuma dessas
-mudanças o interromperá antes do fim — e, se interromper, deixa trabalho investido sem
+mudanças o interromperá antes do fim e, se interromper, deixa trabalho investido sem
 retorno.
 
 ## Conceitos Centrais
@@ -59,13 +59,13 @@ entregas         cada etapa entrega algo utilizável
                  parar em qualquer ponto deixa a organização melhor
 ```
 
-Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md) — é o mesmo princípio,
+Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md): é o mesmo princípio,
 expresso no tempo.
 
 A pergunta que testa cada item do roteiro: **se pararmos aqui, o que foi entregue vale o
 que foi gasto?**
 
-Se a resposta for não, a sequência precisa ser reordenada — por valor, não por
+Se a resposta for não, a sequência precisa ser reordenada: por valor, não por
 dependência técnica.
 
 ### Horizonte decrescente em precisão
@@ -77,7 +77,7 @@ além de 9 meses     temas, sem compromisso de data
 ```
 
 Um roteiro com o mesmo nível de detalhe em todo o horizonte transmite uma precisão que
-não existe — e cria a expectativa de que datas distantes são compromissos.
+não existe e cria a expectativa de que datas distantes são compromissos.
 
 O formato que comunica honestamente é o que mostra a incerteza crescendo com a
 distância.
@@ -100,7 +100,7 @@ março e junho" comunica melhor que "abril", e evita a conversa de atraso.
 
 Um item que alguém espera e não está no roteiro gera atrito quando descoberto tarde.
 
-Tornar as ausências explícitas — "isto não está previsto para os próximos 18 meses" — é
+Tornar as ausências explícitas ("isto não está previsto para os próximos 18 meses") é
 o que transforma uma expectativa implícita numa conversa. Ver
 [estratégia técnica](/15-enterprise-architecture/technical-strategy.md).
 
@@ -124,7 +124,7 @@ priorizar.
 
 **Aceitar duplicação temporária.** Às vezes é mais barato duplicar que esperar.
 
-Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md) — a dependência de roteiro
+Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md): a dependência de roteiro
 reflete a dependência estrutural.
 
 ### Revisar com evidência
@@ -147,7 +147,7 @@ O uso mais valioso de um roteiro não é interno. É **comunicação**: com o ne
 outros times, com quem depende.
 
 Isso muda o formato: um roteiro que só a engenharia entende falha no uso principal.
-Itens expressos em termos de capacidade e de resultado — não de tecnologia — são o que
+Itens expressos em termos de capacidade e de resultado, não de tecnologia, são o que
 permite a conversa acontecer.
 
 ## Modelo Mental
@@ -175,15 +175,15 @@ concretos; não há incerteza crescente para mostrar, e o plano do trimestre já
 outro time nem o negócio decide nada com base nele, ele vira documento que só o autor lê.
 
 **Antes de haver estratégia e transição.** Sem o que priorizar e sem estados
-intermediários definidos, o roteiro ordena itens que ainda não têm critério de valor — e
+intermediários definidos, o roteiro ordena itens que ainda não têm critério de valor, e
 vira cronograma de trabalho técnico.
 
 ## Alternativas
 
-- **Sequência sem datas** — dependência e ordem, sem calendário.
-- **Temas por trimestre** — direção sem itens específicos.
-- **Roteiro de resultados** — expresso em capacidades habilitadas, não em trabalho.
-- **Fluxo contínuo priorizado** — sem roteiro, com uma fila revisada continuamente.
+- **Sequência sem datas**: dependência e ordem, sem calendário.
+- **Temas por trimestre**: direção sem itens específicos.
+- **Roteiro de resultados**: expresso em capacidades habilitadas, não em trabalho.
+- **Fluxo contínuo priorizado**: sem roteiro, com uma fila revisada continuamente.
 
 A última funciona bem para trabalho de melhoria contínua, e mal para programas com
 dependências entre times.
@@ -226,7 +226,7 @@ E o horizonte tem o mesmo trade-off entre utilidade e honestidade:
 
 ## Erros Comuns
 
-**Ordenar por dependência técnica.** Produz um roadmap em que nada entrega valor até o fim — e um projeto assim, se cancelado no meio, não deixa nada entregue.
+**Ordenar por dependência técnica.** Produz um roadmap em que nada entrega valor até o fim, e um projeto assim, se cancelado no meio, não deixa nada entregue.
 
 **Detalhe uniforme.** O próximo trimestre pode ser detalhado; o terceiro ano não pode ser conhecido. Detalhar tudo igual dá falsa precisão ao que é especulação.
 
@@ -234,7 +234,7 @@ E o horizonte tem o mesmo trade-off entre utilidade e honestidade:
 
 **Não revisar trimestralmente.** O contexto muda mais rápido que o horizonte do roadmap. Sem revisão, ele deixa de descrever a intenção atual e vira documento histórico que ninguém consulta.
 
-**Não expressar em resultados.** "Migrar para Kubernetes" não é resultado; "reduzir o tempo de subir um serviço novo de duas semanas para um dia" é — e admite mais de um caminho.
+**Não expressar em resultados.** "Migrar para Kubernetes" não é resultado; "reduzir o tempo de subir um serviço novo de duas semanas para um dia" é, e admite mais de um caminho.
 
 **Não negociar dependências entre times cedo.** A dependência descoberta na execução vira espera, porque o outro time já comprometeu o trimestre dele com outra coisa.
 
@@ -260,7 +260,7 @@ Quatorze meses de trabalho sem retorno defensável.
 A reformulação, dois anos depois, mudou a estrutura:
 
 **Sequência por valor.** Cada item do roteiro entrega algo utilizável. O primeiro foi a
-extração do catálogo — não porque era tecnicamente mais simples, mas porque destravava
+extração do catálogo, não porque era tecnicamente mais simples, mas porque destravava
 uma capacidade de negócio esperada havia dois anos.
 
 **Horizonte decrescente.** Três meses com itens e donos; nove meses com direção; além
@@ -281,7 +281,7 @@ com o motivo. Ela evitou três discussões que teriam acontecido tarde.
 **Revisão trimestral** com reordenação permitida.
 
 Nos 18 meses seguintes, o programa foi interrompido duas vezes por mudança de
-prioridade — e retomado nas duas. Cada interrupção deixou um estado defensável, e a
+prioridade, e retomado nas duas. Cada interrupção deixou um estado defensável, e a
 retomada não perdeu trabalho.
 
 O aprendizado que ficou: o roteiro anterior estava tecnicamente correto na sequência de
@@ -290,10 +290,10 @@ sentido para sobreviver.
 
 ## Conceitos Relacionados
 
-- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md) — o que priorizar.
-- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md) — os estados.
+- [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md): o que priorizar.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md): os estados.
 - [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md).
-- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o vocabulário.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md): o vocabulário.
 
 ## Exercício Prático
 
@@ -312,4 +312,4 @@ Os itens que falham no teste precisam ser reordenados ou redivididos.
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
 - Highsmith, Jim. *Agile Project Management*. 2ª ed. Addison-Wesley, 2009.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — planejamento de migração.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Planejamento de migração.

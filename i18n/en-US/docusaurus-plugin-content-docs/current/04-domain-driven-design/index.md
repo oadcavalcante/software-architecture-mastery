@@ -2,7 +2,7 @@
 id: domain-driven-design
 title: Domain-Driven Design
 sidebar_position: 0
-description: Structuring software from the domain — and deciding where the cost of doing so is worth it.
+description: Structuring software from the domain, and deciding where the cost of doing so is worth it.
 doc_type: index
 level: 2
 difficulty: intermediate
@@ -13,14 +13,14 @@ objective: >
 prerequisites: [software-design]
 related: [design-patterns, system-design, enterprise-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
 # Domain-Driven Design
 
 DDD is the proposal that the structure of the software should mirror the structure of the
-business — and that the language used in the code should be the same one used by whoever
+business, and that the language used in the code should be the same one used by whoever
 understands the problem.
 
 ## The problem this section addresses
@@ -35,7 +35,7 @@ DDD attacks that by eliminating the translation: the code uses the domain's term
 the exact meaning they have in the domain.
 
 The second problem is one of organizational scale. A single, consistent model for the whole
-company is appealing and impossible — "customer" means genuinely different things in
+company is appealing and impossible: "customer" means genuinely different things in
 billing, logistics and support. Forcing a common model produces a schema that serves nobody
 well. Strategic DDD resolves that by admitting multiple models with explicit boundaries.
 
@@ -43,7 +43,7 @@ well. Strategic DDD resolves that by admitting multiple models with explicit bou
 
 **Strategic DDD.** Domain, subdomain, core domain, supporting domain and generic domain.
 Bounded context, context mapping and anti-corruption layer. This is the part of DDD that
-decides architecture — and the one most frequently skipped.
+decides architecture, and the one most frequently skipped.
 
 **Ubiquitous language.** The mechanism that makes the rest work. Without it, tactical DDD
 becomes a set of naming conventions with no effect.
@@ -70,7 +70,7 @@ rules here complex enough to pay for the tactical part?".
 
 ## Reading order
 
-Strategic before tactical, always. The reverse order — the one most tutorials present —
+Strategic before tactical, always. The reverse order (the one most tutorials present)
 produces people who know how to write an aggregate and do not know how to decide where it
 should live.
 
@@ -82,7 +82,7 @@ slogan.
 
 You can talk to a business expert and come away with a map of subdomains. You can argue
 where a boundary should be and why. You can recognize when two teams are using the same
-word for different things — which is almost always the symptom of a missing bounded
+word for different things. That is almost always the symptom of a missing bounded
 context.
 
 And you can say no to tactical DDD without guilt, in the subdomain where it does not pay

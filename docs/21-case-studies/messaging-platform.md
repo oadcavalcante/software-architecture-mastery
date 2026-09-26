@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, video-streaming, ride-sharing]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ Cerca de 40% do volume é entre pessoas, e 60% envolve uma conta empresarial de 
 
 O produto tem uma exigência que o distingue de quase todos os outros deste conjunto: **a
 percepção de tempo real é o produto**. Uma mensagem que demora 4 segundos para aparecer não é
-uma mensagem atrasada — é um produto quebrado, e o usuário reenvia.
+uma mensagem atrasada: é um produto quebrado, e o usuário reenvia.
 
 Duas pressões motivam a revisão da arquitetura:
 
@@ -53,7 +53,7 @@ milhões por ano, e a maior parte delas está ociosa a maior parte do tempo.
 ## Requisitos Funcionais
 
 Para o **usuário**: enviar e receber mensagens de texto, imagem, áudio e documento; ver o estado
-de cada mensagem enviada — enviada, entregue, lida; participar de conversas em grupo de até
+de cada mensagem enviada (enviada, entregue, lida); participar de conversas em grupo de até
 2.000 membros; buscar no histórico; e receber notificação quando o aplicativo está fechado.
 
 Para a **conta empresarial**: receber mensagens por interface de programação; responder por
@@ -66,12 +66,11 @@ mesmo usuário.
 
 O requisito de entrega "exatamente uma vez" é literalmente impossível de garantir num sistema
 distribuído com falha de rede. O que se pode garantir é entrega **ao menos uma vez** com
-deduplicação no destino — e é essa distinção que decide o desenho.
+deduplicação no destino. É essa distinção que decide o desenho.
 
 Vale explicitar por que é impossível, porque a formulação aparece em requisitos de produto o
 tempo todo. Se o remetente envia e não recebe confirmação, ele não sabe se a mensagem chegou.
-Reenviar arrisca duplicar; não reenviar arrisca perder. Não existe protocolo que resolva isso —
-a informação que decidiria simplesmente não existe do lado do remetente. O que se faz é escolher
+Reenviar arrisca duplicar; não reenviar arrisca perder. Não existe protocolo que resolva isso: a informação que decidiria simplesmente não existe do lado do remetente. O que se faz é escolher
 o erro tolerável (duplicar) e eliminá-lo no destino, onde a informação existe.
 
 Escrever o requisito como "o usuário nunca vê uma mensagem duplicada nem fora de ordem" em vez
@@ -123,7 +122,7 @@ origem da maior parte da complexidade real do sistema.
 E ela interage mal com a restrição de conectividade intermitente. Um usuário com celular e
 desktop pode ter o desktop desligado por uma semana; ao ligá-lo, ele precisa receber tudo o que
 aconteceu, na ordem, sem duplicar o que já foi lido no celular. Isso significa que o estado de
-leitura é por dispositivo, mas o estado de "lida" que o remetente vê é por usuário — dois
+leitura é por dispositivo, mas o estado de "lida" que o remetente vê é por usuário: dois
 conceitos que a interface apresenta como um só.
 
 Grande parte dos defeitos históricos do produto vinha de tratar esses dois estados como a mesma
@@ -158,7 +157,7 @@ distribuição de fanout
 entregas/s no pico (mensagens × destinatários)   ~1,4 milhão/s
 ```
 
-Um milhão e quatrocentas mil entregas por segundo é o número que dimensiona o sistema — e ele é
+Um milhão e quatrocentas mil entregas por segundo é o número que dimensiona o sistema. Ele é
 12,5× o número de mensagens no mesmo pico, porque cada mensagem alcança 12,5 destinatários em
 média, por causa dos grupos.
 
@@ -228,11 +227,11 @@ custo             alto para conversas pouco ativas
 | **Total ponderado** | | **5,0** | **8,3** | **7,5** |
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com sincronização entre dispositivos em 35%, os
-totais viram 4,5 / 8,0 / 8,1 — B e C empatam na prática, com 0,1 de diferença numa escala
+totais viram 4,5 / 8,0 / 8,1. B e C empatam na prática, com 0,1 de diferença numa escala
 subjetiva. Esse é o cenário em que o produto se torna multiplataforma pesado, com desktop, web e
 vários móveis por usuário; ele não decide sozinho, mas mostra onde a decisão fica frágil.
 
-Com custo em 40%, viram 6,2 / 8,2 / 6,1 — a Opção B amplia a vantagem sobre C.
+Com custo em 40%, viram 6,2 / 8,2 / 6,1. A Opção B amplia a vantagem sobre C.
 
 ## Decisão
 
@@ -242,11 +241,11 @@ persistente ou por notificação, conforme o estado do dispositivo.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** a ordem não fosse requisito — em produtos de notificação unidirecional,
+**Opção A venceria se** a ordem não fosse requisito: em produtos de notificação unidirecional,
 por exemplo, em que cada mensagem é independente. Não é o caso de conversa.
 
 **Opção C venceria se** o número médio de dispositivos por usuário crescesse significativamente,
-ou se a retenção no servidor passasse a ser indefinida — casos em que o registro deixa de ser
+ou se a retenção no servidor passasse a ser indefinida: casos em que o registro deixa de ser
 custo adicional e passa a ser o armazenamento principal. A condição está registrada: se a média
 de dispositivos passar de 3, ou se a retenção server-side for estendida além de 2 anos, a
 decisão é reavaliada.
@@ -293,7 +292,7 @@ volume, a contenção é distribuída naturalmente.
 
 Grupos muito ativos são a exceção: um grupo de 2.000 membros com 40 mensagens por segundo
 serializa nesse contador. O limite medido é de cerca de 900 mensagens por segundo por conversa,
-bem acima do observado em qualquer grupo real — e o número está registrado como condição de
+bem acima do observado em qualquer grupo real, e o número está registrado como condição de
 revisão.
 
 **Mensagem.**
@@ -318,7 +317,7 @@ conversa, e a sincronização é a diferença entre a posição do dispositivo e
 conversa.
 
 Ela também resolve a entrega confiável. Uma mensagem só é considerada entregue quando o
-dispositivo confirma o recebimento avançando sua posição — e enquanto isso, ela permanece
+dispositivo confirma o recebimento avançando sua posição. Enquanto isso, ela permanece
 disponível para reenvio. Isso implementa entrega ao menos uma vez com deduplicação por número
 de sequência, que é a formulação honesta de "exatamente uma vez".
 
@@ -326,18 +325,17 @@ Ver [garantias de entrega](/06-distributed-systems/delivery-guarantees.md).
 
 Uma consequência prática dessa tabela é que o custo de armazenamento da fila de pendências é
 proporcional ao número de dispositivos inativos, não ao volume de mensagens. Um usuário com um
-dispositivo desligado há trinta dias acumula pendências em todas as conversas ativas dele — e é
-por isso que a retenção no servidor é de 90 dias, com um limite por dispositivo além do qual a
+dispositivo desligado há trinta dias acumula pendências em todas as conversas ativas dele. É por isso que a retenção no servidor é de 90 dias, com um limite por dispositivo além do qual a
 sincronização é truncada e o cliente recebe apenas o histórico recente.
 
 O limite foi definido em 20 mil mensagens pendentes por dispositivo. Acima disso, a
 sincronização completa levaria minutos e consumiria dados móveis de forma que os usuários
-relataram como problema — a decisão foi truncar e oferecer carregamento sob demanda do
+relataram como problema. A decisão foi truncar e oferecer carregamento sob demanda do
 histórico anterior.
 
 **Sessão.** Armazenamento em memória com TTL curto, mapeando dispositivo para nó de conexão.
 Uma sessão expirada simplesmente significa que o dispositivo será tratado como offline, e a
-mensagem irá por notificação — o que torna a perda de estado de sessão inofensiva.
+mensagem irá por notificação. Isso torna a perda de estado de sessão inofensiva.
 
 ## Integração
 
@@ -358,14 +356,14 @@ grupos grandes, e é o que separa "enviada" de "entregue" no produto.
 
 **Grupos.** A expansão de um envio em N destinatários acontece no Roteador, de forma assíncrona.
 Para grupos até 200 membros, a expansão é imediata; acima disso, é feita em lotes com prioridade
-por atividade recente do destinatário — quem está com a conversa aberta recebe primeiro.
+por atividade recente do destinatário: quem está com a conversa aberta recebe primeiro.
 
 Essa priorização foi uma decisão de produto com efeito grande: em grupos de 2.000 membros, a
 entrega completa leva até 8 segundos, e priorizar os ativos faz com que a conversa em andamento
 não perceba atraso.
 
 **Notificação.** Para dispositivos offline. É o único ponto do sistema com dependência externa no
-caminho de entrega, e ele é assíncrono e com repetição — a mensagem permanece na fila de
+caminho de entrega, e ele é assíncrono e com repetição: a mensagem permanece na fila de
 pendências independentemente do resultado da notificação.
 
 **Reconexão.** Quando um dispositivo reconecta, ele informa sua última sequência confirmada por
@@ -405,18 +403,17 @@ capacidade é trivial. O custo por conexão é o que a Fase 2 do plano ataca.
 **Mensagens** escalam por partição de conversa. O contador e o armazenamento são particionados
 pelo mesmo identificador, o que mantém tudo de uma conversa junto.
 
-**Entregas** — 1,4 milhão por segundo — escalam por número de roteadores, que são sem estado.
+**Entregas** (1,4 milhão por segundo) escalam por número de roteadores, que são sem estado.
 
 O ponto de contenção real não é nenhum dos três: é a **expansão de grupos grandes durante
-picos**. Um evento que gere atividade simultânea em muitos grupos grandes — um jogo importante,
-por exemplo — produz um pico de entregas desproporcional ao pico de mensagens.
+picos**. Um evento que gere atividade simultânea em muitos grupos grandes (um jogo importante, por exemplo) produz um pico de entregas desproporcional ao pico de mensagens.
 
 A mitigação é a fila de expansão com prioridade e a aceitação explícita de que, nesses momentos,
 a entrega a membros inativos de grupos grandes pode levar dezenas de segundos.
 
 Essa aceitação foi negociada com a área de produto e registrada, e é o tipo de decisão que
 frequentemente fica implícita. A alternativa seria dimensionar a capacidade de expansão para o
-pico de eventos raros — o que significa capacidade ociosa a maior parte do ano — ou degradar
+pico de eventos raros (o que significa capacidade ociosa a maior parte do ano) ou degradar
 indistintamente, atrasando também quem está com a conversa aberta.
 
 Priorizar por atividade recente é o que permite que a experiência percebida se mantenha
@@ -432,7 +429,7 @@ usuário percebe uma reconexão, que o aplicativo já trata como caso normal.
 Se o **Serviço de Sessão** fica indisponível, todos os dispositivos são tratados como offline e
 a entrega vai por notificação. É mais lento e mais caro, e funciona.
 
-Se o **Serviço de Mensagem** falha, o envio para. Não há degradação — aceitar uma mensagem sem
+Se o **Serviço de Mensagem** falha, o envio para. Não há degradação: aceitar uma mensagem sem
 atribuir sequência quebraria a garantia de ordem, que é o requisito central.
 
 Se a **Notificação** externa falha, mensagens ficam na fila de pendências e são entregues quando
@@ -461,7 +458,7 @@ A métrica de **lacunas detectadas** é a mais importante do conjunto para corre
 diretamente se o transporte está perdendo mensagens, e o número de lacunas preenchidas mostra que
 o mecanismo de recuperação está funcionando.
 
-Antes da Opção B, essa métrica não existia — sem numeração, não havia como saber que uma
+Antes da Opção B, essa métrica não existia: sem numeração, não havia como saber que uma
 mensagem tinha se perdido, e a perda aparecia como reclamação de usuário semanas depois.
 
 ## Implantação
@@ -471,7 +468,7 @@ migração natural dos clientes e é reiniciado. Uma implantação completa da f
 minutos, e é feita fora dos dois picos diários.
 
 O Serviço de Mensagem exige mais cuidado, porque uma mudança no formato de mensagem precisa ser
-compatível com clientes de versões antigas — parte da base roda versões de mais de um ano. A
+compatível com clientes de versões antigas: parte da base roda versões de mais de um ano. A
 regra é de compatibilidade por 18 meses.
 
 ## Estratégia de Evolução
@@ -480,8 +477,7 @@ regra é de compatibilidade por 18 meses.
 dispositivo, com o cliente ainda ordenando por carimbo de tempo. A numeração é gravada e
 comparada, sem ser usada.
 
-O período de comparação mediu a real taxa de desordem: 0,9% relatados subestimavam o problema —
-a medição encontrou 1,7% de mensagens que teriam sido exibidas fora de ordem, sendo que apenas
+O período de comparação mediu a real taxa de desordem: 0,9% relatados subestimavam o problema. A medição encontrou 1,7% de mensagens que teriam sido exibidas fora de ordem, sendo que apenas
 metade era percebida pelo usuário.
 
 **Fase 2 (meses 6–9): ordenação e deduplicação pelo cliente.** O aplicativo passa a ordenar por
@@ -534,14 +530,13 @@ reclamações sobre ordem de mensagens      -96%
 ```
 
 As 1.100 mensagens por dia recuperadas por detecção de lacuna são o resultado mais revelador:
-elas estavam sendo perdidas antes, e ninguém sabia. A numeração não apenas resolveu a ordem —
-ela tornou a perda observável e recuperável.
+elas estavam sendo perdidas antes, e ninguém sabia. A numeração não apenas resolveu a ordem; ela tornou a perda observável e recuperável.
 
 ## O que este case ensina
 
 **"Exatamente uma vez" é entrega repetida com deduplicação no destino.** Não existe garantia de
 entrega única sobre uma rede não confiável. O que existe é numerar, repetir até confirmar, e
-descartar duplicata pelo número — e o usuário percebe isso como entrega única.
+descartar duplicata pelo número, e o usuário percebe isso como entrega única.
 
 **A ordem precisa ser estabelecida em um ponto.** Relógios de dispositivos divergem em minutos.
 Qualquer ordenação que dependa deles falha, e a falha é intermitente e difícil de reproduzir.
@@ -551,7 +546,7 @@ apareciam como reclamação. Depois, viraram 1.100 lacunas diárias detectadas e
 automaticamente. A instrumentação veio de graça com a solução de ordem.
 
 **A conexão persistente não é obrigatória.** Metade das conexões estava ociosa, e encerrá-las
-não degradou a experiência — porque o mecanismo de notificação já existia para dispositivos
+não degradou a experiência, porque o mecanismo de notificação já existia para dispositivos
 offline. Reconhecer que o dispositivo ocioso e o dispositivo offline podem ser tratados igual
 foi o que entregou a meta de custo.
 
@@ -565,7 +560,7 @@ foi o que entregou a meta de custo.
 ## Exercício Prático
 
 Descreva o que acontece quando um usuário envia uma mensagem, o cliente não recebe a confirmação
-e reenvia — e o servidor tinha recebido a primeira.
+e reenvia, e o servidor tinha recebido a primeira.
 
 Sem número de sequência atribuído pelo servidor, o que impede a duplicata? A resposta mostra por
 que a deduplicação precisa de um identificador estável gerado no cliente **e** de ordem

@@ -2,7 +2,7 @@
 id: apis
 title: APIs
 sidebar_position: 4
-description: O contrato entre partes — caro de mudar porque o código do outro lado não é seu.
+description: O contrato entre partes, caro de mudar porque o código do outro lado não é seu.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [request-response, pagination, integration-architecture]
 canonical_for: [API, contrato de API]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Uma API é o contrato entre quem oferece uma capacidade e quem a consome.
 
 O que a torna cara de mudar é o outro lado: existe código que você não
-controla — e frequentemente nem conhece.
+controla, e frequentemente nem conhece.
 
 ## Problema
 
@@ -33,7 +33,7 @@ quem a expõe, os nomes vêm das tabelas, os campos são os que existem.
 
 Isso funciona no primeiro dia e cobra depois.
 
-Quando o modelo interno muda — e ele muda — a API muda junto, porque nunca foi
+Quando o modelo interno muda (e ele muda) a API muda junto, porque nunca foi
 separada dele. Cada refatoração interna vira mudança de contrato.
 
 E quando um requisito novo chega, a API não comporta: ela expressa a estrutura de
@@ -52,7 +52,7 @@ Isso custa mapeamento e compra independência: o modelo interno pode ser
 reestruturado sem tocar consumidores.
 
 Ver [anti-corruption
-layer](/04-domain-driven-design/anti-corruption-layer.md) — o mesmo princípio,
+layer](/04-domain-driven-design/anti-corruption-layer.md): o mesmo princípio,
 do lado de quem consome.
 
 ### Evolução é a decisão central
@@ -69,7 +69,7 @@ Toda API muda. O que se projeta é **como** ela muda.
 | Estreitar validação | Não |
 | Tornar opcional um campo obrigatório da requisição | Sim |
 
-A primeira e a quinta linhas dependem do comportamento do consumidor — o que
+A primeira e a quinta linhas dependem do comportamento do consumidor, o que
 significa que **compatibilidade é uma propriedade da dupla**, não da API sozinha.
 
 Por isso a documentação precisa dizer explicitamente: *consumidores devem ignorar
@@ -89,7 +89,7 @@ migrando.
 
 ### Granularidade do recurso
 
-Uma API muito fina obriga o consumidor a fazer várias chamadas para uma operação —
+Uma API muito fina obriga o consumidor a fazer várias chamadas para uma operação,
 o que multiplica latência, especialmente em rede móvel.
 
 Uma API muito grossa devolve mais do que qualquer consumidor precisa, e cada
@@ -105,12 +105,12 @@ O que a API devolve em caso de falha é tão contrato quanto o caminho feliz: qu
 códigos, com que corpo, quais são retentáveis, quais são permanentes.
 
 Uma API que devolve o mesmo erro genérico para tudo obriga cada consumidor a
-adivinhar se deve repetir — e a resposta errada produz tempestade de retentativa
+adivinhar se deve repetir, e a resposta errada produz tempestade de retentativa
 ou perda silenciosa.
 
 ## Modelo Mental
 
-**Projete a API como se você não pudesse mudá-la — e depois projete como ela vai
+**Projete a API como se você não pudesse mudá-la, e depois projete como ela vai
 mudar.**
 
 ## Quando Usar
@@ -136,11 +136,11 @@ cerimônia sem benefício.
 
 ## Alternativas
 
-- **Chamada de função** — dentro do processo.
-- **Evento** — quando o consumidor reage a um fato e não precisa de resposta. Ver
+- **Chamada de função**: dentro do processo.
+- **Evento**: quando o consumidor reage a um fato e não precisa de resposta. Ver
   [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
-- **Arquivo ou lote** — quando o volume é grande e a latência tolerada é alta.
-- **Consulta direta a uma projeção** — para leitura de alto volume dentro da mesma
+- **Arquivo ou lote**: quando o volume é grande e a latência tolerada é alta.
+- **Consulta direta a uma projeção**: para leitura de alto volume dentro da mesma
   organização.
 
 ## Trade-offs
@@ -188,7 +188,7 @@ migração dos consumidores nunca acontece.
 
 ## Exemplo Real
 
-Uma API interna de catálogo devolvia a entidade `Produto` serializada — 42 campos,
+Uma API interna de catálogo devolvia a entidade `Produto` serializada: 42 campos,
 incluindo identificadores internos, campos de controle e o histórico de preços.
 
 Três consequências ao longo de dois anos.
@@ -198,12 +198,12 @@ simultaneamente. Ninguém sabia que eles existiam.
 
 O aplicativo móvel baixava 42 campos para exibir três, em conexões ruins.
 
-E um consumidor passou a depender de um campo de controle interno — `versaoRegistro` —
+E um consumidor passou a depender de um campo de controle interno (`versaoRegistro`)
 para implementar cache. Esse campo deixou de existir numa migração, e o cache do
 consumidor parou de invalidar.
 
 A reformulação criou um tipo próprio da API, com os campos que os consumidores de
-fato usavam — identificados campo a campo, com aviso de remoção e prazo, não por
+fato usavam, identificados campo a campo, com aviso de remoção e prazo, não por
 suposição.
 
 Foram 11 campos. Pelos outros 31, ninguém reclamou dentro do prazo.
@@ -231,15 +231,15 @@ log. Dá a lista real de quem de fato chama, incluindo quem nunca se cadastrou.
 **Análise de tráfego.** Origem por rede. Funciona sem cooperação do consumidor e
 identifica mal quando há proxy no caminho.
 
-**Perguntar.** Funciona em organizações pequenas e falha em silêncio nas demais —
+**Perguntar.** Funciona em organizações pequenas e falha em silêncio nas demais:
 quem não sabe que consome não responde.
 
-A segunda equilibra melhor custo e confiabilidade — e responde quem chama, não o
+A segunda equilibra melhor custo e confiabilidade, e responde quem chama, não o
 que é lido. O produtor não enxerga quais campos da resposta o consumidor consome:
 para saber, ou a requisição declara os campos que quer, e aí o uso aparece no log,
 ou se anuncia a remoção de um campo com prazo e vê-se quem reclama. A lista de
 consumidores é o que torna o segundo caminho viável: dá a quem avisar. Qualquer
-dos dois revela que a maior parte de uma API grande costuma ser ignorada — e cada
+dos dois revela que a maior parte de uma API grande costuma ser ignorada, e cada
 campo não lido é acoplamento que pode ser removido.
 
 Sem essa informação, toda mudança de contrato é aposta, e a única política segura
@@ -247,10 +247,10 @@ vira nunca mudar nada.
 
 ## Conceitos Relacionados
 
-- [Serviços](/05-system-design/services.md) — quem expõe.
-- [Request/Response](/05-system-design/request-response.md) — a mecânica.
-- [Paginação](/05-system-design/pagination.md) — o caso que toda API de listagem enfrenta.
-- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md) — quais
+- [Serviços](/05-system-design/services.md): quem expõe.
+- [Request/Response](/05-system-design/request-response.md): a mecânica.
+- [Paginação](/05-system-design/pagination.md): o caso que toda API de listagem enfrenta.
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md): quais
   mudanças são compatíveis, e em que direção.
 
 ## Exercício Prático
@@ -258,7 +258,7 @@ vira nunca mudar nada.
 Escolha uma API do seu sistema e responda: quem são os consumidores? Como você
 saberia se algum quebrasse?
 
-Depois descubra quais campos da resposta são de fato lidos — anunciando a remoção
+Depois descubra quais campos da resposta são de fato lidos, anunciando a remoção
 de um com prazo, se não houver como o consumidor declarar o que usa. A diferença
 entre o que a API devolve e o que alguém usa é o acoplamento desnecessário.
 
@@ -271,5 +271,5 @@ entre o que a API devolve e o que alguém usa é o acoplamento desnecessário.
 ## Para Aprofundar
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
-- Newman, Sam. *Building Microservices*. 2ª ed., 2021 — evolução de contrato.
+- Newman, Sam. *Building Microservices*. 2ª ed., 2021. Evolução de contrato.
 - Preston-Werner, Tom. *Semantic Versioning 2.0.0*, 2013.

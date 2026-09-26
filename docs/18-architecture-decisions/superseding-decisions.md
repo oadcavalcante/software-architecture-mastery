@@ -2,7 +2,7 @@
 id: superseding-decisions
 title: Superação de Decisões
 sidebar_position: 9
-description: Mudar de ideia sem apagar o registro — a mecânica que mantém o histórico útil.
+description: "Mudar de ideia sem apagar o registro: a mecânica que mantém o histórico útil."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: [superação de decisão, cadeia de decisões, mudança de contexto registrada]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -51,7 +51,7 @@ O terceiro é o mais comum na prática e o mais confuso: alguém encontra o ADR-
 "síncrono", não encontra o ADR-047, e conclui que a decisão vigente é síncrona.
 
 E há um problema anterior a todos: a decisão que **precisa** ser superada e não é. Ela
-continua registrada como vigente enquanto o sistema já faz outra coisa — estado pior que a
+continua registrada como vigente enquanto o sistema já faz outra coisa: estado pior que a
 ausência de registro, porque o registro passa a mentir com aparência de autoridade.
 
 ## Conceitos Centrais
@@ -66,7 +66,7 @@ ausência de registro, porque o registro passa a mentir com aparência de autori
 5. o índice reflete a mudança
 ```
 
-O passo 1 é o que se costuma pular. O ADR novo não é uma emenda — ele precisa de contexto,
+O passo 1 é o que se costuma pular. O ADR novo não é uma emenda: ele precisa de contexto,
 alternativas e consequências próprios, porque o contexto agora é outro.
 
 ### O contexto do sucessor inclui o que mudou
@@ -135,8 +135,8 @@ realidade        4 serviços usam PostgreSQL, 3 usam DynamoDB, 1 usa Mongo
 Aqui a superação é retroativa: escreve-se um ADR que reconhece a prática real, explica como
 se chegou nela, e decide o que vale daqui para frente.
 
-Isso é desconfortável e é o registro mais honesto disponível. A alternativa — manter um ADR
-que descreve uma realidade inexistente — corrói a confiança em todo o conjunto.
+Isso é desconfortável e é o registro mais honesto disponível. A alternativa, manter um ADR
+que descreve uma realidade inexistente, corrói a confiança em todo o conjunto.
 
 ### Ler a cadeia ensina
 
@@ -150,14 +150,14 @@ cadeias longas sobre o mesmo tema    o problema real não foi endereçado
 ```
 
 O último padrão é o mais informativo. Três superações sobre a mesma questão em quatro anos
-raramente indicam contexto mutável — indicam que a decisão está tratando o sintoma.
+raramente indicam contexto mutável: indicam que a decisão está tratando o sintoma.
 
 ### O ADR superado continua correto
 
 Vale insistir, porque o impulso contrário é forte: um ADR superado não estava errado. Ele
 registra uma decisão adequada ao contexto dela.
 
-Tratá-lo como erro desincentiva o registro — se ser superado é vergonhoso, escreve-se menos
+Tratá-lo como erro desincentiva o registro: se ser superado é vergonhoso, escreve-se menos
 e supera-se menos.
 
 ## Modelo Mental
@@ -174,25 +174,25 @@ sobre o seu momento.
 
 ## Quando Não Usar
 
-**Quando só parte do escopo muda e o original declarou esse escopo com clareza** — um ADR
+**Quando só parte do escopo muda e o original declarou esse escopo com clareza**: um ADR
 que restringe o anterior preserva a parte que continua valendo, enquanto superar por
 inteiro obriga o sucessor a redecidir o que ninguém questionou.
 
-**Quando o contexto não mudou** e a revisão nasce da preferência de quem chegou depois — sem
+**Quando o contexto não mudou** e a revisão nasce da preferência de quem chegou depois: sem
 premissa nova para citar, o sucessor não tem o que pôr na seção "o que mudou", e a cadeia
 ganha um elo que só registra troca de opinião.
 
-**Quando a reavaliação mantém a decisão** — superar um ADR por outro idêntico com data nova
+**Quando a reavaliação mantém a decisão**: superar um ADR por outro idêntico com data nova
 alonga a cadeia sem informação; o registro certo é uma revisão sem mudança.
 
-**Para decisões que nunca foram implementadas** — o status correto é descontinuado.
+**Para decisões que nunca foram implementadas**: o status correto é descontinuado.
 
 ## Alternativas
 
-- **Descontinuar** — quando não há sucessor.
-- **ADR complementar** — quando a decisão é detalhada, não alterada.
-- **Restringir escopo** — um ADR novo que limita o alcance do anterior, sem superá-lo.
-- **Revisão sem mudança** — registrar que a decisão foi reavaliada e mantida, com data. Ver
+- **Descontinuar**: quando não há sucessor.
+- **ADR complementar**: quando a decisão é detalhada, não alterada.
+- **Restringir escopo**: um ADR novo que limita o alcance do anterior, sem superá-lo.
+- **Revisão sem mudança**: registrar que a decisão foi reavaliada e mantida, com data. Ver
   [status](/18-architecture-decisions/adr-status.md).
 
 A última é subutilizada e barata: um bloco de "revisado em (data), mantido" informa que
@@ -230,15 +230,15 @@ alguém verificou, o que é diferente de ninguém ter olhado.
 
 **Escrever o sucessor como emenda** ao anterior.
 
-**Não datar a superação** — sem data, não se sabe por quanto tempo a decisão vigorou, e o
+**Não datar a superação**: sem data, não se sabe por quanto tempo a decisão vigorou, e o
 sinal de "superada em menos de 1 ano" deixa de ser legível na cadeia.
 
 **Não reconhecer divergência da prática**, mantendo o ADR ficcional.
 
-**Não registrar revisões que mantiveram a decisão** — uma decisão verificada e mantida fica
+**Não registrar revisões que mantiveram a decisão**: uma decisão verificada e mantida fica
 indistinguível de uma que ninguém olhou.
 
-**Numerar o sucessor com o mesmo número** do antecessor, com sufixo — quebra a
+**Numerar o sucessor com o mesmo número** do antecessor, com sufixo: quebra a
 referenciabilidade.
 
 ## Exemplo Real
@@ -257,8 +257,8 @@ ADR-071 (2025)  provedor de identidade externo — supera o 052
 Cinco decisões, quatro superações, mesma questão. Cada ADR era bem escrito, com contexto,
 alternativas e consequências.
 
-Uma revisão anual de arquitetura leu a cadeia inteira de uma vez — algo que ninguém tinha
-feito — e o padrão apareceu:
+Uma revisão anual de arquitetura leu a cadeia inteira de uma vez (algo que ninguém tinha
+feito) e o padrão apareceu:
 
 ```text
 ADR-021  motivo do descarte do 008: escalabilidade da sessão em banco
@@ -268,14 +268,14 @@ ADR-052  motivo do descarte do 034: a lista de revogação virou estado,
 ADR-071  motivo do descarte do 052: complexidade operacional
 ```
 
-Os ADRs 021, 034 e 052 giravam em torno de uma tensão conhecida — revogação exige estado, e
-tokens sem estado não permitem revogação — que nenhum deles nomeava. Cada decisão resolvia
+Os ADRs 021, 034 e 052 giravam em torno de uma tensão conhecida (revogação exige estado, e
+tokens sem estado não permitem revogação) que nenhum deles nomeava. Cada decisão resolvia
 o sintoma da anterior e reintroduzia o problema da que veio antes dela.
 
 O que saiu da revisão:
 
 **Revisão de cadeia** incorporada à revisão anual: toda cadeia com três ou mais superações
-é lida por inteiro, com uma pergunta única — "qual é a tensão que não foi nomeada?".
+é lida por inteiro, com uma pergunta única ("qual é a tensão que não foi nomeada?").
 
 **Seção de "história desta decisão"** nos sucessores de cadeias longas, resumindo as
 anteriores e o que cada uma tentou resolver.
@@ -290,15 +290,15 @@ três ou mais superações. Todas as nove, examinadas, mostravam o mesmo padrão
 Duas delas foram reabertas com base nisso.
 
 O aprendizado que ficou: cada ADR isolado da cadeia de autenticação era defensável. O
-problema só era visível na sequência — e a sequência só existia porque nenhum ADR tinha
+problema só era visível na sequência, e a sequência só existia porque nenhum ADR tinha
 sido apagado ou editado.
 
 ## Conceitos Relacionados
 
-- [Status](/18-architecture-decisions/adr-status.md) — os estados e a imutabilidade.
-- [Contexto](/18-architecture-decisions/adr-context.md) — o que mudou.
-- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão como gatilho.
-- [Modernização](/16-legacy-modernization/index.md) — decisões revistas em sistemas
+- [Status](/18-architecture-decisions/adr-status.md): os estados e a imutabilidade.
+- [Contexto](/18-architecture-decisions/adr-context.md): o que mudou.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md): a condição de reversão como gatilho.
+- [Modernização](/16-legacy-modernization/index.md): decisões revistas em sistemas
   antigos.
 
 ## Exercício Prático

@@ -2,7 +2,7 @@
 id: strong-vs-eventual-consistency
 title: Strong vs. Eventual Consistency
 sidebar_position: 12
-description: The inconsistency window is a business requirement — and it needs a number.
+description: The inconsistency window is a business requirement, and it needs a number.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [consistency-vs-availability, sync-vs-async, sql-vs-nosql]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -42,7 +42,7 @@ of 6 hours are completely different decisions, and the same word describes both.
 
 ## Problem
 
-"We are eventually consistent" is used as if it were a design. It is not — it is the absence of
+"We are eventually consistent" is used as if it were a design, but it is the absence of
 three decisions:
 
 ```text
@@ -55,7 +55,7 @@ Without the first, there is no way to monitor or alarm. Without the second, the 
 incoherent states with no explanation. Without the third, permanent divergences go unnoticed.
 
 The symmetric error is applying strong consistency to everything, paying for coordination in
-operations that tolerated seconds of delay — which shows up as latency on every read and as
+operations that tolerated seconds of delay. That shows up as latency on every read and as
 unavailability when a replica goes down.
 
 ## Core Concepts
@@ -74,8 +74,8 @@ delivery position on the map                 < 10 s
 With a number, the window becomes an alarm: divergence above the limit is an incident, not
 "that's just how it is".
 
-Without a number, there is no way to distinguish normal operation from a replication failure —
-which is exactly how permanent divergences survive for months.
+Without a number, there is no way to distinguish normal operation from a replication failure.
+That is exactly how permanent divergences survive for months.
 
 ### Read-your-own-writes
 
@@ -117,7 +117,7 @@ across regions                       hundreds
 write quorum                         latency of the slowest node in the quorum
 ```
 
-This is paid on **every** operation, every day — not only during failures. It is the reason
+This is paid on **every** operation, every day, not only during failures. It is the reason
 PACELC is more relevant day to day than CAP. See
 [PACELC](/06-distributed-systems/pacelc.md).
 
@@ -130,8 +130,8 @@ detection of permanent divergence, not only of lag
 reconciliation process, with a record
 ```
 
-The third item is the most forgotten: high lag is detectable by a metric; permanent divergence —
-a lost write — does not show up as lag. It requires periodic comparison.
+The third item is the most forgotten: high lag is detectable by a metric; permanent divergence
+(a lost write) does not show up as lag. It requires periodic comparison.
 
 See [observability](/13-observability/index.md).
 
@@ -147,7 +147,7 @@ action blocked until confirmation, when critical
 ```
 
 Hiding the inconsistency produces the worst experience: the user sees numbers that do not add up
-and concludes the system is wrong — which, from their point of view, it is.
+and concludes the system is wrong, which, from their point of view, it is.
 
 ### Signs of the wrong choice
 
@@ -180,7 +180,7 @@ migration of data of unknown quality.
 
 ## Mental Model
 
-**Eventual when?** Without a number, it is not a design — it is the absence of a decision.
+**Eventual when?** Without a number, it is not a design but the absence of a decision.
 
 ## When to Use
 
@@ -212,11 +212,11 @@ Prefer **eventual consistency** when:
 
 ## Alternatives
 
-- **Intermediate guarantees** — read-your-own-writes and monotonic reads solve most of the
+- **Intermediate guarantees**: read-your-own-writes and monotonic reads solve most of the
   perception of error.
-- **Strong per operation** — coordination only where the cost of the error justifies it.
-- **Read from the primary for critical cases** — keeps the replica for the rest.
-- **Reservation with confirmation** — accept fast, confirm right after, expire if not confirmed.
+- **Strong per operation**: coordination only where the cost of the error justifies it.
+- **Read from the primary for critical cases**: keeps the replica for the rest.
+- **Reservation with confirmation**: accept fast, confirm right after, expire if not confirmed.
 
 The first is the most cost-effective and the least used.
 
@@ -252,7 +252,7 @@ The first is the most cost-effective and the least used.
 ## Common Mistakes
 
 **Saying "eventually consistent" with no number.** Without the window declared and measured,
-nobody knows whether "eventual" means a hundred milliseconds or ten minutes — and the
+nobody knows whether "eventual" means a hundred milliseconds or ten minutes, and the
 difference decides whether the requirement is met.
 
 **Not handling the case of the writer themselves.** Someone who just saved and does not see the
@@ -294,7 +294,7 @@ divergence between screens in the app            ~380 (16%)
 real divergence, with a lost write               ~120 (5%)
 ```
 
-Four fifths of the tickets were not a problem of eventual consistency as such — they were the
+Four fifths of the tickets were not a problem of eventual consistency as such: they were the
 simplest and cheapest case to solve.
 
 What was designed:
@@ -311,7 +311,7 @@ reports and aggregates                     < 5 min
 **Read-your-own-writes**, implemented with routing to the primary for 10 seconds after any write
 in the session. It resolved 79% of the tickets with two weeks of work.
 
-**Strong consistency** on debit and limit-checking operations — the ones that decide whether a
+**Strong consistency** on debit and limit-checking operations, the ones that decide whether a
 transaction can occur. Measured cost: +34 ms on the p99 of those operations, accepted.
 
 **Monotonic reads** across screens, pinning the replica per session. It resolved the 16%.
@@ -340,7 +340,7 @@ absence of an intermediate guarantee that costs little. The discussion had been 
 "strong versus eventual" for two years, and the answer was in neither extreme.
 
 And the second finding was the 11-day divergence: it existed because monitoring measured **lag**,
-and a lost write does not produce lag — it produces silence.
+and a lost write does not produce lag; it produces silence.
 
 ## Related Concepts
 
@@ -355,7 +355,7 @@ and a lost write does not produce lag — it produces silence.
 List the data your system replicates and write, for each one, the tolerable inconsistency window
 in seconds.
 
-The ones you cannot fill in are the ones with no requirement — and therefore no way to be
+The ones you cannot fill in are the ones with no requirement, and therefore no way to be
 monitored.
 
 ## Interview Questions

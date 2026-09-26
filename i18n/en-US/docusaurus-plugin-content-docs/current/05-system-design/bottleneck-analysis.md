@@ -2,7 +2,7 @@
 id: bottleneck-analysis
 title: Bottleneck Analysis
 sidebar_position: 22
-description: Finding the resource that saturates first — and why optimizing any other changes nothing.
+description: Finding the resource that saturates first, and why optimizing any other changes nothing.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-planning]
 related: [capacity-planning, scalability-basics, hotspots]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,13 +29,13 @@ already had headroom.
 
 ## Problem
 
-Teams optimize what is visible, familiar or uncomfortable — rarely what limits.
+Teams optimize what is visible, familiar or uncomfortable; rarely what limits.
 
 The pattern: someone rewrites a slow function and gains 40% in that snippet. The system's
 response time does not change, because the function accounted for 3% of the total and the
 bottleneck was the database.
 
-That is not a lack of competence. It is the absence of measurement before acting — and the
+That is not a lack of competence. It is the absence of measurement before acting, and the
 measurement is fast when you know what to look for.
 
 ## Core Concepts
@@ -56,10 +56,10 @@ latency.
 
 **Network.** Egress bandwidth, especially with media.
 
-**A lock.** A serialized resource everything passes through — a counter, a hot row, a lock.
+**A lock.** A serialized resource everything passes through: a counter, a hot row, a lock.
 
-Memory rarely limits throughput directly. It shows up as latency first — garbage collection
-growing, paging, page cache contention — and the interval between that degradation and the crash
+Memory rarely limits throughput directly. It shows up as latency first (garbage collection
+growing, paging, page cache contention), and the interval between that degradation and the crash
 is usually short.
 
 ### Measure before acting
@@ -82,15 +82,15 @@ limit?**
 ### Utilization and queueing
 
 A resource does not degrade linearly. It works well up to about 70% utilization and gets worse
-fast after that; the mechanism — queue wait time growing non-linearly as utilization approaches
-100% — is in [Latency](/06-distributed-systems/latency.md).
+fast after that; the mechanism (queue wait time growing non-linearly as utilization approaches
+100%) is in [Latency](/06-distributed-systems/latency.md).
 
 The practical consequence: **a resource at 85% utilization is already degrading**, even if it has
 not gone down yet. Waiting for 100% to act is waiting for the collapse.
 
 ### The bottleneck moves
 
-Fix one, and another appears. That is not a failure — it is the expected result.
+Fix one, and another appears. That is the expected result, not a failure.
 
 The system always has a bottleneck; the question is whether it is above or below the necessary
 capacity. Optimizing until the current bottleneck is out of the way and the next one is
@@ -104,7 +104,7 @@ Without that criterion, optimization never ends.
 > The focus here is the priority order the law imposes on effort, not the parallelism ceiling it
 > defines.
 
-If a step accounts for 20% of the total time, eliminating it completely improves things by 20% —
+If a step accounts for 20% of the total time, eliminating it completely improves things by 20%,
 never more.
 
 That gives the priority order: **optimize what accounts for the largest fraction of the time**,
@@ -119,14 +119,14 @@ touching it does not change the capacity.
 
 - The system is slow or unstable and nobody knows why.
 - Before any optimization effort.
-- Before deciding to scale — scaling what is not the bottleneck is spending with no gain.
+- Before deciding to scale: scaling what is not the bottleneck is spending with no gain.
 - When validating whether an architectural change would solve the real problem.
 
 ## When Not to Use
 
 **As a substitute for measurement.** Analysis with no instrument is a guess.
 
-**When the system meets the requirement with measured headroom** — latency within the requirement
+**When the system meets the requirement with measured headroom**: latency within the requirement
 and no resource above 70% utilization. Optimizing what is already enough is cost with no return;
 without that second number, the headroom is assumed.
 
@@ -135,11 +135,11 @@ never ends.
 
 ## Alternatives
 
-- **Load test** — provoke saturation in a controlled environment, instead of waiting for
+- **Load test**: provoke saturation in a controlled environment, instead of waiting for
   production.
-- **Reduce the load** — the least considered alternative: a query that does not need to exist is
+- **Reduce the load** (the least considered alternative): a query that does not need to exist is
   the cheapest gain.
-- **Accept it** — if the bottleneck is above the requirement, it is not a problem.
+- **Accept it**: if the bottleneck is above the requirement, it is not a problem.
 
 ## Trade-offs
 
@@ -162,7 +162,7 @@ production volume.
 
 **Fixing one and not checking the next.** The bottleneck moved and nobody looked.
 
-**Ignoring the tail.** The average is fine and the 99th percentile is terrible — and that is the
+**Ignoring the tail.** The average is fine and the 99th percentile is terrible. That is the
 one the user perceives.
 
 ## Common Mistakes
@@ -170,7 +170,7 @@ one the user perceives.
 **Optimizing without measuring.**
 
 **Scaling before identifying the bottleneck.** Adding instances when the bottleneck is the
-database makes it worse — more instances, more connections, more pressure.
+database makes it worse: more instances, more connections, more pressure.
 
 **Looking only at the average.**
 
@@ -195,14 +195,14 @@ the rest                   120 ms
 ```
 
 The database accounted for 6%. A read replica would have improved things, in the best case, by
-6% — for a problem that required 73%.
+6%, for a problem that required 73%.
 
 The pricing service was the bottleneck. Investigating: it made a synchronous call to a currency
 exchange service on every request, and the rate changed twice a day.
 
 The fix was a cache with a 5-minute TTL on the rate. Latency dropped to 360 ms.
 
-After that the bottleneck moved to the database — the 3 queries became half of the remaining
+After that the bottleneck moved to the database: the 3 queries became half of the remaining
 time. But 360 ms is comfortably below the 800 ms requirement, and the team stopped.
 
 Two lessons recorded. The initial hypothesis was wrong, and it would have consumed weeks building
@@ -214,7 +214,7 @@ does not need fixing while the requirement is met.
 When distributed tracing is not available, a sequence of checks resolves most cases in minutes.
 
 **One.** Is the time inside or outside the process? Compare the request's total time with the sum
-of time spent in external calls — database, services, cache. If most of it is outside, the problem
+of time spent in external calls (database, services, cache). If most of it is outside, the problem
 is not your code.
 
 **Two.** How many queries per request? A number that grows with the quantity of items displayed is
@@ -230,7 +230,7 @@ with no component being busy.
 **Five.** Is there a lock? Lock wait time in the database, or contention on a serialized resource
 in the application.
 
-**Six.** Is the CPU saturated? If so, the profile says where. If not, the time is spent waiting —
+**Six.** Is the CPU saturated? If so, the profile says where. If not, the time is spent waiting,
 and waiting is network, disk or a lock.
 
 The order matters: the first three answer most cases in business systems, and the three cost
@@ -238,17 +238,17 @@ minutes. Starting with the CPU profile is starting with the least likely answer.
 
 ## Related Concepts
 
-- [Capacity Planning](/05-system-design/capacity-planning.md) — the estimate that precedes it.
-- [Scalability Basics](/05-system-design/scalability-basics.md) — what to do with the identified
+- [Capacity Planning](/05-system-design/capacity-planning.md): the estimate that precedes it.
+- [Scalability Basics](/05-system-design/scalability-basics.md): what to do with the identified
   bottleneck.
-- [Observability](/13-observability/index.md) — the instruments.
-- [Hotspots](/11-scalability/index.md) — when the bottleneck is a key, not a resource.
+- [Observability](/13-observability/index.md): the instruments.
+- [Hotspots](/11-scalability/index.md): when the bottleneck is a key, not a resource.
 
 ## Practical Exercise
 
 Take the most important operation in your system and find out where the time is spent, per step.
 
-If you cannot answer in minutes, instrumentation is missing — and that is the most valuable
+If you cannot answer in minutes, instrumentation is missing, and that is the most valuable
 discovery of the exercise.
 
 ## Interview Questions
@@ -260,5 +260,5 @@ discovery of the exercise.
 ## Further Reading
 
 - Gregg, Brendan. *Systems Performance*. 2nd ed., Addison-Wesley, 2020.
-- Goldratt, Eliyahu. *The Goal*, 1984 — the theory of constraints, where the idea of a bottleneck
+- Goldratt, Eliyahu. *The Goal*, 1984. The theory of constraints, where the idea of a bottleneck
   comes from.

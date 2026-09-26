@@ -2,7 +2,7 @@
 id: adr-002-async-processing
 title: "ADR-002 — Processamento Assíncrono da Confirmação"
 sidebar_position: 11
-description: Exemplo de ADR superado — assíncrono com fila no próprio banco, e a condição registrada que disparou sua substituição.
+description: "Exemplo de ADR superado: assíncrono com fila no próprio banco, e a condição registrada que disparou sua substituição."
 doc_type: adr
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-alternatives, superseding-decisions, adr-status]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::note Exemplo didático
 
 Segundo de cinco ADRs do sistema fictício **Verano**. Este é o exemplo de decisão
-**superada** — ver [ADR-004](/18-architecture-decisions/adr-004-kafka.md).
+**superada** (ver [ADR-004](/18-architecture-decisions/adr-004-kafka.md)).
 
 :::
 
@@ -51,7 +51,7 @@ nossa disponibilidade medida        98,4%
 requisito contratual                99,5%
 ```
 
-A indisponibilidade do parceiro se propaga diretamente para nós — 78% dos nossos minutos
+A indisponibilidade do parceiro se propaga diretamente para nós: 78% dos nossos minutos
 fora do ar em 2023 foram causados por ele.
 
 Restrições:
@@ -87,17 +87,17 @@ requisito contratual de 99,5% não é atingível assim.
 *Voltaria a ganhar se:* a disponibilidade do parceiro subir acima de 99,9% sustentados.
 
 **Adotar Kafka.** Descartada pelo custo operacional: um agrupamento a operar, monitorar e
-manter, com equipe sem experiência e prazo apertado. O volume atual não justifica —
+manter, com equipe sem experiência e prazo apertado. O volume atual não justifica:
 25 pedidos/s cabem folgadamente numa tabela.
 
-*Voltaria a ganhar se:* o volume passar de ~200 mensagens/s de forma sustentada — uma tarefa
-de confirmação por pedido, portanto ~200 pedidos/s —, ou se surgirem mais de três
+*Voltaria a ganhar se:* o volume passar de ~200 mensagens/s de forma sustentada (uma tarefa
+de confirmação por pedido, portanto ~200 pedidos/s), ou se surgirem mais de três
 consumidores independentes dos mesmos eventos, ou se precisarmos de retenção e
 reprocessamento de histórico.
 
 **Serviço gerenciado de filas do provedor.** Descartada por um motivo específico: não
 oferece gravação transacional junto com o pedido, o que exigiria caixa de saída de qualquer
-forma — e, tendo a caixa de saída, a tabela já resolve.
+forma. E, tendo a caixa de saída, a tabela já resolve.
 
 *Voltaria a ganhar se:* precisarmos de entrega entre sistemas, e não dentro do nosso.
 
@@ -105,16 +105,16 @@ forma — e, tendo a caixa de saída, a tabela já resolve.
 
 **Positivas (imediatas).** A indisponibilidade do parceiro deixa de derrubar a criação de
 pedido. O p99 da resposta ao cliente cai para a faixa de 200 ms. A transação que grava
-pedido e tarefa é local — sem risco de pedido sem tarefa ou tarefa sem pedido.
+pedido e tarefa é local, sem risco de pedido sem tarefa ou tarefa sem pedido.
 
 **Positivas (longo prazo).** O padrão de caixa de saída fica estabelecido e reaproveitável.
 
-**Negativas (imediatas).** O cliente recebe confirmação depois, não na resposta — o que
+**Negativas (imediatas).** O cliente recebe confirmação depois, não na resposta, o que
 exige mudança de produto: tela de "pedido em processamento" e notificação. Recusa de
 pagamento passa a chegar por notificação, não por erro de formulário.
 
 **Negativas (longo prazo).** A tabela de fila cresce e exige limpeza. Sondagem no banco
-consome conexões. Não há retenção nem reprocessamento — uma tarefa processada some.
+consome conexões. Não há retenção nem reprocessamento: uma tarefa processada some.
 
 **Neutras.** Um processo em segundo plano a operar, com alarme próprio.
 
@@ -137,13 +137,13 @@ Em julho de 2025, as quatro condições do sinal de alerta tinham sido atingidas
 Este documento permanece como registro correto da decisão de 2023: para o contexto de
 25 pedidos/s, equipe sem experiência em mensageria e prazo contratual vigente, a fila em
 banco foi a escolha adequada. A decisão vigorou por 26 meses e sustentou a produção desde a
-entrada no ar, em julho de 2024, até a substituição — doze meses.
+entrada no ar, em julho de 2024, até a substituição (doze meses).
 
 ## O que observar neste exemplo
 
 A alternativa "adotar Kafka" foi descartada com **duas condições numéricas e uma
 qualitativa**, e o Sinal de Alerta traz três medições. Dois anos depois, foram elas que
-dispararam a revisão — a decisão não precisou de
+dispararam a revisão: a decisão não precisou de
 julgamento novo, apenas de medição.
 
 O ADR registra explicitamente que a fila em banco **não foi testada acima de 200
@@ -159,6 +159,6 @@ e uma nota explicando que a decisão estava certa para o contexto dela. Ver
 ## Conceitos Relacionados
 
 - [Status](/18-architecture-decisions/adr-status.md) e [Superação](/18-architecture-decisions/superseding-decisions.md).
-- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão em ação.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md): a condição de reversão em ação.
 - [Processamento em Segundo Plano](/05-system-design/background-processing.md).
-- [ADR-004](/18-architecture-decisions/adr-004-kafka.md) — o sucessor.
+- [ADR-004](/18-architecture-decisions/adr-004-kafka.md): o sucessor.

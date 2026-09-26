@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fitness-functions]
 related: [fitness-functions, evolutionary-architecture, cost-management]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -28,12 +28,12 @@ question with evidence:
 "is the architecture improving?"
 ```
 
-With no measurement, the answer is a narrative — and narratives are settled by whoever has more
+With no measurement, the answer is a narrative, and narratives are settled by whoever has more
 authority, not by whoever is right. With measurement, the conversation changes in nature: it becomes
 about the numbers, and disagreeing with them requires proposing others.
 
-The problem is that architecture is almost always measured by **activity** — decisions made, ADRs
-written, reviews held, standards published — and none of those tells you whether anything improved.
+The problem is that architecture is almost always measured by **activity** (decisions made, ADRs
+written, reviews held, standards published), and none of those tells you whether anything improved.
 
 ## Problem
 
@@ -50,7 +50,7 @@ Every one of those numbers grows with the group's effort and none answers whethe
 better off. They are, in essence, a measurement of how much work the group did.
 
 And there is a second pattern: measuring compliance. "94% of systems follow standard X" tells you
-about adherence, not about outcomes — the standard may be wrong, and 94% compliance with a wrong
+about adherence, not about outcomes: the standard may be wrong, and 94% compliance with a wrong
 standard is worse than 40%.
 
 ```text
@@ -80,13 +80,13 @@ capability        onboarding time for a new person
 ```
 
 Those four cover most of what architecture affects, and none of them grows with the architecture
-group's effort — which is exactly the desired property.
+group's effort. That is exactly the desired property.
 
 Four of these metrics are the software delivery ones consolidated by Forsgren, Humble and Kim
 (2018): deployment frequency, lead time for changes (from commit to production), change failure
 rate and time to recovery. "Time from decision to production" is a deliberate extension of the
 second: it starts at the decision, not at the commit, and so it also captures the wait before the
-code exists — prioritization queue, approval, dependency on another team. Build time is not a
+code exists (prioritization queue, approval, dependency on another team). Build time is not a
 metric from that research; it is here because it is the most direct symptom of coupling in the
 [pipeline](/14-devops-and-platform/ci-cd.md).
 
@@ -103,7 +103,7 @@ uncomfortable and honest. And it forces the useful question at the proposal stag
 number that improves, why do it?
 
 Initiatives with no declared number are assessed afterwards by narrative, and when the assessor is
-the proposer, the narrative concludes it was a success — there is no prior criterion it could lose
+the proposer, the narrative concludes it was a success: there is no prior criterion it could lose
 against.
 
 ### Measure before starting
@@ -116,7 +116,7 @@ with a baseline the comparison is arithmetic
 Of the errors in this document, it is the only one that cannot be fixed later: a wrong metric can be
 swapped and an average segmented at any time, but the initial state can only be measured while it is
 still the current state. A 12-month initiative that did not measure it has no way to demonstrate a
-result, even having produced one — unless the source keeps history, as the repository and the
+result, even having produced one, unless the source keeps history, as the repository and the
 pipeline do, and the baseline can be reconstructed.
 
 And measuring beforehand has a second benefit: the initial number frequently contradicts the
@@ -150,7 +150,7 @@ invoice              cost per unit
 internal survey      cognitive load, perceived autonomy
 ```
 
-Almost none of that requires new instrumentation. The information exists and is not extracted — which
+Almost none of that requires new instrumentation. The information exists and is not extracted. That
 is a recurring observation throughout this path.
 
 ### Beware of what the metric incentivizes
@@ -190,7 +190,7 @@ not measurable   whether the domain boundary is correct
 ```
 
 Trying to quantify the unquantifiable produces bad metrics that discredit the good ones. Declaring
-the limit — "this we assess by judgment, and here is the reasoning" — is more honest and more
+the limit ("this we assess by judgment, and here is the reasoning") is more honest and more
 defensible.
 
 ## Mental Model
@@ -219,14 +219,14 @@ horizon; declaring a number for it produces a false conclusion, in either direct
 pipeline or the incident system, building the initial measurement can take months; for a cheap,
 reversible decision, it is more rational to decide by judgment and measure from then on.
 
-**As a report** that changes no decision — if no prioritization changed because of the numbers in a
+**As a report** that changes no decision: if no prioritization changed because of the numbers in a
 year, the report is pure cost and should be reduced or eliminated.
 
 ## Alternatives
 
-- **Qualitative surveys with the teams** — faster, less precise, frequently enough for a diagnosis.
-- **Peer assessment** — architects from another area reviewing; captures what metrics don't capture.
-- **Delivery metrics only** — speed and stability cover a lot, and are cheap to obtain.
+- **Qualitative surveys with the teams**: faster, less precise, frequently enough for a diagnosis.
+- **Peer assessment**: architects from another area reviewing; captures what metrics don't capture.
+- **Delivery metrics only**: speed and stability cover a lot, and are cheap to obtain.
 
 The third is the recommended starting point: four well-known numbers, taken from the pipeline,
 already change the conversation.
@@ -314,7 +314,7 @@ capacity in maintenance            from 58% to 66% (worse)
 ```
 
 The organization was deploying more and getting worse in four of the six metrics. The earlier
-narrative — of constant progress — did not survive the numbers.
+narrative, of constant progress, did not survive the numbers.
 
 **Segmentation** revealed where:
 
@@ -330,7 +330,7 @@ Two domains concentrated the deterioration, and both were the ones depending on 
 system.
 
 **The technical strategy was redone** from that: a single front, attacking the legacy system that
-blocked the two domains — instead of the previous five fronts, chosen by perception.
+blocked the two domains, instead of the previous five fronts, chosen by perception.
 
 **Every initiative came to declare the number beforehand**, with a baseline and a target.
 
@@ -355,7 +355,7 @@ The quarterly report came to have six numbers and no activity count at all.
 
 The team's reading: the baseline was the most uncomfortable part and the most valuable. It showed the
 perception of progress was wrong, and the segmentation by domain pointed at the cause in one
-afternoon — after two years of strategies built on perception.
+afternoon, after two years of strategies built on perception.
 
 And the director's question became the report's criterion of existence: any number that doesn't help
 answer it was removed.

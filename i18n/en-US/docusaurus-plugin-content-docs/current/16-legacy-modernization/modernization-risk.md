@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [organizational-constraints, data-migration, incremental-modernization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Modernization is one of the highest-risk activities in software engineering: it touches
 systems that work, that sustain revenue, and that nobody fully understands.
 
-The risks are known and recurring. And most of them have a control — what distinguishes
+The risks are known and recurring. And most of them have a control. What distinguishes
 projects that succeed from those that don't is frequently knowing which ones to apply.
 
 This document organizes the risks by nature, with the corresponding control.
@@ -144,7 +144,7 @@ not doing it   degradation, a maintainer who leaves, an obligation unmet,
 
 See [modernization drivers](/16-legacy-modernization/modernization-drivers.md).
 
-Recording both sides is what makes an informed decision possible — and it is what is
+Recording both sides is what makes an informed decision possible, and it is what is
 missing when the proposal is rejected for looking too risky.
 
 ### Some risks only appear over the complete cycle
@@ -161,7 +161,7 @@ seasonality — end-of-year peak, harvest, school term
 A new system validated over two months has exercised none of them.
 
 The control: keep the old one able to take over until at least one complete cycle has
-passed — and plan the shutdown around that, not around the project calendar.
+passed, and plan the shutdown around that, not around the project calendar.
 
 ### The risk register has to be revised with what you learn
 
@@ -188,7 +188,7 @@ which control turned out to be unnecessary?
 ```
 
 The third matters as much as the others: controls that cost something and catch nothing
-should go, or they make the project slower without reducing risk — and excess ceremony
+should go, or they make the project slower without reducing risk. And excess ceremony
 discredits the controls that matter.
 
 ## Mental Model
@@ -210,7 +210,7 @@ controls where it buys no risk reduction.
 
 **A fully reversible slice with no migrated data.** If going back means switching a route
 and no data has moved, a long parallel run and a suspension period cost more than the risk
-they cover — reversal is the control.
+they cover: reversal is the control.
 
 **A system with no periodic process longer than the parallel run.** If the inventory shows
 the longest cycle is weekly, keeping the old one for a year exercises nothing that two
@@ -232,9 +232,9 @@ Ways to reduce risk before any control:
 - **Smaller scope.** Modernize the part that causes the problem. See
   [migration strategies](/16-legacy-modernization/migration-strategies.md).
 - **Smaller slices.** They reduce exposure per step.
-- **Containment instead of replacement** — isolate the legacy system, without touching
+- **Containment instead of replacement**: isolate the legacy system, without touching
   it.
-- **Defer** — when the conditions are not there.
+- **Defer**: when the conditions are not there.
 
 ## Trade-offs
 
@@ -275,7 +275,7 @@ Ways to reduce risk before any control:
 
 **Not doing comparison in production.** Running the new system in parallel and comparing its outputs against the old one is the cheapest way to find divergence before it affects anyone.
 
-**Not exercising a complete cycle before shutting down.** Monthly close, reconciliation and annual reports only appear in their own cycle — and that is where the forgotten rule reveals itself.
+**Not exercising a complete cycle before shutting down.** Monthly close, reconciliation and annual reports only appear in their own cycle, and that is where the forgotten rule reveals itself.
 
 **Not recording the risk of not doing it.** The relevant comparison is against carrying on as is, and without that side the analysis shows only the cost of change.
 
@@ -296,7 +296,7 @@ In December, the annual reporting process failed.
 
 The cause: a sector-charge apportionment rule, applied once a year, at the December close.
 It existed in the old system, in a module that ran annually and that no test had
-exercised — because the parallel period ran from March to May.
+exercised, because the parallel period ran from March to May.
 
 The old system was already off, and the machines decommissioned.
 
@@ -306,13 +306,13 @@ from previous years' results. The report to the regulator was delivered late.
 The process changes afterwards:
 
 **A complete cycle before shutting down.** No system is shut down before the new one has
-exercised every cycle — monthly, quarterly, annual.
+exercised every cycle: monthly, quarterly, annual.
 
 For the following program, that meant keeping the old one for 14 months instead of 2. The
 cost was accepted.
 
 **An inventory of periodic processes.** An explicit survey of everything that runs on a
-cycle longer than monthly — quarterly, annual —, with a date and an owner.
+cycle longer than monthly (quarterly, annual), with a date and an owner.
 
 That survey, done retroactively, found four more annual processes in other systems that
 nobody had mapped.
@@ -321,23 +321,23 @@ nobody had mapped.
 decommissioning.
 
 **Comparison in production** throughout the parallel run, with the old one processing in
-shadow after the cutover — which would have detected the December divergence with the old
+shadow after the cutover. That would have detected the December divergence with the old
 one still available.
 
 The detail the team highlights: the risk of "a periodic process not exercised" was not in
 the register. It is specific to modernization, and it does not appear in generic project
-risk lists — which was the template used.
+risk lists (which was the template used).
 
 ## Related Concepts
 
-- [Data Migration](/16-legacy-modernization/data-migration.md) — the main irreversible risk.
+- [Data Migration](/16-legacy-modernization/data-migration.md): the main irreversible risk.
 - [Organizational Constraints](/16-legacy-modernization/organizational-constraints.md).
-- [Incremental Modernization](/16-legacy-modernization/incremental-modernization.md) — the structural control.
+- [Incremental Modernization](/16-legacy-modernization/incremental-modernization.md): the structural control.
 - [Reliability](/12-reliability/index.md).
 
 ## Practical Exercise
 
-List the periodic processes of the system you intend to replace — monthly, quarterly,
+List the periodic processes of the system you intend to replace: monthly, quarterly,
 annual.
 
 The parallel period has to cover the longest of them. If it doesn't, the shutdown is a

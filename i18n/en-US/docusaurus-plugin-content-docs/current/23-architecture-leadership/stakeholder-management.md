@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, technical-influence, negotiating-tradeoffs]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 A relevant architectural decision affects people who are not in the technical conversation. If they
-are not considered, one of them will block the decision — usually late, and usually with good
+are not considered, one of them will block the decision, usually late, and usually with good
 reason.
 
 ```text
@@ -48,7 +48,7 @@ the proposal goes back to the start
 Security was always among the stakeholders. It was remembered late because it doesn't take part in
 design conversations, and because involving it seemed to add friction.
 
-The friction was added anyway — later and more expensively.
+The friction was added anyway, later and more expensively.
 
 And there is the opposite error: involving everyone in everything, which produces twelve-person
 meetings, slow decisions and diluted accountability.
@@ -65,9 +65,9 @@ low power           monitor                consult and listen
 
 The top-left quadrant is the most dangerous: someone with the power to block and little interest in
 the subject. That person will not follow the proposal, and will encounter it at the moment of
-decision — when the only available action is to object.
+decision, when the only available action is to object.
 
-Keeping them informed at low cost — a one-paragraph summary, periodically — avoids the surprise that
+Keeping them informed at low cost (a one-paragraph summary, periodically) avoids the surprise that
 produces the late objection.
 
 ### Every stakeholder has a currency
@@ -82,7 +82,7 @@ legal                 regulatory obligation, exposure
 engineering teams     autonomy, load, quality of life
 ```
 
-Discovering someone's currency is not manipulation — it is the condition for the conversation to be
+Discovering someone's currency is not manipulation but the condition for the conversation to be
 useful. Presenting the same proposal to everyone in engineering's currency produces seven
 conversations in which six people can't assess anything.
 
@@ -131,7 +131,7 @@ universal consensus, which blocks the decision, and the unilateral decision, whi
 non-compliance.
 
 Telling someone "your opinion matters and the decision is not yours" is uncomfortable and better
-than leaving it ambiguous — because ambiguity becomes frustration.
+than leaving it ambiguous, because ambiguity becomes frustration.
 
 ### Internal allies are worth more than arguments
 
@@ -160,7 +160,7 @@ finance         approves the recurring cost, not only the initial one
 ```
 
 The first two rarely have formal power to block and are the ones who suffer most from badly made
-decisions — and their absence produces systems that are technically correct and operationally
+decisions, and their absence produces systems that are technically correct and operationally
 unsustainable.
 
 ## Mental Model
@@ -172,7 +172,7 @@ Involving early costs less than persuading late.
 
 - In any decision that affects people outside the team.
 - Before the proposal matures, not after.
-- With each person's role — decide, consult, inform — declared.
+- With each person's role (decide, consult, inform) declared.
 
 ## When Not to Use
 
@@ -182,7 +182,7 @@ have prevented the mistake. The map exists to protect against an expensive late 
 here it isn't expensive.
 
 **The effect stays inside the deciding team.** With no one outside paying in on-call load, cost,
-risk or obligation, there is no one else's currency to discover. Mapping becomes ceremony — and
+risk or obligation, there is no one else's currency to discover. Mapping becomes ceremony, and
 teaches the real stakeholders that the invitation means nothing.
 
 **The urgency doesn't allow a round of consultation.** In an incident or against a fixed regulatory
@@ -192,10 +192,10 @@ review, instead of consulting beforehand.
 
 ## Alternatives
 
-- **A small, reversible decision** — when the decision can be reversed cheaply, involving fewer
+- **A small, reversible decision**: when the decision can be reversed cheaply, involving fewer
   people and learning fast is better.
-- **A pilot with one team** — demonstrating it working is more convincing than any stakeholder map.
-- **Delegating the persuasion** — when someone has more credit with a specific stakeholder, using
+- **A pilot with one team**: demonstrating it working is more convincing than any stakeholder map.
+- **Delegating the persuasion**: when someone has more credit with a specific stakeholder, using
   them is more effective.
 
 ## Trade-offs
@@ -235,7 +235,7 @@ review, instead of consulting beforehand.
 
 **Not having the individual conversations.** An objection discovered in the large meeting becomes a public dispute. Discovered beforehand, it becomes an adjustment.
 
-**Not saying explicitly** who decides. Without that, everyone assumes they gave an opinion and decided — and the decision is reopened every time someone feels ignored.
+**Not saying explicitly** who decides. Without that, everyone assumes they gave an opinion and decided, and the decision is reopened every time someone feels ignored.
 
 ## Real-World Example
 
@@ -247,12 +247,12 @@ The objection was correct, the proposal had nine months of preparation behind it
 cost four months.
 
 The subsequent analysis identified the pattern. The stakeholder map, done at the start, had listed
-six people — all from engineering, product and finance. Legal was not on it.
+six people, all from engineering, product and finance. Legal was not on it.
 
 The architecture group instituted a process, deliberately light:
 
 **A mandatory stakeholder map** in every proposal above a threshold, with four fields per person:
-who, what they have at stake, what their currency is, and their role — decide, consult or inform.
+who, what they have at stake, what their currency is, and their role (decide, consult or inform).
 
 **A checklist of frequently forgotten stakeholders**, derived from history: operations, support,
 security, legal, finance and the data department. Each has to be explicitly marked as applicable or
@@ -261,7 +261,7 @@ not.
 **A five-minute conversation** with each high-power stakeholder, before the proposal matures. The
 stated objective is to find structural objections early, not to persuade.
 
-**A record of objections**, with what was done with each one — incorporated, mitigated, or accepted
+**A record of objections**, with what was done with each one: incorporated, mitigated, or accepted
 as risk.
 
 Over the following eighteen months, across 22 proposals:
@@ -278,19 +278,19 @@ The time dropped, which contradicted expectations: involving more people early m
 faster, because it eliminated the rework.
 
 The two abandoned proposals are the result the group considers most valuable. Both had structural
-objections that would have surfaced after months of work — and abandoning them in the second week
+objections that would have surfaced after months of work, and abandoning them in the second week
 cost almost nothing.
 
 The five-minute conversation with legal, which would have prevented the original incident, is the
 highest-return item on the list. The five minutes raise the question; the contract review it
-triggers costs a few days — and occasionally saves four months.
+triggers costs a few days, and occasionally saves four months.
 
 ## Related Concepts
 
 - [Communication](/23-architecture-leadership/communication.md).
 - [Negotiating Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
 - [Technical Influence](/23-architecture-leadership/technical-influence.md).
-- [Architecture Views](/17-architecture-documentation/architecture-views.md) — stakeholders and
+- [Architecture Views](/17-architecture-documentation/architecture-views.md): stakeholders and
   concerns.
 
 ## Practical Exercise
@@ -298,7 +298,7 @@ triggers costs a few days — and occasionally saves four months.
 Take a proposal in progress and list the stakeholders with four fields: who, what they have at
 stake, what their currency is, and their role.
 
-Then check whether operations, support, security, legal, finance and data were considered — even if
+Then check whether operations, support, security, legal, finance and data were considered, even if
 only to mark them as not applicable.
 
 ## Interview Questions

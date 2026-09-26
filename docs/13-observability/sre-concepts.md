@@ -2,7 +2,7 @@
 id: sre-concepts
 title: Conceitos de SRE
 sidebar_position: 9
-description: O vocabulário e as práticas que organizam operação em escala — e o que se perde ao adotar só o nome.
+description: O vocabulário e as práticas que organizam operação em escala, e o que se perde ao adotar só o nome.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [slo, alerting, resilience]
 canonical_for: [SRE, trabalho manual, análise de incidente, sobreaviso sustentável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Engenharia de confiabilidade de site (site reliability engineering, SRE) é uma 
 confiabilidade como problema de engenharia de software, não de administração de
 sistemas.
 
-Ela trouxe um conjunto de práticas e um vocabulário que se difundiram amplamente —
+Ela trouxe um conjunto de práticas e um vocabulário que se difundiram amplamente:
 [SLO](/12-reliability/slo.md), orçamento de erro, análise de incidente sem culpado,
 redução de trabalho manual.
 
@@ -34,7 +34,7 @@ operações para SRE e continuar operando igual.
 
 ## Problema
 
-As práticas de SRE nasceram num contexto específico — escala muito grande, times de
+As práticas de SRE nasceram num contexto específico: escala muito grande, times de
 engenharia dedicados, sistemas com milhares de máquinas.
 
 Nem tudo transfere. Algumas práticas exigem escala; outras exigem autonomia
@@ -71,7 +71,7 @@ automação sofisticada          o retorno depende de repetição em volume
 ```
 
 Numa empresa de trinta engenheiros, um time de SRE separado costuma criar a divisão
-que a abordagem queria eliminar — quem constrói e quem opera.
+que a abordagem queria eliminar: quem constrói e quem opera.
 
 Ali, o modelo que funciona é o time que constrói operar o que constrói, com práticas de
 SRE aplicadas por ele mesmo.
@@ -91,8 +91,8 @@ cresce com o serviço  mais tráfego, mais desse trabalho
 Nem todo trabalho operacional é trabalho manual nesse sentido: investigar um incidente
 novo exige julgamento e produz aprendizado.
 
-O critério que a prática estabelece — limitar o trabalho manual a uma fração do tempo,
-tipicamente metade — existe porque ele cresce naturalmente até consumir todo o tempo
+O critério que a prática estabelece (limitar o trabalho manual a uma fração do tempo,
+tipicamente metade) existe porque ele cresce naturalmente até consumir todo o tempo
 disponível, e aí não sobra capacidade para eliminá-lo.
 
 Medir a fração é o primeiro passo, e costuma revelar números desconfortáveis.
@@ -101,7 +101,7 @@ Medir a fração é o primeiro passo, e costuma revelar números desconfortávei
 
 A prática é frequentemente mal compreendida. Ela não é sobre ser gentil.
 
-É sobre **obter informação**: se as pessoas temem consequência, elas omitem — e a
+É sobre **obter informação**: se as pessoas temem consequência, elas omitem, e a
 análise fica errada, produzindo correções que não atacam a causa.
 
 O que caracteriza uma análise que funciona:
@@ -115,7 +115,7 @@ publicada               o aprendizado é da organização
 ```
 
 A primeira linha é o teste: uma análise que conclui "o engenheiro errou" não explica
-nada. Todo erro pareceu razoável para quem o cometeu, com a informação que ele tinha —
+nada. Todo erro pareceu razoável para quem o cometeu, com a informação que ele tinha,
 e entender por quê é o que permite mudar o sistema.
 
 ### Sobreaviso precisa ser sustentável
@@ -164,7 +164,7 @@ outras exigem contexto que talvez você não tenha.
 **Renomeando o time sem mudar as práticas.** O nome promete engenharia sobre um trabalho
 que continua manual, e a frustração cai sobre o time renomeado.
 
-**Time de SRE separado** em organização pequena — na faixa dos trinta engenheiros, ele
+**Time de SRE separado** em organização pequena: na faixa dos trinta engenheiros, ele
 recria a divisão entre quem constrói e quem opera.
 
 **Adotando todas as práticas** independentemente do contexto. As que dependem de escala
@@ -180,12 +180,12 @@ em vez de aparecer como problema, até virar rotatividade.
 
 ## Alternativas
 
-- **Time que constrói opera o que constrói** — o modelo adequado à maioria das
+- **Time que constrói opera o que constrói**: o modelo adequado à maioria das
   organizações.
-- **Plataforma interna** — reduz o trabalho operacional de todos os times sem criar
+- **Plataforma interna**: reduz o trabalho operacional de todos os times sem criar
   divisão. Ver
   [DevOps e plataforma](/14-devops-and-platform/index.md).
-- **Adoção parcial** — as cinco práticas que transferem, sem a estrutura.
+- **Adoção parcial**: as cinco práticas que transferem, sem a estrutura.
 
 ## Trade-offs
 
@@ -218,7 +218,7 @@ em vez de aparecer como problema, até virar rotatividade.
 ## Erros Comuns
 
 **Adotar o vocabulário sem as decisões.** O time passa a falar em orçamento de erro, mas
-nada muda quando ele esgota — e o vocabulário perde crédito para a próxima tentativa.
+nada muda quando ele esgota, e o vocabulário perde crédito para a próxima tentativa.
 
 **Criar time separado prematuramente.** Abaixo do volume que justifica especialização, o
 time vira gargalo de implantação e os times de produto deixam de se ocupar da operação.
@@ -244,8 +244,8 @@ Dezoito meses depois, o resultado era o oposto do pretendido:
 **O time de SRE virou gargalo.** Toda implantação e toda mudança de infraestrutura
 passavam por ele.
 
-**A divisão voltou.** Os times de produto pararam de se preocupar com operação — "isso é
-do SRE" —, e a qualidade operacional do que era construído piorou.
+**A divisão voltou.** Os times de produto pararam de se preocupar com operação ("isso é
+do SRE"), e a qualidade operacional do que era construído piorou.
 
 **Trabalho manual dominava.** Uma medição informal apontou que cerca de 80% do tempo do
 time era operação repetitiva. Não sobrava capacidade para automatizar.
@@ -256,7 +256,7 @@ A reformulação abandonou a estrutura e passou a aplicar as práticas que ela i
 
 **Cada time opera o que constrói**, com sobreaviso próprio.
 
-**O time de plataforma** — o que restou do SRE, com duas pessoas e depois quatro —
+**O time de plataforma** (o que restou do SRE, com duas pessoas e depois quatro)
 passou a construir ferramentas, não a operar serviços: esteiras, telemetria
 padronizada, painéis gerados, procedimentos.
 
@@ -275,14 +275,14 @@ manual do time de plataforma foi de 80% para cerca de 30%.
 
 O ponto que a equipe sublinha: as práticas nunca foram o problema; a estrutura, errada para
 o tamanho da empresa, impedia que fossem aplicadas. E a equipe atribui a maior parte da
-queda de acionamentos à última mudança — tempo alocado para corrigir —, porque fechou o ciclo entre ser acordado e eliminar a
+queda de acionamentos à última mudança (tempo alocado para corrigir), porque fechou o ciclo entre ser acordado e eliminar a
 causa.
 
 ## Conceitos Relacionados
 
-- [SLO](/12-reliability/slo.md) — o mecanismo central.
-- [Alertas](/13-observability/alerting.md) — o sobreaviso sustentável.
-- [Resiliência](/12-reliability/resilience.md) — o aprendizado.
+- [SLO](/12-reliability/slo.md): o mecanismo central.
+- [Alertas](/13-observability/alerting.md): o sobreaviso sustentável.
+- [Resiliência](/12-reliability/resilience.md): o aprendizado.
 - [DevOps e Plataforma](/14-devops-and-platform/index.md).
 
 ## Exercício Prático
@@ -290,7 +290,7 @@ causa.
 Meça a fração do tempo do seu time gasta em trabalho repetitivo, automatizável e sem
 valor duradouro, durante duas semanas.
 
-Se passar de metade, não há capacidade para eliminá-lo — e ele vai crescer.
+Se passar de metade, não há capacidade para eliminá-lo, e ele vai crescer.
 
 ## Perguntas de Entrevista
 

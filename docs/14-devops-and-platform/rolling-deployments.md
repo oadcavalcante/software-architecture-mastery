@@ -2,7 +2,7 @@
 id: rolling-deployments
 title: Implantação em Ondas
 sidebar_position: 7
-description: Substituir instâncias gradualmente — a estratégia padrão, e o que ela custa em capacidade.
+description: "Substituir instâncias gradualmente: a estratégia padrão, e o que ela custa em capacidade."
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, canary]
 canonical_for: [implantação em ondas, orçamento de indisponibilidade, tamanho de onda, parada automática]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Numa implantação em ondas, as instâncias são substituídas gradualmente: algumas saem,
 sobem com a versão nova, entram; repete-se até todas terem sido trocadas.
 
-É a estratégia padrão da maioria dos orquestradores, e a mais usada — porque não exige
+É a estratégia padrão da maioria dos orquestradores, e a mais usada, porque não exige
 capacidade extra nem infraestrutura de comparação.
 
 O que ela entrega: implantação sem parada. O que ela **não** entrega: detecção de
@@ -79,7 +79,7 @@ profunda demais  depende de recurso compartilhado pelas réplicas
                  e derruba junto as instâncias antigas que estavam sãs
 ```
 
-Ver [Kubernetes](/09-cloud-architecture/kubernetes.md) — a distinção entre verificar
+Ver [Kubernetes](/09-cloud-architecture/kubernetes.md): a distinção entre verificar
 que o processo vive e verificar que ele pode receber tráfego. A prontidão verifica o
 que é próprio da instância; numa implantação em ondas, apontá-la para um recurso
 compartilhado é o que trava a onda e remove as réplicas antigas junto.
@@ -101,7 +101,7 @@ contrato        sem mudança incompatível
 
 Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
-Isso não é diferente das outras estratégias graduais, e aqui a coexistência dura mais —
+Isso não é diferente das outras estratégias graduais, e aqui a coexistência dura mais:
 o tempo total da implantação, que pode ser de dezenas de minutos em ambientes grandes.
 
 ### Parada automática é o que limita o dano
@@ -124,7 +124,7 @@ Ainda assim, isso é detecção grosseira comparada a [canary](/14-devops-and-pl
 
 ### A reversão é outra implantação em ondas
 
-Diferente de [blue-green](/14-devops-and-platform/blue-green.md), reverter não é trocar um roteamento — é
+Diferente de [blue-green](/14-devops-and-platform/blue-green.md), reverter não é trocar um roteamento, e sim
 substituir as instâncias de novo, no mesmo ritmo.
 
 ```text
@@ -134,7 +134,7 @@ implantação de 12 minutos → reversão de 12 minutos
 Isso importa na conta do tempo de recuperação. Ver
 [RTO](/12-reliability/rto.md).
 
-Onde a reversão precisa ser mais rápida, a estratégia é outra — ou a implantação em
+Onde a reversão precisa ser mais rápida, a estratégia é outra, ou a implantação em
 ondas é combinada com [feature flags](/14-devops-and-platform/feature-flags.md), que revertem em segundos.
 
 ### O tamanho da onda é um trade-off simples
@@ -152,7 +152,7 @@ Isso aproxima a implantação em ondas de um canary, sem a infraestrutura de com
 ## Modelo Mental
 
 **Ondas trocam tempo por capacidade preservada.** Ela não detecta e não reverte
-rapidamente — protege contra indisponibilidade durante a troca.
+rapidamente: protege contra indisponibilidade durante a troca.
 
 ## Quando Usar
 
@@ -177,11 +177,11 @@ rapidamente — protege contra indisponibilidade durante a troca.
 
 ## Alternativas
 
-- **[Blue-green](/14-devops-and-platform/blue-green.md)** — reversão instantânea, capacidade duplicada.
-- **[Canary](/14-devops-and-platform/canary.md)** — detecção automática.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — reversão em segundos, sem tocar na
+- **[Blue-green](/14-devops-and-platform/blue-green.md)**: reversão instantânea, capacidade duplicada.
+- **[Canary](/14-devops-and-platform/canary.md)**: detecção automática.
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: reversão em segundos, sem tocar na
   implantação.
-- **Ondas com primeira instância observada** — o meio-termo barato entre ondas e canary.
+- **Ondas com primeira instância observada**: o meio-termo barato entre ondas e canary.
 
 ## Trade-offs
 
@@ -212,7 +212,7 @@ rapidamente — protege contra indisponibilidade durante a troca.
 
 **Estado incompatível** entre as versões coexistindo.
 
-**Implantação parcial.** Parou no meio, e metade das instâncias tem cada versão — sem
+**Implantação parcial.** Parou no meio, e metade das instâncias tem cada versão, sem
 plano para resolver.
 
 ## Erros Comuns
@@ -236,7 +236,7 @@ indisponível de 25% e sem excedente.
 
 O sistema operava a 70% de utilização em horário normal.
 
-Durante as implantações — que aconteciam duas vezes por dia — a capacidade caía para
+Durante as implantações, que aconteciam duas vezes por dia, a capacidade caía para
 75%, e as instâncias restantes iam a 93%. A latência subia visivelmente por cerca de
 oito minutos, duas vezes ao dia.
 
@@ -246,7 +246,7 @@ Três mudanças resolveram:
 
 **Máximo excedente de 25%, indisponível zero.** As instâncias novas sobem antes de as
 antigas saírem. A capacidade total nunca cai abaixo de 100%. O custo é capacidade
-temporária durante a implantação — alguns minutos de instâncias a mais.
+temporária durante a implantação: alguns minutos de instâncias a mais.
 
 O pico de latência desapareceu.
 
@@ -258,7 +258,7 @@ antes de se declararem prontas.
 parar se a taxa de erro do serviço subisse 50% em relação à linha de base, ou se três
 instâncias consecutivas falhassem na verificação.
 
-No primeiro mês, a parada automática disparou duas vezes — ambas por versões com defeito
+No primeiro mês, a parada automática disparou duas vezes, ambas por versões com defeito
 de configuração que teriam ido para todas as instâncias.
 
 E uma quarta descoberta durante o trabalho:
@@ -275,7 +275,7 @@ ninguém tinha revisado desde a criação do serviço.
 
 - [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
 - [Blue-Green](/14-devops-and-platform/blue-green.md) e [Canary](/14-devops-and-platform/canary.md).
-- [Kubernetes](/09-cloud-architecture/kubernetes.md) — verificações de saúde.
+- [Kubernetes](/09-cloud-architecture/kubernetes.md): verificações de saúde.
 - [Planejamento de Capacidade](/11-scalability/scaling-capacity-planning.md).
 
 ## Exercício Prático

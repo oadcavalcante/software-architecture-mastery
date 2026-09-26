@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [availability-metrics, fault-tolerance, resilience]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -41,8 +41,8 @@ wrong. No availability metric captures that, and it is the kind of problem that 
 than unavailability.
 
 And there is a design consequence: chasing availability with no correctness leads to degradations that
-produce the wrong result — serving stale data where it cannot be stale, accepting an operation without
-verifying what needed to be verified. See
+produce the wrong result (serving stale data where it cannot be stale, accepting an operation without
+verifying what needed to be verified). See
 [graceful degradation](/12-reliability/graceful-degradation.md).
 
 ## Core Concepts
@@ -73,7 +73,7 @@ for faults nobody anticipated.
 
 ### The system's reliability is not the parts'
 
-A system can be more reliable than its components — if it tolerates their failure. And it can be less, if
+A system can be more reliable than its components, if it tolerates their failure. And it can be less, if
 any one's failure takes it down.
 
 ```text
@@ -93,7 +93,7 @@ failure.
 At sufficient scale, something is always failing: a disk, an instance, a connection, a dependency.
 
 That changes the design posture: instead of "what do we do if it fails", the question is "what do we do
-**when** it fails" — and the answer needs to be in the design, not in the emergency procedure.
+**when** it fails", and the answer needs to be in the design, not in the emergency procedure.
 
 See [partial failure](/06-distributed-systems/partial-failure.md).
 
@@ -110,17 +110,17 @@ byzantine        arbitrary behavior, possibly malicious
 ```
 
 The difficulty grows down the list. Redundancy handles the first well; the fourth requires semantic
-verification — comparing results, validating invariants — which rarely exists.
+verification (comparing results, validating invariants), which rarely exists.
 
 And the third is the one the design usually leaves out: the protections presume a crash, but dependencies
-rarely stop — they get slow. See [circuit breakers](/12-reliability/circuit-breakers.md).
+rarely stop; they get slow. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Complexity is reliability's enemy
 
 More components, more interactions, more failure modes.
 
 That creates a real tension with this section's techniques: redundancy, failover, circuit breakers and
-bulkheads add complexity — and complexity adds failure.
+bulkheads add complexity, and complexity adds failure.
 
 A system with four badly configured protection layers can be less reliable than a simple, well-operated
 one.
@@ -142,7 +142,7 @@ people           sustainable on-call, distributed knowledge
 A technically good system, operated by an exhausted team with no procedures, is less reliable than a
 mediocre system that is well operated.
 
-That is the component architecture influences indirectly — and that appears in most post-mortems.
+That is the component architecture influences indirectly, and that appears in most post-mortems.
 
 ## Common Mistakes
 
@@ -151,7 +151,7 @@ That is the component architecture influences indirectly — and that appears in
 **Investing only in prevention.** The unanticipated faults still exist.
 
 **Presuming crash failures.** Timeouts and failover designed for the component that stops do not hold what
-gets slow — and that is what exhausts the caller's pool.
+gets slow, and that is what exhausts the caller's pool.
 
 **Adding mechanisms without exercising them.** Complexity with no benefit.
 
@@ -173,7 +173,7 @@ with a success code, and the data was wrong.
 That lasted fourteen months. It was discovered when a customer contested a denial and the audit compared
 the data.
 
-No availability indicator changed during the whole period — because no request returned an error
+No availability indicator changed during the whole period, because no request returned an error
 code. There was an error and there was a failure; no availability indicator could see them.
 
 The fixes:
@@ -181,8 +181,8 @@ The fixes:
 **Correlation verification.** Every response came to carry the request's identifier, verified before use.
 The race condition stopped being silent.
 
-**Invariant validation.** Semantic checks — the response's document number matches the one queried, the
-date of birth is plausible — applied before processing.
+**Invariant validation.** Semantic checks (the response's document number matches the one queried, the
+date of birth is plausible) applied before processing.
 
 **A correctness indicator**, alongside the availability ones: the proportion of analyses with consistent
 data, verified by sampling against the source.
@@ -190,14 +190,14 @@ data, verified by sampling against the source.
 **An audit trail** with the raw data received, allowing a reconstruction of what happened. See
 [auditability](/10-security/auditability.md).
 
-And, at the source, the race condition was fixed — which was the simplest work of the five.
+And, at the source, the race condition was fixed, which was the simplest work of the five.
 
 The learning that stuck: they measured availability at four points and correctness at none. By the numbers,
 the system was among the company's most reliable.
 
 ## Related Concepts
 
-- [Availability](/06-distributed-systems/availability.md) — the definition and the composition.
+- [Availability](/06-distributed-systems/availability.md): the definition and the composition.
 - [Availability Metrics](/12-reliability/availability-metrics.md).
 - [Fault Tolerance](/12-reliability/fault-tolerance.md).
 - [Resilience](/12-reliability/resilience.md).

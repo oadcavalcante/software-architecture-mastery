@@ -2,7 +2,7 @@
 id: graphql
 title: GraphQL
 sidebar_position: 2
-description: O cliente escolhe o que recebe — e o custo que essa liberdade transfere para o servidor.
+description: O cliente escolhe o que recebe, e o custo que essa liberdade transfere para o servidor.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, api-gateways, integration-contracts]
 canonical_for: [GraphQL, resolver, sobrebusca, subbusca]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Em GraphQL, o cliente descreve **exatamente** os campos que quer, e o servidor
-devolve isso — nada a mais, nada a menos.
+devolve isso: nada a mais, nada a menos.
 
 Isso resolve dois problemas reais de APIs de recurso fixo: trazer mais do que se
 usa, e precisar de várias chamadas para montar uma tela.
@@ -33,13 +33,13 @@ antemão, o formato e o peso das consultas que vai receber.
 ## Problema
 
 Uma API REST devolve o recurso inteiro. Um cliente móvel que precisa de nome e
-foto recebe o perfil completo — **sobrebusca**.
+foto recebe o perfil completo: **sobrebusca**.
 
 E uma tela que mostra um pedido com itens, cliente e endereço faz quatro
-chamadas — **subbusca**, resolvida com múltiplas idas à rede.
+chamadas: **subbusca**, resolvida com múltiplas idas à rede.
 
 A saída comum em REST é criar endpoints sob medida para cada tela. Funciona, e
-cada tela nova é trabalho no backend — o que torna o time de backend gargalo do
+cada tela nova é trabalho no backend. Isso torna o time de backend gargalo do
 time de frontend.
 
 GraphQL desloca essa decisão para o cliente.
@@ -63,7 +63,7 @@ query {
 Uma requisição, exatamente os campos pedidos, sem endpoint específico para essa
 tela.
 
-O esquema é o contrato, e ele é executável — a validação acontece contra ele,
+O esquema é o contrato, e ele é executável: a validação acontece contra ele,
 não contra um documento. Ver
 [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
@@ -87,7 +87,7 @@ Esse é o custo operacional principal do estilo, e o mais subestimado na adoçã
 Uma consulta profunda ou muito ramificada pode ser arbitrariamente cara. Em
 esquemas com relações cíclicas, ela pode ser exponencial.
 
-As defesas — nenhuma opcional em API exposta:
+As defesas (nenhuma opcional em API exposta):
 
 **Limite de profundidade.** Recusar consultas acima de N níveis.
 
@@ -96,7 +96,7 @@ As defesas — nenhuma opcional em API exposta:
 **Consultas persistidas.** Só consultas previamente registradas são aceitas. É a
 defesa mais forte. Para o cliente próprio, que registra as consultas no build, a
 autonomia do frontend continua; o que some é a composição arbitrária em tempo de
-execução por consumidor desconhecido — a troca certa em API pública.
+execução por consumidor desconhecido: a troca certa em API pública.
 
 **Prazo de execução.** Interromper a consulta que passa de um tempo máximo. Pega
 o que profundidade e custo estimado deixam passar: a consulta válida, abaixo do
@@ -107,7 +107,7 @@ teto, que ainda assim ocupa o servidor por causa do volume real dos dados.
 Em [REST](/08-integration-architecture/rest.md), cache de HTTP funciona: uma URL, um `GET`, um resultado
 cacheável por qualquer intermediário.
 
-Na forma usual de GraphQL — `POST` numa única URL, com o conteúdo variando —
+Na forma usual de GraphQL (`POST` numa única URL, com o conteúdo variando),
 nenhum intermediário consegue cachear. Consultas persistidas servidas por `GET`,
 com o identificador na URL, recuperam parte desse cache, ao custo de registrar
 toda consulta antes de usá-la.
@@ -124,7 +124,7 @@ Uma consulta pode ter sucesso em parte dos campos e falhar em outros. A resposta
 traz dados e erros juntos, sempre com `200`.
 
 Isso é coerente com o modelo e significa que a classificação de erro volta para a
-aplicação — a mesma perda descrita em [REST](/08-integration-architecture/rest.md) quando tudo devolve `200`,
+aplicação: a mesma perda descrita em [REST](/08-integration-architecture/rest.md) quando tudo devolve `200`,
 só que aqui é inerente ao estilo.
 
 ### Onde ele mais rende
@@ -132,7 +132,7 @@ só que aqui é inerente ao estilo.
 O caso claro: **muitos clientes diferentes consumindo o mesmo domínio**, com
 necessidades que mudam mais rápido que o backend consegue acompanhar.
 
-Aplicativo móvel, web, parceiro, tela interna — cada um pedindo um recorte
+Aplicativo móvel, web, parceiro, tela interna: cada um pedindo um recorte
 diferente das mesmas entidades.
 
 Onde há um único cliente, controlado pelo mesmo time, a liberdade não paga o
@@ -148,7 +148,7 @@ quando há muitos clientes com necessidades divergentes; não vale quando há um
 - Muitos clientes com necessidades diferentes sobre o mesmo domínio.
 - O time de frontend é bloqueado por mudanças de endpoint.
 - Telas compõem dados de várias entidades relacionadas.
-- Banda importa — clientes móveis em rede ruim.
+- Banda importa: clientes móveis em rede ruim.
 - O domínio é naturalmente um grafo.
 
 ## Quando Não Usar
@@ -173,12 +173,12 @@ modelo interno em contrato público.
 
 ## Alternativas
 
-- **[REST](/08-integration-architecture/rest.md) com campos esparsos** — um parâmetro que seleciona campos
+- **[REST](/08-integration-architecture/rest.md) com campos esparsos**: um parâmetro que seleciona campos
   cobre boa parte da sobrebusca, sem mudar de estilo.
-- **Endpoint por tela** — o padrão "backend para frontend". Simples e explícito,
+- **Endpoint por tela**: o padrão "backend para frontend". Simples e explícito,
   ao custo de acoplar backend a telas.
-- **[gRPC](/08-integration-architecture/grpc.md)** — quando o consumo é conhecido e a eficiência importa.
-- **Consultas persistidas** — GraphQL sem a superfície de consulta aberta.
+- **[gRPC](/08-integration-architecture/grpc.md)**: quando o consumo é conhecido e a eficiência importa.
+- **Consultas persistidas**: GraphQL sem a superfície de consulta aberta.
 
 ## Trade-offs
 
@@ -230,8 +230,8 @@ que está caro.
 
 Uma plataforma de educação adotou GraphQL para servir aplicativo móvel, web e
 uma área de parceiros. O motivo era legítimo: três clientes, necessidades
-divergentes, e o backend virara gargalo — cada tela nova era uma semana de
-espera.
+divergentes, e o backend virara gargalo (cada tela nova era uma semana de
+espera).
 
 O ganho apareceu: o time de frontend passou a construir telas sem pedir nada ao
 backend. O tempo de entrega de uma tela caiu de uma semana para dias.
@@ -255,7 +255,7 @@ movida para o nível do campo.
 
 **Cache perdido.** O catálogo público de cursos, antes servido de CDN com cache
 de horas, passou a bater no servidor a cada requisição. A solução foi manter esse
-recorte específico em REST — o catálogo voltou para `GET` cacheável, e o resto
+recorte específico em REST: o catálogo voltou para `GET` cacheável, e o resto
 permaneceu em GraphQL. Consultas persistidas via `GET` eram a alternativa; a
 equipe não a escolheu porque o catálogo também era consumido por buscadores e
 por sites de terceiros, que não passariam por um registro de consultas.
@@ -267,9 +267,9 @@ HTTP e sem registro de consultas.
 
 ## Conceitos Relacionados
 
-- [REST](/08-integration-architecture/rest.md) — a comparação principal.
-- [gRPC](/08-integration-architecture/grpc.md) — a terceira opção síncrona.
-- [API Gateways](/08-integration-architecture/api-gateways.md) — onde limites costumam ser aplicados.
+- [REST](/08-integration-architecture/rest.md): a comparação principal.
+- [gRPC](/08-integration-architecture/grpc.md): a terceira opção síncrona.
+- [API Gateways](/08-integration-architecture/api-gateways.md): onde limites costumam ser aplicados.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 
 ## Exercício Prático
@@ -277,7 +277,7 @@ HTTP e sem registro de consultas.
 Se você usa GraphQL, escreva a consulta mais profunda que seu esquema permite e
 execute-a contra um ambiente de teste com volume realista.
 
-O tempo que ela levar é o que um cliente mal-intencionado — ou distraído — pode
+O tempo que ela levar é o que um cliente mal-intencionado, ou distraído, pode
 provocar hoje.
 
 ## Perguntas de Entrevista

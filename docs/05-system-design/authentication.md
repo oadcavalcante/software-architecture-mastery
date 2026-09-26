@@ -2,7 +2,7 @@
 id: authentication
 title: Autenticação
 sidebar_position: 17
-description: Provar quem está chamando — e onde essa prova é verificada em cada requisição.
+description: Provar quem está chamando e onde essa prova é verificada em cada requisição.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [authorization, stateless-vs-stateful, identity]
 canonical_for: [autenticação, sessão, token de acesso]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -31,7 +31,7 @@ ela é verificada. Os protocolos e o modelo de ameaça são assunto de
 ## Problema
 
 HTTP não tem memória. Cada requisição chega sem saber quem a enviou, e provar
-identidade a cada uma seria inviável — ninguém digita senha por requisição.
+identidade a cada uma seria inviável: ninguém digita senha por requisição.
 
 A saída é: autenticar uma vez e emitir uma **credencial de curta duração** que
 comprova a autenticação anterior.
@@ -53,7 +53,7 @@ servidor, ou carrega a informação consigo?
 | Ler o conteúdo | Servidor consulta | Qualquer um decodifica |
 
 A última linha é frequentemente mal entendida: um token assinado **não é
-criptografado**. Ele é legível por quem o tiver — a assinatura garante que não foi
+criptografado**. Ele é legível por quem o tiver: a assinatura garante que não foi
 alterado, não que é secreto. Colocar dado sensível ali é vazamento.
 
 ### Revogação é o problema do token
@@ -61,7 +61,7 @@ alterado, não que é secreto. Colocar dado sensível ali é vazamento.
 Um token autocontido vale até expirar. Se um usuário é bloqueado, ou faz logout, ou
 tem a credencial roubada, o token continua funcionando.
 
-As mitigações — expiração curta, lista de revogação, versão de credencial — e o
+As mitigações (expiração curta, lista de revogação, versão de credencial) e o
 que cada uma custa estão em [JWT](/10-security/jwt.md). Para a decisão de sistema
 importa uma delas: o **token de renovação separado**, um token de acesso curto mais
 um de renovação longo, sendo o segundo revogável no servidor. É o arranjo que
@@ -72,14 +72,14 @@ token sem abrir mão de revogar em minutos.
 
 Três lugares, e a escolha determina o que acontece quando algo falha:
 
-**Na borda** — gateway ou proxy verifica antes de encaminhar. Centraliza, e os
+**Na borda**: gateway ou proxy verifica antes de encaminhar. Centraliza, e os
 serviços internos passam a confiar num cabeçalho. Se alguém alcançar o serviço
 sem passar pela borda, não há verificação.
 
-**Em cada serviço** — cada um verifica. Defesa em profundidade, ao custo de
+**Em cada serviço**: cada um verifica. Defesa em profundidade, ao custo de
 repetição e de todos precisarem da chave de verificação.
 
-**Ambos** — a borda rejeita o tráfego óbvio e cada serviço confirma. É a
+**Ambos**: a borda rejeita o tráfego óbvio e cada serviço confirma. É a
 recomendação para sistemas com fronteiras de confiança reais.
 
 A escolha entre os dois primeiros é a mesma pergunta de
@@ -87,8 +87,8 @@ A escolha entre os dois primeiros é a mesma pergunta de
 
 ### Autenticação de serviço não é a mesma coisa
 
-Serviço chamando serviço não tem usuário. As opções — credencial de cliente,
-certificado mútuo, identidade de carga de trabalho fornecida pela plataforma —
+Serviço chamando serviço não tem usuário. As opções (credencial de cliente,
+certificado mútuo, identidade de carga de trabalho fornecida pela plataforma)
 têm requisitos diferentes de rotação e de escopo.
 
 Reusar o token do usuário para chamadas internas é comum e problemático: ele
@@ -132,10 +132,10 @@ erro é grande e o benefício de construir, nulo.
 
 ## Alternativas
 
-- **Provedor de identidade externo** — delega o mecanismo. Ver
+- **Provedor de identidade externo**: delega o mecanismo. Ver
   [segurança](/10-security/index.md).
-- **Chave de API** — para integração servidor a servidor, sem usuário.
-- **Certificado mútuo** — entre serviços, quando a plataforma suporta.
+- **Chave de API**: para integração servidor a servidor, sem usuário.
+- **Certificado mútuo**: entre serviços, quando a plataforma suporta.
 
 ## Trade-offs
 
@@ -173,7 +173,7 @@ forja identidade.
 
 **Reusar o token do usuário entre serviços internos.** O token vaza para todos os serviços da cadeia, e cada um deles vira um ponto onde a credencial do usuário pode ser capturada ou reutilizada além do seu escopo.
 
-**Não planejar rotação de chave.** Quando a rotação vira urgente — suspeita de vazamento — o sistema que não a preparou precisa escolher entre invalidar todas as sessões de uma vez e conviver com a chave comprometida.
+**Não planejar rotação de chave.** Quando a rotação vira urgente (suspeita de vazamento), o sistema que não a preparou precisa escolher entre invalidar todas as sessões de uma vez e conviver com a chave comprometida.
 
 ## Exemplo Real
 
@@ -184,11 +184,11 @@ injetado por ele.
 Dois problemas apareceram no mesmo trimestre.
 
 **Revogação.** Um funcionário foi desligado e o acesso removido do provedor de
-identidade. O token dele continuou funcionando por 19 horas — tempo em que ele
+identidade. O token dele continuou funcionando por 19 horas, tempo em que ele
 exportou dados. O incidente exigiu comunicação ao jurídico.
 
 **Cabeçalho forjado.** Durante um teste de segurança, alguém alcançou um serviço
-interno diretamente — a rede permitia — e enviou `X-User-Id` de um administrador.
+interno diretamente (a rede permitia) e enviou `X-User-Id` de um administrador.
 O serviço aceitou.
 
 As correções.
@@ -197,7 +197,7 @@ O token de acesso caiu para 10 minutos, com token de renovação de 8 horas,
 revogável no servidor. A revogação passou a ter efeito em no máximo 10 minutos.
 
 Cada serviço passou a verificar a assinatura do token, além do gateway. O
-cabeçalho `X-User-Id` foi eliminado — a identidade vem do token verificado
+cabeçalho `X-User-Id` foi eliminado: a identidade vem do token verificado
 localmente, não de algo que alguém injetou.
 
 E as chamadas entre serviços passaram a usar credencial própria de serviço, com
@@ -212,13 +212,13 @@ quando a rede mudou, e ninguém revisou.
 A decisão entre sessão e token cobre o estado estacionário. O ciclo completo tem
 quatro momentos, e três deles costumam ficar sem projeto.
 
-**Emissão.** Após autenticar. A decisão aqui é a validade — e ela deveria variar
+**Emissão.** Após autenticar. A decisão aqui é a validade, e ela deveria variar
 por contexto: uma sessão de aplicativo móvel e uma de terminal administrativo não
 merecem o mesmo prazo.
 
 **Renovação.** Quando a credencial curta expira. O ponto delicado é a **rotação do
 token de renovação**: emitir um novo a cada uso e invalidar o anterior permite
-detectar roubo — se um token de renovação já usado reaparece, alguém o copiou, e
+detectar roubo. Se um token de renovação já usado reaparece, alguém o copiou, e
 toda a família de tokens daquele usuário deve ser invalidada.
 
 **Revogação.** Logout, bloqueio, troca de senha, incidente. Precisa existir um
@@ -233,10 +233,10 @@ válido até expirar.
 
 ## Conceitos Relacionados
 
-- [Autorização](/05-system-design/authorization.md) — o que vem depois.
-- [Gestão de Estado](/05-system-design/state-management.md) — onde a sessão mora.
-- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — por que token escala.
-- [Segurança](/10-security/index.md) — protocolos, ameaças e gestão de chaves.
+- [Autorização](/05-system-design/authorization.md): o que vem depois.
+- [Gestão de Estado](/05-system-design/state-management.md): onde a sessão mora.
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md): por que token escala.
+- [Segurança](/10-security/index.md): protocolos, ameaças e gestão de chaves.
 
 ## Exercício Prático
 
@@ -254,5 +254,5 @@ verifica alguma coisa?
 
 ## Para Aprofundar
 
-- OWASP — *Authentication Cheat Sheet*.
+- OWASP. *Authentication Cheat Sheet*.
 - RFC 6749 e RFC 9068 — OAuth 2.0 e o perfil de token de acesso.

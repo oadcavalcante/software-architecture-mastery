@@ -2,7 +2,7 @@
 id: composition-vs-inheritance
 title: Composition vs. Inheritance
 sidebar_position: 10
-description: Two forms of reuse with opposite costs — and why inheritance charges in the wrong place.
+description: Two forms of reuse with opposite costs, and why inheritance charges in the wrong place.
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [solid, interfaces, code-smells]
 canonical_for: [composition, inheritance, composition over inheritance]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,8 +22,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Inheritance and composition are two ways of reusing behaviour. The classic advice —
-*prefer composition over inheritance* — is good and is frequently applied without
+Inheritance and composition are two ways of reusing behaviour. The classic advice,
+*prefer composition over inheritance*, is good and is frequently applied without
 the criterion that makes it useful.
 
 The criterion: **inheritance declares that one type is substitutable for another.
@@ -38,8 +38,8 @@ the superclass for free, and the saving is immediate and visible.
 The cost is neither immediate nor visible, and it comes in three forms.
 
 **Total coupling.** The subclass depends on the superclass's implementation, not
-just its interface. Internal changes in the superclass break subclasses — what
-Gamma et al. call breaking encapsulation between classes.
+just its interface. Internal changes in the superclass break subclasses. Gamma
+et al. call this breaking encapsulation between classes.
 
 **Axis rigidity.** A hierarchy commits to one axis of variation. If a second axis
 appears later, the hierarchy explodes combinatorially or becomes a parallel
@@ -87,7 +87,7 @@ pieces. It is the difference between multiplicative and additive growth.
 Inheritance is not always wrong. It is the right choice when:
 
 - The relationship is genuinely subtyping, verified by the test above.
-- The hierarchy is shallow — one level — and closed.
+- The hierarchy is shallow (one level) and closed.
 - The superclass is abstract and exists to define a contract, not to share
   implementation.
 
@@ -98,8 +98,8 @@ abstract class is a contract declaration, and brings no coupling to implementati
 
 The distinction that dissolves much of the debate.
 
-**Interface inheritance** — implementing a contract — is cheap and safe.
-**Implementation inheritance** — inheriting code — is where the three costs appear.
+**Interface inheritance** (implementing a contract) is cheap and safe.
+**Implementation inheritance** (inheriting code) is where the three costs appear.
 
 The advice "prefer composition" is, in practice, "prefer composition over
 implementation inheritance".
@@ -116,7 +116,7 @@ compose.
 - Substitutability is true without exception.
 - The hierarchy is shallow and the set of subtypes is known and closed.
 - The superclass is abstract and defines a contract.
-- The framework requires it — many do, and resisting costs more than accepting.
+- The framework requires it: many do, and resisting costs more than accepting.
 
 **Composition** for the rest, which is most cases.
 
@@ -131,7 +131,7 @@ implementation and the difficulty of tracing where a behaviour comes from.
 **Inheritance with more than one axis of variation.** It explodes combinatorially.
 
 **Composition when it produces blind delegation.** If the composing class merely
-forwards twenty methods to the inner object, it is not composing — it is imitating
+forwards twenty methods to the inner object, it is not composing but imitating
 inheritance with more code. There, either inheritance was adequate, or the boundary
 is wrong.
 
@@ -140,10 +140,10 @@ object can become as hard to follow as a deep hierarchy.
 
 ## Alternatives
 
-- **First-class functions** — when what varies is a simple behaviour, passing a
+- **First-class functions**: when what varies is a simple behaviour, passing a
   function is lighter than either.
-- **Traits or mixins** — in languages that offer them, they sit between the two.
-- **Duplication** — for two cases with superficial similarity, see
+- **Traits or mixins**: in languages that offer them, they sit between the two.
+- **Duplication**: for two cases with superficial similarity, see
   [DRY](/02-software-design/dry.md).
 
 ## Trade-offs
@@ -162,7 +162,7 @@ object can become as hard to follow as a deep hierarchy.
 **Explosive hierarchy.** A second axis of variation appears and the number of
 classes multiplies.
 
-**Refusing subclass.** Overrides a method to throw — a declared Liskov violation.
+**Refusing subclass.** Overrides a method to throw: a declared Liskov violation.
 
 **Fragile base class problem.** An internal change in the superclass breaks
 subclasses that were never touched.
@@ -217,22 +217,22 @@ Facing a concrete choice, four questions in order:
 
 The first question eliminates most cases. The third is the one that saves most:
 inheriting from an interface or a pure abstract class is safe in any hierarchy;
-inheriting code only holds up under the fourth question's condition — a shallow,
-closed hierarchy.
+inheriting code only holds up under the fourth question's condition (a shallow,
+closed hierarchy).
 
 One edge case worth naming: **frameworks that require inheritance.** Extending a
 framework base class to get its behaviour is implementation inheritance with all
 its costs, and frequently there is no alternative. The mitigation is to keep that
-class thin — let it be an adapter that delegates to your own code, rather than the
+class thin: let it be an adapter that delegates to your own code, rather than the
 place where the logic lives.
 
 ## Related Concepts
 
-- [SOLID](/02-software-design/solid.md) — the Liskov substitution principle.
-- [Encapsulation](/02-software-design/encapsulation.md) — what implementation
+- [SOLID](/02-software-design/solid.md): the Liskov substitution principle.
+- [Encapsulation](/02-software-design/encapsulation.md): what implementation
   inheritance breaks.
-- [Interfaces](/02-software-design/interfaces.md) — contract inheritance.
-- [Code Smells](/02-software-design/code-smells.md) — how to recognize problematic
+- [Interfaces](/02-software-design/interfaces.md): contract inheritance.
+- [Code Smells](/02-software-design/code-smells.md): how to recognize problematic
   hierarchies.
 
 ## Practical Exercise
@@ -252,9 +252,9 @@ is a sign that composition would serve better.
 
 ## Further Exploration
 
-- Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994 — the original
+- Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994. The original
   formulation of "prefer composition over inheritance".
 - Liskov, Barbara; Wing, Jeannette. *A Behavioral Notion of Subtyping*. TOPLAS,
   1994.
-- Bloch, Joshua. *Effective Java*. 3rd ed., 2018 — "favor composition over
+- Bloch, Joshua. *Effective Java*. 3rd ed., 2018. "favor composition over
   inheritance".

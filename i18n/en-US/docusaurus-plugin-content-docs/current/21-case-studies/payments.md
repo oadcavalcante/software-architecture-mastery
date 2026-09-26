@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [banking, ecommerce, high-volume-events]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -32,12 +32,12 @@ support, not the magnitudes.
 
 ## Business Context
 
-**Pagolo** is a payments platform processing transactions for 41 thousand merchants —
+**Pagolo** is a payments platform processing transactions for 41 thousand merchants:
 e-commerce, subscriptions and card terminals. Annual volume of $7.6 billion.
 
 The company is not an acquirer: it orchestrates. Each transaction is routed to one of five
 partner acquirers, chosen by cost, approval rate and availability at that moment. That routing
-is the product — merchants hire Pagolo because a transaction declined by one acquirer may be
+is the product: merchants hire Pagolo because a transaction declined by one acquirer may be
 approved by another.
 
 Three pressures motivate revisiting the architecture:
@@ -54,20 +54,20 @@ divergences grows with the business.
 when the platform receives no response from the acquirer and the merchant retries, there is no
 consistent guarantee that the second attempt doesn't become a second charge.
 
-The third item is the most serious. A duplicate in payments is not a technical defect — it is
-money taken from someone who didn't authorize it, and it is treated by the regulator and the
+The third item is the most serious. A duplicate in payments is
+money taken from someone who didn't authorize it, not a technical defect, and it is treated by the regulator and the
 card networks as a control failure.
 
 It is worth understanding why it happens, because the cause is not carelessness. When Pagolo
 sends an authorization to an acquirer and the timeout elapses with no response, there are two
 scenarios indistinguishable from the outside: the request never arrived, or it arrived, was
-processed, and the response was lost. The old system's behavior was to treat both as the first
-— mark the transaction as failed and allow a new attempt. In the cases where the second
+processed, and the response was lost. The old system's behavior was to treat both as the first:
+mark the transaction as failed and allow a new attempt. In the cases where the second
 scenario was the true one, the new attempt charged again.
 
 The choice to assume failure was not arbitrary: it optimizes conversion, because marking it
 pending would have made the merchant lose the sale while waiting. The old architecture traded
-correctness for conversion without anyone having made that decision explicitly — and that kind
+correctness for conversion without anyone having made that decision explicitly. That kind
 of implicit trade is what a case exists to make visible.
 
 ## Functional Requirements
@@ -88,7 +88,7 @@ FR-11  Expose the state of any transaction, at any point in the lifecycle
 ```
 
 FR-5 is the product. FR-11 looks trivial and is not: a transaction in an orchestrator has state
-distributed across Pagolo, the acquirer, the card network and the issuer — and answering "what
+distributed across Pagolo, the acquirer, the card network and the issuer, and answering "what
 happened to that charge" requires the platform to know, always.
 
 ## Non-Functional Requirements
@@ -161,8 +161,8 @@ is the system's central problem, and almost the entire architecture follows from
 It is useful to compare with the [e-commerce](/21-case-studies/ecommerce.md) case, where the
 write volume was also low and the conclusion was that the architecture should optimize speed
 of change. Here the volume is equally low and the conclusion is the opposite: the architecture
-should optimize correctness, and speed of change is secondary. The difference is not in the
-capacity numbers — it is in the cost of an error. A product shown with the wrong inventory
+should optimize correctness, and speed of change is secondary. The difference is in the cost of an
+error, not in the capacity numbers. A product shown with the wrong inventory
 produces a cancellation; a duplicate charge produces a regulatory complaint.
 
 Reading constraints is exactly that: the same volume numbers support opposite decisions
@@ -238,7 +238,7 @@ month and 900 ambiguous cases a day. Any lower weight would make the analysis in
 the diagnosis.
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With latency at 40% and correctness at 20%, the totals
-become 7.0 / 8.1 / 5.3 — Option B still wins, which indicates it doesn't depend on the chosen
+become 7.0 / 8.1 / 5.3: Option B still wins, which indicates it doesn't depend on the chosen
 weight. With operational complexity at 35%, they become 6.5 / 8.0 / 5.1.
 
 ## Decision
@@ -248,7 +248,7 @@ external interaction and a reconciler that resolves stalled transactions.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the internal latency budget were far tighter — below 40 ms — or if
+**Option A would win if** the internal latency budget were far tighter (below 40 ms) or if
 the acquirers' ambiguity rate were negligible. Neither is the case; the first is a constraint
 this product doesn't have, and the second depends on third parties.
 
@@ -305,7 +305,7 @@ token from the vault and returns only the token to the rest of the platform. No 
 sees the card number, which reduces the certification scope from eleven components to one.
 
 The **Acquirer Connectors** exist because five partners produce five incompatible error
-semantics. The same scenario — "the transaction may have been authorized, we don't know" —
+semantics. The same scenario ("the transaction may have been authorized, we don't know")
 appears as HTTP 502 at one partner, as a business code `PENDING` at another, and as a 200
 response with an empty field at a third. Translating that into a single model is what makes the
 Orchestrator tractable. See
@@ -339,15 +339,15 @@ received → routed → authorizing → authorized → captured → settled
 ```
 
 The **`ambiguous`** state is the heart of the design. It is reached when the platform sends a
-request to the acquirer and gets no conclusive response. No other system decides what happened
-— the transaction is explicitly marked as unknown, and the Reconciler is the only component
+request to the acquirer and gets no conclusive response. No other system decides what happened:
+the transaction is explicitly marked as unknown, and the Reconciler is the only component
 authorized to take it out of that state.
 
-Before that design, the behavior was to assume a decline and allow a new attempt — which is the
+Before that design, the behavior was to assume a decline and allow a new attempt. That is the
 exact origin of the 900 monthly duplicates.
 
 Introducing an explicit state for "we don't know" has an effect that goes beyond correctness:
-it makes the problem **measurable**. Before, ambiguous cases didn't exist as a category — they
+it makes the problem **measurable**. Before, ambiguous cases didn't exist as a category. They
 became failures, and the failure rate mixed legitimate declines with not knowing. Afterwards,
 the platform had a number: how many transactions are in an unknown state, and for how long.
 
@@ -374,7 +374,7 @@ See [idempotency](/06-distributed-systems/idempotency.md).
 
 There is a subtlety that only appears in implementation: the merchant's idempotency key and the
 request identifier sent to the acquirer **cannot be the same value**. A transaction may
-legitimately generate more than one request — when the first is declined for a transient reason
+legitimately generate more than one request, when the first is declined for a transient reason
 and the platform tries another acquirer (FR-5). If the two identifiers were one, the second
 attempt would be rejected as a duplicate by the platform itself, and the product would stop
 working.
@@ -407,13 +407,13 @@ exceeds 5% or the p95 latency doubles against the baseline. The diversion is aut
 takes under 60 seconds. See
 [circuit breakers](/12-reliability/circuit-breakers.md).
 
-**Retry with another acquirer (FR-5).** It only happens for declines classified as transient —
+**Retry with another acquirer (FR-5).** It only happens for declines classified as transient:
 unavailability, timeout, communication error. A decline for insufficient funds, a blocked card
 or suspected fraud is **not** retried with another partner: repeating would inflate the
 approval rate artificially and violate card network rules.
 
 Classifying declines as transient or definitive was harder than it looked. The five acquirers
-use different codes, and several of them group distinct reasons under the same code — "declined
+use different codes, and several of them group distinct reasons under the same code: "declined
 by the issuer" can mean insufficient funds, suspected fraud or issuer unavailability, all under
 the same value. The translation was built empirically: each code was classified, and the
 classification is reviewed quarterly based on the success rate of the retries.
@@ -453,10 +453,10 @@ interval, and the volume approved in that mode is capped by amount and by mercha
 
 The calculation behind that decision was done with numbers and is reviewed annually. Declining
 every transaction during one hour of fraud service downtime costs about $870 thousand in
-unprocessed volume — $7.6 billion a year divided by 8,760 hours — with a direct effect on
+unprocessed volume ($7.6 billion a year divided by 8,760 hours) with a direct effect on
 merchants. The expected loss from fraud approved over the same interval, with the amount caps
 applied, is estimated at $8 thousand. The ratio of over a hundred to one justifies the choice, and the amount and merchant caps exist precisely to keep that
-ratio — without them, the degraded mode would be a known invitation.
+ratio. Without them, the degraded mode would be a known invitation.
 
 That is an example of a decision that looks like security and is commercial: whoever answers
 for it is the risk leadership, not engineering, and architecture's role was to make the
@@ -464,7 +464,7 @@ trade-off measurable and the degraded mode controllable.
 
 ## Scalability
 
-The design volume — 700 authorizations per second — is modest and served by simple horizontal
+The design volume (700 authorizations per second) is modest and served by simple horizontal
 scaling. The only point that required attention was the transaction database:
 
 ```text
@@ -478,7 +478,7 @@ solution                       partitioning by month, with the current
 Subscriptions have a different and more delicate profile: recurring charges concentrate on the
 1st, 5th, 10th, 15th and 20th, with peaks of up to 40× the average. The solution was to
 **spread the charges within a 6-hour window**, with the order determined by a hash of the
-subscription identifier — which eliminates the peak without changing the contracted day.
+subscription identifier. That eliminates the peak without changing the contracted day.
 
 ## Reliability
 
@@ -496,7 +496,7 @@ Payout                    99.9%     delayed within the contractual deadline
 ```
 
 The Reconciler line deserves a note: it can be down for hours with no damage, provided the
-`ambiguous` state is written. That is a direct consequence of the architectural decision —
+`ambiguous` state is written. That is a direct consequence of the architectural decision:
 persisting the state before the external step turns a critical failure into a delay.
 
 **RPO zero for an authorized transaction.** Synchronous replica in a distinct zone; confirmation
@@ -547,7 +547,7 @@ when a rule changes on short notice, only the affected connector is changed and 
 
 That was the only part of the architecture where separating into independent services was
 justified by schedule, and not by scale or by team. The card networks publish mandatory changes
-with 30- to 60-day windows, and deploying an isolated connector takes hours — whereas deploying
+with 30- to 60-day windows, and deploying an isolated connector takes hours, whereas deploying
 the Orchestrator requires regression testing over the whole state machine.
 
 The rest of the platform could be a modular monolith with no harm, and the decision to keep the
@@ -574,7 +574,7 @@ querying the acquirer with the original request identifier. Duplicates drop to ~
 diversion in 60 s, against the 9 manual minutes.
 
 **Phase 4 (months 13–18): automatic reconciliation.** Automatic matching and classification of
-divergences. The reconciliation team is redirected, not reduced — 9 of the 14 people move to
+divergences. The reconciliation team is redirected, not reduced: 9 of the 14 people move to
 handling chargebacks, which was a bottleneck.
 
 **Phase 5 (months 19–24): subscriptions and chargebacks.** Smart retries based on decline reason
@@ -618,7 +618,7 @@ internal p99                            94 ms (a 120 ms budget)
 ```
 
 The 2.3 percentage point gain in approval rate, over $7.6 billion, is the project's largest
-financial effect — and it was not the stated objective. It came from two changes: diverting
+financial effect, and it was not the stated objective. It came from two changes: diverting
 traffic away from degraded acquirers, and no longer retrying definitive declines with other
 partners, which was being penalized by the card networks.
 
@@ -642,7 +642,7 @@ went into correctness under partial failure, and no decision was motivated by vo
 ## Related Concepts
 
 - [Idempotency](/06-distributed-systems/idempotency.md).
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — health-based diversion.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): health-based diversion.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 - [Case: Digital Banking Core](/21-case-studies/banking.md).
 

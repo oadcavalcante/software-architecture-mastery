@@ -2,7 +2,7 @@
 id: deployment-strategies
 title: Estratégias de Implantação
 sidebar_position: 4
-description: Como a versão nova substitui a antiga — e o critério para escolher entre as opções.
+description: Como a versão nova substitui a antiga, e o critério para escolher entre as opções.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [blue-green, canary, rolling-deployments]
 canonical_for: [estratégia de implantação, implantação sem interrupção, janela de exposição, compatibilidade entre versões]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -37,12 +37,12 @@ diferentes, e a escolha vem do risco da mudança.
 
 ## Problema
 
-Num sistema estável, a mudança é a principal fonte de incidentes — o que faz da implantação
+Num sistema estável, a mudança é a principal fonte de incidentes. Isso faz da implantação
 o momento em que o risco se concentra. É a premissa do capítulo 27 de Beyer et al. (2016),
 listado em Para Aprofundar, e a razão de ele tratar implantação como problema de
 confiabilidade e não de processo.
 
-Isso não significa implantar menos — o oposto, ver
+Isso não significa implantar menos: é o oposto, ver
 [integração contínua](/14-devops-and-platform/ci-cd.md). Significa que **como** se implanta importa.
 
 Sem estratégia, a implantação é uma troca abrupta: a versão nova substitui a antiga, e
@@ -65,7 +65,7 @@ Ver [implantação em ondas](/14-devops-and-platform/rolling-deployments.md),
 [blue-green](/14-devops-and-platform/blue-green.md) e [canary](/14-devops-and-platform/canary.md).
 
 A distinção central: **em ondas e blue-green são mecanismos de substituição; canary é um
-mecanismo de verificação.** Eles se combinam — uma implantação canary bem-sucedida
+mecanismo de verificação.** Eles se combinam: uma implantação canary bem-sucedida
 costuma terminar com uma implantação em ondas do restante.
 
 ### Compatibilidade entre versões é o pré-requisito
@@ -81,7 +81,7 @@ estado compartilhado sessão, cache — legíveis por ambas
 
 Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
-Sem isso, a única estratégia possível é parar tudo e trocar — que é o que se quer
+Sem isso, a única estratégia possível é parar tudo e trocar. É isso que se quer
 evitar.
 
 O padrão que resolve: **expandir, migrar, contrair**. Adicionar o novo mantendo o
@@ -106,7 +106,7 @@ não diz nada, e o que conta é quantos eventos chegam a cada lado no período. 
 ### Reverter precisa ser mais fácil que corrigir
 
 O princípio operacional que orienta tudo: sob pressão, reverter primeiro e investigar depois,
-com o sistema estável. Mas isso só é a decisão certa **enquanto a reversão for barata** — e é
+com o sistema estável. Mas isso só é a decisão certa **enquanto a reversão for barata**, e é
 por isso que os quatro requisitos abaixo são requisitos, e não recomendações. Onde a migração
 já rodou ou o estado já divergiu, reverter deixa de ser automático e passa a ser uma decisão
 com risco próprio, que precisa ser pensada no meio do incidente. Manter a reversão barata é o
@@ -124,7 +124,7 @@ testada      exercitada, não presumida
 A terceira é a que costuma falhar: reverter o código é fácil; reverter uma migração de
 banco que já rodou, não. É por isso que migrações compatíveis são pré-requisito.
 
-Ver [resiliência](/12-reliability/resilience.md) — reversibilidade vale mais que
+Ver [resiliência](/12-reliability/resilience.md) : reversibilidade vale mais que
 acerto.
 
 ### A escolha vem do risco
@@ -145,8 +145,8 @@ fração inicial valida; o resto vai gradualmente.
 Ver [feature flags](/14-devops-and-platform/feature-flags.md). Com flags, o código pode ir a produção desativado,
 e a liberação vira uma decisão separada, reversível em segundos.
 
-Isso muda o cálculo: a implantação passa a ser de baixo risco — o código novo não faz
-nada — e o risco se concentra na liberação, que é controlável independentemente.
+Isso muda o cálculo: a implantação passa a ser de baixo risco (o código novo não faz
+nada), e o risco se concentra na liberação, que é controlável independentemente.
 
 Times que combinam as duas técnicas implantam com frequência alta e liberam com cuidado.
 
@@ -167,7 +167,7 @@ resto é consequência.
 
 **Qualquer estratégia gradual sem compatibilidade entre versões.**
 
-**Canary abaixo do volume que torna a comparação significativa** — o
+**Canary abaixo do volume que torna a comparação significativa**: o
 [critério](/14-devops-and-platform/canary.md) é o número de eventos por lado, não a fração.
 
 **Blue-green sem capacidade para o ambiente duplicado.**
@@ -178,15 +178,15 @@ resto é consequência.
 
 ## Alternativas
 
-- **Implantação com parada** — legítima para sistemas que toleram janela, e muito mais
+- **Implantação com parada**: legítima para sistemas que toleram janela, e muito mais
   simples.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — separam implantar de liberar, reduzindo o risco
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: separam implantar de liberar, reduzindo o risco
   de ambos.
-- **Implantação sombra** — a versão nova recebe cópia do tráfego sem responder ao
+- **Implantação sombra**: a versão nova recebe cópia do tráfego sem responder ao
   usuário. Verifica comportamento com risco zero, ao custo de dobrar a carga.
 
 A última vence quando o comportamento novo pode ser comparado com o antigo sem que o usuário
-receba a resposta — mudança de algoritmo, de ranqueamento, de motor de consulta — e o custo de
+receba a resposta (mudança de algoritmo, de ranqueamento, de motor de consulta) e o custo de
 processar o tráfego duas vezes é aceitável.
 
 ## Trade-offs
@@ -236,19 +236,19 @@ antiga.
 Uma plataforma de reservas usava implantação em ondas para tudo, com reversão manual.
 
 Um incidente expôs os limites: uma mudança no cálculo de disponibilidade tinha um erro
-que só aparecia com dados reais de certos hotéis — cerca de 4% das buscas retornavam
+que só aparecia com dados reais de certos hotéis. Cerca de 4% das buscas retornavam
 resultado errado, sem erro nem lentidão.
 
 A plataforma atendia cerca de 240 buscas por segundo. A implantação em ondas levou a versão
 a todas as instâncias em 12 minutos, e o problema foi detectado 6 horas depois, por um
-parceiro — mais de 200 mil buscas com disponibilidade incorreta, algumas delas viradas em
+parceiro: mais de 200 mil buscas com disponibilidade incorreta, algumas delas viradas em
 reservas que precisaram ser canceladas.
 
 Nenhuma métrica técnica mudou: latência normal, sem erros, tráfego normal.
 
 As mudanças:
 
-**Canary para mudanças de comportamento**, com comparação automática de métricas de negócio —
+**Canary para mudanças de comportamento**, com comparação automática de métricas de negócio:
 taxa de conversão, distribuição de resultados, valor médio. A fração e a janela saíram do
 [critério de significância](/14-devops-and-platform/canary.md), não de um número redondo:
 
@@ -257,7 +257,7 @@ taxa de conversão, distribuição de resultados, valor médio. A fração e a j
 defeito em 4% delas             ~1,3 mil casos no canary
 ```
 
-Os 2% por 30 minutos que a equipe tinha proposto primeiro dariam 8,6 mil buscas e 350 casos —
+Os 2% por 30 minutos que a equipe tinha proposto primeiro dariam 8,6 mil buscas e 350 casos:
 detectável, mas com margem estreita demais para um limiar automático que não pode disparar por
 ruído. O desenho do canary está no canônico; o que este documento decide é **quando** usá-lo.
 
@@ -266,7 +266,7 @@ nova retornava significativamente menos opções para um subconjunto de buscas.
 
 **Em ondas mantido** para mudanças de baixo risco, que são a maioria.
 
-**Blue-green para mudanças de infraestrutura** — versão de tempo de execução, migração
+**Blue-green para mudanças de infraestrutura**: versão de tempo de execução, migração
 de biblioteca base.
 
 **Reversão automatizada**, disparada pela comparação do canary, com tempo medido de 90
@@ -274,13 +274,13 @@ segundos.
 
 **Migrações compatíveis** obrigatórias, verificadas na revisão.
 
-**Classificação de risco** na abertura da mudança, definindo a estratégia — com o autor
+**Classificação de risco** na abertura da mudança, definindo a estratégia, com o autor
 declarando se altera comportamento observável.
 
 Nos doze meses seguintes, o canary reverteu automaticamente sete implantações. Três
 seriam incidentes de comportamento silencioso como o original.
 
-O ponto que a equipe sublinha: a implantação em ondas nunca foi errada — ela protege contra
+O ponto que a equipe sublinha: a implantação em ondas nunca foi errada. Ela protege contra
 indisponibilidade, e fazia isso bem. Ela simplesmente não protege contra o que
 aconteceu, e ninguém tinha feito essa distinção.
 
@@ -288,7 +288,7 @@ aconteceu, e ninguém tinha feito essa distinção.
 
 - [Blue-Green](/14-devops-and-platform/blue-green.md), [Canary](/14-devops-and-platform/canary.md),
   [Implantação em Ondas](/14-devops-and-platform/rolling-deployments.md).
-- [Feature Flags](/14-devops-and-platform/feature-flags.md) — separar implantar de liberar.
+- [Feature Flags](/14-devops-and-platform/feature-flags.md): separar implantar de liberar.
 - [Integração Contínua](/14-devops-and-platform/ci-cd.md).
 - [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
@@ -315,4 +315,4 @@ implantação.
 
 - Humble, Jez; Farley, David. *Continuous Delivery*. Addison-Wesley, 2010.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 27.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 27.

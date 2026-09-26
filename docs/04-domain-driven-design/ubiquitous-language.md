@@ -2,7 +2,7 @@
 id: ubiquitous-language
 title: Ubiquitous Language
 sidebar_position: 7
-description: O vocabulário compartilhado que elimina a tradução — o mecanismo do qual todo o resto do DDD depende.
+description: "O vocabulário compartilhado que elimina a tradução: o mecanismo do qual todo o resto do DDD depende."
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [bounded-context, domain, entity]
 canonical_for: [ubiquitous language, linguagem ubíqua]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -36,7 +36,7 @@ banco tem `dt_ini_cob`, e a tela mostra "prazo de espera", existem quatro
 representações de um conceito. Cada conversa entre as pessoas envolvidas exige
 uma tradução mental, e cada tradução é uma chance de divergência.
 
-Pior: quando o significado do conceito muda — e conceitos de negócio mudam — a
+Pior: quando o significado do conceito muda (e conceitos de negócio mudam) a
 mudança precisa atravessar quatro representações, e alguém esquece uma.
 
 ## Conceitos Centrais
@@ -52,7 +52,7 @@ tabelas.
 Se o especialista lê o nome de um método e reconhece o conceito, a linguagem está
 funcionando. Se precisa de tradução, não está.
 
-O teste é literal, não uma figura de linguagem — o exercício ao final deste
+O teste é literal, não uma figura de linguagem: o exercício ao final deste
 documento o aplica.
 
 ### A linguagem é por contexto
@@ -61,7 +61,7 @@ Não existe uma linguagem para a empresa inteira. Existe uma por
 [bounded context](/04-domain-driven-design/bounded-context.md).
 
 "Apólice" em subscrição e em cobrança são conceitos diferentes com o mesmo nome, e
-está correto que sejam — desde que a fronteira entre os contextos seja explícita.
+está correto que sejam, desde que a fronteira entre os contextos seja explícita.
 
 Buscar uma linguagem corporativa única reproduz o erro do modelo canônico.
 
@@ -83,7 +83,7 @@ Quando o entendimento melhora e um termo muda, o código muda junto. Renomear é
 parte do trabalho, não uma refatoração opcional adiada para depois.
 
 Um sistema em que o código usa vocabulário de três anos atrás, enquanto o negócio
-fala outro, perdeu a linguagem — e ninguém percebe até uma conversa dar errado.
+fala outro, perdeu a linguagem, e ninguém percebe até uma conversa dar errado.
 
 ## Modelo Mental
 
@@ -94,7 +94,7 @@ não está funcionando.**
 
 - Sempre, dentro de um bounded context com complexidade de domínio.
 - Especialmente no [core domain](/04-domain-driven-design/core-domain.md), onde a precisão importa mais.
-- Quando mais de uma pessoa precisa falar do mesmo conceito — entre desenvolvedores,
+- Quando mais de uma pessoa precisa falar do mesmo conceito, entre desenvolvedores,
   ou com o negócio.
 
 ## Quando Não Usar
@@ -115,9 +115,9 @@ inclusive com as imprecisões que carrega.
 
 ## Alternativas
 
-- **Glossário mantido separadamente** — melhor que nada, e degrada, porque não há
+- **Glossário mantido separadamente**: melhor que nada, e degrada, porque não há
   mecanismo que force a sincronia com o código.
-- **Vocabulário técnico consistente** — adequado onde não há domínio complexo.
+- **Vocabulário técnico consistente**: adequado onde não há domínio complexo.
 
 ## Trade-offs
 
@@ -156,11 +156,11 @@ conversa usa o novo, e a correspondência entre os dois passa a existir só na c
 de quem estava na sessão de modelagem.
 
 **Impor precisão que o negócio não tem.** Se os especialistas usam um termo de
-forma ambígua, isso é informação sobre o domínio — e frequentemente aponta uma
+forma ambígua, isso é informação sobre o domínio, e frequentemente aponta uma
 distinção que vale explorar, não corrigir unilateralmente.
 
 **Negociar um termo único entre contextos que discordam.** O acordo produz um nome
-genérico que nenhum dos dois lados usa, e cada contexto volta a traduzir — agora sem
+genérico que nenhum dos dois lados usa, e cada contexto volta a traduzir, agora sem
 que ninguém registre a tradução.
 
 **Manter o vocabulário só em português na conversa e em inglês no código.** É uma
@@ -176,17 +176,17 @@ Uma equipe de crédito consignado tinha, no código, `Emprestimo`, `Parcela`,
 Numa sessão de modelagem, ao mapear o fluxo com dois especialistas, quatro
 distinções apareceram que o código não fazia:
 
-**Averbação** — o ato de o empregador reconhecer o desconto em folha. O código
+**Averbação**: o ato de o empregador reconhecer o desconto em folha. O código
 tratava como um campo booleano em `Emprestimo`.
 
-**Margem consignável** — o limite legal de comprometimento da renda. Estava
+**Margem consignável**: o limite legal de comprometimento da renda. Estava
 espalhado como cálculo em três lugares.
 
-**Portabilidade** e **refinanciamento** — dois tipos de operação com regras
+**Portabilidade** e **refinanciamento**: dois tipos de operação com regras
 completamente diferentes, ambos representados como `Emprestimo` com um campo
 `tipo`.
 
-**Reserva de margem** — o bloqueio temporário do limite durante a análise, que
+**Reserva de margem**: o bloqueio temporário do limite durante a análise, que
 expira. Não existia; era inferido pelo status.
 
 A remodelagem com essas quatro distinções levou três meses e mudou a estrutura do
@@ -194,7 +194,7 @@ sistema, não só os nomes.
 
 O achado que justificou o esforço: `ReservaDeMargem` não existia, e a lógica de
 expiração estava implementada como uma consulta que filtrava por data de criação
-em três telas diferentes — com dois dias de diferença entre elas. Havia um defeito
+em três telas diferentes, com dois dias de diferença entre elas. Havia um defeito
 de negócio que ninguém tinha reportado porque ninguém tinha o vocabulário para
 descrevê-lo.
 
@@ -229,11 +229,11 @@ informação que a divergência carregava.
 
 ## Conceitos Relacionados
 
-- [Domínio](/04-domain-driven-design/domain.md) — o problema da tradução.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a fronteira da linguagem.
-- [Entity](/04-domain-driven-design/entity.md) e [Value Object](/04-domain-driven-design/value-object.md) — onde a linguagem se
+- [Domínio](/04-domain-driven-design/domain.md): o problema da tradução.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): a fronteira da linguagem.
+- [Entity](/04-domain-driven-design/entity.md) e [Value Object](/04-domain-driven-design/value-object.md): onde a linguagem se
   materializa.
-- [Política Terminológica](/i18n-terminology.md) — a aplicação deste princípio
+- [Política Terminológica](/i18n-terminology.md): a aplicação deste princípio
   a este próprio repositório.
 
 ## Exercício Prático
@@ -242,7 +242,7 @@ Pegue a classe mais central do seu domínio e mostre a um especialista de negóc
 
 Peça que ele leia os nomes dos métodos e explique o que cada um faz.
 
-Onde ele hesitar, perguntar ou traduzir, a linguagem não está compartilhada — e
+Onde ele hesitar, perguntar ou traduzir, a linguagem não está compartilhada, e
 cada ponto desses é candidato a uma distinção que o modelo não faz.
 
 ## Perguntas de Entrevista
@@ -254,6 +254,6 @@ cada ponto desses é candidato a uma distinção que o modelo não faz.
 ## Para Aprofundar
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — em progresso desde
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016. Em progresso desde
   então; a técnica apareceu antes no artigo homônimo de 2013.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

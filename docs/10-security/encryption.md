@@ -2,7 +2,7 @@
 id: encryption
 title: Criptografia
 sidebar_position: 6
-description: Em trânsito, em repouso e em uso — o que cada uma protege, e por que "está criptografado" não é resposta.
+description: "Em trânsito, em repouso e em uso: o que cada uma protege, e por que \"está criptografado\" não é resposta."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, network-security, data-protection]
 canonical_for: [criptografia em trânsito, criptografia em repouso, cifra simétrica, cifra assimétrica]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -30,7 +30,7 @@ em repouso    contra quem obtém o meio de armazenamento
 em uso        contra quem tem acesso ao ambiente de execução
 ```
 
-"Está criptografado" não é resposta, porque não diz qual dessas — e cada uma protege
+"Está criptografado" não é resposta, porque não diz qual dessas, e cada uma protege
 contra uma ameaça diferente, deixando as outras abertas.
 
 ## Problema
@@ -42,7 +42,7 @@ Isso protege contra um cenário específico: alguém obtém fisicamente o disco.
 ambiente de nuvem, esse cenário é remoto.
 
 E não protege contra o cenário provável: uma credencial comprometida usa a aplicação
-para ler os dados — e a aplicação decifra normalmente, porque é isso que ela faz.
+para ler os dados, e a aplicação decifra normalmente, porque é isso que ela faz.
 
 O resultado é um requisito atendido no papel, sem redução de risco real.
 
@@ -74,7 +74,7 @@ confiável" é a mesma que [confiança zero](/10-security/zero-trust.md) desmont
 Dois pontos que costumam faltar:
 
 **Verificação de certificado.** Desabilitá-la para "resolver" um erro anula a
-proteção inteira — o canal fica cifrado com quem quer que esteja no meio.
+proteção inteira: o canal fica cifrado com quem quer que esteja no meio.
 
 **TLS mútuo** entre serviços, quando as duas pontas precisam se identificar. Ver
 [malha de serviço](/08-integration-architecture/service-mesh.md).
@@ -87,7 +87,7 @@ nuvem, contra a leitura de um volume descartado.
 Ela **não** protege contra: credencial da aplicação comprometida, consulta indevida,
 vazamento por defeito de autorização, ou administrador com acesso legítimo.
 
-Isso não a torna inútil — é requisito regulatório e defesa em profundidade barata.
+Isso não a torna inútil: é requisito regulatório e defesa em profundidade barata.
 Torna-a insuficiente como resposta a "como protegemos esses dados?".
 
 ### Cifragem no nível do campo é a que muda o cálculo
@@ -99,7 +99,7 @@ cifrados.
 O custo é real e precisa ser reconhecido:
 
 **Não dá para consultar.** Buscar por um campo cifrado exige cifragem determinística
-— que vaza padrão de repetição — ou índice separado.
+(que vaza padrão de repetição) ou índice separado.
 
 **Ordenação e comparação** deixam de funcionar.
 
@@ -114,7 +114,7 @@ saúde, credenciais de terceiros.
 Uma aplicação específica e poderosa: cifrar os dados de cada titular com uma chave
 própria.
 
-Apagar os dados dessa pessoa passa a ser **descartar a chave** — o registro
+Apagar os dados dessa pessoa passa a ser **descartar a chave**: o registro
 permanece, e o conteúdo fica irrecuperável.
 
 Isso resolve o conflito entre imutabilidade e direito ao apagamento em
@@ -131,14 +131,14 @@ isolam a memória do processo até do sistema operacional e do provedor. O acess
 que ela barra é o do operador da plataforma e o de outro inquilino no mesmo
 hospedeiro.
 
-O custo é hardware específico, desempenho menor e depuração difícil — e ela não
+O custo é hardware específico, desempenho menor e depuração difícil. E ela não
 muda o cenário provável: a aplicação dentro do enclave continua decifrando para
 quem ela autoriza. Justifica-se quando o próprio provedor está no modelo de ameaça;
 fora disso, este documento trata das outras duas.
 
 ### Não implemente
 
-A regra cujo erro não aparece em teste — e por isso é a que cede primeiro sob prazo:
+A regra cujo erro não aparece em teste, e por isso é a que cede primeiro sob prazo:
 
 **Use bibliotecas maduras e algoritmos padronizados.** Não invente esquema, não
 combine primitivas por conta, não use modos de operação sem entender suas exigências.
@@ -147,7 +147,7 @@ Os erros são sutis e silenciosos: um vetor de inicialização reutilizado, um m
 autenticação, uma comparação que vaza tempo. O sistema funciona, os testes passam, e
 a proteção não existe.
 
-Prefira construções que dificultam o erro — cifragem autenticada, bibliotecas de alto
+Prefira construções que dificultam o erro: cifragem autenticada, bibliotecas de alto
 nível com poucas opções.
 
 ## Modelo Mental
@@ -157,10 +157,10 @@ o que está protegendo.
 
 ## Quando Usar
 
-- **Em trânsito:** em toda conexão que atravessa rede compartilhada — inclusive a
+- **Em trânsito:** em toda conexão que atravessa rede compartilhada, inclusive a
   interna, que outros serviços e operadores também alcançam. A exceção legítima é o
   processo auxiliar no mesmo hospedeiro que termina o TLS pelo serviço.
-- **Em repouso:** sempre que disponível — é barato.
+- **Em repouso:** sempre que disponível; é barato.
 - **No campo:** para dados sensíveis, quando o acesso ao banco é ameaça real.
 - **Por titular:** quando há requisito de apagamento em armazenamento imutável.
 - **Assimétrica:** quando as partes não compartilham segredo previamente.
@@ -179,7 +179,7 @@ o que está protegendo.
 
 **Com verificação de certificado desabilitada.**
 
-**Quando o problema é autorização.** Criptografia não conserta permissão errada —
+**Quando o problema é autorização.** Criptografia não conserta permissão errada,
 e é frequentemente adotada como se fosse.
 
 ## Alternativas
@@ -188,10 +188,10 @@ Para proteger dados sem cifrar:
 
 - **Não coletar.** Ver [proteção de dados](/10-security/data-protection.md).
 - **[Tokenização](/10-security/data-protection.md#tokenização-tira-o-dado-do-sistema)**
-  e **[pseudonimização](/10-security/data-protection.md#pseudonimização-e-anonimização-não-são-a-mesma-coisa)**
-  — em vez de cifrar o dado no lugar, tiram-no do sistema ou do vínculo com o titular;
+  e **[pseudonimização](/10-security/data-protection.md#pseudonimização-e-anonimização-não-são-a-mesma-coisa)**:
+  em vez de cifrar o dado no lugar, tiram-no do sistema ou do vínculo com o titular;
   não há chave a proteger porque não há o que decifrar.
-- **Autorização adequada** — frequentemente o controle que de fato faltava.
+- **Autorização adequada**: frequentemente o controle que de fato faltava.
 
 ## Trade-offs
 
@@ -220,7 +220,7 @@ Para proteger dados sem cifrar:
 
 **Modo sem autenticação.** Permite alteração não detectada.
 
-**Chave perdida.** Dado irrecuperável — o modo de falha oposto e igualmente grave.
+**Chave perdida.** Dado irrecuperável: o modo de falha oposto e igualmente grave.
 
 **Requisito atendido sem risco reduzido.** Cifragem em repouso contra uma ameaça de
 credencial comprometida.
@@ -229,13 +229,13 @@ credencial comprometida.
 
 **Não nomear a ameaça.** Criptografia em repouso protege contra disco roubado e cópia de backup vazada; não protege contra credencial comprometida, que é a via mais comum. Sem nomear a ameaça, cifra-se o que não estava em risco.
 
-**Cifrar senha em vez de derivar.** Cifrar é reversível — quem obtém a chave obtém todas as senhas. Senha exige função de derivação lenta e com sal, que não tem volta.
+**Cifrar senha em vez de derivar.** Cifrar é reversível: quem obtém a chave obtém todas as senhas. Senha exige função de derivação lenta e com sal, que não tem volta.
 
 **Guardar a chave junto do dado.** A chave no mesmo banco, no mesmo servidor ou no mesmo repositório anula a criptografia: quem alcança um alcança o outro.
 
-**Implementar o esquema.** Criptografia falha em detalhes — reuso de vetor de inicialização, comparação suscetível a tempo, modo sem autenticação. Bibliotecas revisadas existem justamente porque esses erros não são visíveis em teste.
+**Implementar o esquema.** Criptografia falha em detalhes: reuso de vetor de inicialização, comparação suscetível a tempo, modo sem autenticação. Bibliotecas revisadas existem justamente porque esses erros não são visíveis em teste.
 
-**Desabilitar verificação de certificado.** Feita para destravar um ambiente de desenvolvimento, ela sobrevive até produção — e transforma o canal cifrado em canal cifrado com quem quer que esteja no meio.
+**Desabilitar verificação de certificado.** Feita para destravar um ambiente de desenvolvimento, ela sobrevive até produção, e transforma o canal cifrado em canal cifrado com quem quer que esteja no meio.
 
 **Tratar criptografia como substituta de autorização.** Dado cifrado em repouso é devolvido decifrado para quem a aplicação deixa consultar. Se a autorização está errada, a criptografia não impede nada.
 
@@ -251,7 +251,7 @@ Dezoito meses depois, um incidente: uma credencial de aplicação vazou por um r
 de erro, e foram extraídos dados de 40 mil pacientes.
 
 A cifragem em repouso não teve nenhum efeito. A aplicação decifrava os dados
-normalmente — é isso que ela faz — e a credencial permitia usá-la.
+normalmente (é isso que ela faz) e a credencial permitia usá-la.
 
 A revisão posterior mudou a abordagem, começando por nomear as ameaças:
 
@@ -264,17 +264,17 @@ administrador de banco curioso      cifragem no campo + auditoria
 solicitação de apagamento           cifragem por titular
 ```
 
-As três últimas linhas não tinham nenhum controle — inclusive a do vetor do incidente.
+As três últimas linhas não tinham nenhum controle, inclusive a do vetor do incidente.
 
 O que foi implementado:
 
 **Cifragem no nível do campo** para documento, diagnóstico e resultado de exame, com
 chaves gerenciadas fora do banco. A busca por documento passou a usar um índice
-separado com resumo com chave (HMAC, chave fora do banco) — um resumo simples seria
+separado com resumo com chave (HMAC, chave fora do banco). Um resumo simples seria
 enumerável offline, porque o espaço de números de documento é pequeno.
 
 **Cifragem por titular** para os dados de saúde, permitindo apagamento por descarte
-de chave — o que resolveu um requisito regulatório que estava pendente havia dois
+de chave, o que resolveu um requisito regulatório que estava pendente havia dois
 anos.
 
 **Escopo reduzido** da credencial de aplicação, com acesso apenas às tabelas
@@ -285,22 +285,22 @@ necessárias. Ver [menor privilégio](/10-security/least-privilege.md).
 **Filtro de registros** para não gravar credenciais.
 
 O ponto que a equipe sublinha: o requisito regulatório dizia "os dados devem ser
-criptografados", e eles atenderam literalmente. A pergunta que ninguém fez — "contra
-quem?" — teria mudado a resposta inteira. Nomear a ameaça, reduzir o escopo da credencial e
+criptografados", e eles atenderam literalmente. A pergunta que ninguém fez ("contra
+quem?") teria mudado a resposta inteira. Nomear a ameaça, reduzir o escopo da credencial e
 filtrar registros custavam pouco em qualquer momento; a cifragem no campo e por
-titular custou caro porque veio depois — migrar consultas e reescrever o histórico.
+titular custou caro porque veio depois: migrar consultas e reescrever o histórico.
 
 ## Conceitos Relacionados
 
-- [Gestão de Chaves](/10-security/key-management.md) — sem ela, criptografia não funciona.
-- [Proteção de Dados](/10-security/data-protection.md) — as alternativas a cifrar.
-- [Segurança de Rede](/10-security/network-security.md) — cifragem em trânsito.
+- [Gestão de Chaves](/10-security/key-management.md): sem ela, criptografia não funciona.
+- [Proteção de Dados](/10-security/data-protection.md): as alternativas a cifrar.
+- [Segurança de Rede](/10-security/network-security.md): cifragem em trânsito.
 - [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 
 ## Exercício Prático
 
 Para cada tipo de dado sensível do seu sistema, escreva contra qual acesso ele está
-protegido — e contra qual não está.
+protegido, e contra qual não está.
 
 A coluna da direita costuma incluir "credencial da aplicação comprometida", que é o
 cenário mais provável.

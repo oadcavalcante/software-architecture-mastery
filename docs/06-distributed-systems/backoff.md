@@ -2,7 +2,7 @@
 id: backoff
 title: Backoff
 sidebar_position: 7
-description: Espaçar as tentativas — e por que sem variação aleatória o backoff sincroniza os clientes.
+description: Espaçar as tentativas, e por que sem variação aleatória o backoff sincroniza os clientes.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retries]
 related: [retries, rate-limiting, retry-storms]
 canonical_for: [backoff, backoff exponencial, jitter]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,20 +24,20 @@ last_reviewed: 2026-08-27
 Backoff é aumentar o intervalo entre tentativas sucessivas.
 
 Ele existe porque [retentativa](/06-distributed-systems/retries.md) imediata concentra carga exatamente
-quando o destino não suporta. E a parte que mais se omite — a **variação
-aleatória** — é a que faz o mecanismo funcionar de fato.
+quando o destino não suporta. E a parte que mais se omite (a **variação
+aleatória**) é a que faz o mecanismo funcionar de fato.
 
 ## Problema
 
 Um serviço fica indisponível por 30 segundos. Mil clientes falham.
 
-Sem backoff, os mil repetem imediatamente. E de novo. E de novo. O serviço, que
+Sem backoff, os mil repetem imediatamente, e de novo, e de novo. O serviço, que
 estava se recuperando, recebe carga contínua e não consegue.
 
-Com backoff fixo — esperar 1 segundo — os mil esperam um segundo e tentam **todos
+Com backoff fixo (esperar 1 segundo), os mil esperam um segundo e tentam **todos
 ao mesmo tempo**. A carga não diminuiu; ela virou pulsos.
 
-Com backoff exponencial sem variação — 1 s, 2 s, 4 s, 8 s — a mesma coisa: os
+Com backoff exponencial sem variação (1 s, 2 s, 4 s, 8 s), a mesma coisa: os
 clientes que falharam juntos continuam sincronizados, e os pulsos ficam mais
 espaçados e igualmente concentrados.
 
@@ -58,10 +58,10 @@ A primeira linha dá o crescimento. A segunda espalha os clientes ao longo da
 janela, dessincronizando-os.
 
 Sem a segunda linha, mil clientes que falharam no mesmo instante voltam no mesmo
-instante. Com ela, distribuem-se — e o destino recebe carga gradual em vez de
+instante. Com ela, distribuem-se, e o destino recebe carga gradual em vez de
 pulso.
 
-Essa forma — sortear no intervalo inteiro — é conhecida como *full jitter*, e
+Essa forma (sortear no intervalo inteiro) é conhecida como *full jitter*, e
 experimentos publicados pela AWS mostraram que ela reduz tanto a contenção quanto
 o tempo total de conclusão em relação às variantes que sorteiam apenas parte do
 intervalo.
@@ -71,7 +71,7 @@ intervalo.
 Sem limite, a espera cresce indefinidamente: a décima tentativa esperaria mais de
 oito minutos com base de 1 segundo.
 
-Um teto — tipicamente dezenas de segundos — mantém a retentativa útil. O
+Um teto (tipicamente dezenas de segundos) mantém a retentativa útil. O
 crescimento existe para aliviar o destino, não para desistir por exaustão
 aritmética.
 
@@ -90,7 +90,7 @@ sabe do próprio estado mais do que o cliente consegue inferir.
 
 O valor informado é o piso da espera, não a espera inteira: mil clientes que voltam
 exatamente no instante indicado voltam sincronizados. A variação aleatória se aplica
-por cima dele, nunca abaixo — e o prazo do chamador continua valendo: um
+por cima dele, nunca abaixo. E o prazo do chamador continua valendo: um
 `Retry-After` maior que o orçamento é motivo para desistir, não para esperar.
 
 Ignorar `Retry-After` e usar backoff próprio é desperdiçar informação que o
@@ -101,7 +101,7 @@ servidor forneceu de propósito.
 Numa [fila](/05-system-design/queues.md), o backoff costuma ser implementado
 como atraso de reentrega: a mensagem volta a ficar visível depois de N segundos.
 
-O efeito é o mesmo e o mecanismo não é do cliente — é da fila. Configurar
+O efeito é o mesmo e o mecanismo é da fila, não do cliente. Configurar
 retentativa no consumidor **além** do mecanismo da fila produz duas camadas de
 repetição que se multiplicam.
 
@@ -154,21 +154,21 @@ clientes.** As duas coisas são necessárias, e a segunda é a esquecida.
 **Para falha permanente.** Esperar não muda uma requisição inválida.
 
 **Quando a operação tem prazo curto.** Se o usuário espera 3 segundos, um backoff
-que chega a 8 já ultrapassou o orçamento — a tentativa acontece depois de o
+que chega a 8 já ultrapassou o orçamento: a tentativa acontece depois de o
 chamador ter desistido.
 
-**Backoff sem variação.** Espaça os pulsos sem dessincronizar os clientes — e nisso
+**Backoff sem variação.** Espaça os pulsos sem dessincronizar os clientes. E nisso
 é pior que não ter backoff nenhum: dá a impressão de proteção, e o problema deixa de
 ser investigado.
 
 ## Alternativas
 
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar em vez de
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: parar de tentar em vez de
   espaçar. Mais eficaz quando a falha é persistente.
-- **Fila com atraso** — deixar o mecanismo de mensageria cuidar.
-- **Orçamento de retentativa** — limitar a proporção em vez do intervalo. Ver
+- **Fila com atraso**: deixar o mecanismo de mensageria cuidar.
+- **Orçamento de retentativa**: limitar a proporção em vez do intervalo. Ver
   [tempestades de retentativa](/12-reliability/retry-storms.md).
-- **Falhar rápido** — quando o prazo do chamador não comporta espera.
+- **Falhar rápido**: quando o prazo do chamador não comporta espera.
 
 ## Trade-offs
 
@@ -213,7 +213,7 @@ Um sistema com 3 000 instâncias de trabalhadores consumia uma API interna com
 limite de taxa.
 
 Quando o limite era atingido, a API devolvia `429`. Os trabalhadores tinham
-backoff exponencial configurado — sem variação aleatória.
+backoff exponencial configurado, sem variação aleatória.
 
 O comportamento observado era característico: a API alternava entre 100% de
 utilização e praticamente zero, em ciclos de poucos segundos.
@@ -223,24 +223,24 @@ intervalo, e voltavam juntos. A cada ciclo, o pulso estourava o limite de novo, 
 todos recuavam de novo.
 
 A utilização média da API era de cerca de 35% da capacidade, e mesmo assim os
-trabalhadores demoravam horas para concluir o processamento — porque a maior parte
+trabalhadores demoravam horas para concluir o processamento, porque a maior parte
 do tempo estavam esperando em sincronia.
 
 A correção foi uma linha: sortear a espera no intervalo `[0, calculado]` em vez de
 usar o valor calculado.
 
 O resultado: a utilização da API estabilizou em torno de 85%, sem pulsos, e o tempo
-total de processamento caiu na proporção entre as duas utilizações — cerca de 2,4
-vezes mais rápido.
+total de processamento caiu na proporção entre as duas utilizações (cerca de 2,4
+vezes mais rápido).
 
 Nenhuma capacidade foi adicionada. O que mudou foi os clientes deixarem de
 tentar todos no mesmo instante.
 
 ## Conceitos Relacionados
 
-- [Retries](/06-distributed-systems/retries.md) — o mecanismo que o backoff regula.
-- [Rate Limiting](/05-system-design/rate-limiting.md) — o lado do servidor.
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — a alternativa quando a falha
+- [Retries](/06-distributed-systems/retries.md): o mecanismo que o backoff regula.
+- [Rate Limiting](/05-system-design/rate-limiting.md): o lado do servidor.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): a alternativa quando a falha
   persiste.
 - [Retry Storms](/12-reliability/index.md).
 
@@ -249,7 +249,7 @@ tentar todos no mesmo instante.
 Verifique a configuração de retentativa do seu sistema: existe backoff? Ele tem
 variação aleatória?
 
-Se tiver backoff sem variação, você tem clientes sincronizados — e isso só aparece
+Se tiver backoff sem variação, você tem clientes sincronizados, e isso só aparece
 como problema quando muitos falham ao mesmo tempo.
 
 ## Perguntas de Entrevista
@@ -260,6 +260,6 @@ como problema quando muitos falham ao mesmo tempo.
 
 ## Para Aprofundar
 
-- Brooker, Marc. *Exponential Backoff and Jitter*. AWS Architecture Blog, 2015 —
-  os experimentos que compararam as variantes.
+- Brooker, Marc. *Exponential Backoff and Jitter*. AWS Architecture Blog, 2015.
+  Os experimentos que compararam as variantes.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.

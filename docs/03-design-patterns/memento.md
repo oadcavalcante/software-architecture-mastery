@@ -2,7 +2,7 @@
 id: memento
 title: Memento
 sidebar_position: 17
-description: Capturar e restaurar estado sem violar encapsulamento — e o custo que ninguém orça.
+description: Capturar e restaurar estado sem violar encapsulamento, e o custo que ninguém orça.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [command]
 related: [command, prototype, event-sourcing]
 canonical_for: [memento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -29,7 +29,7 @@ simplesmente expor os campos.
 
 ## Problema
 
-É preciso restaurar um objeto a um estado anterior — desfazer, ponto de
+É preciso restaurar um objeto a um estado anterior: desfazer, ponto de
 verificação, transação, rascunho salvo.
 
 A solução ingênua é expor os campos para que alguém os leia e depois os escreva
@@ -45,12 +45,12 @@ sabe interpretar.
 
 ### Os três papéis
 
-**Originador** — o objeto cujo estado é capturado. Cria e interpreta mementos.
+**Originador**: o objeto cujo estado é capturado. Cria e interpreta mementos.
 
-**Memento** — o estado capturado. Interface pública mínima; conteúdo acessível
+**Memento**: o estado capturado. Interface pública mínima; conteúdo acessível
 apenas ao originador.
 
-**Zelador** — guarda os mementos e decide quando restaurar. Nunca examina o
+**Zelador**: guarda os mementos e decide quando restaurar. Nunca examina o
 conteúdo.
 
 A separação entre zelador e originador é o ponto do padrão. Sem ela, é apenas
@@ -74,7 +74,7 @@ inverso é difícil de garantir.
 Guardar o objeto inteiro a cada operação é simples e cresce linearmente com o
 número de operações.
 
-Guardar apenas o que mudou é econômico e mais complexo — exige saber compor os
+Guardar apenas o que mudou é econômico e mais complexo: exige saber compor os
 deltas na ordem certa.
 
 A prática comum é híbrida: um estado completo a cada N operações e deltas entre
@@ -110,17 +110,17 @@ efeito já enviado não são restauráveis por memento.
 armazenamento que só acrescenta já dão o histórico. Gravar a cada mudança, por si, não dá:
 um `UPDATE` deixa só o estado atual, e não há a que voltar.
 
-**Quando o objeto é imutável.** Não há o que capturar — a versão anterior ainda
+**Quando o objeto é imutável.** Não há o que capturar: a versão anterior ainda
 existe.
 
 ## Alternativas
 
-- **Objetos imutáveis** — cada operação produz uma nova versão; a anterior é o
+- **Objetos imutáveis**: cada operação produz uma nova versão; a anterior é o
   memento, sem mecanismo. É a alternativa que dispensa o padrão.
-- **Inverso lógico** — mais econômico quando confiável.
-- **[Event sourcing](/03-design-patterns/event-sourcing.md)** — guardar os eventos em vez do estado.
+- **Inverso lógico**: mais econômico quando confiável.
+- **[Event sourcing](/03-design-patterns/event-sourcing.md)**: guardar os eventos em vez do estado.
   Memento em escala de sistema.
-- **Versionamento na persistência** — quando o histórico já é gravado.
+- **Versionamento na persistência**: quando o histórico já é gravado.
 
 ## Trade-offs
 
@@ -143,7 +143,7 @@ o objeto interno é o mesmo. Ver [Prototype](/03-design-patterns/prototype.md).
 não.
 
 **Memento obsoleto.** A estrutura do originador mudou entre a captura e a
-restauração — relevante quando mementos são persistidos.
+restauração. Relevante quando mementos são persistidos.
 
 **Zelador que examina o conteúdo.** O encapsulamento se perde, e o padrão vira
 serialização.
@@ -167,7 +167,7 @@ lógico.
 estado antes e restauram em caso de aborto.
 
 **Serialização de sessão de trabalho.** Um rascunho salvo é um memento
-persistido — e é onde o versionamento da estrutura passa a importar.
+persistido, e é onde o versionamento da estrutura passa a importar.
 
 **Pontos de verificação em processamento longo.** Um trabalho em lote que salva
 estado periodicamente para poder retomar.
@@ -196,7 +196,7 @@ Quando um campo foi adicionado ao formulário, os mementos antigos não o tinham
 restauração de um rascunho de duas semanas produzia um objeto com o campo novo
 nulo, e a validação falhava com mensagem incompreensível.
 
-A correção foi versionar o memento e escrever migração — que é trabalho de
+A correção foi versionar o memento e escrever migração, que é trabalho de
 evolução de schema, e não estava previsto quando o padrão foi adotado como
 mecanismo em memória.
 
@@ -205,9 +205,9 @@ formato público**, com todas as obrigações que isso implica.
 
 ## Conceitos Relacionados
 
-- [Command](/03-design-patterns/command.md) — desfazer por inverso lógico.
-- [Prototype](/03-design-patterns/prototype.md) — o risco de cópia rasa.
-- [Event Sourcing](/03-design-patterns/event-sourcing.md) — a ideia em escala de sistema.
+- [Command](/03-design-patterns/command.md): desfazer por inverso lógico.
+- [Prototype](/03-design-patterns/prototype.md): o risco de cópia rasa.
+- [Event Sourcing](/03-design-patterns/event-sourcing.md): a ideia em escala de sistema.
 
 ## Exercício Prático
 

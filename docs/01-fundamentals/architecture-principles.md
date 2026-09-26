@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-characteristics]
 related: [architecture-as-decisions, architecture-governance]
 canonical_for: [princípios de arquitetura, architecture principles]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Princípios de arquitetura são orientações declaradas que ajudam quem decide,
 momento em que decide, a escolher de forma consistente com o que a organização já
 concluiu.
 
-Existem porque quem arquiteta não está presente em cada decisão — e a alternativa
+Existem porque quem arquiteta não está presente em cada decisão, e a alternativa
 a princípios não é centralizar tudo, é inconsistência.
 
 ## Problema
@@ -40,10 +40,10 @@ não elimina nenhuma opção, e portanto não ajuda em nenhuma decisão.
 
 O teste, portanto, é o **teste do inverso**: inverta o princípio; se a frase
 invertida é obviamente absurda, o princípio original é vazio. "Priorizamos
-simplicidade" invertido vira "priorizamos complexidade" — absurdo, logo vazio;
+simplicidade" invertido vira "priorizamos complexidade" (absurdo, logo vazio);
 "preferimos soluções mais simples mesmo quando limitam casos de uso futuros"
-invertido vira "aceitamos complexidade para cobrir casos futuros" — defensável, e
-empresas de fato adotam. A mecânica do teste e o que fazer com os princípios que
+invertido vira "aceitamos complexidade para cobrir casos futuros" (defensável, e
+empresas de fato adotam). A mecânica do teste e o que fazer com os princípios que
 reprovam estão em
 [Princípios em Operação](/19-architecture-governance/governance-principles.md);
 aqui ele serve só para mostrar por que a maioria dos princípios publicados não
@@ -116,7 +116,7 @@ revisto quando forem oitenta.
 **Um princípio é uma decisão tomada uma vez para não ser tomada toda vez.**
 
 Se a mesma discussão se repete a cada trimestre com o mesmo desfecho, ela é
-candidata a virar princípio. Se o desfecho varia conforme o caso, não é —
+candidata a virar princípio. Se o desfecho varia conforme o caso, não é:
 é julgamento, e princípio não substitui julgamento.
 
 ## Quando Usar
@@ -131,7 +131,7 @@ candidata a virar princípio. Se o desfecho varia conforme o caso, não é —
 ## Quando Não Usar
 
 **Quando a resposta correta varia com o caso.** Ali, princípio vira camisa de
-força e o time contorna em silêncio — o que é pior que não ter princípio, porque
+força e o time contorna em silêncio, o que é pior que não ter princípio, porque
 a violação deixa de ser discutível.
 
 **Quando o princípio não tem oposto defensável.** Ver o teste do inverso. Não
@@ -141,16 +141,16 @@ ajuda ninguém e ocupa espaço de atenção.
 mesma sala, princípios formais são cerimônia; a conversa resolve.
 
 **Quando você não pretende revisá-los.** Princípio escrito e nunca reexaminado
-vira restrição fantasma — moldou decisões e não vale mais.
+vira restrição fantasma: moldou decisões e não vale mais.
 
 ## Alternativas
 
-- **Padrão** — quando a decisão é recorrente e a resposta é única, prescreva em
+- **Padrão**: quando a decisão é recorrente e a resposta é única, prescreva em
   vez de orientar.
-- **Fitness function** — quando a propriedade pode ser verificada
+- **Fitness function**: quando a propriedade pode ser verificada
   automaticamente, verificar é mais barato e confiável que orientar.
-- **ADR** — quando a decisão é específica e não uma classe recorrente.
-- **Conversa** — quando o time é pequeno.
+- **ADR**: quando a decisão é específica e não uma classe recorrente.
+- **Conversa**: quando o time é pequeno.
 
 ## Trade-offs
 
@@ -183,7 +183,7 @@ que há orientação.
 ## Exemplo Real
 
 Uma empresa de médio porte tinha nove princípios publicados. Sete falharam no
-teste do inverso — "priorizamos qualidade", "escolhemos a ferramenta certa para
+teste do inverso: "priorizamos qualidade", "escolhemos a ferramenta certa para
 cada problema", e variações.
 
 Os dois que sobreviveram:
@@ -200,7 +200,7 @@ Os dois eliminam opções, os dois têm oposto defensável, e os dois citam a ra
 concreta.
 
 O detalhe que dá o desfecho: dezoito meses depois, o time de plataforma tinha
-quinze pessoas e plantão. O primeiro princípio foi revisado — não removido, mas
+quinze pessoas e plantão. O primeiro princípio foi revisado: não removido, mas
 reescrito com um limite de custo diferente.
 
 Ele só pôde ser revisado porque a razão estava escrita. Os sete princípios vazios
@@ -218,7 +218,7 @@ Os lugares que funcionam, em ordem de eficácia:
 importa, e não depois.
 
 **Na revisão de arquitetura.** Como pergunta padrão, não como cobrança: qual
-princípio orientou esta escolha? A resposta "nenhum" é informação — ou falta um
+princípio orientou esta escolha? A resposta "nenhum" é informação: ou falta um
 princípio, ou este é um caso genuinamente novo.
 
 **Como verificação automatizada, quando possível.** Um princípio sobre direção de
@@ -228,20 +228,20 @@ dependência pode virar teste. Ali ele deixa de depender de lembrança.
 o retorno de ensiná-los é imediato.
 
 O lugar que não funciona é uma página de wiki atualizada uma vez e nunca mais
-citada — que é onde a maioria dos princípios de arquitetura mora.
+citada, que é onde a maioria dos princípios de arquitetura mora.
 
 ## Conceitos Relacionados
 
-- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md) — de onde os
+- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md): de onde os
   princípios derivam.
-- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md) — o que
+- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md): o que
   os princípios orientam.
-- [Governança](/19-architecture-governance/index.md) — como princípios operam
+- [Governança](/19-architecture-governance/index.md): como princípios operam
   entre times.
 
 ## Exercício Prático
 
-Pegue os princípios de arquitetura do seu time — escritos ou tácitos.
+Pegue os princípios de arquitetura do seu time, escritos ou tácitos.
 
 Aplique o teste do inverso a cada um. Escreva o oposto e pergunte: alguma
 empresa competente adotaria isso?
@@ -259,5 +259,5 @@ característica se ligam. Reescreva os que não declaram.
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020.
-- Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019 — sobre
+- Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019. Sobre
   autonomia e alinhamento entre times.

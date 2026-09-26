@@ -2,7 +2,7 @@
 id: interview-structure
 title: Interview Structure
 sidebar_position: 12
-description: Having structure is half the evaluation — it shows you have done this before.
+description: "Having structure is half the evaluation: it shows you have done this before."
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, communicating-tradeoffs, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ run architecture discussions has a script, because they discovered in practice t
 the conversation gets lost.
 
 And there is a practical effect: with declared phases, you know how much time is left and what is
-still missing — which avoids the most common ending of bad interviews, which is running out of
+still missing. That avoids the most common ending of bad interviews, which is running out of
 time with the design half-finished.
 
 ## Problem
@@ -43,7 +43,7 @@ time with the design half-finished.
 Two patterns.
 
 **Reacting.** The candidate answers what is asked and does not advance on their own. The interview
-becomes an interrogation, and the evaluation lands on isolated answers instead of on the leading —
+becomes an interrogation, and the evaluation lands on isolated answers instead of on the leading,
 which is what the role requires.
 
 **Losing control of time.** The candidate spends twenty minutes on clarification and estimation,
@@ -74,9 +74,9 @@ For a 45-minute interview, with about 40 of content:
 ```
 
 For 60 minutes, the extra fifteen minutes are not split evenly: clarification rises to 8 to 10
-min, phases 2 to 4 gain a minute or two each, and the deep dive takes the rest — 18 to 20 min.
+min, phases 2 to 4 gain a minute or two each, and the deep dive takes the rest (18 to 20 min).
 
-The budget is not rigid — it is an instrument of perception. Knowing that phase 3 should end around
+The budget is not rigid but an instrument of perception. Knowing that phase 3 should end around
 minute 20 lets you notice, at minute 25, that it is time to speed up.
 
 The deep-dive phase deserves special care to protect, because it is the one that most
@@ -95,8 +95,8 @@ most.
 ```
 
 Thirty seconds. They do three things: signal experience; align expectations, letting the
-interviewer redirect — "skip the API, I want to focus on scale"; and create a contract you can
-invoke later — "I'm moving on to the architecture".
+interviewer redirect ("skip the API, I want to focus on scale"); and create a contract you can
+invoke later ("I'm moving on to the architecture").
 
 Redirecting is the most concrete of the three benefits. Interviewers usually have an area they want
 to evaluate, and hearing the script is the first opportunity to say so. Without the announcement,
@@ -144,7 +144,7 @@ or answering superficially in order to get back to the script.
 The part that requires discipline is the second half: **actually returning to the deferred point**.
 Promising to come back and not coming back is worse than having gone deep at the time, because it
 signals that the promise was a device to escape the question. Noting the deferred point in a corner
-of the board solves it — and the gesture of noting it already communicates the intent.
+of the board solves it, and the gesture of noting it already communicates the intent.
 
 ### Close
 
@@ -170,7 +170,7 @@ Four elements: the summary, what to monitor, what was left out with the reason, 
 do with more time. That demonstrates awareness of your own work, which is rare.
 
 The third element is the most valuable and the most counterintuitive: candidates avoid mentioning
-what they did not cover, for fear of drawing attention to a gap. The effect is the opposite —
+what they did not cover, for fear of drawing attention to a gap. The effect is the opposite:
 saying what was left out, with the reason, turns an omission into a decision. An evaluator who
 notices the gap on their own records an oversight; one who hears it declared records prioritization.
 
@@ -187,8 +187,8 @@ prompt about a specific
 ```
 
 Following the script rigidly when it does not apply is the opposite of what the structure should
-demonstrate. Announcing the deviation — "this prompt is more about consistency than about scale,
-I'll spend less time on estimation" — shows that the structure is yours, and not memorized.
+demonstrate. Announcing the deviation ("this prompt is more about consistency than about scale,
+I'll spend less time on estimation") shows that the structure is yours, and not memorized.
 
 ## Mental Model
 
@@ -197,20 +197,20 @@ into leading.
 
 ## When to Use
 
-- When the format leaves the leading to the candidate — the common case in 45- to 60-minute
+- When the format leaves the leading to the candidate, the common case in 45- to 60-minute
   interviews.
 - Announced at the start, in thirty seconds.
 - With transitions marked and time managed out loud.
 
 ## When Not to Use
 
-**When the interviewer leads actively** — they bring their own sequence of questions, and imposing
+**When the interviewer leads actively**: they bring their own sequence of questions, and imposing
 the six phases on top of it contests control instead of demonstrating it.
 
-**In 30-minute interviews** — six phases do not fit; each one's budget becomes too short to produce
+**In 30-minute interviews**: six phases do not fit; each one's budget becomes too short to produce
 anything, and the reduced version (see Alternatives) serves better.
 
-**When the prompt is about a specific problem** — "how do you guarantee ordering?" does not ask for
+**When the prompt is about a specific problem**: "how do you guarantee ordering?" does not ask for
 estimation or an API; walking through the phases before answering spends the time the question
 wanted.
 
@@ -218,10 +218,10 @@ wanted.
 
 ## Alternatives
 
-- **Ask about the preferred structure** — "would you rather I start with requirements or sketch an
-  architecture right away?" — works well with interviewers who have their own agenda.
+- **Ask about the preferred structure**: "would you rather I start with requirements or sketch an
+  architecture right away?", which works well with interviewers who have their own agenda.
 - **Reduced structure** — in 30-minute interviews, three phases: requirements, design, deep dive.
-- **Follow the interviewer** — when they lead actively, resisting is counterproductive.
+- **Follow the interviewer**: when they lead actively, resisting is counterproductive.
 
 ## Trade-offs
 
@@ -250,19 +250,19 @@ wanted.
 
 ## Common Mistakes
 
-**Not announcing the structure** — the interviewer only redirects after time has already been spent
+**Not announcing the structure**: the interviewer only redirects after time has already been spent
 in the wrong phase.
 
-**Not marking transitions** — a well-run interview looks diffuse, because the evaluator does not
+**Not marking transitions**: a well-run interview looks diffuse, because the evaluator does not
 know which phase you are in.
 
-**Not talking about time** when it gets tight — you prioritize blind, when the interviewer could
+**Not talking about time** when it gets tight: you prioritize blind, when the interviewer could
 tell you which part they want to see.
 
-**Going deep before closing the main flow** — the detail eats the time and the evaluator never sees
+**Going deep before closing the main flow**: the detail eats the time and the evaluator never sees
 the complete design.
 
-**Ending with no summary** and without saying what was left out — the gap the evaluator notices
+**Ending with no summary** and without saying what was left out: the gap the evaluator notices
 alone reads as forgetfulness, not prioritization.
 
 ## Interview Example
@@ -328,12 +328,12 @@ candidate    "good question, and it's where I was heading. Can I
 ```
 
 The closing takes forty seconds and is the last thing the evaluator hears. It summarizes, shows
-awareness of the limits, and names what was left out with a reason — which is a final demonstration
+awareness of the limits, and names what was left out with a reason. That is a final demonstration
 of judgment.
 
 ## Related Concepts
 
-- [Requirement Clarification](/22-system-design-interviews/requirement-clarification.md) — the first
+- [Requirement Clarification](/22-system-design-interviews/requirement-clarification.md): the first
   phase.
 - [Communicating Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 - [Common Mistakes](/22-system-design-interviews/interview-common-mistakes.md).
@@ -343,7 +343,7 @@ of judgment.
 
 Time a mock interview and note how much time you spent in each phase.
 
-Compare it with the budget. The phase where you overran the most is the one that needs practice —
+Compare it with the budget. The phase where you overran the most is the one that needs practice,
 and most of the time it is clarification or the data model.
 
 ## Interview Questions

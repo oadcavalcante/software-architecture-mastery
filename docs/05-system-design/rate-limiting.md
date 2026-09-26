@@ -2,7 +2,7 @@
 id: rate-limiting
 title: Rate Limiting
 sidebar_position: 13
-description: Limitar o ritmo de requisições — proteção da capacidade antes de ser política comercial.
+description: "Limitar o ritmo de requisições: proteção da capacidade antes de ser política comercial."
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [load-balancing]
 related: [queues, load-balancing, security]
 canonical_for: [rate limiting, limitação de taxa, throttling]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-27
 
 Rate limiting restringe quantas requisições um cliente pode fazer num intervalo.
 
-Antes de ser política comercial — planos com cotas diferentes — ele é **proteção
+Antes de ser política comercial (planos com cotas diferentes), ele é **proteção
 de capacidade**: sem limite, um cliente sozinho pode consumir todo o recurso e
 derrubar o serviço para os demais.
 
@@ -40,7 +40,7 @@ a carga, o que o deixa mais lento. Ver
 
 **Uso desigual.** Um cliente grande consome o que estava dimensionado para todos.
 
-Sem limite, o sistema descobre a saturação caindo — e cai para todo mundo, não só
+Sem limite, o sistema descobre a saturação caindo, e cai para todo mundo, não só
 para quem causou.
 
 ## Conceitos Centrais
@@ -55,13 +55,13 @@ para quem causou.
 | **Leaky bucket** | Requisições saem a taxa constante | Suaviza; enfileira em vez de rejeitar |
 
 **Token bucket** é o mais usado, e a razão é que ele permite rajada
-controlada — o que corresponde ao uso real, em que clientes fazem várias
+controlada. Isso corresponde ao uso real, em que clientes fazem várias
 requisições juntas e depois ficam quietos. Limitar rigidamente por segundo
 rejeita comportamento legítimo.
 
 A janela fixa tem um defeito conhecido: com limite de 100 por minuto, um cliente
-pode fazer 100 no último segundo de uma janela e 100 no primeiro da seguinte —
-200 em dois segundos.
+pode fazer 100 no último segundo de uma janela e 100 no primeiro da seguinte
+(200 em dois segundos).
 
 ### A dimensão importa mais que o algoritmo
 
@@ -70,7 +70,7 @@ Limitar **por quê** decide se a proteção funciona:
 **Por cliente autenticado.** O caso comum. Justo e exige autenticação.
 
 **Por endereço IP.** Funciona para tráfego não autenticado, e pune usuários atrás
-do mesmo IP — empresas, operadoras móveis.
+do mesmo IP (empresas, operadoras móveis).
 
 **Por endpoint.** Uma busca custa mais que uma leitura simples; limites uniformes
 protegem mal.
@@ -119,7 +119,7 @@ resposta é "todos".
 - Recurso caro que precisa ser protegido.
 - Existem planos comerciais com cotas.
 - Proteção contra abuso e enumeração.
-- Consumo de serviço externo que tem seu próprio limite — limitar do seu lado
+- Consumo de serviço externo que tem seu próprio limite: limitar do seu lado
   evita ser bloqueado.
 
 ## Quando Não Usar
@@ -135,11 +135,11 @@ inviabiliza o uso legítimo, o problema é dimensionamento.
 
 ## Alternativas
 
-- **Enfileirar** — quando o trabalho é assíncrono.
-- **Priorização e descarte de carga** — rejeitar o menos importante primeiro.
-- **Cotas por período longo** — mensal em vez de por segundo, quando o que importa
+- **Enfileirar**: quando o trabalho é assíncrono.
+- **Priorização e descarte de carga**: rejeitar o menos importante primeiro.
+- **Cotas por período longo**: mensal em vez de por segundo, quando o que importa
   é consumo total.
-- **[Backpressure](/06-distributed-systems/backpressure.md)** — o mecanismo entre
+- **[Backpressure](/06-distributed-systems/backpressure.md)**: o mecanismo entre
   componentes internos.
 
 ## Trade-offs
@@ -198,7 +198,7 @@ efetivo era 600, e o dimensionamento estava feito para 100 por cliente.
 
 **Rajada no limite da janela.** Um cliente descobriu que podia fazer 100 no
 segundo 59 e 100 no segundo 61. Duzentas em dois segundos, e o serviço de bureau
-de crédito por trás — que tinha seu próprio limite — bloqueava a conta da empresa
+de crédito por trás, que tinha seu próprio limite, bloqueava a conta da empresa
 inteira por excesso.
 
 **Custo uniforme.** Uma consulta simples e uma consulta com histórico completo
@@ -207,14 +207,14 @@ contavam igual, mas a segunda custava 40 vezes mais no bureau. Um cliente fazend
 
 As correções.
 
-A contagem foi para o cache distribuído, e o algoritmo mudou para token bucket —
+A contagem foi para o cache distribuído, e o algoritmo mudou para token bucket,
 que permite rajada até o tamanho do balde e depois impõe a taxa média, sem o
 defeito da janela fixa.
 
 O preço foi uma dependência síncrona a mais no caminho de toda requisição. O limitador
 passou a depender do cache, e o que fazer quando o cache não responde virou decisão a
 tomar antes: ali escolheu-se
-[falhar aberto](/10-security/security-failure-modes.md) — deixar passar sem contar
+[falhar aberto](/10-security/security-failure-modes.md), deixar passar sem contar
 enquanto o cache volta, em vez de rejeitar todo mundo para proteger o bureau.
 
 O limite passou a contar **unidades de custo**, não requisições: consulta simples
@@ -226,15 +226,15 @@ documentação explicando o custo de cada operação.
 
 O que resolveu o problema comercial foi a terceira mudança: os clientes passaram a
 enxergar o custo do que pediam, e o uso de consultas completas caiu 60% sem que
-ninguém fosse bloqueado — porque eles passaram a pedir a completa só quando
+ninguém fosse bloqueado, porque eles passaram a pedir a completa só quando
 precisavam.
 
 ## Conceitos Relacionados
 
-- [Balanceamento de Carga](/05-system-design/load-balancing.md) — frequentemente no mesmo ponto.
-- [Filas](/05-system-design/queues.md) — enfileirar em vez de rejeitar.
-- [Confiabilidade](/12-reliability/index.md) — retry storms e descarte de carga.
-- [Segurança](/10-security/index.md) — proteção contra abuso.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md): frequentemente no mesmo ponto.
+- [Filas](/05-system-design/queues.md): enfileirar em vez de rejeitar.
+- [Confiabilidade](/12-reliability/index.md): retry storms e descarte de carga.
+- [Segurança](/10-security/index.md): proteção contra abuso.
 
 ## Exercício Prático
 
@@ -253,4 +253,4 @@ protegendo alguém ou bloqueando clientes legítimos.
 ## Para Aprofundar
 
 - Nygard, Michael. *Release It!* 2ª ed., 2018.
-- RFC 6585 — Additional HTTP Status Codes, que define o 429.
+- RFC 6585: Additional HTTP Status Codes, que define o 429.

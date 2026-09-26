@@ -2,7 +2,7 @@
 id: component-design
 title: Design de Componentes
 sidebar_position: 14
-description: A unidade que se implanta — como decidir o que vira componente e o que fica dentro.
+description: "A unidade que se implanta: como decidir o que vira componente e o que fica dentro."
 doc_type: concept
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [package-design]
 related: [modular-design, boundaries, dependency-direction]
 canonical_for: [design de componentes, componente implantável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -39,7 +39,7 @@ Nenhum desses justifica um componente. Todos justificam um
 
 Separar em componentes adiciona: um pipeline de implantação, um artefato a
 versionar, comunicação entre processos ou entre bibliotecas, tratamento de
-incompatibilidade de versão, e — se for por rede — falha parcial, latência e
+incompatibilidade de versão, e (se for por rede) falha parcial, latência e
 observabilidade distribuída.
 
 Esse custo só se paga quando existe uma razão que módulos não resolvem.
@@ -59,7 +59,7 @@ protegida separadamente. Um processador de relatórios que consome muita memóri
 não deveria derrubar o atendimento de requisições.
 
 **Fronteira organizacional.** Times diferentes com autonomia de release. É a
-razão mais forte na prática e a menos técnica — ver
+razão mais forte na prática e a menos técnica. Ver
 [lei de Conway](/23-architecture-leadership/conways-law.md).
 
 **Reúso por consumidores externos.** Outros sistemas precisam da capacidade sem o
@@ -69,7 +69,7 @@ Se nenhuma se aplica, um módulo interno entrega o mesmo isolamento lógico por 
 fração do custo.
 
 Quando o componente é um processo com contrato de rede, as mesmas razões são
-recortadas de outro modo — isolamento de falha entra como razão própria, no lugar
+recortadas de outro modo: isolamento de falha entra como razão própria, no lugar
 da fronteira organizacional. Ver
 [fronteiras de serviço](/05-system-design/service-boundaries.md).
 
@@ -91,9 +91,9 @@ A ordem que funciona: dividir em módulos primeiro, deixar as fronteiras se
 provarem no histórico, e só então promover a componente o módulo que tem uma das
 quatro razões.
 
-A ordem inversa — decidir componentes antes de conhecer os eixos de mudança —
+A ordem inversa (decidir componentes antes de conhecer os eixos de mudança)
 produz fronteiras de alto custo no lugar errado. E corrigir uma fronteira de
-componente custa migração — de dados, de consumidores e de pipeline — onde mover
+componente custa migração (de dados, de consumidores e de pipeline) onde mover
 uma fronteira de módulo custa uma refatoração.
 
 ### O contrato de componente é público
@@ -138,10 +138,10 @@ diagnosticar às três da manhã.
 
 ## Alternativas
 
-- **Módulo interno** — a resposta certa na maioria dos casos.
-- **Biblioteca compartilhada** — componente sem processo separado; custo
+- **Módulo interno**: a resposta certa na maioria dos casos.
+- **Biblioteca compartilhada**: componente sem processo separado; custo
   intermediário, e acopla ciclos de release.
-- **Mesmo processo, isolamento de recurso** — limites de thread ou memória por
+- **Mesmo processo, isolamento de recurso**: limites de thread ou memória por
   módulo, sem separar implantação.
 
 ## Trade-offs
@@ -191,11 +191,11 @@ acoplado e cresceu demais".
 
 As quatro razões foram verificadas.
 
-*Ciclo de vida?* Não — relatórios subiam junto com o resto e ninguém reclamava.
-*Requisito de qualidade distinto?* Sim — a consulta de fechamento mensal carregava
+*Ciclo de vida?* Não, relatórios subiam junto com o resto e ninguém reclamava.
+*Requisito de qualidade distinto?* Sim: a consulta de fechamento mensal carregava
 cerca de 3 GB num processo com 4 GB de heap, rodava algumas dezenas de vezes por
 dia e já tinha derrubado a aplicação duas vezes no trimestre.
-*Fronteira organizacional?* Não — mesmo time.
+*Fronteira organizacional?* Não, mesmo time.
 *Consumidor externo?* Não.
 
 Uma razão de quatro. A extração aconteceu, mas o escopo mudou por causa da
@@ -208,7 +208,7 @@ foi só o que tinha requisito de isolamento de recurso.
 
 O resultado: um componente pequeno, sem API pública, sem contrato síncrono, e o
 problema de memória resolvido. A proposta original teria criado um serviço com
-API, contrato público e todo o custo — para resolver um problema de memória.
+API, contrato público e todo o custo, para resolver um problema de memória.
 
 ## O custo que não entra na conta
 
@@ -234,17 +234,17 @@ limpo separado" para "o que sai da lista?".
 
 ## Conceitos Relacionados
 
-- [Design Modular](/02-software-design/modular-design.md) — a divisão que precede.
-- [Design de Pacotes](/02-software-design/package-design.md) — a unidade de release.
-- [Fronteiras](/02-software-design/boundaries.md) — os níveis e seus custos.
-- [Microsserviços](/03-design-patterns/microservices.md) — o caso extremo.
+- [Design Modular](/02-software-design/modular-design.md): a divisão que precede.
+- [Design de Pacotes](/02-software-design/package-design.md): a unidade de release.
+- [Fronteiras](/02-software-design/boundaries.md): os níveis e seus custos.
+- [Microsserviços](/03-design-patterns/microservices.md): o caso extremo.
 
 ## Exercício Prático
 
 Liste os componentes implantáveis do seu sistema. Para cada um, verifique quais
 das quatro razões se aplicam hoje.
 
-Os que não satisfazem nenhuma são candidatos a voltar a ser módulo — e vale
+Os que não satisfazem nenhuma são candidatos a voltar a ser módulo, e vale
 estimar quanto o time economizaria em operação.
 
 ## Perguntas de Entrevista
@@ -255,7 +255,7 @@ estimar quanto o time economizaria em operação.
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — componentes e
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Componentes e
   seus princípios.
-- Newman, Sam. *Building Microservices*. 2ª ed., O'Reilly, 2021 — critérios de
+- Newman, Sam. *Building Microservices*. 2ª ed., O'Reilly, 2021. Critérios de
   separação e seus custos.

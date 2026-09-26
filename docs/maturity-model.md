@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [architecture-leadership]
 canonical_for: [maturidade arquitetural, modelo de maturidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -34,7 +34,7 @@ Este modelo mede **capacidade**. Os sete níveis do percurso organizam
 
 Ler o Nível 04 não coloca ninguém no estágio 4. Conteúdo é insumo; capacidade
 vem de decidir, errar, registrar o porquê e revisar. O percurso encurta o
-caminho — não o substitui.
+caminho, mas não o substitui.
 
 Na prática, alguém no estágio 3 costuma se beneficiar mais de reler o Nível 02
 aplicando ao próprio sistema do que de avançar para o Nível 05.
@@ -45,7 +45,7 @@ aplicando ao próprio sistema do que de avançar para o Nível 05.
 
 **Decide:** como implementar dentro de um módulo já definido.
 **Horizonte:** a tarefa atual.
-**Negocia com:** ninguém — recebe o recorte pronto.
+**Negocia com:** ninguém (recebe o recorte pronto).
 
 Escreve código correto e legível. Aplica padrões quando reconhece o problema.
 Não decide onde as fronteiras ficam.
@@ -63,8 +63,8 @@ Desenha fronteiras dentro de um sistema. Justifica por que uma dependência
 aponta para um lado. Reconhece estrutura degradando antes que o custo apareça
 no roadmap.
 
-**Sinal de transição:** começa a esbarrar em limites que não são de código —
-o banco, a fila, o processo de implantação.
+**Sinal de transição:** começa a esbarrar em limites que não são de código
+(o banco, a fila, o processo de implantação).
 
 ### Estágio 3 — Orientado a Sistemas
 
@@ -85,7 +85,7 @@ times, e percebe que o argumento técnico sozinho não basta.
 **Horizonte:** o sistema e sua evolução, um a dois anos.
 **Negocia com:** liderança técnica e stakeholders de negócio.
 
-Deriva arquitetura de números declarados — SLO, RTO, orçamento — em vez de
+Deriva arquitetura de números declarados (SLO, RTO, orçamento) em vez de
 preferência. Registra decisões com o contexto que permite revê-las. Sabe dizer
 não a complexidade que não se paga, inclusive à que ele mesmo propôs antes.
 
@@ -126,7 +126,7 @@ negociar não transfere a responsabilidade de quem decide.
 A resposta costuma ser um estágio abaixo do que a autoavaliação sugere, porque
 tendemos a nos medir pelo que entendemos e não pelo que decidimos.
 
-Duas advertências. Não há mérito em estar no estágio 6 — há adequação ao papel;
+Duas advertências. Não há mérito em estar no estágio 6, e sim adequação ao papel;
 uma empresa de trinta pessoas raramente precisa dele. E os estágios não são
 exclusivos: alguém no estágio 5 continua tomando decisões de estágio 2, e
 continua precisando fazê-las bem.

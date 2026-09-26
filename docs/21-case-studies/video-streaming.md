@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, high-volume-events, saas-platform]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -39,9 +39,9 @@ Latina.
 O negócio tem uma característica que distingue radicalmente sua arquitetura da de sistemas
 transacionais: **a maior parte do custo e da complexidade está na entrega de bytes**, e não no
 processamento de requisições. A empresa entrega 3,4 exabytes por ano, e o custo dessa entrega é
-de R$ 187 milhões — contra R$ 8 milhões de toda a infraestrutura de aplicação.
+de R$ 187 milhões, contra R$ 8 milhões de toda a infraestrutura de aplicação.
 
-Essa proporção — 96% do custo em entrega — é o que orienta toda a análise. Uma decisão que
+Essa proporção (96% do custo em entrega) é o que orienta toda a análise. Uma decisão que
 melhora 10% da eficiência de entrega vale mais que qualquer otimização do plano de controle.
 
 Duas pressões motivam a revisão:
@@ -110,7 +110,7 @@ A restrição dos televisores é a mais limitante para escolhas de tecnologia: u
 sem atualização define o menor denominador comum de formato e de protocolo, e ele não pode ser
 abandonado sem perder assinantes.
 
-Esse tipo de restrição — parque instalado que não se atualiza — é comum em produtos de consumo e
+Esse tipo de restrição (parque instalado que não se atualiza) é comum em produtos de consumo e
 raramente aparece em discussões de arquitetura, que tendem a assumir clientes atualizáveis. Aqui
 ela determina quais formatos de codificação podem ser usados, qual protocolo de entrega, e até
 quanto tempo uma versão de manifesto precisa continuar sendo servida. A empresa mantém uma
@@ -118,7 +118,7 @@ matriz de compatibilidade por modelo, e ela é consultada antes de qualquer deci
 
 ## Estimativas de Capacidade
 
-O que dimensiona este sistema não é requisição por segundo — é banda.
+O que dimensiona este sistema é banda, não requisição por segundo.
 
 ```text
 assinantes                          6,1 milhões
@@ -141,8 +141,8 @@ inícios de reprodução/dia            ~19 milhões   →  ~220/s, pico ~1 100/
 eventos de telemetria/dia            ~14 bilhões   →  ~162 mil/s
 ```
 
-A telemetria é o único subsistema do plano de controle com volume relevante — 162 mil eventos
-por segundo — e é dela que sai o relatório de audiência que paga os estúdios.
+A telemetria é o único subsistema do plano de controle com volume relevante (162 mil eventos
+por segundo), e é dela que sai o relatório de audiência que paga os estúdios.
 
 ```text
 armazenamento
@@ -210,7 +210,7 @@ risco             médio — negociação com 6 parceiros, não dezenas
 | **Total ponderado** | | **5,6** | **6,5** | **7,4** |
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com risco em 40% e custo em 15%, os totais viram
-7,1 / 5,1 / 6,9 — a Opção A vence, por 0,2. Esse é o único cenário testado em que a conclusão muda, e ele corresponde a uma
+7,1 / 5,1 / 6,9: a Opção A vence, por 0,2. Esse é o único cenário testado em que a conclusão muda, e ele corresponde a uma
 organização com apetite de risco muito baixo ou sem capacidade de negociar com provedores de
 acesso.
 
@@ -224,7 +224,7 @@ tráfego residual, incluindo os países com menor base.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** a empresa não tivesse escala para negociar com provedores de acesso —
+**Opção A venceria se** a empresa não tivesse escala para negociar com provedores de acesso:
 abaixo de aproximadamente 1 milhão de assinantes, nenhum provedor tem interesse em hospedar
 equipamento de terceiros. Também venceria com apetite de risco baixo, como mostra a análise de
 sensibilidade.
@@ -246,7 +246,7 @@ O **plano de controle** é uma aplicação convencional: catálogo, perfis, aute
 recomendação, licenciamento por janela, telemetria e relatórios. Volume modesto, lógica rica.
 
 Além dos dois, há um **pipeline de ingestão** que recebe um título e produz todas as versões
-codificadas, faixas, legendas e artefatos de proteção — um sistema em lote, sem requisito de
+codificadas, faixas, legendas e artefatos de proteção: um sistema em lote, sem requisito de
 latência, mas com volume de processamento grande.
 
 Os componentes principais do plano de controle:
@@ -264,7 +264,7 @@ um manifesto e uma licença, e sai do caminho. Nenhum byte de vídeo passa por e
 ## Dados
 
 **Catálogo.** PostgreSQL como fonte de verdade, com um índice de leitura replicado por região. O
-volume é irrelevante — 42 mil títulos — e a complexidade está nas regras: cada título tem
+volume é irrelevante (42 mil títulos), e a complexidade está nas regras: cada título tem
 janelas de disponibilidade por país, por plano e por tipo de dispositivo.
 
 A regra de licenciamento é avaliada na montagem da resposta, e não materializada, porque as
@@ -272,9 +272,9 @@ janelas mudam com frequência e a precisão exigida é de um minuto. Materializa
 invalidação com essa granularidade, o que é mais caro que avaliar.
 
 **Progresso de reprodução.** Armazenamento chave-valor, com uma entrada por perfil e título.
-Escrito a cada 30 segundos durante a reprodução — cerca de 7 mil gravações por segundo na média,
-e 33 mil no pico
-— e lido na abertura do aplicativo.
+Escrito a cada 30 segundos durante a reprodução (cerca de 7 mil gravações por segundo na média,
+e 33 mil no pico)
+e lido na abertura do aplicativo.
 
 É um dado com tolerância a perda: perder os últimos 30 segundos de progresso é imperceptível.
 Essa tolerância permite replicação assíncrona e nenhuma garantia transacional, o que reduz o
@@ -308,7 +308,7 @@ decisão de arquitetura com efeito direto na restrição de 22% de conexões rui
 A empresa passou de um conjunto fixo de taxas para **codificação por título**: um desenho animado
 com pouca variação de cena atinge qualidade equivalente com metade da taxa de um filme de ação.
 Recodificar o catálogo com taxas ajustadas por conteúdo reduziu o volume médio entregue em 21%
-com qualidade percebida igual — e essa única mudança entregou a maior parte da meta de redução
+com qualidade percebida igual, e essa única mudança entregou a maior parte da meta de redução
 de custo.
 
 **Proteção de conteúdo.** Licenças emitidas por serviço externo especializado, porque parte dos
@@ -344,7 +344,7 @@ dentro das redes de provedores de acesso estão fisicamente fora do controle da 
 tratados como infraestrutura hostil: eles armazenam segmentos cifrados que não podem ser
 decifrados sem uma licença emitida pelo plano de controle.
 
-Isso permite a Opção C sem violar as exigências dos estúdios — e foi a condição que os estúdios
+Isso permite a Opção C sem violar as exigências dos estúdios, e foi a condição que os estúdios
 impuseram para autorizar a arquitetura.
 
 ## Escalabilidade
@@ -353,13 +353,13 @@ O plano de controle escala trivialmente: 7.000 requisições por segundo de cat�
 inícios de reprodução por segundo são atendidos com folga por escala horizontal simples.
 
 O que exige desenho é a **telemetria**, com 162 mil eventos por segundo, e o pico concentrado.
-A solução é ingestão em lote a partir do dispositivo — cada aparelho acumula eventos e envia a
-cada 60 segundos — o que transforma 162 mil eventos por segundo em cerca de 16 mil requisições
+A solução é ingestão em lote a partir do dispositivo (cada aparelho acumula eventos e envia a
+cada 60 segundos), o que transforma 162 mil eventos por segundo em cerca de 16 mil requisições
 por segundo, com carga distribuída pelo desalinhamento natural dos temporizadores.
 
 O **pico de sábado à noite** é 3,2× a média e totalmente previsível. A capacidade dos caches é
-dimensionada para ele, e o custo dessa ociosidade é aceito porque a alternativa — degradar no
-horário de maior audiência — é o pior resultado possível para o produto.
+dimensionada para ele, e o custo dessa ociosidade é aceito porque a alternativa (degradar no
+horário de maior audiência) é o pior resultado possível para o produto.
 
 **Estreias** são o outro pico, e são diferentes: uma estreia de produção própria concentra até
 40% das sessões simultâneas em um único título nas primeiras horas. O conteúdo é pré-carregado
@@ -371,7 +371,7 @@ Se um **cache local** falha, o Roteador direciona aquela rede para o terceiro. O
 percebe; o custo daquele tráfego sobe. É a degradação mais frequente e a mais barata.
 
 Se o **serviço de licença** fica indisponível, nenhuma reprodução nova começa. Sessões em
-andamento continuam até a licença expirar. Não há degradação possível — reproduzir sem licença
+andamento continuam até a licença expirar. Não há degradação possível: reproduzir sem licença
 viola contrato com estúdios.
 
 Se o **Serviço de Progresso** falha, a reprodução funciona e a retomada não. O aplicativo guarda
@@ -403,8 +403,8 @@ negócio                    horas assistidas por título, para relatório
 ```
 
 A segmentação da qualidade por provedor de acesso é o instrumento operacional central: ela
-identifica que a degradação está numa rede específica, o que é acionável — falar com o provedor
-ou instalar um cache — em vez de aparecer como uma piora difusa da média.
+identifica que a degradação está numa rede específica, o que é acionável (falar com o provedor
+ou instalar um cache) em vez de aparecer como uma piora difusa da média.
 
 ## Implantação
 
@@ -413,7 +413,7 @@ cache instalado na rede de um provedor não pode ser atualizado a qualquer momen
 janela de manutenção é negociada com o parceiro.
 
 A consequência é que o software dos caches precisa ser **compatível com versões anteriores por
-mais tempo** do que o resto — o Roteador precisa funcionar com caches de duas versões atrás. A
+mais tempo** do que o resto: o Roteador precisa funcionar com caches de duas versões atrás. A
 regra adotada é de compatibilidade por 12 meses.
 
 Recodificação do catálogo é feita em segundo plano, por lotes de popularidade: os títulos mais
@@ -436,7 +436,7 @@ concentram 38% da audiência. Valida a operação, o modelo de segurança e a re
 próprio.
 
 **Fase 4 (meses 20–26): roteamento por qualidade.** O Roteador passa a considerar qualidade
-medida, e não apenas disponibilidade — desviando de um cache local que está degradado antes que
+medida, e não apenas disponibilidade, desviando de um cache local que está degradado antes que
 o assinante perceba.
 
 **Fase 5 (meses 24–30): pré-carga preditiva.** Conteúdo pré-carregado nos caches por previsão de
@@ -475,7 +475,7 @@ precisão da telemetria                 99,96%
 cancelamento de assinatura             -1,8 p.p.
 ```
 
-A redução de 31% no custo superou a meta, e 21 pontos vieram da Fase 1 — a recodificação, que
+A redução de 31% no custo superou a meta, e 21 pontos vieram da Fase 1: a recodificação, que
 não dependeu de nenhuma negociação externa e foi a mais barata de executar.
 
 A queda de 1,8 ponto percentual no cancelamento merece uma ressalva metodológica que a própria
@@ -486,7 +486,7 @@ ocorrem majoritariamente em redes que ganharam cache próprio, a queda foi de 3,
 os das redes ainda servidas por terceiro, de 0,4 ponto.
 
 Essa comparação entre grupos que a arquitetura tratou de forma diferente foi possível apenas
-porque a instrumentação segmentava qualidade por provedor de acesso desde o início — a mesma
+porque a instrumentação segmentava qualidade por provedor de acesso desde o início: a mesma
 decisão de observabilidade que servia à operação acabou servindo à avaliação do investimento.
 
 ## O que este case ensina
@@ -496,7 +496,7 @@ de controle é irrelevante. A primeira pergunta de um sistema como este é onde 
 a resposta muda completamente o que merece atenção de engenharia.
 
 **A mudança mais barata foi a de maior efeito.** A recodificação por título não exigiu
-negociação, contrato nem infraestrutura nova — apenas capacidade de processamento e tempo. Ela
+negociação, contrato nem infraestrutura nova, apenas capacidade de processamento e tempo. Ela
 entregou dois terços da meta antes da primeira instalação de cache.
 
 **Infraestrutura de terceiros é hostil por premissa.** Tratar os caches instalados em redes

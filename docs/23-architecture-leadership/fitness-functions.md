@@ -2,7 +2,7 @@
 id: fitness-functions
 title: Funções de Aptidão
 sidebar_position: 22
-description: A dimensão protegida vira verificação executável — e a arquitetura passa a ter teste.
+description: A dimensão protegida vira verificação executável, e a arquitetura passa a ter teste.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [evolutionary-architecture]
 related: [evolutionary-architecture, measuring-architecture-outcomes, leadership-governance]
 canonical_for: [aptidão como contrato, verificação de característica arquitetural, aptidão holística]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Uma função de aptidão é uma verificação automática de uma característica arquitetural que se quer
-preservar. Ela transforma uma intenção — "os módulos não devem ter dependência cíclica" — em algo
+preservar. Ela transforma uma intenção ("os módulos não devem ter dependência cíclica") em algo
 que falha quando é violada.
 
 ```text
@@ -32,7 +32,7 @@ função de aptidão      verdadeira sempre, ou vermelha
 
 Ver [funções de aptidão como governança](/19-architecture-governance/fitness-functions-governance.md)
 para o uso como mecanismo de governança; aqui o foco é o instrumento na mão de quem lidera
-arquitetura — como escolher o que verificar, e como operar o conjunto sem que ele vire ruído.
+arquitetura: como escolher o que verificar, e como operar o conjunto sem que ele vire ruído.
 
 ## Problema
 
@@ -47,7 +47,7 @@ mês 36    ninguém sabe qual é o estado
 
 E o problema de liderança é específico: **o arquiteto não pode revisar tudo**. Numa organização
 com trinta times, ele vê uma fração pequena das mudanças, e a fração que ele vê não é a que mais
-importa — é a que chegou até ele.
+importa, e sim a que chegou até ele.
 
 A função de aptidão resolve isso mudando o ponto de intervenção: em vez de revisar depois, a
 propriedade é verificada a cada mudança, por todos, sem que ele esteja presente. Ver
@@ -70,7 +70,7 @@ holística   verifica uma propriedade do conjunto
 ```
 
 As atômicas são baratas e imediatas; a maior parte do valor inicial vem delas. As holísticas são
-caras e cobrem propriedades que só existem no todo — e são as que descobrem os problemas de maior
+caras e cobrem propriedades que só existem no todo, e são as que descobrem os problemas de maior
 consequência.
 
 Uma organização madura tem as duas. Uma que tem apenas atômicas protege o código e não a
@@ -87,7 +87,7 @@ arquitetura.
 ```
 
 O passo 1 é o que garante patrocínio: uma verificação ligada a um incidente conhecido não precisa
-ser justificada. O passo 3 é o que evita rejeição — ligar bloqueio sobre uma base que viola em
+ser justificada. O passo 3 é o que evita rejeição: ligar bloqueio sobre uma base que viola em
 quarenta lugares interrompe o trabalho de todos no mesmo dia.
 
 E o passo 3 costuma ter um efeito que o [Exemplo Real](#exemplo-real) mostra em números: tornar
@@ -114,7 +114,7 @@ falso positivo frequente   ela é contornada por reflexo, e depois removida
 ```
 
 O limiar entre os dois não é universal; é heurística a calibrar pelo volume. Uma verificação que
-roda mil vezes por dia a 2% interrompe vinte mudanças legítimas — o ponto que importa é aquele em
+roda mil vezes por dia a 2% interrompe vinte mudanças legítimas. O ponto que importa é aquele em
 que o time passa a presumir que a falha é da verificação, não do código.
 
 Monitorar a taxa de falso positivo de cada verificação, e ajustar ou rebaixar as que passam do
@@ -130,7 +130,7 @@ relatar    quando é tendência, não evento
 ```
 
 A pergunta que decide: **se isto falhar, é sempre um erro?** Se a resposta for "às vezes é
-legítimo", bloquear produz uma lista de exclusões crescente — e a lista é onde a erosão passa a
+legítimo", bloquear produz uma lista de exclusões crescente, e a lista é onde a erosão passa a
 se esconder.
 
 Olhar periodicamente a lista de exclusões é uma prática subestimada: ela é o registro de todas as
@@ -147,7 +147,7 @@ o modelo faz sentido para o negócio?
 
 Delimitar isso evita a expectativa exagerada que faz a prática ser abandonada. Funções de aptidão
 substituem uma parte da governança e liberam a atenção humana para as perguntas que só ela
-responde — que é o argumento mais forte a favor delas em contexto de liderança.
+responde. Esse é o argumento mais forte a favor delas em contexto de liderança.
 
 ### Cada função precisa de dono e de revisão
 
@@ -171,7 +171,7 @@ avise antes de bloquear, e monitore falso positivo.
 
 ## Quando Não Usar
 
-**Para julgamento** — adequação, fronteira, trade-off. Não há medida contra a qual comparar; o
+**Para julgamento**: adequação, fronteira, trade-off. Não há medida contra a qual comparar; o
 limite está detalhado em [funções de aptidão como governança](/19-architecture-governance/fitness-functions-governance.md#quando-não-usar).
 
 **Quando a regra ainda está em disputa na liderança.** Codificar uma decisão não tomada transfere
@@ -182,21 +182,21 @@ arquiteto perde o sinal do desacordo.
 responder a um falso positivo em dias, a verificação degrada e leva junto a credibilidade das
 regras que protegia.
 
-**Quando o arquiteto de fato vê toda mudança relevante.** O argumento central — ele não pode
-revisar tudo — deixa de valer, e o custo de construir e manter não se paga.
+**Quando o arquiteto de fato vê toda mudança relevante.** O argumento central (ele não pode
+revisar tudo) deixa de valer, e o custo de construir e manter não se paga.
 
-**Em quantidade** — muitas verificações medianas valem menos que poucas confiáveis, porque o custo
+**Em quantidade**: muitas verificações medianas valem menos que poucas confiáveis, porque o custo
 de atenção de cada falso positivo recai sobre todas.
 
 ## Alternativas
 
-- **Controle preventivo** — impedir em vez de detectar; melhor quando o ambiente permite.
-- **Revisão humana** — para o que exige julgamento.
-- **Relatório de tendência** — quando a propriedade é gradual e não binária.
-- **Gabarito** — a propriedade embutida no ponto de partida.
+- **Controle preventivo**: impedir em vez de detectar; melhor quando o ambiente permite.
+- **Revisão humana**: para o que exige julgamento.
+- **Relatório de tendência**: quando a propriedade é gradual e não binária.
+- **Gabarito**: a propriedade embutida no ponto de partida.
 
 A última é preferível para o estado inicial: uma configuração que já nasce correta não precisa ser
-corrigida. Mas o gabarito não impede a deriva — onde a configuração pode ser alterada depois de
+corrigida. Mas o gabarito não impede a deriva: onde a configuração pode ser alterada depois de
 criada, a verificação continua necessária.
 
 ## Trade-offs
@@ -241,7 +241,7 @@ criada, a verificação continua necessária.
 ## Exemplo Real
 
 Uma plataforma de comércio eletrônico com 18 times tinha uma área de arquitetura de três pessoas.
-Elas participavam de cerca de 12% das revisões de desenho — e a seleção não era por importância,
+Elas participavam de cerca de 12% das revisões de desenho, e a seleção não era por importância,
 era por quem as convidava.
 
 O diagnóstico que mudou a abordagem veio de uma análise de incidentes: das 34 ocorrências de
@@ -255,13 +255,13 @@ acesso direto a dado de outro domínio             4
 segredo em variável de ambiente sem cofre         4
 ```
 
-Nenhuma das quatro exigia julgamento — todas eram verificáveis. E nenhuma tinha sido pega em
+Nenhuma das quatro exigia julgamento: todas eram verificáveis. E nenhuma tinha sido pega em
 revisão, porque a área de arquitetura só participava de 12% das revisões de desenho.
 
 A adoção seguiu a ordem do dano, com a primeira sendo a de maior frequência:
 
 **Fase de aviso, oito semanas.** A verificação de alarme de saturação rodou sem bloquear, com um
-painel por time. Ao fim das oito semanas, 61 dos 94 serviços tinham corrigido — sem nenhuma
+painel por time. Ao fim das oito semanas, 61 dos 94 serviços tinham corrigido, sem nenhuma
 cobrança, apenas por ver o número.
 
 **Acervo corrigido, depois bloqueio.** Os 33 restantes foram tratados: 26 corrigidos, 7 com
@@ -271,7 +271,7 @@ As três seguintes levaram quatro meses, no mesmo protocolo.
 
 **Uma holística acrescentada no sexto mês:** disponibilidade composta do fluxo de compra,
 calculada a partir das dependências declaradas de cada serviço. Ela falha quando o produto das
-disponibilidades individuais cai abaixo do requisito contratual — e ela pegou, na primeira
+disponibilidades individuais cai abaixo do requisito contratual. E ela pegou, na primeira
 execução, uma cadeia de cinco chamadas síncronas que ninguém tinha somado.
 
 ```text
@@ -281,7 +281,7 @@ requisito contratual                   99,5%
 
 Essa única verificação produziu a decisão de tornar duas das cinco chamadas assíncronas, que era
 o problema arquitetural de maior consequência do sistema e que nenhuma revisão de desenho tinha
-identificado — porque cada uma das cinco chamadas, isoladamente, era razoável.
+identificado, porque cada uma das cinco chamadas, isoladamente, era razoável.
 
 Resultados após 14 meses:
 
@@ -297,12 +297,12 @@ tempo da área de arquitetura em revisão de regras   -80%
 
 A avaliação posterior aponta: a verificação holística foi a de maior valor e a última a ser
 construída, porque parecia a mais difícil. Ela custou três semanas e encontrou, no primeiro dia, o
-problema que dois anos de revisões pontuais não tinham encontrado — pela razão de sempre, que é
+problema que dois anos de revisões pontuais não tinham encontrado, pela razão de sempre, que é
 que ninguém somava as partes.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md) — as dimensões protegidas.
+- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md): as dimensões protegidas.
 - [Funções de Aptidão como Governança](/19-architecture-governance/fitness-functions-governance.md).
 - [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 - [Governança](/23-architecture-leadership/leadership-governance.md).
@@ -312,7 +312,7 @@ que ninguém somava as partes.
 Liste as regras arquiteturais do seu contexto e marque quais já causaram um incidente conhecido.
 
 Implemente a verificação mais simples da primeira da lista, em modo de aviso. O número de
-violações que aparecer é a erosão acumulada — e ela sempre surpreende.
+violações que aparecer é a erosão acumulada, e ela sempre surpreende.
 
 ## Perguntas de Entrevista
 

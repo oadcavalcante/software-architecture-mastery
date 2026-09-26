@@ -2,7 +2,7 @@
 id: interview-api-design
 title: Desenho de API na Entrevista
 sidebar_position: 5
-description: Poucos endpoints, escritos rápido — eles delimitam o escopo melhor que qualquer discussão.
+description: "Poucos endpoints, escritos rápido: eles delimitam o escopo melhor que qualquer discussão."
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [interview-data-modeling, high-level-architecture, interview-structure]
 canonical_for: [desenho de API em entrevista, contrato como fronteira]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -66,12 +66,12 @@ DELETE /urls/{codigo}     →  204
 ```
 
 Quatro linhas, um minuto de escrita. Elas dizem tudo: o sistema cria, redireciona, consulta e
-remove — e nada mais. Se o entrevistador quiser análise detalhada de cliques, ele vai pedir, e aí
+remove, e nada mais. Se o entrevistador quiser análise detalhada de cliques, ele vai pedir, e aí
 a API ganha um endpoint.
 
 Escrever essas quatro linhas tem um efeito de contenção que é difícil de obter de outra forma. Um
-candidato que não escreveu a API tende a acrescentar funcionalidades enquanto desenha — um painel
-aqui, uma notificação ali — porque nada estabeleceu a fronteira. Com a API no quadro, acrescentar
+candidato que não escreveu a API tende a acrescentar funcionalidades enquanto desenha (um painel
+aqui, uma notificação ali) porque nada estabeleceu a fronteira. Com a API no quadro, acrescentar
 algo exige acrescentar um endpoint, e isso é um ato visível que provoca a pergunta "isso estava
 no escopo?".
 
@@ -132,7 +132,7 @@ adequada       POST /urls, PATCH /urls/{codigo}
 ```
 
 O critério de granularidade está em [APIs](/05-system-design/apis.md#granularidade-do-recurso):
-modele operações do consumidor. Numa entrevista, ele vira uma regra de dois segundos — uma
+modele operações do consumidor. Numa entrevista, ele vira uma regra de dois segundos: uma
 operação por intenção do usuário.
 
 ### Assíncrono quando a operação é longa
@@ -144,7 +144,7 @@ assíncrono  POST /relatorios  →  202 {id_tarefa}
 ```
 
 Reconhecer qual operação é longa e propor o padrão de aceite com consulta posterior demonstra
-maturidade, e abre a conversa sobre estado intermediário — que é uma boa conversa de ter.
+maturidade, e abre a conversa sobre estado intermediário. É uma boa conversa de ter.
 
 Ver [síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 
@@ -159,14 +159,14 @@ Ver [síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 Uma frase resolve. Ela mostra que você sabe que essas coisas existem e escolheu não gastar tempo,
 o que é diferente de esquecer.
 
-Essa distinção — entre omitir por escolha e omitir por desconhecimento — aparece o tempo todo na
+Essa distinção (entre omitir por escolha e omitir por desconhecimento) aparece o tempo todo na
 avaliação, e explicitá-la custa segundos. Ela também abre uma porta: o entrevistador que quiser
 discutir versionamento vai pedir, e você terá o assunto no lugar certo da conversa em vez de no
 lugar em que ele consome tempo do desenho.
 
 ### O estilo importa menos do que parece
 
-REST, gRPC ou GraphQL — a escolha raramente é o ponto da entrevista, e defendê-la longamente
+REST, gRPC ou GraphQL: a escolha raramente é o ponto da entrevista, e defendê-la longamente
 consome tempo. Uma frase basta:
 
 ```text
@@ -180,7 +180,7 @@ Isso demonstra que a escolha foi consciente e devolve a conversa ao que importa.
 Há uma exceção: quando o enunciado envolve comunicação entre muitos serviços internos com
 requisito de latência apertado, ou quando o cliente é móvel com conexão ruim e vários recursos a
 buscar, a escolha de estilo passa a ter consequência real. Nesses casos ela merece um minuto, não
-uma frase — e reconhecer a diferença entre os dois contextos é em si um sinal de julgamento.
+uma frase. Reconhecer a diferença entre os dois contextos é em si um sinal de julgamento.
 
 ## Modelo Mental
 
@@ -203,16 +203,16 @@ exposta é uma consulta genérica; o que fixa o escopo são as entidades e os vo
 pelo modelo de dados rende mais.
 
 **Em problemas de infraestrutura sem superfície para o usuário.** Um rate limiter ou um cache
-distribuído expõem uma ou duas chamadas triviais — `permitir(chave)`, `get/set`. Escrevê-las não
+distribuído expõem uma ou duas chamadas triviais: `permitir(chave)`, `get/set`. Escrevê-las não
 revela modelo nem separa perfis; o problema está no algoritmo e na coordenação.
 
-**Antes dos requisitos não funcionais** — sem eles, não há como agrupar por perfil.
+**Antes dos requisitos não funcionais**: sem eles, não há como agrupar por perfil.
 
 ## Alternativas
 
-- **Descrever as operações em texto** — quando o tempo aperta; menos preciso e mais rápido.
-- **Começar pelo modelo de dados** — funciona igualmente bem em domínios centrados em dados.
-- **Pular para o desenho** — legítimo se o entrevistador indicar que quer chegar rápido à
+- **Descrever as operações em texto**: quando o tempo aperta; menos preciso e mais rápido.
+- **Começar pelo modelo de dados**: funciona igualmente bem em domínios centrados em dados.
+- **Pular para o desenho**: legítimo se o entrevistador indicar que quer chegar rápido à
   arquitetura.
 
 ## Trade-offs
@@ -250,11 +250,11 @@ uniforme, e o entrevistador conclui que você não sabe o que dimensiona o siste
 
 **Detalhar paginação e erros.** Os minutos saem do desenho interno, que é onde está a avaliação.
 
-**Esquecer a operação de maior volume** — em encurtadores, o redirecionamento. O dimensionamento
+**Esquecer a operação de maior volume**: em encurtadores, o redirecionamento. O dimensionamento
 inteiro fica calculado sobre a operação errada.
 
 **Não dizer o que ficou de fora.** A omissão fica indistinguível de desconhecimento, e o
-entrevistador pergunta — gastando o tempo que a frase teria economizado.
+entrevistador pergunta, gastando o tempo que a frase teria economizado.
 
 ## Exemplo de Entrevista
 
@@ -315,7 +315,7 @@ follow como operação simples
 **Pergunta de acompanhamento provável:** "como o cliente sabe que há posts novos?"
 
 A resposta abre uma decisão real: consulta periódica, conexão persistente, ou notificação. E
-cada uma tem consequência de escala — com 300 milhões de usuários, conexões persistentes são um
+cada uma tem consequência de escala: com 300 milhões de usuários, conexões persistentes são um
 subsistema próprio. Ver o [case de mensageria](/21-case-studies/messaging-platform.md).
 
 ## Conceitos Relacionados

@@ -2,7 +2,7 @@
 id: rest
 title: REST
 sidebar_position: 1
-description: O estilo padrão de integração síncrona — o que ele de fato propõe, e o que quase todo mundo chama de REST sem ser.
+description: "O estilo padrão de integração síncrona: o que ele de fato propõe, e o que quase todo mundo chama de REST sem ser."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [graphql, grpc, integration-contracts]
 canonical_for: [REST, recurso, verbo HTTP, HATEOAS]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -25,11 +25,11 @@ REST é um estilo arquitetural baseado em **recursos** identificados por URL,
 manipulados por um conjunto fixo de verbos, com semântica definida pelo próprio
 HTTP.
 
-Quase nenhuma API chamada de REST é REST no sentido original — a maioria é
+Quase nenhuma API chamada de REST é REST no sentido original: a maioria é
 "HTTP com JSON", o que é legítimo e não é a mesma coisa.
 
 A distinção importa menos como pureza e mais pelo que se perde ao ignorá-la:
-cache, idempotência, tratamento uniforme de erro e evolução — tudo isso o
+cache, idempotência, tratamento uniforme de erro e evolução. Tudo isso o
 protocolo já oferece, de graça, para quem usa sua semântica.
 
 ## Problema
@@ -44,7 +44,7 @@ POST /cancelarPedido
 
 Isso funciona, e joga fora o que o protocolo dá. Tudo é `POST`, então nenhum
 intermediário real cacheia a resposta, e nada é seguro de repetir. Erros viram `200` com um campo `sucesso: false`,
-então nenhum intermediário — proxy, gateway, cliente — entende o que aconteceu.
+então nenhum intermediário (proxy, gateway, cliente) entende o que aconteceu.
 
 O resultado é uma API que precisa reimplementar, em convenção própria, coisas que
 o HTTP já resolve.
@@ -66,13 +66,13 @@ POST   /pedidos              criar
 
 A pergunta que orienta: se isto fosse um documento, qual seria seu endereço?
 
-Ações que não cabem em substantivo — cancelar, aprovar, reprocessar — costumam
+Ações que não cabem em substantivo (cancelar, aprovar, reprocessar) costumam
 revelar um recurso escondido. "Cancelar pedido" pode ser
 `POST /pedidos/123/cancelamento`: o cancelamento é uma coisa, com data, motivo e
 autor.
 
 Isso não é jogo de palavras. O cancelamento como recurso tem identidade, pode ser
-consultado e auditado — o que a operação `POST /cancelarPedido` não tem.
+consultado e auditado. A operação `POST /cancelarPedido` não tem isso.
 
 ### Segurança e idempotência vêm do verbo
 
@@ -116,7 +116,7 @@ No REST original, a resposta traz os links das próximas ações possíveis, e o
 cliente navega por eles em vez de construir URLs.
 
 A promessa é desacoplar o cliente da estrutura de endereços e comunicar
-transições de estado — um pedido pago traz o link de estorno; um pendente, não.
+transições de estado: um pedido pago traz o link de estorno; um pendente, não.
 
 A adoção é baixíssima, e vale ser honesto sobre por quê: a maioria dos clientes
 é escrita contra uma especificação e não ganha nada em descobrir links em tempo
@@ -131,7 +131,7 @@ Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md). A
 adicionar recurso é livre. A maior parte da evolução de uma API HTTP cabe em
 mudança compatível.
 
-Versionar na URL é a forma mais comum e a mais visível — e cada versão viva é
+Versionar na URL é a forma mais comum e a mais visível, e cada versão viva é
 código a manter.
 
 ### Paginação, filtro e ordenação são contrato
@@ -140,7 +140,7 @@ Coleções grandes precisam de paginação; a escolha entre deslocamento e curso
 o que cada um custa, está em [paginação](/05-system-design/pagination.md).
 
 O que é próprio de uma API HTTP: qualquer que seja a estratégia, ela precisa
-estar no contrato — inclusive o limite máximo, a ordem garantida e o que
+estar no contrato, inclusive o limite máximo, a ordem garantida e o que
 acontece ao pedir mais.
 
 ## Modelo Mental
@@ -180,15 +180,15 @@ página a página leva mais que a janela disponível, e uma falha no meio não t
 ponto de retomada claro.
 
 **Quando a operação não é sobre um recurso.** Forçar substantivo em cálculos e
-buscas complexas produz modelagem torturada — ali um endpoint de operação é mais
+buscas complexas produz modelagem torturada: ali um endpoint de operação é mais
 honesto.
 
 ## Alternativas
 
-- **[GraphQL](/08-integration-architecture/graphql.md)** — quando o consumo é variável.
-- **[gRPC](/08-integration-architecture/grpc.md)** — interno, alta frequência, contrato forte.
-- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — assíncrono.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — para notificar em vez de ser consultado.
+- **[GraphQL](/08-integration-architecture/graphql.md)**: quando o consumo é variável.
+- **[gRPC](/08-integration-architecture/grpc.md)**: interno, alta frequência, contrato forte.
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)**: assíncrono.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: para notificar em vez de ser consultado.
 
 ## Trade-offs
 
@@ -220,7 +220,7 @@ honesto.
 **Coleção sem paginação.** Uma consulta devolve tudo e derruba os dois lados.
 
 **Sequência de chamadas em laço.** O cliente faz N requisições para montar uma
-tela — o problema que motiva [GraphQL](/08-integration-architecture/graphql.md).
+tela: o problema que motiva [GraphQL](/08-integration-architecture/graphql.md).
 
 ## Erros Comuns
 
@@ -238,7 +238,7 @@ falha de rede cria o segundo registro, e a deduplicação vira trabalho manual.
 desligar, criada para uma mudança que caberia em evolução compatível.
 
 **Paginação fora do contrato.** O cliente passa a depender do comportamento
-observado — tamanho padrão, ordem implícita — e quebra quando o servidor impõe
+observado (tamanho padrão, ordem implícita) e quebra quando o servidor impõe
 um limite que antes não existia.
 
 **Expor o modelo interno do banco como recurso.** O recurso é parte do contrato
@@ -256,8 +256,8 @@ Como tudo era `POST` sem chave de idempotência, cada repetição criava uma rem
 nova. Cerca de 300 remessas duplicadas por mês, tratadas manualmente pelo
 suporte.
 
-**Nenhum cache.** A consulta de status de remessa era o endpoint mais chamado —
-40% do tráfego — e nenhum cache no caminho a guardava, por ser `POST`. O banco absorvia tudo.
+**Nenhum cache.** A consulta de status de remessa era o endpoint mais chamado
+(40% do tráfego), e nenhum cache no caminho a guardava, por ser `POST`. O banco absorvia tudo.
 
 **Classificação de erro na aplicação.** Cada um dos onze clientes tinha sua
 própria lógica para decidir se o texto do campo `erro` era retentável. Três
@@ -265,7 +265,7 @@ estavam errados, e repetiam indefinidamente em erros permanentes.
 
 **Gateway inútil.** O gateway só separava leitura de escrita, para limite de
 taxa, enumerando os 40 caminhos um a um; não conseguia cachear nem reportar taxa
-de erro — porque tudo era `POST` com `200`.
+de erro, porque tudo era `POST` com `200`.
 
 A migração foi feita em paralelo, com a API antiga mantida por catorze meses.
 
@@ -286,7 +286,7 @@ que estava sendo desperdiçada.
 
 ## Conceitos Relacionados
 
-- [GraphQL](/08-integration-architecture/graphql.md) e [gRPC](/08-integration-architecture/grpc.md) — as alternativas síncronas.
+- [GraphQL](/08-integration-architecture/graphql.md) e [gRPC](/08-integration-architecture/grpc.md): as alternativas síncronas.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 - [Idempotência](/06-distributed-systems/idempotency.md).
 - [API Gateways](/08-integration-architecture/api-gateways.md).
@@ -297,7 +297,7 @@ Pegue a API do seu time e conte quantos endpoints são `POST`. Para cada um,
 pergunte: isto altera estado?
 
 Os que não alteram deveriam ser `GET`, salvo a busca complexa demais para caber
-na URL — o caso de Quando Não Usar em que um endpoint de operação é mais
+na URL: o caso de Quando Não Usar em que um endpoint de operação é mais
 honesto. Cada um dos restantes é cache e retentativa segura que você está
 deixando na mesa.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, fitness-functions-governance, exceptions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Compliance is the verification that reality matches what was decided — standards followed,
+Compliance is the verification that reality matches what was decided: standards followed,
 controls in place, regulatory requirements met.
 
 The design of the verification decides almost everything:
@@ -56,7 +56,7 @@ organization's ability to prepare, not its state.
 
 And the second problem is one of selection. Verifying that a document exists is easy;
 verifying that the control works is hard. Compliance programs migrate, over time, toward the
-verifiable — and come to measure the existence of artifacts.
+verifiable, and come to measure the existence of artifacts.
 
 ```text
 easy to verify        the document exists, the field is filled in,
@@ -77,7 +77,7 @@ no preparation window
 ```
 
 That changes the nature of the work: instead of a concentrated effort before the audit,
-compliance becomes a maintained property — like a test that cannot break.
+compliance becomes a maintained property, like a test that cannot break.
 
 See [fitness functions](/19-architecture-governance/fitness-functions-governance.md), which
 are the natural implementation.
@@ -85,10 +85,10 @@ are the natural implementation.
 Continuous verification is software, and it carries the cost of software. Every check needs
 an owner, because the system it observes changes: a service migrated to another store leaves
 the retention query pointed at an empty database, and it goes on reporting compliance about
-nothing. False positives have a cost of their own — a team that gets three bogus alerts in a
+nothing. False positives have a cost of their own: a team that gets three bogus alerts in a
 week learns to close the fourth without reading it. And a check can drift away from the
 control it was meant to measure without breaking: it stays green, only about something else.
-So the verification itself needs verifying — a deviation planted on purpose, from time to
+So the verification itself needs verifying: a deviation planted on purpose, from time to
 time, that it has to catch.
 
 ### Verify the effect, not the artifact
@@ -215,12 +215,12 @@ evidence holds from the point where manual effort no longer fits the team.
 
 ## Alternatives
 
-- **[Fitness functions](/19-architecture-governance/fitness-functions-governance.md)** — the
+- **[Fitness functions](/19-architecture-governance/fitness-functions-governance.md)**: the
   same mechanism, focused on an architectural property.
-- **Preventive controls** — prevent rather than detect; better where applicable.
-- **Sampling** — when full verification is infeasible, with a random and not a chosen
+- **Preventive controls**: prevent rather than detect; better where applicable.
+- **Sampling**: when full verification is infeasible, with a random and not a chosen
   sample.
-- **Team attestation** — cheap, and worth exactly as much as the honesty and knowledge of
+- **Team attestation**: cheap, and worth exactly as much as the honesty and knowledge of
   whoever attests.
 
 ## Trade-offs
@@ -255,7 +255,7 @@ evidence holds from the point where manual effort no longer fits the team.
 ## Common Mistakes
 
 **Measuring the existence of a document**, which produces a high rate with the control
-absent — 9 of the 14 controls in the example below were measured that way.
+absent: 9 of the 14 controls in the example below were measured that way.
 
 **Not expiring exceptions**, which become permanent drift. See
 [exceptions](/19-architecture-governance/exceptions.md).
@@ -272,7 +272,7 @@ by the team, and the time to fix becomes the interval between meetings.
 A digital bank had architectural compliance verified by a semiannual internal audit, sampling
 20% of the systems.
 
-The results were consistently good — between 91% and 96% over three years.
+The results were consistently good: between 91% and 96% over three years.
 
 An incident changed the reading. A service with customer data was exposed for 11 days with
 authentication disabled, after a configuration change made during an incident and never
@@ -288,7 +288,7 @@ systems missing from the audit inventory                17
 controls verified by document, not by effect            9 of 14
 ```
 
-The 17 missing from the inventory were systems created after the last cycle — the inventory
+The 17 missing from the inventory were systems created after the last cycle: the inventory
 was updated manually, before each audit.
 
 The rework, over 14 months:
@@ -297,7 +297,7 @@ The rework, over 14 months:
 from the orchestrator. That eliminated the 17 at once.
 
 **Continuous verification** of 11 of the 14 controls, run daily against the real state. The
-remaining three — which required judgment — stayed on a quarterly manual review, with a
+remaining three, which required judgment, stayed on a quarterly manual review, with a
 narrowed scope and a justified cost.
 
 **From artifact to effect.** The 9 controls verified by document were rewritten: "a retention
@@ -308,7 +308,7 @@ day after it lapses, with an alert to the system owner and to their manager. See
 [exceptions](/19-architecture-governance/exceptions.md).
 
 **A per-team dashboard**, with the daily verification result in the same place the team
-watches the service — not in a separate compliance portal.
+watches the service, not in a separate compliance portal.
 
 **Automatic evidence**, retained for 24 months, generated by the verification itself.
 
@@ -322,7 +322,7 @@ expired exceptions in use                     0
 audit preparation effort                     from ~600 h/year to ~40 h/year
 ```
 
-In the retrospective: the 94% figure was never a lie — it was true about the sample and about
+In the retrospective: the 94% figure was never a lie; it was true about the sample and about
 the day. But it was true about documents: in 9 of the 14 controls, what was counted was the
 artifact, not the effect. The error was reading it as a statement about the organization.
 
@@ -331,10 +331,10 @@ deviation and fix. It turned compliance from an event into a maintained property
 
 ## Related Concepts
 
-- [Standards](/19-architecture-governance/governance-standards.md) — what gets verified.
-- [Fitness Functions](/19-architecture-governance/fitness-functions-governance.md) — the
+- [Standards](/19-architecture-governance/governance-standards.md): what gets verified.
+- [Fitness Functions](/19-architecture-governance/fitness-functions-governance.md): the
   implementation.
-- [Exceptions](/19-architecture-governance/exceptions.md) — the authorized deviation.
+- [Exceptions](/19-architecture-governance/exceptions.md): the authorized deviation.
 - [Auditability](/10-security/auditability.md).
 
 ## Practical Exercise

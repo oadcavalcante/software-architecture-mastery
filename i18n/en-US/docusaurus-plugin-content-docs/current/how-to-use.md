@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -34,7 +34,7 @@ find an honest entry point.
 | Are an architect wanting to work above the system | Levels 06 and 07, using the rest as lookup |
 
 Skipping levels is legitimate. What does not work is skipping and never returning
-when a concept shows up as an assumption — every document declares its
+when a concept shows up as an assumption. Every document declares its
 prerequisites precisely to make that visible.
 
 ## Pace
@@ -44,7 +44,7 @@ without capability. You read about eventual consistency, you agree, and six
 months later you cannot decide whether your case tolerates it.
 
 The signal that the pace is right is being able to apply the concept to a system
-you know. If you cannot, reread — or go to the exercise, which exists precisely
+you know. If you cannot, reread, or go to the exercise, which exists precisely
 to force that.
 
 ## The exercises
@@ -54,7 +54,7 @@ Exercises are not reading checks. They are where the reasoning happens.
 Each one carries a collapsed **Discussion** section. It is not an answer key: it
 is one possible line of reasoning, with its assumptions stated. Opening it before
 trying wastes the exercise, because the value lies in discovering which
-constraint you had not considered — and that only surfaces after you have
+constraint you had not considered, and that only surfaces after you have
 considered some.
 
 Exercises 03 through 07 share one system and evolve it. Do them in sequence: the
@@ -66,15 +66,15 @@ Same rule, stronger. Read context, requirements and constraints. **Stop before
 the architecture options.** Sketch your own in twenty minutes. Only then
 continue.
 
-The goal is not to be right. It is to compare your framing of the constraints
-with the one in the text.
+The goal is to compare your framing of the constraints with the one in the text,
+not to be right.
 
 ## About the trade-offs
 
 Section 20 is the conceptual backbone of the material. If you only have time for
-one section, that is the one — but it pays much more after Level 04, because four
-of the fifteen trade-offs listed there — consistency versus availability, strong
-versus eventual consistency, sync versus async, monolith versus microservices —
+one section, that is the one. But it pays much more after Level 04, because four
+of the fifteen trade-offs listed there (consistency versus availability, strong
+versus eventual consistency, sync versus async, monolith versus microservices)
 presuppose the problem only a distributed system creates.
 
 ## What this material does not do
@@ -83,7 +83,7 @@ It does not hand you answers. Most documents end with a decision conditioned on
 constraints, not with a recommendation.
 
 That is deliberate. The capability this path develops is precisely stating those
-conditions — and material that delivers conclusions without them trains the
+conditions, and material that delivers conclusions without them trains the
 opposite habit.
 
 ## Language

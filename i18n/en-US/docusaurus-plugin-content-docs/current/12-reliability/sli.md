@@ -2,7 +2,7 @@
 id: sli
 title: SLI
 sidebar_position: 10
-description: The indicator that measures what the user feels — and why most measure the wrong thing.
+description: The indicator that measures what the user feels, and why most measure the wrong thing.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [slo, sla, availability-metrics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,11 +21,11 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-An SLI — service level indicator — is a quantitative measure of an aspect of the service that **matters to
+An SLI (service level indicator) is a quantitative measure of an aspect of the service that **matters to
 the user**.
 
-The definition looks obvious and is frequently violated: most systems measure what is easy to measure —
-CPU, memory, server error rate — and not what the user experiences.
+The definition looks obvious and is frequently violated: most systems measure what is easy to measure
+(CPU, memory, server error rate) and not what the user experiences.
 
 A good SLI has a characteristic shape: **the proportion of good events over valid events**.
 
@@ -36,7 +36,7 @@ A dashboard shows CPU at 40%, memory at 55%, error rate at 0.3%. All green.
 And the users cannot complete a purchase, because a dependency in the payment flow is returning slowness
 the server counts as success.
 
-Resource metrics describe the infrastructure's health. They do not describe the experience — and it is the
+Resource metrics describe the infrastructure's health. They do not describe the experience, and it is the
 experience that defines whether the service is working.
 
 ## Core Concepts
@@ -53,7 +53,7 @@ Expressing it that way forces three explicit decisions:
 
 **What is good.** Responded in under 300 ms with a success code.
 
-**What is valid.** Requests the service should serve — excluding, for example, client errors that are not
+**What is valid.** Requests the service should serve, excluding, for example, client errors that are not
 the system's fault.
 
 The third decision is the most delicate and the most consequential. Excluding client errors is reasonable;
@@ -97,7 +97,7 @@ server's as diagnosis.
 
 Measuring each endpoint produces dozens of indicators nobody tracks.
 
-What works is measuring the **critical journeys** — what the user is trying to do:
+What works is measuring the **critical journeys**, what the user is trying to do:
 
 ```text
 search for a product   availability and latency
@@ -128,7 +128,7 @@ It is worth being explicit, because the confusion is common:
 
 **A resource metric.** CPU, memory, disk. They are diagnosis, not a service indicator.
 
-**An absolute count.** "150 errors per hour" does not say whether that is a lot — it depends on the volume.
+**An absolute count.** "150 errors per hour" does not say whether that is a lot: it depends on the volume.
 
 **An average.** It hides the tail. A service with a 100 ms average can have 1% of users waiting 4 seconds.
 
@@ -146,7 +146,7 @@ suffers, it is not an SLI.
 - When there is enough volume that a single event does not noticeably move the proportion within the
   window.
 - When there is a contractual commitment to sustain.
-- When there is an instrumentation point closer to the user than the server — the balancer, the client
+- When there is an instrumentation point closer to the user than the server: the balancer, the client
   or external probing.
 
 ## When Not to Use
@@ -167,10 +167,10 @@ chart on the dashboard, and the cost of defining "good" and "valid" does not pay
 
 ## Alternatives
 
-- **Synthetic monitoring** — probes that exercise the journey periodically. It covers the absence of
+- **Synthetic monitoring**: probes that exercise the journey periodically. It covers the absence of
   traffic and detects before the user does.
-- **Client-side measurement** — the most faithful, and it requires instrumentation and sampling.
-- **Resource metrics** — for diagnosis, not as an indicator.
+- **Client-side measurement**: the most faithful, and it requires instrumentation and sampling.
+- **Resource metrics**: for diagnosis, not as an indicator.
 
 Synthetic and real complement each other: the synthetic covers low-volume hours, where the real one has too
 few events to be trustworthy.
@@ -222,7 +222,7 @@ up or the conversion drops, not from a round number chosen in a meeting.
 produces an indicator that looks good while the experience gets worse.
 
 **Not measuring journeys, only components.** Each service at 99.9% in a chain of five delivers 99.5% to the
-user — and it is the user's number that matters.
+user, and it is the user's number that matters.
 
 ## Real-World Example
 
@@ -232,8 +232,8 @@ Users complained about not being able to buy policies, and the number did not ch
 
 The investigation found three reasons why the indicator did not see the problem:
 
-**Measured at the server.** Requests that failed before arriving — a timeout at the balancer, a name
-resolution failure — did not enter the count. They were around 2% of the total at peak hours.
+**Measured at the server.** Requests that failed before arriving (a timeout at the balancer, a name
+resolution failure) did not enter the count. They were around 2% of the total at peak hours.
 
 **Dilution by volume.** Buying a policy was 0.4% of the requests. A failure in half the purchases moved the
 global indicator by 0.2%.
@@ -244,26 +244,26 @@ The user gave up beforehand.
 The reformulation:
 
 **Four journeys with their own SLI:** get a quote, buy a policy, view a policy, file a claim. Each one
-with availability and latency — eight indicators in total.
+with availability and latency: eight indicators in total.
 
 **A latency limit defined with data**, not by intuition: the abandonment analysis showed that above 4
-seconds the drop-off rate doubled. The limit became 4 seconds — not a round number chosen in a meeting.
+seconds the drop-off rate doubled. The limit became 4 seconds, not a round number chosen in a meeting.
 
 **Measurement at the balancer**, with synthetic probing every minute to cover the low-volume hours.
 
 **Client-side measurement** for the purchase journey, the most critical, capturing what happens before the
 request leaves the browser.
 
-The result: the purchase SLI, measured correctly, was **97.3%** — not 99.95%.
+The result: the purchase SLI, measured correctly, was **97.3%**, not 99.95%.
 
-The recorded conclusion: the old number was not false. It measured exactly what it said it measured — the
+The recorded conclusion: the old number was not false. It measured exactly what it said it measured: the
 server's error rate. It simply had no relation to the question that mattered, and nobody had noticed
 because the question was never written down.
 
 ## Related Concepts
 
-- [SLO](/12-reliability/slo.md) — the target on top of the indicator.
-- [SLA](/12-reliability/sla.md) — the contractual commitment.
+- [SLO](/12-reliability/slo.md): the target on top of the indicator.
+- [SLA](/12-reliability/sla.md): the contractual commitment.
 - [Availability Metrics](/12-reliability/availability-metrics.md).
 - [Observability](/13-observability/index.md).
 
@@ -282,6 +282,6 @@ Then ask: does that number change when the user suffers? If it does not, you mea
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 4.
-- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018 — chapters 2 and 3.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 4.
+- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018. Chapters 2 and 3.
 - Google. *SRE Fundamentals: SLIs, SLAs and SLOs*.

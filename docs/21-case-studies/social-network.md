@@ -2,7 +2,7 @@
 id: social-network
 title: "Case: Rede Social"
 sidebar_position: 5
-description: Feed para 24 milhões de usuários, onde a decisão central é quando fazer o trabalho — na escrita ou na leitura.
+description: "Feed para 24 milhões de usuários, onde a decisão central é quando fazer o trabalho: na escrita ou na leitura."
 doc_type: case-study
 level: 0
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, messaging-platform, high-volume-events]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -32,7 +32,7 @@ sustentam, não as grandezas.
 
 ## Contexto de Negócio
 
-A **Circulo** é uma rede social brasileira voltada a comunidades de interesse — grupos de
+A **Circulo** é uma rede social brasileira voltada a comunidades de interesse: grupos de
 bairro, de profissão, de hobby. Tem 24 milhões de contas, das quais 7,8 milhões usam o produto
 diariamente.
 
@@ -65,7 +65,7 @@ cronológica. É simples e barato, e representa 38% das visualizações.
 
 O **perfil** mostra as publicações de uma pessoa, cronologicamente.
 
-E as **notificações** avisam sobre interações — comentários, menções, reações — com entrega em
+E as **notificações** avisam sobre interações (comentários, menções, reações) com entrega em
 tempo quase real.
 
 Além disso: publicar texto, imagem e vídeo curto; reagir e comentar; seguir pessoas e entrar em
@@ -91,7 +91,7 @@ A assimetria entre as duas janelas é deliberada e vem do produto: numa comunida
 síncrona e 30 segundos de atraso quebra o fluxo; no feed de pessoas seguidas, ninguém percebe.
 
 Essa distinção não é detalhe. Ela significa que o sistema tem dois requisitos de janela sobre o
-mesmo mecanismo de propagação, com uma diferença de 6× entre eles — e que uma solução única
+mesmo mecanismo de propagação, com uma diferença de 6× entre eles, e que uma solução única
 precisaria atender ao mais restritivo, pagando o custo em todos os casos. Reconhecer a
 assimetria cedo é o que abriu espaço para uma estratégia diferenciada, e é o tipo de informação
 que só aparece quando os requisitos são levantados por superfície de produto em vez de para o
@@ -118,13 +118,13 @@ arquitetura. Qualquer solução uniforme falha em uma das pontas: o que funciona
 com 84 seguidores não funciona para uma com 2 milhões, e vice-versa.
 
 Vale insistir nesse ponto porque ele é a lição transferível do case. Ao projetar um sistema
-social, o instinto é raciocinar sobre "o usuário" — e não existe o usuário. Existe uma
+social, o instinto é raciocinar sobre "o usuário", e não existe o usuário. Existe uma
 distribuição, quase sempre de cauda longa, em que a mediana e o percentil 99,99 diferem por
 quatro ordens de grandeza. Decisões tomadas sobre a média são erradas nas duas pontas: caras
 demais para a maioria e insuficientes para os extremos.
 
-O primeiro artefato produzido neste projeto não foi um diagrama. Foi um histograma da
-distribuição de seguidores e de membros de comunidade, com os percentis explícitos — e ele
+O primeiro artefato produzido neste projeto não foi um diagrama, mas um histograma da
+distribuição de seguidores e de membros de comunidade, com os percentis explícitos. Ele
 sozinho eliminou a Opção B da discussão em uma reunião.
 
 ## Estimativas de Capacidade
@@ -145,7 +145,7 @@ reações e comentários/dia          142 milhões
 
 A razão entre leitura e escrita é de **38 para 1** considerando apenas publicações, e de 2,3
 para 1 considerando todas as interações. O sistema é dominado pela leitura, e é por isso que a
-decisão sobre onde fazer o trabalho — na escrita ou na leitura — é a decisão central.
+decisão sobre onde fazer o trabalho (na escrita ou na leitura) é a decisão central.
 
 O cálculo que torna isso concreto:
 
@@ -160,7 +160,7 @@ distribuição na escrita
 ```
 
 Quatrocentas mil gravações por segundo, para servir 11.500 leituras por segundo. Distribuir
-tudo na escrita é claramente absurdo neste perfil — e é exatamente a solução que a literatura
+tudo na escrita é claramente absurdo neste perfil, e é exatamente a solução que a literatura
 sobre redes sociais globais costuma sugerir, porque lá a razão entre leitura e escrita é outra.
 
 ```text
@@ -230,14 +230,14 @@ armazenamento          moderado
 | Capacidade da equipe | 10% | 9 | 7 | 7 |
 | **Total ponderado** | | **5,2** | **5,4** | **7,7** |
 
-O critério "viabilidade com a distribuição real" existe porque a Opção B não é apenas cara —
+O critério "viabilidade com a distribuição real" existe porque a Opção B não é apenas cara:
 ela é **impossível** de cumprir dentro do requisito de 5 segundos para comunidades grandes.
 Uma opção inviável recebe nota 1, não é excluída da matriz: mostrar por que ela perde é parte
 do registro.
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com latência em 50%, os totais viram
 4,3 / 6,4 / 7,8. Com custo em 50%, viram 4,5 / 4,6 / 7,8. A Opção C vence em todos os cenários testados, o que é esperado
-quando uma opção combina as vantagens das outras duas — e a checagem serve para confirmar que
+quando uma opção combina as vantagens das outras duas, e a checagem serve para confirmar que
 a complexidade adicional não a derruba.
 
 ## Decisão
@@ -255,19 +255,19 @@ publicação iguala o custo agregado de consultá-la nas leituras esperadas até
 janela de relevância.
 
 Sob o limiar, 99,4% das contas e 96,1% das comunidades são distribuídas na escrita. As
-restantes — cerca de 4.800 contas e 1.900 comunidades — são consultadas na leitura, o que
+restantes (cerca de 4.800 contas e 1.900 comunidades) são consultadas na leitura, o que
 significa que um feed típico faz uma consulta ao feed materializado e entre zero e cinco
 consultas a fontes grandes.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** o número médio de fontes seguidas fosse muito menor — abaixo de ~10 — ou
+**Opção A venceria se** o número médio de fontes seguidas fosse muito menor (abaixo de ~10) ou
 se a latência não fosse requisito. Também venceria em um produto de nicho com poucos usuários,
 em que o custo de leitura é irrelevante.
 
 **Opção B venceria se** não existissem fontes grandes, ou seja, se a distribuição de seguidores
 fosse aproximadamente uniforme. É o caso de redes corporativas fechadas, em que ninguém tem
-mais de alguns milhares de conexões — e ali ela é a resposta certa, mais simples que a híbrida.
+mais de alguns milhares de conexões, e ali ela é a resposta certa, mais simples que a híbrida.
 
 ## Componentes
 
@@ -298,8 +298,8 @@ comportamento do primeiro.
 
 ## Dados
 
-**Publicação.** Fonte de verdade em PostgreSQL, particionada por mês. Volume modesto — 9
-milhões por dia — e consistência forte, porque uma publicação que some ou apareça duplicada é
+**Publicação.** Fonte de verdade em PostgreSQL, particionada por mês. Volume modesto (9
+milhões por dia) e consistência forte, porque uma publicação que some ou apareça duplicada é
 percebida imediatamente.
 
 **Feed materializado.** Armazenamento chave-valor, com uma lista por usuário.
@@ -316,12 +316,12 @@ entradas × ~40 bytes ≈ 576 GB, independentemente do volume de publicações.
 E ele é justificado por dados de produto: 97% das sessões não passam de 120 publicações, e
 nenhuma sessão medida passou de 480. Guardar mais seria armazenar o que ninguém lê.
 
-**Grafo.** Duas tabelas em PostgreSQL — seguidores e membros de comunidade — com cache das
+**Grafo.** Duas tabelas em PostgreSQL (seguidores e membros de comunidade) com cache das
 listas mais consultadas. O grafo é lido intensamente pelo Distribuidor, e a decisão de não usar
 um banco de grafos foi tomada por não haver consulta de travessia: as perguntas são "quem segue
 X" e "de que comunidades Y participa", ambas de um salto.
 
-Ver [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md) — o padrão de acesso é conhecido e raso,
+Ver [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md): o padrão de acesso é conhecido e raso,
 o que não justifica um segundo tipo de banco.
 
 **Contagem de interações.** Contadores aproximados para publicações com alto volume, exatos
@@ -341,17 +341,17 @@ diferença. Nenhuma análise de contenção teria produzido o limiar certo.
 ## Integração
 
 **Publicação até o feed.** O Serviço de Publicação persiste e emite um evento. O Distribuidor
-consome, consulta o grafo, decide pela estratégia e — se for distribuir — grava nos feeds
+consome, consulta o grafo, decide pela estratégia e, se for distribuir, grava nos feeds
 materializados em lotes.
 
 O tempo entre publicar e aparecer é dominado pelo tamanho da audiência: uma conta com 84
 seguidores completa em menos de 200 ms; uma comunidade com 14 mil membros, em cerca de 4
 segundos. É por isso que o limiar de 15 mil também satisfaz a janela de 5 segundos das
-comunidades — ele foi verificado contra os dois requisitos, e o mais restritivo venceu.
+comunidades: ele foi verificado contra os dois requisitos, e o mais restritivo venceu.
 
 **Fontes grandes na leitura.** Cada fonte acima do limiar mantém uma lista das suas publicações
-recentes em cache, com TTL curto. O Serviço de Feed lê essas listas — no máximo algumas por
-usuário — e as mescla com o feed materializado antes de ranquear.
+recentes em cache, com TTL curto. O Serviço de Feed lê essas listas (no máximo algumas por
+usuário) e as mescla com o feed materializado antes de ranquear.
 
 **Ranqueamento.** Recebe o conjunto mesclado e ordena. Roda na leitura, com orçamento de 120 ms,
 e degrada para ordenação cronológica se estourar o prazo.
@@ -375,7 +375,7 @@ moderação            fila de revisão com acesso registrado; conteúdo
                      removido preserva registro para contestação
 ```
 
-A checagem dupla — na montagem e na leitura — parece redundante e não é. Um feed materializado
+A checagem dupla (na montagem e na leitura) parece redundante e não é. Um feed materializado
 é um retrato de um momento; permissões mudam depois. Sem a segunda checagem, alguém removido de
 uma comunidade continuaria vendo publicações dela por até 600 entradas.
 
@@ -393,7 +393,7 @@ depois (Opção C)    ~4,2 consultas por abertura →  ~48 mil consultas/s no pi
 ```
 
 A redução de 23× no número de consultas é a origem da economia de custo, e ela vem inteiramente
-de mover trabalho da leitura para a escrita — onde ele é feito uma vez em vez de a cada
+de mover trabalho da leitura para a escrita, onde ele é feito uma vez em vez de a cada
 abertura.
 
 O ponto de contenção que sobrou é o **Distribuidor** durante picos de publicação em comunidades
@@ -404,7 +404,7 @@ de 30 segundos.
 ## Confiabilidade
 
 Se o **Distribuidor** falha, publicações param de aparecer nos feeds materializados. O sistema
-degrada acrescentando as fontes recentes na leitura — mais caro, mais lento, e correto. A fila
+degrada acrescentando as fontes recentes na leitura: mais caro, mais lento, e correto. A fila
 acumula e é processada quando ele volta.
 
 Se o **feed materializado** fica indisponível, o Serviço de Feed cai integralmente para
@@ -416,11 +416,11 @@ funciona.
 
 Se a **Publicação** falha, não há degradação. É o componente com o alvo mais alto.
 
-A decisão de manter o caminho de montagem na leitura como modo degradado tem custo — é código
-que precisa continuar funcionando — e foi justificada por ser também o caminho usado pelas
+A decisão de manter o caminho de montagem na leitura como modo degradado tem custo (é código
+que precisa continuar funcionando) e foi justificada por ser também o caminho usado pelas
 fontes grandes. Ele não é código morto mantido por precaução; é código vivo com um segundo uso.
 
-Essa propriedade — o modo de degradação sendo também um caminho usado em operação normal — é o
+Essa propriedade (o modo de degradação sendo também um caminho usado em operação normal) é o
 que torna a degradação confiável. Modos de emergência que só executam em emergência apodrecem
 sem que ninguém perceba, e falham justamente quando são acionados. No desenho final, o caminho
 de montagem na leitura processa continuamente as fontes grandes de todos os usuários, o que
@@ -428,7 +428,7 @@ significa que ele é exercitado milhares de vezes por segundo e não pode estar 
 o sistema inteiro perceba.
 
 Quando um modo degradado não puder ter uso normal, a alternativa é exercitá-lo
-deliberadamente — acionando-o em uma fração pequena do tráfego, de forma programada.
+deliberadamente, acionando-o em uma fração pequena do tráfego, de forma programada.
 
 ## Observabilidade
 
@@ -447,7 +447,7 @@ A última métrica é de correção: um valor alto indica que a distribuição e
 de quem não deveria ver, o que é um defeito de autorização, não de desempenho.
 
 A separação da latência entre usuários com e sem fontes grandes foi essencial: a média
-escondia que 8% dos usuários — os que seguem muitas contas grandes — tinham latência três vezes
+escondia que 8% dos usuários (os que seguem muitas contas grandes) tinham latência três vezes
 pior. O p95 agregado parecia bom e o produto era ruim para uma fatia identificável.
 
 ## Implantação
@@ -464,7 +464,7 @@ etapa 4   caminho antigo vira modo de degradação
 ```
 
 A etapa 2 durou seis semanas e encontrou 9 classes de divergência, das quais 6 eram defeitos do
-caminho novo e 3 eram comportamentos não documentados do antigo — o mesmo padrão observado no
+caminho novo e 3 eram comportamentos não documentados do antigo: o mesmo padrão observado no
 case de [núcleo bancário](/21-case-studies/banking.md), em contexto completamente diferente.
 
 A recorrência desse padrão em dois domínios sem nenhuma relação sugere que ele é uma propriedade
@@ -488,7 +488,7 @@ usuários, com reversão por configuração.
 com experimento controlado.
 
 **Fase 5 (meses 14–18): limiar dinâmico.** O limiar de 15 mil passa a ser calculado por
-comunidade e por conta, considerando a taxa real de leitura da audiência — uma comunidade com 20
+comunidade e por conta, considerando a taxa real de leitura da audiência: uma comunidade com 20
 mil membros dos quais 200 abrem o feed diariamente não merece a mesma estratégia de uma com 20
 mil membros ativos.
 
@@ -533,12 +533,12 @@ o mesmo trabalho em momentos diferentes. A escolha depende da razão entre leitu
 essa razão varia por fonte dentro do mesmo sistema.
 
 **A distribuição estatística é uma restrição de arquitetura.** A desigualdade entre a mediana e o
-extremo — 84 seguidores contra 2 milhões — é o que torna qualquer solução uniforme errada. Ler
+extremo (84 seguidores contra 2 milhões) é o que torna qualquer solução uniforme errada. Ler
 essa distribuição antes de decidir teria evitado o desenho original.
 
 **Materializar cobra revalidação.** Sistema que grava uma visão precisa revalidar a autorização
 na leitura quando a permissão muda depois do retrato **e** a janela de propagação por invalidação
-não é aceitável para aquele escopo — é escolha entre latência e janela, não necessidade. Aqui foi
+não é aceitável para aquele escopo. É escolha entre latência e janela, não necessidade. Aqui foi
 necessidade, e é o preço da distribuição na escrita.
 
 **A média escondia o produto.** O p95 agregado do feed parecia aceitável, e 8% dos usuários
@@ -557,7 +557,7 @@ diferente é o que tornou o problema visível.
 Calcule o limiar de distribuição para um perfil diferente: 40 fontes seguidas em média, 900
 milhões de aberturas de feed por dia, 2 milhões de publicações por dia.
 
-O limiar sobe ou desce? A resposta mostra que o número não é uma constante da arquitetura — é
+O limiar sobe ou desce? A resposta mostra que o número não é uma constante da arquitetura: é
 uma função do perfil de uso.
 
 ## Perguntas de Entrevista
@@ -568,7 +568,7 @@ uma função do perfil de uso.
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — cap. 1.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Cap. 1.
 - Silberstein, Adam et al. *Feeding Frenzy: Selectively Materializing Users' Event Feeds*.
   SIGMOD, 2010.
 - Nygard, Michael. *Release It!*. 2ª ed. Pragmatic Bookshelf, 2018.

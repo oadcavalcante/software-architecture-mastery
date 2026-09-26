@@ -2,7 +2,7 @@
 id: availability
 title: Availability
 sidebar_position: 10
-description: The fraction of time the system responds correctly — and what the number hides.
+description: The fraction of time the system responds correctly, and what the number hides.
 doc_type: concept
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [cap, consistency, reliability-basics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Availability is the fraction of time the system responds correctly.
 
-The number — "four nines" — is cited frequently and means little without three complements: **in
+The number ("four nines") is cited frequently and means little without three complements: **in
 what window**, **measured from where**, and **what counts as a correct response**.
 
 ## Problem
@@ -34,7 +34,7 @@ what window**, **measured from where**, and **what counts as a correct response*
 8.8 hours. The same number, an order of magnitude apart.
 
 **The measurement point changes everything.** Measured at the server, the network does not count.
-Measured at the client, it does — and that is what the user experiences.
+Measured at the client, it does, and that is what the user experiences.
 
 **The criterion changes everything.** Does responding `500` quickly count as available? And
 responding correctly in 30 seconds? A system that responds to everything with an error has 100%
@@ -55,11 +55,11 @@ Without all three, the number is decorative.
 | 99.999% | 26 s | 5.3 min |
 
 Each additional nine costs disproportionately more. The difference between 99.9% and 99.99% is not
-10% more effort — it is frequently multi-zone redundancy, the absence of a maintenance window,
+10% more effort: it is frequently multi-zone redundancy, the absence of a maintenance window,
 zero-downtime deployment and an operational response in minutes.
 
 Presenting that table before asking "how many nines do you need?" changes the answer. Without it,
-whoever answers has no reason to ask for less than the largest number — the cost is not on the
+whoever answers has no reason to ask for less than the largest number: the cost is not on the
 table.
 
 ### Availability composes multiplicatively
@@ -83,7 +83,7 @@ Redundant components in parallel add nines:
 ```
 
 The word that carries that second calculation is **independent**. Two instances in the same zone,
-on the same database, with the same dependency, fail together — and the multiplication does not
+on the same database, with the same dependency, fail together, and the multiplication does not
 hold.
 
 ### Correlation is what breaks redundancy
@@ -108,7 +108,7 @@ Systems are rarely entirely down. The usual case is a degraded feature, an affec
 fraction of users.
 
 Measuring availability as a binary hides that. The better metric is the **rate of successful
-requests** — which captures partial degradation and is what an
+requests**, which captures partial degradation and is what an
 [SLI](/12-reliability/sli.md) formalizes.
 
 ### Measure from the client's side
@@ -124,7 +124,7 @@ The number that matters to the business is the client's. Obtaining it requires i
 the browser or the app, or external probing from the regions where the users are.
 
 When the two numbers persistently diverge, the difference is the map of what is broken outside your
-perimeter — and it is the part no server-side metric covers.
+perimeter, and it is the part no server-side metric covers.
 
 ## Mental Model
 
@@ -157,13 +157,13 @@ product.
 
 To improve perceived availability without adding infrastructure nines:
 
-- **Graceful degradation** — respond partially instead of failing.
-- **Asynchronous** — accept and process later, instead of depending on the destination's
+- **Graceful degradation**: respond partially instead of failing.
+- **Asynchronous**: accept and process later, instead of depending on the destination's
   availability.
-- **Cache** — serve stale data when the origin is down; it holds where the stale value still
+- **Cache**: serve stale data when the origin is down; it holds where the stale value still
   serves the purpose of the read, and where the decision depends on the current value it is
   unavailability dressed as a `200`.
-- **Reduce synchronous dependencies** — the one that pays off most, and the least considered.
+- **Reduce synchronous dependencies**: the one that pays off most, and the least considered.
 
 ## Trade-offs
 
@@ -206,12 +206,12 @@ synchronous dependencies.
 
 ## Real-World Example
 
-A company promised 99.95% in a contract — 22 minutes per month.
+A company promised 99.95% in a contract (22 minutes per month).
 
 The architecture had redundancy: three application instances, two database instances, all with
 health checks and failover.
 
-Over eight months, three incidents consumed 4 hours — far above what was promised, with contractual
+Over eight months, three incidents consumed 4 hours, far above what was promised, with contractual
 consequences.
 
 The analysis of all three showed the same pattern: **none was an instance failure**.
@@ -221,7 +221,7 @@ The first was an expired TLS certificate, present on all three instances.
 The second was a wrong configuration deployed to all three simultaneously.
 
 The third was the unavailability of an external authentication provider, called synchronously on
-every request — and whose contractual availability was 99.9%, lower than what the company promised
+every request, and whose contractual availability was 99.9%, lower than what the company promised
 its own customers.
 
 The redundancy protected against the failure mode that was not happening.
@@ -230,7 +230,7 @@ The fixes attacked the correlation, not the number of instances.
 
 Certificates got an alert 30 days in advance and automated renewal.
 
-Deployment became gradual — one instance at a time, with a check between them — instead of
+Deployment became gradual (one instance at a time, with a check between them) instead of
 simultaneous.
 
 And the call to the authentication provider got a validated-token cache and degradation: with the
@@ -241,10 +241,10 @@ request and now weighs only on login, no longer imposing its 99.9% ceiling on th
 
 ## Related Concepts
 
-- [CAP](/06-distributed-systems/cap.md) — the choice under a partition.
-- [Consistency](/06-distributed-systems/consistency.md) — what is traded.
-- [Reliability](/12-reliability/index.md) — SLI, SLO and degradation.
-- [Replication](/06-distributed-systems/replication.md) — the redundancy mechanism.
+- [CAP](/06-distributed-systems/cap.md): the choice under a partition.
+- [Consistency](/06-distributed-systems/consistency.md): what is traded.
+- [Reliability](/12-reliability/index.md): SLI, SLO and degradation.
+- [Replication](/06-distributed-systems/replication.md): the redundancy mechanism.
 
 ## Practical Exercise
 

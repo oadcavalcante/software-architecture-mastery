@@ -2,7 +2,7 @@
 id: event-driven-systems
 title: Sistemas Orientados a Eventos
 sidebar_position: 37
-description: Comunicação por fatos publicados — o desacoplamento que se ganha e a rastreabilidade que se perde.
+description: "Comunicação por fatos publicados: o desacoplamento que se ganha e a rastreabilidade que se perde."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [sagas, distributed-event-sourcing, ordering]
 canonical_for: [orientado a eventos, notificação de evento, evento com estado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -27,7 +27,7 @@ vez de chamar uns aos outros pedindo ações.
 Quem produz não sabe quem consome. Quem consome reage quando puder.
 
 O ganho é desacoplamento real: adicionar um consumidor não toca no produtor. O
-custo é que o fluxo de negócio deixa de existir em algum lugar legível — ele
+custo é que o fluxo de negócio deixa de existir em algum lugar legível: ele
 emerge das reações.
 
 ## Problema
@@ -38,7 +38,7 @@ precisa que o chamado esteja disponível agora.
 Quando uma ação de negócio dispara cinco consequências, a chamada direta produz um
 serviço que conhece cinco outros e falha se qualquer um estiver fora.
 
-Eventos invertem isso — e trocam um conjunto de problemas por outro.
+Eventos invertem isso, e trocam um conjunto de problemas por outro.
 
 ## Conceitos Centrais
 
@@ -51,8 +51,8 @@ comando: "processe o pagamento"   → dirigido, pode ser recusado
 evento:  "pagamento processado"   → fato, não se recusa o passado
 ```
 
-Nomear no passado não é convenção estética. Um evento nomeado como comando —
-`EnviarEmail` publicado num tópico — revela que o produtor sabe o que deve
+Nomear no passado não é convenção estética. Um evento nomeado como comando
+(`EnviarEmail` publicado num tópico) revela que o produtor sabe o que deve
 acontecer, o que anula o desacoplamento.
 
 ### Dois tipos de evento, com implicações opostas
@@ -60,7 +60,7 @@ acontecer, o que anula o desacoplamento.
 **Notificação.** Carrega o mínimo: identificador e tipo. O consumidor consulta o
 produtor para obter detalhes.
 
-Payload pequeno e acoplamento de disponibilidade de volta — o consumidor precisa
+Payload pequeno e acoplamento de disponibilidade de volta: o consumidor precisa
 que o produtor responda.
 
 **Evento com estado.** Carrega os dados necessários. O consumidor não consulta
@@ -83,7 +83,7 @@ tem custo operacional real:
 
 - Entender o efeito de uma mudança exige saber quem consome.
 - Depurar exige [rastreamento distribuído](/13-observability/distributed-tracing.md).
-- Um consumidor que parou não devolve erro a quem publicou — o que se observa é a
+- Um consumidor que parou não devolve erro a quem publicou: o que se observa é a
   ausência de efeito, e o erro, quando existe, fica no log do próprio consumidor.
 
 A terceira é a mais perigosa, e a métrica que a acusa é a idade da mensagem mais
@@ -155,11 +155,11 @@ O que se ganha em independência se paga em rastreabilidade.
 
 ## Alternativas
 
-- **Chamada direta** — quando a resposta é necessária.
-- **Fila ponto a ponto** — assíncrono sem múltiplos consumidores.
-- **Orquestração explícita** — fluxo legível com passos assíncronos. Ver
+- **Chamada direta**: quando a resposta é necessária.
+- **Fila ponto a ponto**: assíncrono sem múltiplos consumidores.
+- **Orquestração explícita**: fluxo legível com passos assíncronos. Ver
   [sagas](/06-distributed-systems/sagas.md).
-- **Consulta periódica** — mais simples, e suficiente quando o atraso é aceitável.
+- **Consulta periódica**: mais simples, e suficiente quando o atraso é aceitável.
 
 ## Trade-offs
 
@@ -192,7 +192,7 @@ O que se ganha em independência se paga em rastreabilidade.
 
 **Contrato quebrado.** Campo removido; consumidores desconhecidos falham.
 
-**Cascata de eventos.** Um evento gera outro, que gera outro — e ninguém tem o
+**Cascata de eventos.** Um evento gera outro, que gera outro, e ninguém tem o
 mapa. Ciclos são possíveis.
 
 **Tempestade.** Uma operação em lote publica milhões de eventos e afoga os
@@ -201,14 +201,14 @@ consumidores.
 ## Erros Comuns
 
 **Nomear evento como comando.** O produtor volta a decidir a reação, e o próximo
-consumidor só entra mudando o produtor — o desacoplamento que justificava o evento
+consumidor só entra mudando o produtor: o desacoplamento que justificava o evento
 não existe mais.
 
 **Tratar o evento como estrutura interna.** Uma renomeação de campo em refatoração
 de rotina quebra consumidores que ninguém listou.
 
-**Não implementar idempotência.** A primeira reentrega — rebalanceamento, reinício
-de consumidor — duplica o efeito em produção, onde os testes não reproduzem.
+**Não implementar idempotência.** A primeira reentrega (rebalanceamento, reinício
+de consumidor) duplica o efeito em produção, onde os testes não reproduzem.
 
 **Adotar globalmente.** Integrações que precisavam da resposta ganham indireção sem
 benefício, e a reversão custa mais que a migração.
@@ -232,7 +232,7 @@ Três problemas apareceram.
 
 **Consumidor parado por nove dias.** O consumidor de nota fiscal falhou após uma
 implantação, com erro de desserialização. Não havia alerta de atraso. A descoberta
-veio do setor fiscal no fechamento do mês — nove dias de notas não emitidas.
+veio do setor fiscal no fechamento do mês: nove dias de notas não emitidas.
 
 **Cascata inesperada.** `PedidoCriado` disparava `EstoqueReservado`, que disparava
 `ReposicaoNecessaria`, que em certas condições disparava um pedido de compra que
@@ -250,7 +250,7 @@ foi a última a ser feita.
 **Registro de esquema** com compatibilidade obrigatória. Renomear campo passou a
 ser rejeitado na publicação.
 
-**[Catálogo de eventos](/08-integration-architecture/event-driven-integration.md)** —
+**[Catálogo de eventos](/08-integration-architecture/event-driven-integration.md)**:
 quem publica, quem consome. Tornou visíveis os consumidores desconhecidos e
 permitiu detectar o ciclo.
 
@@ -266,10 +266,10 @@ integração.
 
 ## Conceitos Relacionados
 
-- [Mensageria](/06-distributed-systems/messaging.md) — a infraestrutura.
-- [Sagas](/06-distributed-systems/sagas.md) — coordenação sobre eventos.
+- [Mensageria](/06-distributed-systems/messaging.md): a infraestrutura.
+- [Sagas](/06-distributed-systems/sagas.md): coordenação sobre eventos.
 - [Ordenação](/06-distributed-systems/ordering.md) e [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
-- [Idempotência](/06-distributed-systems/idempotency.md) — requisito.
+- [Idempotência](/06-distributed-systems/idempotency.md): requisito.
 
 ## Exercício Prático
 
@@ -283,11 +283,11 @@ Depois: existe alerta se um consumidor parar? Se não, essa é a lacuna mais urg
 ## Perguntas de Entrevista
 
 - Qual a diferença entre evento e comando, e por que ela importa?
-- Notificação ou evento com estado — o que muda?
+- Notificação ou evento com estado: o que muda?
 - Como um consumidor parado é detectado?
 
 ## Para Aprofundar
 
 - Fowler, Martin. *What do you mean by "Event-Driven"?*, 2017.
 - Stopford, Ben. *Designing Event-Driven Systems*. O'Reilly, 2018.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — capítulo 3.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Capítulo 3.

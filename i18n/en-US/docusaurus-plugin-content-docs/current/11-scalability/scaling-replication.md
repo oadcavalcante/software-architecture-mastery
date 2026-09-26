@@ -2,7 +2,7 @@
 id: scaling-replication
 title: Replication for Scale
 sidebar_position: 6
-description: Multiplying copies to scale reads — what it resolves, and the limit it does not.
+description: "Multiplying copies to scale reads: what it resolves, and the limit it does not."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, scaling-partitioning, scaling-cache]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -39,7 +39,7 @@ Most systems have a read-to-write ratio of 10 to 1 or more. That makes replicati
 adding replicas multiplies the read capacity without touching the model.
 
 What makes it insufficient on its own is the asymmetry: each replica added increases the read capacity and
-**changes nothing** in the write capacity — because every write still goes to every copy.
+**changes nothing** in the write capacity, because every write still goes to every copy.
 
 There is a point at which writes saturate, and no number of replicas helps.
 
@@ -57,14 +57,14 @@ Each replica needs to apply every write. The total write work grows linearly wit
 while the write capacity **per node** stays the same.
 
 The practical consequence: each replica spends applying replication the fraction write rate ÷ the node's
-write capacity — the same with 2 replicas or with 20. Adding a replica does not reduce that fraction; what
+write capacity (the same with 2 replicas or with 20). Adding a replica does not reduce that fraction; what
 grows with the number of copies is the cost and the log shipping done by the primary. When the write rate
 rises, the fraction rises on all of them at once, and little is left to serve reads.
 
 That defines the ceiling: replication scales reads up to the point at which writes, applied everywhere,
 consume the nodes.
 
-When that point arrives, the answer is [partitioning](/11-scalability/scaling-partitioning.md) — which
+When that point arrives, the answer is [partitioning](/11-scalability/scaling-partitioning.md), which
 divides the writes instead of multiplying them.
 
 ### Classifying the reads is the work
@@ -81,8 +81,8 @@ reporting           a dedicated replica
 The second line is what eliminates most of the "I saved it and it does not appear" complaints. See
 [eventual consistency](/06-distributed-systems/eventual-consistency.md).
 
-Without that classification, two bad things happen: either everything goes to the primary — and the
-replication scales nothing — or everything goes to a replica, and critical operations decide on stale data.
+Without that classification, two bad things happen: either everything goes to the primary, and the
+replication scales nothing, or everything goes to a replica, and critical operations decide on stale data.
 
 ### Reporting on a shared replica poisons general reads
 
@@ -94,7 +94,7 @@ A reporting replica should be dedicated. It is the same logic as separating
 
 ### The lag needs to enter the routing decision
 
-A lagging replica keeps answering — with stale data, with no error.
+A lagging replica keeps answering, with stale data, with no error.
 
 Mature routing considers the lag: replicas above a threshold leave the rotation for sensitive reads, or
 leave completely.
@@ -104,7 +104,7 @@ Without that, a replica that has stalled keeps receiving traffic and serving fro
 
 ### A replica is not only for scale
 
-It is worth remembering, because it changes the sizing: replicas also serve availability — taking over if
+It is worth remembering, because it changes the sizing: replicas also serve availability, taking over if
 the primary goes down.
 
 If all the replicas are sized to the limit serving reads, promoting one of them happens on an
@@ -117,7 +117,7 @@ The sizing needs to reserve headroom for that scenario. See
 
 A read served by a cache reaches no replica at all.
 
-For repeatedly read data, a cache is cheaper and faster than adding replicas — and it does not suffer write
+For repeatedly read data, a cache is cheaper and faster than adding replicas, and it does not suffer write
 amplification.
 
 The practical order: cache first, replicas for what the cache does not cover. See
@@ -153,10 +153,10 @@ applied everywhere, consume the nodes.
 
 ## Alternatives
 
-- **[Caching](/11-scalability/scaling-cache.md)** — cheaper for repeated reads.
-- **[Partitioning](/11-scalability/scaling-partitioning.md)** — when the limit is writes.
-- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a read model of its own, optimized.
-- **A materialized view** — precomputation in the database itself.
+- **[Caching](/11-scalability/scaling-cache.md)**: cheaper for repeated reads.
+- **[Partitioning](/11-scalability/scaling-partitioning.md)**: when the limit is writes.
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)**: a read model of its own, optimized.
+- **A materialized view**: precomputation in the database itself.
 
 ## Trade-offs
 
@@ -195,7 +195,7 @@ applied everywhere, consume the nodes.
 each additional replica further increases its replication work.
 
 **Not classifying the reads.** Not every read tolerates lag. Sending everything to a replica makes the user
-not see their own change on reload — the most common bug report from this arrangement.
+not see their own change on reload: the most common bug report from this arrangement.
 
 **Not implementing "read your own writes".** It is the minimum guarantee that makes replica reads
 acceptable to the user. Without it, the inconsistency appears exactly to whoever just acted.
@@ -204,7 +204,7 @@ acceptable to the user. Without it, the inconsistency appears exactly to whoever
 the replica that is minutes behind and still receiving reads.
 
 **Not reserving headroom for promotion.** If the replicas operate at the limit, promoting one to primary
-puts it under a write load it does not have the capacity to absorb — and the failover takes the successor
+puts it under a write load it does not have the capacity to absorb, and the failover takes the successor
 down.
 
 **Not using a cache first.** An additional replica costs a database instance per month; a cache usually
@@ -216,18 +216,18 @@ A classifieds platform scaled from 2 to 12 read replicas over two years, as the 
 
 With 12 replicas, two problems appeared:
 
-**Writes saturated.** Each listing published generated 13 writes — the primary and the 12 replicas. The
+**Writes saturated.** Each listing published generated 13 writes: the primary and the 12 replicas. The
 publishing rate had grown along with the traffic, the replicas spent most of their time applying
 replication, and the read capacity per replica had fallen. Adding the 13th relieved none of them: it would
 apply the same writes as the others.
 
 **Irregular lag.** Two replicas served internal reports and had lag of minutes, while the others had
-seconds. The routing did not distinguish, and users occasionally saw out-of-date listings — with no
+seconds. The routing did not distinguish, and users occasionally saw out-of-date listings, with no
 apparent pattern, which made the diagnosis take months.
 
 The fixes:
 
-**Cache before replicas.** The most common searches — which accounted for 70% of the reads — went to a
+**Cache before replicas.** The most common searches (which accounted for 70% of the reads) went to a
 cache with event-based invalidation. That allowed **reducing** from 12 to 6 replicas, which cut
 the writes per operation from 13 to 7; every replica's lag improved because, without 70% of the reads,
 each replica had capacity left to apply replication.
@@ -240,24 +240,24 @@ above 30 seconds, they leave completely.
 **Read classification.** Publishing a listing and editing by its own author came to read from the primary
 for 30 seconds. The "I edited it and it did not change" complaint disappeared.
 
-**Planned partitioning** for when writes saturate again, with a defined trigger — which the team estimates
+**Planned partitioning** for when writes saturate again, with a defined trigger, which the team estimates
 at around three years at the current pace.
 
-The later assessment points out: the answer to two years of growth had always been the same — add a
+The later assessment points out that the answer to two years of growth had always been the same: add a
 replica. Nobody had calculated how much of each replica the writes already consumed, and the 12th replica added
 little read capacity for the price of a whole instance.
 
 ## Related Concepts
 
-- [Database Scaling](/11-scalability/database-scaling.md) — the ladder.
-- [Partitioning for Scale](/11-scalability/scaling-partitioning.md) — when writes saturate.
-- [Caching for Scale](/11-scalability/scaling-cache.md) — before replicas.
-- [Replication](/06-distributed-systems/replication.md) — the fundamentals.
+- [Database Scaling](/11-scalability/database-scaling.md): the ladder.
+- [Partitioning for Scale](/11-scalability/scaling-partitioning.md): when writes saturate.
+- [Caching for Scale](/11-scalability/scaling-cache.md): before replicas.
+- [Replication](/06-distributed-systems/replication.md): the fundamentals.
 
 ## Practical Exercise
 
 Divide the peak write rate by one node's write capacity. The ratio says how much of each replica's
-capacity is being consumed before serving any read at all — and it does not change with the number of
+capacity is being consumed before serving any read at all, and it does not change with the number of
 replicas. It is what shows how close the ceiling is.
 
 Then multiply the write rate by the number of copies. That is your set's total write work: it does not
@@ -271,6 +271,6 @@ reveal the ceiling, but it says how much you pay for the amplification.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 5.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 5.
 - Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4th ed. O'Reilly, 2021.
 - Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007.

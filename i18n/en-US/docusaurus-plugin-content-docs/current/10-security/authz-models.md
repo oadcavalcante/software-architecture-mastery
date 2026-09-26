@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [least-privilege, identity, secure-boundaries]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Authorization answers: **may this requester perform this action on this resource?**
 
-Three models dominate, and they are not equivalent alternatives — each expresses a different shape of rule
+Three models dominate, and they are not equivalent alternatives. Each expresses a different shape of rule
 well:
 
 ```text
@@ -42,7 +42,7 @@ The role model is the best known, and so it is adopted by default.
 It works well until the first rule that depends on context: "may approve, but only up to two thousand
 dollars", "may view, but only those from their own branch", "may edit, but only if they are the author".
 
-The common way out is creating more specific roles — `branch_manager_sp_up_to_10k` — and the number of
+The common way out is creating more specific roles (`branch_manager_sp_up_to_10k`), and the number of
 roles explodes. You reach hundreds, nobody knows what each one does, and granting access becomes guesswork.
 
 That is not an implementation failure. It is the model being used to express something it does not express.
@@ -60,8 +60,8 @@ user → role → permissions
 **Where it works well:** organizations with stable and well-defined functions, rules that do not depend on
 the specific resource, and a need to review access by function.
 
-**Where it breaks:** when the permission depends on something beyond who the user is — a resource
-attribute, the request's context, the relationship between the two.
+**Where it breaks:** when the permission depends on something beyond who the user is (a resource
+attribute, the request's context, the relationship between the two).
 
 The sign that it broke is the explosion of roles. If you have more roles than real functions in the
 organization, the model is being forced.
@@ -80,7 +80,7 @@ allow if
 **Where it works well:** rules that depend on context, conditions combining several dimensions, and
 policies that need to change without altering code.
 
-**Where it costs:** the decision needs all the attributes available at evaluation time — which means
+**Where it costs:** the decision needs all the attributes available at evaluation time, which means
 fetching them, with latency and the possibility that they are stale.
 
 And debugging "why was this access denied?" is significantly harder than in the role model.
@@ -98,12 +98,12 @@ user is a viewer of folder X → inherits view access to the documents
 **Where it works well:** sharing, resource hierarchies, permission inheritance, collaboration. It is the
 model of shared file systems and collaborative tools.
 
-**Where it costs:** it requires its own infrastructure — a relationship store and a traversal engine. And
+**Where it costs:** it requires its own infrastructure (a relationship store and a traversal engine). And
 the two listing questions do not cost the same. "Who has access to this document?" runs with the index,
 which is organized by object, though it does require recursively resolving the usersets the answer refers
 to. "Which documents does this person see?" runs against the index: it is the direction the original paper
 does not cover, and the one systems derived from it added later with an inverted index of their own. If the
-product needs listing filtered by user — and collaboration products almost always do — that is the cost to
+product needs listing filtered by user (and collaboration products almost always do), that is the cost to
 budget for, not the check.
 
 ### The choice criterion
@@ -116,8 +116,8 @@ on resource or context attributes      → attribute
 on a relationship between them         → relationship
 ```
 
-Most real systems need more than one. The usual combination: roles for coarse permissions — who may access
-the administrative area — and relationship or attribute for the fine ones — which records specifically.
+Most real systems need more than one. The usual combination: roles for coarse permissions (who may access
+the administrative area) and relationship or attribute for the fine ones (which records specifically).
 
 Trying to express everything in a single model is the origin of both the role explosion and unreadable
 attribute policies.
@@ -126,7 +126,7 @@ attribute policies.
 
 Regardless of the model, one structural separation pays off when more than one service enforces the same
 policy, or when the policy changes more often than it is deployed. In a single service with a stable
-policy, decision and enforcement in the same process is the right design — and the [canonical document on
+policy, decision and enforcement in the same process is the right design, and the [canonical document on
 authorization](/05-system-design/authorization.md) treats a centralized authorization service in a small
 system as a case for not using it.
 
@@ -141,7 +141,7 @@ evaluation**: the policy is distributed to the services and evaluated in memory,
 
 The trade has a price, and it is the same one the section on stale attributes describes, one level up. A
 revocation only takes effect at the next refresh, and the propagation window becomes a number that has to
-be known and stated — from seconds to minutes, depending on the mechanism. If distribution stalls, the
+be known and stated (from seconds to minutes, depending on the mechanism). If distribution stalls, the
 services keep deciding, and they decide on a stale policy without anything failing: it is the design's
 silent failure mode, which is why the policy's age in each service has to be observable.
 
@@ -150,14 +150,14 @@ silent failure mode, which is why the policy's age in each service has to be obs
 It is worth repeating, because it is the most common structural mistake: a service that accepts `user_id`
 from the caller and trusts it has delegated authorization to whoever asks.
 
-The decision needs to be made by whoever holds the resource, based on the token's verified identity — never
+The decision needs to be made by whoever holds the resource, based on the token's verified identity, never
 on a parameter. See [secure boundaries](/10-security/secure-boundaries.md).
 
 ### Deny by default
 
 The policy should be: nothing is allowed unless a rule allows it.
 
-The opposite — allow except on explicit denial — means a forgotten rule opens access instead of closing it.
+The opposite (allow except on explicit denial) means a forgotten rule opens access instead of closing it.
 See [security failure modes](/10-security/security-failure-modes.md).
 
 ## Mental Model
@@ -170,7 +170,7 @@ model produces complexity nobody can maintain.
 - **Role:** stable organizational functions, coarse permissions, a need for review by function.
 - **Attribute:** context-dependent rules, limits, combined conditions.
 - **Relationship:** sharing, hierarchy, collaboration, inheritance.
-- **A combination:** role for the coarse, relationship or attribute for the fine — the most common design.
+- **A combination:** role for the coarse, relationship or attribute for the fine (the most common design).
 
 ## When Not to Use
 
@@ -181,19 +181,19 @@ model produces complexity nobody can maintain.
 **Relationship with no infrastructure.** Implementing graph traversal by hand on a relational database
 scales badly.
 
-**Relationship for authorization that is not about sharing.** If nobody grants access to anybody — if the
-permission comes from who the person is or where they are — the graph is a structure with no interesting
+**Relationship for authorization that is not about sharing.** If nobody grants access to anybody (if the
+permission comes from who the person is or where they are), the graph is a structure with no interesting
 edges, and the infrastructure costs without delivering.
 
 ## Alternatives
 
-- **An access control list** — direct permissions per resource. Simple, and it does not scale in number of
+- **An access control list**: direct permissions per resource. Simple, and it does not scale in number of
   resources.
-- **Authorization in the database** — row-level security, enforced by the store. Strong, and it ties the
+- **Authorization in the database**: row-level security, enforced by the store. Strong, and it ties the
   policy to the database.
-- **Capabilities** — the token carries the permission for a specific resource. Elegant for cases like
+- **Capabilities**: the token carries the permission for a specific resource. Elegant for cases like
   sharing links.
-- **A dedicated authorization service** — when the policy is complex and shared among many services.
+- **A dedicated authorization service**: when the policy is complex and shared among many services.
 
 ## Trade-offs
 
@@ -231,7 +231,7 @@ edges, and the infrastructure costs without delivering.
 ## Common Mistakes
 
 **Choosing by familiarity.** Role is the model everyone knows, so the context-dependent rule becomes yet
-another role — and that is how you get to 214 roles, as in the Real Example.
+another role, and that is how you get to 214 roles, as in the Real Example.
 
 **Creating roles to express context.**
 
@@ -243,12 +243,12 @@ permission. Denying by default makes the same mistake show up as a support ticke
 
 **Not logging denials.**
 
-**Being unable to answer "who has access to this?"** — a question every audit asks.
+**Being unable to answer "who has access to this?"**, a question every audit asks.
 
 ## Real-World Example
 
-A document management platform started with role-based authorization: three roles — administrator, editor,
-reader.
+A document management platform started with role-based authorization: three roles (administrator, editor,
+reader).
 
 As the customers grew, the rules got specific:
 
@@ -262,7 +262,7 @@ The response was creating roles: in three years there were **214 roles**, with n
 The resulting problems:
 
 **Granting by guesswork.** Nobody knew which role to give. The practice became copying a similar
-colleague's roles — which spread improper permissions.
+colleague's roles, which spread improper permissions.
 
 **Impossible auditing.** The question "who can view this contract?" had no answer without inspecting the
 214 roles.
@@ -278,7 +278,7 @@ The reformulation used two models:
 **Role for coarse permissions.** Four roles, corresponding to real functions: organization administrator,
 member, guest, auditor. They decide what the person can do in the product.
 
-**Relationship for fine permissions.** Who can view which document came to derive from relationships — they
+**Relationship for fine permissions.** Who can view which document came to derive from relationships: they
 are the author, it was shared with them, they are a member of the folder, they are a member of the area
 containing the folder.
 
@@ -288,19 +288,19 @@ checks became one standardized call.
 **Logging of every decision**, allowing answers to "who has access to this?" and "why was this access
 denied?".
 
-Result: 214 roles became 4, and the rules the roles were trying to express came to be relationships — which
+Result: 214 roles became 4, and the rules the roles were trying to express came to be relationships, which
 is what they always were.
 
 The point the team underlines: none of the 214 roles was created by mistake. Each one solved a legitimate
-need, with the only mechanism available. The mistake was one level up — in the model chosen in the first
+need, with the only mechanism available. The mistake was one level up: in the model chosen in the first
 month, for a product whose rules did not exist yet.
 
 ## Related Concepts
 
-- [Least Privilege](/10-security/least-privilege.md) — the principle.
-- [Identity](/10-security/identity.md) — the previous question.
-- [Secure Boundaries](/10-security/secure-boundaries.md) — where the decision is enforced.
-- [Authorization](/05-system-design/authorization.md) — the system design level.
+- [Least Privilege](/10-security/least-privilege.md): the principle.
+- [Identity](/10-security/identity.md): the previous question.
+- [Secure Boundaries](/10-security/secure-boundaries.md): where the decision is enforced.
+- [Authorization](/05-system-design/authorization.md): the system design level.
 
 ## Practical Exercise
 

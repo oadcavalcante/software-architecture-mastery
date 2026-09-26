@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, fitness-functions-governance, exceptions]
 canonical_for: [conformidade arquitetural, deriva de conformidade, evidência de conformidade, conformidade contínua]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Conformidade é a verificação de que a realidade corresponde ao que foi decidido — padrões
+Conformidade é a verificação de que a realidade corresponde ao que foi decidido: padrões
 seguidos, controles presentes, requisitos regulatórios atendidos.
 
 O desenho da verificação decide quase tudo:
@@ -31,7 +31,7 @@ auditoria pontual    fotografia periódica, cara, preparável
 verificação contínua filme, barata por execução, não preparável
 ```
 
-A diferença não é de rigor. É que a primeira mede um momento escolhido, e a segunda mede o
+A diferença não é de rigor: a primeira mede um momento escolhido, e a segunda mede o
 estado real. Sistemas preparados para auditoria passam em auditoria; nos controles
 verificados continuamente, ou o sistema está conforme, ou o desvio aparece no mesmo dia. O
 que não foi codificado em verificação continua com a janela da auditoria.
@@ -56,7 +56,7 @@ capacidade da organização de se preparar, não o seu estado.
 
 E o segundo problema é de seleção. Verificar se existe um documento é fácil; verificar se o
 controle funciona é difícil. Programas de conformidade migram, com o tempo, para o
-verificável — e passam a medir a existência de artefatos.
+verificável, e passam a medir a existência de artefatos.
 
 ```text
 fácil de verificar     o documento existe, o campo está preenchido,
@@ -77,7 +77,7 @@ sem janela de preparação
 ```
 
 Isso muda a natureza do trabalho: em vez de um esforço concentrado antes da auditoria, a
-conformidade vira uma propriedade mantida — como um teste que não pode quebrar.
+conformidade vira uma propriedade mantida, como um teste que não pode quebrar.
 
 Ver [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md), que são a implementação
 natural.
@@ -85,10 +85,10 @@ natural.
 A verificação contínua é software, e traz o custo de software. Cada verificação precisa de
 um dono, porque o sistema que ela observa muda: um serviço migrado para outro armazenamento
 deixa a consulta de retenção olhando para um banco vazio, e ela passa a reportar conformidade
-sobre nada. Falso positivo tem custo próprio — o time que recebe três alertas indevidos numa
+sobre nada. Falso positivo tem custo próprio: o time que recebe três alertas indevidos numa
 semana aprende a fechar o quarto sem ler. E a verificação pode desviar do controle que
 deveria medir sem quebrar: continua verde, só que sobre outra coisa. Por isso a verificação
-também precisa ser verificada — um desvio plantado de propósito, de tempos em tempos, que
+também precisa ser verificada: um desvio plantado de propósito, de tempos em tempos, que
 ela tem de acusar.
 
 ### Verifique o efeito, não o artefato
@@ -214,12 +214,12 @@ evidência automática vale a partir do ponto em que o esforço manual deixa de 
 
 ## Alternativas
 
-- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)** — o mesmo mecanismo, com foco em
+- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)**: o mesmo mecanismo, com foco em
   propriedade arquitetural.
-- **Controles preventivos** — impedir em vez de detectar; melhor quando aplicável.
-- **Amostragem** — quando a verificação completa é inviável, com amostra aleatória e não
+- **Controles preventivos**: impedir em vez de detectar; melhor quando aplicável.
+- **Amostragem**: quando a verificação completa é inviável, com amostra aleatória e não
   escolhida.
-- **Atestação pelo time** — barata, e vale o que vale a honestidade e o conhecimento de quem
+- **Atestação pelo time**: barata, e vale o que vale a honestidade e o conhecimento de quem
   atesta.
 
 ## Trade-offs
@@ -253,7 +253,7 @@ evidência automática vale a partir do ponto em que o esforço manual deixa de 
 
 ## Erros Comuns
 
-**Medir existência de documento**, o que produz taxa alta com controle ausente — 9 dos 14
+**Medir existência de documento**, o que produz taxa alta com controle ausente, e 9 dos 14
 controles do exemplo abaixo mediam assim.
 
 **Não expirar exceções**, que viram deriva permanente. Ver [exceções](/19-architecture-governance/exceptions.md).
@@ -270,7 +270,7 @@ pelo time, e o tempo até a correção passa a ser o intervalo entre reuniões.
 Um banco digital tinha conformidade arquitetural verificada por auditoria interna
 semestral, com amostragem de 20% dos sistemas.
 
-Os resultados eram consistentemente bons — entre 91% e 96% ao longo de três anos.
+Os resultados eram consistentemente bons: entre 91% e 96% ao longo de três anos.
 
 Um incidente mudou a leitura. Um serviço com dados de cliente foi exposto por 11 dias com
 autenticação desabilitada, após uma mudança de configuração feita durante um incidente e
@@ -286,7 +286,7 @@ sistemas fora do inventário de auditoria                     17
 controles verificados por documento, não por efeito          9 de 14
 ```
 
-Os 17 fora do inventário eram sistemas criados depois do último ciclo — o inventário era
+Os 17 fora do inventário eram sistemas criados depois do último ciclo: o inventário era
 atualizado manualmente, antes de cada auditoria.
 
 A reformulação, ao longo de 14 meses:
@@ -295,7 +295,7 @@ A reformulação, ao longo de 14 meses:
 escopo, a partir do orquestrador. Isso eliminou os 17 de uma vez.
 
 **Verificação contínua** de 11 dos 14 controles, executada diariamente sobre o estado real.
-Os três restantes — que exigiam julgamento — permaneceram em revisão manual trimestral, com
+Os três restantes, que exigiam julgamento, permaneceram em revisão manual trimestral, com
 o escopo reduzido e o custo justificado.
 
 **De artefato para efeito.** Os 9 controles verificados por documento foram reescritos:
@@ -307,7 +307,7 @@ seguinte ao vencimento, com alerta ao dono do sistema e ao gestor. Ver
 [exceções](/19-architecture-governance/exceptions.md).
 
 **Painel por time**, com o resultado da verificação diária no mesmo lugar onde o time
-acompanha o serviço — não num portal de conformidade separado.
+acompanha o serviço, e não num portal de conformidade separado.
 
 **Evidência automática**, com retenção de 24 meses, gerada pela própria verificação.
 
@@ -321,7 +321,7 @@ exceções vencidas em uso                       0
 esforço de preparação para auditoria          de ~600 h/ano para ~40 h/ano
 ```
 
-Na retrospectiva: o número de 94% nunca foi mentira — ele era verdadeiro sobre a
+Na retrospectiva: o número de 94% nunca foi mentira. Ele era verdadeiro sobre a
 amostra e sobre o dia. Mas era verdadeiro sobre documentos: em 9 dos 14 controles, o que se
 contava era o artefato, não o efeito. O erro estava em lê-lo como afirmação sobre a
 organização.
@@ -331,9 +331,9 @@ desvio e correção. Ele transformou conformidade de evento em propriedade manti
 
 ## Conceitos Relacionados
 
-- [Padrões](/19-architecture-governance/governance-standards.md) — o que se verifica.
-- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md) — a implementação.
-- [Exceções](/19-architecture-governance/exceptions.md) — o desvio autorizado.
+- [Padrões](/19-architecture-governance/governance-standards.md): o que se verifica.
+- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md): a implementação.
+- [Exceções](/19-architecture-governance/exceptions.md): o desvio autorizado.
 - [Auditabilidade](/10-security/auditability.md).
 
 ## Exercício Prático

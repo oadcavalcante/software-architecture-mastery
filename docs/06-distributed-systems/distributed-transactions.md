@@ -2,7 +2,7 @@
 id: distributed-transactions
 title: Transações Distribuídas
 sidebar_position: 35
-description: Commit atômico entre serviços — o que 2PC promete, o que ele bloqueia, e por que raramente é a resposta.
+description: "Commit atômico entre serviços: o que 2PC promete, o que ele bloqueia, e por que raramente é a resposta."
 doc_type: pattern
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals, partial-failure]
 related: [sagas, consensus, idempotency]
 canonical_for: [transação distribuída, commit em duas fases, 2PC]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -36,7 +36,7 @@ conta e creditar em outra, reservar estoque e registrar pedido, criar usuário e
 provisionar recurso.
 
 Numa transação local, o banco garante atomicidade. Entre serviços ou bancos, não há
-essa garantia — cada participante confirma ou falha independentemente.
+essa garantia: cada participante confirma ou falha independentemente.
 
 O resultado sem coordenação é estado parcial: dinheiro debitado e não creditado,
 pedido registrado sem estoque reservado.
@@ -62,18 +62,18 @@ confirmar depois, mesmo que reinicie. Ele mantém as travas até a fase 2.
 
 ### O problema de bloqueio
 
-Entre responder "sim" e receber a decisão, o participante está **preparado** — com
+Entre responder "sim" e receber a decisão, o participante está **preparado**, com
 recursos travados e sem autoridade para decidir sozinho.
 
 Se o coordenador falhar nesse intervalo, o participante fica travado esperando a decisão.
 Não pode confirmar (não sabe se todos concordaram) nem cancelar (pode ter sido decidido
 confirmar).
 
-A espera não é necessariamente infinita: a especificação XA prevê **decisão heurística** —
-passado um tempo de incerteza, o gerenciador de recursos pode romper a espera e decidir
+A espera não é necessariamente infinita: a especificação XA prevê **decisão heurística**.
+Passado um tempo de incerteza, o gerenciador de recursos pode romper a espera e decidir
 sozinho, liberando as travas. O preço é que os participantes podem decidir diferente, e a
 transação termina em resultado misto: parte confirmada, parte desfeita. É a atomicidade
-sendo trocada por disponibilidade, sem que a aplicação participe da escolha — e o registro
+sendo trocada por disponibilidade, sem que a aplicação participe da escolha, e o registro
 disso costuma sair num log que ninguém lê.
 
 Isso é o **bloqueio do 2PC**, e é a razão principal para evitá-lo: a
@@ -85,7 +85,7 @@ intervenção manual.
 
 ### O coordenador é ponto único
 
-Tornar o coordenador tolerante a falhas exige [consenso](/06-distributed-systems/consensus.md) — o que
+Tornar o coordenador tolerante a falhas exige [consenso](/06-distributed-systems/consensus.md). Isso
 adiciona latência e complexidade ao protocolo que já é caro.
 
 Sistemas que fazem isso corretamente existem. A maioria das implementações usa
@@ -129,7 +129,7 @@ adicionado.**
 
 ## Quando Não Usar
 
-**Entre serviços de times diferentes.** Acopla ciclo de vida e disponibilidade —
+**Entre serviços de times diferentes.** Acopla ciclo de vida e disponibilidade:
 contradiz a razão de separar os serviços.
 
 **Com muitos participantes.** A disponibilidade combinada despenca.
@@ -140,7 +140,7 @@ contradiz a razão de separar os serviços.
 
 **Sem coordenador tolerante a falhas.** O bloqueio vai acontecer.
 
-**Quando compensação é aceitável.** Ver [sagas](/06-distributed-systems/sagas.md) — resolve o mesmo
+**Quando compensação é aceitável.** Ver [sagas](/06-distributed-systems/sagas.md), que resolve o mesmo
 problema sem travar.
 
 **Quando o problema é modelagem.** Se a operação precisa ser atômica, talvez os
@@ -152,14 +152,14 @@ frequentemente sintoma de decomposição equivocada.
 
 ## Alternativas
 
-- **[Sagas](/06-distributed-systems/sagas.md)** — sequência de transações locais com compensação.
-- **Caixa de saída transacional** — grava a mudança e o evento na mesma transação
+- **[Sagas](/06-distributed-systems/sagas.md)**: sequência de transações locais com compensação.
+- **Caixa de saída transacional**: grava a mudança e o evento na mesma transação
   local, e publica depois. Resolve o caso mais comum sem 2PC.
-- **[Idempotência](/06-distributed-systems/idempotency.md) com repetição** — em vez de atomicidade, garantir
+- **[Idempotência](/06-distributed-systems/idempotency.md) com repetição**: em vez de atomicidade, garantir
   que a repetição converge.
-- **Reunir os dados** — se a atomicidade é essencial, colocar no mesmo
+- **Reunir os dados**: se a atomicidade é essencial, colocar no mesmo
   armazenamento.
-- **Consistência eventual com reconciliação** — aceitar divergência temporária e
+- **Consistência eventual com reconciliação**: aceitar divergência temporária e
   corrigir.
 
 A caixa de saída transacional merece destaque: o cenário mais comum de "preciso de
@@ -196,7 +196,7 @@ possivelmente de forma inconsistente com os outros participantes.
 ## Erros Comuns
 
 **Usar 2PC por reflexo de atomicidade.** A pergunta que fica sem ser feita é se o negócio
-aceita compensação — e ele quase sempre aceita, porque já compensa fora do software:
+aceita compensação, e ele quase sempre aceita, porque já compensa fora do software:
 estorno, cancelamento, ajuste.
 
 **Não considerar que a fronteira do serviço está errada.** Precisar de atomicidade entre
@@ -204,20 +204,20 @@ dois serviços costuma ser sintoma de que aqueles dados pertencem ao mesmo dono.
 resolve o sintoma e congela a fronteira errada.
 
 **Coordenador sem alta disponibilidade.** Ele vira ponto único de falha de todos os
-participantes ao mesmo tempo — e a falha dele não derruba o sistema, o que seria visível:
+participantes ao mesmo tempo. E a falha dele não derruba o sistema, o que seria visível:
 trava recursos, que é pior de diagnosticar.
 
 **Não medir a duração das travas.** É o que aconteceu no Exemplo Real: uma consulta externa
 dentro da fase de preparação segurou travas por dezenas de segundos, e as operações do mesmo
 cliente foram enfileirando atrás.
 
-**Ignorar a caixa de saída transacional** para o caso "banco + evento" — que é a maioria dos
+**Ignorar a caixa de saída transacional** para o caso "banco + evento", que é a maioria dos
 casos em que alguém cogita 2PC.
 
 ## Exemplo Real
 
 Uma plataforma de logística tinha uma operação que criava a remessa, reservava a
-capacidade do veículo e debitava o crédito do cliente — três serviços, três
+capacidade do veículo e debitava o crédito do cliente: três serviços, três
 bancos.
 
 A implementação usava 2PC com um gerenciador de transações.
@@ -244,18 +244,18 @@ crédito. Cada passo é uma transação local. Falha em qualquer ponto dispara a
 compensações dos passos anteriores.
 
 **Estados intermediários explícitos.** A remessa passou a ter estado "aguardando
-confirmação" visível na interface — no 2PC o estado intermediário existia igual, só não
+confirmação" visível na interface. No 2PC o estado intermediário existia igual, só não
 tinha nome nem duração declarada, e por isso ninguém o tratava.
 
 **Idempotência em todos os passos.** Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 O que mudou operacionalmente: as pendências manuais desapareceram, e a contenção
 também. A operação passou a suceder mesmo com o serviço de crédito temporariamente
-lento — o débito acontece com atraso.
+lento: o débito acontece com atraso.
 
 O que piorou: o estado "aguardando confirmação" precisou ser tratado em cinco
-telas e dois relatórios, e a compensação do débito exigiu regra de negócio nova —
-o que fazer se o crédito já foi consumido.
+telas e dois relatórios, e a compensação do débito exigiu regra de negócio nova
+(o que fazer se o crédito já foi consumido).
 
 A equipe considera a troca claramente positiva, e registra que o trabalho de
 modelar as compensações foi maior do que a estimativa inicial, por uma margem
@@ -263,17 +263,17 @@ larga.
 
 ## Conceitos Relacionados
 
-- [Sagas](/06-distributed-systems/sagas.md) — a alternativa principal.
-- [Falha Parcial](/06-distributed-systems/partial-failure.md) — o problema de fundo.
-- [Consenso](/06-distributed-systems/consensus.md) — o que um coordenador confiável exige.
-- [Idempotência](/06-distributed-systems/idempotency.md) — o que a alternativa exige.
+- [Sagas](/06-distributed-systems/sagas.md): a alternativa principal.
+- [Falha Parcial](/06-distributed-systems/partial-failure.md): o problema de fundo.
+- [Consenso](/06-distributed-systems/consensus.md): o que um coordenador confiável exige.
+- [Idempotência](/06-distributed-systems/idempotency.md): o que a alternativa exige.
 
 ## Exercício Prático
 
 Encontre no seu sistema uma operação que toca mais de um armazenamento. Pergunte:
 o que acontece hoje se ela falhar no meio?
 
-Se a resposta for "não sabemos", esse é o estado real — nem 2PC, nem saga, apenas
+Se a resposta for "não sabemos", esse é o estado real: nem 2PC, nem saga, apenas
 estado parcial sem tratamento.
 
 ## Perguntas de Entrevista
@@ -288,4 +288,4 @@ estado parcial sem tratamento.
   Morgan Kaufmann, 1992.
 - Bernstein, Philip; Newcomer, Eric. *Principles of Transaction Processing*.
   Morgan Kaufmann, 2009.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — capítulo 4.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Capítulo 4.

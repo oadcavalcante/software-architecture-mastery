@@ -2,7 +2,7 @@
 id: domain-event
 title: Domain Event
 sidebar_position: 16
-description: Um fato relevante do domínio, nomeado e publicado — o mecanismo de coordenação entre agregados.
+description: "Um fato relevante do domínio, nomeado e publicado: o mecanismo de coordenação entre agregados."
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, event-driven, event-sourcing]
 canonical_for: [domain event, evento de domínio, evento de integração]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -33,7 +33,7 @@ agregado por transação.
 A regra de [aggregate](/04-domain-driven-design/aggregate.md) diz: modifique um agregado por transação.
 
 Mas casos de uso reais atravessam agregados. Confirmar um pedido precisa reservar
-estoque, iniciar cobrança e notificar o cliente — três agregados, possivelmente
+estoque, iniciar cobrança e notificar o cliente: três agregados, possivelmente
 três contextos.
 
 Duas saídas ruins.
@@ -45,14 +45,14 @@ Ou colocar a coordenação no serviço de aplicação, que passa a conhecer todo
 agregados envolvidos e vira o lugar onde a regra de sequência mora implicitamente.
 
 Eventos de domínio dão a terceira: o agregado registra o que aconteceu, e quem
-interessa reage — cada um na sua transação.
+interessa reage, cada um na sua transação.
 
 ## Conceitos Centrais
 
 ### O evento é do domínio, não da técnica
 
 Um evento de domínio tem nome que um especialista reconhece. `PedidoConfirmado`
-é evento de domínio; `PedidoAtualizado` não é — "atualizado" é vocabulário de
+é evento de domínio; `PedidoAtualizado` não é: "atualizado" é vocabulário de
 banco de dados.
 
 Se o especialista não entende o nome, o evento não captura um fato do negócio.
@@ -86,7 +86,7 @@ interno, pode mudar livremente, e os consumidores estão no mesmo contexto.
 versionado, estável, e expresso em termos que fazem sentido fora.
 
 Publicar eventos de domínio diretamente para fora amarra o modelo interno a
-consumidores externos — e qualquer refatoração passa a quebrá-los.
+consumidores externos, e qualquer refatoração passa a quebrá-los.
 
 A prática correta é traduzir: o evento interno dispara a publicação de um evento
 de integração, com formato próprio.
@@ -96,8 +96,8 @@ de integração, com formato próprio.
 Se a transação grava no banco e a publicação vai para um message broker, os dois
 não são atômicos. Pode gravar e não publicar, ou publicar e falhar ao gravar.
 
-A solução usual é o padrão *outbox* — ver
-[garantias de entrega](/06-distributed-systems/delivery-guarantees.md), canônico do tema: o
+A solução usual é o padrão *outbox* (ver
+[garantias de entrega](/06-distributed-systems/delivery-guarantees.md), canônico do tema): o
 evento é gravado numa tabela na mesma
 transação, e um processo separado o publica. Ver
 [sistemas distribuídos](/06-distributed-systems/index.md).
@@ -116,7 +116,7 @@ diagnosticar deste padrão.
 ## Quando Não Usar
 
 **Quando a reação precisa ser transacional com a origem.** Se a reserva de estoque
-tem que acontecer ou o pedido não vale, isso não é evento — é parte da mesma
+tem que acontecer ou o pedido não vale, isso não é evento, e sim parte da mesma
 operação, e a fronteira do agregado provavelmente está errada.
 
 **Quando há um consumidor e ele é fixo.** Chamada direta é mais simples e mais
@@ -134,12 +134,12 @@ do estilo é rastreabilidade.
 
 ## Alternativas
 
-- **Chamada direta ao serviço de domínio** — quando há um consumidor.
-- **[Saga](/06-distributed-systems/sagas.md)** — quando a coordenação precisa de
+- **Chamada direta ao serviço de domínio**: quando há um consumidor.
+- **[Saga](/06-distributed-systems/sagas.md)**: quando a coordenação precisa de
   compensação e prazo.
-- **Serviço de aplicação orquestrando** — quando o fluxo é crítico e precisa ser
+- **Serviço de aplicação orquestrando**: quando o fluxo é crítico e precisa ser
   auditável num lugar.
-- **Processo agendado** — quando a latência tolerada é alta.
+- **Processo agendado**: quando a latência tolerada é alta.
 
 ## Trade-offs
 
@@ -172,11 +172,11 @@ quebra consumidores.
 
 **Nomear com vocabulário técnico.** `PedidoAtualizado` não diz o que aconteceu no negócio e obriga cada consumidor a inspecionar o conteúdo para descobrir. `PedidoCancelado` e `EnderecoDeEntregaAlterado` são eventos diferentes porque provocam reações diferentes.
 
-**Publicar antes de persistir.** Se a transação falha depois da publicação, consumidores reagem a um fato que não aconteceu — e não há como retirar o evento de circulação.
+**Publicar antes de persistir.** Se a transação falha depois da publicação, consumidores reagem a um fato que não aconteceu, e não há como retirar o evento de circulação.
 
 **Não distinguir evento de domínio de evento de integração.** O primeiro é interno e pode mudar junto com o modelo; o segundo é contrato público e não pode. Publicar o interno para fora congela o modelo do domínio nos consumidores dos outros times.
 
-**Ignorar o problema da publicação transacional.** Gravar no banco e publicar no broker são duas operações que podem divergir: uma pode ter sucesso e a outra falhar. É o problema que o padrão outbox existe para resolver, e ignorá-lo produz inconsistência silenciosa e rara — a pior combinação para depurar.
+**Ignorar o problema da publicação transacional.** Gravar no banco e publicar no broker são duas operações que podem divergir: uma pode ter sucesso e a outra falhar. É o problema que o padrão outbox existe para resolver, e ignorá-lo produz inconsistência silenciosa e rara: a pior combinação para depurar.
 
 **Usar eventos para coordenação que precisa ser transacional.** Se o passo seguinte precisa acontecer junto com o primeiro ou nenhum dos dois, evento é a ferramenta errada: ele entrega consistência eventual, e o requisito era atomicidade.
 
@@ -190,8 +190,8 @@ O evento carregava o objeto `Apolice` inteiro, serializado.
 
 Dois problemas apareceram.
 
-Uma refatoração do agregado — renomear um campo interno e reestruturar as
-coberturas — quebrou os quatro consumidores simultaneamente. O modelo interno era
+Uma refatoração do agregado (renomear um campo interno e reestruturar as
+coberturas) quebrou os quatro consumidores simultaneamente. O modelo interno era
 contrato público sem que ninguém tivesse decidido isso.
 
 E, num incidente de indisponibilidade do broker, 340 apólices foram emitidas sem
@@ -202,14 +202,14 @@ As duas correções.
 
 O agregado passou a registrar `ApoliceEmitida` como evento **interno**, com o
 modelo que quiser. O serviço de aplicação traduz para
-`ApoliceEmitidaV1` — evento de integração com formato versionado, contendo apenas
+`ApoliceEmitidaV1`, evento de integração com formato versionado, contendo apenas
 os campos que os consumidores precisam: número, segurado, vigência, prêmio,
 coberturas em formato próprio.
 
 Refatorações internas deixaram de alcançar os consumidores.
 
 Os quatro consumidores passaram a ser idempotentes, com deduplicação pela chave do evento na
-gravação — sem isso, trocar perda por entrega ao menos uma vez teria virado cobrança
+gravação. Sem isso, trocar perda por entrega ao menos uma vez teria virado cobrança
 duplicada, que é pior. E a publicação passou a usar outbox: o evento de integração é gravado
 na mesma
 transação da apólice, e um processo o publica com garantia de ao menos uma vez.
@@ -218,11 +218,11 @@ A perda silenciosa deixou de ser possível.
 
 ## Conceitos Relacionados
 
-- [Aggregate](/04-domain-driven-design/aggregate.md) — quem registra o evento.
-- [Application Service](/04-domain-driven-design/application-service.md) — quem publica.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — o
+- [Aggregate](/04-domain-driven-design/aggregate.md): quem registra o evento.
+- [Application Service](/04-domain-driven-design/application-service.md): quem publica.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): o
   estilo em escala de sistema.
-- [Event Sourcing](/03-design-patterns/event-sourcing.md) — quando os eventos
+- [Event Sourcing](/03-design-patterns/event-sourcing.md): quando os eventos
   são a fonte de verdade.
 
 ## Exercício Prático
@@ -244,4 +244,4 @@ publicado se e somente se a transação for confirmada?
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — o padrão outbox.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. O padrão outbox.

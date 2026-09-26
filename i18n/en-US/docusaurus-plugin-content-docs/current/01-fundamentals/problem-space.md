@@ -14,7 +14,7 @@ objective: >
 prerequisites: [business-context]
 related: [solution-space, functional-requirements]
 canonical_for: [problem space]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-30
 ## Overview
 
 The problem space is the set of things that have to be true for the need to be
-met — expressed without reference to how it will be built.
+met, expressed without reference to how it will be built.
 
 Keeping that separation is harder than it sounds, because natural language
 smuggles solutions in. "We need a queue" is already a solution. The corresponding
@@ -42,7 +42,7 @@ each is solving a different problem and neither has noticed.
 The root cause is that problems arrive already wrapped in a solution. The
 stakeholder does not say "I need to know whether the order is late"; they say "I
 need a dashboard". The team debates dashboard technology. Nobody asks what
-decision will be made with that information — and the answer might be "cancel the
+decision will be made with that information, and the answer might be "cancel the
 order", which suggests an alert, not a dashboard.
 
 ## Core Concepts
@@ -87,7 +87,7 @@ The aim is that it wins by comparison, rather than by having been said first.
 
 ### The problem has an owner; the solution has an author
 
-Whoever has the problem is whoever suffers the consequence of it going unsolved —
+Whoever has the problem is whoever suffers the consequence of it going unsolved,
 usually on the business or operations side.
 
 Whoever proposes the solution is whoever knows the technical space.
@@ -103,7 +103,7 @@ Making the problem explicit also makes it possible not to solve it.
 
 A problem whose cost of occurrence is low and whose solution is expensive is a
 problem to accept. That conclusion is only reachable when the problem is stated
-separately from the solution — while it stays wrapped, the discussion is about
+separately from the solution. While it stays wrapped, the discussion is about
 which solution, never about whether any is worth it.
 
 ## Mental Model
@@ -119,7 +119,7 @@ not.
 ## Why This Matters
 
 **Because the solution space can only be evaluated against a stated problem.**
-Without one, comparing alternatives is impossible — there is no criterion. That is
+Without one, comparing alternatives is impossible: there is no criterion. That is
 why [case studies](/21-case-studies/index.md) start with context and
 requirements, and only then list options.
 
@@ -136,7 +136,7 @@ against a technology looking for a problem.
 
 **Accepting the stakeholder's statement as the problem.** It almost always arrives
 as a solution. Taken as it arrives, the team ships the mechanism asked for and
-the problem stays standing. Backing up is not disrespect — it is the work.
+the problem stays standing. Backing up is not disrespect; it is the work.
 
 **Backing up too far.** Taken to the extreme, every problem becomes "the company
 needs to make money", which is true and useless. Stop at the level where the
@@ -164,13 +164,13 @@ break another."
 
 The stated problem: **there is no confidence that a change is local.**
 
-Against that statement, microservices is one of the solutions — and one of the
+Against that statement, microservices is one of the solutions, and one of the
 expensive ones. The alternatives become visible: enforce boundaries between
 modules with automated checks, split the suite by module, raise coverage at the
 coupling points, adopt gradual release.
 
 The team chose to enforce boundaries first. Eighteen months later, it extracted
-two services — the two modules whose boundaries had proven stable, and for
+two services: the two modules whose boundaries had proven stable, and for
 organizational reasons that only became clear over that interval.
 
 Backing up did not prevent the migration. It prevented it from being done early,
@@ -178,9 +178,9 @@ all at once, and without knowing where the boundaries should fall.
 
 ## Related Concepts
 
-- [Solution Space](/01-fundamentals/solution-space.md) — the other side.
-- [Business Context](/01-fundamentals/business-context.md) — where problems come from.
-- [Functional Requirements](/01-fundamentals/functional-requirements.md) — the formalization of
+- [Solution Space](/01-fundamentals/solution-space.md): the other side.
+- [Business Context](/01-fundamentals/business-context.md): where problems come from.
+- [Functional Requirements](/01-fundamentals/functional-requirements.md): the formalization of
   what the system has to do.
 
 ## Practical Exercise
@@ -188,7 +188,7 @@ all at once, and without knowing where the boundaries should fall.
 Take the last three requests that reached your team. For each, write the statement
 as it was received and back up to a statement with no mechanism in it.
 
-Then list, for each backed-up problem, three possible solutions — including the
+Then list, for each backed-up problem, three possible solutions, including the
 one originally asked for.
 
 In how many cases is the requested solution still the best? In how many is there a
@@ -203,7 +203,7 @@ cheaper alternative nobody had considered?
 
 ## Further Exploration
 
-- Gause, Donald; Weinberg, Gerald. *Are Your Lights On?* Dorset House, 1990 — the
+- Gause, Donald; Weinberg, Gerald. *Are Your Lights On?* Dorset House, 1990. The
   reference text on problem definition.
 - Wiegers, Karl; Beatty, Joy. *Software Requirements*. 3rd ed., Microsoft Press,
-  2013 — the chapters on elicitation.
+  2013. The chapters on elicitation.

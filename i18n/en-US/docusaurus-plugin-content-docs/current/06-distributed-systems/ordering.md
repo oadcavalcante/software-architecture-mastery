@@ -2,7 +2,7 @@
 id: ordering
 title: Ordering
 sidebar_position: 26
-description: The order in which messages arrive — and why global ordering costs more than almost any system needs.
+description: The order in which messages arrive, and why global ordering costs more than almost any system needs.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [partitioning, clock-and-time, duplicate-messages]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Ordering is the guarantee about the sequence in which messages are processed.
 
 The claim that organizes the subject: **global ordering is expensive and almost never what the
-business needs.** What it needs is ordering **per entity** — and that one is cheap.
+business needs.** What it needs is ordering **per entity**, and that one is cheap.
 
 ## Problem
 
@@ -37,7 +37,7 @@ partition preserves ordering internally; **between partitions there is no guaran
 If the two messages for the same order land in different partitions, they are processed by different
 consumers, at different paces.
 
-The instinctive reaction is to ask for global ordering — a single partition. That works and
+The instinctive reaction is to ask for global ordering: a single partition. That works and
 eliminates parallelism: the whole topic's throughput is limited to one consumer.
 
 ## Core Concepts
@@ -80,7 +80,7 @@ In most business systems, the answer is: per-entity ordering is enough.
 ### Per-key ordering has a hidden cost
 
 Choosing the key to preserve ordering also determines the distribution. If one key is far more
-active, it concentrates load on one partition — the
+active, it concentrates load on one partition: the
 [hotspot](/11-scalability/index.md).
 
 A system that partitions by `customer_id` and has a corporate customer with 40% of the volume has
@@ -105,13 +105,13 @@ The first is the most used and the simplest: **a version in the message** solves
 with no waiting mechanism at all.
 
 The condition it imposes: a single origin responsible for the entity's version. If several producers
-emit events for the same entity, each numbers from what it knows and the versions collide — what is
+emit events for the same entity, each numbers from what it knows and the versions collide: what is
 left is a shared counter, which reintroduces the very coordination the technique promised to avoid,
 or a single point that numbers before publishing.
 
 ### Timestamps do not establish ordering
 
-Trying to order by timestamps from different machines does not work — clocks diverge. See
+Trying to order by timestamps from different machines does not work: clocks diverge. See
 [clocks and time](/06-distributed-systems/clock-and-time.md).
 
 The ordering has to come from a counter on the entity, from a sequence number assigned by the
@@ -133,7 +133,7 @@ for it stalls consumption forever.
 That mandates a deadline: after N seconds waiting for sequence 7, the consumer has to choose between
 processing out of order, skipping, or stopping and alerting.
 
-Choosing among the three is a domain decision, not a technical one — and a consumer that reorders
+Choosing among the three is a domain decision, not a technical one, and a consumer that reorders
 with no defined deadline will stall in production, invariably in the middle of the night.
 
 ## Mental Model
@@ -148,7 +148,7 @@ with no defined deadline will stall in production, invariably in the middle of t
 - The key's distribution is reasonably uniform.
 
 **Global ordering** when:
-- There is a genuine requirement for a total sequence — an accounting ledger, for example.
+- There is a genuine requirement for a total sequence: an accounting ledger, for example.
 - The throughput fits in one consumer.
 
 ## When Not to Use
@@ -158,20 +158,20 @@ with no defined deadline will stall in production, invariably in the middle of t
 **Per-key ordering when the key is unbalanced.** It becomes a hotspot.
 
 **Trusting ordering without checking the configuration.** Several systems only guarantee ordering
-under specific conditions — a producer with no parallel sends, with no retries reordering.
+under specific conditions: a producer with no parallel sends, with no retries reordering.
 
 **Ordering by timestamps across machines.**
 
 ## Alternatives
 
-- **A version in the message** — wins when the stale event can be thrown away, that is, when the
+- **A version in the message**: wins when the stale event can be thrown away, that is, when the
   final state depends only on the most recent one. It does not serve when every event has to be
   applied.
-- **Commutative operations** — win when the operation is an increment or a union and the domain does
+- **Commutative operations**: win when the operation is an increment or a union and the domain does
   not need the sequence of the steps.
-- **Reordering buffer** — pays for itself when every event has to be applied in sequence and the
+- **Reordering buffer**: pays for itself when every event has to be applied in sequence and the
   typical gap fits within the wait limit.
-- **State in the consumer** — wins when there is a checkable precondition in the state itself (does
+- **State in the consumer**: wins when there is a checkable precondition in the state itself (does
   the order exist?), and it is the only one that demands nothing of the producer.
 
 ## Trade-offs
@@ -185,7 +185,7 @@ under specific conditions — a producer with no parallel sends, with no retries
 
 ## Failure Modes
 
-**An event applied out of order.** Incorrect state — a cancellation before the creation.
+**An event applied out of order.** Incorrect state: a cancellation before the creation.
 
 **A hotspot from the ordering key.** One saturated partition.
 
@@ -220,8 +220,8 @@ event.
 A parcel tracking system processed status events. A customer reported a parcel that showed "out for
 delivery" after "delivered".
 
-The investigation found the cause: the events were partitioned by `carrier_id` — a choice made to
-group by partner — and a parcel could change carriers mid-route.
+The investigation found the cause: the events were partitioned by `carrier_id` (a choice made to
+group by partner), and a parcel could change carriers mid-route.
 
 On the change, the subsequent events went to another partition, and the ordering between the two
 groups was not guaranteed.
@@ -231,15 +231,15 @@ minute in a single consumer, against the eight parallel consumers that existed. 
 
 The fix had two parts.
 
-**The partition key changed** to `parcel_id` — the entity whose ordering actually matters. Carrier
+**The partition key changed** to `parcel_id`, the entity whose ordering actually matters. Carrier
 remains an attribute of the event, not the key.
 
 **A version in the message.** Each event carries a sequential counter for the parcel, assigned by
-the tracking service at the entry point — not by the carrier, which would number from what it knows
+the tracking service at the entry point, not by the carrier, which would number from what it knows
 and collide with the previous carrier. The consumer discards events with a version lower than the last applied.
 
 The second part paid off the most, and for a reason the team did not anticipate: it protects against
-disorder from **any** source — a retry, rebalancing, manual reprocessing — and not only against the
+disorder from **any** source (a retry, rebalancing, manual reprocessing) and not only against the
 known cause.
 
 The distribution by parcel also turned out to be more uniform than by carrier, where two large
@@ -247,9 +247,9 @@ partners concentrated the load.
 
 ## Related Concepts
 
-- [Messaging](/06-distributed-systems/messaging.md) — the channel.
-- [Partitioning](/06-distributed-systems/partitioning.md) — choosing the key.
-- [Clocks and Time](/06-distributed-systems/clock-and-time.md) — why timestamps do not order.
+- [Messaging](/06-distributed-systems/messaging.md): the channel.
+- [Partitioning](/06-distributed-systems/partitioning.md): choosing the key.
+- [Clocks and Time](/06-distributed-systems/clock-and-time.md): why timestamps do not order.
 - [Duplicate Messages](/06-distributed-systems/duplicate-messages.md).
 
 ## Practical Exercise
@@ -258,7 +258,7 @@ For each topic in your system, answer: what is the partition key, and whose enti
 it preserve?
 
 Then check whether the messages carry a version. Without it, detecting disorder depends on checking
-a state precondition in the consumer — more expensive, and it only covers the cases where the state
+a state precondition in the consumer: more expensive, and it only covers the cases where the state
 makes the inversion visible.
 
 ## Interview Questions

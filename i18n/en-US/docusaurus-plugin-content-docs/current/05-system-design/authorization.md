@@ -2,7 +2,7 @@
 id: authorization
 title: Authorization
 sidebar_position: 18
-description: Deciding what each identity can do — and where that decision is made and enforced.
+description: Deciding what each identity can do, and where that decision is made and enforced.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [authentication]
 related: [authentication, service-boundaries, authz-models]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,19 +24,19 @@ last_reviewed: 2026-08-31
 Authorization answers **what this identity can do**. It presupposes
 [authentication](/05-system-design/authentication.md) is settled.
 
-The system decision is where the permission rule lives and where it is enforced — and the
+The system decision is where the permission rule lives and where it is enforced, and the
 recurring wrong answer is "in the interface".
 
 ## Problem
 
-Authorization starts simple — an administrator can do everything, a user can do their own — and
+Authorization starts simple (an administrator can do everything, a user can do their own) and
 grows predictably.
 
 Then comes "a manager can see the orders in their region". Then "the owner can edit, but only
 before approval". Then "finance can approve up to an amount, above that it needs a director".
 
 Each rule is added wherever is most convenient: an `if` in the controller, a condition in the
-query, a check in the screen. In the end, the rule of who can do what exists nowhere — it is
+query, a check in the screen. In the end, the rule of who can do what exists nowhere: it is
 scattered, and nobody can answer "who can approve a 50 thousand expense?" without reading the
 system.
 
@@ -49,7 +49,7 @@ criterion for choosing are in [authorization models](/10-security/authz-models.m
 document for the three.
 
 **By role.** The user has roles; roles have permissions. Simple, and it explodes when the rules
-depend on context — you get `south_region_manager`, `south_region_manager_readonly`, and the
+depend on context: you get `south_region_manager`, `south_region_manager_readonly`, and the
 combinatorics grow.
 
 **By attribute.** The decision considers attributes of the user, of the resource and of the
@@ -63,7 +63,7 @@ Suitable for hierarchies and for sharing.
 Most systems start with roles, and the criterion for leaving them is what the permission depends
 on: only on who the user is, and a role suffices; on an attribute of the resource or of the
 context, and it is attributes; on a relationship between person and resource, and it is
-relations. Hence the two signs that roles are being forced — the context suffix,
+relations. Hence the two signs that roles are being forced: the context suffix,
 `south_region_manager`, and the clean role that still authorizes too much, because the real rule
 was a relationship.
 
@@ -71,10 +71,10 @@ was a relationship.
 
 Separating two roles helps:
 
-**Decision point** — where the rule is evaluated. It can be an embedded library, a dedicated
+**Decision point**: where the rule is evaluated. It can be an embedded library, a dedicated
 service, or the domain itself.
 
-**Enforcement point** — where the decision is applied. Gateway, service, or the database query.
+**Enforcement point**: where the decision is applied. Gateway, service, or the database query.
 
 Centralizing the decision gives auditability and uniformity. Distributing it gives lower latency
 and independence. Mature systems usually centralize the **policy** and distribute the
@@ -82,7 +82,7 @@ and independence. Mature systems usually centralize the **policy** and distribut
 
 ### The interface is not an enforcement point
 
-Hiding a button is not authorization — it is interface convenience.
+Hiding a button is interface convenience, not authorization.
 
 Every check has to happen on the server, on each operation. The interface hides what the user
 cannot do so as not to frustrate them; the server prevents it.
@@ -96,7 +96,7 @@ administrator sees the button".
 Checking an operation on a resource is straightforward. Listing **only what the user can see** is
 another problem.
 
-Filtering after fetching is wrong: pagination breaks — the page of 20 becomes 7 — and the
+Filtering after fetching is wrong: pagination breaks (the page of 20 becomes 7) and the
 database works for nothing.
 
 The rule has to go into the query. That means authorization is not purely an outer layer: it
@@ -107,7 +107,7 @@ participates in data access, and it is the reason centralizing it completely is 
 "A shipped order cannot be cancelled" looks like authorization and is a business rule. It belongs
 to the [aggregate](/04-domain-driven-design/aggregate.md), not to a permission service.
 
-The useful separation: **permission** is about who — roles, attributes, relations. **Business
+The useful separation: **permission** is about who (roles, attributes, relations). **Business
 rule** is about the resource's state. Mixing the two spreads the domain into the authorization
 mechanism.
 
@@ -139,10 +139,10 @@ ownership.
 
 ## Alternatives
 
-- **Checking in the domain** — when the rule depends on the resource's state.
-- **Filtering in the query** — for listings.
-- **Embedded library** — a declared policy, evaluated locally. It avoids the network call.
-- **Dedicated service** — when there are many services and the policy has to be single.
+- **Checking in the domain**: when the rule depends on the resource's state.
+- **Filtering in the query**: for listings.
+- **Embedded library**: a declared policy, evaluated locally. It avoids the network call.
+- **Dedicated service**: when there are many services and the policy has to be single.
 
 ## Trade-offs
 
@@ -165,11 +165,11 @@ ownership.
 **An unprotected endpoint.** Only the screen restricted it.
 
 **Insecure direct reference.** Changing the identifier in the URL accesses someone else's
-resource — the server checked the role and not ownership.
+resource: the server checked the role and not ownership.
 
 **Filtering after fetching.** Inconsistent pagination and wasted work.
 
-**A leak in a new listing.** Another user's records show up in a recently added query — the
+**A leak in a new listing.** Another user's records show up in a recently added query: the
 filter in the query depends on discipline in every place that queries. See
 [secure boundaries](/10-security/secure-boundaries.md).
 
@@ -201,7 +201,7 @@ An audit found two problems.
 
 **Insecure reference.** The `GET /records/{id}` endpoint checked whether the user had the
 `doctor` role. Any doctor in the hospital could read any patient's record, including from other
-specialties and units — which violated the minimum-access rule required by regulation.
+specialties and units. That violated the minimum-access rule required by regulation.
 
 The role was right; the relationship was missing. The doctor should only see the records of
 patients under their care.
@@ -213,13 +213,13 @@ The fixes.
 
 The model went from role to relationship: the permission derives from an active care relationship
 existing between the professional and the patient. Roles still exist for what is genuinely by
-profile — who can prescribe, who can discharge.
+profile: who can prescribe, who can discharge.
 
 The ownership check went into every operation on an identified resource, and the listing started
 filtering in the query, by the relationship.
 
-And an audit log of every record access was added, with who, when and through which relationship
-— a regulatory requirement that was not being met.
+And an audit log of every record access was added, with who, when and through which relationship:
+a regulatory requirement that was not being met.
 
 What makes the case instructive: the system had authorization, and it was checking the wrong
 question. A role answers "what kind of thing you can do"; a relationship answers "on which
@@ -227,19 +227,19 @@ resource".
 
 ## Related Concepts
 
-- [Authentication](/05-system-design/authentication.md) — the prerequisite.
-- [Service Boundaries](/05-system-design/service-boundaries.md) — where to enforce.
-- [Authorization Models](/10-security/authz-models.md) — role, attribute and relation in depth,
+- [Authentication](/05-system-design/authentication.md): the prerequisite.
+- [Service Boundaries](/05-system-design/service-boundaries.md): where to enforce.
+- [Authorization Models](/10-security/authz-models.md): role, attribute and relation in depth,
   with the criterion for choosing.
-- [Security](/10-security/index.md) — least privilege and auditability.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — where the business rule lives.
+- [Security](/10-security/index.md): least privilege and auditability.
+- [Aggregate](/04-domain-driven-design/aggregate.md): where the business rule lives.
 
 ## Practical Exercise
 
 Pick an endpoint that receives a resource identifier. Authenticate as one user and try to access
 another's resource by changing the identifier.
 
-If it works, you found an insecure direct reference — the cheapest authorization failure to
+If it works, you found an insecure direct reference, the cheapest authorization failure to
 exploit: changing one number in the URL, with no tooling at all.
 
 ## Interview Questions
@@ -251,6 +251,6 @@ exploit: changing one number in the URL, with no tooling at all.
 ## Further Reading
 
 - OWASP. *Authorization Cheat Sheet*.
-- OWASP. *Top 10 — A01:2021 Broken Access Control*, 2021.
+- OWASP. *Top 10. A01:2021 Broken Access Control*, 2021.
 - Hu, Vincent C. et al. *Guide to Attribute Based Access Control (ABAC) Definition and
   Considerations*. NIST SP 800-162, 2014.

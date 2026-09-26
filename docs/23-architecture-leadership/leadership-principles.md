@@ -2,7 +2,7 @@
 id: leadership-principles
 title: Princípios sob a Ótica de Quem Escreve
 sidebar_position: 12
-description: Formular princípios que eliminam opções — e removê-los quando viram consenso.
+description: Formular princípios que eliminam opções e removê-los quando viram consenso.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: [formulação de princípio, princípio derivado de precedente, aposentadoria de princípio]
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 O [nível anterior](/19-architecture-governance/governance-principles.md) trata de como
-princípios operam no momento da decisão. Este trata de quem os **escreve** — e o trabalho de
+princípios operam no momento da decisão. Este trata de quem os **escreve**, e o trabalho de
 escrita tem três problemas próprios:
 
 ```text
@@ -33,7 +33,7 @@ escrita tem três problemas próprios:
 
 O primeiro é o mais determinante. Princípios formulados numa oficina, a partir do que a
 organização gostaria de ser, quase sempre viram slogans. Princípios **derivados de decisões que já
-foram tomadas** descrevem o critério real da organização — e por isso são reconhecidos e usados.
+foram tomadas** descrevem o critério real da organização, e por isso são reconhecidos e usados.
 
 ## Problema
 
@@ -46,10 +46,10 @@ consolidação em nove princípios
 publicação no portal interno
 ```
 
-O resultado previsível: afirmações que ninguém contestaria — "priorizamos qualidade", "buscamos
-simplicidade" —, nenhuma das quais elimina uma opção em nenhuma decisão real.
+O resultado previsível: afirmações que ninguém contestaria ("priorizamos qualidade", "buscamos
+simplicidade"), nenhuma das quais elimina uma opção em nenhuma decisão real.
 
-O problema não é a oficina. É a fonte: a organização foi perguntada sobre o que gostaria de ser,
+O problema está na fonte, não na oficina: a organização foi perguntada sobre o que gostaria de ser,
 e não sobre o que ela de fato usa para decidir.
 
 E há um segundo problema, do outro lado: princípios que funcionaram e viraram consenso, e que
@@ -68,7 +68,7 @@ O método que produz princípios usáveis:
 4. valide contra decisões que você não usou para derivá-los
 ```
 
-Isso produz princípios que descrevem o que a organização já faz — e a diferença prática é enorme:
+Isso produz princípios que descrevem o que a organização já faz, e a diferença prática é enorme:
 eles são reconhecidos imediatamente, e a discussão passa a ser sobre se o critério está certo, e
 não sobre se ele é o critério.
 
@@ -78,11 +78,11 @@ Quando o acervo de decisões não existe, construí-lo vem antes de escrever pri
 
 ### Aplique o teste do inverso aos critérios extraídos
 
-O [teste do inverso](/19-architecture-governance/governance-principles.md#o-teste-do-inverso) —
-alguém defenderia o oposto? — é definido no nível anterior. Para quem escreve, o que muda é onde
+O [teste do inverso](/19-architecture-governance/governance-principles.md#o-teste-do-inverso)
+(alguém defenderia o oposto?) é definido no nível anterior. Para quem escreve, o que muda é onde
 ele é aplicado: aos critérios que saíram dos ADRs, antes de virarem enunciado. Um critério que
 aparece em decisões reais costuma passar, porque foi usado para rejeitar uma opção; quando falha,
-ele era retórica de justificativa repetida nos registros, não o critério que decidiu — e essa
+ele era retórica de justificativa repetida nos registros, não o critério que decidiu. Essa
 diferença só aparece relendo as opções que o ADR descartou.
 
 ### Implicações, não apenas o enunciado
@@ -106,10 +106,10 @@ princípio que só restringe os times e não compromete a plataforma será conto
 
 ### Precedência entre princípios conflitantes
 
-As formas de regra — por domínio, por risco — estão em
+As formas de regra (por domínio, por risco) estão em
 [Princípios em Operação](/19-architecture-governance/governance-principles.md#princípios-conflitam-e-a-precedência-precisa-existir).
 Escolher qual delas vale, e declará-la no mesmo documento que os princípios, é responsabilidade de
-quem escreve — e é a parte que a oficina normalmente não faz, porque exige escolher, e a oficina
+quem escreve, e é a parte que a oficina normalmente não faz, porque exige escolher, e a oficina
 busca consenso.
 
 Derivando de precedentes, o conflito já está no acervo: são os ADRs que citaram os dois critérios
@@ -130,7 +130,7 @@ princípio citado em ADRs e revisões    está operando
 nunca citado                           não está
 ```
 
-Essa medição é barata — uma busca no acervo de decisões — e é a que menos depende de opinião.
+Essa medição é barata (uma busca no acervo de decisões) e é a que menos depende de opinião.
 Tem dois limites: só enxerga decisões que viraram ADR ou revisão, e conta igual a citação ritual e
 a que eliminou uma opção; ler uma amostra das citações separa as duas. Um princípio
 bem escrito que ninguém cita em um ano não está funcionando, independentemente da qualidade da
@@ -179,7 +179,7 @@ tirar recorrência. O trabalho certo é construir o acervo primeiro.
 
 **Organização em que o critério circula sem registro.** Com poucos times sob a mesma liderança
 técnica, as decisões passam pelas mesmas pessoas e o critério já é compartilhado. Um princípio
-escrito ali nasce consenso — e consenso é exatamente o que este documento manda aposentar.
+escrito ali nasce consenso, e consenso é exatamente o que este documento manda aposentar.
 
 **Decisão recorrente com resultado verificável.** Se a resposta certa é sempre a mesma e dá para
 checar automaticamente, o instrumento é um padrão, não um princípio.
@@ -189,12 +189,12 @@ implicações que comprometem quem escreve, a lista publicada vira aspiração c
 
 ## Alternativas
 
-- **Acervo de ADRs** — precedentes concretos ensinam o critério melhor que abstrações, e
+- **Acervo de ADRs**: precedentes concretos ensinam o critério melhor que abstrações, e
   organizações com bom acervo precisam de menos princípios.
-- **Visão curta** — três a cinco afirmações que cobrem o essencial. Ver
+- **Visão curta**: três a cinco afirmações que cobrem o essencial. Ver
   [visão de arquitetura](/23-architecture-leadership/architecture-vision.md).
-- **Padrões** — quando a decisão é recorrente e o resultado previsível.
-- **Nada** — em times pequenos, o critério compartilhado é tácito e funciona.
+- **Padrões**: quando a decisão é recorrente e o resultado previsível.
+- **Nada**: em times pequenos, o critério compartilhado é tácito e funciona.
 
 ## Trade-offs
 
@@ -257,7 +257,7 @@ critério citado                                   ADRs
 demais critérios, com menos de 5 citações         —
 ```
 
-Os cinco critérios somavam 105 citações nas 96 decisões — vários ADRs citavam mais de um.
+Os cinco critérios somavam 105 citações nas 96 decisões (vários ADRs citavam mais de um).
 
 **Teste do inverso** aplicado aos cinco: os quatro primeiros passaram com folga; o quinto foi
 contestado internamente, porque a organização tinha construído três sistemas que o mercado
@@ -268,12 +268,12 @@ adicional: toda proposta de construir precisa nomear o diferencial por escrito.
 Para o princípio de plantão, a obrigação foi da liderança: nenhum time recebe responsabilidade de
 plantão sem a plataforma que a torna sustentável.
 
-**Precedência declarada** entre os dois que conflitavam — depurar às 3h e comprar onde não somos
-diferentes, porque produto comprado costuma ser caixa-preta para quem está de plantão —, resolvida
+**Precedência declarada** entre os dois que conflitavam (depurar às 3h e comprar onde não somos
+diferentes, porque produto comprado costuma ser caixa-preta para quem está de plantão), resolvida
 por domínio: no caminho do atendimento clínico, depurabilidade vence; em sistemas administrativos,
 comprar vence.
 
-O resultado foi um documento de uma página, com cinco afirmações, publicado em três semanas — mais
+O resultado foi um documento de uma página, com cinco afirmações, publicado em três semanas, mais
 que os dois dias da oficina, porque incluía as escolhas de implicação e precedência que a oficina
 não teria feito.
 
@@ -288,12 +288,12 @@ princípios adicionados                         0
 ```
 
 A conclusão registrada: os cinco princípios não eram novidade para ninguém. Eles descreviam o
-critério que a organização já usava, enunciado de forma lembrável — e é por isso que foram
+critério que a organização já usava, enunciado de forma lembrável, e é por isso que foram
 reconhecidos de imediato, em vez de precisarem ser vendidos.
 
 O custo comparável é o do levantamento: a oficina, que teria produzido aspirações, custaria oito
-pessoas por dois dias; a leitura dos ADRs custou uma pessoa por três. O restante das três semanas —
-a discussão do quinto princípio, as implicações, a precedência — envolveu mais gente e não foi
+pessoas por dois dias; a leitura dos ADRs custou uma pessoa por três. O restante das três semanas
+(a discussão do quinto princípio, as implicações, a precedência) envolveu mais gente e não foi
 medido, e não entra nessa conta.
 
 ## Conceitos Relacionados

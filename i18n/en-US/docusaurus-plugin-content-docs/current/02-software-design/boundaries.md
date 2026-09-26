@@ -2,7 +2,7 @@
 id: boundaries
 title: Boundaries
 sidebar_position: 7
-description: Where to draw the lines the code does not cross — and what makes a line real.
+description: Where to draw the lines the code does not cross, and what makes a line real.
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [layering, modular-design, dependency-direction]
 canonical_for: [boundary, architectural boundary]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -46,7 +46,7 @@ interrupted. A system with fifteen boundaries where three would do pays that cos
 fifteen times.
 
 **Boundaries on the wrong axis.** Worse than none. A boundary cutting
-perpendicular to the axis of change makes every business change cross it — and
+perpendicular to the axis of change makes every business change cross it, and
 crossing costs coordination, translation and, when different teams are involved,
 negotiation.
 
@@ -86,7 +86,7 @@ orders of magnitude:
 | System / organization | Formal contract | Negotiation between teams |
 
 Moving up a level without need pays the right-hand column's cost for isolation the
-level below already delivered — and the mistake gets dearer with height: a badly
+level below already delivered. The mistake gets dearer with height: a badly
 drawn module boundary costs a refactoring; the same badly drawn boundary between
 services costs months.
 
@@ -99,7 +99,7 @@ A boundary that lets one side's internal type through is not a boundary. If the
 orders module receives the customers module's persistence entity, both are coupled
 to the same schema decision.
 
-What crosses should be the minimum, and should belong to the contract — not to
+What crosses should be the minimum, and should belong to the contract, not to
 either side's implementation. Frequently that means a type owned by the boundary,
 and a translation at each end. It looks like ceremony until the first time one
 side changes on its own.
@@ -109,19 +109,19 @@ side changes on its own.
 A boundary that depends on remembering will be crossed. See
 [architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md):
 the list of mechanisms, from documented convention to process separation, is a
-scale of strength, and code review sits in the middle of it — not at the top.
+scale of strength, and code review sits in the middle of it, not at the top.
 
 ## Mental Model
 
 **A boundary is a promise about what will not change.** If it cannot be verified,
-it is not a promise — it is an intention.
+it is an intention, not a promise.
 
 ## When to Use
 
 - When two parts change for independent reasons and at different rates.
 - When different people or teams work on the two sides.
 - When one part needs to be replaced, tested or deployed in isolation.
-- When one part has a distinct quality requirement — it needs to scale or fail
+- When one part has a distinct quality requirement: it needs to scale or fail
   separately.
 - When failure propagation has to be contained.
 
@@ -136,7 +136,7 @@ of mechanism: pick first the one that comes undone without a migration.
 
 **At a higher level than necessary.** The table of levels already gives the price:
 each step up charges in latency, partial failure and operations what the step below
-charged in compilation and discipline — for the same logical isolation.
+charged in compilation and discipline, for the same logical isolation.
 
 **When the translation cost exceeds the benefit.** If maintaining the boundary
 requires converting types at every crossing and crossings are frequent, either the
@@ -147,11 +147,11 @@ crossing test fails: the commits cross all of them.
 
 ## Alternatives
 
-- **Convention without enforcement** — cheaper, adequate in small and stable teams;
+- **Convention without enforcement**: cheaper, adequate in small and stable teams;
   it degrades with turnover.
-- **An internal boundary with no physical separation** — modules in the same
+- **An internal boundary with no physical separation**: modules in the same
   process, with an explicit contract. Solves most cases at the lowest cost.
-- **Accepted and concentrated coupling** — instead of separating, gather the
+- **Accepted and concentrated coupling**: instead of separating, gather the
   dependency at a single point, so that a future change has just one place to
   happen.
 
@@ -216,15 +216,15 @@ together. `Payment` being unavailable made `Booking` useless.
 
 The boundary between them was on the wrong axis **and** at too high a level. Cost
 paid: two pipelines, service-to-service authentication, partial failure handling,
-type translation at every call — to separate two things that were one.
+type translation at every call, to separate two things that were one.
 
 `Notification` was different: 4% joint changes, and its unavailability degraded the
 system without taking it down.
 
 The fix was to merge `Booking` and `Payment` into one service. The boundary between
 them survived as a module, with an architecture test: it was at too high a level, not
-on the wrong axis — what was on the wrong axis was putting it between processes. `Notification` stayed separate
-and, a year later, became asynchronous — which was only possible because the
+on the wrong axis. What was on the wrong axis was putting it between processes. `Notification` stayed separate
+and, a year later, became asynchronous, which was only possible because the
 boundary there was real.
 
 Two boundaries proposed together, with the same justification. One of them was
@@ -232,13 +232,13 @@ right.
 
 ## Related Concepts
 
-- [Modularity](/01-fundamentals/modularity.md) — the resulting structure.
-- [Dependency Direction](/02-software-design/dependency-direction.md) — the side
+- [Modularity](/01-fundamentals/modularity.md): the resulting structure.
+- [Dependency Direction](/02-software-design/dependency-direction.md): the side
   the boundary allows knowing.
-- [Layering](/02-software-design/layering.md) — a specific arrangement of
+- [Layering](/02-software-design/layering.md): a specific arrangement of
   boundaries.
-- [Architecture vs. Implementation](/01-fundamentals/architecture-vs-implementation.md)
-  — how to enforce.
+- [Architecture vs. Implementation](/01-fundamentals/architecture-vs-implementation.md):
+  how to enforce.
 
 ## Practical Exercise
 
@@ -254,14 +254,14 @@ it is where most systems are.
 ## Interview Questions
 
 - How do you decide where to draw a boundary?
-- How do you choose the level — module, package, service?
+- How do you choose the level: module, package, service?
 - What makes a boundary effective rather than nominal?
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — the part on
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. The part on
   boundaries and their costs.
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into Modules*.
   CACM, 1972.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — bounded context as a
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Bounded context as a
   model boundary.

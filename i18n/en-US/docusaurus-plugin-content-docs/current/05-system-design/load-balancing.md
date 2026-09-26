@@ -2,7 +2,7 @@
 id: load-balancing
 title: Load Balancing
 sidebar_position: 8
-description: Distributing requests across instances — and why the choice of algorithm matters less than the health check.
+description: Distributing requests across instances, and why the choice of algorithm matters less than the health check.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [stateless-vs-stateful]
 related: [caching, rate-limiting, scalability-basics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A load balancer distributes requests across several instances of a service.
 
 The discussion usually revolves around the distribution algorithm. In practice, **the
-health check matters more** — a perfect algorithm distributing to a sick instance is worse
+health check matters more**: a perfect algorithm distributing to a sick instance is worse
 than a simple algorithm that excludes it.
 
 ## Problem
@@ -32,13 +32,13 @@ than a simple algorithm that excludes it.
 A single instance is a capacity limit and a single point of failure. Several instances solve
 both, and create a new question: which one serves each request?
 
-The naive answer — distribute evenly — hides three problems.
+The naive answer (distribute evenly) hides three problems.
 
 **Instances are not equal.** One that just started has a cold cache and responds more
 slowly. One with a heavy request in flight has less available capacity.
 
 **Instances fail partially.** One that answers the health check but cannot reach the
-database is worse than one that is down — it absorbs traffic and fails.
+database is worse than one that is down: it absorbs traffic and fails.
 
 **Distribution interacts with state.** If there is local state, distributing evenly breaks
 the behavior.
@@ -56,7 +56,7 @@ the behavior.
 | Random with two choices | Draw two, use the less busy | Several balancers in parallel, where "always the least loaded" stampedes |
 
 For homogeneous requests, round-robin and least connections produce practically identical
-results. The choice only starts to matter when request duration varies a lot — then least
+results. The choice only starts to matter when request duration varies a lot: then least
 connections keeps one instance from accumulating long requests.
 
 **Consistent hashing** is the conceptual exception: it exists to preserve locality, not to
@@ -67,15 +67,15 @@ balance. It is what enables a local cache per key and stateful partitioned syste
 A balancer needs to know which instances can receive traffic. How it knows is what decides
 whether it helps or hinders.
 
-**Shallow check** — is the process responding? It detects a dead process and does not detect
+**Shallow check**: is the process responding? It detects a dead process and does not detect
 an instance that lost the database.
 
-**Deep check** — are the dependencies reachable? It detects more and creates a risk: if the
+**Deep check**: are the dependencies reachable? It detects more and creates a risk: if the
 database goes down, all instances fail at the same time and the balancer takes them all out
 of service, turning degradation into total unavailability.
 
-The practice that solves it: **two separate checks.** A shallow one for the balancer — "can I
-receive traffic?" — and a deep one for alerts — "am I healthy?".
+The practice that solves it: **two separate checks.** A shallow one for the balancer ("can I
+receive traffic?") and a deep one for alerts ("am I healthy?").
 
 And the balancer needs a floor: if all of them fail, it is better to send traffic to all of
 them than to none.
@@ -86,8 +86,8 @@ A new instance should not receive full load immediately: cold cache, unwarmed po
 yet optimized by the virtual machine. A gradual ramp-up keeps it from receiving traffic and
 failing.
 
-An instance leaving needs to finish what it started. Graceful shutdown — stop accepting new
-requests, finish the in-flight ones, and only then terminate — is what avoids errors on every
+An instance leaving needs to finish what it started. Graceful shutdown (stop accepting new
+requests, finish the in-flight ones, and only then terminate) is what avoids errors on every
 deployment.
 
 Both mechanisms are detailed in
@@ -117,8 +117,8 @@ the health check and it matters more.
 
 **As a solution for slowness that does not come from saturation.** Distributing lowers
 latency when the wait is queueing on instances at their limit. It does not solve anything when
-all of them are slow for the same reason — an expensive query, a slow dependency, a
-garbage-collection pause: there, each new instance replicates the same response time.
+all of them are slow for the same reason (an expensive query, a slow dependency, a
+garbage-collection pause): there, each new instance replicates the same response time.
 
 **With session affinity as the default.** It is a workaround for local state. See
 [stateless vs. stateful](/05-system-design/stateless-vs-stateful.md).
@@ -128,11 +128,11 @@ instances.
 
 ## Alternatives
 
-- **DNS with multiple records** — coarse distribution, no health checking, with client
+- **DNS with multiple records**: coarse distribution, no health checking, with client
   caching getting in the way.
-- **Client-side service discovery** — the client picks the instance. Common in a
+- **Client-side service discovery**: the client picks the instance. Common in a
   [service mesh](/08-integration-architecture/index.md).
-- **Queue** — when the work can be asynchronous, the queue distributes on its own and absorbs
+- **Queue**: when the work can be asynchronous, the queue distributes on its own and absorbs
   peaks.
 
 ## Trade-offs
@@ -180,7 +180,7 @@ the cause: the instance remains irreplaceable, which reappears as lost sessions 
 failure and as unbalanced load.
 
 **Forgetting that the balancer has a capacity limit.** It is a component with connection and
-bandwidth limits like any other — and it is the point every bit of traffic passes through, so
+bandwidth limits like any other, and it is the point every bit of traffic passes through, so
 saturating it takes down the whole set it was supposed to protect.
 
 ## Real-World Example
@@ -192,7 +192,7 @@ The health endpoint queried the database. When the database had a 30-second degr
 twelve instances failed simultaneously. The balancer removed them all and started returning
 errors for all traffic.
 
-The database recovered in 30 seconds. The system did not — the instances had to pass three
+The database recovered in 30 seconds. The system did not: the instances had to pass three
 consecutive successful checks to come back, and the mass return generated a wave of
 reconnections that took the database down again.
 
@@ -200,7 +200,7 @@ The cycle repeated for 40 minutes.
 
 Three fixes.
 
-The balancer's check became shallow — it only confirms the process responds. The deep one
+The balancer's check became shallow: it only confirms the process responds. The deep one
 still exists, but it feeds alerts, not routing decisions.
 
 A floor was configured: if fewer than 50% of instances pass, the balancer keeps them all in
@@ -230,27 +230,27 @@ rewrite, compress, terminate TLS and retry a failed request.
 | Protocol | Any | The one it understands |
 
 The ability to **retry** is the most consequential difference. A layer 7 balancer that
-receives an error from one instance can try another before returning a failure to the client —
-which turns a faulty instance into extra latency instead of a visible error.
+receives an error from one instance can try another before returning a failure to the client.
+That turns a faulty instance into extra latency instead of a visible error.
 
 That is only safe for idempotent requests. Retrying a `POST` that was already processed
-duplicates the effect, and most balancers retry only methods considered safe by default —
-which needs to be checked, not assumed.
+duplicates the effect, and most balancers retry only methods considered safe by default.
+That needs to be checked, not assumed.
 
 In practice, HTTP/1.1 systems use layer 7 at the edge and frequently layer 4 further in,
 where the cost per request matters more than the intelligence. The condition that breaks that
-arrangement is the long, multiplexed connection — HTTP/2, gRPC: layer 4 distributes
+arrangement is the long, multiplexed connection (HTTP/2, gRPC): layer 4 distributes
 connections, not requests, and a new instance receives nothing until a new connection is
 opened. See [balancing for scale](/11-scalability/scaling-load-balancing.md).
 
 ## Related Concepts
 
-- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md) — a prerequisite for
+- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md): a prerequisite for
   distributing freely.
-- [Rate Limiting](/05-system-design/rate-limiting.md) — another function frequently at the
+- [Rate Limiting](/05-system-design/rate-limiting.md): another function frequently at the
   same point.
-- [Reliability](/12-reliability/index.md) — health checks and degradation.
-- [Balancing for Scale](/11-scalability/scaling-load-balancing.md) — ramp-up, draining and
+- [Reliability](/12-reliability/index.md): health checks and degradation.
+- [Balancing for Scale](/11-scalability/scaling-load-balancing.md): ramp-up, draining and
   the effect of persistent connections.
 
 ## Practical Exercise
@@ -268,6 +268,6 @@ removes all instances, you have the same incident waiting.
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — the chapter on load
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. The chapter on load
   balancing and health checking.
 - Nygard, Michael. *Release It!* 2nd ed., 2018.

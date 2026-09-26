@@ -2,7 +2,7 @@
 id: data-replication
 title: Replicação de Dados
 sidebar_position: 16
-description: Cópias do mesmo dado em lugares diferentes — visto pelo ângulo do armazenamento e da operação.
+description: Cópias do mesmo dado em lugares diferentes, visto pelo ângulo do armazenamento e da operação.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: [réplica de leitura, réplica atrasada]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-27
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-27
 
 Replicar é manter cópias do mesmo dado em nós diferentes.
 
-Os fundamentos — síncrona e assíncrona, líder e seguidores — estão em
+Os fundamentos (síncrona e assíncrona, líder e seguidores) estão em
 [replicação](/06-distributed-systems/replication.md). Este documento trata do
 ângulo operacional: o que a replicação de fato protege, o que ela não protege, e
 as decisões que aparecem quando ela está em produção.
@@ -76,7 +76,7 @@ Três coisas que fazem o atraso disparar: carga de escrita alta, transação lon
 primário, e reconstrução de índice na réplica.
 
 Monitorar o atraso é obrigatório, e a métrica precisa ser em segundos de
-defasagem, não em bytes pendentes — bytes não dizem nada ao negócio.
+defasagem, não em bytes pendentes: bytes não dizem nada ao negócio.
 
 ### Ler da réplica exige decidir o que tolera atraso
 
@@ -90,14 +90,14 @@ compartilhada fazem crescer.
 
 ### O que a troca de primário herda da replicação
 
-O procedimento de troca — acionamento, cérebro dividido, retorno ao primário, e a
-necessidade de exercitá-lo — é o [failover](/12-reliability/failover.md). O que é
+O procedimento de troca (acionamento, cérebro dividido, retorno ao primário, e a
+necessidade de exercitá-lo) é o [failover](/12-reliability/failover.md). O que é
 específico de replicação de dados são duas consequências do atraso no instante da
 promoção:
 
 **Perda de escritas.** Com replicação assíncrona, o que o primário confirmou e não
 replicou se perde ao promover outra réplica. O tamanho da perda é o atraso daquele
-instante — por isso escolher a réplica menos atrasada para promover importa, e por isso
+instante. Por isso escolher a réplica menos atrasada para promover importa, e por isso
 o atraso monitorado em segundos é também uma estimativa da perda em caso de troca.
 
 **Sequências divergentes.** Contadores de identificador na réplica promovida podem estar
@@ -112,7 +112,7 @@ Ela não serve para leitura nem para assumir. Serve para uma coisa: quando algu�
 executa um comando destrutivo, há uma hora para perceber e extrair os dados antes
 que a exclusão chegue ali.
 
-O custo é o de qualquer réplica — uma cópia inteira do armazenamento e um nó — sem carga
+O custo é o de qualquer réplica (uma cópia inteira do armazenamento e um nó), sem carga
 de leitura para amortizá-lo. O que ela compra é o caso que replicação normal não cobre,
 recuperado em minutos em vez de uma restauração completa que descarta as transações do
 dia.
@@ -128,7 +128,7 @@ o particionamento resolve sem conflito.
 
 ## Modelo Mental
 
-**Replicação em tempo real protege contra falha de máquina, não contra erro humano** — ela
+**Replicação em tempo real protege contra falha de máquina, não contra erro humano**: ela
 propaga o comando destrutivo com a mesma fidelidade com que propaga o resto. A exceção é a
 réplica atrasada, que é replicação usada como janela de arrependimento. As duas proteções são
 necessárias e não se substituem.
@@ -160,10 +160,10 @@ necessárias e não se substituem.
 
 ## Alternativas
 
-- **Cópia de segurança com restauração testada** — para erro humano e corrupção.
-- **[Particionamento](/07-data-architecture/data-partitioning.md)** — para escala de escrita.
-- **Cache** — para reduzir leitura sem replicar.
-- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — projeção com modelo
+- **Cópia de segurança com restauração testada**: para erro humano e corrupção.
+- **[Particionamento](/07-data-architecture/data-partitioning.md)**: para escala de escrita.
+- **Cache**: para reduzir leitura sem replicar.
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)**: projeção com modelo
   próprio em vez de cópia idêntica.
 
 ## Trade-offs
@@ -197,7 +197,7 @@ congelados.
 
 **Restauração nunca testada.** A cópia existe e não se sabe se funciona.
 
-O quinto é particularmente perigoso: uma réplica parada não erra — ela responde
+O quinto é particularmente perigoso: uma réplica parada não erra; ela responde
 dados velhos como se fossem atuais.
 
 ## Erros Comuns
@@ -212,14 +212,14 @@ dados velhos como se fossem atuais.
 
 **Relatório em réplica compartilhada.** Uma consulta analítica pesada segura recursos e faz o atraso da réplica crescer, degradando as leituras operacionais que dependiam dela.
 
-**Ler de réplica sem classificar as leituras.** Nem toda leitura tolera dado atrasado. Mandar tudo para a réplica faz o usuário salvar uma alteração e não vê-la ao recarregar — que ele reporta como perda de dado.
+**Ler de réplica sem classificar as leituras.** Nem toda leitura tolera dado atrasado. Mandar tudo para a réplica faz o usuário salvar uma alteração e não vê-la ao recarregar. Ele reporta isso como perda de dado.
 
 ## Exemplo Real
 
 Uma empresa de serviços financeiros tinha o banco replicado em três nós, com cópia
 de segurança diária.
 
-Numa manhã, uma migração com defeito apagou uma coluna de 2 milhões de registros —
+Numa manhã, uma migração com defeito apagou uma coluna de 2 milhões de registros:
 não o dado inteiro, apenas um campo, substituído por nulo.
 
 A replicação propagou em 4 segundos. As três réplicas ficaram idênticas ao
@@ -247,13 +247,13 @@ não funcionava como escrito.
 aprovação de segunda pessoa.
 
 A leitura que a equipe faz: a proteção que funcionou existia por acidente. Ninguém
-tinha desenhado defesa contra erro humano — a conversa sobre resiliência de dados
+tinha desenhado defesa contra erro humano. A conversa sobre resiliência de dados
 tinha se esgotado em "temos três réplicas".
 
 ## Conceitos Relacionados
 
-- [Replicação](/06-distributed-systems/replication.md) — os fundamentos.
-- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — para escala de escrita.
+- [Replicação](/06-distributed-systems/replication.md): os fundamentos.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md): para escala de escrita.
 - [Consistência de Dados](/07-data-architecture/data-consistency.md).
 - [Consistência Eventual](/06-distributed-systems/eventual-consistency.md).
 
@@ -273,7 +273,7 @@ Se as duas primeiras forem "nunca", elas são o trabalho mais urgente desta seç
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
-  capítulo 5.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
+  Capítulo 5.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
 - Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.

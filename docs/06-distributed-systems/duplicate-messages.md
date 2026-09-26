@@ -2,7 +2,7 @@
 id: duplicate-messages
 title: Mensagens Duplicadas
 sidebar_position: 27
-description: A duplicação é certa — o que varia é se ela produz efeito.
+description: A duplicação é certa, e o que varia é se ela produz efeito.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [delivery-guarantees, idempotency]
 related: [idempotency, delivery-guarantees, poison-messages]
 canonical_for: [mensagens duplicadas, deduplicação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -22,10 +22,10 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Num sistema com [entrega ao menos uma vez](/06-distributed-systems/delivery-guarantees.md), a mesma
-mensagem chegará duas vezes. Não é hipótese — é certeza estatística ao longo do
+mensagem chegará duas vezes. Não é hipótese, é certeza estatística ao longo do
 tempo.
 
-O que a arquitetura decide não é se a duplicação acontece. É **se ela produz
+O que a arquitetura decide não é se a duplicação acontece, e sim **se ela produz
 efeito**.
 
 ## Problema
@@ -34,7 +34,7 @@ A duplicação tem várias origens, e nenhuma delas é evitável:
 
 **Retentativa do produtor.** A confirmação se perdeu; ele reenvia.
 
-**Reentrega do broker.** O consumidor não confirmou a tempo — porque estava lento,
+**Reentrega do broker.** O consumidor não confirmou a tempo, porque estava lento,
 não porque falhou.
 
 **Rebalanceamento.** Consumidores trocam de partição e reprocessam mensagens em
@@ -57,7 +57,7 @@ detectar a duplicata.
 **Deduplicação explícita.** Registrar identificadores já processados e descartar
 repetições.
 
-A primeira é preferível quando possível — ela funciona mesmo com identificador
+A primeira é preferível quando possível: ela funciona mesmo com identificador
 perdido ou janela expirada. A segunda é necessária quando o efeito não pode ser
 tornado idempotente.
 
@@ -69,10 +69,10 @@ rede.
 Detalhe que decide a correção da deduplicação.
 
 O **identificador da mensagem**, gerado pelo broker, muda quando o produtor
-reenvia — porque é uma mensagem nova, com o mesmo conteúdo. Deduplicar por ele não
+reenvia, porque é uma mensagem nova, com o mesmo conteúdo. Deduplicar por ele não
 detecta duplicação de produtor.
 
-O **identificador de negócio** — o pedido, a transação, a operação — identifica a
+O **identificador de negócio** (o pedido, a transação, a operação) identifica a
 intenção e é estável entre reenvios.
 
 **Deduplique pelo identificador de negócio.** É o mesmo princípio da chave de
@@ -96,7 +96,7 @@ qualquer janela razoável.
 
 ### A verificação e o efeito precisam ser atômicos
 
-Se o consumidor verifica a chave, processa, e depois registra — existe uma janela
+Se o consumidor verifica a chave, processa, e depois registra, existe uma janela
 em que dois consumidores verificam ao mesmo tempo e ambos processam.
 
 A forma correta é a inserção da chave **fazer parte da mesma transação** do efeito,
@@ -106,7 +106,7 @@ unicidade resolve está em [idempotência](/06-distributed-systems/idempotency.m
 
 ### Deduplicação não resolve tudo
 
-Se o efeito sai do sistema — uma chamada a serviço externo — a deduplicação local
+Se o efeito sai do sistema (uma chamada a serviço externo), a deduplicação local
 não impede que a chamada aconteça duas vezes se o processo morrer entre a chamada
 e a confirmação.
 
@@ -114,7 +114,7 @@ Ali a idempotência precisa estar **do outro lado**, com chave enviada na chamad
 
 ### O tamanho da janela vem do comportamento real
 
-Escolher a janela de deduplicação por intuição — "uma hora parece razoável" — é
+Escolher a janela de deduplicação por intuição ("uma hora parece razoável") é
 como o mecanismo falha em produção.
 
 A janela precisa cobrir o maior intervalo possível entre duas entregas da mesma
@@ -127,7 +127,7 @@ janela ≥ atraso máximo de reentrega do intermediário
 ```
 
 O terceiro termo é o que mais surpreende. Se a operação inclui reprocessar um
-período depois de um incidente, a janela precisa cobrir esse período inteiro — e
+período depois de um incidente, a janela precisa cobrir esse período inteiro, e
 aí ela deixa de ser uma janela e passa a ser deduplicação persistente.
 
 A regra prática: se o sistema tem qualquer procedimento de reprocessamento, a
@@ -141,13 +141,13 @@ janela não serve.
 
 - Todo consumidor de mensagem cujo efeito não seja naturalmente idempotente.
 - Toda operação com efeito colateral externo.
-- Especialmente onde o efeito é irreversível — cobrança, envio, emissão de
+- Especialmente onde o efeito é irreversível: cobrança, envio, emissão de
   documento.
 
 ## Quando Não Usar
 
 **Quando a operação é naturalmente idempotente.** Definir um valor absoluto,
-marcar um estado. Vale verificar se continua sendo — idempotência natural quebra
+marcar um estado. Vale verificar se continua sendo: idempotência natural quebra
 com o tempo.
 
 **Quando o efeito duplicado é inofensivo e barato.** Um log duplicado. Vale
@@ -159,11 +159,11 @@ reconhecer explicitamente, não presumir.
 
 ## Alternativas
 
-- **Idempotência da operação** — a preferível.
-- **Restrição de unicidade no banco** — o próprio armazenamento rejeita a
+- **Idempotência da operação**: a preferível.
+- **Restrição de unicidade no banco**: o próprio armazenamento rejeita a
   duplicata, sem código de deduplicação.
-- **Operações comutativas e absolutas** — reformular de "some" para "defina".
-- **Reconciliação** — aceitar e corrigir depois, quando a detecção em tempo real é
+- **Operações comutativas e absolutas**: reformular de "some" para "defina".
+- **Reconciliação**: aceitar e corrigir depois, quando a detecção em tempo real é
   cara.
 
 ## Trade-offs
@@ -175,7 +175,7 @@ reconhecer explicitamente, não presumir.
 | Armazenamento de chaves a manter | Nada |
 | Latência ligeiramente maior | Menor |
 
-A segunda escolha — chave persistida contra janela em cache — está comparada em
+A segunda escolha, chave persistida contra janela em cache, está comparada em
 [Persistida ou por janela](#persistida-ou-por-janela). O critério que decide não é o
 custo por mensagem: é se o sistema tem procedimento de reprocessamento.
 
@@ -194,13 +194,13 @@ saiu.
 
 ## Erros Comuns
 
-**Assumir que o broker resolve.** A duplicata que importa nasce da retentativa do produtor e do reenvio após falha do consumidor — os dois pontos fora do alcance do broker.
+**Assumir que o broker resolve.** A duplicata que importa nasce da retentativa do produtor e do reenvio após falha do consumidor: os dois pontos fora do alcance do broker.
 
-**Deduplicar pelo identificador da mensagem.** O produtor que reenvia gera um identificador novo para a mesma intenção de negócio. A chave precisa vir do domínio — o identificador do pedido, não o do envelope.
+**Deduplicar pelo identificador da mensagem.** O produtor que reenvia gera um identificador novo para a mesma intenção de negócio. A chave precisa vir do domínio: o identificador do pedido, não o do envelope.
 
 **Verificar e processar em transações separadas.** Entre a consulta "já processei?" e a gravação existe uma janela em que a segunda cópia também consulta e também recebe não. Duas cópias concorrentes passam pela verificação.
 
-**Não considerar reprocessamento deliberado ao dimensionar a janela.** Uma janela de deduplicação de 24 horas bloqueia o reprocesso de sete dias que a correção de um defeito exige — ou o libera para duplicar tudo.
+**Não considerar reprocessamento deliberado ao dimensionar a janela.** Uma janela de deduplicação de 24 horas bloqueia o reprocesso de sete dias que a correção de um defeito exige, ou o libera para duplicar tudo.
 
 **Não expirar as chaves.** O armazenamento de deduplicação cresce sem limite e vira, ele próprio, o gargalo do consumidor que deveria proteger.
 
@@ -227,7 +227,7 @@ também. Ambos passaram.
 
 A reformulação trocou as duas decisões.
 
-**Chave de negócio** — o identificador da venda — em vez do identificador da
+**Chave de negócio** (o identificador da venda) em vez do identificador da
 mensagem. Reprocessar a mesma venda passa a ser detectado independentemente de
 quantas vezes a mensagem seja reentregue ou reenviada.
 
@@ -235,7 +235,7 @@ quantas vezes a mensagem seja reentregue ou reenviada.
 inserção da chave e o lançamento acontecem juntos ou nenhum acontece. A corrida
 deixou de ser possível.
 
-E as chaves ganharam expiração de 90 dias — prazo maior que qualquer
+E as chaves ganharam expiração de 90 dias, prazo maior que qualquer
 reprocessamento plausível, e curto o bastante para não acumular indefinidamente.
 
 O reprocessamento seguinte, seis meses depois, cobriu as duas semanas anteriores e
@@ -244,9 +244,9 @@ foram descartadas silenciosamente, e apenas as novas foram lançadas.
 
 ## Conceitos Relacionados
 
-- [Idempotência](/06-distributed-systems/idempotency.md) — a estratégia preferível.
-- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md) — por que a duplicação é certa.
-- [Ordenação](/06-distributed-systems/ordering.md) — o problema irmão.
+- [Idempotência](/06-distributed-systems/idempotency.md): a estratégia preferível.
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md): por que a duplicação é certa.
+- [Ordenação](/06-distributed-systems/ordering.md): o problema irmão.
 - [Poison Messages](/06-distributed-systems/poison-messages.md).
 
 ## Exercício Prático

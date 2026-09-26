@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, graceful-degradation, retry-storms]
 canonical_for: [bulkhead, isolamento de recursos, pool dedicado, isolamento por cliente]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 O nome vem da construção naval: um casco dividido em compartimentos estanques não
 afunda quando um deles é perfurado.
 
-Aplicado a software, é **isolar recursos** — conexões, fios de execução, memória — de
+Aplicado a software, é **isolar recursos** (conexões, fios de execução, memória) de
 forma que o esgotamento causado por uma parte não alcance as demais.
 
 É a proteção que funciona quando as outras falham: mesmo sem circuit breaker, sem
@@ -42,7 +42,7 @@ pool único de 200 conexões
 ```
 
 Ver [circuit breakers](/12-reliability/circuit-breakers.md) para a matemática. O ponto do bulkhead é
-que ele resolve o mesmo problema por outro caminho — e sem depender de configuração
+que ele resolve o mesmo problema por outro caminho, e sem depender de configuração
 correta de limiares.
 
 O mesmo vale entre clientes: um cliente que dispara volume anormal consome a capacidade
@@ -70,7 +70,7 @@ máquina separada    isola o que nenhuma configuração errada anula
 ```
 
 Os dois eixos se combinam: dá para separar por cliente com pools, ou por dependência
-com máquinas. Isolar por cliente não é mais forte que isolar por dependência — são
+com máquinas. Isolar por cliente não é mais forte que isolar por dependência: são
 perguntas diferentes. O que cresce em força é a coluna da direita, e ela custa na mesma
 ordem.
 
@@ -90,7 +90,7 @@ requisições simultâneas = vazão × latência
 
 Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
-E a soma dos compartimentos pode exceder o total disponível, deliberadamente — o
+E a soma dos compartimentos pode exceder o total disponível, deliberadamente: o
 chamado excesso de reserva, apostando que nem todos saturam ao mesmo tempo. Isso
 melhora a utilização e reduz a garantia; a decisão precisa ser consciente.
 
@@ -107,7 +107,7 @@ com cota         ele esgota a própria cota; os demais não sentem
 A cota pode ser de requisições, de conexões, de trabalhadores de fila ou de capacidade
 de processamento.
 
-E os clientes de maior volume podem receber compartimento dedicado — o que também
+E os clientes de maior volume podem receber compartimento dedicado, o que também
 resolve [pontos quentes](/11-scalability/hotspots.md).
 
 ### Fila também precisa de compartimento
@@ -120,7 +120,7 @@ resolvem. Ver
 [escala dirigida por fila](/11-scalability/queue-based-scaling.md).
 
 O erro comum é criar as filas e deixar todos os consumidores livres para pegar de
-qualquer uma — o que reproduz o problema, porque a fila cheia domina o consumo.
+qualquer uma. Isso reproduz o problema, porque a fila cheia domina o consumo.
 
 ### O bulkhead precisa rejeitar, não enfileirar
 
@@ -143,7 +143,7 @@ processos separados, mesma máquina → disco e rede compartilhados
 máquinas separadas, mesma zona     → energia e rede compartilhadas
 ```
 
-Ver [redundância](/12-reliability/redundancy.md) — é o mesmo problema de correlação.
+Ver [redundância](/12-reliability/redundancy.md): é o mesmo problema de correlação.
 
 Isso não significa que o isolamento parcial é inútil. Significa que ele protege contra
 um conjunto específico de falhas, e é preciso saber qual.
@@ -182,18 +182,18 @@ teto já existe, e um segundo teto dentro dele só acrescenta um número a mante
 
 **Quando o recurso que satura está abaixo do compartimento.** Pools separados no mesmo
 processo não protegem contra esgotamento de memória, e cotas por cliente não protegem
-contra um banco compartilhado saturado. Não é que o isolamento parcial seja inútil — ele
-protege contra um conjunto de falhas —, é que ele não protege contra **esta**, e adotá-lo
+contra um banco compartilhado saturado. Não é que o isolamento parcial seja inútil (ele
+protege contra um conjunto de falhas), é que ele não protege contra **esta**, e adotá-lo
 achando que sim é pior que não tê-lo.
 
 ## Alternativas
 
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — para de chamar em vez de isolar.
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: para de chamar em vez de isolar.
   Complementares.
-- **Timeout agressivo** — reduz o tempo de posse do recurso.
-- **Limite de taxa** — controla na entrada. Ver
+- **Timeout agressivo**: reduz o tempo de posse do recurso.
+- **Limite de taxa**: controla na entrada. Ver
   [rate limiting](/05-system-design/rate-limiting.md).
-- **Processos ou instâncias separados** — isolamento mais forte, custo maior.
+- **Processos ou instâncias separados**: isolamento mais forte, custo maior.
 
 ## Trade-offs
 
@@ -232,7 +232,7 @@ achando que sim é pior que não tê-lo.
 
 **Enfileirar em vez de rejeitar.** Uma fila ilimitada na frente do compartimento desfaz o isolamento: a espera cresce e o chamador trava do mesmo jeito, só que mais tarde.
 
-**Não isolar por cliente** em plataformas multi-inquilino. Sem compartimento por inquilino, um cliente com uso anômalo consome a capacidade de todos — o problema do vizinho barulhento.
+**Não isolar por cliente** em plataformas multi-inquilino. Sem compartimento por inquilino, um cliente com uso anômalo consome a capacidade de todos: o problema do vizinho barulhento.
 
 **Assumir isolamento onde há recurso compartilhado.** Compartimentos separados de threads que usam o mesmo pool de conexões do banco não isolam nada: o gargalo real continua comum.
 
@@ -252,11 +252,11 @@ outras 899 empresas ficavam sem serviço.
 **Relatório pesado.** Um cliente grande gerava relatórios que ocupavam trabalhadores de
 fila por horas. Os relatórios dos demais ficavam na fila atrás.
 
-As correções, em três camadas — mais uma quarta, adotada depois que as três estavam
-em produção:
+As correções, em três camadas (mais uma quarta, adotada depois que as três estavam
+em produção):
 
-**Pool por dependência.** Chamadas externas — bureaus de crédito, gateways de pagamento
-— passaram a ter pools separados, dimensionados pela lei de Little com folga de 60%. O
+**Pool por dependência.** Chamadas externas (bureaus de crédito, gateways de pagamento)
+passaram a ter pools separados, dimensionados pela lei de Little com folga de 60%. O
 esgotamento de um deixou de alcançar o principal.
 
 **Cota por cliente.** Cada empresa recebeu limite de requisições simultâneas,
@@ -275,27 +275,27 @@ depois que as três camadas anteriores mostraram onde a concentração estava.
 Dois problemas apareceram durante a implementação:
 
 **Compartimentos mal dimensionados.** A primeira versão dos pools externos foi definida
-por intuição — 10 conexões — e virou gargalo: requisições eram recusadas com o sistema
+por intuição (10 conexões) e virou gargalo: requisições eram recusadas com o sistema
 ocioso. A medição da vazão e da latência reais corrigiu.
 
 **Consumidores livres entre filas.** As filas separadas foram criadas, e os
 trabalhadores podiam consumir de qualquer uma. A fila de relatórios, sempre cheia,
-dominava — reproduzindo o problema original com mais peças. A correção foi dedicar
+dominava, reproduzindo o problema original com mais peças. A correção foi dedicar
 trabalhadores a cada fila, com proporção mínima garantida.
 
 Nos doze meses seguintes, quatro clientes tiveram integrações defeituosas. Nenhuma
 afetou os demais.
 
 Na retrospectiva: o isolamento por cliente foi o de maior impacto, e era o mais
-óbvio — a plataforma servia 900 empresas num pool único desde o primeiro dia, e ninguém
+óbvio. A plataforma servia 900 empresas num pool único desde o primeiro dia, e ninguém
 tinha questionado.
 
 ## Conceitos Relacionados
 
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — a proteção complementar.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): a proteção complementar.
 - [Tempestades de Retentativa](/12-reliability/retry-storms.md).
-- [Backpressure](/06-distributed-systems/backpressure.md) — a rejeição.
-- [Pontos Quentes](/11-scalability/hotspots.md) — clientes desproporcionais.
+- [Backpressure](/06-distributed-systems/backpressure.md): a rejeição.
+- [Pontos Quentes](/11-scalability/hotspots.md): clientes desproporcionais.
 
 ## Exercício Prático
 
@@ -303,7 +303,7 @@ Verifique se as chamadas externas do seu sistema usam o mesmo pool de conexões 
 lógica principal.
 
 Se usarem, calcule quantas requisições ficam presas se a dependência mais lenta parar
-de responder — e compare com o tamanho do pool.
+de responder e compare com o tamanho do pool.
 
 ## Perguntas de Entrevista
 
@@ -314,7 +314,7 @@ de responder — e compare com o tamanho do pool.
 ## Para Aprofundar
 
 - Nygard, Michael. *Release It!*. 2ª ed. Pragmatic Bookshelf, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 21
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 21
   ("Handling Overload") para cota por cliente e criticidade, capítulo 22 ("Addressing
   Cascading Failures") para esgotamento de recursos e contenção de propagação.
 - Fowler, Susan. *Production-Ready Microservices*. O'Reilly, 2016.

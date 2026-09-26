@@ -2,7 +2,7 @@
 id: architecture-vision
 title: Visão de Arquitetura
 sidebar_position: 3
-description: Um destino que orienta decisão sem prescrever cada passo — e que precisa ser lembrável.
+description: Um destino que orienta decisão sem prescrever cada passo, e que precisa ser lembrável.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [technical-strategy-leadership, technical-roadmaps, communication]
 canonical_for: [visão de arquitetura, destino arquitetural, visão lembrável, orientação sem prescrição]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -32,7 +32,7 @@ não é   um plano com etapas e datas
 ```
 
 O teste é esse último: uma visão que não pode ser usada para decidir uma questão concreta não é
-visão — é declaração de intenção.
+visão, e sim declaração de intenção.
 
 E há um segundo teste, mais duro: **ela é lembrável?** Uma visão que precisa ser consultada num
 documento de vinte páginas não vai orientar nada, porque as decisões que ela deveria orientar
@@ -48,8 +48,8 @@ O documento de visão típico:
  alta qualidade e segurança."
 ```
 
-Isso não elimina nenhuma opção. Diante de uma escolha real — um banco ou dois, síncrono ou
-assíncrono, extrair ou manter —, ele não ajuda em nada.
+Isso não elimina nenhuma opção. Diante de uma escolha real (um banco ou dois, síncrono ou
+assíncrono, extrair ou manter), ele não ajuda em nada.
 
 E o erro oposto: a visão como diagrama detalhado do estado alvo, com quarenta componentes. Ela
 prescreve demais, envelhece rápido, e transforma decisões locais em conformidade com um desenho
@@ -78,10 +78,10 @@ cada uma. Se não, ela não está operando.
 
 Esse teste é aplicável em qualquer momento e quase nunca é feito. Ele tem a vantagem de ser
 retrospectivo: não exige prever o que a visão vai orientar, apenas verificar o que ela teria
-orientado — e a verificação retrospectiva é muito mais confiável que a projeção.
+orientado. E a verificação retrospectiva é muito mais confiável que a projeção.
 
 Quando o resultado é ruim, há dois diagnósticos possíveis: a visão está vaga demais, ou ela está
-correta e não é conhecida. Os dois exigem ação diferente, e distingui-los é simples — basta
+correta e não é conhecida. Os dois exigem ação diferente, e distingui-los é simples: basta
 perguntar a quem decidiu se a visão teria mudado algo.
 
 ### Curta o bastante para ser lembrada
@@ -91,7 +91,7 @@ alvo   três a cinco afirmações, cada uma em uma frase
 ```
 
 Isso parece pouco e é o limite prático. Uma pessoa que está decidindo algo às quatro da tarde não
-vai abrir um documento — ela vai decidir com o que lembra.
+vai abrir um documento: ela vai decidir com o que lembra.
 
 ```text
 "Todo domínio tem um dono e um banco próprio."
@@ -125,7 +125,7 @@ decisão    como, em cada caso
 ```
 
 Confundir os três é o erro estrutural mais comum. Uma visão que prescreve o caminho remove a
-autonomia que a torna escalável — e o valor da visão está justamente em permitir que muitas
+autonomia que a torna escalável, e o valor da visão está justamente em permitir que muitas
 pessoas decidam bem sem coordenar.
 
 Ver [roadmaps técnicos](/23-architecture-leadership/technical-roadmaps.md).
@@ -139,7 +139,7 @@ Ver [roadmaps técnicos](/23-architecture-leadership/technical-roadmaps.md).
 ```
 
 Enunciar o que a visão **não** pretende é tão orientador quanto o que ela pretende, e evita a
-interpretação expansiva — a leitura de que a visão justifica qualquer padronização.
+interpretação expansiva: a leitura de que a visão justifica qualquer padronização.
 
 ### A visão precisa ter dono e revisão
 
@@ -172,7 +172,7 @@ A razão é que ela mostra a visão sendo **usada**, e não apenas enunciada. Um
 uma decisão sendo justificada contra a visão aprende três coisas de uma vez: que a visão existe,
 que ela tem consequência, e que ela não é dogma. As três juntas são o que produz adoção genuína.
 
-O oposto — uma visão que nunca é citada porque nenhuma decisão a contraria — costuma indicar que
+O oposto (uma visão que nunca é citada porque nenhuma decisão a contraria) costuma indicar que
 ela é vaga demais para ser contrariada.
 
 ## Modelo Mental
@@ -191,19 +191,19 @@ orientar decisão nenhuma.
 
 **Quando todos os que decidem cabem numa reunião.** Com três ou quatro times e um punhado de pessoas decidindo arquitetura, o critério circula na conversa semanal e se corrige no mesmo dia. Uma visão escrita duplica o que todos já ouviram, e ainda cobra dono e revisão.
 
-**Quando as premissas mudam mais rápido que o ciclo de revisão.** Numa organização em pivô, com produto ou modelo de negócio redefinido a cada trimestre, uma visão revista anualmente orienta com premissas já descartadas — e com a autoridade de documento oficial. Enquanto o contexto não estabiliza, decisões reversíveis registradas em ADRs curtos servem melhor.
+**Quando as premissas mudam mais rápido que o ciclo de revisão.** Numa organização em pivô, com produto ou modelo de negócio redefinido a cada trimestre, uma visão revista anualmente orienta com premissas já descartadas, e com a autoridade de documento oficial. Enquanto o contexto não estabiliza, decisões reversíveis registradas em ADRs curtos servem melhor.
 
-**Quando ainda não há decisões de onde derivá-la.** A visão que funciona descreve critérios que a organização já usa (ver o Exemplo Real). Com meia dúzia de ADRs não existe critério recorrente para enunciar, e o que sair será aspiração — a declaração de adjetivos da seção Problema, com outra roupa.
+**Quando ainda não há decisões de onde derivá-la.** A visão que funciona descreve critérios que a organização já usa (ver o Exemplo Real). Com meia dúzia de ADRs não existe critério recorrente para enunciar, e o que sair será aspiração: a declaração de adjetivos da seção Problema, com outra roupa.
 
 ## Alternativas
 
-- **Princípios** — mais granulares, orientam julgamento em situações específicas. Ver
+- **Princípios**: mais granulares, orientam julgamento em situações específicas. Ver
   [princípios](/23-architecture-leadership/leadership-principles.md).
-- **Conjunto de ADRs** — precedentes concretos ensinam o critério da organização melhor que
+- **Conjunto de ADRs**: precedentes concretos ensinam o critério da organização melhor que
   abstrações.
-- **Arquitetura alvo** — o diagrama do estado futuro, útil como complemento e não como visão. Ver
+- **Arquitetura alvo**: o diagrama do estado futuro, útil como complemento e não como visão. Ver
   [arquitetura alvo](/15-enterprise-architecture/target-architecture.md).
-- **Nada** — em organizações pequenas, a conversa resolve, e uma visão formal é cerimônia.
+- **Nada**: em organizações pequenas, a conversa resolve, e uma visão formal é cerimônia.
 
 ## Trade-offs
 
@@ -222,7 +222,7 @@ orientar decisão nenhuma.
 
 **Adjetivos.** "Moderna, escalável e segura" não elimina nenhuma opção e não orienta nenhuma decisão.
 
-**Detalhada demais.** Envelhece em meses, não delega, e vira plano — que é outra coisa, com outro ciclo
+**Detalhada demais.** Envelhece em meses, não delega, e vira plano, que é outra coisa, com outro ciclo
 de revisão.
 
 **Sem porquê.** Vira regra arbitrária e é contornada; sem o problema que resolve, não pode ser
@@ -236,7 +236,7 @@ fazer.
 **Sem dono e sem revisão.** Ninguém a atualiza, e a visão desatualizada orienta na direção errada com
 a mesma autoridade.
 
-**Comunicada uma vez.** Fica desconhecida de quem decide no dia a dia — na prática, não existe.
+**Comunicada uma vez.** Fica desconhecida de quem decide no dia a dia. Na prática, não existe.
 
 ## Erros Comuns
 
@@ -246,7 +246,7 @@ critério ainda vale no mês que vem.
 
 **Escrever em linguagem de apresentação corporativa.** Frases feitas para passar em comitê não
 distinguem entre duas opções concretas, então nenhuma revisão de desenho consegue citá-las para
-decidir — e a visão deixa de ser citada.
+decidir, e a visão deixa de ser citada.
 
 **Não testar** contra decisões reais recentes. A visão pode passar anos sem orientar nada sem que
 ninguém perceba; o documento do Exemplo Real passou dois.
@@ -271,8 +271,8 @@ decisões arquiteturais que o citavam (ADRs)       2 de 187
 
 Quatro por cento de retenção. O documento era bem escrito e não estava operando.
 
-A reformulação produziu quatro frases, derivadas do próprio acervo de ADRs — a área de arquitetura
-leu os 187 registros e extraiu os critérios que de fato tinham sido usados:
+A reformulação produziu quatro frases, derivadas do próprio acervo de ADRs (a área de arquitetura
+leu os 187 registros e extraiu os critérios que de fato tinham sido usados):
 
 ```text
 1. Todo domínio tem um time dono e armazenamento próprio.
@@ -298,7 +298,7 @@ O que esta visão NÃO define:
 ```
 
 **Comunicação em três lugares:** citada no início de toda revisão de desenho; incluída como seção
-obrigatória em ADRs — "esta decisão se relaciona com qual item da visão?"; e no material de
+obrigatória em ADRs ("esta decisão se relaciona com qual item da visão?"); e no material de
 integração de pessoas novas.
 
 **Revisão anual**, com o critério de que cada item precisa ainda eliminar opções em discussões
@@ -318,10 +318,10 @@ implementações duplicadas de capacidade de
 E na revisão anual, um item foi removido: o quarto, sobre gabarito, tinha virado consenso. As nove
 exceções se concentraram nos primeiros cinco meses; no segundo semestre nenhum serviço novo cogitou
 nascer fora do gabarito, e o item já não eliminava opção nenhuma em discussão. Ele foi promovido a padrão verificado
-automaticamente — o que é a evolução correta de um item de visão que já não gera decisão.
+automaticamente. Essa é a evolução correta de um item de visão que já não gera decisão.
 
 A avaliação posterior aponta: derivar a visão do acervo de ADRs, em vez de escrevê-la do zero, foi a
-decisão de método mais acertada. Os quatro itens não eram aspiração — eram a descrição dos
+decisão de método mais acertada. Os quatro itens não eram aspiração, e sim a descrição dos
 critérios que a organização já usava, enunciados de forma lembrável.
 
 ## Conceitos Relacionados

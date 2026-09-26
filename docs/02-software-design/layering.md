@@ -2,7 +2,7 @@
 id: layering
 title: Camadas
 sidebar_position: 11
-description: O arranjo de fronteiras mais usado e mais mal aplicado — e o que ele custa quando o eixo está errado.
+description: O arranjo de fronteiras mais usado e mais mal aplicado, e o que ele custa quando o eixo está errado.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [boundaries]
 related: [modular-design, package-design, clean-architecture]
 canonical_for: [camadas, arquitetura em camadas, layered]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -27,7 +27,7 @@ ninguém pergunte se ele serve àquele sistema.
 
 ## Problema
 
-A divisão canônica — apresentação, aplicação, domínio, infraestrutura — organiza o
+A divisão canônica (apresentação, aplicação, domínio, infraestrutura) organiza o
 código por **tipo técnico**. Isso é ortogonal ao eixo em que os sistemas de fato
 mudam, que é o de capacidade de negócio.
 
@@ -50,7 +50,7 @@ proibidas; chamadas que pulam níveis são a variante *relaxada*, que é comum e
 enfraquece a estrutura.
 
 A regra existe para garantir que a mudança de uma camada não alcance as
-superiores. Ela cumpre isso — para mudanças que de fato são de uma camada só.
+superiores. Ela cumpre isso, mas apenas para mudanças que de fato são de uma camada só.
 
 ### Camada como divisão secundária
 
@@ -70,7 +70,7 @@ O arranjo que funciona na maioria dos sistemas de negócio inverte a hierarquia:
 ```
 
 À direita, uma mudança em cobrança fica em cobrança. As camadas continuam
-existindo e continuam impondo direção de dependência — mas dentro de uma
+existindo e continuam impondo direção de dependência, mas dentro de uma
 fronteira que corresponde ao eixo de mudança.
 
 ### Onde camadas funcionam bem como divisão primária
@@ -80,7 +80,7 @@ fronteira que corresponde ao eixo de mudança.
 - **Sistemas pequenos**, onde qualquer divisão serve e a mais convencional
   reduz atrito de onboarding.
 - **Quando a variação real é por camada.** Uma aplicação com três interfaces de
-  usuário — web, móvel, terminal — sobre o mesmo domínio tem variação genuína na
+  usuário (web, móvel, terminal) sobre o mesmo domínio tem variação genuína na
   camada de apresentação.
 
 ### Camada anêmica
@@ -95,12 +95,12 @@ escondendo nada.
 ## Modelo Mental
 
 **Camada é uma fronteira horizontal. Módulo é vertical.** A pergunta é qual das
-duas corresponde ao eixo em que seu sistema muda — e a resposta, em sistemas de
+duas corresponde ao eixo em que seu sistema muda, e a resposta, em sistemas de
 negócio, é quase sempre a vertical.
 
 ## Quando Usar
 
-- Como divisão **dentro** de um módulo de capacidade — quase sempre útil.
+- Como divisão **dentro** de um módulo de capacidade: quase sempre útil.
 - Quando é preciso impor direção de dependência entre política e detalhe.
 - Como divisão primária, nas três condições de "Onde camadas funcionam bem como
   divisão primária", acima.
@@ -121,12 +121,12 @@ comum, a estrutura é decorativa e o custo permanece.
 
 ## Alternativas
 
-- **[Módulo por capacidade](/02-software-design/modular-design.md), camada interna** — o arranjo
+- **[Módulo por capacidade](/02-software-design/modular-design.md), camada interna**: o arranjo
   que funciona na maioria dos casos.
-- **[Ports and Adapters](/02-software-design/ports-and-adapters.md)** — troca a metáfora de pilha
+- **[Ports and Adapters](/02-software-design/ports-and-adapters.md)**: troca a metáfora de pilha
   pela de dentro e fora, com uma única regra de direção.
-- **Vertical slice** — organizar por caso de uso, com tudo que ele precisa junto.
-- **Sem camadas** — em sistemas pequenos, um pacote plano é honesto.
+- **Vertical slice**: organizar por caso de uso, com tudo que ele precisa junto.
+- **Sem camadas**: em sistemas pequenos, um pacote plano é honesto.
 
 ## Trade-offs
 
@@ -182,7 +182,7 @@ teste de arquitetura. O domínio de cada módulo continua sem depender de
 infraestrutura.
 
 O que mudou: a fronteira que contém a mudança passou a ser a vertical. As camadas
-seguem úteis — dentro de cada módulo, para separar política de detalhe.
+seguem úteis dentro de cada módulo, para separar política de detalhe.
 
 O erro original não foi usar camadas. Foi usá-las como divisão de topo.
 
@@ -202,7 +202,7 @@ Na prática, três camadas cobrem a maioria dos casos dentro de um módulo:
 | Aplicação e domínio | Nada de fora; é a política |
 | Saída | A tecnologia de persistência e de integração |
 
-A quarta camada aparece quando aplicação e domínio de fato divergem — quando há
+A quarta camada aparece quando aplicação e domínio de fato divergem: quando há
 regras que envolvem múltiplas entidades e não pertencem a nenhuma. Ver
 [Onion](/02-software-design/onion-architecture.md).
 
@@ -211,11 +211,11 @@ convém desconfiar.
 
 ## Conceitos Relacionados
 
-- [Fronteiras](/02-software-design/boundaries.md) — o conceito geral do qual camadas são um arranjo.
-- [Design Modular](/02-software-design/modular-design.md) — a divisão vertical.
-- [Clean Architecture](/02-software-design/clean-architecture.md) — camadas com regra de direção
+- [Fronteiras](/02-software-design/boundaries.md): o conceito geral do qual camadas são um arranjo.
+- [Design Modular](/02-software-design/modular-design.md): a divisão vertical.
+- [Clean Architecture](/02-software-design/clean-architecture.md): camadas com regra de direção
   explícita.
-- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a alternativa por dentro e fora.
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md): a alternativa por dentro e fora.
 
 ## Exercício Prático
 
@@ -234,7 +234,7 @@ o módulo de capacidade que deveria ser a divisão primária.
 ## Para Aprofundar
 
 - Fowler, Martin. *Patterns of Enterprise Application Architecture*.
-  Addison-Wesley, 2002 — a formulação clássica de camadas.
+  Addison-Wesley, 2002. A formulação clássica de camadas.
 - Richards, Mark. *Software Architecture Patterns*. O'Reilly, 2015.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — a regra de
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. A regra de
   dependência.

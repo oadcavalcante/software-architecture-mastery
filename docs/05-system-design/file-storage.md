@@ -2,7 +2,7 @@
 id: file-storage
 title: Armazenamento de Arquivos
 sidebar_position: 16
-description: Onde os arquivos moram — e por que o banco e o disco local são as duas respostas erradas.
+description: Onde os arquivos moram e por que o banco e o disco local são as duas respostas erradas.
 doc_type: concept
 level: 3
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, stateless-vs-stateful, cloud-storage]
 canonical_for: [armazenamento de arquivos, upload, armazenamento de objetos]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -32,7 +32,7 @@ Arquivos têm propriedades diferentes de registros: são grandes, imutáveis na
 maior parte dos casos, acessados por identificador, e servidos diretamente ao
 cliente.
 
-Tratá-los como registro — no banco — ou como estado de processo — no disco local —
+Tratá-los como registro (no banco) ou como estado de processo (no disco local)
 ignora isso.
 
 **No banco:** o backup incha, a replicação fica lenta, o cache do banco é ocupado
@@ -107,7 +107,7 @@ limpeza, eles acumulam e ninguém sabe que existem.
 
 ### Imutabilidade simplifica
 
-Tratar arquivos como imutáveis — nova versão é uma chave nova — elimina uma classe
+Tratar arquivos como imutáveis (nova versão é uma chave nova) elimina uma classe
 de problemas: cache pode ser eterno, não há corrida entre leitura e escrita, e o
 histórico existe de graça.
 
@@ -120,7 +120,7 @@ histórico existe de graça.
 ## Quando Usar
 
 Armazenamento de objetos quando:
-- Há arquivos de usuário — anexos, imagens, documentos.
+- Há arquivos de usuário: anexos, imagens, documentos.
 - O volume cresce.
 - Os arquivos são servidos ao cliente.
 - A aplicação escala horizontalmente.
@@ -130,7 +130,7 @@ Disco local quando:
 - É cache, e a perda é aceitável.
 
 Banco quando:
-- O arquivo é pequeno e sempre lido junto com o registro — uma assinatura, um
+- O arquivo é pequeno e sempre lido junto com o registro: uma assinatura, um
   ícone.
 - A transacionalidade com o registro é requisito real.
 
@@ -144,16 +144,16 @@ Banco quando:
 
 **Sem política de retenção.** O acervo cresce indefinidamente, e o custo com ele.
 
-**URL assinada com prazo longo.** Uma URL de 7 dias é um link público por 7 dias —
+**URL assinada com prazo longo.** Uma URL de 7 dias é um link público por 7 dias:
 quem receber, acessa.
 
 ## Alternativas
 
-- **Armazenamento de objetos** — a resposta padrão.
-- **Sistema de arquivos em rede** — quando o acesso precisa parecer disco local;
+- **Armazenamento de objetos**: a resposta padrão.
+- **Sistema de arquivos em rede**: quando o acesso precisa parecer disco local;
   mais caro e com mais modos de falha.
-- **Banco, para blobs pequenos** — legítimo abaixo de alguns kilobytes.
-- **Não armazenar** — gerar sob demanda, quando o custo de gerar é menor que o de
+- **Banco, para blobs pequenos**: legítimo abaixo de alguns kilobytes.
+- **Não armazenar**: gerar sob demanda, quando o custo de gerar é menor que o de
   guardar.
 
 ## Trade-offs
@@ -168,7 +168,7 @@ quem receber, acessa.
 | Mais um componente | Nenhum |
 
 A quinta linha é o custo real: como são dois sistemas, um pode ter o que o outro
-não tem — metadado sem bytes, ou bytes sem metadado. Isso precisa de limpeza
+não tem (metadado sem bytes, ou bytes sem metadado). Isso precisa de limpeza
 periódica.
 
 ## Modos de Falha
@@ -205,7 +205,7 @@ relativo.
 
 Um sistema de gestão documental guardava PDFs no banco, como coluna binária.
 
-Depois de três anos, o banco tinha 340 GB — 310 deles em PDFs. As consequências:
+Depois de três anos, o banco tinha 340 GB, 310 deles em PDFs. As consequências:
 
 O backup completo levava 6 horas e o restore, 9. O objetivo de tempo de
 recuperação era de 2 horas, e ninguém tinha testado.
@@ -217,7 +217,7 @@ aplicação lia o blob e repassava.
 
 A migração moveu os bytes para armazenamento de objetos, mantendo no banco apenas
 os metadados. O banco caiu para 28 GB; o backup, para 20 minutos; e o restore,
-para 40 — dentro do objetivo de 2 horas, que passou a ser testado a cada
+para 40, dentro do objetivo de 2 horas, que passou a ser testado a cada
 trimestre.
 
 Duas decisões que a equipe registrou como mais importantes que a migração em si.
@@ -231,9 +231,9 @@ Isso removeu completamente o tráfego de arquivo da aplicação, e o consumo de
 memória dos processos caiu pela metade.
 
 **Rotina de reconciliação semanal.** Ela compara metadados e objetos, e reporta as
-duas divergências: metadado sem objeto — que vira alerta, porque é perda — e
-objeto sem metadado por mais de 24 horas — que é órfão de upload abandonado e é
-removido.
+duas divergências: metadado sem objeto (que vira alerta, porque é perda) e
+objeto sem metadado por mais de 24 horas (que é órfão de upload abandonado e é
+removido).
 
 Na primeira execução, encontrou 12 mil órfãos acumulados nos quatro meses entre o
 início do upload direto e a criação da rotina, de uploads que falharam no meio.
@@ -241,11 +241,11 @@ Ninguém sabia que existiam.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](/05-system-design/state-management.md) — arquivos como estado persistente.
-- [CDN](/05-system-design/cdn.md) — servir arquivos públicos na borda.
-- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — por que disco local
+- [Gestão de Estado](/05-system-design/state-management.md): arquivos como estado persistente.
+- [CDN](/05-system-design/cdn.md): servir arquivos públicos na borda.
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md): por que disco local
   quebra.
-- [Nuvem](/09-cloud-architecture/index.md) — classes de armazenamento e custo.
+- [Nuvem](/09-cloud-architecture/index.md): classes de armazenamento e custo.
 
 ## Exercício Prático
 

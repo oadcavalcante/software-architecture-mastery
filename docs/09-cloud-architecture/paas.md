@@ -2,7 +2,7 @@
 id: paas
 title: PaaS
 sidebar_position: 2
-description: Entregar código e não pensar em servidor — produtividade alta dentro de um contorno que você não escolhe.
+description: "Entregar código e não pensar em servidor: produtividade alta dentro de um contorno que você não escolhe."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, saas, serverless]
 canonical_for: [PaaS, plataforma como serviço, contorno da plataforma]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-PaaS — plataforma como serviço — recebe seu código e cuida do resto: sistema
+PaaS (plataforma como serviço) recebe seu código e cuida do resto: sistema
 operacional, tempo de execução, servidor, escalonamento, implantação, certificados.
 
 Você entrega a aplicação e configura poucas coisas. A plataforma decide o resto,
@@ -49,7 +49,7 @@ Uma PaaS assume coisas: como a aplicação é iniciada, onde a configuração ve
 tráfego chega, como o sistema de arquivos se comporta.
 
 Aplicações que seguem essas convenções ganham muito. Aplicações que precisam de algo
-fora delas batem numa parede — e a parede não tem porta.
+fora delas batem numa parede, e a parede não tem porta.
 
 Por isso a avaliação certa não é de recursos, e sim: **o que meu sistema precisa
 fazer que a plataforma não permite?**
@@ -73,7 +73,7 @@ de longa duração podem não caber.
 
 **Sem acesso ao sistema.** Diagnóstico profundo vira ticket.
 
-Nenhuma é defeito — todas são o preço da convenção.
+Nenhuma é defeito: todas são o preço da convenção.
 
 ### As doze regras continuam valendo
 
@@ -95,13 +95,13 @@ disciplina que dá portabilidade entre os três modelos, e vale mesmo sem PaaS.
 
 ### Plataforma interna de desenvolvimento
 
-A versão construída dentro de casa — ver
+A versão construída dentro de casa (ver
 [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md)
-para o tratamento completo: um time de plataforma oferece aos demais uma
+para o tratamento completo): um time de plataforma oferece aos demais uma
 camada com implantação, observabilidade e padrões prontos, sobre
 [Kubernetes](/09-cloud-architecture/kubernetes.md) ou IaaS.
 
-O objetivo é o mesmo — remover trabalho repetitivo — com o contorno definido pela
+O objetivo é o mesmo (remover trabalho repetitivo) com o contorno definido pela
 própria organização.
 
 O risco é conhecido: uma PaaS interna precisa ser tratada como
@@ -120,10 +120,10 @@ O que costuma prender, em ordem crescente:
 
 **Banco e cache da plataforma.** Exportáveis, com tempo de migração.
 
-**Serviços auxiliares proprietários** — filas, agendadores, integrações. Sem
+**Serviços auxiliares proprietários**: filas, agendadores, integrações. Sem
 equivalente direto.
 
-**Automação da plataforma** — esteiras, ambientes de revisão, escalonamento. Precisa
+**Automação da plataforma**: esteiras, ambientes de revisão, escalonamento. Precisa
 ser reconstruída.
 
 Saber onde você está nessa escala é o que permite estimar a saída antes de precisar
@@ -132,7 +132,7 @@ dela. Ver [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md)
 A regra prática que preserva a maior parte da opção: use a plataforma para
 executar o código, e prefira serviços gerenciados portáveis para o resto. O custo é
 integrar e configurar cada serviço por fora, abrindo mão da integração pronta que é
-parte da produtividade da plataforma — pequeno perto da reconstrução dos dois
+parte da produtividade da plataforma. É pequeno perto da reconstrução dos dois
 últimos degraus da escala.
 
 ## Modelo Mental
@@ -147,7 +147,7 @@ convencional; aperta quando ela não é.
 - Velocidade de entrega é prioridade.
 - O padrão da plataforma atende os requisitos.
 - Padronizar implantação entre muitos times.
-- Ambientes efêmeros por ramo para revisão — uma das capacidades menos usadas do
+- Ambientes efêmeros por ramo para revisão, uma das capacidades menos usadas do
   modelo.
 
 ## Quando Não Usar
@@ -163,16 +163,16 @@ como no exemplo abaixo, em que a fatura chegou a 4 vezes o equivalente.
 **Para software legado** que assume sistema de arquivos e processos persistentes.
 
 **Quando o sistema vai depender dos serviços auxiliares proprietários e da automação
-da plataforma** e a organização não aceita o custo de reconstruí-los numa saída —
+da plataforma** e a organização não aceita o custo de reconstruí-los numa saída:
 os dois degraus mais altos da escala de aprisionamento. Ver
 [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Alternativas
 
-- **[Contêineres](/09-cloud-architecture/containers.md) com orquestração** — mais controle, mais trabalho.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — para cargas orientadas a evento.
-- **[IaaS](/09-cloud-architecture/iaas.md)** — controle total.
-- **PaaS sobre Kubernetes** — plataformas que dão a experiência de PaaS mantendo a
+- **[Contêineres](/09-cloud-architecture/containers.md) com orquestração**: mais controle, mais trabalho.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: para cargas orientadas a evento.
+- **[IaaS](/09-cloud-architecture/iaas.md)**: controle total.
+- **PaaS sobre Kubernetes**: plataformas que dão a experiência de PaaS mantendo a
   base portável. Meio-termo que resolve boa parte da objeção de dependência.
 
 ## Trade-offs
@@ -204,7 +204,7 @@ os dois degraus mais altos da escala de aprisionamento. Ver
 
 ## Erros Comuns
 
-**Escolher sem verificar as restrições contra os requisitos.** Toda plataforma impõe limites — tempo máximo de requisição, tamanho de artefato, ausência de disco persistente. Descobri-los depois de construir custa a migração inteira.
+**Escolher sem verificar as restrições contra os requisitos.** Toda plataforma impõe limites: tempo máximo de requisição, tamanho de artefato, ausência de disco persistente. Descobri-los depois de construir custa a migração inteira.
 
 **Guardar estado localmente.** O sistema de arquivos da instância é efêmero por projeto. Arquivo salvo ali some na próxima implantação, e o defeito aparece dias depois como dado que desapareceu.
 
@@ -222,7 +222,7 @@ No terceiro ano, três limites apareceram ao mesmo tempo:
 
 **Processamento longo.** Um novo recurso exigia processar arquivos grandes,
 excedendo o tempo limite de requisição. A solução foi um componente separado fora da
-plataforma — o primeiro pedaço de infraestrutura própria.
+plataforma: o primeiro pedaço de infraestrutura própria.
 
 **Custo.** Com o tráfego crescido, a fatura da PaaS chegou a cerca de 4 vezes o
 custo estimado do equivalente em contêineres. O prêmio de produtividade, que era
@@ -238,7 +238,7 @@ estado local, a configuração vinha do ambiente, os registros iam para a saída
 padrão.
 
 O que a equipe registra: a PaaS foi a escolha certa e deixou de ser. As duas coisas
-são verdade, e não havia como saber no primeiro ano — nem valia a pena tentar
+são verdade, e não havia como saber no primeiro ano, nem valia a pena tentar
 adivinhar.
 
 O que teria ajudado era ter estimado, em algum momento do segundo ano, o ponto em
@@ -246,17 +246,17 @@ que o custo inverteria. Isso teria dado meses de antecedência em vez de urgênc
 
 ## Conceitos Relacionados
 
-- [IaaS](/09-cloud-architecture/iaas.md) — o modelo abaixo.
-- [SaaS](/09-cloud-architecture/saas.md) — o modelo acima.
-- [Serverless](/09-cloud-architecture/serverless.md) — a evolução do modelo.
-- [Contêineres](/09-cloud-architecture/containers.md) — a alternativa comum.
+- [IaaS](/09-cloud-architecture/iaas.md): o modelo abaixo.
+- [SaaS](/09-cloud-architecture/saas.md): o modelo acima.
+- [Serverless](/09-cloud-architecture/serverless.md): a evolução do modelo.
+- [Contêineres](/09-cloud-architecture/containers.md): a alternativa comum.
 
 ## Exercício Prático
 
 Se você usa PaaS, liste três coisas que seu sistema pode precisar fazer nos
 próximos dois anos e verifique se a plataforma permite.
 
-E estime o custo no volume que você espera ter — o ponto de inversão costuma chegar
+E estime o custo no volume que você espera ter: o ponto de inversão costuma chegar
 antes do previsto.
 
 ## Perguntas de Entrevista

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design, distributed-systems]
 related: [trade-offs, system-design-interviews]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -29,7 +29,7 @@ consistência eventual, particionamento, idempotência e circuito de contenção
 como tópicos, e ainda assim não conseguir projetar um sistema em que os quatro
 precisam coexistir sob restrição de custo e prazo.
 
-Case study é onde a combinação acontece — e onde os conflitos aparecem. A decisão
+Case study é onde a combinação acontece, e onde os conflitos aparecem. A decisão
 que melhora disponibilidade piora a consistência. A que reduz latência aumenta o
 custo. A que simplifica a operação acopla dois domínios que deveriam evoluir
 separados.
@@ -67,7 +67,7 @@ Contexto de Negócio → Requisitos Funcionais → Requisitos Não-Funcionais
 ```
 
 A cadeia acima é a análise. Depois dela, cada case fecha com seis seções de
-consolidação — Resultados, O que este case ensina, Conceitos Relacionados,
+consolidação: Resultados, O que este case ensina, Conceitos Relacionados,
 Exercício Prático, Perguntas de Entrevista e Para Aprofundar.
 
 ## A regra desta seção
@@ -76,7 +76,7 @@ Exercício Prático, Perguntas de Entrevista e Para Aprofundar.
 
 Cada um expõe no mínimo três opções genuinamente viáveis, com uma matriz de
 decisão de critérios ponderados. E toda opção descartada declara **sob qual
-mudança de restrição ela passaria a vencer** — se não houver essa condição, não
+mudança de restrição ela passaria a vencer**. Se não houver essa condição, não
 era opção real, era espantalho.
 
 Essa exigência é o que impede o case de virar justificativa retroativa de uma
@@ -99,7 +99,7 @@ em algum momento, mesmo que fora do seu domínio: são os que mais exercitam o
 Leia contexto, requisitos e restrições. **Pare antes das opções.** Esboce sua
 arquitetura em vinte minutos. Só então continue.
 
-O valor não está em concordar com a decisão do texto — está em descobrir qual
+O valor não está em concordar com a decisão do texto, e sim em descobrir qual
 restrição você não tinha considerado.
 
 ## Ao terminar

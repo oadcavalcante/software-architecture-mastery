@@ -2,7 +2,7 @@
 id: bounded-context
 title: Bounded Context
 sidebar_position: 6
-description: The boundary within which a model has a single meaning — and DDD's decision with the greatest architectural consequence.
+description: The boundary within which a model has a single meaning, and DDD's decision with the greatest architectural consequence.
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain, ubiquitous-language]
 related: [context-mapping, anti-corruption-layer, modular-design]
 canonical_for: [bounded context]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -42,10 +42,10 @@ tier.
 
 Forcing a common model produces one of two results, and both are bad.
 
-**The bloated model** — a `Customer` class with sixty fields, of which each context uses
+**The bloated model**: a `Customer` class with sixty fields, of which each context uses
 eight, and nobody knows which are mandatory in which situation.
 
-**The minimal model** — only what the three have in common, which leaves each context
+**The minimal model**: only what the three have in common, which leaves each context
 implementing the rest outside, with duplication and divergence.
 
 Bounded context accepts what reality imposes: **different models, with explicit boundaries
@@ -82,9 +82,9 @@ What links them is a shared identifier, not a shared class.
 See [subdomain](/04-domain-driven-design/subdomain.md). The ideal is one context per
 subdomain, and reality diverges:
 
-One subdomain served by two contexts — frequently for historical reasons.
+One subdomain served by two contexts, frequently for historical reasons.
 
-One context covering three subdomains — the typical legacy system case.
+One context covering three subdomains: the typical legacy system case.
 
 When they diverge, that is information about where the software does not keep up with the
 business.
@@ -94,7 +94,7 @@ business.
 Inside the boundary, the model is consistent and the language is single. Outside, nothing
 is guaranteed.
 
-That means the boundary has to be real — enforced by a module, a process, or a system. A
+That means the boundary has to be real: enforced by a module, a process, or a system. A
 boundary that only exists in the diagram delimits nothing, and the model leaks. See
 [architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md).
 
@@ -102,11 +102,11 @@ boundary that only exists in the diagram delimits nothing, and the model leaks. 
 
 By default, a context does not expose its internal model: communication happens through
 contracts belonging to the boundary, with translation on both sides. Giving up the
-translation — conformist, shared kernel — is a deliberate choice, decided among the forms
+translation (conformist, shared kernel) is a deliberate choice, decided among the forms
 of relationship below.
 
-The forms of relationship between contexts — partnership, customer-supplier, conformist,
-and others — are the subject of
+The forms of relationship between contexts (partnership, customer-supplier, conformist,
+and others) are the subject of
 [context mapping](/04-domain-driven-design/context-mapping.md). The defence against
 another's model is the
 [anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md).
@@ -143,11 +143,11 @@ cent overlap and constant translation were probably one.
 
 ## Alternatives
 
-- **[Shared kernel](/04-domain-driven-design/context-mapping.md)** — it wins when the
+- **[Shared kernel](/04-domain-driven-design/context-mapping.md)**: it wins when the
   overlap between the two contexts is high and both teams accept coordinating every
   change.
-- **A single context** — legitimate in small systems.
-- **A context per external system** — each integration gets its own, with translation at
+- **A single context**: legitimate in small systems.
+- **A context per external system**: each integration gets its own, with translation at
   the boundary.
 
 ## Trade-offs
@@ -173,7 +173,7 @@ on the internal structure.
 **Nominal boundary.** It exists in the diagram and nothing enforces it.
 
 **Corporate canonical model.** The attempt to define "the company's customer" consumes
-years and does not converge — because the premise is wrong.
+years and does not converge, because the premise is wrong.
 
 **Too many contexts.** Boundaries where there is no change of meaning produce constant
 translation.
@@ -222,24 +222,24 @@ when it needs it.
 
 What generated the most resistance was duplicating the product name across the three
 contexts. It took time to accept that the commercial name, the regulatory name and the
-packaging description were in fact three things — and that the old system forced them to be
+packaging description were in fact three things, and that the old system forced them to be
 one, with a field nobody could say which of the three it meant.
 
 ## Related Concepts
 
-- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md) — the language
+- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md): the language
   inside the boundary.
-- [Context Mapping](/04-domain-driven-design/context-mapping.md) — how the contexts relate.
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — the defence
+- [Context Mapping](/04-domain-driven-design/context-mapping.md): how the contexts relate.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): the defence
   at the boundary.
-- [Modular Design](/02-software-design/modular-design.md) — the boundary in code.
+- [Modular Design](/02-software-design/modular-design.md): the boundary in code.
 
 ## Practical Exercise
 
 Pick three central terms in your domain. For each, ask people from different areas what it
 means.
 
-Where the answers diverge — even subtly — there is a context boundary the model probably
+Where the answers diverge, even subtly, there is a context boundary the model probably
 does not represent.
 
 ## Interview Questions

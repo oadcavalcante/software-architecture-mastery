@@ -2,7 +2,7 @@
 id: conways-law
 title: Lei de Conway
 sidebar_position: 18
-description: A arquitetura reproduz a estrutura de comunicação da organização — e, quando as duas divergem, é a arquitetura que tende a ceder.
+description: A arquitetura reproduz a estrutura de comunicação da organização e, quando as duas divergem, é a arquitetura que tende a ceder.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [team-topologies, organizational-architecture, cross-team-architecture]
 canonical_for: [lei de Conway, manobra inversa de Conway, estrutura de comunicação, homomorfismo organizacional]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -29,7 +29,7 @@ Melvin Conway, em 1968:
 A formulação é de sessenta anos e continua sendo uma das regularidades mais consistentemente
 observadas em arquitetura de software: MacCormack et al. (2011), comparando produtos equivalentes
 feitos por organizações fortemente e fracamente acopladas, encontraram a mesma correspondência
-entre acoplamento da organização e acoplamento do código. Ela não descreve uma tendência — descreve uma restrição:
+entre acoplamento da organização e acoplamento do código. Ela descreve uma restrição, não uma tendência:
 
 ```text
 duas equipes que não conversam        produzem dois sistemas com
@@ -56,7 +56,7 @@ e um sistema acoplado por camadas na prática
 ```
 
 Nada nesse resultado é falha de execução. Cada decisão individual foi tomada por pessoas
-competentes seguindo o caminho de menor atrito — e o caminho de menor atrito é aquele em que a
+competentes seguindo o caminho de menor atrito, e o caminho de menor atrito é aquele em que a
 comunicação já existe.
 
 Um time de back-end que precisa de uma mudança no front-end negocia, espera e coordena. O mesmo
@@ -105,7 +105,7 @@ quer uma plataforma reusável
 
 Isso é conhecido como manobra inversa de Conway. Ela é a alavanca de maior alcance que um
 arquiteto sênior tem sobre a forma do sistema, porque muda a estrutura que produz as decisões em
-vez de corrigir uma decisão de cada vez — e é a que ele mais raramente pode acionar sozinho, porque exige a liderança de
+vez de corrigir uma decisão de cada vez. E é a que ele mais raramente pode acionar sozinho, porque exige a liderança de
 engenharia.
 
 Por isso a proposta arquitetural e a proposta organizacional precisam andar juntas. Ver
@@ -125,7 +125,7 @@ resultado     toda funcionalidade atravessa três times
 A arquitetura resultante é acoplada horizontalmente: mudar uma regra de negócio exige tocar três
 camadas mantidas por três times, com três filas de priorização.
 
-A alternativa — times por domínio, com todas as camadas dentro — produz sistemas acoplados
+A alternativa (times por domínio, com todas as camadas dentro) produz sistemas acoplados
 verticalmente, que é o acoplamento que se quer, porque ele segue as unidades de mudança do
 negócio.
 
@@ -138,7 +138,7 @@ acima disso             a comunicação precisa de mecanismo, e o
 ```
 
 Isso significa que o tamanho máximo de um componente coeso é limitado pelo tamanho de time que
-consegue mantê-lo. Um componente que exige quinze pessoas vai se dividir — a única questão é se
+consegue mantê-lo. Um componente que exige quinze pessoas vai se dividir: a única questão é se
 a divisão será desenhada ou emergente.
 
 Ver [topologias de time](/23-architecture-leadership/team-topologies.md).
@@ -175,7 +175,7 @@ deliberado    a divergência é temporária e conhecida, com
 A terceira linha é legítima: durante uma transição, a arquitetura alvo e a organização atual
 podem não corresponder, e forçar a reorganização antes de a arquitetura existir seria pior.
 
-O que não é legítimo é a divergência não reconhecida — a organização que espera microsserviços
+O que não é legítimo é a divergência não reconhecida: a organização que espera microsserviços
 independentes de times organizados por camada e não entende por que não funciona.
 
 ### A lei também opera sobre fornecedores e contratos
@@ -205,36 +205,36 @@ divergência ou descobri-la depois.
 
 ## Quando Não Usar
 
-**Como desculpa** — "a lei de Conway explica" não resolve; ela orienta a intervenção.
+**Como desculpa**: "a lei de Conway explica" não resolve; ela orienta a intervenção.
 
-**Como determinismo** — a lei descreve uma restrição forte, não uma impossibilidade; equipes
+**Como determinismo**: a lei descreve uma restrição forte, não uma impossibilidade; equipes
 disciplinadas mantêm fronteiras contra a corrente, a custo de esforço contínuo.
 
 **Reorganizando times por moda arquitetural**, sem entender o domínio.
 
-**Ignorando o custo de reorganizar** — mudança de time custa produtividade por meses; no exemplo
+**Ignorando o custo de reorganizar**: mudança de time custa produtividade por meses; no exemplo
 abaixo, 30% de velocidade de entrega durante quatro meses.
 
-**Sozinho** — a manobra inversa exige a liderança de engenharia; propô-la sem esse alinhamento é
+**Sozinho**: a manobra inversa exige a liderança de engenharia; propô-la sem esse alinhamento é
 desperdício de capital.
 
 A manobra inversa, em particular, não compensa em três condições:
 
-- **Um único time** — não há estrutura de comunicação entre times para redesenhar; a fronteira
+- **Um único time**: não há estrutura de comunicação entre times para redesenhar; a fronteira
   interna depende de disciplina de módulo, não de organograma.
-- **Domínio instável** — o produto ainda está descobrindo o próprio recorte, e times por domínio
+- **Domínio instável**: o produto ainda está descobrindo o próprio recorte, e times por domínio
   fixariam fronteiras que a próxima mudança de rumo desfaz.
-- **Horizonte curto** — a arquitetura alvo vai durar menos que o tempo necessário para pagar a
+- **Horizonte curto**: a arquitetura alvo vai durar menos que o tempo necessário para pagar a
   queda de produtividade da reorganização.
 
 ## Alternativas
 
-- **Manter a divergência com disciplina** — fronteiras preservadas por verificação automática, a
+- **Manter a divergência com disciplina**: fronteiras preservadas por verificação automática, a
   custo de esforço contínuo. Ver
   [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
-- **Adaptar a arquitetura à organização** — desenhar o que a estrutura atual suporta, em vez do
+- **Adaptar a arquitetura à organização**: desenhar o que a estrutura atual suporta, em vez do
   ideal.
-- **Mudar a comunicação sem mudar o organograma** — sobreposição de fuso, rituais compartilhados,
+- **Mudar a comunicação sem mudar o organograma**: sobreposição de fuso, rituais compartilhados,
   rotação de pessoas.
 
 A terceira é subestimada e frequentemente viável quando a reorganização não é: a estrutura de
@@ -276,7 +276,7 @@ acoplamento por camada é descoberto dezoito meses depois, como no exemplo abaix
 times, e o serviço sem dono único acumula as mudanças de quem estiver mais perto dele.
 
 **Reorganizar times sem plano de convergência arquitetural.** Os times mudam, os serviços não, e
-a nova estrutura passa a atravessar fronteiras que a antiga respeitava — a divergência só troca de
+a nova estrutura passa a atravessar fronteiras que a antiga respeitava: a divergência só troca de
 lugar.
 
 **Ignorar fuso horário** como fronteira de comunicação. A fronteira surge na divisão geográfica,
@@ -301,7 +301,7 @@ time de infraestrutura        14 pessoas
 times de produto              37 pessoas, sem engenheiros próprios
 ```
 
-Dezoito meses depois, existiam cinco serviços implantados separadamente — e a medição mostrava:
+Dezoito meses depois, existiam cinco serviços implantados separadamente, e a medição mostrava:
 
 ```text
 mudanças de funcionalidade tocando 3+ serviços     68%
@@ -311,7 +311,7 @@ implantações independentes por serviço/mês         1,4 (o monólito
                                                    fazia 12)
 ```
 
-Cinco serviços com implantação acoplada por coordenação humana — o pior dos dois mundos: o custo
+Cinco serviços com implantação acoplada por coordenação humana, o pior dos dois mundos: o custo
 operacional da distribuição sem a autonomia.
 
 O diagnóstico foi direto: as fronteiras dos serviços eram por domínio, e as fronteiras de
@@ -323,12 +323,12 @@ arquitetura:
 
 **Cinco times por domínio**, cada um com front-end, back-end e dados dentro: 18 engenheiros por
 domínio, 90 ao todo. Dezoito pessoas passam do limite de comunicação informal, então a divisão foi
-desenhada em vez de deixada emergir — cada domínio em dois grupos de até 9 por subdomínio (pedido em
+desenhada em vez de deixada emergir: cada domínio em dois grupos de até 9 por subdomínio (pedido em
 checkout e pós-venda, por exemplo), com um módulo interno por grupo e um único time dono do serviço.
 As pessoas de produto foram distribuídas entre os domínios.
 
-**Um time de plataforma** de oito pessoas, vindas do antigo time de infraestrutura — as outras seis
-foram para os domínios —, com produto próprio — esteira, observabilidade, provisionamento — em
+**Um time de plataforma** de oito pessoas, vindas do antigo time de infraestrutura (as outras seis
+foram para os domínios), com produto próprio (esteira, observabilidade, provisionamento) em
 vez de um time de infraestrutura atendendo pedidos.
 
 **Um time habilitador** de dados, com cinco pessoas e temporário, para transferir competência de modelagem e
@@ -336,7 +336,7 @@ qualidade aos times de domínio em vez de executar para eles.
 
 **Propriedade completa** declarada: cada serviço tem um time dono, com plantão próprio.
 
-Foi uma reorganização cara. Nos primeiros quatro meses, a velocidade de entrega caiu 30% — as
+Foi uma reorganização cara. Nos primeiros quatro meses, a velocidade de entrega caiu 30%: as
 pessoas estavam aprendendo camadas que não dominavam, e a produtividade individual despencou.
 
 Resultados após 14 meses da reorganização:
@@ -374,7 +374,7 @@ Desenhe o organograma de engenharia da sua organização ao lado do diagrama de 
 sistema principal.
 
 Procure as correspondências. Onde elas divergem, você provavelmente encontra as fronteiras que
-mais custam para manter — e as que mais geram coordenação.
+mais custam para manter, e as que mais geram coordenação.
 
 ## Perguntas de Entrevista
 

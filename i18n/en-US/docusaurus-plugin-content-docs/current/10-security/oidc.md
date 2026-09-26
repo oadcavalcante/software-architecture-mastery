@@ -2,7 +2,7 @@
 id: oidc
 title: OpenID Connect
 sidebar_position: 3
-description: The identity layer on top of OAuth — what the identity token asserts and what needs to be verified.
+description: "The identity layer on top of OAuth: what the identity token asserts and what needs to be verified."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, jwt, identity]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 OpenID Connect is a thin layer on top of [OAuth 2.0](/10-security/oauth2.md) that adds what was missing:
 **a token that asserts identity**.
 
-Where OAuth delivers an access token — "the bearer may do X" — OpenID Connect also delivers an **ID token**:
+Where OAuth delivers an access token ("the bearer may do X"), OpenID Connect also delivers an **ID token**:
 "this user, with these attributes, authenticated at this moment, and this token is for you".
 
 The three final parts are what prevent the attacks that made OAuth inadequate for login.
@@ -37,7 +37,7 @@ The problematic pattern: the application obtains an access token, calls a profil
 identifier and considers the person authenticated.
 
 What breaks: nothing in that flow guarantees the token was issued **for that application**. A token
-obtained by another application — including a malicious one, to which the user granted access — works just
+obtained by another application (including a malicious one, to which the user granted access) works just
 the same.
 
 OpenID Connect solves it with a token that declares the audience and is verifiable.
@@ -59,7 +59,7 @@ read the access token in the client, indicates the distinction was not understoo
 
 ### The claims that need to be verified
 
-An ID token is a signed [JWT](/10-security/jwt.md), and receiving it is not enough — it needs to be
+An ID token is a signed [JWT](/10-security/jwt.md), and receiving it is not enough. It needs to be
 validated:
 
 ```text
@@ -86,7 +86,7 @@ the request that originated it.
 
 ### `sub` is the identifier, and it is local to the issuer
 
-The `sub` field is the user's stable identifier — within that issuer.
+The `sub` field is the user's stable identifier, within that issuer.
 
 Two points that cause problems:
 
@@ -99,7 +99,7 @@ combination of issuer and `sub`.
 
 ### Scopes and where the attributes come from
 
-User attributes come through scopes — `openid`, `profile`, `email` — and can arrive from two places: inside
+User attributes come through scopes (`openid`, `profile`, `email`) and can arrive from two places: inside
 the ID token, or from a user info endpoint.
 
 Putting many attributes in the token makes it large, and it travels in every authentication request.
@@ -111,21 +111,21 @@ The usual practice: the identifier and the minimum in the token; the rest querie
 
 Single sign-on works well. **Single sign-out** is where the implementations fail.
 
-The user leaves one application — and remains authenticated in the others, because each has its own
+The user leaves one application, and remains authenticated in the others, because each has its own
 session. Worse, one click on "sign in" silently reauthenticates, because the session at the provider is
 still alive.
 
 The logout specifications exist and adoption is uneven. The behavior needs to be decided explicitly: does
 leaving one application end the provider's session, or only the local one?
 
-For environments with sensitive data, ending everything is what is expected — and frequently it is not what
+For environments with sensitive data, ending everything is what is expected, and frequently it is not what
 happens.
 
 ### Discovery and key rotation
 
 The provider publishes its configuration and its public keys at well-known addresses.
 
-The client should fetch the keys and **cache them with periodic refresh** — because providers rotate keys.
+The client should fetch the keys and **cache them with periodic refresh**, because providers rotate keys.
 An implementation that pins the key breaks at rotation, typically overnight.
 
 And it should look up by key identifier, not assume there is only one.
@@ -141,7 +141,7 @@ assertions are what makes the authentication safe.
 - Single sign-on across several applications.
 - Social login for consumers.
 - Corporate federation.
-- Several applications need the same authentication policy — second factor, lockout, audit trail —
+- Several applications need the same authentication policy (second factor, lockout, audit trail)
   enforced and audited in one place.
 
 ## When Not to Use
@@ -164,10 +164,10 @@ needs higher availability than the provider offers, the dependency becomes the s
 
 ## Alternatives
 
-- **Plain [OAuth 2.0](/10-security/oauth2.md)** — when the need is delegated access, not identity.
-- **SAML** — corporate federation in environments that already use it. More verbose, very established.
-- **Mutual TLS** — service identity.
-- **Your own session with a local credential** — when there is neither federation nor third parties, and
+- **Plain [OAuth 2.0](/10-security/oauth2.md)**: when the need is delegated access, not identity.
+- **SAML**: corporate federation in environments that already use it. More verbose, very established.
+- **Mutual TLS**: service identity.
+- **Your own session with a local credential**: when there is neither federation nor third parties, and
   simplicity is worth more.
 
 ## Trade-offs
@@ -207,13 +207,13 @@ needs higher availability than the provider offers, the dependency becomes the s
 
 **Not verifying `aud`.** It nullifies the main protection.
 
-**Skipping `nonce` where it is required** — when one was sent, or in the implicit flow.
+**Skipping `nonce` where it is required**: when one was sent, or in the implicit flow.
 
 **Using the ID token as an access token**, sending it to the resource API.
 
 **Identifying by email.**
 
-**Not handling key rotation** — a public key pinned in the code breaks at rotation.
+**Not handling key rotation**: a public key pinned in the code breaks at rotation.
 
 **Not deciding the logout behavior.**
 
@@ -230,13 +230,13 @@ later found inconsistencies:
 
 **Two applications did not verify `aud`.** A token issued for the student application was accepted by the
 administrative application. Since the provider was the same and so were the users, a student with a
-legitimate account could obtain a token and present it to the administrative application — which accepted
+legitimate account could obtain a token and present it to the administrative application, which accepted
 it and created a session. The subsequent authorization blocked most actions, but not all.
 
 **Three did not use `nonce`.**
 
-**One identified by email.** A student changed the email in their record to a teacher's — who had not yet
-accessed the system — and, on the first login, was recognized as the teacher.
+**One identified by email.** A student changed the email in their record to a teacher's (who had not yet
+accessed the system) and, on the first login, was recognized as the teacher.
 
 **None handled key rotation.** All of them pinned the public key in configuration. When the provider
 rotated, all six stopped simultaneously at 2 a.m. on a Sunday. The incident lasted 4 hours.
@@ -256,13 +256,13 @@ instead of each one implementing its own.
 **Global logout** configured, ending the provider's session.
 
 The learning that stuck: six independent implementations of the same protocol produced six different sets
-of omissions. The decision to let each team implement — made to avoid creating a dependency — cost more
+of omissions. The decision to let each team implement (made to avoid creating a dependency) cost more
 than the dependency would have.
 
 ## Related Concepts
 
-- [OAuth 2.0](/10-security/oauth2.md) — the base.
-- [JWT](/10-security/jwt.md) — the ID token's format.
+- [OAuth 2.0](/10-security/oauth2.md): the base.
+- [JWT](/10-security/jwt.md): the ID token's format.
 - [Identity](/10-security/identity.md).
 - [Secure Boundaries](/10-security/secure-boundaries.md).
 

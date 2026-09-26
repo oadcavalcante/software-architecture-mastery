@@ -2,7 +2,7 @@
 id: data-lakes
 title: Data Lakes
 sidebar_position: 10
-description: Guardar bruto e interpretar depois — e a linha tênue entre lake e depósito.
+description: Guardar bruto e interpretar depois, e a linha tênue entre lake e depósito.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-warehouses]
 related: [data-lakehouses, data-ownership, data-lifecycle]
 canonical_for: [data lake, esquema na leitura, pântano de dados]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Um data lake guarda dados no formato bruto, em armazenamento barato, sem exigir
 modelagem prévia.
 
-A ideia é razoável: guardar agora e decidir depois como interpretar — porque nem
+A ideia é razoável: guardar agora e decidir depois como interpretar, porque nem
 sempre se sabe, na ingestão, quais perguntas serão feitas.
 
 A ideia falha de uma forma específica e bem documentada: sem catálogo, sem dono e
@@ -36,8 +36,8 @@ ninguém confia no que acha.
 Um [data warehouse](/07-data-architecture/data-warehouses.md) exige decidir o modelo antes de ingerir.
 Isso custa tempo e descarta o que não foi previsto.
 
-Dados que não cabem em tabelas — registros de aplicação, imagens, documentos,
-fluxos de eventos — ficam de fora.
+Dados que não cabem em tabelas (registros de aplicação, imagens, documentos,
+fluxos de eventos) ficam de fora.
 
 O lake resolve isso invertendo: guarda tudo, e a estrutura é aplicada na leitura.
 
@@ -66,7 +66,7 @@ tratada      limpa, deduplicada, tipada, em formato colunar
 curada       modelada por domínio, pronta para consumo
 ```
 
-A camada bruta é a razão de existir do lake — ela permite reprocessar quando a
+A camada bruta é a razão de existir do lake: ela permite reprocessar quando a
 transformação estiver errada.
 
 O erro comum é consumir direto da bruta. Ela é matéria-prima, não produto.
@@ -78,7 +78,7 @@ Um lake sem catálogo é um sistema de arquivos.
 O catálogo responde: o que existe, o que significa, de onde veio, quem é dono,
 qual o formato, qual a frequência de atualização, qual a retenção.
 
-Sem ele, cada nova pergunta começa com semanas de arqueologia — e frequentemente
+Sem ele, cada nova pergunta começa com semanas de arqueologia, e frequentemente
 termina com alguém ingerindo os mesmos dados de novo, porque não achou o que já
 estava lá.
 
@@ -87,7 +87,7 @@ precisam do catálogo para ter onde ser registrados.
 
 ### Formato de arquivo importa mais do que parece
 
-Guardar em formato de texto — JSON, CSV — é conveniente e caro: sem compressão
+Guardar em formato de texto (JSON, CSV) é conveniente e caro: sem compressão
 eficiente, sem tipos, sem leitura seletiva de colunas.
 
 Formatos colunares comprimem várias vezes melhor e permitem ler só as colunas
@@ -135,24 +135,24 @@ existir, não sobra nenhuma.
 
 **Sem catálogo.** Vira depósito.
 
-**Sem donos definidos por conjunto de dados.** Sem responsável nomeado, ninguém corrige a ingestão quebrada nem responde o que a coluna significa — e o conjunto apodrece em uso.
+**Sem donos definidos por conjunto de dados.** Sem responsável nomeado, ninguém corrige a ingestão quebrada nem responde o que a coluna significa, e o conjunto apodrece em uso.
 
 **Para consultas analíticas recorrentes com definições estáveis.** Ver
 [warehouse](/07-data-architecture/data-warehouses.md).
 
 **Como fonte da verdade operacional.** A latência de ingestão e a ausência de transação tornam o lake inadequado para decidir se há estoque agora.
 
-**Sem classificação de dado pessoal.** Sem saber onde há dado pessoal, não há como atender pedido de exclusão nem limitar acesso — e a obrigação existe independentemente de a organização saber responder.
+**Sem classificação de dado pessoal.** Sem saber onde há dado pessoal, não há como atender pedido de exclusão nem limitar acesso, e a obrigação existe independentemente de a organização saber responder.
 
 **Para substituir um warehouse que funciona.** São complementares.
 
 ## Alternativas
 
-- **[Warehouse](/07-data-architecture/data-warehouses.md)** — quando as perguntas são conhecidas.
-- **[Lakehouse](/07-data-architecture/data-lakehouses.md)** — a convergência.
-- **Armazenamento de objetos com catálogo** — a versão mínima viável, que resolve
+- **[Warehouse](/07-data-architecture/data-warehouses.md)**: quando as perguntas são conhecidas.
+- **[Lakehouse](/07-data-architecture/data-lakehouses.md)**: a convergência.
+- **Armazenamento de objetos com catálogo**: a versão mínima viável, que resolve
   boa parte dos casos sem plataforma.
-- **Manter na origem** — se ninguém consome, ingerir é custo puro.
+- **Manter na origem**: se ninguém consome, ingerir é custo puro.
 
 ## Trade-offs
 
@@ -191,7 +191,7 @@ diferentes.
 
 ## Erros Comuns
 
-**Começar sem catálogo.** Sem saber o que existe, de onde veio e o que significa, o dado armazenado é indistinguível de dado inexistente — e o custo já foi pago.
+**Começar sem catálogo.** Sem saber o que existe, de onde veio e o que significa, o dado armazenado é indistinguível de dado inexistente, e o custo já foi pago.
 
 **Consumir direto da zona bruta.** Cada consumidor reimplementa limpeza e interpretação à sua maneira, e dois relatórios sobre o mesmo fato passam a divergir sem que se saiba qual está certo.
 
@@ -199,7 +199,7 @@ diferentes.
 
 **Não compactar arquivos pequenos.** Ingestão contínua gera milhares de arquivos por dia, e o custo de listar e abrir passa a superar o de ler os dados.
 
-**Sem política de retenção.** "Guardar tudo, decidir depois" é uma decisão de custo crescente tomada por omissão — e, quando há dado pessoal, também uma exposição regulatória crescente.
+**Sem política de retenção.** "Guardar tudo, decidir depois" é uma decisão de custo crescente tomada por omissão e, quando há dado pessoal, também uma exposição regulatória crescente.
 
 **Ingerir dados que ninguém pediu**, por precaução. Cada fonte tem custo de ingestão, de armazenamento, de catalogação e de conformidade. Precaução sem consumidor identificado é custo garantido por benefício hipotético.
 
@@ -220,7 +220,7 @@ fiscais, em formatos diferentes, sem saber uma da outra.
 usar três campos.
 
 **Cerca de 390 milhões de arquivos pequenos.** A ingestão gravava um arquivo por
-minuto por veículo, numa frota de 500 — arquivos de poucas centenas de KB. Consultas levavam horas abrindo arquivos.
+minuto por veículo, numa frota de 500: arquivos de poucas centenas de KB. Consultas levavam horas abrindo arquivos.
 
 **Sem retenção.** Registros de aplicação acumulados desde o primeiro dia, que ninguém consultava,
 ocupavam 60% do volume.
@@ -231,7 +231,7 @@ atendida com confiança.
 
 A recuperação levou oito meses:
 
-**Catálogo** com dono obrigatório por conjunto — sem dono declarado, a ingestão é
+**Catálogo** com dono obrigatório por conjunto: sem dono declarado, a ingestão é
 bloqueada.
 
 **Zonas** explícitas, com a camada tratada em formato colunar particionado por
@@ -250,17 +250,17 @@ documentação de origem.
 
 ## Conceitos Relacionados
 
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — o complemento.
-- [Lakehouse](/07-data-architecture/data-lakehouses.md) — a convergência.
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — o que impede o pântano.
-- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): o complemento.
+- [Lakehouse](/07-data-architecture/data-lakehouses.md): a convergência.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): o que impede o pântano.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md): retenção.
 
 ## Exercício Prático
 
 Se você tem um lake, responda: quantos conjuntos de dados existem, quem é dono de
 cada um, e quantos foram consultados nos últimos 90 dias?
 
-A terceira resposta costuma ser a mais reveladora — e é o argumento para política
+A terceira resposta costuma ser a mais reveladora, e é o argumento para política
 de retenção.
 
 ## Perguntas de Entrevista
@@ -271,6 +271,6 @@ de retenção.
 
 ## Para Aprofundar
 
-- Dixon, James. *Pentaho, Hadoop, and Data Lakes*, 2010 — a origem do termo.
+- Dixon, James. *Pentaho, Hadoop, and Data Lakes*, 2010. A origem do termo.
 - Gorelik, Alex. *The Enterprise Big Data Lake*. O'Reilly, 2019.
 - Dehghani, Zhamak. *Data Mesh*. O'Reilly, 2022.

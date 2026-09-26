@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [problem-space, constraints]
 canonical_for: [business context]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -28,7 +28,7 @@ company is trying to do, with how much money, in how much time, under which rule
 with how many people.
 
 Ignoring that context produces architectures that are technically defensible and
-organizationally unviable — which are the ones that do not survive.
+organizationally unviable, and those are the ones that do not survive.
 
 ## The Problem
 
@@ -38,7 +38,7 @@ value to the extent that they sustain something the business needs.
 
 The classic symptom: a team spends six months building a platform capable of
 absorbing a hundredfold growth, for a product that does not yet know whether it
-will have users. The engineering is good. The decision is bad — because the
+will have users. The engineering is good. The decision is bad, because the
 dominant risk was market risk, not scale, and the six months went into reducing
 the wrong risk.
 
@@ -66,7 +66,7 @@ justify different investments.
 **Stage.** A company searching for product fit needs speed of change above all
 else, because it will throw away much of what it builds. A company at scale needs
 stability, because the cost of being wrong has gone up. The same architectural
-decision — say, investing in abstraction to be able to switch providers — is
+decision (say, investing in abstraction to be able to switch providers) is
 prudence at one and waste at the other.
 
 **Regulatory constraints.** They arrive settled, from outside the company, and do
@@ -74,7 +74,7 @@ not go through technical negotiation: they frequently eliminate entire options
 before the first meeting.
 
 **Economics.** How much can be spent, and how fast the spending has to pay for
-itself, are not engineering inputs — they follow from the business model and the
+itself, are not engineering inputs: they follow from the business model and the
 stage, which is why the same figure is generous at one company and derisory at
 another.
 
@@ -96,7 +96,7 @@ questions that work are concrete:
 - When does this need to be ready, and what happens if it slips two months?
 - How many people will be maintaining this a year from now?
 
-Vague questions — "what are the non-functional requirements?" — produce vague
+Vague questions ("what are the non-functional requirements?") produce vague
 answers. Questions about consequence produce numbers.
 
 ### Context changes; architecture has to keep up
@@ -115,7 +115,7 @@ is that the largest risk we have?**
 
 The question works because it forces a comparison. Almost every architectural
 decision reduces some risk. What distinguishes a good decision is reducing the
-dominant risk — and the dominant risk is a property of the business context, not
+dominant risk, and the dominant risk is a property of the business context, not
 of the system.
 
 ## Why This Matters
@@ -127,7 +127,7 @@ operate?
 
 **Because it is what lets you defend a decision.** A technical argument convinces
 engineers. An argument that connects the technical decision to a business
-consequence convinces whoever approves the budget — and that is the conversation
+consequence convinces whoever approves the budget, and that is the conversation
 that determines whether the architecture will exist at all.
 
 **Because it avoids reducing the wrong risk.** It is the most common waste and the
@@ -138,7 +138,7 @@ that was not the bottleneck.
 ## Common Mistakes
 
 **Treating context as a product concern.** Architecture decided without business
-context optimizes by default — usually for scale or technical purity, which are
+context optimizes by default: usually for scale or technical purity, which are
 rarely the dominant risk.
 
 **Accepting "it needs to be fast and reliable" as a requirement.** It is not a
@@ -152,13 +152,13 @@ imagined, but what growth the next twelve months hold and what it costs to defer
 the scaling decision until then.
 
 **Confusing what the business asks for with what the business needs.**
-Stakeholders describe solutions — "we need a real-time dashboard". The work is to
+Stakeholders describe solutions: "we need a real-time dashboard". The work is to
 back up to the problem: what decision will be made with that data, and with what
 delay is it still useful? The answer frequently removes "real-time" from the
 requirement, and half the complexity with it.
 
 **Assuming context instead of asking.** Especially about regulation and about the
-cost of wrong data — two subjects where engineering intuition tends to be wrong by
+cost of wrong data, two subjects where engineering intuition tends to be wrong by
 orders of magnitude, in both directions.
 
 ## Real-World Example
@@ -171,8 +171,8 @@ Three questions changed the whole design.
 *Who consumes this information?* Call-centre operators, who check status when a
 customer calls. Nobody keeps a screen open watching continuously.
 
-*How often does the position actually change in a meaningful way?* At each stop —
-on average, every eighteen minutes.
+*How often does the position actually change in a meaningful way?* At each stop
+(on average, every eighteen minutes).
 
 *What happens if the information is five minutes stale?* Nothing. The operator
 says "out for delivery" or "on the way", and five minutes does not change the
@@ -183,17 +183,17 @@ the original sketch, has a fraction of the operational complexity, and meets the
 need in full.
 
 The part worth attention: the original sketch was not technically wrong. It
-answered the request correctly — "real-time" — which was the solution the
+answered the request correctly ("real-time"), which was the solution the
 stakeholder had imagined, not the problem they had.
 
 ## Related Concepts
 
-- [Problem Space](/01-fundamentals/problem-space.md) — how to separate problem from solution.
-- [Constraints](/01-fundamentals/constraints.md) — what the context imposes and what is not
+- [Problem Space](/01-fundamentals/problem-space.md): how to separate problem from solution.
+- [Constraints](/01-fundamentals/constraints.md): what the context imposes and what is not
   negotiated.
-- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the conversion
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md): the conversion
   of context into a number.
-- [Capacity Planning](/05-system-design/capacity-planning.md) — the context's growth
+- [Capacity Planning](/05-system-design/capacity-planning.md): the context's growth
   translated into sizing.
 
 ## Practical Exercise
@@ -204,7 +204,7 @@ questions that extract the context".
 Mark which you answered with a verifiable fact and which with an assumption.
 
 The assumptions are the material for your next conversation with whoever has the
-answer — and, on most teams, they are the majority.
+answer. On most teams, they are the majority.
 
 ## Interview Questions
 
@@ -215,7 +215,7 @@ answer — and, on most teams, they are the majority.
 
 ## Further Exploration
 
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 — the
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013. The
   chapters on aligning domain and business.
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — the chapter on architectural drivers.
+  2020. The chapter on architectural drivers.

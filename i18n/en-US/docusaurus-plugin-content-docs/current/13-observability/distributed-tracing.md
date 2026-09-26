@@ -2,7 +2,7 @@
 id: distributed-tracing
 title: Distributed Tracing
 sidebar_position: 4
-description: Following a request through dozens of services — propagation, sampling and the cost.
+description: "Following a request through dozens of services: propagation, sampling and the cost."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [traces]
 related: [traces, correlation-ids, telemetry]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Distributed tracing is [traces](/13-observability/traces.md) crossing processes:
 service, calls others, passes through queues, and that whole path forms a single tree.
 
 Two specific problems appear when you cross boundaries: **propagating the context** across every hop, and
-**sampling** — because tracing everything is too expensive.
+**sampling**, because tracing everything is too expensive.
 
 The sampling choice is the most consequential decision, and the most frequently made badly.
 
@@ -34,7 +34,7 @@ The sampling choice is the most consequential decision, and the most frequently 
 In an architecture with dozens of services, one request can generate hundreds of spans. With thousands of
 requests per second, the tracing data volume exceeds that of any other signal.
 
-Tracing 100% is expensive — collection, network, storage, querying.
+Tracing 100% is expensive: collection, network, storage, querying.
 
 Tracing 1% at random is cheap and useless at the moment that matters: the request that failed probably was
 not sampled.
@@ -52,10 +52,10 @@ the sampling decision  whether this trace is being collected
 ```
 
 The third part is essential and frequently forgotten: the decision needs to be **propagated**, not retaken.
-If each service decides independently, the result is fragmented traces — some spans collected, others not,
+If each service decides independently, the result is fragmented traces: some spans collected, others not,
 and the tree incomplete.
 
-The standardized propagation format — a header with a defined structure — resolved interoperability between
+The standardized propagation format (a header with a defined structure) resolved interoperability between
 libraries and vendors. Using it is the default choice; an older proprietary format is only justified when
 integrating with a system that understands nothing else.
 
@@ -71,13 +71,13 @@ a browser           requires client-side instrumentation
 a third-party system  depends on their support
 ```
 
-The queue is where most implementations break, and it is where the information would be most valuable —
+The queue is where most implementations break, and it is where the information would be most valuable,
 because the asynchronous operation is the hardest to reconstruct manually.
 
 See [correlation identifiers](/13-observability/correlation-ids.md).
 
-And there is a modeling decision with queues: is the consumption a child span of the producer — which
-produces very long traces — or a new trace linked by reference? The second is usually more useful
+And there is a modeling decision with queues: is the consumption a child span of the producer (which
+produces very long traces) or a new trace linked by reference? The second is usually more useful
 operationally.
 
 ### Sampling: the three strategies
@@ -88,7 +88,7 @@ blind: it does not know whether the request will fail or be slow.
 **Tail-based.** The decision is made at the end, after knowing the outcome. It allows keeping 100% of the
 errors and slow requests, and a fraction of the rest.
 
-**Adaptive.** The rate adjusts to the volume — rare routes are sampled more, frequent routes less,
+**Adaptive.** The rate adjusts to the volume: rare routes are sampled more, frequent routes less,
 preserving coverage of all of them.
 
 Tail-based sampling is the one that resolves the real problem, and it costs: every span needs to be
@@ -100,8 +100,8 @@ that forces the collection of errors and of marked requests.
 
 ### Force the collection when it matters
 
-Regardless of the strategy, three cases take priority over ordinary traffic — with a rate cap, because in
-the incident where errors spike, collecting 100% of them saturates the collector exactly when it is needed:
+Regardless of the strategy, three cases take priority over ordinary traffic (with a rate cap, because in
+the incident where errors spike, collecting 100% of them saturates the collector exactly when it is needed):
 
 ```text
 errors                    always, up to the cap
@@ -129,7 +129,7 @@ And the retention can be tiered: error and slow traces for longer, the normal on
 
 ### With no complete coverage, the value drops
 
-A trace that crosses eight services and stops at the third — because the fourth does not propagate — shows
+A trace that crosses eight services and stops at the third (because the fourth does not propagate) shows
 less than it appears: the tree looks complete and it is truncated.
 
 That is worse than having no trace, because it induces wrong conclusions: the time "disappears" at the
@@ -149,7 +149,7 @@ errors is not optional.
 - Distributed latency investigation.
 - Mapping real dependencies.
 - Inherited systems with no flow documentation.
-- Before decomposing a monolith — to know what calls what.
+- Before decomposing a monolith, to know what calls what.
 
 ## When Not to Use
 
@@ -161,7 +161,7 @@ coordinated sampling.
 [correlation identifiers](/13-observability/correlation-ids.md) in the logs, with each stage's duration,
 reconstruct the request, and a stateful collector does not pay for itself.
 
-**When the chain runs mostly through components you do not control** — third-party APIs, uninstrumented
+**When the chain runs mostly through components you do not control**: third-party APIs, uninstrumented
 clients. The trace stops at the first foreign boundary and produces exactly the truncated tree described
 above; latency metrics per external dependency give the signal without pretending to be complete.
 
@@ -171,12 +171,12 @@ instrumentation is paid for and the trace of the request that failed does not ex
 
 ## Alternatives
 
-- **[Correlation identifiers](/13-observability/correlation-ids.md)** — the minimal subset, far cheaper,
+- **[Correlation identifiers](/13-observability/correlation-ids.md)**: the minimal subset, far cheaper,
   with no structure and no timings.
-- **[Logs](/13-observability/logs.md) with per-stage duration** — it covers part of the value.
-- **[Metrics](/13-observability/metrics.md) per service pair** — they show a trend between components,
+- **[Logs](/13-observability/logs.md) with per-stage duration**: it covers part of the value.
+- **[Metrics](/13-observability/metrics.md) per service pair**: they show a trend between components,
   with no individual view.
-- **A service mesh** — it instruments the calls between services with no code change, covering the
+- **A service mesh**: it instruments the calls between services with no code change, covering the
   boundaries. See [service mesh](/08-integration-architecture/service-mesh.md).
 
 The last is a cheap way of getting boundary coverage quickly, with the limitation of not seeing inside the
@@ -234,7 +234,7 @@ services.
 A mobility platform instrumented distributed tracing across 22 services, with random sampling at 1%.
 
 For six months, the tool was considered useless by the team. The reason appeared in a retrospective:
-whenever somebody investigated a specific problem, the corresponding trace did not exist — because 99% were
+whenever somebody investigated a specific problem, the corresponding trace did not exist, because 99% were
 not collected.
 
 The reformulation:
@@ -242,9 +242,9 @@ The reformulation:
 **Tail-based sampling**, with explicit rules: 100% of errors, 100% above the 99th latency percentile, 100%
 of rare routes, and 2% of the rest.
 
-The cost did not stay the same: storage grew about threefold — from 1% to somewhere between 3% and 5% of
-traces — and collection became full up to the decision. The numbers closed by shortening the retention of
-normal traces. The usefulness changed completely — the traces that existed became the ones somebody wanted
+The cost did not stay the same: storage grew about threefold (from 1% to somewhere between 3% and 5% of
+traces) and collection became full up to the decision. The numbers closed by shortening the retention of
+normal traces. The usefulness changed completely: the traces that existed became the ones somebody wanted
 to see.
 
 **A force-collection header**, used by support and by the integration tests. A customer reporting a problem
@@ -253,7 +253,7 @@ can have the next attempt fully traced.
 **Propagation through queues**, which did not exist. Three of the 22 services were reached only by message,
 and appeared disconnected. With the propagation, the tree became complete.
 
-**The sampling decision propagated.** Before, each service decided on its own — which produced traces with
+**The sampling decision propagated.** Before, each service decided on its own, which produced traces with
 holes that looked like instrumentation problems.
 
 Two immediate findings after the change:
@@ -261,18 +261,18 @@ Two immediate findings after the change:
 **A circular dependency.** The pricing service called the routing one, which under certain conditions
 called pricing. It had existed for two years and explained latency spikes nobody had diagnosed.
 
-**Divergent clocks.** Spans from one service appeared to start before their parent started — the child
+**Divergent clocks.** Spans from one service appeared to start before their parent started: the child
 "began" before it was called. The investigation
 found drift of up to 800 ms on two instances. See [clock and time](/06-distributed-systems/clock-and-time.md).
 
-The recorded lesson: the tool had been installed and correct for six months. The sampling choice — made
-with no discussion, at the default value — made it useless.
+The recorded lesson: the tool had been installed and correct for six months. The sampling choice (made
+with no discussion, at the default value) made it useless.
 
 ## Related Concepts
 
-- [Traces](/13-observability/traces.md) — the fundamentals.
-- [Correlation Identifiers](/13-observability/correlation-ids.md) — the minimal subset.
-- [Telemetry](/13-observability/telemetry.md) — the cost.
+- [Traces](/13-observability/traces.md): the fundamentals.
+- [Correlation Identifiers](/13-observability/correlation-ids.md): the minimal subset.
+- [Telemetry](/13-observability/telemetry.md): the cost.
 - [Debuggability](/13-observability/debuggability.md).
 
 ## Practical Exercise

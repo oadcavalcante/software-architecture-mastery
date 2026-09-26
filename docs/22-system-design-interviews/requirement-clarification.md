@@ -2,7 +2,7 @@
 id: requirement-clarification
 title: Clarificação de Requisitos
 sidebar_position: 1
-description: O enunciado é vago de propósito — e a primeira coisa avaliada é se você percebe isso.
+description: O enunciado é vago de propósito, e a primeira coisa avaliada é se você percebe isso.
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [functional-vs-nonfunctional, interview-structure, interview-common-mistakes]
 canonical_for: [clarificação de requisitos, pergunta de escopo, premissa declarada, enunciado vago]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 "Projete o Twitter." "Projete um encurtador de URL." "Projete o Uber."
 
 Esses enunciados são vagos deliberadamente. Nenhum deles é respondível como está, e a primeira
-competência avaliada é se o candidato percebe isso — ou se começa a desenhar caixas.
+competência avaliada é se o candidato percebe isso, ou se começa a desenhar caixas.
 
 ```text
 o enunciado não é o problema
@@ -45,7 +45,7 @@ candidato       "ok, vou usar um hash da URL original, guardar num
                 banco chave-valor, com cache na frente..."
 ```
 
-O candidato já decidiu escala, modelo de dados, tecnologia e topologia — sobre um problema que
+O candidato já decidiu escala, modelo de dados, tecnologia e topologia, sobre um problema que
 não conhece. Ele não sabe se são mil ou um bilhão de URLs, se os links expiram, se há
 personalização, se há análise de cliques, se é público ou interno.
 
@@ -103,7 +103,7 @@ A segunda forma é melhor por três razões. Ela demonstra que você tem referê
 mantém o ritmo, porque o entrevistador só precisa confirmar; e ela deixa explícito que o número é
 uma premissa, o que protege a análise seguinte.
 
-Entrevistadores frequentemente respondem "o que você achar razoável" — e nesse caso a proposta já
+Entrevistadores frequentemente respondem "o que você achar razoável", e nesse caso a proposta já
 resolveu o impasse.
 
 ### Toda premissa dita em voz alta é uma âncora
@@ -114,8 +114,8 @@ resolveu o impasse.
 "vou assumir que não precisamos de links personalizados nesta versão"
 ```
 
-Premissas declaradas fazem duas coisas. Elas permitem ao entrevistador corrigir o rumo cedo —
-"na verdade, personalização é importante" — em vez de tarde, quando a arquitetura já foi
+Premissas declaradas fazem duas coisas. Elas permitem ao entrevistador corrigir o rumo cedo
+("na verdade, personalização é importante") em vez de tarde, quando a arquitetura já foi
 desenhada sobre elas. E elas registram que a decisão foi consciente, e não omissão.
 
 Uma premissa não declarada e errada aparece tarde, quando a arquitetura já depende dela e
@@ -123,14 +123,14 @@ corrigi-la custa o redesenho. A mesma premissa declarada e errada é corrigida e
 
 ### Requisitos implícitos existem e valem pontos
 
-Alguns requisitos nunca são ditos e são esperados — disponibilidade, durabilidade, segurança,
+Alguns requisitos nunca são ditos e são esperados: disponibilidade, durabilidade, segurança,
 custo, operação. A lista e o peso de cada um estão em
 [os implícitos que valem mencionar](/22-system-design-interviews/functional-vs-nonfunctional.md#os-implícitos-que-valem-mencionar);
 aqui interessa o momento de citá-los, que é a clarificação.
 
-Mencioná-los brevemente — "vou assumir que disponibilidade importa mais que consistência forte
+Mencioná-los brevemente ("vou assumir que disponibilidade importa mais que consistência forte
 neste caso, porque um link temporariamente indisponível é pior que um contador de cliques
-levemente atrasado" — demonstra maturidade sem consumir tempo.
+levemente atrasado") demonstra maturidade sem consumir tempo.
 
 ### Anote e volte
 
@@ -138,8 +138,8 @@ Escreva os requisitos em um canto do quadro, funcionais de um lado e não funcio
 [funcionais contra não funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
 
 Isso serve a três propósitos: mantém você honesto sobre o que prometeu resolver; permite ao
-entrevistador ver que você não esqueceu nada; e dá algo a que voltar quando o tempo apertar —
-"não vou cobrir o painel de análise, que estava na lista de menor prioridade".
+entrevistador ver que você não esqueceu nada; e dá algo a que voltar quando o tempo apertar
+("não vou cobrir o painel de análise, que estava na lista de menor prioridade").
 
 ### O orçamento de tempo
 
@@ -165,7 +165,7 @@ perguntar em aberto, e declare toda premissa que muda decisão.
 ## Quando Não Usar
 
 **Quando o enunciado já vem delimitado.** Se o entrevistador entrega escopo, escala e restrições
-— "encurtador público, 100 M de links por mês, sem personalização" —, refazer as perguntas gasta o
+("encurtador público, 100 M de links por mês, sem personalização"), refazer as perguntas gasta o
 orçamento confirmando o que foi dito. Repita os números em uma frase, pergunte só o que ficou de
 fora e siga.
 
@@ -176,14 +176,14 @@ a premissa da variação e responda sobre ela.
 **Quando a resposta não mudaria nenhuma caixa já desenhada.** Depois que o desenho existe, uma
 pergunta de escopo só vale se puder deslocar um componente; se não pode, é rigor de fachada.
 
-**Quando a decisão é sua** — escolha de tecnologia, topologia, banco. Perguntar isso transfere a
+**Quando a decisão é sua**: escolha de tecnologia, topologia, banco. Perguntar isso transfere a
 decisão e desperdiça a oportunidade de mostrar critério.
 
 ## Alternativas
 
-- **Propor e confirmar** — em vez de perguntar em aberto; mais rápido e mais demonstrativo.
-- **Declarar premissa e seguir** — quando o entrevistador não responde ou diz "você decide".
-- **Perguntar em bloco** — três a quatro perguntas juntas, em vez de uma a uma, mantém o ritmo.
+- **Propor e confirmar**: em vez de perguntar em aberto; mais rápido e mais demonstrativo.
+- **Declarar premissa e seguir**: quando o entrevistador não responde ou diz "você decide".
+- **Perguntar em bloco**: três a quatro perguntas juntas, em vez de uma a uma, mantém o ritmo.
 
 ## Trade-offs
 
@@ -211,7 +211,7 @@ decisão e desperdiça a oportunidade de mostrar critério.
 
 **Estourar o orçamento de clarificação.**
 
-**Não anotar** — e prometer coisas que não serão cobertas.
+**Não anotar** e prometer coisas que não serão cobertas.
 
 ## Erros Comuns
 
@@ -226,7 +226,7 @@ os 5 a 8 minutos e o entrevistador perde a visão de conjunto do que foi fixado.
 
 **Tratar clarificação como formalidade** e voltar ao roteiro decorado depois. O desenho sai
 igual ao que sairia sem as respostas, e o entrevistador conclui que as perguntas não serviram
-para nada — que é pior do que não tê-las feito.
+para nada. Isso é pior do que não tê-las feito.
 
 ## Exemplo de Entrevista
 
@@ -285,8 +285,8 @@ O último item merece atenção: perguntar "público ou interno" leva cinco segu
 o problema em quatro ordens de grandeza. É a pergunta de maior retorno da lista, e é a que mais
 se esquece.
 
-Há uma razão para esquecê-la: o candidato assume que o enunciado se refere ao sistema famoso —
-"encurtador de URL" evoca serviços públicos de grande escala. Assumir isso é razoável e é uma
+Há uma razão para esquecê-la: o candidato assume que o enunciado se refere ao sistema famoso
+("encurtador de URL" evoca serviços públicos de grande escala). Assumir isso é razoável e é uma
 premissa, e a diferença entre assumir em silêncio e declarar em voz alta é toda a diferença. Um
 candidato que diz "vou assumir escala pública, na casa de bilhões de redirecionamentos" e segue
 está fazendo exatamente a coisa certa; um que simplesmente desenha para essa escala sem dizer
@@ -300,13 +300,13 @@ e passa a exigir verificação, o que introduz contenção e um caminho de erro 
 ## Conceitos Relacionados
 
 - [Funcionais vs. Não Funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
-- [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md) — o orçamento de tempo.
+- [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md): o orçamento de tempo.
 - [Erros Comuns](/22-system-design-interviews/interview-common-mistakes.md).
 - [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 
 ## Exercício Prático
 
-Pegue um enunciado vago — "projete um sistema de notificações" — e escreva dez perguntas.
+Pegue um enunciado vago ("projete um sistema de notificações") e escreva dez perguntas.
 
 Depois risque as que não mudam nenhuma decisão de arquitetura. As que sobrarem são as que você
 faria numa entrevista; as riscadas são as que consomem o seu tempo.

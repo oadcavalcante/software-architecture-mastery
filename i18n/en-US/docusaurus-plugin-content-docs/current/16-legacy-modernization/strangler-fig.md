@@ -2,7 +2,7 @@
 id: strangler-fig
 title: Strangler Fig
 sidebar_position: 3
-description: Replacing gradually with the old one in operation — the pattern that makes modernization viable.
+description: "Replacing gradually with the old one in operation: the pattern that makes modernization viable."
 doc_type: pattern
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [incremental-modernization, migration-strategies, transition-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 The strangler fig pattern replaces a system **gradually**: a layer intercepts calls and
-routes them — initially all to the old system, progressively more to the new one — until
+routes them (initially all to the old system, progressively more to the new one) until
 the old one can be shut down.
 
 The name comes from a plant that grows around a host tree until it replaces it.
@@ -61,13 +61,13 @@ user interface           screens migrated one at a time
 ```
 
 A shared database is not on this list: it diverts no call at all, it is a data source
-arrangement during coexistence — dealt with further on, in "the data is the hard part".
+arrangement during coexistence, dealt with further on, in "the data is the hard part".
 
 The choice depends on where it is possible to intercept **without modifying the old
-system** — which is frequently the real constraint, because modifying it may be exactly
+system**. That is frequently the real constraint, because modifying it may be exactly
 what you cannot do.
 
-When there is no natural interception point, creating one is the project's first job —
+When there is no natural interception point, creating one is the project's first job,
 and it is frequently underestimated.
 
 ### Choosing what to migrate first
@@ -83,7 +83,7 @@ independence   the one with the fewest dependencies on the rest
 The usual and good choice: **start with something small and independent, to validate the
 path**, and go for the value right after.
 
-The common mistake is starting with the easiest and staying there — migrating the
+The common mistake is starting with the easiest and staying there: migrating the
 peripheral for months, without touching what motivated the project. That produces visible
 progress and no value.
 
@@ -116,7 +116,7 @@ The property that makes the pattern safe:
 migrated a feature → something went wrong → route it back
 ```
 
-That requires the old system to stay **functional** throughout the transition — not
+That requires the old system to stay **functional** throughout the transition: not
 merely on, but able to take over.
 
 And it requires the data to be compatible in both directions, which is the most limiting
@@ -148,7 +148,7 @@ See [transition architecture](/15-enterprise-architecture/transition-architectur
 
 ### The interception layer is temporary, and frequently isn't
 
-It is built for the migration and tends to stay — becoming a permanent piece with routing
+It is built for the migration and tends to stay, becoming a permanent piece with routing
 logic nobody understands afterwards.
 
 Removing it at the end of the migration has to be in the plan, or it becomes the next
@@ -181,7 +181,7 @@ coexistence and the shutdown plan cost more than the system being replaced.
 
 **When what motivated the project does not fit in the first slices.** If the reason to
 modernize is in the core and the core can only be touched at the end, the pattern delivers two
-years of risk before the first benefit — and that is how a migration loses its sponsorship
+years of risk before the first benefit. That is how a migration loses its sponsorship
 halfway through.
 
 **When the old one will be discontinued for another reason** before the migration
@@ -189,13 +189,13 @@ finishes.
 
 ## Alternatives
 
-- **[Rebuilding](/16-legacy-modernization/rebuilding.md)** — when the system is small or the behavior has to
+- **[Rebuilding](/16-legacy-modernization/rebuilding.md)**: when the system is small or the behavior has to
   change radically.
-- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)** — when the problem is internal, not one of
+- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)**: when the problem is internal, not one of
   replacement.
-- **[Replatforming](/16-legacy-modernization/replatforming.md)** — when the problem is the infrastructure, not the
+- **[Replatforming](/16-legacy-modernization/replatforming.md)**: when the problem is the infrastructure, not the
   code.
-- **Permanent coexistence** — a legitimate decision when the remaining cases don't justify
+- **Permanent coexistence**: a legitimate decision when the remaining cases don't justify
   migrating, provided it is recorded.
 
 ## Trade-offs
@@ -220,7 +220,7 @@ finishes.
 **No interception point.** The project doesn't start.
 
 **The routing layer goes down.** It sits in the path of 100% of the traffic throughout the
-transition, and comes to require the availability of the sum of the two systems — plus one
+transition, and comes to require the availability of the sum of the two systems, plus one
 network hop on every call. It is a [single point of failure by
 construction](/08-integration-architecture/api-gateways.md), and migrations tend to treat it
 as an infrastructure detail until the first incident.
@@ -237,22 +237,22 @@ as an infrastructure detail until the first incident.
 
 ## Common Mistakes
 
-**Not planning the shutdown.** With no criterion and date for turning the old one off, the company operates and pays for both systems indefinitely — and the strategy delivers cost instead of savings.
+**Not planning the shutdown.** With no criterion and date for turning the old one off, the company operates and pays for both systems indefinitely, and the strategy delivers cost instead of savings.
 
 **Starting with the easy part and staying there.** The simple parts go quickly and give a sense of progress; what's left is all the hard work, and the support has already been spent.
 
-**Not mapping the hard cases early.** Discovering in month ten that a feature is not extractable changes the viability of the entire strategy — and it is information you can get in month one.
+**Not mapping the hard cases early.** Discovering in month ten that a feature is not extractable changes the viability of the entire strategy. And it is information you can get in month one.
 
 **Not maintaining data compatibility in both directions.** During coexistence, the source of truth changes sides. One-way compatibility makes it impossible to roll a slice back.
 
-**Not monitoring what still uses the old one.** Without measuring the residual traffic, nobody knows whether a forgotten consumer remains — and the shutdown becomes a gamble.
+**Not monitoring what still uses the old one.** Without measuring the residual traffic, nobody knows whether a forgotten consumer remains, and the shutdown becomes a gamble.
 
 **Not removing the interception layer at the end.** It was scaffolding; kept after the shutdown, it becomes permanent indirection nobody remembers the reason for.
 
 ## Real-World Example
 
-A bank replaced its credit origination system — 16 years old, monolithic, with a
-quarterly release — by strangling.
+A bank replaced its credit origination system (16 years old, monolithic, with a
+quarterly release) by strangling.
 
 The interception point: an HTTP gateway in front, routing per endpoint.
 
@@ -270,10 +270,10 @@ already captured.
 **Slice 9 — the hard cases.** Agreements with partner companies, with rules specific to
 each agreement, some negotiated individually.
 
-That last slice was mapped in month 4, not at the end — and the decision about it changed
+That last slice was mapped in month 4, not at the end, and the decision about it changed
 the plan: of the 340 agreements, 290 followed three patterns, and 50 were unique.
 
-The 290 were migrated. The 50 were **negotiated** — the customers moved to one of the
+The 290 were migrated. The 50 were **negotiated**: the customers moved to one of the
 three patterns, with a commercial incentive. It was cheaper than implementing 50
 exceptions in the new system.
 
@@ -285,12 +285,12 @@ negotiate.
 Two problems during execution:
 
 **Dual write diverging.** For four months, proposals were written to both systems.
-Divergences appeared in about 0.4% of cases — different rounding rules. The daily
+Divergences appeared in about 0.4% of cases: different rounding rules. The daily
 reconciliation detected it, and the fix was fast because the divergence was visible. See
 [data consistency](/07-data-architecture/data-consistency.md).
 
 **The gateway becoming permanent.** By the end of the migration, the gateway had 200
-routing rules. Removing it was treated as its own task, in month 24 — and it took
+routing rules. Removing it was treated as its own task, in month 24, and it took
 insistence, because "it's working".
 
 What the team records: mapping the hard cases in month 4 was the decision that most
@@ -299,8 +299,8 @@ commercial negotiation with eighteen months' notice.
 
 ## Related Concepts
 
-- [Incremental Modernization](/16-legacy-modernization/incremental-modernization.md) — the discipline.
-- [Data Migration](/16-legacy-modernization/data-migration.md) — the hard part.
+- [Incremental Modernization](/16-legacy-modernization/incremental-modernization.md): the discipline.
+- [Data Migration](/16-legacy-modernization/data-migration.md): the hard part.
 - [Transition Architecture](/15-enterprise-architecture/transition-architecture.md).
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 
@@ -309,7 +309,7 @@ commercial negotiation with eighteen months' notice.
 For a system you would consider replacing, identify where it would be possible to
 intercept the calls without modifying it.
 
-If there is no viable point, creating one is the first job — and it has to be in the
+If there is no viable point, creating one is the first job, and it has to be in the
 estimate.
 
 ## Interview Questions
@@ -320,7 +320,7 @@ estimate.
 
 ## Further Reading
 
-- Fowler, Martin. *StranglerApplication*, 2004 — later renamed
+- Fowler, Martin. *StranglerApplication*, 2004. Later renamed
   *StranglerFigApplication*, and it is under that title that the entry is found today.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.

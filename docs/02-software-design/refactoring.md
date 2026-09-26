@@ -2,18 +2,18 @@
 id: refactoring
 title: Refatoração
 sidebar_position: 17
-description: Mudar a estrutura sem mudar o comportamento — e o que separa refatoração de reescrita disfarçada.
+description: Mudar a estrutura sem mudar o comportamento, e o que separa refatoração de reescrita disfarçada.
 doc_type: concept
 level: 2
 difficulty: intermediário
 status: complete
 objective: >
   Ao terminar, o leitor conduz refatoração em passos verificáveis e sabe quando
-  parar — que é a parte que quase nunca é definida.
+  parar: a parte que quase nunca é definida.
 prerequisites: [code-smells]
 related: [technical-debt, clean-code, legacy-modernization]
 canonical_for: [refatoração, refactoring]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Refatoração é alterar a estrutura interna do código **sem alterar seu
 comportamento observável**.
 
 A cláusula depois do "sem" é a definição inteira. Se o comportamento muda, não é
-refatoração — é mudança de funcionalidade, e as duas não devem acontecer no mesmo
+refatoração: é mudança de funcionalidade, e as duas não devem acontecer no mesmo
 commit.
 
 ## Problema
@@ -40,7 +40,7 @@ juntos, e um teste falha, ninguém sabe qual das duas causou.
 
 O segundo problema é ausência de critério de parada. "Vamos refatorar isso"
 raramente define quando está pronto, e refatoração sem fim declarado consome
-tempo até que alguém interrompa por pressão de prazo — frequentemente no meio,
+tempo até que alguém interrompa por pressão de prazo, frequentemente no meio,
 deixando o código pior que no início.
 
 ## Conceitos Centrais
@@ -60,7 +60,7 @@ O valor não é psicológico. Com passos pequenos, o passo que quebrou é sempre
 
 ### Testes são pré-requisito, não consequência
 
-Refatorar código sem testes não é refatoração — é mudança estrutural na
+Refatorar código sem testes não é refatoração: é mudança estrutural na
 esperança de que nada quebre.
 
 Quando os testes não existem, a ordem é: escrever
@@ -83,8 +83,8 @@ Respostas inúteis: "o código está melhor", "está mais limpo".
 
 ### Refatoração preparatória
 
-A forma que se paga mais rápido — o retorno aparece na funcionalidade seguinte, e
-não numa economia futura difusa: refatorar **antes** de implementar, para tornar
+A forma que se paga mais rápido (o retorno aparece na funcionalidade seguinte, e
+não numa economia futura difusa): refatorar **antes** de implementar, para tornar
 a implementação simples.
 
 Kent Beck (2012): *"para cada mudança desejada, torne a mudança fácil (atenção:
@@ -100,7 +100,7 @@ adicionar.
 funciona melhor como prática contínua, associada a mudanças reais.
 
 Refatoração desconectada de necessidade não tem critério de parada nem de
-priorização, e compete com entrega — competição que ela perde no primeiro
+priorização, e compete com entrega, competição que ela perde no primeiro
 imprevisto.
 
 ## Modelo Mental
@@ -110,10 +110,10 @@ mudando comportamento. Se não souber qual, pare.
 
 ## Quando Usar
 
-- Antes de adicionar funcionalidade a um código que resiste — refatoração
+- Antes de adicionar funcionalidade a um código que resiste: refatoração
   preparatória.
 - Quando um smell tem juros altos: código no caminho de muitas mudanças.
-- Ao entender um código pela primeira vez — renomear conforme se aprende é
+- Ao entender um código pela primeira vez: renomear conforme se aprende é
   registro de conhecimento.
 - Depois de entregar, para limpar o que foi feito sob pressão, enquanto o
   contexto ainda está fresco.
@@ -137,13 +137,13 @@ com extração de método. Ver
 
 ## Alternativas
 
-- **Reescrever o módulo** — quando a estrutura atual não admite passos
+- **Reescrever o módulo**: quando a estrutura atual não admite passos
   incrementais. É mais arriscado e às vezes é a resposta.
-- **[Strangler fig](/16-legacy-modernization/strangler-fig.md)** — substituição
+- **[Strangler fig](/16-legacy-modernization/strangler-fig.md)**: substituição
   incremental por fora, quando o interior não permite mudança segura.
-- **Aceitar e isolar** — encapsular o código problemático atrás de uma interface
+- **Aceitar e isolar**: encapsular o código problemático atrás de uma interface
   boa, sem mexer no interior.
-- **Não fazer nada** — quando os juros são baixos.
+- **Não fazer nada**: quando os juros são baixos.
 
 ## Trade-offs
 
@@ -191,8 +191,8 @@ Um time precisava adicionar um novo tipo de desconto. A implementação estimada
 era de dois dias, mas o cálculo estava numa classe de 600 linhas com sete tipos
 de desconto entrelaçados por condicionais aninhadas.
 
-Duas propostas: implementar mais um ramo — os dois dias estimados, e a classe vai
-a 700 linhas — ou refatorar antes.
+Duas propostas: implementar mais um ramo (os dois dias estimados, e a classe vai
+a 700 linhas) ou refatorar antes.
 
 A refatoração preparatória foi definida com critério explícito de parada:
 *adicionar um tipo de desconto deve exigir uma classe nova e nenhuma alteração
@@ -204,8 +204,8 @@ por fim adicionar o novo tipo.
 
 O novo desconto levou duas horas.
 
-O que torna o caso instrutivo não é a economia — quatro dias para economizar dois
-não fecha. É o que veio depois: nos quatorze meses seguintes foram adicionados
+O que torna o caso instrutivo não é a economia (quatro dias para economizar dois
+não fecha), e sim o que veio depois: nos quatorze meses seguintes foram adicionados
 mais cinco tipos, cada um em cerca de duas horas. Contra os dois dias por tipo
 que a classe antiga cobrava, a refatoração se pagou no terceiro.
 
@@ -229,8 +229,8 @@ consegue resolver com confiança.
 **Separe movimentação de alteração.** Um commit que só move arquivos é trivial de
 revisar e de rebasear; um que move e altera é impossível de avaliar.
 
-**Refatore o que você está tocando.** A regra do escoteiro — deixe melhor do que
-encontrou — distribui a refatoração por quem já tem o contexto, e evita conflito
+**Refatore o que você está tocando.** A regra do escoteiro (deixe melhor do que
+encontrou) distribui a refatoração por quem já tem o contexto, e evita conflito
 por construção.
 
 O ponto que essas quatro compartilham: refatoração é mais barata quando é contínua
@@ -239,10 +239,10 @@ esforço grande vem da vontade de fazer de uma vez, e é normalmente a opção p
 
 ## Conceitos Relacionados
 
-- [Code Smells](/02-software-design/code-smells.md) — o que indica onde refatorar.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — como priorizar.
-- [Clean Code](/02-software-design/clean-code.md) — o alvo local.
-- [Modernização de Legado](/16-legacy-modernization/index.md) — quando o
+- [Code Smells](/02-software-design/code-smells.md): o que indica onde refatorar.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md): como priorizar.
+- [Clean Code](/02-software-design/clean-code.md): o alvo local.
+- [Modernização de Legado](/16-legacy-modernization/index.md): quando o
   problema é maior que refatoração.
 
 ## Exercício Prático
@@ -266,5 +266,5 @@ Compare o tempo total com sua estimativa de implementar direto.
 
 - Fowler, Martin. *Refactoring*. 2ª ed., Addison-Wesley, 2018.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall,
-  2004 — testes de caracterização.
-- Beck, Kent. *Tidy First?* O'Reilly, 2023 — refatoração em passos pequenos.
+  2004. Testes de caracterização.
+- Beck, Kent. *Tidy First?* O'Reilly, 2023. Refatoração em passos pequenos.

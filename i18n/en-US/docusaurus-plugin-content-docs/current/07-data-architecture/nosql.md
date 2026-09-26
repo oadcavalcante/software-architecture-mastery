@@ -2,7 +2,7 @@
 id: nosql
 title: NoSQL
 sidebar_position: 2
-description: A term that groups technologies with nothing in common — and why using it gets in the way of the decision.
+description: A term that groups technologies with nothing in common, and why using it gets in the way of the decision.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [document-databases, key-value-databases, column-stores]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 "NoSQL" does not describe a technology. It groups document, key-value, columnar, graph and time series
-databases — which **have nothing in common** beyond not being relational.
+databases, which **have nothing in common** beyond not being relational.
 
 A graph database and a key-value store are more different from each other than either is from a
 relational database.
@@ -70,7 +70,7 @@ documents. The category no longer predicts the properties.
 
 ### The promises that aged
 
-**"Schemaless."** There is no data with no schema — there is an undeclared schema. It disappears from
+**"Schemaless."** There is no data with no schema; there is an undeclared schema. It disappears from
 the database and reappears in the application, in several places, with no validation. See
 [document databases](/07-data-architecture/document-databases.md).
 
@@ -93,7 +93,7 @@ Instead of "SQL or NoSQL", four questions decide:
 **What unforeseen questions will be asked?** If many, models optimized for one access pattern will
 limit you.
 
-With those four answered, the storage choice is nearly mechanical — and the word "NoSQL" never appears.
+With those four answered, the storage choice is nearly mechanical, and the word "NoSQL" never appears.
 
 ### Polyglot persistence has a real operational cost
 
@@ -101,13 +101,13 @@ Using the right store for each case is correct in principle, but each additional
 for itself, the operational questions in the next section. The full account is in
 [cost of the second database](/20-trade-offs/sql-vs-nosql.md).
 
-The rule of thumb: add a store when there is a concrete problem the current one does not solve — not
+The rule of thumb: add a store when there is a concrete problem the current one does not solve, not
 for theoretical fit.
 
 ### The term hides the operational questions
 
 Beyond grouping incompatible technologies, "NoSQL" shifts the conversation toward capacity and
-performance — and away from the questions that determine whether the adoption will hold up.
+performance, and away from the questions that determine whether the adoption will hold up.
 
 The ones usually missing:
 
@@ -138,11 +138,11 @@ The term is useful in exactly one context: a historical conversation about the m
 
 To decide on storage, use the specific categories:
 
-- **[Document](/07-data-architecture/document-databases.md)** — variable aggregates read whole.
-- **[Key-value](/07-data-architecture/key-value-databases.md)** — access by key, throughput.
-- **[Columnar](/07-data-architecture/column-stores.md)** — analytics.
-- **[Graph](/07-data-architecture/graph-databases.md)** — traversal.
-- **Time series** — metrics with retention.
+- **[Document](/07-data-architecture/document-databases.md)**: variable aggregates read whole.
+- **[Key-value](/07-data-architecture/key-value-databases.md)**: access by key, throughput.
+- **[Columnar](/07-data-architecture/column-stores.md)**: analytics.
+- **[Graph](/07-data-architecture/graph-databases.md)**: traversal.
+- **Time series**: metrics with retention.
 
 ## When Not to Use
 
@@ -166,8 +166,8 @@ It wins when the team operates a single database and the specialized workload ha
 incident or a measured slow query.
 
 **Specialized store.** It wins when measurement shows the general store does not serve the access
-pattern — an aggregation that takes minutes, expiry implemented by scanning, relevance that a regular
-expression cannot deliver — and the gain pays for one more operational procedure.
+pattern (an aggregation that takes minutes, expiry implemented by scanning, relevance that a regular
+expression cannot deliver), and the gain pays for one more operational procedure.
 
 ## Trade-offs
 
@@ -200,13 +200,13 @@ leaving either one is expensive, and only the direction of the migration changes
 **Treating it as a binary decision.** The question is not relational or not; it is which store serves
 each access pattern. Mature systems use more than one, for declared reasons.
 
-**Adopting by trend.** The choice has to come from a requirement — volume, the shape of the data, the
+**Adopting by trend.** The choice has to come from a requirement: volume, the shape of the data, the
 query pattern. Adopted by popularity, it appears as a limitation months later, when the necessary query
 is not expressible.
 
 **Assuming "schemaless" eliminates the schema.** The schema merely migrates to the reading code, and
 comes to exist in several simultaneous versions with nobody declaring them. Migration is still
-necessary — only with no tooling.
+necessary, only with no tooling.
 
 **Choosing the tool before describing the access pattern.** Key-oriented databases require modeling
 from the queries. Choosing first and modeling later usually ends in a full scan to answer what was
@@ -214,7 +214,7 @@ trivial in relational.
 
 **Adding technology without counting the operational cost.** Each new store is a duplicated set of
 procedures, and the [cost of the second database](/20-trade-offs/sql-vs-nosql.md) rarely enters
-the comparison — which tends to be made on performance alone.
+the comparison, which tends to be made on performance alone.
 
 ## Real-World Example
 
@@ -242,17 +242,17 @@ Migrated to an inverted index.
 
 Of the five workloads, the document database was the right choice for one.
 
-The later assessment points out: the original decision was not between models — it was between "NoSQL"
+The later assessment points out: the original decision was not between models; it was between "NoSQL"
 and "SQL", made once for all five workloads without describing the access pattern of any. That is why
 it could not be right for all five; it was right for the medical records by coincidence.
 
 ## Related Concepts
 
-- [Relational Databases](/07-data-architecture/relational-databases.md) — the default you give up.
+- [Relational Databases](/07-data-architecture/relational-databases.md): the default you give up.
 - [Document Databases](/07-data-architecture/document-databases.md),
   [Key-Value](/07-data-architecture/key-value-databases.md),
-  [Columnar](/07-data-architecture/column-stores.md), [Graph](/07-data-architecture/graph-databases.md)
-  — the real categories.
+  [Columnar](/07-data-architecture/column-stores.md), [Graph](/07-data-architecture/graph-databases.md):
+  the real categories.
 
 ## Practical Exercise
 
@@ -270,5 +270,5 @@ choice that was not made on any criterion.
 ## Further Reading
 
 - Sadalage, Pramod; Fowler, Martin. *NoSQL Distilled*. Addison-Wesley, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 2.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 2.
 - Stonebraker, Michael. *The Traditional RDBMS Wisdom Is All Wrong*, 2013.

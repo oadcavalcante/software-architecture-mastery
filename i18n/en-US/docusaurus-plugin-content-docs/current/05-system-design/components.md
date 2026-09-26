@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [services, apis, service-boundaries]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-31
 A component is a part of the system with a defined responsibility, an explicit
 interface and its own lifecycle.
 
-Describing a system by its components is the most used vocabulary in system design
-— and the most frequently vague, because "component" is used for things of very
+Describing a system by its components is the most used vocabulary in system design,
+and the most frequently vague, because "component" is used for things of very
 different scales.
 
 ## Problem
@@ -33,7 +33,7 @@ different scales.
 Architecture diagrams show boxes with names. What a box means varies enormously: a
 process, a library, a module, a managed service, a database.
 
-Without defining what each box is, the diagram communicates less than it seems to —
+Without defining what each box is, the diagram communicates less than it seems to,
 and important decisions stay invisible. Two boxes connected by an arrow can be a
 function call or a network request between continents, and the difference is
 everything.
@@ -54,7 +54,7 @@ A component whose four answers are not clear is not designed.
 The most useful criterion: **a component owns a set of data and the decisions about
 it.**
 
-If two components write to the same table, they are not two — they are one, split
+If two components write to the same table, they are not two but one, split
 across two places, with the coupling hidden in the database.
 
 That is the rule that most separates a real decomposition from a nominal one. See
@@ -74,8 +74,8 @@ interacting with it:
 | Managed service | Network | The above, plus vendor dependency |
 | Storage | Its own protocol | Latency, consistency |
 
-A diagram that does not distinguish those types hides the cost of each connection —
-which is what decides latency and failure mode.
+A diagram that does not distinguish those types hides the cost of each connection.
+That is what decides latency and failure mode.
 
 ### A stateless component is simpler in every way
 
@@ -92,7 +92,7 @@ The four questions have an operational test that sums them up: **can you replace
 this component's implementation without touching any other?**
 
 If the answer is yes, the boundary is real. If it is no, the drawing has more boxes
-than components — and the cost shows up on the first replacement, when a swap
+than components, and the cost shows up on the first replacement, when a swap
 announced as local turns into a change in four places.
 
 The test is useful because it fails cheaply. Replacing a component for real is
@@ -111,8 +111,8 @@ promises does not exist in production.
 Databases, caches, queues and gateways are components of the system, with their own
 ownership, interface, dependencies and failure modes.
 
-Omitting them from the drawing — or drawing them as generic boxes with no associated
-decision — hides where the bottlenecks and failure points are.
+Omitting them from the drawing (or drawing them as generic boxes with no associated
+decision) hides where the bottlenecks and failure points are.
 
 ## Mental Model
 
@@ -139,11 +139,11 @@ look the same hides what matters.
 
 ## Alternatives
 
-- **The C4 model** — zoom levels with semantics defined per level. See
+- **The C4 model**: zoom levels with semantics defined per level. See
   [architecture documentation](/17-architecture-documentation/index.md).
-- **Sequence diagram** — when the question is about behavior over time, not about
+- **Sequence diagram**: when the question is about behavior over time, not about
   structure.
-- **Deployment diagram** — when the question is where things run.
+- **Deployment diagram**: when the question is where things run.
 
 ## Trade-offs
 
@@ -164,7 +164,7 @@ look the same hides what matters.
 **Component invisible in the drawing.** Omitted databases and queues hide the
 bottlenecks.
 
-**Type not declared.** A network call that looks like a local call — the same
+**Type not declared.** A network call that looks like a local call: the same
 problem [Proxy](/03-design-patterns/proxy.md) introduces.
 
 **Component with no defined failure mode.** Nobody knows what happens when it goes
@@ -193,14 +193,14 @@ The four questions were applied to each one.
 occupancy table. They were not two components.
 
 `Notifications` had no answer for the fourth: nobody knew what happened if it went
-down. It turned out the call was synchronous inside the booking transaction — the
+down. It turned out the call was synchronous inside the booking transaction: the
 unavailability of the email service prevented bookings.
 
 And the database did not appear in the drawing, although it was shared by three of
-the five boxes — which made their independence fiction.
+the five boxes. That made their independence fiction.
 
-The redone drawing had five components — four application ones and the database, which
-now appeared with its ownership boundaries — with each one's type declared and
+The redone drawing had five components (four application ones and the database, which
+now appeared with its ownership boundaries), with each one's type declared and
 notification moved outside the transactional flow.
 
 No code changed at that stage. What changed is that three structural problems became
@@ -216,16 +216,16 @@ arrow labels and declared scope, in
 
 What is specific to components is the stopping criterion: descend while each box still
 answers the four questions, and stop there. A box that owns no data and has no failure
-mode of its own is already implementation detail — and it is the one that forces a
+mode of its own is already implementation detail, and it is the one that forces a
 redraw every month. The container and component levels of the
 [C4 model](/17-architecture-documentation/c4-model.md) mark that boundary.
 
 ## Related Concepts
 
-- [Decomposition](/05-system-design/system-decomposition.md) — how the parts arise.
-- [Services](/05-system-design/services.md) — components with their own process.
-- [APIs](/05-system-design/apis.md) — the contract between them.
-- [Component Design](/02-software-design/component-design.md) — when to promote to
+- [Decomposition](/05-system-design/system-decomposition.md): how the parts arise.
+- [Services](/05-system-design/services.md): components with their own process.
+- [APIs](/05-system-design/apis.md): the contract between them.
+- [Component Design](/02-software-design/component-design.md): when to promote to
   deployable.
 
 ## Practical Exercise
@@ -244,6 +244,6 @@ next surprise will appear.
 
 ## Further Reading
 
-- Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015 — the C4 model.
+- Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015. The C4 model.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4th ed., 2021.

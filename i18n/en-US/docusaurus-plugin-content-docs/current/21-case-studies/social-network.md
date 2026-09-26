@@ -2,7 +2,7 @@
 id: social-network
 title: "Case: Social Network"
 sidebar_position: 5
-description: A feed for 24 million users, where the central decision is when to do the work — on write or on read.
+description: "A feed for 24 million users, where the central decision is when to do the work: on write or on read."
 doc_type: case-study
 level: 0
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, messaging-platform, high-volume-events]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ support, not the magnitudes.
 
 ## Business Context
 
-**Circulo** is a social network focused on interest communities — neighborhood, professional and
+**Circulo** is a social network focused on interest communities: neighborhood, professional and
 hobby groups. It has 24 million accounts, of which 7.8 million use the product daily.
 
 The model differs from global networks in one respect that changes the architecture: most content
@@ -64,7 +64,7 @@ and cheap, and it accounts for 38% of views.
 
 The **profile** shows a person's posts, chronologically.
 
-And **notifications** alert about interactions — comments, mentions, reactions — with near
+And **notifications** alert about interactions (comments, mentions, reactions) with near
 real-time delivery.
 
 In addition: posting text, images and short video; reacting and commenting; following people and
@@ -91,7 +91,7 @@ the conversation is synchronous and 30 seconds of delay breaks the flow; in the 
 people, nobody notices.
 
 That distinction is not a detail. It means the system has two window requirements over the same
-propagation mechanism, with a 6× difference between them — and that a single solution would have
+propagation mechanism, with a 6× difference between them, and that a single solution would have
 to meet the stricter one, paying the cost in every case. Recognizing the asymmetry early is what
 opened room for a differentiated strategy, and it is the kind of information that only appears
 when requirements are gathered per product surface rather than for the system as a whole.
@@ -117,13 +117,13 @@ architecture. Any uniform solution fails at one of the ends: what works for an a
 followers doesn't work for one with 2 million, and vice versa.
 
 It is worth insisting on that point because it is the case's transferable lesson. When designing a
-social system, the instinct is to reason about "the user" — and there is no such thing as the
+social system, the instinct is to reason about "the user", and there is no such thing as the
 user. There is a distribution, almost always long-tailed, in which the median and the 99.99th
 percentile differ by four orders of magnitude. Decisions taken on the average are wrong at both
 ends: too expensive for the majority and insufficient for the extremes.
 
-The first artifact produced in this project was not a diagram. It was a histogram of the follower
-and community-member distribution, with the percentiles made explicit — and on its own it
+The first artifact produced in this project was not a diagram but a histogram of the follower
+and community-member distribution, with the percentiles made explicit, and on its own it
 eliminated Option B from the discussion in one meeting.
 
 ## Capacity Estimates
@@ -144,7 +144,7 @@ reactions and comments/day         142 million
 
 The read-to-write ratio is **38 to 1** counting only posts, and 2.3 to 1 counting all
 interactions. The system is dominated by reads, and that is why the decision about where to do the
-work — on write or on read — is the central one.
+work (on write or on read) is the central one.
 
 The calculation that makes it concrete:
 
@@ -159,7 +159,7 @@ fan-out on write
 ```
 
 Four hundred thousand writes per second, to serve 11,500 reads per second. Fanning out everything
-on write is clearly absurd in this profile — and it is exactly the solution the literature on
+on write is clearly absurd in this profile, and it is exactly the solution the literature on
 global social networks tends to suggest, because there the read-to-write ratio is different.
 
 ```text
@@ -230,13 +230,13 @@ storage                moderate
 | **Weighted total** | | **5.2** | **5.4** | **7.7** |
 
 The "viability with the real distribution" criterion exists because Option B is not merely
-expensive — it is **impossible** to meet within the 5-second requirement for large communities. An
+expensive but **impossible** to meet within the 5-second requirement for large communities. An
 unviable option gets a score of 1, it is not excluded from the matrix: showing why it loses is
 part of the record.
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With latency at 50%, the totals become
 4.3 / 6.4 / 7.8. With cost at 50%, they become 4.5 / 4.6 / 7.8. Option C wins in every scenario tested, which is expected when
-one option combines the advantages of the other two — and the check serves to confirm that the
+one option combines the advantages of the other two, and the check serves to confirm that the
 additional complexity doesn't bring it down.
 
 ## Decision
@@ -254,19 +254,19 @@ post equals the aggregate cost of querying it across the expected reads before i
 relevance window.
 
 Below the threshold, 99.4% of accounts and 96.1% of communities are fanned out on write. The rest
-— about 4,800 accounts and 1,900 communities — are queried on read, which means a typical feed
+(about 4,800 accounts and 1,900 communities) are queried on read, which means a typical feed
 makes one query against the materialized feed and between zero and five queries against large
 sources.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the average number of sources followed were far smaller — below ~10 — or
+**Option A would win if** the average number of sources followed were far smaller (below ~10) or
 if latency were not a requirement. It would also win in a niche product with few users, where read
 cost is irrelevant.
 
-**Option B would win if** there were no large sources — that is, if the follower distribution were
+**Option B would win if** there were no large sources, that is, if the follower distribution were
 approximately uniform. That is the case in closed corporate networks, where nobody has more than a
-few thousand connections — and there it is the right answer, simpler than the hybrid.
+few thousand connections, and there it is the right answer, simpler than the hybrid.
 
 ## Components
 
@@ -296,7 +296,7 @@ each implements one half, and changing the threshold affects only the first one'
 
 ## Data
 
-**Post.** Source of truth in PostgreSQL, partitioned by month. Modest volume — 9 million a day —
+**Post.** Source of truth in PostgreSQL, partitioned by month. Modest volume (9 million a day)
 and strong consistency, because a post that disappears or appears twice is noticed immediately.
 
 **Materialized feed.** Key-value store, with one list per user.
@@ -313,12 +313,12 @@ bytes ≈ 576 GB, regardless of the post volume.
 And it is justified by product data: 97% of sessions don't go beyond 120 posts, and no measured
 session went beyond 480. Keeping more would be storing what nobody reads.
 
-**Graph.** Two tables in PostgreSQL — followers and community members — with caching of the most
+**Graph.** Two tables in PostgreSQL (followers and community members) with caching of the most
 queried lists. The graph is read intensively by the Fan-out Worker, and the decision not to use a
 graph database was made because there is no traversal query: the questions are "who follows X" and
 "which communities does Y belong to", both one hop.
 
-See [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md) — the access pattern is known and shallow,
+See [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md): the access pattern is known and shallow,
 which doesn't justify a second type of database.
 
 **Interaction counts.** Approximate counters for high-volume posts, exact below a threshold. A post
@@ -338,16 +338,16 @@ the difference. No contention analysis would have produced the right threshold.
 ## Integration
 
 **From post to feed.** The Posting Service persists and emits an event. The Fan-out Worker
-consumes it, queries the graph, decides on the strategy and — if fanning out — writes into the
+consumes it, queries the graph, decides on the strategy and, if fanning out, writes into the
 materialized feeds in batches.
 
 The time between posting and appearing is dominated by audience size: an account with 84 followers
 completes in under 200 ms; a community with 14 thousand members, in about 4 seconds. That is why
-the 15 thousand threshold also satisfies the communities' 5-second window — it was verified
+the 15 thousand threshold also satisfies the communities' 5-second window. It was verified
 against both requirements, and the stricter one won.
 
 **Large sources on read.** Each source above the threshold keeps a list of its recent posts in
-cache, with a short TTL. The Feed Service reads those lists — at most a few per user — and merges
+cache, with a short TTL. The Feed Service reads those lists (at most a few per user) and merges
 them with the materialized feed before ranking.
 
 **Ranking.** Receives the merged set and orders it. It runs on read, with a 120 ms budget, and
@@ -372,7 +372,7 @@ moderation           a review queue with logged access; removed content
                      preserves a record for appeals
 ```
 
-The double check — on assembly and on read — looks redundant and isn't. A materialized feed is a
+The double check (on assembly and on read) looks redundant and isn't. A materialized feed is a
 snapshot of a moment; permissions change afterwards. Without the second check, someone removed
 from a community would keep seeing its posts for up to 600 entries.
 
@@ -390,7 +390,7 @@ after (Option C)     ~4.2 queries per open →  ~48 thousand queries/s at peak
 ```
 
 The 23× reduction in the number of queries is the origin of the cost savings, and it comes
-entirely from moving work from read to write — where it is done once instead of on every open.
+entirely from moving work from read to write, where it is done once instead of on every open.
 
 The contention point that remains is the **Fan-out Worker** during posting peaks in communities
 near the threshold. The solution is a priority queue: posts from small communities, which have a
@@ -399,7 +399,7 @@ near the threshold. The solution is a priority queue: posts from small communiti
 ## Reliability
 
 If the **Fan-out Worker** fails, posts stop appearing in the materialized feeds. The system
-degrades by adding recent sources on read — more expensive, slower, and correct. The queue
+degrades by adding recent sources on read: more expensive, slower, and correct. The queue
 accumulates and is processed when it returns.
 
 If the **materialized feed** becomes unavailable, the Feed Service falls back entirely to assembly
@@ -410,17 +410,17 @@ If **Ranking** fails, the feed is ordered chronologically. Quality drops and the
 
 If **Posting** fails, there is no degradation. It is the component with the highest target.
 
-The decision to keep the assembly-on-read path as a degraded mode has a cost — it is code that has
-to keep working — and it was justified by it also being the path used by large sources. It is not
+The decision to keep the assembly-on-read path as a degraded mode has a cost (it is code that has
+to keep working) and it was justified by it also being the path used by large sources. It is not
 dead code kept as a precaution; it is live code with a second use.
 
-That property — the degradation mode also being a path used in normal operation — is what makes
+That property (the degradation mode also being a path used in normal operation) is what makes
 the degradation reliable. Emergency modes that only run in emergencies rot without anyone
 noticing, and fail precisely when they are invoked. In the final design, the assembly-on-read path
 continuously processes every user's large sources, which means it is exercised thousands of times
 per second and cannot be broken without the whole system noticing.
 
-When a degraded mode cannot have a normal use, the alternative is to exercise it deliberately —
+When a degraded mode cannot have a normal use, the alternative is to exercise it deliberately,
 invoking it on a small fraction of traffic, on a schedule.
 
 ## Observability
@@ -440,7 +440,7 @@ The last metric is about correctness: a high value indicates fan-out is writing 
 people who shouldn't see the content, which is an authorization defect, not a performance one.
 
 Separating latency between users with and without large sources was essential: the average hid the
-fact that 8% of users — those following many large accounts — had three times worse latency. The
+fact that 8% of users (those following many large accounts) had three times worse latency. The
 aggregate p95 looked good and the product was bad for an identifiable slice.
 
 ## Deployment
@@ -457,7 +457,7 @@ step 4   the old path becomes the degradation mode
 ```
 
 Step 2 lasted six weeks and found 9 classes of divergence, of which 6 were defects in the new path
-and 3 were undocumented behaviors of the old one — the same pattern observed in the
+and 3 were undocumented behaviors of the old one: the same pattern observed in the
 [banking core](/21-case-studies/banking.md) case, in a completely different context.
 
 The recurrence of that pattern in two unrelated domains suggests it is a property of the method,
@@ -480,7 +480,7 @@ with rollback by configuration.
 controlled experiment.
 
 **Phase 5 (months 14–18): dynamic threshold.** The 15 thousand threshold comes to be calculated
-per community and per account, considering the audience's real read rate — a community with 20
+per community and per account, considering the audience's real read rate: a community with 20
 thousand members of whom 200 open the feed daily doesn't merit the same strategy as one with 20
 thousand active members.
 
@@ -525,12 +525,12 @@ the same work at different moments. The choice depends on the read-to-write rati
 varies per source within the same system.
 
 **The statistical distribution is an architectural constraint.** The inequality between the median
-and the extreme — 84 followers against 2 million — is what makes any uniform solution wrong.
+and the extreme (84 followers against 2 million) is what makes any uniform solution wrong.
 Reading that distribution before deciding would have avoided the original design.
 
 **Materializing charges for revalidation.** A system that writes a view has to revalidate
 authorization on read when the permission changes after the snapshot **and** the invalidation
-propagation window is not acceptable for that scope — it is a choice between latency and window,
+propagation window is not acceptable for that scope. It is a choice between latency and window,
 not a necessity. Here it was a necessity, and it is the price of fan-out on write.
 
 **The average was hiding the product.** The feed's aggregate p95 looked acceptable, and 8% of users
@@ -550,7 +550,7 @@ Calculate the fan-out threshold for a different profile: 40 sources followed on 
 million feed opens per day, 2 million posts per day.
 
 Does the threshold go up or down? The answer shows the number is not a constant of the
-architecture — it is a function of the usage profile.
+architecture but a function of the usage profile.
 
 ## Interview Questions
 
@@ -560,7 +560,7 @@ architecture — it is a function of the usage profile.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — ch. 1.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Ch. 1.
 - Silberstein, Adam et al. *Feeding Frenzy: Selectively Materializing Users' Event Feeds*.
   SIGMOD, 2010.
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.

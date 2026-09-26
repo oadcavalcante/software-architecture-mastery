@@ -2,7 +2,7 @@
 id: consistency-vs-availability
 title: Consistência vs. Disponibilidade
 sidebar_position: 2
-description: A escolha só existe durante a partição — e ela é por operação, não pelo sistema.
+description: A escolha só existe durante a partição, e ela é por operação, não pelo sistema.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [strong-vs-eventual-consistency, sync-vs-async, cost-vs-reliability]
 canonical_for: [consistência contra disponibilidade, escolha por operação, degradação escolhida, custo do erro de negócio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ escolhem lados diferentes
 ```
 
 Sistemas descritos como "AP" ou "CP" quase sempre são os dois, em partes diferentes. Um
-comércio eletrônico aceita venda com estoque possivelmente desatualizado — e recusa débito
+comércio eletrônico aceita venda com estoque possivelmente desatualizado, e recusa débito
 com saldo possivelmente desatualizado.
 
 ```text
@@ -48,7 +48,7 @@ eixo real   qual erro custa mais nesta operação: recusar o que era válido,
 
 ## Problema
 
-A formulação usual — "escolha entre consistência e disponibilidade" — leva a três erros.
+A formulação usual ("escolha entre consistência e disponibilidade") leva a três erros.
 
 **Escolher pelo sistema.** Um único modo aplicado a todas as operações produz ou um sistema
 que fica indisponível para leituras que toleravam dado velho, ou um sistema que aceita
@@ -63,7 +63,7 @@ aceitar um pedido inválido      estorno, fraude, ajuste manual, multa
 ```
 
 **Achar que a escolha é permanente.** Durante a partição, um lado é escolhido. Depois dela,
-há reconciliação a fazer — e o desenho dessa reconciliação é parte da decisão, não um
+há reconciliação a fazer, e o desenho dessa reconciliação é parte da decisão, não um
 detalhe posterior.
 
 ## Conceitos Centrais
@@ -83,7 +83,7 @@ registrar evento de auditoria   disponibilidade   perder é pior que atrasar
 
 A linha "reservar estoque" é o caso interessante: a resposta depende do produto. Para itens
 com estoque alto, aceitar sobrevenda e resolver depois custa menos que recusar vendas. Para
-um item único — um ingresso numerado, um imóvel — não.
+um item único (um ingresso numerado, um imóvel), não.
 
 ### O custo de cada erro precisa de número
 
@@ -115,7 +115,7 @@ comunicada. Ver [degradação graciosa](/12-reliability/graceful-degradation.md)
 
 ### A reconciliação é parte da decisão
 
-Escolher disponibilidade durante a partição significa aceitar divergência — e a divergência
+Escolher disponibilidade durante a partição significa aceitar divergência, e a divergência
 precisa ser resolvida depois:
 
 ```text
@@ -174,7 +174,7 @@ sistema que operou meses aceitando divergência tem histórico inconsistente que
 para consistência forte precisa tratar.
 
 Isso favorece **começar consistente nas operações de maior custo de erro**, e relaxar
-depois com evidência — o inverso é mais difícil.
+depois com evidência. O inverso é mais difícil.
 
 ## Modelo Mental
 
@@ -186,13 +186,13 @@ operação, e a escolha só existe durante a partição.
 Prefira **consistência** quando:
 
 - Aceitar uma operação inválida tem custo financeiro, legal ou de confiança.
-- O recurso é único ou escasso — ingresso numerado, imóvel, slot.
+- O recurso é único ou escasso: ingresso numerado, imóvel, slot.
 - A reconciliação seria manual ou impossível.
 - Há requisito regulatório sobre o estado.
 
 Prefira **disponibilidade** quando:
 
-- Dado velho não causa dano — catálogo, busca, recomendação.
+- Dado velho não causa dano: catálogo, busca, recomendação.
 - A operação é reversível a baixo custo.
 - Recusar custa mais que corrigir depois, com números.
 - A escrita pode ser aceita e confirmada depois.
@@ -203,21 +203,21 @@ Prefira **disponibilidade** quando:
 
 **Sem os números de custo de erro** dos dois lados.
 
-**Fora de uma partição** — não há *esse* trade-off, e citar CAP para justificar consistência fraca
+**Fora de uma partição**: não há *esse* trade-off, e citar CAP para justificar consistência fraca
 em operação normal é erro conceitual.
 
 **Sem desenhar a reconciliação.**
 
-**Como desculpa para não tratar divergência** — "somos eventualmente consistentes" não é
+**Como desculpa para não tratar divergência**: "somos eventualmente consistentes" não é
 desenho.
 
 ## Alternativas
 
-- **Consistência por operação** — o arranjo correto na maior parte dos casos.
-- **Reserva com expiração** — permite aceitar rápido e confirmar depois, com janela curta.
-- **Limite de risco** — aceitar divergência até um teto e endurecer além dele: sobrevender
+- **Consistência por operação**: o arranjo correto na maior parte dos casos.
+- **Reserva com expiração**: permite aceitar rápido e confirmar depois, com janela curta.
+- **Limite de risco** (aceitar divergência até um teto e endurecer além dele): sobrevender
   até 2% do estoque, recusar acima.
-- **Confirmação assíncrona** — aceitar a operação e confirmar por notificação. Ver
+- **Confirmação assíncrona**: aceitar a operação e confirmar por notificação. Ver
   [síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 
 A terceira é subutilizada e frequentemente a melhor: ela captura a maior parte da receita da
@@ -256,13 +256,13 @@ disponibilidade com uma fração do risco.
 
 **Classificar o sistema como AP ou CP.**
 
-**Não levantar o custo de recusar** — costuma ser o número que falta.
+**Não levantar o custo de recusar**: costuma ser o número que falta.
 
 **Tratar reconciliação como problema futuro.**
 
 **Não medir o tempo de divergência.**
 
-**Confundir partição com indisponibilidade de dependência** — são falhas diferentes, com
+**Confundir partição com indisponibilidade de dependência**: são falhas diferentes, com
 respostas diferentes.
 
 ## Exemplo Real
@@ -300,7 +300,7 @@ contínua. Sobrevenda aceita até um limite de 2% do estoque da unidade; acima d
 endurece automaticamente e passa a exigir confirmação central.
 
 **Exclusivos e únicos: consistência.** Reserva com confirmação central obrigatória. Durante
-partição, a venda é recusada com mensagem explícita — 4% dos itens, e o custo de recusar é
+partição, a venda é recusada com mensagem explícita: 4% dos itens, e o custo de recusar é
 aceito.
 
 **Reconciliação desenhada**, não improvisada: divergência detectada gera cancelamento
@@ -328,7 +328,7 @@ barato.
 
 O que se registrou depois: a decisão travou por dois anos porque a discussão era "consistência
 ou disponibilidade", em abstrato, e ninguém tinha o custo de recusar. Assim que os dois
-números entraram na mesma tabela, a decisão levou uma reunião — e não foi um dos dois lados,
+números entraram na mesma tabela, a decisão levou uma reunião. E não foi um dos dois lados,
 foi a separação por categoria, que ninguém tinha proposto enquanto o dilema era global.
 
 ## Conceitos Relacionados

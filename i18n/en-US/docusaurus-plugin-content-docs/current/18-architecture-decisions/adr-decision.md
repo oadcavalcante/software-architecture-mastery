@@ -2,7 +2,7 @@
 id: adr-decision
 title: The Decision
 sidebar_position: 5
-description: The shortest section of the ADR — active voice, bounded scope, no hedging.
+description: "The shortest section of the ADR: active voice, bounded scope, no hedging."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-consequences, adr-status]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -48,7 +48,7 @@ That is not a decision. You cannot tell whether anything was decided, who decide
 it holds, or where.
 
 The defensive language has a cause: whoever writes fears committing and fears being wrong.
-But the ADR exists precisely to record a commitment — and a commitment recorded with
+But the ADR exists precisely to record a commitment, and a commitment recorded with
 hedging can be neither followed nor challenged.
 
 And there is a second, subtler problem: the decision that describes **how** instead of
@@ -66,11 +66,11 @@ good   "We will use PostgreSQL as the primary database for the orders services."
 ```
 
 The second looks acceptable and isn't: the passive voice states a fact with no subject, and
-nobody is committed to it. "We will" doesn't name people either — that is the job of the
-[record of deciders](#recording-who-decided) —, but it makes whoever signs the ADR
+nobody is committed to it. "We will" doesn't name people either (that is the job of the
+[record of deciders](#recording-who-decided)), but it makes whoever signs the ADR
 answerable for what the decision demands two years from now.
 
-Choosing "we will" is not stylistic. It signals that a commitment was made — which is what
+Choosing "we will" is not stylistic. It signals that a commitment was made. That is what
 distinguishes an ADR from a technical evaluation.
 
 ### Bounded scope
@@ -87,7 +87,7 @@ clear  "We will use Kafka for domain events between the orders, billing and
 The scope answers three questions: **where it applies, where it doesn't, and what stays as
 it is.**
 
-The third is frequently omitted and it prevents expansive interpretation — the reading that
+The third is frequently omitted and it prevents expansive interpretation: the reading that
 the decision replaces everything that existed before.
 
 ### The what, not the how
@@ -145,7 +145,7 @@ operational cost. The decision was made accepting that risk, with a review
 planned in 6 months."
 ```
 
-That preserves the information that the objection existed — which is exactly what you want
+That preserves the information that the objection existed. That is exactly what you want
 to know if the risk materializes. And it makes the ADR honest in a way that sustains the
 practice better than the appearance of consensus.
 
@@ -158,7 +158,7 @@ An underused category: recording what was decided **not** to do.
 "We will not build a distributed cache layer."
 ```
 
-Those decisions are invisible in the code — there is nothing to point at — and they are
+Those decisions are invisible in the code (there is nothing to point at), and they are
 exactly the ones that will be revisited repeatedly with no record.
 
 ### The decision has to be actionable
@@ -174,7 +174,7 @@ actionable       "Communication between services in the orders domain becomes
 ```
 
 The difference lies in three elements: **what**, **where it applies** and **from when**. The
-third is the most forgotten — a decision with no temporal marker leaves open whether
+third is the most forgotten: a decision with no temporal marker leaves open whether
 existing code has to change, and that ambiguity tends to be resolved differently by each
 team.
 
@@ -191,7 +191,7 @@ several decisions or it is implementation.
 
 ## When Not to Use
 
-**With hedging.** "Probably", "for now", "subject to review" with no criterion — review is
+**With hedging.** "Probably", "for now", "subject to review" with no criterion. Review is
 the superseding mechanism, not a caveat. A trigger with a deadline or a measurable threshold
 ("reassess when any domain exceeds 50 events/s") is not hedging: it is the
 [reversal condition](/18-architecture-decisions/adr-alternatives.md) written next to the
@@ -204,7 +204,7 @@ superseding: one is superseded, the other stays accepted and points to a premise
 longer exists.
 
 **Listing domains in a cross-cutting decision.** When the decision applies to the whole
-organization — an authentication standard, a data retention policy —, enumerating the
+organization (an authentication standard, a data retention policy), enumerating the
 affected domains ages with every new domain and suggests the omitted ones are out. The
 correct scope is "all"; what needs bounding is the exception.
 
@@ -213,11 +213,11 @@ affirmative.
 
 ## Alternatives
 
-- **Y-Statement** — compresses context, decision and consequence into one structured
+- **Y-Statement**: compresses context, decision and consequence into one structured
   sentence.
-- **The decision implicit in the title** — for trivial cases, the title is already the
+- **The decision implicit in the title**: for trivial cases, the title is already the
   decision, and the section details the scope.
-- **A reference to a standard** — when the decision is to adopt something already defined
+- **A reference to a standard**: when the decision is to adopt something already defined
   elsewhere. See [standards](/15-enterprise-architecture/standards.md).
 
 ## Trade-offs
@@ -252,14 +252,14 @@ affirmative.
 
 **Writing the decision as the conclusion of an analysis**, instead of as a commitment.
 
-**Omitting what doesn't change** — which leaves room for expansive interpretation.
+**Omitting what doesn't change**, which leaves room for expansive interpretation.
 
-**Not recording the deciders** — when the decision needs review, nobody knows whom to ask.
+**Not recording the deciders**: when the decision needs review, nobody knows whom to ask.
 
-**Not recording decisions not to act** — the same proposal comes back every cycle, with no
+**Not recording decisions not to act**: the same proposal comes back every cycle, with no
 record of why it was turned down.
 
-**Softening the decision** to reduce friction in review — which transfers the friction to
+**Softening the decision** to reduce friction in review. That transfers the friction to
 the future.
 
 ## Real-World Example
@@ -313,15 +313,15 @@ Fixing the four services took seven months. Response time for the converted quer
 from 2.4 s to 90 ms.
 
 In the retrospective: the original ADR was not wrong. It was incomplete in a way that was
-only visible to whoever hadn't been in the conversation — which is exactly the document's
+only visible to whoever hadn't been in the conversation. That is exactly the document's
 audience.
 
 ## Related Concepts
 
 - [ADR Structure](/18-architecture-decisions/adr-structure.md).
-- [Context](/18-architecture-decisions/adr-context.md) — what justifies it.
-- [Consequences](/18-architecture-decisions/adr-consequences.md) — what is accepted.
-- [Status](/18-architecture-decisions/adr-status.md) — proposed versus accepted.
+- [Context](/18-architecture-decisions/adr-context.md): what justifies it.
+- [Consequences](/18-architecture-decisions/adr-consequences.md): what is accepted.
+- [Status](/18-architecture-decisions/adr-status.md): proposed versus accepted.
 
 ## Practical Exercise
 

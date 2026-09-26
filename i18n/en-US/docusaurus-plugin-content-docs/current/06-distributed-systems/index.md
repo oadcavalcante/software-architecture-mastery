@@ -2,7 +2,7 @@
 id: distributed-systems
 title: Distributed Systems
 sidebar_position: 0
-description: Why distributed systems are hard — partial failure, ordering, duplication and the limits of what can be guaranteed.
+description: "Why distributed systems are hard: partial failure, ordering, duplication and the limits of what can be guaranteed."
 doc_type: index
 level: 4
 difficulty: advanced
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [data-architecture, reliability, integration-architecture]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -37,9 +37,9 @@ All the complexity of this section derives from that. Idempotency exists because
 Sagas exist because of it. Consensus exists because of it.
 
 The goal here is not to memorize CAP. It is to internalize that **partial failure is the
-normal case**, not the exception — and to design assuming that from the start. Timeouts,
+normal case**, not the exception, and to design assuming that from the start. Timeouts,
 backoff and circuit breakers can be added later without touching anything else; idempotency
-and state reconciliation cannot — those require redoing the data model.
+and state reconciliation cannot, because those require redoing the data model.
 
 ## What you will find here
 
@@ -49,7 +49,7 @@ and time, timeouts, retries and backoff. The physical basis everything else depe
 **Idempotency.** Treated as a central topic, not as a detail. It is the property that makes
 retrying safe, and without it nothing above works.
 
-**The theoretical limits.** CAP and PACELC, presented for what they actually assert — which
+**The theoretical limits.** CAP and PACELC, presented for what they actually assert, which
 is far less than what is usually cited. PACELC better describes the day-to-day dilemma: the
 latency cost you pay for consistency even when there is no partition.
 
@@ -60,7 +60,7 @@ application.
 **Coordination.** Leader election, consensus and distributed locks. It includes the question
 that precedes all three: can we avoid coordinating?
 
-**Messaging.** At-most-once, at-least-once and exactly-once delivery — and why the third is
+**Messaging.** At-most-once, at-least-once and exactly-once delivery, and why the third is
 an end-to-end property, not a tool feature. Ordering, duplicate messages, poison messages,
 dead-letter queues and backpressure.
 
@@ -70,7 +70,7 @@ transactions.
 ## Reading order
 
 This section has a mandatory order for the first topics. Read **partial failure**, then
-**timeouts**, then **idempotency**, and only then **retries** — which depends on both
+**timeouts**, then **idempotency**, and only then **retries**, which depends on both
 and, without idempotency, produces duplicates. Nothing else makes sense before those four.
 
 After that there are two paths, and you can choose: the data one (replication, partitioning,
@@ -78,7 +78,7 @@ consistency) or the messaging one (delivery, ordering, queues). Both converge on
 event sourcing, which depend on both.
 
 Leave **consensus** for last. It is the densest topic and the one least frequently
-implemented by hand — in practice you will consume consensus, not write it.
+implemented by hand: in practice you will consume consensus, not write it.
 
 ## By the end
 

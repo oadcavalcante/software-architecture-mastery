@@ -2,7 +2,7 @@
 id: architecture-levels
 title: Architecture Levels
 sidebar_position: 20
-description: Which decisions belong to whom — and why pushing them upward is the most common cause of a bottleneck.
+description: Which decisions belong to whom, and why pushing them upward is the most common cause of a bottleneck.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [enterprise-governance, architecture-review, enterprise-principles]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,8 +32,8 @@ component    inside the system — days to weeks
 
 The question that organizes this section: **which decision belongs to which level?**
 
-Getting that wrong produces the two characteristic problems: local decisions made in committee — a
-bottleneck — and wide-reaching decisions made by an isolated team — divergence.
+Getting that wrong produces the two characteristic problems: local decisions made in committee (a
+bottleneck) and wide-reaching decisions made by an isolated team (divergence).
 
 ## Problem
 
@@ -46,7 +46,7 @@ Each response is reasonable in isolation. The aggregate is an organization in wh
 up, and the time between deciding and building stretches.
 
 And the side effect is worse: teams that do not decide stop thinking architecturally, and the quality of
-local decisions falls — which generates more incidents, which generate more centralization.
+local decisions falls, which generates more incidents, which generate more centralization.
 
 ## Core Concepts
 
@@ -67,7 +67,7 @@ local reach + cheap rollback       → the team's, with no ceremony
 ```
 
 The bottom-right quadrant contains **most** of the decisions, and it is where centralization usually
-intrudes — at a high cost and with close to zero benefit, because the mistake the committee
+intrudes, at a high cost and with close to zero benefit, because the mistake the committee
 would prevent the team undoes in days.
 
 And the top-right quadrant deserves attention: a wide-reaching but easily reversible decision does not need
@@ -96,7 +96,7 @@ system       the internal data model
 component    code structure, patterns, libraries
 ```
 
-The enterprise level's first line — data ownership — is the widest-reaching decision and the least
+The enterprise level's first line, data ownership, is the widest-reaching decision and the least
 explicitly made. See [data ownership](/07-data-architecture/data-ownership.md).
 
 ### Reversibility as an allocation axis
@@ -109,7 +109,7 @@ from what proceeds with no ceremony.
 The symptom that the allocation ignores this axis: the average decision time is the same for choosing a
 library and for choosing an enterprise data model.
 
-And reversibility is not a fixed property of the decision — it drops with use. A library adopted by one
+And reversibility is not a fixed property of the decision; it drops with use. A library adopted by one
 service is a two-way door; the same library spread across forty services, with its types in the contracts
 between them, has become a one-way door without anyone deciding it again. The classification made when the
 decision is born needs to be redone when the reach grows.
@@ -119,7 +119,7 @@ decision is born needs to be redone when the reach grows.
 Organizations usually have enterprise architecture and system architecture, and nothing between them.
 
 The result: an initiative involving five systems has nobody responsible for the whole's coherence. Each
-team does its part well, and the boundaries end up badly resolved — improvised contracts, duplicated data,
+team does its part well, and the boundaries end up badly resolved: improvised contracts, duplicated data,
 overlapping responsibilities.
 
 That level does not require a job title. It requires somebody to be responsible for the decomposition and
@@ -138,7 +138,7 @@ And the mechanism that allows going down without losing coherence is not approva
 the standard built into what the team already uses, so that the right choice is the easiest one. See
 [platform engineering](/14-devops-and-platform/platform-engineering.md).
 
-When the rule is technical — log format, minimum library version, network configuration — needing a
+When the rule is technical (log format, minimum library version, network configuration) needing a
 committee to verify it is a sign it was not operationalized. Regulatory rules and data-ownership rules are
 the exception: they depend on judgment and stay at the enterprise level.
 
@@ -175,7 +175,7 @@ nobody different to fill them; a conversation between the two teams settles it.
 **A regulated sector, when the rule requires prior approval.** If the regulator requires documented
 approval for changes to a system handling payment or health data, the decision goes up even if it is
 reversible. The quadrant still applies to what the rule does not cover, but it does not cancel the
-requirement — treating it as a local decision is a compliance risk.
+requirement: treating it as a local decision is a compliance risk.
 
 **During a major incident or a migration with a fixed deadline.** Centralizing for a few weeks, with one
 person deciding fast, is deliberate: the cost of coordinating distributed decisions exceeds that of the
@@ -183,15 +183,15 @@ bottleneck while the event lasts. The mistake is not undoing the centralization 
 
 **Before the paved road exists.** Pushing decisions down presupposes that the standard is built into
 something the team uses. Without it, pushing everything down at once produces the divergence centralization
-was containing — the order is to build the road, then push down.
+was containing. The order is to build the road, then push down.
 
 ## Alternatives
 
-- **A paved road** — the built-in standard, instead of a verified rule.
-- **Principles** — they guide without deciding. See
+- **A paved road**: the built-in standard, instead of a verified rule.
+- **Principles**: they guide without deciding. See
   [enterprise principles](/15-enterprise-architecture/enterprise-principles.md).
-- **Consultation instead of approval** — the team decides, with an opinion available.
-- **Review after the fact** — for reversible decisions, reviewing afterward is cheaper than approving
+- **Consultation instead of approval**: the team decides, with an opinion available.
+- **Review after the fact**: for reversible decisions, reviewing afterward is cheaper than approving
   beforehand.
 
 ## Trade-offs
@@ -226,7 +226,7 @@ was containing — the order is to build the road, then push down.
 ## Common Mistakes
 
 **Escalating reversible decisions.** Requiring approval for every new library: the committee's agenda
-swells, the wait reaches weeks, and the team works around it with an undeclared transitive dependency —
+swells, the wait reaches weeks, and the team works around it with an undeclared transitive dependency,
 which nobody reviews.
 
 **Not distinguishing one-way from two-way doors.** A single approval flow for everything: if it is light, the
@@ -270,7 +270,7 @@ wide reach, cheap rollback       7%   → visibility, not approval
 wide reach, expensive rollback   4%   → correctly there
 ```
 
-Seventy-one percent of the committee's items were decisions the team could have made — a library
+Seventy-one percent of the committee's items were decisions the team could have made: a library
 choice, code structure, an internal tool.
 
 And the committee approved almost everything: the rejection rate was 3%. It functioned as a rubber stamp
@@ -279,11 +279,11 @@ with four weeks of waiting.
 The reformulation:
 
 **Classification at opening.** Whoever proposes declares reach and reversibility. Two-way door, local-reach
-decisions do not go through the committee — they are recorded and proceed.
+decisions do not go through the committee: they are recorded and proceed.
 
 Since whoever proposes has an incentive to declare the decision local and reversible, the classification is
 audited: the quarterly review samples the recorded decisions and reclassifies them, and a decision whose
-reach has grown since it was recorded — the library three teams adopted afterward — goes up to the committee
+reach has grown since it was recorded (the library three teams adopted afterward) goes up to the committee
 at that point.
 
 **A paved road** replacing the technology list. The platform came to offer the supported options ready;
@@ -291,12 +291,12 @@ using something else is possible and the team takes on the operation. See
 [platform engineering](/14-devops-and-platform/platform-engineering.md).
 
 **A solution level created.** Initiatives with more than two systems came to have somebody responsible for
-the decomposition and the contracts, with allocated time — with no new job title, by rotation among senior
+the decomposition and the contracts, with allocated time, with no new job title, by rotation among senior
 engineers.
 
 **Review after the fact** for reversible decisions, quarterly, looking at patterns instead of cases.
 
-**The committee reduced** to wide-reach, expensive-rollback decisions — two to three a month, the same
+**The committee reduced** to wide-reach, expensive-rollback decisions: two to three a month, the same
 volume that was already correctly there.
 
 Result in nine months: time between proposing and building from four weeks to two days, and the committee
@@ -331,6 +331,6 @@ The proportion falling into "local and reversible" is your current process's was
 
 ## Further Reading
 
-- Bezos, Jeff. *2015 letter to shareholders* — one-way and two-way door decisions.
+- Bezos, Jeff. *2015 letter to shareholders*. One-way and two-way door decisions.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

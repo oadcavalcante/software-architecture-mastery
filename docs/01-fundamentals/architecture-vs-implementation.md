@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [dependency-management, technical-debt]
 canonical_for: [arquitetura pretendida, arquitetura real, deriva arquitetural]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -37,9 +37,9 @@ carrega anotação de serialização, e um módulo de relatórios que lê direto
 tabelas de outros quatro módulos.
 
 Ninguém decidiu isso. Cada passo individual foi razoável sob pressão de prazo, e
-nada impedia. A arquitetura pretendida nunca foi implementada — só desenhada.
+nada impedia. A arquitetura pretendida nunca foi implementada, só desenhada.
 
-O erro de diagnóstico comum é chamar isso de indisciplina. Não é. É a
+O erro de diagnóstico comum é chamar isso de indisciplina, quando é a
 consequência previsível de uma fronteira que existe como acordo verbal em vez de
 como restrição verificável. **Toda fronteira que depende exclusivamente de
 lembrança vai ser atravessada.** É questão de tempo e de rotatividade.
@@ -56,7 +56,7 @@ que vira precedente. Cada passo é pequeno; a soma é estrutural.
 
 O sinal característico é o comentário "aqui a gente já não segue mais a
 arquitetura". Quando alguém consegue dizer isso, a deriva já é conhecida e
-tolerada — que é o estágio anterior a ela ser invisível.
+tolerada, que é o estágio anterior a ela ser invisível.
 
 ### Fronteira efetiva versus fronteira nominal
 
@@ -67,13 +67,13 @@ Uma fronteira **efetiva** é imposta por algo que falha quando é violada. O có
 não compila, o teste quebra, o CI recusa o merge.
 
 A distinção é binária no critério: ou algo falha quando a fronteira é
-atravessada, ou nada falha — e fronteira nominal é uma sugestão com aparência de
+atravessada, ou nada falha, e fronteira nominal é uma sugestão com aparência de
 regra. A gradação da tabela a seguir mede força entre os mecanismos que falham;
 não é um meio-termo entre nominal e efetiva.
 
 ### Os mecanismos que tornam uma fronteira efetiva
 
-Ordenados por força — quanto mais alto, menos depende de vigilância humana:
+Ordenados por força (quanto mais alto, menos depende de vigilância humana):
 
 | Mecanismo | Força | Custo |
 |---|---|---|
@@ -86,7 +86,7 @@ Ordenados por força — quanto mais alto, menos depende de vigilância humana:
 
 A tabela contém a decisão principal do documento: **fronteiras que importam
 merecem mecanismo automatizado.** Revisão de código é uma rede com furos de
-tamanho variável, e o tamanho aumenta com pressão de prazo — exatamente quando
+tamanho variável, e o tamanho aumenta com pressão de prazo, exatamente quando
 mais precisa funcionar.
 
 ### O teste de arquitetura
@@ -104,8 +104,8 @@ teste: "domínio não depende de infraestrutura"
 ```
 
 É barato de escrever, roda em segundos, e converte a fronteira de acordo verbal
-em condição verificável. Quando alguém precisa violá-la, precisa alterar o teste
-— o que torna a violação uma decisão explícita, discutível em revisão, em vez de
+em condição verificável. Quando alguém precisa violá-la, precisa alterar o teste,
+o que torna a violação uma decisão explícita, discutível em revisão, em vez de
 um import que passa despercebido.
 
 Essa é a ideia que reaparece no Nível 07 como
@@ -129,7 +129,7 @@ custos do acoplamento e nenhum dos seus benefícios.
 
 **Porque o código é a documentação que o próximo desenvolvedor lê.** Quem chega
 aprende a arquitetura imitando o que encontra. Se o que encontra viola o
-diagrama, o diagrama perdeu — e cada nova violação parece consistente com o que
+diagrama, o diagrama perdeu, e cada nova violação parece consistente com o que
 já existe.
 
 **Porque decidir uma fronteira sem mecanismo é decidir metade.** Escolher que o
@@ -152,13 +152,13 @@ a mesma fronteira, o problema não são as três pessoas. Ou a fronteira está n
 lugar errado, ou não tem mecanismo. Ambas são questões de projeto.
 
 **Descobrir a deriva só na próxima grande refatoração.** Sem medição contínua, a
-divergência é descoberta quando alguém tenta uma mudança grande e falha — que é
+divergência é descoberta quando alguém tenta uma mudança grande e falha, que é
 o momento mais caro possível para descobrir.
 
 **Impor fronteiras demais.** O erro oposto e também real. Cada fronteira efetiva
 tem custo: indireção, cerimônia, atrito. Um sistema com quinze fronteiras
 impostas onde três bastariam é tão disfuncional quanto um sem nenhuma. Imponha as
-que importam — e ter que escolher quais é justamente o trabalho arquitetural.
+que importam, e ter que escolher quais é justamente o trabalho arquitetural.
 
 ## Exemplo Real
 
@@ -171,7 +171,7 @@ diretamente o cliente HTTP do serviço de pagamentos, contornando a porta que
 existia para isso. As entidades carregam anotações do ORM. Dois adaptadores
 importam uns aos outros.
 
-O sistema tem a indireção do Hexagonal — portas, adaptadores, mais arquivos — e
+O sistema tem a indireção do Hexagonal (portas, adaptadores, mais arquivos) e
 não tem a propriedade que a indireção deveria comprar: trocar o cliente de
 pagamentos ainda toca o domínio.
 
@@ -180,19 +180,19 @@ de domínio importa `infra`, e nenhum adaptador importa outro adaptador. Os dois
 falharam imediatamente, com dezenove violações.
 
 A parte instrutiva: as dezenove foram corrigidas em três semanas, e nenhuma nova
-apareceu depois. O problema nunca foi capacidade nem disciplina — era ausência de
+apareceu depois. O problema nunca foi capacidade nem disciplina, e sim ausência de
 sinal. Enquanto violar era silencioso, violar acontecia.
 
 ## Conceitos Relacionados
 
-- [Arquitetura vs. Design](/01-fundamentals/architecture-vs-design.md) — a fronteira anterior.
-- [Gestão de Dependências](/01-fundamentals/dependency-management.md) — o material de que o grafo
+- [Arquitetura vs. Design](/01-fundamentals/architecture-vs-design.md): a fronteira anterior.
+- [Gestão de Dependências](/01-fundamentals/dependency-management.md): o material de que o grafo
   real é feito.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — como a deriva se acumula e cobra juros.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md): como a deriva se acumula e cobra juros.
 
 ## Exercício Prático
 
-Escolha uma fronteira que seu sistema afirma ter — uma camada, um módulo, uma
+Escolha uma fronteira que seu sistema afirma ter: uma camada, um módulo, uma
 regra de "isto não acessa aquilo".
 
 Escreva um teste que falhe se ela for violada. Não corrija nada ainda: rode e
@@ -213,7 +213,7 @@ algumas são o sistema informando que a fronteira foi mal desenhada.
 ## Para Aprofundar
 
 - Ford, Neal; Parsons, Rebecca; Kua, Patrick. *Building Evolutionary
-  Architectures*. O'Reilly, 2017 — fitness functions como mecanismo.
+  Architectures*. O'Reilly, 2017. Fitness functions como mecanismo.
 - Documentação do ArchUnit (Java) e de equivalentes como `import-linter`
-  (Python) e `dependency-cruiser` (TypeScript) — implementações de teste de
+  (Python) e `dependency-cruiser` (TypeScript). Implementações de teste de
   arquitetura.

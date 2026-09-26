@@ -2,7 +2,7 @@
 id: prototype
 title: Prototype
 sidebar_position: 4
-description: Criar por cópia em vez de por construção — e por que ele quase desapareceu.
+description: Criar por cópia em vez de por construção, e por que ele quase desapareceu.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, memento, flyweight]
 canonical_for: [prototype, clonagem]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Prototype cria objetos novos **copiando** uma instância existente, em vez de
 construí-los do zero.
 
-É um dos padrões do GoF que menos aparecem em código moderno, e vale entender por quê —
+É um dos padrões do GoF que menos aparecem em código moderno, e vale entender por quê,
 tanto quanto os casos em que ele ainda é a resposta certa.
 
 ## Problema
@@ -34,13 +34,13 @@ desejado.
 
 Três situações originais:
 
-Construção custosa — o objeto exige uma consulta ao banco, um cálculo pesado ou
+Construção custosa: o objeto exige uma consulta ao banco, um cálculo pesado ou
 uma leitura de arquivo, e já se tem um pronto.
 
-Configuração complexa — o objeto tem trinta parâmetros ajustados, e criar uma
+Configuração complexa: o objeto tem trinta parâmetros ajustados, e criar uma
 variante exige repetir os vinte e nove iguais.
 
-Tipo desconhecido em tempo de compilação — precisa-se de outro objeto "como
+Tipo desconhecido em tempo de compilação: precisa-se de outro objeto "como
 este", sem saber qual é a classe concreta.
 
 ## Conceitos Centrais
@@ -52,7 +52,7 @@ mesmo estado.
 
 A pergunta que decide a implementação: **cópia rasa ou profunda?**
 
-Cópia rasa duplica as referências — o original e a cópia apontam para os mesmos
+Cópia rasa duplica as referências: o original e a cópia apontam para os mesmos
 objetos internos. Alterar um subobjeto pela cópia altera o original.
 
 Cópia profunda duplica recursivamente. É correta e cara, e precisa lidar com
@@ -66,7 +66,7 @@ com segurança; mutáveis não.
 
 Três razões.
 
-**Imutabilidade.** Objetos imutáveis não precisam ser clonados — podem ser
+**Imutabilidade.** Objetos imutáveis não precisam ser clonados: podem ser
 compartilhados. Onde se usaria clonagem, usa-se uma operação que devolve uma nova
 instância com um campo alterado.
 
@@ -95,28 +95,28 @@ Nada avisa. É uma violação de
 **Quando o objeto é imutável.** Compartilhe. Não há o que copiar.
 
 **Quando construir é barato.** Sem E/S nem cálculo, só alocação e atribuição de
-campos — o caso comum. Clonar aí paga o risco de cópia rasa e a manutenção do método
+campos, o caso comum. Clonar aí paga o risco de cópia rasa e a manutenção do método
 de clonagem por classe sem ganho nenhum em troca.
 
 **Quando a cópia profunda é complexa ou ambígua.** Se o objeto tem referências a
-recursos, conexões ou identidade externa, "copiar" não tem significado óbvio — e
+recursos, conexões ou identidade externa, "copiar" não tem significado óbvio, e
 uma cópia com o mesmo identificador é um defeito.
 
 **Quando existe biblioteca de cópia.** Implementar clonagem à mão em cada classe
 é manutenção que se desatualiza a cada campo novo.
 
 **Para objetos com identidade.** Uma entidade de domínio com identificador não
-deve ser clonada sem que o identificador seja tratado — e esquecer isso produz
+deve ser clonada sem que o identificador seja tratado, e esquecer isso produz
 duas entidades com a mesma identidade.
 
 ## Alternativas
 
-- **Imutabilidade com operações de derivação** — `pedido.comDesconto(x)` devolve
+- **Imutabilidade com operações de derivação**: `pedido.comDesconto(x)` devolve
   uma nova instância. Substitui o padrão na maioria dos casos.
-- **[Builder](/03-design-patterns/builder.md) a partir de um existente** — construir uma variante
+- **[Builder](/03-design-patterns/builder.md) a partir de um existente**: construir uma variante
   explicitamente.
-- **Cópia por serialização** — genérica, mais lenta, sem código por classe.
-- **Função de cópia explícita** — sem hierarquia, com o comportamento visível.
+- **Cópia por serialização**: genérica, mais lenta, sem código por classe.
+- **Função de cópia explícita**: sem hierarquia, com o comportamento visível.
 
 ## Trade-offs
 
@@ -156,7 +156,7 @@ padrão.
 ## Exemplo Real
 
 Um editor de diagramas precisava duplicar elementos. Um elemento tem geometria,
-estilo, texto, conexões e metadados — e duplicar é uma operação do domínio, com
+estilo, texto, conexões e metadados, e duplicar é uma operação do domínio, com
 significado claro para o usuário.
 
 A primeira implementação usou cópia rasa. O defeito apareceu duas semanas depois:
@@ -165,9 +165,9 @@ apontavam para o mesmo objeto de estilo.
 
 A correção não foi tornar a cópia profunda em tudo. Foi separar o que é
 compartilhável do que não é: estilo virou imutável e passou a ser compartilhado
-deliberadamente — o que também reduziu memória, no espírito de
+deliberadamente. Isso também reduziu memória, no espírito de
 [Flyweight](/03-design-patterns/flyweight.md). Geometria e texto passaram a ser copiados. Conexões
-não são copiadas, porque um elemento duplicado começa desconectado — que é a
+não são copiadas, porque um elemento duplicado começa desconectado: é a
 regra do domínio.
 
 A lição está aí: "cópia profunda" não é a resposta certa por padrão. A resposta é
@@ -177,8 +177,8 @@ decidir campo a campo o que a duplicação significa no domínio.
 
 **JavaScript.** O nome coincide e o mecanismo não. O protótipo da linguagem é
 **delegação**: `Object.create(p)` aponta para `p` e a busca de propriedade caminha a
-cadeia em execução — nada é copiado. O padrão do GoF copia. Quem procura o padrão em
-JavaScript encontra `structuredClone` e o espalhamento, e o espalhamento é raso — a
+cadeia em execução. Nada é copiado. O padrão do GoF copia. Quem procura o padrão em
+JavaScript encontra `structuredClone` e o espalhamento, e o espalhamento é raso: a
 armadilha da primeira seção deste documento.
 
 **Editores gráficos e ferramentas de modelagem.** Duplicar um elemento é uma
@@ -188,21 +188,21 @@ operação do domínio, e o padrão modela isso diretamente.
 mudando poucos campos.
 
 **Frameworks de teste.** Um objeto de referência bem montado, do qual se derivam
-variações por cenário — que é conceitualmente o mesmo que o builder de teste
+variações por cenário. É conceitualmente o mesmo que o builder de teste
 resolve, por outro caminho.
 
 Em linguagens com suporte a imutabilidade, o último caso migrou para operações de
 derivação: `config.com(timeout: 30)` devolve uma instância nova sem clonagem
 explícita. Isso é Prototype com outra sintaxe, e o risco de cópia rasa não some pela sintaxe: uma
 operação de derivação **é** uma cópia rasa, e os campos não alterados passam por referência.
-O que remove o risco é as partes remanescentes serem imutáveis — com um mapa ou uma lista
+O que remove o risco é as partes remanescentes serem imutáveis: com um mapa ou uma lista
 mutável dentro, `config.com(timeout: 30)` cai na mesma armadilha descrita acima.
 
 ## Conceitos Relacionados
 
-- [Factory Method](/03-design-patterns/factory-method.md) — criação por construção.
-- [Memento](/03-design-patterns/memento.md) — captura de estado, com propósito diferente.
-- [Flyweight](/03-design-patterns/flyweight.md) — compartilhamento deliberado em vez de cópia.
+- [Factory Method](/03-design-patterns/factory-method.md): criação por construção.
+- [Memento](/03-design-patterns/memento.md): captura de estado, com propósito diferente.
+- [Flyweight](/03-design-patterns/flyweight.md): compartilhamento deliberado em vez de cópia.
 
 ## Exercício Prático
 
@@ -221,5 +221,5 @@ acontece com o identificador na cópia?
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3ª ed., 2018 — sobre os problemas de clonagem
+- Bloch, Joshua. *Effective Java*. 3ª ed., 2018. Sobre os problemas de clonagem
   herdada.

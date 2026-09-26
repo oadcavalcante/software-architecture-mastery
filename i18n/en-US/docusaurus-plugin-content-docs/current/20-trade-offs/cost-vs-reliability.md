@@ -2,7 +2,7 @@
 id: cost-vs-reliability
 title: Cost vs. Reliability
 sidebar_position: 4
-description: Each additional nine costs about an order of magnitude — and the last one almost never pays off.
+description: Each additional nine costs about an order of magnitude, and the last one almost never pays off.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [consistency-vs-availability, managed-vs-self-hosted, speed-vs-quality]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,8 +37,8 @@ real axis   does the cost of a minute of unavailability, for this system,
             justify the cost of avoiding that minute?
 ```
 
-The question is arithmetic, and is almost never asked. The target is chosen by aspiration — "we
-want high availability" — and the cost shows up later, distributed across infrastructure,
+The question is arithmetic, and is almost never asked. The target is chosen by aspiration ("we
+want high availability"), and the cost shows up later, distributed across infrastructure,
 on-call and complexity.
 
 ## Problem
@@ -55,7 +55,7 @@ same 99.95% target         same infrastructure and on-call cost
 ```
 
 The dashboard consumes multi-zone redundancy, night on-call and paging alarms that wake people
-up — for a system whose unavailability nobody notices before nine in the morning.
+up, for a system whose unavailability nobody notices before nine in the morning.
 
 **A target with no backing.** The number in the contract or in the slide deck does not correspond
 to what the architecture delivers, and nobody checked.
@@ -65,7 +65,7 @@ declared target   99.95%
 real topology     three instances in the same zone
 ```
 
-See [deployment diagrams](/17-architecture-documentation/deployment-diagrams.md) — checking the
+See [deployment diagrams](/17-architecture-documentation/deployment-diagrams.md): checking the
 correspondence between target and topology is cheap and rarely done.
 
 ## Core Concepts
@@ -109,7 +109,7 @@ operations       on-call, incident response, cognitive load
 ```
 
 The third weighs the most and is the least budgeted. A 99.99% target implies response in
-minutes, which implies on-call with a real rotation — and on-call has a financial cost, a
+minutes, which implies on-call with a real rotation, and on-call has a financial cost, a
 turnover cost and an attention cost.
 
 See [platform engineering](/14-devops-and-platform/platform-engineering.md).
@@ -143,7 +143,7 @@ Above a certain point, reliability stops being a matter of redundancy:
 99.999%   + the change process becomes the bottleneck
 ```
 
-At the last tier, the main cause of unavailability is **change** — deployments, configurations,
+At the last tier, the main cause of unavailability is **change**: deployments, configurations,
 migrations. Getting there requires reducing the frequency of change or making it extremely safe,
 and both have a cost in delivery speed.
 
@@ -193,7 +193,7 @@ high → low   cheap to do, hard to approve
 ```
 
 The asymmetry is organizational, not technical. Reducing a reliability target is technically
-simple and politically difficult — nobody wants to sign off on the reduction.
+simple and politically difficult: nobody wants to sign off on the reduction.
 
 That favors **starting at the target derived from the cost**, and not above it "for safety": the
 surplus becomes permanent.
@@ -227,19 +227,19 @@ Accept less reliability when:
 
 **Without checking** whether the topology delivers the declared target.
 
-**Without counting the operational cost** — on-call is the most expensive component.
+**Without counting the operational cost**: on-call is the most expensive component.
 
 **Chasing nines** above what the business pays for.
 
 ## Alternatives
 
-- **Designed degradation** — keeps the operation running with part of it down; frequently cheaper
+- **Designed degradation**: keeps the operation running with part of it down; frequently cheaper
   than redundancy.
-- **Fast recovery instead of prevention** — reducing recovery time can be cheaper than reducing
+- **Fast recovery instead of prevention**: reducing recovery time can be cheaper than reducing
   failure frequency.
-- **Managed service** — transfers part of the operational cost. See
+- **Managed service**: transfers part of the operational cost. See
   [managed vs. self-hosted](/20-trade-offs/managed-vs-self-hosted.md).
-- **Target per component** — instead of per system.
+- **Target per component**: instead of per system.
 
 The second deserves emphasis: availability is a function of failure frequency **and** duration,
 and reducing the duration is usually the cheap half of the math.
@@ -299,7 +299,7 @@ $100 to $1,000                       14
 below $100                           25
 ```
 
-Twenty-five systems — nearly half — had an unavailability cost below $100 per hour and consumed
+Twenty-five systems (nearly half) had an unavailability cost below $100 per hour and consumed
 multi-zone redundancy, paging alarms and night on-call.
 
 The aggregate cost of keeping those 25 at the 99.95% target:
@@ -326,7 +326,7 @@ low        99%     25 systems   single zone, business-hours on-call
 ```
 
 **Designed degradation** in the high-tier systems, which allowed keeping the effect for the user
-with less redundancy — two of them started serving cached data with an age indication during
+with less redundancy: two of them started serving cached data with an age indication during
 unavailability of the source.
 
 **Investment redirected to recovery time** in the four critical ones, instead of to more
@@ -334,7 +334,7 @@ redundancy: recovery automation, tested restores and regional failure drills.
 
 **Error budget published per system**, with automatic change freezes when exhausted.
 
-**Automated verification** that the topology matches the target — a scaling group with a single
+**Automated verification** that the topology matches the target: a scaling group with a single
 subnet in a high or critical tier system fails the pipeline.
 
 Results after 15 months:
@@ -353,17 +353,17 @@ The data point the team highlights most: the critical systems became **more** re
 change. The operations team's attention, previously spread across 52 systems with the same
 alarm, came to be concentrated on the four that mattered.
 
-The lesson that stuck: the single 99.95% policy had been created with good intentions — to keep
+The lesson that stuck: the single 99.95% policy had been created with good intentions, to keep
 anyone from deciding badly. It did not prevent a bad decision; it prevented any decision, and the
 cost showed up as useless redundancy and a worn-out on-call rotation.
 
 ## Related Concepts
 
-- [SLO](/12-reliability/slo.md) — the error budget.
-- [Availability Metrics](/12-reliability/availability-metrics.md) — frequency and duration.
-- [Graceful Degradation](/12-reliability/graceful-degradation.md) — the cheap alternative.
+- [SLO](/12-reliability/slo.md): the error budget.
+- [Availability Metrics](/12-reliability/availability-metrics.md): frequency and duration.
+- [Graceful Degradation](/12-reliability/graceful-degradation.md): the cheap alternative.
 - [Managed vs. Self-Hosted](/20-trade-offs/managed-vs-self-hosted.md).
-- [Deployment Diagrams](/17-architecture-documentation/deployment-diagrams.md) — the backing
+- [Deployment Diagrams](/17-architecture-documentation/deployment-diagrams.md): the backing
   check.
 
 ## Practical Exercise

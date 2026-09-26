@@ -2,7 +2,7 @@
 id: factory
 title: Factory
 sidebar_position: 18
-description: Encapsulating the creation of complex aggregates — and why it belongs to the domain.
+description: Encapsulating the creation of complex aggregates, and why it belongs to the domain.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, repository, factory-method]
 canonical_for: [domain factory]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -39,7 +39,7 @@ one source.
 Putting that in the constructor produces a constructor with logic, which is hard to test and
 which mixes the decision of "how it is born" with the object's structure.
 
-Putting it in the application service scatters the creation rule — and it is a domain rule.
+Putting it in the application service scatters the creation rule, and it is a domain rule.
 
 ## Core Concepts
 
@@ -57,7 +57,7 @@ assembly.
 The rule determining an aggregate's initial state is a business rule.
 
 "A policy is born with a 30-day waiting period, except on portability" is a domain decision,
-and the factory is where it lives — not the application service.
+and the factory is where it lives, not the application service.
 
 ### Where the factory lives
 
@@ -86,7 +86,7 @@ identifier is generated, events may be recorded.
 applies, the identifier comes from storage, no event is recorded.
 
 The repository reconstitutes. If it goes through the factory, an order loaded from the
-database will trigger the creation rules — and probably an `OrderCreated` event on every
+database will trigger the creation rules, and probably an `OrderCreated` event on every
 read.
 
 ## When to Use
@@ -109,16 +109,16 @@ constructor solves it. The factory adds indirection.
 anemic layer.
 
 **When the problem is parameter readability.** There a
-[Builder](/03-design-patterns/builder.md) serves better — it solves verbosity, not creation
+[Builder](/03-design-patterns/builder.md) serves better: it solves verbosity, not creation
 rules.
 
 ## Alternatives
 
-- **A constructor with validation** — the most common case.
-- **A named factory method on the aggregate** — `Subscription.annual(plan)`,
+- **A constructor with validation**: the most common case.
+- **A named factory method on the aggregate**: `Subscription.annual(plan)`,
   `Subscription.monthly(plan)`. It expresses the variants with no separate class.
-- **A [Builder](/03-design-patterns/builder.md)** — for many optional parameters.
-- **Creation on the parent aggregate** — when it has the information.
+- **A [Builder](/03-design-patterns/builder.md)**: for many optional parameters.
+- **Creation on the parent aggregate**: when it has the information.
 
 ## Trade-offs
 
@@ -171,14 +171,14 @@ if type == PORTABILITY:
 
 Three problems.
 
-The object existed in an invalid state between the calls — a `Plan` with no type, no waiting
+The object existed in an invalid state between the calls: a `Plan` with no type, no waiting
 period and no fee was constructible.
 
 The waiting period and initial state rules were in the application service, not in the
 domain. When the PGBL waiting period changed from 60 to 90 days, it had to be found outside
 the domain.
 
-And three application services created plans — portal, customer service and bulk import. All
+And three application services created plans: portal, customer service and bulk import. All
 three repeated the sequence, and the import one still used 60 days.
 
 The factory concentrated everything:
@@ -191,11 +191,11 @@ Plan.byPortability(origin)           → variant with its own rules
 Two named operations, in the business's vocabulary, inside the domain.
 
 The constructor became private: there is no longer an **application path** that creates an
-invalid `Plan`. The mapper remains the open door — see the caveat on reconstitution,
-below — and that is why the repository's loading test came to validate the aggregate after
+invalid `Plan`. The mapper remains the open door (see the caveat on reconstitution,
+below), and that is why the repository's loading test came to validate the aggregate after
 reconstituting it.
 
-When the waiting period changed again, six months later, the change was one line — and it
+When the waiting period changed again, six months later, the change was one line, and it
 applied to all three channels simultaneously.
 
 ## Factory and reconstitution in the same aggregate
@@ -211,7 +211,7 @@ Order.reconstitute(id, state)         ← used by the repository: no rules,
                                         no events
 ```
 
-The second path is normally not public — it is accessible only to the persistence layer,
+The second path is normally not public: it is accessible only to the persistence layer,
 through package visibility, an internal constructor, or a mapper mechanism.
 
 Three consequences worth anticipating.
@@ -232,11 +232,11 @@ every read from the database.
 
 ## Related Concepts
 
-- [Aggregate](/04-domain-driven-design/aggregate.md) — what the factory creates.
-- [Repository](/04-domain-driven-design/repository.md) — reconstitution, in contrast.
-- [Factory Method](/03-design-patterns/factory-method.md) — the GoF pattern, which solves
+- [Aggregate](/04-domain-driven-design/aggregate.md): what the factory creates.
+- [Repository](/04-domain-driven-design/repository.md): reconstitution, in contrast.
+- [Factory Method](/03-design-patterns/factory-method.md): the GoF pattern, which solves
   another problem.
-- [Builder](/03-design-patterns/builder.md) — when the problem is verbosity.
+- [Builder](/03-design-patterns/builder.md): when the problem is verbosity.
 
 ## Practical Exercise
 

@@ -2,7 +2,7 @@
 id: data-ownership
 title: Data Ownership
 sidebar_position: 20
-description: Who decides about each piece of data — the least technical decision in this section and the one that most determines teams' speed.
+description: "Who decides about each piece of data: the least technical decision in this section and the one that most determines teams' speed."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-consistency, data-modeling, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Data ownership answers: for each set of data, **who decides about it** — who can change the schema, who
-defines the meaning, who is responsible for the quality.
+Data ownership answers: for each set of data, **who decides about it** (who can change the schema, who
+defines the meaning, who is responsible for the quality).
 
 It is the least technical topic in this section and the one that most determines whether teams can work
 in parallel or spend their time blocking each other.
@@ -34,7 +34,7 @@ When nobody is the owner, everybody is responsible for nothing, and the data rot
 The most common pattern in systems that have grown: one shared database, several applications reading
 and writing the same tables.
 
-That looks efficient — no duplication, no integration, direct queries.
+That looks efficient: no duplication, no integration, direct queries.
 
 And it produces a coupling worse than code coupling, because it is invisible: no tool shows who depends
 on that column. You find out by removing it and seeing what breaks.
@@ -46,12 +46,12 @@ changing.
 
 ### A shared database is a public interface with no contract
 
-When several services read the same table, the schema has become an API — only with no versioning, no
+When several services read the same table, the schema has become an API, only with no versioning, no
 documentation and nobody knowing who the consumers are.
 
 Each column is a permanent commitment. Renaming breaks unknown consumers.
 
-That is not an argument for splitting everything into separate databases — it is an argument for knowing
+That is not an argument for splitting everything into separate databases. It is an argument for knowing
 what is an interface and what is internal.
 
 ### One owner, many readers
@@ -60,7 +60,7 @@ The model that works:
 
 **One service owns** the data set. Only it writes. It decides the schema.
 
-**Others consume** through an explicit interface — an API, an event, or a published view with a
+**Others consume** through an explicit interface: an API, an event, or a published view with a
 contract.
 
 The decisive distinction: the owner can change the **internal model** freely, and change the **published
@@ -72,7 +72,7 @@ Without that separation, every internal detail becomes an accidental contract.
 
 For each fact, exactly one place is authoritative.
 
-Copies can exist — a cache, a projection, a warehouse — as long as it is clear that they are derived,
+Copies can exist (a cache, a projection, a warehouse) as long as it is clear that they are derived,
 and that divergence is always resolved in favor of the source.
 
 Systems with two authoritative sources for the same data produce the question that has no answer: "which
@@ -80,7 +80,7 @@ of the two is right?".
 
 ### Ownership is organizational, not technical
 
-An owner has to be a team with the capacity to decide and to answer — not a name on a spreadsheet.
+An owner has to be a team with the capacity to decide and to answer, not a name on a spreadsheet.
 
 That means the division of data tends to follow the division of teams, and a division that does not
 correspond to the organization does not hold. See
@@ -105,7 +105,7 @@ Without that, the consumer discovers the change when it breaks.
 
 ### Shared data requires an explicit decision
 
-Some data is genuinely cross-cutting — the customer registry, the product table, the organizational
+Some data is genuinely cross-cutting: the customer registry, the product table, the organizational
 hierarchy.
 
 The options, in order of practical preference:
@@ -119,13 +119,13 @@ ongoing operations: measuring each copy's lag against what the contract promises
 events, detecting copies that drifted from the source, and versioning the event format without breaking
 whoever still reads the old one.
 
-**A shared database with explicit governance.** Acceptable when documented, with a change process — and
+**A shared database with explicit governance.** Acceptable when documented, with a change process, and
 the worst option when it happens by omission. It costs keeping the consumer inventory current and
 putting every schema change through the process, including the ones that look trivial.
 
 ### A data mesh takes the principle to analytics
 
-The central idea: analytical data also has an owner — the team that generates the data is responsible
+The central idea: analytical data also has an owner. The team that generates the data is responsible
 for publishing it with quality, as a product.
 
 That undoes the bottleneck of a central data team responsible for integrating everything, and transfers
@@ -138,7 +138,7 @@ produces published data sets with no quality and no maintenance.
 
 **Every schema another team reads is an API.** Facing each table, there is one question: is this an
 internal model, which the owner changes at will, or a published contract, which changes with notice and
-coexisting versions? Where nobody can answer, the table is already a contract — only with no owner to
+coexisting versions? Where nobody can answer, the table is already a contract, only with no owner to
 honor it.
 
 ## When to Use
@@ -168,11 +168,11 @@ governance.
 
 ## Alternatives
 
-- **A shared database with governance** — documented, with a process.
-- **A published view** — the owner exposes a stable view over the internal model; the consumers read only
+- **A shared database with governance**: documented, with a process.
+- **A published view**: the owner exposes a stable view over the internal model; the consumers read only
   it. A cheap and underestimated middle ground.
-- **Replication by events** — each consumer with its copy.
-- **A central data team** — it works at a smaller scale.
+- **Replication by events**: each consumer with its copy.
+- **A central data team**: it works at a smaller scale.
 
 ## Trade-offs
 
@@ -213,7 +213,7 @@ them, and the data degrades for lack of anyone to decide.
 consumer in production, and the owner finds out from the ticket.
 
 **Allowing writes from outside the owner.** The owner's validations stop holding, because there are paths
-that bypass them — and invalid data shows up with no author.
+that bypass them, and invalid data shows up with no author.
 
 **Not inventorying consumers.** Removing a column breaks an application nobody knew read the table, and
 the discovery is the incident.
@@ -231,8 +231,8 @@ A financial services company had a central database with 340 tables, accessed by
 from seven teams.
 
 The symptom that motivated the change: adding a field to the customers table took an average of eleven
-weeks — the time to coordinate with every team that might be affected, with nobody knowing for sure which
-they were.
+weeks (the time to coordinate with every team that might be affected, with nobody knowing for sure which
+they were).
 
 The inventory revealed the picture:
 
@@ -248,11 +248,11 @@ phone formats coexisted.
 The reorganization took two years and did not end in splitting databases:
 
 **A declared owner** per table, with the decision recorded. Where there was no natural owner, the
-discussion was escalated — and in four cases it revealed that the data belonged to a business process
+discussion was escalated, and in four cases it revealed that the data belonged to a business process
 with no defined owner, which was the real problem.
 
 **Writes restricted to the owner**, through database permissions. It was the most unpopular change and
-the most effective — it made the clandestine write paths visible, and there were fourteen.
+the most effective: it made the clandestine write paths visible, and there were fourteen.
 
 **Published views** for consumers outside the owner, with a contract. The internal model came to be
 changeable with no coordination.
@@ -263,7 +263,7 @@ changeable with no coordination.
 
 Result: adding a field went from eleven weeks to days, with no database moved anywhere.
 
-The recorded lesson: the initial proposal was to split into separate databases per domain — a project
+The recorded lesson: the initial proposal was to split into separate databases per domain, a project
 estimated at two and a half years, which would have had to make the same ownership decisions and, on top
 of them, migrate the data and cut over eleven applications. The gain was not in schedule, which was close
 on both paths: declared ownership with published views delivered the same unblocking with no cutover
@@ -274,10 +274,10 @@ The problem was one of responsibility, not of topology.
 
 ## Related Concepts
 
-- [Data Consistency](/07-data-architecture/data-consistency.md) — reconciliation between copies that
+- [Data Consistency](/07-data-architecture/data-consistency.md): reconciliation between copies that
   should agree with the source.
 - [Data Modeling](/07-data-architecture/data-modeling.md).
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — the corresponding boundary.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): the corresponding boundary.
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md).
 
 ## Practical Exercise
@@ -296,5 +296,5 @@ Where the second answer is "I don't know", you have a contract nobody can honor.
 ## Further Reading
 
 - Dehghani, Zhamak. *Data Mesh*. O'Reilly, 2022.
-- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021 — chapter 4.
+- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021. Chapter 4.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: []
 related: [architecture-leadership]
 canonical_for: [architectural maturity, maturity model]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -34,7 +34,7 @@ This model measures **capability**. The seven levels of the path organize
 
 Reading Level 04 puts nobody at stage 4. Content is input; capability comes from
 deciding, being wrong, recording why, and revisiting. The path shortens the
-route — it does not replace it.
+route but does not replace it.
 
 In practice, someone at stage 3 usually gains more from rereading Level 02
 against their own system than from advancing to Level 05.
@@ -45,7 +45,7 @@ against their own system than from advancing to Level 05.
 
 **Decides:** how to implement inside an already defined module.
 **Horizon:** the current task.
-**Negotiates with:** nobody — the scope arrives already cut.
+**Negotiates with:** nobody, since the scope arrives already cut.
 
 Writes correct, readable code. Applies patterns when the problem is recognized.
 Does not decide where boundaries sit.
@@ -62,7 +62,7 @@ earlier structural decision, and can name it.
 Draws boundaries inside a system. Justifies why a dependency points one way.
 Recognizes structure degrading before the cost shows up in the roadmap.
 
-**Transition signal:** starts hitting limits that are not about code — the
+**Transition signal:** starts hitting limits that are not about code, such as the
 database, the queue, the deployment process.
 
 ### Stage 3 — System-oriented
@@ -84,7 +84,7 @@ and notices that a technical argument alone is not enough.
 **Horizon:** the system and its evolution, one to two years.
 **Negotiates with:** technical leadership and business stakeholders.
 
-Derives architecture from stated numbers — SLO, RTO, budget — rather than from
+Derives architecture from stated numbers (SLO, RTO, budget) rather than from
 preference. Records decisions with the context that makes them revisable. Can say
 no to complexity that does not pay for itself, including complexity they proposed
 earlier.
@@ -127,6 +127,6 @@ whoever decides.
 The answer is usually one stage below what self-assessment suggests, because we
 tend to measure ourselves by what we understand rather than by what we decide.
 
-Two warnings. There is no merit in being at stage 6 — there is fit to a role; a
+Two warnings. There is no merit in being at stage 6, only fit to a role; a
 thirty-person company rarely needs one. And the stages are not exclusive: someone
 at stage 5 still makes stage 2 decisions, and still needs to make them well.

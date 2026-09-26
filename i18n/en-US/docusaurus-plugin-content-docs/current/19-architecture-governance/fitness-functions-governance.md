@@ -2,7 +2,7 @@
 id: fitness-functions-governance
 title: Fitness Functions as Governance
 sidebar_position: 7
-description: Executable governance — the property you want to preserve, verified on every change.
+description: "Executable governance: the property you want to preserve, verified on every change."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [compliance, governance-standards, governance-basics]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -34,15 +34,15 @@ a fitness function  the dependency graph is checked at build time;
 
 The difference between the two lines is the difference between an intention and a mechanism.
 The first is true when someone remembers; the second, for as long as the check runs in the
-pipeline — and it stops being true when someone disables it or hollows it out with
+pipeline, and it stops being true when someone disables it or hollows it out with
 exclusions, which is how it erodes.
 
 For measurable properties, it costs less friction per unit of effect than manual review,
-which demands attention on every change — and it demands more up-front investment than any
+which demands attention on every change. And it demands more up-front investment than any
 written rule.
 
-The mechanics of building and operating a function — atomic and holistic, message, false
-positives — are in [Fitness Functions](/23-architecture-leadership/fitness-functions.md).
+The mechanics of building and operating a function (atomic and holistic, message, false
+positives) are in [Fitness Functions](/23-architecture-leadership/fitness-functions.md).
 This document covers the governance slice: the function as an intervention point, its
 relationship with exceptions and review, and the line between what it checks and what is
 left to judgment.
@@ -61,7 +61,7 @@ month 36    nobody knows what the state is
 The erosion is not indiscipline. It is that each individual violation is small, invisible and
 justifiable at the time, and nothing adds them up.
 
-And the traditional alternative — inspecting in review — has two flaws: it happens late, and
+And the traditional alternative (inspecting in review) has two flaws: it happens late, and
 it depends on someone noticing. A cyclic dependency introduced in a 400-line change is not
 noticed by reading.
 
@@ -92,7 +92,7 @@ triggered   runs periodically or on demand — too expensive for every change
 
 For governance, the difference is the moment of intervention: a continuous function stops
 the violation before it gets in; a triggered one finds it afterwards, and so it needs a
-destination — an alert with an owner or a review item — or it becomes a report nobody reads.
+destination (an alert with an owner or a review item) or it becomes a report nobody reads.
 The distinction between atomic and holistic is in the
 [canonical document](/23-architecture-leadership/fitness-functions.md#atomic-and-holistic);
 several holistic functions are queries over data that
@@ -110,16 +110,16 @@ Making everything fail produces two bad reactions: the check gets disabled, or t
 list grows until the rule no longer holds.
 
 The right choice depends on one question: **if this fails, is it always an error?** If the
-answer is "sometimes it is legitimate", the check should warn, not block — and the legitimate
+answer is "sometimes it is legitimate", the check should warn, not block, and the legitimate
 case should become a [recorded exception](/19-architecture-governance/exceptions.md).
 
 ### The message is the door to the exception process
 
-The actionable message — file, line, correct alternative — is covered in the
+The actionable message (file, line, correct alternative) is covered in the
 [canonical document](/23-architecture-leadership/fitness-functions.md#the-message-is-part-of-the-design).
 What belongs to governance is its last line: the path to record an exception. Without that
-path, someone with a legitimate case has only two ways out — asking for the check to be
-turned off or adding a silent exclusion — and both take the rule out of governance's reach.
+path, someone with a legitimate case has only two ways out (asking for the check to be
+turned off or adding a silent exclusion), and both take the rule out of governance's reach.
 
 ### What cannot be automated
 
@@ -134,7 +134,7 @@ is the complexity justified?
 ```
 
 None of those is measurable. They stay in the territory of
-[review](/19-architecture-governance/governance-review.md) and human judgment — and that is
+[review](/19-architecture-governance/governance-review.md) and human judgment, and that is
 why fitness functions replace part of governance, not all of it.
 
 The useful split: automated verification frees human attention for the questions only it can
@@ -142,12 +142,12 @@ answer.
 
 ### Adoption, ownership and review
 
-The adoption protocol — start with the rule that has already caused damage, warn before
-blocking — and the operation of each function — owner, review, false positive rate — are in
+The adoption protocol (start with the rule that has already caused damage, warn before
+blocking) and the operation of each function (owner, review, false positive rate) are in
 the [canonical document](/23-architecture-leadership/fitness-functions.md#start-with-the-rule-that-has-already-caused-damage).
 On the governance side, what changes is where this is recorded: each function points to the
 [decision](/19-architecture-governance/governance-standards.md) that originated it, and the
-periodic review of the standard includes the function's exclusion list — that is where the
+periodic review of the standard includes the function's exclusion list. That is where the
 rule loses validity without anyone deciding so.
 
 ## Mental Model
@@ -164,7 +164,7 @@ the human is what requires judgment.
 
 ## When Not to Use
 
-**For judgment** — boundary appropriateness, modeling, trade-offs. There is no measure to
+**For judgment**: boundary appropriateness, modeling, trade-offs. There is no measure to
 compare against, and a check that pretends to measure pulls the conversation away from
 review, where it needs to happen.
 
@@ -181,20 +181,20 @@ recovery in a chaos test don't pay off as continuous checks; they become trigger
 or reports.
 
 **When nobody can own it.** A function with no owner breaks at the first platform change and
-gets disabled — and the disabling teaches that the rule is negotiable, which is worse than
+gets disabled, and the disabling teaches that the rule is negotiable, which is worse than
 never having created it.
 
 ## Alternatives
 
-- **A preventive control** — prevent rather than detect; better when the environment allows.
-- **[Review](/19-architecture-governance/governance-review.md)** — for what requires
+- **A preventive control**: prevent rather than detect; better when the environment allows.
+- **[Review](/19-architecture-governance/governance-review.md)**: for what requires
   judgment.
-- **[Continuous compliance](/19-architecture-governance/compliance.md)** — the same
+- **[Continuous compliance](/19-architecture-governance/compliance.md)**: the same
   mechanism, with a regulatory focus.
-- **A periodic report** — when the property is a trend and not an event.
+- **A periodic report**: when the property is a trend and not an event.
 
 The first is preferable when the platform can enforce the property with no legitimate
-exception case — where legitimate exceptions exist, the built-in block becomes rigidity and
+exception case; where legitimate exceptions exist, the built-in block becomes rigidity and
 the case moves outside the platform: a mesh that rejects unauthenticated traffic
 makes the corresponding check unnecessary. See
 [governance basics](/19-architecture-governance/governance-basics.md).
@@ -265,7 +265,7 @@ damage. The check reads each service's connection configuration and compares it 
 data ownership registry.
 
 It ran in warning mode for six weeks, with a per-team dashboard. During that period, 4 of the
-6 cases were fixed voluntarily — with no pressure at all, merely from becoming visible. The
+6 cases were fixed voluntarily, with no pressure at all, merely from becoming visible. The
 other 2 became exceptions with a deadline and a migration plan.
 
 **Then, in order of historical damage:** cyclic dependency between modules, secret in code,
@@ -278,8 +278,8 @@ block.
 **An actionable message** in all of them, with the file, the line, the correct alternative and
 the path to record an exception.
 
-**False positives monitored.** Two functions were adjusted for exceeding 5%; one —
-"cyclomatic complexity above the limit" — was downgraded from blocking to a report, for not
+**False positives monitored.** Two functions were adjusted for exceeding 5%; one
+("cyclomatic complexity above the limit") was downgraded from blocking to a report, for not
 distinguishing essential from accidental complexity.
 
 **Four rules never automated**, kept explicitly as review matters: appropriateness of the
@@ -305,7 +305,7 @@ rules without a function were not measured again: the 26 says nothing about them
 
 The last number in the table is what the team considers most important and the easiest to overlook:
 automation did not replace review, it freed review. The conversations came to be about
-boundaries and modeling — the four rules no function verifies.
+boundaries and modeling: the four rules no function verifies.
 
 The subsequent assessment points out: the 4 voluntary fixes during warning mode, with no
 pressure at all, were the argument that convinced the organization to press on. Making it
@@ -313,24 +313,24 @@ visible solved two thirds of the problem before any blocking.
 
 ## Related Concepts
 
-- [Governance Basics](/19-architecture-governance/governance-basics.md) — the intervention
+- [Governance Basics](/19-architecture-governance/governance-basics.md): the intervention
   point.
-- [Compliance](/19-architecture-governance/compliance.md) — the same mechanism, regulatory
+- [Compliance](/19-architecture-governance/compliance.md): the same mechanism, regulatory
   focus.
-- [Exceptions](/19-architecture-governance/exceptions.md) — what to do about the legitimate
+- [Exceptions](/19-architecture-governance/exceptions.md): what to do about the legitimate
   case.
 - [Architecture Evolution](/01-fundamentals/architecture-evolution.md).
 
 ## Practical Exercise
 
-Pick a fitness function that already runs in your context — or, if there is none, the oldest
-architectural rule that still depends on manual review. Answer three questions about it: who
+Pick a fitness function that already runs in your context (or, if there is none, the oldest
+architectural rule that still depends on manual review). Answer three questions about it: who
 owns the rule, what the path is to record an exception when the case is legitimate, and how
 many silent exclusions it has accumulated since it was created.
 
 If the exception path does not exist, or if the silent exclusions outnumber the recorded
 exceptions, the rule has already left the reach of governance. That needs fixing before any
-new check — to choose and build the next one, the path is in the
+new check. To choose and build the next one, the path is in the
 [canonical document](/23-architecture-leadership/fitness-functions.md).
 
 ## Interview Questions

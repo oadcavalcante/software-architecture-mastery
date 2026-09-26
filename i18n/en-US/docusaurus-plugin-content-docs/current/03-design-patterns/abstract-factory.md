@@ -2,7 +2,7 @@
 id: abstract-factory
 title: Abstract Factory
 sidebar_position: 2
-description: Creating families of compatible products — and why it is almost never the answer today.
+description: Creating families of compatible products, and why it is almost never the answer today.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [factory-method]
 related: [factory-method, builder, facade]
 canonical_for: [abstract factory]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -72,7 +72,7 @@ classes.
 The pattern's strength is its weakness: **adding a new product to the family requires
 altering the factory interface and every implementation.**
 
-Adding a new family is cheap — one class. Adding a product is expensive — it touches every
+Adding a new family is cheap: one class. Adding a product is expensive: it touches every
 existing factory.
 
 That means the pattern is only justified when the **set of products is stable** and it is
@@ -102,7 +102,7 @@ no parallel hierarchy.
 ## When Not to Use
 
 **When there is no compatibility constraint.** If the products can be mixed with no error,
-there is no family — there are independent objects, and each can be obtained by injection.
+there is no family: there are independent objects, and each can be obtained by injection.
 
 **When new products are frequent.** Each touches every factory. If that is the expected
 variation, the pattern is on the wrong axis.
@@ -117,12 +117,12 @@ environment overlaps something the configuration mechanism already does.
 
 ## Alternatives
 
-- **Dependency injection with per-profile configuration** — the answer in most cases.
-- **[Factory Method](/03-design-patterns/factory-method.md)** — when it is one product,
+- **Dependency injection with per-profile configuration**: the answer in most cases.
+- **[Factory Method](/03-design-patterns/factory-method.md)**: when it is one product,
   not a family.
-- **[Builder](/03-design-patterns/builder.md)** — when the problem is assembling a complex
+- **[Builder](/03-design-patterns/builder.md)**: when the problem is assembling a complex
   object, not choosing between families.
-- **Passing a set of creation functions** — the same coherence, with no hierarchy.
+- **Passing a set of creation functions**: the same coherence, with no hierarchy.
 
 ## Trade-offs
 
@@ -162,7 +162,7 @@ A banking integration system needed to produce, for each bank, a coherent set: a
 remittance file formatter, a return parser, an account validator and a check-digit
 calculator.
 
-Mixing banks was a real defect and had already happened — one bank's return processed with
+Mixing banks was a real defect and had already happened: one bank's return processed with
 another's parser produced incorrect reconciliation for three days.
 
 `BankFactory` with four creation operations, one implementation per bank. The client gets
@@ -171,18 +171,18 @@ everything from one factory and cannot mix.
 Eleven banks were added over four years, each one a class.
 
 The expensive axis was never exercised: no new product was added to the family in four
-years. That was exactly the condition that justified the pattern — a stable set of
-products, varying families — and it held.
+years. That was exactly the condition that justified the pattern (a stable set of
+products, varying families), and it held.
 
-Had a fifth product emerged, it would have touched twelve existing files — the factory
-interface and the eleven implementations — plus eleven new product classes, one per family.
+Had a fifth product emerged, it would have touched twelve existing files (the factory
+interface and the eleven implementations) plus eleven new product classes, one per family.
 That is the cost the rigid axis charges, and it is why the stability of the product set is a
 prerequisite and not a detail.
 
 ## Where it appears in practice
 
 **XML parsing APIs in Java.** The case is usually cited here, and should not be:
-`DocumentBuilderFactory` declares a single creation operation — `newDocumentBuilder()` — which
+`DocumentBuilderFactory` declares a single creation operation, `newDocumentBuilder()`, which
 by the criterion of the previous section is [factory method](/03-design-patterns/factory-method.md),
 not this pattern. The coherent family exists one level below, among `Document`, `Element` and
 `Text` from the same implementation, and what holds it together is the document, not the
@@ -191,8 +191,8 @@ factory.
 **Cross-platform widget libraries.** The case that originated the pattern, today solved by
 themes in most frameworks.
 
-**Database drivers.** The compatibility is real — you do not combine one driver's connection
-with another's statement — but the form is different: in JDBC the chain is `Connection`
+**Database drivers.** The compatibility is real (you do not combine one driver's connection
+with another's statement), but the form is different: in JDBC the chain is `Connection`
 creates `Statement` creates `ResultSet`, chained factory methods, not a factory interface with
 four operations. It serves as an illustration of the *compatibility constraint*, not of the
 pattern's structure.
@@ -202,16 +202,16 @@ to work together and assume things about each other.
 
 In an application system, that condition is rare. When someone proposes Abstract Factory,
 the question that decides is direct: **what concretely breaks if we mix objects from
-different families?** If there is no specific answer, there is no family — there are
+different families?** If there is no specific answer, there is no family: there are
 independent objects that can be injected one by one, and the pattern is being used as
 organizational grouping, a role it performs badly.
 
 ## Related Concepts
 
-- [Factory Method](/03-design-patterns/factory-method.md) — one product, variation by
+- [Factory Method](/03-design-patterns/factory-method.md): one product, variation by
   subclass.
-- [Builder](/03-design-patterns/builder.md) — construction in steps.
-- [Facade](/03-design-patterns/facade.md) — when the goal is simplifying access, not
+- [Builder](/03-design-patterns/builder.md): construction in steps.
+- [Facade](/03-design-patterns/facade.md): when the goal is simplifying access, not
   guaranteeing coherence.
 
 ## Practical Exercise

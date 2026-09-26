@@ -2,7 +2,7 @@
 id: correlation-ids
 title: Identificadores de Correlação
 sidebar_position: 5
-description: A técnica mais barata da seção — e o pré-requisito de investigar qualquer coisa em sistema distribuído.
+description: A técnica mais barata da seção, e o pré-requisito de investigar qualquer coisa em sistema distribuído.
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, debuggability]
 canonical_for: [identificador de correlação, propagação de contexto, identificador de requisição]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Um identificador de correlação é um valor único gerado na entrada de uma req
 **propagado** por todos os componentes que participam do atendimento dela.
 
 Com ele, é possível reunir todos os registros, todas as mensagens e todos os eventos
-que pertencem à mesma operação — mesmo que tenham passado por doze serviços e três
+que pertencem à mesma operação, mesmo que tenham passado por doze serviços e três
 filas.
 
 O custo de implantar é baixo perto do de rastreamento distribuído completo, e é
@@ -41,7 +41,7 @@ por algo naquele horário; encontrar candidatos; procurar no serviço de pagamen
 registros próximos; tentar casar por horário e por identificador de usuário; repetir
 para cada serviço da cadeia.
 
-Isso leva horas, frequentemente não conclui, e piora com o volume — em horário de pico,
+Isso leva horas, frequentemente não conclui, e piora com o volume: em horário de pico,
 há centenas de operações por segundo e nada distingue uma da outra.
 
 Com correlação, é uma consulta.
@@ -64,13 +64,13 @@ Muitos produtos exibem esse valor em mensagens de erro por essa razão.
 
 ### Aceitar o identificador de quem chama
 
-Se o chamador já tem um identificador — porque a chamada é parte de uma operação maior
-—, ele deve ser reaproveitado, não substituído.
+Se o chamador já tem um identificador (porque a chamada é parte de uma operação maior),
+ele deve ser reaproveitado, não substituído.
 
 Isso permite correlacionar através de fronteiras organizacionais: um parceiro que envia
 o identificador dele permite rastrear a operação nos dois lados.
 
-A regra: aceitar se vier; gerar se não vier. E, por segurança, validar o formato — um
+A regra: aceitar se vier; gerar se não vier. E, por segurança, validar o formato: um
 identificador vindo de fora entra em registros e consultas, e vale tratá-lo como
 entrada não confiável.
 
@@ -104,7 +104,7 @@ identificador de usuário     permite ver tudo de uma pessoa
 ```
 
 A distinção entre os dois primeiros importa: uma operação de negócio pode envolver
-várias requisições — uma retentativa, uma chamada assíncrona subsequente. O de
+várias requisições (uma retentativa, uma chamada assíncrona subsequente). O de
 requisição as separa; o de correlação as reúne.
 
 Ver [rastreamento distribuído](/13-observability/distributed-tracing.md), que formaliza isso com trace e
@@ -158,14 +158,14 @@ história separada.
 ## Quando Não Usar
 
 **Quando já há rastreamento distribuído ponta a ponta.** Correlação é o subconjunto
-mínimo dele — manter um esquema próprio ao lado duplica propagação, cabeçalho e
+mínimo dele: manter um esquema próprio ao lado duplica propagação, cabeçalho e
 instrumentação para responder à mesma pergunta com menos informação.
 
 **Em processo único, sem salto de rede.** O contexto da própria biblioteca de registro já
 cobre a operação inteira, e o identificador não atravessa nada.
 
 **Quando a cadeia que importa passa por terceiro que não repassa o cabeçalho.** O
-identificador morre ali, e o que sobra é cobertura parcial — pior que nenhuma, porque dá
+identificador morre ali, e o que sobra é cobertura parcial, pior que nenhuma, porque dá
 confiança onde não há. Se o salto crítico é justamente esse, o esforço rende mais em
 reconciliação por chave de negócio.
 
@@ -174,11 +174,11 @@ expurgo de logs, não tem garantia de unicidade eterna e não pertence a nenhum 
 
 ## Alternativas
 
-- **[Rastreamento distribuído](/13-observability/distributed-tracing.md)** — a versão completa, com
+- **[Rastreamento distribuído](/13-observability/distributed-tracing.md)**: a versão completa, com
   estrutura de chamadas e tempos. Correlação é o subconjunto mínimo dele.
-- **Correlação por horário e usuário** — o que se faz sem identificador. Lento,
+- **Correlação por horário e usuário**: o que se faz sem identificador. Lento,
   impreciso e inviável em volume.
-- **Identificador de negócio** — número do pedido, por exemplo. Funciona para
+- **Identificador de negócio**: número do pedido, por exemplo. Funciona para
   investigar aquele domínio, e não cobre o que acontece antes de ele existir.
 
 ## Trade-offs
@@ -235,15 +235,15 @@ O fluxo de contratação passava por sete serviços e duas filas. Os registros e
 com bom nível de detalhe, e não se conectavam.
 
 A investigação típica: pegar o horário aproximado informado pelo cliente, procurar em
-cada serviço, tentar casar por horário e por documento do cliente — que aparecia em
-alguns registros e em outros não.
+cada serviço, tentar casar por horário e por documento do cliente (que aparecia em
+alguns registros e em outros não).
 
 A implementação de correlação levou três semanas:
 
 **Geração no gateway**, com aceitação de identificador externo quando presente.
 
 **Contexto propagado automaticamente** por uma biblioteca compartilhada, incluindo os
-saltos por fila — o identificador passou a ir nos metadados da mensagem.
+saltos por fila: o identificador passou a ir nos metadados da mensagem.
 
 **Inclusão automática no registro**, sem depender de o desenvolvedor lembrar.
 
@@ -260,7 +260,7 @@ implementações independentes. A padronização exigiu um período de aceitar t
 tinham requisição de origem. A solução foi gerar um identificador por execução e
 registrar explicitamente o que a originou.
 
-**Documento do cliente usado como correlação** em dois serviços — o que espalhava dado
+**Documento do cliente usado como correlação** em dois serviços, o que espalhava dado
 pessoal por registros e por um sistema de terceiro. Substituído por identificador
 opaco.
 
@@ -269,8 +269,8 @@ de tempo gasto em investigação. Nenhuma ferramenta foi comprada.
 
 ## Conceitos Relacionados
 
-- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a versão completa.
-- [Logs](/13-observability/logs.md) — onde o identificador precisa aparecer.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md): a versão completa.
+- [Logs](/13-observability/logs.md): onde o identificador precisa aparecer.
 - [Depurabilidade](/13-observability/debuggability.md).
 - [Auditabilidade](/10-security/auditability.md).
 
@@ -279,7 +279,7 @@ de tempo gasto em investigação. Nenhuma ferramenta foi comprada.
 Pegue um erro reportado por um usuário e tente reconstruir o caminho completo da
 requisição pelos seus registros.
 
-O tempo que levar — e o quanto você conseguir reconstruir — é a medida da sua
+O tempo que levar (e o quanto você conseguir reconstruir) é a medida da sua
 correlação atual.
 
 ## Perguntas de Entrevista
@@ -292,7 +292,7 @@ correlação atual.
 
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
   Infrastructure*. Google, 2010.
-- W3C. *Trace Context*, Recomendação, 2021 — padroniza `traceparent` e `tracestate`, que
+- W3C. *Trace Context*, Recomendação, 2021. Padroniza `traceparent` e `tracestate`, que
   carregam contexto de **trace**; não define cabeçalho genérico de correlação. O Level 2
   segue como rascunho de recomendação candidata.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.

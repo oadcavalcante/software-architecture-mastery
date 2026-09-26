@@ -2,7 +2,7 @@
 id: cloud-storage
 title: Armazenamento em Nuvem
 sidebar_position: 12
-description: Objetos, blocos e arquivos — três modelos com propriedades diferentes, e o que cada um cobra.
+description: "Objetos, blocos e arquivos: três modelos com propriedades diferentes, e o que cada um cobra."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [file-storage, cdn, cloud-compute, cost-architecture, data-lifecycle]
 canonical_for: [armazenamento de blocos, classe de armazenamento, regra de ciclo de vida]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -45,7 +45,7 @@ O reflexo é usar o que é familiar: disco. Uma aplicação que grava arquivos n
 sistema de arquivos continua fazendo isso na nuvem, com disco anexado.
 
 Isso funciona e prende: o disco pertence a uma zona, não é compartilhável, tem
-tamanho fixo a gerenciar, e custa por gigabyte provisionado — não usado.
+tamanho fixo a gerenciar, e custa por gigabyte provisionado, não usado.
 
 Para a maior parte dos casos de "guardar arquivos", armazenamento de objetos é mais
 barato, mais durável e mais escalável. A migração raramente acontece porque ninguém
@@ -66,10 +66,10 @@ custosa, em tempo e em cobrança.
 
 **Consistência.** Nos três principais provedores, leitura após escrita e listagem
 são fortemente consistentes: um objeto recém-gravado já aparece na listagem. O que
-chega atrasado são as cópias assíncronas — replicação entre regiões e relatórios de
+chega atrasado são as cópias assíncronas: replicação entre regiões e relatórios de
 inventário.
 
-Tratar objetos como disco produz padrões de acesso ruins — o mais comum é listar
+Tratar objetos como disco produz padrões de acesso ruins: o mais comum é listar
 para encontrar, quando a chave deveria ser derivável.
 
 ### Classes de armazenamento e o custo de recuperar
@@ -84,7 +84,7 @@ A economia é real e tem uma armadilha: mover dados para classe fria e depois
 acessá-los com frequência sai **mais caro** que tê-los deixado na classe quente.
 
 A regra: baseie a transição em dados de acesso real, não em idade presumida. E
-verifique se a aplicação tolera a latência de recuperação da classe de destino — em
+verifique se a aplicação tolera a latência de recuperação da classe de destino: em
 arquivamento profundo, ela pode ser de horas.
 
 ### Ciclo de vida é configuração, não código
@@ -95,7 +95,7 @@ de controlar custo de armazenamento.
 E são também onde o requisito de retenção precisa estar. Ver
 [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
-Sem regras de ciclo de vida, o armazenamento só cresce — e é o item da fatura que
+Sem regras de ciclo de vida, o armazenamento só cresce, e é o item da fatura que
 cresce mais silenciosamente, porque não gera erro nem lentidão.
 
 ### Versionamento protege contra você mesmo
@@ -107,12 +107,12 @@ anterior.
 [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
 Duas consequências a gerenciar: versões antigas ocupam espaço e são cobradas, e a
-regra de ciclo de vida precisa tratá-las explicitamente — do contrário, apagar não
+regra de ciclo de vida precisa tratá-las explicitamente. Do contrário, apagar não
 libera nada.
 
 ### Durabilidade não é disponibilidade
 
-Armazenamento de objetos costuma prometer durabilidade altíssima — a chance de
+Armazenamento de objetos costuma prometer durabilidade altíssima: a chance de
 perder um objeto é remota.
 
 Isso não diz nada sobre **disponibilidade**: o serviço pode estar temporariamente
@@ -127,7 +127,7 @@ Discos virtuais têm limites de operações por segundo e de vazão, geralmente
 proporcionais ao tamanho ou provisionados à parte.
 
 Um disco pequeno pode ser o gargalo de um banco, e o sintoma é lentidão sem CPU
-alta — diagnóstico que costuma demorar porque ninguém suspeita do disco.
+alta, diagnóstico que costuma demorar porque ninguém suspeita do disco.
 
 E o mecanismo de crédito de rajada, presente em algumas classes, produz o pior tipo
 de problema: desempenho bom nos testes, ruim sob carga sustentada.
@@ -140,19 +140,19 @@ no limite.
 
 ## Quando Usar
 
-**Objetos** — arquivos de usuário, mídia, cópias, dados analíticos, artefatos,
+**Objetos**: arquivos de usuário, mídia, cópias, dados analíticos, artefatos,
 qualquer coisa lida inteira.
 
-**Bloco** — sistema operacional, banco de dados, qualquer coisa que exija sistema de
+**Bloco**: sistema operacional, banco de dados, qualquer coisa que exija sistema de
 arquivos com desempenho.
 
-**Arquivo** — quando várias máquinas precisam do mesmo sistema de arquivos e
+**Arquivo**: quando várias máquinas precisam do mesmo sistema de arquivos e
 reescrever a aplicação não é opção.
 
 ## Quando Não Usar
 
 **Objetos como sistema de arquivos**, quando a aplicação depende de alteração
-parcial, de renomear em lote ou de listar para localizar — sinal de que a chave não
+parcial, de renomear em lote ou de listar para localizar, sinal de que a chave não
 é derivável e o modelo errado foi escolhido.
 
 **Bloco para arquivos de usuário**, a partir do momento em que mais de uma instância
@@ -161,7 +161,7 @@ zona, com tamanho a gerenciar.
 
 **Arquivo por conveniência**, quando a aplicação pode ler e gravar objetos inteiros.
 É o mais caro dos três e só se paga quando várias máquinas precisam de semântica de
-sistema de arquivos compartilhado — travas, escrita parcial — e reescrever não é
+sistema de arquivos compartilhado (travas, escrita parcial) e reescrever não é
 opção.
 
 **Classe fria** quando a cobrança de recuperação de um mês supera a economia de
@@ -170,11 +170,11 @@ classe.
 
 ## Alternativas
 
-- **[Rede de distribuição de conteúdo](/05-system-design/cdn.md)** na frente de objetos — reduz custo de saída e
+- **[Rede de distribuição de conteúdo](/05-system-design/cdn.md)** na frente de objetos: reduz custo de saída e
   latência.
-- **Banco de dados** para dados estruturados — armazenamento não substitui.
+- **Banco de dados** para dados estruturados: armazenamento não substitui.
 - **Cache** para o que é lido repetidamente.
-- **Armazenamento efêmero local** para dados temporários de processamento — mais
+- **Armazenamento efêmero local** para dados temporários de processamento, mais
   rápido e mais barato que disco persistente.
 
 ## Trade-offs
@@ -206,7 +206,7 @@ classe.
 
 **Crédito de rajada esgotado.** Desempenho despenca sob carga sustentada.
 
-**Objeto exposto publicamente.** Configuração de acesso permissiva — um dos
+**Objeto exposto publicamente.** Configuração de acesso permissiva, um dos
 vazamentos mais comuns em nuvem.
 
 **Listagem cara.** Um laço que lista milhões de chaves.
@@ -236,7 +236,7 @@ Três consequências:
 era um processo próprio, frágil. Adicionar uma instância levava 40 minutos copiando
 arquivos.
 
-**Custo.** Os discos eram provisionados com folga — 60% de espaço ocioso pago
+**Custo.** Os discos eram provisionados com folga: 60% de espaço ocioso pago
 integralmente. E o conteúdo estava replicado em cada máquina.
 
 **Zona.** Todo o conteúdo estava preso à zona das instâncias.
@@ -250,7 +250,7 @@ para arquivar apenas após quatro anos, com aviso na interface sobre a latência
 
 **Versionamento.** Habilitado após um incidente em que um script apagou uploads de
 alunos. Salvou os dados. Seis meses depois, o custo de armazenamento tinha subido
-40% — as versões antigas nunca eram removidas. A regra de ciclo de vida passou a
+40%: as versões antigas nunca eram removidas. A regra de ciclo de vida passou a
 apagar versões não atuais após 90 dias.
 
 **Exposição.** Uma revisão de segurança encontrou um conjunto de objetos com acesso
@@ -260,8 +260,8 @@ de alunos.
 **Rede de distribuição de conteúdo** na frente dos vídeos. O custo de saída caiu
 substancialmente, e a experiência melhorou.
 
-O detalhe que a equipe destaca: a migração foi tratada como troca de tecnologia — "de disco
-para objetos" — e as três decisões que vieram depois (classe, versionamento,
+O detalhe que a equipe destaca: a migração foi tratada como troca de tecnologia ("de disco
+para objetos") e as três decisões que vieram depois (classe, versionamento,
 permissões) não estavam no plano. Cada uma gerou um incidente antes de virar
 configuração.
 

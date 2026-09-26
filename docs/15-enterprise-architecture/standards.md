@@ -2,7 +2,7 @@
 id: standards
 title: Padrões
 sidebar_position: 11
-description: Prescrever escolhas específicas — e por que o padrão que precisa ser verificado não foi operacionalizado.
+description: Prescrever escolhas específicas, e por que o padrão que precisa ser verificado não foi operacionalizado.
 doc_type: concept
 level: 6
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-principles]
 related: [enterprise-principles, technology-radar, enterprise-governance]
 canonical_for: [padrão corporativo, operacionalização de padrão, escopo de padrão]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -43,8 +43,8 @@ alguns contradizem outros
 vários descrevem tecnologias que a organização não usa mais
 ```
 
-E o efeito prático: o documento é citado apenas quando alguém quer justificar uma recusa
-— o que faz os times o verem como instrumento de bloqueio, não de orientação.
+E o efeito prático: o documento é citado apenas quando alguém quer justificar uma recusa,
+o que faz os times o verem como instrumento de bloqueio, não de orientação.
 
 ## Conceitos Centrais
 
@@ -98,7 +98,7 @@ padrões que importam.
 ### Padrões envelhecem mais rápido que princípios
 
 Um princípio expressa um valor; um padrão expressa uma escolha de tecnologia ou de
-formato — e tecnologia muda.
+formato, e tecnologia muda.
 
 ```text
 princípio  "integração por contrato explícito"        vale por anos
@@ -108,7 +108,7 @@ padrão     "use a versão 3 da biblioteca de contrato" vale por meses
 Isso exige revisão frequente, e um mecanismo de depreciação: um padrão substituído
 precisa de prazo de convivência e de caminho de migração.
 
-Ver [contratos de integração](/08-integration-architecture/integration-contracts.md) —
+Ver [contratos de integração](/08-integration-architecture/integration-contracts.md):
 padrões internos merecem o mesmo tratamento que APIs.
 
 ### Exceção com registro, não proibição
@@ -139,7 +139,7 @@ Um número grande é sintoma de que padrões estão sendo usados onde princípio
 caminho pavimentado resolveriam.
 
 E a maior parte dos padrões documentados que não são verificados poderia simplesmente
-deixar de existir sem consequência — o que é uma constatação desconfortável e
+deixar de existir sem consequência, o que é uma constatação desconfortável e
 frequentemente verdadeira.
 
 ### O padrão precisa ter um caminho de migração
@@ -162,8 +162,8 @@ E o prazo precisa ser realista: um padrão que exige migrar 80 serviços em um t
 não será cumprido, e o descumprimento generalizado corrói a legitimidade de todos os
 padrões.
 
-A alternativa que reduz o custo: quando o padrão pode ser aplicado pela plataforma —
-atualizando o modelo de serviço e propagando — a migração deixa de ser trabalho de cada
+A alternativa que reduz o custo: quando o padrão pode ser aplicado pela plataforma
+(atualizando o modelo de serviço e propagando), a migração deixa de ser trabalho de cada
 time. Ver
 [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
@@ -181,13 +181,13 @@ o que falta migrar                  lista visível, priorizada
 quem é responsável pela migração    nomeado
 ```
 
-Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md) —
+Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md):
 quando a plataforma conhece o padrão de cada serviço, essa rastreabilidade é derivada e
-não depende de atualização manual por cada time — o custo passa a ser manter a
+não depende de atualização manual por cada time. O custo passa a ser manter a
 integração entre plataforma e catálogo.
 
 E há um caso comum que merece decisão explícita: sistemas que não vão migrar. Um sistema
-em processo de desativação não deveria consumir esforço para atender um padrão novo — e a
+em processo de desativação não deveria consumir esforço para atender um padrão novo, e a
 exceção precisa ser registrada, ou ele aparece perpetuamente na lista de pendências.
 
 ### Adoção medida, não declarada
@@ -204,7 +204,7 @@ convergido   os sistemas antigos foram migrados
 
 Medir a adoção separa padrões vivos de letra morta, e produz a informação que decide o
 próximo passo: um padrão publicado há dois anos e seguido por 20% dos sistemas novos ou
-está errado, ou não foi comunicado, ou não tem caminho de migração viável — e as três
+está errado, ou não foi comunicado, ou não tem caminho de migração viável. E as três
 causas exigem respostas diferentes.
 
 Sem essa medição, a resposta institucional padrão é reforçar a obrigatoriedade, que é a
@@ -226,21 +226,21 @@ automatize, ou aceite que ele é decorativo.
 
 **Para preferências sem consequência.** Gasta autoridade em algo que não afeta ninguém além do time, e essa autoridade falta depois.
 
-**Em área tecnológica ainda em exploração.** Enquanto os times ainda descobrem qual abordagem serve — um tipo novo de armazenamento, um framework recém-chegado —, fixar a escolha congela a opção que por acaso chegou primeiro. Ali cabe o [radar](/15-enterprise-architecture/technology-radar.md) em avaliação, não um padrão.
+**Em área tecnológica ainda em exploração.** Enquanto os times ainda descobrem qual abordagem serve (um tipo novo de armazenamento, um framework recém-chegado), fixar a escolha congela a opção que por acaso chegou primeiro. Ali cabe o [radar](/15-enterprise-architecture/technology-radar.md) em avaliação, não um padrão.
 
 **Quando a divergência se resolve por conversa.** Com três ou quatro times que se falam toda semana, escrever, operacionalizar e manter um padrão custa mais que combinar diretamente; o padrão passa a compensar quando o número de times impede esse acordo.
 
 **Quando só uma pessoa pode verificar e a divergência é barata.** Se o padrão não pode ser embutido no modelo nem checado na esteira, a revisão manual é custo recorrente; se ela custa mais que a divergência que evita, não padronize.
 
-**Além do que a organização consegue operacionalizar.** Passada a faixa de 5 a 15 padrões operacionalizados, cada padrão novo disputa atenção e manutenção da plataforma com os existentes — o próximo candidato precisa substituir um antigo, não se somar a ele.
+**Além do que a organização consegue operacionalizar.** Passada a faixa de 5 a 15 padrões operacionalizados, cada padrão novo disputa atenção e manutenção da plataforma com os existentes: o próximo candidato precisa substituir um antigo, não se somar a ele.
 
 ## Alternativas
 
-- **Caminho pavimentado** — o padrão embutido, mais forte que qualquer documento.
-- **Verificação automatizada** — a esteira aplica.
-- **[Princípios](/15-enterprise-architecture/enterprise-principles.md)** — quando a escolha específica não importa,
+- **Caminho pavimentado**: o padrão embutido, mais forte que qualquer documento.
+- **Verificação automatizada**: a esteira aplica.
+- **[Princípios](/15-enterprise-architecture/enterprise-principles.md)**: quando a escolha específica não importa,
   só a direção.
-- **[Radar tecnológico](/15-enterprise-architecture/technology-radar.md)** — recomendação com contexto, sem
+- **[Radar tecnológico](/15-enterprise-architecture/technology-radar.md)**: recomendação com contexto, sem
   obrigação.
 
 ## Trade-offs
@@ -274,13 +274,13 @@ automatize, ou aceite que ele é decorativo.
 
 ## Erros Comuns
 
-**Documentar sem operacionalizar.** Padrão que não vem com modelo pronto, biblioteca ou verificação automatizada depende de cada time lembrar — e é seguido por quem já seguiria.
+**Documentar sem operacionalizar.** Padrão que não vem com modelo pronto, biblioteca ou verificação automatizada depende de cada time lembrar, e é seguido por quem já seguiria.
 
 **Padronizar preferências.** Padronizar o que não tem consequência entre times gasta autoridade sem comprar nada, e essa autoridade falta quando algo realmente importa.
 
 **Não revisar.** Padrão escrito há três anos pode recomendar tecnologia descontinuada, e continua sendo citado como norma porque ninguém o retirou.
 
-**Não ter caminho de exceção.** Sem processo de exceção, os times que não cabem no padrão simplesmente o ignoram — e a violação deixa de ser visível e discutível.
+**Não ter caminho de exceção.** Sem processo de exceção, os times que não cabem no padrão simplesmente o ignoram, e a violação deixa de ser visível e discutível.
 
 **Escrever sem quem usa.** Padrão redigido longe de quem vai aplicá-lo erra nos casos reais e é recebido como imposição.
 
@@ -325,12 +325,12 @@ documentados com revisão manual    2  — os que não podiam ser automatizados
 **Depreciação.** Os quatro que prescreviam tecnologias abandonadas foram removidos com
 comunicação, e os serviços que ainda as usavam entraram numa fila de migração.
 
-**Registro de exceções.** Em um ano, 9 exceções registradas. Sete eram do mesmo padrão —
-o de formato de mensagem — que foi revisado e ampliado.
+**Registro de exceções.** Em um ano, 9 exceções registradas. Sete eram do mesmo padrão
+(o de formato de mensagem), que foi revisado e ampliado.
 
 **Revisão semestral**, com a mesma verificação amostral de aderência.
 
-Resultado: 47 padrões viraram 21, e a aderência média subiu de 42% para 96% — não por
+Resultado: 47 padrões viraram 21, e a aderência média subiu de 42% para 96%, não por
 mais controle, mas porque seguir passou a ser o caminho de menor esforço.
 
 O que se registrou depois: os 22 padrões de preferência removidos não causaram nenhum
@@ -338,7 +338,7 @@ problema. Eles existiam porque alguém, em algum momento, teve uma preferência 
 
 ## Conceitos Relacionados
 
-- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md) — a orientação sem prescrição.
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md): a orientação sem prescrição.
 - [Radar Tecnológico](/15-enterprise-architecture/technology-radar.md).
 - [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
 - [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md).
@@ -358,6 +358,6 @@ casos, o documento não está funcionando.
 
 ## Para Aprofundar
 
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — governança de arquitetura.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Governança de arquitetura.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

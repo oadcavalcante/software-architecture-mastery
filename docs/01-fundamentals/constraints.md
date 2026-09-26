@@ -2,7 +2,7 @@
 id: constraints
 title: Restrições
 sidebar_position: 10
-description: O que não é negociável — e por que confundir restrição com preferência é caro nos dois sentidos.
+description: O que não é negociável, e por que confundir restrição com preferência é caro nos dois sentidos.
 doc_type: foundation
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [business-context, solution-space]
 canonical_for: [restrições, constraints]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 Restrições são condições que a arquitetura precisa respeitar e que não estão sob
-o controle de quem arquiteta. Elas não são otimizadas — são obedecidas.
+o controle de quem arquiteta. Elas não são otimizadas, são obedecidas.
 
 A habilidade que importa aqui não é lidar com restrições. É distinguir as que são
 reais das que só parecem ser.
@@ -31,14 +31,14 @@ reais das que só parecem ser.
 
 Restrições chegam misturadas com preferências, e as duas usam a mesma linguagem.
 "Não podemos usar serviço gerenciado", "tem que ser em Java", "os dados precisam
-ficar no nosso datacenter" — cada uma dessas frases pode ser uma restrição
+ficar no nosso datacenter": cada uma dessas frases pode ser uma restrição
 inegociável ou uma preferência de alguém que ninguém contestou.
 
 Os dois erros correspondentes são caros e simétricos.
 
 **Aceitar preferência como restrição** elimina opções que estavam disponíveis. O
 espaço de solução encolhe sem motivo, e a arquitetura escolhida é pior do que
-poderia ser — sem que ninguém saiba, porque a alternativa foi descartada antes
+poderia ser, sem que ninguém saiba, porque a alternativa foi descartada antes
 de ser avaliada.
 
 **Tratar restrição como negociável** consome credibilidade e tempo em batalhas
@@ -50,7 +50,7 @@ invalidar meses de trabalho.
 
 ### As categorias
 
-Três delas — regulatória, organizacional e econômica — são os fatores que o
+Três delas (regulatória, organizacional e econômica) são os fatores que o
 [Contexto de Negócio](/01-fundamentals/business-context.md) enumera, vistos aqui
 pelo lado do limite que impõem e do quanto cada uma cede.
 
@@ -68,7 +68,7 @@ integração. Rígidas até a renegociação, que existe mas tem custo e prazo.
 **Técnicas herdadas.** Sistemas legados que não podem ser desligados,
 integrações existentes, formatos de dado com histórico.
 
-**Temporais.** Prazo com consequência externa — evento de mercado, obrigação
+**Temporais.** Prazo com consequência externa: evento de mercado, obrigação
 regulatória, compromisso público.
 
 ### O teste de uma restrição
@@ -79,12 +79,12 @@ Uma pergunta separa restrição de preferência:
 
 Restrição real tem resposta específica e alguém que responde por ela: multa,
 quebra de contrato, processo, impossibilidade física, projeto cancelado por falta
-de verba. A consequência não precisa vir de fora — restrição organizacional e
+de verba. A consequência não precisa vir de fora: restrição organizacional e
 orçamentária é interna, e nem por isso menos real.
 
 Preferência tem resposta vaga ou circular: "não é o nosso padrão", "a gente
 prefere assim", "sempre fizemos desse jeito". Nenhuma dessas é falsa nem
-irrelevante — mas todas são negociáveis, e precisam ser tratadas como tal.
+irrelevante, mas todas são negociáveis, e precisam ser tratadas como tal.
 
 ### Restrições têm prazo de validade
 
@@ -133,7 +133,7 @@ o custo extra fica invisível.
 maior retorno de todo o levantamento, e quase nunca é feita.
 
 **Aceitar restrição sem dono.** Toda restrição real tem alguém que responde por
-ela — jurídico, compliance, financeiro, o cliente. Restrição cujo dono ninguém
+ela: jurídico, compliance, financeiro, o cliente. Restrição cujo dono ninguém
 sabe identificar merece verificação.
 
 **Tratar restrição organizacional como menos real que técnica.** "Não temos
@@ -144,8 +144,8 @@ infraestrutura, e mais frequentemente ignorado por ser desconfortável.
 Revisá-las periodicamente é barato e às vezes libera opções valiosas.
 
 **Confundir restrição com atributo de qualidade.** "O sistema precisa aguentar
-10 mil requisições por segundo" é atributo de qualidade — negociável contra
-custo. "O dado não pode sair do país" é restrição — não há negociação com o
+10 mil requisições por segundo" é atributo de qualidade, negociável contra
+custo. "O dado não pode sair do país" é restrição: não há negociação com o
 volume.
 
 ## Exemplo Real
@@ -155,7 +155,7 @@ ficar on-premise."*
 
 Aceita como está, a restrição elimina serviços gerenciados de armazenamento,
 processamento e análise, e a arquitetura resultante exige três pessoas dedicadas
-à operação — que o time não tem.
+à operação, que o time não tem.
 
 O teste aplicado: *o que acontece se violarmos?*
 
@@ -163,7 +163,7 @@ A resposta veio em três camadas. Primeira: "é política da empresa". Segunda,
 perguntando ao dono da política: "porque dados de clientes não podem ir para
 fora". Terceira, perguntando ao jurídico: a exigência real é que dados
 **pessoais identificáveis** de clientes residam em território nacional, com
-contrato de processamento adequado — e há provedores de nuvem que atendem
+contrato de processamento adequado, e há provedores de nuvem que atendem
 integralmente a isso em região local.
 
 A restrição real era mais estreita que a declarada, e não era "on-premise".
@@ -172,15 +172,15 @@ A arquitetura final usa serviços gerenciados em região nacional para o volume
 principal, com um subconjunto de dados sensíveis isolado sob controle mais
 rígido. O time de operação continua com as pessoas que tinha.
 
-O que interessa aqui não é que a restrição era falsa — ela era real, só que
+O que interessa aqui não é que a restrição era falsa; ela era real, só que
 diferente. Aceitar a formulação de segunda mão teria custado uma arquitetura
 inteira.
 
 ## Conceitos Relacionados
 
-- [Contexto de Negócio](/01-fundamentals/business-context.md) — de onde as restrições vêm.
-- [Espaço da Solução](/01-fundamentals/solution-space.md) — o que elas reduzem.
-- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — o que é negociável, em
+- [Contexto de Negócio](/01-fundamentals/business-context.md): de onde as restrições vêm.
+- [Espaço da Solução](/01-fundamentals/solution-space.md): o que elas reduzem.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md): o que é negociável, em
   contraste.
 
 ## Exercício Prático
@@ -202,6 +202,6 @@ com dono desconhecido merecem verificação. Os antigos merecem reexame.
 ## Para Aprofundar
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — restrições como driver arquitetural.
+  2020. Restrições como driver arquitetural.
 - Ford, Neal; Parsons, Rebecca; Kua, Patrick. *Building Evolutionary
-  Architectures*. O'Reilly, 2017 — restrições que mudam com o tempo.
+  Architectures*. O'Reilly, 2017. Restrições que mudam com o tempo.

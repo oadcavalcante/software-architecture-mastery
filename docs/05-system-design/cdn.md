@@ -2,7 +2,7 @@
 id: cdn
 title: CDN
 sidebar_position: 10
-description: Cache na borda, perto do usuário — e o que decide se ele serve ao seu conteúdo.
+description: Cache na borda, perto do usuário, e o que decide se ele serve ao seu conteúdo.
 doc_type: concept
 level: 3
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [caching]
 related: [caching, load-balancing, cloud-architecture]
 canonical_for: [CDN, cache de borda]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -35,7 +35,7 @@ Dois problemas diferentes, que a CDN resolve juntos.
 **Distância.** Latência de rede é dominada pela distância física. Nenhuma
 otimização de código reduz isso.
 
-**Carga.** Todo asset servido pela origem consome banda, conexão e CPU dela — para
+**Carga.** Todo asset servido pela origem consome banda, conexão e CPU dela, para
 entregar bytes idênticos milhares de vezes.
 
 Servir de um ponto próximo resolve os dois: a resposta viaja menos e a origem
@@ -64,15 +64,15 @@ costuma ser um cabeçalho de cache mal configurado.
 
 A CDN obedece ao que a origem manda. Os que decidem:
 
-**`Cache-Control: max-age`** — por quanto tempo qualquer cache pode guardar, o
+**`Cache-Control: max-age`**: por quanto tempo qualquer cache pode guardar, o
 navegador e a CDN inclusive.
 
-**`s-maxage`** — sobrepõe o `max-age` nas caches compartilhadas. Permite a CDN
+**`s-maxage`**: sobrepõe o `max-age` nas caches compartilhadas. Permite a CDN
 guardar por muito tempo e o navegador por pouco.
 
-**`private`** — proíbe a CDN de guardar. É o que protege resposta autenticada.
+**`private`**: proíbe a CDN de guardar. É o que protege resposta autenticada.
 
-**`stale-while-revalidate`** — a CDN pode servir a versão velha enquanto busca a
+**`stale-while-revalidate`**: a CDN pode servir a versão velha enquanto busca a
 nova. Tira do leitor a penalidade de expiração, enquanto a requisição chegar
 dentro da janela.
 
@@ -101,7 +101,7 @@ CDNs modernas também terminam TLS na borda, comprimem, protegem contra ataques 
 volume, e permitem executar lógica na borda.
 
 Terminar TLS perto do usuário reduz o custo do aperto de mão, que é vários
-retornos de rede — frequentemente um ganho maior que o do cache em si.
+retornos de rede (frequentemente um ganho maior que o do cache em si).
 
 ## Modelo Mental
 
@@ -124,20 +124,20 @@ próxima de zero.
 **Para conteúdo autenticado, sem `private`.** Risco de vazamento entre usuários.
 
 **Quando todos os usuários estão perto da origem.** Um sistema interno com
-usuários numa cidade não ganha em distância — pode ganhar em banda.
+usuários numa cidade não ganha em distância, mas pode ganhar em banda.
 
 **Para APIs de escrita.** Não há o que cachear, e a CDN adiciona um salto.
 
 **Quando nem segundos de defasagem são aceitáveis.** Se o conteúdo muda a cada
 minuto, não pode ser versionado e o negócio não tolera servir a versão anterior
-nem por segundos, sobra a purga — e ela não acompanha essa taxa de mudança.
+nem por segundos, sobra a purga, e ela não acompanha essa taxa de mudança.
 
 ## Alternativas
 
-- **Cache no navegador** — cabeçalhos HTTP, sem componente algum. É o cache mais
+- **Cache no navegador**: cabeçalhos HTTP, sem componente algum. É o cache mais
   barato e o primeiro a configurar.
-- **[Cache](/05-system-design/caching.md) na aplicação** — para dado dinâmico compartilhado.
-- **Réplica de leitura por região** — quando o conteúdo é dinâmico mas
+- **[Cache](/05-system-design/caching.md) na aplicação**: para dado dinâmico compartilhado.
+- **Réplica de leitura por região**: quando o conteúdo é dinâmico mas
   regionalizado.
 
 ## Trade-offs
@@ -177,7 +177,7 @@ alguém lembrar de purgar a cada publicação, e a purga esquecida deixa a vers�
 velha no ar até ela expirar sozinha.
 
 **Não configurar `stale-while-revalidate`.** A cada expiração, quem chega
-primeiro paga a ida à origem — o pico de latência reaparece na cadência do
+primeiro paga a ida à origem: o pico de latência reaparece na cadência do
 `s-maxage`, e é o leitor que o absorve.
 
 **Cachear erro.** Configure para não cachear respostas de erro, ou com prazo
@@ -197,7 +197,7 @@ Três consequências.
 **A boa:** a banda da origem caiu 94% e a latência para leitores fora do estado
 caiu de 380 ms para 40 ms.
 
-**A ruim:** a área logada — perfil, comentários, preferências — também passou pela
+**A ruim:** a área logada (perfil, comentários, preferências) também passou pela
 CDN. Um leitor relatou ver o nome de outra pessoa no cabeçalho. A resposta
 autenticada tinha sido cacheada porque não havia `private`.
 
@@ -211,18 +211,18 @@ A configuração final separou três perfis.
 
 Assets com URL versionada: `max-age` de um ano, imutável.
 
-Conteúdo público: `s-maxage` de 60 segundos com `stale-while-revalidate` de 300 —
-a CDN serve a versão anterior enquanto busca a nova, então o leitor não espera
+Conteúdo público: `s-maxage` de 60 segundos com `stale-while-revalidate` de 300.
+A CDN serve a versão anterior enquanto busca a nova, então o leitor não espera
 enquanto as requisições chegarem dentro da janela, e a atualização propaga em
 cerca de um minuto. Isso vale para o que está em circulação. Numa matéria fria o
 teto é a soma dos dois: até 360 segundos servindo a versão velha, e a primeira
-requisição depois disso espera pela origem — acima dos 5 minutos que a equipe já
+requisição depois disso espera pela origem. Isso fica acima dos 5 minutos que a equipe já
 tinha julgado inaceitáveis, e por isso a purga continuou reservada à correção
 factual de matéria sem tráfego.
 
 Área autenticada: `Cache-Control: private, no-store`, e uma regra na CDN que
-recusa cachear qualquer resposta com cabeçalho de autenticação — defesa em
-profundidade, para o caso de alguém esquecer o cabeçalho de novo.
+recusa cachear qualquer resposta com cabeçalho de autenticação (defesa em
+profundidade, para o caso de alguém esquecer o cabeçalho de novo).
 
 ## Proteger a origem
 
@@ -241,7 +241,7 @@ pelo provedor. Mais forte, e exige acompanhar mudanças nas faixas.
 **Túnel privado.** A origem não tem endereço público; a CDN se conecta por um
 canal dedicado. Mais forte de todos, e mais trabalhoso de estabelecer.
 
-O segundo é o mais comum e o mais frequentemente desatualizado — as faixas mudam e
+O segundo é o mais comum e o mais frequentemente desatualizado: as faixas mudam e
 a lista não é revisada, o que causa uma indisponibilidade difícil de diagnosticar.
 
 Vale também considerar o inverso: **o que precisa contornar a CDN**. Verificações
@@ -250,14 +250,14 @@ precisar de acesso direto, e essa exceção precisa ser explícita em vez de aci
 
 ## Conceitos Relacionados
 
-- [Cache](/05-system-design/caching.md) — o conceito geral.
-- [Balanceamento de Carga](/05-system-design/load-balancing.md) — distribuição na origem.
-- [Nuvem](/09-cloud-architecture/index.md) — regiões e rede.
-- [Segurança](/10-security/index.md) — o risco de vazamento por cache.
+- [Cache](/05-system-design/caching.md): o conceito geral.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md): distribuição na origem.
+- [Nuvem](/09-cloud-architecture/index.md): regiões e rede.
+- [Segurança](/10-security/index.md): o risco de vazamento por cache.
 
 ## Exercício Prático
 
-Verifique os cabeçalhos de cache das respostas do seu sistema — especialmente as
+Verifique os cabeçalhos de cache das respostas do seu sistema, especialmente as
 autenticadas.
 
 Qualquer resposta que dependa de quem está logado e não tenha `private` ou

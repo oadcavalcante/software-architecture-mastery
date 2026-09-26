@@ -2,7 +2,7 @@
 id: 02-library-system
 title: "Exercise 02 — Library System"
 sidebar_position: 1
-description: The second exercise on the path — boundaries, dependency direction and what happens when the requirement changes.
+description: "The second exercise on the path: boundaries, dependency direction and what happens when the requirement changes."
 doc_type: exercise
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [coupling, cohesion, dependency-direction, boundaries]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ A network of municipal libraries with 14 branches wants to replace its lending s
 a shared spreadsheet per branch.
 
 The collection is around 180 thousand copies, with 40 thousand registered users and an average of 900
-loans a day across the whole network. There is no scale pressure — the system runs on one machine.
+loans a day across the whole network. There is no scale pressure: the system runs on one machine.
 
 This is the second exercise on the path, and it is not about scale or distribution. It is about
 **boundaries**: where to separate, what depends on what, and what happens when the requirement
@@ -61,11 +61,11 @@ The last constraint is the most important in the brief, and the one usually igno
 Produce, in up to an hour:
 
 1. The system's **modules**, with one sentence saying what each hides from the rest.
-2. The **direction of the dependencies** between them — who imports whom, and who never imports whom.
+2. The **direction of the dependencies** between them: who imports whom, and who never imports whom.
 3. The **data model** for loan, reservation and copy.
 4. Where the **loan period and suspension rule** lives, and why.
 
-Don't draw technical layers — controller, service, repository. Draw modules by domain responsibility.
+Don't draw technical layers (controller, service, repository). Draw modules by domain responsibility.
 
 ## Questions You Should Be Asking
 
@@ -113,13 +113,13 @@ circulation   loan, return, renewal, reservation, due date
 users         registration, status, suspension
 ```
 
-`circulation` depends on `collection` — it needs to know whether a copy is available. `collection`
+`circulation` depends on `collection`: it needs to know whether a copy is available. `collection`
 does **not** depend on `circulation`: a copy knows where it is and what condition it is in, and doesn't
 know whether it is on loan.
 
 That is counterintuitive, because "on loan" looks like a state of the copy. Modeling it that way couples
-the collection to circulation and produces the cycle. A copy has a physical state — available, in
-transit, damaged, withdrawn; **on loan is a fact of circulation**, not of the collection.
+the collection to circulation and produces the cycle. A copy has a physical state (available, in
+transit, damaged, withdrawn); **on loan is a fact of circulation**, not of the collection.
 
 Whoever models "on loan" as a state of the copy discovers the problem at transfer time: either "on
 loan" joins the same exclusive set, and marking the copy in transit erases the fact that it is on
@@ -127,13 +127,13 @@ loan, or it becomes a flag beside the physical state, and nothing stops a copy f
 and on loan at the same time.
 
 **The loan period and suspension rule** deserves its own module, or at least a single point. It is the
-one part of the system with a known expiry date — the brief says it changes by ordinance. A system in
+one part of the system with a known expiry date: the brief says it changes by ordinance. A system in
 which that rule lives in three places pays for the change three times, with every ordinance.
 
 The detail that separates a good answer from a great one: the rule has to be **dated**. A loan made
 under the previous ordinance is renewed under which period? The answer depends on the ordinance's
-transition clause, which the brief does not give — the renewal is arguably a new act, subject to the
-new rule. Either way out requires the rule to be versioned by effective period — and that is a
+transition clause, which the brief does not give. The renewal is arguably a new act, subject to the
+new rule. Either way out requires the rule to be versioned by effective period, and that is a
 modeling decision, not a configuration one.
 
 **What almost everybody gets wrong:** the brief fixes the queue per title, and the model still comes

@@ -2,7 +2,7 @@
 id: cloud-native
 title: Cloud Native
 sidebar_position: 17
-description: Um termo que designa algo útil e virou selo — o que ele significa de fato, e o que ele passou a esconder.
+description: "Um termo que designa algo útil e virou selo: o que ele significa de fato, e o que ele passou a esconder."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, kubernetes, vendor-lock-in]
 canonical_for: [cloud native, aplicação nativa de nuvem, migração como está]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-"Cloud native" designa aplicações projetadas para as propriedades da nuvem —
-elasticidade, falha rotineira, infraestrutura programável — em vez de aplicações
+"Cloud native" designa aplicações projetadas para as propriedades da nuvem
+(elasticidade, falha rotineira, infraestrutura programável) em vez de aplicações
 tradicionais transportadas para lá.
 
 A ideia por trás é útil e concreta. O termo, porém, foi capturado: ele virou selo
@@ -42,7 +42,7 @@ Levá-la para a nuvem sem mudar essas suposições produz um sistema que roda e 
 aproveita nada: não escala, não sobrevive à substituição de instância, e continua
 exigindo a mesma operação manual.
 
-É a migração "como está" — legítima como primeiro passo, problemática como destino.
+É a migração "como está", legítima como primeiro passo, problemática como destino.
 
 ## Conceitos Centrais
 
@@ -80,7 +80,7 @@ A confusão que custa caro: tratar a lista de ferramentas como se fosse a lista 
 propriedades.
 
 Contêiner, orquestração, malha de serviço e esteira automatizada são **meios**.
-Adotá-los sem as propriedades produz o pior dos dois mundos — a complexidade da
+Adotá-los sem as propriedades produz o pior dos dois mundos: a complexidade da
 plataforma nova, com as limitações da aplicação antiga.
 
 O sintoma reconhecível: uma aplicação em Kubernetes que não pode ter mais de uma
@@ -92,7 +92,7 @@ Mover sem mudar é frequentemente a decisão certa: sai-se do datacenter no praz
 risco é baixo, e o aprendizado vem depois.
 
 O problema é parar aí. A modernização precisa de plano com prazo, ou ela não
-acontece — e o ambiente acumula custo e risco. Ver [IaaS](/09-cloud-architecture/iaas.md).
+acontece, e o ambiente acumula custo e risco. Ver [IaaS](/09-cloud-architecture/iaas.md).
 
 Uma sequência que funciona:
 
@@ -150,12 +150,12 @@ não implica a segunda.
 
 ## Alternativas
 
-- **Migração como está** — primeiro passo legítimo.
-- **Modernização incremental** — aplicar as propriedades por ordem de retorno.
-- **Estrangulamento gradual** — substituir partes por versões novas, mantendo o
+- **Migração como está**: primeiro passo legítimo.
+- **Modernização incremental**: aplicar as propriedades por ordem de retorno.
+- **Estrangulamento gradual**: substituir partes por versões novas, mantendo o
   legado funcionando. Ver
   [estrangulamento](/16-legacy-modernization/strangler-fig.md).
-- **Manter como está** — quando o sistema é estável e o custo de mudar não se paga.
+- **Manter como está**: quando o sistema é estável e o custo de mudar não se paga.
 
 ## Trade-offs
 
@@ -207,13 +207,13 @@ A avaliação seis meses depois mostrou:
 **17 aplicações rodavam com uma réplica só**, porque guardavam sessão em memória.
 Escalar horizontalmente as derrubava.
 
-**12 escreviam em disco local** — arquivos temporários, relatórios, uploads. Cada
+**12 escreviam em disco local**: arquivos temporários, relatórios, uploads. Cada
 reinício perdia dados, e a equipe tinha configurado volumes persistentes para
 contornar, o que prendia cada pod a um nó.
 
 **9 liam configuração de arquivo empacotado na imagem**, o que exigia reconstruir e
 republicar a imagem para mudar um valor. A promoção entre ambientes gerava imagens
-diferentes — quebrando a garantia de que o que foi testado é o que roda.
+diferentes, quebrando a garantia de que o que foi testado é o que roda.
 
 **Nenhuma tinha rastreamento distribuído.** Diagnosticar um problema entre
 aplicações continuava sendo correlacionar registros manualmente.
@@ -245,13 +245,13 @@ migradas para Kubernetes", e ele chegou a 100% sem que nenhuma das aplicações
 deficientes adquirisse propriedade nova.
 
 Se o indicador fosse "aplicações que escalam horizontalmente", o programa teria
-terminado em 23 dos 40 — e teria atacado o problema certo desde o início.
+terminado em 23 dos 40, e teria atacado o problema certo desde o início.
 
 ## Conceitos Relacionados
 
-- [Contêineres](/09-cloud-architecture/containers.md) e [Kubernetes](/09-cloud-architecture/kubernetes.md) — as ferramentas.
+- [Contêineres](/09-cloud-architecture/containers.md) e [Kubernetes](/09-cloud-architecture/kubernetes.md) : as ferramentas.
 - [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
-- [Stateless](/05-system-design/stateless-vs-stateful.md) — a propriedade central.
+- [Stateless](/05-system-design/stateless-vs-stateful.md): a propriedade central.
 - [Modernização de Legado](/16-legacy-modernization/index.md).
 
 ## Exercício Prático

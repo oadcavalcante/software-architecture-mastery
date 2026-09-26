@@ -2,7 +2,7 @@
 id: availability
 title: Disponibilidade
 sidebar_position: 10
-description: A fração do tempo em que o sistema responde corretamente — e o que o número esconde.
+description: A fração do tempo em que o sistema responde corretamente, e o que o número esconde.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [cap, consistency, reliability-basics]
 canonical_for: [disponibilidade, noves de disponibilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-27
 
 Disponibilidade é a fração do tempo em que o sistema responde corretamente.
 
-O número — "quatro noves" — é citado com frequência e significa pouco sem três
+O número ("quatro noves") é citado com frequência e significa pouco sem três
 complementos: **em que janela**, **medido de onde**, e **o que conta como
 resposta correta**.
 
@@ -36,7 +36,7 @@ diferentes.
 por ano, 8,8 horas. O mesmo número, uma ordem de grandeza de diferença.
 
 **O ponto de medição muda tudo.** Medido no servidor, a rede não conta. Medido no
-cliente, conta — e é o que o usuário experimenta.
+cliente, conta, e é o que o usuário experimenta.
 
 **O critério muda tudo.** Responder `500` rapidamente conta como disponível? E
 responder correto em 30 segundos? Um sistema que responde a tudo com erro tem 100%
@@ -57,13 +57,13 @@ Sem os três, o número é decorativo.
 | 99,999% | 26 s | 5,3 min |
 
 Cada nove adicional custa desproporcionalmente mais. A diferença entre 99,9% e
-99,99% não é 10% de esforço — é frequentemente redundância multi-zona, ausência de
+99,99% não é 10% de esforço: é frequentemente redundância multi-zona, ausência de
 janela de manutenção, implantação sem interrupção e resposta operacional em
 minutos.
 
 Apresentar essa tabela antes de perguntar "quantos noves você precisa?" muda a
 resposta. Sem ela, quem responde não tem motivo para pedir menos que o número
-maior — o custo não está na mesa.
+maior: o custo não está na mesa.
 
 ### Disponibilidade compõe de forma multiplicativa
 
@@ -86,7 +86,7 @@ Componentes redundantes em paralelo somam noves:
 ```
 
 A palavra que carrega essa segunda conta é **independentes**. Duas instâncias na
-mesma zona, no mesmo banco, com a mesma dependência, falham juntas — e a
+mesma zona, no mesmo banco, com a mesma dependência, falham juntas, e a
 multiplicação não vale.
 
 ### Correlação é o que quebra a redundância
@@ -112,7 +112,7 @@ Sistemas raramente estão inteiramente fora. O usual é uma funcionalidade
 degradada, uma região afetada, uma fração dos usuários.
 
 Medir disponibilidade como binário esconde isso. A métrica melhor é a **taxa de
-requisições bem-sucedidas** — que captura degradação parcial e é o que
+requisições bem-sucedidas**, que captura degradação parcial e é o que
 [SLI](/12-reliability/sli.md) formaliza.
 
 ### Meça do lado do cliente
@@ -130,7 +130,7 @@ no navegador ou no aplicativo, ou sondagem externa a partir das regiões onde os
 usuários estão.
 
 Quando os dois números divergem de forma persistente, a diferença é o mapa do que
-está quebrado fora do seu perímetro — e é a parte que nenhuma métrica de servidor
+está quebrado fora do seu perímetro, e é a parte que nenhuma métrica de servidor
 cobre.
 
 ## Modelo Mental
@@ -164,13 +164,13 @@ independente, o teto é o produto delas.
 
 Para melhorar disponibilidade percebida sem adicionar noves de infraestrutura:
 
-- **Degradação graciosa** — responder parcialmente em vez de falhar.
-- **Assíncrono** — aceitar e processar depois, em vez de depender da
+- **Degradação graciosa**: responder parcialmente em vez de falhar.
+- **Assíncrono**: aceitar e processar depois, em vez de depender da
   disponibilidade do destino.
-- **Cache** — servir dado velho quando a origem está fora; vale onde o dado
+- **Cache**: servir dado velho quando a origem está fora; vale onde o dado
   desatualizado ainda cumpre o propósito da leitura, e onde a decisão depende do
   valor corrente é indisponibilidade vestida de `200`.
-- **Reduzir dependências síncronas** — a que mais rende, e a menos considerada.
+- **Reduzir dependências síncronas**: a que mais rende, e a menos considerada.
 
 ## Trade-offs
 
@@ -215,12 +215,12 @@ produto das dependências síncronas.
 
 ## Exemplo Real
 
-Uma empresa prometia 99,95% em contrato — 22 minutos por mês.
+Uma empresa prometia 99,95% em contrato (22 minutos por mês).
 
 A arquitetura tinha redundância: três instâncias da aplicação, duas do banco, tudo
 com verificação de saúde e failover.
 
-Em oito meses, três incidentes consumiram 4 horas — muito acima do prometido, com
+Em oito meses, três incidentes consumiram 4 horas, muito acima do prometido, com
 consequência contratual.
 
 A análise dos três mostrou o mesmo padrão: **nenhum foi falha de instância**.
@@ -230,7 +230,7 @@ O primeiro foi um certificado TLS expirado, presente nas três instâncias.
 O segundo foi uma configuração errada implantada nas três simultaneamente.
 
 O terceiro foi a indisponibilidade de um provedor de autenticação externo, chamado
-sincronamente em toda requisição — e cuja disponibilidade contratual era 99,9%,
+sincronamente em toda requisição, e cuja disponibilidade contratual era 99,9%,
 menor que a que a empresa prometia aos próprios clientes.
 
 A redundância protegia contra o modo de falha que não estava acontecendo.
@@ -240,8 +240,8 @@ As correções atacaram a correlação, não a quantidade de instâncias.
 Certificados passaram a ter alerta com 30 dias de antecedência e renovação
 automatizada.
 
-Implantação passou a ser gradual — uma instância por vez, com verificação entre
-elas — em vez de simultânea.
+Implantação passou a ser gradual (uma instância por vez, com verificação entre
+elas) em vez de simultânea.
 
 E a chamada ao provedor de autenticação ganhou cache de token validado e
 degradação: com o provedor fora, sessões já estabelecidas continuam funcionando, e
@@ -253,10 +253,10 @@ de toda requisição e passou a pesar apenas no login, deixando de impor seu tet
 
 ## Conceitos Relacionados
 
-- [CAP](/06-distributed-systems/cap.md) — a escolha sob partição.
-- [Consistência](/06-distributed-systems/consistency.md) — o que se troca.
-- [Confiabilidade](/12-reliability/index.md) — SLI, SLO e degradação.
-- [Replicação](/06-distributed-systems/replication.md) — o mecanismo de redundância.
+- [CAP](/06-distributed-systems/cap.md): a escolha sob partição.
+- [Consistência](/06-distributed-systems/consistency.md): o que se troca.
+- [Confiabilidade](/12-reliability/index.md): SLI, SLO e degradação.
+- [Replicação](/06-distributed-systems/replication.md): o mecanismo de redundância.
 
 ## Exercício Prático
 

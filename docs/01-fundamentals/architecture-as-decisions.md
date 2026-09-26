@@ -2,7 +2,7 @@
 id: architecture-as-decisions
 title: Arquitetura como Conjunto de Decisões
 sidebar_position: 21
-description: O que a arquitetura de fato é — e por que o registro do porquê é a parte que se perde primeiro.
+description: O que a arquitetura de fato é, e por que o registro do porquê é a parte que se perde primeiro.
 doc_type: foundation
 level: 1
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-principles]
 related: [architecture-evolution, solution-space]
 canonical_for: [arquitetura como decisões, decisão arquitetural]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -34,7 +34,7 @@ as conexões, as tecnologias. O **porquê** fica na cabeça de quem decidiu, e s
 junto quando a pessoa sai.
 
 O custo aparece quando o contexto muda. Alguém encontra uma decisão que parece
-errada — um serviço separado que poderia ser um módulo, uma desnormalização que
+errada: um serviço separado que poderia ser um módulo, uma desnormalização que
 complica, uma tecnologia que ninguém escolheria hoje.
 
 Sem a razão registrada, restam duas opções ruins. Manter por medo, sem saber se a
@@ -51,24 +51,24 @@ reavaliada.
 
 O que precisa sobreviver ao tempo:
 
-**Contexto** — o que era verdade quando a decisão foi tomada. Restrições, escala,
+**Contexto**: o que era verdade quando a decisão foi tomada. Restrições, escala,
 tamanho do time, prazos, o que se sabia e o que não se sabia. É a parte mais
 importante e a mais omitida.
 
-**Decisão** — o que foi escolhido.
+**Decisão**: o que foi escolhido.
 
-**Alternativas** — o que mais foi considerado, e **sob qual mudança de contexto
+**Alternativas**: o que mais foi considerado, e **sob qual mudança de contexto
 cada uma passaria a vencer**. Essa condição é o que torna a reavaliação futura
 barata.
 
-**Consequências** — o que a decisão fecha, o que passa a custar, o que se aceita.
+**Consequências**: o que a decisão fecha, o que passa a custar, o que se aceita.
 
 A terceira e a primeira são as que carregam quase todo o valor. Um documento que
 registra só a segunda e a quarta descreve a estrutura, não a decisão.
 
 ### O contexto é a parte perecível
 
-Estrutura é observável — basta ler o código. Consequências aparecem na operação.
+Estrutura é observável: basta ler o código. Consequências aparecem na operação.
 Alternativas podem ser reconstruídas com esforço.
 
 Contexto não. Ninguém consegue reconstruir, dois anos depois, que a empresa tinha
@@ -90,7 +90,7 @@ código que existe foi escrito sob ela. Apagá-la torna o presente inexplicável
 O critério é o de
 [o que é arquitetura](/01-fundamentals/what-is-software-architecture.md): custo de reversão.
 
-Decisões baratas de reverter não precisam de registro — o código é a
+Decisões baratas de reverter não precisam de registro: o código é a
 documentação suficiente. Decisões caras precisam, porque alguém vai querer
 reavaliá-las e não terá como.
 
@@ -102,14 +102,14 @@ quebra às cegas. Com registro, cada uma pode ser examinada contra o contexto de
 hoje.
 
 **Porque transfere conhecimento sem transferir pessoas.** Perguntar a quem estava lá
-funciona enquanto essa pessoa estiver por perto e lembrar — o registro é o que
+funciona enquanto essa pessoa estiver por perto e lembrar. O registro é o que
 funciona depois disso.
 
 **Porque separa "está errado" de "não vale mais".** São coisas diferentes com
 respostas diferentes, e sem contexto registrado não há como distinguir.
 
 **Porque muda o que a revisão de arquitetura discute.** Sem registro, revisar é
-opinar sobre estrutura. Com registro, é examinar se as premissas ainda valem —
+opinar sobre estrutura. Com registro, é examinar se as premissas ainda valem,
 que é uma conversa com critério.
 
 ## Erros Comuns
@@ -158,18 +158,18 @@ O time verificou. O SLA continuava 99,5%; o p99 tinha piorado.
 
 A decisão foi mantida, e a verificação levou vinte minutos.
 
-O contrafactual é o que importa: sem o registro, o time teria feito a mudança —
-ela é a mais óbvia e a mais defensável em abstrato — e descoberto o motivo
+O contrafactual é o que importa: sem o registro, o time teria feito a mudança
+(ela é a mais óbvia e a mais defensável em abstrato) e descoberto o motivo
 original através de uma queda do catálogo causada por indisponibilidade de um
 serviço de outra área.
 
 ## Conceitos Relacionados
 
-- [O que é Arquitetura](/01-fundamentals/what-is-software-architecture.md) — o critério de quais
+- [O que é Arquitetura](/01-fundamentals/what-is-software-architecture.md): o critério de quais
   decisões merecem registro.
-- [Espaço da Solução](/01-fundamentals/solution-space.md) — de onde as alternativas vêm.
-- [ADRs](/18-architecture-decisions/what-is-an-adr.md) — o formato prático de registro.
-- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — o que acontece quando o
+- [Espaço da Solução](/01-fundamentals/solution-space.md): de onde as alternativas vêm.
+- [ADRs](/18-architecture-decisions/what-is-an-adr.md): o formato prático de registro.
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md): o que acontece quando o
   contexto muda.
 
 ## Exercício Prático

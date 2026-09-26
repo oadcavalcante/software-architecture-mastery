@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, enterprise-governance, enterprise-principles]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -36,7 +36,7 @@ The traditional review arrives late and has the wrong incentive.
 Changing means throwing away effort, and the inertia is large.
 
 **Wrong incentive.** If the review can say no, whoever proposes optimizes for getting the
-yes — presenting the minimum, avoiding uncertainties, and defending instead of
+yes: presenting the minimum, avoiding uncertainties, and defending instead of
 discussing.
 
 The result is the worst of both worlds: a process that consumes time and does not improve
@@ -69,7 +69,7 @@ approval       the reviewer decides, the proposer persuades
 consultation   the proposer decides, the reviewer offers perspective
 ```
 
-In the second, responsibility stays with the team — which is correct, because they have
+In the second, responsibility stays with the team. This is correct, because they have
 the context. And the reviewer stops being an obstacle to overcome and becomes a resource
 to use.
 
@@ -77,7 +77,7 @@ That requires a record: the decision is the team's, and what was discussed is do
 with what was considered and discarded. See
 [architecture decisions](/18-architecture-decisions/index.md).
 
-For the few decisions that genuinely require approval — broad reach, expensive rollback —
+For the few decisions that genuinely require approval (broad reach, expensive rollback)
 it remains. See
 [architecture levels](/15-enterprise-architecture/architecture-levels.md).
 
@@ -112,7 +112,7 @@ question   "what happens if this service is down for an hour?"
 The question exposes a consequence the team evaluates. The opinion asks the team to
 defend its choice against someone else's preference.
 
-That does not mean the reviewer has no position — it means the position is presented as a
+That does not mean the reviewer has no position; it means the position is presented as a
 consequence, not as a preference.
 
 ### Who reviews
@@ -143,7 +143,7 @@ what was left open
 who took part
 ```
 
-That serves the future decision — someone with a similar problem finds the precedent —
+That serves the future decision (someone with a similar problem finds the precedent)
 and the review itself, because the history reveals patterns: if the same questions come
 up repeatedly, they should become a principle, a standard or a paved road.
 
@@ -158,15 +158,15 @@ reviewer with something at stake weighs risk against the cost of not doing it
 ```
 
 That does not mean only whoever builds can review. It means the review has to include
-someone who bears the outcome — typically the team itself, whose decision it remains.
+someone who bears the outcome, typically the team itself, whose decision it remains.
 
 It is another argument in favor of consultation over approval: in a consultation, whoever
 decides is whoever will live with the decision, and the outside opinion comes in as
 information.
 
 And there is a second-order effect: permanent reviewers, who only review, lose touch with
-practical constraints over time. Rotating who reviews — bringing in people who are
-building — keeps the review anchored in reality.
+practical constraints over time. Rotating who reviews, bringing in people who are
+building, keeps the review anchored in reality.
 
 ## Mental Model
 
@@ -177,7 +177,7 @@ questions.
 
 - Decisions with reach beyond the team.
 - Decisions that are hard to reverse.
-- When the team asks — of all the triggers, it is the only one that signals the review
+- When the team asks: of all the triggers, it is the only one that signals the review
   arrives while the design is still open.
 - New patterns, which may become precedent.
 
@@ -200,11 +200,11 @@ produces generic questions and only consumes the team's calendar.
 
 ## Alternatives
 
-- **Structured self-review** — a list of questions applied by the team.
-- **Peer review** — another team, with no hierarchy.
-- **Informal consultation** — a conversation, with no process.
-- **After-the-fact review** — for reversible decisions, look at patterns quarterly.
-- **Paved road** — remove the decision instead of reviewing it.
+- **Structured self-review**: a list of questions applied by the team.
+- **Peer review**: another team, with no hierarchy.
+- **Informal consultation**: a conversation, with no process.
+- **After-the-fact review**: for reversible decisions, look at patterns quarterly.
+- **Paved road**: remove the decision instead of reviewing it.
 
 The last is the most effective: if the same decision is reviewed thirty times, it should
 have a built-in default answer.
@@ -228,8 +228,8 @@ misses the team that does not know what it does not know. Coherence across teams
 depend on who sought out whom, and demand on architects turns into a queue once
 consultation works. The mitigations are structural: mandatory triggers by reach and
 reversibility, which do not depend on the team's initiative; the public record, which
-shows which teams decide a lot and never consult; and reserved reviewer capacity —
-architect hours per week, maintaining the record, the quarterly pattern session —
+shows which teams decide a lot and never consult; and reserved reviewer capacity
+(architect hours per week, maintaining the record, the quarterly pattern session)
 budgeted as a standing cost, not as a favor.
 
 ## Failure Modes
@@ -254,13 +254,13 @@ budgeted as a standing cost, not as a favor.
 
 **Approving instead of consulting.** A review as a gate transfers responsibility to the reviewer and produces submission instead of discussion. As consulting, it improves the decision of whoever answers for it.
 
-**Having no written criteria.** With no published criteria, the review looks arbitrary and depends on who was in the room — which makes it impossible to prepare for.
+**Having no written criteria.** With no published criteria, the review looks arbitrary and depends on who was in the room. That makes it impossible to prepare for.
 
 **Not recording.** The conclusion is lost and the same discussion comes back in six months, with different people and frequently with the opposite outcome.
 
 **Reviewing local decisions.** Reviewing what crosses no boundary consumes the forum's time and teaches teams to avoid it.
 
-**Not turning a recurring pattern** into a paved road. If the same question arrives five times, the answer should be a documented standard — the sixth wouldn't need a meeting.
+**Not turning a recurring pattern** into a paved road. If the same question arrives five times, the answer should be a documented standard: the sixth wouldn't need a meeting.
 
 ## Real-World Example
 
@@ -285,13 +285,13 @@ mentioning uncertainties, and treated the session as a defense.
 
 The rework:
 
-**Mandatory self-review.** A list of ten questions — alternatives, premises, boundaries,
-reversibility, operation, reach — filled in by the team before anything else.
+**Mandatory self-review.** A list of ten questions (alternatives, premises, boundaries,
+reversibility, operation, reach) filled in by the team before anything else.
 
 That alone caught most of what the committee caught, and earlier.
 
 **Voluntary consultation.** Architects available to talk during design, with no process.
-It became the most used format — about three conversations a week, initiated by the
+It became the most used format, about three conversations a week, initiated by the
 teams.
 
 **Approval only for broad reach and expensive rollback.** About one a month.
@@ -301,24 +301,24 @@ teams.
 **A public record** of every decision, searchable.
 
 **Quarterly review of patterns.** The questions that came up repeatedly became three
-principles and two paved roads — removing the need to review them individually.
+principles and two paved roads, removing the need to review them individually.
 
 Result in one year: average wait from 19 days to 2, and design changes
 prompted by review went from 11 in 184 proposals (6%) to 47 in roughly 200 recorded
-interactions across consultations, peer reviews, and approvals (close to a quarter) —
+interactions across consultations, peer reviews, and approvals (close to a quarter),
 because the conversation started happening while
 changing was still cheap.
 
 The recorded conclusion: the committee was not useless, it was expensive for what it
-delivered. And the format — a presentation for approval — produced exactly the behavior
+delivered. And the format, a presentation for approval, produced exactly the behavior
 that kept the review from working.
 
 ## Related Concepts
 
-- [Architecture Levels](/15-enterprise-architecture/architecture-levels.md) — what deserves review.
+- [Architecture Levels](/15-enterprise-architecture/architecture-levels.md): what deserves review.
 - [Enterprise Governance](/15-enterprise-architecture/enterprise-governance.md).
-- [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md) — the criteria.
-- [Architecture Decisions](/18-architecture-decisions/index.md) — the record.
+- [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md): the criteria.
+- [Architecture Decisions](/18-architecture-decisions/index.md): the record.
 
 ## Practical Exercise
 

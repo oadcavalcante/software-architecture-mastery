@@ -2,7 +2,7 @@
 id: 03-ecommerce-backend
 title: "Exercício 03 — Backend de E-commerce"
 sidebar_position: 1
-description: O sistema que você vai carregar pelos próximos quatro exercícios — e as decisões que vai pagar neles.
+description: O sistema que você vai carregar pelos próximos quatro exercícios e as decisões que vai pagar neles.
 doc_type: exercise
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [service-boundaries, apis, state-management, queues]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 :::info Este exercício tem sequência
 
 O sistema que você projetar aqui reaparece nos exercícios **04**, **05**, **06** e **07**, cada
-vez sob uma restrição nova. As decisões que você tomar agora não são descartáveis — você vai
+vez sob uma restrição nova. As decisões que você tomar agora não são descartáveis: você vai
 conviver com elas.
 
 Registre suas decisões por escrito. Você vai precisar delas.
@@ -75,7 +75,7 @@ prazo              sete meses, com data comercial
 
 Produza, em até 90 minutos:
 
-1. As **unidades implantáveis** do sistema e a razão de cada separação — se houver.
+1. As **unidades implantáveis** do sistema e a razão de cada separação, se houver.
 2. O **modelo de dados** de pedido, item, estoque e pagamento.
 3. O **fluxo de finalização de compra**, do carrinho ao pedido pago, com a ordem das operações.
 4. Onde está a **transação**, e o que ela cobre.
@@ -108,12 +108,12 @@ Sua resposta está boa se:
   [monólito vs. microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 - **A reserva de estoque tem consistência forte.** Vender o que não existe é o erro caro deste
   domínio, e o volume permite transação local.
-- **Você declarou o que acontece quando o adquirente não responde.** Não "vai dar erro" —
+- **Você declarou o que acontece quando o adquirente não responde.** Não "vai dar erro", e sim
   o estado em que o pedido fica, e quem resolve.
 - **A nota fiscal não está no caminho síncrono** da finalização. Ela é obrigatória antes do
   despacho, não antes da confirmação ao cliente.
-- **Você nomeou as três decisões difíceis de reverter**, e elas são de fato difíceis — modelo de
-  dados, fronteira de serviço, formato exposto ao cliente — e não escolha de biblioteca.
+- **Você nomeou as três decisões difíceis de reverter**, e elas são de fato difíceis (modelo de
+  dados, fronteira de serviço, formato exposto ao cliente) e não escolha de biblioteca.
 
 Sua resposta é fraca se ela tem seis serviços, uma fila entre cada dois, e nenhuma justificativa
 ligada a um número do enunciado.
@@ -125,7 +125,7 @@ ligada a um número do enunciado.
 **A resposta proporcional** para 1.200 pedidos/dia com seis engenheiros é um monólito modular,
 com um banco relacional, transação local, e no máximo um processo em segundo plano.
 
-Não é a resposta empolgante. É a que cabe no prazo de sete meses com uma equipe sem plataforma —
+Não é a resposta empolgante. É a que cabe no prazo de sete meses com uma equipe sem plataforma,
 e é o que o enunciado descreve.
 
 **A decisão que vai doer** é a do fluxo de finalização. A sequência natural, e correta para este
@@ -156,7 +156,7 @@ finalização adiciona uma dependência externa ao caminho crítico, sem nenhum 
 
 **O que quase todo mundo erra:** modelar a reserva de estoque como decremento direto da
 quantidade. Dentro da transação única acima o decremento volta atrás junto com o resto quando o
-pagamento é recusado; ele quebra no caso que o próprio enunciado pergunta — o adquirente que não
+pagamento é recusado; ele quebra no caso que o próprio enunciado pergunta: o adquirente que não
 responde, e o pedido que fica pendente enquanto alguém decide. Sem prazo e sem dono, a quantidade
 segue consumida por um pedido que pode nunca existir. Reserva precisa ser uma entidade com prazo,
 não uma subtração.

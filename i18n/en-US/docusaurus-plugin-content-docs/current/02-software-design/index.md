@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [design-patterns, domain-driven-design]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -29,7 +29,7 @@ separated responsibilities, and whose code is a web where any change touches
 seven files across four different modules. The architecture exists in the diagram
 and does not exist in the repository.
 
-That happens because an architectural boundary is not a drawn line — it is a
+That happens because an architectural boundary is not a drawn line but a
 dependency constraint that has to be enforced and verified. If nothing stops the
 billing module from importing the user repository directly, it will, and the
 boundary disappears by the third sprint.
@@ -40,7 +40,7 @@ is also where most of the maintenance cost is decided.
 ## What you will find here
 
 **Principles.** SOLID, DRY, KISS, YAGNI and the design heuristics. Treated as
-tools with a range of application, not as commandments — including the cases where
+tools with a range of application, not as commandments, including the cases where
 applying them produces worse code.
 
 **Structure.** Encapsulation, interfaces, boundaries, layering, modular design,
@@ -53,7 +53,7 @@ point in determines what you can change without breaking things.
 
 **Code architectures.** Clean Architecture, Hexagonal, Onion and Ports and
 Adapters. Four names for the same central idea, with differences that matter less
-than the literature suggests — and a cost the literature mentions little.
+than the literature suggests, and a cost the literature mentions little.
 
 **Maintenance.** Clean code, code smells and refactoring. How to recognize
 structure that is degrading before the cost becomes visible in the roadmap.
@@ -65,7 +65,7 @@ everything else depends on, and the ones that most change how you look at a
 repository. Each has a short entry ahead of it: encapsulation and interfaces lead
 to boundaries; dependency inversion leads to dependency direction.
 
-The four code architectures — Clean, Hexagonal, Onion, Ports and Adapters — can be
+The four code architectures (Clean, Hexagonal, Onion, Ports and Adapters) can be
 read as a block. They share the same thesis; reading all four in sequence makes
 clear what is essential and what is a difference of vocabulary.
 
@@ -90,7 +90,7 @@ started adding it.
 - Creating an interface with a single implementation and calling that decoupling.
 - Using inheritance where composition would do, to save some typing.
 - Treating DRY as a ban on duplicating text rather than a ban on duplicating
-  knowledge — and coupling two modules that merely coincided.
+  knowledge, and coupling two modules that merely coincided.
 - Refactoring structure without a criterion that says when to stop.
 
 ## Continues in

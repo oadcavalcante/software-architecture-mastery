@@ -2,7 +2,7 @@
 id: solution-space
 title: Espaço da Solução
 sidebar_position: 6
-description: O conjunto de arquiteturas que resolvem o problema — e por que enumerar antes de escolher é o trabalho.
+description: O conjunto de arquiteturas que resolvem o problema, e por que enumerar antes de escolher é o trabalho.
 doc_type: foundation
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [espaço da solução, solution space]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-26
 
 O espaço da solução é o conjunto de arquiteturas que resolveriam o problema
 declarado. Arquitetar é percorrer esse espaço, reduzi-lo com restrições e
-escolher um ponto — sabendo o que os outros pontos ofereciam.
+escolher um ponto, sabendo o que os outros pontos ofereciam.
 
 A qualidade de uma decisão arquitetural depende menos da opção escolhida do que
 de quantas opções foram genuinamente consideradas.
@@ -35,7 +35,7 @@ plausível vira a escolhida, e o restante do trabalho é justificá-la.
 
 Isso não acontece por preguiça. Acontece porque a primeira solução é fácil de
 gerar e as demais exigem esforço deliberado, e porque uma vez que uma opção está
-na mesa, ela vira o padrão contra o qual as outras precisam se provar — em vez de
+na mesa, ela vira o padrão contra o qual as outras precisam se provar, em vez de
 ser comparada em igualdade.
 
 O custo é invisível: ninguém sabe o que a alternativa não considerada teria
@@ -58,7 +58,7 @@ graph TD
 ```
 
 O trabalho útil está nos três primeiros filtros. Se o último conjunto tem uma
-única opção, o problema estava sobre-restringido — e vale conferir se alguma
+única opção, o problema estava sobre-restringido, e vale conferir se alguma
 restrição era de fato negociável.
 
 ### Uma opção só conta se for viável
@@ -78,7 +78,7 @@ que separa análise de justificativa retroativa.
 
 Duas opções raramente empatam em todos os critérios. Quando empatam nos que
 importam, o desempate não sai da comparação: vem do
-[custo de reversão](/01-fundamentals/what-is-software-architecture.md) — entre
+[custo de reversão](/01-fundamentals/what-is-software-architecture.md). Entre
 duas opções de mérito igual, escolhe-se a mais barata de abandonar.
 
 Aqui isso tem uma consequência específica: o que torna a volta barata é a
@@ -89,7 +89,7 @@ escolhida custa a enumeração inteira de novo.
 
 Gerar e julgar ao mesmo tempo mata o espaço. A primeira opção com um defeito
 aparente é descartada antes de a segunda existir, e o processo converge para a
-primeira sem defeito óbvio — que raramente é a melhor.
+primeira sem defeito óbvio, que raramente é a melhor.
 
 A ordem que funciona: enumerar tudo o que é plausível, sem julgar; só então
 avaliar contra os critérios.
@@ -99,19 +99,19 @@ avaliar contra os critérios.
 **Você não escolhe uma arquitetura. Você elimina as que não cabem e escolhe entre
 as que sobram.**
 
-Isso reposiciona o trabalho. A pergunta deixa de ser "qual é a melhor?" — que não
-tem resposta — e passa a ser "o que elimina opções aqui?", que tem.
+Isso reposiciona o trabalho. A pergunta deixa de ser "qual é a melhor?" (que não
+tem resposta) e passa a ser "o que elimina opções aqui?", que tem.
 
 ## Por Que Isso Importa
 
 **Porque torna a decisão defensável.** Uma escolha apresentada com as
 alternativas e o critério pode ser contestada ponto a ponto. Uma escolha
-apresentada sozinha só pode ser aceita ou rejeitada em bloco — que é como
+apresentada sozinha só pode ser aceita ou rejeitada em bloco. É assim que
 discussões arquiteturais viram disputa de autoridade.
 
 **Porque preserva a informação para depois.** Quando o contexto mudar, alguém vai
 querer reavaliar. Se as alternativas e suas condições foram registradas, a
-reavaliação é barata. Se não, começa do zero — e frequentemente reproduz a mesma
+reavaliação é barata. Se não, começa do zero, e frequentemente reproduz a mesma
 análise com o mesmo resultado, meses depois.
 
 **Porque expõe restrição falsa.** Percorrer o espaço frequentemente revela que
@@ -122,20 +122,20 @@ gerenciado" costuma virar "ninguém perguntou".
 
 **Parar na primeira opção viável.** O erro central. Viável não é sinônimo de
 adequada, e a primeira que aparece é a mais disponível na memória de quem
-propôs — não a melhor.
+propôs, não a melhor.
 
 **Listar espantalhos.** Alternativas incluídas para preencher a seção, sem
 condição de vitória declarada.
 
 **Confundir familiaridade com adequação.** A tecnologia que o time domina tem
-vantagem legítima — reduz risco de execução. Mas essa vantagem precisa ser
+vantagem legítima: reduz risco de execução. Mas essa vantagem precisa ser
 declarada como critério, não embutida silenciosamente na avaliação.
 
 **Não incluir "não fazer nada".** É uma opção real, com custo e benefício, e
 frequentemente vence em problemas cuja consequência é menor do que a solução.
 
 **Reabrir o espaço indefinidamente.** O erro oposto. Existe ponto em que mais
-análise custa mais do que o erro que evitaria — especialmente para decisões
+análise custa mais do que o erro que evitaria, especialmente para decisões
 baratas de reverter. Decisões reversíveis merecem menos deliberação, não a mesma.
 
 ## Exemplo Real
@@ -158,7 +158,7 @@ A quinta e a sexta são as que normalmente não aparecem, e são as mais baratas
 Neste caso, a investigação mostrou que duas consultas respondiam por 80% da
 carga, ambas sem índice adequado.
 
-A solução foi a quinta. As outras continuam registradas com suas condições — e a
+A solução foi a quinta. As outras continuam registradas com suas condições, e a
 primeira acabou sendo adotada dois anos depois, quando o volume mudou e a
 condição declarada passou a valer.
 
@@ -167,9 +167,9 @@ mês de reanálise.
 
 ## Conceitos Relacionados
 
-- [Espaço do Problema](/01-fundamentals/problem-space.md) — o que precede.
-- [Restrições](/01-fundamentals/constraints.md) — o que reduz o espaço.
-- [Trade-offs](/20-trade-offs/index.md) — o critério de comparação.
+- [Espaço do Problema](/01-fundamentals/problem-space.md): o que precede.
+- [Restrições](/01-fundamentals/constraints.md): o que reduz o espaço.
+- [Trade-offs](/20-trade-offs/index.md): o critério de comparação.
 
 ## Exercício Prático
 
@@ -190,6 +190,6 @@ Depois pergunte: alguma dessas condições passou a valer desde então?
 ## Para Aprofundar
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — capítulo sobre análise de trade-offs.
-- Nygard, Michael. *Documenting Architecture Decisions*, 2011 — o formato que
+  2020. Capítulo sobre análise de trade-offs.
+- Nygard, Michael. *Documenting Architecture Decisions*, 2011. O formato que
   torna o espaço de solução registrável.

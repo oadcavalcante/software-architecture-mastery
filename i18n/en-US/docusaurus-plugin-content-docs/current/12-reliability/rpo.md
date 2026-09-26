@@ -2,7 +2,7 @@
 id: rpo
 title: RPO
 sidebar_position: 9
-description: How much data can be lost — and why the answer "none" is almost never true.
+description: How much data can be lost, and why the answer "none" is almost never true.
 doc_type: foundation
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rto, disaster-recovery-planning, failover]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-RPO — recovery point objective — is **how much data can be lost** in a recovery.
+RPO (recovery point objective) is **how much data can be lost** in a recovery.
 
 If the most recent usable copy is from an hour ago, the RPO is one hour: everything that happened after
 that is lost.
@@ -31,7 +31,7 @@ answer that almost never holds: "no data can be lost".
 
 ## Why This Matters
 
-An RPO of zero requires synchronous replication — each write acknowledged in more than one place before
+An RPO of zero requires synchronous replication: each write acknowledged in more than one place before
 responding to the user.
 
 That costs latency on **every** write operation, permanently. See
@@ -47,9 +47,9 @@ The last line makes most transactional systems unviable. An RPO of zero across r
 and frequently promised with nobody having done the arithmetic.
 
 And there is a second cost: synchronous replication couples availability. If the synchronous copy does not
-respond, the write does not commit — the system becomes unavailable in order to preserve the RPO. Engines
+respond, the write does not commit: the system becomes unavailable in order to preserve the RPO. Engines
 with a semi-synchronous mode offer the opposite way out: once a timeout passes with no answer from the
-replica, the write commits anyway and replication carries on asynchronously — availability is preserved by
+replica, the write commits anyway and replication carries on asynchronously. Availability is preserved by
 giving up the zero RPO, quietly. Which of the two behaviours applies is configuration, not a property of
 the mechanism.
 
@@ -96,7 +96,7 @@ the lag at the moment of the failure, not the average lag.
 restore testing part of the RPO guarantee, not an operational detail.
 
 **Logical corruption.** If the data was corrupted before the copy, restoring it restores the corruption.
-The relevant RPO becomes that of the last copy **prior to the problem** — which can be days.
+The relevant RPO becomes that of the last copy **prior to the problem** (which can be days).
 
 The third case is what justifies retaining several generations and keeping a
 [delayed replica](/07-data-architecture/data-replication.md).
@@ -104,10 +104,10 @@ The third case is what justifies retaining several generations and keeping a
 ### Replication does not guarantee an RPO against human error
 
 A destructive command replicates in seconds. The RPO against hardware failure can be seconds, and against
-human error it can be hours — the interval back to the previous copy.
+human error it can be hours: the interval back to the previous copy.
 
-Declaring a single RPO with no distinction of scenario describes only the most favourable scenario — that
-of infrastructure failure — and leaves the human error one with no number.
+Declaring a single RPO with no distinction of scenario describes only the most favourable scenario (that
+of infrastructure failure) and leaves the human error one with no number.
 
 ### The RPO needs to account for what is in flight
 
@@ -124,7 +124,7 @@ open transactions
 If the queue is durable and replicated, it enters the same calculation as the database. If it is in memory,
 or if the requests were accepted and not yet persisted, that work is lost regardless of the database's RPO.
 
-See [asynchronous processing](/11-scalability/async-processing.md) — accepting and not persisting loses
+See [asynchronous processing](/11-scalability/async-processing.md). Accepting and not persisting loses
 work with no metric recording it: the client got an acknowledgement and the record does not exist.
 
 The check: sum what is in flight at the typical peak moment. If that volume matters, it needs to be treated
@@ -153,19 +153,19 @@ The verification found three problems.
 
 **The zero RPO was partial.** The synchronous replication covered the orders database. The reconciliation
 system, which recorded the exchange's confirmations, used asynchronous replication with a typical lag of 4
-seconds. In a failure, orders would exist with no corresponding confirmation — the worst possible state for
+seconds. In a failure, orders would exist with no corresponding confirmation: the worst possible state for
 a brokerage.
 
 **The real lag was worse than the typical one.** At market open, the asynchronous replication's lag reached
 40 seconds. The effective RPO on that component was 40 seconds, not 4.
 
 **Human error was not covered.** The backups were daily. A destructive command at 2 p.m. would mean losing
-the whole day — an RPO of up to 24 hours against that scenario, despite the declared "RPO of zero".
+the whole day: an RPO of up to 24 hours against that scenario, despite the declared "RPO of zero".
 
 The reformulation:
 
-**An RPO per type of data**, with the reconciliation system moving to synchronous alongside the orders one
-— the additional 3 ms of latency was accepted once measured.
+**An RPO per type of data**, with the reconciliation system moving to synchronous alongside the orders one.
+The additional 3 ms of latency was accepted once measured.
 
 **An RPO per scenario**, declared explicitly:
 
@@ -175,7 +175,7 @@ human error or corruption  15 minutes
 regional disaster          15 minutes
 ```
 
-**A 15-minute delayed replica**, covering the human error scenario — the cheapest of the three mechanisms
+**A 15-minute delayed replica**, covering the human error scenario. It was the cheapest of the three mechanisms
 in play (synchronous replication, periodic backups, a delayed replica) and the only one that did not yet
 exist.
 
@@ -184,15 +184,15 @@ exist.
 **A monthly restore test**, with the effective RPO measured and recorded.
 
 What the team records: "RPO of zero" was true for one component and false for the system. And the most
-likely scenario — human error — was the least covered, with an exposure of up to 24 hours nobody had
+likely scenario, human error, was the least covered, with an exposure of up to 24 hours nobody had
 noticed.
 
 ## Related Concepts
 
-- [RTO](/12-reliability/rto.md) — the partner.
+- [RTO](/12-reliability/rto.md): the partner.
 - [Disaster Recovery Planning](/12-reliability/disaster-recovery-planning.md).
 - [Data Replication](/07-data-architecture/data-replication.md).
-- [PACELC](/06-distributed-systems/pacelc.md) — the cost of synchronous.
+- [PACELC](/06-distributed-systems/pacelc.md): the cost of synchronous.
 
 ## Practical Exercise
 
@@ -208,8 +208,8 @@ That number is your real RPO against infrastructure failure. Compare with the de
 
 ## Further Reading
 
-- ISO. *ISO 22301:2019 — Security and Resilience: Business Continuity Management
+- ISO. *ISO 22301:2019. Security and Resilience: Business Continuity Management
   Systems — Requirements*. ISO, 2019.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1. Contingency Planning Guide for
   Federal Information Systems*. NIST, 2010.

@@ -2,7 +2,7 @@
 id: core-domain
 title: Core Domain
 sidebar_position: 3
-description: Onde a empresa se diferencia — e por que identificá-lo errado desperdiça a melhor capacidade de engenharia.
+description: Onde a empresa se diferencia, e por que identificá-lo errado desperdiça a melhor capacidade de engenharia.
 doc_type: foundation
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [supporting-domain, generic-domain, tactical-ddd]
 canonical_for: [core domain, domínio central]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-O core domain é o subdomínio onde a empresa se diferencia — a razão pela qual os
+O core domain é o subdomínio onde a empresa se diferencia: a razão pela qual os
 clientes a escolhem em vez do concorrente.
 
 É onde o melhor esforço de engenharia deve ir, e é o único lugar onde
@@ -41,7 +41,7 @@ mesma biblioteca.
 **O volume de código.** O subdomínio maior parece o mais importante. Frequentemente
 ele é grande porque acumulou complexidade acidental, não porque é essencial.
 
-**A visibilidade.** O que o cliente vê — a interface — é confundido com o que o
+**A visibilidade.** O que o cliente vê (a interface) é confundido com o que o
 cliente valoriza.
 
 A pergunta que corrige: **se este subdomínio fosse igual ao do concorrente, a
@@ -51,10 +51,10 @@ empresa perderia clientes?** Se a resposta for não, não é core.
 
 ### Diferenciação, não importância
 
-Faturamento é essencial — sem ele a empresa não recebe. Para quem vende outra
+Faturamento é essencial: sem ele a empresa não recebe. Para quem vende outra
 coisa, não é core: toda empresa fatura, e fazer isso melhor que o concorrente não
 traz cliente. Numa plataforma de cobrança, que vende justamente faturamento, ele é
-o core — a classificação é relativa ao que a empresa vende.
+o core: a classificação é relativa ao que a empresa vende.
 
 Core é onde ser melhor **importa competitivamente**. É um conceito de estratégia
 de negócio, não de criticidade operacional.
@@ -77,13 +77,13 @@ mais difícil, e é o que a análise recomenda.
 **Modelagem cuidadosa com o especialista.** Conversas frequentes, refinamento
 contínuo, [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md) rigorosa.
 
-**DDD tático completo.** Agregado, repositório e fábrica — os que raramente se
+**DDD tático completo.** Agregado, repositório e fábrica: os que raramente se
 pagam fora daqui. Objeto de valor e entidade rica se pagam também fora; ver
 [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 **Comprar custa a diferenciação, quando o fornecedor vende o mesmo aos
 concorrentes.** O que sobra de espaço é diferenciar na configuração, nos dados ou
-no processo em volta — e isso raramente basta no core.
+no processo em volta, e isso raramente basta no core.
 
 ### O core muda
 
@@ -96,7 +96,7 @@ Revisar anualmente é barato.
 
 **Porque a capacidade de engenharia é o recurso mais escasso.** Alocá-la fora do
 core é o desperdício mais caro que uma empresa de software comete, e o mais
-invisível — porque o trabalho feito é de boa qualidade.
+invisível, porque o trabalho feito é de boa qualidade.
 
 **Porque determina onde a complexidade é justificável.** Ver
 [complexidade](/01-fundamentals/complexity.md). No core, complexidade essencial
@@ -119,7 +119,7 @@ chamar quatro subdomínios de core espalha os melhores engenheiros e nenhum dele
 recebe a modelagem que o core justificaria.
 
 **Deixar a engenharia decidir sozinha.** Sem o negócio na mesa, o core é declarado
-por quem não tem como saber por que o cliente paga — e a alocação segue esse rótulo
+por quem não tem como saber por que o cliente paga, e a alocação segue esse rótulo
 por anos.
 
 **Comprar ou terceirizar o core.** É vender a diferenciação.
@@ -128,7 +128,7 @@ por anos.
 
 ## Exemplo Real
 
-Uma empresa de comércio eletrônico de nicho — produtos artesanais — tinha uma
+Uma empresa de comércio eletrônico de nicho (produtos artesanais) tinha uma
 equipe de doze engenheiros.
 
 A alocação encontrada: cinco no motor de busca e recomendação, quatro no
@@ -136,7 +136,7 @@ checkout e pagamento, dois no catálogo, um no painel dos vendedores.
 
 A pergunta de diferenciação foi feita a três clientes recorrentes e a cinco
 vendedores. As respostas convergiram para algo que ninguém na engenharia
-esperava: **a curadoria** — o processo pelo qual a empresa aprovava vendedores e
+esperava: **a curadoria**, o processo pelo qual a empresa aprovava vendedores e
 produtos, que garantia que tudo na plataforma era genuinamente artesanal.
 
 Era o que os compradores citavam ao explicar por que não compravam no marketplace
@@ -146,14 +146,14 @@ mais alta.
 O sistema de curadoria era uma planilha e um formulário, mantido em tempo parcial
 pelo único engenheiro do painel dos vendedores.
 
-Busca e recomendação — cinco engenheiros — usavam uma biblioteca de prateleira com
+Busca e recomendação (cinco engenheiros) usavam uma biblioteca de prateleira com
 ajustes, e eram comparáveis a qualquer concorrente.
 
 A realocação moveu três engenheiros para construir o sistema de curadoria: fluxo
 de avaliação, rastreabilidade de origem, verificação de artesão, reputação.
 
 Busca ficou com dois: o roadmap de relevância parou e a frente passou a só operar a
-biblioteca com correções pontuais — perda aceita porque ali a empresa já empatava
+biblioteca com correções pontuais, perda aceita porque ali a empresa já empatava
 com o concorrente.
 
 Dezoito meses depois, esse sistema virou o principal argumento comercial da
@@ -164,16 +164,16 @@ melhor capacidade estava alocada.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
-- [Supporting](/04-domain-driven-design/supporting-domain.md) e [Generic](/04-domain-driven-design/generic-domain.md) — os outros
+- [Subdomínio](/04-domain-driven-design/subdomain.md): a classificação.
+- [Supporting](/04-domain-driven-design/supporting-domain.md) e [Generic](/04-domain-driven-design/generic-domain.md): os outros
   tipos.
-- [DDD Tático](/04-domain-driven-design/tactical-ddd.md) — o que só se paga aqui.
+- [DDD Tático](/04-domain-driven-design/tactical-ddd.md): o que só se paga aqui.
 - [Contexto de Negócio](/01-fundamentals/business-context.md).
 
 ## Exercício Prático
 
 Pergunte a três clientes por que escolheram sua empresa em vez do concorrente.
-Não à equipe — aos clientes.
+Não à equipe, aos clientes.
 
 Mapeie as respostas para subdomínios. Depois compare com a alocação atual de
 engenheiros por subdomínio.
@@ -186,6 +186,6 @@ engenheiros por subdomínio.
 
 ## Para Aprofundar
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — a parte sobre
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. A parte sobre
   destilação do core.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.

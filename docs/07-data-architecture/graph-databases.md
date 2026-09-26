@@ -2,7 +2,7 @@
 id: graph-databases
 title: Bancos de Grafo
 sidebar_position: 6
-description: Relacionamento como cidadão de primeira classe — e por que o caso de uso é mais estreito do que parece.
+description: Relacionamento como cidadão de primeira classe, e por que o caso de uso é mais estreito do que parece.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, nosql]
 canonical_for: [banco de grafo, travessia de grafo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -27,14 +27,14 @@ com tipo e propriedades, e travessia como operação primitiva.
 O ganho aparece numa situação específica: consultas que percorrem muitos níveis de
 relacionamento, cuja profundidade não é conhecida de antemão.
 
-Fora disso — e "fora disso" cobre a maioria dos sistemas que têm dados
-relacionados — um banco relacional resolve melhor.
+Fora disso (e "fora disso" cobre a maioria dos sistemas que têm dados
+relacionados), um banco relacional resolve melhor.
 
 ## Problema
 
 Num modelo relacional, cada nível de relacionamento é uma junção. Duas junções são
-triviais. Cinco começam a doer. Profundidade variável — "todos os conectados a
-este, direta ou indiretamente" — é difícil de expressar e cara de executar.
+triviais. Cinco começam a doer. Profundidade variável ("todos os conectados a
+este, direta ou indiretamente") é difícil de expressar e cara de executar.
 
 O custo cresce de forma multiplicativa com a profundidade, porque cada junção
 processa o resultado da anterior.
@@ -49,11 +49,11 @@ vizinhos, não ao tamanho da tabela.
 
 Esta é a distinção que decide a escolha, e a que mais se confunde.
 
-**Ter dados relacionados** — pedido pertence a cliente, produto pertence a
-categoria — é o caso normal e o relacional foi feito para ele.
+**Ter dados relacionados** (pedido pertence a cliente, produto pertence a
+categoria) é o caso normal e o relacional foi feito para ele.
 
-**Precisar percorrer profundidade variável** — cadeia de indicações, propriedade
-societária através de camadas, caminho entre duas pessoas — é o caso do grafo.
+**Precisar percorrer profundidade variável** (cadeia de indicações, propriedade
+societária através de camadas, caminho entre duas pessoas) é o caso do grafo.
 
 Se todas as suas consultas têm profundidade conhecida e pequena, você tem dados
 relacionados, não um problema de grafo.
@@ -70,7 +70,7 @@ dezenas ou centenas de nós, independentemente de o grafo ter mil ou cem milhõe
 
 ### A explosão continua existindo
 
-O custo não some — muda de forma. Uma travessia sem limite de profundidade em
+O custo não some: muda de forma. Uma travessia sem limite de profundidade em
 grafo denso pode visitar quase tudo.
 
 Redes sociais são o exemplo: quatro níveis a partir de uma pessoa alcançam boa
@@ -104,7 +104,7 @@ O desenho mais comum entre implementações bem-sucedidas: manter o sistema no
 armazenamento adequado à operação, e projetar apenas o subgrafo relevante para um
 banco de grafo.
 
-Não é preciso — nem desejável — mover o sistema inteiro para grafo porque uma
+Não é preciso, nem desejável, mover o sistema inteiro para grafo porque uma
 consulta precisa de travessia.
 
 ## Modelo Mental
@@ -143,14 +143,14 @@ tem.
 
 ## Alternativas
 
-- **[Relacional](/07-data-architecture/relational-databases.md) com consulta recursiva** — bancos
+- **[Relacional](/07-data-architecture/relational-databases.md) com consulta recursiva**: bancos
   relacionais expressam travessia recursiva; para profundidade moderada, funciona
   bem e evita uma tecnologia.
-- **Tabela de fechamento transitivo** — pré-calcular os caminhos quando a
+- **Tabela de fechamento transitivo**: pré-calcular os caminhos quando a
   estrutura muda pouco.
-- **Processamento de grafo em lote** — quando a análise é periódica, não
+- **Processamento de grafo em lote**: quando a análise é periódica, não
   interativa.
-- **Coluna de adjacência** — guardar a lista de vizinhos junto ao registro.
+- **Coluna de adjacência**: guardar a lista de vizinhos junto ao registro.
 
 A primeira merece consideração séria antes de adotar uma tecnologia nova: a
 consulta recursiva cobre uma boa parte dos casos de profundidade moderada.
@@ -170,7 +170,7 @@ consulta recursiva cobre uma boa parte dos casos de profundidade moderada.
 
 **Travessia sem limite.** Visita metade do grafo e não termina.
 
-**Supernó.** Um nó com milhões de arestas — uma categoria popular, um país —
+**Supernó.** Um nó com milhões de arestas (uma categoria popular, um país)
 destrói o desempenho de qualquer travessia que passe por ele.
 
 **Modelagem errada de aresta.** Descobre-se que o relacionamento precisava de
@@ -192,7 +192,7 @@ e monitorar uma segunda tecnologia para consultas que duas junções resolveriam
 **Não limitar profundidade e resultados.** Uma travessia sem teto num trecho denso
 consome memória e CPU até derrubar o servidor, levando junto as demais consultas.
 
-**Não tratar supernós** — que exigem modelagem específica, como dividir a categoria
+**Não tratar supernós**, que exigem modelagem específica, como dividir a categoria
 em subcategorias.
 
 **Migrar o sistema inteiro** em vez de projetar o subgrafo.
@@ -206,18 +206,18 @@ Uma seguradora precisava detectar fraude organizada: grupos de pessoas ligadas p
 endereço, telefone, conta bancária ou veículo, apresentando sinistros
 relacionados.
 
-No modelo relacional, a consulta era de profundidade variável — "encontre todos
+No modelo relacional, a consulta era de profundidade variável: "encontre todos
 conectados a esta pessoa por qualquer caminho de até cinco passos". A
 implementação existente rodava em lote noturno sobre os sinistros do dia e levava
-6 horas — cara demais para rodar sinistro a sinistro, no momento do registro.
+6 horas, cara demais para rodar sinistro a sinistro, no momento do registro.
 
-Um banco de grafo com os dados projetados — pessoas, contatos, contas, veículos,
-sinistros — respondia a pergunta para um sinistro em 200 milissegundos, permitindo verificação
+Um banco de grafo com os dados projetados (pessoas, contatos, contas, veículos,
+sinistros) respondia a pergunta para um sinistro em 200 milissegundos, permitindo verificação
 no momento do registro do sinistro.
 
 O ganho foi real e trouxe dois problemas.
 
-**Supernós.** Certos telefones apareciam em milhares de cadastros — centrais de
+**Supernós.** Certos telefones apareciam em milhares de cadastros: centrais de
 atendimento, números de empresas. Uma travessia que tocasse um deles conectava
 metade da base. A correção foi marcar esses nós e excluí-los da travessia, com
 regra explícita: contatos com mais de 50 ligações não são evidência de vínculo.
@@ -231,13 +231,13 @@ da verdade. Os dados continuam no sistema transacional, e o grafo é reconstruí
 diariamente com o subconjunto relevante.
 
 Isso permitiu mudar o modelo do grafo três vezes no primeiro ano, conforme os
-analistas descobriam quais conexões importavam — algo impossível se ele fosse a
+analistas descobriam quais conexões importavam, algo impossível se ele fosse a
 fonte da verdade.
 
 ## Conceitos Relacionados
 
-- [Bancos Relacionais](/07-data-architecture/relational-databases.md) — a comparação principal.
-- [NoSQL](/07-data-architecture/nosql.md) — a categoria.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md): a comparação principal.
+- [NoSQL](/07-data-architecture/nosql.md): a categoria.
 - [Modelagem de Dados](/07-data-architecture/data-modeling.md).
 
 ## Exercício Prático
@@ -246,7 +246,7 @@ Pegue a consulta do seu sistema que faz mais junções. Conte os níveis e pergu
 a profundidade é fixa?
 
 Se for fixa, grafo não vai ajudar. Se variar conforme os dados, você tem um
-candidato — e o próximo passo é testar a consulta recursiva do seu banco atual
+candidato, e o próximo passo é testar a consulta recursiva do seu banco atual
 antes de adotar tecnologia nova.
 
 ## Perguntas de Entrevista
@@ -260,5 +260,5 @@ antes de adotar tecnologia nova.
 - Robinson, Ian; Webber, Jim; Eifrem, Emil. *Graph Databases*. 2ª ed. O'Reilly,
   2015.
 - Sadalage, Pramod; Fowler, Martin. *NoSQL Distilled*. Addison-Wesley, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
-  capítulo 2.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
+  Capítulo 2.

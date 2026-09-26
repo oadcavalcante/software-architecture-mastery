@@ -2,7 +2,7 @@
 id: data-lakes
 title: Data Lakes
 sidebar_position: 10
-description: Storing raw and interpreting later — and the thin line between a lake and a dump.
+description: Storing raw and interpreting later, and the thin line between a lake and a dump.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-warehouses]
 related: [data-lakehouses, data-ownership, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 A data lake stores data in its raw format, in cheap storage, without requiring prior modeling.
 
-The idea is reasonable: store now and decide later how to interpret it — because you do not always know,
+The idea is reasonable: store now and decide later how to interpret it, because you do not always know,
 at ingestion, which questions will be asked.
 
 The idea fails in a specific and well-documented way: with no catalog, no owner and no quality control,
@@ -34,7 +34,7 @@ the lake becomes a dump where nobody finds anything and nobody trusts what they 
 A [data warehouse](/07-data-architecture/data-warehouses.md) requires deciding the model before
 ingesting. That costs time and discards what was not foreseen.
 
-Data that does not fit in tables — application logs, images, documents, event streams — is left out.
+Data that does not fit in tables (application logs, images, documents, event streams) is left out.
 
 The lake solves that by inverting it: it stores everything, and the structure is applied on read.
 
@@ -62,7 +62,7 @@ refined      cleaned, deduplicated, typed, in a columnar format
 curated      modeled by domain, ready for consumption
 ```
 
-The raw layer is the lake's reason to exist — it allows reprocessing when the transformation turns out
+The raw layer is the lake's reason to exist: it allows reprocessing when the transformation turns out
 to be wrong.
 
 The common error is consuming directly from the raw layer. It is raw material, not a product.
@@ -74,7 +74,7 @@ A lake with no catalog is a file system.
 The catalog answers: what exists, what it means, where it came from, who owns it, what the format is,
 what the update frequency is, what the retention is.
 
-Without it, each new question starts with weeks of archaeology — and frequently ends with someone
+Without it, each new question starts with weeks of archaeology, and frequently ends with someone
 ingesting the same data again, because they did not find what was already there.
 
 This is the first difference between a lake and a swamp: ownership, quality and retention need the
@@ -82,7 +82,7 @@ catalog as the place where they are recorded.
 
 ### The file format matters more than it seems
 
-Storing in a text format — JSON, CSV — is convenient and expensive: no efficient compression, no types,
+Storing in a text format (JSON, CSV) is convenient and expensive: no efficient compression, no types,
 no selective column reading.
 
 Columnar formats compress several times better and allow reading only the necessary columns. See
@@ -127,7 +127,7 @@ left.
 **With no catalog.** It becomes a dump.
 
 **With no defined owners per data set.** With no named owner, nobody fixes broken ingestion or answers
-what the column means — and the data set rots in use.
+what the column means, and the data set rots in use.
 
 **For recurring analytical queries with stable definitions.** See
 [warehouse](/07-data-architecture/data-warehouses.md).
@@ -136,18 +136,18 @@ what the column means — and the data set rots in use.
 unsuitable for deciding whether there is stock right now.
 
 **With no personal data classification.** Without knowing where personal data is, there is no way to
-comply with a deletion request or limit access — and the obligation exists regardless of whether the
+comply with a deletion request or limit access, and the obligation exists regardless of whether the
 organization can answer.
 
 **To replace a warehouse that works.** They are complementary.
 
 ## Alternatives
 
-- **[Warehouse](/07-data-architecture/data-warehouses.md)** — when the questions are known.
-- **[Lakehouse](/07-data-architecture/data-lakehouses.md)** — the convergence.
-- **Object storage with a catalog** — the minimum viable version, which solves a good part of the cases
+- **[Warehouse](/07-data-architecture/data-warehouses.md)**: when the questions are known.
+- **[Lakehouse](/07-data-architecture/data-lakehouses.md)**: the convergence.
+- **Object storage with a catalog**: the minimum viable version, which solves a good part of the cases
   with no platform.
-- **Keeping it at the source** — if nobody consumes it, ingesting is pure cost.
+- **Keeping it at the source**: if nobody consumes it, ingesting is pure cost.
 
 ## Trade-offs
 
@@ -186,7 +186,7 @@ organization can answer.
 ## Common Mistakes
 
 **Starting with no catalog.** Without knowing what exists, where it came from and what it means, stored
-data is indistinguishable from non-existent data — and the cost has already been paid.
+data is indistinguishable from non-existent data, and the cost has already been paid.
 
 **Consuming directly from the raw zone.** Each consumer reimplements cleaning and interpretation its own
 way, and two reports about the same fact start diverging with nobody knowing which is right.
@@ -198,7 +198,7 @@ at ingestion.
 **Not compacting small files.** Continuous ingestion generates thousands of files per day, and the cost
 of listing and opening them starts exceeding the cost of reading the data.
 
-**No retention policy.** "Store everything, decide later" is a growing-cost decision made by omission —
+**No retention policy.** "Store everything, decide later" is a growing-cost decision made by omission,
 and, when there is personal data, also a growing regulatory exposure.
 
 **Ingesting data nobody asked for**, as a precaution. Each source has an ingestion, storage, cataloging
@@ -221,7 +221,7 @@ unaware of each other.
 **Everything in compressed JSON.** A query over one month of telemetry read 8 TB to use three fields.
 
 **Around 390 million small files.** Ingestion wrote one file per minute per vehicle, across a fleet of
-500 — files of a few hundred KB each. Queries took hours opening
+500: files of a few hundred KB each. Queries took hours opening
 files.
 
 **No retention.** Application logs accumulated since day one, which nobody queried, occupied 60% of the volume.
@@ -231,7 +231,7 @@ inventory. A deletion request could not be met with confidence.
 
 The recovery took eight months:
 
-**A catalog** with a mandatory owner per data set — with no declared owner, ingestion is blocked.
+**A catalog** with a mandatory owner per data set: with no declared owner, ingestion is blocked.
 
 **Explicit zones**, with the refined layer in a columnar format partitioned by date. The telemetry query
 dropped from 8 TB to 40 GB read.
@@ -248,17 +248,17 @@ to data that was already there, with no documentation of its origin.
 
 ## Related Concepts
 
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — the complement.
-- [Lakehouse](/07-data-architecture/data-lakehouses.md) — the convergence.
-- [Data Ownership](/07-data-architecture/data-ownership.md) — what prevents the swamp.
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): the complement.
+- [Lakehouse](/07-data-architecture/data-lakehouses.md): the convergence.
+- [Data Ownership](/07-data-architecture/data-ownership.md): what prevents the swamp.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): retention.
 
 ## Practical Exercise
 
 If you have a lake, answer: how many data sets exist, who owns each one, and how many were queried in the
 last 90 days?
 
-The third answer is usually the most revealing — and it is the argument for a retention policy.
+The third answer is usually the most revealing, and it is the argument for a retention policy.
 
 ## Interview Questions
 
@@ -268,6 +268,6 @@ The third answer is usually the most revealing — and it is the argument for a 
 
 ## Further Reading
 
-- Dixon, James. *Pentaho, Hadoop, and Data Lakes*, 2010 — the origin of the term.
+- Dixon, James. *Pentaho, Hadoop, and Data Lakes*, 2010. The origin of the term.
 - Gorelik, Alex. *The Enterprise Big Data Lake*. O'Reilly, 2019.
 - Dehghani, Zhamak. *Data Mesh*. O'Reilly, 2022.

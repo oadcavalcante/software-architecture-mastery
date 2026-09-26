@@ -2,7 +2,7 @@
 id: secure-boundaries
 title: Secure Boundaries
 sidebar_position: 11
-description: Where trust changes — and why validating at the edge does not excuse validating inside.
+description: Where trust changes, and why validating at the edge does not excuse validating inside.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [threat-modeling]
 related: [threat-modeling, zero-trust, least-privilege]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -39,7 +39,7 @@ full critique of the implicit perimeter is in [zero trust](/10-security/zero-tru
 is the consequence.
 
 Once there, if nothing else verifies anything, the reach is total. The difference between a contained
-incident and a catastrophic one is rarely the wall — it is what exists behind it.
+incident and a catastrophic one is rarely the wall but what exists behind it.
 
 ## Core Concepts
 
@@ -68,11 +68,11 @@ Marking them on a diagram is the main output of a
 
 Edge validation is necessary and insufficient.
 
-It presupposes that **all** input passes through it. One alternative path — a batch process, a fix script,
-an internal endpoint, a queue — is enough to break the assumption.
+It presupposes that **all** input passes through it. One alternative path (a batch process, a fix script,
+an internal endpoint, a queue) is enough to break the assumption.
 
-That is why the rule: each component validates what it receives, within its own context. It is not wasted
-redundancy — it is what makes the system resist when one path slips through.
+That is why the rule: each component validates what it receives, within its own context. Far from wasted
+redundancy, it is what makes the system resist when one path slips through.
 
 And there is a subtle point: **correct validation depends on the context**. The edge validates format; the
 domain validates a business rule; the database enforces a constraint. They are different validations, not
@@ -93,7 +93,7 @@ with depth      the credential leaks → access limited to that service's scope
 
 Each layer does not prevent the compromise. It reduces what it reaches and the time until it is detected.
 
-That is architecture's most important contribution to security, and it is structural — it is not added
+That is architecture's most important contribution to security, and it is structural: it is not added
 afterward.
 
 ### Trusting the caller is the silent failure
@@ -101,8 +101,8 @@ afterward.
 An internal service that accepts `user_id` from the caller without verifying whether the caller may act for
 that user is delegating authorization to whoever calls.
 
-That works while all the callers are correct. A compromised caller — or a new one, written by somebody who
-did not know the premise — passes any identifier.
+That works while all the callers are correct. A compromised caller (or a new one, written by somebody who
+did not know the premise) passes any identifier.
 
 The rule: **authorization is the responsibility of whoever holds the resource**, not of whoever asks. See
 [authorization models](/10-security/authz-models.md).
@@ -150,7 +150,7 @@ than one level of trust, the marking pays off. The priority of reinforcing them 
 ## When Not to Use
 
 **Inside a single process, between parts that can only reach each other.** Revalidating between two
-functions of the same module does not create a boundary — trust does not change there. The check belongs at
+functions of the same module does not create a boundary: trust does not change there. The check belongs at
 the point where the data enters the process.
 
 **A check that repeats the previous one in the same context.** Defense in depth is not accumulating
@@ -158,8 +158,8 @@ identical checks: if the next layer verifies exactly what the previous one alrea
 information, it costs latency and maintenance and prevents nothing new.
 
 **Strong isolation when a leak costs little.** A schema or account per customer in a system whose data is
-not sensitive across customers — a public catalog, an internal tool with a few tenants who already know each
-other — pays the operational cost in the table below with no matching risk. A filter enforced in the
+not sensitive across customers (a public catalog, an internal tool with a few tenants who already know each
+other) pays the operational cost in the table below with no matching risk. A filter enforced in the
 access layer is enough.
 
 **Logging every accepted crossing on a high-volume path.** Denials need to be logged; every accepted access
@@ -168,16 +168,16 @@ audit requires it.
 
 ## Alternatives
 
-- **[Zero trust](/10-security/zero-trust.md)** — wins when the internal network has stopped being an
-  "inside" (cloud, remote work, dozens of services): instead of marking specific boundaries, it treats every
+- **[Zero trust](/10-security/zero-trust.md)**: wins when the internal network has stopped being an
+  "inside" (cloud, remote work, dozens of services). Instead of marking specific boundaries, it treats every
   request as a crossing. It costs strong identity for every service.
-- **Network segmentation** — wins when the boundary is crossed by a protocol the application does not
+- **Network segmentation**: wins when the boundary is crossed by a protocol the application does not
   control (a legacy database, equipment, a third-party service with no authentication of its own): the
   network enforces what the code cannot. See [network security](/10-security/network-security.md).
-- **Isolation by process or by account** — wins when a component runs less trusted code (a plugin, a
+- **Isolation by process or by account**: wins when a component runs less trusted code (a plugin, a
   customer workload, a risky dependency): the boundary becomes the operating system's or the provider's,
   not the application's configuration.
-- **Per-customer encryption** — wins when the database or backup operator is outside the trust perimeter:
+- **Per-customer encryption**: wins when the database or backup operator is outside the trust perimeter:
   with access to the data and without the customer's key, nothing is readable. See
   [key management](/10-security/key-management.md).
 
@@ -221,8 +221,8 @@ same database credential.
 
 **Isolating customers by filter alone.**
 
-**Not drawing the boundaries.** If they are not on a diagram, they are not a decision — they are an
-accident.
+**Not drawing the boundaries.** If they are not on a diagram, they are an
+accident, not a decision.
 
 **Not logging denials.**
 
@@ -232,7 +232,7 @@ A platform serving 400 corporate customers had a leak between customers: company
 for three weeks before reporting it.
 
 The cause was a new query, written for a report, with no customer filter. The author did not know it was
-needed — nowhere else in the code was the filter explicit, because the access layer added it automatically.
+needed: nowhere else in the code was the filter explicit, because the access layer added it automatically.
 The report used a direct query that bypassed that layer.
 
 The investigation found three absent boundaries:
@@ -247,7 +247,7 @@ And a fourth, found during the fix:
 
 **Internal services trusting the caller.** Four services accepted `company_id` from the caller without
 verifying. One of them was reachable through an endpoint that, because of a route configuration error,
-answered external requests — which would have allowed accessing any company by passing the identifier.
+answered external requests. That would have allowed accessing any company by passing the identifier.
 
 That had not been exploited, and it was the most serious problem.
 
@@ -281,12 +281,12 @@ never from the parameter.
 **Denial logging** at every boundary.
 
 The recorded lesson: the boundary that failed was not the one they watched. The external perimeter was
-solid — strong authentication, a gateway, rate limiting. The leak happened entirely **inside** it, between
+solid: strong authentication, a gateway, rate limiting. The leak happened entirely **inside** it, between
 two legitimate customers, because there was no boundary at all there.
 
 ## Related Concepts
 
-- [Threat Modeling](/10-security/threat-modeling.md) — where the boundaries are drawn.
+- [Threat Modeling](/10-security/threat-modeling.md): where the boundaries are drawn.
 - [Zero Trust](/10-security/zero-trust.md).
 - [Least Privilege](/10-security/least-privilege.md).
 - [Authorization Models](/10-security/authz-models.md).
@@ -296,7 +296,7 @@ two legitimate customers, because there was no boundary at all there.
 Draw your system's trust boundaries. For each one, answer: what is verified when crossing, and what happens
 if that check fails?
 
-Then look for paths that bypass the edge — batch processes, scripts, queues, internal endpoints. Each one
+Then look for paths that bypass the edge: batch processes, scripts, queues, internal endpoints. Each one
 is a boundary you thought you had.
 
 ## Interview Questions

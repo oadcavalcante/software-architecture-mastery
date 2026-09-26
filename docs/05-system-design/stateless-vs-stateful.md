@@ -2,7 +2,7 @@
 id: stateless-vs-stateful
 title: Sem Estado vs. Com Estado
 sidebar_position: 7
-description: A propriedade que decide o que escala trivialmente — e por que o estado não desaparece, apenas se move.
+description: A propriedade que decide o que escala trivialmente, e por que o estado não desaparece, apenas se move.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [load-balancing, scalability-basics, statelessness]
 canonical_for: [sem estado, com estado, stateless, stateful]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -33,7 +33,7 @@ A distinção decide quase tudo sobre escala, implantação e recuperação de f
 "Torne o serviço sem estado" é um dos conselhos mais repetidos em design de
 sistemas, e frequentemente é entendido como se o estado pudesse ser eliminado.
 
-Ele não pode. **O estado não desaparece — ele se move.**
+Ele não pode. **O estado não desaparece: ele se move.**
 
 Tornar um serviço de aplicação sem estado significa empurrar o estado para o banco,
 para o cache distribuído ou para o cliente. Isso é uma boa decisão, e ela concentra
@@ -57,12 +57,12 @@ quanto do sistema pode ficar sem ele?"**.
 
 A primeira linha é o motivo de todo o resto: um componente sem estado escala
 adicionando cópias, e adicionar cópia não exige coordenação nem migração de
-estado — é isso que torna a operação barata.
+estado. Isso torna a operação barata.
 
 ### Sem estado não é sem memória
 
 Um componente sem estado pode ter cache local, contadores e conexões abertas. O
-critério não é "não guarda nada" — é **"nada que ele guarda afeta a corretude da
+critério não é "não guarda nada", e sim **"nada que ele guarda afeta a corretude da
 próxima requisição"**.
 
 Um cache local que, se perdido, apenas torna a requisição mais lenta, não quebra a
@@ -74,7 +74,7 @@ permitida, quebra.
 Estado costuma se esconder onde ninguém procura:
 
 **Afinidade de sessão no balanceador.** Se o sistema exige que o usuário volte à
-mesma instância, ele tem estado — mesmo que ninguém tenha declarado.
+mesma instância, ele tem estado, mesmo que ninguém tenha declarado.
 
 **Arquivo em disco local.** Em contêineres e funções, ele some.
 
@@ -89,7 +89,7 @@ localmente falha com múltiplas instâncias.
 
 ### O estado precisa morar em algum lugar preparado
 
-Componentes projetados para estado — bancos, caches distribuídos, filas — resolvem
+Componentes projetados para estado (bancos, caches distribuídos, filas) resolvem
 replicação, recuperação e consistência como função principal.
 
 Um serviço de aplicação improvisando isso resolve mal. É a razão de concentrar
@@ -98,7 +98,7 @@ estado neles em vez de espalhá-lo.
 ## Modelo Mental
 
 **Se eu matar esta instância no meio da operação e a próxima requisição for para
-outra, algo quebra?** Se sim, há estado — e ele precisa ser reconhecido.
+outra, algo quebra?** Se sim, há estado, e ele precisa ser reconhecido.
 
 ## Quando Usar
 
@@ -111,10 +111,10 @@ Sem estado é preferível quando:
 
 Com estado é necessário quando:
 
-- O dado precisa persistir — banco.
+- O dado precisa persistir: banco.
 - A latência de acesso ao estado é crítica e a rede não cabe.
-- O protocolo exige conexão contínua — streaming, WebSocket, jogos.
-- Há coordenação que exige um líder — ver
+- O protocolo exige conexão contínua: streaming, WebSocket, jogos.
+- Há coordenação que exige um líder. Ver
   [eleição de líder](/06-distributed-systems/leader-election.md).
 
 ## Quando Não Usar
@@ -128,17 +128,17 @@ requisição e não pode ser revogado.
 **Empurrar tudo para o banco.** Um serviço que consulta o banco a cada operação
 trivial troca estado local por latência e carga.
 
-**Tratar como binário.** Componentes reais têm gradação — a pergunta é quanto do
+**Tratar como binário.** Componentes reais têm gradação: a pergunta é quanto do
 sistema pode ficar sem estado, não se tudo pode.
 
 ## Alternativas
 
-- **Estado externo compartilhado** — cache distribuído ou banco.
-- **Estado no cliente** — token, para sessão.
-- **[Particionamento por chave](/06-distributed-systems/partitioning.md)** — manter
+- **Estado externo compartilhado**: cache distribuído ou banco.
+- **Estado no cliente**: token, para sessão.
+- **[Particionamento por chave](/06-distributed-systems/partitioning.md)**: manter
   estado local, roteando cada chave sempre para a mesma instância. É o modelo de
   sistemas com estado que escalam.
-- **Recalcular** — quando derivar é mais barato que guardar.
+- **Recalcular**: quando derivar é mais barato que guardar.
 
 ## Trade-offs
 
@@ -205,7 +205,7 @@ disparada por evento ao receber a última parte. O limite de taxa foi para o cac
 distribuído. E o agendamento saiu do serviço para um agendador externo, que
 dispara uma vez e entrega numa fila.
 
-Depois disso o serviço ficou genuinamente sem estado — e a verificação foi
+Depois disso o serviço ficou genuinamente sem estado, e a verificação foi
 concreta: matar uma instância no meio de um processamento e confirmar que outra
 continua.
 
@@ -216,7 +216,7 @@ continua.
 > mecânica de estratégias, rebalanceamento e hash consistente.
 
 Ausência de estado não é a única forma de escalar. Sistemas com estado escalam por
-**particionamento** — bancos, caches distribuídos e plataformas de streaming todos
+**particionamento**: bancos, caches distribuídos e plataformas de streaming todos
 o usam.
 
 A ideia: cada instância é dona de um subconjunto das chaves. Uma função de
@@ -230,8 +230,8 @@ hash(chave) → instância
 ```
 
 Isso inverte o modelo sem estado: em vez de qualquer instância servir qualquer
-requisição, cada estado tem dono fixo. O ganho é localidade — o estado está onde é
-usado — e capacidade que cresce adicionando instâncias.
+requisição, cada estado tem dono fixo. O ganho é localidade (o estado está onde é
+usado) e capacidade que cresce adicionando instâncias.
 
 O preço é manter esse dono, e ele aparece em operações que atravessam partições,
 na movimentação de estado ao mudar o número de instâncias e em chaves mais ativas
@@ -242,17 +242,17 @@ poderoso.** Use o primeiro onde couber e o segundo onde o estado for essencial.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](/05-system-design/state-management.md) — os tipos e onde cada um mora.
-- [Balanceamento de Carga](/05-system-design/load-balancing.md) — onde a afinidade aparece.
-- [Escalabilidade](/11-scalability/index.md) — a consequência prática.
-- [Processamento em Background](/05-system-design/background-processing.md) — o caso do agendador.
+- [Gestão de Estado](/05-system-design/state-management.md): os tipos e onde cada um mora.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md): onde a afinidade aparece.
+- [Escalabilidade](/11-scalability/index.md): a consequência prática.
+- [Processamento em Background](/05-system-design/background-processing.md): o caso do agendador.
 
 ## Exercício Prático
 
 Escolha um serviço que você considera sem estado e faça o teste concreto: suba
 duas instâncias e mate uma no meio de uma operação.
 
-Depois procure os cinco disfarces — afinidade, disco local, agendamento em
+Depois procure os cinco disfarces: afinidade, disco local, agendamento em
 memória, conexão longa, idempotência local. Um deles costuma estar lá.
 
 ## Perguntas de Entrevista

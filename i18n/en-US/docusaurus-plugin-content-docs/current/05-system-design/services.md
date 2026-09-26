@@ -2,7 +2,7 @@
 id: services
 title: Services
 sidebar_position: 3
-description: Components with their own process — what changes when the call crosses the network.
+description: "Components with their own process: what changes when the call crosses the network."
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [apis, service-boundaries, microservices, data-ownership]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-31
 A service is a component with its own process, accessed over the network, with an
 independent deployment cycle.
 
-The difference between a service and a module is not conceptual — it is
-**physical**, and it is what determines all the additional cost.
+The difference between a service and a module is
+**physical**, not conceptual, and it is what determines all the additional cost.
 
 ## Problem
 
@@ -101,17 +101,17 @@ is not needed immediately.
 ### A service owns its data
 
 The rule, as an end state: no service accesses another's database. Two things
-qualify it — during a decomposition, a shared database is a legitimate transition
+qualify it: during a decomposition, a shared database is a legitimate transition
 step, with a deadline and an owner declared; and, for genuinely cross-cutting data, a
 shared database with explicit governance and a change process is a documented
 option, not an accident.
 
 What gives the physical separation its meaning is that ownership. A database held in
-common hands back the coupling of a monolith and keeps the network bill — the worst
+common hands back the coupling of a monolith and keeps the network bill: the worst
 of the combinations when it happens by omission, which is how it nearly always
 happens.
 
-The full treatment — the options for cross-cutting data and what each one costs — is
+The full treatment (the options for cross-cutting data and what each one costs) is
 in [data ownership](/07-data-architecture/data-ownership.md).
 
 ## Mental Model
@@ -138,18 +138,18 @@ refactoring; between services, it is a data migration.
 and the cost is paid in full.
 
 **When the unavailability of one makes the other useless.** There is no real failure
-isolation — there are two points of failure where there was one.
+isolation: there are two points of failure where there was one.
 
 **When the team cannot operate one more.** Each service adds on-call, alerts and
 diagnosis time.
 
 ## Alternatives
 
-- **A module in the same process** — the answer in most cases.
-- **[Modular monolith](/03-design-patterns/modular-monolith.md)** — logical isolation
+- **A module in the same process**: the answer in most cases.
+- **[Modular monolith](/03-design-patterns/modular-monolith.md)**: logical isolation
   with no network cost.
-- **Published library** — its own release cycle without a separate process.
-- **A separate process with no API** — a queue consumer, for example, which isolates
+- **Published library**: its own release cycle without a separate process.
+- **A separate process with no API**: a queue consumer, for example, which isolates
   resources without creating a synchronous contract.
 
 ## Trade-offs
@@ -200,7 +200,7 @@ chain: portal → quote → registry → risk → price table.
 
 Average latency: 1.8 seconds. The requirement was 800 ms.
 
-The analysis showed that each service responded in about 200 ms — none was slow. The
+The analysis showed that each service responded in about 200 ms: none was slow. The
 time was the sum of network, serialization and waiting.
 
 And availability: five services at 99.9% produced 99.5% at the edge, against the
@@ -208,20 +208,20 @@ And availability: five services at 99.9% produced 99.5% at the edge, against the
 
 The fix had two parts.
 
-`Registry` and `Risk` were consolidated — they were always called together, always
+`Registry` and `Risk` were consolidated: they were always called together, always
 deployed together, and history showed 90% joint changes.
 
-And the price table lookup became a local copy in the consolidated service — which
-was the one calling it — updated by event. The table
+And the price table lookup became a local copy in the consolidated service (which
+was the one calling it), updated by event. The table
 changed twice a month; querying it on every quote was a network round trip for
 practically static data.
 
 Result: chain from five to three, average latency from 1.8 s to 1.2 s, availability
-from 99.5% to 99.7% — and the rest of the availability came from retries with a
+from 99.5% to 99.7%. The rest of the availability came from retries with a
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
 The 800 ms requirement was not met. Of the 1.2 s that remained, about 800 ms is
-processing across the three services — the consolidated one does the work of two —
+processing across the three services (the consolidated one does the work of two),
 and the rest is network, over two hops. The chain gave back what the chain charged;
 what is left does not come out of the call's design.
 
@@ -236,7 +236,7 @@ instances come and go.
 breaks with autoscaling.
 
 **DNS.** The name resolves to the active instances. Simple and subject to client
-caching — a removed instance keeps receiving traffic until the cache expires.
+caching: a removed instance keeps receiving traffic until the cache expires.
 
 **Service registry.** Instances register when they start and remove themselves when
 they leave. The client queries it. It solves the caching problem, and adds a stateful
@@ -250,8 +250,8 @@ What decides between them is how much the instances change. In an environment wi
 fixed number of machines, configuration is enough and is the most predictable option.
 With autoscaling, the criterion becomes how long the client may hold an answer that
 is no longer true: configuration holds it forever, DNS until the TTL expires, the
-registry until the next query, and the platform holds nothing — the name is stable
-and the churn happens behind it.
+registry until the next query, and the platform holds nothing (the name is stable
+and the churn happens behind it).
 
 It is worth noting that discovery answers **where**, not **whether it is healthy**.
 The two questions are distinct, and answering the first without the second sends
@@ -259,11 +259,11 @@ traffic to instances that started and are not ready yet.
 
 ## Related Concepts
 
-- [Components](/05-system-design/components.md) — the general concept.
-- [APIs](/05-system-design/apis.md) — the contract between services.
-- [Service Boundaries](/05-system-design/service-boundaries.md) — where to separate.
-- [Microservices](/03-design-patterns/microservices.md) — the style.
-- [Data Ownership](/07-data-architecture/data-ownership.md) — whose the data is that
+- [Components](/05-system-design/components.md): the general concept.
+- [APIs](/05-system-design/apis.md): the contract between services.
+- [Service Boundaries](/05-system-design/service-boundaries.md): where to separate.
+- [Microservices](/03-design-patterns/microservices.md): the style.
+- [Data Ownership](/07-data-architecture/data-ownership.md): whose the data is that
   the service keeps.
 
 ## Practical Exercise

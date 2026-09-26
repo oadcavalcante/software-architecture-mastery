@@ -2,7 +2,7 @@
 id: authorization
 title: Autorização
 sidebar_position: 18
-description: Decidir o que cada um pode fazer — e onde essa decisão é tomada e verificada.
+description: Decidir o que cada um pode fazer e onde essa decisão é tomada e verificada.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [authentication]
 related: [authentication, service-boundaries, authz-models]
 canonical_for: [autorização, controle de acesso, permissão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,12 +24,12 @@ last_reviewed: 2026-08-27
 Autorização responde **o que esta identidade pode fazer**. Ela pressupõe
 [autenticação](/05-system-design/authentication.md) resolvida.
 
-A decisão de sistema é onde a regra de permissão mora e onde ela é verificada — e
+A decisão de sistema é onde a regra de permissão mora e onde ela é verificada, e
 a resposta errada recorrente é "na interface".
 
 ## Problema
 
-Autorização começa simples — administrador pode tudo, usuário pode o seu — e
+Autorização começa simples (administrador pode tudo, usuário pode o seu) e
 cresce de forma previsível.
 
 Depois vem "gerente pode ver os pedidos da sua região". Depois "o próprio dono pode
@@ -38,7 +38,7 @@ acima disso precisa de diretor".
 
 Cada regra é adicionada onde é mais conveniente: um `if` no controlador, uma
 condição na consulta, uma verificação na tela. Ao final, a regra de quem pode o
-quê não existe em lugar nenhum — está espalhada, e ninguém consegue responder
+quê não existe em lugar nenhum: está espalhada, e ninguém consegue responder
 "quem pode aprovar uma despesa de 50 mil?" sem ler o sistema.
 
 ## Conceitos Centrais
@@ -50,7 +50,7 @@ critério de escolha estão em
 [modelos de autorização](/10-security/authz-models.md), o canônico dos três.
 
 **Por papel.** O usuário tem papéis; papéis têm permissões. Simples e explode
-quando as regras dependem de contexto — surge `gerente_regiao_sul`,
+quando as regras dependem de contexto: surge `gerente_regiao_sul`,
 `gerente_regiao_sul_leitura`, e a combinatória cresce.
 
 **Por atributo.** A decisão considera atributos do usuário, do recurso e do
@@ -64,7 +64,7 @@ Adequado a hierarquias e a compartilhamento.
 A maior parte dos sistemas começa por papel, e o critério para sair dele é de que
 a permissão depende: só de quem é o usuário, e papel basta; de um atributo do
 recurso ou do contexto, e é atributo; de um vínculo entre pessoa e recurso, e é
-relação. Daí os dois sinais de que o papel está sendo forçado — o sufixo de
+relação. Daí os dois sinais de que o papel está sendo forçado: o sufixo de
 contexto, `gerente_regiao_sul`, e o papel limpo que ainda assim autoriza demais,
 porque a regra real era um vínculo.
 
@@ -72,10 +72,10 @@ porque a regra real era um vínculo.
 
 Separar dois papéis ajuda:
 
-**Ponto de decisão** — onde a regra é avaliada. Pode ser uma biblioteca embutida,
+**Ponto de decisão**: onde a regra é avaliada. Pode ser uma biblioteca embutida,
 um serviço dedicado, ou o próprio domínio.
 
-**Ponto de imposição** — onde a decisão é aplicada. Gateway, serviço, ou consulta
+**Ponto de imposição**: onde a decisão é aplicada. Gateway, serviço, ou consulta
 ao banco.
 
 Centralizar a decisão dá auditabilidade e uniformidade. Distribuí-la dá latência
@@ -84,7 +84,7 @@ distribuir a **avaliação**.
 
 ### A interface não é ponto de imposição
 
-Esconder um botão não é autorização — é conveniência de interface.
+Esconder um botão não é autorização, é conveniência de interface.
 
 Toda verificação precisa acontecer no servidor, em cada operação. A interface
 oculta o que o usuário não pode fazer para não frustrá-lo; o servidor impede.
@@ -98,7 +98,7 @@ restrita, e que ninguém protegeu porque "só o administrador vê o botão".
 Verificar uma operação sobre um recurso é direto. Listar **apenas o que o usuário
 pode ver** é outro problema.
 
-Filtrar depois de buscar é errado: a paginação quebra — a página de 20 vira 7 — e
+Filtrar depois de buscar é errado: a paginação quebra (a página de 20 vira 7) e
 o banco trabalha à toa.
 
 A regra precisa entrar na consulta. Isso significa que a autorização não é
@@ -111,7 +111,7 @@ qual centralizá-la completamente é difícil.
 Ela pertence ao [agregado](/04-domain-driven-design/aggregate.md), não a um
 serviço de permissão.
 
-A separação útil: **permissão** é sobre quem — papéis, atributos, relações.
+A separação útil: **permissão** é sobre quem (papéis, atributos, relações).
 **Regra de negócio** é sobre o estado do recurso. Misturar as duas espalha o
 domínio para dentro do mecanismo de autorização.
 
@@ -144,11 +144,11 @@ papel, não propriedade.
 
 ## Alternativas
 
-- **Verificação no domínio** — quando a regra depende do estado do recurso.
-- **Filtro na consulta** — para listagem.
-- **Biblioteca embutida** — política declarada, avaliada localmente. Evita a
+- **Verificação no domínio**: quando a regra depende do estado do recurso.
+- **Filtro na consulta**: para listagem.
+- **Biblioteca embutida**: política declarada, avaliada localmente. Evita a
   chamada de rede.
-- **Serviço dedicado** — quando há muitos serviços e a política precisa ser única.
+- **Serviço dedicado**: quando há muitos serviços e a política precisa ser única.
 
 ## Trade-offs
 
@@ -171,12 +171,12 @@ papel, não propriedade.
 **Endpoint desprotegido.** Só a tela restringia.
 
 **Referência direta insegura.** Trocar o identificador na URL acessa recurso
-alheio — o servidor verificou o papel e não a propriedade.
+alheio: o servidor verificou o papel e não a propriedade.
 
 **Filtro após a busca.** Paginação inconsistente e trabalho desperdiçado.
 
 **Vazamento em listagem nova.** Registros de outro usuário aparecem numa consulta
-recém-adicionada — o filtro na consulta depende de disciplina em cada lugar onde se
+recém-adicionada: o filtro na consulta depende de disciplina em cada lugar onde se
 consulta. Ver [fronteiras seguras](/10-security/secure-boundaries.md).
 
 **Explosão de papéis.** Dezenas de papéis com sufixo de contexto.
@@ -208,7 +208,7 @@ Uma auditoria encontrou dois problemas.
 
 **Referência insegura.** O endpoint `GET /prontuarios/{id}` verificava se o
 usuário tinha papel `medico`. Qualquer médico do hospital podia ler o prontuário
-de qualquer paciente, inclusive de outras especialidades e unidades — o que
+de qualquer paciente, inclusive de outras especialidades e unidades. Isso
 violava a regra de acesso mínimo exigida pela regulação.
 
 O papel estava certo; faltava a relação. O médico só deveria ver prontuários de
@@ -222,14 +222,14 @@ As correções.
 
 O modelo passou de papel para relacionamento: a permissão deriva de existir um
 vínculo de atendimento ativo entre profissional e paciente. Papéis continuam
-existindo para o que é genuinamente por perfil — quem pode prescrever, quem pode
+existindo para o que é genuinamente por perfil: quem pode prescrever, quem pode
 dar alta.
 
 A verificação de propriedade entrou em cada operação sobre recurso identificado,
 e a listagem passou a filtrar na consulta, pelo vínculo.
 
 E foi adicionado registro de auditoria de todo acesso a prontuário, com quem,
-quando e por qual vínculo — exigência regulatória que não estava sendo atendida.
+quando e por qual vínculo. Era uma exigência regulatória que não estava sendo atendida.
 
 O que tornou o caso instrutivo: o sistema tinha autorização, e ela verificava a
 pergunta errada. Papel responde "que tipo de coisa você pode fazer"; relação
@@ -237,12 +237,12 @@ responde "sobre qual recurso".
 
 ## Conceitos Relacionados
 
-- [Autenticação](/05-system-design/authentication.md) — o pré-requisito.
-- [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde impor.
-- [Modelos de Autorização](/10-security/authz-models.md) — papel, atributo e
+- [Autenticação](/05-system-design/authentication.md): o pré-requisito.
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md): onde impor.
+- [Modelos de Autorização](/10-security/authz-models.md): papel, atributo e
   relação a fundo, com o critério de escolha.
-- [Segurança](/10-security/index.md) — menor privilégio e auditabilidade.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — onde a regra de negócio
+- [Segurança](/10-security/index.md): menor privilégio e auditabilidade.
+- [Aggregate](/04-domain-driven-design/aggregate.md): onde a regra de negócio
   mora.
 
 ## Exercício Prático
@@ -250,7 +250,7 @@ responde "sobre qual recurso".
 Escolha um endpoint que recebe o identificador de um recurso. Autentique-se como
 um usuário e tente acessar o recurso de outro trocando o identificador.
 
-Se funcionar, você encontrou uma referência direta insegura — a falha de
+Se funcionar, você encontrou uma referência direta insegura, a falha de
 autorização mais barata de explorar: basta trocar um número na URL, sem ferramenta
 nenhuma.
 
@@ -263,6 +263,6 @@ nenhuma.
 ## Para Aprofundar
 
 - OWASP. *Authorization Cheat Sheet*.
-- OWASP. *Top 10 — A01:2021 Broken Access Control*, 2021.
+- OWASP. *Top 10. A01:2021 Broken Access Control*, 2021.
 - Hu, Vincent C. et al. *Guide to Attribute Based Access Control (ABAC) Definition
   and Considerations*. NIST SP 800-162, 2014.

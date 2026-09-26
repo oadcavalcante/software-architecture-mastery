@@ -2,7 +2,7 @@
 id: iterator
 title: Iterator
 sidebar_position: 15
-description: Traversing without exposing the internal structure — today built into almost every language.
+description: Traversing without exposing the internal structure, today built into almost every language.
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [composite, visitor, flyweight]
 canonical_for: [iterator]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -34,20 +34,20 @@ happens when a recurring solution is absorbed by the platform.
 ## Problem
 
 The client needs to traverse a collection. Without an abstraction, it has to know
-whether it is an array, a linked list, a tree or a map — and each traversal is
+whether it is an array, a linked list, a tree or a map, and each traversal is
 different.
 
 That ties the client to the chosen structure. Switching from a list to a tree touches
 all the traversal code.
 
-Iterator separates **what** — the elements, in sequence — from **how** — the structure
-behind them.
+Iterator separates **what** (the elements, in sequence) from **how** (the structure
+behind them).
 
 ## Core Concepts
 
 ### The structure
 
-The client uses it, the collection creates it, the concrete class implements it — three
+The client uses it, the collection creates it, the concrete class implements it: three
 different relationships, tied to the same two signatures.
 
 ```mermaid
@@ -62,10 +62,10 @@ appropriate to its structure.
 
 ### Internal and external
 
-**External** — the client controls the advance. It is the classic form and the one
+**External**: the client controls the advance. It is the classic form and the one
 languages adopted.
 
-**Internal** — the collection controls it and calls a function for each element.
+**Internal**: the collection controls it and calls a function for each element.
 `forEach`, `map`, `filter` are internal iteration.
 
 The external one allows stopping midway and traversing two collections in parallel.
@@ -73,7 +73,7 @@ The internal one is more compact and less error-prone.
 
 ### Lazy iteration
 
-The pattern's modern evolution. An iterator does not need to hold all the elements — it
+The pattern's modern evolution. An iterator does not need to hold all the elements; it
 can generate them on demand.
 
 That allows infinite sequences, reading files larger than memory, and composing
@@ -95,7 +95,7 @@ An iterator that does not declare which one it offers has an incomplete contract
 
 - You need to traverse your own structure, not covered by the standard library.
 - The internal structure must stay hidden.
-- There is more than one form of traversal — in trees, pre-order, post-order,
+- There is more than one form of traversal: in trees, pre-order, post-order,
   breadth-first.
 - Generating the elements is expensive and should be lazy.
 
@@ -111,17 +111,17 @@ representation, the iterator hides nothing.
 are sometimes more readable with an index.
 
 **When the traversal needs positional context.** If the client needs to know where it
-is in the structure — depth, path, ancestors — the flat sequence abstraction does not
+is in the structure (depth, path, ancestors), the flat sequence abstraction does not
 serve. See [Visitor](/03-design-patterns/visitor.md).
 
 ## Alternatives
 
-- **Language features** — generators, streams, iteration loops.
-- **[Visitor](/03-design-patterns/visitor.md)** — when the traversal needs to
+- **Language features**: generators, streams, iteration loops.
+- **[Visitor](/03-design-patterns/visitor.md)**: when the traversal needs to
   distinguish node types.
-- **Returning an immutable collection** — simpler when the set is small and fits in
+- **Returning an immutable collection**: simpler when the set is small and fits in
   memory.
-- **A callback** — internal iteration with no hierarchy.
+- **A callback**: internal iteration with no hierarchy.
 
 ## Trade-offs
 
@@ -154,7 +154,7 @@ has to be closed; the classic interface does not require it.
 **Forgetting to close iterators over resources.**
 
 **Assuming iteration is cheap.** A lazy iterator over a database can fire one query per
-element — the same N+1 as [Proxy](/03-design-patterns/proxy.md).
+element: the same N+1 as [Proxy](/03-design-patterns/proxy.md).
 
 ## Where it appears in practice
 
@@ -169,7 +169,7 @@ class.
 **Database cursors.** Traversing a large result without loading it whole.
 
 The last is where implementing by hand still makes sense in application code: a cursor
-that fetches in batches and exposes a flat sequence hides the paging from the consumer —
+that fetches in batches and exposes a flat sequence hides the paging from the consumer,
 and it is the case where the closing contract genuinely matters.
 
 ## Real-World Example
@@ -185,19 +185,19 @@ The third encapsulated the paging in a lazy iterator. The business code went bac
 being a simple loop over a sequence, and memory stayed constant.
 
 Two details only appeared during implementation. The iterator had to close the
-connection on finishing **and** on being abandoned midway — which required it to be
+connection on finishing **and** on being abandoned midway. That required it to be
 used inside a block with guaranteed closing.
 
 And concurrent modification: records inserted during processing appeared or not
 depending on the ordering. The contract adopted was a snapshot by query ordered by
-identifier, declared in the method's documentation — because without declaring it, each
+identifier, declared in the method's documentation, because without declaring it, each
 consumer would assume something different.
 
 ## Related Concepts
 
-- [Composite](/03-design-patterns/composite.md) — iterating over a tree structure.
-- [Visitor](/03-design-patterns/visitor.md) — traversal with type distinction.
-- [Proxy](/03-design-patterns/proxy.md) — the risk of traversal that fires queries.
+- [Composite](/03-design-patterns/composite.md): iterating over a tree structure.
+- [Visitor](/03-design-patterns/visitor.md): traversal with type distinction.
+- [Proxy](/03-design-patterns/proxy.md): the risk of traversal that fires queries.
 
 ## Practical Exercise
 

@@ -2,7 +2,7 @@
 id: normalization
 title: Normalização
 sidebar_position: 13
-description: Cada fato num lugar só — o que isso garante e onde o custo de junção pesa.
+description: "Cada fato num lugar só: o que isso garante e onde o custo de junção pesa."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-modeling]
 related: [denormalization, relational-databases, oltp]
 canonical_for: [normalização, forma normal, anomalia de atualização]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-27
 
 Normalizar é organizar os dados de forma que **cada fato exista em um lugar só**.
 
-O objetivo não é elegância nem economia de espaço — é impedir que o mesmo dado
+O objetivo não é elegância nem economia de espaço, e sim impedir que o mesmo dado
 exista em duas versões contraditórias.
 
 É a escolha adequada para carga [transacional](/07-data-architecture/oltp.md), e a inadequada para
@@ -53,15 +53,15 @@ Normalização elimina os três por construção, não por disciplina.
 A teoria tem seis ou mais formas normais. Na prática, três resolvem quase tudo:
 
 **Primeira.** Cada campo guarda um valor único, não uma lista. Uma coluna
-`telefones` com "11999998888, 1133334444" viola — e obriga a aplicação a
+`telefones` com "11999998888, 1133334444" viola, e obriga a aplicação a
 interpretar texto.
 
 **Segunda.** Todo atributo depende da chave inteira. Numa tabela com chave
-composta de pedido e produto, o nome do produto depende só do produto — logo, não
+composta de pedido e produto, o nome do produto depende só do produto. Logo, não
 pertence ali.
 
 **Terceira.** Nenhum atributo depende de outro atributo não-chave. Se a tabela tem
-CEP e cidade, a cidade depende do CEP, não do registro — logo, pertence a outro
+CEP e cidade, a cidade depende do CEP, não do registro. Logo, pertence a outro
 lugar.
 
 A regra prática que resume as três: **cada atributo deve depender da chave, da
@@ -77,13 +77,13 @@ e raramente valem o esforço.
 
 ### O que se ganha é integridade verificável
 
-O ganho central não é espaço — é que a **restrição pode ser declarada**.
+O ganho central é que a **restrição pode ser declarada**, não o espaço.
 
 Com o fornecedor em uma tabela e a chave estrangeira no pedido, o banco garante
 que não existe pedido apontando para fornecedor inexistente. Para todo escritor,
 inclusive scripts.
 
-Num modelo desnormalizado, essa garantia precisa ser mantida por código — e por
+Num modelo desnormalizado, essa garantia precisa ser mantida por código, e por
 todo código que escreve.
 
 ### O custo é junção, e ele é real
@@ -93,7 +93,7 @@ Cada tabela separada é uma junção a mais na leitura.
 Em [OLTP](/07-data-architecture/oltp.md), onde a consulta traz poucos registros, junções indexadas são
 baratas e o custo é irrelevante.
 
-Em [OLAP](/07-data-architecture/olap.md), onde a consulta varre milhões, junções dominam o tempo — e é
+Em [OLAP](/07-data-architecture/olap.md), onde a consulta varre milhões, junções dominam o tempo, e é
 por isso que o critério se inverte.
 
 ### Normalizar não é sobre economizar espaço
@@ -101,7 +101,7 @@ por isso que o critério se inverte.
 Este argumento aparece com frequência e envelheceu: armazenamento é barato.
 
 O argumento válido é integridade. Quem normaliza para economizar espaço tende a
-desnormalizar assim que o espaço deixa de importar — e perde a garantia sem
+desnormalizar assim que o espaço deixa de importar, e perde a garantia sem
 perceber que era ela que importava.
 
 ### Desvios conscientes são normais
@@ -110,7 +110,7 @@ Um sistema real tem desvios: um total pré-calculado, um nome copiado para evita
 junção numa consulta crítica.
 
 Isso é [desnormalização](/07-data-architecture/denormalization.md) deliberada, e é legítima quando
-documentada e com estratégia de manutenção. O problema não é o desvio — é o desvio
+documentada e com estratégia de manutenção. O problema não é o desvio, e sim o desvio
 acidental, que ninguém sabe que existe.
 
 ## Modelo Mental
@@ -128,33 +128,33 @@ junção; o retorno é integridade que o banco cobra sozinho.
 
 ## Quando Não Usar
 
-**Em modelo analítico.** Ver [OLAP](/07-data-architecture/olap.md) — junções sobre volume dominam.
+**Em modelo analítico.** Ver [OLAP](/07-data-architecture/olap.md): junções sobre volume dominam.
 
 **Quando o dado é uma fotografia do momento.** O preço no instante da compra deve
-ser copiado, não referenciado — ele não muda quando o preço do catálogo muda.
+ser copiado, não referenciado: ele não muda quando o preço do catálogo muda.
 
 **Quando a consulta dominante sempre remonta o mesmo agregado.** Se toda leitura
 junta as mesmas quatro tabelas para montar uma entidade que ninguém atualiza em
 partes, a decomposição cobra junção e não compra integridade.
 
 **Além da terceira forma normal sem dependência multivalorada à vista.** Quarta e
-quinta formas só compensam quando uma tabela combina dois fatos independentes —
-habilidades e idiomas do mesmo funcionário, por exemplo — e o produto cartesiano
+quinta formas só compensam quando uma tabela combina dois fatos independentes
+(habilidades e idiomas do mesmo funcionário, por exemplo) e o produto cartesiano
 já aparece nas linhas.
 
-**Em armazenamento sem junção.** Ver [documentos](/07-data-architecture/document-databases.md) — ali o
+**Em armazenamento sem junção.** Ver [documentos](/07-data-architecture/document-databases.md): ali o
 modelo é outro.
 
 A segunda merece ênfase: copiar o valor histórico não é desnormalização, é
-modelagem correta. São fatos diferentes — "o preço do produto" e "o preço pago".
+modelagem correta. São fatos diferentes: "o preço do produto" e "o preço pago".
 
 ## Alternativas
 
-- **[Desnormalização](/07-data-architecture/denormalization.md) seletiva** — em pontos medidos.
-- **Visão materializada** — a forma normalizada permanece; a leitura consulta a
+- **[Desnormalização](/07-data-architecture/denormalization.md) seletiva**: em pontos medidos.
+- **Visão materializada**: a forma normalizada permanece; a leitura consulta a
   visão.
-- **Modelo dimensional** — para analítico.
-- **[CQRS](/03-design-patterns/cqrs.md)** — normalizado para
+- **Modelo dimensional**: para analítico.
+- **[CQRS](/03-design-patterns/cqrs.md)**: normalizado para
   escrita, desnormalizado para leitura.
 
 ## Trade-offs
@@ -194,7 +194,7 @@ dia e para o registro que nunca muda, e o segundo paga junção sem ganhar nada.
 **Não declarar chaves estrangeiras.** O banco aceita itens apontando para pedidos
 apagados, e os órfãos só aparecem quando um relatório soma errado.
 
-**Referenciar quando o correto era copiar** — o caso do valor histórico.
+**Referenciar quando o correto era copiar**: o caso do valor histórico.
 
 **Aplicar o mesmo critério a OLTP e OLAP.** O modelo analítico herda as junções
 do transacional e a consulta de agregação passa a varrer o volume inteiro várias
@@ -218,7 +218,7 @@ A causa: os preços tinham mudado. Como o item referenciava a tabela de preços
 atual, todo relatório histórico refletia os preços de hoje.
 
 O modelo estava formalmente normalizado e conceitualmente errado. "O preço do
-produto" e "o preço cobrado neste item" são fatos diferentes — o segundo é
+produto" e "o preço cobrado neste item" são fatos diferentes. O segundo é
 imutável e pertence ao item.
 
 A correção foi copiar para o item de pedido, no momento da emissão: preço
@@ -232,19 +232,19 @@ arquivadas.
 
 O que a equipe registra: a revisão de modelo tinha sido feita por alguém rigoroso
 em teoria de normalização, e o erro passou justamente por isso. A pergunta que
-faltou não era sobre dependência funcional — era "este valor pode mudar depois?".
+faltou não era sobre dependência funcional; era "este valor pode mudar depois?".
 
 ## Conceitos Relacionados
 
-- [Desnormalização](/07-data-architecture/denormalization.md) — a decisão inversa.
-- [Modelagem de Dados](/07-data-architecture/data-modeling.md) — o contexto.
-- [OLTP](/07-data-architecture/oltp.md) — onde ela serve.
+- [Desnormalização](/07-data-architecture/denormalization.md): a decisão inversa.
+- [Modelagem de Dados](/07-data-architecture/data-modeling.md): o contexto.
+- [OLTP](/07-data-architecture/oltp.md): onde ela serve.
 - [Bancos Relacionais](/07-data-architecture/relational-databases.md).
 
 ## Exercício Prático
 
-Procure no seu modelo valores que representam um fato histórico — preço cobrado,
-endereço da entrega, alíquota aplicada — e verifique se são copiados ou
+Procure no seu modelo valores que representam um fato histórico (preço cobrado,
+endereço da entrega, alíquota aplicada) e verifique se são copiados ou
 referenciados.
 
 Onde forem referenciados, seus relatórios históricos mudam sozinhos.

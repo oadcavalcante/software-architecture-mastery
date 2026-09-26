@@ -2,7 +2,7 @@
 id: architecture-descriptions
 title: Descrições de Arquitetura
 sidebar_position: 10
-description: O documento que reúne tudo — quando ele serve e quando é teatro de conformidade.
+description: "O documento que reúne tudo: quando ele serve e quando é teatro de conformidade."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-views]
 related: [architecture-views, documentation-standards, documentation-principles]
 canonical_for: [descrição de arquitetura, arc42, documento de arquitetura, ISO 42010]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -25,7 +25,7 @@ Uma descrição de arquitetura é o **artefato consolidado** que reúne as
 [visões](/17-architecture-documentation/architecture-views.md), as decisões, as restrições e a justificativa de um
 sistema num único lugar.
 
-É o formato mais completo de documentação arquitetural, e o de pior reputação — porque a
+É o formato mais completo de documentação arquitetural, e o de pior reputação, porque a
 maior parte das descrições produzidas na indústria é escrita para satisfazer um processo,
 não para ser lida.
 
@@ -47,7 +47,7 @@ o que já se sabe que está errado?
 Nenhum diagrama responde a isso. A justificativa é textual por natureza, e é o que mais
 se perde quando as pessoas que decidiram saem.
 
-Ao mesmo tempo, o remédio tradicional — um documento grande e formal — falha por outro
+Ao mesmo tempo, o remédio tradicional, um documento grande e formal, falha por outro
 motivo: ele é escrito uma vez, no início, quando menos se sabe, e nunca revisado.
 
 ## Conceitos Centrais
@@ -70,7 +70,7 @@ Os dois últimos são os que mais faltam e os que mais valem. Uma descrição qu
 acertos não é confiável.
 
 Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md) para o item de
-qualidades — "o sistema deve ser escalável" não é um requisito.
+qualidades: "o sistema deve ser escalável" não é um requisito.
 
 ### arc42
 
@@ -86,7 +86,7 @@ O arc42 é um gabarito de doze seções, gratuito e amplamente usado:
 ```
 
 O valor está menos na lista e mais em duas propriedades: ele **força** as seções que as
-pessoas pulam — restrições, decisões, riscos, glossário — e permite que seções vazias
+pessoas pulam (restrições, decisões, riscos, glossário) e permite que seções vazias
 sejam declaradas vazias, o que é informação.
 
 A seção 11 é a que mais distingue uma descrição honesta de uma peça de conformidade.
@@ -109,7 +109,7 @@ que a divergência seja **registrada em vez de escondida**.
 ### Justificativa é o conteúdo mais durável
 
 Estrutura muda; a razão de ter escolhido uma estrutura permanece relevante mesmo depois de
-a estrutura mudar — porque ela informa se a mudança contradiz uma restrição real.
+a estrutura mudar, porque ela informa se a mudança contradiz uma restrição real.
 
 ```text
 "escolhemos X"                     envelhece
@@ -125,7 +125,7 @@ descrição consolidada apontar para elas em vez de duplicá-las.
 O padrão que funciona: a descrição é **escrita ou revisada depois** de o sistema existir,
 descrevendo o que é, com as decisões registradas ao longo do caminho.
 
-Uma descrição escrita antes da construção é uma proposta, e vale como tal — desde que seja
+Uma descrição escrita antes da construção é uma proposta, e vale como tal, desde que seja
 rotulada assim e revisada depois.
 
 O anti-padrão clássico é o documento aprovado no início do projeto, arquivado, e nunca
@@ -161,19 +161,19 @@ descartadas, é publicidade.
 **Para satisfazer um processo**, sem leitor identificado.
 
 **Quando um time só constrói, opera e consome o sistema**, sem interessado externo, sem
-exigência regulatória e numa única unidade de implantação — aí um README com contexto,
+exigência regulatória e numa única unidade de implantação, aí um README com contexto,
 restrições, decisões (ou links para ADRs) e riscos conhecidos é a descrição.
 
 **Duplicando o que já existe** em ADRs e diagramas, em vez de apontar.
 
-**Sem dono nem cadência de revisão** — nasce com prazo de validade.
+**Sem dono nem cadência de revisão**: nasce com prazo de validade.
 
 ## Alternativas
 
-- **Conjunto de ADRs** — a justificativa, incremental, sem documento consolidado.
-- **README estruturado** — para sistemas pequenos, cinco seções bastam.
-- **[Visões](/17-architecture-documentation/architecture-views.md) avulsas** — quando só a estrutura importa.
-- **Página de entrada com índice** — a descrição como um índice para artefatos que já
+- **Conjunto de ADRs**: a justificativa, incremental, sem documento consolidado.
+- **README estruturado**: para sistemas pequenos, cinco seções bastam.
+- **[Visões](/17-architecture-documentation/architecture-views.md) avulsas**: quando só a estrutura importa.
+- **Página de entrada com índice**: a descrição como um índice para artefatos que já
   existem, sem conteúdo próprio.
 
 A última é frequentemente a melhor: a descrição consolidada como **navegação**, não como
@@ -211,15 +211,15 @@ repositório de texto duplicado.
 
 ## Erros Comuns
 
-**Preencher todas as seções do gabarito** por completude, incluindo as que não se aplicam
-— em vez de declará-las vazias.
+**Preencher todas as seções do gabarito** por completude, incluindo as que não se aplicam,
+em vez de declará-las vazias.
 
 **Omitir alternativas descartadas.**
 
 **Escrever no início e nunca revisar.**
 
 **Não datar seções individualmente.** Depois de uma revisão parcial, o leitor não sabe
-qual parte foi conferida e qual é de três anos atrás — e trata tudo como atual.
+qual parte foi conferida e qual é de três anos atrás, e trata tudo como atual.
 
 **Consolidar por cópia** em vez de por referência.
 
@@ -250,13 +250,13 @@ projetado para atender aos requisitos de desempenho e disponibilidade da institu
 A reformulação:
 
 **Formato substituído por arc42**, com autorização explícita para declarar seções não
-aplicáveis — o que reduziu a extensão média de 40 para 14 páginas.
+aplicáveis. Isso reduziu a extensão média de 40 para 14 páginas.
 
 **Decisões movidas para ADRs**, referenciadas pela descrição em vez de copiadas. Ver
 [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 **Seção de riscos obrigatória e não vazia.** Uma descrição sem riscos registrados é
-devolvida — a premissa sendo que todo sistema tem algum.
+devolvida: a premissa sendo que todo sistema tem algum.
 
 **Qualidades com números.** Cada requisito de qualidade precisa de metrificação e fonte.
 Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md).
@@ -269,16 +269,16 @@ sistema real por alguém de fora do time.
 Dezoito meses depois, das mesmas 61 descrições: 54 atualizadas nos últimos 12 meses (antes,
 9 em 24), 49 com riscos reais registrados, e a taxa de consulta subiu para 41 sistemas.
 
-A conclusão registrada pelo time — uma hipótese, já que as seis mudanças entraram juntas e
-nenhuma foi medida isoladamente: a mudança de maior efeito não foi o formato. Foi permitir
+A conclusão registrada pelo time (uma hipótese, já que as seis mudanças entraram juntas e
+nenhuma foi medida isoladamente): a mudança de maior efeito não foi o formato, e sim permitir
 declarar seções vazias. Enquanto preencher tudo era obrigatório, texto genérico era a resposta
 racional.
 
 ## Conceitos Relacionados
 
-- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md) — o conteúdo estrutural.
-- [Decisões de Arquitetura](/18-architecture-decisions/index.md) — a justificativa.
-- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md) — a política.
+- [Visões de Arquitetura](/17-architecture-documentation/architecture-views.md): o conteúdo estrutural.
+- [Decisões de Arquitetura](/18-architecture-decisions/index.md): a justificativa.
+- [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md): a política.
 - [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md).
 
 ## Exercício Prático
@@ -296,6 +296,6 @@ Se as três faltarem, a descrição é uma peça de conformidade.
 
 ## Para Aprofundar
 
-- ISO/IEC/IEEE 42010:2022 — *Architecture description*.
-- Starke, Gernot; Hruschka, Peter. *arc42* — arc42.org.
+- ISO/IEC/IEEE 42010:2022. *Architecture description*.
+- Starke, Gernot; Hruschka, Peter. *arc42*. Arc42.org.
 - Clements, Paul et al. *Documenting Software Architectures*. 2ª ed. Addison-Wesley, 2010.

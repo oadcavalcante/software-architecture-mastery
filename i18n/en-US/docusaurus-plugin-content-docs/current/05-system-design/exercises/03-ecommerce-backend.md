@@ -2,7 +2,7 @@
 id: 03-ecommerce-backend
 title: "Exercise 03 — E-commerce Backend"
 sidebar_position: 1
-description: The system you will carry through the next four exercises — and the decisions you will pay for in them.
+description: The system you will carry through the next four exercises, and the decisions you will pay for in them.
 doc_type: exercise
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [service-boundaries, apis, state-management, queues]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 :::info This exercise has a sequel
 
 The system you design here reappears in exercises **04**, **05**, **06** and **07**, each time under
-a new constraint. The decisions you make now are not disposable — you will live with them.
+a new constraint. The decisions you make now are not disposable: you will live with them.
 
 Record your decisions in writing. You will need them.
 
@@ -74,7 +74,7 @@ deadline           seven months, with a commercial date
 
 Produce, in up to 90 minutes:
 
-1. The system's **deployable units** and the reason for each separation — if there is one.
+1. The system's **deployable units** and the reason for each separation, if there is one.
 2. The **data model** for order, item, inventory and payment.
 3. The **checkout flow**, from cart to paid order, with the order of operations.
 4. Where the **transaction** is, and what it covers.
@@ -107,12 +107,12 @@ Your answer is good if:
   [monolith vs. microservices](/20-trade-offs/monolith-vs-microservices.md).
 - **The inventory reservation has strong consistency.** Selling what doesn't exist is the expensive
   error in this domain, and the volume allows a local transaction.
-- **You declared what happens when the acquirer doesn't respond.** Not "it'll error out" — the state the
+- **You declared what happens when the acquirer doesn't respond.** Not "it'll error out": the state the
   order ends up in, and who resolves it.
 - **The tax invoice is not on the synchronous path** of checkout. It is mandatory before shipping, not
   before confirming to the customer.
-- **You named the three decisions that are hard to reverse**, and they really are hard — the data model,
-  a service boundary, the format exposed to the customer — and not a library choice.
+- **You named the three decisions that are hard to reverse**, and they really are hard (the data model,
+  a service boundary, the format exposed to the customer), and not a library choice.
 
 Your answer is weak if it has six services, a queue between every two of them, and no justification tied
 to a number in the brief.
@@ -125,7 +125,7 @@ to a number in the brief.
 relational database, a local transaction, and at most one background process.
 
 It is not the exciting answer. It is the one that fits in a seven-month deadline with a team that has no
-platform — and it is what the brief describes.
+platform, and it is what the brief describes.
 
 **The decision that will hurt** is the checkout flow. The natural sequence, and the correct one for this
 volume, is:
@@ -155,7 +155,7 @@ an external dependency to the critical path, with no gain at all.
 
 **What almost everybody gets wrong:** modeling the inventory reservation as a direct decrement of the
 quantity. Inside the single transaction above, the decrement rolls back with everything else when the
-payment is declined; it breaks in the case the brief itself asks about — the acquirer that does not
+payment is declined; it breaks in the case the brief itself asks about: the acquirer that does not
 respond, and the order left pending while someone decides. With no lifetime and no owner, the quantity
 stays consumed by an order that may never exist. A reservation has to be an entity with a lifetime, not
 a subtraction.

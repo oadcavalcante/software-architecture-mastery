@@ -2,7 +2,7 @@
 id: dashboards
 title: Dashboards
 sidebar_position: 8
-description: What they are for — and why the tracking dashboard is different from the investigation one.
+description: What they are for, and why the tracking dashboard is different from the investigation one.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, metrics, alerting]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,7 +37,7 @@ them.
 After two years: 60 graphs, with no hierarchy, no indication of what is normal, no reading order.
 
 During an incident, at 3 a.m., somebody opens that dashboard and needs to decide where to look. The excess
-of information does not help — it delays.
+of information does not help: it delays.
 
 ## Core Concepts
 
@@ -73,7 +73,7 @@ event annotations       deployments, configuration changes
 ```
 
 The last has the greatest return: overlaying the deployments on the graph answers, visually, any incident's
-most frequent question — "did something change?".
+most frequent question, "did something change?".
 
 ### Order by hypothesis
 
@@ -96,8 +96,8 @@ A dashboard with no order forces each person to build their own sequence, under 
 
 Standardization is worth more than individual optimization.
 
-If every service has the same dashboard — [golden signals](/13-observability/golden-signals.md), in the
-same position, with the same scales —, somebody investigating an unfamiliar service knows where to look.
+If every service has the same dashboard ([golden signals](/13-observability/golden-signals.md), in the
+same position, with the same scales), somebody investigating an unfamiliar service knows where to look.
 
 Handcrafted dashboards, each with its own layout, force you to learn how to interpret each one.
 
@@ -107,7 +107,7 @@ Generating the service dashboards from a template, and not by hand, is what sust
 
 Metrics get renamed, services are removed, graphs stop working.
 
-A dashboard with three broken graphs loses credibility entirely — people stop trusting what they see.
+A dashboard with three broken graphs loses credibility entirely: people stop trusting what they see.
 
 The periodic review is the same as for [alerts](/13-observability/alerting.md): what is not consulted, and
 what is broken.
@@ -126,7 +126,7 @@ A team that can only investigate through what is on the dashboard has monitoring
 ### A permanently displayed dashboard has another requirement
 
 A dashboard on a screen in the team's area is read at a glance, by people who are not investigating
-anything — and sometimes by people who are not on the team.
+anything, and sometimes by people who are not on the team.
 
 That imposes constraints the others do not have:
 
@@ -135,7 +135,7 @@ That imposes constraints the others do not have:
 **State, not a series.** "All green" or "checkout degraded" communicates; a time series with variation
 requires interpretation.
 
-**No false alarms.** A dashboard that goes red on normal variation trains people to ignore it — the same
+**No false alarms.** A dashboard that goes red on normal variation trains people to ignore it: the same
 mechanism as [alert fatigue](/13-observability/alerting.md).
 
 **No sensitive data.** It is visible to visitors, to passers-by, and in office photos. Revenue figures and
@@ -167,7 +167,7 @@ minutes needs an [alert](/13-observability/alerting.md); the dashboard comes in 
 has fired.
 
 **As the only way to investigate.** When the incident combines dimensions no graph
-anticipated — one customer, one version, one region — the dashboard lacks the slice, and
+anticipated (one customer, one version, one region) the dashboard lacks the slice, and
 a team that depends on it has no path forward. See
 [debuggability](/13-observability/debuggability.md).
 
@@ -176,10 +176,10 @@ a periodic report; keeping them on a live dashboard is maintenance cost with no 
 
 ## Alternatives
 
-- **[Alerts](/13-observability/alerting.md)** — for what needs a reaction.
-- **Ad hoc querying** — for new questions.
-- **A periodic report** — for trends that do not need real time.
-- **A template-generated dashboard** — instead of hand-built.
+- **[Alerts](/13-observability/alerting.md)**: for what needs a reaction.
+- **Ad hoc querying**: for new questions.
+- **A periodic report**: for trends that do not need real time.
+- **A template-generated dashboard**: instead of hand-built.
 
 ## Trade-offs
 
@@ -229,7 +229,7 @@ a periodic report; keeping them on a live dashboard is maintenance cost with no 
 A logistics platform had a main dashboard with 64 graphs, built over four years.
 
 In an incident analysis, one finding: the average time between the alert and identifying the affected
-component was 22 minutes — and people reported opening the dashboard, not finding what they needed, and
+component was 22 minutes, and people reported opening the dashboard, not finding what they needed, and
 going straight to ad hoc queries.
 
 The dashboard had stopped being used, with nobody having decided that.
@@ -248,7 +248,7 @@ identical layout.
 
 **Deployment annotations** on every time series graph.
 
-**An expected range** by hour, calculated from the history — which made visible what is normal variation.
+**An expected range** by hour, calculated from the history, which made visible what is normal variation.
 
 **Removal** of the 64 old graphs, after verifying which were actually consulted: 11.
 
@@ -260,10 +260,10 @@ the question before any investigation.
 
 ## Related Concepts
 
-- [Golden Signals](/13-observability/golden-signals.md) — the standard content.
-- [Alerting](/13-observability/alerting.md) — what is not a dashboard.
-- [Metrics](/13-observability/metrics.md) — the source.
-- [Debuggability](/13-observability/debuggability.md) — what the dashboard does not cover.
+- [Golden Signals](/13-observability/golden-signals.md): the standard content.
+- [Alerting](/13-observability/alerting.md): what is not a dashboard.
+- [Metrics](/13-observability/metrics.md): the source.
+- [Debuggability](/13-observability/debuggability.md): what the dashboard does not cover.
 
 ## Practical Exercise
 

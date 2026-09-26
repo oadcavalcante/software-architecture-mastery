@@ -2,7 +2,7 @@
 id: request-response
 title: Request/Response
 sidebar_position: 5
-description: O modelo síncrono e o que ele acopla — a decisão que precede toda escolha de protocolo.
+description: "O modelo síncrono e o que ele acopla: a decisão que precede toda escolha de protocolo."
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [queues, background-processing, timeouts]
 canonical_for: [request/response, acoplamento temporal, síncrono]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ No modelo request/response, quem chama espera a resposta antes de continuar. É 
 modelo padrão de HTTP, de RPC e de chamada a banco de dados.
 
 Ele é simples, familiar e adequado na maior parte dos casos. Também é o que
-introduz **acoplamento temporal** — e reconhecer isso é o que permite decidir
+introduz **acoplamento temporal**, e reconhecer isso é o que permite decidir
 quando não usá-lo.
 
 ## Problema
@@ -33,12 +33,12 @@ quando não usá-lo.
 A pergunta que costuma ser feita é qual protocolo usar. A pergunta que precede
 essa é outra: **quem chama precisa do resultado para continuar?**
 
-Se precisa, síncrono é o modelo. Se não precisa — e frequentemente não precisa —
+Se precisa, síncrono é o modelo. Se não precisa (e frequentemente não precisa),
 esperar significa que o chamador fica indisponível quando o chamado está.
 
 O padrão que aparece nos sistemas: confirmar um pedido dispara reserva de estoque,
 cobrança, notificação e registro fiscal, todas síncronas. Se o serviço de
-notificação está fora, o pedido não é confirmado — embora notificar seja a menos
+notificação está fora, o pedido não é confirmado, embora notificar seja a menos
 importante das quatro.
 
 Isso não é decisão de protocolo. É decisão sobre o que precisa acontecer antes de
@@ -58,7 +58,7 @@ disponibilidade do conjunto é o produto das individuais, e a latência é a som
   → 99,6% de disponibilidade, 400 ms de latência
 ```
 
-Trocar síncrono por assíncrono não remove acoplamento — troca acoplamento
+Trocar síncrono por assíncrono não remove acoplamento: troca acoplamento
 temporal por acoplamento de formato. Ver
 [filas](/05-system-design/queues.md).
 
@@ -79,7 +79,7 @@ Fora dessas, síncrono é escolha por hábito.
 ### Timeout é parte do contrato
 
 Toda chamada síncrona precisa de timeout. Sem ele, o chamador espera
-indefinidamente e esgota recursos — e a falha se propaga para cima.
+indefinidamente e esgota recursos, e a falha se propaga para cima.
 
 O timeout precisa ser **menor** que o do chamador, senão ele desiste antes e a
 cadeia trabalha para ninguém. Ver
@@ -100,7 +100,7 @@ falhar. Ver
 ## Modelo Mental
 
 **Pergunte o que acontece se o outro lado estiver fora.** Se a resposta for
-"esperamos", há acoplamento temporal — e ele precisa ser deliberado.
+"esperamos", há acoplamento temporal, e ele precisa ser deliberado.
 
 ## Quando Usar
 
@@ -113,14 +113,14 @@ falhar. Ver
 ## Quando Não Usar
 
 **Quando o chamador não usa o resultado.** Notificar, registrar, indexar,
-sincronizar — nada disso precisa bloquear a resposta.
+sincronizar: nada disso precisa bloquear a resposta.
 
 **Quando a operação é demorada.** Uma requisição HTTP que espera trinta segundos
 consome conexão, esgota pool e frequentemente estoura em algum proxy no caminho.
 Ver [processamento em background](/05-system-design/background-processing.md).
 
 **Quando o destino é instável.** Chamar sincronamente um serviço menos disponível
-que você rebaixa a sua disponibilidade ao produto das duas — abaixo do nível dele,
+que você rebaixa a sua disponibilidade ao produto das duas, abaixo do nível dele,
 não igual a ele.
 
 **Quando a cadeia fica longa.** Cada salto multiplica risco e soma latência.
@@ -130,12 +130,12 @@ absorve.
 
 ## Alternativas
 
-- **[Fila](/05-system-design/queues.md)** — desacopla no tempo, ao custo de duplicação e ordem.
-- **[Processamento em background](/05-system-design/background-processing.md)** — responder aceito e
+- **[Fila](/05-system-design/queues.md)**: desacopla no tempo, ao custo de duplicação e ordem.
+- **[Processamento em background](/05-system-design/background-processing.md)**: responder aceito e
   processar depois.
-- **Evento** — quando vários interessados reagem. Ver
+- **Evento**: quando vários interessados reagem. Ver
   [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
-- **Requisição com resposta diferida** — devolver um identificador de operação e
+- **Requisição com resposta diferida**: devolver um identificador de operação e
   um caminho para consultar o resultado.
 
 ## Trade-offs
@@ -151,7 +151,7 @@ absorve.
 | Sem duplicação nem ordem a tratar | Ambas a tratar |
 
 A quarta e a sétima linhas são o que mantém síncrono como default correto na
-maioria dos casos — assíncrono resolve disponibilidade e cobra em complexidade de
+maioria dos casos: assíncrono resolve disponibilidade e cobra em complexidade de
 dados.
 
 ## Modos de Falha
@@ -190,7 +190,7 @@ pagamento, fiscal e notificação. Tudo dentro da transação do banco.
 
 Dois problemas surgiram juntos numa terça-feira.
 
-O serviço fiscal ficou lento — 8 segundos em vez de 200 ms. As transações do banco
+O serviço fiscal ficou lento: 8 segundos em vez de 200 ms. As transações do banco
 ficaram abertas durante a espera, segurando bloqueios nas linhas de pedido.
 
 Em minutos, o pool de conexões esgotou e o sistema inteiro parou. A causa raiz era
@@ -205,35 +205,35 @@ pedido.
 responder ao usuário, mas não precisa segurar bloqueio de banco.
 
 **Fiscal e notificação** viraram assíncronos, publicados após a confirmação. A
-emissão fiscal tem prazo legal de horas, não de milissegundos — ninguém tinha
+emissão fiscal tem prazo legal de horas, não de milissegundos. Ninguém tinha
 verificado isso antes.
 
 Além disso, todas as chamadas ganharam timeout explícito, e a de pagamento ganhou
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
-O que mudou não foi tecnologia. Foi perguntar, para cada chamada, se o resultado
-era necessário para responder — e duas das quatro não eram.
+O que mudou não foi tecnologia: foi perguntar, para cada chamada, se o resultado
+era necessário para responder. E duas das quatro não eram.
 
 ## Orçamento de timeout numa cadeia
 
 O acoplamento temporal impõe um orçamento fixo: o prazo que o usuário aceita é o
 prazo de toda a cadeia abaixo dele, dividido entre os saltos. Cada chamada síncrona
-acrescentada gasta parte desse total — nenhuma ganha um total próprio.
+acrescentada gasta parte desse total; nenhuma ganha um total próprio.
 
 Por isso o timeout de uma chamada não se decide no ponto da chamada: o limite
 correto depende do que sobrou acima dela, e o que sobrou depende de quantos saltos
 a requisição já atravessou. É uma conta global, tratada quase sempre como ajuste
 local.
 
-A mecânica — como distribuir esse orçamento e como propagar o prazo restante — está
+A mecânica (como distribuir esse orçamento e como propagar o prazo restante) está
 em [timeouts](/06-distributed-systems/timeouts.md).
 
 ## Conceitos Relacionados
 
-- [APIs](/05-system-design/apis.md) — o contrato da chamada.
-- [Filas](/05-system-design/queues.md) — o modelo assíncrono.
-- [Processamento em Background](/05-system-design/background-processing.md) — operações longas.
-- [Sistemas Distribuídos](/06-distributed-systems/index.md) — timeouts,
+- [APIs](/05-system-design/apis.md): o contrato da chamada.
+- [Filas](/05-system-design/queues.md): o modelo assíncrono.
+- [Processamento em Background](/05-system-design/background-processing.md): operações longas.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md): timeouts,
   retentativa e idempotência.
 
 ## Exercício Prático
@@ -244,7 +244,7 @@ externas que ele faz.
 Para cada uma, responda: o resultado é necessário para responder ao usuário? Ela
 está dentro de uma transação de banco?
 
-As que respondem "não" e "sim" — nessa ordem — são as que vão derrubar o sistema
+As que respondem "não" e "sim", nessa ordem, são as que vão derrubar o sistema
 quando o destino ficar lento.
 
 ## Perguntas de Entrevista
@@ -255,6 +255,6 @@ quando o destino ficar lento.
 
 ## Para Aprofundar
 
-- Nygard, Michael. *Release It!* 2ª ed., Pragmatic Bookshelf, 2018 — cascata e
+- Nygard, Michael. *Release It!* 2ª ed., Pragmatic Bookshelf, 2018. Cascata e
   padrões de estabilidade.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.

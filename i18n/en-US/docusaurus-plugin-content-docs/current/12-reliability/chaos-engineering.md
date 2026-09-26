@@ -2,7 +2,7 @@
 id: chaos-engineering
 title: Chaos Engineering
 sidebar_position: 17
-description: Causing failures on purpose to discover what does not work — before it discovers itself.
+description: Causing failures on purpose to discover what does not work, before it discovers itself.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [graceful-degradation, failover, redundancy]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Chaos engineering is deliberately causing failures, in a controlled environment,
 behaves as expected.
 
 It is not "breaking things at random". It is a method with a **hypothesis**, a **limited scope** and a
-**stopping criterion** — closer to a scientific experiment than to sabotage.
+**stopping criterion**, closer to a scientific experiment than to sabotage.
 
 The premise that justifies it: fault tolerance mechanisms that have never been exercised probably do not
 work. And the moment to discover that is not during the incident.
@@ -34,7 +34,7 @@ work. And the moment to discover that is not during the incident.
 
 Every system has protection mechanisms: circuit breakers, degradation, failover, retries, redundancy.
 
-Many are written once, tested on the happy path, and never actually executed — because the condition that
+Many are written once, tested on the happy path, and never actually executed, because the condition that
 triggers them is rare.
 
 When the condition arrives, you discover that the fallback behavior has the wrong shape, that the failover
@@ -56,7 +56,7 @@ The code exists. The behavior does not.
 ```
 
 Step 1 is what separates the method from playing around. The steady state needs to be a metric that matters
-— orders per minute, checkout success rate —, not CPU or the number of instances.
+(orders per minute, checkout success rate), not CPU or the number of instances.
 
 Step 2 is what makes the result useful: a refuted hypothesis teaches something specific. With no
 hypothesis, the experiment produces "this happened" instead of "we discovered that".
@@ -73,14 +73,14 @@ The progression that works:
 ```
 
 Jumping straight to production without having exercised beforehand is like running the first recovery test
-during the incident — only voluntarily.
+during the incident, only voluntarily.
 
 And the test environment has a known limit: it does not reproduce the real load, data or dependencies. The
 most valuable findings appear in production.
 
 ### The experiments that pay off most
 
-In increasing order of cost to set up — which is the useful axis for choosing where to start, since the
+In increasing order of cost to set up, which is the useful axis for choosing where to start, since the
 return depends on what **this** system has that is fragile:
 
 ```text
@@ -94,12 +94,12 @@ expire a certificate             verifies monitoring
 ```
 
 **Adding latency usually reveals more than taking things down**, and it is less used. Dependencies rarely
-go down — they get slow —, and it is that scenario the protection mechanisms usually do not cover. See
+go down; they get slow, and it is that scenario the protection mechanisms usually do not cover. See
 [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### A limited blast radius is not optional
 
-An experiment that can affect every user is not an experiment — it is a self-inflicted incident.
+An experiment that can affect every user is not an experiment; it is a self-inflicted incident.
 
 The ways to limit it:
 
@@ -147,7 +147,7 @@ injection.
 
 ### Automate what has already been verified
 
-An experiment that passed once does not guarantee it keeps passing — the system changes.
+An experiment that passed once does not guarantee it keeps passing: the system changes.
 
 Experiments that proved valuable should become routine: periodic, automatic execution, with an alert if the
 result changes.
@@ -156,7 +156,7 @@ It is the difference between "we verified it once" and "we verify it continuousl
 
 ## Mental Model
 
-**What is not exercised probably does not work** — and the only way to know which side this case falls on
+**What is not exercised probably does not work**, and the only way to know which side this case falls on
 is to exercise it. Chaos engineering is the verification that the protection mechanisms actually exist.
 
 ## When to Use
@@ -186,12 +186,12 @@ is to exercise it. Chaos engineering is the verification that the protection mec
 
 ## Alternatives
 
-- **Tabletop exercises** — discussing scenarios with no injection. See
+- **Tabletop exercises**: discussing scenarios with no injection. See
   [recovery exercise](/12-reliability/disaster-recovery-planning.md).
-- **Incident simulations** — rehearsing the response, with a simulated failure.
-- **Scheduled recovery tests** — exercising failover and restore periodically. See
+- **Incident simulations**: rehearsing the response, with a simulated failure.
+- **Scheduled recovery tests**: exercising failover and restore periodically. See
   [failover](/12-reliability/failover.md).
-- **Load tests with failure** — combining overload and unavailability.
+- **Load tests with failure**: combining overload and unavailability.
 
 The first is the right starting point for whoever has never done it, for the reason given in "It is not
 only a tool": it finds gaps before any fault is injected.
@@ -230,25 +230,25 @@ only a tool": it finds gaps before any fault is injected.
 ## Common Mistakes
 
 **Starting with production.** The practice requires maturity in observability and recovery. Without them,
-the experiment becomes an incident — and the program loses the sponsorship that took months to obtain, in
+the experiment becomes an incident, and the program loses the sponsorship that took months to obtain, in
 an environment where asking again requires explaining the incident first.
 
 **Not formulating a hypothesis.** Without declaring beforehand what you expect to happen, breaking things
-is just breaking things — there is no way to distinguish expected behavior from a discovery.
+is just breaking things: there is no way to distinguish expected behavior from a discovery.
 
 **Not limiting the blast radius.** An experiment with no defined damage radius and no stop button is
 indistinguishable from a real failure, including for whoever is on call.
 
 **Not injecting latency**, only unavailability. Against a circuit breaker that counts only errors, a slow
 dependency causes more damage than a down one: a slow, successful response is not an error, the breaker
-does not open, and the timeout — when there is one — is the only defense. And it is the least exercised
+does not open, and the timeout, when there is one, is the only defense. And it is the least exercised
 scenario.
 
 **Not turning findings into tasks.** An experiment that reveals fragility and does not generate a
 prioritized fix only documents the risk, which is worse than not having looked.
 
 **Buying a tool without establishing a process.** The tool injects failure; the value is in the hypothesis,
-in the blast radius limit and in following up on what was discovered — none of which comes in the box.
+in the blast radius limit and in following up on what was discovered, none of which comes in the box.
 
 ## Real-World Example
 
@@ -272,22 +272,22 @@ After that, the experiments, in order:
 shutdown was not configured. See [statelessness](/11-scalability/statelessness.md).
 
 **Inject 3 seconds of latency into the medical records service, 1% of the traffic.** It failed revealingly:
-the circuit breaker did not open, because it counted only errors — and the service responded successfully,
+the circuit breaker did not open, because it counted only errors, and the service responded successfully,
 slowly. The requests piled up. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 That was the program's most valuable finding, and the scenario most likely to happen on its own.
 
 **Make the scheduling service unavailable, 5% of the traffic.** The degradation worked, and the message
-displayed to the user was in English — a default text never translated, because it had never been
+displayed to the user was in English: a default text never translated, because it had never been
 displayed.
 
 **Take a zone down, outside the peak.** It failed: the two remaining zones operated at 75% and did not
 absorb it. See [redundancy](/12-reliability/redundancy.md).
 
-**Database failover, in a scheduled window.** It worked in 40 seconds — and revealed that the application
+**Database failover, in a scheduled window.** It worked in 40 seconds and revealed that the application
 did not reconnect automatically, requiring the instances to be restarted.
 
-Six experiments, five with a finding — three where the mechanism did not work, two where it worked and
+Six experiments, five with a finding: three where the mechanism did not work, two where it worked and
 revealed a defect next to it. All in mechanisms the team believed worked.
 
 After the fixes, the experiments became an automated routine: kill an instance weekly, inject latency every
@@ -297,20 +297,20 @@ In the following ten months, two real incidents occurred under the exercised con
 with no unavailability.
 
 What the team learned: the two years invested in reliability had produced mechanisms of which half did
-not work — and the other half worked while hiding a defect next to it. Not through incompetence — through never having been executed.
+not work, and the other half worked while hiding a defect next to it. Not through incompetence, but through never having been executed.
 
 ## Related Concepts
 
-- [Graceful Degradation](/12-reliability/graceful-degradation.md) — what gets verified.
-- [Failover](/12-reliability/failover.md) — the most valuable exercise.
-- [Redundancy](/12-reliability/redundancy.md) — the absorption capacity.
-- [Observability](/13-observability/index.md) — the prerequisite.
+- [Graceful Degradation](/12-reliability/graceful-degradation.md): what gets verified.
+- [Failover](/12-reliability/failover.md): the most valuable exercise.
+- [Redundancy](/12-reliability/redundancy.md): the absorption capacity.
+- [Observability](/13-observability/index.md): the prerequisite.
 
 ## Practical Exercise
 
 Get the team together for an hour and discuss: what happens if service X gets 5 seconds slower right now?
 
-If there is more than one answer in the room, you have found the first experiment to run — and probably the
+If there is more than one answer in the room, you have found the first experiment to run, and probably the
 first finding.
 
 ## Interview Questions

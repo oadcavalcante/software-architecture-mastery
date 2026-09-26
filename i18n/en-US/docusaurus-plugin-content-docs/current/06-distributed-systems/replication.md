@@ -2,7 +2,7 @@
 id: replication
 title: Replication
 sidebar_position: 13
-description: Keeping copies of the same data — for availability, for read scale, and at the cost of divergence.
+description: "Keeping copies of the same data: for availability, for read scale, and at the cost of divergence."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [partitioning, leader-election, conflict-resolution]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-31
 
 Replication is keeping copies of the same data on different nodes.
 
-It exists for three distinct reasons — **availability**, **read scale** and **geographic
-proximity** — and each one admits different configurations.
+It exists for three distinct reasons (**availability**, **read scale** and **geographic
+proximity**), and each one admits different configurations.
 
 The cost is a single and unavoidable one: the copies diverge, and someone has to decide what to do
 about it.
@@ -33,14 +33,14 @@ about it.
 
 With one copy, a node failure is loss of data and of service.
 
-With copies, the failure is tolerable — and the question that organizes the whole subject arises:
+With copies, the failure is tolerable, and the question that organizes the whole subject arises:
 **when is a write considered done?**
 
 If it is when it reaches the primary node, the response is fast and an immediate failure loses the
 write.
 
 If it is when it reaches every replica, nothing is lost and the write pays the latency of the
-slowest — and fails if any of them is down.
+slowest, and fails if any of them is down.
 
 Between the two extremes there is a spectrum, and the position on it is a business decision
 disguised as configuration.
@@ -50,11 +50,11 @@ disguised as configuration.
 ### The topologies
 
 **Single leader.** One node accepts writes and propagates them. Simple, with no write conflicts,
-and the leader is a write bottleneck and a point of failure — mitigated by
+and the leader is a write bottleneck and a point of failure, mitigated by
 [leader election](/06-distributed-systems/leader-election.md).
 
 **Multiple leaders.** Several nodes accept writes, typically one per region. Local, fast writes,
-and **a conflict whenever the same record is written in two regions** — avoidable only by
+and **a conflict whenever the same record is written in two regions**, avoidable only by
 routing each record's writes to a fixed leader (write affinity). See
 [conflict resolution](/06-distributed-systems/conflict-resolution.md).
 
@@ -78,7 +78,7 @@ Fully synchronous is rare in practice: a slow or absent replica makes every writ
 impossible.
 
 **Semi-synchronous is the point to choose when the acceptable loss window is close to zero and a
-round trip fits the latency budget** — and quorum configuration is its generalized form.
+round trip fits the latency budget**, and quorum configuration is its generalized form.
 
 ### Quorum
 
@@ -87,14 +87,14 @@ The generalization: with N replicas, require W acknowledgments on write and R on
 If `W + R > N`, read and write overlap on at least one replica: some queried replica holds the
 most recent write, and the read recognizes it if versions are comparable (version number, vector
 clock). The rule is not enough with a sloppy quorum, with a write that failed after landing on
-some of the replicas, or with concurrent writes — Kleppmann (2017, ch. 5) details these limits.
+some of the replicas, or with concurrent writes. Kleppmann (2017, ch. 5) details these limits.
 
 ```text
 N = 3, W = 2, R = 2  →  2 + 2 > 3  ✓ sets overlap
 N = 3, W = 1, R = 1  →  1 + 1 < 3  ✗ can read stale data
 ```
 
-Adjusting W and R moves the system along the spectrum between latency and consistency — which is
+Adjusting W and R moves the system along the spectrum between latency and consistency, which is
 exactly the "else" of [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Replication lag is the missing metric
@@ -105,7 +105,7 @@ metric in replication, and the least monitored.
 It is not constant: it grows under write load, during maintenance, and when the replica is doing
 something else. A lag of milliseconds in the normal case can become minutes at peak.
 
-With no monitoring, nobody knows how stale a replica's data can be — and the decision to read from
+With no monitoring, nobody knows how stale a replica's data can be, and the decision to read from
 it was made assuming a lag nobody verified.
 
 ### Failover is not free
@@ -134,7 +134,7 @@ determine the acknowledgment mode.
 acknowledgment loses transactions confirmed to the customer.
 
 **Multiple leaders with no conflict strategy.** The conflicts will happen, and the default
-resolution — last writer wins — discards data silently.
+resolution (last writer wins) discards data silently.
 
 **Reading from a replica in an operation that does not tolerate lag.** See
 [consistency](/06-distributed-systems/consistency.md).
@@ -146,11 +146,11 @@ replicated in milliseconds. Backups protect against human error; replication doe
 
 ## Alternatives
 
-- **Backup and restore** — for durability, not for availability.
-- **[Partitioning](/06-distributed-systems/partitioning.md)** — for write scale, which replication
+- **Backup and restore**: for durability, not for availability.
+- **[Partitioning](/06-distributed-systems/partitioning.md)**: for write scale, which replication
   does not solve.
-- **Cache** — for read scale, cheaper than a replica in some cases.
-- **A single node with fast recovery** — legitimate when the RTO allows.
+- **Cache**: for read scale, cheaper than a replica in some cases.
+- **A single node with fast recovery**: legitimate when the RTO allows.
 
 ## Trade-offs
 
@@ -201,13 +201,13 @@ An orders system used asynchronous replication with one replica, for failover.
 
 The failover had never been tested in production.
 
-During a hardware failure of the primary, promoting the replica took 4 minutes — manually, because
+During a hardware failure of the primary, promoting the replica took 4 minutes, manually, because
 the automated process did not exist.
 
 When it came back, it turned out that 1,800 orders confirmed to customers were not on the replica.
 They had been written to the primary and not propagated before the failure.
 
-The replication lag, which nobody monitored, was at 90 seconds at the moment of the failure —
+The replication lag, which nobody monitored, was at 90 seconds at the moment of the failure,
 because a reporting process ran at that hour and consumed the replica.
 
 Three fixes, in order of effect.
@@ -223,15 +223,15 @@ replica under maintenance.
 replica.
 
 And the failover came to be exercised quarterly, in production, in an agreed window. On the first
-run, three configuration problems appeared — all of which would have caused an incident during a
+run, three configuration problems appeared, all of which would have caused an incident during a
 real failure.
 
 ## Related Concepts
 
-- [Partitioning](/06-distributed-systems/partitioning.md) — the other way to distribute data.
-- [Leader Election](/06-distributed-systems/leader-election.md) — how failover chooses.
-- [Conflict Resolution](/06-distributed-systems/conflict-resolution.md) — with multiple leaders.
-- [Consistency](/06-distributed-systems/consistency.md) — what the read observes.
+- [Partitioning](/06-distributed-systems/partitioning.md): the other way to distribute data.
+- [Leader Election](/06-distributed-systems/leader-election.md): how failover chooses.
+- [Conflict Resolution](/06-distributed-systems/conflict-resolution.md): with multiple leaders.
+- [Consistency](/06-distributed-systems/consistency.md): what the read observes.
 
 ## Practical Exercise
 
@@ -248,7 +248,7 @@ If the answer to the third is "never", the recovery mechanism is a hypothesis.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 5.
-- PostgreSQL Global Development Group. *PostgreSQL 16 Documentation*, 2023 — ch. 27, *High
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 5.
+- PostgreSQL Global Development Group. *PostgreSQL 16 Documentation*, 2023. Ch. 27, *High
   Availability, Load Balancing, and Replication*, section 27.2.8 (Synchronous Replication), and
   the `synchronous_commit` parameter (section 20.5).

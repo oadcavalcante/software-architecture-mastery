@@ -2,7 +2,7 @@
 id: environment-management
 title: Gestão de Ambientes
 sidebar_position: 9
-description: Paridade, promoção e ambientes efêmeros — e o que a falta deles produz.
+description: Paridade, promoção e ambientes efêmeros, e o que a falta deles produz.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [infrastructure-as-code]
 related: [infrastructure-as-code, containers-in-delivery, ci-cd]
 canonical_for: [paridade de ambiente, ambiente efêmero, promoção entre ambientes, dados de teste]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -32,7 +32,7 @@ disputado, e a disputa é uma das maiores fontes de atraso em times de tamanho m
 
 ## Problema
 
-O arranjo tradicional — desenvolvimento, homologação, produção — tem duas falhas
+O arranjo tradicional (desenvolvimento, homologação, produção) tem duas falhas
 estruturais.
 
 **Paridade insuficiente.** Homologação tem uma instância; produção tem quarenta.
@@ -77,7 +77,7 @@ Isso resolve a disputa e traz um efeito colateral valioso: **força a infraestru
 completamente declarada**, porque um ambiente criado do zero não tolera passos manuais.
 Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
-O custo é o tempo de criação e o custo dos ambientes simultâneos — mitigado por
+O custo é o tempo de criação e o custo dos ambientes simultâneos, mitigado por
 capacidade reduzida e por destruição automática ao fim.
 
 Onde ambientes efêmeros completos são caros, uma variação funciona: o ambiente novo é só
@@ -85,7 +85,7 @@ o serviço alterado, apontando para os demais compartilhados.
 
 ### Dados de teste: não cópia integral de produção
 
-Copiar produção inteira, sem mascarar, é a prática mais comum — e a que leva dados reais
+Copiar produção inteira, sem mascarar, é a prática mais comum, e a que leva dados reais
 para um ambiente com controles mais fracos que os de produção:
 
 ```text
@@ -98,7 +98,7 @@ Ver [proteção de dados](/10-security/data-protection.md).
 
 As alternativas:
 
-**Dados sintéticos** gerados com as propriedades estatísticas relevantes — distribuição
+**Dados sintéticos** gerados com as propriedades estatísticas relevantes: distribuição
 de tamanhos, cardinalidade, casos de borda.
 
 **Subconjunto mascarado**, com mascaramento consistente que preserva relacionamentos.
@@ -108,7 +108,7 @@ de tamanhos, cardinalidade, casos de borda.
 A terceira é subestimada: para a maioria dos testes, algumas centenas de registros bem
 escolhidos valem mais que milhões copiados.
 
-E, para testes de volume, dados sintéticos com a distribuição real — não uniforme. Ver
+E, para testes de volume, dados sintéticos com a distribuição real, não uniforme. Ver
 [planejamento de capacidade](/11-scalability/scaling-capacity-planning.md).
 
 ### Promoção, não reconstrução
@@ -131,7 +131,7 @@ nada sobre o outro.
 
 ### Produção também é ambiente de verificação
 
-Aceitar isso muda o desenho: parte da verificação **só** acontece em produção — com dados
+Aceitar isso muda o desenho: parte da verificação **só** acontece em produção, com dados
 reais, volume real, concorrência real.
 
 ```text
@@ -144,13 +144,13 @@ implantação sombra
 Ver [canary](/14-devops-and-platform/canary.md) e
 [observabilidade](/13-observability/index.md).
 
-Isso não substitui os ambientes anteriores — reposiciona o que se espera deles. Eles
+Isso não substitui os ambientes anteriores, mas reposiciona o que se espera deles. Eles
 pegam a maior parte dos problemas; produção pega os que dependem da realidade.
 
 ### Menos ambientes, melhores
 
 O arranjo com cinco ambientes intermediários costuma indicar que nenhum deles tem
-paridade suficiente para dar confiança — e cada um adiciona tempo ao caminho.
+paridade suficiente para dar confiança, e cada um adiciona tempo ao caminho.
 
 O arranjo que funciona na maioria dos casos:
 
@@ -170,9 +170,9 @@ falsa; com disputa, ele produz atraso.
 ## Quando Usar
 
 - **Ambientes efêmeros** quando mais de um time disputa o mesmo ambiente e a medição
-  mostra fila — e a infraestrutura pode ser criada do zero em minutos, não em horas.
+  mostra fila, e a infraestrutura pode ser criada do zero em minutos, não em horas.
 - **Ambiente de paridade alta** quando os defeitos que escapam para produção são de
-  concorrência, volume ou conectividade — as dimensões que um ambiente reduzido não
+  concorrência, volume ou conectividade: as dimensões que um ambiente reduzido não
   reproduz.
 - **Dados sintéticos** quando o ambiente não tem os controles de produção e o
   comportamento testado depende de distribuição e cardinalidade, não de valores reais.
@@ -182,7 +182,7 @@ falsa; com disputa, ele produz atraso.
 **Efêmero completo quando criar o sistema inteiro leva mais que a própria verificação.**
 Com dezenas de serviços e bancos, um ambiente que demora uma hora para subir troca a fila
 por espera de criação, e o custo dos simultâneos cresce com o número de propostas
-abertas. Aí a variação parcial — só o serviço alterado — entrega o isolamento sem esse
+abertas. Aí a variação parcial (só o serviço alterado) entrega o isolamento sem esse
 custo.
 
 **Eliminar disputa onde não há disputa.** Um time com um ambiente compartilhado e sem
@@ -201,12 +201,12 @@ mascarado.
 
 ## Alternativas
 
-- **Ambiente compartilhado com isolamento lógico** — namespaces ou prefixos, quando
+- **Ambiente compartilhado com isolamento lógico**: namespaces ou prefixos, quando
   ambientes completos são caros.
-- **Testes de contrato** — reduzem a necessidade de ambiente integrado. Ver
+- **Testes de contrato**: reduzem a necessidade de ambiente integrado. Ver
   [contratos de integração](/08-integration-architecture/integration-contracts.md).
-- **Substitutos de dependências** — em vez de instâncias reais de tudo.
-- **Verificação em produção** — canary, sombra, flags.
+- **Substitutos de dependências**: em vez de instâncias reais de tudo.
+- **Verificação em produção**: canary, sombra, flags.
 
 A segunda é a que mais reduz a dependência de ambientes integrados, e é subutilizada.
 
@@ -258,19 +258,19 @@ A segunda é a que mais reduz a dependência de ambientes integrados, e é subut
 
 Uma empresa de seguros tinha quatro ambientes compartilhados e nove times.
 
-O tempo médio entre "a mudança está pronta" e "a mudança está em produção" era de 9 dias
-— e a medição mostrou que **6 desses dias eram fila de ambiente**.
+O tempo médio entre "a mudança está pronta" e "a mudança está em produção" era de 9 dias,
+e a medição mostrou que **6 desses dias eram fila de ambiente**.
 
 E a paridade era baixa: homologação tinha uma instância de cada serviço, 0,1% do volume
 de dados, e uma topologia de rede plana onde produção tinha segmentação.
 
 Três classes de problema chegavam a produção regularmente: concorrência, volume e
-conectividade — exatamente as três dimensões sem paridade.
+conectividade, exatamente as três dimensões sem paridade.
 
 A reformulação:
 
 **Ambientes efêmeros por proposta de mudança**, criados em 6 minutos, destruídos na
-mesclagem. Isso exigiu completar a declaração da infraestrutura — 20% ainda era manual, e
+mesclagem. Isso exigiu completar a declaração da infraestrutura: 20% ainda era manual, e
 foi o trabalho mais demorado.
 
 A fila desapareceu.
@@ -279,7 +279,7 @@ A fila desapareceu.
 rede, mesmo número de instâncias dos serviços críticos, volume de dados na mesma ordem
 de grandeza.
 
-**Dados sintéticos** substituíram a cópia de produção, gerados com a distribuição real —
+**Dados sintéticos** substituíram a cópia de produção, gerados com a distribuição real,
 inclusive a concentração de clientes grandes, que a cópia uniforme anterior não
 representava.
 
@@ -293,7 +293,7 @@ integrado.
 Resultado: tempo de 9 dias para 4 horas. Os 6 dias de fila sumiram com os efêmeros; os
 outros 3 eram a rodada de verificação integrada em homologação, agendada por lote, que
 os testes de contrato no pipeline e o canary substituíram. E uma redução de 60% nos
-incidentes causados por implantação — atribuída principalmente à paridade de topologia e
+incidentes causados por implantação, atribuída principalmente à paridade de topologia e
 volume.
 
 A conclusão registrada: os quatro ambientes existiam porque cada um tinha sido criado
@@ -302,10 +302,10 @@ custavam mais que o único ambiente fiel que os substituiu.
 
 ## Conceitos Relacionados
 
-- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md) — o que viabiliza efêmeros.
-- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md) — a promoção.
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md): o que viabiliza efêmeros.
+- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md): a promoção.
 - [Integração Contínua](/14-devops-and-platform/ci-cd.md).
-- [Proteção de Dados](/10-security/data-protection.md) — os dados de teste.
+- [Proteção de Dados](/10-security/data-protection.md): os dados de teste.
 
 ## Exercício Prático
 

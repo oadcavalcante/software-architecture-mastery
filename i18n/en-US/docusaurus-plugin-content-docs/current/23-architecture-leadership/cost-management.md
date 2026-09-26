@@ -2,7 +2,7 @@
 id: cost-management
 title: Cost Management
 sidebar_position: 16
-description: Cost is an architectural quality attribute — and the only one whoever decides budgets understands without translation.
+description: Cost is an architectural quality attribute, and the only one whoever decides budgets understands without translation.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [risk-management]
 related: [risk-management, technical-strategy-leadership, measuring-architecture-outcomes]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -42,13 +42,13 @@ made without the effect being calculated.
 Two patterns.
 
 **Cost invisible at the decision.** The architecture is chosen on technical criteria, and the cost
-shows up on the invoice months later — when changing it is expensive. It is the same dynamic as in the
+shows up on the invoice months later, when changing it is expensive. It is the same dynamic as in the
 [streaming case study](/21-case-studies/video-streaming.md), where 96% of the cost was outside the
 data center and the engineering effort was in the wrong place.
 
 **Aggregate cost with no attribution.** The organization knows it spends $6 million a year on cloud
 and doesn't know how much each system, each team or each transaction consumes. With no attribution,
-nobody can reduce anything — because the information doesn't reach whoever makes the decision that
+nobody can reduce anything, because the information doesn't reach whoever makes the decision that
 generates the cost.
 
 ```text
@@ -87,7 +87,7 @@ Attribution is the highest-return intervention in cost management, and it is inf
 requires consistent resource tagging, which is tedious to implement and transformative to operate.
 
 The effect observed repeatedly: teams that start seeing their own cost cut it by between 20% and 40%
-in the first months, with no directive at all — just by removing what was invisible waste.
+in the first months, with no directive at all, just by removing what was invisible waste.
 
 ### Cost enters the decision, not after it
 
@@ -129,7 +129,7 @@ idle capacity     costs the same, used or not
 
 The first item deserves emphasis: a retention decision with no window generates cost every month
 for as long as it stands, and it usually has no review date. Of the lines in the table, it is the
-only one that grows with no new decision at all — just with time passing.
+only one that grows with no new decision at all, just with time passing.
 
 ### Optimizing cost is like optimizing performance
 
@@ -171,7 +171,7 @@ With no attribution, nobody acts.
 
 **When the bill is small relative to what attribution costs.** Tagging, maintaining dashboards and
 reviewing monthly consume engineering hours every month. With the 20% to 40% of recoverable waste
-described above, a $6k/month bill returns between $1.2k and $2.4k/month — less than the cost of half
+described above, a $6k/month bill returns between $1.2k and $2.4k/month, less than the cost of half
 an engineer dedicated to the task. Below that level, a yearly review of the largest line items
 recovers nearly the same for a fraction of the effort.
 
@@ -185,11 +185,11 @@ without an estimate.
 
 ## Alternatives
 
-- **A budget per team** — each gets a ceiling and decides within it; simple and effective.
-- **Cost as a fitness function** — an automated check that alerts when cost per unit exceeds a
+- **A budget per team**: each gets a ceiling and decides within it; simple and effective.
+- **Cost as a fitness function**: an automated check that alerts when cost per unit exceeds a
   limit. See [fitness functions](/23-architecture-leadership/fitness-functions.md).
-- **A periodic review of the largest line items** — attacking the 20% that account for 80%.
-- **Not managing it** — legitimate under the conditions in When Not to Use: managing cost has a
+- **A periodic review of the largest line items**: attacking the 20% that account for 80%.
+- **Not managing it**: legitimate under the conditions in When Not to Use, because managing cost has a
   cost of its own.
 
 ## Trade-offs
@@ -240,7 +240,7 @@ nobody knew how much each system consumed.
 
 **Consistent tagging** of every resource, by service and by team, implemented in seven weeks. The
 result was immediate and unforeseen: the tagging revealed that **19% of the resources belonged to no
-known system** — 12% of the invoice, $1.1 million/year — leftovers from experiments, forgotten environments, replicas from completed
+known system** (12% of the invoice, $1.1 million/year). They were leftovers from experiments, forgotten environments, replicas from completed
 migrations.
 
 Those 19% were shut down in two waves, with a week of observation. Two complaints came in; the rest
@@ -248,7 +248,7 @@ was pure waste.
 
 **Dashboards per team**, with the month's cost and the trend, with no target attached. Just visible.
 
-Over the following three months, with no directive at all, the teams cut 16% of what remained — sizing
+Over the following three months, with no directive at all, the teams cut 16% of what remained: sizing
 instances correctly, adjusting log retention, shutting down test environments outside working hours.
 
 **An economic unit defined**: cost per transaction processed. It came to be tracked monthly and broken
@@ -293,8 +293,8 @@ architectural proposals with
 The three reductions added up to about $3.8 million/year (1.1 + 1.2 + 1.5); volume growth gave
 back close to $0.8 million, and the invoice closed at $5.8 million.
 
-The detail the team highlights: the highest-return intervention was no technical optimization at all —
-it was making cost visible per team. The 16% the teams cut on their own, with no target and no
+The detail the team highlights: the highest-return intervention was no technical optimization at all.
+It was making cost visible per team. The 16% the teams cut on their own, with no target and no
 directive, came purely from showing the number to whoever could act on it.
 
 And the application log line is the example of the pattern that repeats: a retention decision made

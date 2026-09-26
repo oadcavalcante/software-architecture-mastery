@@ -2,7 +2,7 @@
 id: cloud-native
 title: Cloud Native
 sidebar_position: 17
-description: A term that designates something useful and became a badge — what it actually means, and what it came to hide.
+description: "A term that designates something useful and became a badge: what it actually means, and what it came to hide."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, kubernetes, vendor-lock-in]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-"Cloud native" designates applications designed for the cloud's properties — elasticity, routine failure,
-programmable infrastructure — instead of traditional applications transported there.
+"Cloud native" designates applications designed for the cloud's properties (elasticity, routine failure,
+programmable infrastructure) instead of traditional applications transported there.
 
 The idea behind it is useful and concrete. The term, however, was captured: it became a badge for a set of
 tools, and "we are cloud native" came to mean "we use containers and Kubernetes".
@@ -39,7 +39,7 @@ Taking it to the cloud without changing those assumptions produces a system that
 of nothing: it does not scale, it does not survive instance replacement, and it still requires the same
 manual operation.
 
-It is the "as is" migration — legitimate as a first step, problematic as a destination.
+It is the "as is" migration, legitimate as a first step, problematic as a destination.
 
 ## Core Concepts
 
@@ -72,7 +72,7 @@ container or in serverless. An application without them does not, even on Kubern
 The confusion that costs dearly: treating the list of tools as if it were the list of properties.
 
 Containers, orchestration, a service mesh and an automated pipeline are **means**. Adopting them without the
-properties produces the worst of both worlds — the new platform's complexity, with the old application's
+properties produces the worst of both worlds: the new platform's complexity, with the old application's
 limitations.
 
 The recognizable symptom: an application on Kubernetes that cannot have more than one replica, because it
@@ -83,7 +83,7 @@ keeps sessions in memory.
 Moving without changing is frequently the right decision: you leave the datacenter on schedule, the risk is
 low, and the learning comes afterward.
 
-The problem is stopping there. The modernization needs a plan with a deadline, or it does not happen — and
+The problem is stopping there. The modernization needs a plan with a deadline, or it does not happen, and
 the environment accumulates cost and risk. See [IaaS](/09-cloud-architecture/iaas.md).
 
 A sequence that works:
@@ -141,11 +141,11 @@ second.
 
 ## Alternatives
 
-- **An as-is migration** — a legitimate first step.
-- **Incremental modernization** — applying the properties in order of return.
-- **Gradual strangulation** — replacing parts with new versions, keeping the legacy running. See
+- **An as-is migration**: a legitimate first step.
+- **Incremental modernization**: applying the properties in order of return.
+- **Gradual strangulation**: replacing parts with new versions, keeping the legacy running. See
   [strangler fig](/16-legacy-modernization/strangler-fig.md).
-- **Keeping it as is** — when the system is stable and the cost of changing does not pay off.
+- **Keeping it as is**: when the system is stable and the cost of changing does not pay off.
 
 ## Trade-offs
 
@@ -203,11 +203,11 @@ The assessment six months later showed:
 **17 applications ran with a single replica**, because they kept sessions in memory. Scaling them
 horizontally took them down.
 
-**12 wrote to a local disk** — temporary files, reports, uploads. Each restart lost data, and the team had
+**12 wrote to a local disk**: temporary files, reports, uploads. Each restart lost data, and the team had
 configured persistent volumes to work around it, which pinned each pod to a node.
 
 **9 read configuration from a file packaged in the image**, which required rebuilding and republishing the
-image to change a value. Promotion between environments generated different images — breaking the guarantee
+image to change a value. Promotion between environments generated different images, breaking the guarantee
 that what was tested is what runs.
 
 **None had distributed tracing.** Diagnosing a problem between applications was still correlating logs
@@ -236,14 +236,14 @@ The learning that stuck: the program measured the wrong thing. The indicator was
 Kubernetes", and it reached 100% without any of the deficient applications acquiring a new property.
 
 If the indicator had been "applications that scale horizontally", the program would have finished at 23 of
-40 — and it would have attacked the right problem from the start.
+40, and it would have attacked the right problem from the start.
 
 ## Related Concepts
 
-- [Containers](/09-cloud-architecture/containers.md) and [Kubernetes](/09-cloud-architecture/kubernetes.md)
-  — the tools.
+- [Containers](/09-cloud-architecture/containers.md) and [Kubernetes](/09-cloud-architecture/kubernetes.md):
+  the tools.
 - [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md).
-- [Stateless](/05-system-design/stateless-vs-stateful.md) — the central property.
+- [Stateless](/05-system-design/stateless-vs-stateful.md): the central property.
 - [Legacy Modernization](/16-legacy-modernization/index.md).
 
 ## Practical Exercise

@@ -2,7 +2,7 @@
 id: legacy-systems
 title: Sistemas Legados
 sidebar_position: 1
-description: A definição útil — e por que o código antigo raramente é o problema real.
+description: A definição útil, e por que o código antigo raramente é o problema real.
 doc_type: foundation
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-drivers, legacy-refactoring, organizational-constraints]
 canonical_for: [sistema legado, conhecimento perdido, código sem testes, valor preso]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -25,8 +25,8 @@ A definição mais útil de sistema legado não menciona idade nem tecnologia:
 
 **Um sistema legado é um sistema que a organização tem medo de mudar.**
 
-O medo tem causas concretas — falta de testes, conhecimento perdido, acoplamento,
-ausência de ambiente para verificar — e cada uma tem tratamento diferente.
+O medo tem causas concretas (falta de testes, conhecimento perdido, acoplamento,
+ausência de ambiente para verificar) e cada uma tem tratamento diferente.
 
 Um sistema de vinte anos com boa cobertura de testes e equipe que o domina não é legado
 nesse sentido. Um sistema de dois anos, escrito por alguém que saiu, sem testes, é.
@@ -48,7 +48,7 @@ problema real. Ver
 
 E há um custo de enquadramento: chamar um sistema de legado é um julgamento que afeta as
 pessoas que o mantêm. Ele desvaloriza um trabalho que sustenta o negócio, e produz o
-efeito previsível — ninguém quer trabalhar ali, o que agrava exatamente o problema de
+efeito previsível: ninguém quer trabalhar ali, o que agrava exatamente o problema de
 conhecimento.
 
 ## Conceitos Centrais
@@ -65,7 +65,7 @@ dependências obsoletas atualizar é um projeto em si
 ```
 
 Note que apenas a última tem relação com idade. As outras cinco podem existir em sistemas
-recentes — e existem, com frequência desconfortável.
+recentes, e existem, com frequência desconfortável.
 
 ### O conhecimento embutido é o ativo mais subestimado
 
@@ -78,7 +78,7 @@ correções para comportamento de sistemas parceiros
 regras de negócio que mudaram e deixaram rastro
 ```
 
-Esse conhecimento não está em nenhum documento. Ele está no código — frequentemente na
+Esse conhecimento não está em nenhum documento. Ele está no código, frequentemente na
 forma de condicionais que parecem arbitrárias.
 
 É a razão principal pela qual reescritas falham: o sistema novo é construído a partir do
@@ -94,7 +94,7 @@ A técnica que reduz o medo antes de qualquer mudança é o teste de caracteriza
 definido em
 [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md). Aqui interessa só
 o efeito sobre o medo: ele congela o comportamento que existe, e com isso permite mexer no
-código sem entendê-lo completamente — que é a situação real.
+código sem entendê-lo completamente. Essa é a situação real.
 
 E os testes escritos assim documentam: eles são a descrição executável do que o sistema
 faz, produzida a partir dele.
@@ -106,13 +106,13 @@ processam transações, atendem clientes, geram receita.
 
 Isso tem duas implicações práticas:
 
-**O risco de mexer é real.** Não é conservadorismo — é que o sistema faz algo importante,
+**O risco de mexer é real.** Não é conservadorismo: o sistema faz algo importante,
 e quebrá-lo tem consequência.
 
 **O valor está preso ali.** Anos de refinamento, de correções, de aprendizado. Descartar
 isso é descartar o investimento.
 
-Ver [motivadores de modernização](/16-legacy-modernization/modernization-drivers.md) — a decisão de mexer precisa
+Ver [motivadores de modernização](/16-legacy-modernization/modernization-drivers.md): a decisão de mexer precisa
 superar esse valor.
 
 ### Nem todo sistema legado precisa ser tratado
@@ -127,7 +127,7 @@ sistema que precisa mudar e resiste          → é o problema
 Um sistema legado que atende bem e não muda pode continuar assim enquanto suas
 dependências tiverem suporte: fim de suporte e correção de vulnerabilidade são mudanças
 que chegam pelo relógio de terceiros, não pela demanda do negócio. O que
-ele precisa é de contenção — isolamento para que ele não limite o que está em volta — e
+ele precisa é de contenção (isolamento para que ele não limite o que está em volta) e
 de plano para o risco de pessoas.
 
 ## Erros Comuns
@@ -150,7 +150,7 @@ conhecimento.
 Uma seguradora tinha um sistema de cálculo de sinistros escrito em 1998, apontado
 internamente como o exemplo de legado a substituir.
 
-Antes de aprovar a substituição, uma equipe passou seis semanas em arqueologia — lendo o
+Antes de aprovar a substituição, uma equipe passou seis semanas em arqueologia, lendo o
 código, entrevistando quem o mantinha, e escrevendo testes de caracterização.
 
 O que encontraram:
@@ -162,8 +162,8 @@ suporte ativo.
 empresa. Nada estava documentado.
 
 **As regras eram muito mais complexas que o suposto.** Os testes de caracterização
-capturaram 340 casos de comportamento. A especificação que existia — escrita para um
-projeto de substituição anterior, abandonado — descrevia cerca de 90.
+capturaram 340 casos de comportamento. A especificação que existia (escrita para um
+projeto de substituição anterior, abandonado) descrevia cerca de 90.
 
 Os outros 250 eram acumulação de duas décadas: exceções regulatórias, acordos com
 resseguradoras, correções para casos que apareceram em auditoria.
@@ -174,7 +174,7 @@ como uma condicional de três linhas, sem comentário.
 
 A decisão mudou:
 
-**Substituição adiada.** O motivo original — "é legado" — não se sustentava.
+**Substituição adiada.** O motivo original, "é legado", não se sustentava.
 
 **Testes de caracterização mantidos** como ativo permanente, integrados à esteira. Eles
 viraram a documentação executável do sistema.
@@ -185,19 +185,19 @@ de um ano, usando os testes como material.
 **Refatoração incremental** onde a mudança era frequente, com os testes dando segurança.
 
 Dois anos depois, o sistema continua em produção. Ele não é mais chamado de legado
-internamente — não porque mudou de tecnologia, mas porque a organização deixou de ter
+internamente, não porque mudou de tecnologia, mas porque a organização deixou de ter
 medo de mexer nele.
 
 O que se registrou depois: as seis semanas de arqueologia custaram uma fração do projeto de
 substituição, e revelaram que o projeto resolveria o problema errado. A regra de
-arredondamento, sozinha, teria sido perdida numa reescrita — e teria produzido um passivo
+arredondamento, sozinha, teria sido perdida numa reescrita, e teria produzido um passivo
 jurídico.
 
 ## Conceitos Relacionados
 
-- [Motivadores de Modernização](/16-legacy-modernization/modernization-drivers.md) — quando mexer.
-- [Refatoração de Legado](/16-legacy-modernization/legacy-refactoring.md) — os testes de caracterização.
-- [Reconstrução](/16-legacy-modernization/rebuilding.md) — o risco do conhecimento perdido.
+- [Motivadores de Modernização](/16-legacy-modernization/modernization-drivers.md): quando mexer.
+- [Refatoração de Legado](/16-legacy-modernization/legacy-refactoring.md): os testes de caracterização.
+- [Reconstrução](/16-legacy-modernization/rebuilding.md): o risco do conhecimento perdido.
 - [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ## Exercício Prático
@@ -211,7 +211,7 @@ Cada causa tem um tratamento diferente, e a maioria é mais barata que substitui
 
 - Qual a definição útil de sistema legado?
 - Por que o conhecimento embutido é o ativo mais subestimado?
-- Quando um sistema legado não é um problema a tratar — e o que tira dele essa condição?
+- Quando um sistema legado não é um problema a tratar, e o que tira dele essa condição?
 
 ## Para Aprofundar
 

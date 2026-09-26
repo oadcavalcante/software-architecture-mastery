@@ -2,7 +2,7 @@
 id: data-modeling
 title: Data Modeling
 sidebar_position: 12
-description: One of the hardest decisions to reverse — and why it should start from the access pattern, not from the diagram.
+description: One of the hardest decisions to reverse, and why it should start from the access pattern, not from the diagram.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [normalization, denormalization, data-ownership]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Modeling data is deciding which entities exist, which attributes they have, how 
 the boundaries between them lie.
 
 In systems whose data accumulates and outlives each version of the code, it is among the most
-expensive decisions to reverse, because unlike code — which gets rewritten — the model carries every
+expensive decisions to reverse, because unlike code (which gets rewritten) the model carries every
 record already written.
 
 And it is frequently made early, with little information, by whoever has the least business context.
@@ -40,8 +40,8 @@ vocabulary, normalizes everything, and discovers later that the real queries req
 **From the screen inward.** Someone models exactly what the first screen needs, and discovers on the
 second screen that the model does not serve.
 
-The approach that works is neither: modeling from the **access pattern** — how the data is born, how
-it changes and how it is read — while keeping the domain's vocabulary.
+The approach that works is neither: modeling from the **access pattern** (how the data is born, how
+it changes and how it is read), while keeping the domain's vocabulary.
 
 ## Core Concepts
 
@@ -90,15 +90,15 @@ Three approaches, with increasing costs:
 it complicates every query.
 
 Deciding that after two years of operation means those two years of history do not exist. It is
-unrecoverable — the only decision in this section that admits no retroactive correction.
+unrecoverable: the only decision in this section that admits no retroactive correction.
 
 ### Identity: natural or surrogate
 
-Using a business identifier — a tax ID, a product code — as the key looks economical and creates
+Using a business identifier (a tax ID, a product code) as the key looks economical and creates
 coupling: when the business changes the code's rule, the whole model feels it.
 
 The robust practice is a surrogate key as identity, and the business identifier as an attribute with
-a uniqueness constraint — which can be changed without breaking references.
+a uniqueness constraint. That attribute can be changed without breaking references.
 
 ### Naming is modeling
 
@@ -111,8 +111,8 @@ everywhere. See
 
 ### The model evolves, and migration is part of the design
 
-No model survives intact. What distinguishes a sustainable model is not being right from the start —
-it is being possible to change.
+No model survives intact. What distinguishes a sustainable model is being possible to change,
+not being right from the start.
 
 That means: avoiding tables so wide that any change is risky, avoiding keys that prevent
 redistribution, and keeping a versioned migration trail from day one.
@@ -126,7 +126,7 @@ you need it.
 
 Explicit modeling pays off whenever:
 
-- The data outlives the current system — nearly always.
+- The data outlives the current system (nearly always).
 - More than one team reads or writes.
 - There is a history or auditing requirement.
 - The volume will grow by orders of magnitude.
@@ -135,13 +135,13 @@ Explicit modeling pays off whenever:
 
 **Elaborate modeling for disposable data.** Cache, short-retention telemetry, a draft.
 
-**Normalizing on principle.** See [normalization](/07-data-architecture/normalization.md) — it is a
+**Normalizing on principle.** See [normalization](/07-data-architecture/normalization.md): it is a
 decision, not a virtue.
 
 **Modeling every domain entity before building.** The complete model designed in advance ages before
 being used.
 
-**A generic model** — "entity" and "attribute" tables that serve everything. They eliminate schema,
+**A generic model**: "entity" and "attribute" tables that serve everything. They eliminate schema,
 indexes and readability all at once.
 
 The last is a persistent antipattern and worth naming: a model that serves anything serves nothing
@@ -149,11 +149,11 @@ well.
 
 ## Alternatives
 
-- **Domain-driven modeling** — aggregates as the boundary. See
+- **Domain-driven modeling**: aggregates as the boundary. See
   [DDD](/04-domain-driven-design/index.md).
-- **Dimensional modeling** — for analytics. See
+- **Dimensional modeling**: for analytics. See
   [data warehouse](/07-data-architecture/data-warehouses.md).
-- **Schema on read** — storing raw and interpreting on read; suitable for exploratory ingestion, and
+- **Schema on read**: storing raw and interpreting on read; suitable for exploratory ingestion, and
   see [data lake](/07-data-architecture/data-lakes.md) for the risks.
 
 ## Trade-offs
@@ -217,8 +217,8 @@ The answer did not exist. Each tier change overwrote the previous one.
 The partial reconstruction was done from application logs and billing files, with four months of
 effort and an incomplete result. There was a fine.
 
-The fix changed the model to temporal versioning on the attributes that matter — tier, plan and
-amount — with a validity period. The rest stayed as current state.
+The fix changed the model to temporal versioning on the attributes that matter (tier, plan and
+amount), with a validity period. The rest stayed as current state.
 
 Two observations the team recorded:
 
@@ -227,7 +227,7 @@ model, which would have complicated every query. Only three attributes had a rea
 requirement.
 
 **An audit table from the start would have been enough.** Full temporal versioning was not necessary
-in 2022 — recording the changes would have sufficed. The cost would have been days, and the
+in 2022: recording the changes would have sufficed. The cost would have been days, and the
 information would exist.
 
 The question "what might someone want to know about this record's past?" had not been asked.
@@ -236,9 +236,9 @@ The question "what might someone want to know about this record's past?" had not
 
 - [Normalization](/07-data-architecture/normalization.md) and
   [Denormalization](/07-data-architecture/denormalization.md).
-- [Data Ownership](/07-data-architecture/data-ownership.md) — who decides the model.
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention and erasure.
-- [DDD](/04-domain-driven-design/index.md) — aggregates as the boundary.
+- [Data Ownership](/07-data-architecture/data-ownership.md): who decides the model.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): retention and erasure.
+- [DDD](/04-domain-driven-design/index.md): aggregates as the boundary.
 
 ## Practical Exercise
 

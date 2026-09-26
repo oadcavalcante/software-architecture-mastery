@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, current-state-architecture, integration-landscapes]
 canonical_for: [portfólio de aplicações, avaliação de aplicação, aposentadoria de sistema]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 O portfólio é o inventário das aplicações da organização, com as informações que
 permitem decidir o que fazer com cada uma.
 
-A pergunta que ele responde não é "o que existe?" — é **"o que fazemos com cada
+A pergunta que ele responde não é "o que existe?", e sim **"o que fazemos com cada
 coisa?"**.
 
 E ela se resume a quatro respostas: manter, investir, substituir, aposentar.
@@ -44,7 +44,7 @@ duplicação invisível — dois sistemas fazendo a mesma coisa
 ninguém sabe o custo total de propriedade de nada
 ```
 
-E a decisão mais difícil — aposentar — praticamente nunca acontece, porque exige alguém
+E a decisão mais difícil, aposentar, praticamente nunca acontece, porque exige alguém
 afirmar que algo pode ser desligado, com o risco associado.
 
 ## Conceitos Centrais
@@ -67,7 +67,7 @@ baixo valor, saúde ruim  → aposentar
 
 O segundo quadrante é o que a avaliação existe para encontrar. Ele contém o risco que
 ninguém nomeou: sistemas de que o negócio depende, mantidos por poucas pessoas, com
-tecnologia obsoleta — e que não geram incidentes suficientes para chamar atenção.
+tecnologia obsoleta, e que não geram incidentes suficientes para chamar atenção.
 
 ### O que compõe cada dimensão
 
@@ -89,7 +89,7 @@ A segunda linha de saúde é a que costuma dominar o risco real e a que menos ap
 avaliações técnicas: um sistema moderno com um único mantenedor é mais frágil que um
 sistema antigo com cinco.
 
-Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — o mapeamento a capacidades é o
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md): o mapeamento a capacidades é o
 que dá a dimensão de valor.
 
 ### Custo total, não custo de infraestrutura
@@ -139,7 +139,7 @@ A dimensão de valor não é avaliável pela engenharia. Um sistema que parece m
 tecnicamente pode ser o que sustenta o processo mais crítico.
 
 E o inverso: um sistema que consome muita atenção da engenharia pode ser irrelevante
-para o negócio — e essa constatação, feita conjuntamente, é o que autoriza reduzir o
+para o negócio, e essa constatação, feita conjuntamente, é o que autoriza reduzir o
 investimento nele.
 
 ### O portfólio precisa ser derivado onde possível
@@ -156,7 +156,7 @@ Um portfólio inteiramente preenchido à mão desatualiza em meses.
 
 E a derivação também falha em silêncio: uma integração quebrada, uma conta de nuvem fora
 da coleta ou um servidor sem agente param de alimentar o inventário sem gerar erro. A
-coleta precisa ser monitorada como qualquer outro sistema — idade do último dado por
+coleta precisa ser monitorada como qualquer outro sistema: idade do último dado por
 fonte é o indicador mínimo.
 
 ### A avaliação precisa acontecer periodicamente
@@ -174,7 +174,7 @@ há dois anos pode ter perdido dois dos três mantenedores desde então, sem que
 gerado alerta.
 
 A revisão anual das duas dimensões, com a de saúde revisitada semestralmente, é o que
-mantém o portfólio informativo. E parte dela pode ser derivada — frequência de
+mantém o portfólio informativo. E parte dela pode ser derivada: frequência de
 incidentes, idade de dependências, número de pessoas que enviaram mudanças no último ano.
 
 Essa última métrica é um indicador barato e surpreendentemente confiável de concentração
@@ -201,7 +201,7 @@ sob demanda, abaixo, entrega as mesmas decisões.
 
 **Ninguém com autoridade para executar as decisões.** Se não há quem possa mandar
 aposentar ou redirecionar orçamento, a avaliação produz uma lista de recomendações que
-ninguém cumpre — e o inventário vira documento morto na segunda revisão.
+ninguém cumpre, e o inventário vira documento morto na segunda revisão.
 
 **Conjunto mudando mais rápido que o ciclo de avaliação.** Durante uma fusão em curso ou
 uma migração em massa, a classificação de hoje descreve um parque que não existirá no
@@ -210,11 +210,11 @@ quando o conjunto estabiliza.
 
 ## Alternativas
 
-- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)** — a lente de negócio, sem o
+- **[Capacidades de negócio](/15-enterprise-architecture/business-capabilities.md)**: a lente de negócio, sem o
   detalhe por aplicação.
-- **Catálogo de serviços** — derivado, técnico, sem avaliação. Ver
+- **Catálogo de serviços**: derivado, técnico, sem avaliação. Ver
   [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
-- **Avaliação sob demanda** — avaliar apenas o que está em discussão, em vez de tudo.
+- **Avaliação sob demanda**: avaliar apenas o que está em discussão, em vez de tudo.
 
 A última é econômica: um portfólio completo de 200 aplicações custa caro para manter, e
 a maior parte das decisões envolve poucas delas por vez.
@@ -261,9 +261,9 @@ a maior parte das decisões envolve poucas delas por vez.
 **Aceitar o valor autodeclarado.** Pedida a cada área que classifique os próprios
 sistemas, quase todos saem como alto valor, e o eixo deixa de separar o que quer que seja.
 O valor precisa de âncora: o mapeamento a capacidades de negócio, dados de uso, ou uma
-distribuição forçada — no máximo um terço do conjunto no nível mais alto.
+distribuição forçada (no máximo um terço do conjunto no nível mais alto).
 
-**Preencher tudo à mão.** O inventário manual está desatualizado no mês seguinte. O que se sustenta é o que é derivado de fontes que já existem — nuvem, repositórios, faturamento.
+**Preencher tudo à mão.** O inventário manual está desatualizado no mês seguinte. O que se sustenta é o que é derivado de fontes que já existem: nuvem, repositórios, faturamento.
 
 ## Exemplo Real
 
@@ -285,10 +285,10 @@ Três achados:
 
 **O quadrante de risco.** Das 31, oito tinham um único mantenedor, e três tinham
 mantenedor com aposentadoria prevista em menos de dois anos. Nenhuma delas gerava
-incidentes — elas funcionavam, e por isso eram invisíveis.
+incidentes: elas funcionavam, e por isso eram invisíveis.
 
 **Custo de integração.** As 210 aplicações tinham 1.400 integrações. Uma aplicação de
-baixo valor no quadrante inferior tinha 38 integrações — o custo de mantê-la era muito
+baixo valor no quadrante inferior tinha 38 integrações: o custo de mantê-la era muito
 maior que o custo de infraestrutura dela.
 
 **Aplicações sem uso.** O monitoramento de acesso por 120 dias mostrou que 23 das 44
@@ -305,7 +305,7 @@ O processo de aposentadoria:
 **Descarte** após o período, com os dados arquivados conforme a retenção regulatória.
 
 Das 44 candidatas, 31 foram aposentadas. Sete revelaram consumidores durante o período de
-restrição — todos identificados sem incidente, porque o acesso restrito alertava em vez
+restrição, todos identificados sem incidente, porque o acesso restrito alertava em vez
 de falhar. Seis foram mantidas por requisito regulatório de retenção.
 
 Economia direta: licenças e infraestrutura das 31. Economia indireta, maior: 290
@@ -320,9 +320,9 @@ porque nenhuma estava quebrando.
 
 ## Conceitos Relacionados
 
-- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — a dimensão de valor.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md): a dimensão de valor.
 - [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md).
-- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md) — o custo escondido.
+- [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md): o custo escondido.
 - [Modernização de Legado](/16-legacy-modernization/index.md).
 
 ## Exercício Prático
@@ -342,5 +342,5 @@ risco.
 ## Para Aprofundar
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
-- Gartner. *TIME model* — tolerar, investir, migrar, eliminar.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de aplicação.
+- Gartner. *TIME model*. Tolerar, investir, migrar, eliminar.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Arquitetura de aplicação.

@@ -2,7 +2,7 @@
 id: telemetry
 title: Telemetry
 sidebar_position: 6
-description: Instrumenting, collecting and paying for it — the cost that grows faster than the system.
+description: "Instrumenting, collecting and paying for it: the cost that grows faster than the system."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, metrics, distributed-tracing]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Telemetry is everything the system emits about itself — [logs](/13-observability/logs.md),
-[metrics](/13-observability/metrics.md), [traces](/13-observability/traces.md) — and the infrastructure
+Telemetry is everything the system emits about itself ([logs](/13-observability/logs.md),
+[metrics](/13-observability/metrics.md), [traces](/13-observability/traces.md)) and the infrastructure
 that collects, transports, stores and queries that data.
 
 It is treated as a tooling detail and it is an architectural decision, for two reasons:
@@ -38,7 +38,7 @@ rewrite.
 Telemetry grows by accumulation, with no decision:
 
 Each team instruments what it needs, with the library it knows. The volume increases with the traffic and
-with each new metric. The bill arrives at the end of the month, and the reaction is cutting retention —
+with each new metric. The bill arrives at the end of the month, and the reaction is cutting retention,
 which is the cut that hurts investigation the most.
 
 And, when somebody proposes switching tools, you discover the instrumentation is spread across hundreds of
@@ -56,11 +56,11 @@ collection        an agent or collector receives, processes and sends
 destination       where it is stored and queried
 ```
 
-With standardized instrumentation, switching the destination is configuration in the collector — not a code
+With standardized instrumentation, switching the destination is configuration in the collector, not a code
 change.
 
-The open telemetry standard exists exactly for that. Adopting it early costs little in code — the
-instrumentation has to be written either way — but it is not free: SDK maturity varies by language, advanced
+The open telemetry standard exists exactly for that. Adopting it early costs little in code (the
+instrumentation has to be written either way), but it is not free: SDK maturity varies by language, advanced
 vendor features may be missing, and the collector is one more component to operate. That is the price of keeping
 a destination switch a matter of configuration rather than a rewrite.
 
@@ -130,8 +130,8 @@ telemetry cost per request
 telemetry cost as a fraction of the infrastructure bill
 ```
 
-The second ratio is the most revealing. When telemetry passes a reasonable fraction of the infrastructure —
-something between 5% and 15% in most cases —, it is worth investigating.
+The second ratio is the most revealing. When telemetry passes a reasonable fraction of the infrastructure
+(something between 5% and 15% in most cases), it is worth investigating.
 
 And the trend matters more than the value: telemetry growing faster than the traffic indicates
 instrumentation accumulating, not the system growing.
@@ -140,7 +140,7 @@ instrumentation accumulating, not the system growing.
 
 The criterion that avoids accumulation: **which question does this data answer?**
 
-If the answer is "I do not know, it may be useful", it probably will not be — and it will cost every month.
+If the answer is "I do not know, it may be useful", it probably will not be, and it will cost every month.
 
 The instrumentation that pays off comes from: questions already asked during incidents,
 [golden signals](/13-observability/golden-signals.md), [SLI](/12-reliability/sli.md), and business metrics.
@@ -152,7 +152,7 @@ collector, and review what is collected.
 
 ## When to Use
 
-- Always — the question is how much and how.
+- Always: the question is how much and how.
 - High priority in distributed systems.
 - Before you need it: instrumenting during the incident is not an option.
 
@@ -165,7 +165,7 @@ instrumented point in the code, which in practice means never switching.
 slowdown in the observability system becomes a slowdown in the product.
 
 **With no resource limits** for buffers. When the collector becomes unavailable, the buffer grows until it
-consumes the application's memory — and the telemetry takes down what it was supposed to observe.
+consumes the application's memory, and the telemetry takes down what it was supposed to observe.
 
 **Without monitoring dropping.** Telemetry dropped from saturation produces incomplete dashboards that look
 complete, and the conclusion drawn from them is wrong with no warning.
@@ -174,15 +174,15 @@ complete, and the conclusion drawn from them is wrong with no warning.
 is collected out of caution is never opened.
 
 **With no sensitive data filtering** before it leaves. Once sent to the vendor, the personal data has left
-your perimeter — and frequently the country.
+your perimeter, and frequently the country.
 
 ## Alternatives
 
-- **The vendor's managed collector** — less operation, more coupling.
-- **Your own storage** — cheaper at high volume, more operation.
-- **Different destinations per signal** — metrics in one system, logs in another, choosing the best cost
+- **The vendor's managed collector**: less operation, more coupling.
+- **Your own storage**: cheaper at high volume, more operation.
+- **Different destinations per signal**: metrics in one system, logs in another, choosing the best cost
   for each profile.
-- **Continuous profiling** — it complements the three signals for the time inside the process.
+- **Continuous profiling**: it complements the three signals for the time inside the process.
 
 ## Trade-offs
 
@@ -232,7 +232,7 @@ use it", and the bill grows faster than traffic without anyone being able to say
 
 **Cutting retention as the first cost measure.** The savings are immediate and small; the cost appears weeks
 later, when investigations that need to compare with the previous month, or find when a defect started, cannot
-be closed — as in the example below.
+be closed, as in the example below.
 
 **Having no collector**, letting each service send directly. Filtering, sampling and removal of sensitive data
 become code changes in every service, and the effective policy becomes that of the least careful service.
@@ -276,7 +276,7 @@ high-cardinality attributes.
 
 **A usage audit.** Of 410 metrics, 240 had been neither queried nor alerted on in twelve months. Removed.
 
-**Retention restored** to 30 days — and extended to 90 in cold storage, which costs a fraction.
+**Retention restored** to 30 days, and extended to 90 in cold storage, which costs a fraction.
 
 **Sensitive data filtering in the collector**, which the audit revealed did not exist: tokens and document
 numbers appeared in error logs.
@@ -285,14 +285,14 @@ numbers appeared in error logs.
 
 Result: the bill fell 78% relative to the peak, with **more** retention and more investigation capability.
 
-What the team learned: the first cut — reducing retention — was the worst possible move. It attacked the
+What the team learned: the first cut (reducing retention) was the worst possible move. It attacked the
 dimension that matters most for investigation and left the three real causes intact.
 
 ## Related Concepts
 
 - [Logs](/13-observability/logs.md), [Metrics](/13-observability/metrics.md) and
-  [Traces](/13-observability/traces.md) — what is emitted.
-- [Distributed Tracing](/13-observability/distributed-tracing.md) — the sampling.
+  [Traces](/13-observability/traces.md): what is emitted.
+- [Distributed Tracing](/13-observability/distributed-tracing.md): the sampling.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
 - [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md).
 

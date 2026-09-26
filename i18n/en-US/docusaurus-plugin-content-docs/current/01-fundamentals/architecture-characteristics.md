@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [architecture-principles, architecture-as-decisions]
 canonical_for: [architecture characteristics]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-30
 
 Architecture characteristics are the
 [quality attributes](/01-fundamentals/quality-attributes.md) the architecture must explicitly
-support — the ones that actually drive structural decisions.
+support: the ones that actually drive structural decisions.
 
 The distinction from the older term is not one of meaning but of use: "quality
 attributes" is a taxonomy; "architecture characteristics" is a selection. The
@@ -36,7 +36,7 @@ A system has dozens of relevant quality attributes. An architecture cannot be
 driven by dozens of things.
 
 Teams that try produce an architecture document listing fifteen characteristics as
-important, and an architecture that in practice was decided by two or three —
+important, and an architecture that in practice was decided by two or three,
 without anyone having stated which.
 
 The consequence is that subsequent decisions lose their criterion. Faced with a
@@ -53,18 +53,18 @@ The practice that works: **pick at most three to five driving characteristics,
 ranked**.
 
 Three to five is not an arbitrary number. It is roughly what a team can hold in
-mind while deciding, and it is small enough to force the choice — which is the
+mind while deciding, and it is small enough to force the choice. Forcing it is the
 point. A list of fifteen obliges nobody to give anything up.
 
-The ranking matters more than the list. When two characteristics conflict — and
-they will — the order is what resolves it without a new meeting.
+The ranking matters more than the list. When two characteristics conflict (and
+they will), the order is what resolves it without a new meeting.
 
 ### Explicit and implicit
 
 Some characteristics are stated by the business: availability, latency, capacity.
 
 Others are implicit and nobody asks for them because they are presumed: security,
-maintainability, deployability. Not asked for does not mean not required — it means
+maintainability, deployability. Not asked for does not mean not required: it means
 nobody will warn you when they are missing, until they are missing.
 
 A gathering that captures only the explicit ones produces systems that are fast and
@@ -72,7 +72,7 @@ insecure, or available and impossible to change.
 
 Capturing them does not widen the driving list: it stays at three to five. An
 implicit one joins the list only when there is something to sacrifice for it in
-this system — otherwise it is a floor, guaranteed by standard practice and
+this system; otherwise it is a floor, guaranteed by standard practice and
 verified outside the list.
 
 ### Every extra characteristic has a cost
@@ -81,14 +81,14 @@ Each characteristic added to the list constrains the solution space and adds
 complexity.
 
 That means the question when considering adding another one is not "is this
-desirable?" — almost everything is. It is **"what am I willing to sacrifice for
+desirable?" (almost everything is) but **"what am I willing to sacrifice for
 it?"**. If the answer is "nothing", the characteristic does not go on the list; it
 is a wish.
 
 ### Characteristics change with the context
 
-The driving characteristics of a system in its first year — speed of change, low
-cost — are rarely the ones of its fifth — availability, maintainability.
+The driving characteristics of a system in its first year (speed of change, low
+cost) are rarely the ones of its fifth (availability, maintainability).
 
 Reviewing the list periodically is what stops the architecture from staying
 optimized for what used to matter. See
@@ -127,7 +127,7 @@ guarantee of no duplication under failure" contains one.
 context, and the misalignment is silent.
 
 **Choosing characteristics nobody measures.** A driving characteristic without
-instrumentation judges no decision — [quality attributes](/01-fundamentals/quality-attributes.md)
+instrumentation judges no decision: [quality attributes](/01-fundamentals/quality-attributes.md)
 covers why an unmeasured attribute degrades without warning.
 
 ## Real-World Example
@@ -145,12 +145,12 @@ infrastructure ceiling), maintainability, correctness. Consequences: a single
 instance, nightly batch processing, no redundancy, and use of a managed service
 that is more expensive per transaction but far cheaper to operate.
 
-The two architectures share no structural decision. Neither is better — each
+The two architectures share no structural decision. Neither is better; each
 answers its own list.
 
 Worth noting: the second team initially proposed multi-zone replication, "for
 consistency with the company standard". The question that ended the discussion was
-which characteristic that served — and the answer, availability, was not on their
+which characteristic that served. The answer, availability, was not on their
 list. The report could be a day late with no consequence.
 
 The short list did not prevent a bad decision by authority. It prevented one by
@@ -158,13 +158,13 @@ criterion.
 
 ## Related Concepts
 
-- [Quality Attributes](/01-fundamentals/quality-attributes.md) — the taxonomy the characteristics
+- [Quality Attributes](/01-fundamentals/quality-attributes.md): the taxonomy the characteristics
   are selected from.
-- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md): the
   verifiable form each selected characteristic has to take before it becomes a criterion.
-- [Architecture Principles](/01-fundamentals/architecture-principles.md) — how characteristics
+- [Architecture Principles](/01-fundamentals/architecture-principles.md): how characteristics
   become guidance for distributed decisions.
-- [Trade-offs](/20-trade-offs/index.md) — what happens when two characteristics
+- [Trade-offs](/20-trade-offs/index.md): what happens when two characteristics
   conflict.
 
 ## Practical Exercise
@@ -187,6 +187,6 @@ findings are valuable.
 ## Further Exploration
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — the formulation and the selection practice.
+  2020. The formulation and the selection practice.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
-  4th ed., 2021 — quality attribute scenarios.
+  4th ed., 2021. Quality attribute scenarios.

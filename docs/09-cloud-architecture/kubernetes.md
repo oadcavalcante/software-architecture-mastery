@@ -2,7 +2,7 @@
 id: kubernetes
 title: Kubernetes
 sidebar_position: 5
-description: Orquestração declarativa de contêineres — o que ela resolve e a pergunta que precede a adoção.
+description: "Orquestração declarativa de contêineres: o que ela resolve e a pergunta que precede a adoção."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, serverless, managed-services]
 canonical_for: [Kubernetes, orquestração de contêineres, reconciliação declarativa]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -56,7 +56,7 @@ ação:      criar 1
 ```
 
 Esse laço roda continuamente, para tudo. É por isso que o sistema se recupera
-sozinho de falhas de nó, e por isso alterações manuais são desfeitas — o
+sozinho de falhas de nó, e por isso alterações manuais são desfeitas: o
 reconciliador as vê como desvio.
 
 Entender isso muda o modelo mental: você não opera o sistema, você declara o que
@@ -101,18 +101,18 @@ startup    ainda está iniciando? suspende as outras duas
 ```
 
 O erro clássico é apontar a de liveness para uma verificação que depende de outros
-serviços: o banco fica lento, a verificação falha, o pod é reiniciado — e reiniciar
+serviços: o banco fica lento, a verificação falha, o pod é reiniciado. E reiniciar
 não conserta o banco, só piora. Ver
 [detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 Regra: liveness verifica apenas o próprio processo; readiness verifica se **esta
-instância** pode atender — inicialização concluída, aquecimento feito, pool de
-conexões estabelecido.
+instância** pode atender (inicialização concluída, aquecimento feito, pool de
+conexões estabelecido).
 
 A parte que a regra curta esconde: readiness **não** deve depender de recurso
 compartilhado por todas as réplicas. Se as dez consultam o mesmo banco, uma
 oscilação dele tira as dez da rotação ao mesmo tempo, e o serviço fica sem nenhum
-destino — degradação parcial virou queda total. Ver
+destino: degradação parcial virou queda total. Ver
 [degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ### O custo é conhecimento, não licença
@@ -132,14 +132,14 @@ segurança.
 Todo incidente começa descobrindo em qual camada está.
 
 **Ecossistema.** A adoção quase sempre traz junto entrada de tráfego, certificados,
-métricas, registros, política, segredos — cada um com sua própria curva.
+métricas, registros, política, segredos, cada um com sua própria curva.
 
 Times pequenos costumam subestimar isso porque a instalação inicial é fácil. A
 operação sustentada é que custa.
 
 ### Gerenciado reduz metade
 
-Um Kubernetes gerenciado remove a operação do plano de controle — que é a parte
+Um Kubernetes gerenciado remove a operação do plano de controle. Essa é a parte
 mais difícil e crítica.
 
 O que continua sendo seu: nós, rede, política, escalonamento, atualização das
@@ -184,22 +184,22 @@ entre times são problemas de muitos serviços. Com um só, não há o que orque
 e o custo de operar o cluster não diminui por isso.
 
 **Como sinônimo de modernização.** Se a justificativa não nomeia um problema atual
-— implantação inconsistente entre times, recuperação manual de nós, escala que as
-máquinas não acompanham —, a adoção compra o custo de operação sem o benefício que
+(implantação inconsistente entre times, recuperação manual de nós, escala que as
+máquinas não acompanham), a adoção compra o custo de operação sem o benefício que
 o paga.
 
 **Autogerido, sem time dedicado.** Use gerenciado.
 
 **Para resolver problema de arquitetura.** Ele não conserta fronteiras de serviço
-erradas — só as distribui melhor.
+erradas, só as distribui melhor.
 
 ## Alternativas
 
-- **Plataformas de contêiner gerenciadas** — rodam contêineres sem expor o modelo
+- **Plataformas de contêiner gerenciadas**: rodam contêineres sem expor o modelo
   de orquestração. Cobrem a maioria dos casos com muito menos conhecimento.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade nem orquestração.
-- **Máquinas com escalonamento automático** — para poucos serviços estáveis.
-- **Plataforma como serviço** — ver [PaaS](/09-cloud-architecture/paas.md).
+- **[Serverless](/09-cloud-architecture/serverless.md)**: sem capacidade nem orquestração.
+- **Máquinas com escalonamento automático**: para poucos serviços estáveis.
+- **Plataforma como serviço**: ver [PaaS](/09-cloud-architecture/paas.md).
 
 ## Trade-offs
 
@@ -216,7 +216,7 @@ erradas — só as distribui melhor.
 |---|---|
 | Plano de controle do provedor — etcd, certificados, atualizações | Seu, com o time dedicado que ele exige |
 
-O restante da comparação — trabalho operacional, preço, controle de versão — é o de
+O restante da comparação (trabalho operacional, preço, controle de versão) é o de
 qualquer serviço gerenciado; ver
 [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 
@@ -247,11 +247,11 @@ produzem oscilação.
 
 **Não definir requisições e limites.** Sem requisição, o agendador não sabe onde cabe e empilha cargas no mesmo nó; sem limite, um vazamento de memória derruba os vizinhos junto.
 
-**Liveness dependente de outros serviços.** Se a sonda de vida consulta o banco, uma lentidão do banco reinicia todos os pods ao mesmo tempo — a sonda converte degradação de dependência em queda total.
+**Liveness dependente de outros serviços.** Se a sonda de vida consulta o banco, uma lentidão do banco reinicia todos os pods ao mesmo tempo: a sonda converte degradação de dependência em queda total.
 
 **Autogerir o plano de controle.** Manter etcd, certificados e atualizações é um trabalho de time dedicado. Os provedores fazem isso por um custo que quase sempre é menor que uma pessoa.
 
-**Não configurar orçamento de interrupção.** Sem ele, uma manutenção de nós pode remover simultaneamente todas as réplicas de um serviço — o cluster obedece porque ninguém disse quantas precisam permanecer.
+**Não configurar orçamento de interrupção.** Sem ele, uma manutenção de nós pode remover simultaneamente todas as réplicas de um serviço: o cluster obedece porque ninguém disse quantas precisam permanecer.
 
 **Não planejar atualizações desde o início.** As versões saem de suporte em ritmo rápido, e a API muda entre elas. Um cluster que fica dois anos sem atualizar acumula mudanças incompatíveis que precisam ser feitas de uma vez.
 
@@ -262,7 +262,7 @@ justificativa de "preparar para escalar" e evitar dependência de provedor.
 
 Dezoito meses depois, o balanço:
 
-**Dois engenheiros em tempo integral** operando a plataforma — 5% da capacidade de
+**Dois engenheiros em tempo integral** operando a plataforma: 5% da capacidade de
 engenharia, para 9 serviços.
 
 **Onze incidentes** causados pela própria plataforma: rede, certificado expirado,
@@ -275,7 +275,7 @@ atraso. A atualização quando finalmente feita levou seis semanas.
 um deles derrubou dois nós.
 
 **Liveness verificando o banco** em quatro serviços. Numa lentidão do banco, todos
-os pods desses serviços entraram em ciclo de reinício — transformando degradação em
+os pods desses serviços entraram em ciclo de reinício, transformando degradação em
 indisponibilidade completa.
 
 A reavaliação levou a duas decisões:
@@ -284,8 +284,8 @@ A reavaliação levou a duas decisões:
 majoritariamente ao produto; um permanece parcialmente alocado. Os incidentes de
 plataforma caíram para dois no ano seguinte, ambos de configuração da aplicação.
 
-**Correções de configuração** — requisições, limites, verificações de saúde
-corrigidas, orçamentos de interrupção — que resolveram a maior parte dos incidentes
+**Correções de configuração** (requisições, limites, verificações de saúde
+corrigidas, orçamentos de interrupção), que resolveram a maior parte dos incidentes
 restantes.
 
 E uma observação que a equipe registrou honestamente: com 9 serviços, uma
@@ -300,8 +300,8 @@ que o de qualquer migração hipotética. Ver
 
 ## Conceitos Relacionados
 
-- [Contêineres](/09-cloud-architecture/containers.md) — o que ele orquestra.
-- [Serverless](/09-cloud-architecture/serverless.md) — a alternativa sem orquestração.
+- [Contêineres](/09-cloud-architecture/containers.md): o que ele orquestra.
+- [Serverless](/09-cloud-architecture/serverless.md): a alternativa sem orquestração.
 - [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 - [Malha de Serviço](/08-integration-architecture/service-mesh.md).
 
@@ -309,7 +309,7 @@ que o de qualquer migração hipotética. Ver
 
 Se ainda está decidindo, liste os problemas de implantação e operação que você tem
 hoje e marque quais uma plataforma de contêineres gerenciada resolveria. O que
-sobrar é o argumento para Kubernetes — se sobrar algo.
+sobrar é o argumento para Kubernetes, se sobrar algo.
 
 Se já usa Kubernetes, verifique quantos dos seus serviços têm requisições,
 limites e verificações de saúde corretamente configurados.

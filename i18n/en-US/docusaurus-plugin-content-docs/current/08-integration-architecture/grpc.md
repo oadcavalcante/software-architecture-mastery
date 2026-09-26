@@ -2,7 +2,7 @@
 id: grpc
 title: gRPC
 sidebar_position: 3
-description: A strong contract and binary transport for internal communication — and why it rarely serves at the edge.
+description: A strong contract and binary transport for internal communication, and why it rarely serves at the edge.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, service-mesh, schema-evolution]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ edge, the tooling cost usually exceeds the benefit.
 Between internal services, an HTTP API with JSON pays for things that have no value there.
 
 Serializing and deserializing text costs CPU. The loose contract allows divergence between what one side
-sends and the other expects — discovered in production. With HTTP/1.1, even with a connection pool, each connection
+sends and the other expects, discovered in production. With HTTP/1.1, even with a connection pool, each connection
 serves one request at a time: concurrent calls need more connections, and a slow response blocks the ones
 behind it.
 
@@ -64,7 +64,7 @@ contract is typically not executable. See
 
 ### Evolution by field number
 
-Each field has a number, and it is the number — not the name — that identifies the data in the binary
+Each field has a number, and it is the number, not the name, that identifies the data in the binary
 format.
 
 ```protobuf
@@ -108,7 +108,7 @@ streaming modes.
 There are dedicated tools, and the learning curve is a different one.
 
 **Intermediaries.** Load balancers and gateways have to understand the protocol. A layer 4 balancer will
-distribute *connections*, not *calls* — and since the connections are long and multiplexed, the load stays
+distribute *connections*, not *calls*, and since the connections are long and multiplexed, the load stays
 persistently unbalanced.
 
 That last point surprises teams that adopt gRPC with no service mesh: the balancing simply does not work
@@ -128,7 +128,7 @@ It is a discipline property HTTP APIs rarely implement, and it reduces wasted wo
 ### Its own status codes
 
 gRPC has its own set of codes, with clear semantics about what is retryable. The separation between client
-and server errors is there, as in [REST](/08-integration-architecture/rest.md) — and the libraries usually
+and server errors is there, as in [REST](/08-integration-architecture/rest.md), and the libraries usually
 expose it more directly.
 
 ## Mental Model
@@ -142,7 +142,7 @@ they are not, the reach is what matters.
 - A high call frequency, where serialization and connections weigh.
 - A strong contract with code generation has value.
 - Continuous streaming in one or both directions.
-- Polyglot — several teams, several languages, one contract.
+- Polyglot: several teams, several languages, one contract.
 - A [service mesh](/08-integration-architecture/service-mesh.md) that understands the protocol already
   exists.
 
@@ -164,10 +164,10 @@ tooling change.
 
 ## Alternatives
 
-- **[REST](/08-integration-architecture/rest.md)** — reach and operational simplicity.
-- **[GraphQL](/08-integration-architecture/graphql.md)** — variable consumption.
-- **[Messaging](/08-integration-architecture/messaging-integration.md)** — asynchronous and decoupled.
-- **gRPC internally, REST at the edge** — the most common design among successful adoptions, with the
+- **[REST](/08-integration-architecture/rest.md)**: reach and operational simplicity.
+- **[GraphQL](/08-integration-architecture/graphql.md)**: variable consumption.
+- **[Messaging](/08-integration-architecture/messaging-integration.md)**: asynchronous and decoupled.
+- **gRPC internally, REST at the edge**: the most common design among successful adoptions, with the
   gateway translating.
 
 The last deserves emphasis: the two choices do not compete when they occupy different layers.
@@ -205,7 +205,7 @@ with JSON. Adopting it at the edge transfers to every consumer the cost of a tec
 internal convenience.
 
 **Not declaring `reserved` when removing a field.** The field number can be reused later for something
-else, and an old client comes to interpret the new value with the old meaning — silent corruption, with no
+else, and an old client comes to interpret the new value with the old meaning: silent corruption, with no
 deserialization error.
 
 **Not configuring per-call balancing.** gRPC multiplexes over long-lived connections, so per-connection
@@ -213,7 +213,7 @@ balancing pins each client to one instance. New instances receive no traffic and
 unbalanced.
 
 **Assuming the default size limit is enough.** The default message limit is modest, and the failure appears
-only when a larger-than-average record travels — in production, in a specific case tests did not cover.
+only when a larger-than-average record travels, in production, in a specific case tests did not cover.
 
 **Not propagating the deadline.** The deadline is part of the protocol and crosses the chain if it is
 forwarded. Not forwarding it makes downstream services keep working on calls the client has already
@@ -230,7 +230,7 @@ gRPC.
 
 The numbers measured after the migration:
 
-**Latency between services** dropped from 12 ms to 4 ms at the median — most of the gain came from
+**Latency between services** dropped from 12 ms to 4 ms at the median. Most of the gain came from
 multiplexing concurrent calls over a few connections, in place of the HTTP/1.1 pool with one request per
 connection, not from the serialization.
 
@@ -261,10 +261,10 @@ no performance comparison.
 
 ## Related Concepts
 
-- [REST](/08-integration-architecture/rest.md) — the main comparison.
-- [Service Mesh](/08-integration-architecture/service-mesh.md) — where the balancing is solved.
-- [Schema Evolution](/08-integration-architecture/schema-evolution.md) — field numbers.
-- [Timeouts](/06-distributed-systems/timeouts.md) — the propagated deadline.
+- [REST](/08-integration-architecture/rest.md): the main comparison.
+- [Service Mesh](/08-integration-architecture/service-mesh.md): where the balancing is solved.
+- [Schema Evolution](/08-integration-architecture/schema-evolution.md): field numbers.
+- [Timeouts](/06-distributed-systems/timeouts.md): the propagated deadline.
 
 ## Practical Exercise
 

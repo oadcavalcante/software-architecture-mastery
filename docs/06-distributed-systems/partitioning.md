@@ -2,7 +2,7 @@
 id: partitioning
 title: Particionamento
 sidebar_position: 14
-description: Dividir os dados entre nós — a única forma de escalar escrita além do limite de um nó, e a mais difícil de reverter.
+description: "Dividir os dados entre nós: a única forma de escalar escrita além do limite de um nó, e a mais difícil de reverter."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [sharding, hotspots, replication]
 canonical_for: [particionamento, chave de partição]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -29,13 +29,13 @@ escrita**. Réplicas multiplicam capacidade de leitura; para escrita, cada répl
 recebe tudo.
 
 E ele é a decisão de dados mais difícil de reverter, porque a escolha da chave
-determina o que fica barato e o que fica caro — por um custo que só uma
+determina o que fica barato e o que fica caro, por um custo que só uma
 migração de meses reverte.
 
 ## Problema
 
 Uma instância tem limite: de armazenamento, de memória, de taxa de escrita.
-Quando ele é atingido, adicionar réplicas não ajuda — todas recebem as mesmas
+Quando ele é atingido, adicionar réplicas não ajuda: todas recebem as mesmas
 escritas.
 
 Particionar resolve: cada nó recebe uma fração das escritas e guarda uma fração dos
@@ -46,7 +46,7 @@ Uma consulta que precisa de dados de várias partições vira uma consulta por
 partição mais uma agregação. Uma transação que toca duas partições vira uma
 transação distribuída.
 
-A escolha da chave decide quais operações atravessam — e é por isso que ela é a
+A escolha da chave decide quais operações atravessam, e é por isso que ela é a
 decisão, não o mecanismo.
 
 ## Conceitos Centrais
@@ -56,7 +56,7 @@ decisão, não o mecanismo.
 **Por faixa.** Chaves ordenadas divididas em intervalos: A–F numa partição, G–M em
 outra.
 
-Consulta por intervalo é eficiente — os dados vizinhos estão juntos. E a
+Consulta por intervalo é eficiente: os dados vizinhos estão juntos. E a
 distribuição fica desigual se os dados não forem uniformes: particionar por data
 concentra toda a escrita na partição do período atual.
 
@@ -66,12 +66,12 @@ partição.
 Distribuição uniforme, e consulta por intervalo perde: chaves vizinhas caem em
 partições diferentes, e a consulta precisa varrer todas.
 
-**Híbrida.** Hash num componente e faixa em outro — por exemplo, hash do
+**Híbrida.** Hash num componente e faixa em outro: por exemplo, hash do
 identificador do cliente e faixa por data dentro dele. Preserva consulta por
 intervalo **dentro** de um cliente e distribui entre clientes.
 
 A híbrida é frequentemente a resposta certa em sistemas de negócio, e exige
-conhecer o padrão de consulta antes de escolher — razão pela qual fica fora da
+conhecer o padrão de consulta antes de escolher, razão pela qual fica fora da
 primeira decisão.
 
 ### A chave decide tudo
@@ -82,7 +82,7 @@ A escolha da chave de partição determina três coisas de uma vez:
 
 **O que fica caro.** Operações que cruzam chaves exigem coordenação.
 
-**Como a carga distribui.** Uma chave com muito mais atividade concentra carga —
+**Como a carga distribui.** Uma chave com muito mais atividade concentra carga:
 o [hotspot](/11-scalability/index.md).
 
 O critério: **particione pela dimensão que a maioria das operações usa para
@@ -94,21 +94,21 @@ usuário, o usuário.
 Mudar a chave de partição exige mover praticamente todos os dados. Num sistema em
 produção com volume, isso é um projeto de meses com período de convivência.
 
-Essa assimetria — barato de decidir, caro de mudar — recomenda duas coisas:
+Essa assimetria (barato de decidir, caro de mudar) recomenda duas coisas:
 adiar o particionamento até que ele seja necessário, e quando for, gastar tempo
 na escolha da chave.
 
 ### Hash consistente reduz o custo de crescer
 
-Com hash simples — `hash(chave) mod N` — adicionar um nó muda o destino de quase
+Com hash simples (`hash(chave) mod N`), adicionar um nó muda o destino de quase
 todas as chaves.
 
 Hash consistente organiza as chaves e os nós num anel: adicionar um nó move apenas
-as chaves entre ele e o vizinho — cerca de `1/N` do total.
+as chaves entre ele e o vizinho, cerca de `1/N` do total.
 
 É o que torna o crescimento operacionalmente viável. A outra saída para o mesmo
 problema é fixar muito mais partições lógicas que instâncias físicas e mover partições
-inteiras — ver [sharding](/06-distributed-systems/sharding.md). Os sistemas correntes
+inteiras (ver [sharding](/06-distributed-systems/sharding.md)). Os sistemas correntes
 se dividem entre as duas.
 
 ### Particionamento e replicação são ortogonais
@@ -152,11 +152,11 @@ correspondente.
 
 ## Alternativas
 
-- **Escala vertical** — mais alta do que se supõe, e sem custo estrutural.
-- **[Replicação](/06-distributed-systems/replication.md)** — se o gargalo é leitura.
-- **Arquivamento** — mover dados antigos para armazenamento mais barato reduz o
+- **Escala vertical**: mais alta do que se supõe, e sem custo estrutural.
+- **[Replicação](/06-distributed-systems/replication.md)**: se o gargalo é leitura.
+- **Arquivamento**: mover dados antigos para armazenamento mais barato reduz o
   volume ativo, frequentemente o suficiente.
-- **Particionamento lógico no mesmo nó** — tabelas particionadas por faixa dentro
+- **Particionamento lógico no mesmo nó**: tabelas particionadas por faixa dentro
   de uma instância, o que melhora manutenção sem distribuir.
 
 ## Trade-offs
@@ -207,7 +207,7 @@ Uma plataforma multi-inquilino de gestão escolar particionou por
 
 Funcionou para consultas de aluno. Quebrou para tudo o mais.
 
-A operação mais frequente do sistema era "listar alunos de uma turma" — e alunos
+A operação mais frequente do sistema era "listar alunos de uma turma", e alunos
 da mesma turma estavam espalhados por todas as partições. Cada listagem consultava
 as 16 partições e agregava.
 
@@ -215,7 +215,7 @@ Relatórios por escola atravessavam tudo. Matrícula em lote virava transação
 distribuída.
 
 E havia um desequilíbrio que ninguém previu: três escolas grandes respondiam por
-40% dos alunos, mas como a chave era o aluno, isso não concentrava — o que
+40% dos alunos, mas como a chave era o aluno, isso não concentrava. E isso
 mascarou o problema real, que era o número de operações cruzando partições, não a
 distribuição.
 
@@ -223,21 +223,21 @@ A repartição para `id_da_escola` levou cinco meses, com período de escrita du
 migração incremental.
 
 Depois: listagem de turma, relatórios e matrícula em lote passaram a ser locais a
-uma partição. As operações que cruzam partições viraram raras — apenas
+uma partição. As operações que cruzam partições viraram raras: apenas
 consolidações administrativas, executadas fora do horário.
 
 O desequilíbrio das três escolas grandes passou a existir e foi tratado com
 partições dedicadas para elas.
 
 A avaliação posterior aponta: a chave certa não era a entidade mais numerosa. Era a
-dimensão pela qual as operações filtravam — e essa informação estava no log de
+dimensão pela qual as operações filtravam, e essa informação estava no log de
 consultas desde o primeiro dia.
 
 ## Conceitos Relacionados
 
-- [Sharding](/06-distributed-systems/sharding.md) — o caso de partições em instâncias separadas.
-- [Hotspots](/11-scalability/index.md) — o desequilíbrio da carga.
-- [Replicação](/06-distributed-systems/replication.md) — ortogonal e complementar.
+- [Sharding](/06-distributed-systems/sharding.md): o caso de partições em instâncias separadas.
+- [Hotspots](/11-scalability/index.md): o desequilíbrio da carga.
+- [Replicação](/06-distributed-systems/replication.md): ortogonal e complementar.
 - [Escalabilidade](/11-scalability/index.md).
 
 ## Exercício Prático
@@ -245,7 +245,7 @@ consultas desde o primeiro dia.
 Se seu sistema é particionado, meça a distribuição de carga entre partições. Se
 não é, analise o log de consultas: por qual dimensão a maioria filtra?
 
-Essa dimensão é a candidata a chave — e descobri-la antes de precisar é o que
+Essa dimensão é a candidata a chave, e descobri-la antes de precisar é o que
 torna a decisão barata.
 
 ## Perguntas de Entrevista
@@ -256,6 +256,6 @@ torna a decisão barata.
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 6.
 - Karger, David et al. *Consistent Hashing and Random Trees*. STOC, 1997.

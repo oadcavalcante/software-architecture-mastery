@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [kiss, dry, solid]
 canonical_for: [YAGNI, generalização especulativa]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-YAGNI — *You Aren't Gonna Need It* — orienta a não construir funcionalidade nem
+YAGNI (*You Aren't Gonna Need It*) orienta a não construir funcionalidade nem
 generalização para requisitos que ainda não existem.
 
 A formulação de Martin Fowler é precisa: aplique YAGNI a capacidades
@@ -33,23 +33,23 @@ Construir para o futuro parece prudência e frequentemente é desperdício com b
 reputação.
 
 O argumento é sempre o mesmo: "vai ser mais barato fazer agora do que depois".
-Isso presume duas coisas que raramente se confirmam — que o requisito vai chegar,
+Isso presume duas coisas que raramente se confirmam: que o requisito vai chegar,
 e que vai chegar na forma prevista.
 
 Mas o custo do desperdício não é o principal. Fowler identifica quatro custos, e
 os três últimos são os que doem:
 
-**Custo de construção** — o esforço gasto no que não é usado.
+**Custo de construção**: o esforço gasto no que não é usado.
 
-**Custo de atraso** — o que deixou de ser feito enquanto isso.
+**Custo de atraso**: o que deixou de ser feito enquanto isso.
 
-**Custo de carregar** — o código especulativo precisa ser entendido, mantido,
+**Custo de carregar**: o código especulativo precisa ser entendido, mantido,
 migrado e testado por todo o tempo em que existir, por todo mundo que passar por
-ali. Ele aparece nas buscas, nas revisões e nas migrações de versão — e, para
+ali. Ele aparece nas buscas, nas revisões e nas migrações de versão; e, para
 quem opera, no parâmetro que precisa de valor em cada ambiente, no caminho que
 entra na monitoração, no mecanismo que reaparece a cada upgrade.
 
-**Custo de reparo** — quando o requisito real chega diferente do previsto, é
+**Custo de reparo**: quando o requisito real chega diferente do previsto, é
 preciso desfazer a generalização antes de fazer o certo, e desfazer custa mais
 que ter partido do zero na medida em que outras coisas já dependem dela. Quando
 ninguém desfaz, o que fica é o contorno permanente somado à abstração morta.
@@ -86,12 +86,12 @@ destrói.
 
 ### O antídoto é reversibilidade
 
-YAGNI funciona porque adicionar depois costuma ser barato — se o código for fácil
+YAGNI funciona porque adicionar depois costuma ser barato, se o código for fácil
 de mudar.
 
 Isso significa que os dois princípios andam juntos: quanto mais fácil de mudar é
 o sistema, mais agressivamente YAGNI pode ser aplicado. Num sistema rígido,
-antecipar tem mais justificativa — o que é um sinal de que o problema real é a
+antecipar tem mais justificativa. Isso é um sinal de que o problema real é a
 rigidez.
 
 ## Modelo Mental
@@ -117,7 +117,7 @@ particionamento. Adicionar multi-tenancy a um esquema com três anos de dados n�
 é o mesmo que adicionar um endpoint.
 
 **Quando a escolha é entre duas opções de custo igual.** Se a versão mais geral
-não custa mais, YAGNI não se aplica — não há economia a fazer.
+não custa mais, YAGNI não se aplica: não há economia a fazer.
 
 **Em decisões de alto custo de reversão.** Ver
 [o que é arquitetura](/01-fundamentals/what-is-software-architecture.md). YAGNI
@@ -128,11 +128,11 @@ registrar log não são requisitos futuros.
 
 ## Alternativas
 
-- **Adiar com opção registrada** — não construir, mas registrar a condição que
+- **Adiar com opção registrada**: não construir, mas registrar a condição que
   levaria a construir. Preserva a análise sem pagar o código.
-- **Construir a versão específica bem** — de forma que generalizar depois seja
+- **Construir a versão específica bem**: de forma que generalizar depois seja
   barato.
-- **[Feature flag](/14-devops-and-platform/feature-flags.md)** — construir e não
+- **[Feature flag](/14-devops-and-platform/feature-flags.md)**: construir e não
   expor, quando o requisito é conhecido mas o momento não.
 
 ## Trade-offs
@@ -163,8 +163,8 @@ simplicidade.
 contratado e o reconstrói sob pressão perto da data, com o desenho que couber no
 prazo que sobrou.
 
-**Aplicar a decisões de alto custo de reversão.** Onde a assimetria é real —
-esquema, contrato público, identificador —, adiar troca uma semana de trabalho
+**Aplicar a decisões de alto custo de reversão.** Onde a assimetria é real
+(esquema, contrato público, identificador), adiar troca uma semana de trabalho
 hoje por uma migração de dados depois.
 
 **Ignorar o custo de carregar.** Quem defende antecipação normalmente só compara
@@ -192,23 +192,23 @@ mecanismo de roteamento que nunca roteou nada, e um contorno permanente que
 qualquer pessoa que lê o código precisa entender.
 
 O contraste no mesmo sistema: o identificador de destinatário foi definido como
-opaco desde o início, em vez de "endereço de e-mail". Isso foi antecipação — e
+opaco desde o início, em vez de "endereço de e-mail". Isso foi antecipação, e
 foi correta, porque mudar o tipo de um identificador depois de três anos de dados
 é caro de forma assimétrica.
 
-A diferença entre os dois casos não é ter previsto o futuro. É que um era barato
+A diferença entre os dois casos não é ter previsto o futuro, e sim que um era barato
 de adicionar depois e o outro não.
 
 ## Conceitos Relacionados
 
-- [KISS](/02-software-design/kiss.md) — o mesmo espírito aplicado a estrutura.
-- [Abstração](/01-fundamentals/abstraction.md) — o custo da generalização
+- [KISS](/02-software-design/kiss.md): o mesmo espírito aplicado a estrutura.
+- [Abstração](/01-fundamentals/abstraction.md): o custo da generalização
   prematura.
-- [Complexidade](/01-fundamentals/complexity.md) — o que a especulação adiciona.
+- [Complexidade](/01-fundamentals/complexity.md): o que a especulação adiciona.
 
 ## Exercício Prático
 
-Encontre no seu sistema três pontos de extensão — interface, configuração,
+Encontre no seu sistema três pontos de extensão: interface, configuração,
 mecanismo de plugin.
 
 Para cada um: quantas implementações ou valores distintos existem hoje? Se for
@@ -223,7 +223,7 @@ chegou?
 
 ## Para Aprofundar
 
-- Fowler, Martin. *Yagni*, 2015 — os quatro custos.
+- Fowler, Martin. *Yagni*, 2015. Os quatro custos.
 - Beck, Kent. *Extreme Programming Explained*. 2ª ed., 2004.
-- Fowler, Martin. *Refactoring*. 2ª ed., 2018 — o code smell de generalidade
+- Fowler, Martin. *Refactoring*. 2ª ed., 2018. O code smell de generalidade
   especulativa.

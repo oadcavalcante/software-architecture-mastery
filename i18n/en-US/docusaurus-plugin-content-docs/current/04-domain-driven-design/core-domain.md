@@ -2,7 +2,7 @@
 id: core-domain
 title: Core Domain
 sidebar_position: 3
-description: Where the company differentiates — and why identifying it wrongly wastes your best engineering capacity.
+description: Where the company differentiates, and why identifying it wrongly wastes your best engineering capacity.
 doc_type: foundation
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [supporting-domain, generic-domain, tactical-ddd]
 canonical_for: [core domain]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The core domain is the subdomain where the company differentiates — the reason customers
+The core domain is the subdomain where the company differentiates: the reason customers
 choose it over a competitor.
 
 It is where the best engineering effort should go, and it is the only place where
@@ -40,7 +40,7 @@ may differentiate nothing if the competitor uses the same library.
 **Volume of code.** The largest subdomain looks like the most important. Frequently it is
 large because it accumulated accidental complexity, not because it is essential.
 
-**Visibility.** What the customer sees — the interface — is mistaken for what the customer
+**Visibility.** What the customer sees (the interface) is mistaken for what the customer
 values.
 
 The question that corrects it: **if this subdomain were identical to the competitor's,
@@ -50,9 +50,9 @@ would the company lose customers?** If the answer is no, it is not core.
 
 ### Differentiation, not importance
 
-Billing is essential — without it the company does not get paid. For a company that sells
+Billing is essential: without it the company does not get paid. For a company that sells
 something else, it is not core: every company bills, and doing it better than the competitor
-wins no customers. In a billing platform, which sells billing itself, it is the core — the
+wins no customers. In a billing platform, which sells billing itself, it is the core: the
 classification is relative to what the company sells.
 
 Core is where being better **matters competitively**. It is a concept of business strategy,
@@ -76,12 +76,12 @@ technical problem, and it is what the analysis recommends.
 **Careful modelling with the expert.** Frequent conversations, continuous refinement,
 rigorous [ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).
 
-**Tactical DDD.** Aggregates, value objects, domain events — the patterns that do not pay
+**Tactical DDD.** Aggregates, value objects, domain events: the patterns that do not pay
 off elsewhere do pay off here.
 
 **Buying costs the differentiation, when the vendor sells the same to competitors.**
 What room is left is differentiating in configuration, in data or in the surrounding
-process — and that rarely suffices in the core. Buying the core means taking it from a
+process, and that rarely suffices in the core. Buying the core means taking it from a
 vendor who sells it to everyone.
 
 ### The core changes
@@ -94,7 +94,7 @@ Reviewing annually is cheap.
 ## Why This Matters
 
 **Because engineering capacity is the scarcest resource.** Allocating it outside the core
-is the most expensive waste a software company commits, and the most invisible — because
+is the most expensive waste a software company commits, and the most invisible, because
 the work done is of good quality.
 
 **Because it determines where complexity is justifiable.** See
@@ -117,7 +117,7 @@ subdomains core spreads the best engineers thin and none of them gets the modell
 would justify.
 
 **Letting engineering decide alone.** Without the business at the table, the core is declared
-by people who have no way of knowing why the customer pays — and the allocation follows that
+by people who have no way of knowing why the customer pays, and the allocation follows that
 label for years.
 
 **Buying or outsourcing the core.** It is selling the differentiation.
@@ -126,13 +126,13 @@ label for years.
 
 ## Real-World Example
 
-A niche e-commerce company — handcrafted products — had a team of twelve engineers.
+A niche e-commerce company (handcrafted products) had a team of twelve engineers.
 
 The allocation found: five on search and recommendation, four on checkout and payments, two
 on the catalogue, one on the sellers' dashboard.
 
 The differentiation question was put to three repeat customers and five sellers. The
-answers converged on something nobody in engineering expected: **the curation** — the
+answers converged on something nobody in engineering expected: **the curation**, the
 process by which the company approved sellers and products, which guaranteed that
 everything on the platform was genuinely handcrafted.
 
@@ -142,14 +142,14 @@ And it was what sellers cited when explaining why they paid a higher commission.
 The curation system was a spreadsheet and a form, maintained part-time by the single engineer
 on the sellers' dashboard.
 
-Search and recommendation — five engineers — used an off-the-shelf library with tweaks, and
+Search and recommendation (five engineers) used an off-the-shelf library with tweaks, and
 were comparable to any competitor's.
 
 The reallocation moved three engineers to build the curation system: an assessment
 workflow, provenance traceability, artisan verification, reputation.
 
 Search was left with two: the relevance roadmap stopped and the front went to merely operating
-the library with occasional fixes — a loss accepted because there the company already matched
+the library with occasional fixes, a loss accepted because there the company already matched
 the competitor.
 
 Eighteen months later, that system became the company's main commercial argument and the
@@ -160,15 +160,15 @@ was allocated.
 
 ## Related Concepts
 
-- [Subdomain](/04-domain-driven-design/subdomain.md) — the classification.
+- [Subdomain](/04-domain-driven-design/subdomain.md): the classification.
 - [Supporting](/04-domain-driven-design/supporting-domain.md) and
-  [Generic](/04-domain-driven-design/generic-domain.md) — the other types.
-- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md) — what only pays off here.
+  [Generic](/04-domain-driven-design/generic-domain.md): the other types.
+- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md): what only pays off here.
 - [Business Context](/01-fundamentals/business-context.md).
 
 ## Practical Exercise
 
-Ask three customers why they chose your company over a competitor. Not the team — the
+Ask three customers why they chose your company over a competitor. Not the team, the
 customers.
 
 Map the answers onto subdomains. Then compare with the current allocation of engineers per
@@ -182,5 +182,5 @@ subdomain.
 
 ## Further Exploration
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — the part on core distillation.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. The part on core distillation.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.

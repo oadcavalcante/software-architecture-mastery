@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, architecture-review, enterprise-principles]
 canonical_for: [governança de arquitetura, atrito de processo, governança por exceção]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Governança de arquitetura é o conjunto de mecanismos pelos quais decisões técnicas
 acontecem de forma coerente numa organização com muitos times.
 
-Ela é frequentemente desenhada como **estrutura de poder** — quem aprova o quê — quando
+Ela é frequentemente desenhada como **estrutura de poder** (quem aprova o quê) quando
 deveria ser desenhada como **fluxo**: como uma decisão acontece, quem participa, e
 quanto tempo leva.
 
@@ -61,7 +61,7 @@ por exceção     tudo segue; o que foge do padrão passa pelo controle
 ```
 
 Ver [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md). A maioria das decisões é local e
-reversível — e passar todas por um controle é gastar atenção onde ela não rende.
+reversível, e passar todas por um controle é gastar atenção onde ela não rende.
 
 O que torna isso viável é o **caminho pavimentado**: se o padrão está embutido no que o
 time já usa, seguir o padrão não exige verificação. Só o desvio exige. Ver
@@ -103,7 +103,7 @@ de rejeição também, o processo é espera.
 
 E a última é o sinal mais honesto: contorno não é indisciplina, é resposta a atrito que
 não se paga. Ver
-[infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md) — a
+[infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md): a
 mesma dinâmica.
 
 ### O rigor deve seguir a reversibilidade
@@ -116,7 +116,7 @@ irreversível, amplo         aprovação, com tempo e alternativas escritas
 ```
 
 Aplicar rigor uniforme é o erro estrutural mais comum. Ele torna o processo lento para o
-trivial e insuficiente para o que importa — porque a atenção é finita e se dilui.
+trivial e insuficiente para o que importa, porque a atenção é finita e se dilui.
 
 ### Governança precisa ser revisada como qualquer sistema
 
@@ -134,7 +134,7 @@ poderia ser automatizado?
 ```
 
 A terceira pergunta costuma ser reveladora: um controle que não pegou nada em anos é
-candidato a remoção — desde que a segunda confirme que o incidente deixou de ser possível,
+candidato a remoção, desde que a segunda confirme que o incidente deixou de ser possível,
 porque um controle que dissuade também não registra capturas. Ver
 [medição de governança](/19-architecture-governance/measuring-governance.md) sobre risco
 evitado.
@@ -148,7 +148,7 @@ de processo   verifica se os passos foram seguidos — documento preenchido, reu
 de conteúdo   verifica se a decisão é boa — alternativas, premissas, consequências
 ```
 
-A primeira é fácil de operar e não melhora a decisão — no máximo produz a trilha de
+A primeira é fácil de operar e não melhora a decisão: no máximo produz a trilha de
 evidência que uma auditoria regulatória exige. A segunda exige julgamento e é a que
 justifica o custo.
 
@@ -159,14 +159,14 @@ cerimônia.
 
 Controles têm quem os crie e não têm quem os remova: cada um nasce de um incidente, com um
 defensor claro, e removê-lo exige alguém disposto a assumir o risco de que o incidente
-volte. A assimetria e a saída estrutural — prazo de validade e revisão periódica — são
+volte. A assimetria e a saída estrutural (prazo de validade e revisão periódica) são
 tratadas em [patologias de governança](/19-architecture-governance/governance-pathologies.md).
 
 O que cabe à governança corporativa é dar a alguém, com a mesma legitimidade de quem cria
-controles, a responsabilidade de **reduzir** o processo — e as métricas de atrito acima são
+controles, a responsabilidade de **reduzir** o processo, e as métricas de atrito acima são
 o instrumento dessa pessoa.
 
-Sem esse dono, a governança cresce a cada incidente — e a organização atribui a lentidão a causas difusas,
+Sem esse dono, a governança cresce a cada incidente, e a organização atribui a lentidão a causas difusas,
 em vez de à soma de decisões individualmente razoáveis.
 
 ## Modelo Mental
@@ -201,10 +201,10 @@ não no controle.
 
 ## Alternativas
 
-- **Caminho pavimentado** — remove a decisão em vez de governá-la.
-- **Verificação automatizada** — para o que é objetivo.
-- **Registro em vez de aprovação** — visibilidade sem gargalo.
-- **Revisão após o fato** — para o reversível, olhar padrões periodicamente.
+- **Caminho pavimentado**: remove a decisão em vez de governá-la.
+- **Verificação automatizada**: para o que é objetivo.
+- **Registro em vez de aprovação**: visibilidade sem gargalo.
+- **Revisão após o fato**: para o reversível, olhar padrões periodicamente.
 
 ## Trade-offs
 
@@ -266,7 +266,7 @@ revisão de dados pessoais         8                                  120 horas
 outros cinco controles            1 (somados)                        380 horas
 ```
 
-Total: cerca de 1.940 horas por ano — próximo de uma pessoa em tempo integral — para 49
+Total: cerca de 1.940 horas por ano (próximo de uma pessoa em tempo integral) para 49
 achados.
 
 E a análise dos 49 mostrou que 31 poderiam ter sido detectados automaticamente.
@@ -278,12 +278,12 @@ verificação de padrões de segurança objetivos e duas verificações de infra
 viraram regras na esteira. Custo próximo de zero, cobertura maior.
 
 **Três controles removidos.** Incluindo a aprovação de infraestrutura, que não tinha
-pego nada em doze meses e cuja causa original — um custo inesperado — tinha sido
+pego nada em doze meses e cuja causa original, um custo inesperado, tinha sido
 resolvida por alertas de orçamento.
 
 **Comitê reduzido** a decisões de alcance amplo e reversão cara, cerca de uma por mês.
 
-**Revisão de segurança mantida**, com escopo — apenas sistemas que tratam dado sensível —
+**Revisão de segurança mantida**, com escopo (apenas sistemas que tratam dado sensível)
 e realizada como consulta durante o desenho, não como aprovação no fim. Ver
 [revisão de arquitetura](/15-enterprise-architecture/architecture-review.md).
 
@@ -292,19 +292,19 @@ e realizada como consulta durante o desenho, não como aprovação no fim. Ver
 **Revisão anual de controles**, com as cinco perguntas.
 
 Resultado: custo de governança de 1.940 para cerca de 400 horas, e o número de achados
-subiu para 74 — porque a automação cobre mais e a atenção humana passou a se concentrar
+subiu para 74, porque a automação cobre mais e a atenção humana passou a se concentrar
 no que exige julgamento.
 
 O detalhe que a equipe destaca: a aprovação de infraestrutura tinha sido criada após um
 incidente de custo, quatro anos antes. O problema foi resolvido por outro mecanismo dois
-anos depois, e o controle permaneceu — como quase todos.
+anos depois, e o controle permaneceu, como quase todos.
 
 ## Conceitos Relacionados
 
-- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md) — o que governar.
-- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md) — o mecanismo.
+- [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md): o que governar.
+- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md): o mecanismo.
 - [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
-- [Governança de Arquitetura](/19-architecture-governance/index.md) — o tratamento
+- [Governança de Arquitetura](/19-architecture-governance/index.md): o tratamento
   aprofundado.
 
 ## Exercício Prático
@@ -313,7 +313,7 @@ Liste os controles de governança da sua organização e, para cada um, responda
 vezes ele pegou algo nos últimos doze meses, e quanto custou em horas?
 
 Os que não pegaram nada são candidatos a remoção, não custo puro: antes de cortar, pergunte
-se o incidente que motivou cada um ainda é possível — zero capturas também é o que produz
+se o incidente que motivou cada um ainda é possível. Zero capturas também é o que produz
 um controle que dissuade.
 
 ## Perguntas de Entrevista

@@ -2,7 +2,7 @@
 id: solid
 title: SOLID
 sidebar_position: 1
-description: Cinco princípios de design orientado a objetos — o que cada um resolve e a faixa em que se aplica.
+description: "Cinco princípios de design orientado a objetos: o que cada um resolve e a faixa em que se aplica."
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [dependency-inversion, interfaces, encapsulation]
 canonical_for: [SOLID, princípio da responsabilidade única, princípio aberto-fechado, substituição de Liskov, segregação de interface]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ SOLID é um acrônimo para cinco princípios de design orientado a objetos,
 reunidos por Robert Martin a partir de trabalhos anteriores.
 
 O valor deles é real e menor do que a reputação sugere. São heurísticas com faixa
-de aplicação — não leis. Aplicados por reflexo, produzem código com mais
+de aplicação, não leis. Aplicados por reflexo, produzem código com mais
 indireção e não menos acoplamento.
 
 ## Problema
@@ -39,8 +39,8 @@ Cada princípio SOLID nomeia uma dessas degradações e propõe uma direção. E
 forma útil de lê-los: **cinco diagnósticos, não cinco regras.**
 
 O problema com o ensino usual é que os princípios chegam como mandamentos, sem o
-sintoma que os motiva. O resultado é aplicação preventiva — interfaces criadas
-para satisfazer o D, classes fragmentadas para satisfazer o S — em código que não
+sintoma que os motiva. O resultado é aplicação preventiva (interfaces criadas
+para satisfazer o D, classes fragmentadas para satisfazer o S) em código que não
 tinha nenhum dos sintomas.
 
 ## Conceitos Centrais
@@ -54,7 +54,7 @@ só". A leitura errada leva a fragmentar código sem critério; a correta remete
 diretamente a
 [separação de responsabilidades](/01-fundamentals/separation-of-concerns.md).
 
-Martin refinou depois: a razão de mudança é um *ator* — quem pede a mudança. Uma
+Martin refinou depois: a razão de mudança é um *ator* (quem pede a mudança). Uma
 classe que muda por pedido do time fiscal e do time de relatórios tem dois atores
 e deveria ser duas.
 
@@ -85,7 +85,7 @@ fortalece a pré-condição ou enfraquece a pós-condição quebra código que f
 **Sintoma:** `if (x instanceof Y)` espalhado, ou uma subclasse que lança exceção
 num método que a superclasse promete implementar.
 
-O exemplo clássico — `Quadrado` herdando de `Retângulo` — é útil porque mostra
+O exemplo clássico, `Quadrado` herdando de `Retângulo`, é útil porque mostra
 que a violação pode ser invisível no compilador e óbvia no comportamento.
 
 ### I — Segregação de Interface
@@ -104,7 +104,7 @@ lado, obrigam o implementador a preencher o que não faz sentido na sua classe.
 
 É o mais arquitetural dos cinco e o assunto de
 [inversão de dependência](/02-software-design/dependency-inversion.md), onde o detalhe que mais se
-erra — de que lado a interface mora — é tratado.
+erra (de que lado a interface mora) é tratado.
 
 **Sintoma:** a regra de negócio importa o driver do banco.
 
@@ -139,19 +139,19 @@ seguir um fluxo passa a exigir nove arquivos e nenhuma mudança ficou mais barat
 os princípios foram aplicados contra o objetivo deles.
 
 **Fora de orientação a objetos, sem tradução.** Em código funcional, vários dos
-princípios não têm aplicação direta — o problema que resolvem já não existe da
+princípios não têm aplicação direta: o problema que resolvem já não existe da
 mesma forma.
 
 ## Alternativas
 
-- **As quatro regras de design simples** (Beck) — passa nos testes, revela
+- **As quatro regras de design simples** (Beck): passa nos testes, revela
   intenção, sem duplicação, mínimo de elementos. Mais enxutas e menos sujeitas a
   aplicação mecânica.
-- **Heurísticas de acoplamento e coesão** — mais fundamentais; SOLID pode ser
+- **Heurísticas de acoplamento e coesão**: mais fundamentais; SOLID pode ser
   lido como cinco corolários delas. Vencem quando nenhum dos cinco sintomas
   descreve o problema, ou fora de orientação a objetos, onde os corolários não
   traduzem.
-- **Design orientado a dados** — em contextos de desempenho, os princípios de
+- **Design orientado a dados**: em contextos de desempenho, os princípios de
   OO frequentemente são o problema.
 
 ## Trade-offs
@@ -205,7 +205,7 @@ pedidos pelo mesmo time e pela mesma razão regulatória. Formatação mudava po
 pedido de design. Envio, por mudança de provedor.
 
 Três classes, não quatro. O ganho da análise por ator não foi separar formatação
-de cálculo fiscal — a divisão mecânica também separaria —, e sim **não** separar
+de cálculo fiscal (a divisão mecânica também separaria), e sim **não** separar
 busca de dados de regra fiscal: uma mudança regulatória continua cabendo numa
 classe, em vez de exigir duas alterações em sincronia.
 
@@ -216,16 +216,16 @@ foi removida.
 
 ## Conceitos Relacionados
 
-- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md)
-  — o princípio do qual S é um caso.
-- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — o D, em detalhe.
-- [Interfaces](/02-software-design/interfaces.md) — o I, em detalhe.
-- [Heurísticas de Design](/02-software-design/design-heuristics.md) — alternativas mais enxutas.
+- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md):
+  o princípio do qual S é um caso.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md): o D, em detalhe.
+- [Interfaces](/02-software-design/interfaces.md): o I, em detalhe.
+- [Heurísticas de Design](/02-software-design/design-heuristics.md): alternativas mais enxutas.
 
 ## Exercício Prático
 
 Escolha a maior classe do seu sistema. Para cada método, identifique **quem pede
-mudanças nele** — qual time, qual papel.
+mudanças nele**: qual time, qual papel.
 
 Agrupe por ator. Os grupos são as classes que deveriam existir.
 
@@ -240,9 +240,9 @@ divergem, a divisão por ator costuma estar certa.
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — os cinco
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Os cinco
   princípios com a formulação revisada de SRP por ator.
 - Liskov, Barbara; Wing, Jeannette. *A Behavioral Notion of Subtyping*. TOPLAS,
-  1994 — o resultado formal por trás do L.
-- Meyer, Bertrand. *Object-Oriented Software Construction*, 1988 — origem do
+  1994. O resultado formal por trás do L.
+- Meyer, Bertrand. *Object-Oriented Software Construction*, 1988. Origem do
   Aberto-Fechado.

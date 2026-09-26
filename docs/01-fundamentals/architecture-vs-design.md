@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [architecture-vs-implementation, coupling]
 canonical_for: [arquitetura vs design]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-Arquitetura e design são a mesma atividade — estruturar software — operando em
+Arquitetura e design são a mesma atividade, estruturar software, operando em
 escalas diferentes de consequência.
 
 A distinção útil não é de assunto nem de artefato. É de **alcance**: quantas
@@ -38,14 +38,14 @@ componente. Arquitetura é o desenho; design é o código.
 Essa fronteira quebra na primeira aplicação real.
 
 A escolha de que um repositório devolva uma coleção materializada em vez de um
-fluxo preguiçoso parece design — está inteiramente dentro de um componente. Mas
+fluxo preguiçoso parece design: está inteiramente dentro de um componente. Mas
 se essa coleção pode ter dez milhões de registros, a escolha determina o perfil
 de memória do serviço inteiro, e portanto sua topologia de implantação. Ela se
 comporta como decisão arquitetural.
 
 Inversamente: num sistema de trinta usuários internos, a escolha entre dois
-serviços separados e um só módulo — que parece a decisão arquitetural
-arquetípica — é revertida numa semana. Ela se comporta como design.
+serviços separados e um só módulo (que parece a decisão arquitetural
+arquetípica) é revertida numa semana. Ela se comporta como design.
 
 Tratar a fronteira como categórica leva a dois erros simétricos: escalar para o
 arquiteto decisões que o time resolve melhor, e deixar passar sem revisão
@@ -79,7 +79,7 @@ um problema distribuído: toda mudança que a atravessa paga um imposto, e o cus
 se manifesta longe de onde a decisão foi tomada.
 
 Por isso arquitetura recebe mais cerimônia. Não por ser mais importante em
-abstrato — por errar de forma mais difícil de conter.
+abstrato, mas por errar de forma mais difícil de conter.
 
 ### A fronteira se move com o contexto
 
@@ -100,7 +100,7 @@ A relação entre as duas é de restrição, não de sequência.
 
 Arquitetura estabelece as fronteiras dentro das quais o design opera livremente.
 Se a arquitetura definiu que o módulo de cobrança não acessa o banco de usuários
-diretamente, o design decide tudo o mais sobre como a cobrança funciona — mas
+diretamente, o design decide tudo o mais sobre como a cobrança funciona, mas
 não isso.
 
 E design é o que torna a arquitetura real. Uma fronteira que existe no diagrama
@@ -124,8 +124,8 @@ pessoas cuja liberdade a decisão restringe.
 **Determina o que precisa de acordo prévio.** Decisões de design podem ser
 tomadas e revistas dentro do time, no ritmo do time. Decisões arquiteturais
 precisam de concordância antes, porque revertê-las depois envolve renegociar com
-todos que já dependem delas. Confundir os dois lados produz ou paralisia — tudo
-vira comitê — ou surpresa — decisões de alcance amplo aparecem prontas.
+todos que já dependem delas. Confundir os dois lados produz ou paralisia (tudo
+vira comitê) ou surpresa (decisões de alcance amplo aparecem prontas).
 
 **Determina o que se registra.** Decisão de design fica no código: um leitor
 atento reconstrói o raciocínio. Decisão arquitetural precisa de registro
@@ -133,7 +133,7 @@ explícito, porque o contexto que a justificou não está visível em lugar nenh
 do código. É a base dos [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 **Determina onde a revisão vale a pena.** Revisar todo design exaustivamente não
-escala. A revisão paga quando o custo de desfazer cresce com o tempo — quando já
+escala. A revisão paga quando o custo de desfazer cresce com o tempo: quando já
 há consumidores fora do time, ou quando reverter exige coordenar mais de uma
 agenda. Não paga no sistema de trinta usuários, onde a decisão de alcance
 nominalmente amplo se desfaz numa semana.
@@ -148,7 +148,7 @@ como lentidão, e a causa raramente é diagnosticada como excesso de cerimônia.
 
 **Rebaixar arquitetura a design.** Mais silencioso e mais caro. Uma decisão de
 alcance amplo é tomada localmente, por quem tinha contexto local, e o custo
-aparece meses depois em outro módulo — onde ninguém liga o efeito à causa.
+aparece meses depois em outro módulo, onde ninguém liga o efeito à causa.
 
 **Achar que arquitetura é feita por arquitetos e design por desenvolvedores.**
 Isso descreve uma divisão de cargos, não uma divisão de decisões. Quem escreve o
@@ -166,13 +166,13 @@ Um time discute se o serviço de pedidos deve expor o status como um enum fechad
 Enquadrado como design, o argumento é sobre validação e legibilidade de código, e
 o enum vence facilmente.
 
-Enquadrado pela pergunta de alcance — quem precisa saber disso? — o quadro muda.
+Enquadrado pela pergunta de alcance (quem precisa saber disso?), o quadro muda.
 Três consumidores externos vão ler esse campo. Um enum fechado significa que
 adicionar `em_separação` é uma mudança de contrato: cada consumidor precisa
 tratar um valor que antes não existia, e alguns vão quebrar ao encontrá-lo.
 
 A decisão não é sobre tipagem. É sobre quem paga o custo de o negócio inventar
-um novo estado de pedido — o que vai acontecer, porque negócios inventam estados.
+um novo estado de pedido. E isso vai acontecer, porque negócios inventam estados.
 
 O time acabou escolhendo o enum, mas com duas decisões que só apareceram porque
 o enquadramento mudou: documentar explicitamente que consumidores devem tolerar
@@ -182,11 +182,11 @@ O enquadramento não mudou a escolha. Mudou o que veio junto com ela.
 
 ## Conceitos Relacionados
 
-- [O que é Arquitetura de Software](/01-fundamentals/what-is-software-architecture.md) — o
+- [O que é Arquitetura de Software](/01-fundamentals/what-is-software-architecture.md): o
   critério de custo de reversão, que é o outro lado desta distinção.
-- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md) — a outra
+- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md): a outra
   fronteira, e a mais mal compreendida das duas.
-- [Acoplamento](/01-fundamentals/coupling.md) — a métrica com que alcance se mede na prática.
+- [Acoplamento](/01-fundamentals/coupling.md): a métrica com que alcance se mede na prática.
 
 ## Exercício Prático
 
@@ -208,5 +208,5 @@ alcance e atenção é o que este documento serve para corrigir.
 ## Para Aprofundar
 
 - Fowler, Martin. *Who Needs an Architect?* IEEE Software, 2003.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — capítulo sobre a
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Capítulo sobre a
   relação entre políticas e detalhes.

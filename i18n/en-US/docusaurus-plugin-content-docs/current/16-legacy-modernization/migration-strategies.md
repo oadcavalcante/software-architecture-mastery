@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modernization-drivers]
 related: [replatforming, legacy-refactoring, rebuilding, replacing, strangler-fig]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,8 +37,8 @@ limitation and is waste for the others.
 
 ## Problem
 
-Discussion about modernization usually jumps straight to a strategy — normally rebuilding
-— without passing through the diagnosis.
+Discussion about modernization usually jumps straight to a strategy (normally rebuilding)
+without passing through the diagnosis.
 
 ```text
 "let's rewrite it"        when the problem was the infrastructure
@@ -71,7 +71,7 @@ of the cost.
 
 The test that separates the two: **is the domain model right?** If the entities and the
 rules make sense and the problem is how the code is organized, refactor. If the model
-itself is wrong — it reflects a business that no longer exists — rebuilding is justified.
+itself is wrong (it reflects a business that no longer exists), rebuilding is justified.
 
 ### Cost and risk grow in that order
 
@@ -91,7 +91,7 @@ rebuild         high     high     years       everything, at the end
 The last line explains why rebuilding is so frequently the wrong choice: it is the most
 expensive, the riskiest, and the slowest to deliver.
 
-It is justified when the others don't solve the problem — and that check is rarely made.
+It is justified when the others don't solve the problem, and that check is rarely made.
 
 ### The answer is usually a combination
 
@@ -121,7 +121,7 @@ observability
 more frequent deployment
 ```
 
-That reduces the cost of everything that comes after — including rebuilding, if that is
+That reduces the cost of everything that comes after, including rebuilding, if that is
 the case.
 
 And it delivers value early, which sustains support for the longer work. See
@@ -136,7 +136,7 @@ See [application architecture](/15-enterprise-architecture/application-architect
 and [SaaS](/09-cloud-architecture/saas.md).
 
 That produces two situations that have to be assessed beforehand: the product does more
-than needed — and the duplication has to be resolved — or it does less, and the rest has
+than needed (and the duplication has to be resolved) or it does less, and the rest has
 to be built around it.
 
 And there is the differentiation criterion: replacing a differentiating capability with a
@@ -148,7 +148,7 @@ product competitors also use eliminates the differentiation. See
 It is the only strategy with no execution cost, and it rarely enters the comparison.
 
 What the table above does **not** show, because it measures execution, is that doing nothing has costs and
-risks of its own — continuous, and therefore invisible. See [what drives
+risks of its own: continuous, and therefore invisible. See [what drives
 modernization](/16-legacy-modernization/modernization-drivers.md), where that cost is the calculation that
 decides. Zero in the execution column is not zero in the comparison.
 
@@ -174,7 +174,7 @@ started replacing       and found a large functional gap → build
 ```
 
 The second is the most painful and the most common: the rebuild starts, and the
-archaeology reveals that the old model was correct — the problem was how the code was
+archaeology reveals that the old model was correct; the problem was how the code was
 organized.
 
 Changing strategy midway is expensive and is frequently the right decision. What prevents
@@ -182,7 +182,7 @@ it is public commitment to the initial approach, which turns the change into an 
 of error.
 
 What makes it easier: treating the choice as a revisable hypothesis from the start, with
-defined reassessment points — typically after the first slice, when understanding of the
+defined reassessment points, typically after the first slice, when understanding of the
 system is qualitatively greater. See
 [incremental modernization](/16-legacy-modernization/incremental-modernization.md).
 
@@ -205,12 +205,12 @@ riskiest, and it is the default choice by reflex.
 
 **Deciding by whole system** when the parts have different problems.
 
-**Replacing a differentiating capability.** Swapping what distinguishes the company for an off-the-shelf product levels the process down to the competitor's — and the customization to recover the difference tends to cancel out the benefit — and, when it is extensive
+**Replacing a differentiating capability.** Swapping what distinguishes the company for an off-the-shelf product levels the process down to the competitor's, and the customization to recover the difference tends to cancel out the benefit. And, when it is extensive
 enough to rebuild the rule inside the product, it comes out more expensive than having built.
 
 **Replatforming and stopping there**, when the problem was something else.
 
-**Refactoring when the model is wrong** — it improves the structure of something that
+**Refactoring when the model is wrong**: it improves the structure of something that
 should not exist in that form.
 
 **Without assessing doing nothing**, which is the only alternative with zero execution cost. Skipping that
@@ -221,11 +221,11 @@ them looks like the right choice even when none of them pays off.
 
 Beyond the five, three intermediate approaches:
 
-- **Containment** — isolate the legacy system with a translation layer, so it does not
+- **Containment**: isolate the legacy system with a translation layer, so it does not
   limit its surroundings. See
   [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Freeze** — the system stops evolving; new functionality is built outside it.
-- **Encapsulate** — expose the legacy system through a modern interface, without changing
+- **Freeze**: the system stops evolving; new functionality is built outside it.
+- **Encapsulate**: expose the legacy system through a modern interface, without changing
   it.
 
 All three buy time at low cost, and are appropriate when the motive does not justify a
@@ -255,37 +255,37 @@ larger investment.
 **Refactoring what has a wrong model.** Refactoring improves the code's structure on top of the same data model. If the model is the cause, the result is clean code with the problem intact.
 
 **The right strategy, applied too late.** The decision was good when it was made, and the system changed
-during execution — what was going to be refactored gained a requirement the model does not support. Nobody
+during execution: what was going to be refactored gained a requirement the model does not support. Nobody
 revisits the strategy midway, because revisiting looks like backing down.
 
 **A migration that never ends.** The new system serves the main cases, the old one serves the rest, and both
 stay. The cost of keeping two is smaller than the cost of finishing, month by month, and larger in
-aggregate — but the comparison is never made over that horizon.
+aggregate, but the comparison is never made over that horizon.
 
 **A gain consumed by coexistence.** The strangling works, and the layer routing between old and new becomes
 permanent, with rules of its own. The system has three parts where it had one.
 
 **Knowledge that leaves with the system.** The rebuild copies the observable behavior and loses the rules
-nobody knew were there — discovered one at a time, in production, through customer complaints.
+nobody knew were there, discovered one at a time, in production, through customer complaints.
 
-**Not considering doing nothing.** A stable, cheap system nobody needs to change generates no return from being modernized — and it is the option that almost never enters the comparison.
+**Not considering doing nothing.** A stable, cheap system nobody needs to change generates no return from being modernized, and it is the option that almost never enters the comparison.
 
 ## Common Mistakes
 
-**Choosing the strategy before the diagnosis.** The strategy is a consequence of the problem — bad code, wrong model, expensive platform. Chosen beforehand, it solves the problem that didn't exist.
+**Choosing the strategy before the diagnosis.** The strategy is a consequence of the problem: bad code, wrong model, expensive platform. Chosen beforehand, it solves the problem that didn't exist.
 
 **Assuming the system is homogeneous.** Different parts of the same system call for different strategies; treating everything the same wastes effort on what was fine and under-scopes what was not.
 
 **Not assessing replatforming as a first step.** It is frequently cheap, reduces operating cost immediately and buys time to decide the rest calmly.
 
-**Not checking the product's boundary** when replacing. If the off-the-shelf product doesn't cover exactly the capability, what's left over becomes customization — and, past a certain point, it eats the gain that motivated the purchase. See [replacing](/16-legacy-modernization/replacing.md).
+**Not checking the product's boundary** when replacing. If the off-the-shelf product doesn't cover exactly the capability, what's left over becomes customization, and, past a certain point, it eats the gain that motivated the purchase. See [replacing](/16-legacy-modernization/replacing.md).
 
 **Not recording the decision not to act.** Without a record, the same proposal comes back every year and the analysis is redone from scratch, with the same result.
 
 ## Real-World Example
 
 A retail company had a 14-year-old inventory management system, with a proposal for a
-complete rebuild — estimated at 24 months.
+complete rebuild, estimated at 24 months.
 
 The per-part diagnosis, done before approval, decomposed the system:
 
@@ -300,18 +300,18 @@ integrations           old infrastructure               replatform
 operations UI          works, ugly                      keep
 ```
 
-Only one of the six components justified a rebuild — and it was the one causing the
+Only one of the six components justified a rebuild, and it was the one causing the
 business limitation: the company could not operate unified inventory across store and
 e-commerce.
 
 The plan as executed:
 
-**Replatform the integrations first** — two months. It unblocked the pipeline,
+**Replatform the integrations first**: two months. It unblocked the pipeline,
 observability and frequent deployment, which reduced the cost of everything else.
 
-**Replace reports** with an off-the-shelf product — three months, with the team freed up.
+**Replace reports** with an off-the-shelf product: three months, with the team freed up.
 
-**Rebuild the replenishment engine** — nine months, with
+**Rebuild the replenishment engine**: nine months, with
 [strangling](/16-legacy-modernization/strangler-fig.md). The unified
 inventory capability launched in month 11.
 
@@ -320,8 +320,8 @@ that touched it.
 
 **Records and UI kept.** No problem, no investment.
 
-The directed work added up to 14 team-months — two of replatforming, three of replacing, nine of rebuilding
-— against the 24 estimated for the full rebuild: about 60%. Refactoring stock movement does not enter that
+The directed work added up to 14 team-months (two of replatforming, three of replacing, nine of rebuilding)
+against the 24 estimated for the full rebuild: about 60%. Refactoring stock movement does not enter that
 count because it was absorbed by the product changes that already touched that code, and that is precisely
 why it was chosen.
 
@@ -330,7 +330,7 @@ And the business capability that motivated all of it shipped in month 11, instea
 And one recorded decision: the product records were assessed and the decision not to
 touch them was documented, with annual review. Two years later, it still holds.
 
-What the team learned: the original proposal was not technically wrong — rebuilding the
+What the team learned: the original proposal was not technically wrong; rebuilding the
 whole system would produce a better system. It was wrong in scope, because it treated as
 homogeneous a system whose parts had completely different problems.
 
@@ -338,7 +338,7 @@ homogeneous a system whose parts had completely different problems.
 
 - [Replatforming](/16-legacy-modernization/replatforming.md), [Refactoring](/16-legacy-modernization/legacy-refactoring.md),
   [Rebuilding](/16-legacy-modernization/rebuilding.md), [Replacing](/16-legacy-modernization/replacing.md).
-- [Modernization Drivers](/16-legacy-modernization/modernization-drivers.md) — the diagnosis.
+- [Modernization Drivers](/16-legacy-modernization/modernization-drivers.md): the diagnosis.
 - [Incremental Modernization](/16-legacy-modernization/incremental-modernization.md).
 
 ## Practical Exercise

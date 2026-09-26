@@ -2,7 +2,7 @@
 id: availability-zones
 title: Availability Zones
 sidebar_position: 9
-description: Isolated datacenters inside a region — the cloud's best-return defense, and the most misused.
+description: "Isolated datacenters inside a region: the cloud's best-return defense, and the most misused."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, multi-region, cloud-networking]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-An availability zone is a datacenter — or a set of them — isolated from the others inside the same
+An availability zone is a datacenter (or a set of them) isolated from the others inside the same
 [region](/09-cloud-architecture/regions.md): independent power, cooling and network.
 
 Zones are close enough for the latency between them to be a few milliseconds, and far enough apart that a
@@ -34,7 +34,7 @@ with multi-region, which solves another problem and costs far more.
 
 Datacenter failures happen: power, cooling, network, fire, human error in maintenance.
 
-An entire system in one zone goes down with it — and most systems are like that with nobody having decided
+An entire system in one zone goes down with it. And most systems are like that with nobody having decided
 it, because the default for creating resources is "one zone".
 
 Distributing across zones turns an event that takes everything down into one that removes a third of the
@@ -64,7 +64,7 @@ See [PACELC](/06-distributed-systems/pacelc.md).
 ### Three zones, not two
 
 Two zones look sufficient and are not, because of [consensus](/06-distributed-systems/consensus.md):
-systems that need a majority — databases with leader election, coordinators, orchestrators — cannot form a
+systems that need a majority (databases with leader election, coordinators, orchestrators) cannot form a
 majority with half of them down.
 
 ```text
@@ -82,7 +82,7 @@ A frequent mistake: three instances in three zones, each one operating at 70%.
 One zone goes down. The remaining two need to absorb 150% of the load they had, and they cannot.
 
 The rule: the remaining zones' capacity needs to support the peak. With three zones, each one should
-operate around 60% or less — or the auto scaling needs to be fast enough, which it rarely is during a
+operate around 60% or less, or the auto scaling needs to be fast enough, which it rarely is during a
 correlated event.
 
 See [availability](/06-distributed-systems/availability.md).
@@ -94,7 +94,7 @@ This is multi-zone's hidden cost, and it surprises people.
 Cross-zone transfer is usually charged in both directions. In an architecture with many services talking to
 each other, and balancing that ignores the zone, most of the traffic crosses zones with no need.
 
-Zone-preferring routing — serving preferentially in the same zone, crossing only when necessary — reduces
+Zone-preferring routing (serving preferentially in the same zone, crossing only when necessary) reduces
 that substantially, and it is a configuration, not a rewrite.
 
 ### Not every service is multi-zone by default
@@ -103,7 +103,7 @@ Managed services vary: some replicate across zones automatically, others require
 and others are single-zone by nature.
 
 Disk volumes, typically, belong to one zone. An instance with data on a local disk does not migrate to
-another zone — the data stays where it is.
+another zone: the data stays where it is.
 
 Checking that service by service is part of the design. The assumption that "it is in the cloud, so it is
 resilient" is the origin of outages nobody expected.
@@ -115,7 +115,7 @@ A zone can degrade without going down: high latency, an elevated error rate, an 
 Health checks that only verify whether the process responds do not detect that, and traffic keeps being
 sent to a sick zone. See [failure detection](/06-distributed-systems/failure-detection.md).
 
-Balancing that is sensitive to error rate and latency — not just presence — is what turns degradation into
+Balancing that is sensitive to error rate and latency, not just presence, is what turns degradation into
 automatic removal.
 
 ## Mental Model
@@ -150,12 +150,12 @@ solve it.
 
 ## Alternatives
 
-- **[Multi-region](/09-cloud-architecture/multi-region.md)** — for a regional disaster; far more
+- **[Multi-region](/09-cloud-architecture/multi-region.md)**: for a regional disaster; far more
   expensive.
-- **A backup with a tested restore** — when temporary unavailability is acceptable.
-- **Managed services that are already multi-zone** — they transfer the problem. See
+- **A backup with a tested restore**: when temporary unavailability is acceptable.
+- **Managed services that are already multi-zone**: they transfer the problem. See
   [managed services](/09-cloud-architecture/managed-services.md).
-- **A single zone with fast recovery** — a legitimate decision for low-criticality systems, as long as it
+- **A single zone with fast recovery**: a legitimate decision for low-criticality systems, as long as it
   is explicit.
 
 ## Trade-offs
@@ -189,13 +189,13 @@ solve it.
 **An unexpected transfer cost.** Traffic crossing zones with no need.
 
 **Auto scaling concentrating in one zone.** When replacing instances, the provider can allocate where there
-is capacity — which may be a single zone.
+is capacity, and that may be a single zone.
 
 ## Common Mistakes
 
 **Not distributing, by omission.** Within a region, distributing across zones costs capacity headroom and
-cross-zone traffic — a fraction of what multi-region costs, and it covers datacenter failure, the more
-frequent of the two. Staying in one zone is rarely a decision — it is the default nobody
+cross-zone traffic: a fraction of what multi-region costs, and it covers datacenter failure, the more
+frequent of the two. Staying in one zone is rarely a decision. It is the default nobody
 reviewed.
 
 **Using two zones.** Losing one means losing half the capacity, so each zone needs to run at 50% to absorb
@@ -208,8 +208,8 @@ load.
 **Assuming the managed service is multi-zone.** Many offer the option and do not apply it by default,
 because it costs more. The check is per resource, in the actual configuration.
 
-**Not configuring zone preference in the routing.** With no preference, traffic crosses zones with no need
-— which adds latency and, at several providers, cross-zone transfer charges.
+**Not configuring zone preference in the routing.** With no preference, traffic crosses zones with no need.
+That adds latency and, at several providers, cross-zone transfer charges.
 
 **Not testing the loss of a zone.** It is the mechanism that will only be exercised during an incident.
 With no deliberate exercise, you find out on the day that a dependency was single-zone.
@@ -218,16 +218,16 @@ With no deliberate exercise, you find out on the day that a dependency was singl
 
 An e-commerce platform operated in three zones and considered itself resilient.
 
-In a real zone failure — power, lasting 4 hours — the system was unavailable for 50 minutes. The
+In a real zone failure (power, lasting 4 hours), the system was unavailable for 50 minutes. The
 investigation found four independent causes:
 
 **Capacity.** The instances operated at 75% at normal times. With one zone down, the remaining two would
 need to absorb 112% of what they could handle. Auto scaling started bringing up instances, and took 9
-minutes — during which the system was saturated.
+minutes, during which the system was saturated.
 
 **A database in two zones.** The primary database and its synchronous replica were in two zones, not three.
 The zone that went down had the primary. Promoting the replica depended on the coordination service used
-for election, which was also in two zones and lost its majority — with no majority, nothing could decide.
+for election, which was also in two zones and lost its majority. With no majority, nothing could decide.
 The promotion only happened when the team manually reconfigured the coordination membership, 6 minutes
 later.
 
@@ -235,7 +235,7 @@ later.
 without the data. Two of them were caches and recovered; the other two required a restore.
 
 **Inverted zone preference.** A balancing configuration made traffic cross zones by default. That was
-already expensive, and during the incident it sent part of the requests to the degraded zone — which still
+already expensive, and during the incident it sent part of the requests to the degraded zone, which still
 answered the health checks, only with very high latency.
 
 The fixes:
@@ -248,25 +248,25 @@ The fixes:
 
 **A health check sensitive to latency**, not only to a response.
 
-**Zone preference in the routing** — which, as a side effect, reduced the transfer bill by around 40%.
+**Zone preference in the routing**, which, as a side effect, reduced the transfer bill by around 40%.
 
 **Periodic zone-loss testing**, in production, in a controlled window. The first test found two new
 problems.
 
 What the team learned: they were in three zones and believed they were protected. Being distributed and
-**surviving** the failure are different things, and the difference only shows up in the test — or in the
+**surviving** the failure are different things, and the difference only shows up in the test, or in the
 incident.
 
 ## Related Concepts
 
-- [Regions](/09-cloud-architecture/regions.md) — the level above.
-- [Multi-Region](/09-cloud-architecture/multi-region.md) — for a regional disaster.
+- [Regions](/09-cloud-architecture/regions.md): the level above.
+- [Multi-Region](/09-cloud-architecture/multi-region.md): for a regional disaster.
 - [Availability](/06-distributed-systems/availability.md).
-- [Consensus](/06-distributed-systems/consensus.md) — why three, not two.
+- [Consensus](/06-distributed-systems/consensus.md): why three, not two.
 
 ## Practical Exercise
 
-Find out how many zones your system runs in today — and ask the same question for the database, the cache,
+Find out how many zones your system runs in today, and ask the same question for the database, the cache,
 the volumes and the coordination service, separately.
 
 Then calculate: if a zone vanishes now, do the remaining ones handle the peak?

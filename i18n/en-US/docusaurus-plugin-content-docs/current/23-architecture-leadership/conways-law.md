@@ -2,7 +2,7 @@
 id: conways-law
 title: Conway's Law
 sidebar_position: 18
-description: Architecture reproduces the organization's communication structure — and, when the two diverge, it is the architecture that tends to give way.
+description: Architecture reproduces the organization's communication structure, and when the two diverge, it is the architecture that tends to give way.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [team-topologies, organizational-architecture, cross-team-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ Melvin Conway, in 1968:
 The formulation is sixty years old and remains one of the most consistently observed regularities
 in software architecture: MacCormack et al. (2011), comparing equivalent products built by tightly
 and loosely coupled organizations, found the same correspondence between the coupling of the
-organization and the coupling of the code. It doesn't describe a tendency — it describes a constraint:
+organization and the coupling of the code. It describes a constraint, not a tendency:
 
 ```text
 two teams that don't talk            produce two systems with poor
@@ -56,7 +56,7 @@ and a layer-coupled system exists in practice
 ```
 
 Nothing in that result is an execution failure. Every individual decision was made by competent
-people following the path of least friction — and the path of least friction is the one where the
+people following the path of least friction, and the path of least friction is the one where the
 communication already exists.
 
 A back-end team that needs a front-end change negotiates, waits and coordinates. The same team,
@@ -105,7 +105,7 @@ you want a reusable platform
 
 That is known as the inverse Conway maneuver. It is the widest-reaching lever a senior architect
 has over the shape of the system, because it changes the structure that produces the decisions
-instead of correcting one decision at a time — and it is the one they can most rarely invoke alone, because it requires engineering leadership.
+instead of correcting one decision at a time. And it is the one they can most rarely invoke alone, because it requires engineering leadership.
 
 That is why the architectural proposal and the organizational proposal have to travel together. See
 [organizational architecture](/23-architecture-leadership/organizational-architecture.md).
@@ -124,7 +124,7 @@ result         every feature crosses three teams
 The resulting architecture is horizontally coupled: changing a business rule requires touching
 three layers maintained by three teams, with three prioritization queues.
 
-The alternative — teams by domain, with every layer inside — produces vertically coupled systems,
+The alternative (teams by domain, with every layer inside) produces vertically coupled systems,
 which is the coupling you want, because it follows the business's units of change.
 
 ### Team size is an architectural constraint
@@ -136,7 +136,7 @@ above that                communication needs a mechanism, and the
 ```
 
 That means the maximum size of a cohesive component is limited by the size of team that can
-maintain it. A component requiring fifteen people will split — the only question is whether the
+maintain it. A component requiring fifteen people will split. The only question is whether the
 split will be designed or emergent.
 
 See [team topologies](/23-architecture-leadership/team-topologies.md).
@@ -174,7 +174,7 @@ The third line is legitimate: during a transition, the target architecture and t
 organization may not match, and forcing the reorganization before the architecture exists would be
 worse.
 
-What is not legitimate is unacknowledged divergence — the organization that expects independent
+What is not legitimate is unacknowledged divergence: the organization that expects independent
 microservices from teams organized by layer and doesn't understand why it doesn't work.
 
 ### The law also operates on vendors and contracts
@@ -204,36 +204,36 @@ sustain the divergence, or discovering it later.
 
 ## When Not to Use
 
-**As an excuse** — "Conway's law explains it" resolves nothing; it guides the intervention.
+**As an excuse**: "Conway's law explains it" resolves nothing; it guides the intervention.
 
-**As determinism** — the law describes a strong constraint, not an impossibility; disciplined teams
+**As determinism**: the law describes a strong constraint, not an impossibility; disciplined teams
 maintain boundaries against the current, at the cost of continuous effort.
 
 **Reorganizing teams by architectural fashion**, without understanding the domain.
 
-**Ignoring the cost of reorganizing** — a team change costs productivity for months; in the
+**Ignoring the cost of reorganizing**: a team change costs productivity for months; in the
 example below, 30% of delivery speed for four months.
 
-**Alone** — the inverse maneuver requires engineering leadership; proposing it without that
+**Alone**: the inverse maneuver requires engineering leadership; proposing it without that
 alignment wastes capital.
 
 The inverse maneuver, in particular, doesn't pay off under three conditions:
 
-- **A single team** — there is no communication structure between teams to redesign; the internal
+- **A single team**: there is no communication structure between teams to redesign; the internal
   boundary depends on module discipline, not on the org chart.
-- **An unstable domain** — the product is still discovering its own shape, and teams by domain
+- **An unstable domain**: the product is still discovering its own shape, and teams by domain
   would fix boundaries that the next change of direction undoes.
-- **A short horizon** — the target architecture will last less than the time needed to pay back the
+- **A short horizon**: the target architecture will last less than the time needed to pay back the
   reorganization's productivity drop.
 
 ## Alternatives
 
-- **Maintain the divergence with discipline** — boundaries preserved by automated verification, at
+- **Maintain the divergence with discipline**: boundaries preserved by automated verification, at
   the cost of continuous effort. See
   [fitness functions](/23-architecture-leadership/fitness-functions.md).
-- **Adapt the architecture to the organization** — design what the current structure supports,
+- **Adapt the architecture to the organization**: design what the current structure supports,
   instead of the ideal.
-- **Change the communication without changing the org chart** — time zone overlap, shared rituals,
+- **Change the communication without changing the org chart**: time zone overlap, shared rituals,
   rotating people.
 
 The third is underrated and frequently viable when reorganization is not: the communication
@@ -275,7 +275,7 @@ proposal, and the layer coupling is discovered eighteen months later, as in the 
 for three teams, and the service with no single owner piles up the changes of whoever is nearest.
 
 **Reorganizing teams with no architectural convergence plan.** The teams change, the services
-don't, and the new structure starts crossing boundaries the old one respected — the divergence
+don't, and the new structure starts crossing boundaries the old one respected. The divergence
 just moves.
 
 **Ignoring time zone** as a communication boundary. The boundary appears along the geographic
@@ -300,7 +300,7 @@ infrastructure team           14 people
 product teams                 37 people, with no engineers of their own
 ```
 
-Eighteen months later, five separately deployed services existed — and the measurement showed:
+Eighteen months later, five separately deployed services existed, and the measurement showed:
 
 ```text
 feature changes touching 3+ services               68%
@@ -321,12 +321,12 @@ architecture group:
 
 **Five teams by domain**, each with front end, back end and data inside: 18 engineers per domain,
 90 in total. Eighteen people exceeds the limit of informal communication, so the split was designed
-rather than left to emerge — each domain in two groups of up to 9 by subdomain (order into checkout
+rather than left to emerge: each domain in two groups of up to 9 by subdomain (order into checkout
 and post-sale, for example), with one internal module per group and a single team owning the
 service. The product people were distributed across the domains.
 
-**A platform team** of eight people, drawn from the former infrastructure team — the other six went
-to the domains —, with its own product — pipeline, observability, provisioning — instead of an
+**A platform team** of eight people, drawn from the former infrastructure team (the other six went
+to the domains), with its own product (pipeline, observability, provisioning) instead of an
 infrastructure team fielding requests.
 
 **An enabling team** for data, five people and temporary, to transfer modeling and quality competence to the domain
@@ -334,7 +334,7 @@ teams instead of executing for them.
 
 **Complete ownership** declared: each service has an owning team, with its own on-call rotation.
 
-It was an expensive reorganization. In the first four months, delivery speed dropped 30% — people
+It was an expensive reorganization. In the first four months, delivery speed dropped 30%: people
 were learning layers they didn't know, and individual productivity collapsed.
 
 Results 14 months after the reorganization:
@@ -371,7 +371,7 @@ boundary drawn here, and can they change it without coordinating with others?".
 Draw your organization's engineering org chart next to the container diagram of the main system.
 
 Look for the correspondences. Where they diverge, you probably find the boundaries that cost the
-most to maintain — and the ones that generate the most coordination.
+most to maintain, and the ones that generate the most coordination.
 
 ## Interview Questions
 

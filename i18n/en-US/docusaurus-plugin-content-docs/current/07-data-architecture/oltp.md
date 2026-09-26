@@ -2,7 +2,7 @@
 id: oltp
 title: OLTP
 sidebar_position: 7
-description: Transactional workload — many small operations over few records, with low latency.
+description: "Transactional workload: many small operations over few records, with low latency."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [olap, indexing, transactions]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-OLTP — online transaction processing — describes the workload characteristic of an operational
+OLTP (online transaction processing) describes the workload characteristic of an operational
 system: **many small operations, each touching few records, with a requirement for low latency and
 consistency**.
 
@@ -33,7 +33,7 @@ Recognizing it is the first step of any decision in this section.
 
 ## Problem
 
-The problem is not implementing OLTP — nearly every system starts that way, and relational databases
+The problem is not implementing OLTP: nearly every system starts that way, and relational databases
 serve that workload very well.
 
 The problem is what happens when a workload with the opposite profile starts sharing the same store.
@@ -41,7 +41,7 @@ A report that scans the entire orders table runs alongside the transactions and 
 resources.
 
 The symptom is well known: the system gets slow at month end, at closing time, or whenever someone
-opens a certain dashboard. And the typical reaction — a bigger machine — treats the symptom and not
+opens a certain dashboard. And the typical reaction, a bigger machine, treats the symptom and not
 the cause.
 
 ## Core Concepts
@@ -60,8 +60,8 @@ data                    the current state
 consistency             generally strong
 ```
 
-When one of those departs from the pattern — an operation that scans millions of rows, or that
-tolerates seconds of latency — it is worth asking whether that is really OLTP.
+When one of those departs from the pattern (an operation that scans millions of rows, or that
+tolerates seconds of latency), it is worth asking whether that is really OLTP.
 
 ### The normalized model serves it well
 
@@ -74,7 +74,7 @@ diverge.
 
 ### An index is the difference between milliseconds and seconds
 
-Since the access is selective — fetching one order, a customer's orders — an adequate
+Since the access is selective (fetching one order, a customer's orders), an adequate
 [index](/07-data-architecture/indexing.md) is what keeps the latency.
 
 Without it, each operation scans the table, and the degradation is proportional to the data's growth:
@@ -83,11 +83,11 @@ the system works well for months and gets worse on its own.
 ### Concurrent writes are the real bottleneck
 
 Unlike OLAP, OLTP writes a lot. That brings contention: two writes on the same record serialize.
-Reads depend on the isolation level — under MVCC, as in PostgreSQL and InnoDB, readers do not block
+Reads depend on the isolation level: under MVCC, as in PostgreSQL and InnoDB, readers do not block
 writers.
 
 That is why [transactions](/07-data-architecture/transactions.md) and isolation levels matter here and
-barely matter in analytics. And why the bottleneck in a mature OLTP system is rarely CPU — it is
+barely matter in analytics. And why the bottleneck in a mature OLTP system is rarely CPU; it is
 locking, index contention and write latency.
 
 ### Separating the workloads is the decision that solves it
@@ -96,7 +96,7 @@ The architectural answer to "the report takes down the system" is not to optimiz
 to move it out.
 
 A [read replica](/07-data-architecture/data-replication.md), a separate analytical store, or a
-projection — any of them removes the competition.
+projection: any of them removes the competition.
 
 Keeping both workloads in the same place for simplicity works as long as transactional latency does
 not notice the report. The signal to separate is observable: the operations' p99 rises during the
@@ -113,14 +113,14 @@ same suspect is what makes diagnoses take long.
 **A growing system.** Queries that were cheap with a thousand rows stop being so, and execution plans
 change as the statistics change.
 
-**A mature system under load.** Contention — locks on hot records, long transactions, exhausted
+**A mature system under load.** Contention: locks on hot records, long transactions, exhausted
 connections.
 
 **A mature system with mixed workloads.** Competition between operations and analytics.
 
 There is also a final stage, less common: when the volume of concurrent writes to the same entity
 exceeds what a single node can serialize. There the answer is redesigning the model to distribute the
-contention — splitting a single counter into several partial ones summed on read, for example — and
+contention (splitting a single counter into several partial ones summed on read, for example) and
 not switching storage.
 
 The progression matters because the answer is different at each stage: index, query review,
@@ -130,8 +130,8 @@ the answer applied at all of them.
 
 ## Mental Model
 
-**OLTP is about many small operations with tight latency.** Everything else — model, index, isolation
-— follows from that.
+**OLTP is about many small operations with tight latency.** Everything else (model, index, isolation)
+follows from that.
 
 ## When to Use
 
@@ -143,25 +143,25 @@ the answer applied at all of them.
 
 ## When Not to Use
 
-**For reports and analysis.** See [OLAP](/07-data-architecture/olap.md) — the workload is opposite in
+**For reports and analysis.** See [OLAP](/07-data-architecture/olap.md): the workload is opposite in
 every dimension.
 
 **For scanning large volumes.** Aggregations over the entire history.
 
 **For bulk export.** It will compete with the operation.
 
-**As the only store when there is already a relevant analytical workload** — relevant in the sense
+**As the only store when there is already a relevant analytical workload**, relevant in the sense
 above: transactional latency moves when it runs. The separation has stopped being optional.
 
 ## Alternatives
 
-- **[OLAP](/07-data-architecture/olap.md)** — wins when the query aggregates history and the
+- **[OLAP](/07-data-architecture/olap.md)**: wins when the query aggregates history and the
   normalized model forces large scans and joins.
-- **Read replica** — wins when the model serves the query and it is enough to take the reads off the
+- **Read replica**: wins when the model serves the query and it is enough to take the reads off the
   primary; tolerates seconds of lag.
-- **[CQRS](/03-design-patterns/cqrs.md)** — wins when the shape of the query, not just the load, is
+- **[CQRS](/03-design-patterns/cqrs.md)**: wins when the shape of the query, not just the load, is
   incompatible with the write model.
-- **Cache** — wins for repeated reads of hot data that can be momentarily stale.
+- **Cache**: wins for repeated reads of hot data that can be momentarily stale.
 
 ## Trade-offs
 
@@ -202,7 +202,7 @@ every insert and update. A table with fifteen indexes has slow writes, and the n
 on the database, not on the decision that caused it.
 
 **Keeping a transaction open during an external call.** The transaction holds locks for the duration
-of a third party's response — which can be the whole timeout. It is how external slowness becomes
+of a third party's response, which can be the whole timeout. It is how external slowness becomes
 internal stalling.
 
 **Choosing storage by reputation instead of by the access pattern.** What decides is the shape of the
@@ -214,35 +214,35 @@ An order management system degraded on the 1st of every month. The slowdowns las
 hours, with response time rising from 80 ms to 4 seconds.
 
 The cause was found quickly: the monthly close triggered reports that scanned the complete orders
-table — 400 million rows — while the system operated.
+table (400 million rows) while the system operated.
 
 The first reaction was to increase the machine. It helped for two months, until the volume grew
 again.
 
 What solved it was separating the workloads.
 
-**A read replica** for the reports, with a lag of seconds — irrelevant for a monthly close.
+**A read replica** for the reports, with a lag of seconds, irrelevant for a monthly close.
 
 **Columnar storage** for the three heaviest reports, loaded daily. What took 40 minutes came to take
 90 seconds, because the workload was analytical and had finally landed in an analytical store.
 
 **A query time limit** on the transactional database. Any query above 5 seconds is interrupted. That
-broke two internal reports, which was the point — they should not have been there.
+broke two internal reports, which was the point: they should not have been there.
 
 The team records that the most expensive part was the time between the first incident and the correct
 diagnosis: nearly a year treating the problem as a lack of capacity, when it was mixed workloads.
 
 ## Related Concepts
 
-- [OLAP](/07-data-architecture/olap.md) — the opposite workload.
-- [Indexing](/07-data-architecture/indexing.md) — what sustains the latency.
-- [Transactions](/07-data-architecture/transactions.md) — isolation and contention.
-- [Normalization](/07-data-architecture/normalization.md) — the adequate model.
+- [OLAP](/07-data-architecture/olap.md): the opposite workload.
+- [Indexing](/07-data-architecture/indexing.md): what sustains the latency.
+- [Transactions](/07-data-architecture/transactions.md): isolation and contention.
+- [Normalization](/07-data-architecture/normalization.md): the adequate model.
 
 ## Practical Exercise
 
-List the five slowest queries in your transactional database. For each one, classify: is it OLTP —
-few records by key — or analytics in disguise?
+List the five slowest queries in your transactional database. For each one, classify: is it OLTP
+(few records by key) or analytics in disguise?
 
 The analytical ones do not belong there, and moving them usually yields more than any optimization.
 
@@ -254,7 +254,7 @@ The analytical ones do not belong there, and moving them usually yields more tha
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 3.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 3.
 - Gray, Jim; Reuter, Andreas. *Transaction Processing: Concepts and Techniques*.
   Morgan Kaufmann, 1992.
 - Winand, Markus. *SQL Performance Explained*, 2012.

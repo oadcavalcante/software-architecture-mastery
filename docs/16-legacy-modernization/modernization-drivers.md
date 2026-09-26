@@ -2,7 +2,7 @@
 id: modernization-drivers
 title: Motivadores de Modernização
 sidebar_position: 2
-description: O que justifica investir — e por que "é legado" não é motivo.
+description: O que justifica investir, e por que "é legado" não é motivo.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [legacy-systems, migration-strategies, modernization-risk]
 canonical_for: [motivador de modernização, custo de não fazer, modernização por desconforto]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Modernizar custa caro, demora, e traz risco. A pergunta que precede qualquer pro
 **o que exatamente não conseguimos fazer por causa deste sistema?**
 
 Se a resposta for "ele é antigo", "a tecnologia é obsoleta" ou "o código é ruim", não há
-projeto — há desconforto.
+projeto: há desconforto.
 
 Um motivo que sustenta investimento tem duas propriedades: ele descreve uma **limitação
 concreta**, e o custo de conviver com ela é **mensurável**.
@@ -45,7 +45,7 @@ Nenhuma dessas responde à pergunta que quem decide o orçamento vai fazer: **o 
 ganhamos?**
 
 E o resultado é previsível: a proposta compete com iniciativas de produto que têm
-retorno articulado, e perde — ano após ano, até que o sistema falhe ou o mantenedor saia.
+retorno articulado, e perde, ano após ano, até que o sistema falhe ou o mantenedor saia.
 
 Ver [arquitetura de negócio](/15-enterprise-architecture/business-architecture.md).
 
@@ -67,7 +67,7 @@ Os três primeiros são os que mais frequentemente sustentam a decisão, e os qu
 aparecem articulados.
 
 Note que nenhum deles é "a tecnologia é antiga". Antiguidade é um **indicador** de risco,
-não um motivo — um sistema antigo, estável, com equipe que o domina e que ninguém precisa
+não um motivo: um sistema antigo, estável, com equipe que o domina e que ninguém precisa
 mudar não tem problema.
 
 ### Traduzir o sintoma técnico em limitação de negócio
@@ -87,7 +87,7 @@ banco proprietário caro       →  R$ 2,1 milhões por ano em licença, para um
 
 A coluna da direita compete por orçamento. A da esquerda, não.
 
-Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — o
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md): o
 vocabulário que faz essa tradução.
 
 ### O custo de não fazer precisa ser calculado
@@ -151,7 +151,7 @@ custo com a maior parte do benefício.
 Um viés a nomear: engenheiros preferem trabalhar em tecnologia moderna, e isso influencia
 a avaliação de necessidade.
 
-Isso não é desonestidade — é humano, e o motivo apresentado é geralmente verdadeiro. Mas
+Isso não é desonestidade: é humano, e o motivo apresentado é geralmente verdadeiro. Mas
 a **prioridade** atribuída a ele pode não ser.
 
 O teste: se a mesma quantidade de esforço fosse aplicada a outra coisa, o retorno seria
@@ -159,12 +159,12 @@ maior? Se a resposta honesta for talvez, a proposta merece mais análise.
 
 E há um motivo legítimo que costuma ser omitido por parecer frívolo: **retenção de
 pessoas**. Um sistema que ninguém quer manter tem custo real de contratação e de
-rotatividade — e ele deveria ser apresentado explicitamente, com o número, em vez de
+rotatividade, e ele deveria ser apresentado explicitamente, com o número, em vez de
 disfarçado de argumento técnico.
 
 ### O momento certo é antes de a crise chegar
 
-Um padrão que se repete: a modernização é aprovada depois de o risco se materializar —
+Um padrão que se repete: a modernização é aprovada depois de o risco se materializar,
 quando o mantenedor sai, quando o fornecedor anuncia o fim do suporte, quando o sistema
 cai.
 
@@ -192,7 +192,7 @@ proximidade do fim de suporte de dependências
 
 Ver [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
-O primeiro é o mais preditivo e o mais fácil de obter — e ele costuma ser conhecido
+O primeiro é o mais preditivo e o mais fácil de obter, e ele costuma ser conhecido
 informalmente por várias pessoas sem nunca virar número numa discussão de prioridade.
 
 ## Modelo Mental
@@ -211,17 +211,17 @@ de conviver com ela.
 
 **Prazo externo inegociável.** Quando o fornecedor anuncia fim de suporte com data fixa, ou o regulador impõe um prazo, a pergunta "o que ganhamos?" já foi respondida de fora: a alternativa é operar sem suporte ou fora de conformidade. Calcular o custo de não fazer atrasa uma decisão que não depende dele; o esforço de análise vai para o escopo mínimo que cumpre a data.
 
-**Vulnerabilidade explorável sem correção disponível.** O risco não se reduz honestamente a um valor anual — a probabilidade de exploração não é estimável com a precisão que o cálculo pediria, e o dano pode ser da ordem da própria empresa. Exigir o número produz um número inventado, e a discussão passa a ser sobre ele em vez de sobre a exposição.
+**Vulnerabilidade explorável sem correção disponível.** O risco não se reduz honestamente a um valor anual: a probabilidade de exploração não é estimável com a precisão que o cálculo pediria, e o dano pode ser da ordem da própria empresa. Exigir o número produz um número inventado, e a discussão passa a ser sobre ele em vez de sobre a exposição.
 
-**Mudança pequena.** Upgrade de versão dentro da janela de suporte, troca de biblioteca, migração que cabe em dias: montar a análise de motivador custa mais que a própria mudança. O rigor deste documento é proporcional ao investimento — ele serve a propostas que disputam orçamento, não à manutenção corrente que o time já absorve.
+**Mudança pequena.** Upgrade de versão dentro da janela de suporte, troca de biblioteca, migração que cabe em dias: montar a análise de motivador custa mais que a própria mudança. O rigor deste documento é proporcional ao investimento. Ele serve a propostas que disputam orçamento, não à manutenção corrente que o time já absorve.
 
 ## Alternativas
 
 - **Não modernizar**, com decisão registrada e prazo de revisão.
-- **Modernização parcial** — atacar a parte que causa o problema.
-- **Contenção** — isolar o sistema para que ele não limite o resto. Ver
+- **Modernização parcial**: atacar a parte que causa o problema.
+- **Contenção**: isolar o sistema para que ele não limite o resto. Ver
   [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Reduzir a dependência** — em vez de modernizar, diminuir o que depende dele.
+- **Reduzir a dependência**: em vez de modernizar, diminuir o que depende dele.
 
 A terceira é subestimada: um sistema legado bem isolado pode continuar operando por anos
 sem limitar a evolução em volta.
@@ -257,17 +257,17 @@ sem limitar a evolução em volta.
 
 ## Erros Comuns
 
-**Argumentar por obsolescência.** A proposta é rejeitada em ciclos seguidos, e a modernização acaba aprovada só quando a crise chega, com prazo imposto de fora — no Exemplo Real, foram três rejeições antes da reformulação.
+**Argumentar por obsolescência.** A proposta é rejeitada em ciclos seguidos, e a modernização acaba aprovada só quando a crise chega, com prazo imposto de fora. No Exemplo Real, foram três rejeições antes da reformulação.
 
 **Não traduzir para limitação de negócio.** Quem aprova orçamento não tem como comparar a proposta com iniciativas de produto que têm retorno articulado, e escolhe estas.
 
 **Não apresentar o custo de conviver.** Conviver parece custar zero, e qualquer estimativa de projeto perde para zero.
 
-**Propor substituição completa por reflexo.** O orçamento pedido cresce com o escopo, não com o motivo — no Exemplo Real, R$ 4,2 milhões pedidos contra R$ 1,8 milhão executados quando o escopo foi reduzido ao motor de otimização.
+**Propor substituição completa por reflexo.** O orçamento pedido cresce com o escopo, não com o motivo: no Exemplo Real, R$ 4,2 milhões pedidos contra R$ 1,8 milhão executados quando o escopo foi reduzido ao motor de otimização.
 
 **Não registrar a decisão de não fazer.** Sem registro nem data de revisão, a mesma proposta volta todo ano do zero, e ninguém reavalia quando as condições mudam.
 
-**Esconder o motivo de retenção** atrás de argumento técnico. O argumento técnico é contestado no mérito e cai, levando junto o motivo real, que nunca chegou a ser discutido — e o custo de rotatividade continua sem número.
+**Esconder o motivo de retenção** atrás de argumento técnico. O argumento técnico é contestado no mérito e cai, levando junto o motivo real, que nunca chegou a ser discutido, e o custo de rotatividade continua sem número.
 
 ## Exemplo Real
 
@@ -309,13 +309,13 @@ o que não causava           cadastro de veículos, motoristas, integrações, t
 O projeto executado extraiu o motor de otimização e o substituiu por um serviço que
 suporta reotimização contínua. O restante do sistema permaneceu.
 
-Custo real: R$ 1,8 milhão, 9 meses — menos da metade do orçado, porque o escopo foi
+Custo real: R$ 1,8 milhão, 9 meses, menos da metade do orçado, porque o escopo foi
 reduzido ao que resolvia o motivo.
 
 A entrega no mesmo dia foi lançada 11 meses depois.
 
 E o risco de pessoas foi endereçado em paralelo, com transferência de conhecimento do
-mantenedor para três pessoas — tratado como projeto próprio, e não como consequência da
+mantenedor para três pessoas, tratado como projeto próprio, e não como consequência da
 modernização.
 
 O que a equipe aprendeu: as três rejeições anteriores estavam corretas. A proposta pedia
@@ -323,8 +323,8 @@ R$ 4,2 milhões para resolver um desconforto técnico, e o negócio não tinha c
 
 ## Conceitos Relacionados
 
-- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md) — a definição.
-- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md) — como executar.
+- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md): a definição.
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md): como executar.
 - [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
 - [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md).
 
@@ -333,7 +333,7 @@ R$ 4,2 milhões para resolver um desconforto técnico, e o negócio não tinha c
 Pegue um sistema que seu time considera legado e responda: o que exatamente não
 conseguimos fazer por causa dele, e quanto isso custa por ano?
 
-Se não houver resposta concreta, a proposta de modernizá-lo não vai ser aprovada — e
+Se não houver resposta concreta, a proposta de modernizá-lo não vai ser aprovada, e
 provavelmente não deveria ser.
 
 ## Perguntas de Entrevista

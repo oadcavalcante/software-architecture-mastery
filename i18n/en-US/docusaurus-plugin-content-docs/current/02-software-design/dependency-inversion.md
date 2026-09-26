@@ -2,7 +2,7 @@
 id: dependency-inversion
 title: Dependency Inversion
 sidebar_position: 8
-description: Inverting the arrow so policy does not depend on detail — and the mistake that makes it useless.
+description: Inverting the arrow so policy does not depend on detail, and the mistake that makes it useless.
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [dependency-direction, hexagonal-architecture, solid]
 canonical_for: [dependency inversion]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -44,8 +44,8 @@ If that call is direct, the dependency follows the flow: the business rule depen
 on the repository, which depends on the driver, which depends on the database.
 
 The consequences are well known. Testing the rule requires a database. Changing
-databases touches the rule. And the most unstable thing — the technology — is
-depended on by the most stable — the policy.
+databases touches the rule. And the most unstable thing, the technology, is
+depended on by the most stable, the policy.
 
 That inverts the rule
 [dependency management](/01-fundamentals/dependency-management.md) establishes:
@@ -109,7 +109,7 @@ A frequent and consequential confusion.
 
 **Dependency injection** is a supply mechanism: the dependency is passed in rather
 than constructed internally. It is possible to inject while keeping the wrong
-direction — injecting a concrete `SQLRepository` into the use case is injection
+direction: injecting a concrete `SQLRepository` into the use case is injection
 without inversion.
 
 **Inversion** is a decision about direction. Injection is a common way to implement
@@ -123,7 +123,7 @@ stable; whoever is volatile implements it.
 ## When to Use
 
 - When policy has to be tested without infrastructure.
-- When the detail is volatile — an external provider, a library, a protocol.
+- When the detail is volatile: an external provider, a library, a protocol.
 - When the dependency crosses a boundary you want to keep.
 - When there is more than one real implementation, now or on a known horizon.
 
@@ -147,14 +147,14 @@ system where nobody can find the code that runs.
 
 ## Alternatives
 
-- **An adapter at the boundary** — translate on the way in, with no interface
+- **An adapter at the boundary**: translate on the way in, with no interface
   running through the system. Frequently sufficient and cheaper.
-- **An own type in the domain** — define `Quote` instead of depending on the
+- **An own type in the domain**: define `Quote` instead of depending on the
   provider's type. Solves the leak without creating a hierarchy.
-- **Accept and concentrate** — keep the dependency direct, at a single point. When
+- **Accept and concentrate**: keep the dependency direct, at a single point. When
   the contact is already single and swapping the detail is not on the horizon,
   concentrating costs less than maintaining a contract.
-- **Structural typing or a function** — in languages that offer it, no declared
+- **Structural typing or a function**: in languages that offer it, no declared
   interface is needed.
 
 ## Trade-offs
@@ -196,7 +196,7 @@ interfaces.
 stable than the "policy".
 
 **Thinking inversion eliminates coupling.** It redirects it. The use case is still
-coupled to the concept of a repository — just not to the technology.
+coupled to the concept of a repository, just not to the technology.
 
 ## Real-World Example
 
@@ -207,7 +207,7 @@ First attempt at a fix: extract `CarrierClient` as an interface, placed in the
 `infra` package, with the same methods and the same DTO.
 
 That solved nothing. The domain still imported `infra` and still spoke the
-carrier's vocabulary. When the second carrier came in, it did not fit — the
+carrier's vocabulary. When the second carrier came in, it did not fit: the
 interface modelled the first one's protocol.
 
 Second attempt, which worked:
@@ -251,13 +251,13 @@ the ones that do.
 
 ## Related Concepts
 
-- [Interfaces](/02-software-design/interfaces.md) — who defines them and with what
+- [Interfaces](/02-software-design/interfaces.md): who defines them and with what
   vocabulary.
-- [Dependency Direction](/02-software-design/dependency-direction.md) — the general
+- [Dependency Direction](/02-software-design/dependency-direction.md): the general
   rule.
-- [Hexagonal Architecture](/02-software-design/hexagonal-architecture.md) — the
+- [Hexagonal Architecture](/02-software-design/hexagonal-architecture.md): the
   systematic application.
-- [SOLID](/02-software-design/solid.md) — the D principle.
+- [SOLID](/02-software-design/solid.md): the D principle.
 
 ## Practical Exercise
 
@@ -280,4 +280,4 @@ The ones failing either test are nominal inversions.
 - Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017.
 - Cockburn, Alistair. *Hexagonal Architecture*, 2005.
 - Freeman, Steve; Pryce, Nat. *Growing Object-Oriented Software, Guided by Tests*.
-  Addison-Wesley, 2009 — consumer-defined interfaces.
+  Addison-Wesley, 2009. Consumer-defined interfaces.

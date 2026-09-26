@@ -2,7 +2,7 @@
 id: separation-of-concerns
 title: Separation of Concerns
 sidebar_position: 12
-description: Each part handles one subject — and why "subject" is the word doing the work.
+description: Each part handles one subject, and why "subject" is the word doing the work.
 doc_type: concept
 level: 1
 difficulty: beginner
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [modularity]
 related: [coupling, cohesion, abstraction]
 canonical_for: [separation of concerns]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -41,7 +41,7 @@ reread the other three and risk breaking them.
 
 The compound effect is what matters: each additional subject in the same place
 does not add difficulty, it multiplies it. Four mixed subjects are not four times
-harder to change than one — they are far more, because the interactions between
+harder to change than one; they are far more, because the interactions between
 them also have to be held in your head.
 
 ## Core Concepts
@@ -58,7 +58,7 @@ or the technology changes. Three independent reasons, three subjects.
 
 That is the practical formulation of the [Single Responsibility
 Principle](/02-software-design/solid.md), which speaks of "one reason to change"
-and is frequently read as "do only one thing" — a reading that leads to
+and is frequently read as "do only one thing": a reading that leads to
 fragmenting code without criteria.
 
 ### Cross-cutting concerns
@@ -67,12 +67,12 @@ Some subjects run through the whole system: logging, authentication,
 transactions, telemetry, error handling.
 
 They cannot be isolated in a module because they need to be everywhere.
-Separation here is achieved by another mechanism — middleware, decorators,
-interceptors, aspects — that keeps the subject in one place and applies it in
+Separation here is achieved by another mechanism (middleware, decorators,
+interceptors, aspects) that keeps the subject in one place and applies it in
 many.
 
 Mixing cross-cutting concerns into business code tends to pass review without
-objection: each occurrence on its own — a log line, a `begin transaction` — looks
+objection: each occurrence on its own (a log line, a `begin transaction`) looks
 too cheap to justify a mechanism.
 
 ### Separating is not fragmenting
@@ -83,7 +83,7 @@ must be small.
 Applying it mechanically produces the opposite problem: dozens of tiny units that
 always change together, between which the reader has to jump to understand a
 flow. The separation raised the cost of reading without lowering the cost of
-change — because there were no independent reasons for change to begin with.
+change, because there were no independent reasons for change to begin with.
 
 If two things always change together, they are one subject, and separating them
 is a mistake.
@@ -94,7 +94,7 @@ is a mistake.
 
 If the list has more than one item and the items are independent, there are mixed
 responsibilities. If it has more than one item but they always occur together, it
-is a single subject — and separating would be damage.
+is a single subject, and separating would be damage.
 
 ## When to Use
 
@@ -102,7 +102,7 @@ is a single subject — and separating would be damage.
 - When one subject needs to be tested without the others.
 - When different people need to change different subjects in the same flow.
 - When a cross-cutting concern is scattered and duplicated.
-- When a subject needs to be replaced — swapping the payment provider without
+- When a subject needs to be replaced: swapping the payment provider without
   touching the billing rule.
 
 ## When Not to Use
@@ -114,7 +114,7 @@ reader jumps between files and gains nothing, because they will never change one
 without the other.
 
 **When the separation requires an abstraction that does not hold.** Separating a
-business rule from persistence is easy to state and sometimes expensive to do — if
+business rule from persistence is easy to state and sometimes expensive to do: if
 the rule depends on an aggregation only the database performs efficiently,
 forcing the separation produces either a leaking abstraction or unacceptable
 performance.
@@ -129,14 +129,14 @@ needing a diagram to understand a simple operation.
 
 ## Alternatives
 
-- **Cohesion by proximity** — keeping together what changes together, without
+- **Cohesion by proximity**: keeping together what changes together, without
   imposing formal separation. It is the correct default until independent reasons
   appear.
-- **Separation by convention** — cheaper and less reliable than enforced
+- **Separation by convention**: cheaper and less reliable than enforced
   separation. It wins where the team is small enough that the convention is known
   to everyone, and the mechanism that would enforce it would cost more than the
   deviations it would prevent.
-- **Aspects and middleware** — for cross-cutting concerns, the correct alternative
+- **Aspects and middleware**: for cross-cutting concerns, the correct alternative
   to separation by module.
 
 ## Trade-offs
@@ -166,7 +166,7 @@ those that change independently stayed together. Worse than not separating,
 because it has the cost without the benefit.
 
 **Scattered cross-cutting concern.** Error handling replicated in every function,
-with subtle variations. When the policy changes, it changes in thirty places — and
+with subtle variations. When the policy changes, it changes in thirty places, and
 in two of them somebody forgets.
 
 **Anaemic layers.** Layers that exist for symmetry and merely forward calls,
@@ -200,26 +200,26 @@ something the line count did not.
 Five distinct reasons: the input contract, the tax rule, the commercial discount
 policy, the persistence schema, and the notification integration.
 
-But two things that looked separable — checking stock and persisting the order —
+But two things that looked separable (checking stock and persisting the order)
 always changed together, because the stock reservation was part of the same
 transaction. Separating them would have created an abstraction that would need to
 be punctured on the first change.
 
 Emitting the event and sending the email landed in the same unit for the same
-reason: both changed when the notification contract changed — a new field in the
-event came with a new line in the email — and never one without the other.
+reason: both changed when the notification contract changed (a new field in the
+event came with a new line in the email) and never one without the other.
 
 The result: five units, not seven. And the most valuable one was the tax rule,
-which became changeable and testable without touching anything else — which
+which became changeable and testable without touching anything else. That
 mattered because tax rules change by external decision, on a deadline, several
 times a year.
 
 ## Related Concepts
 
-- [Modularity](/01-fundamentals/modularity.md) — the structure that materializes the separation.
-- [Cohesion](/01-fundamentals/cohesion.md) — the measure of whether what stayed together belongs
+- [Modularity](/01-fundamentals/modularity.md): the structure that materializes the separation.
+- [Cohesion](/01-fundamentals/cohesion.md): the measure of whether what stayed together belongs
   together.
-- [Abstraction](/01-fundamentals/abstraction.md) — the mechanism that makes separation possible.
+- [Abstraction](/01-fundamentals/abstraction.md): the mechanism that makes separation possible.
 
 ## Practical Exercise
 
@@ -239,7 +239,7 @@ subject.
 
 ## Further Exploration
 
-- Dijkstra, Edsger. *On the role of scientific thought*, 1974 — the origin of the
+- Dijkstra, Edsger. *On the role of scientific thought*, 1974. The origin of the
   term.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — the Single
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. The Single
   Responsibility Principle in terms of reasons for change.

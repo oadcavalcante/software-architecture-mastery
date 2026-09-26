@@ -2,7 +2,7 @@
 id: solid
 title: SOLID
 sidebar_position: 1
-description: Five object-oriented design principles — what each one solves and the range in which it applies.
+description: "Five object-oriented design principles: what each one solves and the range in which it applies."
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [dependency-inversion, interfaces, encapsulation]
 canonical_for: [SOLID, single responsibility principle, open-closed principle, Liskov substitution, interface segregation]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ SOLID is an acronym for five object-oriented design principles, gathered by Robe
 Martin from earlier work.
 
 Their value is real and smaller than the reputation suggests. They are heuristics
-with a range of application — not laws. Applied by reflex, they produce code with
+with a range of application, not laws. Applied by reflex, they produce code with
 more indirection and no less coupling.
 
 ## Problem
@@ -39,8 +39,8 @@ Each SOLID principle names one of those degradations and proposes a direction. T
 is the useful way to read them: **five diagnoses, not five rules.**
 
 The problem with the usual teaching is that the principles arrive as commandments,
-without the symptom that motivates them. The result is preventive application —
-interfaces created to satisfy the D, classes fragmented to satisfy the S — in code
+without the symptom that motivates them. The result is preventive application
+(interfaces created to satisfy the D, classes fragmented to satisfy the S) in code
 that had none of the symptoms.
 
 ## Core Concepts
@@ -54,7 +54,7 @@ thing". The wrong reading leads to fragmenting code with no criterion; the right
 one points directly at
 [separation of concerns](/01-fundamentals/separation-of-concerns.md).
 
-Martin later refined it: the reason for change is an *actor* — whoever requests
+Martin later refined it: the reason for change is an *actor*, whoever requests
 the change. A class that changes at the request of the tax team and the reporting
 team has two actors and should be two classes.
 
@@ -87,7 +87,7 @@ that worked.
 **Symptom:** `if (x instanceof Y)` scattered around, or a subclass that throws in a
 method the superclass promises to implement.
 
-The classic example — `Square` inheriting from `Rectangle` — is useful because it
+The classic example (`Square` inheriting from `Rectangle`) is useful because it
 shows that the violation can be invisible to the compiler and obvious in
 behaviour.
 
@@ -107,7 +107,7 @@ side, force the implementer to fill in what makes no sense in its class.
 
 It is the most architectural of the five and the subject of
 [dependency inversion](/02-software-design/dependency-inversion.md), where the
-detail most often got wrong — which side the interface lives on — is covered.
+detail most often got wrong (which side the interface lives on) is covered.
 
 **Symptom:** the business rule imports the database driver.
 
@@ -143,17 +143,17 @@ a flow now requires nine files and no change got cheaper, the principles were
 applied against their own purpose.
 
 **Outside object orientation, without translation.** In functional code, several of
-the principles have no direct application — the problem they solve no longer exists
+the principles have no direct application: the problem they solve no longer exists
 in the same form.
 
 ## Alternatives
 
-- **The four rules of simple design** (Beck) — passes the tests, reveals intent, no
+- **The four rules of simple design** (Beck): passes the tests, reveals intent, no
   duplication, fewest elements. Leaner and less prone to mechanical application.
-- **Coupling and cohesion heuristics** — more fundamental; SOLID can be read as
+- **Coupling and cohesion heuristics**: more fundamental; SOLID can be read as
   five corollaries of them. They win when none of the five symptoms describes the
   problem, or outside object orientation, where the corollaries do not translate.
-- **Data-oriented design** — in performance contexts, the OO principles are
+- **Data-oriented design**: in performance contexts, the OO principles are
   frequently the problem.
 
 ## Trade-offs
@@ -207,7 +207,7 @@ together, requested by the same team and for the same regulatory reason. Formatt
 changed at the request of design. Sending, on a change of provider.
 
 Three classes, not four. The gain of the actor analysis was not separating
-formatting from tax calculation — the mechanical split would separate those too —
+formatting from tax calculation (the mechanical split would separate those too);
 it was **not** separating data fetching from the tax rule: a regulatory change
 still fits in one class, instead of requiring two changes in lockstep.
 
@@ -217,18 +217,18 @@ new type appeared. The hierarchy had one implementation and was removed.
 
 ## Related Concepts
 
-- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md) — the
+- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md): the
   principle S is a case of.
-- [Dependency Inversion](/02-software-design/dependency-inversion.md) — the D, in
+- [Dependency Inversion](/02-software-design/dependency-inversion.md): the D, in
   detail.
-- [Interfaces](/02-software-design/interfaces.md) — the I, in detail.
-- [Design Heuristics](/02-software-design/design-heuristics.md) — leaner
+- [Interfaces](/02-software-design/interfaces.md): the I, in detail.
+- [Design Heuristics](/02-software-design/design-heuristics.md): leaner
   alternatives.
 
 ## Practical Exercise
 
 Pick the largest class in your system. For each method, identify **who requests
-changes to it** — which team, which role.
+changes to it**: which team, which role.
 
 Group by actor. The groups are the classes that should exist.
 
@@ -243,9 +243,9 @@ two diverge, the division by actor is usually the right one.
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — the five
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. The five
   principles with the revised actor-based formulation of SRP.
 - Liskov, Barbara; Wing, Jeannette. *A Behavioral Notion of Subtyping*. TOPLAS,
-  1994 — the formal result behind the L.
-- Meyer, Bertrand. *Object-Oriented Software Construction*, 1988 — origin of
+  1994. The formal result behind the L.
+- Meyer, Bertrand. *Object-Oriented Software Construction*, 1988. Origin of
   Open-Closed.

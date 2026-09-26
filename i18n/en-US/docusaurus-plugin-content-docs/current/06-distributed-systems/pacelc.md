@@ -2,7 +2,7 @@
 id: pacelc
 title: PACELC
 sidebar_position: 12
-description: The extension of CAP that covers the common case — latency versus consistency, when there is no partition.
+description: "The extension of CAP that covers the common case: latency versus consistency, when there is no partition."
 doc_type: foundation
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [cap, consistency, latency]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ PACELC, formulated by Daniel Abadi, extends [CAP](/06-distributed-systems/cap.md
 that was missing:
 
 > **If** there is a **P**artition, choose between **A**vailability and **C**onsistency.
-> **E**lse — when there is no partition — choose between **L**atency and **C**onsistency.
+> **E**lse (when there is no partition), choose between **L**atency and **C**onsistency.
 
 The second half is what matters day to day, and it is what CAP omits.
 
@@ -36,7 +36,7 @@ CAP describes a rare event. Partitions happen, and a system can go months withou
 That leaves a gap: **what explains the behavior in the other 99.99% of the time?**
 
 The answer is that consistency costs **coordination**, and coordination costs **network round
-trips** — even with everything working perfectly.
+trips**, even with everything working perfectly.
 
 A write that has to be acknowledged by replicas in another region pays the inter-region latency.
 Not because something failed, but because the speed of light is finite and coordination is
@@ -57,10 +57,10 @@ Systems are described by two letters, one for each situation:
 | **PC/EL** | Consistency | Latency |
 | **PC/EC** | Consistency | Consistency |
 
-**PA/EL** — prioritizes responding fast, always. Key-value databases with asynchronous replication
+**PA/EL**: prioritizes responding fast, always. Key-value databases with asynchronous replication
 tend to this profile.
 
-**PC/EC** — prioritizes correctness, always, paying latency. Databases with distributed consensus
+**PC/EC**: prioritizes correctness, always, paying latency. Databases with distributed consensus
 tend to this one.
 
 **PA/EC** is the uncommon combination and it exists: systems that prefer consistency in the normal
@@ -78,7 +78,7 @@ intercontinental replicas
   → ~150 ms extra per write
 ```
 
-That is not optimizable. It is physical distance.
+That is physical distance, and it is not optimizable.
 
 A system that requires global strong consistency and has users on three continents pays the
 coordination latency on every write, and no code solves it.
@@ -87,7 +87,7 @@ coordination latency on every write, and no code solves it.
 
 The choice between EL and EC determines:
 
-**Where the writes happen.** Multi-region strong consistency frequently implies a single leader —
+**Where the writes happen.** Multi-region strong consistency frequently implies a single leader,
 and writes from other regions pay the trip to it.
 
 **Whether read replicas are usable.** Reading from a replica is EL; reading from the primary is EC.
@@ -102,7 +102,7 @@ Those three parameters are usually configurable, and are frequently at a default
 As in CAP and in [consistency](/06-distributed-systems/consistency.md), the choice is per
 operation.
 
-A system can be EC for a balance write and EL for a catalog read — and that is the correct
+A system can be EC for a balance write and EL for a catalog read, and that is the correct
 configuration in most cases.
 
 Treating it as a global property forces every operation to the most demanding one's requirement.
@@ -117,7 +117,7 @@ actually make every day.
 somebody quantifies the milliseconds it adds per operation.
 
 **Because the decision is frequently configuration.** Acknowledgment level, read source, leader
-placement — the parameters exist and someone has to choose.
+placement: the parameters exist and someone has to choose.
 
 ## Common Mistakes
 
@@ -138,7 +138,7 @@ continents multiplies the latency of every write by five, and no code optimizati
 
 ## Real-World Example
 
-A hotel booking system operated in three regions — South America, Europe and Asia — with a
+A hotel booking system operated in three regions (South America, Europe and Asia) with a
 replicated database and global strong consistency.
 
 The response time to create a booking was 480 ms at the 50th percentile. The requirement was 300
@@ -147,7 +147,7 @@ ms.
 Profiling showed that 340 ms was coordination: the write had to be acknowledged by a majority of
 replicas, and the majority involved crossing continents.
 
-The first proposal was to optimize the application. There was nothing to optimize — 71% of the time
+The first proposal was to optimize the application. There was nothing to optimize: 71% of the time
 was network waiting between continents.
 
 The per-operation analysis changed the architecture.
@@ -155,20 +155,20 @@ The per-operation analysis changed the architecture.
 **Room booking** stayed EC, and was **partitioned by the hotel's region**. A hotel in São Paulo has
 its booking coordinated only among South American replicas. The coordination continues, and the
 distance dropped from intercontinental to regional: from 340 ms to 18 ms. Partitioning shortened
-the coordination, not the client's path — someone booking a São Paulo hotel from Europe still pays
+the coordination, not the client's path. Someone booking a São Paulo hotel from Europe still pays
 the trip to the region that owns the data.
 
-**Availability lookup** became EL — it reads from the local replica, with an accepted delay of
+**Availability lookup** became EL: it reads from the local replica, with an accepted delay of
 seconds. The business confirmed that slightly stale availability is acceptable, because the actual
 booking checks again.
 
 **User profile and history** became EL with no reservations.
 
-Result: a 158 ms p50 on bookings for hotels in the user's own region — the 140 ms of application work, which had nothing to
-optimize, plus the 18 ms of regional coordination. Under the 300 ms requirement.
+Result: a 158 ms p50 on bookings for hotels in the user's own region (the 140 ms of application work, which had nothing to
+optimize, plus the 18 ms of regional coordination). Under the 300 ms requirement.
 
 The point the team underlines: strong consistency was not abandoned. What changed was **the scope
-of the coordination** — from global to regional — plus separating the operations that did not need
+of the coordination** (from global to regional) plus separating the operations that did not need
 it.
 
 And the insight that only appeared with PACELC in the vocabulary: the problem was never a
@@ -176,10 +176,10 @@ partition. There was none. The cost was permanent, and CAP had no language to na
 
 ## Related Concepts
 
-- [CAP](/06-distributed-systems/cap.md) — the half that deals with partitions.
-- [Consistency](/06-distributed-systems/consistency.md) — the spectrum.
-- [Latency](/06-distributed-systems/latency.md) — what you pay.
-- [Replication](/06-distributed-systems/replication.md) — where the coordination happens.
+- [CAP](/06-distributed-systems/cap.md): the half that deals with partitions.
+- [Consistency](/06-distributed-systems/consistency.md): the spectrum.
+- [Latency](/06-distributed-systems/latency.md): what you pay.
+- [Replication](/06-distributed-systems/replication.md): where the coordination happens.
 
 ## Practical Exercise
 

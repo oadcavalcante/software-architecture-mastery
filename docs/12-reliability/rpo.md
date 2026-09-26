@@ -2,7 +2,7 @@
 id: rpo
 title: RPO
 sidebar_position: 9
-description: Quanto dado pode ser perdido — e por que a resposta "nenhum" quase nunca é verdadeira.
+description: Quanto dado pode ser perdido, e por que a resposta "nenhum" quase nunca é verdadeira.
 doc_type: foundation
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rto, disaster-recovery-planning, failover]
 canonical_for: [RPO, objetivo de ponto de recuperação, perda aceitável de dados]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-RPO — objetivo de ponto de recuperação — é **quanto dado pode ser perdido** numa
+RPO (objetivo de ponto de recuperação) é **quanto dado pode ser perdido** numa
 recuperação.
 
 Se a cópia mais recente utilizável é de uma hora atrás, o RPO é de uma hora: tudo o que
@@ -32,7 +32,7 @@ reflexiva que quase nunca se sustenta: "nenhum dado pode ser perdido".
 
 ## Por Que Isso Importa
 
-RPO zero exige replicação síncrona — cada escrita confirmada em mais de um lugar antes
+RPO zero exige replicação síncrona: cada escrita confirmada em mais de um lugar antes
 de responder ao usuário.
 
 Isso custa latência em **toda** operação de escrita, permanentemente. Ver
@@ -48,10 +48,10 @@ A última linha inviabiliza a maioria dos sistemas transacionais. RPO zero entre
 é raro, caro, e frequentemente prometido sem que ninguém tenha feito a conta.
 
 E há um segundo custo: replicação síncrona acopla disponibilidade. Se a cópia síncrona
-não responde, a escrita não confirma — o sistema fica indisponível para preservar o
+não responde, a escrita não confirma: o sistema fica indisponível para preservar o
 RPO. Motores com modo semissíncrono oferecem a saída oposta: passado um tempo limite
-sem resposta da réplica, a escrita confirma assim mesmo e a replicação segue assíncrona
-— preserva-se a disponibilidade abrindo mão do RPO zero, sem alarde. Qual dos dois
+sem resposta da réplica, a escrita confirma assim mesmo e a replicação segue assíncrona.
+Preserva-se a disponibilidade abrindo mão do RPO zero, sem alarde. Qual dos dois
 comportamentos vale é configuração, não propriedade do mecanismo.
 
 ## Conceitos Centrais
@@ -97,7 +97,7 @@ RPO efetivo é o atraso no momento da falha, não o atraso médio.
 torna o teste de restauração parte da garantia de RPO, não um detalhe operacional.
 
 **Corrupção lógica.** Se o dado foi corrompido antes da cópia, restaurá-la restaura a
-corrupção. O RPO relevante passa a ser o da última cópia **anterior ao problema** — que
+corrupção. O RPO relevante passa a ser o da última cópia **anterior ao problema**, que
 pode ser dias.
 
 O terceiro caso é o que justifica reter várias gerações e manter uma
@@ -106,10 +106,10 @@ O terceiro caso é o que justifica reter várias gerações e manter uma
 ### Replicação não garante RPO contra erro humano
 
 Um comando destrutivo replica em segundos. O RPO contra falha de hardware pode ser de
-segundos, e contra erro humano ser de horas — o intervalo até a cópia anterior.
+segundos, e contra erro humano ser de horas: o intervalo até a cópia anterior.
 
-Declarar um único RPO sem distinguir o cenário descreve só o cenário mais favorável —
-o de falha de infraestrutura — e deixa o de erro humano sem número.
+Declarar um único RPO sem distinguir o cenário descreve só o cenário mais favorável
+(o de falha de infraestrutura) e deixa o de erro humano sem número.
 
 ### O RPO precisa contemplar o que está em trânsito
 
@@ -128,7 +128,7 @@ Se a fila é durável e replicada, ela entra no mesmo cálculo do banco. Se ela 
 memória, ou se as requisições foram aceitas e ainda não persistidas, esse trabalho se
 perde independentemente do RPO do banco.
 
-Ver [processamento assíncrono](/11-scalability/async-processing.md) — aceitar e não
+Ver [processamento assíncrono](/11-scalability/async-processing.md). Aceitar e não
 persistir perde trabalho sem que nenhuma métrica registre: o cliente recebeu
 confirmação e o registro não existe.
 
@@ -160,20 +160,20 @@ A verificação encontrou três problemas.
 **O RPO zero era parcial.** A replicação síncrona cobria o banco de ordens. O sistema
 de conciliação, que registrava as confirmações da bolsa, usava replicação assíncrona
 com atraso típico de 4 segundos. Numa falha, ordens existiriam sem a confirmação
-correspondente — o pior estado possível para uma corretora.
+correspondente: o pior estado possível para uma corretora.
 
 **O atraso real era pior que o típico.** No horário de abertura, o atraso da replicação
 assíncrona chegava a 40 segundos. O RPO efetivo naquele componente era 40 segundos, não
 4.
 
 **Erro humano não estava coberto.** As cópias eram diárias. Um comando destrutivo às
-14h significaria perder o dia inteiro — RPO de até 24 horas contra esse cenário, apesar
+14h significaria perder o dia inteiro: RPO de até 24 horas contra esse cenário, apesar
 do "RPO zero" declarado.
 
 A reformulação:
 
 **RPO por tipo de dado**, com o sistema de conciliação passando a síncrono junto com o
-de ordens — a latência adicional de 3 ms foi aceita depois de medida.
+de ordens. A latência adicional de 3 ms foi aceita depois de medida.
 
 **RPO por cenário**, declarado explicitamente:
 
@@ -183,7 +183,7 @@ erro humano ou corrupção     15 minutos
 desastre regional            15 minutos
 ```
 
-**Réplica atrasada de 15 minutos**, cobrindo o cenário de erro humano — o mais barato
+**Réplica atrasada de 15 minutos**, cobrindo o cenário de erro humano: o mais barato
 dos três mecanismos em jogo (replicação síncrona, cópias periódicas, réplica atrasada)
 e o único que ainda não existia.
 
@@ -192,15 +192,15 @@ e o único que ainda não existia.
 **Teste mensal de restauração**, com o RPO efetivo medido e registrado.
 
 O que a equipe registra: "RPO zero" era verdade para um componente e falso para o
-sistema. E o cenário mais provável — erro humano — era o menos coberto, com uma
+sistema. E o cenário mais provável, erro humano, era o menos coberto, com uma
 exposição de até 24 horas que ninguém tinha notado.
 
 ## Conceitos Relacionados
 
-- [RTO](/12-reliability/rto.md) — o par.
+- [RTO](/12-reliability/rto.md): o par.
 - [Planejamento de Recuperação](/12-reliability/disaster-recovery-planning.md).
 - [Replicação de Dados](/07-data-architecture/data-replication.md).
-- [PACELC](/06-distributed-systems/pacelc.md) — o custo do síncrono.
+- [PACELC](/06-distributed-systems/pacelc.md): o custo do síncrono.
 
 ## Exercício Prático
 
@@ -216,8 +216,8 @@ Esse número é o seu RPO real contra falha de infraestrutura. Compare com o dec
 
 ## Para Aprofundar
 
-- ISO. *ISO 22301:2019 — Security and resilience: business continuity management
+- ISO. *ISO 22301:2019. Security and resilience: business continuity management
   systems — Requirements*. ISO, 2019.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1. Contingency Planning Guide for
   Federal Information Systems*. NIST, 2010.

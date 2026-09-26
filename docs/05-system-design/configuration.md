@@ -2,7 +2,7 @@
 id: configuration
 title: Configuração
 sidebar_position: 19
-description: O que varia entre ambientes — e por que tornar configurável é uma decisão, não um default.
+description: O que varia entre ambientes e por que tornar configurável é uma decisão, não um default.
 doc_type: concept
 level: 3
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [secrets, environment-management, feature-flags]
 canonical_for: [configuração, variável de ambiente]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ Configuração é o que muda entre ambientes ou entre execuções sem mudar o c�
 endereço do banco, tamanho do pool, timeout, chave de integração.
 
 A pergunta que este documento responde não é como armazenar configuração. É
-**o que deveria ser configurável** — porque cada ponto de configuração é um
+**o que deveria ser configurável**, porque cada ponto de configuração é um
 parâmetro a documentar, testar e errar.
 
 ## Problema
@@ -38,7 +38,7 @@ produção são as que alguém configurou; as demais nunca foram exercitadas.
 
 O sintoma tardio: um arquivo de configuração com 80 entradas, das quais 60 têm o
 mesmo valor em todos os ambientes desde que foram criadas. Elas não são
-configuração — são código com uma camada de indireção.
+configuração: são código com uma camada de indireção.
 
 **Configuração é para o que de fato varia.** O resto é constante.
 
@@ -55,18 +55,18 @@ configuração — são código com uma camada de indireção.
 Segredo é configuração com requisito adicional: nunca em repositório, nunca em
 log, rotacionável. Ver [segredos](/10-security/secrets.md).
 
-O erro frequente é tratar as três igual — constantes viram configuração
+O erro frequente é tratar as três igual: constantes viram configuração
 desnecessária, e segredos viram variável de ambiente em arquivo versionado.
 
 ### Variável de ambiente é o default razoável
 
-Simples, suportada em qualquer plataforma, e separa configuração de artefato — o
+Simples, suportada em qualquer plataforma, e separa configuração de artefato: o
 mesmo binário roda em qualquer ambiente.
 
 As limitações aparecem quando: a configuração precisa mudar sem reiniciar; há
 estrutura aninhada; ou o volume cresce a ponto de a lista virar ingerenciável.
 
-Aí entra um serviço de configuração — que resolve isso e adiciona uma dependência
+Aí entra um serviço de configuração, que resolve isso e adiciona uma dependência
 no caminho de inicialização.
 
 ### Falhar rápido na inicialização
@@ -74,7 +74,7 @@ no caminho de inicialização.
 Configuração inválida deve derrubar o processo **na subida**, não na primeira
 requisição que a usa.
 
-Validar tudo ao iniciar — presença, tipo, faixa — transforma um erro de produção
+Validar tudo ao iniciar (presença, tipo, faixa) transforma um erro de produção
 em um contêiner que não sobe. A diferença é entre um deploy que falha
 visivelmente e um sistema que funciona até alguém acessar a funcionalidade
 específica.
@@ -86,10 +86,10 @@ porque ninguém configurou esconde o problema até a hora errada.
 
 Configuração que muda sem reiniciar é atraente e introduz duas coisas: o sistema
 passa a ter estado de configuração que pode divergir entre instâncias, e a
-mudança deixa de passar pelo processo de implantação — o que significa menos
+mudança deixa de passar pelo processo de implantação. Isso significa menos
 revisão e menos rastro.
 
-Vale para o que precisa mudar rápido — nível de log, chaves de funcionalidade. Não
+Vale para o que precisa mudar rápido: nível de log, chaves de funcionalidade. Não
 vale para o que muda raramente.
 
 Ver [feature flags](/14-devops-and-platform/feature-flags.md), que é um caso específico
@@ -109,7 +109,7 @@ ambientes?** Se for um, é constante disfarçada.
 ## Quando Usar
 
 - O valor genuinamente difere entre ambientes.
-- O valor precisa ser ajustado sem novo build — capacidade, timeout.
+- O valor precisa ser ajustado sem novo build: capacidade, timeout.
 - É segredo, e não pode estar no código.
 - É credencial ou endereço de dependência externa.
 
@@ -129,10 +129,10 @@ domínio, sem teste e sem revisão.
 
 ## Alternativas
 
-- **Constante no código** — para o que não varia.
-- **Serviço de configuração** — quando o volume ou a recarga justificam.
-- **Cofre de segredos** — para credenciais.
-- **Feature flag** — para variação temporária de comportamento.
+- **Constante no código**: para o que não varia.
+- **Serviço de configuração**: quando o volume ou a recarga justificam.
+- **Cofre de segredos**: para credenciais.
+- **Feature flag**: para variação temporária de comportamento.
 
 ## Trade-offs
 
@@ -162,11 +162,11 @@ e outra não.
 
 ## Erros Comuns
 
-**Não validar na inicialização.** A configuração errada só se manifesta quando o caminho que a usa é exercido — às vezes semanas depois, em produção, num fluxo raro. Validar tudo ao subir converte isso em falha imediata e visível.
+**Não validar na inicialização.** A configuração errada só se manifesta quando o caminho que a usa é exercido, às vezes semanas depois, em produção, num fluxo raro. Validar tudo ao subir converte isso em falha imediata e visível.
 
 **Padrão para o que deveria ser obrigatório.** Um valor padrão para endereço de banco ou chave de integração faz o serviço subir apontando para o lugar errado em vez de recusar-se a subir.
 
-**Registrar configuração em log sem mascarar.** O despejo de configuração na inicialização é prática comum e útil — e leva senha e chave para o sistema de logs, que costuma ter retenção longa e acesso mais amplo que o do segredo.
+**Registrar configuração em log sem mascarar.** O despejo de configuração na inicialização é prática comum e útil, e leva senha e chave para o sistema de logs, que costuma ter retenção longa e acesso mais amplo que o do segredo.
 
 **Colocar regra de negócio em configuração.** Regra em arquivo de configuração escapa de revisão de código, de teste e de histórico. O que parecia flexibilidade vira mudança de comportamento sem rastro.
 
@@ -185,7 +185,7 @@ constantes com indireção.
 
 **Quatro tinham valor padrão que mascarava ausência.** Um deles era o timeout de
 uma integração: se a variável faltasse, assumia 60 segundos. Numa migração de
-ambiente, ela faltou, e o timeout de 60 segundos — contra o de 5 esperado —
+ambiente, ela faltou, e o timeout de 60 segundos (contra o de 5 esperado)
 segurou conexões até esgotar o pool. O incidente durou 25 minutos.
 
 **Três eram segredos em arquivo versionado.** Rotação obrigatória, e o histórico
@@ -197,7 +197,7 @@ continuaram na contagem, agora obrigatórios e validados na inicialização.
 
 A mudança mais valiosa foi a validação: o processo agora falha ao subir se
 qualquer configuração obrigatória estiver ausente ou fora da faixa. O erro que
-custou 25 minutos passaria a ser um contêiner que não sobe — visível na primeira
+custou 25 minutos passaria a ser um contêiner que não sobe, visível na primeira
 tentativa de implantação.
 
 ## Configuração em contêiner
@@ -205,10 +205,10 @@ tentativa de implantação.
 Contêineres mudam duas premissas sobre configuração, e ignorar isso produz
 problemas específicos.
 
-**O mesmo artefato roda em todo ambiente** — construção única e promoção, conforme
+**O mesmo artefato roda em todo ambiente**: construção única e promoção, conforme
 [contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md). A
 consequência para configuração: **nenhuma configuração de ambiente pode estar na
-imagem** — nem arquivo, nem valor embutido no build.
+imagem** (nem arquivo, nem valor embutido no build).
 
 **O sistema de arquivos é efêmero.** Configuração escrita em disco no primeiro uso
 some no próximo contêiner.
@@ -227,11 +227,11 @@ contêiner que não sobe, com mensagem que não menciona configuração.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](/05-system-design/state-management.md) — configuração é estado de inicialização.
-- [Segurança](/10-security/index.md) — gestão de segredos.
-- [DevOps e Plataforma](/14-devops-and-platform/index.md) — ambientes e feature
+- [Gestão de Estado](/05-system-design/state-management.md): configuração é estado de inicialização.
+- [Segurança](/10-security/index.md): gestão de segredos.
+- [DevOps e Plataforma](/14-devops-and-platform/index.md): ambientes e feature
   flags.
-- [YAGNI](/02-software-design/yagni.md) — configuração especulativa.
+- [YAGNI](/02-software-design/yagni.md): configuração especulativa.
 
 ## Exercício Prático
 
@@ -249,5 +249,5 @@ em nenhum código são lixo. Os que têm padrão silencioso são o próximo inci
 
 ## Para Aprofundar
 
-- Wiggins, Adam. *The Twelve-Factor App*, 2011 — o fator de configuração.
-- OWASP — *Secrets Management Cheat Sheet*.
+- Wiggins, Adam. *The Twelve-Factor App*, 2011. O fator de configuração.
+- OWASP. *Secrets Management Cheat Sheet*.

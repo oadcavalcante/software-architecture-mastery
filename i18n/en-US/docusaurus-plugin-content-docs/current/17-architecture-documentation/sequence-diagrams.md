@@ -2,7 +2,7 @@
 id: sequence-diagrams
 title: Sequence Diagrams
 sidebar_position: 7
-description: Order in time — the diagram that explains behavior, not structure.
+description: "Order in time: the diagram that explains behavior, not structure."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, data-flow-diagrams, diagram-quality]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,10 +25,10 @@ Structural diagrams show **what exists**. Sequence diagrams show **what happens,
 order**.
 
 That is the essential difference, and it defines the use: a sequence diagram documents a
-**scenario** — a specific path through the system, from start to finish.
+**scenario**, a specific path through the system, from start to finish.
 
 Among architecture diagrams, it is the most direct way to show the order and synchrony of a
-distributed flow — and the wrong one for describing an entire system.
+distributed flow, and the wrong one for describing an entire system.
 
 ## Problem
 
@@ -72,7 +72,7 @@ The level of abstraction has to be explicit, and the most useful is usually the
 Portal → Orders API → Payment Service → Queue → Inventory Service
 ```
 
-A sequence diagram between classes exists and serves another purpose — discussing code,
+A sequence diagram between classes exists and serves another purpose: discussing code,
 not architecture. Mixing the two in the same drawing produces the same mixed-levels
 problem described in the [C4 model](/17-architecture-documentation/c4-model.md).
 
@@ -122,7 +122,7 @@ API -->> Portal: 201
 ```
 
 The text is legible on its own, versions well, and the automatic layout for sequences is
-good — unlike that for structural diagrams. See
+good, unlike that for structural diagrams. See
 [living documentation](/17-architecture-documentation/living-documentation.md).
 
 ### They age per scenario
@@ -130,7 +130,7 @@ good — unlike that for structural diagrams. See
 A sequence diagram's half-life is that of the flow it describes, and business flows change
 slowly compared to code structure.
 
-That makes them surprisingly durable — provided they describe the flow at container level
+That makes them surprisingly durable, provided they describe the flow at container level
 and not at implementation level.
 
 ### Accumulated latency becomes visible
@@ -168,21 +168,21 @@ asynchronous?" now has a number next to it. See
 
 **To describe the system.** It describes one path.
 
-**With dozens of messages** — past twelve, readability is lost.
+**With dozens of messages**: past twelve, readability is lost.
 
 **With nested conditionals.** Two scenarios, two diagrams.
 
-**For trivial two-call flows** — a sentence resolves it.
+**For trivial two-call flows**: a sentence resolves it.
 
 **At class level**, when the conversation is architectural.
 
 ## Alternatives
 
-- **A numbered description in text** — for simple flows, faster to write and read.
-- **[Data flow](/17-architecture-documentation/data-flow-diagrams.md)** — when the question is about the data, not
+- **A numbered description in text**: for simple flows, faster to write and read.
+- **[Data flow](/17-architecture-documentation/data-flow-diagrams.md)**: when the question is about the data, not
   the order.
-- **A state diagram** — when the object has a lifecycle, not a path.
-- **Distributed tracing** — it shows the real sequence, not the intended one. See
+- **A state diagram**: when the object has a lifecycle, not a path.
+- **Distributed tracing**: it shows the real sequence, not the intended one. See
   [tracing](/13-observability/distributed-tracing.md).
 
 The last deserves a note: a trace sample is a sequence diagram generated from real
@@ -238,7 +238,7 @@ charge. About 40 cases a month, handled manually.
 The team drew the flow as a sequence, starting with the happy path. It was correct and
 revealed nothing.
 
-Then they drew the failure paths — one diagram for each point at which a call could fail.
+Then they drew the failure paths: one diagram for each point at which a call could fail.
 There were seven diagrams, and three of them could not be completed, because nobody knew
 what happened:
 
@@ -256,7 +256,7 @@ What came out of the exercise:
 with a record. See
 [sagas](/06-distributed-systems/sagas.md).
 
-**Transactional publishing** for the second — write and event in the same transaction, with
+**Transactional publishing** for the second: write and event in the same transaction, with
 publication afterwards from the table. See
 [delivery guarantees](/06-distributed-systems/delivery-guarantees.md).
 
@@ -275,9 +275,9 @@ they could not finish.
 
 ## Related Concepts
 
-- [Container Diagrams](/17-architecture-documentation/container-diagrams.md) — the level of the participants.
-- [Data Flow](/17-architecture-documentation/data-flow-diagrams.md) — the data-centered alternative.
-- [Distributed Tracing](/13-observability/distributed-tracing.md) — the real sequence.
+- [Container Diagrams](/17-architecture-documentation/container-diagrams.md): the level of the participants.
+- [Data Flow](/17-architecture-documentation/data-flow-diagrams.md): the data-centered alternative.
+- [Distributed Tracing](/13-observability/distributed-tracing.md): the real sequence.
 - [Sagas](/06-distributed-systems/sagas.md).
 
 ## Practical Exercise

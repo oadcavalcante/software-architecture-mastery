@@ -2,7 +2,7 @@
 id: transactions
 title: Transactions
 sidebar_position: 19
-description: ACID and isolation levels — what each level allows to happen, and why the default is surprising.
+description: "ACID and isolation levels: what each level allows to happen, and why the default is surprising."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [data-consistency, oltp, indexing]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A transaction groups operations so that either all of them happen or none does, and so that concurrent
 operations do not interfere with each other in undesired ways.
 
-The atomicity part is well understood. The **isolation** part is not — and it is where the hard defects
+The atomicity part is well understood. The **isolation** part is not, and it is where the hard defects
 live: the ones that pass every test and appear only under real concurrency.
 
 This document is about the second part.
@@ -46,7 +46,7 @@ reproduce.
 
 **Atomicity.** All or nothing.
 
-**Consistency.** The declared constraints remain valid. It is the least interesting letter — it
+**Consistency.** The declared constraints remain valid. It is the least interesting letter: it
 depends on what you declared.
 
 **Isolation.** Concurrent transactions do not interfere. It is the letter that causes problems.
@@ -55,7 +55,7 @@ depends on what you declared.
 
 ### The anomalies, in order of severity
 
-**Dirty read.** Reading data from a transaction that has not committed yet — and that can be undone.
+**Dirty read.** Reading data from a transaction that has not committed yet, and that can be undone.
 
 **Non-repeatable read.** Reading the same record twice in the same transaction and getting different
 values, because another transaction changed it between the reads.
@@ -66,7 +66,7 @@ transaction inserted records that satisfy the filter.
 **Lost update.** Two transactions read the same value, compute from it and write. The second overwrites
 the first's effect.
 
-**Write skew.** Two transactions read the same set, each checks a condition, and both write — producing
+**Write skew.** Two transactions read the same set, each checks a condition, and both write, producing
 a state neither would have allowed on its own.
 
 The last two cause the most real damage, and the last is the subtlest.
@@ -88,7 +88,7 @@ and aborts one of the transactions; MySQL's InnoDB, under the same level name, d
 **Read committed** is the default in most databases. It allows non-repeatable reads, phantoms and lost
 updates.
 
-If your database runs at read committed — the default in PostgreSQL, Oracle and SQL Server — its
+If your database runs at read committed (the default in PostgreSQL, Oracle and SQL Server), its
 default behavior admits lost updates, and that is the origin of the classic
 "read balance, compute, write balance" defect.
 
@@ -110,7 +110,7 @@ result: zero doctors on call
 Neither transaction read dirty data. Neither overwrote the other's write. Each checked the rule
 correctly.
 
-And the rule was violated. That is write skew, and only the serializable level prevents it — or an
+And the rule was violated. That is write skew, and only the serializable level prevents it, or an
 explicit lock.
 
 ### An explicit lock is the practical way out
@@ -165,16 +165,16 @@ rollback; the transaction only prolongs the locks. Coordinate with
 **A long transaction for batch processing.** Split it into smaller batches.
 
 **A distributed transaction.** See
-[distributed transactions](/06-distributed-systems/distributed-transactions.md) — another problem,
+[distributed transactions](/06-distributed-systems/distributed-transactions.md): another problem,
 another cost.
 
 ## Alternatives
 
-- **An explicit lock** — serializes the critical record without raising everything.
-- **Optimistic version control** — no locking, with retries.
-- **The database's atomic operation** — `UPDATE balance = balance - ?` avoids the whole
+- **An explicit lock**: serializes the critical record without raising everything.
+- **Optimistic version control**: no locking, with retries.
+- **The database's atomic operation**: `UPDATE balance = balance - ?` avoids the whole
   read-compute-write cycle.
-- **A uniqueness constraint** — lets the database reject the duplicate.
+- **A uniqueness constraint**: lets the database reject the duplicate.
 
 The third is the most underestimated: a good part of the lost update cases disappears by expressing
 the change as a relative operation instead of an absolute value.
@@ -226,13 +226,13 @@ the change as a relative operation instead of an absolute value.
 ## Real-World Example
 
 An internal credits system had the consumption operation implemented like this: read the balance,
-check whether it is sufficient, subtract in the application, write the new value — all inside a
+check whether it is sufficient, subtract in the application, write the new value, all inside a
 transaction.
 
 The database used read committed, the default.
 
-Under normal use, it worked. When a customer triggered several simultaneous operations — which happened
-in automated integrations — the balance ended up wrong.
+Under normal use, it worked. When a customer triggered several simultaneous operations (which happened
+in automated integrations), the balance ended up wrong.
 
 Two transactions read 100, both subtracted 30, both wrote 70. Two operations consumed 60 and the
 balance dropped 30.
@@ -248,7 +248,7 @@ The fixes, in order of application:
 checking how many rows were affected. That eliminates the read-compute-write cycle and the anomaly
 with it. One line.
 
-**A check constraint** guaranteeing a non-negative balance — the safety net in the store, valid for
+**A check constraint** guaranteeing a non-negative balance: the safety net in the store, valid for
 every writer.
 
 **A movement log** instead of just the balance, allowing auditing and reconciliation. That is what made
@@ -259,8 +259,8 @@ that. The word "transaction" was read as "mutual exclusion", and it is not.
 
 ## Related Concepts
 
-- [Data Consistency](/07-data-architecture/data-consistency.md) — the topic at the storage level.
-- [OLTP](/07-data-architecture/oltp.md) — where contention appears.
+- [Data Consistency](/07-data-architecture/data-consistency.md): the topic at the storage level.
+- [OLTP](/07-data-architecture/oltp.md): where contention appears.
 - [Distributed Transactions](/06-distributed-systems/distributed-transactions.md).
 - [Relational Databases](/07-data-architecture/relational-databases.md).
 
@@ -280,5 +280,5 @@ Each one is a lost update case waiting for sufficient concurrency.
 ## Further Reading
 
 - Berenson, Hal et al. *A Critique of ANSI SQL Isolation Levels*. SIGMOD, 1995.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 7.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 7.
 - Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.

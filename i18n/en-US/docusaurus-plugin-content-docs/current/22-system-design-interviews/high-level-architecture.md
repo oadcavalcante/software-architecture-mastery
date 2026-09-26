@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-data-modeling]
 related: [bottleneck-identification, interview-scaling, interview-structure]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -39,14 +39,14 @@ entire flow is a basis on which the conversation happens.
 Two patterns.
 
 **Premature complexity.** The candidate draws a load balancer, a gateway, six microservices, a
-queue, a cache, replicas, a search index and object storage — in three minutes, before any
+queue, a cache, replicas, a search index and object storage, in three minutes, before any
 bottleneck has been identified.
 
 The problem is not that the components are wrong. It is that none was justified, and the
 interviewer has no way to distinguish judgment from memorization. The question that follows is "why
 that queue?", and the answer needs to be better than "to decouple".
 
-**Incomplete design.** The candidate goes deep into one part — the caching model, for example — and
+**Incomplete design.** The candidate goes deep into one part (the caching model, for example) and
 never closes the flow. By the end of the interview, there is no complete path from the user's
 request to the response.
 
@@ -85,14 +85,14 @@ served, and that is what reveals where it can fail or become slow.
 ```
 
 The third sentence is the model: it ties a component to a number that came from the estimate and to
-a requirement that came from the clarification. That chain — requirement, number, component — is
+a requirement that came from the clarification. That chain (requirement, number, component) is
 what distinguishes architecture from recitation.
 
 If you cannot state the reason for a box, it should not be in the design yet.
 
 It is worth noting that this rule also protects against the most uncomfortable question of the
 interview: "what happens if I remove that component?". A candidate who placed each box for a reason
-answers immediately — "without the cache, the database sees 12 thousand reads per second instead of
+answers immediately: "without the cache, the database sees 12 thousand reads per second instead of
 600, which would require many replicas and cost more". A candidate who copied a template has no
 answer, and the absence of one is more informative than any drawing.
 
@@ -114,7 +114,7 @@ signals that the split came from a mental template and not from the problem. See
 
 The strong answer when the interviewer asks "and microservices?": "I would split if we had
 independent teams needing to deploy separately, or if some component had a very different scale
-profile. Here, component X does — so I would separate it, and keep the rest together".
+profile. Here, component X does, so I would separate it, and keep the rest together".
 
 ### Mark the volume on the arrows
 
@@ -125,7 +125,7 @@ application → database    600/s reads, 120/s writes
 ```
 
 Noting the numbers turns the drawing into an analysis instrument: it becomes visible where the load
-concentrates, and the next question — "what saturates first?" — has an immediate answer. See
+concentrates, and the next question ("what saturates first?") has an immediate answer. See
 [bottleneck identification](/22-system-design-interviews/bottleneck-identification.md).
 
 ### Complete the flow before going deep
@@ -142,12 +142,12 @@ part they do not find interesting.
 
 It also has a pacing effect. Interviews frequently drift toward the subject the candidate knows
 best, and the evaluator notices that. Explicitly inviting the choice of topic signals confidence in
-covering any of them — and, in practice, the interviewer usually picks precisely where they have a
+covering any of them. And, in practice, the interviewer usually picks precisely where they have a
 prepared question, which is the part of the conversation that yields the most.
 
 ### Separate the read and write paths
 
-When the two have different profiles — and they almost always do — drawing them separately
+When the two have different profiles (and they almost always do), drawing them separately
 clarifies:
 
 ```text
@@ -167,8 +167,8 @@ good   "session cache", "order event queue",
 ```
 
 Naming by responsibility keeps the conversation at the architecture level and prevents it from
-drifting into product comparison. Technology enters as a note — "it would be an in-memory cache,
-something like Redis" — without taking center stage.
+drifting into product comparison. Technology enters as a note ("it would be an in-memory cache,
+something like Redis"), without taking center stage.
 
 ## Mental Model
 
@@ -197,9 +197,9 @@ component, and you will have drawn twice.
 
 ## Alternatives
 
-- **Describe the flow in text** — when there is no board; less effective, but viable.
-- **Draw two flows** — read and write separately; better when the profiles diverge.
-- **Start with the bottleneck** — if the estimate has already pointed at one, drawing around it is
+- **Describe the flow in text**: when there is no board; less effective, but viable.
+- **Draw two flows**: read and write separately; better when the profiles diverge.
+- **Start with the bottleneck**: if the estimate has already pointed at one, drawing around it is
   legitimate.
 
 ## Trade-offs
@@ -217,7 +217,7 @@ component, and you will have drawn twice.
 
 The cost of the simple design is being read as a lack of repertoire, and the risk grows with the
 seniority of the role: five boxes from a senior candidate can look like naivety, not discipline. The
-mitigation fits in one sentence said before asking where to go deeper — "the expansion points I
+mitigation fits in one sentence said before asking where to go deeper: "the expansion points I
 foresee are the read path, if the cache hit rate drops, and click analytics, which would move off
 the synchronous path". That shows the repertoire exists and was left off the board by choice.
 
@@ -303,7 +303,7 @@ service → database     600/s reads + 120/s writes
  availability, or click analytics?"
 ```
 
-**If they ask for click analytics**, the drawing gains a box — and the justification comes with it:
+**If they ask for click analytics**, the drawing gains a box, and the justification comes with it:
 
 ```text
 "clicks are 12 thousand events per second, and the analytics tolerates
@@ -316,12 +316,12 @@ service → database     600/s reads + 120/s writes
  That keeps the redirect at one cache read and nothing more."
 ```
 
-Note that the new box entered with a requirement, a number and a consequence — and that it only
+Note that the new box entered with a requirement, a number and a consequence, and that it only
 appeared when it was asked for.
 
 ## Related Concepts
 
-- [Bottleneck Identification](/22-system-design-interviews/bottleneck-identification.md) — the next
+- [Bottleneck Identification](/22-system-design-interviews/bottleneck-identification.md): the next
   step.
 - [Scaling in Interviews](/22-system-design-interviews/interview-scaling.md).
 - [Monolith vs. Microservices](/20-trade-offs/monolith-vs-microservices.md).
@@ -329,7 +329,7 @@ appeared when it was asked for.
 
 ## Practical Exercise
 
-Draw, in five minutes, the architecture of a scheduling system — and write next to each box its
+Draw, in five minutes, the architecture of a scheduling system, and write next to each box its
 reason in one sentence.
 
 The boxes with no sentence are the ones you placed out of habit. Remove them and see whether the

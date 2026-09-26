@@ -2,7 +2,7 @@
 id: interview-api-design
 title: API Design in the Interview
 sidebar_position: 5
-description: Few endpoints, written fast — they delimit the scope better than any discussion.
+description: "Few endpoints, written fast: they delimit the scope better than any discussion."
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [interview-data-modeling, high-level-architecture, interview-structure]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -66,12 +66,12 @@ DELETE /urls/{code}       →  204
 ```
 
 Four lines, one minute of writing. They say everything: the system creates, redirects, looks up and
-deletes — and nothing more. If the interviewer wants detailed click analytics, they will ask, and
+deletes, and nothing more. If the interviewer wants detailed click analytics, they will ask, and
 then the API gains an endpoint.
 
 Writing those four lines has a containment effect that is hard to get any other way. A candidate
-who did not write the API tends to add features while drawing — a dashboard here, a notification
-there — because nothing established the boundary. With the API on the board, adding something
+who did not write the API tends to add features while drawing (a dashboard here, a notification
+there) because nothing established the boundary. With the API on the board, adding something
 requires adding an endpoint, and that is a visible act that prompts the question "was that in
 scope?".
 
@@ -131,7 +131,7 @@ appropriate  POST /urls, PATCH /urls/{code}
 ```
 
 The granularity criterion lives in [APIs](/05-system-design/apis.md#resource-granularity): model
-the consumer's operations. In an interview it becomes a two-second rule — one operation per user
+the consumer's operations. In an interview it becomes a two-second rule: one operation per user
 intent.
 
 ### Asynchronous when the operation is long
@@ -143,7 +143,7 @@ asynchronous   POST /reports  →  202 {task_id}
 ```
 
 Recognizing which operation is long and proposing the accept-with-later-lookup pattern demonstrates
-maturity, and opens the conversation about intermediate state — which is a good conversation to
+maturity, and opens the conversation about intermediate state, which is a good conversation to
 have.
 
 See [synchronous vs. asynchronous](/20-trade-offs/sync-vs-async.md).
@@ -159,14 +159,14 @@ See [synchronous vs. asynchronous](/20-trade-offs/sync-vs-async.md).
 One sentence solves it. It shows you know those things exist and chose not to spend time on them,
 which is different from forgetting.
 
-That distinction — between omitting by choice and omitting out of ignorance — comes up constantly
+That distinction (between omitting by choice and omitting out of ignorance) comes up constantly
 in the evaluation, and making it explicit costs seconds. It also opens a door: an interviewer who
 wants to discuss versioning will ask, and you will have the topic in the right place in the
 conversation instead of in the place where it consumes the design's time.
 
 ### The style matters less than it seems
 
-REST, gRPC or GraphQL — the choice is rarely the point of the interview, and defending it at length
+REST, gRPC or GraphQL: the choice is rarely the point of the interview, and defending it at length
 consumes time. One sentence is enough:
 
 ```text
@@ -180,7 +180,7 @@ That demonstrates the choice was conscious and returns the conversation to what 
 There is an exception: when the prompt involves communication between many internal services with a
 tight latency requirement, or when the client is mobile on a poor connection with several resources
 to fetch, the style choice starts having a real consequence. In those cases it deserves a minute,
-not a sentence — and recognizing the difference between the two contexts is itself a sign of
+not a sentence, and recognizing the difference between the two contexts is itself a sign of
 judgment.
 
 ## Mental Model
@@ -204,16 +204,16 @@ a generic query; what fixes the scope is the entities and the volumes, and start
 model pays off more.
 
 **In infrastructure problems with no user-facing surface.** A rate limiter or a distributed cache
-exposes one or two trivial calls — `allow(key)`, `get/set`. Writing them reveals no model and
+exposes one or two trivial calls: `allow(key)`, `get/set`. Writing them reveals no model and
 separates no profiles; the problem lives in the algorithm and the coordination.
 
-**Before the non-functional requirements** — without them, there is no way to group by profile.
+**Before the non-functional requirements**: without them, there is no way to group by profile.
 
 ## Alternatives
 
-- **Describe the operations in text** — when time is tight; less precise and faster.
-- **Start with the data model** — works equally well in data-centered domains.
-- **Skip to the design** — legitimate if the interviewer indicates they want to reach the
+- **Describe the operations in text**: when time is tight; less precise and faster.
+- **Start with the data model**: works equally well in data-centered domains.
+- **Skip to the design**: legitimate if the interviewer indicates they want to reach the
   architecture quickly.
 
 ## Trade-offs
@@ -252,11 +252,11 @@ and the interviewer concludes you don't know what sizes the system.
 **Detailing pagination and errors.** The minutes come out of the internal design, which is where
 the evaluation is.
 
-**Forgetting the highest-volume operation** — in shorteners, the redirect. The whole sizing ends up
+**Forgetting the highest-volume operation**: in shorteners, the redirect. The whole sizing ends up
 computed over the wrong operation.
 
 **Not saying what was left out.** The omission becomes indistinguishable from ignorance, and the
-interviewer asks — spending the time the sentence would have saved.
+interviewer asks, spending the time the sentence would have saved.
 
 ## Interview Example
 
@@ -317,7 +317,7 @@ follow as a simple operation
 **Likely follow-up question:** "how does the client know there are new posts?"
 
 The answer opens a real decision: periodic polling, a persistent connection, or a push notification.
-And each has a scale consequence — with 300 million users, persistent connections are a subsystem
+And each has a scale consequence: with 300 million users, persistent connections are a subsystem
 of their own. See the [messaging case study](/21-case-studies/messaging-platform.md).
 
 ## Related Concepts

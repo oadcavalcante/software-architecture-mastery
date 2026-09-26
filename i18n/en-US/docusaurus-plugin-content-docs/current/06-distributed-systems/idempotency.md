@@ -2,7 +2,7 @@
 id: idempotency
 title: Idempotency
 sidebar_position: 8
-description: Executing once or many times has the same effect — the property that makes retrying safe.
+description: "Executing once or many times has the same effect: the property that makes retrying safe."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [retries, timeouts, duplicate-messages]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 An operation is idempotent when executing it once or many times produces the same effect.
 
-It is the property that makes [retrying](/06-distributed-systems/retries.md) safe — and since
+It is the property that makes [retrying](/06-distributed-systems/retries.md) safe, and since
 retrying is inevitable in distributed systems, idempotency is not an optimization: it is a
 requirement.
 
@@ -42,8 +42,8 @@ Faced with that there are two options, and both are bad without idempotency:
 **Do not retry.** If it did not happen, the effect is lost. A paid order goes unprocessed.
 
 Idempotency dissolves the dilemma on the axis of the effect: retrying stops duplicating.
-Whether it is worth retrying — whether the failure is retryable, with what limit and what
-spacing — is a [retry](/06-distributed-systems/retries.md) decision.
+Whether it is worth retrying (whether the failure is retryable, with what limit and what
+spacing) is a [retry](/06-distributed-systems/retries.md) decision.
 
 Note the asymmetry. Without idempotency, you have to **guess** what happened on the other side.
 With it, you do not need to know.
@@ -69,7 +69,7 @@ Some operations are naturally idempotent: setting an absolute value, marking as 
 inserting with a unique key.
 
 The problem is that it **breaks over time**. A "cancel order" operation is idempotent until
-somebody adds "record the cancellation reason with a date" — and then the second execution
+somebody adds "record the cancellation reason with a date", and then the second execution
 overwrites the original date.
 
 Relying on natural idempotency is relying on nobody adding a side effect. Somebody will.
@@ -90,11 +90,11 @@ Three details decide whether it works:
 have a new one. The key identifies the intent, and the intent is the client's.
 
 **The key and the result are recorded in the same transaction as the effect.** If they are
-separate, there is a window in which the effect happened and the key was not recorded — and the
+separate, there is a window in which the effect happened and the key was not recorded, and the
 retry duplicates.
 
 **The key has an expiry.** Keeping them indefinitely is a leak. The expiry has to be longer than
-the realistic retry window — typically hours or days.
+the realistic retry window: typically hours or days.
 
 **The key has a uniqueness constraint.** This is the detail the same transaction does not solve on
 its own: two retries arriving at the same time open transactions that cannot see each other's
@@ -111,13 +111,13 @@ with uniqueness      T1 reads "not there" → processes → writes
 What remains is deciding what the second call gets while the first has not finished. Waiting holds a
 connection with no guaranteed bound; the usual answer is to refuse the concurrent one with an error
 saying "this key is being processed", leaving the client to retry later. Returning the result is not an
-option — it does not exist yet.
+option: it does not exist yet.
 
 ### What to do when the key repeats with different content
 
 An edge case that usually goes unhandled: the same key arrives with a different body.
 
-That indicates a client error — it reused the key for another operation. The correct answer is to
+That indicates a client error: it reused the key for another operation. The correct answer is to
 reject it with an explicit error, not to process it or return the old result. Returning the old
 one hides a client bug.
 
@@ -136,7 +136,7 @@ the time between executions, it is not idempotent.
 
 ## When to Use
 
-- Any operation that can be repeated — which includes every network call.
+- Any operation that can be repeated, which includes every network call.
 - [Queue](/05-system-design/queues.md) consumers whose effect is observable outside
   the system or irreversible.
 - API endpoints that change state.
@@ -147,7 +147,7 @@ the time between executions, it is not idempotent.
 
 **When the repetition is the data.** Per-call metering, an audit trail of attempts, an access
 counter: there every occurrence has to count, and collapsing two into one loses the information the
-system exists to keep. It is the one case where idempotency is not merely expensive — it is wrong.
+system exists to keep. It is the one case where idempotency is not merely expensive but wrong.
 
 **Operations with no side effect.** They are already idempotent; the key only adds a write.
 
@@ -155,7 +155,7 @@ system exists to keep. It is the one case where idempotency is not merely expens
 recognizing that explicitly, not assuming it.
 
 **When the volume of keys would be prohibitive.** Millions of operations per second with a
-persisted key have a real cost — there the strategy changes to
+persisted key have a real cost. There the strategy changes to
 [windowed deduplication](/06-distributed-systems/duplicate-messages.md), which trades guarantee for
 cost.
 
@@ -168,15 +168,15 @@ actually harmless.
 
 ## Alternatives
 
-- **Windowed deduplication** — keeping recent keys in a cache instead of persisting them. Cheaper
+- **Windowed deduplication**: keeping recent keys in a cache instead of persisting them. Cheaper
   and with a weaker guarantee.
-- **Duplicate detection in the consumer** — checking whether the effect already exists before
+- **Duplicate detection in the consumer**: checking whether the effect already exists before
   applying it. It works when there is a natural identifier.
-- **Making the operation absolute** — reformulating "add 50" to "set to 150". It does away with
+- **Making the operation absolute**: reformulating "add 50" to "set to 150". It does away with
   key storage, and wins on that when there is a single writer or guaranteed ordering. Under
   concurrent writes it loses: a delayed retry of "set to 150" arriving after a legitimate "set to
   200" reverts the state, unless the write is conditional on the version.
-- **Distributed transaction** — expensive, and it avoids the problem instead of handling it. See
+- **Distributed transaction**: expensive, and it avoids the problem instead of handling it. See
   [distributed transactions](/06-distributed-systems/distributed-transactions.md).
 
 ## Trade-offs
@@ -205,7 +205,7 @@ network attempt, there is no deduplication.
 ## Common Mistakes
 
 **Assuming natural idempotency.** It holds until somebody adds a side effect, and the break does
-not show up in tests — it shows up on the first retry in production.
+not show up in tests but on the first retry in production.
 
 **The server generating the key.** Every retry arrives with a new key, and the mechanism becomes
 ornament: it exists in the code and deduplicates nothing.
@@ -241,19 +241,19 @@ transferring, in another transaction. A fault-injection test showed the window: 
 process between the two produced duplication. It became a single transaction.
 
 **The second call had to return the result, not an error.** The initial version returned `409
-Conflict`. The client treated it as a failure and showed the user an error — for a transfer that
+Conflict`. The client treated it as a failure and showed the user an error, for a transfer that
 had completed successfully. It came to return `200` with the original result.
 
 All three details are in the documentation of any mature payment provider. What was missing was
-not knowledge — it was treating idempotency as a requirement from the start, instead of a fix
+not knowledge but treating idempotency as a requirement from the start, instead of a fix
 after the incident.
 
 ## Related Concepts
 
-- [Partial Failure](/06-distributed-systems/partial-failure.md) — the problem it solves.
-- [Retries](/06-distributed-systems/retries.md) — what it makes safe.
-- [Duplicate Messages](/06-distributed-systems/duplicate-messages.md) — the case in queues.
-- [Delivery Guarantees](/06-distributed-systems/delivery-guarantees.md) — why at-least-once is the
+- [Partial Failure](/06-distributed-systems/partial-failure.md): the problem it solves.
+- [Retries](/06-distributed-systems/retries.md): what it makes safe.
+- [Duplicate Messages](/06-distributed-systems/duplicate-messages.md): the case in queues.
+- [Delivery Guarantees](/06-distributed-systems/delivery-guarantees.md): why at-least-once is the
   default.
 
 ## Practical Exercise
@@ -274,4 +274,4 @@ retries" is an incident waiting for latency.
 
 - Helland, Pat. *Idempotence Is Not a Medical Condition*. ACM Queue, 2012.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Idempotency key documentation from payment providers — Stripe's is the most cited reference.
+- Idempotency key documentation from payment providers: Stripe's is the most cited reference.

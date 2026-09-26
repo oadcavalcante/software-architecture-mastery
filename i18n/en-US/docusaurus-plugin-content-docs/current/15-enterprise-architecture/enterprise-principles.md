@@ -2,7 +2,7 @@
 id: enterprise-principles
 title: Enterprise Principles
 sidebar_position: 10
-description: Rules that guide distributed decisions — and why most of them guide nothing.
+description: Rules that guide distributed decisions, and why most of them guide nothing.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -45,7 +45,7 @@ None of these helps decide anything. Faced with two alternatives, both can be de
 simple, secure and good for the user.
 
 The test that exposes this: **is there anyone in the organization who would argue the
-opposite?** If not, the principle does not separate options — it merely declares a
+opposite?** If not, the principle does not separate options; it merely declares a
 virtue. This is the inversion test, defined in
 [governance principles](/19-architecture-governance/governance-principles.md); what matters
 here is what comes after it: implications and the test against real decisions.
@@ -110,7 +110,7 @@ paralysis.
 
 A precision of vocabulary, because it changes what gets written in the record: a principle
 is not waived, it is **weighed** against another principle. The mechanism is the same as an
-exception to a standard — a record, a justification, a review —, but the content of the
+exception to a standard (a record, a justification, a review), but the content of the
 record is different: not "we failed to comply", but "this principle yielded to that one,
 for this reason". See
 [governance principles](/19-architecture-governance/governance-principles.md).
@@ -124,8 +124,8 @@ with a decision by someone with the reach to make it
 and a review deadline
 ```
 
-The exception log is valuable information: if a principle accumulates exceptions, that
-is the strongest signal it needs review — because it is wrong, because its scope grew too
+The exception log is valuable information. If a principle accumulates exceptions, that
+is the strongest signal it needs review: because it is wrong, because its scope grew too
 broad, or because it systematically loses to another one without the precedence being
 written down.
 
@@ -141,7 +141,7 @@ would the direction have been right?    if not, the principle is wrong
 would anyone have disagreed?            if not, it is obvious
 ```
 
-Principles written in a meeting, without that test, tend to be declarations of virtue —
+Principles written in a meeting, without that test, tend to be declarations of virtue,
 because that is what sounds good in a meeting.
 
 ### A principle is not a standard or a technical rule
@@ -155,7 +155,7 @@ rule       verifies — the pipeline fails if the tag is missing
 See [standards](/15-enterprise-architecture/standards.md).
 
 Mixing the three produces a long document in which nobody distinguishes guidance from
-obligation — and, when in doubt, everything becomes obligation.
+obligation, and, when in doubt, everything becomes obligation.
 
 ### Principles compete with each other, and that is useful
 
@@ -168,13 +168,13 @@ different directions.
 ```
 
 That looks like a defect and it is a feature. The tension makes a real organizational
-trade-off explicit, and forces the discussion to happen in the concrete case — which is
+trade-off explicit, and forces the discussion to happen in the concrete case, which is
 where it should happen.
 
 What does not work is ordering the principles by fixed priority: a rigid hierarchy turns
 the second principle into decoration, because the first always wins.
 
-What works is stating **where** each principle governs — by domain or by risk —, as
+What works is stating **where** each principle governs (by domain or by risk), as
 [governance principles](/19-architecture-governance/governance-principles.md) details,
 and recording, when the tension appears, which one won and why. See
 [architecture decisions](/18-architecture-decisions/index.md).
@@ -194,14 +194,14 @@ principle 1        "data belongs to a single system"  → points at: centralize
 principle 2        "we pursue simplicity"             → points at nothing
 ```
 
-The second can be used to defend either side — keeping it is simple because it avoids
+The second can be used to defend either side: keeping it is simple because it avoids
 integration; centralizing is simple because it eliminates reconciliation.
 
 That ambiguity is not a writing flaw. It is the sign that the principle chose nothing.
 
 And there is a second, harder test: ask three people from different teams what the
 principle implies in a concrete situation. If the answers diverge, the implications were
-never written — and the principle is producing divergence instead of coherence.
+never written, and the principle is producing divergence instead of coherence.
 
 ## Mental Model
 
@@ -211,7 +211,7 @@ never written — and the principle is producing divergence instead of coherence
 
 - Where similar decisions are made by different teams.
 - To guide without centralizing.
-- When there is recurring tension between values — cost against speed, autonomy against
+- When there is recurring tension between values: cost against speed, autonomy against
   standardization.
 - To give architecture reviews a criterion.
 
@@ -219,7 +219,7 @@ never written — and the principle is producing divergence instead of coherence
 
 **With a single team, or a few teams that decide together.** Principles exist to
 coordinate people who do not talk; where everyone sits in the same weekly review, direct
-conversation costs less than writing, publishing and maintaining the set — and is more
+conversation costs less than writing, publishing and maintaining the set, and is more
 precise than it.
 
 **Where a body of recorded decisions already guides.** If teams consult past ADRs before
@@ -234,16 +234,16 @@ weigh one principle against another, the published set will not be applied.
 specific choice matters and can be verified, a principle is the wrong instrument.
 
 **As a veto instrument.** Where the context is one of distrust between areas, principles
-tend to be cited only to refuse proposals — and the set comes to be read as a list of
+tend to be cited only to refuse proposals, and the set comes to be read as a list of
 prohibitions, not as a criterion.
 
 ## Alternatives
 
-- **[Standards](/15-enterprise-architecture/standards.md)** — when the specific choice matters.
-- **Paved road** — the standard built in, without depending on the team remembering. See
+- **[Standards](/15-enterprise-architecture/standards.md)**: when the specific choice matters.
+- **Paved road**: the standard built in, without depending on the team remembering. See
   [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
-- **Automated verification** — for what can be checked.
-- **Decision records** — the history of what was decided and why, which guides by
+- **Automated verification**: for what can be checked.
+- **Decision records**: the history of what was decided and why, which guides by
   precedent. See
   [architecture decisions](/18-architecture-decisions/index.md).
 
@@ -290,7 +290,7 @@ principles, because it brings the context along.
 
 **Not recording exceptions.** An unrecorded exception becomes informal precedent, and the principle ends up applying only to those who didn't know an exception could be requested.
 
-**Not reviewing.** Principles derive from context — team size, stage, constraints. When the context changes and they don't, they keep eliminating options that have become good again.
+**Not reviewing.** Principles derive from context: team size, stage, constraints. When the context changes and they don't, they keep eliminating options that have become good again.
 
 ## Real-World Example
 
@@ -307,7 +307,7 @@ pointed and were decisive             3
 The first 14 were declarations of virtue: "we pursue quality", "we value simplicity", "we
 are data-driven".
 
-And of the 23, only 4 had been cited in any discussion in three years — always to justify
+And of the 23, only 4 had been cited in any discussion in three years, always to justify
 a refusal, never to guide a choice.
 
 The rework produced 5 principles, each with an explicit losing side and implications:
@@ -332,23 +332,23 @@ The rework produced 5 principles, each with an explicit losing side and implicat
    → no delivery is considered done without telemetry and alerts
 ```
 
-A sixth candidate — "integration is by explicit contract, never by access to another's
-database" — was demoted to an implication of principle 2: it ruled out nothing that 2 did
+A sixth candidate ("integration is by explicit contract, never by access to another's
+database") was demoted to an implication of principle 2: it ruled out nothing that 2 did
 not already rule out.
 
 Each with listed implications, an exception possible with a record, and annual review.
 
-Over the following eighteen months, the exception log accumulated 11 cases — and nine of
+Over the following eighteen months, the exception log accumulated 11 cases, and nine of
 them were about principle 3. The annual review rewrote that principle: the list of
 supported technologies had become too narrow for the variety of problems the company had.
 
 The reading the team takes from this: the exception log was the most valuable mechanism.
-It turned "this principle gets in the way" — a complaint — into evidence that the
+It turned "this principle gets in the way" (a complaint) into evidence that the
 principle needed to change.
 
 ## Related Concepts
 
-- [Standards](/15-enterprise-architecture/standards.md) — the specific prescription.
+- [Standards](/15-enterprise-architecture/standards.md): the specific prescription.
 - [Enterprise Governance](/15-enterprise-architecture/enterprise-governance.md).
 - [Architecture Levels](/15-enterprise-architecture/architecture-levels.md).
 - [Architecture Decisions](/18-architecture-decisions/index.md).
@@ -359,7 +359,7 @@ Take your organization's principles and test each one against three real recent
 decisions.
 
 The ones that would not have pointed in a direction, or that nobody would disagree with,
-are not principles — they are declarations.
+are declarations, not principles.
 
 ## Interview Questions
 
@@ -369,6 +369,6 @@ are not principles — they are declarations.
 
 ## Further Reading
 
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — architecture principles.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Architecture principles.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

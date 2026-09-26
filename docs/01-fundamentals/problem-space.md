@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-context]
 related: [solution-space, functional-requirements]
 canonical_for: [espaço do problema, problem space]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 O espaço do problema é o conjunto do que precisa ser verdade para que a
-necessidade esteja atendida — expresso sem referência a como será construído.
+necessidade esteja atendida, expresso sem referência a como será construído.
 
 Manter essa separação é mais difícil do que parece, porque a linguagem natural
 embute soluções. "Precisamos de uma fila" já é uma solução. O problema
@@ -41,7 +41,7 @@ está resolvendo um problema diferente e nenhuma percebeu.
 A causa raiz é que problemas chegam já embrulhados em solução. O stakeholder não
 diz "preciso saber se o pedido está atrasado"; diz "preciso de um dashboard".
 O time debate tecnologia de dashboard. Ninguém pergunta que decisão será tomada
-com aquela informação — e a resposta poderia ser "cancelar o pedido", o que
+com aquela informação. E a resposta poderia ser "cancelar o pedido", o que
 sugere um alerta, não um dashboard.
 
 ## Conceitos Centrais
@@ -86,7 +86,7 @@ O objetivo é que ela vença por comparação, e não por ter sido dita primeiro
 
 ### O problema tem dono; a solução tem autor
 
-Quem tem o problema é quem sofre a consequência de ele não ser resolvido —
+Quem tem o problema é quem sofre a consequência de ele não ser resolvido,
 normalmente do lado do negócio ou da operação.
 
 Quem propõe a solução é quem conhece o espaço técnico.
@@ -102,7 +102,7 @@ Explicitar o problema também torna possível não resolvê-lo.
 
 Um problema cujo custo de ocorrência é baixo e cuja solução é cara é um problema
 a aceitar. Essa conclusão só é alcançável quando o problema está declarado
-separadamente da solução — enquanto estiver embrulhado, a discussão é sobre qual
+separadamente da solução. Enquanto estiver embrulhado, a discussão é sobre qual
 solução, nunca sobre se alguma vale a pena.
 
 ## Modelo Mental
@@ -118,7 +118,7 @@ problema. Se deixa de fazer sentido, é solução.
 ## Por Que Isso Importa
 
 **Porque o espaço de solução só pode ser avaliado contra um problema declarado.**
-Sem isso, comparar alternativas é impossível — não há critério. É por isso que
+Sem isso, comparar alternativas é impossível: não há critério. É por isso que
 [case studies](/21-case-studies/index.md) começam por contexto e requisitos, e
 só depois listam opções.
 
@@ -135,7 +135,7 @@ contra a tecnologia procurando um problema.
 
 **Aceitar o enunciado do stakeholder como problema.** Ele quase sempre chega como
 solução. Aceito como veio, o time entrega o mecanismo pedido e o problema
-continua de pé. Recuar não é desrespeito — é o trabalho.
+continua de pé. Recuar não é desrespeito: é o trabalho.
 
 **Recuar demais.** Levado ao extremo, todo problema vira "a empresa precisa ganhar
 dinheiro", o que é verdadeiro e inútil. Pare no nível em que o problema ainda é
@@ -162,13 +162,13 @@ e a suíte leva 40 minutos."
 
 O problema declarado: **não existe confiança de que uma mudança seja local**.
 
-Contra esse enunciado, microsserviços é uma das soluções — e uma das caras. As
+Contra esse enunciado, microsserviços é uma das soluções, e uma das caras. As
 alternativas ficam visíveis: impor fronteiras entre módulos com verificação
 automatizada, quebrar a suíte por módulo, aumentar cobertura nos pontos de
 acoplamento, adotar release gradual.
 
 A equipe escolheu impor fronteiras primeiro. Dezoito meses depois, extraiu dois
-serviços — os dois módulos cujas fronteiras haviam se mostrado estáveis, e por
+serviços: os dois módulos cujas fronteiras haviam se mostrado estáveis, e por
 motivos organizacionais que só ficaram claros nesse intervalo.
 
 O recuo não impediu a migração. Impediu que ela fosse feita cedo, inteira, e sem
@@ -176,9 +176,9 @@ saber onde as fronteiras deveriam ficar.
 
 ## Conceitos Relacionados
 
-- [Espaço da Solução](/01-fundamentals/solution-space.md) — o outro lado.
-- [Contexto de Negócio](/01-fundamentals/business-context.md) — de onde os problemas vêm.
-- [Requisitos Funcionais](/01-fundamentals/functional-requirements.md) — a formalização do que o
+- [Espaço da Solução](/01-fundamentals/solution-space.md): o outro lado.
+- [Contexto de Negócio](/01-fundamentals/business-context.md): de onde os problemas vêm.
+- [Requisitos Funcionais](/01-fundamentals/functional-requirements.md): a formalização do que o
   sistema precisa fazer.
 
 ## Exercício Prático
@@ -186,7 +186,7 @@ saber onde as fronteiras deveriam ficar.
 Pegue os três últimos pedidos que chegaram ao seu time. Para cada um, escreva o
 enunciado como foi recebido e recue até um enunciado sem mecanismo.
 
-Depois liste, para cada problema recuado, três soluções possíveis — incluindo a
+Depois liste, para cada problema recuado, três soluções possíveis, incluindo a
 originalmente pedida.
 
 Em quantos casos a solução pedida continua sendo a melhor? Em quantos existe uma
@@ -200,7 +200,7 @@ alternativa mais barata que ninguém tinha considerado?
 
 ## Para Aprofundar
 
-- Gause, Donald; Weinberg, Gerald. *Are Your Lights On?* Dorset House, 1990 —
-  o texto de referência sobre definição de problema.
+- Gause, Donald; Weinberg, Gerald. *Are Your Lights On?* Dorset House, 1990.
+  O texto de referência sobre definição de problema.
 - Wiegers, Karl; Beatty, Joy. *Software Requirements*. 3ª ed., Microsoft Press,
-  2013 — capítulos sobre elicitação.
+  2013. Capítulos sobre elicitação.

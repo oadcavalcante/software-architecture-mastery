@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [healthcare, banking, multi-tenant-enterprise]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -33,7 +33,7 @@ support, not the magnitudes.
 ## Business Context
 
 The **Instituto Previdencial** administers the supplementary pension scheme for 41 state and
-municipal public entities — a fund with 2.9 million participants and $16.8 billion under
+municipal public entities: a fund with 2.9 million participants and $16.8 billion under
 management.
 
 The benefits system has run on a mainframe since 1991. It calculates, grants and pays 890
@@ -52,7 +52,7 @@ internally takes 2 to 3 years.
 **Cost.** Licensing the mainframe and its base software costs $12.4 million a year, with
 above-inflation increases.
 
-**Speed.** A change in pension rules — which happens by law, with a deadline — takes 8 to 14
+**Speed.** A change in pension rules (which happens by law, with a deadline) takes 8 to 14
 months to reach production. Two legal changes in the last five years went into production past
 the deadline, with legal consequences.
 
@@ -74,7 +74,7 @@ six-character field names, and depend on a value written to a file by a process 
 Counting rules would require understanding the code, and understanding the code is the project
 itself.
 
-That circularity — to plan you need to know the scope, and to know the scope you have to execute —
+That circularity (to plan you need to know the scope, and to know the scope you have to execute)
 is the defining characteristic of modernizing an old legacy system. Any method that presupposes a
 known scope at the start is solving a different problem.
 
@@ -112,13 +112,13 @@ The requirement of absolute equivalence dominates the project. A one-cent differ
 is an error that produces litigation, and 890 thousand monthly benefits mean any error rate
 produces volume.
 
-An error rate of 0.01% — which would be excellent in almost any system — would produce 89
+An error rate of 0.01%, which would be excellent in almost any system, would produce 89
 incorrect benefits a month, more than a thousand a year. Each one is an elderly person receiving
 less than they are entitled to, or more than they should with a subsequent clawback. Neither is
 acceptable.
 
 That arithmetic is what justifies the criterion of zero divergences for three months, which looks
-excessive read in isolation. It is not conservatism — it is the direct consequence of the volume
+excessive read in isolation. It is not conservatism but the direct consequence of the volume
 multiplied by the individual severity.
 
 ## Constraints
@@ -156,7 +156,7 @@ judicial reviews/month               ~380
 ```
 
 The volume is small by any modern measure. Forty-one calculations per second, ninety lookups per
-second at peak. **No decision in this project is motivated by scale** — and it is important to say
+second at peak. **No decision in this project is motivated by scale**, and it is important to say
 so, because modernization projects are frequently sold with a scalability argument that doesn't
 hold up.
 
@@ -240,7 +240,7 @@ knowledge         the main problem is not solved; when the
 | **Weighted total** | | **4.9** | **5.9** | **8.7** | **5.0** |
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With risk of error at 50%, the totals become
-4.1 / 6.5 / 8.8 / 6.4 — Option C keeps its advantage, by a wider margin than in the base matrix.
+4.1 / 6.5 / 8.8 / 6.4: Option C keeps its advantage, by a wider margin than in the base matrix.
 With cost at 40%, they become 5.8 / 6.5 / 8.2 / 3.8. No scenario tested inverts it.
 
 The 30% weight on risk of error reflects the domain's nature: a calculation error in a pension
@@ -250,7 +250,7 @@ leadership and the accounts court placed above all others.
 ## Decision
 
 **Strangling by domain with proven equivalence (Option C)**, with parallel comparison as the
-central mechanism — not as a validation step, but as the way to **discover** the rules nobody
+central mechanism, not as a validation step, but as the way to **discover** the rules nobody
 knows.
 
 That inversion is the project's central idea: instead of trying to document the rules and then
@@ -258,24 +258,24 @@ implement them, the new system is implemented with the best available understand
 parallel over real cases, and **every divergence is a discovered rule**.
 
 The practical consequence is that the project **starts wrong on purpose**. The first version of a
-capability's calculation engine diverges in thousands of cases, and that is the expected result —
+capability's calculation engine diverges in thousands of cases, and that is the expected result:
 each divergence is information that did not exist. A team that treats the initial divergences as
 failure will abandon the method in the third week.
 
 Communicating that to leadership and to the accounts court before starting was as important as
 the technical design. The indicator tracked is not "how many errors do we have", it is "the
-divergence rate is falling" — and the descending curve is what demonstrates progress.
+divergence rate is falling", and the descending curve is what demonstrates progress.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the rules were documented and verifiable — which is the case in newer
+**Option A would win if** the rules were documented and verifiable, which is the case in newer
 systems or in domains with a complete and current normative specification.
 
 **Option B would win if** the objective were exclusively to leave the mainframe on cost, with a
 short deadline and no expectation of improving maintainability. It is a legitimate option as an
 **intermediate step** in situations of contractual urgency.
 
-**Option D would win if** the knowledge risk did not exist — if there were a market or internal
+**Option D would win if** the knowledge risk did not exist: if there were a market or internal
 training to replace the 9 people. It remains partially in use: the legacy system is encapsulated
 while it is strangled, and that is what makes it possible to build the new one outside.
 
@@ -308,7 +308,7 @@ test cases.
 
 The **Rule Catalog** is the highest-value artifact the project produced, and it did not exist as
 an initial objective. It emerged from the need to record every rule discovered by the comparison,
-and it is what resolves the knowledge risk — far more than the new code does.
+and it is what resolves the knowledge risk, far more than the new code does.
 
 ## Data
 
@@ -316,7 +316,7 @@ and it is what resolves the knowledge risk — far more than the new code does.
 capability is switched over. The Extractor synchronizes continuously to the new system, which
 operates read-only until it takes over.
 
-That single direction — legacy to new, never the reverse — is the lesson from the
+That single direction (legacy to new, never the reverse) is the lesson from the
 [e-commerce](/21-case-studies/ecommerce.md) case applied here, and it was decided on that basis:
 bidirectional synchronization between two sources of truth does not work.
 
@@ -356,8 +356,8 @@ know which rules were originally applied.
 ```
 
 The exit criterion per capability is strict: **zero divergences across 100% of operations, for
-three consecutive months**. For the payroll, that means three complete monthly payrolls — 2.67
-million calculations — with not one cent of difference.
+three consecutive months**. For the payroll, that means three complete monthly payrolls (2.67
+million calculations) with not one cent of difference.
 
 **What the comparison found.** This is the case's most transferable result.
 
@@ -369,7 +369,7 @@ errors in the legacy system                       ~600 (2%)
 ```
 
 The 600 legacy errors deserve attention: over 34 years, the system calculated some cases
-incorrectly, and nobody knew. Most were in rare combinations — specific transition schemes,
+incorrectly, and nobody knew. Most were in rare combinations: specific transition schemes,
 benefits with multiple judicial reviews. Each was taken to the legal team, and 17 resulted in
 retroactive correction of benefits.
 
@@ -400,7 +400,7 @@ The restriction against ever using a production copy in tests created a real pro
 equivalence requires real cases. The solution was to run the comparison **in production**, with
 the new system in shadow mode, rather than trying to reproduce production in another environment.
 
-That decision — comparing in production rather than simulating — is what made the method viable,
+That decision (comparing in production rather than simulating) is what made the method viable,
 and it is safe because the new system answers to nobody during the shadow phase.
 
 Getting that approach approved by the accounts court required demonstrating three properties: the
@@ -409,7 +409,7 @@ and auditable like any other. Documenting that formally took two months and was 
 prerequisite.
 
 Organizations with strong external audit frequently rule out comparison in production by assuming
-it would not be approved. In this case, it was — and the decisive argument was that the
+it would not be approved. In this case, it was. The decisive argument was that the
 alternative, switching over with no comparison, presented far greater risk to the beneficiaries.
 
 ## Scalability
@@ -418,8 +418,8 @@ There is no scale challenge. The new system is sized with a wide margin for 41 c
 second, and the complete payroll runs in about 40 minutes against the legacy system's 4h20.
 
 That reduction was not an objective and is a side effect of modern hardware. It has a practical
-use: the roomy window allows running the payroll **twice** during coexistence — once on the legacy
-system, once on the new one — within the same night, which is what makes the monthly comparison
+use: the roomy window allows running the payroll **twice** during coexistence (once on the legacy
+system, once on the new one) within the same night, which is what makes the monthly comparison
 possible.
 
 ## Reliability
@@ -435,7 +435,7 @@ that: RPO zero with synchronous replication, RTO of 10 minutes with automatic pr
 disaster recovery in another region with a semiannual rehearsal.
 
 The **monthly payroll** has special treatment: it is the only process whose failure has an
-immediate and irreversible consequence — 890 thousand people not being paid. The contingency plan
+immediate and irreversible consequence (890 thousand people not being paid). The contingency plan
 includes an emergency procedure that reprocesses the previous month's payroll with an adjustment,
 legally approved, and it has never had to be used.
 
@@ -458,7 +458,7 @@ catalogued rules gives an honest read of progress.
 
 ## Deployment
 
-The new system uses continuous deployment. The legacy system keeps its original cycle — changes
+The new system uses continuous deployment. The legacy system keeps its original cycle. Changes
 there are rare and go through the usual process.
 
 Switching a capability over is a configuration change in the Router, done at a low-activity hour,
@@ -478,7 +478,7 @@ Value delivered early: the participant portal, which did not exist, was built on
 went live in month 6. It is what sustained the project politically in the first year.
 
 **Phase 2 (months 7–20): benefit simulation.** The first calculation capability. Chosen because a
-simulation generates no payment — an error is visible and harmless.
+simulation generates no payment: an error is visible and harmless.
 
 This is where the method proved itself: 11 thousand divergences analyzed, 2,800 rules discovered,
 and no effect on any participant.
@@ -486,8 +486,8 @@ and no effect on any participant.
 **Phase 3 (months 18–36): granting.** Benefit calculation at the point of granting, with three
 months of comparison before the switchover.
 
-**Phase 4 (months 30–52): payroll.** The central capability. Compared for six months — twice the
-standard criterion — before the switchover.
+**Phase 4 (months 30–52): payroll.** The central capability. Compared for six months (twice the
+standard criterion) before the switchover.
 
 **Phase 5 (months 48–72): reviews, retroactive corrections and special cases.** The long tail,
 which concentrates most of the rare rules.
@@ -542,7 +542,7 @@ in weeks instead of years. The risk that motivated the project was resolved.
 And there is a result that was in no target: the Rule Catalog became the Institute's reference
 document on the pension legislation it applies. It is consulted by the legal team in litigation,
 because it describes precisely which rule was applied to which benefit, in which validity period,
-with the corresponding legal source — information that previously existed only inside the COBOL,
+with the corresponding legal source: information that previously existed only inside the COBOL,
 and that no legal opinion could cite with confidence.
 
 ## What this case teaches
@@ -553,14 +553,14 @@ projects of this nature fail.
 
 **The legacy system was right, almost always.** 77% of divergences were errors in the new system.
 Treating the legacy system as the reference, and not as a suspect, is what makes the method
-trustworthy — and the 2% where it was wrong were found precisely by taking it seriously.
+trustworthy, and the 2% where it was wrong were found precisely by taking it seriously.
 
 **Delivering value early is a requirement, not a virtue.** A seven-year project in a public
 organization spans two administrations. The participant portal in month 6 bought the legitimacy
 that sustained the following five years.
 
 **Every phase has to end in a stable state.** The budget constraint forced a design in which the
-project can stop at any moment with nothing left half-done. That improved the plan — and it is a
+project can stop at any moment with nothing left half-done. That improved the plan, and it is a
 discipline projects with stable budgets rarely adopt.
 
 ## Related Concepts
@@ -576,7 +576,7 @@ discipline projects with stable budgets rarely adopt.
 Pick a legacy system in your context and answer: if you had to prove a new system behaves the same
 as it, which cases would you compare over?
 
-If the answer is "I don't know which cases exist", you are in the same situation as this case —
+If the answer is "I don't know which cases exist", you are in the same situation as this case,
 and comparison in production is the only method that produces the list.
 
 ## Interview Questions

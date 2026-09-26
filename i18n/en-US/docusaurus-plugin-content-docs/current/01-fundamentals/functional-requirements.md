@@ -2,7 +2,7 @@
 id: functional-requirements
 title: Functional Requirements
 sidebar_position: 7
-description: What the system does — and why on their own they almost never determine the architecture.
+description: What the system does, and why on their own they almost never determine the architecture.
 doc_type: foundation
 level: 1
 difficulty: beginner
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [problem-space]
 related: [non-functional-requirements, quality-attributes]
 canonical_for: [functional requirements]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -35,8 +35,8 @@ architectures.**
 
 "Record an order, charge for it and notify the customer" describes both a shop
 with a hundred orders a day and a marketplace with a hundred thousand a minute.
-The functions are the same. Everything that decides how to run them — storage,
-coupling between the steps, delivery guarantees — is different in the two.
+The functions are the same. Everything that decides how to run them (storage,
+coupling between the steps, delivery guarantees) is different in the two.
 
 That means functional requirements delimit what the system has to be able to do,
 but the **how** is decided by something else: the
@@ -69,7 +69,7 @@ essential complexity.
 
 "Customers with more than twelve months and no delinquency get a 40% higher
 limit" is a rule that will change. Where it lives, and how easy it is to alter, is
-an architectural decision — even though the rule itself is functional.
+an architectural decision, even though the rule itself is functional.
 
 ### Functional requirements inform boundaries
 
@@ -88,7 +88,7 @@ the payment that fails after stock has been reserved, the customer who cancels
 mid-shipment, the external integration that does not respond.
 
 Those cases determine whether the system needs compensation, idempotency, a state
-machine — decisions with a high cost of reversal. That is not the functional
+machine: decisions with a high cost of reversal. That is not the functional
 side deciding on its own: each exception exposes a consistency or recovery demand
 that the main flow leaves implicit. Gathering them alongside the main flow is
 what avoids discovering them later.
@@ -109,7 +109,7 @@ should do in each case.
 
 **Because the separation avoids the failure that only shows up under real load.**
 Teams that gather only the functional side produce systems that do everything
-right and cannot take the load — and the rework to fix that is architectural, not
+right and cannot take the load, and the rework to fix that is architectural, not
 incremental.
 
 **Because exception cases expose the demands that decide structure.** Gathering
@@ -131,7 +131,7 @@ customer".
 decided, and they are the ones left out when the gathering is rushed.
 
 **Ignoring who else needs the feature.** A feature consumed by another team or
-system has a contract requirement that an internal one does not — and that changes
+system has a contract requirement that an internal one does not, and that changes
 its cost of change.
 
 **Confusing volume with function.** "Process a thousand orders per second" is not
@@ -152,12 +152,12 @@ functional:
 - What happens to stock already reserved? And to payment already captured?
 - If the order has shipped, does cancelling become a return? Is it the same
   operation or another?
-- Who can cancel — only the customer, or also an operator?
+- Who can cancel: only the customer, or also an operator?
 
 The answers change the architecture directly. If cancelling is only possible
 before payment, a simple operation solves it. If it is possible after capture and
 shipping, the system needs refunds, stock reversal and coordination with the
-carrier — which probably means a
+carrier. That probably means a
 [saga](/06-distributed-systems/sagas.md), with everything that costs.
 
 The same one-line statement covers both cases. The architectural distance between
@@ -165,14 +165,14 @@ them is months.
 
 ## Related Concepts
 
-- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — the other half.
-- [Quality Attributes](/01-fundamentals/quality-attributes.md) — what actually decides the
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md): the other half.
+- [Quality Attributes](/01-fundamentals/quality-attributes.md): what actually decides the
   architecture.
-- [Problem Space](/01-fundamentals/problem-space.md) — where the requirements come from.
+- [Problem Space](/01-fundamentals/problem-space.md): where the requirements come from.
 
 ## Practical Exercise
 
-Take one feature of your system and list every exception case it has to handle —
+Take one feature of your system and list every exception case it has to handle:
 external failure, cancellation mid-flow, inconsistent data, a repeated operation.
 
 For each, ask: does the current system handle this? If so, where? If not, what
@@ -191,5 +191,5 @@ The unhandled cases are functional requirements that exist and were never stated
 
 - Wiegers, Karl; Beatty, Joy. *Software Requirements*. 3rd ed., Microsoft Press,
   2013.
-- Cockburn, Alistair. *Writing Effective Use Cases*. Addison-Wesley, 2000 — on
+- Cockburn, Alistair. *Writing Effective Use Cases*. Addison-Wesley, 2000. On
   alternative and exception flows.

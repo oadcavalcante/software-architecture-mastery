@@ -2,7 +2,7 @@
 id: batch-integration
 title: Integração em Lote
 sidebar_position: 7
-description: Processar muitos registros de uma vez — o estilo que sustenta fechamento, conciliação e carga analítica entre sistemas corporativos.
+description: "Processar muitos registros de uma vez: o estilo que sustenta fechamento, conciliação e carga analítica entre sistemas corporativos."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [file-integration, messaging-integration, data-lifecycle]
 canonical_for: [integração em lote, janela de processamento, carga incremental]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -29,7 +29,7 @@ de um período fechado: folha de pagamento, conciliação bancária, faturamento
 carga analítica, arquivos regulatórios.
 
 Ele é frequentemente tratado como legado a ser substituído. Para uma classe grande
-de problemas, ele é simplesmente a resposta certa — e substituí-lo por
+de problemas, ele é simplesmente a resposta certa, e substituí-lo por
 processamento contínuo piora tudo.
 
 ## Problema
@@ -40,7 +40,7 @@ Fechar o faturamento do mês exige que o mês tenha acabado. Conciliar com o ban
 depende do arquivo que o banco envia uma vez por dia. Calcular comissões precisa
 do conjunto completo de vendas do período.
 
-Nesses casos, processar registro a registro não adianta latência — o resultado só
+Nesses casos, processar registro a registro não adianta latência: o resultado só
 existe quando o conjunto está completo. E processar em lote é ordens de grandeza
 mais eficiente: uma consulta que traz um milhão de registros custa muito menos que
 um milhão de consultas.
@@ -65,7 +65,7 @@ contínua.
 
 O requisito que separa lote sustentável de lote frágil.
 
-Uma execução vai falhar no meio. Quando falhar, a resposta correta é reexecutar —
+Uma execução vai falhar no meio. Quando falhar, a resposta correta é reexecutar,
 e a reexecução precisa produzir o mesmo resultado, não o dobro.
 
 ```text
@@ -76,7 +76,7 @@ reprocessável DELETE da partição do dia, depois INSERT
 A segunda forma é [idempotente](/06-distributed-systems/idempotency.md) e
 transforma "falhou no meio" de incidente em nova tentativa.
 
-Sem isso, cada falha exige análise manual de onde parou — e é onde surgem as
+Sem isso, cada falha exige análise manual de onde parou, e é onde surgem as
 duplicações silenciosas descritas em
 [data warehouses](/07-data-architecture/data-warehouses.md).
 
@@ -92,12 +92,12 @@ quando uma transação longa confirma depois da marca já ter passado. Ver
 **Número de sequência.** Mais confiável, e exige que a origem o mantenha.
 
 **Log de mudanças do banco.** O mais confiável; é o mais invasivo na operação do
-banco — privilégio de replicação, retenção do log, dependência do formato
-interno — e o que menos toca a aplicação.
+banco (privilégio de replicação, retenção do log, dependência do formato
+interno) e o que menos toca a aplicação.
 
 O modo de falha do primeiro é sutil e comum: uma transação iniciada antes do
 recorte e confirmada depois nunca é capturada. Uma sobreposição deliberada da
-janela — reprocessar um trecho a mais — cobre isso, e só é segura se o processo
+janela (reprocessar um trecho a mais) cobre isso, e só é segura se o processo
 for idempotente. Ela só recupera transações que duram menos que a sobreposição:
 o tamanho vem de medir a maior duração de transação na origem, e o que passar
 disso continua perdido.
@@ -107,7 +107,7 @@ disso continua perdido.
 Uma execução que leva 5 horas numa janela de 6 é uma bomba com data marcada: o
 volume cresce, e um dia ela não termina antes do início do expediente.
 
-A métrica a monitorar não é "terminou?" — é **quanto da janela foi consumido**. A
+A métrica a monitorar não é "terminou?", e sim **quanto da janela foi consumido**. A
 tendência dessa métrica avisa com meses de antecedência.
 
 ### Falha parcial precisa de política
@@ -122,7 +122,7 @@ estado inconsistente.
 
 **Continuar e reportar** para cargas em que os registros são independentes.
 
-O que não é defensável é não decidir — e descobrir a política pelo comportamento
+O que não é defensável é não decidir, e descobrir a política pelo comportamento
 padrão da ferramenta, durante um incidente.
 
 E, escolhida a segunda, os registros rejeitados precisam de destino: um arquivo,
@@ -134,7 +134,7 @@ A escolha não é global. Um sistema pode processar pagamentos continuamente e
 conciliar em lote diário.
 
 Substituir lote por contínuo onde não há requisito de latência troca simplicidade
-operacional por complexidade sem benefício — e é uma modernização que aparece com
+operacional por complexidade sem benefício, e é uma modernização que aparece com
 frequência em roteiros de arquitetura sem justificativa concreta.
 
 ## Modelo Mental
@@ -144,7 +144,7 @@ requisito, essa é uma troca favorável.
 
 ## Quando Usar
 
-- O resultado só faz sentido com o conjunto completo — fechamentos, conciliações.
+- O resultado só faz sentido com o conjunto completo: fechamentos, conciliações.
 - Volume alto com latência tolerante.
 - A origem só disponibiliza dados periodicamente.
 - Eficiência de processamento importa.
@@ -170,12 +170,12 @@ Erros Comuns, e o processamento contínuo exige as mesmas decisões.
 
 ## Alternativas
 
-- **[Mensageria](/08-integration-architecture/messaging-integration.md)** — quando cada registro precisa de
+- **[Mensageria](/08-integration-architecture/messaging-integration.md)**: quando cada registro precisa de
   tratamento individual e rápido.
-- **Micro-lote** — janelas de minutos em vez de horas; meio-termo que resolve
+- **Micro-lote**: janelas de minutos em vez de horas; meio-termo que resolve
   muitos casos de "quase tempo real".
-- **Captura de mudanças do banco** — contínuo sem tocar a aplicação de origem.
-- **[Integração por arquivo](/08-integration-architecture/file-integration.md)** — o transporte mais comum
+- **Captura de mudanças do banco**: contínuo sem tocar a aplicação de origem.
+- **[Integração por arquivo](/08-integration-architecture/file-integration.md)**: o transporte mais comum
   para lote entre organizações.
 
 ## Trade-offs
@@ -224,7 +224,7 @@ executado** é raro, e é o modo que passa despercebido por mais tempo.
 
 **Não definir política de falha parcial.** Cem mil registros e três inválidos: abortar tudo, ignorar os três, ou separá-los para revisão? Sem decisão prévia, cada execução resolve de um jeito.
 
-**Carregar tudo em memória.** Funciona no volume atual e falha no dia em que a origem cresce — sem aviso prévio e sem que nada no código tenha mudado.
+**Carregar tudo em memória.** Funciona no volume atual e falha no dia em que a origem cresce, sem aviso prévio e sem que nada no código tenha mudado.
 
 **Não alertar sobre execução ausente.** O monitoramento vigia erro; um agendador que parou de disparar não produz erro nenhum, e a ausência é notada pelo dado desatualizado dias depois.
 
@@ -235,7 +235,7 @@ internas com o arquivo do banco, identificar divergências, gerar lançamentos.
 
 O processo rodava às 2h e levava, originalmente, 40 minutos.
 
-Ao longo de quatro anos, o volume quadruplicou e a execução chegou a 5h20 — numa
+Ao longo de quatro anos, o volume quadruplicou e a execução chegou a 5h20, numa
 janela que terminava às 8h.
 
 Quatro incidentes:
@@ -251,7 +251,7 @@ reexecução manual. O processo inseria lançamentos sem apagar os do dia, e cer
 contabilidade.
 
 **Mudança perdida.** A carga incremental usava a marca de alteração. Transações de
-longa duração — confirmadas depois do recorte — ficavam de fora permanentemente,
+longa duração (confirmadas depois do recorte) ficavam de fora permanentemente,
 porque a janela seguinte partia do novo recorte. Cerca de 300 transações por mês
 sumiam da conciliação.
 
@@ -261,7 +261,7 @@ foi notada na quarta.
 
 As correções:
 
-**Reprocessamento por partição** — apagar o dia e recarregar. A reexecução deixou
+**Reprocessamento por partição**: apagar o dia e recarregar. A reexecução deixou
 de ser operação de risco.
 
 **Sobreposição de 30 minutos** na janela incremental, viável porque o processo
@@ -270,20 +270,20 @@ origem durava 12 minutos. As transações perdidas foram a zero, e um alerta pas
 a disparar se alguma transação ultrapassar a sobreposição.
 
 **Processamento em fluxo**, em blocos, em vez de carregar tudo. A execução caiu de
-5h20 para 1h10 — a maior parte do tempo era pressão de memória, não trabalho útil.
+5h20 para 1h10: a maior parte do tempo era pressão de memória, não trabalho útil.
 
 **Alerta de ausência.** Se o lote não iniciar até 2h15, alerta. E monitoramento da
 razão entre duração e janela, com alerta acima de 60%.
 
 A lição registrada: a proposta na mesa era migrar para processamento
 contínuo, estimada em oito meses. As quatro correções levaram cinco semanas,
-resolveram todos os incidentes, e a conciliação continua sendo — corretamente — um
+resolveram todos os incidentes, e a conciliação continua sendo, corretamente, um
 processo diário, porque o arquivo do banco chega uma vez por dia.
 
 ## Conceitos Relacionados
 
-- [Integração por Arquivo](/08-integration-architecture/file-integration.md) — o transporte típico.
-- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md) — a alternativa contínua.
+- [Integração por Arquivo](/08-integration-architecture/file-integration.md): o transporte típico.
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md): a alternativa contínua.
 - [Idempotência](/06-distributed-systems/idempotency.md).
 - [Particionamento de Dados](/07-data-architecture/data-partitioning.md).
 
@@ -292,7 +292,7 @@ processo diário, porque o arquivo do banco chega uma vez por dia.
 Pegue o lote mais importante do seu sistema e responda: se ele falhar na metade,
 qual é o procedimento?
 
-Se a resposta envolver alguém analisar onde parou, ele não é reprocessável — e
+Se a resposta envolver alguém analisar onde parou, ele não é reprocessável, e
 essa é a correção de maior retorno disponível.
 
 ## Perguntas de Entrevista
@@ -303,7 +303,7 @@ essa é a correção de maior retorno disponível.
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 10.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.

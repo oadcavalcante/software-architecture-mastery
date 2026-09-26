@@ -2,7 +2,7 @@
 id: integration-contracts
 title: Contratos de Integração
 sidebar_position: 13
-description: O que uma ponta promete à outra — e por que integrações morrem por contrato, não por protocolo.
+description: O que uma ponta promete à outra, e por que integrações morrem por contrato, não por protocolo.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [schema-evolution, integration-anti-corruption, rest]
 canonical_for: [contrato de integração, contrato dirigido pelo consumidor, teste de contrato]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -26,7 +26,7 @@ existem, o que significam, o que é obrigatório, quais erros podem acontecer, e
 como a promessa muda ao longo do tempo.
 
 Ele existe em toda integração. A pergunta é se está **declarado** ou se é
-implícito — descoberto por quem consome, lendo respostas reais e adivinhando.
+implícito, descoberto por quem consome, lendo respostas reais e adivinhando.
 
 Integrações morrem por contrato quebrado. Raramente por escolha de protocolo.
 
@@ -39,8 +39,8 @@ O consumidor observa o comportamento e passa a depender de coisas que ninguém
 prometeu: a ordem dos itens de uma lista, um campo que sempre veio preenchido, o
 formato de um identificador, o fato de que certo erro nunca acontece.
 
-Do lado do provedor, ninguém sabe disso. Uma mudança que parece interna —
-reordenar, tornar um campo opcional, mudar o formato de um id — quebra
+Do lado do provedor, ninguém sabe disso. Uma mudança que parece interna
+(reordenar, tornar um campo opcional, mudar o formato de um id) quebra
 consumidores que ele não sabe que existem.
 
 O defeito aparece em produção, do lado errado, e a discussão vira sobre quem
@@ -80,7 +80,7 @@ contrato de fato, porque quebrá-la quebra alguém.
 
 ### Robustez tem um lado errado
 
-O princípio clássico — seja liberal no que aceita, conservador no que envia —
+O princípio clássico (seja liberal no que aceita, conservador no que envia)
 tem um efeito colateral conhecido.
 
 Um provedor liberal aceita entrada malformada, e os consumidores passam a
@@ -95,7 +95,7 @@ consumidor, ignore campos desconhecidos na resposta que você recebe.
 A inversão que resolve o problema de "não sei quem depende de quê".
 
 Em vez de o provedor publicar um contrato e torcer, cada consumidor declara o
-que usa — em forma executável. O provedor roda essas declarações na sua própria
+que usa, em forma executável. O provedor roda essas declarações na sua própria
 integração contínua.
 
 O efeito: o provedor sabe, antes de implantar, exatamente qual consumidor quebra.
@@ -108,7 +108,7 @@ uma organização e inviável para uma API pública.
 E ela custa para operar. Os contratos publicados precisam de um lugar comum de
 onde o provedor os busque; a integração contínua passa a atravessar
 repositórios; a implantação do provedor fica barrada por um teste vermelho que
-pode ser culpa do consumidor — uma expectativa desatualizada, um campo que ele
+pode ser culpa do consumidor: uma expectativa desatualizada, um campo que ele
 declarou e já não usa. Sem um dono para cada contrato e um prazo para o
 consumidor corrigir o próprio teste, a trava vira bloqueio, e o time do provedor
 aprende a desligá-la.
@@ -129,7 +129,7 @@ Uma API pública com consumidores desconhecidos não permite remoção. O que se
 fazer é adicionar, depreciar com aviso longo, e conviver.
 
 Isso muda o desenho: campos e endpoints públicos são compromisso quase permanente.
-Expor menos é a decisão que preserva liberdade — e é exatamente o oposto do
+Expor menos é a decisão que preserva liberdade, e é o oposto do
 instinto de "expor tudo, o consumidor usa o que quiser".
 
 ## Modelo Mental
@@ -151,7 +151,7 @@ Contrato explícito se paga sempre que:
 ## Quando Não Usar
 
 **Formalizar contrato entre módulos de um mesmo processo, com um time só.**
-Sobrecarga sem benefício — ali o compilador já é o contrato.
+Sobrecarga sem benefício: ali o compilador já é o contrato.
 
 **Contrato sem processo de mudança.** Vira documentação desatualizada, o que é
 pior que nada: dá falsa confiança.
@@ -167,12 +167,12 @@ semana; o contrato precisa ser verificável.
 
 ## Alternativas
 
-- **Esquema executável** — definição de que servidor e cliente derivam código,
+- **Esquema executável**: definição de que servidor e cliente derivam código,
   eliminando divergência entre documento e implementação.
-- **[Registro de esquema](/08-integration-architecture/schema-evolution.md)** —
+- **[Registro de esquema](/08-integration-architecture/schema-evolution.md)**:
   quando a integração é por eventos e os consumidores não rodam teste no provedor.
-- **Teste de contrato dirigido pelo consumidor** — dentro da organização.
-- **Versionamento explícito** — quando conviver é inevitável. Ver
+- **Teste de contrato dirigido pelo consumidor**: dentro da organização.
+- **Versionamento explícito**: quando conviver é inevitável. Ver
   [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Trade-offs
@@ -208,7 +208,7 @@ não pode parar.
 
 ## Erros Comuns
 
-**Tratar esquema como contrato completo.** O esquema descreve a forma, não o significado: o que acontece em erro, se a operação é idempotente, qual a ordem garantida e o que é opcional de verdade ficam de fora — e são onde a integração quebra.
+**Tratar esquema como contrato completo.** O esquema descreve a forma, não o significado: o que acontece em erro, se a operação é idempotente, qual a ordem garantida e o que é opcional de verdade ficam de fora, e são onde a integração quebra.
 
 **Não declarar o que não é garantido.** Tudo que não é negado explicitamente vira suposição de alguém. Ordem, unicidade e prazo de entrega precisam estar escritos, inclusive quando a resposta é "não garantimos".
 
@@ -232,14 +232,14 @@ Quatro incidentes ao longo de dezoito meses, todos com a mesma raiz.
 **Ordem da lista.** A resposta trazia as transações ordenadas por data, porque a
 consulta usava um índice que produzia essa ordem. O contrato não prometia nada.
 Uma otimização mudou o plano de execução e a ordem mudou. Um consumidor exibia a
-primeira transação como "a mais recente" — passou a exibir qualquer uma.
+primeira transação como "a mais recente". Passou a exibir qualquer uma.
 
 **Formato do identificador.** Os ids começavam com `tx_`. Um parceiro validava
 esse prefixo. A migração para identificadores aleatórios quebrou a integração
 dele, em produção, num sábado.
 
 **Campo tornado opcional.** Um campo de descrição sempre vinha preenchido,
-embora o documento não o declarasse obrigatório. Tornou-se opcional para um novo tipo de transação. Três consumidores quebraram —
+embora o documento não o declarasse obrigatório. Tornou-se opcional para um novo tipo de transação. Três consumidores quebraram:
 nenhum tratava ausência.
 
 **Erro novo.** Passou a existir um código de erro para transação em análise.
@@ -251,7 +251,7 @@ As correções, em ordem de retorno:
 **Contrato executável** derivado do código, publicado a cada implantação. O
 documento estático deixou de existir.
 
-**Declaração explícita do que não é garantido** — ordem, formato de id,
+**Declaração explícita do que não é garantido**: ordem, formato de id,
 presença de campos opcionais. Isso foi conversado com cada consumidor conhecido,
 e duas dependências indevidas foram descobertas na conversa, antes de quebrarem.
 
@@ -261,26 +261,26 @@ seguintes, quatro mudanças foram barradas ali.
 
 **Catálogo de erros** com a classificação de retentável ou não, por código.
 
-Os dois parceiros externos continuaram sem teste de contrato — não há como
+Os dois parceiros externos continuaram sem teste de contrato: não há como
 executá-lo do lado deles. Para eles, o processo virou aviso com noventa dias e
 convivência de versões.
 
 O ponto que a equipe sublinha: os quatro incidentes eram, tecnicamente, mudanças
 válidas. O contrato não prometia nada do que foi quebrado. E isso não ajudou
-ninguém — o que não está declarado como "não garantido" é assumido como
+ninguém: o que não está declarado como "não garantido" é assumido como
 garantido.
 
 ## Conceitos Relacionados
 
-- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md) — como o contrato muda.
-- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — proteção contra
+- [Evolução de Esquema](/08-integration-architecture/schema-evolution.md): como o contrato muda.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md): proteção contra
   contrato alheio.
-- [REST](/08-integration-architecture/rest.md), [GraphQL](/08-integration-architecture/graphql.md), [gRPC](/08-integration-architecture/grpc.md) — onde o contrato vive.
+- [REST](/08-integration-architecture/rest.md), [GraphQL](/08-integration-architecture/graphql.md), [gRPC](/08-integration-architecture/grpc.md): onde o contrato vive.
 - [Propriedade do Dado](/07-data-architecture/data-ownership.md).
 
 ## Exercício Prático
 
-Pegue uma API que seu time expõe. Liste o que ela **não** garante — ordem,
+Pegue uma API que seu time expõe. Liste o que ela **não** garante: ordem,
 formato de identificador, presença de campos opcionais, estabilidade de erros.
 
 Depois pergunte a um consumidor quais dessas coisas ele assume. A diferença entre
@@ -296,6 +296,6 @@ as duas listas é a sua próxima quebra.
 
 - Robinson, Ian. *Consumer-Driven Contracts: A Service Evolution Pattern*.
   martinfowler.com, 2006.
-- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021 — capítulo 5.
+- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021. Capítulo 5.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
   Addison-Wesley, 2003.

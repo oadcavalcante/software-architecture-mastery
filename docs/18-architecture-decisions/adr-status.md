@@ -2,7 +2,7 @@
 id: adr-status
 title: Status do ADR
 sidebar_position: 8
-description: O ciclo de vida de uma decisão registrada — e por que o documento nunca é editado.
+description: O ciclo de vida de uma decisão registrada, e por que o documento nunca é editado.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [superseding-decisions, adr-structure, what-is-an-adr]
 canonical_for: [status de ADR, imutabilidade do registro, ADR proposto]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O status é o único campo do ADR que muda depois de aceito — fora a correção de erro
-factual ou tipográfico —, e a mudança de status é **acréscimo**, nunca reescrita.
+O status é o único campo do ADR que muda depois de aceito (fora a correção de erro
+factual ou tipográfico), e a mudança de status é **acréscimo**, nunca reescrita.
 
 ```text
 proposto           escrito, em discussão
@@ -36,7 +36,7 @@ Por trás dessa lista simples está a propriedade que dá valor ao formato: **um
 um evento, não um estado.** Um evento passado não é atualizável, e é por isso que o
 documento é imutável.
 
-Times que não entendem isso acabam mantendo ADRs "atualizados" — e destroem exatamente a
+Times que não entendem isso acabam mantendo ADRs "atualizados", e destroem exatamente a
 informação que os justificava.
 
 ## Problema
@@ -73,7 +73,7 @@ desfecho         aceito ou rejeitado
 ```
 
 Esse status é subutilizado. Escrever o ADR **antes** de decidir é o que captura o efeito
-mais valioso da prática — a decisão que muda durante a redação. Ver
+mais valioso da prática: a decisão que muda durante a redação. Ver
 [por que ADRs importam](/18-architecture-decisions/why-adrs-matter.md).
 
 Um ADR proposto que termina `rejeitado` não é desperdício: ele registra que a opção foi
@@ -121,7 +121,7 @@ Status: descontinuado em 2025-08-04 — o serviço de recomendação
         foi desativado; a decisão perdeu objeto.
 ```
 
-Usado quando o objeto de uma decisão que chegou a ser aceita desapareceu — o sistema foi
+Usado quando o objeto de uma decisão que chegou a ser aceita desapareceu: o sistema foi
 desligado, o problema deixou de existir, o requisito foi removido. Proposta que nunca valeu
 não é descontinuada: é rejeitada.
 
@@ -138,7 +138,7 @@ Status: rejeitado em 2025-03-18 — o ganho de latência não pagava
         a operação de um segundo banco.
 ```
 
-É o status que preserva propostas analisadas e recusadas, que sem ele desaparecem — e é o
+É o status que preserva propostas analisadas e recusadas, que sem ele desaparecem. E é o
 que responde, anos depois, à pergunta "alguém já pensou nisso?".
 
 ### Por que não editar
@@ -151,11 +151,11 @@ a evolução é informação           ver a sequência ensina
 ```
 
 A exceção aceitável: correção de erro factual, tipográfico ou de link, sem alterar o
-raciocínio. Correções que mudam o sentido não são correções — são decisões novas.
+raciocínio. Correções que mudam o sentido não são correções: são decisões novas.
 
 Há times que admitem emenda (amendment): um adendo datado ao final do ADR aceito, para
 ajuste que não inverte a decisão. Ela preserva o texto original, e por isso convive com a
-imutabilidade; o limite é o mesmo da correção — adendo que muda o que foi decidido é um
+imutabilidade; o limite é o mesmo da correção: adendo que muda o que foi decidido é um
 sucessor mal registrado. Ver [superação](/18-architecture-decisions/superseding-decisions.md).
 
 ### Status intermediários que alguns times usam
@@ -200,8 +200,8 @@ time, status com data basta: quem pergunta "isso ainda vale?" pergunta a quem de
 Índice gerado e referência bidirecional começam a se pagar quando o conjunto passa do que
 alguém lembra de cabeça, ou quando quem decidiu sai.
 
-**Decisão de baixo custo de reversão.** A janela de `proposto` — dias de discussão sobre um
-documento — custa mais que errar numa escolha que se desfaz em uma tarde. Aí o registro
+**Decisão de baixo custo de reversão.** A janela de `proposto` (dias de discussão sobre um
+documento) custa mais que errar numa escolha que se desfaz em uma tarde. Aí o registro
 pode nascer `aceito`; o ciclo continua valendo para a superação, não para a proposta.
 
 **Status além dos cinco do MADR, sem quem consulte a distinção.** `em revisão` e
@@ -210,11 +210,11 @@ num time que não olha o índice, são carga sem efeito.
 
 ## Alternativas
 
-- **Histórico do controle de versão** — registra as edições, mas quem procura entender uma
+- **Histórico do controle de versão**: registra as edições, mas quem procura entender uma
   decisão abre o arquivo, não o log de commits dele.
-- **Um documento vivo por tema**, com histórico interno — perde a granularidade e a
+- **Um documento vivo por tema**, com histórico interno: perde a granularidade e a
   referenciabilidade.
-- **Sem status**, apenas data — funciona em conjuntos muito pequenos e falha ao crescer.
+- **Sem status**, apenas data: funciona em conjuntos muito pequenos e falha ao crescer.
 
 A primeira merece nota: o controle de versão preserva tecnicamente o histórico, e não o
 torna acessível. "Está no histórico do repositório", para quem não sabe que houve edição,
@@ -253,24 +253,24 @@ caso tratado em [superação](/18-architecture-decisions/superseding-decisions.m
 
 **ADRs apagados.** A organização perde a memória de ter decidido.
 
-**Status parado em `proposto`** indefinidamente — decisão tomada na prática, sem registro
+**Status parado em `proposto`** indefinidamente: decisão tomada na prática, sem registro
 formal.
 
 ## Erros Comuns
 
-**Manter ADRs atualizados**, como se fossem documentação do sistema — cada atualização
+**Manter ADRs atualizados**, como se fossem documentação do sistema: cada atualização
 sobrescreve o contexto que justificava a versão anterior.
 
-**Apagar o superado** por parecer confuso — o sucessor passa a apontar para um documento
+**Apagar o superado** por parecer confuso: o sucessor passa a apontar para um documento
 que não existe, e "por que mudamos?" fica sem resposta.
 
-**Não datar transições** — não há como saber se uma decisão já valia quando um incidente
+**Não datar transições**: não há como saber se uma decisão já valia quando um incidente
 aconteceu, nem quanto tempo a proposta ficou aberta.
 
-**Não referenciar o antecessor** no sucessor — quem lê a decisão nova não descobre que ela
+**Não referenciar o antecessor** no sucessor: quem lê a decisão nova não descobre que ela
 reverte outra, nem as razões que a anterior tinha.
 
-**Deixar o índice manual** — ele desatualiza e passa a listar como vigente uma decisão já
+**Deixar o índice manual**: ele desatualiza e passa a listar como vigente uma decisão já
 superada, sobre a qual alguém vai construir.
 
 ## Exemplo Real
@@ -291,8 +291,8 @@ que ela já tinha sido outra coisa. O histórico ao final tinha três linhas:
 2023-07  atualizado
 ```
 
-O texto de 2021 tinha sido substituído. A decisão original — que era **síncrona**, com
-razões específicas — tinha desaparecido, e as razões da mudança de 2022 também.
+O texto de 2021 tinha sido substituído. A decisão original (que era **síncrona**, com
+razões específicas) tinha desaparecido, e as razões da mudança de 2022 também.
 
 A reconstrução, pelo histórico do repositório, levou dois dias e mostrou que o serviço
 tinha sido migrado para assíncrono em 2022 e **de volta para síncrono** em 2023, por
@@ -317,19 +317,19 @@ Um trabalho de três semanas.
 pelo menos três dias úteis antes da aceitação.
 
 Um efeito não previsto da migração: ao recuperar as versões antigas, três decisões
-apareceram como tendo ido e voltado — o mesmo padrão do caso que motivou a mudança. Isso
+apareceram como tendo ido e voltado, o mesmo padrão do caso que motivou a mudança. Isso
 virou um exercício interno de calibração.
 
 A conclusão registrada: a prática de editar com linha de histórico parecia preservar
-informação. Ela preservava o registro de que algo tinha mudado, e apagava o que era —
-que é a parte que importa.
+informação. Ela preservava o registro de que algo tinha mudado, e apagava o que era.
+Essa é a parte que importa.
 
 ## Conceitos Relacionados
 
-- [Superação](/18-architecture-decisions/superseding-decisions.md) — a mecânica.
+- [Superação](/18-architecture-decisions/superseding-decisions.md): a mecânica.
 - [Estrutura do ADR](/18-architecture-decisions/adr-structure.md).
-- [O Que É um ADR](/18-architecture-decisions/what-is-an-adr.md) — a imutabilidade como característica.
-- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — o índice
+- [O Que É um ADR](/18-architecture-decisions/what-is-an-adr.md): a imutabilidade como característica.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md): o índice
   gerado.
 
 ## Exercício Prático
@@ -348,5 +348,5 @@ as duas é informação que estava acessível a ninguém.
 ## Para Aprofundar
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
-- *MADR — Markdown Any Decision Records* — adr.github.io/madr.
+- *MADR. Markdown Any Decision Records* — adr.github.io/madr.
 - Keeling, Michael. *Design It!*. Pragmatic Bookshelf, 2017.

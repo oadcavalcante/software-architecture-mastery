@@ -2,7 +2,7 @@
 id: communication
 title: Comunicação de Arquitetura
 sidebar_position: 6
-description: Mudar o eixo da mensagem conforme o público — não simplificar, traduzir.
+description: "Mudar o eixo da mensagem conforme o público: não simplificar, traduzir."
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [architecture-presentations, stakeholder-management, technical-influence]
 canonical_for: [comunicação de arquitetura, altitude da mensagem, tradução para o público]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -33,8 +33,8 @@ para operação      o que muda no plantão
 para finanças      qual o efeito na conta, e quando
 ```
 
-A diferença entre essas versões não é de profundidade. É de **eixo**. A diretoria não precisa de
-um diagrama simplificado — ela precisa da mesma decisão expressa em risco e capacidade, com a
+A diferença entre essas versões é de **eixo**, não de profundidade. A diretoria não precisa de
+um diagrama simplificado: ela precisa da mesma decisão expressa em risco e capacidade, com a
 mesma precisão.
 
 ## Problema
@@ -53,7 +53,7 @@ sala precisava responder a "isso vale o investimento, comparado às outras coisa
 financiar?".
 
 Nenhuma quantidade de rigor técnico responde à segunda pergunta. E simplificar o diagrama não
-ajuda — o problema não é complexidade, é irrelevância para a decisão em questão.
+ajuda: o problema não é complexidade, é irrelevância para a decisão em questão.
 
 O erro simétrico: simplificar até perder a informação. Uma proposta reduzida a "precisamos
 modernizar" não permite avaliar nada, e quem escuta percebe que não há substância.
@@ -69,7 +69,7 @@ altitude baixa  desenho, tecnologia, mecanismo
 ```
 
 Uma mesma decisão existe nas três altitudes, com precisão total em cada uma. Subir de altitude não
-é remover detalhe — é **mudar o que está sendo descrito**.
+é remover detalhe, e sim **mudar o que está sendo descrito**.
 
 ```text
 baixa   "vamos introduzir uma fila entre o pedido e a autorização
@@ -116,7 +116,7 @@ forte   "tivemos 41 horas de indisponibilidade no último ano,
 ```
 
 Adjetivos são interpretáveis e descartáveis. Números são discutíveis, e uma discussão sobre
-números é uma conversa produtiva — ainda que ela conclua que o número está errado.
+números é uma conversa produtiva, ainda que ela conclua que o número está errado.
 
 Ver [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
@@ -131,11 +131,11 @@ Este é o elemento mais frequentemente ausente e o mais decisivo em conversas de
 ```
 
 Sem isso, a proposta compete com outras propostas de investimento em igualdade. Com isso, ela
-compete com a alternativa de não fazer — que é a comparação real.
+compete com a alternativa de não fazer: a comparação real.
 
 ### Fale a moeda de quem escuta
 
-Qual é a moeda de cada interessado — receita, custo, plantão, exposição — está mapeado em
+Qual é a moeda de cada interessado (receita, custo, plantão, exposição) está mapeado em
 [gestão de interessados](/23-architecture-leadership/stakeholder-management.md). O que esta página
 acrescenta é que a moeda escolhe a altitude: receita e exposição pedem altitude alta; plantão e
 capacidade pedem a média; e é na altitude média que a tradução mais falha, porque o arquiteto
@@ -195,11 +195,11 @@ qualitativa, declare que o número é estimativa e diga como será medido.
 
 ## Alternativas
 
-- **Documento em vez de apresentação** — para decisões complexas, um texto lido antes da reunião
+- **Documento em vez de apresentação**: para decisões complexas, um texto lido antes da reunião
   rende mais que slides.
-- **Conversa individual antes** — alinhar com cada interessado separadamente costuma ser mais
+- **Conversa individual antes**: alinhar com cada interessado separadamente costuma ser mais
   eficaz que convencer um grupo.
-- **Demonstração** — quando o risco em discussão é de viabilidade, mostrar funcionando costuma
+- **Demonstração**: quando o risco em discussão é de viabilidade, mostrar funcionando costuma
   resolver o que argumento não resolve.
 
 A segunda é a mais subestimada: reuniões de decisão raramente mudam posições; elas confirmam
@@ -296,10 +296,10 @@ a iniciativa de omnicanalidade transformou a proposta de "melhoria técnica" em 
 uma aposta de negócio já aprovada".
 
 **Os 34 slides viraram anexo.** Eles continuaram existindo e foram usados nas conversas com
-engenharia — no eixo certo, para o público certo.
+engenharia, no eixo certo, para o público certo.
 
-A prática que ficou: toda proposta acima de um limite passou a exigir três versões — uma de uma
-página para diretoria, uma de duas para produto e operação, e o documento técnico completo. E a
+A prática que ficou: toda proposta acima de um limite passou a exigir três versões (uma de uma
+página para diretoria, uma de duas para produto e operação, e o documento técnico completo). E a
 regra de que o número que quantifica o problema precisa vir de uma área que não seja engenharia,
 para não ser lido como interesse próprio.
 
@@ -315,7 +315,7 @@ para não ser lido como interesse próprio.
 Pegue uma proposta arquitetural sua e escreva-a em quatro parágrafos: o pedido, a razão com
 número, o que acontece se nada for feito, e o risco reconhecido.
 
-Se você não tiver o número, essa é a lacuna — e ela provavelmente é a razão de a proposta não ter
+Se você não tiver o número, essa é a lacuna, e ela provavelmente é a razão de a proposta não ter
 avançado.
 
 ## Perguntas de Entrevista

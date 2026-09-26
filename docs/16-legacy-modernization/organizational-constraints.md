@@ -2,7 +2,7 @@
 id: organizational-constraints
 title: Restrições Organizacionais
 sidebar_position: 12
-description: Por que projetos tecnicamente corretos fracassam — e o que fazer a respeito.
+description: Por que projetos tecnicamente corretos fracassam, e o que fazer a respeito.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-risk, modernization-drivers, incremental-modernization]
 canonical_for: [restrição organizacional, apoio que evapora, incentivo desalinhado, conhecimento concentrado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -60,18 +60,18 @@ mês 12    "quando isso termina?"
 mês 18    prioridade nova, orçamento realocado
 ```
 
-O que sustenta apoio não é comunicação de progresso — é **entrega de valor visível**.
+O que sustenta apoio é **entrega de valor visível**, não comunicação de progresso.
 
 Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 Um programa cujo primeiro valor aparece no mês 14 vai enfrentar essa erosão sem defesa.
 
 E o patrocinador precisa ser mais de um: programas apoiados por uma única pessoa morrem
-quando ela muda de função — o que, em programas de dois anos, é provável.
+quando ela muda de função. Isso, em programas de dois anos, é provável.
 
 ### Conhecimento concentrado é risco de projeto
 
-O sistema legado é mantido por poucas pessoas, e elas são necessárias para a modernização
-— para explicar o comportamento, para validar o novo, para resolver o que aparece.
+O sistema legado é mantido por poucas pessoas, e elas são necessárias para a modernização:
+para explicar o comportamento, para validar o novo, para resolver o que aparece.
 
 ```text
 a pessoa sai durante o projeto      → o conhecimento que faltava se perde
@@ -84,7 +84,7 @@ Ver [sistemas legados](/16-legacy-modernization/legacy-systems.md).
 O tratamento: transferência de conhecimento como **primeira etapa do projeto**, não como
 consequência. Testes de caracterização, documentação, e pareamento.
 
-Isso tem custo de tempo antes de qualquer código novo — e é o investimento que mais
+Isso tem custo de tempo antes de qualquer código novo, e é o investimento que mais
 reduz risco.
 
 ### Incentivo desalinhado é a restrição menos discutida
@@ -101,18 +101,18 @@ a área que perde controle sobre um sistema
 Nenhuma dessas resistências é irracional. Elas são respostas previsíveis a incentivos
 reais.
 
-Ignorá-las produz resistência passiva — informação que não aparece, prazos que escorregam,
+Ignorá-las produz resistência passiva: informação que não aparece, prazos que escorregam,
 problemas que só são descobertos tarde.
 
 O tratamento é explícito: identificar quem perde, e endereçar. Frequentemente a solução é
-simples — a pessoa cujo conhecimento é único se torna a autoridade sobre o sistema novo,
+simples: a pessoa cujo conhecimento é único se torna a autoridade sobre o sistema novo,
 em vez de perder relevância.
 
 ### O time precisa continuar entregando
 
 Modernização compete com produto. Em programas longos, quando a modernização ainda não
 entregou nada que o negócio perceba e não tem uma fatia de capacidade acordada, a disputa
-é resolvida a favor do produto a cada ciclo de priorização — porque o produto tem cliente
+é resolvida a favor do produto a cada ciclo de priorização, porque o produto tem cliente
 reclamando e a modernização não.
 
 ```text
@@ -120,7 +120,7 @@ modelo que falha    "vamos parar de entregar funcionalidades por um ano"
 modelo que funciona modernização e produto em paralelo, com proporção acordada
 ```
 
-A proporção — algo como 70% produto e 30% modernização — é mais lenta e sobrevive.
+A proporção, algo como 70% produto e 30% modernização, é mais lenta e sobrevive.
 
 E ela exige que a modernização seja fatiada em incrementos que cabem nessa proporção. Ver
 [modernização incremental](/16-legacy-modernization/incremental-modernization.md).
@@ -130,7 +130,7 @@ E ela exige que a modernização seja fatiada em incrementos que cabem nessa pro
 Modernização é trabalho de descoberta: boa parte do que será feito só é conhecida depois
 de começar.
 
-Estimá-la como construção — com escopo definido e prazo — produz o padrão conhecido: o
+Estimá-la como construção, com escopo definido e prazo, produz o padrão conhecido: o
 projeto atrasa, a confiança erode, e o apoio some.
 
 O que funciona melhor:
@@ -154,7 +154,7 @@ entre times puxa a arquitetura de volta para as fronteiras antigas. Ver também
 [arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
 E o inverso: manter um time dedicado à modernização, separado dos times de produto,
-produz um sistema novo que ninguém quer receber — porque não foi construído por quem vai
+produz um sistema novo que ninguém quer receber, porque não foi construído por quem vai
 mantê-lo.
 
 O modelo que costuma funcionar: os times que vão operar o resultado participam da
@@ -162,7 +162,7 @@ construção, com apoio de quem tem experiência de modernização.
 
 ## Modelo Mental
 
-**As restrições organizacionais são parte do projeto.** Ignorá-las não as remove — apenas
+**As restrições organizacionais são parte do projeto.** Ignorá-las não as remove, apenas
 transfere a descoberta para o momento em que elas são fatais.
 
 ## Quando Usar
@@ -176,7 +176,7 @@ Esta análise deveria preceder qualquer programa de modernização, especialment
 
 ## Quando Não Usar
 
-A análise formal — mapear patrocinadores, detentores de conhecimento e perdedores — custa
+A análise formal (mapear patrocinadores, detentores de conhecimento e perdedores) custa
 semanas de conversa e exposição política. Ela não se paga quando:
 
 **A modernização é curta e feita por quem opera.** Uma troca de alguns meses conduzida
@@ -197,11 +197,11 @@ substituição voltar à mesa.
 
 ## Alternativas
 
-- **Fatias menores** — reduzem exposição a mudança de prioridade.
-- **Modernização oportunista** — modernizar o que se toca, sem programa dedicado. Ver
+- **Fatias menores**: reduzem exposição a mudança de prioridade.
+- **Modernização oportunista**: modernizar o que se toca, sem programa dedicado. Ver
   [modernização incremental](/16-legacy-modernization/incremental-modernization.md).
-- **Contenção** — isolar o legado em vez de substituí-lo, quando o apoio não existe.
-- **Adiar** — decisão legítima quando as condições organizacionais não estão dadas.
+- **Contenção**: isolar o legado em vez de substituí-lo, quando o apoio não existe.
+- **Adiar**: decisão legítima quando as condições organizacionais não estão dadas.
 
 A última merece consideração: um programa iniciado sem apoio suficiente consome recursos e
 morre pela metade, deixando a organização pior que antes.
@@ -243,7 +243,7 @@ morre pela metade, deixando a organização pior que antes.
 
 **Não fazer transferência de conhecimento primeiro.** As regras não documentadas vivem na cabeça de poucas pessoas. Se elas saírem no meio, o que resta é arqueologia de código.
 
-**Prometer prazo em trabalho de descoberta.** Enquanto o comportamento real do sistema é desconhecido, qualquer data é ficção — e a data perdida corrói a credibilidade que sustenta o resto do projeto.
+**Prometer prazo em trabalho de descoberta.** Enquanto o comportamento real do sistema é desconhecido, qualquer data é ficção, e a data perdida corrói a credibilidade que sustenta o resto do projeto.
 
 **Depender de um patrocinador.** Modernizações levam anos e patrocinadores mudam de área. Sem apoio distribuído, a saída de uma pessoa encerra o projeto.
 
@@ -253,25 +253,25 @@ morre pela metade, deixando a organização pior que antes.
 
 ## Exemplo Real
 
-Uma empresa de energia iniciou a substituição do sistema de faturamento — 21 anos,
+Uma empresa de energia iniciou a substituição do sistema de faturamento: 21 anos,
 crítico, mantido por quatro pessoas.
 
 O projeto foi bem desenhado tecnicamente: estrangulamento, fatias definidas, migração de
 dados planejada.
 
-Ele foi cancelado no mês 15 de 24 previstos, com cerca de 40% concluído — o atraso de
+Ele foi cancelado no mês 15 de 24 previstos, com cerca de 40% concluído: o atraso de
 quem estimou descoberta como construção.
 
 A análise posterior identificou quatro causas, nenhuma técnica:
 
-**Apoio.** O patrocinador — um diretor — saiu da empresa no mês 11. O substituto não
+**Apoio.** O patrocinador, um diretor, saiu da empresa no mês 11. O substituto não
 tinha compromisso com o programa, e no ciclo de orçamento seguinte realocou os recursos.
 
 **Valor tardio.** A primeira fatia com valor visível para o negócio estava planejada para
 o mês 18. Nos 15 meses executados, nada perceptível tinha sido entregue.
 
 **Conhecimento.** Duas das quatro pessoas que mantinham o sistema saíram durante o
-projeto — uma delas para um concorrente. A transferência de conhecimento estava planejada
+projeto, uma delas para um concorrente. A transferência de conhecimento estava planejada
 para a fase final.
 
 **Resistência.** O time que mantinha o sistema antigo via o projeto como o fim da própria
@@ -283,7 +283,7 @@ técnica:
 **Três patrocinadores**, de áreas diferentes, com revisão trimestral conjunta.
 
 **Primeira fatia com valor no mês 4.** A sequência foi reordenada para entregar, cedo,
-uma funcionalidade que o negócio pedia havia anos — emissão de segunda via com
+uma funcionalidade que o negócio pedia havia anos: emissão de segunda via com
 recálculo.
 
 **Transferência de conhecimento como fase 1.** Quatro meses antes de qualquer código
@@ -292,14 +292,14 @@ o sistema.
 
 **A equipe do sistema antigo como protagonista.** As duas pessoas remanescentes foram
 designadas autoridades técnicas do sistema novo, com o papel formalizado. A resistência
-desapareceu — elas passaram a ter algo a ganhar.
+desapareceu: elas passaram a ter algo a ganhar.
 
 **Proporção acordada.** 30% da capacidade em modernização, 70% em produto, revisada
 trimestralmente.
 
 **Estimativa em faixa**, por fatia, reestimada a cada entrega.
 
-A segunda tentativa levou 26 meses — mais que os 24 originalmente previstos na primeira —
+A segunda tentativa levou 26 meses, mais que os 24 originalmente previstos na primeira,
 e foi concluída.
 
 Na retrospectiva: o desenho técnico da primeira tentativa era melhor que o da
@@ -318,7 +318,7 @@ ninguém tinha considerado escopo do projeto.
 Para um programa de modernização em andamento ou planejado, liste: quem patrocina, quem
 detém o conhecimento único, e quem perde com a mudança.
 
-As três listas são condições de viabilidade — e nenhuma delas costuma estar no plano.
+As três listas são condições de viabilidade, e nenhuma delas costuma estar no plano.
 
 ## Perguntas de Entrevista
 

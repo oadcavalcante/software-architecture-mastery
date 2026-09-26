@@ -2,7 +2,7 @@
 id: blue-green
 title: Blue-Green
 sidebar_position: 5
-description: Dois ambientes completos e uma troca instantânea — simplicidade ao custo de capacidade duplicada.
+description: "Dois ambientes completos e uma troca instantânea: simplicidade ao custo de capacidade duplicada."
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, canary, rolling-deployments]
 canonical_for: [blue-green, troca de ambiente, ambiente inativo, aquecimento de ambiente]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Em blue-green, existem dois ambientes completos. Um atende o tráfego; o outro está
 ocioso.
 
-A implantação acontece no ocioso. Verificado, o tráfego é **trocado** — de uma vez. Se
+A implantação acontece no ocioso. Verificado, o tráfego é **trocado**, de uma vez. Se
 algo der errado, troca-se de volta.
 
 A propriedade que a define: **reversão instantânea**. Não há implantação a desfazer, há
@@ -32,7 +32,7 @@ um roteamento a inverter.
 
 ## Problema
 
-Reverter uma implantação convencional significa implantar a versão anterior — o que leva
+Reverter uma implantação convencional significa implantar a versão anterior. Isso leva
 o mesmo tempo da implantação original, sob pressão, com o sistema degradado.
 
 Ver [estratégias de implantação](/14-devops-and-platform/deployment-strategies.md). Para mudanças de alto risco,
@@ -63,13 +63,13 @@ abaixo.
 Um ambiente que acabou de subir tem cache frio, conexões não estabelecidas e código
 ainda não otimizado.
 
-Trocar 100% do tráfego para ele produz um pico de latência e, frequentemente, uma queda
-— que é lida como "a versão nova está ruim", quando o problema é o ambiente frio.
+Trocar 100% do tráfego para ele produz um pico de latência e, frequentemente, uma queda.
+Isso é lido como "a versão nova está ruim", quando o problema é o ambiente frio.
 
 Ver [cache para escala](/11-scalability/scaling-cache.md).
 
-O que resolve: aquecimento antes da troca — tráfego sintético, ou uma fração pequena de
-tráfego real por alguns minutos.
+O que resolve: aquecimento antes da troca (tráfego sintético, ou uma fração pequena de
+tráfego real por alguns minutos).
 
 Esse último caso, na prática, é um canary curto. Ver [canary](/14-devops-and-platform/canary.md).
 
@@ -102,7 +102,7 @@ corte abrupto    elas falham
 drenagem         o ambiente antigo termina o que começou, sem receber novas
 ```
 
-Drenagem é o comportamento correto, e ela precisa de tempo limite — uma requisição longa
+Drenagem é o comportamento correto, e ela precisa de tempo limite: uma requisição longa
 não pode segurar a troca indefinidamente.
 
 E o mesmo vale para trabalho assíncrono: consumidores de fila do ambiente antigo
@@ -129,7 +129,7 @@ completamente declarada. Ver
 
 Vale ser explícito: **blue-green não detecta problemas**.
 
-Ele torna a reversão barata. Alguém — ou algo — ainda precisa perceber que a versão nova
+Ele torna a reversão barata. Alguém (ou algo) ainda precisa perceber que a versão nova
 está errada.
 
 Para mudanças cujo problema não é óbvio, ele precisa ser combinado com verificação. Ver
@@ -147,7 +147,7 @@ compatibilidade do estado compartilhado é o que precisa ser projetado.
 ## Quando Usar
 
 - A reversão precisa ser instantânea.
-- Mudanças de infraestrutura — versão de tempo de execução, imagem base.
+- Mudanças de infraestrutura: versão de tempo de execução, imagem base.
 - Onde a janela de degradação é cara.
 - Sistemas de baixo volume, onde canary não tem significância.
 - Quando o ambiente pode ser criado sob demanda.
@@ -168,12 +168,12 @@ compatibilidade do estado compartilhado é o que precisa ser projetado.
 
 ## Alternativas
 
-- **[Canary](/14-devops-and-platform/canary.md)** — detecta, expõe menos, exige volume.
-- **[Implantação em ondas](/14-devops-and-platform/rolling-deployments.md)** — sem capacidade extra, reversão
+- **[Canary](/14-devops-and-platform/canary.md)**: detecta, expõe menos, exige volume.
+- **[Implantação em ondas](/14-devops-and-platform/rolling-deployments.md)**: sem capacidade extra, reversão
   gradual.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — reversão instantânea sem duplicar ambiente,
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: reversão instantânea sem duplicar ambiente,
   para mudanças de comportamento.
-- **Blue-green com canary na troca** — trocar gradualmente em vez de de uma vez,
+- **Blue-green com canary na troca**: trocar gradualmente em vez de de uma vez,
   combinando os dois.
 
 A última vence quando há volume para o canary ser estatisticamente significativo e
@@ -215,7 +215,7 @@ sem acrescentar informação.
 
 **Não aquecer o ambiente novo.** Receber cem por cento do tráfego com cache frio e conexões não estabelecidas produz um pico de latência exatamente no instante da troca.
 
-**Não verificar compatibilidade do estado.** Os dois ambientes compartilham banco. Se a versão nova exige esquema que a antiga não entende, a reversão — que era o ponto do padrão — deixa de ser possível.
+**Não verificar compatibilidade do estado.** Os dois ambientes compartilham banco. Se a versão nova exige esquema que a antiga não entende, a reversão, que era o ponto do padrão, deixa de ser possível.
 
 **Trocar por DNS.** O cache de resolução mantém clientes no ambiente antigo por dezenas de minutos, e a reversão sofre do mesmo atraso justamente quando a urgência é maior.
 
@@ -223,7 +223,7 @@ sem acrescentar informação.
 
 **Deixar o ambiente inativo divergir.** Configuração, certificados e cotas do ambiente parado ficam para trás em silêncio, e a troca revela isso no pior momento.
 
-**Não desligar os consumidores assíncronos** do ambiente antigo. Os dois ambientes continuam processando a mesma fila, com versões diferentes do código — e o efeito depende de qual pegou a mensagem.
+**Não desligar os consumidores assíncronos** do ambiente antigo. Os dois ambientes continuam processando a mesma fila, com versões diferentes do código, e o efeito depende de qual pegou a mensagem.
 
 ## Exemplo Real
 
@@ -238,7 +238,7 @@ Três problemas apareceram:
 **Pico de latência na troca.** Toda troca produzia dois a três minutos de latência
 elevada. Foi diagnosticado como "aquecimento normal" por meses, até alguém medir: o
 ambiente novo subia com cache vazio e pool de conexões não estabelecido. A solução foi
-enviar 5% do tráfego por dez minutos antes da troca completa — o que, na prática,
+enviar 5% do tráfego por dez minutos antes da troca completa. Na prática, isso
 introduziu um canary.
 
 **Reversão insegura.** Numa implantação, a versão nova gravou um campo novo em registros
@@ -247,7 +247,7 @@ de todos os usuários logados. Passou a haver verificação obrigatória de comp
 de estado na revisão.
 
 **Consumidores duplicados.** Os dois ambientes tinham consumidores de fila ativos. Após
-uma implantação, ambos consumiam — e por 40 minutos, mensagens foram processadas por
+uma implantação, ambos consumiam, e por 40 minutos, mensagens foram processadas por
 versões diferentes, com resultados inconsistentes. A troca passou a desligar os
 consumidores do ambiente antigo antes de qualquer coisa.
 
@@ -266,14 +266,14 @@ passa por roteamento.
 ## Conceitos Relacionados
 
 - [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
-- [Canary](/14-devops-and-platform/canary.md) — a detecção que falta.
-- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md) — o ambiente efêmero.
+- [Canary](/14-devops-and-platform/canary.md): a detecção que falta.
+- [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md): o ambiente efêmero.
 - [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
 
 Se você usa blue-green, verifique o que acontece com os consumidores de fila durante a
-troca — e se uma reversão seria segura dado o que a versão nova escreveu.
+troca, e se uma reversão seria segura dado o que a versão nova escreveu.
 
 As duas perguntas costumam não ter resposta documentada.
 

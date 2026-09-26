@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [availability-metrics, fault-tolerance, resilience]
 canonical_for: [confiabilidade, falha e defeito, taxa de falha, confiabilidade do sistema]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -42,8 +42,8 @@ fração das respostas está errada. Nenhuma métrica de disponibilidade captura
 o tipo de problema que corrói a confiança do usuário mais rápido que indisponibilidade.
 
 E há uma consequência de desenho: perseguir disponibilidade sem correção leva a
-degradações que produzem resultado errado — servir dado velho onde ele não pode ser
-velho, aceitar operação sem verificar o que precisava ser verificado. Ver
+degradações que produzem resultado errado (servir dado velho onde ele não pode ser
+velho, aceitar operação sem verificar o que precisava ser verificado). Ver
 [degradação graciosa](/12-reliability/graceful-degradation.md).
 
 ## Conceitos Centrais
@@ -74,7 +74,7 @@ estar no terceiro, porque ele funciona para faltas que ninguém previu.
 
 ### A confiabilidade do sistema não é a das partes
 
-Um sistema pode ser mais confiável que seus componentes — se ele tolera a falha deles.
+Um sistema pode ser mais confiável que seus componentes, se ele tolera a falha deles.
 E pode ser menos, se a falha de qualquer um o derruba.
 
 ```text
@@ -95,7 +95,7 @@ Numa escala suficiente, algo está sempre falhando: um disco, uma instância, um
 conexão, uma dependência.
 
 Isso muda a postura de projeto: em vez de "o que fazemos se falhar", a pergunta é "o
-que fazemos **quando** falhar" — e a resposta precisa estar no desenho, não no
+que fazemos **quando** falhar", e a resposta precisa estar no desenho, não no
 procedimento de emergência.
 
 Ver [falha parcial](/06-distributed-systems/partial-failure.md).
@@ -113,11 +113,11 @@ bizantina       comportamento arbitrário, possivelmente malicioso
 ```
 
 A dificuldade cresce na lista. Redundância trata bem a primeira; a quarta exige
-verificação semântica — comparar resultados, validar invariantes — que raramente
+verificação semântica (comparar resultados, validar invariantes), que raramente
 existe.
 
 E a terceira é a que o desenho costuma deixar de fora: as proteções pressupõem parada,
-mas dependências raramente param — elas ficam lentas. Ver
+mas dependências raramente param; elas ficam lentas. Ver
 [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Complexidade é inimiga da confiabilidade
@@ -125,7 +125,7 @@ mas dependências raramente param — elas ficam lentas. Ver
 Mais componentes, mais interações, mais modos de falha.
 
 Isso cria uma tensão real com as técnicas desta seção: redundância, failover, circuit
-breakers e bulkheads adicionam complexidade — e complexidade adiciona falha.
+breakers e bulkheads adicionam complexidade, e complexidade adiciona falha.
 
 Um sistema com quatro camadas de proteção mal configuradas pode ser menos confiável que
 um simples e bem operado.
@@ -148,7 +148,7 @@ pessoas          sobreaviso sustentável, conhecimento distribuído
 Um sistema tecnicamente bom, operado por um time exausto e sem procedimentos, é menos
 confiável que um sistema mediano bem operado.
 
-Esse é o componente que a arquitetura influencia indiretamente — e que aparece na
+Esse é o componente que a arquitetura influencia indiretamente, e que aparece na
 maioria dos post-mortems.
 
 ## Erros Comuns
@@ -159,7 +159,7 @@ confiável.
 **Investir só em prevenção.** As faltas não previstas continuam existindo.
 
 **Presumir falhas de parada.** Timeout e failover desenhados para o componente que para
-não seguram o que fica lento — e é ele que esgota o pool do chamador.
+não seguram o que fica lento, e é ele que esgota o pool do chamador.
 
 **Adicionar mecanismos sem exercitá-los.** Complexidade sem benefício.
 
@@ -183,7 +183,7 @@ pessoa. O sistema respondia rápido, com código de sucesso, e o dado estava err
 Isso durou catorze meses. Foi descoberto quando um cliente contestou uma negativa e a
 auditoria comparou os dados.
 
-Nenhum indicador de disponibilidade mudou durante todo o período — porque nenhuma
+Nenhum indicador de disponibilidade mudou durante todo o período, porque nenhuma
 requisição retornou código de erro. Havia erro e havia falha; nenhum indicador de
 disponibilidade os enxergava.
 
@@ -192,8 +192,8 @@ As correções:
 **Verificação de correlação.** Toda resposta passou a carregar o identificador do
 pedido, verificado antes de usar. A condição de corrida deixou de ser silenciosa.
 
-**Validação de invariante.** Verificações semânticas — o documento da resposta
-corresponde ao consultado, a data de nascimento é plausível — aplicadas antes de
+**Validação de invariante.** Verificações semânticas (o documento da resposta
+corresponde ao consultado, a data de nascimento é plausível) aplicadas antes de
 processar.
 
 **Indicador de correção**, além dos de disponibilidade: proporção de análises com dados
@@ -203,7 +203,7 @@ consistentes, verificada por amostragem contra a fonte.
 aconteceu. Ver
 [auditabilidade](/10-security/auditability.md).
 
-E, na origem, a condição de corrida foi corrigida — o que era o trabalho mais simples
+E, na origem, a condição de corrida foi corrigida, o que era o trabalho mais simples
 dos cinco.
 
 O aprendizado que ficou: eles mediam disponibilidade em quatro pontos e correção em
@@ -211,7 +211,7 @@ nenhum. O sistema estava, pelos números, entre os mais confiáveis da empresa.
 
 ## Conceitos Relacionados
 
-- [Disponibilidade](/06-distributed-systems/availability.md) — a definição e a composição.
+- [Disponibilidade](/06-distributed-systems/availability.md): a definição e a composição.
 - [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
 - [Tolerância a Falhas](/12-reliability/fault-tolerance.md).
 - [Resiliência](/12-reliability/resilience.md).

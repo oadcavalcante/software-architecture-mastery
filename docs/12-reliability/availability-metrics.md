@@ -2,7 +2,7 @@
 id: availability-metrics
 title: Métricas de Disponibilidade
 sidebar_position: 1
-description: O que os números significam — e o que a porcentagem esconde.
+description: O que os números significam, e o que a porcentagem esconde.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [sli, slo, reliability-basics]
 canonical_for: [tempo médio entre falhas, tempo médio de recuperação, tempo médio de detecção, duração de indisponibilidade]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -93,8 +93,8 @@ de 2 horas.
 
 O incidente de 2 horas é o que o cliente lembra, e a média não o representa.
 
-A prática melhor: acompanhar a distribuição — mediana, percentil 90, e o pior caso do
-período. E, para incidentes, o número absoluto costuma dizer mais que qualquer média,
+A prática melhor: acompanhar a distribuição (mediana, percentil 90, e o pior caso do
+período). E, para incidentes, o número absoluto costuma dizer mais que qualquer média,
 porque a amostra é pequena.
 
 ### Disponibilidade por tempo e por requisição diferem
@@ -115,27 +115,27 @@ Saber qual está sendo usada muda a interpretação do número.
 
 ### Medir a disponibilidade parcial exige limiar de latência
 
-Que o modelo binário esconde o caso comum — uma funcionalidade fora, uma fração dos
-usuários afetada — está em [Disponibilidade](/06-distributed-systems/availability.md), e
+Que o modelo binário esconde o caso comum (uma funcionalidade fora, uma fração dos
+usuários afetada) está em [Disponibilidade](/06-distributed-systems/availability.md), e
 o comportamento do sistema nesse estado, em [degradação graciosa](/12-reliability/graceful-degradation.md).
 
 O que falta à taxa de requisições bem-sucedidas é a lentidão: a resposta correta em 30
 segundos conta como sucesso e, para o usuário, é falha. A saída é medir por jornada, com
-um limiar de latência por jornada — o que transforma "está no ar" em "está utilizável".
+um limiar de latência por jornada. Isso transforma "está no ar" em "está utilizável".
 O limiar não é universal: dois segundos para abrir o carrinho e vinte para gerar um
 relatório podem ser, cada um, o ponto em que o usuário desiste.
 
 ### O número precisa de contexto para ser comparado
 
-Os três complementos que qualquer porcentagem exige — janela, ponto de medição e o que
-conta como indisponível — estão definidos em
+Os três complementos que qualquer porcentagem exige (janela, ponto de medição e o que
+conta como indisponível) estão definidos em
 [Disponibilidade](/06-distributed-systems/availability.md). Para métricas, a consequência
 é a comparabilidade: dois relatórios só podem ser postos lado a lado se declararem os
 três iguais.
 
 Um 99,95% medido no servidor, sem contar lentidão, não é melhor que um 99,9% medido no
-cliente com limiar de latência — é outra grandeza. Sem os três declarados, a porcentagem
-não é comparável nem verificável — e é assim que ela aparece na maioria dos relatórios.
+cliente com limiar de latência: é outra grandeza. Sem os três declarados, a porcentagem
+não é comparável nem verificável. E é assim que ela aparece na maioria dos relatórios.
 
 ### O número mais útil não é a disponibilidade
 
@@ -148,7 +148,7 @@ minutos de usuário afetados = usuários afetados × duração em minutos
 Ela distingue o que a porcentagem não distingue: dez minutos afetando 2% dos usuários
 de madrugada, e dez minutos afetando todos no pico.
 
-E ela é diretamente traduzível em impacto — número de pessoas que não conseguiram fazer
+E ela é diretamente traduzível em impacto: número de pessoas que não conseguiram fazer
 o que precisavam, e por quanto tempo.
 
 O custo é que ela exige saber quantos usuários foram afetados, o que nem sempre é
@@ -187,12 +187,12 @@ incomparáveis.
 
 ## Alternativas
 
-- **[SLI](/12-reliability/sli.md) por jornada** — mede a experiência, não o tempo de atividade.
-- **Minutos de usuário afetados** — combina alcance e duração numa medida
+- **[SLI](/12-reliability/sli.md) por jornada**: mede a experiência, não o tempo de atividade.
+- **Minutos de usuário afetados**: combina alcance e duração numa medida
   que o negócio entende.
-- **Contagem de incidentes por severidade** — mais legível que média em amostras
+- **Contagem de incidentes por severidade**: mais legível que média em amostras
   pequenas.
-- **Distribuição de duração** — em vez de média.
+- **Distribuição de duração**: em vez de média.
 
 ## Trade-offs
 
@@ -224,7 +224,7 @@ incomparáveis.
 
 ## Erros Comuns
 
-**Usar só a porcentagem.** 99,9% ao mês pode ser uma parada de 43 minutos ou quarenta e três paradas de um minuto — impactos muito diferentes com o mesmo número.
+**Usar só a porcentagem.** 99,9% ao mês pode ser uma parada de 43 minutos ou quarenta e três paradas de um minuto: impactos muito diferentes com o mesmo número.
 
 **Não separar detecção de recuperação.** São problemas distintos com soluções distintas: uma se ataca com monitoramento, a outra com automação. O tempo total não diz em qual investir.
 
@@ -234,7 +234,7 @@ incomparáveis.
 
 **Comparar números de definições diferentes.** "Disponível" medido na borda, no balanceador ou pelo usuário final dá resultados distintos. Comparar sem igualar a definição não significa nada.
 
-**Não acompanhar o pior caso.** A média entre clientes esconde o cliente que teve seis horas fora — e é ele que cancela o contrato.
+**Não acompanhar o pior caso.** A média entre clientes esconde o cliente que teve seis horas fora. E é ele que cancela o contrato.
 
 ## Exemplo Real
 
@@ -255,11 +255,11 @@ O número era excelente e a experiência era ruim: quatorze interrupções por m
 uma a cada dois dias.
 
 E a análise por horário mostrou concentração: onze dos quatorze aconteciam entre 8h e
-10h — o horário de maior uso pelos clientes.
+10h (o horário de maior uso pelos clientes).
 
 Duas mudanças na medição:
 
-**Disponibilidade por requisição**, em vez de por tempo. O número caiu para 99,4% —
+**Disponibilidade por requisição**, em vez de por tempo. O número caiu para 99,4%,
 porque as interrupções aconteciam quando havia tráfego.
 
 **Minutos de usuário afetados** como métrica principal, comunicada ao negócio. Ela
@@ -277,14 +277,14 @@ Duas correções resolveram treze dos quatorze:
 **Implantação fora do horário de pico**, e depois implantação gradual sem parada.
 
 A conclusão registrada: eles tinham investido meses tentando reduzir a duração dos
-incidentes — que já era de 2,5 minutos. O problema era a **frequência**, e a
+incidentes (que já era de 2,5 minutos). O problema era a **frequência**, e a
 decomposição levou uma tarde para revelar isso.
 
 ## Conceitos Relacionados
 
-- [SLI](/12-reliability/sli.md) — a forma que mede experiência.
-- [SLO](/12-reliability/slo.md) — o alvo.
-- [Disponibilidade](/06-distributed-systems/availability.md) — a composição.
+- [SLI](/12-reliability/sli.md): a forma que mede experiência.
+- [SLO](/12-reliability/slo.md): o alvo.
+- [Disponibilidade](/06-distributed-systems/availability.md): a composição.
 - [Fundamentos de Confiabilidade](/12-reliability/reliability-basics.md).
 
 ## Exercício Prático
@@ -294,7 +294,7 @@ tempo até recuperar, fração de usuários afetados e minutos de usuário afeta
 
 Compare a soma da coluna de detecção com a da coluna de recuperação: a maior diz se o
 investimento vai para observabilidade ou para recuperação. Depois ordene os incidentes
-por minutos de usuário afetados — o topo da lista é por onde começar.
+por minutos de usuário afetados: o topo da lista é por onde começar.
 
 ## Perguntas de Entrevista
 
@@ -304,7 +304,7 @@ por minutos de usuário afetados — o topo da lista é por onde começar.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulos 3 e 4.
-- Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018 — tempo de recuperação como
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulos 3 e 4.
+- Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018. Tempo de recuperação como
   indicador.
 - Allspaw, John. *MTTR is more important than MTBF*, 2010.

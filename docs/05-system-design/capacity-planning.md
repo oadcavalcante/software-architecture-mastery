@@ -2,7 +2,7 @@
 id: capacity-planning
 title: Planejamento de Capacidade
 sidebar_position: 21
-description: Estimar antes de construir — e por que a ordem de grandeza importa mais que a precisão.
+description: Estimar antes de construir e por que a ordem de grandeza importa mais que a precisão.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [bottleneck-analysis, scalability-basics, back-of-envelope]
 canonical_for: [planejamento de capacidade, estimativa de capacidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Planejamento de capacidade é estimar quanto o sistema precisa suportar — em
-volume, dado e banda — antes de construí-lo.
+Planejamento de capacidade é estimar quanto o sistema precisa suportar (em
+volume, dado e banda) antes de construí-lo.
 
 O objetivo não é acertar o número. É **descobrir a ordem de grandeza**, porque é
 ela que elimina arquiteturas inviáveis e revela onde o problema vai estar.
@@ -32,7 +32,7 @@ ela que elimina arquiteturas inviáveis e revela onde o problema vai estar.
 Sem estimativa, toda decisão de arquitetura fica sem critério. "Precisamos de
 cache?" não tem resposta se ninguém sabe quantas leituras por segundo existem.
 
-O resultado é decidir por reputação — adotar o que sistemas grandes adotam — ou
+O resultado é decidir por reputação (adotar o que sistemas grandes adotam) ou
 por familiaridade. Nos dois casos, o sistema é dimensionado para uma escala que
 alguém imaginou.
 
@@ -45,7 +45,7 @@ ordem de grandeza já elimina as opções erradas.**
 ### O que estimar, nesta ordem
 
 **Volume de operações.** Quantas por dia, e qual o pico. A razão entre pico e média
-importa mais que a média — sistemas caem no pico.
+importa mais que a média: sistemas caem no pico.
 
 **Distribuição entre leitura e escrita.** Um sistema com razão de 100 para 1 tem
 arquitetura diferente de um com 1 para 1.
@@ -71,8 +71,8 @@ Números que vale ter na cabeça, porque tornam a estimativa rápida:
 ```
 
 Regra prática de pico: **o pico costuma ser 2× a 5× a média** em sistemas com uso
-humano, e muito mais em sistemas com evento concentrado — venda de ingresso,
-Black Friday, fechamento contábil.
+humano, e muito mais em sistemas com evento concentrado (venda de ingresso,
+Black Friday, fechamento contábil).
 
 Um exemplo completo:
 
@@ -98,13 +98,13 @@ O valor está em **descartar**, não em prever.
 
 12 requisições por segundo elimina o particionamento como resposta de vazão, e com
 ele o sistema distribuído e a arquitetura baseada em espaço. Um banco de dados numa
-instância atende com folga de ordens de grandeza — o particionamento por volume
+instância atende com folga de ordens de grandeza. O particionamento por volume
 armazenado continua em aberto.
 
 12 mil por segundo elimina a instância única e obriga a pensar em partição,
 réplica e cache desde o início.
 
-A diferença entre os dois é o que a estimativa revela — e ela não muda se o número
+A diferença entre os dois é o que a estimativa revela, e ela não muda se o número
 real for 15 ou 9.
 
 ### Estimativa não é previsão
@@ -113,7 +113,7 @@ Estimativa diz o que o sistema precisa suportar dado um cenário. Previsão diz 
 que vai acontecer.
 
 A primeira é útil e verificável. A segunda erra, e o erro típico é para
-mais — todo produto espera crescer cem vezes.
+mais: todo produto espera crescer cem vezes.
 
 A pergunta que evita superdimensionar: **qual o crescimento nos próximos doze
 meses, e quanto custa adiar a decisão de escala até lá?** Frequentemente adiar é
@@ -128,14 +128,14 @@ dimensionando por estimativa quando há dado real é escolher a fonte pior.
 ## Modelo Mental
 
 **Ordem de grandeza, não número.** A pergunta é se são dezenas, milhares ou
-milhões — porque cada faixa tem uma arquitetura diferente.
+milhões, porque cada faixa tem uma arquitetura diferente.
 
 ## Quando Usar
 
 - Antes de decidir a arquitetura de um sistema novo.
 - Ao avaliar se uma decisão de escala se justifica.
-- Em entrevista de system design — ver
-  [estimativa de capacidade](/22-system-design-interviews/index.md).
+- Em entrevista de system design (ver
+  [estimativa de capacidade](/22-system-design-interviews/index.md)).
 - Ao dimensionar infraestrutura e orçamento.
 - Antes de adotar qualquer componente distribuído.
 
@@ -155,9 +155,9 @@ com caminho para crescer.
 
 ## Alternativas
 
-- **Medir** — quando o sistema existe.
-- **Teste de carga** — para descobrir o limite real em vez de calcular.
-- **Comparar com sistema similar** — quando há um interno com perfil parecido.
+- **Medir**: quando o sistema existe.
+- **Teste de carga**: para descobrir o limite real em vez de calcular.
+- **Comparar com sistema similar**: quando há um interno com perfil parecido.
 
 ## Trade-offs
 
@@ -176,7 +176,7 @@ com caminho para crescer.
 de três anos não.
 
 **Ignorar a banda.** Resposta de 500 KB a 200 requisições por segundo são 100 MB/s
-de saída — frequentemente o custo dominante.
+de saída, frequentemente o custo dominante.
 
 **Superdimensionar por previsão otimista.** A capacidade fica ociosa na maior parte
 do dia, e o custo por requisição sai acima do de sistemas comparáveis.
@@ -186,7 +186,7 @@ estimativa seguinte.
 
 ## Erros Comuns
 
-**Pular a estimativa.** Sem ela, a decisão de arquitetura é tomada por intuição sobre volume — e intuição sobre volume erra por ordens de grandeza, nos dois sentidos.
+**Pular a estimativa.** Sem ela, a decisão de arquitetura é tomada por intuição sobre volume, e intuição sobre volume erra por ordens de grandeza, nos dois sentidos.
 
 **Buscar precisão em vez de ordem de grandeza.** A pergunta que a estimativa responde é se cabe numa máquina ou exige cem. Refinar de 8.200 para 8.350 requisições por segundo não muda decisão nenhuma.
 
@@ -215,27 +215,27 @@ consultas: ~50 usuários, ~2 consultas/min → 1,7 /s
 267 escritas por segundo e menos de 2 leituras. Um banco relacional com tabela
 particionada por tempo atende com folga.
 
-O volume acumulado — 1,7 TB/ano — era o único número que exigia decisão: retenção.
+O volume acumulado (1,7 TB/ano) era o único número que exigia decisão: retenção.
 A conversa com o negócio definiu 90 dias em detalhe e agregação mensal depois, o
 que reduziu o acervo ativo para 420 GB.
 
 O sistema foi construído com uma instância de banco relacional e um processo de
 ingestão. Rodou por três anos.
 
-No terceiro ano, a frota chegou a 60 mil veículos — 2 000 escritas por segundo — e
+No terceiro ano, a frota chegou a 60 mil veículos (2 000 escritas por segundo) e
 o particionamento passou a ser necessário. A decisão foi tomada com dado real, não
 com estimativa, e custou duas semanas.
 
 O que a estimativa evitou: três anos operando um sistema distribuído para uma
 carga que uma instância atendia, com o custo operacional correspondente.
 
-E o que ela acertou não foi o número — a frota cresceu mais que o previsto. Foi a
+E o que ela acertou não foi o número (a frota cresceu mais que o previsto). Foi a
 **ordem de grandeza inicial**, que era centenas e não dezenas de milhares.
 
 ## Números de referência
 
 Estimativa fica rápida quando algumas ordens de grandeza estão na memória. Estes
-não precisam ser exatos — precisam ser a ordem certa. Valem para servidor de
+não precisam ser exatos; precisam ser a ordem certa. Valem para servidor de
 prateleira atual e seguem a tabela canônica de
 [Cálculo de Guardanapo](/22-system-design-interviews/back-of-envelope.md).
 
@@ -272,12 +272,12 @@ para descartar, não para dimensionar.
 
 ## Conceitos Relacionados
 
-- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md) — onde o limite aparece.
-- [Escalabilidade Básica](/05-system-design/scalability-basics.md) — o que fazer com o resultado.
-- [Cálculos de Guardanapo](/22-system-design-interviews/index.md) — a técnica em
+- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md): onde o limite aparece.
+- [Escalabilidade Básica](/05-system-design/scalability-basics.md): o que fazer com o resultado.
+- [Cálculos de Guardanapo](/22-system-design-interviews/index.md): a técnica em
   entrevista.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
-- [Contexto de Negócio](/01-fundamentals/business-context.md) — de onde vem o número
+- [Contexto de Negócio](/01-fundamentals/business-context.md): de onde vem o número
   de crescimento que se dimensiona.
 
 ## Exercício Prático
@@ -286,7 +286,7 @@ Estime a capacidade do sistema em que você trabalha, sem consultar métricas:
 operações por segundo no pico, crescimento de dado por dia, banda de saída.
 
 Depois compare com o real. A distância entre os dois diz quão bem você conhece o
-sistema — e o exercício melhora a próxima estimativa.
+sistema, e o exercício melhora a próxima estimativa.
 
 ## Perguntas de Entrevista
 
@@ -296,7 +296,7 @@ sistema — e o exercício melhora a próxima estimativa.
 
 ## Para Aprofundar
 
-- Dean, Jeff. *Numbers Everyone Should Know*, 2009 — a tabela de latências de
+- Dean, Jeff. *Numbers Everyone Should Know*, 2009. A tabela de latências de
   referência original; os valores acima refletem hardware mais recente.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo
   sobre planejamento de capacidade.

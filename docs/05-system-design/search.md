@@ -2,7 +2,7 @@
 id: search
 title: Busca
 sidebar_position: 15
-description: Encontrar o que o usuário quer — e por que LIKE deixa de servir cedo.
+description: Encontrar o que o usuário quer, e por que LIKE deixa de servir cedo.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [pagination]
 related: [caching, pagination, cqrs]
 canonical_for: [busca, índice invertido, busca textual]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Busca é encontrar registros a partir de um critério que o usuário fornece — e
+Busca é encontrar registros a partir de um critério que o usuário fornece, e
 raramente é uma consulta exata.
 
 A diferença entre filtrar e buscar é o que decide a arquitetura: **filtrar é
@@ -61,7 +61,7 @@ só do primeiro, e reconhecer isso evita adotar infraestrutura sem necessidade.
 
 A segunda linha é a mais subestimada. PostgreSQL, MySQL e outros têm busca textual
 com tokenização, radicalização, ordenação por relevância e busca em múltiplos
-campos. Para a maioria dos sistemas, ela basta — e não adiciona componente,
+campos. Para a maioria dos sistemas, ela basta, e não adiciona componente,
 sincronização nem consistência eventual.
 
 Pular direto para índice dedicado cobra componente, sincronização e reindexação
@@ -78,12 +78,12 @@ palavras, mapeia **palavra → documentos**.
 ```
 
 Buscar "arquitetura software" vira interseção de listas: percorre só as listas dos
-termos buscados, não a tabela inteira — o custo cresce com o número de documentos
+termos buscados, não a tabela inteira. O custo cresce com o número de documentos
 que contêm os termos, não com o total do acervo.
 
 O que o índice faz antes de indexar decide a qualidade: separar em tokens,
-normalizar acentos e caixa, reduzir à raiz — "correndo", "correu" e "correr" viram
-o mesmo termo — e descartar palavras sem valor discriminante.
+normalizar acentos e caixa, reduzir à raiz ("correndo", "correu" e "correr" viram
+o mesmo termo) e descartar palavras sem valor discriminante.
 
 Sem essas etapas, a busca é literal e frustra.
 
@@ -91,7 +91,7 @@ Sem essas etapas, a busca é literal e frustra.
 
 Encontrar é fácil; **ordenar** é o problema. Os fatores usuais: frequência do termo
 no documento, raridade do termo no acervo, tamanho do documento, peso do campo, e
-sinais de negócio — popularidade, recência, margem.
+sinais de negócio (popularidade, recência, margem).
 
 Os últimos são os que mais importam num sistema real e os que nenhum índice traz
 pronto. Ajustar relevância é trabalho contínuo, orientado por dado de uso.
@@ -106,7 +106,7 @@ possibilidade de divergência.
 perguntas se aplicam: quanto atraso é aceitável, e como reconstruir o índice do
 zero quando ele corromper.
 
-A capacidade de reindexar completamente não é opcional — é o que permite corrigir
+A capacidade de reindexar completamente não é opcional: é o que permite corrigir
 qualquer divergência.
 
 ## Modelo Mental
@@ -141,16 +141,16 @@ isso é `WHERE` com índice, não busca.
 primeiro erro de sincronização.
 
 **Sem medir relevância.** Um índice bem configurado com relevância ruim entrega
-resultados que ninguém clica — e ninguém percebe sem medição.
+resultados que ninguém clica, e ninguém percebe sem medição.
 
 ## Alternativas
 
-- **Filtro com índice** — quando o critério é exato.
-- **Busca textual nativa do banco** — o meio-termo que resolve a maioria dos
+- **Filtro com índice**: quando o critério é exato.
+- **Busca textual nativa do banco**: o meio-termo que resolve a maioria dos
   casos.
-- **Serviço de busca gerenciado** — quando o índice se justifica e operar um
+- **Serviço de busca gerenciado**: quando o índice se justifica e operar um
   cluster não.
-- **Pré-computar sugestões** — para autocompletar, uma estrutura simples de
+- **Pré-computar sugestões**: para autocompletar, uma estrutura simples de
   prefixos costuma bastar.
 
 ## Trade-offs
@@ -176,7 +176,7 @@ permanente.
 e a métrica de negócio cai sem causa aparente.
 
 **Índice como fonte de verdade.** Alguém passa a ler dados do índice em vez do
-banco — e a consistência eventual vira inconsistência de negócio.
+banco, e a consistência eventual vira inconsistência de negócio.
 
 **Explosão de facetas.** Agregações sobre campos de alta cardinalidade consomem
 memória do cluster.
@@ -192,7 +192,7 @@ memória do cluster.
 **Confundir busca com filtro.**
 
 **Sincronizar em tempo real quando o negócio aceita minutos.** Sincronização
-síncrona acopla a escrita ao índice — se ele está fora, a escrita falha.
+síncrona acopla a escrita ao índice: se ele está fora, a escrita falha.
 
 ## Exemplo Real
 
@@ -209,14 +209,14 @@ Nada disso exigia cluster. A busca textual nativa do banco, com índice adequado
 uma função de relevância que somava o peso do estoque, atendeu integralmente. A
 latência caiu para 40 ms.
 
-Dezoito meses depois, o requisito mudou: busca por compatibilidade — "peças que
-servem no modelo X, ano Y" — com facetas por marca, categoria e faixa de preço, e
+Dezoito meses depois, o requisito mudou: busca por compatibilidade ("peças que
+servem no modelo X, ano Y") com facetas por marca, categoria e faixa de preço, e
 sugestão para erro de digitação em código de peça.
 
 Aí o índice dedicado se justificou, e foi adotado com duas decisões que a equipe
 registrou.
 
-A sincronização é por evento, assíncrona, com atraso aceito de até 30 segundos —
+A sincronização é por evento, assíncrona, com atraso aceito de até 30 segundos,
 negociado com o negócio, porque estoque em tempo real no índice teria acoplado a
 escrita a ele.
 
@@ -225,15 +225,15 @@ duas vezes: uma após um defeito no consumidor de eventos, outra ao mudar o esqu
 do índice.
 
 A sequência importa: o banco resolveu por dezoito meses, e o índice entrou quando
-o requisito o exigiu — não quando alguém achou que a busca merecia infraestrutura
+o requisito o exigiu, não quando alguém achou que a busca merecia infraestrutura
 própria.
 
 ## Conceitos Relacionados
 
-- [Paginação](/05-system-design/pagination.md) — cursor quando a rolagem é contínua
+- [Paginação](/05-system-design/pagination.md): cursor quando a rolagem é contínua
   e a ordenação tem desempate estável; deslocamento quando o usuário pula páginas.
-- [Cache](/05-system-design/caching.md) — buscas frequentes se beneficiam.
-- [CQRS](/03-design-patterns/cqrs.md) — o índice é uma projeção de leitura.
+- [Cache](/05-system-design/caching.md): buscas frequentes se beneficiam.
+- [CQRS](/03-design-patterns/cqrs.md): o índice é uma projeção de leitura.
 - [Arquitetura de Dados](/07-data-architecture/index.md).
 
 ## Exercício Prático
@@ -254,5 +254,5 @@ tem.
 
 - Manning, Christopher; Raghavan, Prabhakar; Schütze, Hinrich. *Introduction to
   Information Retrieval*. Cambridge, 2008.
-- Documentação de busca textual do PostgreSQL — o caminho intermediário mais
+- Documentação de busca textual do PostgreSQL: o caminho intermediário mais
   subestimado.

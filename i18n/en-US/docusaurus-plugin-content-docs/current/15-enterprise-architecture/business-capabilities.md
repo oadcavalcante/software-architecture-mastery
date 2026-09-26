@@ -2,7 +2,7 @@
 id: business-capabilities
 title: Business Capabilities
 sidebar_position: 7
-description: Discussing systems without talking about systems — the section's tool with the greatest practical return.
+description: "Discussing systems without talking about systems: the section's tool with the greatest practical return."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -84,15 +84,15 @@ level 3   detail — only where mapping to systems demands it
 How to decompose, and why the third level is not uniform, is covered in
 [capability mapping](/15-enterprise-architecture/capability-mapping.md). What matters here is the
 ceiling: to serve investment and portfolio decisions, two complete levels and a selective third are
-enough. Going down to a fourth produces a model nobody maintains — and the model's value depends on it
+enough. Going down to a fourth produces a model nobody maintains, and the model's value depends on it
 being up to date.
 
 The sign that you went too far down: the last level's capabilities start looking like system features.
 
 ### The value is in the mapping
 
-The model alone is a diagram. What produces decisions is overlaying information on it — systems, cost,
-criticality, differentiation, health — and the resulting heat map is described in
+The model alone is a diagram. What produces decisions is overlaying information on it (systems, cost,
+criticality, differentiation, health), and the resulting heat map is described in
 [capability mapping](/15-enterprise-architecture/capability-mapping.md). Each question calls for a
 different combination.
 
@@ -118,7 +118,7 @@ capability "customer registration"
 Four systems with their own registration, each with a partial view. That is visible on the map and
 invisible in a conversation about individual systems.
 
-And the conversation that follows is productive because it does not start by accusing any system — it
+And the conversation that follows is productive because it does not start by accusing any system; it
 starts by noting that a capability is fragmented.
 
 See [data ownership](/07-data-architecture/data-ownership.md).
@@ -136,7 +136,7 @@ common            everybody has it, nobody chooses because of it
                   → buy
 ```
 
-See [SaaS](/09-cloud-architecture/saas.md) — it is the same criterion, applied at the organization's
+See [SaaS](/09-cloud-architecture/saas.md): it is the same criterion, applied at the organization's
 level.
 
 The typical finding from that exercise: a relevant share of the engineering investment is in supporting or
@@ -185,16 +185,16 @@ test fails by construction: today's capabilities will not exist next year, and t
 the systems.
 
 **No forum to consume it.** If no budget, portfolio or prioritization discussion will use the map, it
-gets built and filed away — the cost without the return.
+gets built and filed away: the cost without the return.
 
 **As a substitute for technical architecture.** It guides investment, not system design; software
 boundaries come from domains.
 
 ## Alternatives
 
-- **A value stream map** — process-oriented, better for optimizing flow.
-- **Domain mapping** — oriented toward software boundaries. See [DDD](/04-domain-driven-design/index.md).
-- **An application inventory** — simpler, with no business lens. See
+- **A value stream map**: process-oriented, better for optimizing flow.
+- **Domain mapping**: oriented toward software boundaries. See [DDD](/04-domain-driven-design/index.md).
+- **An application inventory**: simpler, with no business lens. See
   [application portfolios](/15-enterprise-architecture/application-portfolios.md).
 
 Capabilities and domains are complementary: capabilities organize the conversation with the business;
@@ -236,7 +236,7 @@ cannot be trusted.
 **Going down to four or five levels.** The last level turns into a feature list, maintenance costs more
 than use, and the model is out of date within months.
 
-**Not mapping systems.** Without the mapping, duplication stays invisible — which was the reason for
+**Not mapping systems.** Without the mapping, duplication stays invisible, and making it visible was the reason for
 building the model.
 
 **Not classifying by differentiation.** The build-or-buy decision goes back to being made system by
@@ -260,15 +260,15 @@ The system mapping revealed three things nobody had seen:
 **Duplication.** The capability "policyholder registration" was partially served by seven systems. Each one
 had its own notion of who the policyholder is, and reconciling among them consumed an entire team.
 
-**Misaligned investment.** 34% of the engineering budget was in capabilities classified as common —
+**Misaligned investment.** 34% of the engineering budget was in capabilities classified as common:
 payroll, accounting, document management. None of them differentiated the insurer, and all of them had
 mature products on the market.
 
-**An unnamed risk.** The capability "claim calculation" — critical and differentiating — was supported by a
+**An unnamed risk.** The capability "claim calculation", critical and differentiating, was supported by a
 22-year-old system, with two maintainers, both close to retirement.
 
 That third finding changed the year's priority. It was individually known by several people, and it had
-never appeared in an investment discussion — because the conversation was about systems, and nobody
+never appeared in an investment discussion, because the conversation was about systems, and nobody
 presented the claims system as a strategic priority.
 
 The decisions that came out:
@@ -284,14 +284,14 @@ And a process change: the budget discussion came to happen over the capability m
 list.
 
 In retrospect: the model took six weeks and the mapping four more. It changed the conversation more than
-any technical analysis of the previous years — because the business could finally take part in it.
+any technical analysis of the previous years, because the business could finally take part in it.
 
 ## Related Concepts
 
-- [Capability Mapping](/15-enterprise-architecture/capability-mapping.md) — the method.
-- [Application Portfolios](/15-enterprise-architecture/application-portfolios.md) — the mapping.
+- [Capability Mapping](/15-enterprise-architecture/capability-mapping.md): the method.
+- [Application Portfolios](/15-enterprise-architecture/application-portfolios.md): the mapping.
 - [Business Architecture](/15-enterprise-architecture/business-architecture.md).
-- [SaaS](/09-cloud-architecture/saas.md) — build or buy.
+- [SaaS](/09-cloud-architecture/saas.md): build or buy.
 
 ## Practical Exercise
 
@@ -311,5 +311,5 @@ is duplication; if one registers and the other bills, they are complementary par
 ## Further Reading
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — business architecture.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Business architecture.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

@@ -2,7 +2,7 @@
 id: iaas
 title: IaaS
 sidebar_position: 1
-description: Renting raw infrastructure — the model with the most control and the most work, and where it is still the answer.
+description: "Renting raw infrastructure: the model with the most control and the most work, and where it is still the answer."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [paas, managed-services, cloud-compute, cloud-native]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-IaaS — infrastructure as a service — is renting the raw blocks: virtual machines, disks, networks,
+IaaS (infrastructure as a service) is renting the raw blocks: virtual machines, disks, networks,
 addresses.
 
 The provider takes care of the datacenter, the hardware and the virtualization layer. From the operating
@@ -58,7 +58,7 @@ datacenter            vendor     vendor     vendor
 ```
 
 The asterisk is important: **the data never stops being your responsibility**, in any model. Configuring
-access, defining retention, ensuring compliance — that is not outsourced, and it is the origin of most
+access, defining retention, ensuring compliance: that is not outsourced, and it is the origin of most
 cloud exposure incidents.
 
 ### What remains yours in IaaS
@@ -108,7 +108,7 @@ Without it, the model's main gain is lost.
 
 **Licensing that requires a dedicated machine.**
 
-**Legacy system migration.** Moving it as is is the fastest path out of a datacenter — a legitimate step,
+**Legacy system migration.** Moving it as is is the fastest path out of a datacenter, a legitimate step,
 not a destination; the full argument is in [cloud native](/09-cloud-architecture/cloud-native.md).
 
 **Very large scale with predictable load.** Where the price difference pays for a team.
@@ -128,7 +128,7 @@ layer below continues to be operated by a third party, with windows you accommod
 
 The practical consequence: even in IaaS, the application needs to tolerate a scheduled restart. Systems
 migrated from a datacenter that assumed continuous machine availability discover this at the first
-maintenance notification — typically with a few days' notice.
+maintenance notification, typically with a few days' notice.
 
 ## Mental Model
 
@@ -151,20 +151,20 @@ the work for nothing.
 
 **With no security patching process.**
 
-**For components that exist as a managed service** — a database, a queue, a cache — with no specific
+**For components that exist as a managed service** (a database, a queue, a cache) with no specific
 reason.
 
-**With nobody to operate the layer** — no one on call for the instance that goes down and no one
+**With nobody to operate the layer**: no one on call for the instance that goes down and no one
 owning the patching pipeline.
 
 **Treating instances as permanent servers.**
 
 ## Alternatives
 
-- **[PaaS](/09-cloud-architecture/paas.md)** — the provider takes care of the system and the runtime.
-- **[Managed services](/09-cloud-architecture/managed-services.md)** — for the infrastructure components.
-- **[Containers](/09-cloud-architecture/containers.md)** — consistent packaging on top of IaaS.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — with no capacity to manage.
+- **[PaaS](/09-cloud-architecture/paas.md)**: the provider takes care of the system and the runtime.
+- **[Managed services](/09-cloud-architecture/managed-services.md)**: for the infrastructure components.
+- **[Containers](/09-cloud-architecture/containers.md)**: consistent packaging on top of IaaS.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: with no capacity to manage.
 
 ## Trade-offs
 
@@ -213,7 +213,7 @@ as in the Real-World Example below.
 
 ## Real-World Example
 
-A retail company migrated its datacenter to IaaS in four months — 60 virtual machines, replicating the
+A retail company migrated its datacenter to IaaS in four months: 60 virtual machines, replicating the
 previous environment.
 
 The migration was successful in its immediate goal: leaving the datacenter before the contract expired.
@@ -226,7 +226,7 @@ nobody knew how to recreate 12 of them from scratch.
 **Patches.** 23 instances with outdated operating system versions, some out of support.
 
 **A single zone.** All of them in one zone, because that was the default at creation. The migration had
-replicated the datacenter's topology — which had a single building.
+replicated the datacenter's topology, which had a single building.
 
 **Cost.** The bill was 30% higher than the previous datacenter's cost, because the machines were sized with
 the same tied-up-capital headroom that made sense when the hardware was bought.
@@ -236,7 +236,7 @@ operational work.
 
 The second phase, over a year:
 
-**Infrastructure as code** for everything. The 12 irreproducible instances were the hardest — in two cases
+**Infrastructure as code** for everything. The 12 irreproducible instances were the hardest: in two cases
 they had to be rebuilt from reverse-engineering what was running.
 
 **Database, queue and cache migrated** to managed services.
@@ -248,17 +248,17 @@ including the cost of the managed services and the three zones.
 
 **Automated patching**, with instance replacement instead of in-place updating.
 
-Migrating as is was the right decision for the deadline they had. The mistake was considering it finished —
+Migrating as is was the right decision for the deadline they had. The mistake was considering it finished:
 the modernization plan existed on paper and went two years without priority, accumulating security risk and
 cost.
 
 ## Related Concepts
 
-- [PaaS](/09-cloud-architecture/paas.md) and [SaaS](/09-cloud-architecture/saas.md) — the other models.
+- [PaaS](/09-cloud-architecture/paas.md) and [SaaS](/09-cloud-architecture/saas.md): the other models.
 - [Managed Services](/09-cloud-architecture/managed-services.md).
 - [Cloud Compute](/09-cloud-architecture/cloud-compute.md).
 - [Availability Zones](/09-cloud-architecture/availability-zones.md).
-- [Cloud Native](/09-cloud-architecture/cloud-native.md) — why migrating as is is a step, not a destination.
+- [Cloud Native](/09-cloud-architecture/cloud-native.md): why migrating as is is a step, not a destination.
 
 ## Practical Exercise
 

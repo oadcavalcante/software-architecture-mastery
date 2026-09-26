@@ -2,7 +2,7 @@
 id: adr-005-hexagonal
 title: "ADR-005 — Ports and Adapters in the Domain Modules"
 sidebar_position: 14
-description: An example ADR with a narrow scope and recorded disagreement — adopting hexagonal only where it pays off.
+description: "An example ADR with a narrow scope and recorded disagreement: adopting hexagonal only where it pays off."
 doc_type: adr
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -41,7 +41,7 @@ modular monolith is still Verano's structure, and it still sustains the business
 pressures have appeared.
 
 **Extraction.** The delivery module has come to have a load profile very different from the
-rest — peaks concentrated in two windows of the day, with a need for independent scaling.
+rest: peaks concentrated in two windows of the day, with a need for independent scaling.
 The condition "any single module requiring capacity above 3× that of the others", recorded
 as a warning signal in ADR-001, was met in November 2025.
 
@@ -78,13 +78,13 @@ independent scaling could be resolved without extraction.
 
 ## Decision
 
-We will adopt **ports and adapters** in the three modules with substantive domain logic —
+We will adopt **ports and adapters** in the three modules with substantive domain logic:
 **order, delivery and fraud**.
 
 In those modules, the domain logic comes to depend only on interfaces it declares itself.
 The database, external providers, messaging and transport come in as adapters.
 
-**We will not** apply the pattern to the remaining four modules — catalog, cart,
+**We will not** apply the pattern to the remaining four modules: catalog, cart,
 notification and payment keep direct database access and direct integration clients. In
 modules that are essentially integration or querying, the inversion would add a layer with
 no logic to protect.
@@ -95,22 +95,22 @@ new code and to areas touched by change, over 12 months.
 ## Alternatives Considered
 
 **Apply it to all seven modules.** Discarded because four of them have no domain logic to
-isolate — the additional layer would be cost with no return, and the pattern would lose
+isolate: the additional layer would be cost with no return, and the pattern would lose
 credibility exactly where it matters.
 
 *Would win again if:* any of those four develops domain logic of its own. Catalog is the
 most likely candidate, with pricing rules on the roadmap.
 
 **Don't adopt it; extract the delivery module directly.** Discarded because extraction
-without prior isolation would require untangling the dependencies during the extraction —
-which is the moment of greatest risk. Doing the isolation first lets us extract later with
+without prior isolation would require untangling the dependencies during the extraction.
+That is the moment of greatest risk. Doing the isolation first lets us extract later with
 the domain already independent.
 
 *Would win again if:* the extraction were urgent and the module's logic were already
 isolated.
 
 **An anti-corruption layer only on the external integrations**, without inverting the
-persistence dependencies. Discarded as insufficient for the extraction goal — the three
+persistence dependencies. Discarded as insufficient for the extraction goal. The three
 modules share schema and transactions with the rest, and that layer does not touch that
 coupling: it would remain intact, to be untangled at the moment of extraction. But it was
 adopted as an **intermediate step** in the three modules, being cheaper and delivering
@@ -162,7 +162,7 @@ The scope is **narrow and declared in both directions**: three modules yes, four
 explicit criterion. See [decision](/18-architecture-decisions/adr-decision.md).
 
 The disagreement has its own section, with the dissenters' argument preserved and the
-mitigation recorded. If the risk materializes, the objection will be there — and it was a
+mitigation recorded. If the risk materializes, the objection will be there, and it was a
 good one. See
 [consequences](/18-architecture-decisions/adr-consequences.md).
 
@@ -171,13 +171,13 @@ in practice and rarely recorded.
 
 The context links this decision to the warning signal in
 [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md), met two months earlier.
-Verano's decision chain is navigable end to end — which is the effect continuous recording
+Verano's decision chain is navigable end to end, which is the effect continuous recording
 produces.
 
 ## Related Concepts
 
-- [Decision](/18-architecture-decisions/adr-decision.md) — scope and disagreement.
+- [Decision](/18-architecture-decisions/adr-decision.md): scope and disagreement.
 - [Hexagonal Architecture](/02-software-design/hexagonal-architecture.md).
-- [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md) — the structural decision
+- [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md): the structural decision
   this one complements.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).

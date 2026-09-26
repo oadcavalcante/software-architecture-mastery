@@ -2,7 +2,7 @@
 id: async-processing
 title: Asynchronous Processing
 sidebar_position: 8
-description: Taking work off the critical path — the technique that resolves peaks with no proportional capacity.
+description: "Taking work off the critical path: the technique that resolves peaks with no proportional capacity."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [queue-based-scaling, performance-vs-scalability, statelessness]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Asynchronous processing is taking work off the request path: accept, respond, and process afterward.
 
 The scale gain is large and indirect. A request that responds in 40 ms instead of 900 ms occupies resources
-for 22 times less time — which, by Little's law, means 22 times more throughput with the same concurrency.
+for 22 times less time. By Little's law, that means 22 times more throughput with the same concurrency.
 See [performance versus scalability](/11-scalability/performance-vs-scalability.md).
 
 The cost is that the operation stops having an immediate result, and the **intermediate states** come to
@@ -32,8 +32,8 @@ exist in the domain.
 
 ## Problem
 
-A request that does five things — write the order, reserve stock, charge, send an email, update the
-dashboard — takes the time of all five summed, and fails if any one fails.
+A request that does five things (write the order, reserve stock, charge, send an email, update the
+dashboard) takes the time of all five summed, and fails if any one fails.
 
 Under load, it occupies a connection and a thread for that whole time. With limited concurrency, the
 throughput collapses.
@@ -80,7 +80,7 @@ finds out later that it did not work, with no idea where to look.
 
 ### The user needs feedback
 
-The mechanisms — polling, notification, a persistent connection — and the duration criterion between them
+The mechanisms (polling, notification, a persistent connection) and the duration criterion between them
 are in [background processing](/05-system-design/background-processing.md). What changes at scale is that
 feedback is load too.
 
@@ -108,7 +108,7 @@ memory is the most common way to lose work silently.
 
 A point that is usually forgotten: the work still exists. It only leaves the critical path.
 
-If the arrival rate exceeds the processing capacity in a sustained way, the queue grows indefinitely — and
+If the arrival rate exceeds the processing capacity in a sustained way, the queue grows indefinitely, and
 the asynchronous approach has turned an immediate error into a growing delay, which is worse to diagnose.
 
 Asynchronous resolves a **peak**, not **sustained overload**. The distinction is what separates a correct
@@ -119,7 +119,7 @@ use from postponing the problem. See [queue-based scaling](/11-scalability/queue
 Writing to the database and publishing the message as two separate operations creates a window: if the
 process crashes between them, the effect never happens.
 
-The **transactional outbox** resolves it — writing the change and the message in the same local
+The **transactional outbox** resolves it: writing the change and the message in the same local
 transaction, with a separate process publishing. See
 [distributed transactions](/06-distributed-systems/distributed-transactions.md).
 
@@ -147,7 +147,7 @@ they need to be modeled, not discovered.
 
 **With no durability.** Accepting and keeping it in memory loses work.
 
-**With no idempotency.** Every repeated delivery — a consumer retry, a user resubmission — becomes a
+**With no idempotency.** Every repeated delivery (a consumer retry, a user resubmission) becomes a
 duplicated effect: a double charge, a repeated email.
 
 **For sustained overload.** The queue grows and the problem comes back worse.
@@ -158,12 +158,12 @@ duplicated effect: a double charge, a repeated email.
 
 ## Alternatives
 
-- **Optimizing the synchronous version** — if the operation becomes fast, it does not need to leave the
+- **Optimizing the synchronous version**: if the operation becomes fast, it does not need to leave the
   path.
-- **Parallelizing inside the request** — five independent calls in parallel cost the time of the slowest,
+- **Parallelizing inside the request**: five independent calls in parallel cost the time of the slowest,
   not the sum.
-- **An aggressive timeout with degradation** — responding without the optional result.
-- **A [queue](/11-scalability/queue-based-scaling.md)** — when accepted work must survive crashes, the peak
+- **An aggressive timeout with degradation**: responding without the optional result.
+- **A [queue](/11-scalability/queue-based-scaling.md)**: when accepted work must survive crashes, the peak
   exceeds capacity, and failures must be retried without intervention; none of the three alternatives
   above guarantees any of that.
 
@@ -199,15 +199,15 @@ parallelizing them resolves it without introducing intermediate state.
 
 ## Common Mistakes
 
-**Not modeling the states in the domain.** Making something asynchronous creates intermediate states — in
-processing, failed, retrying — that are business concepts. Leaving them implicit pushes the ambiguity onto
+**Not modeling the states in the domain.** Making something asynchronous creates intermediate states (in
+processing, failed, retrying) that are business concepts. Leaving them implicit pushes the ambiguity onto
 support.
 
 **Accepting without persisting.** Responding "received" before writing durably is promising what you cannot
 deliver: a restart discards work the user considers accepted.
 
 **Not giving the user feedback.** With no state query and no notification, the person does not know whether
-the processing finished and resubmits — which multiplies the load precisely when it is high.
+the processing finished and resubmits. That multiplies the load precisely when it is high.
 
 **Using asynchronous processing for sustained overload.** The queue absorbs a peak, not a permanent
 capacity deficit. If the input rate exceeds the output rate on average, the queue grows indefinitely and
@@ -228,7 +228,7 @@ authority's service synchronously.
 With concurrency limited to 200 simultaneous requests and an average latency of 7 seconds, the maximum
 throughput was around 28 issuances per second. The month-end peak asked for 120.
 
-The result was predictable: a waiting queue at the load balancer, timeouts, and users resubmitting — which
+The result was predictable: a waiting queue at the load balancer, timeouts, and users resubmitting. That
 made everything worse.
 
 The migration to asynchronous:
@@ -237,7 +237,7 @@ The migration to asynchronous:
 acceptance layer's throughput came to be limited only by the write.
 
 **A transactional outbox.** The request and the processing message written in the same transaction. Without
-it, process crashes lost issuances — which was already happening, and was diagnosed as "a tax authority
+it, process crashes lost issuances. That was already happening, and was diagnosed as "a tax authority
 error".
 
 **States in the domain.** `received`, `processing`, `authorized`, `rejected`, `temporary_failure`. Each one
@@ -248,20 +248,20 @@ displayed in the interface, with a clear meaning for the user and for support.
 **Idempotency** by request key, preventing duplicate issuance when the user resubmitted.
 
 Result: with consumers sized for around 100 issuances per second, the month-end peak came to be absorbed, with processing lag of up to 8 minutes at the most intense
-moments — accepted by the business, because issuance has a legal deadline in hours.
+moments, accepted by the business because issuance has a legal deadline in hours.
 
 Two problems appeared later:
 
 **Sustained overload.** During a 6-hour outage of the tax authority's service, the queue accumulated 400,000
 issuances, around 18 per second. The service came back limiting each issuer to around 30 calls per second,
-slightly above the rate still arriving, and consuming the backlog took almost 10 hours — and during that period the new
+slightly above the rate still arriving, and consuming the backlog took almost 10 hours, and during that period the new
 issuances went behind the old ones. Prioritization by deadline was added.
 
 **Confused users.** The first version displayed only "processing", with no estimate. The volume of support
 tickets tripled. Adding a forecast and an attempt history resolved it.
 
-The point the team underlines: modeling the states consumed more time than the technical change — five
-screens, two reports and training for support. It had been estimated as a detail.
+The point the team underlines: modeling the states consumed more time than the technical change (five
+screens, two reports and training for support). It had been estimated as a detail.
 
 ## Related Concepts
 
@@ -275,7 +275,7 @@ screens, two reports and training for support. It had been estimated as a detail
 Take the slowest request in your system and list what it does, step by step.
 
 For each step, ask: does the user need this to see the response? Sum the time of the ones that are not
-needed — that is what you can take off the critical path.
+needed: that is what you can take off the critical path.
 
 ## Interview Questions
 

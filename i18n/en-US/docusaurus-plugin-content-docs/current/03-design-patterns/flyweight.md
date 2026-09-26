@@ -2,7 +2,7 @@
 id: flyweight
 title: Flyweight
 sidebar_position: 11
-description: Sharing common state across many objects — a memory optimization, with everything that implies.
+description: "Sharing common state across many objects: a memory optimization, with everything that implies."
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [prototype, proxy, singleton]
 canonical_for: [flyweight, intrinsic state, extrinsic state]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Flyweight reduces memory consumption by sharing common state across many similar
 objects.
 
-It is explicitly an **optimization** — and the only pattern in the catalogue whose declared
+It is explicitly an **optimization**, and the only pattern in the catalogue whose declared
 gain is memory consumption alone, which makes it the only one that cannot be justified
 without measuring first. That changes how it should be treated: applying it without
 measuring first is the mistake by definition.
@@ -47,10 +47,10 @@ itself.
 
 The separation that defines the pattern.
 
-**Intrinsic** — independent of context, shareable. The font, the size, the colour. It
+**Intrinsic**: independent of context, shareable. The font, the size, the colour. It
 lives inside the flyweight.
 
-**Extrinsic** — depends on the context, not shareable. The position, the index. It stays
+**Extrinsic**: depends on the context, not shareable. The position, the index. It stays
 outside and is passed as a parameter to the operations.
 
 ```text
@@ -65,7 +65,7 @@ is small.
 ### Flyweights have to be immutable
 
 If a flyweight is shared by thousands of contexts, altering it affects all of them.
-Immutability is not a recommendation here — it is a requirement.
+Here immutability is a requirement, not a recommendation.
 
 ### The hidden cost
 
@@ -82,7 +82,7 @@ harder to understand and to debug.
 
 ## When to Use
 
-- The number of objects is very large — on the order of hundreds of thousands or more.
+- The number of objects is very large: on the order of hundreds of thousands or more.
 - Memory has been **measured** and is a real bottleneck.
 - Most of the state is repeated and can be separated.
 - The flyweights can be immutable.
@@ -107,12 +107,12 @@ cache small numbers automatically. Reimplementing is duplicated work.
 
 ## Alternatives
 
-- **Value-oriented data structures** — arrays of primitives instead of objects, where
+- **Value-oriented data structures**: arrays of primitives instead of objects, where
   the platform allows.
-- **Interning** — reusing identical immutable instances, which is simplified Flyweight
+- **Interning**: reusing identical immutable instances, which is simplified Flyweight
   and frequently sufficient.
-- **On-demand loading** — not keeping everything in memory.
-- **Doing nothing** — if measurement did not point at memory as the bottleneck.
+- **On-demand loading**: not keeping everything in memory.
+- **Doing nothing**: if measurement did not point at memory as the bottleneck.
 
 ## Trade-offs
 
@@ -157,14 +157,14 @@ instance. It is Flyweight built into the platform.
 range, for the same reason.
 
 **Text rendering engines.** Glyphs and font information shared across millions of
-characters — the original case.
+characters: the original case.
 
 **Game engines.** Textures, meshes and materials shared across thousands of instances;
 only the transform and state are per instance.
 
 In the first two, the pattern belongs to the platform and the programmer benefits
 without knowing. In the last two, it is applied deliberately and always after a memory
-profile — which is the correct order.
+profile, which is the correct order.
 
 ## Real-World Example
 
@@ -177,8 +177,8 @@ over a second.
 Analysing the data revealed that there were **37 distinct combinations** of icon, colour
 and size, among the 400 thousand points.
 
-Separating the style — intrinsic, 37 instances — from the coordinate and label —
-extrinsic — brought memory down to 180 MB and the pauses down to tens of milliseconds.
+Separating the style (intrinsic, 37 instances) from the coordinate and label
+(extrinsic) brought memory down to 180 MB and the pauses down to tens of milliseconds.
 
 Two points that matter more than the gain. First: the decision was only possible because
 someone **counted the distinct combinations** before implementing. Had there been 40
@@ -190,9 +190,9 @@ pattern's trade-off, and it was paid.
 
 ## Related Concepts
 
-- [Prototype](/03-design-patterns/prototype.md) — copying instead of sharing.
-- [Singleton](/03-design-patterns/singleton.md) — a single instance, different purpose.
-- [Proxy](/03-design-patterns/proxy.md) — frequently used for on-demand loading, an
+- [Prototype](/03-design-patterns/prototype.md): copying instead of sharing.
+- [Singleton](/03-design-patterns/singleton.md): a single instance, different purpose.
+- [Proxy](/03-design-patterns/proxy.md): frequently used for on-demand loading, an
   alternative to this pattern.
 
 ## Practical Exercise
@@ -201,7 +201,7 @@ If your system keeps many similar objects in memory, count how many distinct
 combinations of attributes actually exist.
 
 The ratio between the number of objects and the number of combinations bounds the sharing of
-the **intrinsic share**, not of total memory — that is why 400 thousand points against 37
+the **intrinsic share**, not of total memory. That is why 400 thousand points against 37
 combinations, a ratio of 10,800 to 1, yielded 6.7× in the case above and not 10,800×. Measure
 first what fraction of the object is intrinsic: that is the part the pattern gives back.
 

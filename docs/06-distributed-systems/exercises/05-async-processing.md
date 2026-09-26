@@ -13,7 +13,7 @@ objective: >
 prerequisites: [04-scaling-ecommerce]
 related: [messaging, delivery-guarantees, idempotency, eventual-consistency]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -31,7 +31,7 @@ Este exercício executa a primeira correção que você identificou no
 A decisão está tomada: a autorização de pagamento sai do caminho síncrono da finalização de
 compra.
 
-O ganho é conhecido — a disponibilidade do checkout deixa de depender dos 99,5% do adquirente, o
+O ganho é conhecido: a disponibilidade do checkout deixa de depender dos 99,5% do adquirente, o
 p95 volta para a faixa de centenas de milissegundos, e as conexões param de ficar presas.
 
 O que ninguém dimensionou ainda é o custo.
@@ -152,8 +152,8 @@ aplicativo antigo   versões de 14 meses mostram "confirmado";
 A última linha é a mais desconfortável, e a única que não se resolve com trabalho seu: em produto
 com aplicativo instalado, a atualização é decisão do cliente, e parte da sua base vai ver uma
 mensagem que deixou de ser verdadeira sem que você possa corrigi-la. As saídas são degradar o
-comportamento para versões antigas — mantê-las no fluxo síncrono, por exemplo, o que devolve a
-essa fatia a indisponibilidade que a mudança veio tirar do checkout — ou forçar atualização, que
+comportamento para versões antigas (mantê-las no fluxo síncrono, por exemplo, o que devolve a
+essa fatia a indisponibilidade que a mudança veio tirar do checkout) ou forçar atualização, que
 tem custo próprio.
 
 **A reserva de 30 minutos** contra uma autorização que raramente passa de 3 segundos parece
@@ -162,8 +162,8 @@ Nesse cenário, a reserva expira antes, e o pedido é autorizado sobre estoque q
 para outra pessoa.
 
 A correção: ou a reserva é estendida enquanto o pedido está em autorização, ou a autorização
-verifica a reserva antes de confirmar. A segunda é mais simples e cria um desfecho novo —
-"autorizado, sem estoque" — que precisa de tratamento e de estorno.
+verifica a reserva antes de confirmar. A segunda é mais simples e cria um desfecho novo
+("autorizado, sem estoque") que precisa de tratamento e de estorno.
 
 **O que quase todo mundo erra:** tratar prazo do estado intermediário como detalhe. Um pedido
 "em autorização" há três dias é um cliente com dinheiro possivelmente bloqueado e nenhuma

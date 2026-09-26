@@ -2,7 +2,7 @@
 id: fitness-functions
 title: Fitness Functions
 sidebar_position: 22
-description: The protected dimension becomes an executable check — and the architecture gets tests.
+description: The protected dimension becomes an executable check, and the architecture gets tests.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [evolutionary-architecture]
 related: [evolutionary-architecture, measuring-architecture-outcomes, leadership-governance]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 A fitness function is an automated check of an architectural characteristic you want to preserve. It
-turns an intention — "modules must not have cyclic dependencies" — into something that fails when it
+turns an intention ("modules must not have cyclic dependencies") into something that fails when it
 is violated.
 
 ```text
@@ -32,7 +32,7 @@ a fitness function     true always, or red
 
 See [fitness functions as governance](/19-architecture-governance/fitness-functions-governance.md)
 for the use as a governance mechanism; here the focus is the instrument in the hands of whoever leads
-architecture — how to choose what to verify, and how to operate the set without its becoming noise.
+architecture: how to choose what to verify, and how to operate the set without its becoming noise.
 
 ## Problem
 
@@ -47,7 +47,7 @@ month 36    nobody knows what the state is
 
 And the leadership problem is specific: **the architect cannot review everything**. In an
 organization with thirty teams, they see a small fraction of the changes, and the fraction they see
-is not the one that matters most — it is the one that reached them.
+is not the one that matters most but the one that reached them.
 
 The fitness function solves that by changing the point of intervention: instead of reviewing
 afterwards, the property is checked at every change, by everyone, without their being present. See
@@ -70,7 +70,7 @@ holistic   checks a property of the whole
 ```
 
 The atomic ones are cheap and immediate; most of the initial value comes from them. The holistic ones
-are expensive and cover properties that only exist in the whole — and they are the ones that discover
+are expensive and cover properties that only exist in the whole, and they are the ones that discover
 the problems of greatest consequence.
 
 A mature organization has both. One that has only atomic ones protects the code and not the
@@ -87,7 +87,7 @@ architecture.
 ```
 
 Step 1 is what guarantees sponsorship: a check tied to a known incident does not have to be justified.
-Step 3 is what avoids rejection — turning on blocking over a base that violates it in forty places
+Step 3 is what avoids rejection: turning on blocking over a base that violates it in forty places
 interrupts everybody's work on the same day.
 
 And step 3 tends to have an effect the [Real-World Example](#real-world-example) shows in numbers:
@@ -115,7 +115,7 @@ frequent false positives   it is worked around by reflex, and then removed
 ```
 
 The threshold between the two is not universal; it is a heuristic to calibrate by volume. A check
-that runs a thousand times a day at 2% interrupts twenty legitimate changes — the point that matters
+that runs a thousand times a day at 2% interrupts twenty legitimate changes. The point that matters
 is the one where the team starts presuming the failure is the check's, not the code's.
 
 Monitoring each check's false-positive rate, and adjusting or downgrading the ones that pass the
@@ -131,7 +131,7 @@ report   when it is a trend, not an event
 ```
 
 The deciding question: **if this fails, is it always an error?** If the answer is "sometimes it's
-legitimate", blocking produces a growing exclusion list — and the list is where the erosion starts to
+legitimate", blocking produces a growing exclusion list, and the list is where the erosion starts to
 hide.
 
 Periodically looking at the exclusion list is an underrated practice: it is the record of every time
@@ -147,8 +147,8 @@ does the model make sense for the business?
 ```
 
 Delimiting that avoids the exaggerated expectation that makes the practice get abandoned. Fitness
-functions replace part of the governance and free human attention for the questions only it answers —
-which is the strongest argument for them in a leadership context.
+functions replace part of the governance and free human attention for the questions only it answers.
+That is the strongest argument for them in a leadership context.
 
 ### Every function needs an owner and a review
 
@@ -172,7 +172,7 @@ caused damage, warn before blocking, and monitor false positives.
 
 ## When Not to Use
 
-**For judgment** — fit, boundaries, trade-offs. There is no measure to compare against; the limit is
+**For judgment**: fit, boundaries, trade-offs. There is no measure to compare against; the limit is
 detailed in [fitness functions as governance](/19-architecture-governance/fitness-functions-governance.md#when-not-to-use).
 
 **When the rule is still disputed within leadership.** Encoding a decision that has not been made
@@ -183,21 +183,21 @@ arguing, and the architect loses the signal of the disagreement.
 false positive within days, the check degrades and takes with it the credibility of the rules it
 protected.
 
-**When the architect really does see every relevant change.** The central argument — they cannot
-review everything — stops holding, and the cost of building and maintaining does not pay off.
+**When the architect really does see every relevant change.** The central argument (they cannot
+review everything) stops holding, and the cost of building and maintaining does not pay off.
 
-**In quantity** — many mediocre checks are worth less than a few trustworthy ones, because the
+**In quantity**: many mediocre checks are worth less than a few trustworthy ones, because the
 attention cost of each false positive falls on all of them.
 
 ## Alternatives
 
-- **A preventive control** — preventing instead of detecting; better when the environment allows it.
-- **Human review** — for what requires judgment.
-- **A trend report** — when the property is gradual and not binary.
-- **A template** — the property built into the starting point.
+- **A preventive control**: preventing instead of detecting; better when the environment allows it.
+- **Human review**: for what requires judgment.
+- **A trend report**: when the property is gradual and not binary.
+- **A template**: the property built into the starting point.
 
 The last is preferable for the initial state: a configuration that is born correct does not have to
-be fixed. But a template does not prevent drift — where the configuration can be changed after it is
+be fixed. But a template does not prevent drift: where the configuration can be changed after it is
 created, the check is still needed.
 
 ## Trade-offs
@@ -242,7 +242,7 @@ created, the check is still needed.
 ## Real-World Example
 
 An e-commerce platform with 18 teams had a three-person architecture group. They took part in around
-12% of the design reviews — and the selection was not by importance, it was by who invited them.
+12% of the design reviews. And the selection was not by importance but by who invited them.
 
 The diagnosis that changed the approach came from an incident analysis: of the 34 high-severity
 occurrences in 12 months, 21 had as their cause an architectural rule that was documented and
@@ -256,13 +256,13 @@ direct access to another domain's data                 4
 a secret in an environment variable with no vault      4
 ```
 
-None of the four required judgment — all were verifiable. And none had been caught in a review,
+None of the four required judgment: all were verifiable. And none had been caught in a review,
 because the architecture group only took part in 12% of the design reviews.
 
 Adoption followed the order of the damage, with the first being the most frequent one:
 
 **A warning phase, eight weeks.** The saturation alarm check ran without blocking, with a dashboard
-per team. At the end of the eight weeks, 61 of the 94 services had fixed it — with no chasing at all,
+per team. At the end of the eight weeks, 61 of the 94 services had fixed it, with no chasing at all,
 just from seeing the number.
 
 **The existing base fixed, then blocking.** The remaining 33 were handled: 26 fixed, 7 with a recorded
@@ -272,7 +272,7 @@ The next three took four months, under the same protocol.
 
 **One holistic check added in the sixth month:** composite availability of the purchase flow,
 calculated from each service's declared dependencies. It fails when the product of the individual
-availabilities drops below the contractual requirement — and on its first run it caught a chain of
+availabilities drops below the contractual requirement, and on its first run it caught a chain of
 five synchronous calls nobody had added up.
 
 ```text
@@ -281,7 +281,7 @@ contractual requirement               99.5%
 ```
 
 That single check produced the decision to make two of the five calls asynchronous, which was the
-system's architectural problem of greatest consequence and which no design review had identified —
+system's architectural problem of greatest consequence and which no design review had identified,
 because each of the five calls, in isolation, was reasonable.
 
 Results after 14 months:
@@ -298,12 +298,12 @@ architecture group's time in rule review            -80%
 
 The subsequent assessment points out: the holistic check was the highest-value one and the last to be
 built, because it looked like the hardest. It cost three weeks and found, on its first day, the
-problem that two years of one-off reviews had not found — for the usual reason, which is that nobody
+problem that two years of one-off reviews had not found, for the usual reason, which is that nobody
 added the parts up.
 
 ## Related Concepts
 
-- [Evolutionary Architecture](/23-architecture-leadership/evolutionary-architecture.md) — the protected dimensions.
+- [Evolutionary Architecture](/23-architecture-leadership/evolutionary-architecture.md): the protected dimensions.
 - [Fitness Functions as Governance](/19-architecture-governance/fitness-functions-governance.md).
 - [Measuring Outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
 - [Governance](/23-architecture-leadership/leadership-governance.md).
@@ -313,7 +313,7 @@ added the parts up.
 List your context's architectural rules and mark which ones have already caused a known incident.
 
 Implement the simplest check for the first on the list, in warning mode. The number of violations that
-shows up is the accumulated erosion — and it always surprises.
+shows up is the accumulated erosion, and it always surprises.
 
 ## Interview Questions
 

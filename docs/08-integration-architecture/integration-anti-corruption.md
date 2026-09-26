@@ -2,7 +2,7 @@
 id: integration-anti-corruption
 title: Anti-Corruption Layer na Integração
 sidebar_position: 12
-description: Traduzir na fronteira para que o modelo alheio não entre no seu — e quando a tradução não vale a pena.
+description: Traduzir na fronteira para que o modelo alheio não entre no seu, e quando a tradução não vale a pena.
 doc_type: pattern
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, schema-evolution]
 canonical_for: [tradução de fronteira, modelo externo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -29,7 +29,7 @@ O conceito vem de
 Aqui ele é visto pelo ângulo da integração: **o que acontece quando você não a
 tem**, e quando o custo dela não se justifica.
 
-O acoplamento que ela previne — acoplamento de modelo — é o mais caro quando o modelo do
+O acoplamento que ela previne (acoplamento de modelo) é o mais caro quando o modelo do
 fornecedor é estranho ao seu e a troca é plausível; fora dessas duas condições pode ser
 barato o bastante para aceitar, e o quadrante adiante trata disso. É também o menos visível,
 porque quase nunca chega como incidente: aparece como incapacidade de mudar.
@@ -49,7 +49,7 @@ A partir daí:
 - Conceitos que não fazem sentido no seu domínio ocupam espaço nele.
 - Discussões de negócio usam o vocabulário do fornecedor.
 
-Só a segunda chega como defeito, e mesmo ela chega deslocada — a quebra aparece longe de
+Só a segunda chega como defeito, e mesmo ela chega deslocada: a quebra aparece longe de
 onde a causa está. As outras três não chegam de forma alguma: aparecem como estimativa que
 triplicou.
 
@@ -79,7 +79,7 @@ impede que **seu** modelo interno vire contrato público.
 É a mesma separação entre evento interno e evento de integração descrita em
 [integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
 
-Sem ela, refatorar seu domínio quebra consumidores externos — e você perde a
+Sem ela, refatorar seu domínio quebra consumidores externos, e você perde a
 liberdade de mudar o que é seu.
 
 ### O custo é real e precisa ser reconhecido
@@ -92,7 +92,7 @@ Isto é o que a literatura costuma omitir:
 precisa passar pela tradução.
 
 **Camadas que não fazem nada.** Quando o modelo externo é praticamente igual ao
-seu, a tradução vira cópia campo a campo — cerimônia pura.
+seu, a tradução vira cópia campo a campo: cerimônia pura.
 
 **Indireção na depuração.** Um valor errado pode estar na origem ou na tradução.
 
@@ -121,16 +121,16 @@ aplicado por princípio.
 
 ### Onde ela mora
 
-**Na borda do serviço** — um adaptador que só o seu domínio consome. O caso comum.
+**Na borda do serviço**: um adaptador que só o seu domínio consome. O caso comum.
 
-**Num serviço próprio** — quando várias aplicações integram com o mesmo externo, e
+**Num serviço próprio**: quando várias aplicações integram com o mesmo externo, e
 a tradução deve ser feita uma vez.
 
-**No consumidor de eventos** — traduzindo o evento externo antes de ele entrar.
+**No consumidor de eventos**: traduzindo o evento externo antes de ele entrar.
 
 A segunda opção custa mais do que parece. O serviço de tradução compartilhado tende a
-acumular regras de negócio de vários consumidores e virar um ponto de acoplamento próprio —
-e, antes disso, já cobra um salto de rede em toda chamada, mais uma unidade de implantação e
+acumular regras de negócio de vários consumidores e virar um ponto de acoplamento próprio.
+E, antes disso, já cobra um salto de rede em toda chamada, mais uma unidade de implantação e
 de plantão, e um domínio de falha novo: se ele cai, caem **todas** as integrações de uma vez,
 não uma.
 
@@ -139,7 +139,7 @@ não uma.
 Ao substituir um sistema antigo gradualmente, a camada permite que o novo tenha
 modelo próprio desde o início, conversando com o legado por tradução.
 
-Sem ela, o sistema novo nasce com o modelo do que se queria substituir — o que
+Sem ela, o sistema novo nasce com o modelo do que se queria substituir. Isso
 esvazia o motivo da substituição.
 
 ## Modelo Mental
@@ -173,14 +173,14 @@ compartilhado.
 
 ## Alternativas
 
-- **Adaptador simples** — tradução fina, sem modelo intermediário completo.
-- **Mapeamento na desserialização** — para casos leves, converter na entrada.
-- **Contrato dirigido pelo consumidor** — em vez de traduzir, negociar o formato. Exige
+- **Adaptador simples**: tradução fina, sem modelo intermediário completo.
+- **Mapeamento na desserialização**: para casos leves, converter na entrada.
+- **Contrato dirigido pelo consumidor**: em vez de traduzir, negociar o formato. Exige
   consumidores conhecidos e um provedor disposto a rodar os testes deles, o que a inviabiliza
-  em API pública e a torna cara com fornecedor de prateleira — mas a mantém viva quando há
+  em API pública e a torna cara com fornecedor de prateleira, mas a mantém viva quando há
   relação contratual real. Ver
   [contratos de integração](/08-integration-architecture/integration-contracts.md).
-- **Aceitar o acoplamento conscientemente** — decisão legítima quando o modelo é
+- **Aceitar o acoplamento conscientemente**: decisão legítima quando o modelo é
   próximo e a troca é implausível, desde que registrada.
 
 ## Trade-offs
@@ -221,7 +221,7 @@ antiga, sem que ninguém saiba o que se está perdendo.
 
 **Colocar regra de negócio na tradução.**
 
-**Não testar a tradução** — ela é o lugar onde os erros de mapeamento vivem.
+**Não testar a tradução**: ela é o lugar onde os erros de mapeamento vivem.
 
 **Não revisar quando o fornecedor evolui.**
 
@@ -231,11 +231,11 @@ Uma empresa de logística integrava com quatro transportadoras, cada uma com sua
 API.
 
 A primeira integração foi feita sem camada: os objetos da transportadora entraram
-direto no domínio. O vocabulário dela — `shipment`, `waybill`, `consignee` — virou
+direto no domínio. O vocabulário dela (`shipment`, `waybill`, `consignee`) virou
 o vocabulário do sistema, inclusive em tabelas e telas.
 
 Quando a segunda transportadora entrou, o problema apareceu: ela usava outro
-vocabulário e outro modelo — agrupava por rota, não por remessa. Não havia onde
+vocabulário e outro modelo. Agrupava por rota, não por remessa. Não havia onde
 encaixá-la.
 
 A solução da época foi um campo `tipo_transportadora` com condicionais espalhadas.
@@ -246,7 +246,7 @@ A reformulação introduziu um modelo próprio de remessa, e uma camada de tradu
 por transportadora.
 
 **Modelo interno definido pelo negócio**, não por nenhuma delas. Os nomes viraram
-`remessa`, `destinatário`, `rota` — o vocabulário que as pessoas já usavam nas
+`remessa`, `destinatário`, `rota`: o vocabulário que as pessoas já usavam nas
 reuniões e que não existia no código.
 
 **Um adaptador por transportadora**, traduzindo nos dois sentidos. As condicionais
@@ -265,16 +265,16 @@ própria empresa e não seria trocado. Uma camada ali teria sido cópia campo a
 campo.
 
 O detalhe que a equipe destaca: o erro inicial não foi técnico, foi de sequência. Com uma
-transportadora só, integrar direto parecia — e era — mais simples. O problema é que
+transportadora só, integrar direto parecia, e era, mais simples. O problema é que
 ninguém perguntou "e quando entrar a segunda?", que era uma certeza do plano de
 negócio.
 
 ## Conceitos Relacionados
 
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — o
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): o
   conceito em DDD.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
-- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md) — tradução de
+- [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md): tradução de
   eventos.
 - [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
@@ -283,7 +283,7 @@ negócio.
 Procure no seu código o nome de um fornecedor ou de um conceito que só existe no
 modelo dele. Conte em quantos arquivos ele aparece.
 
-Se aparecer fora da pasta de integração, o modelo externo já entrou — e o número
+Se aparecer fora da pasta de integração, o modelo externo já entrou, e o número
 de arquivos é o custo de trocar de fornecedor.
 
 ## Perguntas de Entrevista
@@ -294,6 +294,6 @@ de arquivos é o custo de trocar de fornecedor.
 
 ## Para Aprofundar
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — capítulo 14.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Capítulo 14.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.

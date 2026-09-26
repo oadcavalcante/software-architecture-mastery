@@ -2,7 +2,7 @@
 id: relational-databases
 title: Relational Databases
 sidebar_position: 1
-description: The default that remains the right choice in most cases — and where it genuinely does not serve.
+description: The default that remains the right choice in most cases, and where it genuinely does not serve.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [nosql, transactions, normalization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ a declarative language that describes **what** you want, not how to find it.
 It is fifty years old, has survived several waves of replacement, and remains the correct choice for
 most systems.
 
-This document defends that position and delimits where it does not hold — because "relational by
+This document defends that position and delimits where it does not hold, because "relational by
 default" is only a good rule when accompanied by the cases in which you abandon the rule.
 
 ## Problem
@@ -38,7 +38,7 @@ produce bad choices.
 The correct choice comes from the access pattern: how the data is written, how it is read, in what
 volume, with what consistency requirement.
 
-Relational is the reasonable default because it serves a very wide range of those patterns well — and
+Relational is the reasonable default because it serves a very wide range of those patterns well, and
 because it errs cheaply when you discover you needed something else.
 
 ## Core Concepts
@@ -65,7 +65,7 @@ not known today.
 ### A rigid schema is an operational advantage
 
 The common criticism is that the schema slows down evolution. What rarely enters the calculation is
-the other side: with no schema, validation migrates to the application — and to **every** application
+the other side: with no schema, validation migrates to the application, and to **every** application
 that writes.
 
 One correction script or one legacy service is enough to introduce inconsistent records, which will
@@ -81,9 +81,9 @@ holds tens of terabytes and tens of thousands of transactions per second.
 The ceiling that usually arrives first is cost, not technology. Instances are bought in steps that
 double the price, the failover replica has to be the same size, and on a commercial database the
 license is charged per core. The honest calculation compares that bill with the cost of operating a
-distributed model — not the performance of the two.
+distributed model, not the performance of the two.
 
-Most systems that abandon relational for scale never came close to that limit — and frequently the
+Most systems that abandon relational for scale never came close to that limit, and frequently the
 problem was an [index](/07-data-architecture/indexing.md) or mixed workloads.
 
 ### Where it genuinely does not serve
@@ -113,7 +113,7 @@ typo tolerance and tunable relevance at scale. See [search](/05-system-design/se
 The decision is not global. A system can have its transactional core in relational, search in an
 inverted index and telemetry in a time series store.
 
-The cost is operational — more technologies to know, monitor and recover — and it is frequently worth
+The cost is operational (more technologies to know, monitor and recover), and it is frequently worth
 it. The error is adopting several without each one solving a concrete problem.
 
 ## Mental Model
@@ -127,7 +127,7 @@ comparison.**
 - Transactions with multiple records have to be atomic.
 - Unforeseen queries will be necessary.
 - Referential integrity matters.
-- The volume fits on one instance — which is more than you imagine.
+- The volume fits on one instance, which is more than you imagine.
 - There is no specific reason for something else.
 
 ## When Not to Use
@@ -135,8 +135,8 @@ comparison.**
 Each case in the list above becomes a mistake from a certain condition on, and the condition is what
 you should check:
 
-**Writes active in several regions** when a write cannot wait for the round trip between them — tens
-to hundreds of milliseconds per coordination.
+**Writes active in several regions** when a write cannot wait for the round trip between them (tens
+to hundreds of milliseconds per coordination).
 
 **Ingestion of events or time series** when the sustained throughput exceeds what the instance absorbs
 even with batched writes.
@@ -147,7 +147,7 @@ join, and the cost grows with each node's degree.
 **Documents with no common schema** when the variable fields are queried, not just stored and read
 whole.
 
-**Analytics over billions of rows** when queries scan few columns of many rows — row storage reads
+**Analytics over billions of rows** when queries scan few columns of many rows: row storage reads
 every column.
 
 **Full-text search** when the requirement exceeds what native search provides.
@@ -157,12 +157,12 @@ every column.
 
 ## Alternatives
 
-- **[Document](/07-data-architecture/document-databases.md)** — aggregates read whole.
-- **[Key-value](/07-data-architecture/key-value-databases.md)** — access by key, very high throughput.
-- **[Columnar](/07-data-architecture/column-stores.md)** — analytics.
-- **[Graph](/07-data-architecture/graph-databases.md)** — relationships as first class.
-- **Time series** — metrics and telemetry.
-- **Distributed relational** — keeps the model and distributes the writes, at the cost of coordination
+- **[Document](/07-data-architecture/document-databases.md)**: aggregates read whole.
+- **[Key-value](/07-data-architecture/key-value-databases.md)**: access by key, very high throughput.
+- **[Columnar](/07-data-architecture/column-stores.md)**: analytics.
+- **[Graph](/07-data-architecture/graph-databases.md)**: relationships as first class.
+- **Time series**: metrics and telemetry.
+- **Distributed relational**: keeps the model and distributes the writes, at the cost of coordination
   latency.
 
 ## Trade-offs
@@ -183,7 +183,7 @@ every column.
 **A slow query from a missing index.** The most common cause, and the one most confused with a scale
 limit.
 
-**Contention on a hot record.** Write latency rises only for certain keys — a balance, a counter —,
+**Contention on a hot record.** Write latency rises only for certain keys (a balance, a counter),
 with lock waits and timeouts concentrated on one endpoint.
 
 **A schema migration locking the table.** On large tables, a badly planned change causes
@@ -200,7 +200,7 @@ session list shows one transaction open for minutes ahead of all of them.
 
 **Abandoning it for scale without having measured the real limit.**
 
-**Not using constraints** — foreign keys and uniqueness — and reimplementing them in the application,
+**Not using constraints** (foreign keys and uniqueness) and reimplementing them in the application,
 worse.
 
 **Altering a large table's schema with no strategy.**
@@ -221,7 +221,7 @@ The migration took seven months. The results:
 **Performance.** Practically the same. The original bottleneck was three queries with no adequate
 index, which the later audit confirmed.
 
-**Integrity.** With no foreign keys, orphan references started appearing — shipments pointing to
+**Integrity.** With no foreign keys, orphan references started appearing: shipments pointing to
 deleted routes. In eight months, about 12 thousand inconsistent records, fixed by script.
 
 **Reports.** The queries that cross-referenced shipment, route and customer became much harder. Two
@@ -229,10 +229,10 @@ were rewritten as batch processing, and what was a query became code.
 
 **Transactions.** The operation of transferring a shipment between routes touched three documents.
 With no transaction, they had to implement a [saga](/06-distributed-systems/sagas.md) with
-compensation — for an operation that was a three-line transaction.
+compensation, for an operation that was a three-line transaction.
 
 Two years later, the transactional core went back to relational. What stayed in the document store was
-the tracking event history — data with variable structure, written once, read by key. There the model
+the tracking event history: data with variable structure, written once, read by key. There the model
 is adequate.
 
 The lesson that stuck: the decision was made from a premise nobody had verified. One day of query plan
@@ -240,17 +240,17 @@ analysis would have avoided seven months of migration.
 
 ## Related Concepts
 
-- [NoSQL](/07-data-architecture/nosql.md) — the term and what it hides.
-- [Transactions](/07-data-architecture/transactions.md) — the main guarantee.
-- [Normalization](/07-data-architecture/normalization.md) — the model.
-- [Indexing](/07-data-architecture/indexing.md) — what is usually the real problem.
+- [NoSQL](/07-data-architecture/nosql.md): the term and what it hides.
+- [Transactions](/07-data-architecture/transactions.md): the main guarantee.
+- [Normalization](/07-data-architecture/normalization.md): the model.
+- [Indexing](/07-data-architecture/indexing.md): what is usually the real problem.
 
 ## Practical Exercise
 
 If someone on your team argues for leaving relational because of scale, ask for the number: which
 metric is at its limit, and what the limit is.
 
-If the answer does not exist, the next step is analyzing the plans of the slow queries — not choosing
+If the answer does not exist, the next step is analyzing the plans of the slow queries, not choosing
 another database.
 
 ## Interview Questions
@@ -263,4 +263,4 @@ another database.
 
 - Codd, E. F. *A Relational Model of Data for Large Shared Data Banks*. CACM, 1970.
 - Winand, Markus. *SQL Performance Explained*, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 2.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 2.

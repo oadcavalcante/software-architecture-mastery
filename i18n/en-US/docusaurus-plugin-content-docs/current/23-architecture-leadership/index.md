@@ -2,7 +2,7 @@
 id: architecture-leadership
 title: Architecture Leadership
 sidebar_position: 0
-description: The final level — deciding, influencing and sustaining architecture in an organization.
+description: "The final level: deciding, influencing and sustaining architecture in an organization."
 doc_type: index
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance, enterprise-architecture]
 related: [devops-and-platform, trade-offs, architecture-decisions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ correct answer happen.
 opens the section with that failure pattern and with what it demands of the role. The rest of this
 section is the set of competencies that sustain it.
 
-Conway's law is not a curiosity. It is the strongest constraint there is on an architecture, and
+Conway's law is the strongest constraint there is on an architecture, and
 the one that least appears in the diagrams.
 
 Senior architecture is the intersection of:
@@ -49,7 +49,7 @@ destination that guides decisions without prescribing every step.
 is not enough information and deferring also has a cost.
 
 **Influence.** Stakeholder management, communication, presentations and technical influence. How
-an architect with no formal authority — which is the common case — makes a decision happen.
+an architect with no formal authority (which is the common case) makes a decision happen.
 
 **Organization.** Conway's law, Team Topologies, organizational architecture, cross-team
 architecture and architecture ownership. Designing teams is designing architecture; ignoring that
@@ -69,12 +69,12 @@ How to know whether the architecture is improving, instead of arguing that it is
 
 Start with
 [Basics](/23-architecture-leadership/architecture-leadership-basics.md): everything else in the
-section builds on it, directly or indirectly. Next, **Conway's law** and **Team Topologies** — they are the
+section builds on it, directly or indirectly. Next, **Conway's law** and **Team Topologies**: they are the
 concepts that most change how you read an organization, and they retroactively explain a good share
 of the strange architectures you have already encountered.
 
 Then **communication** and **decision-making under uncertainty**, which is what **negotiating
-trade-offs** presupposes — the competencies with the highest practical return and the least trained
+trade-offs** presupposes: the competencies with the highest practical return and the least trained
 among engineers.
 
 Leave **fitness functions** and **measurement** for last. They are the instrument that turns the
@@ -88,11 +88,11 @@ present a proposal to whoever controls the budget in terms of risk and capacity,
 You recognize when the desired architecture requires changing the organization, and you can propose
 that.
 
-And you can measure whether the architecture is improving — which is the difference between
+And you can measure whether the architecture is improving. That is the difference between
 architectural leadership and senior opinion.
 
 ## The end of the path
 
 The material ends here. What doesn't end is the practice: reading fixes the vocabulary and the
 criteria, and that is as far as a text takes you. The rest develops by deciding, getting it wrong,
-recording why and revisiting — which is, once again, the cycle this path began with.
+recording why and revisiting. That is, once again, the cycle this path began with.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [integration-architecture, scalability, system-design]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -34,7 +34,7 @@ bloqueando.
 
 É por isso que arquitetura de dados aparece neste nível e não antes. Ela exige
 que você já entenda [falha parcial](/06-distributed-systems/partial-failure.md)
-e [consistência](/06-distributed-systems/consistency.md) — porque quase toda
+e [consistência](/06-distributed-systems/consistency.md): porque quase toda
 decisão aqui é uma escolha sobre onde pagar esses custos.
 
 ## O que você vai encontrar aqui
@@ -48,13 +48,13 @@ relacionais.
 **Cargas de trabalho.** OLTP e OLAP, e por que confundi-las é a origem de boa
 parte dos problemas de desempenho que se tenta resolver com hardware.
 
-**Plataformas analíticas.** Data warehouse, data lake e lakehouse — o que cada
+**Plataformas analíticas.** Data warehouse, data lake e lakehouse: o que cada
 uma resolve, e o que acontece quando um lake vira depósito sem catálogo.
 
-**Modelagem.** Normalização e desnormalização como decisão consciente — e cara de
-desfazer depois que existem registros gravados —, com o critério de quando cada uma
+**Modelagem.** Normalização e desnormalização como decisão consciente (e cara de
+desfazer depois que existem registros gravados), com o critério de quando cada uma
 se paga. Indexação tratada como decisão de arquitetura, porque índice errado é a
-causa mais comum de consulta lenta — e a mais frequentemente confundida com
+causa mais comum de consulta lenta, e a mais frequentemente confundida com
 necessidade de escalar.
 
 **Distribuição de dados.** Replicação e particionamento vistos do ângulo do
@@ -63,7 +63,7 @@ armazenamento, complementando o tratamento de
 consistência no nível do banco: níveis de isolamento e o que cada um permite
 acontecer.
 
-**Governança.** Propriedade do dado e ciclo de vida — retenção, arquivamento e
+**Governança.** Propriedade do dado e ciclo de vida: retenção, arquivamento e
 apagamento. Os dois tópicos menos técnicos da seção e os que mais determinam se
 o sistema continua sustentável em cinco anos.
 
@@ -72,7 +72,7 @@ o sistema continua sustentável em cinco anos.
 Comece por **OLTP e OLAP**. A distinção organiza tudo o que vem depois, e
 escolher armazenamento sem ela é escolher no escuro.
 
-Depois **modelagem**, **normalização** e **desnormalização** — nessa ordem, porque
+Depois **modelagem**, **normalização** e **desnormalização**, nessa ordem, porque
 desnormalizar sem entender o que se está desfazendo produz um esquema que ninguém
 consegue evoluir.
 
@@ -85,8 +85,8 @@ tecnologia.
 
 ## Ao terminar
 
-Você escolhe armazenamento a partir do padrão de acesso — como o dado é escrito,
-como é lido, com qual frequência e em qual volume — em vez de por familiaridade
+Você escolhe armazenamento a partir do padrão de acesso (como o dado é escrito,
+como é lido, com qual frequência e em qual volume) em vez de por familiaridade
 ou reputação.
 
 Consegue olhar uma consulta lenta e distinguir problema de índice, de modelo, de

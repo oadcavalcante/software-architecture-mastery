@@ -2,7 +2,7 @@
 id: normalization
 title: Normalization
 sidebar_position: 13
-description: Each fact in one place only — what that guarantees and where the cost of joins weighs.
+description: "Each fact in one place only: what that guarantees and where the cost of joins weighs."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-modeling]
 related: [denormalization, relational-databases, oltp]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Normalizing is organizing the data so that **each fact exists in one place only**.
 
-The goal is not elegance or saving space — it is preventing the same data from existing in two
+The goal is not elegance or saving space; it is preventing the same data from existing in two
 contradictory versions.
 
 It is the appropriate choice for a [transactional](/07-data-architecture/oltp.md) workload, and the
@@ -51,13 +51,13 @@ Normalization eliminates all three by construction, not by discipline.
 The theory has six or more normal forms. In practice, three solve nearly everything:
 
 **First.** Each field holds a single value, not a list. A `phones` column with "11999998888,
-1133334444" violates it — and forces the application to parse text.
+1133334444" violates it and forces the application to parse text.
 
 **Second.** Every attribute depends on the whole key. In a table with a composite key of order and
-product, the product's name depends only on the product — therefore, it does not belong there.
+product, the product's name depends only on the product; therefore, it does not belong there.
 
 **Third.** No attribute depends on another non-key attribute. If the table has a postal code and a
-city, the city depends on the postal code, not on the record — therefore, it belongs somewhere else.
+city, the city depends on the postal code, not on the record; therefore, it belongs somewhere else.
 
 The rule of thumb that summarizes all three: **each attribute should depend on the key, the whole
 key, and nothing but the key**.
@@ -71,12 +71,12 @@ system. Higher forms appear in specific domains and rarely justify the effort.
 
 ### What you gain is verifiable integrity
 
-The central gain is not space — it is that the **constraint can be declared**.
+The central gain is not space; it is that the **constraint can be declared**.
 
 With the supplier in one table and the foreign key in the order, the database guarantees that no
 order points to a non-existent supplier. For every writer, including scripts.
 
-In a denormalized model, that guarantee has to be maintained by code — and by every piece of code
+In a denormalized model, that guarantee has to be maintained by code, and by every piece of code
 that writes.
 
 ### The cost is joins, and it is real
@@ -86,7 +86,7 @@ Each separate table is one more join on read.
 In [OLTP](/07-data-architecture/oltp.md), where the query brings few records, indexed joins are cheap
 and the cost is irrelevant.
 
-In [OLAP](/07-data-architecture/olap.md), where the query scans millions, joins dominate the time —
+In [OLAP](/07-data-architecture/olap.md), where the query scans millions, joins dominate the time,
 and that is why the criterion inverts.
 
 ### Normalizing is not about saving space
@@ -94,14 +94,14 @@ and that is why the criterion inverts.
 That argument appears frequently and has aged: storage is cheap.
 
 The valid argument is integrity. Whoever normalizes to save space tends to denormalize as soon as
-space stops mattering — and loses the guarantee without realizing it was the guarantee that mattered.
+space stops mattering, and loses the guarantee without realizing it was the guarantee that mattered.
 
 ### Conscious deviations are normal
 
 A real system has deviations: a pre-computed total, a name copied to avoid a join in a critical query.
 
 That is deliberate [denormalization](/07-data-architecture/denormalization.md), and it is legitimate
-when documented and with a maintenance strategy. The problem is not the deviation — it is the
+when documented and with a maintenance strategy. The problem is not the deviation but the
 accidental deviation, which nobody knows exists.
 
 ## Mental Model
@@ -119,31 +119,31 @@ return is integrity the database enforces on its own.
 
 ## When Not to Use
 
-**In an analytical model.** See [OLAP](/07-data-architecture/olap.md) — joins over volume dominate.
+**In an analytical model.** See [OLAP](/07-data-architecture/olap.md): joins over volume dominate.
 
 **When the data is a snapshot of the moment.** The price at the instant of purchase should be copied,
-not referenced — it does not change when the catalog price changes.
+not referenced: it does not change when the catalog price changes.
 
 **When the dominant query always reassembles the same aggregate.** If every read joins the same
 four tables to build an entity nobody updates in parts, the decomposition charges joins and buys no
 integrity.
 
 **Beyond third normal form with no multivalued dependency in sight.** Fourth and fifth forms only
-pay off when a table combines two independent facts — an employee's skills and languages, for
-example — and the Cartesian product already shows up in the rows.
+pay off when a table combines two independent facts (an employee's skills and languages, for
+example) and the Cartesian product already shows up in the rows.
 
-**In storage with no joins.** See [documents](/07-data-architecture/document-databases.md) — there the
+**In storage with no joins.** See [documents](/07-data-architecture/document-databases.md): there the
 model is different.
 
 The second deserves emphasis: copying a historical value is not denormalization, it is correct
-modeling. They are different facts — "the product's price" and "the price paid".
+modeling. They are different facts: "the product's price" and "the price paid".
 
 ## Alternatives
 
-- **Selective [denormalization](/07-data-architecture/denormalization.md)** — at measured points.
-- **Materialized view** — the normalized form remains; the read queries the view.
-- **Dimensional model** — for analytics.
-- **[CQRS](/03-design-patterns/cqrs.md)** — normalized for writing, denormalized for
+- **Selective [denormalization](/07-data-architecture/denormalization.md)**: at measured points.
+- **Materialized view**: the normalized form remains; the read queries the view.
+- **Dimensional model**: for analytics.
+- **[CQRS](/03-design-patterns/cqrs.md)**: normalized for writing, denormalized for
   reading.
 
 ## Trade-offs
@@ -182,7 +182,7 @@ daily and the one that never changes, and the second pays for joins while gainin
 **Not declaring foreign keys.** The database accepts items pointing to deleted orders, and the
 orphans only surface when a report sums wrong.
 
-**Referencing when copying was correct** — the historical value case.
+**Referencing when copying was correct**: the historical value case.
 
 **Applying the same criterion to OLTP and OLAP.** The analytical model inherits the transactional
 joins, and the aggregation query ends up scanning the whole volume several times.
@@ -205,7 +205,7 @@ The cause: the prices had changed. Since the item referenced the current price t
 historical report reflected today's prices.
 
 The model was formally normalized and conceptually wrong. "The product's price" and "the price charged
-on this item" are different facts — the second is immutable and belongs to the item.
+on this item" are different facts: the second is immutable and belongs to the item.
 
 The fix was to copy to the order item, at the moment of issuance: unit price, applied tax rate,
 product description and discount. Four fields.
@@ -217,19 +217,19 @@ Reconstructing the earlier history was partial, from archived invoice PDFs.
 
 What the team records: the model review had been done by someone rigorous in normalization theory,
 and the error slipped through precisely because of that. The question that was missing was not about
-functional dependency — it was "can this value change later?".
+functional dependency; it was "can this value change later?".
 
 ## Related Concepts
 
-- [Denormalization](/07-data-architecture/denormalization.md) — the inverse decision.
-- [Data Modeling](/07-data-architecture/data-modeling.md) — the context.
-- [OLTP](/07-data-architecture/oltp.md) — where it serves.
+- [Denormalization](/07-data-architecture/denormalization.md): the inverse decision.
+- [Data Modeling](/07-data-architecture/data-modeling.md): the context.
+- [OLTP](/07-data-architecture/oltp.md): where it serves.
 - [Relational Databases](/07-data-architecture/relational-databases.md).
 
 ## Practical Exercise
 
-Look through your model for values that represent a historical fact — the price charged, the delivery
-address, the applied tax rate — and check whether they are copied or referenced.
+Look through your model for values that represent a historical fact (the price charged, the delivery
+address, the applied tax rate) and check whether they are copied or referenced.
 
 Where they are referenced, your historical reports change on their own.
 

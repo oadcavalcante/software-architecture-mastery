@@ -2,7 +2,7 @@
 id: communication
 title: Architecture Communication
 sidebar_position: 6
-description: Changing the message's axis according to the audience — not simplifying, translating.
+description: "Changing the message's axis according to the audience: not simplifying, translating."
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [architecture-presentations, stakeholder-management, technical-influence]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,8 +34,8 @@ for operations  what changes on call
 for finance     what the effect on the bill is, and when
 ```
 
-The difference between those versions is not one of depth. It is one of **axis**. Leadership
-doesn't need a simplified diagram — it needs the same decision expressed in risk and capacity, with
+The difference between those versions is one of **axis**, not of depth. Leadership
+doesn't need a simplified diagram. It needs the same decision expressed in risk and capacity, with
 the same precision.
 
 ## Problem
@@ -52,8 +52,8 @@ the architect concludes the organization doesn't value architecture
 What happened: the presentation answered "what is the correct architecture?", and the people in the
 room needed to answer "is this worth the investment, compared with the other things I could fund?".
 
-No amount of technical rigor answers the second question. And simplifying the diagram doesn't help
-— the problem is not complexity, it is irrelevance to the decision at hand.
+No amount of technical rigor answers the second question. And simplifying the diagram doesn't help:
+the problem is not complexity but irrelevance to the decision at hand.
 
 The symmetrical error: simplifying until the information is gone. A proposal reduced to "we need to
 modernize" allows nothing to be assessed, and whoever hears it perceives there is no substance.
@@ -69,7 +69,7 @@ low altitude     design, technology, mechanism
 ```
 
 The same decision exists at all three altitudes, with full precision at each. Rising in altitude is
-not removing detail — it is **changing what is being described**.
+not removing detail but **changing what is being described**.
 
 ```text
 low     "we will introduce a queue between the order and the payment
@@ -116,7 +116,7 @@ strong   "we had 41 hours of downtime last year,
 ```
 
 Adjectives are interpretable and dismissible. Numbers are debatable, and a debate about numbers is
-a productive conversation — even if it concludes that the number is wrong.
+a productive conversation, even if it concludes that the number is wrong.
 
 See [measuring outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
@@ -131,11 +131,11 @@ This is the element most frequently absent and the most decisive in investment c
 ```
 
 Without it, the proposal competes with other investment proposals on equal terms. With it, it
-competes with the alternative of doing nothing — which is the real comparison.
+competes with the alternative of doing nothing. That is the real comparison.
 
 ### Speak in the currency of whoever is listening
 
-Which currency each stakeholder uses — revenue, cost, on-call, exposure — is mapped in
+Which currency each stakeholder uses (revenue, cost, on-call, exposure) is mapped in
 [stakeholder management](/23-architecture-leadership/stakeholder-management.md). What this page
 adds is that the currency picks the altitude: revenue and exposure call for high altitude; on-call
 and capability call for mid altitude; and mid altitude is where translation fails most, because the
@@ -197,11 +197,11 @@ qualitative consequence, state that the number is an estimate, and say how it wi
 
 ## Alternatives
 
-- **A document instead of a presentation** — for complex decisions, a text read before the meeting
+- **A document instead of a presentation**: for complex decisions, a text read before the meeting
   yields more than slides.
-- **An individual conversation beforehand** — aligning with each stakeholder separately is usually
+- **An individual conversation beforehand**: aligning with each stakeholder separately is usually
   more effective than persuading a group.
-- **A demonstration** — when the risk under discussion is feasibility, showing it working usually
+- **A demonstration**: when the risk under discussion is feasibility, showing it working usually
   settles what argument does not.
 
 The second is the most underrated: decision meetings rarely change positions; they confirm
@@ -300,11 +300,11 @@ the connection to the omnichannel initiative turned the proposal from a "technic
 into a "prerequisite for a business bet that has already been approved".
 
 **The 34 slides became an appendix.** They continued to exist and were used in conversations with
-engineering — on the right axis, for the right audience.
+engineering, on the right axis, for the right audience.
 
-The practice that stuck: every proposal above a threshold came to require three versions — a
+The practice that stuck: every proposal above a threshold came to require three versions (a
 one-pager for leadership, a two-pager for product and operations, and the complete technical
-document. And a rule that the number quantifying the problem has to come from a group other than
+document). And a rule that the number quantifying the problem has to come from a group other than
 engineering, so it isn't read as self-interest.
 
 ## Related Concepts
@@ -319,7 +319,7 @@ engineering, so it isn't read as self-interest.
 Take an architectural proposal of yours and write it in four paragraphs: the ask, the reason with a
 number, what happens if nothing is done, and the risk acknowledged.
 
-If you don't have the number, that is the gap — and it is probably the reason the proposal hasn't
+If you don't have the number, that is the gap, and it is probably the reason the proposal hasn't
 advanced.
 
 ## Interview Questions

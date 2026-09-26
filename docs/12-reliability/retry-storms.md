@@ -2,7 +2,7 @@
 id: retry-storms
 title: Tempestades de Retentativa
 sidebar_position: 16
-description: Quando a defesa amplifica o problema — e por que a recuperação é a parte mais difícil.
+description: Quando a defesa amplifica o problema, e por que a recuperação é a parte mais difícil.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, graceful-degradation]
 canonical_for: [tempestade de retentativa, amplificação de retentativa, orçamento de retentativa, recuperação metaestável]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Retentativa é a defesa mais básica contra falha transitória. Ver
 [retentativas](/06-distributed-systems/retries.md).
 
 Sob falha generalizada, ela vira o problema: todos os clientes repetem ao mesmo tempo,
-a carga sobre o destino degradado multiplica, e o sistema não consegue se recuperar —
+a carga sobre o destino degradado multiplica, e o sistema não consegue se recuperar,
 mesmo depois de a causa original ter passado.
 
 Esse último ponto é o que torna o fenômeno perigoso: **o sistema fica preso num estado
@@ -59,21 +59,21 @@ A regra que evita a multiplicação composta.
 
 Cada camada que repete multiplica pelo fator dela. Numa cadeia de quatro serviços em que
 os três primeiros repetem três vezes, uma requisição pode gerar 27 chamadas ao mais
-profundo — 3 × 3 × 3, uma camada a mais que no exemplo acima.
+profundo: 3 × 3 × 3, uma camada a mais que no exemplo acima.
 
 A decisão precisa ser explícita: **qual camada repete?** Tipicamente a mais próxima do
 usuário, ou a que tem o contexto para decidir se vale a pena.
 
-E as demais precisam **não** repetir — o que exige que alguém verifique, porque
+E as demais precisam **não** repetir, o que exige que alguém verifique, porque
 bibliotecas de cliente frequentemente repetem por padrão sem que ninguém tenha
 configurado.
 
-Ver [malha de serviço](/08-integration-architecture/service-mesh.md) — o caso em que a
+Ver [malha de serviço](/08-integration-architecture/service-mesh.md): o caso em que a
 malha repete e a aplicação também.
 
 ### Orçamento de retentativa
 
-Limitar o número de tentativas por requisição não impede a tempestade — mil clientes
+Limitar o número de tentativas por requisição não impede a tempestade: mil clientes
 com três tentativas cada continuam gerando três mil chamadas.
 
 O controle que funciona é limitar a **proporção**:
@@ -85,7 +85,7 @@ orçamento: retentativas ≤ 10% das requisições iniciais
 ```
 
 Quando o orçamento se esgota, novas retentativas são recusadas imediatamente. Isso
-preserva a capacidade de repetir para falhas isoladas — que é o caso legítimo — e
+preserva a capacidade de repetir para falhas isoladas (que é o caso legítimo) e
 impede a amplificação quando a falha é generalizada.
 
 É o controle mais eficaz desta seção, e o menos implementado.
@@ -101,7 +101,7 @@ com variação   as tentativas se espalham no tempo
 
 Ver [backoff](/06-distributed-systems/backoff.md). Espera crescente sem variação
 reduz o volume, mas não dessincroniza: os picos continuam, só mais espaçados. E nisso
-é pior que não ter espera nenhuma — dá a impressão de proteção, e a sincronização deixa
+é pior que não ter espera nenhuma: dá a impressão de proteção, e a sincronização deixa
 de ser investigada.
 
 ### Não repita o que não é retentável
@@ -121,7 +121,7 @@ frequentemente informa quanto esperar. Ignorar essa informação e repetir imedi
 
 O fenômeno que torna tudo isso grave.
 
-Um sistema entra num estado em que a própria carga de retentativa mantém a degradação —
+Um sistema entra num estado em que a própria carga de retentativa mantém a degradação,
 mesmo depois de a causa original ter desaparecido.
 
 ```text
@@ -140,7 +140,7 @@ Reconhecer esse padrão durante um incidente é o que evita horas tentando escal
 
 ### Fila é amplificador silencioso
 
-Quando a retentativa acontece numa fila, a amplificação não é visível como carga — é
+Quando a retentativa acontece numa fila, a amplificação não é visível como carga; é
 visível como profundidade crescente.
 
 Uma mensagem que falha e volta para a fila é processada de novo, falha de novo, e
@@ -148,13 +148,13 @@ consome capacidade indefinidamente. Ver
 [poison messages](/06-distributed-systems/poison-messages.md) e
 [dead-letter queues](/06-distributed-systems/dead-letter-queues.md).
 
-Limite de tentativas com destino final não é detalhe — é o que impede uma mensagem
+Limite de tentativas com destino final não é detalhe: é o que impede uma mensagem
 consumir a capacidade de toda a fila.
 
 ## Modelo Mental
 
 **Retentativa ajuda contra falha isolada e amplifica falha generalizada.** O controle
-não é o número de tentativas — é a proporção delas.
+não é o número de tentativas, e sim a proporção delas.
 
 ## Quando Usar
 
@@ -172,7 +172,7 @@ Retentativa é adequada quando:
 multiplicam; se a camada com contexto não é a que repete, desligue a retentativa nela
 em vez de mantê-la em duas.
 
-**Sem orçamento.** Com só a contagem, a carga extra sobe junto com a taxa de erro — o
+**Sem orçamento.** Com só a contagem, a carga extra sobe junto com a taxa de erro: o
 destino recebe o triplo exatamente quando está degradado.
 
 **Sem variação.** As tentativas de clientes que falharam juntos chegam em picos
@@ -183,19 +183,19 @@ responde igual na segunda vez; repetir só consome capacidade do destino.
 
 **Sem idempotência.** Se o timeout ocorreu depois de o servidor aplicar o efeito, a
 repetição cobra duas vezes ou baixa o estoque em dobro. Sem chave de idempotência
-possível, repita só quando se sabe que a requisição não chegou — conexão recusada,
-falha de DNS — e devolva o resto ao chamador.
+possível, repita só quando se sabe que a requisição não chegou (conexão recusada,
+falha de DNS) e devolva o resto ao chamador.
 
 **Como resposta a sobrecarga.** Se o destino está saturado, repetir piora. Ver
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
 ## Alternativas
 
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar quando a falha é
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: parar de tentar quando a falha é
   persistente. Complementa a retentativa.
-- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — responder sem a dependência.
-- **Fila com atraso** — deixar a infraestrutura cuidar da repetição, com controle.
-- **Falhar rápido** — quando o orçamento de tempo do chamador não comporta espera.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)**: responder sem a dependência.
+- **Fila com atraso**: deixar a infraestrutura cuidar da repetição, com controle.
+- **Falhar rápido**: quando o orçamento de tempo do chamador não comporta espera.
 
 ## Trade-offs
 
@@ -232,7 +232,7 @@ falha de DNS — e devolva o resto ao chamador.
 
 **Não verificar se camadas intermediárias repetem.** Cliente HTTP, service mesh e balanceador costumam repetir por padrão. Somadas às tentativas da aplicação, multiplicam a carga sem que ninguém tenha configurado isso explicitamente.
 
-**Não definir orçamento.** Sem um teto de proporção de retentativas sobre o total de chamadas, elas crescem justamente quando a taxa de erro sobe — que é quando o sistema menos aguenta.
+**Não definir orçamento.** Sem um teto de proporção de retentativas sobre o total de chamadas, elas crescem justamente quando a taxa de erro sobe, que é quando o sistema menos aguenta.
 
 **Espera crescente sem variação.** Todos os clientes que falharam juntos esperam o mesmo tempo e voltam juntos. A onda se repete em intervalos cada vez maiores e o serviço nunca estabiliza.
 
@@ -259,21 +259,21 @@ requisições por segundo.
 **Metaestabilidade.** A degradação original passou em 40 segundos. A carga de
 retentativa manteve o banco saturado por horas.
 
-**Escalada ineficaz.** O time dobrou as instâncias de aplicação. Isso **piorou** — mais
+**Escalada ineficaz.** O time dobrou as instâncias de aplicação. Isso **piorou**: mais
 instâncias significavam mais clientes repetindo contra o mesmo banco.
 
 **Saída.** Após 3 horas, o time desligou o tráfego do aplicativo por 5 minutos. Sem
 carga, o banco se recuperou em segundos. O tráfego foi religado gradualmente.
 
-A investigação encontrou que ninguém sabia que havia três camadas repetindo — cada
+A investigação encontrou que ninguém sabia que havia três camadas repetindo: cada
 configuração tinha sido feita por um time diferente, em momentos diferentes, todas
 razoáveis isoladamente.
 
 As correções:
 
 **Retentativa em uma camada só.** Apenas o cliente móvel repete, com espera crescente e
-variação. Gateway e serviços intermediários pararam de repetir — verificado por teste
-automatizado que falha se uma biblioteca de cliente repetir por padrão.
+variação. Gateway e serviços intermediários pararam de repetir (verificado por teste
+automatizado que falha se uma biblioteca de cliente repetir por padrão).
 
 **Orçamento de 10%** por serviço, com recusa imediata acima disso.
 
@@ -284,7 +284,7 @@ motoristas do cache com aviso de atraso.
 **Descarte de carga** no gateway: acima de um limite, requisições são recusadas com
 prazo sugerido, em vez de enfileirar.
 
-**Procedimento de recuperação** documentado, incluindo o passo que resolveu — reduzir a
+**Procedimento de recuperação** documentado, incluindo o passo que resolveu: reduzir a
 carga a zero e religar gradualmente. Ele foi contraintuitivo na hora, e é o que
 funciona em estado metaestável.
 
@@ -297,14 +297,14 @@ a degradação.
 
 ## Conceitos Relacionados
 
-- [Retentativas](/06-distributed-systems/retries.md) — os fundamentos.
-- [Backoff](/06-distributed-systems/backoff.md) — a variação.
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — parar de tentar.
-- [Bulkheads](/12-reliability/bulkheads.md) — conter a propagação.
+- [Retentativas](/06-distributed-systems/retries.md): os fundamentos.
+- [Backoff](/06-distributed-systems/backoff.md): a variação.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): parar de tentar.
+- [Bulkheads](/12-reliability/bulkheads.md): conter a propagação.
 
 ## Exercício Prático
 
-Trace uma requisição do seu sistema e conte quantas camadas repetem — incluindo
+Trace uma requisição do seu sistema e conte quantas camadas repetem, incluindo
 bibliotecas de cliente, gateway e malha de serviço.
 
 Multiplique os fatores. Esse é o número de chamadas que uma requisição pode gerar no

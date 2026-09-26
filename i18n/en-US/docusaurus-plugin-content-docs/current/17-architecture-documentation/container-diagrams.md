@@ -2,7 +2,7 @@
 id: container-diagrams
 title: Container Diagrams
 sidebar_position: 4
-description: The executable units and how they communicate — the diagram that answers "where do I touch".
+description: "The executable units and how they communicate: the diagram that answers \"where do I touch\"."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, context-diagrams, deployment-diagrams]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ It answers the most frequent question of whoever is going to work on the system:
 do I touch, and what does that affect?**
 
 And it is the second highest-return diagram, after the
-[context](/17-architecture-documentation/context-diagrams.md) — together, the two cover most of the real need for
+[context](/17-architecture-documentation/context-diagrams.md): together, the two cover most of the real need for
 structural documentation.
 
 ## Problem
@@ -47,7 +47,7 @@ what do I have to start up to run this locally?
 ```
 
 Without the diagram, those answers come from reading code and talking to whoever already
-knows — which is expensive and produces partial answers.
+knows. That is expensive and produces partial answers.
 
 ## Core Concepts
 
@@ -61,7 +61,7 @@ no    library, module, class, layer, concept
 
 The test: **is it separately deployable, or is it a store?**
 
-A library shared between two services is not a container — it is internal detail of both.
+A library shared between two services is not a container. It is internal detail of both.
 A queue is, because it has its own existence and has to be provisioned.
 
 See [C4 model](/17-architecture-documentation/c4-model.md).
@@ -86,7 +86,7 @@ API → Database: "reads and writes, SQL/JDBC"
 API → Queue: "publishes order created, AMQP"
 ```
 
-That answers "what do I need to know to work here" — and it is what the context diagram
+That answers "what do I need to know to work here", and it is what the context diagram
 deliberately omits.
 
 ### The diagram reveals the real architecture
@@ -103,7 +103,7 @@ communication in a long chain          → poor composed availability
 See [integration landscapes](/15-enterprise-architecture/integration-landscapes.md) and
 [availability](/06-distributed-systems/availability.md).
 
-It is common for the first version of the diagram to cause discomfort — because it shows
+It is common for the first version of the diagram to cause discomfort, because it shows
 the real structure, not the intended one.
 
 ### It guides local execution
@@ -130,7 +130,7 @@ whether there is direct access to someone else's store
 ```
 
 The last is the most revealing. See
-[data ownership](/07-data-architecture/data-ownership.md) — a diagram showing two
+[data ownership](/07-data-architecture/data-ownership.md): a diagram showing two
 applications writing to the same database documents a boundary problem.
 
 ### The scope is one system
@@ -139,7 +139,7 @@ A container diagram describes **one** system. External systems appear at the edg
 single boxes, with no internal detail.
 
 Expanding it to show the inside of several systems produces a diagram that is too large
-and mixes scopes — the same error as mixing levels.
+and mixes scopes: the same error as mixing levels.
 
 When the question crosses systems, the right diagram is the context of the set, or a data
 flow diagram. See
@@ -158,7 +158,7 @@ up to 6 containers   a system one team can hold
 13 or more           the operational cost is already the dominant characteristic
 ```
 
-The question the diagram provokes — "why so many pieces?" — is usually more valuable than
+The question the diagram provokes ("why so many pieces?") is usually more valuable than
 any answer it gives. See
 [service boundaries](/05-system-design/service-boundaries.md): decomposing into deployable
 units has a cost that only becomes visible when it is drawn all together.
@@ -183,24 +183,24 @@ becomes permanent structure.
 
 ## When Not to Use
 
-**For a single-piece system** — there is no internal communication to show, and the
+**For a single-piece system**: there is no internal communication to show, and the
 technology fits in one line of the context diagram.
 
-**For systems of two or three pieces** — one sentence in the README ("Java API, PostgreSQL,
+**For systems of two or three pieces**: one sentence in the README ("Java API, PostgreSQL,
 RabbitMQ queue") delivers the same thing and needs no separate maintenance.
 
-**When the topology changes every week** — during exploration, the diagram is stale before
+**When the topology changes every week**: during exploration, the diagram is stale before
 anyone reads it; wait for the pieces to settle.
 
-**When the audience only needs the context** — management, partners and auditors ask what
+**When the audience only needs the context**: management, partners and auditors ask what
 the system does and whom it talks to, not where to make changes.
 
 ## Alternatives
 
-- **[Context](/17-architecture-documentation/context-diagrams.md)** — when the question is external.
-- **[Component](/17-architecture-documentation/component-diagrams.md)** — when it is about the inside of one piece.
-- **[Deployment](/17-architecture-documentation/deployment-diagrams.md)** — when it is about where it runs.
-- **Textual description** — for systems with two or three pieces.
+- **[Context](/17-architecture-documentation/context-diagrams.md)**: when the question is external.
+- **[Component](/17-architecture-documentation/component-diagrams.md)**: when it is about the inside of one piece.
+- **[Deployment](/17-architecture-documentation/deployment-diagrams.md)**: when it is about where it runs.
+- **Textual description**: for systems with two or three pieces.
 
 ## Trade-offs
 
@@ -260,7 +260,7 @@ documented in previous incidents without the cause being named: changes to the d
 schema broke systems nobody had considered.
 
 And the diagram made something else visible: the orders API had 11 endpoints, and the
-admin panel used none of them — it read directly.
+admin panel used none of them (it read directly).
 
 The decisions that came out of it:
 
@@ -280,20 +280,20 @@ came to have a visual answer.
 
 One problem during production:
 
-**Libraries as boxes.** The first diagrams included shared libraries — authentication,
+**Libraries as boxes.** The first diagrams included shared libraries: authentication,
 logging, the internal HTTP client. That inflated the diagrams and mixed levels. The rule
 "is it separately deployable?" resolved it.
 
 What was recorded afterwards: the direct database access had existed for five years, was
-known to several people, and had never been treated as an architectural problem — until it
+known to several people, and had never been treated as an architectural problem, until it
 appeared in a diagram with three arrows converging on the same box.
 
 ## Related Concepts
 
 - [C4 Model](/17-architecture-documentation/c4-model.md).
-- [Context Diagrams](/17-architecture-documentation/context-diagrams.md) — the level above.
-- [Component Diagrams](/17-architecture-documentation/component-diagrams.md) — the one below.
-- [Deployment Diagrams](/17-architecture-documentation/deployment-diagrams.md) — where it runs.
+- [Context Diagrams](/17-architecture-documentation/context-diagrams.md): the level above.
+- [Component Diagrams](/17-architecture-documentation/component-diagrams.md): the one below.
+- [Deployment Diagrams](/17-architecture-documentation/deployment-diagrams.md): where it runs.
 
 ## Practical Exercise
 
@@ -310,6 +310,6 @@ the most valuable discovery of the exercise.
 
 ## Further Reading
 
-- Brown, Simon. *The C4 model* — c4model.com.
+- Brown, Simon. *The C4 model*. C4model.com.
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
 - Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021.

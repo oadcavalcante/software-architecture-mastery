@@ -2,7 +2,7 @@
 id: rolling-deployments
 title: Rolling Deployments
 sidebar_position: 7
-description: Replacing instances gradually — the default strategy, and what it costs in capacity.
+description: "Replacing instances gradually: the default strategy, and what it costs in capacity."
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, canary]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 In a rolling deployment, the instances are replaced gradually: some leave, come up with the new version,
 enter; that repeats until all of them have been swapped.
 
-It is most orchestrators' default strategy, and the most used — because it requires neither extra capacity
+It is most orchestrators' default strategy, and the most used, because it requires neither extra capacity
 nor comparison infrastructure.
 
 What it delivers: deployment with no downtime. What it does **not** deliver: problem detection, and instant
@@ -77,7 +77,7 @@ too deep      it depends on a resource shared by the replicas
                 and takes down the healthy old instances with it
 ```
 
-See [Kubernetes](/09-cloud-architecture/kubernetes.md) — the distinction between checking that the process
+See [Kubernetes](/09-cloud-architecture/kubernetes.md): the distinction between checking that the process
 is alive and checking that it can receive traffic. Readiness checks what is particular to the instance;
 in a rolling deployment, pointing it at a shared resource is what stalls the wave and removes the old
 replicas along with it.
@@ -98,7 +98,7 @@ the contract       with no incompatible change
 
 See [schema evolution](/08-integration-architecture/schema-evolution.md).
 
-That is no different from the other gradual strategies, and here the coexistence lasts longer — the
+That is no different from the other gradual strategies, and here the coexistence lasts longer: the
 deployment's total time, which can be tens of minutes in large environments.
 
 ### Automatic stopping is what limits the damage
@@ -120,7 +120,7 @@ Even so, that is coarse detection compared to a [canary](/14-devops-and-platform
 
 ### The rollback is another rolling deployment
 
-Unlike [blue-green](/14-devops-and-platform/blue-green.md), reverting is not switching a route — it is
+Unlike [blue-green](/14-devops-and-platform/blue-green.md), reverting is not switching a route; it is
 replacing the instances again, at the same pace.
 
 ```text
@@ -129,7 +129,7 @@ a 12-minute deployment → a 12-minute rollback
 
 That matters in the recovery time calculation. See [RTO](/12-reliability/rto.md).
 
-Where the rollback needs to be faster, the strategy is another one — or the rolling deployment is combined
+Where the rollback needs to be faster, the strategy is another one, or the rolling deployment is combined
 with [feature flags](/14-devops-and-platform/feature-flags.md), which revert in seconds.
 
 ### The wave size is a simple trade-off
@@ -146,7 +146,7 @@ That brings the rolling deployment closer to a canary, with no comparison infras
 
 ## Mental Model
 
-**Rolling trades time for preserved capacity.** It does not detect and does not revert quickly — it
+**Rolling trades time for preserved capacity.** It does not detect and does not revert quickly; it
 protects against unavailability during the switch.
 
 ## When to Use
@@ -172,11 +172,11 @@ protects against unavailability during the switch.
 
 ## Alternatives
 
-- **[Blue-green](/14-devops-and-platform/blue-green.md)** — instant rollback, duplicated capacity.
-- **[Canary](/14-devops-and-platform/canary.md)** — automatic detection.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — rollback in seconds, with no deployment
+- **[Blue-green](/14-devops-and-platform/blue-green.md)**: instant rollback, duplicated capacity.
+- **[Canary](/14-devops-and-platform/canary.md)**: automatic detection.
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: rollback in seconds, with no deployment
   involved.
-- **Rolling with the first instance observed** — the cheap middle ground between rolling and canary.
+- **Rolling with the first instance observed**: the cheap middle ground between rolling and canary.
 
 ## Trade-offs
 
@@ -207,7 +207,7 @@ protects against unavailability during the switch.
 
 **Incompatible state** between the coexisting versions.
 
-**A partial deployment.** It stopped halfway, and half the instances have each version — with no plan to
+**A partial deployment.** It stopped halfway, and half the instances have each version, with no plan to
 resolve it.
 
 ## Common Mistakes
@@ -230,7 +230,7 @@ A messaging platform deployed in waves of 25% of the instances, with max unavail
 
 The system operated at 70% utilization at normal times.
 
-During the deployments — which happened twice a day — the capacity fell to 75%, and the remaining instances
+During the deployments, which happened twice a day, the capacity fell to 75%, and the remaining instances
 went to 93%. The latency rose visibly for around eight minutes, twice a day.
 
 That was known and treated as unavoidable: "it is the cost of deploying".
@@ -238,7 +238,7 @@ That was known and treated as unavoidable: "it is the cost of deploying".
 Three changes resolved it:
 
 **Max surge of 25%, zero unavailable.** The new instances come up before the old ones leave. The total
-capacity never falls below 100%. The cost is temporary capacity during the deployment — a few minutes of
+capacity never falls below 100%. The cost is temporary capacity during the deployment: a few minutes of
 extra instances.
 
 The latency spike disappeared.
@@ -249,7 +249,7 @@ cache. They came to wait for the cache's initial fill before declaring themselve
 **A stopping criterion.** Before, the deployment continued to the end regardless. It came to stop if the
 service's error rate rose 50% relative to the baseline, or if three consecutive instances failed the check.
 
-In the first month, the automatic stop fired twice — both times for versions with a configuration defect
+In the first month, the automatic stop fired twice: both times for versions with a configuration defect
 that would have gone to every instance.
 
 And a fourth discovery during the work:
@@ -265,7 +265,7 @@ frequently. It was a two-parameter configuration nobody had reviewed since the s
 
 - [Deployment Strategies](/14-devops-and-platform/deployment-strategies.md).
 - [Blue-Green](/14-devops-and-platform/blue-green.md) and [Canary](/14-devops-and-platform/canary.md).
-- [Kubernetes](/09-cloud-architecture/kubernetes.md) — health checks.
+- [Kubernetes](/09-cloud-architecture/kubernetes.md): health checks.
 - [Capacity Planning](/11-scalability/scaling-capacity-planning.md).
 
 ## Practical Exercise

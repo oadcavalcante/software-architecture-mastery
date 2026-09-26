@@ -2,7 +2,7 @@
 id: replacing
 title: Substituição
 sidebar_position: 8
-description: Trocar por um produto de mercado — e a fronteira do fornecedor que vem junto.
+description: Trocar por um produto de mercado, e a fronteira do fornecedor que vem junto.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: [substituição por produto, lacuna funcional, customização excessiva]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -27,13 +27,13 @@ O critério que decide é o mesmo de construir ou comprar: **isto nos diferencia
 [SaaS](/09-cloud-architecture/saas.md) e
 [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
-E o risco característico não é a decisão — é a execução: a customização que se acumula
+E o risco característico está na execução, não na decisão: a customização que se acumula
 até o produto custar mais que o sistema que ele substituiu.
 
 ## Problema
 
 Um produto feito para muitas organizações não reproduz exatamente um sistema construído
-sob medida para uma só — e, depois de anos de ajuste, o sistema atual é sob medida.
+sob medida para uma só. E, depois de anos de ajuste, o sistema atual é sob medida.
 
 ```text
 faz mais    funcionalidades que a organização já tem em outro lugar
@@ -45,7 +45,7 @@ Cada diferença gera uma decisão: adaptar o processo ao produto, ou adaptar o p
 processo.
 
 A segunda parece razoável caso a caso, e acumulada produz um produto customizado que não
-pode ser atualizado, com custo de manutenção equivalente ao de um sistema próprio — sem
+pode ser atualizado, com custo de manutenção equivalente ao de um sistema próprio, sem
 o controle.
 
 ## Conceitos Centrais
@@ -59,13 +59,13 @@ o processo se adapta ao produto, salvo quando o processo é o diferencial
 ```
 
 Um produto maduro incorpora práticas de muitas organizações. Frequentemente o processo
-atual não é melhor — é apenas o que existe, resultado de limitações do sistema antigo.
+atual não é melhor: é apenas o que existe, resultado de limitações do sistema antigo.
 
 E o custo de customizar é permanente: cada customização precisa ser mantida em cada
 atualização, e o fornecedor não a considera nas mudanças dele.
 
 A exceção legítima: onde o processo é fonte de vantagem. Aí a customização é
-investimento, não dívida — e vale considerar se aquela parte deveria ser substituída.
+investimento, não dívida, e vale considerar se aquela parte deveria ser substituída.
 
 ### A avaliação da lacuna precede a decisão
 
@@ -83,7 +83,7 @@ O item de regras específicas é o que mais frequentemente inviabiliza: sistemas
 acumulam exceções que nenhum produto genérico prevê. Ver
 [sistemas legados](/16-legacy-modernization/legacy-systems.md).
 
-E a avaliação precisa acontecer com dados reais, não com demonstração — que é conduzida
+E a avaliação precisa acontecer com dados reais, não com demonstração, que é conduzida
 sobre o roteiro e o conjunto de dados que o fornecedor escolheu.
 
 ### A fronteira do fornecedor entra na organização
@@ -138,7 +138,7 @@ Como em qualquer migração, a coexistência tende a permanecer. Ver
 [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 O caso específico da substituição: o sistema antigo frequentemente permanece "para
-consulta do histórico", indefinidamente — com custo de licença, infraestrutura e
+consulta do histórico", indefinidamente, com custo de licença, infraestrutura e
 segurança.
 
 A decisão sobre histórico precisa ser explícita: migrar, arquivar em formato acessível,
@@ -172,16 +172,16 @@ no mesmo horizonte, e com a manutenção da customização a cada versão, se o 
 perto do que custa manter o sistema atual, comprar troca controle por nada.
 
 **Quando os dados não saem.** Se o fornecedor não garante exportação completa em formato
-utilizável antes da assinatura, a saída deixa de ser opção — e a negociação seguinte
+utilizável antes da assinatura, a saída deixa de ser opção, e a negociação seguinte
 também.
 
 ## Alternativas
 
-- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando a capacidade diferencia.
-- **Produto com extensão** — um produto que oferece pontos de extensão suportados, em vez
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)**: quando a capacidade diferencia.
+- **Produto com extensão**: um produto que oferece pontos de extensão suportados, em vez
   de customização.
-- **Substituição parcial** — comprar a parte comum, manter o diferencial.
-- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o sistema atende e o problema é
+- **Substituição parcial**: comprar a parte comum, manter o diferencial.
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)**: quando o sistema atende e o problema é
   interno.
 
 A terceira é frequentemente a melhor: comprar o que é comum e construir o que distingue,
@@ -232,11 +232,11 @@ com fronteira clara entre os dois.
 
 **Não isolar com camada de tradução.** Sem ela, o modelo do fornecedor se espalha pelo domínio, e trocá-lo depois deixa de ser decisão comercial.
 
-**Não decidir sobre o histórico.** Migrar o passado para o produto novo pode ser a maior parte do esforço quando o volume é grande, os dados são sujos ou o modelo antigo difere muito do produto — e decidir o que migrar, arquivar ou descartar é decisão de negócio.
+**Não decidir sobre o histórico.** Migrar o passado para o produto novo pode ser a maior parte do esforço quando o volume é grande, os dados são sujos ou o modelo antigo difere muito do produto. E decidir o que migrar, arquivar ou descartar é decisão de negócio.
 
 ## Exemplo Real
 
-Uma empresa de serviços substituiu o sistema próprio de gestão de chamados — 9 anos —
+Uma empresa de serviços substituiu o sistema próprio de gestão de chamados (9 anos)
 por um produto de mercado.
 
 A capacidade não diferenciava: os clientes escolhiam a empresa pelo serviço prestado, não
@@ -247,14 +247,14 @@ carregados no ambiente de teste do produto, com os fluxos reais exercitados.
 
 Isso revelou três lacunas antes da decisão:
 
-**Aprovação em duas etapas** para chamados acima de um valor — o produto suportava uma
+**Aprovação em duas etapas** para chamados acima de um valor: o produto suportava uma
 etapa. Adaptado: o processo passou a usar uma etapa com regra de escalonamento
 automático, que o produto oferecia.
 
-**Integração com o sistema de faturamento** — não existia conector. Construída, com 3
+**Integração com o sistema de faturamento**: não existia conector. Construída, com 3
 semanas de trabalho.
 
-**Relatório regulatório** com formato específico — o produto não gerava. Resolvido por
+**Relatório regulatório** com formato específico: o produto não gerava. Resolvido por
 exportação e transformação externa, sem customizar o produto.
 
 E uma decisão importante: uma proposta de customizar o produto para reproduzir o fluxo de
@@ -269,7 +269,7 @@ adaptação.
 **Custo total** cerca de 45% do que a manutenção do sistema próprio consumia.
 
 **Uma frustração recorrente.** O produto não permite um tipo de relatório que a operação
-gostaria de ter. A decisão registrada foi conviver — o custo de customizar não se
+gostaria de ter. A decisão registrada foi conviver: o custo de customizar não se
 justificava.
 
 **Sistema antigo desligado** no mês 14, com o histórico migrado para o produto e os dados
@@ -277,13 +277,13 @@ anteriores a 2019 arquivados em formato aberto.
 
 O ponto que a equipe sublinha: a decisão de não customizar foi contestada três vezes no primeiro
 ano, sempre com um caso razoável. Manter a disciplina é o que preservou a capacidade de
-atualizar — e, na terceira contestação, a funcionalidade pedida chegou numa versão nova
+atualizar. E, na terceira contestação, a funcionalidade pedida chegou numa versão nova
 do produto.
 
 ## Conceitos Relacionados
 
 - [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
-- [SaaS](/09-cloud-architecture/saas.md) — construir ou comprar.
+- [SaaS](/09-cloud-architecture/saas.md): construir ou comprar.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 - [Migração de Dados](/16-legacy-modernization/data-migration.md).
 
@@ -292,7 +292,7 @@ do produto.
 Para um sistema candidato a substituição, liste as funcionalidades que ele tem e que
 existem por limitação do sistema, não por necessidade de negócio.
 
-Elas são as que não precisam ser reproduzidas — e costumam ser mais do que se espera.
+Elas são as que não precisam ser reproduzidas, e costumam ser mais do que se espera.
 
 ## Perguntas de Entrevista
 

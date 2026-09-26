@@ -2,7 +2,7 @@
 id: 06-partial-failure
 title: "Exercise 06 — Handling Partial Failures"
 sidebar_position: 3
-description: Ninety-six times a day the system doesn't know whether it charged — and assuming an answer is how duplicate charges get created.
+description: Ninety-six times a day the system doesn't know whether it charged, and assuming an answer is how duplicate charges get created.
 doc_type: exercise
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [05-async-processing]
 related: [partial-failure, idempotency, retries, duplicate-messages]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -43,8 +43,8 @@ average finance time per case                  22 minutes
 ```
 
 The cause is known internally: when the timeout expires with no response, the system marks the order
-as declined and releases the reservation. If the acquirer has processed the charge — and there is no
-way to know — the customer was charged for an order that doesn't exist. And if they repeat the
+as declined and releases the reservation. If the acquirer has processed the charge (and there is no
+way to know), the customer was charged for an order that doesn't exist. And if they repeat the
 purchase, they are charged again.
 
 ## Requirements
@@ -116,18 +116,18 @@ Your answer is good if:
   arrives the next day do not add up.
 - **You measured.** Open ambiguous cases, age of the oldest, automatic resolution rate.
 
-Your answer is weak if it resolves by retrying with no idempotency guarantee on the other side — that
+Your answer is weak if it resolves by retrying with no idempotency guarantee on the other side: that
 trades one duplicate for another.
 
 ## Discussion
 
 :::details Open after trying
 
-**The state is called ambiguous** in the model — the `under verification` of exercise 05 is the name it
-gets on the customer's screen —, and it is the whole answer to the exercise.
+**The state is called ambiguous** in the model (the `under verification` of exercise 05 is the name it
+gets on the customer's screen), and it is the whole answer to the exercise.
 
 Marking it as declined is a claim the system has no basis to make. Marking it as confirmed is worse.
-The only true statement is "we sent it and we don't know", and it has to exist in the model — because
+The only true statement is "we sent it and we don't know", and it has to exist in the model, because
 everything that comes afterwards depends on the platform admitting that it doesn't know.
 
 **The mechanism:**
@@ -146,7 +146,7 @@ everything that comes afterwards depends on the platform admitting that it doesn
    recorded
 ```
 
-The limit of 20 queries per second is comfortable for 96 daily cases — but not for an episode of
+The limit of 20 queries per second is comfortable for 96 daily cases, but not for an episode of
 acquirer degradation, in which the ambiguous cases can pass a thousand in one hour. The reconciler
 needs a queue with a rate limit, or it worsens the degradation that produced it.
 
@@ -167,7 +167,7 @@ resolve. In this domain, charging improperly is worse than declining: the declin
 charge costs a regulatory complaint and the trust. So the human escalation fails toward cancelling and
 refunding.
 
-In a different domain — a flight seat reservation with departure in two hours — the answer may be the
+In a different domain (a flight seat reservation with departure in two hours), the answer may be the
 opposite.
 
 **The measurement that matters:**
@@ -184,7 +184,7 @@ an incident, not a metric.
 
 **The unforeseen effect**, which shows up in real systems: introducing the ambiguous state makes the
 problem **measurable** for the first time. Before, the 96 daily cases became declines and blended in
-with the legitimate ones. Afterwards, they are a category with a number — and that number becomes the
+with the legitimate ones. Afterwards, they are a category with a number, and that number becomes the
 argument for renegotiating the contract with the acquirer.
 
 :::

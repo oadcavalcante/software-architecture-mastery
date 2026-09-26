@@ -2,7 +2,7 @@
 id: horizontal-scaling
 title: Escala Horizontal
 sidebar_position: 2
-description: Mais máquinas — o que ela exige do sistema e por que o ganho deixa de ser linear.
+description: "Mais máquinas: o que ela exige do sistema e por que o ganho deixa de ser linear."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vertical-scaling]
 related: [vertical-scaling, statelessness, hotspots]
 canonical_for: [escala horizontal, escala linear, coeficiente de contenção, ponto de saturação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -27,14 +27,14 @@ A promessa é atraente: sem teto físico, tolerância a falha embutida, capacida
 proporcional ao investimento.
 
 A realidade tem duas ressalvas que decidem o projeto. Primeira: ela exige que o sistema
-seja **capaz** de rodar em várias máquinas — o que é uma propriedade do desenho, não
+seja **capaz** de rodar em várias máquinas. Isso é uma propriedade do desenho, não
 uma configuração. Segunda: o ganho **deixa de ser linear** assim que os nós
 disputam algum recurso, e quando mantê-los de acordo custa comunicação existe um ponto
 além do qual adicionar nós piora o resultado.
 
 ## Problema
 
-Escala vertical tem teto — de tamanho, de custo, de disponibilidade. Ver
+Escala vertical tem teto: de tamanho, de custo, de disponibilidade. Ver
 [escala vertical](/11-scalability/vertical-scaling.md).
 
 Quando ele é atingido, distribuir é a saída. E distribuir muda a natureza do sistema:
@@ -51,7 +51,7 @@ complexidade da distribuição sem o ganho de capacidade.
 Antes de adicionar a segunda máquina, três propriedades precisam existir:
 
 **Ausência de estado no processo.** Sessão em memória, cache local considerado
-autoritativo, arquivo em disco — qualquer um impede que a requisição vá para qualquer
+autoritativo, arquivo em disco: qualquer um impede que a requisição vá para qualquer
 nó. Ver [ausência de estado](/11-scalability/statelessness.md).
 
 **Idempotência onde há repetição.** Balanceadores e clientes repetem. Ver
@@ -64,7 +64,7 @@ Sem os três, adicionar máquinas cria comportamento inconsistente em vez de cap
 
 ### O ganho não é linear
 
-**Escala linear** é o caso ideal em que N nós entregam N vezes a capacidade de um —
+**Escala linear** é o caso ideal em que N nós entregam N vezes a capacidade de um:
 eficiência de 100% em qualquer tamanho. A curva abaixo é ilustrativa, com a forma que a
 lei da escalabilidade universal (Gunther, 2007) prevê para um sistema com contenção e
 custo de coerência:
@@ -81,7 +81,7 @@ nós    capacidade    eficiência
 
 Duas forças causam a degradação:
 
-**Contenção.** Recursos compartilhados — banco, cache, fila — são disputados por mais
+**Contenção.** Recursos compartilhados (banco, cache, fila) são disputados por mais
 clientes. Gunther chama a intensidade dessa força de **coeficiente de contenção** (σ): a
 fração do trabalho que espera em fila por um recurso compartilhado. Sozinha, ela faz a
 curva achatar até um teto, sem cair.
@@ -90,8 +90,8 @@ curva achatar até um teto, sem cair.
 rápido que o número de nós.
 
 A segunda é a que produz o ponto em que **mais nós entregam menos**. Ele existe em
-todo sistema cujos nós precisam se coordenar — estado compartilhado, bloqueio, cache
-mantido coerente —, e conhecê-lo — medindo — evita gastar com capacidade que não entrega.
+todo sistema cujos nós precisam se coordenar (estado compartilhado, bloqueio, cache
+mantido coerente), e conhecê-lo, medindo, evita gastar com capacidade que não entrega.
 
 ### A fração serial é o teto real
 
@@ -103,7 +103,7 @@ A tabela acima é compatível com uma fração serial de cerca de 4%: pela lei d
 14×; a distância até os 11× da tabela é o custo de coerência, que Amdahl não modela.
 
 A mesma conta mostra onde a inversão acontece. Em 16 nós, levar a fração serial de 4%
-para 2% daria cerca de 12× — mais que os 11× obtidos dobrando para 32 nós, e sem pagar
+para 2% daria cerca de 12×, mais que os 11× obtidos dobrando para 32 nós, e sem pagar
 16 máquinas a mais. Nessa curva, a partir de algo entre 8 e 16 nós, reduzir a fração
 serial rende mais que adicionar nós. Uma
 [partição quente](/11-scalability/hotspots.md) é a forma dessa fração que menos
@@ -127,7 +127,7 @@ externos, limites de terceiros. Cada um tem seu próprio limite, e o primeiro a 
 atingido define o teto do conjunto.
 
 O [intermediário de conexões](/11-scalability/database-scaling.md) desfaz a
-proporcionalidade entre nós e conexões ao banco — é o controle que resolve o caso mais
+proporcionalidade entre nós e conexões ao banco: é o controle que resolve o caso mais
 comum.
 
 ### Elasticidade tem custo de inicialização
@@ -139,7 +139,7 @@ Ver [computação em nuvem](/09-cloud-architecture/cloud-compute.md). Muitos pic
 duram menos que isso.
 
 E há um efeito de segunda ordem: nós novos chegam com cache frio, o que aumenta
-temporariamente a carga sobre as camadas de trás — exatamente quando elas já estão
+temporariamente a carga sobre as camadas de trás, exatamente quando elas já estão
 pressionadas.
 
 ### Nós não são idênticos na prática
@@ -187,11 +187,11 @@ mais baixo do que se espera, e precisa ser medido.
 
 ## Alternativas
 
-- **[Escala vertical](/11-scalability/vertical-scaling.md)** — sem coordenação.
-- **[Cache](/11-scalability/scaling-cache.md)** — reduz a carga em vez de aumentar a capacidade.
-- **[Fila](/11-scalability/queue-based-scaling.md)** — absorve pico sem capacidade proporcional.
-- **Remover a fração serial** — quando o teto de coordenação foi atingido.
-- **Particionamento** — em vez de replicar tudo, dividir o trabalho. Ver
+- **[Escala vertical](/11-scalability/vertical-scaling.md)**: sem coordenação.
+- **[Cache](/11-scalability/scaling-cache.md)**: reduz a carga em vez de aumentar a capacidade.
+- **[Fila](/11-scalability/queue-based-scaling.md)**: absorve pico sem capacidade proporcional.
+- **Remover a fração serial**: quando o teto de coordenação foi atingido.
+- **Particionamento**: em vez de replicar tudo, dividir o trabalho. Ver
   [particionamento para escala](/11-scalability/scaling-partitioning.md).
 
 ## Trade-offs
@@ -219,14 +219,14 @@ mais baixo do que se espera, e precisa ser medido.
 
 **Fração serial dominando.** Capacidade adicionada sem efeito.
 
-**Efeito manada.** Todos os nós fazem a mesma coisa ao mesmo tempo — expiração de
+**Efeito manada.** Todos os nós fazem a mesma coisa ao mesmo tempo: expiração de
 cache sincronizada, reconexão simultânea.
 
 ## Erros Comuns
 
 **Escalar sem remover estado.** Sessão ou arquivo na instância faz cada nova réplica atender só quem cair nela, e a perda de uma instância derruba os usuários presos a ela.
 
-**Não dimensionar a cadeia inteira.** Multiplicar a camada de aplicação sem olhar o banco apenas move o gargalo — e concentra mais pressão sobre o componente que já era o limite.
+**Não dimensionar a cadeia inteira.** Multiplicar a camada de aplicação sem olhar o banco apenas move o gargalo e concentra mais pressão sobre o componente que já era o limite.
 
 **Não medir o ponto de saturação.** Sem saber a que carga uma instância satura, não há como calcular quantas são necessárias, e a escala vira tentativa e erro em produção.
 
@@ -242,7 +242,7 @@ Uma plataforma de conteúdo escalou a camada de aplicação de 6 para 60 instân
 suportar um lançamento.
 
 A capacidade não aumentou proporcionalmente. Com 60 instâncias, a vazão era cerca de
-2,3 vezes a de 6 — e a latência estava pior que com 20.
+2,3 vezes a de 6, e a latência estava pior que com 20.
 
 A investigação encontrou quatro limites, cada um atingido em um ponto diferente da
 expansão:
@@ -254,7 +254,7 @@ conexões reais.
 
 **Sessão em memória.** Descoberto durante o incidente: o balanceador usava afinidade de
 sessão porque a aplicação guardava carrinho em memória. Isso fazia a distribuição
-seguir o padrão de sessões, não a carga — e as instâncias novas recebiam pouco tráfego
+seguir o padrão de sessões, não a carga, e as instâncias novas recebiam pouco tráfego
 porque não tinham sessões estabelecidas.
 
 **Cache frio.** As instâncias novas subiam sem cache local e faziam consultas que as
@@ -262,11 +262,11 @@ antigas não faziam, aumentando a carga sobre o banco no momento de maior press�
 
 **Limite de terceiro.** O serviço de recomendação, externo, tinha limite de 300
 requisições por segundo por cliente. Com 60 instâncias, o limite era atingido e as
-requisições passavam a falhar — o que gerava retentativas, que consumiam mais do limite.
+requisições passavam a falhar. Isso gerava retentativas, que consumiam mais do limite.
 
 As correções, e o efeito de cada uma:
 
-**Intermediário de conexões** — a mais impactante isoladamente.
+**Intermediário de conexões**: a mais impactante isoladamente.
 
 **Sessão externalizada** para armazenamento compartilhado, removendo a afinidade. A
 distribuição passou a seguir a carga.
@@ -276,8 +276,8 @@ distribuição passou a seguir a carga.
 **Cache compartilhado** para as respostas do serviço de recomendação, reduzindo as
 chamadas externas em 85%.
 
-Após as correções, 40 instâncias entregavam 4,1 vezes a capacidade de 6 — eficiência
-perto de 60%, na faixa da curva acima — e a medição mostrou que acima de 45 cada
+Após as correções, 40 instâncias entregavam 4,1 vezes a capacidade de 6 (eficiência
+perto de 60%, na faixa da curva acima), e a medição mostrou que acima de 45 cada
 instância adicional rendia menos de 1% de vazão.
 
 Esse número virou o teto configurado do escalonamento automático, com alerta quando
@@ -289,17 +289,17 @@ diagnóstico só começou depois que alguém perguntou por que não estava funci
 
 ## Conceitos Relacionados
 
-- [Escala Vertical](/11-scalability/vertical-scaling.md) — a alternativa.
-- [Ausência de Estado](/11-scalability/statelessness.md) — o pré-requisito.
-- [Pontos Quentes](/11-scalability/hotspots.md) — por que a distribuição desigual anula o ganho.
-- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — o limite da cadeia.
+- [Escala Vertical](/11-scalability/vertical-scaling.md): a alternativa.
+- [Ausência de Estado](/11-scalability/statelessness.md): o pré-requisito.
+- [Pontos Quentes](/11-scalability/hotspots.md): por que a distribuição desigual anula o ganho.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md): o limite da cadeia.
 
 ## Exercício Prático
 
 Meça a capacidade do seu sistema com N e com 2N instâncias, sob a mesma carga
 sintética.
 
-Se a capacidade não crescer perto de 2×, você encontrou um limite na cadeia — e ele é
+Se a capacidade não crescer perto de 2×, você encontrou um limite na cadeia, e ele é
 mais interessante que o número de instâncias.
 
 ## Perguntas de Entrevista
@@ -310,7 +310,7 @@ mais interessante que o número de instâncias.
 
 ## Para Aprofundar
 
-- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007 — a lei da
+- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007. A lei da
   escalabilidade universal.
 - Amdahl, Gene. *Validity of the Single Processor Approach*, 1967.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

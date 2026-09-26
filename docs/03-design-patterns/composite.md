@@ -2,7 +2,7 @@
 id: composite
 title: Composite
 sidebar_position: 8
-description: Tratar objetos e composições uniformemente — e o custo dessa uniformidade.
+description: Tratar objetos e composições uniformemente, e o custo dessa uniformidade.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, iterator, visitor]
 canonical_for: [composite, hierarquia parte-todo]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -40,7 +40,7 @@ se for arquivo:    somar tamanho
 se for diretório:  para cada filho, repetir
 ```
 
-Esse condicional se replica em cada operação — calcular tamanho, renderizar,
+Esse condicional se replica em cada operação: calcular tamanho, renderizar,
 contar, buscar. Adicionar um tipo de nó exige tocar todos eles.
 
 ## Conceitos Centrais
@@ -65,16 +65,16 @@ recursão fica dentro da estrutura, não no cliente.
 
 O GoF apresenta duas variantes, e a escolha entre elas é o trade-off do padrão.
 
-**Transparente** — a interface `Componente` declara `adicionar` e `remover`.
+**Transparente**: a interface `Componente` declara `adicionar` e `remover`.
 Cliente trata tudo igual; a folha precisa lidar com operações que não fazem
 sentido para ela, tipicamente lançando exceção.
 
-**Segura** — apenas o composto tem `adicionar` e `remover`. Não há operação sem
+**Segura**: apenas o composto tem `adicionar` e `remover`. Não há operação sem
 sentido; o cliente precisa verificar o tipo para compor.
 
 Transparente ganha em uniformidade e perde em segurança de tipo; segura, o inverso. A
 escolha é binária quando a interface precisa ser fechada e a plataforma não oferece consulta
-segura — fora disso existe um meio-termo: um acessor de consulta, `asComposite()`, que
+segura. Fora disso existe um meio-termo: um acessor de consulta, `asComposite()`, que
 devolve vazio na folha. Ele preserva o percurso uniforme e dá a quem compõe uma verificação
 total, sem `instanceof`; em linguagem com tipos selados e casamento de padrão, o custo dessa
 verificação é ainda menor.
@@ -86,7 +86,7 @@ Quando o cliente só percorre, a variante segura não custa nada e é preferíve
 ### Composite e recursão
 
 A estrutura é naturalmente recursiva, e isso traz duas preocupações reais:
-profundidade — pilha em árvores muito fundas — e ciclos, que produzem recursão
+profundidade (pilha em árvores muito fundas) e ciclos, que produzem recursão
 infinita se a estrutura permitir que um nó contenha um ancestral.
 
 ## Quando Usar
@@ -103,7 +103,7 @@ contém outros do mesmo tipo, o padrão não se aplica.
 
 **Quando folha e composto têm comportamento muito diferente.** Forçar uma
 interface comum produz métodos sem sentido de um dos lados, e o cliente acaba
-verificando o tipo mesmo assim — perdendo o benefício e mantendo o custo.
+verificando o tipo mesmo assim, perdendo o benefício e mantendo o custo.
 
 **Quando a estrutura é rasa e fixa.** Dois níveis conhecidos não justificam a
 generalidade.
@@ -117,11 +117,11 @@ atrapalhar.
 
 ## Alternativas
 
-- **Lista simples** — quando a estrutura é rasa.
-- **[Visitor](/03-design-patterns/visitor.md)** — quando as operações variam mais que os tipos de nó;
+- **Lista simples**: quando a estrutura é rasa.
+- **[Visitor](/03-design-patterns/visitor.md)**: quando as operações variam mais que os tipos de nó;
   frequentemente usado junto com Composite.
-- **[Iterator](/03-design-patterns/iterator.md)** — quando o percurso é a única necessidade.
-- **Estrutura de dados sem hierarquia de classes** — uma árvore genérica com
+- **[Iterator](/03-design-patterns/iterator.md)**: quando o percurso é a única necessidade.
+- **Estrutura de dados sem hierarquia de classes**: uma árvore genérica com
   dados nos nós.
 
 ## Trade-offs
@@ -164,7 +164,7 @@ no código sugere isso.
 componentes. Renderizar, medir e propagar eventos são operações uniformes sobre a
 árvore.
 
-**Sistemas de arquivos.** Diretórios e arquivos com operações comuns — tamanho,
+**Sistemas de arquivos.** Diretórios e arquivos com operações comuns: tamanho,
 permissões, caminho.
 
 **Árvores sintáticas.** Uma expressão contém subexpressões; avaliar é recursivo.
@@ -173,7 +173,7 @@ permissões, caminho.
 **Estruturas de documento.** DOM em navegadores: nós que contêm nós, com
 operações uniformes.
 
-Nos quatro, a hierarquia parte-todo é intrínseca ao domínio — ninguém a inventou
+Nos quatro, a hierarquia parte-todo é intrínseca ao domínio: ninguém a inventou
 para aplicar o padrão. É o sinal de que Composite é adequado: a árvore já existe
 no problema.
 
@@ -187,7 +187,7 @@ e `remover`, e `Usuario` lançando exceção nos dois.
 
 O problema apareceu quando a interface administrativa passou a construir a
 estrutura: ela precisava verificar o tipo antes de compor, o que anulava a
-uniformidade — e ainda mantinha as exceções.
+uniformidade e ainda mantinha as exceções.
 
 A mudança para a variante segura removeu `adicionar` e `remover` de `Principal`.
 O código de verificação de permissão, que só percorre, continuou uniforme. O
@@ -202,9 +202,9 @@ ter sido feito desde o início.
 
 ## Conceitos Relacionados
 
-- [Decorator](/03-design-patterns/decorator.md) — estrutura parecida, propósito diferente.
-- [Visitor](/03-design-patterns/visitor.md) — operações sobre a estrutura.
-- [Iterator](/03-design-patterns/iterator.md) — percurso.
+- [Decorator](/03-design-patterns/decorator.md): estrutura parecida, propósito diferente.
+- [Visitor](/03-design-patterns/visitor.md): operações sobre a estrutura.
+- [Iterator](/03-design-patterns/iterator.md): percurso.
 
 ## Exercício Prático
 

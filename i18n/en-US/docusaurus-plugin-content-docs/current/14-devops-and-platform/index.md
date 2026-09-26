@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [reliability, cloud-architecture, security]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,15 +23,15 @@ This section deals with the path between deciding on a change and it being in pr
 
 ## This section's problem
 
-Architecture is usually discussed as the system's structure. But the **path of the change** — how long it
-takes, how many people approve it, what can be reverted — is an architectural property like any other, and
+Architecture is usually discussed as the system's structure. But the **path of the change** (how long it
+takes, how many people approve it, what can be reverted) is an architectural property like any other, and
 frequently the one that limits the most.
 
 A well-structured system with a deployment that takes three weeks delivers less than a mediocre system with
 a fifteen-minute deployment.
 
 And there is a belief the data contradicts: that speed and stability are opposed. The organizations that
-deliver more frequently also fail less and recover faster — because the same practices produce both
+deliver more frequently also fail less and recover faster, because the same practices produce both
 results. Small batches are easier to test, to revert and to diagnose.
 
 The second problem is organizational. A good part of the friction is not technical: it is approvals,
@@ -48,7 +48,7 @@ it is not.
 
 **Containers in delivery.** The immutable artifact promoted between environments.
 
-**Deployment strategies.** Blue-green, canary and rolling deployment — each with what it costs and what it
+**Deployment strategies.** Blue-green, canary and rolling deployment, each with what it costs and what it
 protects.
 
 **Feature flags.** The separation between deploying and releasing, and the debt they accumulate.
@@ -64,14 +64,14 @@ platforms nobody uses.
 
 ## Reading order
 
-Start with **continuous integration and delivery** — it defines the vocabulary the rest uses, and it undoes
+Start with **continuous integration and delivery**: it defines the vocabulary the rest uses, and it undoes
 the area's most common confusion.
 
 Then **deployment strategies**, which organizes blue-green, canary and rolling as choices with criteria,
 not as matters of taste.
 
-**Feature flags** deserves special attention: it is this section's highest-impact technique — for what
-separating deploying from releasing enables — and the one that accumulates the most silent debt.
+**Feature flags** deserves special attention: it is this section's highest-impact technique (for what
+separating deploying from releasing enables) and the one that accumulates the most silent debt.
 
 Leave **platform engineering** for the end. It reorganizes everything that came before into an
 organizational decision.
@@ -86,7 +86,7 @@ You can choose the deployment strategy from the change's risk, and not out of ha
 You recognize that reverting fast is worth more than getting it right on the first attempt, and you design
 for that.
 
-And you understand that an internal platform nobody wants to use is not a platform — it is one more
+And you understand that an internal platform nobody wants to use is not a platform but one more
 obstacle with good intentions.
 
 ## Continues in

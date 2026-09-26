@@ -2,7 +2,7 @@
 id: partitioning
 title: Partitioning
 sidebar_position: 14
-description: Dividing the data across nodes — the only way to scale writes past one node's limit, and the hardest to reverse.
+description: "Dividing the data across nodes: the only way to scale writes past one node's limit, and the hardest to reverse."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [sharding, hotspots, replication]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,12 +27,12 @@ It exists for a reason [replication](/06-distributed-systems/replication.md) doe
 **scaling writes**. Replicas multiply read capacity; for writes, every replica receives everything.
 
 And it is the data decision hardest to reverse, because the choice of key determines what stays
-cheap and what becomes expensive — at a cost only a months-long migration reverses.
+cheap and what becomes expensive, at a cost only a months-long migration reverses.
 
 ## Problem
 
 An instance has a limit: of storage, of memory, of write rate. When it is reached, adding replicas
-does not help — they all receive the same writes.
+does not help: they all receive the same writes.
 
 Partitioning solves that: each node receives a fraction of the writes and holds a fraction of the
 data.
@@ -41,7 +41,7 @@ The cost appears immediately: **operations that cross partitions become expensiv
 needs data from several partitions becomes one query per partition plus an aggregation. A
 transaction that touches two partitions becomes a distributed transaction.
 
-The choice of key decides which operations cross — and that is why it is the decision, not the
+The choice of key decides which operations cross, and that is why it is the decision, not the
 mechanism.
 
 ## Core Concepts
@@ -50,7 +50,7 @@ mechanism.
 
 **By range.** Ordered keys divided into intervals: A–F on one partition, G–M on another.
 
-Range queries are efficient — neighboring data is together. And the distribution becomes uneven if
+Range queries are efficient: neighboring data is together. And the distribution becomes uneven if
 the data is not uniform: partitioning by date concentrates all writes on the current period's
 partition.
 
@@ -59,12 +59,12 @@ partition.
 Uniform distribution, and range queries lose out: neighboring keys land on different partitions, and
 the query has to scan them all.
 
-**Hybrid.** Hash on one component and range on another — for example, a hash of the customer
+**Hybrid.** Hash on one component and range on another: for example, a hash of the customer
 identifier and a range by date within it. It preserves range queries **within** a customer and
 distributes across customers.
 
 The hybrid is frequently the right answer in business systems, and it requires knowing the query
-pattern before choosing — which is why it falls outside the first decision.
+pattern before choosing, which is why it falls outside the first decision.
 
 ### The key decides everything
 
@@ -74,7 +74,7 @@ The choice of partition key determines three things at once:
 
 **What becomes expensive.** Operations that cross keys require coordination.
 
-**How the load distributes.** A key with far more activity concentrates load — the
+**How the load distributes.** A key with far more activity concentrates load: the
 [hotspot](/11-scalability/index.md).
 
 The criterion: **partition by the dimension most operations use to filter**. In a multi-tenant
@@ -85,19 +85,19 @@ system, typically the tenant; in a user-facing system, the user.
 Changing the partition key requires moving practically all the data. In a production system with
 volume, that is a months-long project with a coexistence period.
 
-That asymmetry — cheap to decide, expensive to change — recommends two things: deferring the
+That asymmetry (cheap to decide, expensive to change) recommends two things: deferring the
 partitioning until it is necessary, and when it is, spending time on choosing the key.
 
 ### Consistent hashing reduces the cost of growing
 
-With a simple hash — `hash(key) mod N` — adding a node changes the destination of nearly every key.
+With a simple hash (`hash(key) mod N`), adding a node changes the destination of nearly every key.
 
 Consistent hashing arranges the keys and the nodes on a ring: adding a node moves only the keys
-between it and its neighbor — about `1/N` of the total.
+between it and its neighbor, about `1/N` of the total.
 
 It is what makes growth operationally viable. The other way out of the same problem is to fix far more
-logical partitions than physical instances and move whole partitions — see
-[sharding](/06-distributed-systems/sharding.md). Current systems split between the two.
+logical partitions than physical instances and move whole partitions (see
+[sharding](/06-distributed-systems/sharding.md)). Current systems split between the two.
 
 ### Partitioning and replication are orthogonal
 
@@ -138,10 +138,10 @@ corresponding cost.
 
 ## Alternatives
 
-- **Vertical scaling** — higher than assumed, and with no structural cost.
-- **[Replication](/06-distributed-systems/replication.md)** — if the bottleneck is reads.
-- **Archiving** — moving old data to cheaper storage reduces the active volume, frequently enough.
-- **Logical partitioning on the same node** — tables partitioned by range within one instance, which
+- **Vertical scaling**: higher than assumed, and with no structural cost.
+- **[Replication](/06-distributed-systems/replication.md)**: if the bottleneck is reads.
+- **Archiving**: moving old data to cheaper storage reduces the active volume, frequently enough.
+- **Logical partitioning on the same node**: tables partitioned by range within one instance, which
   improves maintenance without distributing.
 
 ## Trade-offs
@@ -191,32 +191,32 @@ students were the most numerous entity.
 
 It worked for student queries. It broke for everything else.
 
-The system's most frequent operation was "list a class's students" — and students in the same class
+The system's most frequent operation was "list a class's students", and students in the same class
 were spread across every partition. Each listing queried the 16 partitions and aggregated.
 
 Reports by school crossed everything. Bulk enrollment became a distributed transaction.
 
 And there was an imbalance nobody anticipated: three large schools accounted for 40% of the
-students, but since the key was the student, that did not concentrate — which masked the real
+students, but since the key was the student, that did not concentrate. That masked the real
 problem, which was the number of operations crossing partitions, not the distribution.
 
 Repartitioning to `school_id` took five months, with a dual-write period and incremental migration.
 
 Afterwards: class listings, reports and bulk enrollment became local to one partition. The
-operations that cross partitions became rare — only administrative consolidations, executed off
+operations that cross partitions became rare: only administrative consolidations, executed off
 hours.
 
 The imbalance of the three large schools came into existence and was handled with dedicated
 partitions for them.
 
 The later assessment points out: the right key was not the most numerous entity. It was the dimension
-by which the operations filtered — and that information had been in the query log since day one.
+by which the operations filtered, and that information had been in the query log since day one.
 
 ## Related Concepts
 
-- [Sharding](/06-distributed-systems/sharding.md) — the case of partitions on separate instances.
-- [Hotspots](/11-scalability/index.md) — the load imbalance.
-- [Replication](/06-distributed-systems/replication.md) — orthogonal and complementary.
+- [Sharding](/06-distributed-systems/sharding.md): the case of partitions on separate instances.
+- [Hotspots](/11-scalability/index.md): the load imbalance.
+- [Replication](/06-distributed-systems/replication.md): orthogonal and complementary.
 - [Scalability](/11-scalability/index.md).
 
 ## Practical Exercise
@@ -224,7 +224,7 @@ by which the operations filtered — and that information had been in the query 
 If your system is partitioned, measure the load distribution across partitions. If it is not,
 analyze the query log: by which dimension does the majority filter?
 
-That dimension is the candidate key — and discovering it before you need it is what makes the
+That dimension is the candidate key, and discovering it before you need it is what makes the
 decision cheap.
 
 ## Interview Questions
@@ -235,5 +235,5 @@ decision cheap.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 6.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 6.
 - Karger, David et al. *Consistent Hashing and Random Trees*. STOC, 1997.

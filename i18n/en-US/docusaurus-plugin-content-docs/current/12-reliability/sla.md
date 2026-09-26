@@ -2,7 +2,7 @@
 id: sla
 title: SLA
 sidebar_position: 12
-description: The commitment with a penalty — and why it should be looser than the internal target.
+description: The commitment with a penalty, and why it should be looser than the internal target.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [slo]
 related: [slo, sli, availability-metrics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-An SLA — service level agreement — is a **contractual** commitment about the level of service, with a
+An SLA (service level agreement) is a **contractual** commitment about the level of service, with a
 defined consequence if it is not met.
 
 It is frequently confused with an [SLO](/12-reliability/slo.md), and the difference has a practical
@@ -33,7 +33,7 @@ SLA  an external commitment, conservative, with a penalty, guides negotiation
 ```
 
 The SLA should be **looser** than the SLO. If they are equal, every miss of the internal target is already
-a breach of contract — and the team loses the margin the error budget was supposed to give.
+a breach of contract, and the team loses the margin the error budget was supposed to give.
 
 ## Problem
 
@@ -42,7 +42,7 @@ pressure from the customer, with nobody checking whether the system sustains it.
 
 And the inverse also happens: an overly conservative SLA loses business.
 
-Both mistakes come from the same absence — there is no historical measurement informing what the system
+Both mistakes come from the same absence: there is no historical measurement informing what the system
 actually delivers, nor a calculation of what the dependencies allow promising.
 
 ## Core Concepts
@@ -76,7 +76,7 @@ same percentage, very different commitments.
 **The exclusions.** Scheduled maintenance, cloud provider failure, an attack, force majeure, the customer's
 network problems. Broad exclusions empty the commitment.
 
-The sum of those four defines what the SLA is worth — and an SLA of 99.99% with broad exclusions promises
+The sum of those four defines what the SLA is worth, and an SLA of 99.99% with broad exclusions promises
 less than one of 99.5% without them.
 
 ### The typical penalty does not compensate the damage
@@ -96,7 +96,7 @@ That is disproportionate to the customer's loss: a 4-hour outage in a month (99.
 Two consequences, one for each side:
 
 **For whoever buys:** the SLA is not insurance. It signals commitment and it does not cover loss. The real
-protection is architectural — redundancy, degradation, an alternative.
+protection is architectural: redundancy, degradation, an alternative.
 
 **For whoever offers:** the credit is not the main cost of missing. The cost is the loss of trust and the
 renewal that does not happen.
@@ -116,7 +116,7 @@ composite          ~99.79%
 Promising 99.9% with that composition is promising what you do not control. See
 [availability](/06-distributed-systems/availability.md).
 
-That does not prevent promising more — it prevents promising more **without reducing the synchronous
+That does not prevent promising more. It prevents promising more **without reducing the synchronous
 dependency**: caching, degradation, an alternative, or making the call asynchronous.
 
 Calculating the composition before signing is the step that avoids the liability.
@@ -136,7 +136,7 @@ See [SaaS](/09-cloud-architecture/saas.md) and [vendor lock-in](/09-cloud-archit
 
 ### Internal agreements exist too
 
-Between teams, an explicit agreement — with no contractual penalty — serves a similar function: the
+Between teams, an explicit agreement, with no contractual penalty, serves a similar function: the
 consuming team knows what to expect, and the providing team knows what to sustain.
 
 Calling that an SLA creates confusion. It is an SLO with a declared consumer, and it works better when
@@ -164,18 +164,18 @@ for error.
 
 **As a substitute for architectural protection.** The credit does not cover the loss.
 
-**With exclusions so broad** that the commitment is empty — from the buyer's side, that is the sign that
+**With exclusions so broad** that the commitment is empty. From the buyer's side, that is the sign that
 there is no commitment.
 
 **Between internal teams**, with a penalty. It becomes bureaucracy with no value.
 
 ## Alternatives
 
-- **A published [SLO](/12-reliability/slo.md)** — transparency with no contractual commitment. Sufficient
+- **A published [SLO](/12-reliability/slo.md)**: transparency with no contractual commitment. Sufficient
   for many products.
-- **A public availability dashboard** — a visible history, which builds trust better than a promise.
-- **A commitment per plan** — different levels at different prices.
-- **Architectural protection** — for the buyer, it is worth more than any clause.
+- **A public availability dashboard**: a visible history, which builds trust better than a promise.
+- **A commitment per plan**: different levels at different prices.
+- **Architectural protection**: for the buyer, it is worth more than any clause.
 
 ## Trade-offs
 
@@ -231,14 +231,14 @@ The number was defined in the commercial negotiation, because the competitor off
 Nobody checked three things:
 
 **The composition.** The system depended on a payment gateway with a 99.9% SLA and an identity provider
-with 99.95%, both synchronous in the main flow. The theoretical maximum availability was around 99.85% —
+with 99.95%, both synchronous in the main flow. The theoretical maximum availability was around 99.85%,
 below the promise, even with their own system perfect.
 
 **The history.** The previous twelve months averaged 99.7%, with two months below 99%.
 
 **The definition.** The contract counted as unavailability "any period in which the service does not
-respond or responds with an error". Slowness was not explicitly excluded, which the customer interpreted —
-correctly — as included.
+respond or responds with an error". Slowness was not explicitly excluded, which the customer interpreted,
+correctly, as included.
 
 In the first six months, the SLA was missed in four. The accumulated credit was significant, and the
 relationship with the customer got tense.
@@ -263,7 +263,7 @@ And, in engineering, three changes that attacked the composition:
 **Graceful degradation** for non-essential features. See
 [graceful degradation](/12-reliability/graceful-degradation.md).
 
-After that, the real availability rose to 99.93% — and the 99.5% SLA came to have comfortable margin.
+After that, the real availability rose to 99.93%, and the 99.5% SLA came to have comfortable margin.
 
 What was recorded afterward: the problem was not the system. It was having promised a number the
 architecture did not sustain, defined in a commercial meeting with nobody doing the ten-minute calculation
@@ -271,10 +271,10 @@ that would have shown it.
 
 ## Related Concepts
 
-- [SLO](/12-reliability/slo.md) — the internal target.
-- [SLI](/12-reliability/sli.md) — what is measured.
-- [Availability](/06-distributed-systems/availability.md) — the composition.
-- [Graceful Degradation](/12-reliability/graceful-degradation.md) — how to sustain the number.
+- [SLO](/12-reliability/slo.md): the internal target.
+- [SLI](/12-reliability/sli.md): what is measured.
+- [Availability](/06-distributed-systems/availability.md): the composition.
+- [Graceful Degradation](/12-reliability/graceful-degradation.md): how to sustain the number.
 
 ## Practical Exercise
 
@@ -290,6 +290,6 @@ The result is the ceiling of what you can promise. Compare with what has already
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 4.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 4.
 - Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018.
 - The major cloud providers' public SLAs — read the exclusions.

@@ -2,7 +2,7 @@
 id: async-processing
 title: Processamento Assíncrono
 sidebar_position: 8
-description: Tirar trabalho do caminho crítico — a técnica que resolve picos sem capacidade proporcional.
+description: "Tirar trabalho do caminho crítico: a técnica que resolve picos sem capacidade proporcional."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [queue-based-scaling, performance-vs-scalability, statelessness]
 canonical_for: [caminho crítico, processamento assíncrono, estado intermediário]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Processamento assíncrono é tirar trabalho do caminho da requisição: aceitar,
 e processar depois.
 
 O ganho em escala é grande e indireto. Uma requisição que responde em 40 ms em vez de
-900 ms ocupa recursos por 22 vezes menos tempo — o que, pela lei de Little, significa
+900 ms ocupa recursos por 22 vezes menos tempo. Pela lei de Little, isso significa
 22 vezes mais vazão com a mesma concorrência. Ver
 [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
@@ -34,8 +34,8 @@ intermediários** passam a existir no domínio.
 
 ## Problema
 
-Uma requisição que faz cinco coisas — gravar o pedido, reservar estoque, cobrar,
-enviar e-mail, atualizar o painel — leva o tempo das cinco somadas, e falha se
+Uma requisição que faz cinco coisas (gravar o pedido, reservar estoque, cobrar,
+enviar e-mail, atualizar o painel) leva o tempo das cinco somadas, e falha se
 qualquer uma falhar.
 
 Sob carga, ela ocupa uma conexão e um fio de execução durante todo esse tempo. Com
@@ -86,7 +86,7 @@ recebe "sucesso" e descobre depois que não funcionou, sem saber onde olhar.
 
 ### O usuário precisa de retorno
 
-Os mecanismos — consulta, notificação, conexão persistente — e o critério de duração
+Os mecanismos (consulta, notificação, conexão persistente) e o critério de duração
 entre eles estão em
 [processamento em background](/05-system-design/background-processing.md). O que muda
 em escala é que o retorno também é carga.
@@ -118,7 +118,7 @@ Ponto que costuma ser esquecido: o trabalho continua existindo. Ele apenas sai d
 caminho crítico.
 
 Se a taxa de chegada excede a capacidade de processamento de forma sustentada, a fila
-cresce indefinidamente — e o assíncrono transformou um erro imediato num atraso
+cresce indefinidamente, e o assíncrono transformou um erro imediato num atraso
 crescente, que é pior de diagnosticar.
 
 Assíncrono resolve **pico**, não **sobrecarga sustentada**. A distinção é o que separa
@@ -130,7 +130,7 @@ um uso correto de um adiamento do problema. Ver
 Gravar no banco e publicar a mensagem em duas operações separadas cria uma janela: se
 o processo cai entre elas, o efeito nunca acontece.
 
-A **caixa de saída transacional** resolve — gravar a mudança e a mensagem na mesma
+A **caixa de saída transacional** resolve: gravar a mudança e a mensagem na mesma
 transação local, com um processo separado publicando. Ver
 [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
@@ -158,8 +158,8 @@ e eles precisam ser modelados, não descobertos.
 
 **Sem durabilidade.** Aceitar e guardar em memória perde trabalho.
 
-**Sem idempotência.** Toda entrega repetida — retentativa do consumidor, reenvio do
-usuário — vira efeito duplicado: cobrança em dobro, e-mail repetido.
+**Sem idempotência.** Toda entrega repetida (retentativa do consumidor, reenvio do
+usuário) vira efeito duplicado: cobrança em dobro, e-mail repetido.
 
 **Para sobrecarga sustentada.** A fila cresce e o problema volta pior.
 
@@ -169,11 +169,11 @@ usuário — vira efeito duplicado: cobrança em dobro, e-mail repetido.
 
 ## Alternativas
 
-- **Otimizar o síncrono** — se a operação ficar rápida, não precisa sair do caminho.
-- **Paralelizar dentro da requisição** — cinco chamadas independentes em paralelo
+- **Otimizar o síncrono**: se a operação ficar rápida, não precisa sair do caminho.
+- **Paralelizar dentro da requisição**: cinco chamadas independentes em paralelo
   custam o tempo da mais lenta, não a soma.
-- **Timeout agressivo com degradação** — responder sem o resultado opcional.
-- **[Fila](/11-scalability/queue-based-scaling.md)** — quando o trabalho aceito precisa
+- **Timeout agressivo com degradação**: responder sem o resultado opcional.
+- **[Fila](/11-scalability/queue-based-scaling.md)**: quando o trabalho aceito precisa
   sobreviver a quedas, o pico excede a capacidade e a falha deve ser retentada sem
   intervenção; nas três alternativas anteriores, nada disso é garantido.
 
@@ -209,11 +209,11 @@ independentes, e paralelizá-las resolve sem introduzir estado intermediário.
 
 ## Erros Comuns
 
-**Não modelar os estados no domínio.** Tornar algo assíncrono cria estados intermediários — em processamento, falhou, em nova tentativa — que são conceitos de negócio. Deixá-los implícitos empurra a ambiguidade para o suporte.
+**Não modelar os estados no domínio.** Tornar algo assíncrono cria estados intermediários (em processamento, falhou, em nova tentativa) que são conceitos de negócio. Deixá-los implícitos empurra a ambiguidade para o suporte.
 
 **Aceitar sem persistir.** Responder "recebido" antes de gravar de forma durável é prometer o que não se pode cumprir: um reinício descarta o trabalho que o usuário considera aceito.
 
-**Não dar retorno ao usuário.** Sem consulta de estado nem notificação, a pessoa não sabe se o processamento terminou e reenvia — o que multiplica a carga justamente quando ela está alta.
+**Não dar retorno ao usuário.** Sem consulta de estado nem notificação, a pessoa não sabe se o processamento terminou e reenvia, o que multiplica a carga justamente quando ela está alta.
 
 **Usar assíncrono para sobrecarga sustentada.** A fila absorve pico, não déficit permanente de capacidade. Se a taxa de entrada excede a de saída em média, a fila cresce indefinidamente e o atraso vira indisponibilidade com outro nome.
 
@@ -231,7 +231,7 @@ a vazão máxima era de cerca de 28 emissões por segundo. O pico do fim do mês
 120.
 
 O resultado era previsível: fila de espera no balanceador, timeouts, e usuários
-reenviando — o que piorava tudo.
+reenviando, o que piorava tudo.
 
 A migração para assíncrono:
 
@@ -240,7 +240,7 @@ com um identificador. A vazão da camada de aceitação passou a ser limitada ap
 gravação.
 
 **Caixa de saída transacional.** A solicitação e a mensagem de processamento gravadas
-na mesma transação. Sem isso, quedas do processo perdiam emissões — o que já
+na mesma transação. Sem isso, quedas do processo perdiam emissões. Isso já
 acontecia, e era diagnosticado como "erro da receita".
 
 **Estados no domínio.** `recebida`, `processando`, `autorizada`, `rejeitada`,
@@ -254,7 +254,7 @@ usuário reenviava.
 
 Resultado: com os consumidores dimensionados para cerca de 100 emissões por segundo, o
 pico do fim do mês passou a ser absorvido, com atraso de processamento de
-até 8 minutos nos momentos mais intensos — aceito pelo negócio, porque a emissão tem
+até 8 minutos nos momentos mais intensos, aceito pelo negócio, porque a emissão tem
 prazo legal de horas.
 
 Dois problemas apareceram depois:
@@ -262,7 +262,7 @@ Dois problemas apareceram depois:
 **Sobrecarga sustentada.** Numa indisponibilidade de 6 horas do serviço da receita, a
 fila acumulou 400 mil emissões, cerca de 18 por segundo. O serviço voltou limitando cada
 emissor a cerca de 30 chamadas por segundo, pouco acima da taxa que continuava chegando,
-e o consumo levou quase 10 horas — e durante esse período as emissões novas entravam atrás das antigas. Foi adicionada
+e o consumo levou quase 10 horas. Durante esse período, as emissões novas entravam atrás das antigas. Foi adicionada
 priorização por prazo.
 
 **Usuários confusos.** A primeira versão exibia apenas "processando", sem estimativa. O
@@ -270,7 +270,7 @@ volume de chamados ao suporte triplicou. A adição de uma previsão e de um his
 tentativas resolveu.
 
 O ponto que a equipe sublinha: a modelagem dos estados consumiu mais tempo que a mudança
-técnica — cinco telas, dois relatórios e o treinamento do suporte. Ela tinha sido
+técnica (cinco telas, dois relatórios e o treinamento do suporte). Ela tinha sido
 estimada como detalhe.
 
 ## Conceitos Relacionados
@@ -285,7 +285,7 @@ estimada como detalhe.
 Pegue a requisição mais lenta do seu sistema e liste o que ela faz, passo a passo.
 
 Para cada passo, pergunte: o usuário precisa disto para ver a resposta? Some o tempo
-dos que não precisam — é o que você pode tirar do caminho crítico.
+dos que não precisam: é o que você pode tirar do caminho crítico.
 
 ## Perguntas de Entrevista
 

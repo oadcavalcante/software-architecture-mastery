@@ -2,7 +2,7 @@
 id: search
 title: Search
 sidebar_position: 15
-description: Finding what the user wants — and why LIKE stops working early.
+description: Finding what the user wants, and why LIKE stops working early.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [pagination]
 related: [caching, pagination, cqrs]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Search is finding records from a criterion the user provides — and it is rarely an exact query.
+Search is finding records from a criterion the user provides, and it is rarely an exact query.
 
 The difference between filtering and searching is what decides the architecture: **filtering is
 comparing values; searching is ordering by relevance**.
@@ -59,7 +59,7 @@ and recognizing that avoids adopting infrastructure with no need.
 
 The second line is the most underestimated. PostgreSQL, MySQL and others have full-text search
 with tokenization, stemming, relevance ordering and multi-field search. For most systems, it is
-enough — and it adds no component, no synchronization and no eventual consistency.
+enough, and it adds no component, no synchronization and no eventual consistency.
 
 Jumping straight to a dedicated index charges a component, synchronization and reindexing on a
 corpus the database's full-text search would already serve.
@@ -75,11 +75,11 @@ documents**.
 ```
 
 Searching "software architecture" becomes an intersection of lists: it walks only the lists of
-the searched terms, not the whole table — the cost grows with the number of documents that
+the searched terms, not the whole table. The cost grows with the number of documents that
 contain the terms, not with the corpus total.
 
 What the index does before indexing decides the quality: splitting into tokens, normalizing
-accents and case, reducing to the stem — "running", "ran" and "run" become the same term — and
+accents and case, reducing to the stem ("running", "ran" and "run" become the same term) and
 discarding words with no discriminating value.
 
 Without those steps, the search is literal and frustrates.
@@ -88,7 +88,7 @@ Without those steps, the search is literal and frustrates.
 
 Finding is easy; **ordering** is the problem. The usual factors: the term's frequency in the
 document, the term's rarity in the corpus, the document's size, the field's weight, and business
-signals — popularity, recency, margin.
+signals (popularity, recency, margin).
 
 The last ones are what matter most in a real system and what no index brings ready. Tuning
 relevance is continuous work, guided by usage data.
@@ -103,7 +103,7 @@ It is [CQRS](/03-design-patterns/cqrs.md) at level 3, under another name. The sa
 apply: how much delay is acceptable, and how do you rebuild the index from scratch when it gets
 corrupted.
 
-The ability to fully reindex is not optional — it is what allows correcting any divergence.
+The ability to fully reindex is not optional: it is what allows correcting any divergence.
 
 ## Mental Model
 
@@ -136,14 +136,14 @@ thousand records the database's full-text search serves in milliseconds.
 synchronization error.
 
 **Without measuring relevance.** A well-configured index with bad relevance delivers results
-nobody clicks — and nobody notices without measurement.
+nobody clicks, and nobody notices without measurement.
 
 ## Alternatives
 
-- **Filter with an index** — when the criterion is exact.
-- **The database's native full-text search** — the middle ground that solves most cases.
-- **Managed search service** — when the index is justified and operating a cluster is not.
-- **Precomputed suggestions** — for autocomplete, a simple prefix structure is usually enough.
+- **Filter with an index**: when the criterion is exact.
+- **The database's native full-text search**: the middle ground that solves most cases.
+- **Managed search service**: when the index is justified and operating a cluster is not.
+- **Precomputed suggestions**: for autocomplete, a simple prefix structure is usually enough.
 
 ## Trade-offs
 
@@ -167,7 +167,7 @@ longer exists.
 looking for and the business metric drops with no apparent cause.
 
 **Index as the source of truth.** Someone starts reading data from the index instead of the
-database — and eventual consistency becomes business inconsistency.
+database, and eventual consistency becomes business inconsistency.
 
 **Facet explosion.** Aggregations over high-cardinality fields consume the cluster's memory.
 
@@ -182,7 +182,7 @@ database — and eventual consistency becomes business inconsistency.
 **Confusing search with filtering.**
 
 **Synchronizing in real time when the business accepts minutes.** Synchronous synchronization
-couples the write to the index — if it is down, the write fails.
+couples the write to the index: if it is down, the write fails.
 
 ## Real-World Example
 
@@ -197,12 +197,12 @@ and by part code, tolerate plurals and accents, and order putting in-stock parts
 None of that required a cluster. The database's native full-text search, with an adequate index
 and a relevance function that added the stock weight, met it entirely. Latency dropped to 40 ms.
 
-Eighteen months later, the requirement changed: search by compatibility — "parts that fit model X,
-year Y" — with facets by brand, category and price range, and suggestions for typos in part codes.
+Eighteen months later, the requirement changed: search by compatibility ("parts that fit model X,
+year Y"), with facets by brand, category and price range, and suggestions for typos in part codes.
 
 Then the dedicated index was justified, and it was adopted with two decisions the team recorded.
 
-Synchronization is by event, asynchronous, with an accepted delay of up to 30 seconds —
+Synchronization is by event, asynchronous, with an accepted delay of up to 30 seconds,
 negotiated with the business, because real-time stock in the index would have coupled the write to
 it.
 
@@ -210,14 +210,14 @@ And there is a full reindexing command, tested monthly. It has already been used
 a defect in the event consumer, and once when changing the index's schema.
 
 The sequence matters: the database solved it for eighteen months, and the index came in when the
-requirement demanded it — not when someone decided search deserved its own infrastructure.
+requirement demanded it, not when someone decided search deserved its own infrastructure.
 
 ## Related Concepts
 
-- [Pagination](/05-system-design/pagination.md) — cursor when scrolling is continuous and the
+- [Pagination](/05-system-design/pagination.md): cursor when scrolling is continuous and the
   ordering has a stable tiebreaker; offset when the user jumps between pages.
-- [Caching](/05-system-design/caching.md) — frequent searches benefit.
-- [CQRS](/03-design-patterns/cqrs.md) — the index is a read projection.
+- [Caching](/05-system-design/caching.md): frequent searches benefit.
+- [CQRS](/03-design-patterns/cqrs.md): the index is a read projection.
 - [Data Architecture](/07-data-architecture/index.md).
 
 ## Practical Exercise
@@ -237,4 +237,4 @@ The second metric is the one that says whether relevance is working, and almost 
 
 - Manning, Christopher; Raghavan, Prabhakar; Schütze, Hinrich. *Introduction to Information
   Retrieval*. Cambridge, 2008.
-- PostgreSQL's full-text search documentation — the most underestimated middle path.
+- PostgreSQL's full-text search documentation: the most underestimated middle path.

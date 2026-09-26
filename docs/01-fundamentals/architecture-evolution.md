@@ -2,7 +2,7 @@
 id: architecture-evolution
 title: Evolução da Arquitetura
 sidebar_position: 22
-description: Nenhuma arquitetura é final — a questão é se ela muda deliberadamente ou por acúmulo.
+description: "Nenhuma arquitetura é final: a questão é se ela muda deliberadamente ou por acúmulo."
 doc_type: foundation
 level: 1
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-as-decisions]
 related: [technical-debt, legacy-modernization]
 canonical_for: [evolução da arquitetura]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Nenhuma arquitetura é final. Contexto de negócio muda, volume muda, times muda
 tecnologia muda, e o que era adequado deixa de ser.
 
 A questão não é se a arquitetura vai mudar. É se ela vai mudar **por decisão** ou
-**por acúmulo** — e a segunda é o caminho padrão quando ninguém escolhe a
+**por acúmulo**, e a segunda é o caminho padrão quando ninguém escolhe a
 primeira.
 
 ## O Problema
@@ -41,11 +41,11 @@ admitir que a original estava errada, a estrutura é preservada muito além de s
 validade, e o sistema acumula contornos.
 
 A segunda é a reescrita. Quando a distância entre a arquitetura e a necessidade
-fica grande demais para ignorar, a proposta é recomeçar — que é a forma mais cara
+fica grande demais para ignorar, a proposta é recomeçar, que é a forma mais cara
 e arriscada de evoluir, e a que mais falha.
 
 O caminho que escapa das duas é o intermediário: mudança contínua e incremental,
-decidida a partir de sinais observados — sem preservar a estrutura além da
+decidida a partir de sinais observados, sem preservar a estrutura além da
 validade nem pagar o preço de recomeçar.
 
 ## Conceitos Centrais
@@ -59,7 +59,7 @@ quando foi escolhida. Ela deixou de servir quando o time chegou a sessenta e os
 usuários a um milhão.
 
 Enquadrar a mudança como correção de erro torna a conversa política. Enquadrar
-como resposta a mudança de contexto torna a conversa técnica — e é essa a
+como resposta a mudança de contexto torna a conversa técnica, e é essa a
 formulação correta, desde que o
 [registro das decisões](/01-fundamentals/architecture-as-decisions.md) exista para sustentá-la.
 
@@ -80,7 +80,7 @@ O último é o mais decisivo, e o que exige ter as
 
 ### Projetar para ser mudado
 
-A propriedade que importa não é adivinhar o futuro — ninguém adivinha. É que
+A propriedade que importa não é adivinhar o futuro (ninguém adivinha), e sim que
 mudar seja possível sem reescrever.
 
 Três coisas produzem isso, e as três já foram vistas neste nível:
@@ -96,7 +96,7 @@ no [Nível 07](/23-architecture-leadership/index.md).
 
 As três cobram antes de render: a fronteira impõe indireção onde uma chamada
 direta bastaria, o registro pede disciplina sem retorno no mesmo trimestre, e a
-verificação precisa ser mantida — a que ninguém conserta acaba desligada. O
+verificação precisa ser mantida (a que ninguém conserta acaba desligada). O
 retorno chega na primeira mudança que elas mantêm contida; até lá, o
 investimento parece burocracia.
 
@@ -113,17 +113,17 @@ principal é o strangler fig.
 
 A reescrita é a escolha correta sob a condição oposta: sistema que pode ser
 congelado enquanto o substituto é construído e cujas regras cabem em uma
-especificação conferível. Essa condição existe — em ferramenta interna, em
-componente já isolado — e some assim que o sistema tem usuários que não param.
+especificação conferível. Essa condição existe (em ferramenta interna, em
+componente já isolado) e some assim que o sistema tem usuários que não param.
 
 ## Por Que Isso Importa
 
 **Porque a alternativa acontece sozinha.** Uma arquitetura que não é evoluída
-deliberadamente evolui por acúmulo de contornos — que é evolução também, só que
+deliberadamente evolui por acúmulo de contornos, que é evolução também, só que
 sem direção.
 
 **Porque muda o que se otimiza no projeto inicial.** Se a arquitetura vai mudar,
-a propriedade valiosa não é estar certa — é ser barata de mudar. Isso desloca a
+a propriedade valiosa não é estar certa, e sim ser barata de mudar. Isso desloca a
 prioridade para fronteiras e reversibilidade, e para longe de completude.
 
 **Porque torna a conversa possível.** "O contexto mudou, e estes são os sinais" é
@@ -141,7 +141,7 @@ falha. Merece ser a última considerada, não a primeira.
 desconforto estético é custo sem retorno. Os sinais acima são o critério.
 
 **Não medir.** Sem instrumentação, a degradação é percebida tarde e como
-sensação, não como fato — e sensação não sustenta uma proposta de investimento.
+sensação, não como fato, e sensação não sustenta uma proposta de investimento.
 
 **Mudar tudo de uma vez.** Mesmo quando a direção está certa, a mudança precisa
 ser fatiada em passos que entregam valor e podem ser revertidos.
@@ -164,8 +164,8 @@ módulos. Depois, o tempo de entrega crescendo sem crescimento de escopo. Por
 fim, o squad corporativo sem conseguir atender ao SLA porque uma implantação de
 outro squad derrubava tudo.
 
-O terceiro sinal é o que decidiu: uma característica dirigente — disponibilidade
-para um segmento — deixou de ser atendida, e não havia correção local. A
+O terceiro sinal é o que decidiu: uma característica dirigente (disponibilidade
+para um segmento) deixou de ser atendida, e não havia correção local. A
 disponibilidade do fluxo corporativo dependia da unidade de implantação, e essa
 era compartilhada pelos quatro squads: nenhuma mudança dentro do módulo
 corporativo altera quem sobe para produção junto com ele.
@@ -175,7 +175,7 @@ fluxo corporativo, que tinha requisito distinto e fronteira já estável no
 histórico de commits.
 
 Dezoito meses depois, um segundo serviço foi extraído pelo mesmo critério. Os
-outros dois squads continuam no monolito, e não há plano de tirá-los — nenhum
+outros dois squads continuam no monolito, e não há plano de tirá-los: nenhum
 sinal indica que deveriam sair.
 
 O que essa arquitetura tem de bom não é a forma. É que a forma mudou duas vezes,
@@ -183,13 +183,13 @@ cada vez por um sinal específico, e pode mudar de novo.
 
 ## Conceitos Relacionados
 
-- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md) — o que
+- [Arquitetura como Conjunto de Decisões](/01-fundamentals/architecture-as-decisions.md): o que
   permite reavaliar.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — o que se acumula quando a evolução não
+- [Dívida Técnica](/01-fundamentals/technical-debt.md): o que se acumula quando a evolução não
   acontece.
-- [Modernização de Legado](/16-legacy-modernization/index.md) — a evolução em
+- [Modernização de Legado](/16-legacy-modernization/index.md): a evolução em
   sistemas que não podem parar.
-- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md) —
+- [Arquitetura Evolutiva](/23-architecture-leadership/evolutionary-architecture.md):
   o termo e o mecanismo: dimensões protegidas e fitness functions.
 
 ## Exercício Prático
@@ -200,7 +200,7 @@ uma, o contexto em que foi tomada: tamanho do time, volume, restrições.
 Compare com o contexto de hoje.
 
 Onde a distância for grande, verifique se há sinal observável de que a decisão
-parou de servir — ou se ela continua adequada apesar da mudança de contexto.
+parou de servir, ou se ela continua adequada apesar da mudança de contexto.
 As duas respostas acontecem, e distingui-las é o exercício.
 
 ## Perguntas de Entrevista

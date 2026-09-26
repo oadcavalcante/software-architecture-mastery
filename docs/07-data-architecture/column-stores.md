@@ -2,7 +2,7 @@
 id: column-stores
 title: Armazenamento Colunar
 sidebar_position: 5
-description: Guardar por coluna em vez de por linha — a diferença de ordem de grandeza em carga analítica.
+description: "Guardar por coluna em vez de por linha: a diferença de ordem de grandeza em carga analítica."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-warehouses, oltp, data-partitioning]
 canonical_for: [colunar, armazenamento colunar, orientado a linha]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Armazenamento colunar guarda os valores de cada coluna juntos, em vez de guardar
 as linhas inteiras em sequência.
 
-A mudança é de layout físico, não de modelo lógico — a tabela continua sendo uma
+A mudança é de layout físico, não de modelo lógico: a tabela continua sendo uma
 tabela. E ela produz diferenças de uma a duas ordens de grandeza em consulta
 analítica.
 
@@ -42,7 +42,7 @@ SELECT regiao, SUM(valor) FROM vendas WHERE ano = 2025 GROUP BY regiao
 Três colunas de uma tabela que pode ter cinquenta.
 
 Num armazenamento orientado a linha, os valores de uma linha ficam adjacentes no
-disco. Para ler três colunas, é preciso trazer a linha inteira — as outras
+disco. Para ler três colunas, é preciso trazer a linha inteira: as outras
 quarenta e sete vêm junto e são descartadas.
 
 Em bilhões de linhas, isso é a maior parte do trabalho, e nenhum índice resolve:
@@ -52,7 +52,7 @@ o problema não é encontrar as linhas, é que elas são largas.
 
 ### Ler só o necessário
 
-No layout colunar, cada coluna é armazenada e comprimida à parte — em arquivo
+No layout colunar, cada coluna é armazenada e comprimida à parte: em arquivo
 próprio nuns sistemas, em bloco de coluna dentro de um arquivo único noutros. Ler
 três colunas lê três desses blocos e ignora os outros quarenta e sete.
 
@@ -68,7 +68,7 @@ quatro, o ganho de layout quase desaparece.
 Valores da mesma coluna são do mesmo tipo e frequentemente se repetem. Uma coluna
 de país tem duzentos valores distintos em bilhões de linhas.
 
-Isso comprime extraordinariamente bem — dicionário, repetição, diferença — com
+Isso comprime extraordinariamente bem (dicionário, repetição, diferença), com
 taxas de cinco a vinte vezes comuns.
 
 E o efeito se multiplica com o primeiro: menos colunas, cada uma muito menor.
@@ -79,14 +79,14 @@ o disco.
 
 ### A ordenação física muda tudo
 
-Ordenar fisicamente os dados por uma coluna — data, tipicamente — permite pular
+Ordenar fisicamente os dados por uma coluna (data, tipicamente) permite pular
 blocos inteiros.
 
 Cada bloco guarda o valor mínimo e máximo de cada coluna. Uma consulta filtrando
 por um mês descarta os blocos cujo intervalo não intersecta, sem ler nada deles.
 
 Isso torna a escolha da ordenação tão importante quanto a escolha de índice em
-OLTP — e é a razão de filtros por período serem rápidos e filtros por outra
+OLTP, e é a razão de filtros por período serem rápidos e filtros por outra
 dimensão não serem.
 
 ### Por que ele é ruim em OLTP
@@ -96,7 +96,7 @@ dimensão não serem.
 **Atualizar um valor** exige descomprimir um bloco, alterar e recomprimir.
 
 **Ler uma linha inteira por chave** exige montar a linha a partir de cinquenta
-blocos de coluna separados — o pior caso possível.
+blocos de coluna separados: o pior caso possível.
 
 Não é ajuste ausente. É o layout funcionando ao contrário do que a carga precisa.
 Ver [OLTP](/07-data-architecture/oltp.md).
@@ -108,7 +108,7 @@ arquivos pequenos e fragmentação que degrada a leitura.
 
 Sistemas colunares costumam ter processo de compactação que junta arquivos
 pequenos. Quando ele não acompanha o ritmo de escrita, o desempenho de leitura cai
-progressivamente — e o diagnóstico é contraintuitivo, porque a consulta piorou sem
+progressivamente, e o diagnóstico é contraintuitivo, porque a consulta piorou sem
 o volume ter mudado.
 
 ## Modelo Mental
@@ -141,11 +141,11 @@ não justificam a complexidade.
 
 ## Alternativas
 
-- **Orientado a linha com índice** — suficiente até volumes moderados.
-- **Índice colunar dentro de um banco relacional** — vários oferecem, permitindo
+- **Orientado a linha com índice**: suficiente até volumes moderados.
+- **Índice colunar dentro de um banco relacional**: vários oferecem, permitindo
   as duas cargas no mesmo lugar em escala média.
-- **Visão materializada** — pré-agregação sem mudar o armazenamento.
-- **Arquivos colunares em armazenamento de objetos** — consultados sob demanda,
+- **Visão materializada**: pré-agregação sem mudar o armazenamento.
+- **Arquivos colunares em armazenamento de objetos**: consultados sob demanda,
   quando a frequência é baixa.
 
 A segunda opção resolve muitos casos: se o volume é grande mas não enorme, um
@@ -169,7 +169,7 @@ leitura.
 
 **Consulta sem filtro de ordenação.** Varre tudo, porque não há bloco a pular.
 
-**`SELECT *` em tabela larga.** Anula o benefício inteiro — lê todas as colunas.
+**`SELECT *` em tabela larga.** Anula o benefício inteiro: lê todas as colunas.
 
 **Atualização em massa.** Reescrita e recompressão de blocos grandes.
 
@@ -184,7 +184,7 @@ descarte não acontece.
 
 **Inserir registro a registro.**
 
-**Não escolher a ordenação física** — ficar com a padrão desperdiça o principal
+**Não escolher a ordenação física**: ficar com a padrão desperdiça o principal
 mecanismo de filtro.
 
 **Esperar desempenho transacional.**
@@ -200,7 +200,7 @@ O relatório de consumo mensal por cliente levava 4 horas.
 
 A migração para colunar produziu números que a equipe documentou:
 
-**Volume em disco.** De 4 TB para 280 GB — compressão de 14 vezes, sobretudo em
+**Volume em disco.** De 4 TB para 280 GB: compressão de 14 vezes, sobretudo em
 colunas de operadora, tipo de chamada e código de área.
 
 **A mesma consulta.** De 4 horas para 3 minutos. O ganho veio de três fontes: ler
@@ -213,7 +213,7 @@ Dois problemas depois da migração:
 
 **`SELECT *` em ferramenta de exploração.** Analistas usavam uma ferramenta que
 gerava consultas com todas as colunas. Essas consultas ficaram **mais lentas** que
-no relacional — precisavam montar 60 colunas por linha. Resolvido com projeção
+no relacional: precisavam montar 60 colunas por linha. Resolvido com projeção
 obrigatória de colunas na camada de acesso.
 
 **Ingestão em tempo real.** Uma tentativa de gravar chamadas individualmente,
@@ -226,10 +226,10 @@ duas coisas. O requisito real de frescor era diário.
 
 ## Conceitos Relacionados
 
-- [OLAP](/07-data-architecture/olap.md) — a carga que ele serve.
-- [OLTP](/07-data-architecture/oltp.md) — a carga que ele não serve.
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — onde ele costuma viver.
-- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — complementa o descarte de
+- [OLAP](/07-data-architecture/olap.md): a carga que ele serve.
+- [OLTP](/07-data-architecture/oltp.md): a carga que ele não serve.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): onde ele costuma viver.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md): complementa o descarte de
   blocos.
 
 ## Exercício Prático
@@ -237,7 +237,7 @@ duas coisas. O requisito real de frescor era diário.
 Pegue a consulta analítica mais pesada do seu sistema. Conte quantas colunas ela
 usa e quantas a tabela tem.
 
-Essa razão é uma estimativa direta do ganho que o layout colunar traria — e se ela
+Essa razão é uma estimativa direta do ganho que o layout colunar traria, e se ela
 for próxima de 1, o layout não é o seu problema.
 
 ## Perguntas de Entrevista
@@ -251,5 +251,5 @@ for próxima de 1, o layout não é o seu problema.
 - Abadi, Daniel et al. *The Design and Implementation of Modern Column-Oriented
   Database Systems*, 2013.
 - Stonebraker, Michael et al. *C-Store: A Column-oriented DBMS*. VLDB, 2005.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 3.

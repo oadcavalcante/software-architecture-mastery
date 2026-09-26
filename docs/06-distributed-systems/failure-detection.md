@@ -2,7 +2,7 @@
 id: failure-detection
 title: Detecção de Falha
 sidebar_position: 35
-description: Decidir que um nó caiu — uma heurística, nunca uma certeza.
+description: "Decidir que um nó caiu: uma heurística, nunca uma certeza."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [leader-election, timeouts, consensus]
 canonical_for: [detecção de falha, batimento, suspeita de falha]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Detecção de falha é decidir que um nó parou de funcionar.
 
 A propriedade que define o assunto: **não é possível ter certeza.** Um nó que não
-responde pode estar morto, lento, ou do outro lado de uma partição — e essas três
+responde pode estar morto, lento, ou do outro lado de uma partição, e essas três
 situações são indistinguíveis de fora.
 
 Por isso detectores de falha são heurísticas, e projetá-los é calibrar um
@@ -36,12 +36,12 @@ Sistemas precisam saber quem está vivo: para rotear tráfego, para eleger líde
 para redistribuir trabalho, para decidir se uma réplica ainda conta.
 
 A única evidência disponível é ausência de resposta dentro de um prazo. E ausência
-de resposta é o [silêncio](/06-distributed-systems/network-failure.md) — que é compatível com tudo.
+de resposta é o [silêncio](/06-distributed-systems/network-failure.md), que é compatível com tudo.
 
 Isso produz dois erros possíveis, e eles são opostos:
 
 **Falso positivo.** Declarar morto um nó saudável e lento. O trabalho dele é
-redistribuído desnecessariamente, e ele pode continuar operando — o que produz
+redistribuído desnecessariamente, e ele pode continuar operando. Isso produz
 [cérebro dividido](/06-distributed-systems/leader-election.md).
 
 **Falso negativo.** Continuar enviando tráfego para um nó morto. Requisições
@@ -63,7 +63,7 @@ rede produz instabilidade: nós sendo removidos e readmitidos repetidamente,
 disparando rebalanceamento a cada vez.
 
 Detecção conservadora significa que uma falha real leva mais tempo para ser
-tratada — e durante esse tempo, requisições vão para um nó morto.
+tratada, e durante esse tempo, requisições vão para um nó morto.
 
 A calibração razoável para sistemas de negócio costuma ficar na ordem de segundos,
 e depende de quão ruidoso é o ambiente.
@@ -78,13 +78,13 @@ Duas melhorias que valem:
 **Detecção adaptativa.** Em vez de prazo fixo, ajustar com base no histórico de
 chegada dos batimentos. Um nó cuja rede é consistentemente mais lenta ganha mais
 tolerância. O ônus é que a tolerância cresce também para o nó que degrada
-devagar — o caso difícil descrito adiante — e que o prazo deixa de ser
+devagar (o caso difícil descrito adiante) e que o prazo deixa de ser
 reproduzível: dois episódios iguais recebem prazos diferentes conforme o
 histórico que o detector tinha na hora.
 
 **Suspeita graduada.** Em vez de vivo ou morto, um nível de suspeita que cresce
 com o tempo sem resposta. Quem consome a informação decide o limiar conforme a
-criticidade da ação — remover de balanceamento pode usar limiar baixo; disparar
+criticidade da ação: remover de balanceamento pode usar limiar baixo; disparar
 eleição, alto. O ônus é operacional: cada consumidor passa a ter um limiar
 próprio para manter coerente, e "o nó estava fora?" passa a ter resposta
 diferente conforme quem pergunta.
@@ -99,8 +99,8 @@ Detecção indireta pede a um terceiro que verifique: "eu não alcanço C — vo
 alcança?"
 
 Isso distingue partição parcial de falha real, e reduz falsos positivos causados
-por problemas de rede localizados. O custo é um salto a mais antes de decidir —
-a detecção atrasa o tempo de consultar os terceiros — e tráfego de suspeita que
+por problemas de rede localizados. O custo é um salto a mais antes de decidir
+(a detecção atrasa o tempo de consultar os terceiros) e tráfego de suspeita que
 cresce com o número de nós consultados. É o mecanismo central de protocolos de
 disseminação como SWIM.
 
@@ -109,7 +109,7 @@ disseminação como SWIM.
 Mesmo com detecção perfeita, existe a janela entre a falha e a detecção. Durante
 ela, requisições falham.
 
-E mesmo depois de detectar, o nó suspeito pode voltar sem saber que foi removido —
+E mesmo depois de detectar, o nó suspeito pode voltar sem saber que foi removido,
 razão pela qual [fencing](/06-distributed-systems/leader-election.md) é necessário e detecção não basta.
 
 **Detecção reduz a janela; ela não elimina a necessidade de tolerar o erro.**
@@ -120,7 +120,7 @@ Um nó que responde ao batimento e processa devagar passa em qualquer detector
 baseado em vivacidade.
 
 O que medir no lugar da presença está em
-[falha de rede](/06-distributed-systems/network-failure.md) — e é por isso que
+[falha de rede](/06-distributed-systems/network-failure.md), e é por isso que
 balanceadores modernos consideram latência ao distribuir, em vez de tratar cada
 instância como um binário.
 
@@ -159,21 +159,21 @@ Detecção adaptativa, suspeita graduada e detecção indireta são variações 
 mesmo mecanismo, já explicadas em Conceitos Centrais. A alternativa que muda a
 pergunta é outra:
 
-- **Circuit breaker** — em vez de decidir se o nó está vivo, decidir se vale
+- **Circuit breaker**: em vez de decidir se o nó está vivo, decidir se vale
   continuar chamando. Ver
   [confiabilidade](/12-reliability/index.md).
 
 Ele vence onde o que importa é o resultado das chamadas, não a identidade do nó:
 em vez de "ele está vivo?", "as chamadas estão funcionando?" — pergunta que quem
 chama responde com o que já observa, sem sondagem própria. Perde onde a decisão
-depende de saber quem está no grupo — eleger líder, redistribuir partição —,
+depende de saber quem está no grupo (eleger líder, redistribuir partição),
 porque aí a identidade do nó é exatamente o que se precisa.
 
 ## Trade-offs
 
 O parâmetro que governa tudo é o intervalo até declarar um nó morto. Encurtá-lo
 acelera a recuperação e aumenta os falsos positivos; alongá-lo faz o oposto. Não
-existe valor universalmente correto — ele depende de quanto custa cada erro no seu
+existe valor universalmente correto: ele depende de quanto custa cada erro no seu
 sistema.
 
 | Detecção rápida | Detecção lenta |
@@ -229,7 +229,7 @@ frequência, a calibração está errada e ninguém percebeu.
 ## Exemplo Real
 
 Um cluster de processamento com 40 nós usava batimento a cada segundo, com
-suspeita após 3 ausências — detecção em 3 segundos.
+suspeita após 3 ausências: detecção em 3 segundos.
 
 O trabalho era redistribuído ao detectar falha.
 
@@ -239,36 +239,36 @@ removidos e readmitidos em segundos, disparando redistribuição do trabalho del
 A causa: pausas de coleta de lixo de 3 a 5 segundos, normais para a carga de
 memória daquele processo.
 
-Cada falso positivo custava mais que a falha que ele deveria tratar — a
+Cada falso positivo custava mais que a falha que ele deveria tratar: a
 redistribuição movia estado, e o nó voltava logo depois, exigindo mover de novo.
 
 Três correções.
 
-**Limiar por ação.** Remover do balanceamento passou a usar 3 segundos —
-barato de reverter. Redistribuir trabalho passou a usar 15 segundos — caro, exige
+**Limiar por ação.** Remover do balanceamento passou a usar 3 segundos:
+barato de reverter. Redistribuir trabalho passou a usar 15 segundos: caro, exige
 mais certeza.
 
 **Detecção indireta.** Antes de declarar suspeito, o nó pergunta a três outros se
-eles alcançam. Isso não ataca a pausa de coleta de lixo — o nó pausado não
+eles alcançam. Isso não ataca a pausa de coleta de lixo: o nó pausado não
 responde a ninguém, e os três apenas confirmam a suspeita. O que a correção
 cobre é a outra classe de falso positivo, a do caminho de rede, que de outro
 modo o limiar de 15 segundos teria de absorver sozinho.
 
-**Ajuste da coleta de lixo** para reduzir as pausas longas — tratando a causa, não
+**Ajuste da coleta de lixo** para reduzir as pausas longas, tratando a causa, não
 só o sintoma.
 
 A instabilidade desapareceu. E a detecção de falha real continuou acontecendo em
 15 segundos, o que era perfeitamente aceitável para aquele sistema.
 
-Na retrospectiva: o problema não era o detector estar errado — ele estava
+Na retrospectiva: o problema não era o detector estar errado. Ele estava
 detectando corretamente que o nó não respondia. O problema era **usar a mesma
 resposta para uma pausa de 4 segundos e para uma máquina morta**.
 
 ## Conceitos Relacionados
 
-- [Falha de Rede](/06-distributed-systems/network-failure.md) — por que o silêncio é ambíguo.
-- [Eleição de Líder](/06-distributed-systems/leader-election.md) — o consumidor mais crítico da detecção.
-- [Timeouts](/06-distributed-systems/timeouts.md) — o mecanismo básico.
+- [Falha de Rede](/06-distributed-systems/network-failure.md): por que o silêncio é ambíguo.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md): o consumidor mais crítico da detecção.
+- [Timeouts](/06-distributed-systems/timeouts.md): o mecanismo básico.
 - [Consenso](/06-distributed-systems/consensus.md).
 
 ## Exercício Prático
@@ -276,7 +276,7 @@ resposta para uma pausa de 4 segundos e para uma máquina morta**.
 No seu sistema, descubra o prazo de detecção de falha e compare com a duração das
 pausas de coleta de lixo do percentil 99.
 
-Se o prazo for menor, você tem falsos positivos — e vale medir com que frequência
+Se o prazo for menor, você tem falsos positivos, e vale medir com que frequência
 instâncias são removidas e readmitidas.
 
 ## Perguntas de Entrevista

@@ -2,7 +2,7 @@
 id: dead-letter-queues
 title: Dead-Letter Queues
 sidebar_position: 29
-description: Where the messages that could not be processed go — and why it needs an owner.
+description: Where the messages that could not be processed go, and why it needs an owner.
 doc_type: concept
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [poison-messages]
 related: [poison-messages, retries, observability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -30,14 +30,14 @@ graveyard that gives the impression of handling.
 
 ## Problem
 
-With no dead-letter, a message that always fails has two bad destinations: retrying indefinitely —
-blocking — or being discarded — losing.
+With no dead-letter, a message that always fails has two bad destinations: retrying indefinitely
+(blocking) or being discarded (losing).
 
 The dead-letter gives the third: leaving the queue and being kept for analysis.
 
 The problem it creates is organizational: **messages pile up there and nobody notices**. That is
 common and worse than it looks, because each message represents a business operation that did not
-happen — an order not invoiced, a charge not issued, a notification not sent.
+happen: an order not invoiced, a charge not issued, a notification not sent.
 
 ## Core Concepts
 
@@ -47,7 +47,7 @@ A message alone in the dead-letter is hard to diagnose. The necessary context:
 
 **The original content**, unchanged.
 
-**The error** — the exception, the message, the stack trace.
+**The error**: the exception, the message, the stack trace.
 
 **How many attempts** and when.
 
@@ -55,7 +55,7 @@ A message alone in the dead-letter is hard to diagnose. The necessary context:
 
 **The correlation identifier**, to tie it back to the original operation's logs.
 
-Without the last three, the analysis starts by reconstructing what happened — which is the work the
+Without the last three, the analysis starts by reconstructing what happened. That is the work the
 context exists to avoid.
 
 Several brokers add part of that automatically in message attributes; it is worth checking what
@@ -75,7 +75,7 @@ right now, and for how long?* If nobody can answer, the mechanism is configured 
 
 After fixing the cause, the dead-letter's messages are sent back to the main queue.
 
-That is reprocessing — and some of them may have been **partially processed** before failing. If the
+That is reprocessing, and some of them may have been **partially processed** before failing. If the
 consumer wrote something and failed afterwards, reprocessing duplicates.
 
 See [idempotency](/06-distributed-systems/idempotency.md) and
@@ -92,13 +92,13 @@ One per queue keeps the association obvious and allows different policies per co
 ### It is not long-term storage
 
 Messages sit there to be analyzed and resolved, not stored. A retention period avoids indefinite
-accumulation — and it forces the process to exist, because the message disappears if nobody acts.
+accumulation, and it forces the process to exist, because the message disappears if nobody acts.
 
 The period has to be generous enough to cover a weekend and a holiday.
 
 ### After analysis, there are three destinations
 
-A message in the dead-letter is not the end of the process — it is the beginning of a decision
+A message in the dead-letter is not the end of the process but the beginning of a decision
 someone has to make:
 
 **Discard.** The message is invalid and there is nothing to do. Record the discard; a dead-letter
@@ -123,7 +123,7 @@ Without those three paths defined and owned, the dead-letter becomes a dump.
 
 - Every consumer where losing the message costs more than operating one more queue.
 - Especially where the message represents a business operation.
-- Where the queue is ordered — the blockage is more serious.
+- Where the queue is ordered: the blockage is more serious.
 
 ## When Not to Use
 
@@ -135,16 +135,16 @@ Without those three paths defined and owned, the dead-letter becomes a dump.
 
 **With no retention.** It accumulates indefinitely.
 
-**For transient failures.** A database outage should not send messages to a dead-letter — there
+**For transient failures.** A database outage should not send messages to a dead-letter. There
 should be retries with [backoff](/06-distributed-systems/backoff.md). If the dead-letter fills during
 a dependency outage, the failure classification is wrong.
 
 ## Alternatives
 
-- **Delayed retry queue** — for ambiguous failures, try again in hours instead of giving up.
-- **Discard with a record** — when the message is genuinely disposable and the volume makes analysis
+- **Delayed retry queue**: for ambiguous failures, try again in hours instead of giving up.
+- **Discard with a record**: when the message is genuinely disposable and the volume makes analysis
   unviable. It has to be an explicit decision.
-- **A pending items table** — instead of a queue, write to a database with an analysis interface.
+- **A pending items table**: instead of a queue, write to a database with an analysis interface.
   Better when the handling involves a human decision.
 
 The last is underestimated: for messages that require a business decision, a screen is better than a
@@ -172,7 +172,7 @@ succeeded.
 
 **Retention expiring before the analysis.** The message disappears before anyone looks.
 
-**A dead-letter of the dead-letter.** The reprocessing fails again and comes back — with no limit, it
+**A dead-letter of the dead-letter.** The reprocessing fails again and comes back. With no limit, it
 is a slower loop.
 
 ## Common Mistakes
@@ -181,7 +181,7 @@ is a slower loop.
 customer complains about an order that vanished, weeks later.
 
 **Not including the error along with the message.** Without the exception, the timestamp and the
-attempt it failed on, whoever investigates has to reproduce the problem to find out what happened —
+attempt it failed on, whoever investigates has to reproduce the problem to find out what happened,
 and frequently cannot.
 
 **Not defining an owner.** A dead-letter queue with no named owner is emptied by nobody; it becomes a
@@ -197,7 +197,7 @@ The oldest one's age is the useful metric.
 
 ## Real-World Example
 
-A subscriptions system had dead-letters configured on all seven queues — a best practice followed
+A subscriptions system had dead-letters configured on all seven queues: a best practice followed
 correctly.
 
 None had an alert.
@@ -208,7 +208,7 @@ subscription renewal consumer failed on deserialization and sent messages to the
 That lasted 23 days.
 
 4,100 renewals unprocessed. Subscriptions expired with no charge, access was suspended, and
-customers called — which finally led someone to investigate.
+customers called. That finally led someone to investigate.
 
 The discovery came from looking at the dead-letter and finding 4,100 messages, the oldest three
 weeks old.
@@ -224,21 +224,21 @@ anomaly, not a statistic.
 
 **An age metric.** A dashboard with the count and the oldest message's age per queue.
 
-**Idempotency in the renewal consumer**, with a key per subscription and period — which would have
+**Idempotency in the renewal consumer**, with a key per subscription and period. That would have
 prevented the double charge during reprocessing.
 
 **A schema registry** between producer and consumer, preventing an incompatible change from being
 published.
 
-The recorded lesson: the dead-letter did exactly what it should — it prevented the queue from
+The recorded lesson: the dead-letter did exactly what it should. It prevented the queue from
 blocking and preserved the messages. What was missing was the organizational half of the mechanism.
 
 ## Related Concepts
 
-- [Poison Messages](/06-distributed-systems/poison-messages.md) — what goes there.
-- [Idempotency](/06-distributed-systems/idempotency.md) — necessary to reprocess.
-- [Retries](/06-distributed-systems/retries.md) — the classification that decides what goes.
-- [Observability](/13-observability/index.md) — alerts and metrics.
+- [Poison Messages](/06-distributed-systems/poison-messages.md): what goes there.
+- [Idempotency](/06-distributed-systems/idempotency.md): necessary to reprocess.
+- [Retries](/06-distributed-systems/retries.md): the classification that decides what goes.
+- [Observability](/13-observability/index.md): alerts and metrics.
 
 ## Practical Exercise
 
@@ -255,4 +255,4 @@ If you cannot answer in a minute, the mechanism is configured and is not being u
 ## Further Reading
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — actionable alerts.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Actionable alerts.

@@ -2,7 +2,7 @@
 id: leader-election
 title: Eleição de Líder
 sidebar_position: 16
-description: Escolher quem coordena — e por que a eleição é fácil e evitar dois líderes é difícil.
+description: Escolher quem coordena, e por que a eleição é fácil e evitar dois líderes é difícil.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [consensus, distributed-locks, failure-detection]
 canonical_for: [eleição de líder, cérebro dividido, fencing]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Eleição de líder é o processo pelo qual um grupo de nós escolhe um para
-coordenar — aceitar escritas, distribuir trabalho, tomar decisões que precisam ser
+coordenar: aceitar escritas, distribuir trabalho, tomar decisões que precisam ser
 únicas.
 
 Escolher é fácil. O difícil é **garantir que não haja dois**, e essa dificuldade
@@ -40,7 +40,7 @@ Os outros nós precisam detectar a falha e eleger um substituto. Mas
 [detectar falha é heurística](/06-distributed-systems/failure-detection.md): "não responde" pode
 significar caído, lento, ou do outro lado de uma partição.
 
-Se os nós elegem um novo líder e o antigo **não caiu** — só estava incomunicável —
+Se os nós elegem um novo líder e o antigo **não caiu** (só estava incomunicável),
 existem dois líderes, ambos aceitando escritas, ambos convencidos de serem o
 único.
 
@@ -54,7 +54,7 @@ O mecanismo fundamental: **um nó só se torna líder com o voto da maioria.**
 
 Como não pode haver duas maiorias disjuntas num mesmo grupo, não pode haver dois
 líderes eleitos no mesmo mandato. O que a maioria não impede é que um líder de
-mandato anterior continue se julgando líder — e é esse caso que a seção seguinte
+mandato anterior continue se julgando líder, e é esse caso que a seção seguinte
 trata.
 
 ```text
@@ -71,7 +71,7 @@ indisponível. Ver [CAP](/06-distributed-systems/cap.md).
 
 ### O líder antigo precisa saber que perdeu
 
-Aqui está a parte sutil. O nó isolado pode não perceber que perdeu a liderança —
+Aqui está a parte sutil. O nó isolado pode não perceber que perdeu a liderança:
 ele não recebe notícia, porque está partido.
 
 Duas defesas:
@@ -80,8 +80,8 @@ Duas defesas:
 renovada com a maioria. Sem renovar, o líder **se demite sozinho**. Isso limita a
 janela de dois líderes ao tempo da concessão.
 
-**Fencing.** Cada liderança recebe um número crescente. Os recursos protegidos —
-banco, armazenamento — rejeitam operações com número menor que o último visto.
+**Fencing.** Cada liderança recebe um número crescente. Os recursos protegidos
+(banco, armazenamento) rejeitam operações com número menor que o último visto.
 
 ```text
 líder 1 (época 5) é isolado
@@ -109,8 +109,8 @@ liderança trocando repetidamente; prazo longo faz o inverso.
 
 Antes de eleger, vale perguntar se a coordenação é necessária.
 
-Operações comutativas — que podem acontecer em qualquer ordem sem alterar o
-resultado — não precisam de líder. Ver
+Operações comutativas, que podem acontecer em qualquer ordem sem alterar o
+resultado, não precisam de líder. Ver
 [resolução de conflitos](/06-distributed-systems/conflict-resolution.md) e estruturas que convergem sem
 coordenação.
 
@@ -119,7 +119,7 @@ Líder é a solução mais simples de raciocinar e a mais cara em disponibilidad
 ### Não implemente do zero
 
 Eleição correta é notoriamente difícil de implementar. As implementações
-disponíveis — baseadas em Raft, Paxos ou serviços de coordenação — foram testadas
+disponíveis (baseadas em Raft, Paxos ou serviços de coordenação) foram testadas
 contra cenários de partição que uma implementação própria não terá.
 
 Ver [consenso](/06-distributed-systems/consensus.md).
@@ -131,7 +131,7 @@ mecanismo serve a essa segunda parte.
 
 ## Quando Usar
 
-- Uma operação precisa acontecer em exatamente um lugar — agendamento, migração,
+- Uma operação precisa acontecer em exatamente um lugar: agendamento, migração,
   compactação.
 - Replicação com líder único precisa de failover automático.
 - Há um recurso que não admite acesso concorrente entre nós.
@@ -155,11 +155,11 @@ uma arquitetura sem líder, com as complicações correspondentes.
 
 ## Alternativas
 
-- **Sem líder, com quórum** — replicação sem coordenação central.
-- **Operações comutativas** — evita a necessidade.
-- **Bloqueio distribuído com prazo** — para coordenação pontual, não contínua. Ver
+- **Sem líder, com quórum**: replicação sem coordenação central.
+- **Operações comutativas**: evita a necessidade.
+- **Bloqueio distribuído com prazo**: para coordenação pontual, não contínua. Ver
   [locks distribuídos](/06-distributed-systems/distributed-locks.md).
-- **Particionamento** — em vez de um líder para tudo, um por partição, o que
+- **Particionamento**: em vez de um líder para tudo, um por partição, o que
   distribui a carga e o risco.
 
 ## Trade-offs
@@ -213,8 +213,8 @@ A instância A obteve a liderança e começou o fechamento. No meio, sofreu uma 
 de 7 minutos. A concessão expirou. A instância B assumiu e começou o fechamento do
 zero.
 
-A instância A voltou da pausa **sem saber** que havia perdido a liderança — do
-ponto de vista dela, nada aconteceu — e continuou escrevendo de onde parou.
+A instância A voltou da pausa **sem saber** que havia perdido a liderança (do
+ponto de vista dela, nada aconteceu) e continuou escrevendo de onde parou.
 
 Duas instâncias escreveram lançamentos contábeis do mesmo fechamento. A
 conciliação levou três dias.
@@ -229,19 +229,19 @@ o último aceito. A instância A, ao voltar, foi rejeitada na primeira escrita.
 renovada por batimento e verificação explícita de liderança antes de cada bloco de
 escrita.
 
-O que torna esse caso instrutivo é que o problema não foi a eleição — ela
+O que torna esse caso instrutivo é que o problema não foi a eleição: ela
 funcionou, e B foi corretamente eleito. O problema foi **A não saber que perdeu**,
 e nenhum mecanismo impedir que ele escrevesse.
 
-Fencing é a defesa que não depende do ex-líder perceber nada — e, diferente da
+Fencing é a defesa que não depende do ex-líder perceber nada e, diferente da
 verificação de liderança antes da escrita, não tem janela entre checar e gravar.
 
 ## Conceitos Relacionados
 
-- [Consenso](/06-distributed-systems/consensus.md) — o mecanismo que sustenta a eleição.
-- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md) — o mesmo problema em escala menor.
-- [Detecção de Falha](/06-distributed-systems/failure-detection.md) — por que é heurística.
-- [Falha de Rede](/06-distributed-systems/network-failure.md) — a partição que o provoca.
+- [Consenso](/06-distributed-systems/consensus.md): o mecanismo que sustenta a eleição.
+- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md): o mesmo problema em escala menor.
+- [Detecção de Falha](/06-distributed-systems/failure-detection.md): por que é heurística.
+- [Falha de Rede](/06-distributed-systems/network-failure.md): a partição que o provoca.
 
 ## Exercício Prático
 
@@ -259,7 +259,7 @@ e voltar, o que impede que ela continue escrevendo?
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *How to do distributed locking*, 2016 — o argumento sobre
+- Kleppmann, Martin. *How to do distributed locking*, 2016. O argumento sobre
   fencing.
 - Ongaro, Diego; Ousterhout, John. *In Search of an Understandable Consensus
   Algorithm (Raft)*, 2014.

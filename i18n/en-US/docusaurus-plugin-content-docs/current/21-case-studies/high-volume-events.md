@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, social-network, logistics]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ support, not the magnitudes.
 
 ## Business Context
 
-**Sensia** operates an industrial monitoring platform for 340 plants — mining, pulp and paper,
+**Sensia** operates an industrial monitoring platform for 340 plants: mining, pulp and paper,
 steel and power generation. Each plant has between 4 thousand and 90 thousand sensors sending
 telemetry continuously: temperature, vibration, pressure, current, flow.
 
@@ -45,13 +45,13 @@ emergency shutdown into scheduled maintenance.
 
 Two pressures motivate the review:
 
-**Cost.** The platform spends $14.2 million a year, of which 58% — $8.2 million — goes to storing
+**Cost.** The platform spends $14.2 million a year, of which 58% ($8.2 million) goes to storing
 raw telemetry
 that is almost never read. Leadership set a target of a 40% reduction in cost per monitored
 sensor.
 
 **Alarm latency.** The p99 of the time between the sensor reading and the alarm in the control
-room is 34 seconds. For safety measurements — pressure in a vessel, temperature in a bearing —
+room is 34 seconds. For safety measurements (pressure in a vessel, temperature in a bearing),
 that is unacceptable, and two customers have already flagged the problem in operational safety
 audits.
 
@@ -91,7 +91,7 @@ cost per monitored sensor                    40% reduction
 ```
 
 The split between "zero loss" for safety events and "0.1% acceptable" for operational ones is the
-decision that unlocks all the possible savings — and it had to be negotiated with customers,
+decision that unlocks all the possible savings, and it had to be negotiated with customers,
 because the previous platform promised zero loss for everything.
 
 ## Constraints
@@ -128,7 +128,7 @@ events/day                           ~363 billion
 ```
 
 Four million two hundred thousand events per second. This is the first case in this set where
-scale **is** the problem — and the comparison with the earlier ones is instructive: the payments
+scale **is** the problem, and the comparison with the earlier ones is instructive: the payments
 and banking cases had hundreds of operations per second and complex architectures; this one has
 millions and a conceptually simpler architecture, because the data is small, uniform and
 disposable.
@@ -150,13 +150,13 @@ events never read in any form                  ~71%
 ```
 
 Seventy-one percent of events are never read. Raw storage as a whole costs $8.2 million a year, and
-since the event has a fixed size, those 71% account for about $5.8 million — and that line is the
+since the event has a fixed size, those 71% account for about $5.8 million, and that line is the
 answer to the cost problem.
 
 Obtaining that distribution was a project in itself. The previous system did not record which
 events were read; the information had to be reconstructed by instrumenting queries for three
 months and correlating with the sensors accessed. Before that, the retention discussion was
-conducted with opinions — "engineering may need it" — and no numbers.
+conducted with opinions ("engineering may need it") and no numbers.
 
 That pattern repeats in data systems: the decision of how much to retain depends on knowing what
 is read, and almost no platform measures that, because measuring access is work and the default
@@ -231,7 +231,7 @@ predictive capability preserved — the center sees every plant
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other
 criteria. With complexity at 30%, the totals become 4.6 / 6.3 / 6.8 / 7.2. With predictive
-capability at 35%, they become 4.6 / 7.1 / 6.5 / 8.6 — Option D keeps its advantage in both.
+capability at 35%, they become 4.6 / 7.1 / 6.5 / 8.6: Option D keeps its advantage in both.
 
 Option C wins in no scenario for the same reason: with no central view, the predictive model
 is trained only on one plant's history, and most of the product's value comes from learning from
@@ -258,11 +258,11 @@ diagnostic            stored locally,             sent on demand
 
 The **diagnostic** class is the decision with the greatest cost effect: these are high-frequency
 measurements used only when a failure is being investigated. They sit in a local 7-day circular
-buffer and are only uploaded when someone asks — which happens for about 0.2% of sensors a month.
+buffer and are only uploaded when someone asks. That happens for about 0.2% of sensors a month.
 
 The 7-day window was negotiated with maintenance engineering and is that class's central
 compromise: failure investigations begin, in 94% of cases, within 3 days of the event. The
-remaining 6% are late investigations, and for those the raw data no longer exists — the aggregate
+remaining 6% are late investigations, and for those the raw data no longer exists, but the aggregate
 remains.
 
 Accepting that loss was difficult and was decided with numbers: extending the window to 30 days
@@ -277,7 +277,7 @@ On its own, that class represents 61% of raw volume and came to cost almost noth
 constraint. It is the most flexible, and that flexibility has value when cost is not the problem.
 
 **Option B would win if** the plants had reliable connectivity. With no link failures, the local
-node is unnecessary complexity — and for the 84 plants with stable links, Sensia is evaluating
+node is unnecessary complexity, and for the 84 plants with stable links, Sensia is evaluating
 operating them in mode B, with no local node, which is recorded as a possible simplification.
 
 **Option C would win if** the product were monitoring and alarming only, with no prediction.
@@ -324,7 +324,7 @@ event    (sensor_id, timestamp, value, quality)
          quality as a 1-byte enumeration
 ```
 
-There is no sensor name, unit, plant or equipment in the event — all of that is in the catalog,
+There is no sensor name, unit, plant or equipment in the event: all of that is in the catalog,
 and including it would multiply the volume by four. It is aggressive normalization justified
 exclusively by scale.
 
@@ -345,7 +345,7 @@ after compression                   ~260 GB/day
 From 17 TB to 260 GB a day. Classification accounts for 83% of the reduction, and compression for
 the rest.
 
-**Aggregates.** Pre-computed in three windows — 1 minute, 15 minutes and 1 hour — with minimum,
+**Aggregates.** Pre-computed in three windows: 1 minute, 15 minutes and 1 hour, with minimum,
 maximum, mean, deviation and count. They cover 97.6% of queries.
 
 Computing aggregates at ingestion rather than at query time is what makes it possible to answer a
@@ -358,7 +358,7 @@ guarantees zero loss of safety events during a link outage.
 ## Integration
 
 **Sensor collection.** The system's most irregular point. These are industrial protocols from
-different generations, some with severe limitations — one of them allows no more than 200 readings
+different generations, some with severe limitations: one of them allows no more than 200 readings
 per second per controller, which requires distributing the collection.
 
 The Protocol Collector isolates that irregularity. Each protocol has an adapter, and the rest of
@@ -369,7 +369,7 @@ delivery with per-batch acknowledgment; operational ones use optimistic delivery
 loss.
 
 During a link outage, the node keeps operating: local alarms work, data goes to the buffer, and
-synchronization occurs on reconnection — with priority for safety events.
+synchronization occurs on reconnection, with priority for safety events.
 
 ```text
 behavior during a link outage
@@ -391,7 +391,7 @@ them at the center would add the link's latency to the safety critical path; rou
 edge would require every node to know the escalation structure and the on-call contacts.
 
 **Prediction.** Models trained at the center, with data from every plant, and served both at the
-center and — for lightweight models — at the edge. A model that detects a vibration anomaly runs
+center and (for lightweight models) at the edge. A model that detects a vibration anomaly runs
 locally and doesn't depend on the link.
 
 ## Security
@@ -416,12 +416,12 @@ edge node
                       update
 ```
 
-The decision that the platform is **read-only** — never sending a command to a controller — is the
+The decision that the platform is **read-only** (never sending a command to a controller) is the
 most important in the security design. It eliminates an entire class of risk: a compromise of the
 platform cannot alter the industrial process.
 
-It was contested by customers who wanted automatic actuation — stopping equipment on detecting an
-anomaly — and was upheld. The compromise was to raise the alarm at maximum priority and leave
+It was contested by customers who wanted automatic actuation (stopping equipment on detecting an
+anomaly) and was upheld. The compromise was to raise the alarm at maximum priority and leave
 actuation to the plant's own safety systems, which are certified for it.
 
 ## Scalability
@@ -435,7 +435,7 @@ has a bigger node; one with 4 thousand, a smaller one. Adding plants doesn't aff
 **At the center.** Ingestion and stream processing are partitioned by plant, which gives natural
 parallelism and limits the blast radius of any problem.
 
-The center processes about 340 thousand events per second — not 4.2 million — because the edge has
+The center processes about 340 thousand events per second, not 4.2 million, because the edge has
 already reduced them. That 12× reduction at the center's input is what makes the central
 architecture conventional.
 
@@ -468,7 +468,7 @@ equipment, and sounds in the plant itself.
 
 That property is verified, not assumed: a monthly test cuts communication to a plant selected on
 rotation and confirms that local alarms keep working, with the result recorded. Over 24 months,
-the test ran 24 times and failed once — at a plant where an update had left the local siren
+the test ran 24 times and failed once, at a plant where an update had left the local siren
 configuration inconsistent.
 
 That single failure justifies the test. It would have stayed invisible until a real link outage
@@ -507,8 +507,8 @@ The edge nodes are the challenge: 340 units, at plants with operational autonomy
 only over an unstable link. Updates go out in waves, signed, with integrity verification and
 automatic rollback if the node doesn't report healthy within 10 minutes.
 
-No node update during a plant's scheduled maintenance shutdown — the period when monitoring is
-most needed — nor during equipment startup.
+No node update during a plant's scheduled maintenance shutdown (the period when monitoring is
+most needed) nor during equipment startup.
 
 A plant can refuse an update window, and some refuse for months. The system supports nodes up to 4
 versions behind, and the protocol between edge and center is backward compatible for 18 months.
@@ -516,14 +516,14 @@ versions behind, and the protocol between edge and center is backward compatible
 ## Evolution Strategy
 
 **Phase 1 (months 1–6): sensor classification.** Cataloging and classifying the 12.4 million
-sensors by measurement class. Data and process engineering work, with little coding — and it is
+sensors by measurement class. Data and process engineering work, with little coding, and it is
 what unlocks everything else.
 
 The initial classification was automatic by name pattern and equipment type, with human review of
 the safety measurements. 4.1% came out ambiguous and were reviewed one by one with the customers.
 
 **Phase 2 (months 5–14): edge node.** Deployment to the 340 sites, starting with the plants with
-the worst links — which benefit most.
+the worst links, which benefit most.
 
 Measured result at the first 40 plants: safety alarm latency from 34 s to 0.4 s; volume sent to
 the center reduced by 91%.
@@ -581,13 +581,13 @@ failures predicted > 48 h ahead           from 44% to 71%
 ```
 
 The gain in predictive accuracy was not a project objective and came from an indirect effect: with
-consistent aggregates and high data quality — no gaps from link loss — the models started training
+consistent aggregates and high data quality (no gaps from link loss) the models started training
 over complete series. The data quality improved more than the models did.
 
 ## What this case teaches
 
 **Classifying the data is the architectural decision.** There is no single answer to "how much to
-retain" — there is an answer per measurement class, and discovering the classes was 6 months of
+retain": there is an answer per measurement class, and discovering the classes was 6 months of
 work before any code. It is what unlocked a 54% cost reduction.
 
 **Not every guarantee has to be uniform.** Zero loss for safety events and 0.1% tolerated for

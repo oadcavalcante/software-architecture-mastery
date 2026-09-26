@@ -2,7 +2,7 @@
 id: cap
 title: CAP
 sidebar_position: 11
-description: O que o teorema de fato afirma — que é bem menos do que costuma ser citado.
+description: O que o teorema de fato afirma, e que é bem menos do que costuma ser citado.
 doc_type: foundation
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency, availability]
 related: [pacelc, network-failure, consistency]
 canonical_for: [CAP, teorema CAP]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -26,7 +26,7 @@ O teorema CAP, formulado por Eric Brewer e provado por Gilbert e Lynch, afirma:
 > Um sistema distribuído não pode simultaneamente garantir **consistência** e
 > **disponibilidade** quando ocorre uma **partição de rede**.
 
-A leitura popular — "escolha dois entre os três" — está errada, e o erro tem
+A leitura popular, "escolha dois entre os três", está errada, e o erro tem
 consequência prática: ela sugere uma decisão permanente de arquitetura, quando o
 teorema descreve o comportamento durante um evento raro.
 
@@ -36,7 +36,7 @@ CAP é o resultado teórico mais citado e mais mal citado da área.
 
 Três equívocos comuns:
 
-**"Escolha dois entre três."** Partição não é uma escolha — é algo que acontece
+**"Escolha dois entre três."** Partição não é uma escolha: é algo que acontece
 com você. Você não decide "não ter partição"; você decide o que fazer quando ela
 ocorrer.
 
@@ -46,7 +46,7 @@ configuração da operação.
 
 **"CAP explica por que abrimos mão de consistência."** Fora de partição, não há
 dilema CAP. O sistema pode ser consistente **e** disponível. Se ele não é, a razão
-é outra — tipicamente latência, que é o que [PACELC](/06-distributed-systems/pacelc.md) trata.
+é outra: tipicamente latência, que é o que [PACELC](/06-distributed-systems/pacelc.md) trata.
 
 ## Conceitos Centrais
 
@@ -65,11 +65,11 @@ perdidas entre nós.
 
 **Durante uma partição**, um sistema distribuído escolhe entre:
 
-**CP** — recusar operações que não podem garantir consistência. O sistema fica
+**CP**: recusar operações que não podem garantir consistência. O sistema fica
 indisponível para parte dos clientes, e o estado permanece correto.
 
-**AP** — continuar aceitando operações. O sistema permanece disponível, e os
-estados divergem — o que exige
+**AP**: continuar aceitando operações. O sistema permanece disponível, e os
+estados divergem. Isso exige
 [resolução de conflito](/06-distributed-systems/conflict-resolution.md) depois.
 
 No diagrama, repare no ramo `Não`: é ali que o sistema passa a maior parte do
@@ -87,7 +87,7 @@ graph TB
 ### A escolha é por operação
 
 Um sistema de comércio pode ser CP na finalização de compra com estoque único e
-AP no catálogo, no carrinho e na consulta de pedido anterior — o mesmo banco,
+AP no catálogo, no carrinho e na consulta de pedido anterior: o mesmo banco,
 configurações diferentes por chamada. Tratar isso como decisão de sistema força a
 operação mais crítica a definir o comportamento de todas.
 
@@ -99,13 +99,13 @@ está em
 
 A frequência da partição é propriedade da rede, não do teorema. Entre nós de um
 mesmo datacenter, ou entre zonas de uma região de nuvem com enlaces redundantes,
-um sistema passa meses sem uma. Sobre um enlace de última milha único — a loja
-ligada à matriz por uma única conexão, como no Exemplo Real abaixo — a partição é
+um sistema passa meses sem uma. Sobre um enlace de última milha único (a loja
+ligada à matriz por uma única conexão, como no Exemplo Real abaixo), a partição é
 evento semanal.
 
 Onde ela é rara, **CAP não é o trade-off dominante do dia a dia**: o dominante é
-latência versus consistência, que vale sempre — ver
-[PACELC](/06-distributed-systems/pacelc.md) —, e decidir a arquitetura inteira com
+latência versus consistência, que vale sempre (ver
+[PACELC](/06-distributed-systems/pacelc.md)), e decidir a arquitetura inteira com
 base em CAP é otimizar para o caso raro ignorando o permanente. Onde ela é
 frequente, o comportamento sob partição é caminho quente, e precisa ser desenhado
 e testado como tal.
@@ -113,7 +113,7 @@ e testado como tal.
 ## Por Que Isso Importa
 
 **Porque a decisão sob partição precisa ser deliberada.** Se ninguém decidiu, o
-comportamento é o que a configuração padrão do banco fizer — e frequentemente não
+comportamento é o que a configuração padrão do banco fizer, e frequentemente não
 é o que o negócio aceitaria.
 
 **Porque a escolha é do negócio.** "Sob partição, preferimos recusar vendas ou
@@ -140,7 +140,7 @@ porque veio rotulada como teorema.
 
 **Tratar uma transação ACID commitada como leitura garantida em qualquer nó.** O
 C de ACID preserva invariantes dentro da transação; o de CAP é linearizabilidade
-entre nós — e o relatório lido da réplica mostra o pedido sem o pagamento.
+entre nós, e o relatório lido da réplica mostra o pedido sem o pagamento.
 
 **Achar que sistemas de nó único têm dilema CAP.** Sem distribuição, não há
 partição.
@@ -152,7 +152,7 @@ partição.
 Uma rede de farmácias tinha o sistema de vendas replicado entre a matriz e cada
 loja, para que as lojas continuassem vendendo se a conexão caísse.
 
-A conexão caía com frequência — internet de loja, em cidades pequenas.
+A conexão caía com frequência: internet de loja, em cidades pequenas.
 
 A configuração original era AP para tudo: a loja continuava operando com a réplica
 local e sincronizava ao reconectar.
@@ -169,30 +169,30 @@ vendidos além do disponível, gerando cancelamento e reclamação.
 
 A revisão separou as operações.
 
-**CP** — venda de controlados e reserva de item com estoque abaixo de um limiar.
+**CP**: venda de controlados e reserva de item com estoque abaixo de um limiar.
 Sem conexão com a matriz, a operação é recusada com mensagem explícita ao
 balconista. Uma venda perdida é preferível a uma infração regulatória.
 
-**AP** — venda de item comum, consulta de preço, cadastro de cliente, programa de
+**AP**: venda de item comum, consulta de preço, cadastro de cliente, programa de
 fidelidade. Tudo continua funcionando com a réplica local e reconcilia depois.
 
 O que tornou a decisão possível foi trazer a farmacêutica responsável técnica para
-a conversa. A pergunta — "sob partição, preferimos recusar a venda ou aceitar o
-risco de duplicar receita?" — não é técnica, e a resposta dela foi imediata e
+a conversa. A pergunta ("sob partição, preferimos recusar a venda ou aceitar o
+risco de duplicar receita?") não é técnica, e a resposta dela foi imediata e
 inequívoca.
 
 ## Conceitos Relacionados
 
-- [PACELC](/06-distributed-systems/pacelc.md) — a extensão que cobre o caso comum.
-- [Consistência](/06-distributed-systems/consistency.md) — o espectro de garantias.
+- [PACELC](/06-distributed-systems/pacelc.md): a extensão que cobre o caso comum.
+- [Consistência](/06-distributed-systems/consistency.md): o espectro de garantias.
 - [Disponibilidade](/06-distributed-systems/availability.md).
-- [Falha de Rede](/06-distributed-systems/network-failure.md) — de onde vem a partição.
+- [Falha de Rede](/06-distributed-systems/network-failure.md): de onde vem a partição.
 
 ## Exercício Prático
 
 Para as três operações mais críticas do seu sistema, responda: se a rede entre a
-aplicação e o banco ficar partida, o que deve acontecer — recusar ou aceitar e
-reconciliar?
+aplicação e o banco ficar partida, o que deve acontecer (recusar ou aceitar e
+reconciliar)?
 
 Depois verifique o que o sistema faz hoje. Se ninguém decidiu, o padrão da
 configuração decidiu.
@@ -208,5 +208,5 @@ configuração decidiu.
 - Gilbert, Seth; Lynch, Nancy. *Brewer's Conjecture and the Feasibility of
   Consistent, Available, Partition-Tolerant Web Services*. SIGACT News, 2002.
 - Brewer, Eric. *CAP Twelve Years Later: How the "Rules" Have Changed*. IEEE
-  Computer, 2012 — o próprio autor corrigindo as más leituras.
+  Computer, 2012: o próprio autor corrigindo as más leituras.
 - Kleppmann, Martin. *A Critique of the CAP Theorem*, 2015.

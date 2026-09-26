@@ -2,7 +2,7 @@
 id: evolutionary-architecture
 title: Evolutionary Architecture
 sidebar_position: 21
-description: Designing for guided change — and choosing which dimensions will be protected.
+description: Designing for guided change, and choosing which dimensions will be protected.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [fitness-functions, measuring-architecture-outcomes, technical-roadmaps]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-No architecture stays correct. The premises that produced it — volume, team, market, regulation,
-technology — change, and the design that was adequate stops being adequate.
+No architecture stays correct. The premises that produced it (volume, team, market, regulation,
+technology) change, and the design that was adequate stops being adequate.
 
 The conventional response is to plan better: forecast more, design more flexibly, anticipate. It
 fails because the relevant changes are precisely the ones that were not foreseen.
@@ -83,7 +83,7 @@ examples of a protected dimension
   every service has a valid owner
 ```
 
-A few — three to seven — and chosen by consequence. Each becomes a verification mechanism. See
+A few (three to seven), and chosen by consequence. Each becomes a verification mechanism. See
 [fitness functions](/23-architecture-leadership/fitness-functions.md).
 
 What is not on the list is allowed to degrade, and that is a conscious choice rather than an
@@ -99,7 +99,7 @@ it is the one that makes changes cheap
 What makes change cheap is known and is the same thing that makes software good: clear boundaries,
 low coupling, tests that give confidence, automated deployment, and the ability to roll back.
 
-None of that is specific to evolutionary architecture — what is specific is treating it as an
+None of that is specific to evolutionary architecture. What is specific is treating it as an
 investment in the capacity to change, and not as hygiene.
 
 See [continuous delivery](/14-devops-and-platform/ci-cd.md).
@@ -128,7 +128,7 @@ small and
 ```
 
 That holds for architecture as much as for code. A migration done in slices, each reversible, is
-slower in total and far safer — and it lets the plan survive interruptions. See
+slower in total and far safer, and it lets the plan survive interruptions. See
 [technical roadmaps](/23-architecture-leadership/technical-roadmaps.md).
 
 The exception is a system that has reached the end of its useful life: once the decision is to
@@ -143,7 +143,7 @@ where it is uncertain         preserve the option, if it's cheap
 ```
 
 Preserving an option has a cost, and it has to be small to be worth it. See
-[simplicity vs. flexibility](/20-trade-offs/simplicity-vs-flexibility.md) — the asymmetry is the
+[simplicity vs. flexibility](/20-trade-offs/simplicity-vs-flexibility.md). The asymmetry is the
 same: buying expensive optionality for an uncertain future rarely pays off.
 
 What almost always pays off: isolating the uncertain dependency in an identifiable place, without
@@ -163,7 +163,7 @@ time between decision and production
 
 The fourth line is the most revealing: components that frequently change together are evidence of
 a wrong boundary, and that information is in the repository history without anyone extracting it.
-Evidence, not a verdict — each pair has to be assessed, and the example below has one that was a
+Evidence, not a verdict: each pair has to be assessed, and the example below has one that was a
 coincidence.
 
 See [measuring outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
@@ -177,7 +177,7 @@ stable      published formats, contracts with external parties,
 ```
 
 An organization that changes everything continuously imposes a keeping-up cost on everyone. Declaring
-what is deliberately stable — and whose change requires a process — is as important as making the
+what is deliberately stable, and whose change requires a process, is as important as making the
 rest malleable.
 
 ## Mental Model
@@ -193,22 +193,22 @@ evolution is the middle ground between drift and freezing.
 
 ## When Not to Use
 
-**Short expected lifespan** — prototypes, campaigns, systems with a horizon under 12 to 18
+**Short expected lifespan**: prototypes, campaigns, systems with a horizon under 12 to 18
 months. Pipeline checks and continuous measurement cost from the first month, and the return only
 shows up as change accumulates.
 
-**A domain with slow, predictable change** — when the premises barely move, periodic review of a
+**A domain with slow, predictable change**: when the premises barely move, periodic review of a
 stable architecture delivers the same result for less.
 
-**A system already slated for replacement** — investing in making it cheap to change is spending
+**A system already slated for replacement**: investing in making it cheap to change is spending
 on an asset that is leaving; freezing and isolating it usually costs less.
 
 ## Alternatives
 
-- **A stable architecture with periodic review** — adequate in domains that change little.
-- **A planned rewrite** — in some cases, accepting that the system has a useful life and planning the
+- **A stable architecture with periodic review**: adequate in domains that change little.
+- **A planned rewrite**: in some cases, accepting that the system has a useful life and planning the
   replacement is cheaper than keeping it evolutionary.
-- **Freeze and isolate** — keeping the system as it is, with clear boundaries, and building the new
+- **Freeze and isolate**: keeping the system as it is, with clear boundaries, and building the new
   one alongside. See [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 The second is underrated: not every system deserves the investment in evolvability, and recognizing
@@ -250,12 +250,12 @@ first Friday of a tight release.
 ## Common Mistakes
 
 **Not choosing** the dimensions to protect. Checks proliferate, warnings pile up, and the team
-starts ignoring them — including the ones that mattered.
+starts ignoring them, including the ones that mattered.
 
 **Not measuring** coupling and change frequency. Drift is only noticed once it costs a rewrite,
 because nothing showed it while it was cheap to fix.
 
-**Confusing evolutionary with flexible** — anticipated flexibility is the opposite. The result is
+**Confusing evolutionary with flexible**: anticipated flexibility is the opposite. The result is
 abstractions paid for changes that never come, which make the change that does come more expensive.
 
 **Not using the repository history** as a source of evidence. Boundaries get redrawn by intuition,
@@ -283,7 +283,7 @@ pairs of modules that change together in > 60%
 build time                                            47 minutes
 ```
 
-The 11 pairs that changed together were candidate wrong boundaries — separate modules that, in
+The 11 pairs that changed together were candidate wrong boundaries: separate modules that, in
 practice, might be one. And the 47-minute build time was what made any change expensive, regardless of size.
 
 The work was organized as guided evolution, not as a rewrite:
@@ -323,28 +323,28 @@ build time                            7 minutes
 protected dimensions violated         0 since blocking
 ```
 
-No rewrite. The system is the same, with the same responsibilities — what changed was the cost of
+No rewrite. The system is the same, with the same responsibilities. What changed was the cost of
 altering it.
 
 The detail the team highlights: the measurement over the repository history was the project's cheapest
 and most informative instrument. It cost two days of work, had existed all along, and nobody had
-extracted it — and 10 of the 11 pairs that changed together pointed at wrong boundaries, a precision
+extracted it. And 10 of the 11 pairs that changed together pointed at wrong boundaries, a precision
 no design analysis had achieved.
 
 ## Related Concepts
 
 - [Architecture Evolution](/01-fundamentals/architecture-evolution.md).
-- [Fitness Functions](/23-architecture-leadership/fitness-functions.md) — the mechanism.
+- [Fitness Functions](/23-architecture-leadership/fitness-functions.md): the mechanism.
 - [Measuring Outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
 - [Simplicity vs. Flexibility](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ## Practical Exercise
 
 Extract from your repository history the pairs of modules that change together more than 60% of the
-time — commits touching both, divided by commits touching either one —, counting only pairs with at
+time (commits touching both, divided by commits touching either one), counting only pairs with at
 least 20 commits in the period.
 
-Each pair is a boundary that may well be wrong — and that information has existed for years without
+Each pair is a boundary that may well be wrong, and that information has existed for years without
 anyone looking at it.
 
 ## Interview Questions

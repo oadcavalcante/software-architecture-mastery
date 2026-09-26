@@ -2,7 +2,7 @@
 id: indexing
 title: Indexing
 sidebar_position: 15
-description: The cheapest and most neglected architectural decision — and why an extra index also costs.
+description: The cheapest and most neglected architectural decision, and why an extra index also costs.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [oltp, relational-databases, denormalization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ An index is an auxiliary structure that allows finding records without scanning 
 Among the decisions in this section, it has the largest latency gain per unit of effort: an adequate
 index turns seconds into milliseconds, costs one line of command and does not change the model.
 
-And it is the most neglected — the performance problem attributed to scale is often, in fact, a
+And it is the most neglected: the performance problem attributed to scale is often, in fact, a
 missing index or the wrong index. That is why the execution plan comes before any architecture
 proposal.
 
@@ -38,7 +38,7 @@ unviable at a hundred million.
 The characteristic symptom: the system works well at the start and degrades progressively as the data
 grows, with no code change at all.
 
-The common reaction — a bigger machine — works for a while and does not solve it, because the cost
+The common reaction, a bigger machine, works for a while and does not solve it, because the cost
 grows with the volume, not with the capacity.
 
 ## Core Concepts
@@ -54,7 +54,7 @@ The phone book analogy: sorted by surname and then first name, it finds "Silva, 
 every "João" requires reading everything.
 
 The rule: the leftmost column has to be in the condition. Creating `(date, customer)` when the queries
-filter by customer is creating an index that will not be used — and that keeps costing on writes.
+filter by customer is creating an index that will not be used, and that keeps costing on writes.
 
 ### Selectivity determines the benefit
 
@@ -65,7 +65,7 @@ An index on a tax ID: each value identifies one row. Excellent.
 An index on a boolean active-status field: if 95% of the records are active, the index points to
 nearly everything, and the database will prefer to scan.
 
-That explains indexes that exist and are never used — and the solution for the low-selectivity case is
+That explains indexes that exist and are never used, and the solution for the low-selectivity case is
 usually a partial index, covering only the interesting minority.
 
 ### Every index is a write cost
@@ -75,7 +75,7 @@ Each insert, update and delete has to maintain every index on the table.
 A table with ten indexes pays ten updates per write. Under a heavy transactional workload, that
 becomes the bottleneck.
 
-The practical consequence: unused indexes are pure loss. Modern databases report usage statistics —
+The practical consequence: unused indexes are pure loss. Modern databases report usage statistics,
 and an audit of those statistics usually finds indexes created years earlier, for queries that no
 longer exist.
 
@@ -91,7 +91,7 @@ SELECT amount FROM orders WHERE customer = ? AND date > ?
 
 Every column is in the index, so the table need not be read. MVCC databases add a caveat: the index
 does not store row visibility, and PostgreSQL skips the table only for pages the visibility map marks
-as all-visible — on a freshly written table, the gain depends on vacuum being up to date.
+as all-visible. On a freshly written table, the gain depends on vacuum being up to date.
 
 It is a powerful optimization for critical queries, and covering too many columns turns the index into
 a copy of the table, with the corresponding write cost.
@@ -135,7 +135,7 @@ and nothing else.
 ## When to Use
 
 - Columns used in filters with good selectivity.
-- Foreign keys — joins need an index on both sides.
+- Foreign keys: joins need an index on both sides.
 - Columns used for frequent sorting.
 - Uniqueness constraints.
 - Critical queries that would benefit from covering.
@@ -157,10 +157,10 @@ replaces three simple ones.
 
 - **Rewrite the query.** Removing a function from the indexed column solves it with no new object.
 - **Update the statistics.** A bad plan with a correct index.
-- **Materialized view** — for repeated aggregations.
-- **[Partitioning](/07-data-architecture/data-partitioning.md)** — it discards whole partitions before
+- **Materialized view**: for repeated aggregations.
+- **[Partitioning](/07-data-architecture/data-partitioning.md)**: it discards whole partitions before
   any index.
-- **[Inverted index](/05-system-design/search.md)** — for full-text search with relevance.
+- **[Inverted index](/05-system-design/search.md)**: for full-text search with relevance.
 
 ## Trade-offs
 
@@ -212,7 +212,7 @@ causes unavailability.
 ## Real-World Example
 
 A support system had its history screen taking 12 seconds. The team concluded it needed a new
-architecture — a cache, a read replica, maybe an analytical store.
+architecture: a cache, a read replica, maybe an analytical store.
 
 The investigation took two hours and found three problems.
 
@@ -232,16 +232,16 @@ The full audit afterwards found something else: **of the 47 indexes in the datab
 used** since the last restart, six months earlier. Removing them reduced write time by 22%.
 
 In retrospect: the original architectural proposal would have cost about three months and would have
-worked — masking the real problem and keeping the write cost of the 19 useless indexes.
+worked, masking the real problem and keeping the write cost of the 19 useless indexes.
 
 The question that was missing was the simplest one available: "what does the execution plan say?".
 
 ## Related Concepts
 
-- [OLTP](/07-data-architecture/oltp.md) — where indexes are decisive.
+- [OLTP](/07-data-architecture/oltp.md): where indexes are decisive.
 - [Relational Databases](/07-data-architecture/relational-databases.md).
-- [Denormalization](/07-data-architecture/denormalization.md) — check the index first.
-- [Data Partitioning](/07-data-architecture/data-partitioning.md) — complementary.
+- [Denormalization](/07-data-architecture/denormalization.md): check the index first.
+- [Data Partitioning](/07-data-architecture/data-partitioning.md): complementary.
 
 ## Practical Exercise
 
@@ -260,4 +260,4 @@ Then list the never-used indexes. Each one is charging on every write without gi
 
 - Winand, Markus. *SQL Performance Explained*, 2012.
 - Winand, Markus. [Use The Index, Luke!](https://use-the-index-luke.com)
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 3.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 3.

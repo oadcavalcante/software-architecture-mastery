@@ -2,7 +2,7 @@
 id: platform-engineering
 title: Engenharia de Plataforma
 sidebar_position: 10
-description: Tratar infraestrutura interna como produto — e por que a plataforma que ninguém usa é pior que nenhuma.
+description: Tratar infraestrutura interna como produto, e por que a plataforma que ninguém usa é pior que nenhuma.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [internal-developer-platforms, sre-concepts, ci-cd]
 canonical_for: [engenharia de plataforma, plataforma como produto, caminho pavimentado, carga cognitiva]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Engenharia de plataforma é a disciplina de construir capacidades internas — esteiras,
-infraestrutura, observabilidade, padrões — como **produto**, com usuários internos que
+Engenharia de plataforma é a disciplina de construir capacidades internas (esteiras,
+infraestrutura, observabilidade, padrões) como **produto**, com usuários internos que
 escolhem usá-lo.
 
 A palavra que faz a diferença é *escolhem*. Uma plataforma obrigatória que não resolve
@@ -33,8 +33,8 @@ separadamente, e a carga cognitiva de operar consome a capacidade de construir p
 
 ## Problema
 
-O movimento de dar autonomia operacional aos times — cada time constrói e opera o que
-constrói — resolve um problema e cria outro.
+O movimento de dar autonomia operacional aos times (cada time constrói e opera o que
+constrói) resolve um problema e cria outro.
 
 Cada time precisa saber: contêineres, orquestração, rede, identidade, telemetria,
 esteiras, custo, segurança. Ver
@@ -44,7 +44,7 @@ esteiras, custo, segurança. Ver
 Multiplicado por doze times, isso é doze vezes o mesmo aprendizado, doze configurações
 divergentes, e uma carga que compete diretamente com a construção do produto.
 
-A resposta errada é centralizar a operação de volta — recriando a divisão que a autonomia
+A resposta errada é centralizar a operação de volta, recriando a divisão que a autonomia
 queria eliminar. Ver
 [conceitos de SRE](/13-observability/sre-concepts.md).
 
@@ -61,7 +61,7 @@ caminho pavimentado o caminho fácil, com suporte, que a maioria escolhe
 ```
 
 O caminho pavimentado entrega: implantação pronta, telemetria configurada, esteira
-funcionando, padrões de segurança aplicados — sem que o time precise montar nada.
+funcionando, padrões de segurança aplicados, sem que o time precise montar nada.
 
 Times com necessidade genuína de sair podem sair, assumindo o trabalho que a plataforma
 fazia por eles. Isso é o que evita que a plataforma vire gargalo para os casos que ela
@@ -91,7 +91,7 @@ falhando, e a obrigatoriedade esconde o sinal.
 Carga cognitiva, no sentido que Skelton e Pais (2019) trazem da psicologia
 educacional, é a quantidade de contexto que um time precisa manter na cabeça para
 entregar e operar o que é dele. Ela tem uma parte intrínseca, que vem do domínio, e
-uma extrínseca, que vem de ferramentas e processos — a taxonomia completa está em
+uma extrínseca, que vem de ferramentas e processos. A taxonomia completa está em
 [topologias de time](/23-architecture-leadership/team-topologies.md). A plataforma só
 consegue atacar a extrínseca; um time sobrecarregado pelo próprio domínio não se alivia
 com esteira melhor.
@@ -106,7 +106,7 @@ não faz        o que é específico do domínio de cada time
 ```
 
 E há uma armadilha: uma plataforma que abstrai demais impede os times de entender o que
-acontece — e, quando algo quebra, ninguém sabe diagnosticar.
+acontece e, quando algo quebra, ninguém sabe diagnosticar.
 
 A abstração precisa ser **transparente**: esconder a complexidade no caminho normal, e
 permitir descer quando necessário.
@@ -120,11 +120,11 @@ até 3 ou 4 times     convenções e um repositório de exemplos bastam
 ```
 
 A régua supõe escopo mínimo: esteira, modelos de serviço, segredos. Cada capacidade que a
-plataforma passa a **operar** — ambientes efêmeros, telemetria centralizada — acrescenta
+plataforma passa a **operar** (ambientes efêmeros, telemetria centralizada) acrescenta
 plantão e manutenção contínua, e puxa o limiar do time dedicado para baixo.
 
 Criar um time de plataforma cedo demais produz uma plataforma para um problema que ainda
-não existe — e ela precisa ser mantida, evoluída e migrada quando o problema real
+não existe, e ela precisa ser mantida, evoluída e migrada quando o problema real
 aparecer.
 
 E a plataforma precisa ser **menor** que o problema que resolve. Uma equipe de seis
@@ -143,7 +143,7 @@ times de produto usam  e operam os próprios serviços
 Se o time de plataforma vira o operador de todos os serviços, a autonomia acaba e o
 gargalo volta.
 
-Ver [conceitos de SRE](/13-observability/sre-concepts.md) — é o mesmo erro estrutural.
+Ver [conceitos de SRE](/13-observability/sre-concepts.md): é o mesmo erro estrutural.
 
 ### Medir o que importa
 
@@ -168,7 +168,7 @@ Se a resposta for não, a obrigatoriedade está escondendo o problema.
 - Muitos times resolvendo os mesmos problemas de infraestrutura.
 - Carga operacional consumindo capacidade de produto.
 - Divergência entre times causando problemas de segurança ou de operação.
-- Onde a padronização tem valor — auditoria, conformidade.
+- Onde a padronização tem valor: auditoria, conformidade.
 
 ## Quando Não Usar
 
@@ -177,7 +177,7 @@ eliminaria custa menos que manter a plataforma; convenções e um repositório d
 bastam.
 
 **Com um time só, ou com uma stack única já padronizada.** Não há divergência a
-reduzir — o caminho pavimentado já é o único caminho.
+reduzir: o caminho pavimentado já é o único caminho.
 
 **Com a operação terceirizada.** Se um PaaS ou um fornecedor gerenciado já entrega
 implantação, telemetria e ambientes, construir uma camada interna por cima duplica o que
@@ -189,16 +189,16 @@ nasce errado.
 
 **Sem capacidade de tratá-la como produto.** Se não há quem pesquise necessidade, dê
 suporte e mantenha documentação, o resultado é a plataforma obrigatória que ninguém
-escolheria — ver Erros Comuns.
+escolheria (ver Erros Comuns).
 
 ## Alternativas
 
-- **Convenções e exemplos** — repositórios modelo, documentação. Barato e suficiente
+- **Convenções e exemplos**: repositórios modelo, documentação. Barato e suficiente
   para organizações pequenas.
-- **Bibliotecas compartilhadas** — sem plataforma, com padrões em código.
-- **Plataforma comercial** — comprar em vez de construir. Ver
+- **Bibliotecas compartilhadas**: sem plataforma, com padrões em código.
+- **Plataforma comercial**: comprar em vez de construir. Ver
   [SaaS](/09-cloud-architecture/saas.md).
-- **[Time habilitador](/23-architecture-leadership/team-topologies.md)** — ajuda os times a
+- **[Time habilitador](/23-architecture-leadership/team-topologies.md)**: ajuda os times a
   resolverem, em vez de resolver por eles.
 
 A última é frequentemente melhor no início: ela transfere capacidade em vez de criar
@@ -244,13 +244,13 @@ de confiabilidade e plantão próprios, e de versões com prazo de depreciação
 
 ## Erros Comuns
 
-**Criar time de plataforma cedo demais.** Com poucos times consumidores, a plataforma custa mais do que a duplicação que ela eliminaria — e ainda concentra pessoas longe do produto.
+**Criar time de plataforma cedo demais.** Com poucos times consumidores, a plataforma custa mais do que a duplicação que ela eliminaria, e ainda concentra pessoas longe do produto.
 
 **Tornar obrigatório em vez de bom.** Adoção forçada esconde o sinal de que a plataforma não serve. Quando o caminho pavimentado é de fato o mais fácil, não precisa de mandato.
 
 **Medir adoção forçada.** Cem por cento de adoção obrigatória não diz nada sobre qualidade. O indicador útil é quanto tempo um time leva do zero à produção.
 
-**Abstrair sem permitir descer.** Toda abstração vaza em algum caso. Sem escotilha de escape, o primeiro time com necessidade fora do padrão contorna a plataforma inteira — e não volta.
+**Abstrair sem permitir descer.** Toda abstração vaza em algum caso. Sem escotilha de escape, o primeiro time com necessidade fora do padrão contorna a plataforma inteira, e não volta.
 
 **Não ter suporte nem documentação.** Plataforma é produto interno. Sem quem responda dúvidas e sem material de uso, o custo de adotá-la recai sobre cada time, um de cada vez.
 
@@ -274,7 +274,7 @@ dos times era ambiente de teste e observabilidade.
 **Abstração opaca.** Quando algo quebrava, o erro vinha da camada de abstração e não
 apontava para nada acionável.
 
-**Sem saída.** Um time com necessidade específica não conseguia sair parcialmente — era
+**Sem saída.** Um time com necessidade específica não conseguia sair parcialmente: era
 tudo ou nada.
 
 **Sem suporte.** Perguntas ficavam dias sem resposta.
@@ -286,7 +286,7 @@ contradisse a hipótese: implantação era o quarto item; ambientes efêmeros e
 observabilidade eram o primeiro e o segundo.
 
 **Redirecionamento.** A plataforma passou a entregar ambientes efêmeros e telemetria
-padronizada — o que os times pediam.
+padronizada: o que os times pediam.
 
 **Caminho pavimentado, não trilho.** A abstração passou a ser um modelo que gera a
 configuração real, visível e editável. Times podem sair do modelo mantendo o que ele
@@ -297,12 +297,12 @@ gerou.
 **Adoção voluntária como métrica**, revisada trimestralmente com os times.
 
 Dezoito meses depois: 13 dos 14 times no caminho pavimentado, por escolha. O time que
-ficou fora tem um requisito de latência que a plataforma não atende — e isso é
+ficou fora tem um requisito de latência que a plataforma não atende, e isso é
 considerado aceitável.
 
 E o time de plataforma reduziu de seis para quatro pessoas, porque parte do trabalho
 inicial era manter a abstração própria que foi abandonada. Quatro pessoas para 14 times
-está acima da régua de tamanho — e se justifica pelo escopo, não pelo número de times: a
+está acima da régua de tamanho, e se justifica pelo escopo, não pelo número de times: a
 plataforma passou a operar ambientes efêmeros e telemetria, com plantão, não só a
 fornecer modelos.
 
@@ -312,7 +312,7 @@ antes.
 
 ## Conceitos Relacionados
 
-- [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md) — a implementação.
+- [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md): a implementação.
 - [Conceitos de SRE](/13-observability/sre-concepts.md).
 - [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
 - [Integração Contínua](/14-devops-and-platform/ci-cd.md).
@@ -322,7 +322,7 @@ antes.
 Pergunte aos times de produto onde o tempo deles é gasto fora da construção de
 funcionalidades.
 
-Compare com o que a sua plataforma — ou o seu plano de plataforma — resolve. A diferença
+Compare com o que a sua plataforma (ou o seu plano de plataforma) resolve. A diferença
 é o desalinhamento.
 
 ## Perguntas de Entrevista

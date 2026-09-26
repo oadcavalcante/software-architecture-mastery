@@ -2,7 +2,7 @@
 id: adr-alternatives
 title: Alternativas Consideradas
 sidebar_position: 6
-description: Onde o raciocínio arquitetural fica visível — e a condição sob a qual cada descarte se desfaz.
+description: Onde o raciocínio arquitetural fica visível, e a condição sob a qual cada descarte se desfaz.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-decision, superseding-decisions]
 canonical_for: [alternativa descartada, condição de reversão, critério de comparação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -48,7 +48,7 @@ Isso não informa. Não diz o que foi comparado, com qual critério, nem o que t
 resultado ser outro.
 
 Pior: escrita assim, ela cumpre a função de **justificar uma escolha já feita** em vez de
-registrar uma comparação. É reconhecível pelo padrão — todas as alternativas têm defeitos,
+registrar uma comparação. É reconhecível pelo padrão: todas as alternativas têm defeitos,
 a escolhida não tem nenhum.
 
 Uma seção honesta de alternativas tem uma propriedade incômoda: ela deixa claro o que se
@@ -140,7 +140,7 @@ aprendizado."
 "Descartada porque uma decisão organizacional anterior padronizou X."
 ```
 
-Omitir esse tipo de razão produz ADRs que parecem tecnicamente inconsistentes anos depois —
+Omitir esse tipo de razão produz ADRs que parecem tecnicamente inconsistentes anos depois:
 alguém lê e não entende por que a opção melhor foi rejeitada.
 
 E são as razões que mais mudam com o tempo, o que as torna as mais úteis como gatilho de
@@ -171,7 +171,7 @@ levantamento inicial."
 ```
 
 Isso preserva duas informações que evaporam rápido. Primeiro, que a objeção existiu, o que
-importa se ela se mostrar certa depois. Segundo, **quem tem o contexto** — se a decisão for
+importa se ela se mostrar certa depois. Segundo, **quem tem o contexto**: se a decisão for
 reaberta em dois anos, essas pessoas são as primeiras a consultar, e a discussão começa de
 um patamar mais alto.
 
@@ -192,8 +192,8 @@ serve.
 ## Quando Não Usar
 
 **Decisão barata de reverter.** Quando refazer a escolha custa menos que escrever sobre
-ela — trocar uma biblioteca escondida atrás de uma interface própria, mudar um parâmetro de
-configuração —, levantar a condição de reversão de cada alternativa custa mais que errar e
+ela (trocar uma biblioteca escondida atrás de uma interface própria, mudar um parâmetro de
+configuração), levantar a condição de reversão de cada alternativa custa mais que errar e
 voltar. Uma linha nomeando as opções basta.
 
 **Uma única opção viável por restrição externa.** Quando regulação, contrato ou padrão
@@ -207,12 +207,12 @@ listado abaixo, cobre esse caso.
 
 ## Alternativas
 
-- **Tabela de decisão** — mais compacta que prosa, melhor para comparar mais de três
+- **Tabela de decisão**: mais compacta que prosa, melhor para comparar mais de três
   opções.
-- **Documento de comparação separado** — quando a avaliação foi extensa; o ADR referencia.
-- **Prova de conceito registrada** — quando a comparação foi empírica, os números
+- **Documento de comparação separado**: quando a avaliação foi extensa; o ADR referencia.
+- **Prova de conceito registrada**: quando a comparação foi empírica, os números
   substituem o argumento.
-- **Y-Statement** — comprime alternativas numa cláusula, para decisões menores.
+- **Y-Statement**: comprime alternativas numa cláusula, para decisões menores.
 
 ## Trade-offs
 
@@ -247,7 +247,7 @@ listado abaixo, cobre esse caso.
 
 **Escrever a seção depois de decidir.**
 
-**Não quantificar o descarte** — "não escala" sem número.
+**Não quantificar o descarte**: "não escala" sem número.
 
 **Omitir a opção que quase venceu**, que é justamente a mais informativa.
 
@@ -274,10 +274,10 @@ custo do serviço próprio, estimado      ~4 mil/mês de infraestrutura
 ```
 
 O "algum tempo de engenharia" nunca tinha sido quantificado. Medido em 2025, era de dois
-engenheiros em tempo integral — cerca de 60 mil por mês em custo de pessoal.
+engenheiros em tempo integral, cerca de 60 mil por mês em custo de pessoal.
 
 E o volume tinha triplicado, o que, com o desconto por faixa de volume do provedor, teria
-elevado o custo do serviço gerenciado para cerca de 30 mil — ainda metade do custo real do serviço próprio.
+elevado o custo do serviço gerenciado para cerca de 30 mil, ainda metade do custo real do serviço próprio.
 
 A alternativa vencedora, em 2023, tinha vencido por um critério que ninguém aplicou por
 inteiro.
@@ -293,8 +293,8 @@ suficiente e muda a conclusão com frequência.
 **Condição de reversão obrigatória** por alternativa. O modelo adotado: "esta opção
 venceria se ___".
 
-**Tabela de critérios** obrigatória já a partir de três opções — limiar mais rígido que o
-geral, de mais de três —, com os critérios
+**Tabela de critérios** obrigatória já a partir de três opções (limiar mais rígido que o
+geral, de mais de três), com os critérios
 definidos e pesados **antes** da avaliação.
 
 Numa revisão dos 40 ADRs seguintes, escritos sob as regras novas:
@@ -311,18 +311,18 @@ construir contra comprar, e em todos a intuição da equipe apontava para constr
 
 ## Conceitos Relacionados
 
-- [Contexto](/18-architecture-decisions/adr-context.md) — as forças que definem os critérios.
-- [Superação](/18-architecture-decisions/superseding-decisions.md) — o que acontece quando a condição de reversão é
+- [Contexto](/18-architecture-decisions/adr-context.md): as forças que definem os critérios.
+- [Superação](/18-architecture-decisions/superseding-decisions.md): o que acontece quando a condição de reversão é
   atingida.
-- [Trade-offs](/20-trade-offs/index.md) — o material desta seção.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — o custo do status quo.
+- [Trade-offs](/20-trade-offs/index.md): o material desta seção.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md): o custo do status quo.
 
 ## Exercício Prático
 
 Pegue um ADR do seu time e, para cada alternativa descartada, escreva a frase "esta opção
 venceria se ___".
 
-As que você não conseguir completar foram descartadas sem critério verificável — e são as
+As que você não conseguir completar foram descartadas sem critério verificável, e são as
 que vão ser redecididas.
 
 ## Perguntas de Entrevista
@@ -334,5 +334,5 @@ que vão ser redecididas.
 ## Para Aprofundar
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
-- *MADR — Markdown Any Decision Records* — adr.github.io/madr.
+- *MADR. Markdown Any Decision Records* — adr.github.io/madr.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

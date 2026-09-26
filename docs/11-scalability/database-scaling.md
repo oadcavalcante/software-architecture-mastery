@@ -2,7 +2,7 @@
 id: database-scaling
 title: Escala de Banco de Dados
 sidebar_position: 10
-description: O gargalo real da maioria dos sistemas — e a ordem de escalada que evita distribuir cedo demais.
+description: O gargalo real da maioria dos sistemas, e a ordem de escalada que evita distribuir cedo demais.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: [escala de banco de dados, pool de conexões, contenção de escrita, escada de escalada]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 O banco de dados é o gargalo real da maioria dos sistemas, e o componente cuja escalada
-é mais cara de desfazer — porque é onde o estado mora, e estado não se multiplica de graça.
+é mais cara de desfazer, porque é onde o estado mora, e estado não se multiplica de graça.
 
 Existe uma ordem de escalada, do mais barato para o mais caro. Segui-la evita a
 decisão que mais custa nesta seção: **distribuir o banco antes de necessário**.
@@ -30,19 +30,19 @@ decisão que mais custa nesta seção: **distribuir o banco antes de necessário
 ## Problema
 
 Quando o sistema fica lento e o banco aparece como limitante, a discussão pula para
-particionamento — a solução mais cara e mais irreversível disponível.
+particionamento: a solução mais cara e mais irreversível disponível.
 
 Antes dela há uma sequência de intervenções que, juntas, costumam entregar uma ou duas
 ordens de grandeza. Cada uma custa dias ou semanas; o particionamento custa meses e
 complexidade permanente.
 
-O problema não é o particionamento. É a ordem.
+O problema está na ordem, não no particionamento.
 
 ## Conceitos Centrais
 
 ### A escada de escalada
 
-Do mais barato para o mais caro — somando tempo de engenharia, custo recorrente e
+Do mais barato para o mais caro, somando tempo de engenharia, custo recorrente e
 irreversibilidade. A coluna abaixo mostra só o primeiro eixo:
 
 ```text
@@ -59,7 +59,7 @@ irreversibilidade. A coluna abaixo mostra só o primeiro eixo:
 ```
 
 Por isso a máquina maior, que se executa em horas, não é o degrau 1: ela aumenta a conta
-todo mês, tem teto na família de instâncias, e não conserta a consulta sem índice — só adia
+todo mês, tem teto na família de instâncias, e não conserta a consulta sem índice. Só adia
 o dia em que ela volta a doer.
 
 A regra: **não pule degraus**. Cada um resolve uma classe diferente de problema, e o
@@ -79,7 +79,7 @@ A maioria dos sistemas tem proporção de 10 para 1 ou mais a favor da leitura. 
 significa que réplicas e cache resolvem a maior parte do problema.
 
 Quando o gargalo é genuinamente de escrita, as opções encolhem: particionar, ou
-reduzir a escrita — em lote, assíncrona, ou eliminando a que não é necessária.
+reduzir a escrita (em lote, assíncrona, ou eliminando a que não é necessária).
 
 Distinguir os dois casos antes de decidir é o que evita construir a solução errada.
 
@@ -88,7 +88,7 @@ Distinguir os dois casos antes de decidir é o que evita construir a solução e
 O gargalo mais comum e o menos suspeitado.
 
 Cada conexão consome memória e um processo ou fio de execução no banco. O limite
-prático é de algumas centenas — muito abaixo do que uma camada de aplicação escalada
+prático é de algumas centenas, muito abaixo do que uma camada de aplicação escalada
 horizontalmente vai abrir.
 
 Ver [escala horizontal](/11-scalability/horizontal-scaling.md) e a lei de Little em
@@ -100,7 +100,7 @@ frequentemente entra tarde.
 
 ### Contenção de escrita não é resolvida por capacidade
 
-Quando muitas transações disputam o mesmo registro, elas serializam — independentemente
+Quando muitas transações disputam o mesmo registro, elas serializam, independentemente
 de CPU, memória ou número de réplicas.
 
 ```text
@@ -124,19 +124,19 @@ Ver [pontos quentes](/11-scalability/hotspots.md) e
 
 ### Dados frios pesam em tudo
 
-Tabelas grandes degradam índices, estatísticas, manutenção e cópias de segurança —
+Tabelas grandes degradam índices, estatísticas, manutenção e cópias de segurança,
 mesmo que os dados antigos nunca sejam consultados.
 
 Arquivar o que não é acessado é uma das intervenções mais subestimadas: uma tabela que
 encolhe 80% fica mais rápida em tudo, sem mudar nada da arquitetura.
 
-Ver [particionamento de dados](/07-data-architecture/data-partitioning.md) — o
+Ver [particionamento de dados](/07-data-architecture/data-partitioning.md). O
 descarte de partição torna o arquivamento uma operação de metadados.
 
 ### Dividir por domínio antes de particionar
 
-Se o banco único está no limite, separar por contexto — pedidos num banco, catálogo em
-outro — costuma ser mais simples que particionar.
+Se o banco único está no limite, separar por contexto (pedidos num banco, catálogo em
+outro) costuma ser mais simples que particionar.
 
 Ganhos: cada banco fica menor, escala independentemente, e a fronteira segue o
 domínio, que é uma divisão que já existe.
@@ -156,7 +156,7 @@ sempre mais baixo do que a discussão sugere.
 
 Cada degrau tem seu momento:
 
-- **1 a 3:** antes de qualquer degrau acima do 4 — salvo sob incidente, quando comprar
+- **1 a 3:** antes de qualquer degrau acima do 4, salvo sob incidente, quando comprar
   tempo com máquina maior vem primeiro.
 - **4:** quando ainda há tamanho de instância acima do atual e a folga dele cobre a
   projeção de crescimento. Ver [escala vertical](/11-scalability/vertical-scaling.md).
@@ -178,19 +178,19 @@ Cada degrau tem seu momento:
 
 **Dividir por domínio sem que a fronteira exista** no negócio.
 
-**Aumentar o pool de conexões** sem intermediário — piora a contenção no banco.
+**Aumentar o pool de conexões** sem intermediário: piora a contenção no banco.
 
 ## Alternativas
 
-- **Reduzir a escrita**, pelas saídas já listadas — vence a escada quando o gargalo é
+- **Reduzir a escrita**, pelas saídas já listadas: vence a escada quando o gargalo é
   de escrita e parte dela pode ser adiada ou descartada sem mudar o que o negócio vê.
-- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)**: modelo de leitura
   separado; vence réplica e cache quando a leitura precisa de um formato que o modelo de
   escrita não tem.
-- **Armazenamento adequado por carga** — busca num índice invertido, série temporal
+- **Armazenamento adequado por carga**: busca num índice invertido, série temporal
   num banco próprio; vence quando o gargalo é uma carga que o relacional atende mal, não o
   volume. Ver [NoSQL](/07-data-architecture/nosql.md).
-- **Banco relacional distribuído** — mantém o modelo e distribui a escrita, ao custo de
+- **Banco relacional distribuído**: mantém o modelo e distribui a escrita, ao custo de
   latência de coordenação; vence o degrau 10 quando a escrita é genuinamente o gargalo e
   junções e transações entre entidades precisam ser preservadas.
 
@@ -228,7 +228,7 @@ Cada degrau tem seu momento:
 
 ## Erros Comuns
 
-**Pular para particionamento.** Índice adequado, réplica de leitura e correção de consulta resolvem a maioria dos casos. Particionar impede junção e transação entre partições — custo permanente por um limite que talvez não tenha chegado.
+**Pular para particionamento.** Índice adequado, réplica de leitura e correção de consulta resolvem a maioria dos casos. Particionar impede junção e transação entre partições: custo permanente por um limite que talvez não tenha chegado.
 
 **Não usar intermediário de conexões.** Cada conexão consome memória no banco, e instâncias de aplicação multiplicam o número delas. O limite de conexões costuma ser atingido bem antes do limite de CPU.
 
@@ -238,7 +238,7 @@ Cada degrau tem seu momento:
 qualquer outro degrau, quando a tabela cresce sem política de retenção e os índices deixaram
 de caber em memória.
 
-**Escolher chave de partição sem analisar o padrão de consulta.** Se a chave não aparece nas consultas frequentes, cada uma delas precisa perguntar a todas as partições — e o particionamento piorou o desempenho que deveria melhorar.
+**Escolher chave de partição sem analisar o padrão de consulta.** Se a chave não aparece nas consultas frequentes, cada uma delas precisa perguntar a todas as partições, e o particionamento piorou o desempenho que deveria melhorar.
 
 **Tratar contenção de escrita como falta de capacidade.** Quando milhares de transações disputam a mesma linha, adicionar máquina não ajuda: o gargalo é o bloqueio, e a solução é mudar o modelo.
 
@@ -246,7 +246,7 @@ de caber em memória.
 
 Uma plataforma de pagamentos chegou ao limite do banco: latência de escrita subindo,
 timeouts em horário de pico, e a proposta na mesa era particionar por identificador de
-comerciante — projeto estimado em sete meses.
+comerciante, projeto estimado em sete meses.
 
 A escada foi percorrida antes:
 
@@ -269,7 +269,7 @@ Movidos para uma réplica dedicada.
 
 **Degrau 7 — arquivar.** Transações com mais de dois anos, nunca consultadas pela
 operação, foram para armazenamento frio. A tabela principal encolheu 70%, e os índices
-couberam em memória — o que melhorou tudo.
+couberam em memória, o que melhorou tudo.
 
 **Contenção de escrita.** Descoberta no meio do processo: o saldo do comerciante era
 atualizado com ler-calcular-gravar a cada transação. Comerciantes grandes tinham
@@ -283,16 +283,16 @@ O plano de particionamento foi arquivado com o desenho pronto e um gatilho defin
 quando a utilização de escrita passar de 60% de forma sustentada por um mês.
 
 O que a equipe aprendeu: os degraus 1 e 2, sozinhos, resolveram o incidente que
-motivou o projeto — e custaram uma semana. A proposta de sete meses tinha sido montada
+motivou o projeto, e custaram uma semana. A proposta de sete meses tinha sido montada
 sem nenhuma das medições que a escada exige.
 
 ## Conceitos Relacionados
 
 - [Replicação para Escala](/11-scalability/scaling-replication.md) e
   [Particionamento](/11-scalability/scaling-partitioning.md).
-- [Pontos Quentes](/11-scalability/hotspots.md) — a contenção.
-- [Indexação](/07-data-architecture/indexing.md) — o degrau 1.
-- [OLTP](/07-data-architecture/oltp.md) — a separação de cargas.
+- [Pontos Quentes](/11-scalability/hotspots.md): a contenção.
+- [Indexação](/07-data-architecture/indexing.md): o degrau 1.
+- [OLTP](/07-data-architecture/oltp.md): a separação de cargas.
 
 ## Exercício Prático
 

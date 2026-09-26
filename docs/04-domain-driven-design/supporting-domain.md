@@ -2,7 +2,7 @@
 id: supporting-domain
 title: Supporting Domain
 sidebar_position: 4
-description: Necessário e específico do negócio, mas não diferenciador — construa simples e resista à tentação.
+description: "Necessário e específico do negócio, mas não diferenciador: construa simples e resista à tentação."
 doc_type: foundation
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain, subdomínio de apoio]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -25,12 +25,12 @@ Um supporting domain é necessário para o negócio funcionar, é específico o
 bastante para não haver solução pronta, e não diferencia a empresa de ninguém.
 
 A decisão que ele exige é a mais difícil das três: **construir, mas construir
-simples** — e resistir à tentação de fazer bem feito demais.
+simples**, e resistir à tentação de fazer bem feito demais.
 
 ## O Problema
 
 Supporting domains são a maior parte do sistema na maioria das empresas, e é por
-isso que, em volume de horas, são onde mais esforço se perde — não porque cada erro
+isso que, em volume de horas, são onde mais esforço se perde, não porque cada erro
 ali custe mais caro que um erro no core.
 
 O mecanismo é previsível. Um engenheiro competente trabalha num subdomínio de
@@ -38,7 +38,7 @@ apoio. Ele vê oportunidades legítimas de melhoria: abstrair aqui, generalizar 
 tornar configurável aquilo.
 
 Cada melhoria é defensável isoladamente. O acúmulo produz um subsistema elaborado
-que resolve muito bem um problema que não diferencia a empresa em nada — enquanto
+que resolve muito bem um problema que não diferencia a empresa em nada, enquanto
 o [core](/04-domain-driven-design/core-domain.md) recebe menos atenção.
 
 Não é falta de competência. É ausência de um critério que diga "aqui, bom o
@@ -57,7 +57,7 @@ certo, e sem o critério declarado pode parecer que fez menos.
 
 ### Não aplique a cerimônia tática aqui
 
-Agregados, repositórios, eventos de domínio — a cerimônia tática custa e só se
+Agregados, repositórios, eventos de domínio: a cerimônia tática custa e só se
 paga onde a regra é genuinamente complexa e muda com frequência.
 
 Objetos de valor e entidades com comportamento ficam de fora dessa conta: são
@@ -71,13 +71,13 @@ Um supporting domain hoje pode virar [generic](/04-domain-driven-design/generic-
 alguém lançar um produto que o resolva.
 
 Vale monitorar: gestão de contratos, aprovação de despesas, controle de acesso
-por perfil — todos já foram supporting em muitas empresas e hoje têm soluções de
+por perfil. Todos já foram supporting em muitas empresas e hoje têm soluções de
 mercado maduras.
 
 ### Onde alocar pessoas
 
 Supporting domains costumam ser bons lugares para pessoas em início de carreira: o
-problema é real e o aprendizado é legítimo. A condição é o raio do erro — onde
+problema é real e o aprendizado é legítimo. A condição é o raio do erro: onde
 houver conformidade, dinheiro ou dado irreversível, a consequência não é contida,
 e a classificação não muda isso.
 
@@ -117,9 +117,9 @@ defendê-lo como estratégico.
 Uma fintech tinha um subdomínio de gestão de documentos: upload, categorização,
 validação de vencimento, retenção conforme regra regulatória.
 
-Necessário — sem isso não há conformidade. Específico — as regras de retenção
+Necessário: sem isso não há conformidade. Específico: as regras de retenção
 vêm da regulação do setor e nenhum produto de prateleira as implementava.
-Diferencia? Não — nenhum cliente escolheu a fintech por causa da gestão de
+Diferencia? Não, nenhum cliente escolheu a fintech por causa da gestão de
 documentos.
 
 Supporting, portanto.
@@ -133,14 +133,14 @@ Quatro engenheiros, dezoito meses.
 O uso real: onze tipos de documento, criados no primeiro mês e nunca alterados
 desde então. O motor configurável nunca foi configurado depois da carga inicial.
 
-A reescrita como código direto — onze tipos como constantes, regras de retenção
-como código, sem interface de administração — levou seis semanas e removeu 80% do
+A reescrita como código direto (onze tipos como constantes, regras de retenção
+como código, sem interface de administração) levou seis semanas e removeu 80% do
 código.
 
 A equipe foi realocada para o core, que era análise de risco de crédito.
 
 O erro não foi técnico. O motor configurável era bem construído. O erro foi
-construí-lo num lugar onde flexibilidade não tinha valor — e ninguém tinha
+construí-lo num lugar onde flexibilidade não tinha valor, e ninguém tinha
 declarado isso.
 
 ## O padrão de degeneração
@@ -148,17 +148,17 @@ declarado isso.
 Subdomínios de apoio degeneram de forma previsível, e reconhecer o padrão permite
 interromper cedo.
 
-**Fase um — a solução direta.** Alguém implementa o necessário, de forma simples.
-Funciona.
+**Fase um: a solução direta.** Alguém implementa o necessário, de forma simples,
+e funciona.
 
-**Fase dois — a primeira exceção.** Um caso não previsto aparece. Em vez de tratá-lo
+**Fase dois: a primeira exceção.** Um caso não previsto aparece. Em vez de tratá-lo
 como caso, alguém generaliza: adiciona um parâmetro, torna configurável.
 
-**Fase três — a plataforma.** Mais exceções chegam. A generalização vira mecanismo:
+**Fase três: a plataforma.** Mais exceções chegam. A generalização vira mecanismo:
 uma pequena linguagem de configuração, um motor de regras, uma interface de
 administração.
 
-**Fase quatro — a manutenção permanente.** O mecanismo precisa de quem o entenda.
+**Fase quatro: a manutenção permanente.** O mecanismo precisa de quem o entenda.
 Ele tem defeitos próprios, documentação própria, e uma curva de aprendizado para
 quem chega.
 
@@ -166,14 +166,14 @@ A intervenção mais eficaz é na fase dois: tratar a primeira exceção como ex
 com um `if` explícito e um comentário, em vez de generalizar.
 
 Isso parece menos elegante e é a decisão correta num supporting domain. A
-elegância tem valor onde a flexibilidade tem valor — e ali ela não tem.
+elegância tem valor onde a flexibilidade tem valor, e ali ela não tem.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
-- [Core Domain](/04-domain-driven-design/core-domain.md) — onde investir.
-- [Generic Domain](/04-domain-driven-design/generic-domain.md) — o que comprar.
-- [YAGNI](/02-software-design/yagni.md) — o princípio que se aplica aqui com
+- [Subdomínio](/04-domain-driven-design/subdomain.md): a classificação.
+- [Core Domain](/04-domain-driven-design/core-domain.md): onde investir.
+- [Generic Domain](/04-domain-driven-design/generic-domain.md): o que comprar.
+- [YAGNI](/02-software-design/yagni.md): o princípio que se aplica aqui com
   força.
 
 ## Exercício Prático

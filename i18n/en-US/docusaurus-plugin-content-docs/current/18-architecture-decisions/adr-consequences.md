@@ -2,7 +2,7 @@
 id: adr-consequences
 title: Consequences
 sidebar_position: 7
-description: What becomes true after the decision — including what gets worse.
+description: What becomes true after the decision, including what gets worse.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 The consequences section records **what becomes true** after the decision. Not what is
-hoped for, not what is intended — what changes.
+hoped for, not what is intended, but what changes.
 
 And the property that separates an honest ADR from a persuasion piece fits in one rule:
 **every architectural decision has negative consequences, and an ADR that doesn't name them
@@ -40,11 +40,11 @@ The typical consequences section:
 better maintainability."
 ```
 
-Three problems at once. Nothing is verifiable — no number, no timeframe. Nothing is negative
-— as if the decision were free. And nothing distinguishes this decision from any other.
+Three problems at once. Nothing is verifiable: no number, no timeframe. Nothing is negative,
+as if the decision were free. And nothing distinguishes this decision from any other.
 
-The practical effect shows up later: when the cost materializes — operating a queue, the
-additional latency, the debugging complexity — nobody knows whether it was expected or
+The practical effect shows up later: when the cost materializes (operating a queue, the
+additional latency, the debugging complexity), nobody knows whether it was expected or
 whether something went wrong. With no record, expected cost and failure become
 indistinguishable.
 
@@ -110,7 +110,7 @@ reuse premise was not confirmed."
 ```
 
 That turns the decision into something with a **test**. Without that signal, a wrong
-decision tends to stay until an incident forces a review — late, and without criteria,
+decision tends to stay until an incident forces a review: late, and without criteria,
 because nobody defined in advance what would count as contrary evidence.
 
 And the signal is usually directly instrumentable. See
@@ -156,7 +156,7 @@ with what was observed is what calibrates the team's judgment.
 
 The form that respects the rule: a dated block, clearly marked as later, that **adds**
 observation without altering a line of the original text or the decision's reasoning. If
-what was observed changes what one would decide, it does not belong in the block — it is a
+what was observed changes what one would decide, it does not belong in the block: it is a
 new decision, with its own ADR.
 
 ### Consequences for people who aren't in the room
@@ -171,7 +171,7 @@ security     a new surface, with a review to do
 finance      a recurring cost that didn't exist
 ```
 
-Recording them has two effects. They become planned work instead of a surprise — the
+Recording them has two effects. They become planned work instead of a surprise: the
 "processing" screen and the support copy get an owner and a deadline. And they expose
 decisions whose total cost is greater than assessed, because part of it was being pushed
 outside the team making the decision.
@@ -203,14 +203,14 @@ decision costs a day, the formal review costs more than the mistake; usage itsel
 the signal.
 
 **Repeating negatives already recorded in an earlier ADR.** When the decision applies an
-existing choice to a new case — one more consumer of the same queue —, the structural costs
+existing choice to a new case (one more consumer of the same queue), the structural costs
 are in the original ADR; record only the ones this case adds and link the rest.
 
 ## Alternatives
 
-- **A pros and cons table** — more compact, loses the horizon nuance.
-- **A risk list with probability and impact** — when risk dominates.
-- **Tracking metrics** — instead of prose, declare what will be measured.
+- **A pros and cons table**: more compact, loses the horizon nuance.
+- **A risk list with probability and impact**: when risk dominates.
+- **Tracking metrics**: instead of prose, declare what will be measured.
 
 The last is the strongest where applicable: "we will track the queue backlog and monthly
 operating time" is more actionable than any paragraph.
@@ -247,7 +247,7 @@ operating time" is more actionable than any paragraph.
 
 **Writing consequences as arguments** in favor of the decision.
 
-**Omitting the operational cost** — the most frequently forgotten consequence.
+**Omitting the operational cost**: the most frequently forgotten consequence.
 
 **Not naming what becomes harder to change.**
 
@@ -285,13 +285,13 @@ infrastructure cost 4× the initial estimate
 ```
 
 Two different problems got mixed up. The first: part of what showed up was cost inherent
-to the choice — the team of three, the tooling, the schemas as public contracts — and,
+to the choice (the team of three, the tooling, the schemas as public contracts), and,
 since **nothing had been recorded as accepted cost**, every cost appeared as a failure,
 generating pressure to reverse even what worked, such as scalability.
 
 The second: reuse, resilience and independent evolution were predicted benefits that did
-not materialize. Recording cost would not have solved that; a warning signal — "if in 12
-months fewer than five event types are reused" — would have exposed the failed premise a
+not materialize. Recording cost would not have solved that; a warning signal ("if in 12
+months fewer than five event types are reused") would have exposed the failed premise a
 year before the incident peak.
 
 What changed in the ADR practice:
@@ -303,7 +303,7 @@ dashboard or an alarm where possible.
 
 **A declared horizon** per consequence: immediate, short- or long-term.
 
-**A dated review block**, added 12 months later, comparing predicted with observed —
+**A dated review block**, added 12 months later, comparing predicted with observed,
 without altering the original text.
 
 That last point produced the most interesting effect. After two years of reviews, a pattern
@@ -317,20 +317,20 @@ unpredicted costs that appeared               1.8 per ADR on average
 
 The team started using those numbers as calibration: a third of predicted benefits are
 not confirmed; predicted costs almost always show up, but the rate says nothing about
-magnitude — the bus cost 4× the estimate —; and each ADR should expect, on average, almost
+magnitude (the bus cost 4× the estimate); and each ADR should expect, on average, almost
 two costs nobody named.
 
-In the retrospective: the 12-month review blocks were the most read artifact in the set —
-more than the ADRs themselves. They teach something no individual ADR teaches.
+In the retrospective: the 12-month review blocks were the most read artifact in the set
+(more than the ADRs themselves). They teach something no individual ADR teaches.
 
 ## Related Concepts
 
-- [Decision](/18-architecture-decisions/adr-decision.md) — what generates the consequences.
-- [Alternatives](/18-architecture-decisions/adr-alternatives.md) — the consequences not
+- [Decision](/18-architecture-decisions/adr-decision.md): what generates the consequences.
+- [Alternatives](/18-architecture-decisions/adr-alternatives.md): the consequences not
   chosen.
-- [Superseding](/18-architecture-decisions/superseding-decisions.md) — when the warning
+- [Superseding](/18-architecture-decisions/superseding-decisions.md): when the warning
   signal fires.
-- [Observability](/13-observability/index.md) — how to instrument the signal.
+- [Observability](/13-observability/index.md): how to instrument the signal.
 
 ## Practical Exercise
 

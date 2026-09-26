@@ -2,7 +2,7 @@
 id: architecture-documentation
 title: Architecture Documentation
 sidebar_position: 0
-description: How knowledge about the system survives its people — and why most documentation doesn't survive itself.
+description: How knowledge about the system survives its people, and why most documentation doesn't survive itself.
 doc_type: index
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [architecture-decisions, enterprise-architecture, observability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,12 +26,12 @@ This section is about how knowledge about the system survives its people.
 Architecture documentation has a recurring problem: it gets produced, and it doesn't get
 read.
 
-The reasons are known. It is written with no defined reader — to "document", not for
+The reasons are known. It is written with no defined reader: to "document", not for
 anyone. It describes the system at a level of detail that ages in weeks. It sits
 somewhere nobody visits. And nobody owns it.
 
 The result is the worst of both worlds: production and maintenance cost, without the
-benefit — and, worse, an out-of-date artifact that leads whoever trusts it into wrong
+benefit; and, worse, an out-of-date artifact that leads whoever trusts it into wrong
 decisions.
 
 The second problem is calibration. The reflex, on realizing documentation is missing, is
@@ -39,7 +39,7 @@ to document more. Frequently the right answer is to document **less**, and bette
 correct context diagram is worth more than forty pages nobody trusts.
 
 The third is derivation. Much of what gets documented by hand can be derived from the
-system — dependencies, topology, versions, contracts. What needs human writing is what
+system: dependencies, topology, versions, contracts. What needs human writing is what
 the machine doesn't know: **why** things are the way they are.
 
 ## What you will find here
@@ -48,10 +48,10 @@ the machine doesn't know: **why** things are the way they are.
 detail, and where it lives.
 
 **The C4 model.** Four levels of zoom, and the discipline of one level of abstraction
-per diagram — which is its contribution, more than the notation. With the guidance
+per diagram (which is its contribution, more than the notation). With the guidance
 that the first two suffice in most cases.
 
-**The diagrams.** Context, container, component, deployment, sequence and data flow —
+**The diagrams.** Context, container, component, deployment, sequence and data flow,
 each with what it answers and when it isn't worth it.
 
 **Views and descriptions.** How to organize documentation by the reader's concern,
@@ -64,7 +64,7 @@ aging.
 
 ## Reading order
 
-Start with **documentation principles** — it establishes the criteria the rest uses.
+Start with **documentation principles**: it establishes the criteria the rest uses.
 
 Then **the C4 model** and, within it, **context** and **container**. Those two diagrams
 cover most of the real need.
@@ -77,13 +77,13 @@ question of how this is maintained.
 
 ## By the end
 
-You write for a specific reader, with a specific question — and discard what serves
+You write for a specific reader, with a specific question, and discard what serves
 neither.
 
 You choose the level of detail by how long it will survive, and not by completeness.
 
 You derive from the system what the machine knows, and reserve human writing for what it
-doesn't — the reasons, the trade-offs, what was discarded and why.
+doesn't: the reasons, the trade-offs, what was discarded and why.
 
 And you recognize that out-of-date documentation is worse than none, because it is
 trustworthy right up until the moment someone acts on it.

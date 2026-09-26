@@ -2,7 +2,7 @@
 id: documentation-principles
 title: Documentation Principles
 sidebar_position: 1
-description: What decides whether documentation gets read — reader, purpose and the level of detail that survives.
+description: "What decides whether documentation gets read: reader, purpose and the level of detail that survives."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [living-documentation, architecture-views, diagram-quality]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 The question that decides whether a document gets read is not about content. It is: **who
 will read it, and what question does that person have?**
 
-Documentation written without that answer is written to "document" — and produces
+Documentation written without that answer is written to "document", and produces
 artifacts nobody looks for, because they weren't made to answer anything.
 
 The second criterion is temporal: the level of detail determines how long the document
@@ -42,7 +42,7 @@ with no owner
 never consulted
 ```
 
-Six months later it is wrong. A year later it is dangerous — because whoever finds it
+Six months later it is wrong. A year later it is dangerous, because whoever finds it
 assumes it describes the system.
 
 And the typical reaction on realizing that is to produce more documentation, with more
@@ -81,7 +81,7 @@ implementation detail       weeks
 ```
 
 That doesn't mean never documenting detail. It means knowing that documenting detail
-creates a maintenance obligation — and deciding whether it is worth it.
+creates a maintenance obligation, and deciding whether it is worth it.
 
 The rule of thumb: **document by hand what ages slowly; derive what ages fast.** See
 [living documentation](/17-architecture-documentation/living-documentation.md).
@@ -107,7 +107,7 @@ what was tried and didn't work
 See [architecture decisions](/18-architecture-decisions/index.md).
 
 A three-line comment explaining why a strange fragment exists is worth more than a page
-describing what it does — because what it does is right there, and the why is not.
+describing what it does, because what it does is right there, and the why is not.
 
 ### Close to the code, not in a separate repository
 
@@ -121,7 +121,7 @@ in a separate tool      updated by someone who remembers
 The practical criterion: **does the documentation change in the same commit as the change
 that makes it out of date?** If not, it will diverge.
 
-That doesn't prevent publishing it elsewhere — the source stays in the repository, and
+That doesn't prevent publishing it elsewhere: the source stays in the repository, and
 the publication is derived.
 
 ### Documentation on demand
@@ -137,8 +137,8 @@ nobody asks              →  there was no need
 That guarantees a real reader and a real question, and avoids the cost of documenting
 what nobody wants to know.
 
-The limit: it fails for knowledge you only discover you need when it is too late — the
-why behind a decision, after whoever made it has left. That kind has to be recorded at
+The limit: it fails for knowledge you only discover you need when it is too late (the
+why behind a decision, after whoever made it has left). That kind has to be recorded at
 the time, not on demand.
 
 ### Less, and correct
@@ -154,7 +154,7 @@ doubtful      people check the code — and the document becomes pure cost
 And there is a contamination effect: one wrong document in a set reduces confidence in
 all of them.
 
-That favors the strategy of keeping little and keeping it well — with a visible review
+That favors the strategy of keeping little and keeping it well, with a visible review
 date, and with what is not maintained removed rather than left behind.
 
 ### The cost of maintaining is the real cost
@@ -172,7 +172,7 @@ The third line is what most organizations choose without noticing. It appears in
 and reappears as incidents, rework and distrust.
 
 That gives a decision criterion before writing any document: **who will maintain this, and
-with what trigger?** With no answer, the document is born with a short shelf life — and
+with what trigger?** With no answer, the document is born with a short shelf life, and
 the best thing to do is usually to write less.
 
 ## Mental Model
@@ -190,12 +190,12 @@ what only human writing captures.
 ## When Not to Use
 
 **When the detail you are about to write changes faster than the review cycle.** Every level
-of detail creates a recurring obligation, and fine detail is what goes stale first — because
+of detail creates a recurring obligation, and fine detail is what goes stale first, because
 it is what changes most. There the path is to derive it, not write it.
 
 **When the knowledge has not been discovered yet.** On-demand documentation has a limit: it
-only records what someone has already asked. For what is discovered late — the reason behind
-a constraint, what was tried and did not work — waiting for the question means losing the
+only records what someone has already asked. For what is discovered late (the reason behind
+a constraint, what was tried and did not work), waiting for the question means losing the
 answer along with the person who had it.
 
 **When there is no answer to "who maintains this, and on what trigger".** Without both, the
@@ -209,11 +209,11 @@ absence.
 
 ## Alternatives
 
-- **Readable code** — names and structure that make explaining what it does unnecessary.
-- **Tests as specification** — they describe the behavior verifiably. See
+- **Readable code**: names and structure that make explaining what it does unnecessary.
+- **Tests as specification**: they describe the behavior verifiably. See
   [legacy refactoring](/16-legacy-modernization/legacy-refactoring.md).
-- **Decision records** — the why, in its own format.
-- **Transfer sessions** — when the knowledge is tacit and writing doesn't capture it.
+- **Decision records**: the why, in its own format.
+- **Transfer sessions**: when the knowledge is tacit and writing doesn't capture it.
 
 The last is underrated: some kinds of knowledge transfer better by shadowing than by
 document.
@@ -255,7 +255,7 @@ relies on it.
 
 **Documenting everything at the same level.** What changes every week and what hasn't changed in three years deserve opposite treatments: one becomes an automated check, the other becomes text.
 
-**Not dating it or naming an owner.** Without both, the reader doesn't know whether to trust it or whom to ask — and assumes it is current.
+**Not dating it or naming an owner.** Without both, the reader doesn't know whether to trust it or whom to ask, and assumes it is current.
 
 **Keeping documentation nobody trusts.** A knowingly wrong document is worse than no document, because it leads whoever didn't know it was wrong into a wrong decision.
 
@@ -283,7 +283,7 @@ end of projects.
 
 The rework:
 
-**The 300 were removed.** Not archived — removed, with the history preserved in version
+**The 300 were removed.** Not archived: removed, with the history preserved in version
 control. Keeping them reduced confidence in the set.
 
 **One document per system**, in that system's own repository, with a fixed structure:
@@ -315,10 +315,10 @@ consulted and nobody trusted.
 
 ## Related Concepts
 
-- [Living Documentation](/17-architecture-documentation/living-documentation.md) — how to maintain it.
-- [Architecture Views](/17-architecture-documentation/architecture-views.md) — organizing by reader.
+- [Living Documentation](/17-architecture-documentation/living-documentation.md): how to maintain it.
+- [Architecture Views](/17-architecture-documentation/architecture-views.md): organizing by reader.
 - [Diagram Quality](/17-architecture-documentation/diagram-quality.md).
-- [Architecture Decisions](/18-architecture-decisions/index.md) — the why.
+- [Architecture Decisions](/18-architecture-decisions/index.md): the why.
 
 ## Practical Exercise
 

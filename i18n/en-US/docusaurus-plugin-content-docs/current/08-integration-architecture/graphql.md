@@ -2,7 +2,7 @@
 id: graphql
 title: GraphQL
 sidebar_position: 2
-description: The client chooses what it receives — and the cost that freedom transfers to the server.
+description: The client chooses what it receives, and the cost that freedom transfers to the server.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, api-gateways, integration-contracts]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-In GraphQL, the client describes **exactly** the fields it wants, and the server returns that — nothing
+In GraphQL, the client describes **exactly** the fields it wants, and the server returns that: nothing
 more, nothing less.
 
 That solves two real problems of fixed-resource APIs: fetching more than you use, and needing several calls
@@ -33,13 +33,13 @@ the weight of the queries it will receive.
 ## Problem
 
 A REST API returns the whole resource. A mobile client that needs a name and a photo receives the complete
-profile — **overfetching**.
+profile: **overfetching**.
 
-And a screen showing an order with items, customer and address makes four calls — **underfetching**,
+And a screen showing an order with items, customer and address makes four calls: **underfetching**,
 resolved with multiple network round trips.
 
 The common way out in REST is to create tailor-made endpoints for each screen. It works, and each new
-screen is backend work — which turns the backend team into the frontend team's bottleneck.
+screen is backend work. That turns the backend team into the frontend team's bottleneck.
 
 GraphQL moves that decision to the client.
 
@@ -61,7 +61,7 @@ query {
 
 One request, exactly the fields asked for, with no endpoint specific to that screen.
 
-The schema is the contract, and it is executable — validation happens against it, not against a document.
+The schema is the contract, and it is executable: validation happens against it, not against a document.
 See [integration contracts](/08-integration-architecture/integration-contracts.md).
 
 ### The cascading query problem
@@ -83,7 +83,7 @@ That is the style's main operational cost, and the most underestimated at adopti
 A deep or heavily branched query can be arbitrarily expensive. In schemas with cyclic relations, it can be
 exponential.
 
-The defenses — none of them optional in an exposed API:
+The defenses, none of them optional in an exposed API:
 
 **A depth limit.** Refuse queries above N levels.
 
@@ -91,7 +91,7 @@ The defenses — none of them optional in an exposed API:
 
 **Persisted queries.** Only previously registered queries are accepted. It is the strongest defense. For a
 first-party client that registers its queries at build time, frontend autonomy remains; what goes away is
-arbitrary composition at run time by an unknown consumer — the right trade in a public API.
+arbitrary composition at run time by an unknown consumer: the right trade in a public API.
 
 **An execution deadline.** Abort any query that runs past a maximum time. It catches what depth and estimated
 cost let through: the valid query, under the ceiling, that still occupies the server because of the real
@@ -102,7 +102,7 @@ volume of the data.
 In [REST](/08-integration-architecture/rest.md), HTTP caching works: one URL, one `GET`, one result
 cacheable by any intermediary.
 
-In GraphQL's usual form — a `POST` to a single URL, with a varying body — no intermediary can cache it.
+In GraphQL's usual form (a `POST` to a single URL, with a varying body), no intermediary can cache it.
 Persisted queries served over `GET`, with the identifier in the URL, recover part of that caching, at the cost
 of registering every query before it is used.
 
@@ -116,7 +116,7 @@ This is usually the decisive argument when the API is mostly public reads.
 A query can succeed in some fields and fail in others. The response carries data and errors together,
 always with `200`.
 
-That is coherent with the model and means error classification moves back into the application — the same
+That is coherent with the model and means error classification moves back into the application: the same
 loss described in [REST](/08-integration-architecture/rest.md) when everything returns `200`, except that
 here it is inherent to the style.
 
@@ -125,7 +125,7 @@ here it is inherent to the style.
 The clear case: **many different clients consuming the same domain**, with needs that change faster than
 the backend can keep up.
 
-Mobile app, web, partner, internal screen — each asking for a different slice of the same entities.
+Mobile app, web, partner, internal screen: each asking for a different slice of the same entities.
 
 Where there is a single client, controlled by the same team, the freedom does not pay for the operational
 cost. A tailor-made endpoint is simpler in every respect.
@@ -140,7 +140,7 @@ with divergent needs; it is not worth it when there is one.
 - Many clients with different needs over the same domain.
 - The frontend team is blocked by endpoint changes.
 - Screens compose data from several related entities.
-- Bandwidth matters — mobile clients on poor networks.
+- Bandwidth matters: mobile clients on poor networks.
 - The domain is naturally a graph.
 
 ## When Not to Use
@@ -163,12 +163,12 @@ public contract.
 
 ## Alternatives
 
-- **[REST](/08-integration-architecture/rest.md) with sparse fieldsets** — a parameter that selects fields
+- **[REST](/08-integration-architecture/rest.md) with sparse fieldsets**: a parameter that selects fields
   covers much of the overfetching, without changing style.
-- **An endpoint per screen** — the "backend for frontend" pattern. Simple and explicit, at the cost of
+- **An endpoint per screen**: the "backend for frontend" pattern. Simple and explicit, at the cost of
   coupling backend to screens.
-- **[gRPC](/08-integration-architecture/grpc.md)** — when consumption is known and efficiency matters.
-- **Persisted queries** — GraphQL without the open query surface.
+- **[gRPC](/08-integration-architecture/grpc.md)**: when consumption is known and efficiency matters.
+- **Persisted queries**: GraphQL without the open query surface.
 
 ## Trade-offs
 
@@ -216,8 +216,8 @@ can be reached through several paths, and the check needs to be on the field, no
 ## Real-World Example
 
 An education platform adopted GraphQL to serve a mobile app, the web and a partner area. The reason was
-legitimate: three clients, divergent needs, and the backend had become a bottleneck — each new screen was a
-week of waiting.
+legitimate: three clients, divergent needs, and the backend had become a bottleneck (each new screen was a
+week of waiting).
 
 The gain appeared: the frontend team started building screens without asking the backend for anything. The
 delivery time for a screen fell from a week to days.
@@ -237,7 +237,7 @@ discovered that it was reachable via `class → students → user`, where the ch
 Authorization was moved to the field level.
 
 **Caching lost.** The public course catalog, previously served from a CDN with hours of caching, started
-hitting the server on every request. The solution was to keep that specific slice in REST — the catalog
+hitting the server on every request. The solution was to keep that specific slice in REST: the catalog
 went back to a cacheable `GET`, and the rest stayed in GraphQL. Persisted queries over `GET` were the
 alternative; the team did not choose it because the catalog was also consumed by search engines and
 third-party sites, which would not go through a query registry.
@@ -248,9 +248,9 @@ served the same data with HTTP caching and no query registry.
 
 ## Related Concepts
 
-- [REST](/08-integration-architecture/rest.md) — the main comparison.
-- [gRPC](/08-integration-architecture/grpc.md) — the third synchronous option.
-- [API Gateways](/08-integration-architecture/api-gateways.md) — where limits are usually applied.
+- [REST](/08-integration-architecture/rest.md): the main comparison.
+- [gRPC](/08-integration-architecture/grpc.md): the third synchronous option.
+- [API Gateways](/08-integration-architecture/api-gateways.md): where limits are usually applied.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
 
 ## Practical Exercise
@@ -258,7 +258,7 @@ served the same data with HTTP caching and no query registry.
 If you use GraphQL, write the deepest query your schema allows and run it against a test environment with
 realistic volume.
 
-The time it takes is what a malicious — or distracted — client can trigger today.
+The time it takes is what a malicious (or distracted) client can trigger today.
 
 ## Interview Questions
 

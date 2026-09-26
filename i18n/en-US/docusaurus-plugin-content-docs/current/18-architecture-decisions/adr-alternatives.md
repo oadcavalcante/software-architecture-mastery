@@ -2,7 +2,7 @@
 id: adr-alternatives
 title: Alternatives Considered
 sidebar_position: 6
-description: Where the architectural reasoning becomes visible — and the condition under which each discard is undone.
+description: Where the architectural reasoning becomes visible, and the condition under which each discard is undone.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-decision, superseding-decisions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -48,7 +48,7 @@ That informs nothing. It doesn't say what was compared, by what criterion, or wh
 have made the result different.
 
 Worse: written that way, it serves to **justify a choice already made** rather than to
-record a comparison. It is recognizable by the pattern — every alternative has flaws, the
+record a comparison. It is recognizable by the pattern: every alternative has flaws, the
 chosen one has none.
 
 An honest alternatives section has an uncomfortable property: it makes clear what was lost
@@ -140,7 +140,7 @@ allow for learning."
 "Discarded because an earlier organizational decision standardized on X."
 ```
 
-Omitting that kind of reason produces ADRs that look technically inconsistent years later —
+Omitting that kind of reason produces ADRs that look technically inconsistent years later:
 someone reads it and doesn't understand why the better option was rejected.
 
 And those are the reasons that change most over time, which makes them the most useful as a
@@ -172,7 +172,7 @@ survey."
 ```
 
 That preserves two pieces of information that evaporate fast. First, that the objection
-existed, which matters if it turns out to be right. Second, **who has the context** — if the
+existed, which matters if it turns out to be right. Second, **who has the context**: if the
 decision is reopened in two years, those people are the first to consult, and the discussion
 starts from a higher baseline.
 
@@ -193,8 +193,8 @@ it, it serves.
 ## When Not to Use
 
 **A decision that is cheap to reverse.** When redoing the choice costs less than writing
-about it — swapping a library hidden behind your own interface, changing a configuration
-parameter — working out the reversal condition for each alternative costs more than getting
+about it (swapping a library hidden behind your own interface, changing a configuration
+parameter), working out the reversal condition for each alternative costs more than getting
 it wrong and going back. One line naming the options is enough.
 
 **Only one viable option because of an external constraint.** When regulation, a contract
@@ -208,13 +208,13 @@ Y-Statement, listed below, covers that case.
 
 ## Alternatives
 
-- **A decision table** — more compact than prose, better for comparing more than three
+- **A decision table**: more compact than prose, better for comparing more than three
   options.
-- **A separate comparison document** — when the evaluation was extensive; the ADR
+- **A separate comparison document**: when the evaluation was extensive; the ADR
   references it.
-- **A recorded proof of concept** — when the comparison was empirical, the numbers replace
+- **A recorded proof of concept**: when the comparison was empirical, the numbers replace
   the argument.
-- **Y-Statement** — compresses alternatives into one clause, for smaller decisions.
+- **Y-Statement**: compresses alternatives into one clause, for smaller decisions.
 
 ## Trade-offs
 
@@ -249,7 +249,7 @@ Y-Statement, listed below, covers that case.
 
 **Writing the section after deciding.**
 
-**Not quantifying the discard** — "doesn't scale" with no number.
+**Not quantifying the discard**: "doesn't scale" with no number.
 
 **Omitting the option that nearly won**, which is precisely the most informative one.
 
@@ -275,10 +275,10 @@ cost of the in-house service, estimated ~$800/month of infrastructure
 ```
 
 The "some engineering time" had never been quantified. Measured in 2025, it was two
-full-time engineers — about $12,000 a month in personnel cost.
+full-time engineers, about $12,000 a month in personnel cost.
 
 And the volume had tripled, which, with the provider's volume-tier discount, would have raised
-the managed service cost to about $6,000 — still half the real cost of the in-house service.
+the managed service cost to about $6,000, still half the real cost of the in-house service.
 
 The winning alternative, in 2023, had won on a criterion nobody applied in full.
 
@@ -293,8 +293,8 @@ enough and it frequently changes the conclusion.
 **A mandatory reversal condition** per alternative. The template adopted: "this option
 would win if ___".
 
-**A criteria table** required from three options up — a stricter threshold than the general
-one of more than three — with the criteria
+**A criteria table** required from three options up (a stricter threshold than the general
+one of more than three), with the criteria
 defined and weighted **before** the evaluation.
 
 In a review of the following 40 ADRs, written under the new rules:
@@ -312,18 +312,18 @@ toward building.
 
 ## Related Concepts
 
-- [Context](/18-architecture-decisions/adr-context.md) — the forces that define the criteria.
-- [Superseding](/18-architecture-decisions/superseding-decisions.md) — what happens when the
+- [Context](/18-architecture-decisions/adr-context.md): the forces that define the criteria.
+- [Superseding](/18-architecture-decisions/superseding-decisions.md): what happens when the
   reversal condition is met.
-- [Trade-offs](/20-trade-offs/index.md) — the material this section is made of.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — the cost of the status quo.
+- [Trade-offs](/20-trade-offs/index.md): the material this section is made of.
+- [Technical Debt](/01-fundamentals/technical-debt.md): the cost of the status quo.
 
 ## Practical Exercise
 
 Take an ADR from your team and, for each discarded alternative, write the sentence "this
 option would win if ___".
 
-The ones you can't complete were discarded with no verifiable criterion — and they are the
+The ones you can't complete were discarded with no verifiable criterion, and they are the
 ones that will be re-decided.
 
 ## Interview Questions
@@ -335,5 +335,5 @@ ones that will be re-decided.
 ## Further Reading
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
-- *MADR — Markdown Any Decision Records* — adr.github.io/madr.
+- *MADR. Markdown Any Decision Records* — adr.github.io/madr.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

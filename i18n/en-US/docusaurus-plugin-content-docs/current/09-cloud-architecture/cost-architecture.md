@@ -2,7 +2,7 @@
 id: cost-architecture
 title: Cost Architecture
 sidebar_position: 14
-description: In the cloud, the design has a monthly price — and it is a quality attribute like any other.
+description: In the cloud, the design has a monthly price, and it is a quality attribute like any other.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [managed-services, serverless, cloud-storage, cost-management]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ capacity and does not change the bill.
 In the cloud, each request, each gigabyte transferred, each second of execution and each byte stored appear
 on next month's invoice.
 
-That makes cost a **quality attribute** like latency or availability — something you design for, measure,
+That makes cost a **quality attribute** like latency or availability: something you design for, measure,
 and that degrades when nobody is looking. See
 [quality attributes](/01-fundamentals/quality-attributes.md).
 
@@ -36,7 +36,7 @@ and that degrades when nobody is looking. See
 Cloud cost is treated as a finance matter: somebody looks at the invoice at the end of the month, finds it
 high, and asks to "optimize".
 
-The optimization that follows is usually tactical — shrinking an instance, deleting orphan volumes — and
+The optimization that follows is usually tactical (shrinking an instance, deleting orphan volumes) and
 recovers a fraction. The cost goes back to growing the next quarter.
 
 Because most of the cost does not come from configuration. It comes from **architectural decisions**: how
@@ -59,7 +59,7 @@ operations      queries, invocations, health checks
 ```
 
 The third and the fourth are the ones that surprise people, because they have no obvious equivalent on your
-own infrastructure — and they are the ones that grow with traffic, invisibly.
+own infrastructure, and they are the ones that grow with traffic, invisibly.
 
 ### The metric that matters is cost per business unit
 
@@ -101,7 +101,7 @@ None of them is micro-optimization. All of them are architecture or discipline.
 
 ### Tagging is a prerequisite for everything
 
-Without tagging resources by team, product and environment, there is no way to attribute cost — and with no
+Without tagging resources by team, product and environment, there is no way to attribute cost, and with no
 attribution, nobody is responsible. Why to attribute, and to whom, is in
 [cost management](/23-architecture-leadership/cost-management.md); in the cloud, the tag is the mechanism that
 makes it possible.
@@ -132,7 +132,7 @@ And it allows comparing alternatives by cost, alongside latency and complexity.
 Honesty is worth it: engineering spends time, and time costs more than most small savings.
 
 Chasing 5% in something that represents 2% of the invoice is negative work. The practical rule is to attack
-what is at the top of the distribution — typically two or three items account for most of the bill.
+what is at the top of the distribution: typically two or three items account for most of the bill.
 
 ## Mental Model
 
@@ -167,12 +167,12 @@ cost is optimizing what may not even exist.
 
 To reduce cost without changing architecture:
 
-- **Turning off what is not used** outside business hours — the one with the most immediate return.
+- **Turning off what is not used** outside business hours, the one with the most immediate return.
 - **Resizing** based on actual utilization.
-- **A usage commitment** — reservation discounts, for stable capacity.
-- **Interruptible capacity** — far cheaper, for tolerant workloads.
+- **A usage commitment**: reservation discounts, for stable capacity.
+- **Interruptible capacity**: far cheaper, for tolerant workloads.
 - **Storage classes** by access frequency.
-- **Caching** — it reduces billed calls and latency at the same time.
+- **Caching**: it reduces billed calls and latency at the same time.
 
 ## Trade-offs
 
@@ -199,7 +199,7 @@ To reduce cost without changing architecture:
 the storage line grows without any new service having gone up.
 
 **Cross-zone transfer dominating the bill.** The transfer line climbs month after month with no matching
-increase in external traffic — calls that started crossing zones after a routing or deployment change.
+increase in external traffic: calls that started crossing zones after a routing or deployment change.
 
 **Infinite retention.** The log storage line grows with time, not with use, and nobody can say who
 queries the data older than a year.
@@ -211,7 +211,7 @@ queries the data older than a year.
 ## Common Mistakes
 
 **Not tagging resources.** With no team, product and environment tags, the invoice is an aggregate number
-nobody can attribute — and what has no owner does not get reduced.
+nobody can attribute, and what has no owner does not get reduced.
 
 **Not measuring cost per business unit.** Total cost always rises when the company grows. Cost per order or
 per active user distinguishes healthy growth from waste, and it is the only number that sustains the
@@ -249,10 +249,10 @@ analysis showed that 88% of them had not been accessed in more than a year.
 
 The fixes, and what each one returned:
 
-**Zone preference in the routing** — a configuration, two days of work. It reduced transfer by around 70%.
+**Zone preference in the routing**: a configuration, two days of work. It reduced transfer by around 70%.
 
 **A lifecycle policy** moving videos with no access for 90 days to a cold class and, after a year, to
-archival. It halved the storage cost, with the caveat that archival retrieval has latency — which required
+archival. It halved the storage cost, with the caveat that archival retrieval has latency, which required
 handling in the application for rarely accessed videos.
 
 **Automatic shutdown** of the environments outside business hours and on weekends.
@@ -261,22 +261,22 @@ handling in the application for rarely accessed videos.
 
 **A weekly orphan sweep.**
 
-Result: the invoice fell 44%, and the **cost per hour of video watched** — the metric that came to be
-tracked — fell 61%.
+Result: the invoice fell 44%, and the **cost per hour of video watched** (the metric that came to be
+tracked) fell 61%.
 
 The team's reading: no fix required changing the application's architecture. All of them were
 infrastructure decisions made by omission, that nobody revisited because nobody owned the number.
 
-Tagging by product, which came first, was what made everything else possible — and it was seen as
+Tagging by product, which came first, was what made everything else possible, and it was seen as
 bureaucracy before that.
 
 ## Related Concepts
 
-- [Managed Services](/09-cloud-architecture/managed-services.md) — the total cost comparison.
-- [Serverless](/09-cloud-architecture/serverless.md) — another billing model.
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention.
-- [Availability Zones](/09-cloud-architecture/availability-zones.md) — transfer.
-- [Cost Management](/23-architecture-leadership/cost-management.md) — the economic unit and cost attribution, beyond the cloud scope.
+- [Managed Services](/09-cloud-architecture/managed-services.md): the total cost comparison.
+- [Serverless](/09-cloud-architecture/serverless.md): another billing model.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): retention.
+- [Availability Zones](/09-cloud-architecture/availability-zones.md): transfer.
+- [Cost Management](/23-architecture-leadership/cost-management.md): the economic unit and cost attribution, beyond the cloud scope.
 
 ## Practical Exercise
 
@@ -294,7 +294,7 @@ trend says more than the absolute value.
 
 ## Further Reading
 
-- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2nd ed. O'Reilly, 2023 — cost attribution through resource
+- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2nd ed. O'Reilly, 2023. Cost attribution through resource
   tagging.
-- Amazon Web Services. *Cost Optimization Pillar — AWS Well-Architected Framework*.
-  AWS, 2023 — the billed dimensions and the structural forms of waste from a provider's point of view.
+- Amazon Web Services. *Cost Optimization Pillar. AWS Well-Architected Framework*.
+  AWS, 2023. The billed dimensions and the structural forms of waste from a provider's point of view.

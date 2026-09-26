@@ -2,7 +2,7 @@
 id: integration-landscapes
 title: Paisagens de Integração
 sidebar_position: 9
-description: O mapa das conexões entre sistemas — onde o custo escondido da arquitetura mora.
+description: O mapa das conexões entre sistemas, onde o custo escondido da arquitetura mora.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [application-portfolios]
 related: [application-portfolios, current-state-architecture, enterprise-data-architecture]
 canonical_for: [paisagem de integração, integração ponto a ponto, acoplamento organizacional]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ A paisagem de integração é o mapa de como os sistemas se conectam: quem chama
 qual meio, com qual acoplamento.
 
 É onde o custo escondido da arquitetura corporativa mora. Um sistema individualmente
-simples pode ter quarenta integrações — e o custo de manter essas conexões supera o de
+simples pode ter quarenta integrações, e o custo de manter essas conexões supera o de
 manter o sistema.
 
 E é a parte do estado atual que mais diverge do que as pessoas acreditam.
@@ -45,7 +45,7 @@ mudança cara               alterar um sistema exige coordenar com dez
 ```
 
 E o custo não é atribuído: ele aparece como "mudanças demoram", "tudo está acoplado",
-"não conseguimos mexer nisso" — sem que ninguém aponte a paisagem como causa.
+"não conseguimos mexer nisso", sem que ninguém aponte a paisagem como causa.
 
 ## Conceitos Centrais
 
@@ -61,7 +61,7 @@ Na prática nenhuma organização conecta tudo com tudo, e a tendência é clara
 integrações cresce mais rápido que o número de sistemas.
 
 Isso significa que a decisão de adicionar um sistema carrega um custo que não é o custo
-do sistema — é o custo das conexões que ele vai precisar.
+do sistema: é o custo das conexões que ele vai precisar.
 
 E é a razão de padrões de integração importarem: quarenta conexões feitas de trinta
 formas diferentes são muito mais caras que quarenta feitas de três.
@@ -100,7 +100,7 @@ A forma de encontrar é observar: registros de acesso ao banco, tráfego de rede
 rastreamento distribuído. Ver
 [rastreamento distribuído](/13-observability/distributed-tracing.md).
 
-O achado típico é uma fração considerável das integrações reais fora da documentação — no
+O achado típico é uma fração considerável das integrações reais fora da documentação: no
 exemplo abaixo, 122 de 312, ou 39% do total.
 
 ### Os padrões que produzem custo desproporcional
@@ -108,7 +108,7 @@ exemplo abaixo, 122 de 312, ou 39% do total.
 Ao olhar a paisagem, alguns padrões saltam:
 
 **Sistema com muitas conexões.** Um sistema com trinta integrações é um ponto de
-acoplamento — qualquer mudança nele é cara.
+acoplamento: qualquer mudança nele é cara.
 
 **Ciclos.** A chama B, que chama C, que chama A. Difícil de raciocinar, difícil de
 implantar independentemente.
@@ -139,12 +139,12 @@ investigar um problema  exige envolver os dois
 Um sistema com trinta integrações é um sistema cujo time negocia com muitos outros. Ver
 [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
-Isso explica por que times com muitas dependências entregam devagar — e por que reduzir
+Isso explica por que times com muitas dependências entregam devagar, e por que reduzir
 integrações é uma intervenção de velocidade, não apenas de arquitetura.
 
 ### Reduzir é mais valioso que organizar
 
-A tentação, diante de uma paisagem complexa, é introduzir um intermediário central — um
+A tentação, diante de uma paisagem complexa, é introduzir um intermediário central: um
 barramento por onde tudo passa. Ver [SOA](/03-design-patterns/soa.md).
 
 Isso reorganiza o diagrama e mantém o acoplamento: os sistemas continuam dependendo uns
@@ -184,7 +184,7 @@ as dependências cabem na cabeça de quem as opera; a análise por sistema respo
 perguntas sem o custo de um mapa global.
 
 **Nenhuma decisão em pauta.** Sem consolidação, aposentadoria, modernização ou investigação
-de lentidão à frente, o mapa não informa escolha alguma — e envelhece até ser necessário,
+de lentidão à frente, o mapa não informa escolha alguma, e envelhece até ser necessário,
 quando terá de ser refeito.
 
 **Nada observável.** Sem registros de acesso ao banco nem rastreamento, o mapa só pode vir
@@ -193,9 +193,9 @@ que a decisão que o mapa apoiaria, uma análise focada nos sistemas em jogo sai
 
 ## Alternativas
 
-- **Mapa de dependências derivado** — automático, real, atual no que está instrumentado.
-- **Análise por sistema** — o que cada um consome e expõe, sem o mapa global.
-- **Catálogo de contratos** — o que é publicado, quem consome. Ver
+- **Mapa de dependências derivado**: automático, real, atual no que está instrumentado.
+- **Análise por sistema**: o que cada um consome e expõe, sem o mapa global.
+- **Catálogo de contratos**: o que é publicado, quem consome. Ver
   [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
 ## Trade-offs
@@ -227,15 +227,15 @@ que a decisão que o mapa apoiaria, uma análise focada nos sistemas em jogo sai
 
 ## Erros Comuns
 
-**Mapear por entrevista.** As pessoas lembram das integrações que usam e esquecem as antigas — que são justamente as que quebram quando alguém desliga um sistema.
+**Mapear por entrevista.** As pessoas lembram das integrações que usam e esquecem as antigas, que são justamente as que quebram quando alguém desliga um sistema.
 
 **Não incluir acesso direto a banco alheio.** É das integrações mais acopladas e a que menos aparece nos mapas, porque não passa por nenhuma API.
 
-**Introduzir intermediário como solução.** Um barramento no meio de integrações mal desenhadas apenas centraliza o problema e cria um gargalo organizacional — o acoplamento continua, agora com mais um sistema para operar.
+**Introduzir intermediário como solução.** Um barramento no meio de integrações mal desenhadas apenas centraliza o problema e cria um gargalo organizacional: o acoplamento continua, agora com mais um sistema para operar.
 
 **Não medir o custo de manutenção das integrações.** É onde boa parte da capacidade de engenharia é consumida, e não aparece em nenhuma linha de orçamento.
 
-**Não usar a paisagem para decidir** — apenas documentá-la. O mapa serve para escolher o que consolidar e o que desligar. Sem essa ligação, ele é um pôster.
+**Não usar a paisagem para decidir**, apenas documentá-la. O mapa serve para escolher o que consolidar e o que desligar. Sem essa ligação, ele é um pôster.
 
 ## Exemplo Real
 
@@ -250,7 +250,7 @@ integrações documentadas  190
 integrações reais         312
 ```
 
-Cento e vinte e duas integrações não documentadas — 39% do total.
+Cento e vinte e duas integrações não documentadas (39% do total).
 
 Os padrões encontrados:
 
@@ -262,7 +262,7 @@ o esquema não mudava havia quatro anos.
 implantação independente.
 
 **Duplicação.** O dado de rota era transportado por seis caminhos diferentes entre os
-mesmos sistemas — API, arquivo, replicação de banco, fila, e dois processos agendados.
+mesmos sistemas: API, arquivo, replicação de banco, fila, e dois processos agendados.
 
 **Ponto único.** Um serviço de geocodificação, mantido por uma pessoa, do qual 22
 sistemas dependiam de forma síncrona.
@@ -272,7 +272,7 @@ A intervenção priorizou redução, não reorganização:
 **Cadastro de clientes com propriedade declarada.** Os 19 acessos diretos ao banco foram
 substituídos por API e por eventos, em dezoito meses. O esquema voltou a poder mudar.
 
-**Ciclos quebrados** por inversão de dependência — o sistema que era chamado passou a
+**Ciclos quebrados** por inversão de dependência: o sistema que era chamado passou a
 publicar eventos.
 
 **Duplicação eliminada.** Os seis caminhos de dado de rota viraram um.
@@ -285,7 +285,7 @@ funcionalidade que atravessa sistemas caiu de 11 semanas para 4.
 
 E uma decisão deliberada: a proposta de introduzir um barramento central foi recusada. A
 análise mostrou que ele reorganizaria o diagrama sem reduzir o número de dependências
-entre times — que era a causa da lentidão.
+entre times, que era a causa da lentidão.
 
 A lentidão era atribuída a processo e a ferramentas. A causa era
 estrutural, e ficou visível só quando alguém desenhou o mapa a partir do que acontece, e

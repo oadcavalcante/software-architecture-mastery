@@ -2,7 +2,7 @@
 id: evolutionary-architecture
 title: Arquitetura Evolutiva
 sidebar_position: 21
-description: Desenhar para mudar guiadamente — e escolher as dimensões que serão protegidas.
+description: Desenhar para mudar guiadamente e escolher as dimensões que serão protegidas.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [fitness-functions, measuring-architecture-outcomes, technical-roadmaps]
 canonical_for: [mudança guiada, dimensão protegida, arquitetura que absorve mudança]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Nenhuma arquitetura permanece correta. As premissas que a produziram — volume, time, mercado,
-regulação, tecnologia — mudam, e o desenho que era adequado deixa de ser.
+Nenhuma arquitetura permanece correta. As premissas que a produziram (volume, time, mercado,
+regulação, tecnologia) mudam, e o desenho que era adequado deixa de ser.
 
 A resposta convencional é planejar melhor: prever mais, projetar mais flexível, antecipar. Ela
 falha porque as mudanças relevantes são justamente as que não foram previstas.
@@ -83,7 +83,7 @@ exemplos de dimensão protegida
   todo serviço tem dono válido
 ```
 
-Poucas — três a sete — e escolhidas por consequência. Cada uma vira um mecanismo de verificação.
+Poucas (três a sete) e escolhidas por consequência. Cada uma vira um mecanismo de verificação.
 Ver [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 
 O que não está na lista pode se degradar, e isso é uma escolha consciente em vez de um descuido.
@@ -98,7 +98,7 @@ arquitetura evolutiva não é a que prevê mudanças
 O que torna mudança barata é conhecido e é o mesmo que torna software bom: fronteiras claras,
 acoplamento baixo, testes que dão confiança, implantação automatizada, e capacidade de reverter.
 
-Nada disso é específico de arquitetura evolutiva — o que é específico é tratá-los como
+Nada disso é específico de arquitetura evolutiva. O que é específico é tratá-los como
 investimento em capacidade de mudar, e não como higiene.
 
 Ver [entrega contínua](/14-devops-and-platform/ci-cd.md).
@@ -127,7 +127,7 @@ pequena e
 ```
 
 Isso vale para arquitetura tanto quanto para código. Uma migração feita em fatias, cada uma
-reversível, é mais lenta em soma e muito mais segura — e permite que o plano sobreviva a
+reversível, é mais lenta em soma e muito mais segura, e permite que o plano sobreviva a
 interrupções. Ver
 [roadmaps técnicos](/23-architecture-leadership/technical-roadmaps.md).
 
@@ -142,7 +142,7 @@ onde é incerto                preserve a opção, se for barato
 ```
 
 Preservar opção tem custo, e ele precisa ser pequeno para valer. Ver
-[simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md) — a assimetria é a
+[simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md). A assimetria é a
 mesma: comprar opcionalidade cara para um futuro incerto raramente se paga.
 
 O que se paga quase sempre: isolar a dependência incerta num lugar identificável, sem generalizar.
@@ -161,7 +161,7 @@ tempo entre decisão e produção
 
 A quarta linha é a mais reveladora: componentes que mudam juntos com frequência são indício de
 fronteira errada, e essa informação está no histórico do repositório sem que ninguém a extraia.
-Indício, não veredito — cada par precisa ser avaliado, e o exemplo abaixo tem um que era
+Indício, não veredito: cada par precisa ser avaliado, e o exemplo abaixo tem um que era
 coincidência.
 
 Ver [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
@@ -175,7 +175,7 @@ estável      formatos publicados, contratos com externos,
 ```
 
 Uma organização que muda tudo continuamente impõe custo de acompanhamento a todos. Declarar o que
-é deliberadamente estável — e cuja mudança exige processo — é tão importante quanto tornar o resto
+é deliberadamente estável (e cuja mudança exige processo) é tão importante quanto tornar o resto
 maleável.
 
 ## Modelo Mental
@@ -191,22 +191,22 @@ meio entre deriva e congelamento.
 
 ## Quando Não Usar
 
-**Vida útil esperada curta** — protótipos, campanhas, sistemas com horizonte abaixo de 12 a 18
+**Vida útil esperada curta**: protótipos, campanhas, sistemas com horizonte abaixo de 12 a 18
 meses. As verificações na esteira e a medição contínua custam desde o primeiro mês, e o retorno
 só aparece quando a mudança se acumula.
 
-**Domínio com mudança lenta e previsível** — quando as premissas quase não se movem, revisão
+**Domínio com mudança lenta e previsível**: quando as premissas quase não se movem, revisão
 periódica de uma arquitetura estável entrega o mesmo resultado por menos.
 
-**Sistema já marcado para substituição** — investir em torná-lo barato de mudar é gastar num
+**Sistema já marcado para substituição**: investir em torná-lo barato de mudar é gastar num
 ativo que vai sair; congelar e isolar costuma custar menos.
 
 ## Alternativas
 
-- **Arquitetura estável com revisão periódica** — adequada em domínios que mudam pouco.
-- **Reescrita planejada** — em alguns casos, aceitar que o sistema tem vida útil e planejar a
+- **Arquitetura estável com revisão periódica**: adequada em domínios que mudam pouco.
+- **Reescrita planejada**: em alguns casos, aceitar que o sistema tem vida útil e planejar a
   substituição é mais barato que mantê-lo evolutivo.
-- **Congelar e isolar** — manter o sistema como está, com fronteiras claras, e construir o novo
+- **Congelar e isolar**: manter o sistema como está, com fronteiras claras, e construir o novo
   ao lado. Ver [estrangulamento](/16-legacy-modernization/strangler-fig.md).
 
 A segunda é subestimada: nem todo sistema merece o investimento em evolutibilidade, e reconhecer
@@ -248,12 +248,12 @@ desligada na primeira sexta-feira de entrega apertada.
 ## Erros Comuns
 
 **Não escolher** as dimensões a proteger. As verificações proliferam, os avisos se acumulam, e o
-time passa a ignorá-los — inclusive os que importavam.
+time passa a ignorá-los, inclusive os que importavam.
 
 **Não medir** acoplamento e frequência de mudança. A deriva só é percebida quando já custa uma
 reescrita, porque nada a mostrou enquanto era barata de corrigir.
 
-**Confundir evolutiva com flexível** — flexibilidade antecipada é o oposto. O resultado são
+**Confundir evolutiva com flexível**: flexibilidade antecipada é o oposto. O resultado são
 abstrações pagas para mudanças que não vêm, que tornam mais cara a mudança que vem.
 
 **Não usar o histórico do repositório** como fonte de evidência. As fronteiras são redesenhadas
@@ -280,7 +280,7 @@ pares de módulos que mudam juntos em > 60%
 tempo de construção                                   47 minutos
 ```
 
-Os 11 pares que mudavam juntos eram candidatos a fronteira errada — módulos separados que, na
+Os 11 pares que mudavam juntos eram candidatos a fronteira errada: módulos separados que, na
 prática, talvez fossem um só. E o tempo de construção de 47 minutos era o que tornava qualquer mudança cara,
 independentemente do tamanho.
 
@@ -321,28 +321,28 @@ tempo de construção                  7 minutos
 dimensões protegidas violadas        0 desde o bloqueio
 ```
 
-Nenhuma reescrita. O sistema é o mesmo, com as mesmas responsabilidades — o que mudou foi o custo
+Não houve reescrita. O sistema é o mesmo, com as mesmas responsabilidades, e o que mudou foi o custo
 de alterá-lo.
 
 O detalhe que a equipe destaca: a medição sobre o histórico do repositório foi o instrumento mais barato
 e mais informativo do projeto. Ela custou dois dias de trabalho, existia desde sempre, e ninguém
-a tinha extraído — e 10 dos 11 pares que mudavam juntos apontaram para fronteiras erradas, uma
+a tinha extraído. E 10 dos 11 pares que mudavam juntos apontaram para fronteiras erradas, uma
 precisão que nenhuma análise de desenho tinha alcançado.
 
 ## Conceitos Relacionados
 
 - [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md).
-- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md) — o mecanismo.
+- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md): o mecanismo.
 - [Medição de Resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 - [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ## Exercício Prático
 
 Extraia do histórico do seu repositório os pares de módulos que mudam juntos em mais de 60% das
-vezes — commits que tocam os dois, divididos pelos commits que tocam qualquer um dos dois —,
+vezes (commits que tocam os dois, divididos pelos commits que tocam qualquer um dos dois),
 considerando só pares com pelo menos 20 commits no período.
 
-Cada par é uma fronteira candidata a estar errada — e essa informação existe há anos sem que
+Cada par é uma fronteira candidata a estar errada, e essa informação existe há anos sem que
 alguém a tenha olhado.
 
 ## Perguntas de Entrevista

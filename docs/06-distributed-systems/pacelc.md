@@ -2,7 +2,7 @@
 id: pacelc
 title: PACELC
 sidebar_position: 12
-description: A extensão de CAP que cobre o caso comum — latência contra consistência, quando não há partição.
+description: "A extensão de CAP que cobre o caso comum: latência contra consistência, quando não há partição."
 doc_type: foundation
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [cap, consistency, latency]
 canonical_for: [PACELC]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 PACELC, formulado por Daniel Abadi, estende [CAP](/06-distributed-systems/cap.md) com a parte que faltava:
 
 > **Se** houver **P**artição, escolha entre **A**vailability e **C**onsistency.
-> **E**lse — quando não há partição — escolha entre **L**atency e **C**onsistency.
+> **E**lse (quando não há partição), escolha entre **L**atency e **C**onsistency.
 
 A segunda metade é a que importa no dia a dia, e é a que CAP omite.
 
@@ -37,7 +37,7 @@ Isso deixa uma lacuna: **o que explica o comportamento nos outros 99,99% do
 tempo?**
 
 A resposta é que consistência custa **coordenação**, e coordenação custa **idas e
-voltas de rede** — mesmo com tudo funcionando perfeitamente.
+voltas de rede**, mesmo com tudo funcionando perfeitamente.
 
 Uma escrita que precisa ser confirmada por réplicas em outra região paga a
 latência entre regiões. Não porque algo falhou, mas porque a velocidade da luz é
@@ -58,10 +58,10 @@ Sistemas são descritos por duas letras, uma para cada situação:
 | **PC/EL** | Consistência | Latência |
 | **PC/EC** | Consistência | Consistência |
 
-**PA/EL** — prioriza responder rápido, sempre. Bancos de chave-valor com
+**PA/EL**: prioriza responder rápido, sempre. Bancos de chave-valor com
 replicação assíncrona tendem a este perfil.
 
-**PC/EC** — prioriza correção, sempre, pagando latência. Bancos com consenso
+**PC/EC**: prioriza correção, sempre, pagando latência. Bancos com consenso
 distribuído tendem a este.
 
 **PA/EC** é a combinação incomum e existe: sistemas que preferem consistência no
@@ -79,7 +79,7 @@ réplicas intercontinentais
   → ~150 ms adicionais por escrita
 ```
 
-Isso não é otimizável. É distância física.
+Isso não é otimizável: é distância física.
 
 Um sistema que exige consistência forte global e tem usuários em três continentes
 paga a latência da coordenação em toda escrita, e não há código que resolva.
@@ -89,7 +89,7 @@ paga a latência da coordenação em toda escrita, e não há código que resolv
 A escolha entre EL e EC determina:
 
 **Onde as escritas acontecem.** Consistência forte multi-região frequentemente
-implica um líder único — e escritas de outras regiões pagam a viagem até ele.
+implica um líder único, e escritas de outras regiões pagam a viagem até ele.
 
 **Se réplicas de leitura são utilizáveis.** Ler de réplica é EL; ler da primária é
 EC.
@@ -104,7 +104,7 @@ que ninguém escolheu.
 
 Como em CAP e em [consistência](/06-distributed-systems/consistency.md), a escolha é por operação.
 
-Um sistema pode ser EC para escrita de saldo e EL para leitura de catálogo — e
+Um sistema pode ser EC para escrita de saldo e EL para leitura de catálogo, e
 essa é a configuração correta na maioria dos casos.
 
 Tratar como propriedade global força todas as operações ao requisito da mais
@@ -120,7 +120,7 @@ que de fato tomam todo dia.
 gratuito até alguém quantificar os milissegundos que ela adiciona por operação.
 
 **Porque a decisão é frequentemente configuração.** Nível de confirmação, origem
-da leitura, posição do líder — os parâmetros existem e alguém precisa escolher.
+da leitura, posição do líder: os parâmetros existem e alguém precisa escolher.
 
 ## Erros Comuns
 
@@ -142,8 +142,8 @@ código a devolve.
 
 ## Exemplo Real
 
-Um sistema de reservas de hotéis operava em três regiões — América do Sul, Europa
-e Ásia — com banco replicado e consistência forte global.
+Um sistema de reservas de hotéis operava em três regiões (América do Sul, Europa
+e Ásia), com banco replicado e consistência forte global.
 
 O tempo de resposta para criar uma reserva era de 480 ms no percentil 50. O
 requisito era 300 ms.
@@ -151,7 +151,7 @@ requisito era 300 ms.
 O perfil mostrou que 340 ms eram coordenação: a escrita precisava ser confirmada
 pela maioria das réplicas, e a maioria envolvia atravessar continentes.
 
-A primeira proposta foi otimizar a aplicação. Ela não tinha o que otimizar — 71%
+A primeira proposta foi otimizar a aplicação. Ela não tinha o que otimizar: 71%
 do tempo era espera de rede entre continentes.
 
 A análise por operação mudou a arquitetura.
@@ -160,20 +160,20 @@ A análise por operação mudou a arquitetura.
 hotel em São Paulo tem sua reserva coordenada apenas entre réplicas
 sul-americanas. A coordenação continua, e a distância caiu de intercontinental
 para regional: de 340 ms para 18 ms. O particionamento encurtou a coordenação, não o
-caminho do cliente — quem reserva da Europa um hotel em São Paulo continua pagando a
+caminho do cliente: quem reserva da Europa um hotel em São Paulo continua pagando a
 viagem até a região dona do dado.
 
-**Consulta de disponibilidade** virou EL — lê da réplica local, com atraso aceito
+**Consulta de disponibilidade** virou EL: lê da réplica local, com atraso aceito
 de segundos. O negócio confirmou que uma disponibilidade ligeiramente desatualizada
 é aceitável, porque a reserva efetiva verifica de novo.
 
 **Perfil e histórico do usuário** viraram EL sem ressalva.
 
-Resultado: p50 de 158 ms nas reservas de hotel na própria região do usuário — os 140 ms de aplicação, que não tinham o que otimizar,
-mais os 18 ms de coordenação regional. Abaixo do requisito de 300 ms.
+Resultado: p50 de 158 ms nas reservas de hotel na própria região do usuário (os 140 ms de aplicação, que não tinham o que otimizar,
+mais os 18 ms de coordenação regional). Abaixo do requisito de 300 ms.
 
 O ponto que a equipe sublinha: a consistência forte não foi abandonada. O que mudou foi
-**o escopo da coordenação** — de global para regional — mais a separação das
+**o escopo da coordenação**, de global para regional, mais a separação das
 operações que não precisavam dela.
 
 E o insight que só apareceu com PACELC no vocabulário: o problema nunca foi
@@ -182,10 +182,10 @@ para nomeá-lo.
 
 ## Conceitos Relacionados
 
-- [CAP](/06-distributed-systems/cap.md) — a metade que trata de partição.
-- [Consistência](/06-distributed-systems/consistency.md) — o espectro.
-- [Latência](/06-distributed-systems/latency.md) — o que se paga.
-- [Replicação](/06-distributed-systems/replication.md) — onde a coordenação acontece.
+- [CAP](/06-distributed-systems/cap.md): a metade que trata de partição.
+- [Consistência](/06-distributed-systems/consistency.md): o espectro.
+- [Latência](/06-distributed-systems/latency.md): o que se paga.
+- [Replicação](/06-distributed-systems/replication.md): onde a coordenação acontece.
 
 ## Exercício Prático
 

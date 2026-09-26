@@ -2,7 +2,7 @@
 id: partial-failure
 title: Partial Failure
 sidebar_position: 3
-description: Part of the system works, part does not — the structural difference between local and distributed.
+description: "Part of the system works, part does not: the structural difference between local and distributed."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [idempotency, sagas, circuit-breakers]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Partial failure is the situation in which part of the system works and part does not.
 
 It is **the** difference between local and distributed systems. In a single process, failure is
-total: if it dies, it dies whole, and the in-memory state goes with it — consistently.
+total: if it dies, it dies whole, and the in-memory state goes with it, consistently.
 Distributed, one component goes down while the others continue, and the system ends up in a
 state nobody designed.
 
@@ -41,7 +41,7 @@ The concrete case: a business operation involves three steps in different compon
 The system is neither working nor stopped. It is in a state where the customer was charged,
 the stock was reserved, and there is no tax document.
 
-That state appears in no diagram. It is not a programming error — it is the inevitable
+That state appears in no diagram. It is not a programming error but the inevitable
 consequence of the operation crossing boundaries that fail independently.
 
 **Designing distributed systems is, to a large extent, deciding what to do in those states.**
@@ -55,9 +55,9 @@ steps are dispatched.
 
 In a sequential flow that aborts on the first failure, the reachable outcomes are N+1: full
 success, or a stop at each of the N steps. When the steps run in parallel, or when the flow
-carries on after one of them fails, they are the 2^N combinations of success and failure — 32
-for five steps — and 3^N when a timeout leaves each step's outcome unknown. Every outcome needs
-an answer — even if the answer is "we accept it and fix it manually".
+carries on after one of them fails, they are the 2^N combinations of success and failure (32
+for five steps) and 3^N when a timeout leaves each step's outcome unknown. Every outcome needs
+an answer, even if the answer is "we accept it and fix it manually".
 
 That is the cost excessive granularity imposes on multi-step operations: **each additional
 boundary adds states to consider, and parallelism multiplies them.**
@@ -66,7 +66,7 @@ boundary adds states to consider, and parallelism multiplies them.**
 
 **Compensate.** Undo what has already been done. Refund the charge, release the stock. It is
 what [sagas](/06-distributed-systems/sagas.md) formalize, and it requires each step to have an
-inverse — which does not always exist. A sent email cannot be unsent.
+inverse, which does not always exist. A sent email cannot be unsent.
 
 **Resume.** Persist the progress and continue later. It requires durable intermediate state and
 [idempotent](/06-distributed-systems/idempotency.md) steps.
@@ -88,7 +88,7 @@ It is what turns "a function that calls three services" into a persisted state m
 ### Partial failure does not require microservices
 
 It does not depend on the architecture. A monolith that calls an external payment service and
-an email service already has partial failure — at two boundaries.
+an email service already has partial failure, at two boundaries.
 
 What microservices do is multiply the number of boundaries.
 
@@ -103,12 +103,12 @@ and fails on every real write.
 **Slow without failing.** It responds in 30 seconds instead of 30 milliseconds. No error is
 recorded, and the slowness propagates to the callers until their connections are exhausted.
 
-**Correct but stale.** A replica that stopped replicating keeps serving reads — of old data,
+**Correct but stale.** A replica that stopped replicating keeps serving reads of old data,
 with no sign that anything is wrong.
 
 None of those appears in an error count. What to measure instead of availability is in
 [network failure](/06-distributed-systems/network-failure.md). What matters here is that all
-three produce inconsistent state without any step having failed — and so none of the three
+three produce inconsistent state without any step having failed, and so none of the three
 answers (compensate, resume, reconcile) is ever triggered.
 
 ## Mental Model
@@ -125,7 +125,7 @@ It is not an optional technique. The decisions it informs:
 - Choosing between compensation, resumption and reconciliation, per operation.
 - Deciding where to persist the progress.
 - Defining what is tolerable to leave inconsistent and for how long.
-- Sizing the operational effort — reconciliation requires someone to follow it.
+- Sizing the operational effort: reconciliation requires someone to follow it.
 
 ## When Not to Use
 
@@ -142,11 +142,11 @@ more intermediate state to handle.
 
 ## Alternatives
 
-- **Local transaction** — when the steps fit in the same database, partial failure disappears.
+- **Local transaction**: when the steps fit in the same database, partial failure disappears.
   It is the reason to keep the steps of one operation in the same database.
-- **Reduce the number of steps** — merging two services eliminates one boundary: one outcome
-  fewer in a sequential flow, half the combinations in a parallel one.
-- **Make steps optional** — if the email can fail with no consequence, it leaves the critical
+- **Reduce the number of steps**: merging two services eliminates one boundary (one outcome
+  fewer in a sequential flow, half the combinations in a parallel one).
+- **Make steps optional**: if the email can fail with no consequence, it leaves the critical
   path and becomes an event.
 
 ## Trade-offs
@@ -191,9 +191,9 @@ having one.
 A course enrollment system executed four steps: reserve a seat, charge, grant access to the
 platform, send a welcome message. Around 300 enrollments a day.
 
-There was no progress persistence — it was a function calling four services in sequence.
+There was no progress persistence: it was a function calling four services in sequence.
 
-Over a year, three orphan states appeared — the first two recurrently, the third in three
+Over a year, three orphan states appeared: the first two recurrently, the third in three
 cases.
 
 **Charged with no access.** The platform service failed after the charge. The student paid and
@@ -203,31 +203,31 @@ could not get in. Discovered by support, fixed by hand.
 sold out with phantom seats.
 
 **Access with no charge.** The operator's manual retry re-executed from the beginning: the
-grant-access step — already completed — ran again, harmlessly, but the charge was issued a
+grant-access step (already completed) ran again, harmlessly, but the charge was issued a
 second time. In three cases the operator skipped the charge and resumed from the third step,
 assuming it had completed, and access was granted with no payment.
 
 The redesign turned the operation into a persisted state machine.
 
 Each step records the result before advancing. Resumption continues from the last completed
-step, and all of them are idempotent — reserving the same seat twice is harmless, charging with
+step, and all of them are idempotent: reserving the same seat twice is harmless, charging with
 the same key returns the original result.
 
 Sending the welcome message left the critical path and became an event: it can fail without
 leaving the enrollment inconsistent.
 
 And daily reconciliation was added, comparing enrollments, charges and access grants, with an
-alert above five divergences in a day — a little over 1% of the daily volume.
+alert above five divergences in a day (a little over 1% of the daily volume).
 
 On its first run, it found 47 divergences accumulated over months. Nobody knew they existed,
 because only the ones that generated a complaint were discovered.
 
 ## Related Concepts
 
-- [Network Failure](/06-distributed-systems/network-failure.md) — the origin.
-- [Idempotency](/06-distributed-systems/idempotency.md) — what makes resumption safe.
-- [Sagas](/06-distributed-systems/sagas.md) — the formalization of compensation.
-- [Distributed Transactions](/06-distributed-systems/distributed-transactions.md) — the
+- [Network Failure](/06-distributed-systems/network-failure.md): the origin.
+- [Idempotency](/06-distributed-systems/idempotency.md): what makes resumption safe.
+- [Sagas](/06-distributed-systems/sagas.md): the formalization of compensation.
+- [Distributed Transactions](/06-distributed-systems/distributed-transactions.md): the
   alternative and its cost.
 
 ## Practical Exercise

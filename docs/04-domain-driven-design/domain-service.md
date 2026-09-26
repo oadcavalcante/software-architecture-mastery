@@ -2,7 +2,7 @@
 id: domain-service
 title: Domain Service
 sidebar_position: 14
-description: Regra de domínio que não pertence a nenhuma entidade — e o risco de virar depósito de lógica.
+description: Regra de domínio que não pertence a nenhuma entidade, e o risco de virar depósito de lógica.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [application-service, aggregate, entity]
 canonical_for: [domain service, serviço de domínio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 Um serviço de domínio contém regra de negócio que não pertence naturalmente a
-nenhuma entidade ou objeto de valor — tipicamente porque envolve vários deles.
+nenhuma entidade ou objeto de valor, tipicamente porque envolve vários deles.
 
 Continua sendo domínio: não conhece infraestrutura, não orquestra transação, não
 sabe de HTTP nem de banco.
@@ -32,13 +32,13 @@ sabe de HTTP nem de banco.
 Nem toda regra cabe numa entidade.
 
 "Transferir valor entre duas contas" envolve duas contas e não pertence a nenhuma
-delas — colocá-la em `Conta` faria uma conta conhecer e modificar outra, o que
+delas: colocá-la em `Conta` faria uma conta conhecer e modificar outra, o que
 viola a fronteira do [agregado](/04-domain-driven-design/aggregate.md).
 
 "Calcular elegibilidade" pode depender de três agregados diferentes.
 
-Sem um lugar para essas regras, elas migram para o serviço de aplicação — onde
-ficam misturadas com orquestração e controle de transação — ou para uma entidade
+Sem um lugar para essas regras, elas migram para o serviço de aplicação (onde
+ficam misturadas com orquestração e controle de transação) ou para uma entidade
 que passa a conhecer demais.
 
 O serviço de domínio é o lugar correto para elas.
@@ -49,12 +49,12 @@ O serviço de domínio é o lugar correto para elas.
 
 Uma regra pertence a serviço de domínio quando:
 
-Ela é do domínio — expressa uma decisão de negócio, não coordenação técnica.
+Ela é do domínio: expressa uma decisão de negócio, não coordenação técnica.
 
-Ela não pertence a nenhuma entidade — forçá-la numa produz acoplamento
+Ela não pertence a nenhuma entidade: forçá-la numa produz acoplamento
 antinatural.
 
-Ela é sem estado — o serviço não guarda nada entre chamadas.
+Ela é sem estado: o serviço não guarda nada entre chamadas.
 
 Faltando qualquer um dos três, é outra coisa.
 
@@ -80,19 +80,19 @@ Um serviço de domínio tem nome de operação do negócio: `AvaliadorDeElegibil
 `CalculadoraDeFrete`, `TransferenciaEntreContas`.
 
 Nomes como `PedidoManager`, `ClienteHelper` ou `ProcessadorGenerico` são sinal de
-que a regra não foi entendida — e frequentemente de que o serviço virou depósito.
+que a regra não foi entendida, e frequentemente de que o serviço virou depósito.
 
 ### O risco: fuga de responsabilidade
 
 O modo de degeneração é conhecido: é mais fácil escrever a regra num serviço do
 que descobrir onde ela pertence na entidade.
 
-O resultado é o modelo anêmico — entidades sem comportamento e serviços com toda
+O resultado é o modelo anêmico: entidades sem comportamento e serviços com toda
 a lógica. Ver
 [encapsulamento](/02-software-design/encapsulation.md).
 
 A verificação: antes de criar um serviço de domínio, aplique as três condições da
-definição — é regra de domínio, não pertence a nenhuma entidade, é sem estado. "Envolve mais
+definição (é regra de domínio, não pertence a nenhuma entidade, é sem estado). "Envolve mais
 de um agregado" é **heurística**, não teste: acerta na maioria das vezes, e falha em casos
 como o `CalculadoraDeFrete` acima, que atende às três condições sobre um agregado só. Quando
 a regra envolve um agregado e cabe nele, é dele que ela é.
@@ -121,12 +121,12 @@ ali.
 
 ## Alternativas
 
-- **Método na entidade** — quando envolve um agregado só.
-- **Objeto de valor com comportamento** — quando a regra é sobre um conceito, não
+- **Método na entidade**: quando envolve um agregado só.
+- **Objeto de valor com comportamento**: quando a regra é sobre um conceito, não
   sobre entidades.
-- **Método de fábrica** — quando a regra é de criação. Ver
+- **Método de fábrica**: quando a regra é de criação. Ver
   [factory](/04-domain-driven-design/factory.md).
-- **Política como objeto** — uma regra encapsulada como
+- **Política como objeto**: uma regra encapsulada como
   [Strategy](/03-design-patterns/strategy.md), quando há variantes.
 
 ## Trade-offs
@@ -156,7 +156,7 @@ concorrência.
 
 **Criar serviço para regra de um agregado só.** O erro dominante.
 
-**Nome genérico.** `Manager`, `Helper`, `Processor`, `Handler` — nenhum é
+**Nome genérico.** `Manager`, `Helper`, `Processor`, `Handler`: nenhum é
 vocabulário de domínio.
 
 **Injetar repositório no serviço de domínio.** É debatido; a posição deste
@@ -173,13 +173,13 @@ validação de saldo, cálculo de tarifa, verificação de limite diário, regis
 auditoria, notificação por e-mail e controle de transação.
 
 Seis responsabilidades: três de domínio e três não. Duas pertenciam a `Conta`, uma a um
-serviço de domínio, e as outras três — auditoria, notificação e controle de transação — à
+serviço de domínio, e as outras três (auditoria, notificação e controle de transação) à
 camada de aplicação e a efeitos.
 
 A separação:
 
 **Regra que pertencia à entidade.** Validação de saldo e limite diário são
-invariantes de `Conta`. Foram para lá — `conta.debitar(valor)` lança se o saldo ou
+invariantes de `Conta`. Foram para lá: `conta.debitar(valor)` lança se o saldo ou
 o limite não permitirem.
 
 **Regra que pertencia a serviço de domínio.** O cálculo de tarifa depende do tipo
@@ -187,7 +187,7 @@ das duas contas, do valor e do horário. Não pertence a nenhuma conta.
 Virou `CalculadoraDeTarifa`, sem estado, testável com dois objetos em memória.
 
 **Coordenação.** Carregar as contas, chamar o débito e o crédito, calcular a
-tarifa, persistir, controlar a transação, publicar o evento — tudo isso foi para o
+tarifa, persistir, controlar a transação, publicar o evento: tudo isso foi para o
 serviço de aplicação.
 
 **Efeitos.** Auditoria e notificação viraram consumidores de
@@ -203,10 +203,10 @@ ciclo de alteração caiu de dias para horas.
 
 ## Conceitos Relacionados
 
-- [Application Service](/04-domain-driven-design/application-service.md) — a orquestração.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — onde a maior parte das regras pertence.
-- [Entity](/04-domain-driven-design/entity.md) — o lugar padrão de uma regra.
-- [Arquitetura Onion](/02-software-design/onion-architecture.md) — o
+- [Application Service](/04-domain-driven-design/application-service.md): a orquestração.
+- [Aggregate](/04-domain-driven-design/aggregate.md): onde a maior parte das regras pertence.
+- [Entity](/04-domain-driven-design/entity.md): o lugar padrão de uma regra.
+- [Arquitetura Onion](/02-software-design/onion-architecture.md): o
   vocabulário dos anéis.
 
 ## Exercício Prático

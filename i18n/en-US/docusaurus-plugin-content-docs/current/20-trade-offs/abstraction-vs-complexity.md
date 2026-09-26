@@ -2,7 +2,7 @@
 id: abstraction-vs-complexity
 title: Abstraction vs. Complexity
 sidebar_position: 15
-description: Abstraction either hides complexity or adds it — and the difference is measurable by depth.
+description: Abstraction either hides complexity or adds it, and the difference is measurable by depth.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [simplicity-vs-flexibility, coupling-vs-duplication, performance-vs-maintainability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Abstraction exists to reduce what has to be understood at a time. When it works, it is the most
 powerful tool in software engineering. When it does not, it **adds** complexity instead of
-hiding it — and the result is worse than not having it.
+hiding it, and the result is worse than not having it.
 
 The difference is measurable:
 
@@ -33,7 +33,7 @@ real axis   how much this abstraction hides, divided by how much it
 ```
 
 Ousterhout calls this depth: a **deep** abstraction has a small interface over a substantial
-implementation. A **shallow** one has an interface as complex as what it hides — and in that
+implementation. A **shallow** one has an interface as complex as what it hides, and in that
 case the layer is pure cost.
 
 ## Problem
@@ -46,13 +46,13 @@ Controller → Service → ServiceImpl → Repository → RepositoryImpl → Map
 ```
 
 Seven layers in which four merely forward. Adding a field requires touching seven files, and
-none of the seven hides anything from anyone — whoever reads has to cross all of them to
+none of the seven hides anything from anyone: whoever reads has to cross all of them to
 understand what happens.
 
 The symmetric error is the absence of abstraction: business logic mixed with data access, with
 transport and with formatting, in long functions where nothing has a name.
 
-Both produce the same symptom — difficulty in understanding — and for that reason they are
+Both produce the same symptom (difficulty in understanding), and for that reason they are
 frequently confused. The answer to the second is to abstract; to the first, to remove a layer.
 
 ## Core Concepts
@@ -81,8 +81,8 @@ closed abstraction   use it without knowing what is underneath
 leaky abstraction    you have to know both levels
 ```
 
-When the underlying behavior crosses the interface — performance, a specific error, a limit,
-transaction semantics — the user has to understand the abstraction **and** what it hides. The
+When the underlying behavior crosses the interface (performance, a specific error, a limit,
+transaction semantics), the user has to understand the abstraction **and** what it hides. The
 cost doubles instead of reducing.
 
 Common examples:
@@ -93,7 +93,7 @@ HTTP client that hides timeouts                     → you have to know the net
 queue abstracted over different semantics           → you have to know the mechanism
 ```
 
-That does not condemn abstraction — it means the comparison must be made counting the real
+That does not condemn abstraction. It means the comparison must be made counting the real
 cost, which includes the lower level.
 
 ### A small interface is not a simplistic interface
@@ -104,7 +104,7 @@ simplistic   hides what the user needs to decide, and they end up
              working around the abstraction
 ```
 
-An abstraction that hides something essential forces the workaround — and code that works
+An abstraction that hides something essential forces the workaround, and code that works
 around the abstraction is the worst state: you pay for the layer and use the lower level
 anyway.
 
@@ -129,7 +129,7 @@ reading it                every time, by everyone
 ```
 
 A badly chosen abstraction charges every person who enters the code, forever. That is why "I
-understand it, it's simple" is not an argument — the question is whether someone arriving in
+understand it, it's simple" is not an argument: the question is whether someone arriving in
 two years will understand it without an explanation.
 
 See [complexity](/01-fundamentals/complexity.md).
@@ -186,7 +186,7 @@ Abstract when:
 
 - The implementation is substantial and the interface can be small.
 - There is more than one real case, with known variation.
-- The abstraction closes — the user does not need the lower level.
+- The abstraction closes: the user does not need the lower level.
 - The name expresses intent, not mechanism.
 - What is hidden is volatile and what is exposed is stable.
 
@@ -211,17 +211,17 @@ Prefer concrete when:
 operation: there you decide whether to **unify** fragments that repeat, and the third case
 exists to reveal the axis of variation; here you decide whether to **hide** an implementation
 behind an interface, and the second case is already enough because the interface does not have
-to accommodate any variation — it has to hide something volatile. If the abstraction also
+to accommodate any variation; it has to hide something volatile. If the abstraction also
 unifies duplication, the floor over there applies.
 
-**To look organized** — visual organization is not abstraction.
+**To look organized**: visual organization is not abstraction.
 
 ## Alternatives
 
-- **Naming** — extract a function with an intent name; the cheapest.
-- **Module with a boundary, no interface** — grouping without indirection.
-- **Composition instead of hierarchy** — avoids inheritance depth.
-- **Flatten** — remove the layer and accept the concrete where it is clear.
+- **Naming**: extract a function with an intent name; the cheapest.
+- **Module with a boundary, no interface**: grouping without indirection.
+- **Composition instead of hierarchy**: avoids inheritance depth.
+- **Flatten**: remove the layer and accept the concrete where it is clear.
 
 The last is the most underused: removing a forwarding layer improves readability and
 performance at the same time, and is almost never proposed.
@@ -296,8 +296,8 @@ average time for a new person to locate
 business rules in the Service layer                present in 12 of 41 cases
 ```
 
-The last line is the diagnosis. In 29 of the 41 entities, the service layer contained no logic
-— it existed because the guide required it.
+The last line is the diagnosis. In 29 of the 41 entities, the service layer contained no logic:
+it existed because the guide required it.
 
 And the side effect: since the standard structure did not accommodate the logic that actually
 existed, rules ended up in the controllers and in the mappers, which is where there was room.
@@ -307,7 +307,7 @@ The revision of the guide:
 **A layer is mandatory only when it hides something.** The written rule: a layer must answer
 "what do I not need to know because of it?". If the answer is "nothing", it is not created.
 
-**Interface only with a second implementer** — or with a concrete substitution need in testing
+**Interface only with a second implementer**, or with a concrete substitution need in testing
 that is not met another way.
 
 **Simple entities with no service layer.** The controller talks to the repository directly
@@ -337,8 +337,8 @@ The data point the team highlights: business rules stopped leaking into the cont
 **after** the layers were reduced. The excessive structure was not protecting the domain; it
 was pushing the logic wherever it fit.
 
-In retrospect: the original guide had been written with good intentions — standardize to make
-reading across services easier. It standardized the form and not the substance, and form
+In retrospect: the original guide had been written with good intentions (standardize to make
+reading across services easier). It standardized the form and not the substance, and form
 without substance is exactly what Ousterhout calls a shallow layer: reading cost for everyone,
 benefit for no one.
 

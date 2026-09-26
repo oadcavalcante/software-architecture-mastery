@@ -2,7 +2,7 @@
 id: leadership-standards
 title: Padrões sob a Ótica de Quem Estabelece
 sidebar_position: 13
-description: Publicar um padrão é assumir um compromisso — com o caminho, com a migração e com a aposentadoria.
+description: Publicar um padrão é assumir um compromisso com o caminho, com a migração e com a aposentadoria.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leadership-principles]
 related: [leadership-principles, leadership-governance, cross-team-architecture]
 canonical_for: [publicação de padrão, patrocínio de padrão, adoção como sinal, estágio de recomendação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -30,7 +30,7 @@ responder quem paga         a migração dos sistemas existentes
 aposentá-lo                 quando ele deixar de fazer sentido
 ```
 
-Um padrão publicado sem as três é uma aspiração com aparência de regra — e o resultado é
+Um padrão publicado sem as três é uma aspiração com aparência de regra, e o resultado é
 previsível: baixa adoção, contorno silencioso, e a área que o publicou reforçando obrigatoriedade
 como resposta a tudo.
 
@@ -48,7 +48,7 @@ publica-se no portal
 comunica-se por e-mail
 ```
 
-Seis meses depois, a adoção está em 22%, e a reação institucional é reforçar a obrigatoriedade —
+Seis meses depois, a adoção está em 22%, e a reação institucional é reforçar a obrigatoriedade, o
 que não funciona, porque o problema nunca foi disciplina.
 
 ```text
@@ -73,7 +73,7 @@ leitura correta  "o padrão não é adotável, ou não vale a pena
 Essa inversão de leitura é a mudança de postura mais importante deste tema. Indisciplina explica
 um time que não adota; não explica dezenas de times, com gestores e prioridades diferentes, deixando
 de adotar o mesmo padrão. Quando a baixa adoção é espalhada, a causa comum está no que eles têm em
-comum — o padrão: o custo de adotar excede o benefício percebido, ou não há caminho.
+comum (o padrão): o custo de adotar excede o benefício percebido, ou não há caminho.
 
 Investigar por quê, em vez de cobrar, resolve o problema; cobrar apenas move o descumprimento
 para o silêncio.
@@ -90,7 +90,7 @@ abaixo             revisa o padrão antes de promover
 Esse estágio transforma adoção baixa em informação sobre o padrão em vez de falha dos times, e
 custa apenas tempo. É o instrumento mais eficaz de quem publica, e o menos usado.
 
-Um padrão que ninguém adota voluntariamente provavelmente não deveria ser obrigatório — ou
+Um padrão que ninguém adota voluntariamente provavelmente não deveria ser obrigatório, ou
 precisa de caminho antes de ser.
 
 ### Nenhum padrão sem caminho
@@ -116,7 +116,7 @@ Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 ```
 
 Sem resposta a quem paga, isso é aspiração. Times têm prioridades próprias, e migrar por
-conformidade compete com entregar valor — e perde.
+conformidade compete com entregar valor, e perde.
 
 ```text
 financiado centralmente          o mais efetivo, e o mais caro
@@ -136,15 +136,15 @@ coisa. Em compensação, ela não compete com nenhuma prioridade de produto, o q
 adoção ser alta.
 
 A escolha entre migrar e não migrar deveria ser explícita no momento da publicação, com o custo
-de cada uma estimado — e não descoberta meses depois, quando a migração não acontece e ninguém
+de cada uma estimado, e não descoberta meses depois, quando a migração não acontece e ninguém
 sabe se ela era esperada.
 
 ### Regra de troca
 
-A [regra de troca](/19-architecture-governance/governance-standards.md) — para adicionar um
-padrão, remova outro, salvo risco regulatório — é definida em padrões em operação. Para quem
+A [regra de troca](/19-architecture-governance/governance-standards.md) (para adicionar um
+padrão, remova outro, salvo risco regulatório) é definida em padrões em operação. Para quem
 publica, o efeito que interessa é outro: ela dá custo ao ato de publicar, e obriga quem propõe o
-padrão novo a dizer qual existente vale menos que ele — o que é raro quando publicar não tem custo.
+padrão novo a dizer qual existente vale menos que ele. Isso é raro quando publicar não tem custo.
 
 ### Escrito por quem aplica
 
@@ -178,8 +178,8 @@ informação sobre o padrão.
 
 ## Quando Usar
 
-- Quando quem publica consegue entregar o caminho junto — gabarito, ferramenta ou exemplo
-  funcional — e não apenas o texto.
+- Quando quem publica consegue entregar o caminho junto (gabarito, ferramenta ou exemplo
+  funcional), e não apenas o texto.
 - Quando existe resposta para a migração: verba nomeada, ou a decisão explícita de valer só para
   sistemas novos.
 - Quando a área que publica tem patrocínio para sustentar o estágio de recomendação e ler a adoção
@@ -187,26 +187,26 @@ informação sobre o padrão.
 
 ## Quando Não Usar
 
-**Quando a decisão ainda não se repetiu o bastante** para ter resultado conhecido — publicar
+**Quando a decisão ainda não se repetiu o bastante** para ter resultado conhecido: publicar
 congela uma escolha que os times ainda estão aprendendo a fazer; o estágio certo é recomendação ou
 nada.
 
-**Quando os times afetados usam pilhas diferentes demais** para um gabarito único — o padrão vai
+**Quando os times afetados usam pilhas diferentes demais** para um gabarito único: o padrão vai
 ser escrito para uma delas e errado para as outras, como no exemplo abaixo; isso é princípio.
 
-**Quando não há verba para migrar e o risco está nos sistemas existentes** — a saída "só sistemas
+**Quando não há verba para migrar e o risco está nos sistemas existentes**: a saída "só sistemas
 novos" não resolve, e o padrão vira cobrança sem caminho; o que cabe é um projeto financiado, não
 um padrão.
 
-**Quando quem publica não tem como medir adoção** — sem a medida, o estágio de recomendação não
+**Quando quem publica não tem como medir adoção**: sem a medida, o estágio de recomendação não
 produz informação, e a baixa adoção só aparece como sintoma, anos depois.
 
 ## Alternativas
 
-- **Gabarito sem padrão escrito** — a propriedade embutida, sem documento.
-- **Recomendação permanente** — quando a obrigatoriedade não se justifica.
-- **Aplicar só a sistemas novos** — convergência por renovação, sem migração.
-- **Radar tecnológico** — sinaliza direção sem prescrever. Ver
+- **Gabarito sem padrão escrito**: a propriedade embutida, sem documento.
+- **Recomendação permanente**: quando a obrigatoriedade não se justifica.
+- **Aplicar só a sistemas novos**: convergência por renovação, sem migração.
+- **Radar tecnológico**: sinaliza direção sem prescrever. Ver
   [radar tecnológico](/15-enterprise-architecture/technology-radar.md).
 
 A primeira é a mais eficaz quando aplicável: um padrão que existe apenas como configuração padrão
@@ -249,7 +249,7 @@ do gabarito não precisa ser lembrado nem verificado.
 
 **Não considerar** aplicar só a sistemas novos.
 
-**Não vincular ao ADR** que originou o padrão — a revisão perde o contexto que diria se ele ainda vale.
+**Não vincular ao ADR** que originou o padrão: a revisão perde o contexto que diria se ele ainda vale.
 
 ## Exemplo Real
 
@@ -267,7 +267,7 @@ padrão de estrutura de projeto      9%
 
 Os dois primeiros tinham gabarito pronto na publicação; os dois últimos, não. Os dois com
 gabarito eram os dois com adoção alta, e ninguém tinha notado, porque a leitura institucional de baixa adoção era de
-indisciplina — e a resposta em curso era um plano de cobrança por área.
+indisciplina, e a resposta em curso era um plano de cobrança por área.
 
 A liderança de arquitetura propôs inverter a leitura antes de cobrar qualquer coisa: entrevistar
 os times com baixa adoção e perguntar o que impedia.
@@ -281,17 +281,17 @@ padrão de estrutura de projeto "não existe ferramenta que gere isso;
                                dois dias e não entrega nada ao usuário"
 ```
 
-Nenhuma das duas causas era disciplina. A primeira era um padrão errado — escrito por quem
+Nenhuma das duas causas era disciplina. A primeira era um padrão errado, escrito por quem
 usava uma linguagem, para quatro. A segunda era um padrão sem caminho e sem financiamento.
 
 O que a organização passou a exigir antes de publicar:
 
-**Caminho pronto** — gabarito, ferramenta de migração ou exemplo funcional. Sem isso, não publica.
+**Caminho pronto**: gabarito, ferramenta de migração ou exemplo funcional. Sem isso, não publica.
 
 **Estágio de recomendação** de seis meses, com adoção voluntária medida antes de tornar
 obrigatório.
 
-**Resposta explícita a quem paga** a migração dos sistemas existentes — incluindo a opção de não
+**Resposta explícita a quem paga** a migração dos sistemas existentes, incluindo a opção de não
 migrar, aplicando o padrão só a sistemas novos.
 
 **Escrito por quem aplica**, revisado por quem tem visão ampla.
@@ -299,7 +299,7 @@ migrar, aplicando o padrão só a sistemas novos.
 Os dois padrões problemáticos foram tratados de formas opostas: o de tratamento de erro foi
 reescrito por um grupo com representantes das quatro linguagens, e a adoção subiu para 78% em oito
 meses. O de estrutura de projeto foi rebaixado a recomendação e passou a valer apenas para
-serviços novos — a adoção em serviços novos ficou em 94%, e os existentes não foram tocados.
+serviços novos: a adoção em serviços novos ficou em 94%, e os existentes não foram tocados.
 
 Na retrospectiva: nenhum dos dois padrões precisou de cobrança. Um estava errado e foi corrigido;
 o outro estava certo e faltava caminho. A cobrança planejada teria empurrado os dois para o
@@ -318,8 +318,8 @@ Escolha três padrões da sua organização e verifique se cada um tem caminho d
 de revisão e resposta a quem paga a migração.
 
 Para cada lacuna, anote qual das três causas de baixa adoção ela prevê. Onde falta algum dos
-quatro e a adoção mesmo assim é alta, descubra de onde ela veio — um gabarito informal, um dono
-dedicado — antes de contar com isso no próximo padrão.
+quatro e a adoção mesmo assim é alta, descubra de onde ela veio (um gabarito informal, um dono
+dedicado) antes de contar com isso no próximo padrão.
 
 ## Perguntas de Entrevista
 

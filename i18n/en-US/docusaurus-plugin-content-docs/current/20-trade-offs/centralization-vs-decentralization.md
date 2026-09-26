@@ -2,7 +2,7 @@
 id: centralization-vs-decentralization
 title: Centralization vs. Decentralization
 sidebar_position: 7
-description: The axis is the externality of the decision — and the cost of converging later, which is what decides.
+description: The axis is the externality of the decision, and the cost of converging later, which is what decides.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [federated-governance, monolith-vs-microservices, build-vs-buy]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -60,7 +60,7 @@ one architecture team deciding for
 None of those was decided. All of them accumulated.
 
 The important point: **the cost of decentralization does not appear inside the teams**. It
-appears between them — in integration, in the shared on-call, in hiring, in migration.
+appears between them: in integration, in the shared on-call, in hiring, in migration.
 
 ## Core Concepts
 
@@ -72,8 +72,8 @@ externality: **if it goes wrong, who pays?** A consequence that stays in the tea
 decentralized; one that crosses a boundary gets coordinated; one that belongs to the organization
 gets centralized.
 
-What this document adds is applying the criterion outside decisions — to data, services, teams and
-tooling — and the cost of undoing, which the next section covers.
+What this document adds is applying the criterion outside decisions (to data, services, teams and
+tooling), and the cost of undoing, which the next section covers.
 
 ### The cost of converging decides the ties
 
@@ -85,7 +85,7 @@ converge    expensive, coordinated, requires sponsorship and months
 A language choice made by one team in a week can cost two years to reverse, when the organization
 needs mobility between teams.
 
-That means that, in a tie, **centralizing is the safer bet** — not because it is better, but
+That means that, in a tie, **centralizing is the safer bet**, not because it is better, but
 because it is reversible. Decentralizing later is easy; converging later is not.
 
 The asymmetry is the opposite of that in several other pairs in this set, and for that reason it
@@ -116,7 +116,7 @@ centralized capability   the team uses it when it wants, without asking
 The difference is enormous and frequently ignored. A data team that **serves requests** becomes a
 queue; the same team building self-service tooling does not.
 
-That makes it possible to obtain coherence without creating a coordination point — the most
+That makes it possible to obtain coherence without creating a coordination point: the most
 desirable arrangement and the most expensive to build.
 
 ### Scale changes the answer
@@ -160,7 +160,7 @@ decentralized → centralized   expensive: converge N variants, with resistance
 ```
 
 This asymmetry is why "centralize by default, decentralize with evidence" is better advice than
-the inverse — in organizations already past the size at which a conversation settles it.
+the inverse, in organizations already past the size at which a conversation settles it.
 
 ## Mental Model
 
@@ -170,7 +170,7 @@ the inverse — in organizations already past the size at which a conversation s
 
 Centralize when:
 
-- The consequence belongs to the organization — security, regulated data, identity.
+- The consequence belongs to the organization: security, regulated data, identity.
 - The cost of converging later is high.
 - The capability requires specialization that does not fit in each team.
 - The component enters the shared on-call rotation.
@@ -180,7 +180,7 @@ Decentralize when:
 
 - The consequence stays in the team.
 - The local context genuinely varies.
-- The capability is already available as self-service — and it is not enough that the central
+- The capability is already available as self-service, and it is not enough that the central
   point's queue is annoying: a queue with no platform to replace it returns duplication, not
   autonomy.
 - The reversal is cheap.
@@ -194,7 +194,7 @@ in everyone's head; discussing the axis is anticipating a problem that does not 
 
 **When the cost of converging is negligible.** Choice of internal library, log format, naming
 convention: if undoing takes an afternoon, let it diverge and revisit later. The axis only pays
-for the discussion when undoing costs months — which is what the section on the cost of
+for the discussion when undoing costs months. That is what the section on the cost of
 converging measures.
 
 **When the measured problem is capability, not arrangement.** A six-week queue on the data team
@@ -206,12 +206,12 @@ interface and implementation.
 
 ## Alternatives
 
-- **Platform** — central capability, decentralized use: it gets coherence without creating a
+- **Platform**: central capability, decentralized use. It gets coherence without creating a
   coordination point, at the cost of building and maintaining the self-service.
-- **Federation** — local decision with a central contract. See
+- **Federation**: local decision with a central contract. See
   [federated governance](/19-architecture-governance/federated-governance.md).
-- **Temporary centralization** — build centrally and distribute when mature.
-- **Short list** — instead of one central choice or total freedom, three approved options.
+- **Temporary centralization**: build centrally and distribute when mature.
+- **Short list**: instead of one central choice or total freedom, three approved options.
 
 The last solves a good part of the technology cases: neither one language only, nor nine — three,
 with the on-call and hiring cost declared.
@@ -234,14 +234,14 @@ with the on-call and hiring cost declared.
 ## Failure Modes
 
 The symptoms are in the list of [signs of a wrong choice](#signs-of-the-wrong-choice). What follows
-is what shows up when the arrangement fails without any sign from that list having fired — the
+is what shows up when the arrangement fails without any sign from that list having fired: the
 cases that are hard to attribute.
 
 **A queue that does not show in the metric.** The central point's turnaround looks good because
 teams stopped asking and started working around. The queue became invisible work.
 
 **Facade coherence.** The central standard exists, is obeyed in form and worked around in
-substance — the same event published with the generic field that accepts anything.
+substance: the same event published with the generic field that accepts anything.
 
 **A platform adopted and not used.** Adoption is high because it is mandatory; the paved path is
 not the shortest one, and the team uses the minimum needed to pass the check.
@@ -328,11 +328,11 @@ platform adoption in new services                93%
 Divergence went from 4 languages to 7 in eighteen months. Converging back to 4 took twenty, and is
 not finished: the short list has three, and the fourth is being retired.
 
-The time, then, is nearly the same in both directions — and that is not where the asymmetry is. It
+The time, then, is nearly the same in both directions, and that is not where the asymmetry is. It
 is in what each direction required. Diverging required no project: it happened as a sum of local
 decisions, none of them wrong, without anyone approving the result. Converging required building a
 self-service platform, negotiating a short list with the on-call cost stated, instituting an
-exception process and repositioning an entire team — and the cost of that appears in neither
+exception process and repositioning an entire team, and the cost of that appears in neither
 number.
 
 That is the argument the organization now uses to evaluate any decentralization proposal. The
@@ -343,7 +343,7 @@ will undo the sum of good decisions.
 
 - [Federated Governance](/19-architecture-governance/federated-governance.md).
 - [Platform Engineering](/14-devops-and-platform/platform-engineering.md).
-- [Monolith vs. Microservices](/20-trade-offs/monolith-vs-microservices.md) — the same axis,
+- [Monolith vs. Microservices](/20-trade-offs/monolith-vs-microservices.md): the same axis,
   applied to structure.
 - [Build vs. Buy](/20-trade-offs/build-vs-buy.md).
 

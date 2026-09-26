@@ -2,7 +2,7 @@
 id: retry-storms
 title: Retry Storms
 sidebar_position: 16
-description: When the defense amplifies the problem — and why recovery is the hardest part.
+description: When the defense amplifies the problem, and why recovery is the hardest part.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, graceful-degradation]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Retrying is the most basic defense against transient failure. See
 [retries](/06-distributed-systems/retries.md).
 
 Under generalized failure, it becomes the problem: every client retries at the same time, the load on the
-degraded destination multiplies, and the system cannot recover — even after the original cause has passed.
+degraded destination multiplies, and the system cannot recover, even after the original cause has passed.
 
 That last point is what makes the phenomenon dangerous: **the system gets stuck in a bad state that
 sustains itself**, and getting out of it requires intervention.
@@ -56,21 +56,21 @@ Nine calls to the deepest service for one user request. A mild degradation in C 
 The rule that avoids compound multiplication.
 
 Each layer that retries multiplies by its factor. In a chain of four services where the first three retry three
-times, one request can generate 27 calls to the deepest one — 3 × 3 × 3, one layer more than in the example
+times, one request can generate 27 calls to the deepest one: 3 × 3 × 3, one layer more than in the example
 above.
 
 The decision needs to be explicit: **which layer retries?** Typically the one closest to the user, or the
 one that has the context to decide whether it is worth it.
 
-And the others need **not** to retry — which requires somebody to check, because client libraries
+And the others need **not** to retry. That requires somebody to check, because client libraries
 frequently retry by default with nobody having configured it.
 
-See [service mesh](/08-integration-architecture/service-mesh.md) — the case where the mesh retries and the
+See [service mesh](/08-integration-architecture/service-mesh.md): the case where the mesh retries and the
 application does too.
 
 ### A retry budget
 
-Limiting the number of attempts per request does not prevent the storm — a thousand clients with three
+Limiting the number of attempts per request does not prevent the storm: a thousand clients with three
 attempts each still generate three thousand calls.
 
 The control that works is limiting the **proportion**:
@@ -82,7 +82,7 @@ budget: retries ≤ 10% of the initial requests
 ```
 
 When the budget runs out, new retries are refused immediately. That preserves the ability to retry for
-isolated failures — which is the legitimate case — and prevents the amplification when the failure is
+isolated failures (which is the legitimate case) and prevents the amplification when the failure is
 generalized.
 
 It is this section's most effective control, and the least implemented.
@@ -97,7 +97,7 @@ with jitter      the attempts spread out over time
 ```
 
 See [backoff](/06-distributed-systems/backoff.md). Growing waits with no jitter reduce the volume but do not
-desynchronize: the spikes remain, only further apart. And in that they are worse than no wait at all — they
+desynchronize: the spikes remain, only further apart. And in that they are worse than no wait at all: they
 give the impression of protection, and the synchronization stops being investigated.
 
 ### Do not retry what is not retryable
@@ -116,7 +116,7 @@ long to wait. Ignoring that information and retrying immediately is what turns r
 
 The phenomenon that makes all of this serious.
 
-A system enters a state in which the retry load itself sustains the degradation — even after the original
+A system enters a state in which the retry load itself sustains the degradation, even after the original
 cause has disappeared.
 
 ```text
@@ -134,20 +134,20 @@ Recognizing that pattern during an incident is what avoids hours spent trying to
 
 ### A queue is a silent amplifier
 
-When the retry happens in a queue, the amplification is not visible as load — it is visible as growing
+When the retry happens in a queue, the amplification is visible not as load but as growing
 depth.
 
 A message that fails and returns to the queue is processed again, fails again, and consumes capacity
 indefinitely. See [poison messages](/06-distributed-systems/poison-messages.md) and
 [dead-letter queues](/06-distributed-systems/dead-letter-queues.md).
 
-An attempt limit with a final destination is not a detail — it is what keeps one message from consuming the
+An attempt limit with a final destination is not a detail: it is what keeps one message from consuming the
 whole queue's capacity.
 
 ## Mental Model
 
-**Retrying helps against isolated failure and amplifies generalized failure.** The control is not the
-number of attempts — it is their proportion.
+**Retrying helps against isolated failure and amplifies generalized failure.** The control is their
+proportion, not the number of attempts.
 
 ## When to Use
 
@@ -164,7 +164,7 @@ Retrying is appropriate when:
 **In more than one layer of the same chain.** From the second one on, the factors multiply; if the layer
 with context is not the one retrying, turn retries off there rather than keeping them in two.
 
-**With no budget.** With only a count, the extra load rises with the error rate — the destination receives
+**With no budget.** With only a count, the extra load rises with the error rate: the destination receives
 triple exactly when it is degraded.
 
 **With no jitter.** The attempts of clients that failed together arrive in synchronized spikes, and each
@@ -175,18 +175,18 @@ time; retrying only consumes the destination's capacity.
 
 **With no idempotency.** If the timeout happened after the server applied the effect, the retry charges
 twice or decrements inventory twice. With no idempotency key possible, retry only when you know the request
-did not arrive — connection refused, DNS failure — and hand the rest back to the caller.
+did not arrive (connection refused, DNS failure) and hand the rest back to the caller.
 
 **As a response to overload.** If the destination is saturated, retrying makes it worse. See
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
 ## Alternatives
 
-- **A [circuit breaker](/12-reliability/circuit-breakers.md)** — stopping the attempts when the failure is
+- **A [circuit breaker](/12-reliability/circuit-breakers.md)**: stopping the attempts when the failure is
   persistent. It complements retries.
-- **[Graceful degradation](/12-reliability/graceful-degradation.md)** — responding without the dependency.
-- **A delayed queue** — letting the infrastructure handle the repetition, with control.
-- **Failing fast** — when the caller's time budget does not accommodate a wait.
+- **[Graceful degradation](/12-reliability/graceful-degradation.md)**: responding without the dependency.
+- **A delayed queue**: letting the infrastructure handle the repetition, with control.
+- **Failing fast**: when the caller's time budget does not accommodate a wait.
 
 ## Trade-offs
 
@@ -226,7 +226,7 @@ usually retry by default. Added to the application's attempts, they multiply the
 configured that explicitly.
 
 **Not defining a budget.** With no ceiling on the proportion of retries over total calls, they grow
-precisely when the error rate rises — which is when the system can least take it.
+precisely when the error rate rises. That is when the system can least take it.
 
 **Growing waits with no jitter.** Every client that failed together waits the same time and comes back
 together. The wave repeats at increasingly long intervals and the service never stabilizes.
@@ -254,19 +254,19 @@ times. The load on the database went from 800 to around 14,000 requests per seco
 **Metastability.** The original degradation passed in 40 seconds. The retry load kept the database
 saturated for hours.
 
-**Ineffective scaling.** The team doubled the application instances. That made things **worse** — more
+**Ineffective scaling.** The team doubled the application instances. That made things **worse**: more
 instances meant more clients retrying against the same database.
 
 **The exit.** After 3 hours, the team turned off the app's traffic for 5 minutes. With no load, the
 database recovered in seconds. The traffic was turned back on gradually.
 
-The investigation found that nobody knew there were three layers retrying — each configuration had been
+The investigation found that nobody knew there were three layers retrying: each configuration had been
 made by a different team, at a different moment, all reasonable in isolation.
 
 The fixes:
 
 **Retries in one layer only.** Only the mobile client retries, with growing waits and jitter. The gateway
-and the intermediate services stopped retrying — verified by an automated test that fails if a client
+and the intermediate services stopped retrying, verified by an automated test that fails if a client
 library retries by default.
 
 **A 10% budget** per service, with immediate refusal above that.
@@ -278,7 +278,7 @@ from the cache with a staleness notice.
 **Load shedding** at the gateway: above a limit, requests are refused with a suggested wait, instead of
 queuing.
 
-**A documented recovery procedure**, including the step that resolved it — reducing the load to zero and
+**A documented recovery procedure**, including the step that resolved it: reducing the load to zero and
 turning it back on gradually. It was counterintuitive at the time, and it is what works in a metastable
 state.
 
@@ -289,14 +289,14 @@ the natural reaction, and it fed exactly the mechanism that was sustaining the d
 
 ## Related Concepts
 
-- [Retries](/06-distributed-systems/retries.md) — the fundamentals.
-- [Backoff](/06-distributed-systems/backoff.md) — the jitter.
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — stopping the attempts.
-- [Bulkheads](/12-reliability/bulkheads.md) — containing the propagation.
+- [Retries](/06-distributed-systems/retries.md): the fundamentals.
+- [Backoff](/06-distributed-systems/backoff.md): the jitter.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): stopping the attempts.
+- [Bulkheads](/12-reliability/bulkheads.md): containing the propagation.
 
 ## Practical Exercise
 
-Trace a request through your system and count how many layers retry — including client libraries, the
+Trace a request through your system and count how many layers retry, including client libraries, the
 gateway and the service mesh.
 
 Multiply the factors. That is the number of calls one request can generate at the deepest service during a

@@ -2,7 +2,7 @@
 id: package-design
 title: Package Design
 sidebar_position: 13
-description: How to group classes into release units — the three cohesion principles and what they cost.
+description: "How to group classes into release units: the three cohesion principles and what they cost."
 doc_type: concept
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [dependency-direction, component-design]
 canonical_for: [package design, component cohesion, release-reuse equivalence principle]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ A package is the smallest unit that is published and versioned. Package design i
 deciding which classes stay together in that unit.
 
 Robert Martin formulated three cohesion principles for that decision. What makes
-them interesting is not each one in isolation — it is that **they contradict each
+them interesting is not each one in isolation but that **they contradict each
 other**, and the tension between them is the real decision.
 
 ## Problem
@@ -69,7 +69,7 @@ depend on what they do not use. It is the **I** of
 
 ### The tension
 
-CCP wants to group — fewer packages to publish. CRP wants to separate — less
+CCP wants to group: fewer packages to publish. CRP wants to separate: less
 unnecessary dependency.
 
 In the triangle, each edge names the cost of abandoning the vertex opposite it.
@@ -83,7 +83,7 @@ graph LR
 
 Martin describes this as a triangle where you pick two sides. Sacrificing CRP
 produces consumers with too many dependencies; sacrificing CCP, many publications
-per change; sacrificing REP, code with no version to pin to — the consumer copies
+per change; sacrificing REP, code with no version to pin to: the consumer copies
 instead of depending.
 
 The right position shifts with maturity: **young projects lean towards CCP**
@@ -92,8 +92,8 @@ there are more consumers being bothered).
 
 ### A package is not a directory
 
-In several languages, package and directory coincide. Where they do not — or where
-the directory enforces nothing — what defines the package is the unit of
+In several languages, package and directory coincide. Where they do not, or where
+the directory enforces nothing, what defines the package is the unit of
 publication: the artifact, the declared module, the library.
 
 If everything is published and built together, there is one package, no matter
@@ -103,7 +103,7 @@ how many directories exist.
 
 **A package is the smallest thing published or built on its own.** If two groups
 of classes need independent version numbers, they are two packages. Where the
-version is single — in a monorepo — the unit shifts to the build target: what gets
+version is single (in a monorepo), the unit shifts to the build target: what gets
 recompiled and retested separately.
 
 ## When to Use
@@ -118,7 +118,7 @@ recompiled and retested separately.
 **When there is only one build unit.** In a monolith with a single artifact and a
 single compilation target, the release principles do not apply. There the relevant
 division is [module](/02-software-design/modular-design.md), not package.
-Publishing together is not enough to waive them — the monorepo, further down, is
+Publishing together is not enough to waive them: the monorepo, further down, is
 the counterexample.
 
 **As a purity goal.** Chasing CRP in a system with two internal consumers produces
@@ -129,17 +129,17 @@ five packages that always go up together with matched versions, the separation m
 the system worse.
 
 **Before there are real consumers.** The principles are about serving consumers.
-Without them, it is speculation — see [YAGNI](/02-software-design/yagni.md).
+Without them, it is speculation (see [YAGNI](/02-software-design/yagni.md)).
 
 ## Alternatives
 
-- **A single artifact with internal modules** — wins as long as all consumption is
-  internal to the team that publishes: with no organizational boundary to cross,
+- **A single artifact with internal modules**: wins as long as all consumption is
+  internal to the team that publishes. With no organizational boundary to cross,
   versioning only charges cost.
-- **Monorepo with per-target builds** — wins when the consumers are all in the
+- **Monorepo with per-target builds**: wins when the consumers are all in the
   repository and the bottleneck is build time: the division starts serving
   incremental compilation, with no version coordination.
-- **Separation only where there is an external consumer** — publish what crosses
+- **Separation only where there is an external consumer**: publish what crosses
   the organizational boundary and keep the rest internal.
 
 ## Trade-offs
@@ -189,16 +189,16 @@ helpers.
 
 Consequences observed over a year: 34 publications, of which 31 were for changes
 affecting a single consumer; all seven teams obliged to update on each one; and two
-teams that froze the version to stop keeping up — and thereby stopped receiving
+teams that froze the version to stop keeping up, and thereby stopped receiving
 fixes.
 
-The CRP-driven division — who uses what, measured by the real imports — produced
+The CRP-driven division (who uses what, measured by the real imports) produced
 four packages: `domain-types` (used by seven), `http` (four), `dates` (two) and
 `test` (five, but only in test scope). Logging configuration did not become a
 package: it was a few lines of initialization per service, and duplicating them
 came out cheaper than keeping the coupling.
 
-After: `domain-types` had 4 publications the following year; `dates`, 11 — which
+After: `domain-types` had 4 publications the following year; `dates`, 11, which
 now affect two teams instead of seven.
 
 What the division cost: four artifacts to maintain, and one more decision per
@@ -209,13 +209,13 @@ change. What it bought: the two frozen teams unblocked and went back to keeping 
 A common confusion: adopting a monorepo is treated as if it eliminated the package
 question, since everything is versioned together.
 
-It eliminates the **version coordination** problem — there is never an
+It eliminates the **version coordination** problem: there is never an
 incompatibility between two parts of the same commit. It does not eliminate the
 other two.
 
 **CCP still holds.** What changes together should stay together, because that
 governs build and test scope. In a monorepo with incremental builds, the division
-determines what has to be recompiled and rerun on each change — and that is the
+determines what has to be recompiled and rerun on each change, and that is the
 difference between a two-minute cycle and a forty-minute one.
 
 **CRP still holds.** A build target that depends on more than it uses recompiles
@@ -223,18 +223,18 @@ unnecessarily and widens the blast radius of any breakage.
 
 What the monorepo changes is the cost of the mistake: a bad split is fixable in one
 commit, instead of requiring a version migration coordinated across teams. That
-allows being more aggressive in the division — and is why monorepos tend to have
+allows being more aggressive in the division, and is why monorepos tend to have
 more build targets than polyrepos have artifacts.
 
 ## Related Concepts
 
-- [Modular Design](/02-software-design/modular-design.md) — the logical division
+- [Modular Design](/02-software-design/modular-design.md): the logical division
   that precedes this.
-- [Dependency Direction](/02-software-design/dependency-direction.md) — the graph
+- [Dependency Direction](/02-software-design/dependency-direction.md): the graph
   between packages.
-- [Component Design](/02-software-design/component-design.md) — the deployment
+- [Component Design](/02-software-design/component-design.md): the deployment
   unit.
-- [Cohesion](/01-fundamentals/cohesion.md) — the general principle behind CCP.
+- [Cohesion](/01-fundamentals/cohesion.md): the general principle behind CCP.
 
 ## Practical Exercise
 
@@ -255,7 +255,7 @@ Then count last year's publications and how many affected a single consumer.
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component cohesion
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Component cohesion
   and coupling principles.
-- Martin, Robert C. *Agile Software Development*. Prentice Hall, 2002 — the
+- Martin, Robert C. *Agile Software Development*. Prentice Hall, 2002. The
   original formulation.

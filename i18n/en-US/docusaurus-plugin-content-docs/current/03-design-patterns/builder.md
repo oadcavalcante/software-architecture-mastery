@@ -2,7 +2,7 @@
 id: builder
 title: Builder
 sidebar_position: 3
-description: Separating construction from representation — and the modern use, which is another problem.
+description: Separating construction from representation, and the modern use, which is another problem.
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, abstract-factory, composite]
 canonical_for: [builder]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -36,7 +36,7 @@ canonical example.
 
 The predominant use today is another: **constructing objects with many optional
 parameters**. An object with twelve fields, three of them mandatory, does not fit in a
-readable constructor — and a sequence of setters allows invalid states between calls.
+readable constructor, and a sequence of setters allows invalid states between calls.
 
 Both problems are real. They are different.
 
@@ -68,7 +68,7 @@ Order.of(customerId, items)      ← mandatory up front
 ```
 
 Two properties that matter: the mandatory ones are required, and the object only
-exists after `build()` — there is never a partially assembled instance.
+exists after `build()`, so there is never a partially assembled instance.
 
 That solves the *telescoping constructor* (a cascade of overloaded constructors) and
 the mutable object with setters. See
@@ -108,15 +108,15 @@ guarantee of validity at construction does not buy what it promises.
 alternative representations produces a class with no function.
 
 **For transport objects.** A DTO with ten fields that merely carries data does not need
-a builder — it needs a transparent record.
+a builder. It needs a transparent record.
 
 ## Alternatives
 
-- **Named parameters with defaults** — if the language offers them, it is superior.
-- **A parameter object** — group the related ones into their own type.
-- **Named factory methods** — when the valid combinations are few and known:
+- **Named parameters with defaults**: if the language offers them, it is superior.
+- **A parameter object**: group the related ones into their own type.
+- **Named factory methods**, when the valid combinations are few and known:
   `Order.expressFor(customer)`.
-- **A simple constructor** — when the parameters are few.
+- **A simple constructor**: when the parameters are few.
 
 ## Trade-offs
 
@@ -163,16 +163,16 @@ swapped `startDate` with `endDate` in a call, and the compiler did not complain
 because both were the same type.
 
 The builder solved it in two ways. The names made the swap visible on reading. And
-`build()` came to validate that the start precedes the end — validation that
+`build()` came to validate that the start precedes the end: validation that
 previously existed nowhere because there was no single construction point.
 
 The honest detail: had the system been in a language with named parameters, the first
 half of the benefit would have come for free, and only the central validation would
-remain — which would not justify the extra class.
+remain, which would not justify the extra class.
 
 ## Where it appears in practice
 
-**`StringBuilder`.** It is neither the GoF pattern nor the parameter builder — it is
+**`StringBuilder`.** It is neither the GoF pattern nor the parameter builder: it is
 efficient accumulation with chaining. The shared name confuses, and it is worth
 knowing these are three distinct things with the same word.
 
@@ -187,22 +187,22 @@ highest-return uses, because the test becomes readable: what is particular about
 scenario is explicit, and the rest takes defaults.
 
 That last use often justifies the builder on its own, even when production code would
-not need it — the test's readability is what makes someone consult it as
+not need it: the test's readability is what makes someone consult it as
 documentation.
 
 ## Related Concepts
 
-- [Factory Method](/03-design-patterns/factory-method.md) — creation by subclass.
-- [Abstract Factory](/03-design-patterns/abstract-factory.md) — families of products.
-- [Composite](/03-design-patterns/composite.md) — Builder is frequently used to
+- [Factory Method](/03-design-patterns/factory-method.md): creation by subclass.
+- [Abstract Factory](/03-design-patterns/abstract-factory.md): families of products.
+- [Composite](/03-design-patterns/composite.md): Builder is frequently used to
   assemble composite structures.
-- [Encapsulation](/02-software-design/encapsulation.md) — the invariant the builder
+- [Encapsulation](/02-software-design/encapsulation.md): the invariant the builder
   protects.
 
 ## Practical Exercise
 
 Find the class in your system with the most parameters in its constructor. Count how
-many are of the same type and adjacent — each such pair is a silent swap waiting to
+many are of the same type and adjacent: each such pair is a silent swap waiting to
 happen.
 
 Then check whether the language you use has named parameters. If it does, compare the
@@ -217,4 +217,4 @@ builder solution with the language's.
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3rd ed., 2018 — the parameter builder.
+- Bloch, Joshua. *Effective Java*. 3rd ed., 2018. The parameter builder.

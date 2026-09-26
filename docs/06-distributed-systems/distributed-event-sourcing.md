@@ -2,7 +2,7 @@
 id: distributed-event-sourcing
 title: Event Sourcing Distribuído
 sidebar_position: 38
-description: Guardar eventos em vez de estado — e o que muda quando o log é a fonte da verdade entre serviços.
+description: Guardar eventos em vez de estado, e o que muda quando o log é a fonte da verdade entre serviços.
 doc_type: pattern
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven-systems]
 related: [distributed-cqrs, eventual-consistency, ordering, event-sourcing]
 canonical_for: [event sourcing distribuído, reprocessamento de projeção, snapshot de agregado]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -30,7 +30,7 @@ Dentro de um serviço, o log de eventos é detalhe de implementação: quem o l�
 código que o escreveu, e mudar a estrutura de um evento é refatoração.
 
 Quando outro serviço lê esse log, ele deixa de ser detalhe e vira **contrato**. É a mesma
-mudança de natureza que uma tabela sofre quando um segundo sistema passa a consultá-la — e
+mudança de natureza que uma tabela sofre quando um segundo sistema passa a consultá-la. E
 ela não é anunciada por nada: o log continua parecendo interno, e a primeira mudança de
 esquema é que revela que não era.
 
@@ -40,7 +40,7 @@ Event sourcing produz, de graça, uma coisa que parece uma boa interface de inte
 sequência ordenada e completa de tudo que aconteceu. Publicá-la é tentador e quase não custa
 trabalho.
 
-O custo aparece depois. O log interno reflete o modelo de domínio do serviço — inclusive as
+O custo aparece depois. O log interno reflete o modelo de domínio do serviço, inclusive as
 partes que existem por conveniência de implementação, e que mudariam numa refatoração
 qualquer. Quando ele é público, cada uma dessas partes vira compromisso com terceiros que o
 dono do serviço não conhece.
@@ -59,12 +59,12 @@ inviável; e a leitura acontece sobre projeções, o que traz
 Duas ressalvas que só aparecem quando há mais de um serviço:
 
 **O snapshot é de quem reproduz, não do log.** Cada consumidor mantém o seu, na sua versão
-de modelo. Um snapshot publicado junto com o log é mais um formato a versionar — e ele
+de modelo. Um snapshot publicado junto com o log é mais um formato a versionar, e ele
 carrega o modelo interno inteiro, não a parte que o outro precisa.
 
 **Reprocessar não é operação local.** Reconstruir uma projeção que vive em outro serviço
 significa relê-lo do começo enquanto ele continua atendendo, e a projeção precisa ser pura:
-se a reprodução dispara efeito colateral — e-mail, chamada externa —, ela o dispara de novo,
+se a reprodução dispara efeito colateral (e-mail, chamada externa), ela o dispara de novo,
 agora em nome de eventos de anos atrás. O canônico trata a pureza; o que muda aqui é que
 quem reprocessa e quem sofre o efeito podem ser times diferentes.
 
@@ -77,12 +77,12 @@ Isso é acoplamento forte disfarçado: mudar a estrutura interna de eventos de u
 serviço afeta todos os que os consomem.
 
 A alternativa que preserva a autonomia: manter o log de eventos **interno** ao
-serviço e publicar eventos de integração — uma tradução estável e versionada do que
+serviço e publicar eventos de integração, uma tradução estável e versionada do que
 o resto precisa saber.
 
 O que a separação compra é concreto: com ela, renomear um campo, dividir um evento em dois
 ou corrigir a modelagem de um agregado são mudanças internas, e o tradutor absorve. Sem ela,
-cada uma dessas é uma negociação com todos os consumidores — e como eles não têm razão para
+cada uma dessas é uma negociação com todos os consumidores. E como eles não têm razão para
 migrar no seu prazo, o esquema interno congela no formato que tinha quando o primeiro
 consumidor apareceu.
 
@@ -91,17 +91,17 @@ mudar a estrutura de um evento e a resposta é "não dá, o serviço X depende d
 
 ### O custo de armazenamento e privacidade
 
-O log só cresce. Isso é gerenciável em custo, e delicado em privacidade — mas a formulação
+O log só cresce. Isso é gerenciável em custo, e delicado em privacidade, mas a formulação
 comum ("regulação manda apagar, log é imutável") é grosseira demais para decidir alguma
 coisa, e vale separar dois tipos de dado.
 
 O **fato de negócio** em geral não pode ser apagado: onde há obrigação legal de retenção, o
-direito ao apagamento cede a ela — é o caso de lançamento contábil e de movimentação
+direito ao apagamento cede a ela. É o caso de lançamento contábil e de movimentação
 financeira. Num núcleo de contas, apagar a transação não é só difícil, é proibido.
 
 O **dado pessoal identificador** é que precisa sair. E para ele há mecanismo: criptografia
 por titular com descarte da chave, ou manter o identificável fora do log, referenciado por
-pseudônimo. Os dois funcionam, e os dois precisam ser projetados desde o início — acrescentar
+pseudônimo. Os dois funcionam, e os dois precisam ser projetados desde o início: acrescentar
 depois exige reescrever o histórico, que é justamente o que o padrão não permite.
 
 A conclusão prática, então, é mais estreita: o conflito reprova a adoção quando há dado
@@ -119,7 +119,7 @@ E o passado, uma vez gravado, não muda de formato.
 - O histórico de como se chegou ao estado tem valor de negócio.
 - Novas perguntas sobre dados passados surgem com frequência.
 - Correção retroativa de cálculo é necessária.
-- O domínio é naturalmente uma sequência de fatos — contabilidade, movimentação,
+- O domínio é naturalmente uma sequência de fatos: contabilidade, movimentação,
   histórico clínico.
 
 ## Quando Não Usar
@@ -128,15 +128,15 @@ As condições para não adotar event sourcing **em si** estão no
 [canônico](/03-design-patterns/event-sourcing.md). O que segue é sobre a decisão própria
 deste documento: expor o log.
 
-**Compartilhando o log interno entre serviços — em qualquer número.** Não há limiar
+**Compartilhando o log interno entre serviços, em qualquer número.** Não há limiar
 tolerável: o primeiro consumidor externo já congela o esquema, porque a partir dele mudar
 a estrutura passa a exigir coordenação. Com dois ou três, a coordenação é uma reunião; com
-dez, é um projeto; e o que quebra é sempre a mesma coisa — a mudança que parecia interna.
+dez, é um projeto; e o que quebra é sempre a mesma coisa: a mudança que parecia interna.
 
 **Quando o consumidor precisa de um recorte, e não do fluxo.** Se o outro serviço quer
 "o saldo atual" ou "os pedidos deste cliente", dar o log a ele é entregar o problema de
 derivar estado junto com o dado. O que ele precisa é de uma consulta ou de uma projeção
-mantida por quem é dono — não de reimplementar a redução dos eventos, com a chance de
+mantida por quem é dono, não de reimplementar a redução dos eventos, com a chance de
 divergir do original.
 
 **Quando não há como versionar o que se publica.** Publicar sem versão explícita no evento
@@ -149,14 +149,14 @@ As alternativas a *usar event sourcing como forma de persistir* estão no
 [canônico](/03-design-patterns/event-sourcing.md). Estas são as alternativas a **expor o
 log**:
 
-- **Log interno mais eventos de integração** — a resposta padrão. Uma tradução estável e
+- **Log interno mais eventos de integração**: a resposta padrão. Uma tradução estável e
   versionada do que o resto precisa saber, mantida por quem é dono do domínio.
-- **Publicação por caixa de saída transacional** — grava o evento de integração na mesma
+- **Publicação por caixa de saída transacional**: grava o evento de integração na mesma
   transação do fato, e um processo à parte o publica. Ver
   [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
-- **Projeção mantida pelo dono, exposta como consulta** — quando o consumidor quer estado, e
+- **Projeção mantida pelo dono, exposta como consulta**: quando o consumidor quer estado, e
   não a sequência que produziu o estado.
-- **Captura de mudanças na saída, não no log** — publicar o que mudou na projeção pública,
+- **Captura de mudanças na saída, não no log**: publicar o que mudou na projeção pública,
   deixando o log de domínio fora do alcance.
 
 A primeira merece ênfase porque é a que preserva as duas coisas: o serviço mantém liberdade
@@ -195,7 +195,7 @@ reconstruída.
 ## Erros Comuns
 
 **Não separar evento interno de evento de integração.** É o erro próprio deste documento.
-A decisão parece economia — um formato em vez de dois, sem tradutor a manter —, e a
+A decisão parece economia (um formato em vez de dois, sem tradutor a manter), e a
 consequência chega meses depois, na forma de uma refatoração que não pode ser feita. Para o
 consumidor, aparece pior ainda: o evento muda de forma sem aviso, porque do outro lado
 ninguém sabia que aquilo era contrato.
@@ -208,7 +208,7 @@ quando fazem [comunicação por eventos](/06-distributed-systems/event-driven-sy
 
 ## Exemplo Real
 
-Uma fintech adotou event sourcing para o núcleo de contas — decisão adequada, dado
+Uma fintech adotou event sourcing para o núcleo de contas, decisão adequada, dado
 o requisito regulatório de auditoria e a natureza do domínio.
 
 O que funcionou: reconstruir o saldo de qualquer conta em qualquer data passada
@@ -219,7 +219,7 @@ Quatro problemas apareceram ao longo de três anos.
 
 **Esquema.** O evento de transferência ganhou campos ao longo do tempo. Na quinta
 versão, o código de reprodução tinha cinco ramos. Foi resolvido com conversores
-encadeados — cada versão converte para a seguinte, e a reprodução só conhece a
+encadeados: cada versão converte para a seguinte, e a reprodução só conhece a
 última. O custo foi reescrever a camada de reprodução inteira.
 
 **Reprocessamento com efeito.** Uma projeção de notificação disparava alerta ao
@@ -230,7 +230,7 @@ de idempotência com janela.
 **Apagamento.** Uma solicitação de exclusão de dados pessoais chegou e não havia
 mecanismo. A solução foi criptografia por titular: dados pessoais no log guardados
 cifrados com chave por cliente, e o apagamento descarta a chave. Implementar
-retroativamente exigiu reescrever o log — a operação mais arriscada que a equipe já
+retroativamente exigiu reescrever o log: a operação mais arriscada que a equipe já
 fez.
 
 **Extensão indevida.** Outro time adotou event sourcing para o cadastro de
@@ -243,10 +243,10 @@ tratá-la como padrão do sistema em vez de escolha para um domínio específico
 
 ## Conceitos Relacionados
 
-- [CQRS Distribuído](/06-distributed-systems/distributed-cqrs.md) — que vem junto.
-- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — não é a mesma coisa.
-- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — entre escrita e projeção.
-- [Ordenação](/06-distributed-systems/ordering.md) — o log depende dela.
+- [CQRS Distribuído](/06-distributed-systems/distributed-cqrs.md): que vem junto.
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md): não é a mesma coisa.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md): entre escrita e projeção.
+- [Ordenação](/06-distributed-systems/ordering.md): o log depende dela.
 
 ## Exercício Prático
 
@@ -266,6 +266,6 @@ requisito real.
 ## Para Aprofundar
 
 - Young, Greg. *Versioning in an Event Sourced System*, 2017.
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 —
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013,
   apêndice A.
 - Fowler, Martin. *Event Sourcing*, 2005.

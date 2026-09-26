@@ -2,7 +2,7 @@
 id: observer
 title: Observer
 sidebar_position: 18
-description: Notificar dependentes automaticamente — e os problemas que a inversão de controle traz junto.
+description: Notificar dependentes automaticamente, e os problemas que a inversão de controle traz junto.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [mediator, command, event-driven]
 canonical_for: [observer, observador, publicar-assinar]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,8 +25,8 @@ Observer define uma dependência um-para-muitos: quando um objeto muda de estado
 todos os que dependem dele são notificados automaticamente.
 
 É a base conceitual de sistemas orientados a eventos, de interfaces reativas e de
-publicar-assinar. Os problemas que ele introduz — vazamento por registro não cancelado, dependência de ordem
-e cascata de notificações — são pouco discutidos no ensino do padrão, que costuma parar na
+publicar-assinar. Os problemas que ele introduz (vazamento por registro não cancelado, dependência de ordem
+e cascata de notificações) são pouco discutidos no ensino do padrão, que costuma parar na
 inversão de dependência.
 
 ## Problema
@@ -34,7 +34,7 @@ inversão de dependência.
 Vários objetos precisam reagir a mudanças em outro, e o objeto observado não
 deveria conhecê-los.
 
-Sem o padrão, quem muda precisa chamar cada interessado explicitamente — o que o
+Sem o padrão, quem muda precisa chamar cada interessado explicitamente. Isso o
 acopla a todos e obriga a alterá-lo a cada novo interessado.
 
 Observer inverte: os interessados se registram, e o observado apenas anuncia.
@@ -44,7 +44,7 @@ Observer inverte: os interessados se registram, e o observado apenas anuncia.
 ### A estrutura
 
 No rótulo do sujeito, `registrar()` é a operação que coloca observadores na outra ponta
-da seta cheia — uma seta no desenho, uma lista em execução.
+da seta cheia: uma seta no desenho, uma lista em execução.
 
 ```mermaid
 graph LR
@@ -57,10 +57,10 @@ O sujeito conhece a interface, nunca as implementações.
 
 ### Modelo push e pull
 
-**Push** — a notificação carrega os dados da mudança. Simples, e força o sujeito
+**Push**: a notificação carrega os dados da mudança. Simples, e força o sujeito
 a decidir o que interessa a todos.
 
-**Pull** — a notificação avisa que algo mudou; o observador consulta o que
+**Pull**: a notificação avisa que algo mudou; o observador consulta o que
 precisa. Mais flexível, e cada observador faz uma consulta.
 
 A escolha afeta acoplamento: push acopla o sujeito ao que os observadores
@@ -76,7 +76,7 @@ referencie. É a causa mais comum de vazamento em interfaces gráficas.
 
 **Ordem indefinida.** A ordem de notificação normalmente não é especificada. Se
 dois observadores têm dependência entre si, o comportamento varia com a ordem de
-registro — que é acidental.
+registro, que é acidental.
 
 **Cascata.** Um observador que altera o sujeito dispara nova notificação. Sem
 cuidado, isso vira recursão ou laço infinito.
@@ -100,7 +100,7 @@ após uma mudança exige encontrar todos os registrados, em runtime.
 **Quando há um observador só e ele é fixo.** Chame diretamente.
 
 **Quando a ordem importa.** O padrão não a garante. Se existe dependência entre
-reações, elas não são independentes e Observer é a estrutura errada — considere
+reações, elas não são independentes e Observer é a estrutura errada. Considere
 uma sequência explícita.
 
 **Quando a reação precisa ser transacional com a mudança.** Notificação síncrona
@@ -114,13 +114,13 @@ fragmentação do fluxo custa mais que o desacoplamento rende.
 
 ## Alternativas
 
-- **Chamada direta** — quando há um interessado fixo.
-- **Fila de mensagens** — quando as reações devem ser assíncronas, duráveis e
+- **Chamada direta**: quando há um interessado fixo.
+- **Fila de mensagens**: quando as reações devem ser assíncronas, duráveis e
   isoladas. Ver
   [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
-- **[Mediator](/03-design-patterns/mediator.md)** — quando a coordenação entre vários objetos é o
+- **[Mediator](/03-design-patterns/mediator.md)**: quando a coordenação entre vários objetos é o
   problema, e a ordem importa.
-- **Fluxos reativos** — bibliotecas que resolvem backpressure, erro e composição,
+- **Fluxos reativos**: bibliotecas que resolvem backpressure, erro e composição,
   que o Observer cru não trata.
 
 ## Trade-offs
@@ -136,7 +136,7 @@ fragmentação do fluxo custa mais que o desacoplamento rende.
 ## Modos de Falha
 
 **Vazamento por registro não cancelado.** O observador registrado mantém viva a referência a
-si mesmo, e com ela tudo que ele alcança — o objeto some da tela e não sai da memória.
+si mesmo, e com ela tudo que ele alcança: o objeto some da tela e não sai da memória.
 
 **Cascata infinita.** Observador que modifica o sujeito.
 
@@ -166,12 +166,12 @@ mais se precisa dele.
 onde o vazamento por registro não cancelado é mais frequente.
 
 **Bibliotecas reativas.** RxJava, Reactor e equivalentes são Observer com
-tratamento de erro, composição e backpressure adicionados — precisamente as
+tratamento de erro, composição e backpressure adicionados: precisamente as
 lacunas do padrão cru.
 
 **Frameworks de interface declarativa.** O modelo de reatividade de bibliotecas
 modernas de interface é Observer sob o capô, com o ciclo de vida do registro gerenciado
-pelo framework — o que elimina o vazamento **nas assinaturas que ele mesmo cria**. A
+pelo framework, o que elimina o vazamento **nas assinaturas que ele mesmo cria**. A
 assinatura manual a uma fonte externa, feita dentro de um componente, continua exigindo
 cancelamento no descarte, e é justamente ela o vazamento descrito acima.
 
@@ -179,7 +179,7 @@ cancelamento no descarte, e é justamente ela o vazamento descrito acima.
 reagem. Ver [DDD](/04-domain-driven-design/index.md).
 
 O ponto que os três primeiros ilustram: as soluções maduras não abandonaram o
-padrão — elas **adicionaram o que falta nele**, e o que falta é ciclo de vida,
+padrão; elas **adicionaram o que falta nele**, e o que falta é ciclo de vida,
 erro e ordem.
 
 ## Exemplo Real
@@ -188,14 +188,14 @@ Um sistema de pedidos usava eventos internos: ao confirmar um pedido, notificava
 observadores que reservavam estoque, iniciavam cobrança e enviavam e-mail.
 
 Funcionou até um incidente. O observador de estoque lançou exceção por
-indisponibilidade momentânea do banco. A notificação parou ali — cobrança e
+indisponibilidade momentânea do banco. A notificação parou ali: cobrança e
 e-mail não aconteceram. O pedido ficou confirmado, sem reserva e sem cobrança.
 
 Ninguém percebeu por dois dias.
 
 A correção teve três partes. Cada observador passou a ter tratamento de erro
 próprio, e a falha de um deixou de interromper os demais. As reações que precisam
-acontecer — estoque e cobrança — saíram de Observer e viraram passos explícitos e
+acontecer (estoque e cobrança) saíram de Observer e viraram passos explícitos e
 transacionais no caso de uso. Só o e-mail, que pode falhar sem consequência
 grave, permaneceu como observador.
 
@@ -204,9 +204,9 @@ não críticas**. Estoque e cobrança nunca foram nenhuma das duas coisas.
 
 ## Conceitos Relacionados
 
-- [Mediator](/03-design-patterns/mediator.md) — coordenação com ordem.
-- [Command](/03-design-patterns/command.md) — encapsular a reação como objeto.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — o padrão em escala de
+- [Mediator](/03-design-patterns/mediator.md): coordenação com ordem.
+- [Command](/03-design-patterns/command.md): encapsular a reação como objeto.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): o padrão em escala de
   sistema, com durabilidade.
 
 ## Exercício Prático
@@ -224,5 +224,5 @@ ordem importa para alguém?
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Meijer, Erik. *Your Mouse Is a Database*. ACM Queue, 2012 — a linhagem entre
+- Meijer, Erik. *Your Mouse Is a Database*. ACM Queue, 2012. A linhagem entre
   Observer e programação reativa.

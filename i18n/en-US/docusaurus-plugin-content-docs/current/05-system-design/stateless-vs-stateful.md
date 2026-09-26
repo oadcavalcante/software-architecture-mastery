@@ -2,7 +2,7 @@
 id: stateless-vs-stateful
 title: Stateless vs. Stateful
 sidebar_position: 7
-description: The property that decides what scales trivially — and why state does not disappear, it only moves.
+description: The property that decides what scales trivially, and why state does not disappear, it only moves.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [load-balancing, scalability-basics, statelessness]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,7 +34,7 @@ recovery.
 "Make the service stateless" is one of the most repeated pieces of advice in system
 design, and it is frequently understood as if state could be eliminated.
 
-It cannot. **State does not disappear — it moves.**
+It cannot. **State does not disappear: it moves.**
 
 Making an application service stateless means pushing the state to the database, to the
 distributed cache or to the client. That is a good decision, and it concentrates the
@@ -57,14 +57,14 @@ the state, and how much of the system can go without it?"**.
 | Recovery | Start another | Restore or re-elect |
 
 The first line is the reason for all the rest: a stateless component scales by adding
-copies, and adding a copy requires neither coordination nor state migration — that is
+copies, and adding a copy requires neither coordination nor state migration. That is
 what makes the operation cheap.
 
 ### Stateless does not mean memoryless
 
 A stateless component can have a local cache, counters and open connections. The
-criterion is not "keeps nothing" — it is **"nothing it keeps affects the correctness of
-the next request"**.
+criterion is **"nothing it keeps affects the correctness of
+the next request"**, not "keeps nothing".
 
 A local cache that, if lost, only makes the request slower does not break statelessness.
 An attempt counter that decides whether an operation is allowed does.
@@ -74,7 +74,7 @@ An attempt counter that decides whether an operation is allowed does.
 State usually hides where nobody looks:
 
 **Session affinity in the load balancer.** If the system requires the user to come back
-to the same instance, it has state — even if nobody declared it.
+to the same instance, it has state, even if nobody declared it.
 
 **A file on local disk.** In containers and functions, it vanishes.
 
@@ -88,7 +88,7 @@ multiple instances.
 
 ### State has to live somewhere prepared for it
 
-Components designed for state — databases, distributed caches, queues — solve
+Components designed for state (databases, distributed caches, queues) solve
 replication, recovery and consistency as their main function.
 
 An application service improvising that solves it badly. It is the reason to concentrate
@@ -97,7 +97,7 @@ state in them rather than spreading it.
 ## Mental Model
 
 **If I kill this instance mid-operation and the next request goes to another one, does
-something break?** If so, there is state — and it needs to be recognized.
+something break?** If so, there is state, and it needs to be recognized.
 
 ## When to Use
 
@@ -110,11 +110,11 @@ Stateless is preferable when:
 
 Stateful is necessary when:
 
-- The data has to persist — a database.
+- The data has to persist: a database.
 - The latency of accessing the state is critical and the network does not fit.
-- The protocol requires a continuous connection — streaming, WebSocket, games.
-- There is coordination that requires a leader — see
-  [leader election](/06-distributed-systems/leader-election.md).
+- The protocol requires a continuous connection: streaming, WebSocket, games.
+- There is coordination that requires a leader (see
+  [leader election](/06-distributed-systems/leader-election.md)).
 
 ## When Not to Use
 
@@ -127,17 +127,17 @@ request and cannot be revoked.
 **Pushing everything to the database.** A service that queries the database on every
 trivial operation trades local state for latency and load.
 
-**Treating it as binary.** Real components have gradations — the question is how much of
+**Treating it as binary.** Real components have gradations: the question is how much of
 the system can be stateless, not whether all of it can.
 
 ## Alternatives
 
-- **Shared external state** — a distributed cache or a database.
-- **State in the client** — a token, for the session.
-- **[Partitioning by key](/06-distributed-systems/partitioning.md)** — keep the state
+- **Shared external state**: a distributed cache or a database.
+- **State in the client**: a token, for the session.
+- **[Partitioning by key](/06-distributed-systems/partitioning.md)**: keep the state
   local, routing each key always to the same instance. It is the model of stateful
   systems that scale.
-- **Recompute** — when deriving is cheaper than keeping.
+- **Recompute**: when deriving is cheaper than keeping.
 
 ## Trade-offs
 
@@ -204,7 +204,7 @@ The fixes: chunked upload moved to object storage, with assembly triggered by an
 receiving the last chunk. The rate limit moved to the distributed cache. And the schedule
 left the service for an external scheduler, which fires once and delivers to a queue.
 
-After that the service became genuinely stateless — and the verification was concrete:
+After that the service became genuinely stateless, and the verification was concrete:
 kill one instance mid-processing and confirm that another continues.
 
 ## Stateful systems that scale
@@ -214,7 +214,7 @@ kill one instance mid-processing and confirm that another continues.
 > of strategies, rebalancing and consistent hashing.
 
 Statelessness is not the only way to scale. Stateful systems scale by
-**partitioning** — databases, distributed caches and streaming platforms all use it.
+**partitioning**: databases, distributed caches and streaming platforms all use it.
 
 The idea: each instance owns a subset of the keys. A routing function decides which
 instance serves each key, and the state for that key always lives in the same place.
@@ -226,7 +226,7 @@ hash(key) → instance
 ```
 
 That inverts the stateless model: instead of any instance serving any request, every
-piece of state has a fixed owner. The gain is locality — the state is where it is used —
+piece of state has a fixed owner. The gain is locality (the state is where it is used)
 and capacity that grows by adding instances.
 
 The price is keeping that owner, and it shows up in operations that cross partitions, in
@@ -238,11 +238,11 @@ Use the first wherever it fits and the second where state is essential.
 
 ## Related Concepts
 
-- [State Management](/05-system-design/state-management.md) — the types and where each
+- [State Management](/05-system-design/state-management.md): the types and where each
   one lives.
-- [Load Balancing](/05-system-design/load-balancing.md) — where affinity shows up.
-- [Scalability](/11-scalability/index.md) — the practical consequence.
-- [Background Processing](/05-system-design/background-processing.md) — the scheduler
+- [Load Balancing](/05-system-design/load-balancing.md): where affinity shows up.
+- [Scalability](/11-scalability/index.md): the practical consequence.
+- [Background Processing](/05-system-design/background-processing.md): the scheduler
   case.
 
 ## Practical Exercise
@@ -250,7 +250,7 @@ Use the first wherever it fits and the second where state is essential.
 Pick a service you consider stateless and run the concrete test: start two instances and
 kill one mid-operation.
 
-Then look for the five disguises — affinity, local disk, in-memory scheduling, long
+Then look for the five disguises: affinity, local disk, in-memory scheduling, long
 connections, local idempotency. One of them is usually there.
 
 ## Interview Questions

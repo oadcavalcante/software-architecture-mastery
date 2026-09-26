@@ -2,7 +2,7 @@
 id: statelessness
 title: Ausência de Estado
 sidebar_position: 3
-description: O pré-requisito da escala horizontal — e os lugares onde o estado se esconde.
+description: O pré-requisito da escala horizontal, e os lugares onde o estado se esconde.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [horizontal-scaling]
 related: [horizontal-scaling, scaling-load-balancing, scaling-cache]
 canonical_for: [ausência de estado, afinidade de sessão, estado externalizado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -39,7 +39,7 @@ O teste é simples e implacável: **desligue uma instância no meio do tráfego 
 que quebra**. Se algum usuário perde carrinho, precisa refazer login, ou vê um erro
 que não veria, há estado.
 
-Os lugares onde ele se esconde são poucos e sempre os mesmos — e cada um limita a
+Os lugares onde ele se esconde são poucos e sempre os mesmos, e cada um limita a
 escala de um jeito diferente.
 
 ## Conceitos Centrais
@@ -56,7 +56,7 @@ contador ou acumulador     estatística mantida no processo
 trabalho em andamento      processamento longo iniciado numa requisição
 ```
 
-Os três últimos são os menos lembrados. Um agendador em memória some com a instância —
+Os três últimos são os menos lembrados. Um agendador em memória some com a instância,
 e a tarefa nunca executa, sem erro nenhum.
 
 ### Afinidade de sessão é o remendo
@@ -90,14 +90,14 @@ contadores           armazenamento com operação atômica
 ```
 
 O ponto sobre cache local merece nota: cache local é **legítimo e desejável**, desde
-que seja apenas cópia — o valor precisa existir na origem, e perder o cache pode
+que seja apenas cópia. O valor precisa existir na origem, e perder o cache pode
 degradar o desempenho, nunca a correção. Ver
 [cache para escala](/11-scalability/scaling-cache.md).
 
 ### Conexões persistentes são estado por natureza
 
-Uma conexão de longa duração — WebSocket, fluxo de eventos, notificação em tempo real
-— vive numa instância específica. Isso é estado, e não dá para externalizar a conexão.
+Uma conexão de longa duração (WebSocket, fluxo de eventos, notificação em tempo real)
+vive numa instância específica. Isso é estado, e não dá para externalizar a conexão.
 
 O que se externaliza é o **roteamento**: um registro de qual instância detém qual
 conexão, e um canal para entregar mensagens àquela instância.
@@ -110,10 +110,10 @@ cada uma escala de forma diferente. Tratá-las juntas limita as duas.
 Sem estado não basta se a instância morre no meio de uma requisição.
 
 A instância precisa sair do balanceamento e terminar o que está em curso antes de
-encerrar — a sequência está em
+encerrar: a sequência está em
 [drenar antes de remover](/11-scalability/scaling-load-balancing.md#drenar-antes-de-remover).
 O ponto próprio daqui: trabalho em andamento é estado enquanto dura, e sem drenagem
-todo evento de escalonamento — que deveria ser rotina — o perde.
+todo evento de escalonamento, que deveria ser rotina, o perde.
 
 ### O custo é real
 
@@ -125,7 +125,7 @@ sessão em cache remoto  ~1 ms
 ```
 
 Mil vezes mais lento em termos relativos, e irrelevante em termos absolutos para a
-maioria das aplicações — uma requisição que leva 50 ms não muda por causa de 1 ms.
+maioria das aplicações: uma requisição que leva 50 ms não muda por causa de 1 ms.
 
 Onde importa: caminhos muito quentes, com múltiplos acessos por requisição. A saída é
 cache local **não autoritativo** do que foi lido do armazenamento externo, com prazo
@@ -134,19 +134,19 @@ curto.
 ## Modelo Mental
 
 **Sem estado significa que perder a instância não perde informação.** Se perder algo,
-há estado — independentemente do que a documentação diz.
+há estado, independentemente do que a documentação diz.
 
 ## Quando Usar
 
 - Escala horizontal é necessária ou provável.
 - Implantação sem interrupção é requisito.
-- As instâncias são efêmeras — contêineres, capacidade interrompível.
+- As instâncias são efêmeras (contêineres, capacidade interrompível).
 - Tolerância a falha de instância importa.
 - Elasticidade automática é usada.
 
 ## Quando Não Usar
 
-**Componentes intrinsecamente com estado** — bancos, caches, sistemas de coordenação.
+**Componentes intrinsecamente com estado**: bancos, caches, sistemas de coordenação.
 Eles têm suas próprias estratégias.
 
 **Durante a migração, com prazo.** Enquanto a sessão ainda não foi externalizada,
@@ -156,18 +156,18 @@ dívida descrita acima.
 
 **Externalizar cache local que é só cópia.** Isso é otimização legítima.
 
-**Quando a latência adicional importa** no caminho crítico — ali a resposta é cache
+**Quando a latência adicional importa** no caminho crítico: ali a resposta é cache
 local não autoritativo, não manter o estado.
 
 **Aplicação única, numa máquina, sem plano de escalar.** O custo não se paga.
 
 ## Alternativas
 
-- **Estado no cliente**, assinado — o servidor não guarda nada. Cuidado com tamanho e
+- **Estado no cliente**, assinado: o servidor não guarda nada. Cuidado com tamanho e
   com o que é exposto. Ver [JWT](/10-security/jwt.md).
-- **Cache local com invalidação** — desempenho sem autoridade.
-- **Camada de conexão separada** — para conexões persistentes.
-- **Estado em fila** — para trabalho em andamento.
+- **Cache local com invalidação**: desempenho sem autoridade.
+- **Camada de conexão separada**: para conexões persistentes.
+- **Estado em fila**: para trabalho em andamento.
 
 ## Trade-offs
 
@@ -215,18 +215,18 @@ origem.
 
 **Guardar upload em disco local.** O arquivo existe só naquela instância; a requisição seguinte cai em outra e não o encontra, e a implantação seguinte o apaga.
 
-**Agendar em memória.** Some no reinício e executa uma vez por instância. Os dois efeitos aparecem quando o sistema cresce — exatamente quando ninguém está olhando para o agendador.
+**Agendar em memória.** Some no reinício e executa uma vez por instância. Os dois efeitos aparecem quando o sistema cresce, exatamente quando ninguém está olhando para o agendador.
 
 **Tratar cache local como autoritativo.** Instâncias divergem, e o usuário vê respostas diferentes a cada recarga sem que nada esteja errado no dado de origem.
 
-**Não implementar desligamento gracioso.** A instância sai do balanceamento com trabalho em curso, e cada redução de escala vira perda de requisições — a consequência operacional está em [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
+**Não implementar desligamento gracioso.** A instância sai do balanceamento com trabalho em curso, e cada redução de escala vira perda de requisições. A consequência operacional está em [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
 ## Exemplo Real
 
 Uma plataforma de ensino tinha uma aplicação declarada sem estado, rodando em oito
 instâncias com escalonamento automático.
 
-Um teste de resiliência — desligar uma instância durante tráfego real — revelou cinco
+Um teste de resiliência (desligar uma instância durante tráfego real) revelou cinco
 tipos de estado:
 
 **Sessão em memória.** Usuários daquela instância foram desconectados. A afinidade de
@@ -240,17 +240,17 @@ tiveram que reenviar.
 alunos foram desconectados no meio da aula.
 
 **Agendamento em memória.** Lembretes de aula eram agendados com um temporizador no
-processo. Os lembretes daquela instância nunca foram enviados — sem erro, sem alerta.
+processo. Os lembretes daquela instância nunca foram enviados, sem erro, sem alerta.
 Descobriu-se que isso acontecia em toda implantação, havia dois anos.
 
 **Contador de participantes.** Mantido em memória, por instância. O número exibido
-dependia de qual instância atendia — e ninguém tinha notado porque a divergência era
+dependia de qual instância atendia, e ninguém tinha notado porque a divergência era
 pequena.
 
 As correções:
 
 **Sessão em cache compartilhado**, com expiração. A afinidade foi removida do
-balanceador, e a distribuição de carga melhorou imediatamente — as instâncias novas
+balanceador, e a distribuição de carga melhorou imediatamente: as instâncias novas
 passaram a receber tráfego.
 
 **Upload direto para o armazenamento de objetos**, com URL assinada. O disco local
@@ -267,17 +267,17 @@ anos de lembretes perdidos em cada implantação, sem que nenhum alerta existiss
 
 **Desligamento gracioso**, com o nó saindo do balanceamento antes de encerrar.
 
-O desligamento em si levou vinte minutos e expôs três falhas visíveis — sessão, upload
+O desligamento em si levou vinte minutos e expôs três falhas visíveis: sessão, upload
 e conexão. Os dois achados silenciosos, agendamento e contador, vieram da investigação
 que ele disparou, ao listar o que mais vivia no processo. Nada disso tinha sido feito
 antes porque "a aplicação é sem estado".
 
 ## Conceitos Relacionados
 
-- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — o que ela habilita.
-- [Stateless e Stateful](/05-system-design/stateless-vs-stateful.md) — os
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md): o que ela habilita.
+- [Stateless e Stateful](/05-system-design/stateless-vs-stateful.md): os
   fundamentos.
-- [Balanceamento para Escala](/11-scalability/scaling-load-balancing.md) — a afinidade.
+- [Balanceamento para Escala](/11-scalability/scaling-load-balancing.md): a afinidade.
 - [Cache para Escala](/11-scalability/scaling-cache.md).
 
 ## Exercício Prático
@@ -298,7 +298,7 @@ arquivos em disco local e caches locais que sejam a única cópia do valor.
 
 ## Para Aprofundar
 
-- Wiggins, Adam. *The Twelve-Factor App*, 2011 — processos e estado.
+- Wiggins, Adam. *The Twelve-Factor App*, 2011. Processos e estado.
 - Fielding, Roy. *Architectural Styles and the Design of Network-based Software
-  Architectures*, 2000 — a restrição de ausência de estado.
+  Architectures*, 2000. A restrição de ausência de estado.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

@@ -2,7 +2,7 @@
 id: indexing
 title: Indexação
 sidebar_position: 15
-description: A decisão de arquitetura mais barata e mais negligenciada — e por que índice a mais também custa.
+description: A decisão de arquitetura mais barata e mais negligenciada, e por que índice a mais também custa.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [oltp, relational-databases, denormalization]
 canonical_for: [índice, índice composto, plano de execução, seletividade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,7 +28,7 @@ Entre as decisões desta seção, é a de maior ganho de latência por esforço:
 índice adequado transforma segundos em milissegundos, custa uma linha de comando
 e não muda o modelo.
 
-E é a mais negligenciada — é comum que o problema de desempenho atribuído a
+E é a mais negligenciada: é comum que o problema de desempenho atribuído a
 escala seja, na verdade, índice ausente ou índice errado. Por isso o plano de
 execução vem antes de qualquer proposta de arquitetura.
 
@@ -40,7 +40,7 @@ inviável em cem milhões.
 O sintoma característico: o sistema funciona bem no início e degrada
 progressivamente conforme os dados crescem, sem nenhuma mudança de código.
 
-A reação comum — aumentar a máquina — funciona por um tempo e não resolve, porque
+A reação comum, aumentar a máquina, funciona por um tempo e não resolve, porque
 o custo cresce com o volume, não com a capacidade.
 
 ## Conceitos Centrais
@@ -58,7 +58,7 @@ A analogia da lista telefônica: ordenada por sobrenome e depois nome, ela encon
 
 A regra: a coluna mais à esquerda precisa estar na condição. Criar
 `(data, cliente)` quando as consultas filtram por cliente é criar um índice que
-não será usado — e que continua custando na escrita.
+não será usado, e que continua custando na escrita.
 
 ### Seletividade determina o benefício
 
@@ -69,7 +69,7 @@ Um índice ajuda quando reduz muito o conjunto de candidatos.
 Índice sobre um campo booleano de status ativo: se 95% dos registros estão ativos,
 o índice aponta para quase tudo, e o banco vai preferir varrer.
 
-Isso explica índices que existem e nunca são usados — e a solução para o caso de
+Isso explica índices que existem e nunca são usados, e a solução para o caso de
 baixa seletividade costuma ser índice parcial, cobrindo apenas a minoria
 interessante.
 
@@ -81,7 +81,7 @@ Uma tabela com dez índices paga dez atualizações por escrita. Em carga
 transacional pesada, isso vira o gargalo.
 
 A consequência prática: índices não usados são puro prejuízo. Bancos modernos
-reportam estatísticas de uso — e uma auditoria dessas estatísticas costuma
+reportam estatísticas de uso, e uma auditoria dessas estatísticas costuma
 encontrar índices criados anos antes, para consultas que não existem mais.
 
 ### Índice de cobertura evita a segunda leitura
@@ -97,7 +97,7 @@ SELECT valor FROM pedidos WHERE cliente = ? AND data > ?
 Todas as colunas estão no índice, e a tabela não precisa ser lida. Em bancos
 MVCC há uma ressalva: o índice não guarda a visibilidade das linhas, e o
 PostgreSQL só dispensa a tabela nas páginas que o mapa de visibilidade marca como
-todas visíveis — em tabela recém-escrita, o ganho depende de o vacuum estar em
+todas visíveis. Em tabela recém-escrita, o ganho depende de o vacuum estar em
 dia.
 
 É uma otimização poderosa para consultas críticas, e cobrar colunas demais
@@ -144,7 +144,7 @@ o que combina com sua ordem de colunas, e nada mais.
 ## Quando Usar
 
 - Colunas usadas em filtro com boa seletividade.
-- Chaves estrangeiras — junções precisam de índice dos dois lados.
+- Chaves estrangeiras: junções precisam de índice dos dois lados.
 - Colunas usadas para ordenação frequente.
 - Restrições de unicidade.
 - Consultas críticas que se beneficiariam de cobertura.
@@ -168,10 +168,10 @@ frequentemente um composto substitui três simples.
 - **Reescrever a consulta.** Remover função da coluna indexada resolve sem criar
   nada.
 - **Atualizar estatísticas.** Plano ruim com índice correto.
-- **Visão materializada** — para agregações repetidas.
-- **[Particionamento](/07-data-architecture/data-partitioning.md)** — descarta partições inteiras antes
+- **Visão materializada**: para agregações repetidas.
+- **[Particionamento](/07-data-architecture/data-partitioning.md)**: descarta partições inteiras antes
   de qualquer índice.
-- **[Índice invertido](/05-system-design/search.md)** — para busca textual com relevância.
+- **[Índice invertido](/05-system-design/search.md)**: para busca textual com relevância.
 
 ## Trade-offs
 
@@ -224,7 +224,7 @@ lentas.
 ## Exemplo Real
 
 Um sistema de atendimento tinha a tela de histórico levando 12 segundos. O time
-concluiu que precisava de arquitetura nova — cache, réplica de leitura, talvez um
+concluiu que precisava de arquitetura nova: cache, réplica de leitura, talvez um
 armazenamento analítico.
 
 A investigação levou duas horas e encontrou três problemas.
@@ -246,7 +246,7 @@ nunca tinham sido usados** desde a última reinicialização, seis meses antes.
 Removê-los reduziu o tempo de escrita em 22%.
 
 Na retrospectiva: a proposta original de arquitetura teria custado cerca de
-três meses e teria funcionado — mascarando o problema real e mantendo o custo de
+três meses e teria funcionado, mascarando o problema real e mantendo o custo de
 escrita dos 19 índices inúteis.
 
 A pergunta que faltou foi a mais simples disponível: "o que o plano de execução
@@ -254,10 +254,10 @@ diz?".
 
 ## Conceitos Relacionados
 
-- [OLTP](/07-data-architecture/oltp.md) — onde índice é decisivo.
+- [OLTP](/07-data-architecture/oltp.md): onde índice é decisivo.
 - [Bancos Relacionais](/07-data-architecture/relational-databases.md).
-- [Desnormalização](/07-data-architecture/denormalization.md) — verifique índice antes.
-- [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — complementa.
+- [Desnormalização](/07-data-architecture/denormalization.md): verifique índice antes.
+- [Particionamento de Dados](/07-data-architecture/data-partitioning.md): complementa.
 
 ## Exercício Prático
 
@@ -277,5 +277,5 @@ devolver nada.
 
 - Winand, Markus. *SQL Performance Explained*, 2012.
 - Winand, Markus. [Use The Index, Luke!](https://use-the-index-luke.com)
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
-  capítulo 3.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
+  Capítulo 3.

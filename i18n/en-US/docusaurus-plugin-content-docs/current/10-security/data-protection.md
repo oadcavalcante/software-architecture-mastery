@@ -2,7 +2,7 @@
 id: data-protection
 title: Data Protection
 sidebar_position: 14
-description: The most effective control is not having the data — and what to do with what needs to exist.
+description: The most effective control is not having the data, and what to do with what needs to exist.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ earlier:
 Data that is not collected does not leak, does not need to be encrypted, does not go into a backup, does
 not appear in a log, does not need to be deleted when somebody asks. For data no process uses, it is the control with the best ratio of risk eliminated to effort.
 
-What remains after that question is what deserves protection — proportional to what it is.
+What remains after that question is what deserves protection, proportional to what it is.
 
 ## Problem
 
@@ -52,7 +52,7 @@ Four questions, in order:
 
 **Do we need to keep it after using it?** A document verified at registration may not need to be retained.
 
-**Do we need the complete value?** Frequently the last digits, the age range, the city are enough —
+**Do we need the complete value?** Frequently the last digits, the age range, the city are enough,
 instead of the exact value.
 
 **How long do we need it?** See [data lifecycle](/07-data-architecture/data-lifecycle.md).
@@ -64,7 +64,7 @@ Each "no" removes an entire problem instead of mitigating it.
 Protecting everything equally is expensive and produces the worst result: excess where it does not matter,
 insufficiency where it does.
 
-A simple classification resolves it — three or four levels are enough:
+A simple classification resolves it. Three or four levels are enough:
 
 ```text
 public      may be disclosed
@@ -81,7 +81,7 @@ Without classification, the decision is made field by field, by whoever is imple
 ### Pseudonymization and anonymization are not the same thing
 
 **Pseudonymizing** replaces direct identifiers with references, keeping the possibility of reversal with
-additional information. The data is still personal, from a regulatory point of view — the risk is reduced,
+additional information. The data is still personal, from a regulatory point of view: the risk is reduced,
 not eliminated.
 
 **Anonymizing** removes the possibility of reidentification. The data stops being personal.
@@ -103,29 +103,29 @@ decisions about what may be shared.
 Replacing the sensitive value with a meaningless reference, keeping the original in a separate vault with
 restricted access.
 
-The gain: most of the system stops having the data. The systems that only need to reference it — to relate,
-to display the last digits — work with the token, and the compliance scope shrinks drastically.
+The gain: most of the system stops having the data. The systems that only need to reference it (to relate,
+to display the last digits) work with the token, and the compliance scope shrinks drastically.
 
 It is the standard technique for card data, and underused for document numbers and other identifiers.
 
-The cost is operational. The vault sits on the path of every flow that needs the original value — issuing
-an invoice, reporting to a regulator, verifying with the data subject: if it goes down, those flows go down
+The cost is operational. The vault sits on the path of every flow that needs the original value (issuing
+an invoice, reporting to a regulator, verifying with the data subject): if it goes down, those flows go down
 with it, and each detokenization adds a network call to the latency. The risk that was spread out
 concentrates in a single target, which then demands the strictest access control and auditing in the
-system. And the data already persisted has to be migrated — sweeping databases, replicas and extracts,
-swapping values for tokens without breaking relationships —, a project in its own right.
+system. And the data already persisted has to be migrated (sweeping databases, replicas and extracts,
+swapping values for tokens without breaking relationships), a project in its own right.
 
 ### Production data in other environments
 
 Test, development and analysis environments that receive a copy of production multiply
 the places where personal data lives, and rarely carry production's controls: broader
 access, no encryption, retention with no owner. For data protection, the question is
-what real data each environment needs — and the usual answer is none.
+what real data each environment needs, and the usual answer is none.
 
-The ways to get there — synthetic data, a masked subset that preserves relationships, a
-small hand-crafted set — are in
+The ways to get there (synthetic data, a masked subset that preserves relationships, a
+small hand-crafted set) are in
 [environment management](/14-devops-and-platform/environment-management.md#test-data-not-a-full-copy-of-production).
-See [secrets](/10-security/secrets.md) — the same logic holds for credentials.
+See [secrets](/10-security/secrets.md): the same logic holds for credentials.
 
 ### Leakage through side paths
 
@@ -163,16 +163,16 @@ them.
 
 **A tokenization vault for low-sensitivity or low-volume data.** The vault is an availability dependency
 and a target to protect. For an internal identifier with no value outside the system, or for a few hundred
-records where minimization settles it, running the vault costs more than the scope it removes — encrypting
+records where minimization settles it, running the vault costs more than the scope it removes: encrypting
 the field or not keeping it is cheaper.
 
-**Formal classification in a single-sensitivity system.** If all the system's data sits at one level — an
-internal service with no personal data, or one that only holds health data —, four levels with per-level
+**Formal classification in a single-sensitivity system.** If all the system's data sits at one level (an
+internal service with no personal data, or one that only holds health data), four levels with per-level
 controls is bureaucracy with no decision to make. A uniform control suited to that level is enough;
 classification starts paying off when the second level appears.
 
 **Anonymizing when the analysis needs the individual.** Anonymization that withstands cross-referencing
-generalizes and suppresses until the granularity is gone — following a customer's journey, detecting fraud
+generalizes and suppresses until the granularity is gone: following a customer's journey, detecting fraud
 by individual pattern. When that is the use that justifies keeping the data, pseudonymize with restricted
 access to the mapping, and accept that the data is still personal.
 
@@ -183,11 +183,11 @@ not the raw copy.
 
 ## Alternatives
 
-- **Not collecting** — the definitive control.
-- **Tokenization** — it shrinks the scope drastically; the vault stays inside it.
-- **Aggregation** — keeping the summary, discarding the detail.
-- **Processing without storing** — using the data in the request and not persisting it.
-- **[Per-subject encryption](/10-security/encryption.md)** — it allows deletion by discarding a key.
+- **Not collecting**: the definitive control.
+- **Tokenization**: it shrinks the scope drastically; the vault stays inside it.
+- **Aggregation**: keeping the summary, discarding the detail.
+- **Processing without storing**: using the data in the request and not persisting it.
+- **[Per-subject encryption](/10-security/encryption.md)**: it allows deletion by discarding a key.
 
 ## Trade-offs
 
@@ -225,32 +225,32 @@ not the raw copy.
 
 **Starting with encryption instead of minimization.** Data that was not collected does not leak, needs no
 key and does not enter a deletion request. Encrypting is the second-best answer; not having it is the
-first. And often the missing control was authorization — see [encryption](/10-security/encryption.md).
+first. And often the missing control was authorization (see [encryption](/10-security/encryption.md)).
 
 **Not classifying.** Without knowing which fields are personal or sensitive, the same control is applied to
-everything — too expensive for what does not need it and too loose for what does.
+everything: too expensive for what does not need it and too loose for what does.
 
 **Copying production.** A staging database with real data multiplies the places where personal data exists,
 with controls that, in practice, rarely match production's.
 
 **Classifying without defining controls per level.** A label with no consequence does not change where
-the data may be or who accesses it — it is inventory, not protection.
+the data may be or who accesses it: it is inventory, not protection.
 
 **Logging the request body.** It is the most common route of internal leakage: personal data and
 credentials end up in the logging system, which has long retention and broader access.
 
-**Confusing pseudonymization with anonymization.** Swapping the name for an identifier does not anonymize —
+**Confusing pseudonymization with anonymization.** Swapping the name for an identifier does not anonymize:
 with a date of birth and a postal code, few attributes are enough to reidentify. Only truly anonymous data
 leaves the regulatory scope.
 
-**Not inventorying the data's destinations.** Without knowing where personal data flows — analytics,
-support, third parties — there is no way to serve a deletion request or to respond to an incident.
+**Not inventorying the data's destinations.** Without knowing where personal data flows (analytics,
+support, third parties) there is no way to serve a deletion request or to respond to an incident.
 
 ## Real-World Example
 
 A fintech received a data deletion request and discovered it did not know where the data was.
 
-The inventory, done hastily, found customers' personal data in ten places — seven of which nobody had
+The inventory, done hastily, found customers' personal data in ten places, seven of which nobody had
 listed:
 
 ```text
@@ -278,7 +278,7 @@ two suppliers.
 
 The reformulation started with minimization, not with protection:
 
-**A collection review.** Eleven fields stopped being collected — including family members' data no process
+**A collection review.** Eleven fields stopped being collected, including family members' data no process
 used. Three fields came to be stored in reduced form: an income range instead of the amount, a city instead
 of the complete address, the last digits instead of the complete document number where only the check
 mattered.
@@ -286,7 +286,7 @@ mattered.
 **Tokenization** of the document number. A separate vault came to exist; the rest of the system works with
 a token. That removed the field from the production database, the replicas and the warehouse.
 
-**Classification** into four levels, with controls defined per level — including "may not appear in a log"
+**Classification** into four levels, with controls defined per level, including "may not appear in a log"
 and "may not leave for a non-production environment".
 
 **Synthetic data** in staging. The production copy was eliminated.
@@ -296,19 +296,19 @@ and "may not leave for a non-production environment".
 **Revised contracts** with the third parties, restricting what is sent.
 
 What the team learned: the deletion request that started everything came to be servable in two days. And
-most of the gain came from the first stage — the eleven fields no process used stopped existing, and with them
+most of the gain came from the first stage: the eleven fields no process used stopped existing, and with them
 every control they would have required in each of the ten places.
 
 ## Related Concepts
 
-- [Encryption](/10-security/encryption.md) — the control for what remains.
+- [Encryption](/10-security/encryption.md): the control for what remains.
 - [Auditability](/10-security/auditability.md).
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention and deletion.
-- [Threat Modeling](/10-security/threat-modeling.md) — where "eliminate" appears as an answer.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): retention and deletion.
+- [Threat Modeling](/10-security/threat-modeling.md): where "eliminate" appears as an answer.
 
 ## Practical Exercise
 
-Choose a personal data field in your system and list **every** place it appears — including logs, metrics,
+Choose a personal data field in your system and list **every** place it appears, including logs, metrics,
 test environments, exports and third parties.
 
 Then ask, for each one: does it need to be here?
@@ -321,6 +321,6 @@ Then ask, for each one: does it need to be here?
 
 ## Further Reading
 
-- Brazil's General Data Protection Law (Lei 13.709/2018) — the principles of necessity and purpose.
+- Brazil's General Data Protection Law (Lei 13.709/2018): the principles of necessity and purpose.
 - Sweeney, Latanya. *Simple Demographics Often Identify People Uniquely*, 2000.
 - ENISA. *Data Pseudonymisation: Advanced Techniques and Use Cases*, 2021.

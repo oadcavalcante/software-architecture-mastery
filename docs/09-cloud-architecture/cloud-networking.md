@@ -2,7 +2,7 @@
 id: cloud-networking
 title: Rede em Nuvem
 sidebar_position: 10
-description: Rede como configuração — o que muda quando a topologia é código e o tráfego é cobrado.
+description: "Rede como configuração: o que muda quando a topologia é código e o tráfego é cobrado."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [cloud-identity, availability-zones, cost-architecture]
 canonical_for: [rede virtual, sub-rede, grupo de segurança, ponto de extremidade privado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ Na nuvem, a rede é definida por configuração: você declara faixas de endere�
 sub-redes, rotas e regras de filtragem, e elas passam a existir.
 
 Isso muda duas coisas em relação à rede física. Primeiro, a topologia é versionável
-e reproduzível. Segundo, ela é fácil de errar em escala — uma regra permissiva
+e reproduzível. Segundo, ela é fácil de errar em escala: uma regra permissiva
 aplicada por engano vale para tudo que ela alcança.
 
 E há uma terceira, que não tem equivalente em rede própria: **o tráfego é cobrado**,
@@ -56,12 +56,12 @@ sub-rede privada    sem rota de entrada da internet
 A regra prática: **por padrão, privada**. Recursos em sub-rede pública são a
 exceção, justificada caso a caso.
 
-Isso não é paranoia — é que a alternativa, expor por conveniência e proteger por
+Isso não é paranoia: a alternativa, expor por conveniência e proteger por
 regra de firewall, transfere toda a segurança para uma configuração que uma pessoa
 distraída pode afrouxar.
 
-Recursos privados que precisam alcançar a internet — para atualizações, para APIs
-externas — saem por um gateway de tradução, que permite saída sem permitir entrada.
+Recursos privados que precisam alcançar a internet (para atualizações, para APIs
+externas) saem por um gateway de tradução, que permite saída sem permitir entrada.
 
 ### Grupos de segurança são o filtro que importa
 
@@ -72,7 +72,7 @@ Dois princípios que resolvem a maior parte:
 **Negar por padrão, permitir o específico.**
 
 **Referenciar grupos, não faixas de endereço.** Permitir que o grupo da aplicação
-alcance o grupo do banco é mais legível e mais robusto que permitir uma faixa —
+alcance o grupo do banco é mais legível e mais robusto que permitir uma faixa,
 porque continua correto quando os endereços mudam.
 
 A regra recorrente em auditorias: acesso administrativo aberto para qualquer
@@ -80,7 +80,7 @@ origem na internet. Ela costuma ter sido criada "temporariamente".
 
 ### Ponto de extremidade privado evita a internet
 
-Serviços gerenciados do provedor — armazenamento, banco, fila — têm endereços
+Serviços gerenciados do provedor (armazenamento, banco, fila) têm endereços
 públicos por padrão. O tráfego da sua aplicação para eles sai da sua rede.
 
 Um ponto de extremidade privado traz esse serviço para dentro da sua rede virtual:
@@ -112,7 +112,7 @@ Ver [arquitetura de custo](/09-cloud-architecture/cost-architecture.md) e
 ### Faixas de endereço precisam ser planejadas
 
 Escolher a faixa da rede virtual parece irrelevante até você precisar conectá-la a
-outra — uma rede corporativa, uma rede de parceiro, uma conta de uma empresa
+outra: uma rede corporativa, uma rede de parceiro, uma conta de uma empresa
 adquirida.
 
 Faixas sobrepostas impedem conexão direta, e a solução envolve tradução de
@@ -127,7 +127,7 @@ Boa parte dos incidentes de rede em nuvem são de resolução de nomes: zona pri
 não associada, encaminhamento mal configurado, resolução funcionando de uma rede e
 não de outra.
 
-Eles são difíceis porque o sintoma é genérico — "não conecta" — e a causa está numa
+Eles são difíceis porque o sintoma é genérico ("não conecta") e a causa está numa
 camada que ninguém olha primeiro.
 
 ## Modelo Mental
@@ -154,11 +154,11 @@ dia, a partir de três zonas, paga três pontos de extremidade o mês inteiro pa
 economizar centavos de transferência; o ganho que sobra é o de superfície, e ele só
 existe se o serviço for configurado para recusar acesso de fora. Para armazenamento de
 objetos e algumas tabelas gerenciadas, há provedores que oferecem ponto de extremidade
-de gateway, sem cobrança por hora — é o primeiro a verificar.
+de gateway, sem cobrança por hora. É o primeiro a verificar.
 
 **Várias redes virtuais quando uma basta.** Separar em redes e contas distintas dá
 isolamento de falha e de permissão, mas cada fronteira nova exige interconexão, rotas
-e resolução de nomes entre elas — a camada onde os incidentes se escondem. Uma equipe
+e resolução de nomes entre elas: a camada onde os incidentes se escondem. Uma equipe
 com um ambiente e uma aplicação ganha pouco isolamento e paga toda a complexidade; a
 divisão se justifica quando há equipes, ambientes ou requisitos de conformidade que
 precisam de fronteira administrativa.
@@ -171,12 +171,12 @@ e permanente.
 
 ## Alternativas
 
-- **Conectividade privada com a rede corporativa** — em vez de expor serviços.
-- **Acesso administrativo por serviço gerenciado de sessão** — elimina a
+- **Conectividade privada com a rede corporativa**: em vez de expor serviços.
+- **Acesso administrativo por serviço gerenciado de sessão**: elimina a
   necessidade de porta aberta.
-- **Malha de serviço** — para políticas entre serviços. Ver
+- **Malha de serviço**: para políticas entre serviços. Ver
   [malha de serviço](/08-integration-architecture/service-mesh.md).
-- **Ponto de extremidade privado** — em vez de gateway de tradução para serviços do
+- **Ponto de extremidade privado**: em vez de gateway de tradução para serviços do
   provedor.
 
 ## Trade-offs
@@ -219,11 +219,11 @@ recriar.
 
 **Regras temporárias que ficam.** A liberação ampla aberta para depurar um incidente sobrevive anos, porque nada expira sozinho e ninguém revisa o que não causa problema.
 
-**Não usar pontos de extremidade privados.** Sem eles, o tráfego para serviços do próprio provedor sai pela internet — o que adiciona exposição, latência e, frequentemente, custo de saída.
+**Não usar pontos de extremidade privados.** Sem eles, o tráfego para serviços do próprio provedor sai pela internet. Isso adiciona exposição, latência e, frequentemente, custo de saída.
 
 **Ignorar o custo do caminho do tráfego.** Transferência entre zonas, entre regiões e para a internet têm preços muito diferentes. Uma arquitetura que atravessa zonas sem necessidade paga isso em toda requisição.
 
-**Não restringir tráfego de saída.** Por que a saída importa está em [segurança de rede](/10-security/network-security.md). O que é próprio da nuvem: o grupo de segurança padrão libera toda saída, e o gateway de tradução encaminha qualquer destino que a rota alcance. Restringir exige regra de saída no grupo e, para destinos identificados por nome, um filtro no caminho de saída — o grupo de segurança só entende endereço.
+**Não restringir tráfego de saída.** Por que a saída importa está em [segurança de rede](/10-security/network-security.md). O que é próprio da nuvem: o grupo de segurança padrão libera toda saída, e o gateway de tradução encaminha qualquer destino que a rota alcance. Restringir exige regra de saída no grupo e, para destinos identificados por nome, um filtro no caminho de saída. O grupo de segurança só entende endereço.
 
 ## Exemplo Real
 
@@ -265,10 +265,10 @@ parte do desenho.
 
 ## Conceitos Relacionados
 
-- [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md) — a outra camada de fronteira.
-- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — tráfego entre zonas.
+- [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md): a outra camada de fronteira.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md): tráfego entre zonas.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
-- [Segurança de Rede](/10-security/network-security.md) — segmentação e filtragem de saída.
+- [Segurança de Rede](/10-security/network-security.md): segmentação e filtragem de saída.
 - [Segurança](/10-security/index.md).
 
 ## Exercício Prático

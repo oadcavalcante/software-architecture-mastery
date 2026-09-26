@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-governance]
 related: [governance-review, fitness-functions-governance, governance-pathologies]
 canonical_for: [mecanismo de governança, ponto de intervenção, custo de coordenação, governança preventiva]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -45,8 +45,8 @@ o desenho do fluxo em escala organizacional; aqui o foco é o mecanismo em si.
 
 ## Problema
 
-A degeneração é previsível, e esta é uma das formas mais comuns — o catálogo das outras
-está em [patologias de governança](/19-architecture-governance/governance-pathologies.md). Alguém identifica um problema real —
+A degeneração é previsível, e esta é uma das formas mais comuns. O catálogo das outras
+está em [patologias de governança](/19-architecture-governance/governance-pathologies.md). Alguém identifica um problema real:
 seis formas de autenticação, quatro filas diferentes, uma decisão de segurança tomada sem
 contexto. A resposta institucional é criar um ponto de verificação.
 
@@ -59,8 +59,8 @@ mês 20   ninguém consegue explicar o que o comitê evita
 ```
 
 O comitê não falhou por incompetência. Ele falhou porque intervém **depois** que a decisão
-foi tomada, e a única alavanca que sobra nesse ponto é dizer não a um trabalho já feito —
-o que é caro demais para ser usado, e por isso não é usado.
+foi tomada, e a única alavanca que sobra nesse ponto é dizer não a um trabalho já feito.
+Isso é caro demais para ser usado, e por isso não é usado.
 
 E há um custo simétrico e menos visível: sem nenhum mecanismo, cada time redescobre as
 mesmas lições, e as caras são redescobertas por incidente.
@@ -76,7 +76,7 @@ autonomia total     velocidade alta, divergência alta, retrabalho alto
 coordenação total   coerência alta, velocidade baixa, decisão distante do contexto
 ```
 
-Nenhum extremo funciona, e o ponto ótimo não é o meio — ele varia por **classe de
+Nenhum extremo funciona, e o ponto ótimo não é o meio: ele varia por **classe de
 decisão**. Uma decisão que só afeta um time deve ser dele; uma que fixa um formato de dado
 consumido por doze sistemas não pode ser.
 
@@ -102,10 +102,10 @@ na auditoria     alguém percebe meses depois
 ```
 
 As opções são ordenadas por custo crescente por decisão, e a diferença entre as duas
-primeiras e o resto não é marginal — mas a eficácia não acompanha essa ordem linha a linha. O
+primeiras e o resto não é marginal, mas a eficácia não acompanha essa ordem linha a linha. O
 **ambiente** impede: o que não passa pelo controle não acontece, com as ressalvas do que
 escapa ao proxy. O **gabarito** não impede nada; ele torna o certo o caminho padrão, e o
-resíduo é medido — no Exemplo Real, os 6% de serviços novos que não passaram por ele. A
+resíduo é medido: no Exemplo Real, os 6% de serviços novos que não passaram por ele. A
 esteira custa mais que o gabarito e bloqueia de fato: por isso os dois são complementares,
 com a verificação pegando o resíduo que o caminho padrão deixa passar.
 
@@ -122,7 +122,7 @@ corrigir   o erro é encontrado e remediado    revisão, auditoria, incidente
 
 Uma governança madura tem os três, em proporção: a maior parte prevenida, uma parte
 detectada, uma fração pequena corrigida. Uma governança degenerada tem quase tudo no
-terceiro nível — que é o mais caro e o mais tarde.
+terceiro nível, que é o mais caro e o mais tarde.
 
 Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md): o
 caminho pavimentado é governança preventiva com outro nome.
@@ -181,7 +181,7 @@ continuem cobrando pedágio em 2026 sobre um problema que não existe mais.
 ## Modelo Mental
 
 **Mova a intervenção para o mais cedo possível.** No limite, a governança desaparece dentro
-da plataforma — e um caminho errado que não existe não precisa ser inspecionado.
+da plataforma. E um caminho errado que não existe não precisa ser inspecionado.
 
 ## Quando Usar
 
@@ -216,11 +216,11 @@ depois que o problema que os justificou desapareceu.
 
 ## Alternativas
 
-- **Plataforma e gabaritos** — governança embutida, sem processo.
-- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)** — verificação contínua e
+- **Plataforma e gabaritos**: governança embutida, sem processo.
+- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)**: verificação contínua e
   automática.
-- **Comunidade de prática** — coerência por convergência voluntária, sem autoridade.
-- **Nada, com registro** — só ADRs, deixando a coerência emergir.
+- **Comunidade de prática**: coerência por convergência voluntária, sem autoridade.
+- **Nada, com registro**: só ADRs, deixando a coerência emergir.
 
 A primeira é quase sempre superior quando aplicável, e a terceira funciona melhor do que se
 espera em organizações com cultura técnica forte.
@@ -261,7 +261,7 @@ e a fila passa a receber trabalho já implementado.
 **Não perguntar qual seria o ponto de intervenção mais cedo.** O objetivo passa a ser
 perseguido na revisão, onde custa atenção a cada decisão, quando poderia estar no gabarito.
 
-**Confundir governança com autoridade** — o mecanismo é o meio, não o poder. Quando o veto
+**Confundir governança com autoridade**: o mecanismo é o meio, não o poder. Quando o veto
 vira o produto, os times deixam de consultar e passam a contornar.
 
 **Não medir o atrito** que o mecanismo introduz.
@@ -307,7 +307,7 @@ compatibilidade falhando a construção. Ver
 
 **Comitê extinto**, substituído por dois mecanismos:
 
-- **Consulta voluntária**, sem fila e sem aprovação — qualquer time pode pedir uma hora com
+- **Consulta voluntária**, sem fila e sem aprovação: qualquer time pode pedir uma hora com
   dois arquitetos, cedo, enquanto o desenho é maleável.
 - **Revisão obrigatória apenas para três classes**: decisões que fixam formato de dado
   consumido por outros, decisões com implicação regulatória, e decisões de custo
@@ -337,10 +337,10 @@ A leitura que a equipe faz: o comitê nunca foi o problema. O problema era que e
 
 ## Conceitos Relacionados
 
-- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md) — o
+- [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md): o
   fluxo em escala.
-- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md) — a intervenção automatizada.
-- [Patologias](/19-architecture-governance/governance-pathologies.md) — os modos de degeneração.
+- [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md): a intervenção automatizada.
+- [Patologias](/19-architecture-governance/governance-pathologies.md): os modos de degeneração.
 - [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Exercício Prático

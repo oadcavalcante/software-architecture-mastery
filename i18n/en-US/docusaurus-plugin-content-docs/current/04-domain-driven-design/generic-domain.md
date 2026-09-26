@@ -2,7 +2,7 @@
 id: generic-domain
 title: Generic Domain
 sidebar_position: 5
-description: Necessary and already solved by the market — buy it, and the decision to build needs justification.
+description: "Necessary and already solved by the market: buy it, and the decision to build needs justification."
 doc_type: foundation
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, supporting-domain, anti-corruption-layer]
 canonical_for: [generic domain]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -41,7 +41,7 @@ can frequently be accommodated.
 *"It comes out cheaper."* The cost of building is compared with the licence price, and the
 cost of maintaining, updating, fixing and operating for years is forgotten.
 
-*"We don't want to depend on third parties."* The dependency exists anyway — on libraries,
+*"We don't want to depend on third parties."* The dependency exists anyway: on libraries,
 on the cloud provider, on the operating system. The question is where it is acceptable.
 
 *"It's simple."* Authentication looks simple until you need secure password recovery,
@@ -78,14 +78,14 @@ The defence is an
 solution sits behind an interface in your vocabulary, and the rest of the system does not
 know it.
 
-That is what makes the buy decision reversible — and reversibility is what answers the
+That is what makes the buy decision reversible, and reversibility is what answers the
 dependency argument.
 
 ### When building is justified
 
 There are legitimate cases, and they are worth naming:
 
-A regulatory constraint no vendor meets — data residency, for instance.
+A regulatory constraint no vendor meets: data residency, for instance.
 
 A scale at which the vendor's cost per transaction exceeds that of building and operating.
 It is a calculation, not an impression, and the tipping point is usually far above what is
@@ -93,7 +93,7 @@ imagined.
 
 A genuinely unusual requirement, verified against at least three market alternatives.
 
-The absence of a mature option — which happens, and diminishes over time.
+The absence of a mature option, which happens, and diminishes over time.
 
 ### Generic today, not necessarily yesterday
 
@@ -104,11 +104,11 @@ Revisiting that periodically frees capacity.
 
 ## Why This Matters
 
-**Because building a generic domain is a recurring waste of engineering capacity** — and
+**Because building a generic domain is a recurring waste of engineering capacity**, and
 the easiest to avoid, once classified.
 
 **Because the decision has to invert the burden.** The default should be to buy, and
-building should require justification — not the reverse.
+building should require justification, not the reverse.
 
 **Because the security surface matters.** In several generic domains, building means taking
 on risk the vendor would absorb.
@@ -133,7 +133,7 @@ generic, and engineering capacity stays locked in it.
 An education company built its own subscription system: plans, billing cycles, retry
 attempts, prorated upgrades and downgrades, coupons, trial periods.
 
-Two engineers, fourteen months. After that, continuous maintenance — about 20% of one
+Two engineers, fourteen months. After that, continuous maintenance: about 20% of one
 engineer's time, indefinitely.
 
 When finance asked for support for annual billing with a discount and for invoicing with
@@ -142,7 +142,7 @@ tax withholding, the estimate was another four months.
 The evaluation of market alternatives, done at that point, found three products that did all
 of it and more. The annual cost was equivalent to about two months of one engineer.
 
-The migration took five months — more than adopting from the start would have taken, because
+The migration took five months, more than adopting from the start would have taken, because
 the subscription model was spread across the whole system with no isolation.
 
 What the team recorded in the ADR: the original decision to build was taken in 2019, when
@@ -169,7 +169,7 @@ incidents. This number is rarely known and tends to be larger than intuition.
 [anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md), the migration is
 local; if there is not, it is a project.
 
-The fourth estimate is what blocks most migrations — and it is a consequence of a decision
+The fourth estimate is what blocks most migrations, and it is a consequence of a decision
 taken years earlier not to isolate.
 
 That gives an additional argument for isolation at the moment of adoption: it protects not
@@ -178,12 +178,12 @@ old.
 
 ## Related Concepts
 
-- [Subdomain](/04-domain-driven-design/subdomain.md) — the classification.
-- [Core Domain](/04-domain-driven-design/core-domain.md) — where the default inverts,
+- [Subdomain](/04-domain-driven-design/subdomain.md): the classification.
+- [Core Domain](/04-domain-driven-design/core-domain.md): where the default inverts,
   because buying costs you the differentiation when the vendor sells the same to competitors.
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — how to
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): how to
   isolate what you adopt.
-- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — total cost of ownership in detail.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md): total cost of ownership in detail.
 
 ## Practical Exercise
 

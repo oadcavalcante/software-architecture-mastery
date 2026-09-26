@@ -2,7 +2,7 @@
 id: data-ownership
 title: Propriedade do Dado
 sidebar_position: 20
-description: Quem decide sobre cada dado — a decisão menos técnica desta seção e a que mais determina a velocidade dos times.
+description: "Quem decide sobre cada dado: a decisão menos técnica desta seção e a que mais determina a velocidade dos times."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-consistency, data-modeling, data-lifecycle]
 canonical_for: [propriedade do dado, fonte da verdade, banco compartilhado, contrato de dados]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -22,8 +22,8 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 Propriedade do dado responde: para cada conjunto de dados, **quem decide sobre
-ele** — quem pode alterar o esquema, quem define o significado, quem é responsável
-pela qualidade.
+ele** (quem pode alterar o esquema, quem define o significado, quem é responsável
+pela qualidade).
 
 É o tópico menos técnico desta seção e o que mais determina se os times conseguem
 trabalhar em paralelo ou vivem se bloqueando.
@@ -36,7 +36,7 @@ consenso.
 O padrão mais comum em sistemas que cresceram: um banco compartilhado, várias
 aplicações lendo e escrevendo nas mesmas tabelas.
 
-Isso parece eficiente — sem duplicação, sem integração, consultas diretas.
+Isso parece eficiente: sem duplicação, sem integração, consultas diretas.
 
 E produz um acoplamento que é pior que o de código, porque é invisível: nenhuma
 ferramenta mostra quem depende daquela coluna. Descobre-se removendo e vendo o que
@@ -49,13 +49,13 @@ por isso o esquema não muda mais.
 
 ### O banco compartilhado é uma interface pública sem contrato
 
-Quando vários serviços leem a mesma tabela, o esquema virou API — só que sem
+Quando vários serviços leem a mesma tabela, o esquema virou API, só que sem
 versionamento, sem documentação e sem ninguém saber quem são os consumidores.
 
 Cada coluna é um compromisso permanente. Renomear quebra consumidores
 desconhecidos.
 
-Isso não é argumento para dividir tudo em bancos separados — é argumento para saber
+Isso não é argumento para dividir tudo em bancos separados, e sim para saber
 o que é interface e o que é interno.
 
 ### Um dono, muitos leitores
@@ -64,7 +64,7 @@ O modelo que funciona:
 
 **Um serviço é dono** do conjunto de dados. Só ele escreve. Ele decide o esquema.
 
-**Outros consomem** por interface explícita — API, evento, ou uma visão publicada
+**Outros consomem** por interface explícita: API, evento, ou uma visão publicada
 com contrato.
 
 A distinção decisiva: o dono pode mudar o **modelo interno** livremente, e mudar a
@@ -76,7 +76,7 @@ Sem essa separação, todo detalhe interno vira contrato acidental.
 
 Para cada fato, exatamente um lugar é autoritativo.
 
-Cópias podem existir — cache, projeção, warehouse — desde que fique claro que são
+Cópias podem existir (cache, projeção, warehouse) desde que fique claro que são
 derivadas, e que a divergência se resolve sempre a favor da fonte.
 
 Sistemas com duas fontes autoritativas do mesmo dado produzem a pergunta que não
@@ -84,7 +84,7 @@ tem resposta: "qual dos dois está certo?".
 
 ### Propriedade é organizacional, não técnica
 
-Um dono precisa ser uma equipe com capacidade de decidir e de responder — não um
+Um dono precisa ser uma equipe com capacidade de decidir e de responder, não um
 nome numa planilha.
 
 Isso significa que a divisão de dados tende a seguir a divisão de times, e que uma
@@ -110,7 +110,7 @@ Sem isso, o consumidor descobre a mudança quando quebra.
 
 ### Dado compartilhado precisa de decisão explícita
 
-Alguns dados são genuinamente transversais — cadastro de cliente, tabela de
+Alguns dados são genuinamente transversais: cadastro de cliente, tabela de
 produtos, hierarquia organizacional.
 
 As opções, em ordem de preferência prática:
@@ -126,13 +126,13 @@ contrato promete, reprocessar eventos perdidos, detectar cópias que divergiram 
 fonte e versionar o formato do evento sem quebrar quem ainda lê o antigo.
 
 **Banco compartilhado com governança explícita.** Aceitável quando documentado, com
-processo de mudança — e a pior opção quando acontece por omissão. Custa manter o
+processo de mudança, e a pior opção quando acontece por omissão. Custa manter o
 inventário de consumidores atualizado e fazer cada mudança de esquema passar pelo
 processo, inclusive as que parecem triviais.
 
 ### Malha de dados leva o princípio ao analítico
 
-A ideia central: dados analíticos também têm dono — o time que gera o dado é
+A ideia central: dados analíticos também têm dono. O time que gera o dado é
 responsável por publicá-lo com qualidade, como produto.
 
 Isso desfaz o gargalo de uma equipe central de dados responsável por integrar
@@ -146,7 +146,7 @@ produz conjuntos de dados publicados sem qualidade e sem manutenção.
 **Todo esquema que outro time lê é API.** Diante de cada tabela, a pergunta é uma
 só: isto é modelo interno, que o dono muda quando quiser, ou contrato publicado, que
 muda com aviso e convivência de versões? Onde ninguém sabe responder, a tabela já é
-contrato — só que sem dono para honrá-lo.
+contrato, só que sem dono para honrá-lo.
 
 ## Quando Usar
 
@@ -175,11 +175,11 @@ governança.
 
 ## Alternativas
 
-- **Banco compartilhado com governança** — documentado, com processo.
-- **Visão publicada** — o dono expõe uma visão estável sobre o modelo interno; os
+- **Banco compartilhado com governança**: documentado, com processo.
+- **Visão publicada**: o dono expõe uma visão estável sobre o modelo interno; os
   consumidores leem só ela. Meio-termo barato e subestimado.
-- **Replicação por eventos** — cada consumidor com sua cópia.
-- **Equipe central de dados** — funciona em escala menor.
+- **Replicação por eventos**: cada consumidor com sua cópia.
+- **Equipe central de dados**: funciona em escala menor.
 
 ## Trade-offs
 
@@ -220,7 +220,7 @@ nenhum tenha mandato para corrigi-los, e o dado degrada por falta de quem decida
 refatoração local quebra um consumidor em produção, e o dono descobre pelo chamado.
 
 **Permitir escrita de fora do dono.** As validações do dono deixam de valer, porque
-há caminhos que não passam por elas — e o dado inválido aparece sem autor.
+há caminhos que não passam por elas, e o dado inválido aparece sem autor.
 
 **Não inventariar consumidores.** A remoção de uma coluna quebra uma aplicação que
 ninguém sabia que lia a tabela, e a descoberta é o incidente.
@@ -238,8 +238,8 @@ Uma empresa de serviços financeiros tinha um banco central com 340 tabelas,
 acessado por onze aplicações de sete times.
 
 O sintoma que motivou a mudança: adicionar um campo na tabela de clientes levava em
-média onze semanas — o tempo de coordenar com todos os times que poderiam ser
-afetados, sem que ninguém soubesse ao certo quais eram.
+média onze semanas (o tempo de coordenar com todos os times que poderiam ser
+afetados, sem que ninguém soubesse ao certo quais eram).
 
 O inventário revelou o quadro:
 
@@ -256,11 +256,11 @@ divergindo em 6% dos registros.
 A reorganização levou dois anos e não terminou em separação de bancos:
 
 **Dono declarado** por tabela, com decisão registrada. Onde não havia dono natural,
-a discussão foi escalada — e em quatro casos revelou que o dado pertencia a um
+a discussão foi escalada, e em quatro casos revelou que o dado pertencia a um
 processo de negócio sem responsável definido, o que era o problema real.
 
 **Escrita restrita ao dono**, por permissão de banco. Foi a mudança mais
-impopular e a mais eficaz — ela tornou visíveis os caminhos de escrita
+impopular e a mais eficaz: ela tornou visíveis os caminhos de escrita
 clandestinos, que eram quatorze.
 
 **Visões publicadas** para consumidores externos ao dono, com contrato. O modelo
@@ -275,7 +275,7 @@ Resultado: adicionar um campo passou de onze semanas para dias, sem mover nenhum
 banco de lugar.
 
 A lição registrada: a proposta inicial era dividir em bancos separados por
-domínio — um projeto estimado em dois anos e meio, que teria de tomar as mesmas
+domínio, um projeto estimado em dois anos e meio, que teria de tomar as mesmas
 decisões de propriedade e, além delas, migrar os dados e cortar onze aplicações.
 O ganho não foi de prazo, próximo nos dois caminhos: a propriedade declarada com
 visões publicadas entregou o mesmo desbloqueio sem janela de corte, sem migração a
@@ -286,10 +286,10 @@ O problema era de responsabilidade, não de topologia.
 
 ## Conceitos Relacionados
 
-- [Consistência de Dados](/07-data-architecture/data-consistency.md) — reconciliação
+- [Consistência de Dados](/07-data-architecture/data-consistency.md): reconciliação
   entre cópias que deveriam concordar com a fonte.
 - [Modelagem de Dados](/07-data-architecture/data-modeling.md).
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — a fronteira
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): a fronteira
   correspondente.
 - [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 
@@ -310,5 +310,5 @@ honrar.
 ## Para Aprofundar
 
 - Dehghani, Zhamak. *Data Mesh*. O'Reilly, 2022.
-- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021 — capítulo 4.
+- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021. Capítulo 4.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.

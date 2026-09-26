@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, ecommerce, healthcare]
 canonical_for: []
-content_version: 6
+content_version: 7
 last_reviewed: 2026-08-29
 ---
 
@@ -125,7 +125,7 @@ dezenas de empresas. Um modelo de isolamento que trate cada empresa como uma ilh
 perfeitamente ao requisito de segurança e destrói a experiência de quem mais usa o produto.
 
 Ignorar esse requisito ao escolher o modelo de isolamento é o erro que produz uma arquitetura
-tecnicamente correta e comercialmente inviável — e ele é fácil de cometer, porque o contador não
+tecnicamente correta e comercialmente inviável, e ele é fácil de cometer, porque o contador não
 é o cliente pagante e raramente aparece na lista de interessados.
 
 ## Estimativas de Capacidade
@@ -151,11 +151,11 @@ de um cliente Corporativo, pico                ~120
 ```
 
 Um cliente Corporativo em fechamento gera três mil vezes a carga de um cliente Essencial. Essa
-razão é o problema — não o total.
+razão é o problema, não o total.
 
 Vale explicitar por que a razão importa mais que a soma. Se o sistema fosse dimensionado pela
 carga total, ele teria capacidade de sobra: 860 requisições por segundo em média são triviais. O
-que quebra é a concentração — 120 requisições por segundo vindas de um único inquilino, contra
+que quebra é a concentração: 120 requisições por segundo vindas de um único inquilino, contra
 uma instância dimensionada para a média dos seus vizinhos, satura recursos compartilhados que
 não têm como distinguir de quem é a carga.
 
@@ -244,7 +244,7 @@ migração              o mecanismo de migração entre modelos vira
 | **Total ponderado** | | **5,0** | **6,3** | **6,9** | **8,2** |
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com custo em 40%, os totais viram
-6,2 / 6,9 / 5,6 / 8,1 — a Opção D mantém a vantagem. Com isolamento em 45%, viram
+6,2 / 6,9 / 5,6 / 8,1: a Opção D mantém a vantagem. Com isolamento em 45%, viram
 4,4 / 6,5 / 7,7 / 8,4. Nenhum cenário testado inverte, o que é esperado de uma opção construída para aplicar cada modelo onde ele é adequado.
 
 ## Decisão
@@ -265,7 +265,7 @@ Ela obtém uma conexão do serviço de roteamento de inquilino, e o roteamento d
 conexão aponta para um esquema compartilhado ou para um banco dedicado.
 
 Isso transforma a migração entre modelos numa operação de infraestrutura, e não numa mudança de
-aplicação — o que é o que permite oferecer isolamento como item de contrato.
+aplicação, o que é o que permite oferecer isolamento como item de contrato.
 
 **Sob que condição cada opção descartada venceria:**
 
@@ -275,7 +275,7 @@ aparece.
 
 **Opção B venceria se** não houvesse clientes com exigência contratual de isolamento nem
 clientes com carga capaz de saturar uma instância. É o modelo correto para a faixa de baixo e
-médio porte — e é exatamente o que a Opção D usa para eles.
+médio porte, e é exatamente o que a Opção D usa para eles.
 
 **Opção C venceria se** o preço médio por cliente fosse alto o bastante para absorver o custo de
 um banco dedicado. Acima de aproximadamente R$ 2.000 por mês por cliente, a conta fecha, e a
@@ -305,7 +305,7 @@ saturando recursos.
 
 O **Serviço de Contador** é o que resolve a tensão entre isolamento e consulta consolidada. Ele
 não consulta os bancos dos inquilinos diretamente: consome um agregado publicado por cada
-inquilino, contendo apenas o que o contador precisa ver — pendências, prazos, situação fiscal.
+inquilino, contendo apenas o que o contador precisa ver (pendências, prazos, situação fiscal).
 
 Isso mantém o isolamento intacto e resolve o requisito, ao custo de uma janela de defasagem de
 poucos minutos, que a área de produto validou como aceitável.
@@ -316,7 +316,7 @@ consolidada e entra na empresa para resolvê-la, descobrindo que já foi resolvi
 no painel inteiro.
 
 A solução foi exibir o horário da última consolidação junto ao agregado. É uma linha de interface
-que custou minutos e resolveu a objeção que teria derrubado o desenho — e é um lembrete de que
+que custou minutos e resolveu a objeção que teria derrubado o desenho, e é um lembrete de que
 consistência eventual é aceitável quando é comunicada, e irritante quando é escondida.
 
 ## Dados
@@ -328,19 +328,19 @@ inquilino  (id, nome, plano, modelo_isolamento, cluster, esquema_ou_banco,
             estado, criado_em)
 ```
 
-Essa tabela é a fonte de verdade da topologia, e é consultada com cache agressivo — a topologia
+Essa tabela é a fonte de verdade da topologia, e é consultada com cache agressivo: a topologia
 de um inquilino muda raramente, e uma mudança invalida a entrada.
 
 **Estrutura por inquilino.** Idêntica em todos os modelos. É a propriedade que permite migrar
 entre eles: um esquema compartilhado e um banco dedicado têm exatamente as mesmas tabelas.
 
-Manter essa identidade exige disciplina — a tentação de otimizar a estrutura para clientes
+Manter essa identidade exige disciplina: a tentação de otimizar a estrutura para clientes
 grandes aparece, e cedê-la quebraria a migração. A regra é que otimizações para grandes volumes
 são índices e particionamento, nunca diferenças de esquema.
 
 **Particionamento por inquilino em clientes Corporativos.** Dentro do banco dedicado, as tabelas
-de lançamento são particionadas por período, o que torna o fechamento anual — a operação que
-saturava a instância compartilhada — uma varredura de partição.
+de lançamento são particionadas por período, o que torna o fechamento anual (a operação que
+saturava a instância compartilhada) uma varredura de partição.
 
 **Documentos fiscais.** Armazenamento de objetos, com chave prefixada pelo inquilino e política
 de acesso que impede leitura cruzada no nível do armazenamento, não apenas no da aplicação.
@@ -351,7 +351,7 @@ a credencial usada para um inquilino não consegue ler os objetos de outro.
 ## Integração
 
 **Roteamento.** A cada requisição autenticada, o Roteador resolve o inquilino a partir do
-contexto — subdomínio, token ou seleção explícita do contador — e obtém a conexão apropriada de
+contexto (subdomínio, token ou seleção explícita do contador) e obtém a conexão apropriada de
 um conjunto por destino.
 
 O conjunto de conexões é o ponto de atenção operacional: com esquema por inquilino, uma conexão
@@ -370,7 +370,7 @@ inviável.
 4. só depois de 100% o código passa a depender da mudança
 ```
 
-Essa disciplina de três etapas — compatível, aplicar, depender — é o que permite migrar sem
+Essa disciplina de três etapas (compatível, aplicar, depender) é o que permite migrar sem
 janela. Ela é verificada automaticamente: uma migração que remove ou renomeia coluna na mesma
 versão do código é rejeitada pela esteira.
 
@@ -381,7 +381,7 @@ curto com o inquilino em modo somente leitura, verificação e virada do roteame
 O corte medido é de 4 a 11 minutos, dentro do requisito de 15.
 
 **Emissão fiscal.** Compartilhada, com fila por inquilino para impedir que um cliente emitindo em
-volume atrase os demais — o mesmo problema de ruído, resolvido no nível da fila em vez do banco.
+volume atrase os demais: o mesmo problema de ruído, resolvido no nível da fila em vez do banco.
 
 ## Segurança
 
@@ -422,7 +422,7 @@ bancos dedicados                              208
 ```
 
 Novos clientes são alocados na instância com mais folga, medida por consumo real e não por
-contagem. Um cliente que cresce e passa a consumir desproporcionalmente é movido — o Medidor de
+contagem. Um cliente que cresce e passa a consumir desproporcionalmente é movido: o Medidor de
 Consumo dispara a recomendação, e a migração é o mesmo procedimento usado para mudança de plano.
 
 Essa capacidade de **rebalancear inquilinos entre instâncias** é o que resolve o ruído sem
@@ -450,8 +450,8 @@ a visão consolidada.
 
 **RPO por cliente < 5 min** é atendido por cópia de segurança contínua com recuperação em ponto
 no tempo, por instância e por banco dedicado. Restaurar um único inquilino de uma instância
-compartilhada é o caso difícil, e o procedimento — restaurar para uma instância temporária e
-extrair o esquema — é ensaiado trimestralmente.
+compartilhada é o caso difícil, e o procedimento (restaurar para uma instância temporária e
+extrair o esquema) é ensaiado trimestralmente.
 
 ## Observabilidade
 
@@ -476,7 +476,7 @@ introduzir um plano por consumo, que não existia porque a informação não exi
 
 ## Implantação
 
-Uma versão da aplicação serve todos os inquilinos, sempre. Não há versão por cliente — essa foi
+Uma versão da aplicação serve todos os inquilinos, sempre. Não há versão por cliente: essa foi
 uma decisão explícita e defendida contra pedidos comerciais, porque manter versões divergentes
 multiplicaria o custo de manutenção pelo número de variantes.
 
@@ -486,7 +486,7 @@ por código.
 Essa regra foi testada quatro vezes em dois anos, sempre por pedido comercial de um cliente
 Corporativo grande. Em todas, a resposta foi a mesma e o argumento registrado também: uma versão
 divergente para um cliente significa que toda correção, toda atualização de segurança e toda
-migração de esquema passam a ter duas variantes — e a segunda é sempre a que fica para trás.
+migração de esquema passam a ter duas variantes, e a segunda é sempre a que fica para trás.
 
 Em dois dos quatro casos, a necessidade foi atendida por sinalizador de funcionalidade. Nos
 outros dois, o pedido era de comportamento incompatível com o produto, e a resposta foi não. Um
@@ -501,7 +501,7 @@ por 24 horas, e as demais seguem. Bancos dedicados de clientes Corporativos rece
 **Fase 1 (meses 1–4): esquema por inquilino.** Migração do modelo de coluna de inquilino para
 esquema por inquilino, cliente a cliente, sem interrupção.
 
-Esta fase é a que reduz o risco de vazamento, e foi priorizada por isso — não pelo desempenho.
+Esta fase é a que reduz o risco de vazamento, e foi priorizada por isso, não pelo desempenho.
 
 **Fase 2 (meses 3–7): roteador e provisionamento.** Roteador de Inquilino, provisionamento
 automático e a estrutura que torna o modelo de isolamento um atributo do cliente.
@@ -560,7 +560,7 @@ produto.
 
 Esse desfecho não estava previsto e vale registrar o mecanismo: uma vez que o isolamento passou a
 ser um atributo configurável do cliente, oferecê-lo deixou de ter custo de projeto e passou a ter
-apenas custo de infraestrutura. A área comercial pôde precificá-lo, e a demanda existia — ela
+apenas custo de infraestrutura. A área comercial pôde precificá-lo, e a demanda existia. Ela
 apenas nunca tinha sido consultada, porque a resposta anterior seria "não é possível".
 
 ## O que este case ensina
@@ -570,7 +570,7 @@ apenas nunca tinha sido consultada, porque a resposta anterior seria "não é po
 errado.
 
 **O isolamento deve ser atributo do cliente.** Quando a aplicação não sabe qual modelo o cliente
-usa, migrar entre modelos vira operação de infraestrutura — e isolamento vira item de contrato,
+usa, migrar entre modelos vira operação de infraestrutura, e isolamento vira item de contrato,
 com preço.
 
 **Verificar isolamento automaticamente é o controle de maior valor.** Um teste que tenta vazar
@@ -578,12 +578,12 @@ dado e falha a esteira quando consegue encontrou dois vazamentos antes da produ�
 revisão de código teria a mesma taxa de detecção.
 
 **Migração de esquema em três etapas é o que permite operar sem janela.** Compatível, aplicar,
-depender — nessa ordem, verificada na esteira. Com 14 mil inquilinos, qualquer outra abordagem
+depender (nessa ordem, verificada na esteira). Com 14 mil inquilinos, qualquer outra abordagem
 exige parada.
 
 ## Conceitos Relacionados
 
-- [Case: Corporativo Multi-inquilino](/21-case-studies/multi-tenant-enterprise.md) — o mesmo problema em outra
+- [Case: Corporativo Multi-inquilino](/21-case-studies/multi-tenant-enterprise.md): o mesmo problema em outra
   escala.
 - [Funções de Aptidão](/19-architecture-governance/fitness-functions-governance.md).
 - [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md).

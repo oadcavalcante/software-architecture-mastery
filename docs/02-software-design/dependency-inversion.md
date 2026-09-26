@@ -2,7 +2,7 @@
 id: dependency-inversion
 title: Inversão de Dependência
 sidebar_position: 8
-description: Inverter a seta para que a política não dependa do detalhe — e o erro que torna isso inútil.
+description: Inverter a seta para que a política não dependa do detalhe, e o erro que torna isso inútil.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [dependency-direction, hexagonal-architecture, solid]
 canonical_for: [inversão de dependência, dependency inversion]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -44,7 +44,7 @@ Se essa chamada for direta, a dependência acompanha o fluxo: a regra de negóci
 depende do repositório, que depende do driver, que depende do banco.
 
 As consequências são conhecidas. Testar a regra exige um banco. Trocar de banco
-toca a regra. E o mais instável — a tecnologia — é dependido pelo mais estável —
+toca a regra. E o mais instável, a tecnologia, é dependido pelo mais estável:
 a política.
 
 Isso inverte a regra que
@@ -107,7 +107,7 @@ Ver [interfaces](/02-software-design/interfaces.md): quem define é o consumidor
 Confusão frequente e consequente.
 
 **Injeção de dependência** é um mecanismo de fornecimento: a dependência é passada
-em vez de construída internamente. É possível injetar mantendo a direção errada —
+em vez de construída internamente. É possível injetar mantendo a direção errada:
 injetar `RepositorioSQL` concreto no caso de uso é injeção sem inversão.
 
 **Inversão** é uma decisão de direção. Injeção é uma forma comum de implementá-la,
@@ -121,7 +121,7 @@ quem é volátil a implementa.
 ## Quando Usar
 
 - Quando a política precisa ser testada sem infraestrutura.
-- Quando o detalhe é volátil — provedor externo, biblioteca, protocolo.
+- Quando o detalhe é volátil: provedor externo, biblioteca, protocolo.
 - Quando a dependência atravessa uma fronteira que se quer manter.
 - Quando existe mais de uma implementação real, agora ou com prazo.
 
@@ -145,14 +145,14 @@ sistema em que ninguém encontra o código que executa.
 
 ## Alternativas
 
-- **Adaptador na fronteira** — traduzir na entrada, sem interface atravessando o
+- **Adaptador na fronteira**: traduzir na entrada, sem interface atravessando o
   sistema. Frequentemente suficiente e mais barato.
-- **Tipo próprio no domínio** — definir `Cotacao` em vez de depender do tipo do
+- **Tipo próprio no domínio**: definir `Cotacao` em vez de depender do tipo do
   provedor. Resolve o vazamento sem criar hierarquia.
-- **Aceitar e concentrar** — manter a dependência direta, num ponto único. Quando
+- **Aceitar e concentrar**: manter a dependência direta, num ponto único. Quando
   o contato já é único e a troca do detalhe não está no horizonte, concentrar
   custa menos que manter um contrato.
-- **Tipagem estrutural ou função** — em linguagens que oferecem, dispensa a
+- **Tipagem estrutural ou função**: em linguagens que oferecem, dispensa a
   interface declarada.
 
 ## Trade-offs
@@ -191,7 +191,7 @@ pacotes mais encontra em sistemas que dizem aplicar a técnica.
 estável que a "política".
 
 **Achar que inversão elimina acoplamento.** Ela o redireciona. O caso de uso
-continua acoplado ao conceito de repositório — só não à tecnologia.
+continua acoplado ao conceito de repositório, só não à tecnologia.
 
 ## Exemplo Real
 
@@ -204,7 +204,7 @@ colocada no pacote `infra`, com os mesmos métodos e o mesmo DTO.
 
 Isso não resolveu nada. O domínio continuava importando `infra` e continuava
 falando o vocabulário da transportadora. Quando a segunda transportadora entrou,
-ela não encaixou — a interface modelava o protocolo da primeira.
+ela não encaixou: a interface modelava o protocolo da primeira.
 
 Segunda tentativa, que funcionou:
 
@@ -247,10 +247,10 @@ que vêm.
 
 ## Conceitos Relacionados
 
-- [Interfaces](/02-software-design/interfaces.md) — quem define e com que vocabulário.
-- [Direção de Dependência](/02-software-design/dependency-direction.md) — a regra geral.
-- [Arquitetura Hexagonal](/02-software-design/hexagonal-architecture.md) — a aplicação sistemática.
-- [SOLID](/02-software-design/solid.md) — o princípio D.
+- [Interfaces](/02-software-design/interfaces.md): quem define e com que vocabulário.
+- [Direção de Dependência](/02-software-design/dependency-direction.md): a regra geral.
+- [Arquitetura Hexagonal](/02-software-design/hexagonal-architecture.md): a aplicação sistemática.
+- [SOLID](/02-software-design/solid.md): o princípio D.
 
 ## Exercício Prático
 
@@ -273,4 +273,4 @@ As que falham em qualquer dos dois testes são inversões nominais.
 - Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017.
 - Cockburn, Alistair. *Hexagonal Architecture*, 2005.
 - Freeman, Steve; Pryce, Nat. *Growing Object-Oriented Software, Guided by
-  Tests*. Addison-Wesley, 2009 — interfaces definidas pelo consumidor.
+  Tests*. Addison-Wesley, 2009. Interfaces definidas pelo consumidor.

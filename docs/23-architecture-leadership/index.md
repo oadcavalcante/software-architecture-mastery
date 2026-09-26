@@ -2,7 +2,7 @@
 id: architecture-leadership
 title: Liderança em Arquitetura
 sidebar_position: 0
-description: O nível final — decidir, influenciar e sustentar arquitetura numa organização.
+description: "O nível final: decidir, influenciar e sustentar arquitetura numa organização."
 doc_type: index
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance, enterprise-architecture]
 related: [devops-and-platform, trade-offs, architecture-decisions]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -31,7 +31,7 @@ não conseguir fazer a resposta correta acontecer. Os
 abrem a seção com esse padrão de fracasso e com o que ele exige do papel. O
 resto desta seção são as competências que o sustentam.
 
-A lei de Conway não é uma curiosidade. É a restrição mais forte que existe sobre
+Longe de ser uma curiosidade, a lei de Conway é a restrição mais forte que existe sobre
 uma arquitetura, e a que menos aparece nos diagramas.
 
 Arquitetura sênior é a interseção de:
@@ -49,7 +49,7 @@ enunciar um destino que orienta decisão sem prescrever cada passo.
 fazer quando não há informação suficiente e adiar também custa.
 
 **Influência.** Gestão de stakeholders, comunicação, apresentações e influência
-técnica. Como um arquiteto sem autoridade formal — que é o caso comum — faz uma
+técnica. Como um arquiteto sem autoridade formal (que é o caso comum) faz uma
 decisão acontecer.
 
 **Organização.** Lei de Conway, Team Topologies, arquitetura organizacional,
@@ -72,12 +72,12 @@ que está.
 Comece pelos
 [Fundamentos](/23-architecture-leadership/architecture-leadership-basics.md):
 todo o resto da seção parte deles, direta ou indiretamente. Em seguida, **lei de
-Conway** e **Team Topologies** — são os conceitos que mais mudam a leitura de uma
+Conway** e **Team Topologies**. São os conceitos que mais mudam a leitura de uma
 organização, e explicam retroativamente boa parte das arquiteturas estranhas que
 você já encontrou.
 
 Depois **comunicação** e **tomada de decisão sob incerteza**, que é o que a
-**negociação de trade-offs** pressupõe — as competências de maior retorno prático
+**negociação de trade-offs** pressupõe. São as competências de maior retorno prático
 e as menos treinadas por engenheiros.
 
 Deixe **fitness functions** e **medição** para o fim. São o instrumento que
@@ -92,12 +92,12 @@ de risco e capacidade, não de tecnologia.
 Reconhece quando a arquitetura desejada exige mudar a organização, e consegue
 propor isso.
 
-E consegue medir se a arquitetura está melhorando — que é a diferença entre
+E consegue medir se a arquitetura está melhorando. Essa é a diferença entre
 liderança arquitetural e opinião sênior.
 
 ## O fim do percurso
 
 Aqui o material acaba. O que não acaba é a prática: a leitura fixa o vocabulário
 e os critérios, e é até onde um texto leva. O resto se desenvolve decidindo,
-errando, registrando o porquê e revendo — que é, de novo, o ciclo com que este
+errando, registrando o porquê e revendo. É, de novo, o ciclo com que este
 percurso começou.

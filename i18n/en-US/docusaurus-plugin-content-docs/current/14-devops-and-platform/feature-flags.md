@@ -2,7 +2,7 @@
 id: feature-flags
 title: Feature Flags
 sidebar_position: 8
-description: Separating deploying from releasing — the highest-impact technique, and the one that accumulates the most debt.
+description: "Separating deploying from releasing: the highest-impact technique, and the one that accumulates the most debt."
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, canary, release-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ A feature flag is a condition that decides, at runtime, whether a behavior is ac
 
 It separates two things that normally go together: **deploying** the code and **releasing** the feature.
 
-That separation is this section's highest-impact technique — it enables continuous integration with
+That separation is this section's highest-impact technique: it enables continuous integration with
 incomplete code, progressive release, rollback with no deployment, and experiments.
 
 And it is the one that accumulates the most debt: each flag is one more branch in the code, and they do not
@@ -61,14 +61,14 @@ permission    enables per customer, plan or segment
               life: permanent → it is a business rule, not a flag
 ```
 
-The release and experiment ones **have to be removed**. The operational and permission ones stay — and the
+The release and experiment ones **have to be removed**. The operational and permission ones stay, and the
 last, in fact, should be modeled as a business rule, not as a flag.
 
 Mixing the four types in the same mechanism, with no distinction, is what produces the accumulation.
 
 ### Every temporary flag needs a deadline
 
-A release flag with no removal date is never removed. That is not a discipline failure — it is the
+A release flag with no removal date is never removed. That is not a discipline failure. It is the
 predictable behavior of any item with no owner and no deadline.
 
 What works:
@@ -96,8 +96,8 @@ Each flag doubles the code's possible paths.
 That matters for three reasons: you do not test every combination; the behavior in production depends on a
 configuration that is not in the code; and reading the code gets harder.
 
-The practical consequence: flags should be **independent**. Two flags that interact — where one's behavior
-depends on the other's state — are the origin of this technique's hardest defects.
+The practical consequence: flags should be **independent**. Two flags that interact (where one's behavior
+depends on the other's state) are the origin of this technique's hardest defects.
 
 ### Evaluation requires context and cannot fail open
 
@@ -114,7 +114,7 @@ The third item is the most consequential: if the flags service becomes unavailab
 
 The safe default for release flags is **off**; for operational flags, it is the last known state.
 
-And the evaluation needs to be local — the configuration is distributed and evaluated in memory, with
+And the evaluation needs to be local: the configuration is distributed and evaluated in memory, with
 periodic refresh. A network call per check adds latency and a critical dependency on the hot path.
 
 ### A flag does not replace testing
@@ -124,7 +124,7 @@ A common temptation: "let's release it and see what happens".
 Flags reduce the **reach** of the error, not its probability. A broken feature released to 1% of users
 breaks for 1% of users.
 
-They are complementary to verification, not alternatives. See [canary](/14-devops-and-platform/canary.md) —
+They are complementary to verification, not alternatives. See [canary](/14-devops-and-platform/canary.md):
 the difference is that a canary compares metrics automatically and reverts, while a flag only exposes.
 
 ### Flag state is production configuration
@@ -175,10 +175,10 @@ a deadline; the permanent ones need a justification.
 
 ## Alternatives
 
-- **Short-lived branches** — for small changes, integrating in a day does away with the flag.
-- **[Canary](/14-devops-and-platform/canary.md)** — it exposes gradually with automatic metric comparison.
-- **Configuration per environment** — when the difference is between environments, not between users.
-- **A modeled business rule** — for what is permanent and depends on the plan or the profile.
+- **Short-lived branches**: for small changes, integrating in a day does away with the flag.
+- **[Canary](/14-devops-and-platform/canary.md)**: it exposes gradually with automatic metric comparison.
+- **Configuration per environment**: when the difference is between environments, not between users.
+- **A modeled business rule**: for what is permanent and depends on the plan or the profile.
 
 ## Trade-offs
 
@@ -221,7 +221,7 @@ lifecycles. Without declaring which it is, they all become permanent.
 **Not removing the temporary ones.** Each active flag doubles the code's possible paths. Twenty forgotten
 flags produce a combination space no test covers.
 
-**Using a flag for a business rule.** A rule in a configuration panel escapes review, testing and history —
+**Using a flag for a business rule.** A rule in a configuration panel escapes review, testing and history,
 and comes to change behavior with no trace.
 
 **Not defining the default behavior under failure.** When the flags service becomes unavailable, the system
@@ -244,7 +244,7 @@ The effects:
 the production configuration to know which path was active.
 
 **A defect from interaction.** Two flags created by different teams, which worked on their own, produced an
-invalid state when both were active — a situation occurring for 3% of users. It took six weeks to
+invalid state when both were active, a situation occurring for 3% of users. It took six weeks to
 diagnose.
 
 **Dead code.** An audit found 310 flags turned off for more than a year, with the code for both paths still
@@ -271,24 +271,24 @@ Legitimate cases of dependency became a single flag with more than two states.
 **Local evaluation** with up to 30 seconds of propagation, replacing the network call that existed on the
 checkout path.
 
-In eighteen months, the 740 flags became **94** — of which 61 are permanent operational ones, with a
+In eighteen months, the 740 flags became **94**, of which 61 are permanent operational ones, with a
 recorded justification.
 
 The recorded lesson: the technique was never the problem, and it is still the most valuable one they
-adopted. What was missing was the lifecycle — creating was easy and removing had no owner.
+adopted. What was missing was the lifecycle: creating was easy and removing had no owner.
 
 ## Related Concepts
 
-- [Continuous Integration](/14-devops-and-platform/ci-cd.md) — what flags enable.
-- [Canary](/14-devops-and-platform/canary.md) — release with automatic comparison.
+- [Continuous Integration](/14-devops-and-platform/ci-cd.md): what flags enable.
+- [Canary](/14-devops-and-platform/canary.md): release with automatic comparison.
 - [Release Management](/14-devops-and-platform/release-management.md).
-- [Graceful Degradation](/12-reliability/graceful-degradation.md) — the operational flags.
+- [Graceful Degradation](/12-reliability/graceful-degradation.md): the operational flags.
 
 ## Practical Exercise
 
 Count the active flags in your system and classify them by type.
 
-Then check how many of the temporary ones are past their deadline — or, if there is no deadline, how long
+Then check how many of the temporary ones are past their deadline, or, if there is no deadline, how long
 the oldest one has existed.
 
 ## Interview Questions

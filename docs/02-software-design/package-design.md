@@ -2,7 +2,7 @@
 id: package-design
 title: Design de Pacotes
 sidebar_position: 13
-description: Como agrupar classes em unidades de release — os três princípios de coesão e o que eles custam.
+description: "Como agrupar classes em unidades de release: os três princípios de coesão e o que eles custam."
 doc_type: concept
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [dependency-direction, component-design]
 canonical_for: [design de pacotes, coesão de componentes, princípio da equivalência release-reúso]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Um pacote é a menor unidade que se publica e se versiona. Design de pacotes é
 decidir quais classes ficam juntas nessa unidade.
 
 Robert Martin formulou três princípios de coesão para essa decisão. O que os
-torna interessantes não é cada um isoladamente — é que **eles se contradizem**, e
+torna interessantes é que **eles se contradizem**, e
 a tensão entre eles é a decisão real.
 
 ## Problema
@@ -66,8 +66,8 @@ não usa. É o **I** do [SOLID](/02-software-design/solid.md) em escala de pacot
 
 ### A tensão
 
-CCP quer agrupar — menos pacotes a publicar. CRP quer separar — menos dependência
-desnecessária.
+CCP quer agrupar (menos pacotes a publicar). CRP quer separar (menos dependência
+desnecessária).
 
 No triângulo, cada aresta nomeia o custo de abandonar o vértice oposto a ela.
 
@@ -80,7 +80,7 @@ graph LR
 
 Martin descreve isso como um triângulo em que se escolhe dois lados. Sacrificar
 CRP produz consumidores com dependências demais; sacrificar CCP, muitas
-publicações por mudança; sacrificar REP, código sem versão a que se fixar — o
+publicações por mudança; sacrificar REP, código sem versão a que se fixar: o
 consumidor copia em vez de depender.
 
 A posição correta muda com a maturidade: **projetos jovens tendem para CCP**
@@ -89,8 +89,8 @@ porque há mais consumidores incomodados).
 
 ### Pacote não é diretório
 
-Em várias linguagens, pacote e diretório coincidem. Onde não coincidem — ou onde
-o diretório não impõe nada — o que define o pacote é a unidade de publicação:
+Em várias linguagens, pacote e diretório coincidem. Onde não coincidem, ou onde
+o diretório não impõe nada, o que define o pacote é a unidade de publicação:
 o artefato, o módulo declarado, a biblioteca.
 
 Se tudo é publicado e construído junto, há um pacote só, independentemente de
@@ -100,7 +100,7 @@ quantos diretórios existam.
 
 **Pacote é a menor coisa que se publica ou se constrói sozinha.** Se dois grupos
 de classes precisam de números de versão independentes, são dois pacotes. Onde a
-versão é única — num monorepo —, a unidade desloca-se para o alvo de build: o que
+versão é única (num monorepo), a unidade desloca-se para o alvo de build: o que
 se recompila e se testa separadamente.
 
 ## Quando Usar
@@ -115,7 +115,7 @@ se recompila e se testa separadamente.
 **Quando há uma unidade de build só.** Num monolito com um artefato e um alvo de
 compilação, os princípios de release não se aplicam. Ali a divisão relevante é de
 [módulo](/02-software-design/modular-design.md), não de pacote. Publicar junto
-não basta para dispensá-los — o monorepo, mais abaixo, é o contraexemplo.
+não basta para dispensá-los: o monorepo, mais abaixo, é o contraexemplo.
 
 **Como meta de pureza.** Perseguir CRP num sistema com dois consumidores internos
 produz fragmentação e coordenação sem benefício.
@@ -125,17 +125,17 @@ cinco pacotes que sempre sobem juntos com versões casadas, a separação piorou
 sistema.
 
 **Antes de haver consumidores reais.** Os princípios são sobre servir
-consumidores. Sem eles, é especulação — ver [YAGNI](/02-software-design/yagni.md).
+consumidores. Sem eles, é especulação (ver [YAGNI](/02-software-design/yagni.md)).
 
 ## Alternativas
 
-- **Artefato único com módulos internos** — vence enquanto todo o consumo é
-  interno ao time que publica: sem fronteira organizacional a atravessar, o
+- **Artefato único com módulos internos**: vence enquanto todo o consumo é
+  interno ao time que publica. Sem fronteira organizacional a atravessar, o
   versionamento só cobra custo.
-- **Monorepo com build por alvo** — vence quando os consumidores estão todos no
+- **Monorepo com build por alvo**: vence quando os consumidores estão todos no
   repositório e o gargalo é tempo de build: a divisão passa a servir a compilação
   incremental, sem coordenação de versões.
-- **Separação só onde há consumidor externo** — publicar o que atravessa a
+- **Separação só onde há consumidor externo**: publicar o que atravessa a
   fronteira organizacional e manter o resto interno.
 
 ## Trade-offs
@@ -184,16 +184,16 @@ configuração de log e helpers de teste.
 
 Consequências observadas em um ano: 34 publicações, das quais 31 por mudanças que
 afetavam um único consumidor; todos os sete times obrigados a atualizar a cada
-uma; e dois times que congelaram a versão para parar de acompanhar — passando a
+uma; e dois times que congelaram a versão para parar de acompanhar, passando a
 não receber correções.
 
-A divisão por CRP — quem usa o quê, medido pelos imports reais — produziu quatro
+A divisão por CRP (quem usa o quê, medido pelos imports reais) produziu quatro
 pacotes: `tipos-dominio` (usado por sete), `http` (usado por quatro), `datas`
 (dois) e `teste` (cinco, mas só em escopo de teste). A configuração de log não
 virou pacote: eram poucas linhas de inicialização por serviço, e duplicá-las saiu
 mais barato que manter o acoplamento.
 
-Depois: `tipos-dominio` teve 4 publicações no ano seguinte; `datas`, 11 — que
+Depois: `tipos-dominio` teve 4 publicações no ano seguinte; `datas`, 11, que
 agora afetam dois times em vez de sete.
 
 O que a divisão custou: quatro artefatos a manter, e uma decisão a mais em cada
@@ -204,12 +204,12 @@ mudança. O que comprou: os dois times destravaram e voltaram a acompanhar.
 Uma confusão comum: adotar monorepo é tratado como se eliminasse a questão de
 pacotes, já que tudo é versionado junto.
 
-Elimina o problema de **coordenação de versões** — nunca há incompatibilidade
+Elimina o problema de **coordenação de versões**: nunca há incompatibilidade
 entre duas partes do mesmo commit. Não elimina os outros dois.
 
 **CCP continua valendo.** O que muda junto deve ficar junto, porque isso governa
 o escopo de build e de teste. Num monorepo com build incremental, a divisão
-determina o que precisa ser recompilado e reexecutado a cada mudança — e essa é a
+determina o que precisa ser recompilado e reexecutado a cada mudança, e essa é a
 diferença entre um ciclo de dois minutos e um de quarenta.
 
 **CRP continua valendo.** Um alvo de build que depende de mais do que usa
@@ -217,15 +217,15 @@ recompila sem necessidade e amplia o raio de qualquer quebra.
 
 O que o monorepo muda é o custo do erro: separar mal é corrigível num commit, em
 vez de exigir uma migração de versões coordenada entre times. Isso permite ser
-mais agressivo na divisão — e é a razão pela qual monorepos costumam ter mais
+mais agressivo na divisão, e é a razão pela qual monorepos costumam ter mais
 alvos de build do que polirepos têm artefatos.
 
 ## Conceitos Relacionados
 
-- [Design Modular](/02-software-design/modular-design.md) — a divisão lógica que precede.
-- [Direção de Dependência](/02-software-design/dependency-direction.md) — o grafo entre pacotes.
-- [Design de Componentes](/02-software-design/component-design.md) — a unidade de implantação.
-- [Coesão](/01-fundamentals/cohesion.md) — o princípio geral por trás do CCP.
+- [Design Modular](/02-software-design/modular-design.md): a divisão lógica que precede.
+- [Direção de Dependência](/02-software-design/dependency-direction.md): o grafo entre pacotes.
+- [Design de Componentes](/02-software-design/component-design.md): a unidade de implantação.
+- [Coesão](/01-fundamentals/cohesion.md): o princípio geral por trás do CCP.
 
 ## Exercício Prático
 
@@ -245,7 +245,7 @@ Depois conte as publicações do último ano e quantas afetaram um consumidor s�
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — princípios de
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Princípios de
   coesão e acoplamento de componentes.
-- Martin, Robert C. *Agile Software Development*. Prentice Hall, 2002 — a
+- Martin, Robert C. *Agile Software Development*. Prentice Hall, 2002. A
   formulação original.

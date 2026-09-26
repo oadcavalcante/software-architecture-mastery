@@ -2,7 +2,7 @@
 id: network-failure
 title: Network Failure
 sidebar_position: 2
-description: The network loses, delays, duplicates and reorders — and none of those failures is distinguishable from the others.
+description: The network loses, delays, duplicates and reorders, and none of those failures is distinguishable from the others.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [partial-failure, timeouts, failure-detection]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 The network is the medium through which distributed systems coordinate, and it is unreliable by
-nature — not through an implementation defect.
+nature, not through an implementation defect.
 
 What makes that hard is not that the network fails. It is that **the failure modes are
 indistinguishable from each other** from one side.
@@ -37,7 +37,7 @@ and the network between you is partitioned.
 
 **From your side, all five are identical.** You observe the same thing: silence.
 
-That is not a tool limitation — it is a property of the problem. No protocol solves it, because
+That is a property of the problem, not a tool limitation. No protocol solves it, because
 distinguishing would require information that does not cross the partitioned network.
 
 Everything else at this level is a consequence of that.
@@ -49,7 +49,7 @@ Everything else at this level is a consequence of that.
 **Loss.** Packets dropped by congestion, a full buffer or a transmission error. TCP
 retransmits, which solves the loss and increases latency.
 
-**Delay.** The packet arrives, late. Under congestion, latency rises by orders of magnitude —
+**Delay.** The packet arrives, late. Under congestion, latency rises by orders of magnitude,
 and a long enough delay is operationally the same as loss.
 
 **Duplication.** Retransmissions can produce double delivery in layers above.
@@ -66,7 +66,7 @@ A partition is the rarest and the most consequential, because during it **both s
 operating**.
 
 If both accept writes, the states diverge and someone resolves the conflict later. If only one
-accepts, you have to decide which — and the other becomes unavailable.
+accepts, you have to decide which, and the other becomes unavailable.
 
 That is literally the [CAP](/06-distributed-systems/cap.md) dilemma, and it exists because of
 partitions.
@@ -82,7 +82,7 @@ Not every partition is clean. Two treacherous variants:
 **Asymmetric.** The message goes from A to B and does not come back. A thinks B went down; B
 receives requests and responds into the void.
 
-**Partial.** A reaches B, B reaches C, and A does not reach C. There are not two groups — there
+**Partial.** A reaches B, B reaches C, and A does not reach C. There are not two groups; there
 is an inconsistent topology, in which different nodes have different views of who is alive.
 
 Consensus algorithms handle clean partitions well and partial ones badly, and several public
@@ -96,12 +96,12 @@ keeps receiving traffic and keeps delivering slowly.
 That propagates the slowness to whoever depends on it, and it is the origin of a good part of
 cascades. See [circuit breakers](/12-reliability/circuit-breakers.md).
 
-Detecting degradation requires measuring latency, not only availability — and that is why a
+Detecting degradation requires measuring latency, not only availability. That is why a
 binary health check is insufficient.
 
 ## Mental Model
 
-**Silence is not information.** It is compatible with success, with failure and with slowness —
+**Silence is not information.** It is compatible with success, with failure and with slowness,
 and designing assuming any of them produces a defect.
 
 ## When to Use
@@ -134,16 +134,16 @@ duplication in layers above.
 ## Alternatives
 
 There is no alternative to dealing with network failure in a distributed system. There is the
-alternative of **not distributing** — see
-[modular monolith](/03-design-patterns/modular-monolith.md).
+alternative of **not distributing** (see
+[modular monolith](/03-design-patterns/modular-monolith.md)).
 
 Within the distributed world, what varies is the strategy: tolerate and reconcile, or refuse to
 operate during the failure.
 
 ## Trade-offs
 
-During a partition, the choice is between continuing to accept writes — with divergence to
-resolve — and refusing — with unavailability.
+During a partition, the choice is between continuing to accept writes (with divergence to
+resolve) and refusing (with unavailability).
 
 | Accept writes | Refuse |
 |---|---|
@@ -163,7 +163,7 @@ the same time; what you observe is the conflict later, during reconciliation.
 
 **Duplication from retransmission.** With no idempotency, a duplicated effect.
 
-**False detection.** A slow node is declared dead, removed, and comes back — generating
+**False detection.** A slow node is declared dead, removed, and comes back, generating
 unnecessary rebalancing and instability.
 
 **Undetected asymmetric partition.** One side removes the other; the other keeps thinking it is
@@ -184,47 +184,47 @@ the loss. See [backoff](/06-distributed-systems/backoff.md).
 
 ## Real-World Example
 
-A database cluster with three nodes — one leader and two replicas — in different availability
+A database cluster with three nodes (one leader and two replicas) in different availability
 zones.
 
 A network maintenance isolated the leader's zone from the other two for 90 seconds.
 
-The two replicas stopped receiving a signal from the leader. After 20 seconds with no signal —
-the configured detection timeout — they elected a new leader among themselves and started
+The two replicas stopped receiving a signal from the leader. After 20 seconds with no signal
+(the configured detection timeout), they elected a new leader among themselves and started
 accepting writes.
 
 The original leader remained healthy, reachable by the application running in the same zone, and
-kept accepting writes — not knowing it had lost the leadership.
+kept accepting writes, not knowing it had lost the leadership.
 
 For roughly 70 of the 90 seconds of partition there were **two leaders**, both accepting writes,
 each convinced it was the only one.
 
-At the end of the partition, 1,200 writes had to be reconciled manually. 40 were conflicting —
+At the end of the partition, 1,200 writes had to be reconciled manually. 40 were conflicting:
 the same record changed on both sides.
 
-What the team discovered in the analysis: the cluster had protection against that — a majority
-requirement to accept writes — and it was disabled, because enabling it leaves the minority side
+What the team discovered in the analysis: the cluster had protection against that (a majority
+requirement to accept writes), and it was disabled, because enabling it leaves the minority side
 of a partition unable to write. It is not the cluster that stops: with three nodes in three
-zones, the two that remain form a majority and keep accepting writes — see
-[availability zones](/09-cloud-architecture/availability-zones.md). What is left without writes
+zones, the two that remain form a majority and keep accepting writes (see
+[availability zones](/09-cloud-architecture/availability-zones.md)). What is left without writes
 is the isolated leader, and with it the application running in the same zone.
 
 Someone had traded availability for consistency without recording the decision, and without the
 business knowing. For a balance system, it was the wrong trade.
 
 The fix was to re-enable the majority requirement and accept that the application in the isolated
-zone cannot write for as long as the partition lasts, instead of balance divergence — this time
+zone cannot write for as long as the partition lasts, instead of balance divergence, this time
 with the decision recorded in an
 [ADR](/18-architecture-decisions/what-is-an-adr.md), and with the business in the conversation.
 
 ## Related Concepts
 
-- [Partial Failure](/06-distributed-systems/partial-failure.md) — the consequence for the design.
-- [CAP](/06-distributed-systems/cap.md) — the choice under a partition.
-- [Failure Detection](/06-distributed-systems/failure-detection.md) — why declaring something
+- [Partial Failure](/06-distributed-systems/partial-failure.md): the consequence for the design.
+- [CAP](/06-distributed-systems/cap.md): the choice under a partition.
+- [Failure Detection](/06-distributed-systems/failure-detection.md): why declaring something
   dead is a heuristic.
-- [Timeouts](/06-distributed-systems/timeouts.md) — the only available tool.
-- [Leader Election](/06-distributed-systems/leader-election.md) — split brain and the fencing that
+- [Timeouts](/06-distributed-systems/timeouts.md): the only available tool.
+- [Leader Election](/06-distributed-systems/leader-election.md): split brain and the fencing that
   prevents it.
 
 ## Practical Exercise
@@ -232,8 +232,8 @@ with the decision recorded in an
 For your system: what happens if the network between the application and the database is
 partitioned for 60 seconds?
 
-Then the harder version: what if it is **partially** partitioned — the application reaches the
-database, the database does not reach the replica?
+Then the harder version: what if it is **partially** partitioned (the application reaches the
+database, the database does not reach the replica)?
 
 ## Interview Questions
 
@@ -243,7 +243,7 @@ database, the database does not reach the replica?
 
 ## Further Reading
 
-- Bailis, Peter; Kingsbury, Kyle. *The Network is Reliable*. ACM Queue, 2014 — the survey of
+- Bailis, Peter; Kingsbury, Kyle. *The Network is Reliable*. ACM Queue, 2014. The survey of
   real partitions in production.
-- Kingsbury, Kyle. *Jepsen* — analyses of systems under partition.
+- Kingsbury, Kyle. *Jepsen*. Analyses of systems under partition.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

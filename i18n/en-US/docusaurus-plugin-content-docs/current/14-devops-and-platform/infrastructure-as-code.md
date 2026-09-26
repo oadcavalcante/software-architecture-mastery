@@ -2,7 +2,7 @@
 id: infrastructure-as-code
 title: Infrastructure as Code
 sidebar_position: 2
-description: Declaring the environment instead of configuring it — and the drift that appears when somebody changes it by hand.
+description: Declaring the environment instead of configuring it, and the drift that appears when somebody changes it by hand.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [environment-management, ci-cd, blue-green]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Infrastructure as code is declaring the desired environment in versioned files, and letting a tool converge
 reality toward that declaration.
 
-The gain is not automation — it is **reproducibility**: the environment can be recreated from scratch,
+The gain is not automation but **reproducibility**: the environment can be recreated from scratch,
 identically, as many times as necessary.
 
 And, with it, come review, history, and the ability to answer "why is this like this?" by consulting the
@@ -43,7 +43,7 @@ The symptom appears late:
 "what changed yesterday?"            there is no record
 ```
 
-See [IaaS](/09-cloud-architecture/iaas.md). The problem is not the initial creation — it is everything that
+See [IaaS](/09-cloud-architecture/iaas.md). The problem is not the initial creation but everything that
 comes afterward.
 
 ## Core Concepts
@@ -55,8 +55,8 @@ imperative    "create an instance, then configure the network, then..."
 declarative   "the environment should have this; converge toward it"
 ```
 
-The practical difference: the declarative one is [idempotent](/06-distributed-systems/idempotency.md) —
-reapplying the same declaration to an already converged environment changes nothing — and it allows calculating the difference between the desired and the real before acting.
+The practical difference: the declarative one is [idempotent](/06-distributed-systems/idempotency.md)
+(reapplying the same declaration to an already converged environment changes nothing), and it allows calculating the difference between the desired and the real before acting.
 
 See [Kubernetes](/09-cloud-architecture/kubernetes.md), which applies the same principle to containers.
 
@@ -65,7 +65,7 @@ convergence plan before applying it.
 
 ### Configuration drift is the enemy
 
-Somebody changes something through the console — during an incident, to test, out of convenience. Reality
+Somebody changes something through the console: during an incident, to test, out of convenience. Reality
 starts diverging from the declaration.
 
 The consequences:
@@ -91,7 +91,7 @@ other.
 
 ### The state is a critical artifact
 
-The tool maintains a record of what it created — the state. Losing it means it no longer knows what it
+The tool maintains a record of what it created: the state. Losing it means it no longer knows what it
 manages.
 
 ```text
@@ -117,7 +117,7 @@ bad    a generic module with thirty parameters to serve every case
 The criterion: a module should remove real repetition, not anticipate hypothetical variation.
 
 And modules need to be versioned: a shared module changed with no version changes the behavior of every
-environment using it, simultaneously. See [redundancy](/12-reliability/redundancy.md) — it is the same
+environment using it, simultaneously. See [redundancy](/12-reliability/redundancy.md): it is the same
 correlation problem.
 
 ### Applying in production is a deployment
@@ -146,8 +146,8 @@ short-lived resources      created and destroyed by the application
 application configuration  variables and flags, not infrastructure
 ```
 
-Mixing data or secrets into the declaration is the origin of leaks and of accidental destructive operations
-— a resource removal that deletes a database along with it.
+Mixing data or secrets into the declaration is the origin of leaks and of accidental destructive operations:
+a resource removal that deletes a database along with it.
 
 Deletion protection on stateful resources is not a detail, it is mandatory.
 
@@ -182,15 +182,15 @@ temporary volumes are orchestrator state; declaring them as well puts two tools
 converging the same object, each undoing the other.
 
 **For a third-party service with no programmable interface.** If the vendor can only be
-configured through its dashboard, the declaration becomes documentation no tool applies —
+configured through its dashboard, the declaration becomes documentation no tool applies,
 and documentation drifts without anyone detecting it.
 
 ## Alternatives
 
-- **Server configuration tools** — for what runs inside the machine, instead of the cloud resources.
-- **Pre-built images** — the environment comes ready in the image, and the infrastructure only instantiates
+- **Server configuration tools**: for what runs inside the machine, instead of the cloud resources.
+- **Pre-built images**: the environment comes ready in the image, and the infrastructure only instantiates
   it. See [containers in delivery](/14-devops-and-platform/containers-in-delivery.md).
-- **Platform interfaces** — the developer declares the intent and the platform translates. See
+- **Platform interfaces**: the developer declares the intent and the platform translates. See
   [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
 
 The last is the natural evolution in large organizations: not every team needs to write infrastructure.
@@ -254,8 +254,8 @@ resources were declared.
 
 An incident revealed what the other 10% meant.
 
-An apply of the declaration, in production, removed a network rule that was not declared — created manually
-during an incident, eight months earlier, and never incorporated.
+An apply of the declaration, in production, removed a network rule that was not declared (created manually
+during an incident, eight months earlier, and never incorporated).
 
 The rule allowed a partner's access. The integration stopped for 5 hours, and the diagnosis was slow
 because nobody knew the rule existed.
@@ -271,7 +271,7 @@ diverges. The first run produced the list of 34.
 [least privilege](/10-security/least-privilege.md).
 
 **A fast path.** People's complaint was legitimate: applying a declared change took 25 minutes between
-review, plan and apply. The pipeline was optimized to 4 minutes, and the drift practically stopped — not by
+review, plan and apply. The pipeline was optimized to 4 minutes, and the drift practically stopped: not by
 prohibition, by convenience.
 
 **Deletion protection** on databases, storage and stateful resources. An attempt to remove them through the
@@ -284,20 +284,20 @@ all three down.
 every environment on the next apply.
 
 What the team records: prohibiting console use had been tried before and had failed. What worked was making
-the declared path faster — the drift was a symptom of friction, not of indiscipline.
+the declared path faster: the drift was a symptom of friction, not of indiscipline.
 
 ## Related Concepts
 
 - [Environment Management](/14-devops-and-platform/environment-management.md).
 - [Containers in Delivery](/14-devops-and-platform/containers-in-delivery.md).
-- [Blue-Green](/14-devops-and-platform/blue-green.md) — the ephemeral environment.
+- [Blue-Green](/14-devops-and-platform/blue-green.md): the ephemeral environment.
 - [IaaS](/09-cloud-architecture/iaas.md).
 
 ## Practical Exercise
 
 Compare what exists in your cloud account with what is declared.
 
-The resources that appear only in the first list are your drift — and each one is a surprise waiting for
+The resources that appear only in the first list are your drift, and each one is a surprise waiting for
 the next apply.
 
 ## Interview Questions

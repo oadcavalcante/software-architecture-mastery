@@ -2,7 +2,7 @@
 id: generic-domain
 title: Generic Domain
 sidebar_position: 5
-description: Necessário e já resolvido pelo mercado — compre, e a decisão de construir precisa de justificativa.
+description: "Necessário e já resolvido pelo mercado: compre, e a decisão de construir precisa de justificativa."
 doc_type: foundation
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, supporting-domain, anti-corruption-layer]
 canonical_for: [generic domain, subdomínio genérico]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -41,7 +41,7 @@ frequentemente podem ser adaptados.
 *"Fica mais barato."* Compara-se o custo de construir com o preço da licença, e
 esquece-se o custo de manter, atualizar, corrigir e operar por anos.
 
-*"Não queremos depender de terceiros."* A dependência existe de qualquer forma —
+*"Não queremos depender de terceiros."* A dependência existe de qualquer forma:
 de bibliotecas, do provedor de nuvem, do sistema operacional. A questão é onde
 ela é aceitável.
 
@@ -79,14 +79,14 @@ A defesa é uma [anti-corruption layer](/04-domain-driven-design/anti-corruption
 externa fica atrás de uma interface no seu vocabulário, e o resto do sistema não
 a conhece.
 
-Isso é o que torna a decisão de comprar reversível — e a reversibilidade é o que
+Isso é o que torna a decisão de comprar reversível, e a reversibilidade é o que
 responde ao argumento de dependência.
 
 ### Quando construir se justifica
 
 Existem casos legítimos, e vale nomeá-los:
 
-Restrição regulatória que nenhum fornecedor atende — residência de dados, por
+Restrição regulatória que nenhum fornecedor atende: residência de dados, por
 exemplo.
 
 Escala em que o custo por transação do fornecedor supera o de construir e operar.
@@ -96,7 +96,7 @@ que se imagina.
 Requisito genuinamente incomum, verificado contra pelo menos três alternativas de
 mercado.
 
-Ausência de opção madura — o que acontece, e diminui com o tempo.
+Ausência de opção madura (o que acontece, e diminui com o tempo).
 
 ### Generic hoje, não necessariamente ontem
 
@@ -108,10 +108,10 @@ Revisar isso periodicamente libera capacidade.
 ## Por Que Isso Importa
 
 **Porque construir generic domain é um desperdício recorrente de capacidade de
-engenharia** — e dos mais fáceis de evitar, uma vez classificado.
+engenharia**, e dos mais fáceis de evitar, uma vez classificado.
 
 **Porque a decisão precisa inverter o ônus.** O default deve ser comprar, e
-construir deve exigir justificativa — não o contrário.
+construir deve exigir justificativa, não o contrário.
 
 **Porque a superfície de segurança importa.** Em vários generic domains,
 construir é assumir risco que o fornecedor absorveria.
@@ -137,7 +137,7 @@ Uma empresa de educação construiu o próprio sistema de assinaturas: planos, c
 de cobrança, tentativas de retentativa, upgrade e downgrade proporcional, cupons,
 períodos de teste.
 
-Dois engenheiros, quatorze meses. Depois disso, manutenção contínua — cerca de 20%
+Dois engenheiros, quatorze meses. Depois disso, manutenção contínua: cerca de 20%
 do tempo de um engenheiro, indefinidamente.
 
 Quando o financeiro pediu suporte a cobrança anual com desconto e a faturamento
@@ -147,7 +147,7 @@ A avaliação de alternativas de mercado, feita nesse ponto, encontrou três
 produtos que faziam tudo isso e mais. O custo anual equivalia a cerca de dois
 meses de um engenheiro.
 
-A migração levou cinco meses — mais do que teria levado adotar desde o início,
+A migração levou cinco meses, mais do que teria levado adotar desde o início,
 porque o modelo de assinaturas estava espalhado por todo o sistema sem isolamento.
 
 O que a equipe registrou no ADR: a decisão original de construir foi tomada em
@@ -175,7 +175,7 @@ que a intuição.
 [anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md), a migração é local; se não há,
 é um projeto.
 
-A quarta estimativa é o que trava a maioria das migrações — e é consequência de uma
+A quarta estimativa é o que trava a maioria das migrações, e é consequência de uma
 decisão tomada anos antes de não isolar.
 
 Isso dá um argumento adicional para o isolamento no momento da adoção: ele não
@@ -184,11 +184,11 @@ construir envelhecer.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](/04-domain-driven-design/subdomain.md) — a classificação.
-- [Core Domain](/04-domain-driven-design/core-domain.md) — onde o default se inverte,
+- [Subdomínio](/04-domain-driven-design/subdomain.md): a classificação.
+- [Core Domain](/04-domain-driven-design/core-domain.md): onde o default se inverte,
   porque comprar custa a diferenciação quando o fornecedor vende o mesmo aos concorrentes.
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — como isolar o que se adota.
-- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — o custo total de propriedade em detalhe.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): como isolar o que se adota.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md): o custo total de propriedade em detalhe.
 
 ## Exercício Prático
 

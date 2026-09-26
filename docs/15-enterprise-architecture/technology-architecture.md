@@ -2,7 +2,7 @@
 id: technology-architecture
 title: Arquitetura de Tecnologia
 sidebar_position: 5
-description: A base sobre a qual tudo roda — e o custo de cada tecnologia adicional a operar.
+description: A base sobre a qual tudo roda, e o custo de cada tecnologia adicional a operar.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [technology-radar, standards, platform-engineering]
 canonical_for: [arquitetura de tecnologia, variedade tecnológica, custo de suporte, obsolescência]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-28
 A arquitetura de tecnologia descreve a base sobre a qual as aplicações rodam:
 infraestrutura, plataformas, linguagens, armazenamentos, ferramentas.
 
-A decisão central dela não é qual tecnologia é melhor. É **quantas a organização
-consegue suportar bem** — porque cada uma adicionada tem custo operacional permanente
+A decisão central dela não é qual tecnologia é melhor, e sim **quantas a organização
+consegue suportar bem**, porque cada uma adicionada tem custo operacional permanente
 que raramente entra na conta da decisão.
 
 ## Problema
@@ -40,7 +40,7 @@ cada plataforma     atualização, segurança, integração
 cada ferramenta     licença, aprendizado, manutenção
 ```
 
-O custo não é somado — ele é multiplicado pelo número de pessoas que precisam conhecer
+O custo não é somado: ele é multiplicado pelo número de pessoas que precisam conhecer
 cada uma, e pelo número de ambientes em que cada uma precisa ser operada.
 
 E ele é invisível na decisão local: quem escolhe o quarto banco não paga o custo de
@@ -98,7 +98,7 @@ banco gerenciado    custo baixo — a variedade pesa menos
 Ver [serviços gerenciados](/09-cloud-architecture/managed-services.md).
 
 Isso muda a decisão: adotar um armazenamento adicional gerenciado é uma decisão bem menor
-que adotá-lo autogerido — e a discussão frequentemente não faz essa distinção.
+que adotá-lo autogerido, e a discussão frequentemente não faz essa distinção.
 
 ### Obsolescência precisa de plano
 
@@ -129,8 +129,8 @@ Ver [confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
 
 A tentação, diante de variedade excessiva, é padronizar tudo numa tecnologia.
 
-O custo de migrar sistemas funcionais é alto, e o benefício — menos uma tecnologia a
-operar — precisa superá-lo.
+O custo de migrar sistemas funcionais é alto, e o benefício (menos uma tecnologia a
+operar) precisa superá-lo.
 
 ```text
 consolidar faz sentido   tecnologia em declínio, com risco
@@ -170,7 +170,7 @@ Essa assimetria de incentivo é a causa raiz, e ela não se corrige com discipli
 funciona são mecanismos que a compensam:
 
 **Tornar o custo visível na decisão de adicionar.** Quem propõe apresenta o custo
-operacional agregado — sobreaviso, conhecimento, integração.
+operacional agregado: sobreaviso, conhecimento, integração.
 
 **Atribuir a alguém a responsabilidade de reduzir**, com legitimidade equivalente à de
 quem adiciona.
@@ -206,16 +206,16 @@ custo agregado passa a valer quando os sistemas se estabilizam e começam a acum
 operação.
 
 **Tudo em serviços gerenciados de um provedor.** Se nenhum armazenamento é autogerido,
-boa parte do custo que este documento mede — operação, correção, sobreaviso — está do lado
+boa parte do custo que este documento mede (operação, correção, sobreaviso) está do lado
 do provedor. Sobram conhecimento e contratação, que cabem na decisão de cada time sem
 análise organizacional.
 
 ## Alternativas
 
-- **[Radar tecnológico](/15-enterprise-architecture/technology-radar.md)** — orientação com contexto.
-- **Caminho pavimentado** — o suportado vem pronto.
-- **Exceção com assunção de operação** — o time que escolhe fora assume o sobreaviso.
-- **Serviços gerenciados** — reduzem o custo de variedade.
+- **[Radar tecnológico](/15-enterprise-architecture/technology-radar.md)**: orientação com contexto.
+- **Caminho pavimentado**: o suportado vem pronto.
+- **Exceção com assunção de operação**: o time que escolhe fora assume o sobreaviso.
+- **Serviços gerenciados**: reduzem o custo de variedade.
 
 A terceira é o mecanismo que equilibra autonomia e custo: a escolha permanece possível, e
 quem a faz paga por ela.
@@ -259,9 +259,9 @@ quem a faz paga por ela.
 
 **Não distinguir gerenciado de autogerido.** São decisões com perfis de custo e risco opostos; compará-las pelo preço por transação ignora a diferença que importa.
 
-**Consolidar por princípio.** Reduzir o número de tecnologias é bom até forçar casos que não cabem — e aí o custo do encaixe supera o da diversidade.
+**Consolidar por princípio.** Reduzir o número de tecnologias é bom até forçar casos que não cabem, e aí o custo do encaixe supera o da diversidade.
 
-**Governar por lista.** Uma lista de tecnologias aprovadas envelhece e vira obstáculo. O que sustenta é o critério de avaliação, que continua válido quando a lista não está — e ele decide o que a plataforma oferece pronto, enquanto a plataforma é o que faz o critério ser seguido sem que alguém consulte lista nenhuma.
+**Governar por lista.** Uma lista de tecnologias aprovadas envelhece e vira obstáculo. O que sustenta é o critério de avaliação, que continua válido quando a lista não está. E ele decide o que a plataforma oferece pronto, enquanto a plataforma é o que faz o critério ser seguido sem que alguém consulte lista nenhuma.
 
 ## Exemplo Real
 
@@ -277,8 +277,8 @@ ferramentas de esteira     4
 
 Nove bancos de dados para 120 engenheiros.
 
-A avaliação de sustentabilidade — quantas pessoas conseguem resolver um incidente em cada
-um — foi reveladora:
+A avaliação de sustentabilidade (quantas pessoas conseguem resolver um incidente em cada
+um) foi reveladora:
 
 ```text
 banco relacional principal    dezenas
@@ -302,9 +302,9 @@ As decisões:
 com o custo operacional explicitado, e aprovação de alcance amplo. Ver
 [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
-**Migrar o que era barato.** Os três serviços de baixa criticidade — no segundo banco de
-documento, no colunar e no chave-valor secundário — migraram para o banco relacional
-principal — em nenhum deles a escolha
+**Migrar o que era barato.** Os três serviços de baixa criticidade (no segundo banco de
+documento, no colunar e no chave-valor secundário) migraram para o banco relacional
+principal. Em nenhum deles a escolha
 original tinha justificativa que sobrevivesse à revisão.
 
 **Manter o que se justificava.** A busca e a série temporal permaneceram, com
@@ -322,7 +322,7 @@ pessoas ou mais capazes de atendê-los, o banco de documento restante com três,
 como único abaixo do mínimo, registrado e com prazo.
 
 O que se registrou depois: nenhuma das nove escolhas tinha sido errada no momento em que
-foi feita. Cada uma resolvia um problema real. O erro foi nunca somar — ninguém tinha,
+foi feita. Cada uma resolvia um problema real. O erro foi nunca somar: ninguém tinha,
 até o inventário, a visão de que a organização operava nove armazenamentos.
 
 ## Conceitos Relacionados
@@ -349,4 +349,4 @@ As que tiverem menos de três são risco, não escolha.
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
-- Thoughtworks. *Technology Radar* — publicação semestral desde 2010.
+- Thoughtworks. *Technology Radar*. Publicação semestral desde 2010.

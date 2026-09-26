@@ -2,7 +2,7 @@
 id: composite
 title: Composite
 sidebar_position: 8
-description: Treating objects and compositions uniformly — and the cost of that uniformity.
+description: Treating objects and compositions uniformly, and the cost of that uniformity.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, iterator, visitor]
 canonical_for: [composite, part-whole hierarchy]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -40,7 +40,7 @@ if it is a file:       add its size
 if it is a directory:  for each child, repeat
 ```
 
-That conditional replicates in every operation — compute size, render, count, search.
+That conditional replicates in every operation: compute size, render, count, search.
 Adding a node type requires touching all of them.
 
 ## Core Concepts
@@ -65,15 +65,15 @@ children. The recursion sits inside the structure, not in the client.
 
 The GoF presents two variants, and choosing between them is the pattern's trade-off.
 
-**Transparent** — the `Component` interface declares `add` and `remove`. The client
+**Transparent**: the `Component` interface declares `add` and `remove`. The client
 treats everything the same; the leaf has to deal with operations that make no sense
 for it, typically by throwing.
 
-**Safe** — only the composite has `add` and `remove`. There is no meaningless
+**Safe**: only the composite has `add` and `remove`. There is no meaningless
 operation; the client has to check the type in order to compose.
 
 Transparent wins on uniformity and loses on type safety; safe, the reverse. The choice is
-binary when the interface has to be closed and the platform offers no safe query — outside
+binary when the interface has to be closed and the platform offers no safe query. Outside
 that there is a middle ground: a query accessor, `asComposite()`, returning empty on the
 leaf. It preserves the uniform traversal and gives whoever composes a total check, with no
 `instanceof`; in a language with sealed types and pattern matching, the cost of that check is
@@ -85,8 +85,8 @@ When the client only traverses, the safe variant costs nothing and is preferable
 
 ### Composite and recursion
 
-The structure is naturally recursive, and that brings two real concerns: depth — the
-stack in very deep trees — and cycles, which produce infinite recursion if the
+The structure is naturally recursive, and that brings two real concerns: depth (the
+stack in very deep trees) and cycles, which produce infinite recursion if the
 structure allows a node to contain an ancestor.
 
 ## When to Use
@@ -103,7 +103,7 @@ does not contain others of the same type, the pattern does not apply.
 
 **When leaf and composite have very different behaviour.** Forcing a common interface
 produces meaningless methods on one side, and the client ends up checking the type
-anyway — losing the benefit and keeping the cost.
+anyway, losing the benefit and keeping the cost.
 
 **When the structure is shallow and fixed.** Two known levels do not justify the
 generality.
@@ -115,11 +115,11 @@ its ancestors are, the uniformity breaks and the pattern starts getting in the w
 
 ## Alternatives
 
-- **A simple list** — when the structure is shallow.
-- **[Visitor](/03-design-patterns/visitor.md)** — when the operations vary more than
+- **A simple list**: when the structure is shallow.
+- **[Visitor](/03-design-patterns/visitor.md)**: when the operations vary more than
   the node types; frequently used together with Composite.
-- **[Iterator](/03-design-patterns/iterator.md)** — when traversal is the only need.
-- **A data structure with no class hierarchy** — a generic tree with data in the
+- **[Iterator](/03-design-patterns/iterator.md)**: when traversal is the only need.
+- **A data structure with no class hierarchy**: a generic tree with data in the
   nodes.
 
 ## Trade-offs
@@ -162,7 +162,7 @@ hierarchy.
 **GUI trees.** A container is a component that contains components. Rendering,
 measuring and propagating events are uniform operations over the tree.
 
-**File systems.** Directories and files with common operations — size, permissions,
+**File systems.** Directories and files with common operations: size, permissions,
 path.
 
 **Syntax trees.** An expression contains subexpressions; evaluating is recursive. It
@@ -172,7 +172,7 @@ appear together.
 **Document structures.** The DOM in browsers: nodes containing nodes, with uniform
 operations.
 
-In all four, the part-whole hierarchy is intrinsic to the domain — nobody invented it
+In all four, the part-whole hierarchy is intrinsic to the domain. Nobody invented it
 in order to apply the pattern. That is the sign Composite is appropriate: the tree
 already exists in the problem.
 
@@ -185,7 +185,7 @@ The first implementation used transparent Composite: `Principal` with `add` and
 `remove`, and `User` throwing on both.
 
 The problem appeared when the admin interface started building the structure: it
-needed to check the type before composing, which nullified the uniformity — and still
+needed to check the type before composing, which nullified the uniformity and still
 kept the exceptions.
 
 The change to the safe variant removed `add` and `remove` from `Principal`. The
@@ -200,10 +200,10 @@ check came to track visited nodes, which should have been done from the start.
 
 ## Related Concepts
 
-- [Decorator](/03-design-patterns/decorator.md) — similar structure, different
+- [Decorator](/03-design-patterns/decorator.md): similar structure, different
   purpose.
-- [Visitor](/03-design-patterns/visitor.md) — operations over the structure.
-- [Iterator](/03-design-patterns/iterator.md) — traversal.
+- [Visitor](/03-design-patterns/visitor.md): operations over the structure.
+- [Iterator](/03-design-patterns/iterator.md): traversal.
 
 ## Practical Exercise
 

@@ -2,7 +2,7 @@
 id: builder
 title: Builder
 sidebar_position: 3
-description: Separar a construção da representação — e o uso moderno, que é outro problema.
+description: Separar a construção da representação, e o uso moderno, que é outro problema.
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, abstract-factory, composite]
 canonical_for: [builder]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -36,7 +36,7 @@ percurso é o exemplo canônico.
 
 O uso predominante hoje é outro: **construção de objetos com muitos parâmetros
 opcionais**. Um objeto com doze campos, dos quais três são obrigatórios, não cabe
-num construtor legível — e uma sequência de acessadores permite estados
+num construtor legível, e uma sequência de acessadores permite estados
 inválidos entre chamadas.
 
 Os dois problemas são reais. São diferentes.
@@ -70,7 +70,7 @@ Pedido.novo(clienteId, itens)      ← obrigatórios no início
 ```
 
 Duas propriedades que importam: os obrigatórios são exigidos, e o objeto só
-existe depois de `construir()` — nunca há instância parcialmente montada.
+existe depois de `construir()`; nunca há instância parcialmente montada.
 
 Isso resolve o *telescoping constructor* (uma cascata de construtores
 sobrecarregados) e o objeto mutável com acessadores. Ver
@@ -110,15 +110,15 @@ de validade na construção não compra o que promete.
 representações alternativas produz uma classe sem função.
 
 **Para objetos de transporte.** Um DTO com dez campos que apenas carrega dados não
-precisa de builder — precisa de um registro transparente.
+precisa de builder, e sim de um registro transparente.
 
 ## Alternativas
 
-- **Parâmetros nomeados com padrão** — se a linguagem oferece, é superior.
-- **Objeto de parâmetros** — agrupar os relacionados num tipo próprio.
-- **Métodos de fábrica nomeados** — quando as combinações válidas são poucas e
+- **Parâmetros nomeados com padrão**: se a linguagem oferece, é superior.
+- **Objeto de parâmetros**: agrupar os relacionados num tipo próprio.
+- **Métodos de fábrica nomeados**: quando as combinações válidas são poucas e
   conhecidas: `Pedido.expressoPara(cliente)`.
-- **Construtor simples** — quando os parâmetros são poucos.
+- **Construtor simples**: quando os parâmetros são poucos.
 
 ## Trade-offs
 
@@ -166,16 +166,16 @@ trocou `dataInicio` com `dataFim` numa chamada, e o compilador não reclamou por
 ambos eram do mesmo tipo.
 
 O builder resolveu de duas formas. Os nomes tornaram a troca visível na leitura.
-E `construir()` passou a validar que o início precede o fim — validação que antes
+E `construir()` passou a validar que o início precede o fim, validação que antes
 não existia em lugar nenhum porque não havia um ponto único de construção.
 
 O detalhe honesto: se o sistema estivesse numa linguagem com parâmetros nomeados,
-a primeira metade do benefício viria de graça, e restaria só a validação central —
+a primeira metade do benefício viria de graça, e restaria só a validação central,
 que não justificaria a classe extra.
 
 ## Onde ele aparece na prática
 
-**`StringBuilder`.** Não é o padrão do GoF nem o builder de parâmetros — é
+**`StringBuilder`.** Não é o padrão do GoF nem o builder de parâmetros: é
 acumulação eficiente com encadeamento. O nome compartilhado confunde, e vale
 saber que são três coisas distintas com a mesma palavra.
 
@@ -190,22 +190,22 @@ teste é um dos usos de melhor retorno, porque o teste fica legível: o que o
 cenário tem de particular fica explícito, e o resto assume padrões.
 
 Esse último uso costuma justificar o builder sozinho, mesmo quando o código de
-produção não precisaria dele — a legibilidade do teste é o que faz alguém
+produção não precisaria dele: a legibilidade do teste é o que faz alguém
 consultá-lo como documentação.
 
 ## Conceitos Relacionados
 
-- [Factory Method](/03-design-patterns/factory-method.md) — criação por subclasse.
-- [Abstract Factory](/03-design-patterns/abstract-factory.md) — famílias de produtos.
-- [Composite](/03-design-patterns/composite.md) — Builder é frequentemente usado para montar
+- [Factory Method](/03-design-patterns/factory-method.md): criação por subclasse.
+- [Abstract Factory](/03-design-patterns/abstract-factory.md): famílias de produtos.
+- [Composite](/03-design-patterns/composite.md): Builder é frequentemente usado para montar
   estruturas compostas.
-- [Encapsulamento](/02-software-design/encapsulation.md) — a invariante que o
+- [Encapsulamento](/02-software-design/encapsulation.md): a invariante que o
   builder protege.
 
 ## Exercício Prático
 
 Encontre a classe do seu sistema com o construtor de mais parâmetros. Conte
-quantos são do mesmo tipo e adjacentes — cada par assim é uma troca silenciosa
+quantos são do mesmo tipo e adjacentes: cada par assim é uma troca silenciosa
 esperando acontecer.
 
 Depois verifique se a linguagem que você usa tem parâmetros nomeados. Se tiver,
@@ -220,4 +220,4 @@ compare a solução com builder e a solução com a linguagem.
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3ª ed., 2018 — o builder de parâmetros.
+- Bloch, Joshua. *Effective Java*. 3ª ed., 2018. O builder de parâmetros.

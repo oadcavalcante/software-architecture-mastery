@@ -2,7 +2,7 @@
 id: fitness-functions-governance
 title: Funções de Aptidão como Governança
 sidebar_position: 7
-description: Governança executável — a propriedade que se quer preservar, verificada a cada mudança.
+description: "Governança executável: a propriedade que se quer preservar, verificada a cada mudança."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [compliance, governance-standards, governance-basics]
 canonical_for: [função de aptidão, governança executável, aptidão contínua, regra não automatizável]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -34,14 +34,14 @@ função de aptidão o grafo de dependências é verificado na construção;
 
 A diferença entre as duas linhas é a diferença entre uma intenção e um mecanismo. A
 primeira é verdadeira quando alguém lembra; a segunda, enquanto a verificação roda na
-esteira — e deixa de ser quando alguém a desabilita ou a esvazia com exclusões, que é o
+esteira. E deixa de ser quando alguém a desabilita ou a esvazia com exclusões, que é o
 modo como ela erode.
 
 Para propriedades mensuráveis, cobra menos atrito por efeito que a revisão manual, que
 exige atenção a cada mudança — e exige mais investimento inicial que qualquer regra escrita.
 
-A mecânica de construir e operar uma função — atômica e holística, mensagem, falso
-positivo — está em [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md).
+A mecânica de construir e operar uma função (atômica e holística, mensagem, falso
+positivo) está em [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md).
 Este documento trata do recorte de governança: a função como ponto de intervenção, sua
 relação com exceções e revisão, e a fronteira entre o que ela verifica e o que fica para
 julgamento.
@@ -57,10 +57,10 @@ mês 18    metade das exceções não foi registrada
 mês 36    ninguém sabe qual é o estado
 ```
 
-A erosão não é indisciplina. É que cada violação individual é pequena, invisível e
+A erosão não é indisciplina: cada violação individual é pequena, invisível e
 justificável no momento, e nada as soma.
 
-E a alternativa tradicional — inspecionar em revisão — tem dois defeitos: acontece tarde, e
+E a alternativa tradicional (inspecionar em revisão) tem dois defeitos: acontece tarde, e
 depende de alguém notar. Uma dependência cíclica introduzida numa mudança de 400 linhas não
 é notada por leitura.
 
@@ -90,8 +90,8 @@ disparada   executa periodicamente ou sob demanda — caro demais para toda muda
 ```
 
 Para a governança, a diferença é o momento da intervenção: a contínua barra a violação
-antes de ela entrar; a disparada a encontra depois, e por isso precisa de um destino — um
-alerta com dono ou um item de revisão —, senão vira relatório que ninguém lê. A distinção
+antes de ela entrar; a disparada a encontra depois, e por isso precisa de um destino (um
+alerta com dono ou um item de revisão), senão vira relatório que ninguém lê. A distinção
 entre atômica e holística está no [documento canônico](/23-architecture-leadership/fitness-functions.md#atômica-e-holística);
 várias funções holísticas são consultas sobre dados que
 [observabilidade](/13-observability/index.md) já coleta.
@@ -108,16 +108,16 @@ Fazer tudo falhar produz duas reações ruins: a verificação é desabilitada, 
 exclusões cresce até a regra não valer mais.
 
 A escolha correta depende de uma pergunta: **se isto falhar, é sempre um erro?** Se a
-resposta for "às vezes é legítimo", a verificação deveria avisar, não bloquear — e o caso
+resposta for "às vezes é legítimo", a verificação deveria avisar, não bloquear. E o caso
 legítimo deveria virar [exceção registrada](/19-architecture-governance/exceptions.md).
 
 ### A mensagem é a porta do processo de exceção
 
-A mensagem acionável — arquivo, linha, alternativa correta — é tratada no
+A mensagem acionável (arquivo, linha, alternativa correta) é tratada no
 [documento canônico](/23-architecture-leadership/fitness-functions.md#a-mensagem-é-parte-do-desenho).
 O que cabe à governança é a última linha dela: o caminho para registrar exceção. Sem esse
-caminho, quem tem um caso legítimo só tem duas saídas — pedir para desligar a verificação ou
-acrescentar uma exclusão silenciosa — e as duas tiram a regra do alcance da governança.
+caminho, quem tem um caso legítimo só tem duas saídas (pedir para desligar a verificação ou
+acrescentar uma exclusão silenciosa), e as duas tiram a regra do alcance da governança.
 
 ### O que não pode ser automatizado
 
@@ -132,7 +132,7 @@ a complexidade se justifica?
 ```
 
 Nenhuma dessas é mensurável. Elas permanecem no território de
-[revisão](/19-architecture-governance/governance-review.md) e de julgamento humano — e é por isso que funções de aptidão
+[revisão](/19-architecture-governance/governance-review.md) e de julgamento humano. É por isso que funções de aptidão
 substituem parte da governança, não toda.
 
 A repartição útil: a verificação automática libera a atenção humana para as perguntas que só
@@ -140,12 +140,12 @@ ela responde.
 
 ### Adoção, dono e revisão
 
-O protocolo de adoção — começar pela regra que já causou dano, avisar antes de bloquear — e
-a operação de cada função — dono, revisão, taxa de falso positivo — estão no
+O protocolo de adoção (começar pela regra que já causou dano, avisar antes de bloquear) e
+a operação de cada função (dono, revisão, taxa de falso positivo) estão no
 [documento canônico](/23-architecture-leadership/fitness-functions.md#comece-pela-regra-que-já-causou-dano).
 Do lado da governança, o que muda é onde isso é registrado: cada função aponta para a
 [decisão](/19-architecture-governance/governance-standards.md) que a originou, e a revisão
-periódica do padrão inclui a lista de exclusões da função — é ali que a regra perde validade
+periódica do padrão inclui a lista de exclusões da função. É ali que a regra perde validade
 sem que ninguém decida isso.
 
 ## Modelo Mental
@@ -162,7 +162,7 @@ sem que ninguém decida isso.
 
 ## Quando Não Usar
 
-**Para julgamento** — adequação de fronteira, modelagem, trade-off. Não há medida contra a
+**Para julgamento**: adequação de fronteira, modelagem, trade-off. Não há medida contra a
 qual comparar, e uma verificação que finge medir afasta a conversa da revisão, onde ela
 precisa acontecer.
 
@@ -179,19 +179,19 @@ recuperação em teste de caos não se pagam como verificação contínua; viram
 ou relatório.
 
 **Quando ninguém pode ser dono dela.** Uma função sem dono quebra na primeira mudança de
-plataforma e é desabilitada — e a desabilitação ensina que a regra é negociável, o que é pior
+plataforma e é desabilitada. E a desabilitação ensina que a regra é negociável, o que é pior
 do que nunca tê-la criado.
 
 ## Alternativas
 
-- **Controle preventivo** — impedir em vez de detectar; melhor quando o ambiente permite.
-- **[Revisão](/19-architecture-governance/governance-review.md)** — para o que exige julgamento.
-- **[Conformidade contínua](/19-architecture-governance/compliance.md)** — o mesmo mecanismo, com foco regulatório.
-- **Relatório periódico** — quando a propriedade é tendência e não evento.
+- **Controle preventivo**: impedir em vez de detectar; melhor quando o ambiente permite.
+- **[Revisão](/19-architecture-governance/governance-review.md)**: para o que exige julgamento.
+- **[Conformidade contínua](/19-architecture-governance/compliance.md)**: o mesmo mecanismo, com foco regulatório.
+- **Relatório periódico**: quando a propriedade é tendência e não evento.
 
 A primeira é preferível quando a plataforma consegue impor a propriedade sem caso legítimo
-de exceção — onde há exceção legítima, o bloqueio embutido vira rigidez e o caso vai para
-fora da plataforma: uma malha que rejeita tráfego não
+de exceção (onde há exceção legítima, o bloqueio embutido vira rigidez e o caso vai para
+fora da plataforma): uma malha que rejeita tráfego não
 autenticado torna a verificação correspondente desnecessária. Ver
 [fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
@@ -261,7 +261,7 @@ verificação lê a configuração de conexão de cada serviço e compara com o 
 propriedade de dados.
 
 Ela rodou em modo de aviso por seis semanas, com painel por time. Nesse período, 4 dos 6
-casos foram corrigidos voluntariamente — sem nenhuma cobrança, apenas por ficarem visíveis.
+casos foram corrigidos voluntariamente, sem nenhuma cobrança, apenas por ficarem visíveis.
 Os outros 2 viraram exceção com prazo e plano de migração.
 
 **Depois, em ordem de dano histórico:** dependência cíclica entre módulos, segredo em
@@ -274,8 +274,8 @@ bloqueio.
 **Mensagem acionável** em todas, com o arquivo, a linha, a alternativa correta e o caminho
 para registrar exceção.
 
-**Falso positivo monitorado.** Duas funções foram ajustadas por passarem de 5%; uma —
-"complexidade ciclomática acima do limite" — foi rebaixada de bloqueio para relatório, por
+**Falso positivo monitorado.** Duas funções foram ajustadas por passarem de 5%; uma
+("complexidade ciclomática acima do limite") foi rebaixada de bloqueio para relatório, por
 não distinguir complexidade essencial de acidental.
 
 **Quatro regras nunca automatizadas**, mantidas explicitamente como assunto de revisão:
@@ -302,7 +302,7 @@ não foram medidas de novo: os 26 não dizem nada sobre elas.
 
 O último número da tabela é o que a equipe considera mais importante e o mais fácil de ignorar: a
 automação não substituiu a revisão, ela liberou a revisão. As conversas passaram a ser sobre
-fronteira e modelagem — as quatro regras que nenhuma função verifica.
+fronteira e modelagem: as quatro regras que nenhuma função verifica.
 
 A avaliação posterior aponta: as 4 correções voluntárias durante o modo de aviso, sem nenhuma
 cobrança, foram o argumento que convenceu a organização a seguir. Tornar visível resolveu
@@ -310,21 +310,21 @@ dois terços do problema antes de qualquer bloqueio.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de intervenção.
-- [Conformidade](/19-architecture-governance/compliance.md) — o mesmo mecanismo, foco regulatório.
-- [Exceções](/19-architecture-governance/exceptions.md) — o que fazer com o caso legítimo.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md): o ponto de intervenção.
+- [Conformidade](/19-architecture-governance/compliance.md): o mesmo mecanismo, foco regulatório.
+- [Exceções](/19-architecture-governance/exceptions.md): o que fazer com o caso legítimo.
 - [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md).
 
 ## Exercício Prático
 
-Escolha uma função de aptidão que já roda no seu contexto — ou, se não houver nenhuma, a regra
+Escolha uma função de aptidão que já roda no seu contexto ou, se não houver nenhuma, a regra
 arquitetural mais antiga que ainda depende de revisão manual. Responda três perguntas sobre ela:
 quem é dono da regra, qual é o caminho para registrar exceção quando o caso é legítimo, e
 quantas exclusões silenciosas ela acumulou desde que foi criada.
 
 Se o caminho de exceção não existe, ou se as exclusões silenciosas são mais numerosas que as
 exceções registradas, a regra já saiu do alcance da governança. Isso precisa ser consertado
-antes de qualquer verificação nova — para escolher e construir a próxima, o roteiro está no
+antes de qualquer verificação nova. Para escolher e construir a próxima, o roteiro está no
 [documento canônico](/23-architecture-leadership/fitness-functions.md).
 
 ## Perguntas de Entrevista

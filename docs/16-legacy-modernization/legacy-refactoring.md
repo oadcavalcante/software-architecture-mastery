@@ -2,7 +2,7 @@
 id: legacy-refactoring
 title: Refatoração de Legado
 sidebar_position: 6
-description: Melhorar a estrutura sem entender tudo — com testes de caracterização como rede.
+description: Melhorar a estrutura sem entender tudo, com testes de caracterização como rede.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-systems]
 related: [legacy-systems, incremental-modernization, rebuilding]
 canonical_for: [teste de caracterização, costura, refatoração de legado, código sem cobertura]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -29,7 +29,7 @@ A saída desse ciclo é o conjunto de técnicas de
 para capturar o comportamento atual, e **costuras** para inserir pontos de teste sem
 alterar comportamento.
 
-Isso permite melhorar a estrutura de um sistema que ninguém entende completamente — que é
+Isso permite melhorar a estrutura de um sistema que ninguém entende completamente. Essa é
 a situação real.
 
 ## Problema
@@ -45,7 +45,7 @@ comportamento desconhecido  ninguém sabe o que deveria acontecer
 ```
 
 A tentação, diante disso, é reescrever. Ver
-[reconstrução](/16-legacy-modernization/rebuilding.md) — ela é mais cara e mais arriscada do que parece.
+[reconstrução](/16-legacy-modernization/rebuilding.md): ela é mais cara e mais arriscada do que parece.
 
 ## Conceitos Centrais
 
@@ -69,8 +69,8 @@ O procedimento:
 5. repita para os casos que importam
 ```
 
-Isso parece estranho — escrever testes que afirmam o comportamento atual, inclusive o
-errado — e é exatamente o ponto: você não sabe o que está certo, e precisa de proteção
+Isso parece estranho (escrever testes que afirmam o comportamento atual, inclusive o
+errado), e é exatamente o ponto: você não sabe o que está certo, e precisa de proteção
 antes de mudar.
 
 E os testes resultantes são documentação: a descrição executável do que o sistema faz,
@@ -89,8 +89,8 @@ por ligação       substituir a implementação em tempo de carga
 ```
 
 A técnica que abre a maior parte dos casos: **extrair e sobrescrever**. O trecho
-problemático — uma chamada a um sistema externo, um acesso a relógio, uma leitura de
-arquivo — é extraído para um método, que o teste sobrescreve.
+problemático (uma chamada a um sistema externo, um acesso a relógio, uma leitura de
+arquivo) é extraído para um método, que o teste sobrescreve.
 
 A alteração é mínima e mecânica, e ela torna o código testável sem mudar o
 comportamento.
@@ -132,11 +132,11 @@ proteção.
 
 ### Mudanças mecânicas primeiro
 
-Refatorações que a ferramenta faz — renomear, extrair método, mover — são de risco baixo
+Refatorações que a ferramenta faz (renomear, extrair método, mover) são de risco baixo
 mesmo sem testes, numa linguagem estaticamente tipada: a ferramenta preserva as referências
 que o compilador enxerga. Ela não enxerga o nome usado por reflexão, em string (SQL,
-serialização, configuração, injeção por nome) ou do outro lado de uma fronteira externa —
-e no legado esse acoplamento por nome é comum. Antes de renomear ou mover, procure o nome
+serialização, configuração, injeção por nome) ou do outro lado de uma fronteira externa.
+E no legado esse acoplamento por nome é comum. Antes de renomear ou mover, procure o nome
 como texto.
 
 Usá-las para tornar o código compreensível **antes** de qualquer mudança de
@@ -153,7 +153,7 @@ permite decidir o que fazer.
 
 ### Quando parar
 
-Refatoração de legado não termina — ela é contínua. O que precisa de critério é quando
+Refatoração de legado não termina: ela é contínua. O que precisa de critério é quando
 parar numa sessão:
 
 ```text
@@ -163,7 +163,7 @@ o código está bom o suficiente para a mudança que precisa ser feita
 Perseguir o ideal transforma uma mudança de dois dias numa de duas semanas, e a revisão
 fica impossível.
 
-Ver [modernização incremental](/16-legacy-modernization/incremental-modernization.md) — o limite da refatoração
+Ver [modernização incremental](/16-legacy-modernization/incremental-modernization.md): o limite da refatoração
 oportunista.
 
 ## Modelo Mental
@@ -194,15 +194,15 @@ atalho arriscado sai mais barato que a rede.
 
 **Quando o comportamento não é observável de forma determinística.** Saída que depende de
 concorrência, de ordem de chegada ou de estado externo que não se consegue fixar não se
-congela num teste de caracterização — sem rede viável, contenção costuma ser a saída.
+congela num teste de caracterização. Sem rede viável, contenção costuma ser a saída.
 
 ## Alternativas
 
-- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando o modelo está errado.
-- **Contenção** — isolar o legado atrás de uma interface, sem melhorá-lo por dentro. Ver
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)**: quando o modelo está errado.
+- **Contenção**: isolar o legado atrás de uma interface, sem melhorá-lo por dentro. Ver
   [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Congelar** — parar de mudar o módulo, construir o novo fora.
-- **Não fazer nada** — quando o módulo não muda.
+- **Congelar**: parar de mudar o módulo, construir o novo fora.
+- **Não fazer nada**: quando o módulo não muda.
 
 ## Trade-offs
 
@@ -241,7 +241,7 @@ mudança legítima.
 produção, e sem teste não há como saber qual mudança a causou.
 
 **Tentar entender tudo antes de começar.** A mudança fica adiada por semanas, e o
-entendimento envelhece antes de ser usado — o código continua mudando enquanto é estudado.
+entendimento envelhece antes de ser usado: o código continua mudando enquanto é estudado.
 
 **Refatorar o sistema inteiro.** O esforço vira projeto, compete por orçamento com o
 produto e costuma ser interrompido no meio, deixando duas estruturas convivendo.
@@ -258,7 +258,7 @@ quebram a cada refatoração legítima, e o time passa a desligá-los.
 
 ## Exemplo Real
 
-Uma empresa de logística tinha um módulo de cálculo de frete — 4.000 linhas, um método
+Uma empresa de logística tinha um módulo de cálculo de frete: 4.000 linhas, um método
 principal de 900, sem nenhum teste.
 
 Mudanças ali levavam semanas e produziam defeitos com frequência. A proposta interna era
@@ -271,7 +271,7 @@ adicionar uma nova modalidade de frete.
 reais extraídas de produção. Foram 220 casos, cobrindo as combinações de modalidade,
 região, peso e cliente.
 
-A caracterização revelou seis comportamentos que ninguém conhecia — incluindo um desconto
+A caracterização revelou seis comportamentos que ninguém conhecia, incluindo um desconto
 aplicado a três clientes específicos, com identificadores em código, sem comentário.
 
 **Semana 2 — costuras.** Três dependências rígidas foram extraídas: consulta de tabela de
@@ -282,7 +282,7 @@ verificada pelos testes de caracterização.
 nomeados, usando extração automática. Nenhuma mudança de comportamento; os testes
 continuaram passando.
 
-Só nesse ponto o código ficou compreensível — e a estrutura revelada mostrou que o cálculo
+Só nesse ponto o código ficou compreensível, e a estrutura revelada mostrou que o cálculo
 tinha três etapas claras que estavam entrelaçadas.
 
 **Semana 4 — a mudança.** A modalidade nova foi adicionada em cerca de 40 linhas, num
@@ -299,20 +299,20 @@ válido. Ele foi movido para configuração, e o negócio passou a poder alterá
 
 O que se registrou depois: as três primeiras semanas não entregaram nada visível, e foram o
 que tornou a quarta possível. A proposta de reescrever teria descartado os seis
-comportamentos desconhecidos — incluindo o acordo comercial ativo.
+comportamentos desconhecidos, incluindo o acordo comercial ativo.
 
 ## Conceitos Relacionados
 
-- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md) — o conhecimento embutido.
-- [Reconstrução](/16-legacy-modernization/rebuilding.md) — quando refatorar não basta.
+- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md): o conhecimento embutido.
+- [Reconstrução](/16-legacy-modernization/rebuilding.md): quando refatorar não basta.
 - [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md).
-- [Refatoração](/02-software-design/refactoring.md) — os fundamentos.
+- [Refatoração](/02-software-design/refactoring.md): os fundamentos.
 
 ## Exercício Prático
 
 Escolha um trecho de código sem testes que seu time precisa mudar em breve.
 
-Escreva um teste de caracterização antes de qualquer alteração — usando o procedimento de
+Escreva um teste de caracterização antes de qualquer alteração, usando o procedimento de
 deixar falhar para descobrir o valor real. O que você encontrar costuma surpreender.
 
 ## Perguntas de Entrevista

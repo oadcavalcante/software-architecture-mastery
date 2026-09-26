@@ -13,7 +13,7 @@ objective: >
 prerequisites: [context-mapping]
 related: [adapter, bounded-context, legacy-modernization]
 canonical_for: [anti-corruption layer, ACL]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 An anti-corruption layer is a translation layer between two bounded contexts, which prevents
 one's model from leaking into the other.
 
-The name is deliberately strong: without it, the other's model **corrupts** yours — its
+The name is deliberately strong: without it, the other's model **corrupts** yours. Its
 concepts come to inhabit your domain, and its decisions come to constrain yours.
 
 ## Problem
@@ -35,9 +35,9 @@ area's service, an external vendor.
 The path of least resistance is consuming its model directly. The types arrive, and each one
 is a route through which that system's decisions enter yours.
 
-The symptom shows up later: the domain gains concepts that are not its own — a field that
+The symptom shows up later: the domain gains concepts that are not its own (a field that
 exists because the legacy system requires it, a state that only makes sense in the vendor's
-model, a rule that exists to work around someone else's limitation.
+model, a rule that exists to work around someone else's limitation).
 
 When the external system changes, your domain changes with it. And when you want to replace
 the vendor, you discover its model is spread everywhere.
@@ -54,7 +54,7 @@ concepts become your concepts, with their own semantics, and what makes no sense
 domain does not cross.
 
 If the legacy system has seven order statuses and your domain recognizes three, the layer
-maps seven to three. It decides what matters — and that decision is modelling, not
+maps seven to three. It decides what matters, and that decision is modelling, not
 conversion.
 
 ### It protects the semantics, not just the types
@@ -65,7 +65,7 @@ The legacy system returns a negative lead time when there is an error. It uses a
 mean "no date". It counts an order as "completed" including cancelled ones.
 
 Each of those is a decision from the other's model that does not belong in yours. The layer
-has to translate that into your vocabulary — or reject it, if there is no valid translation.
+has to translate that into your vocabulary, or reject it, if there is no valid translation.
 
 A layer that merely converts fields lets those traps through, and they show up as business
 defects months later.
@@ -81,7 +81,7 @@ translation in order not to pay for coupling.
 
 An anti-corruption layer allows building the new model while the legacy system keeps running.
 It is the mechanism that makes
-[strangler fig](/16-legacy-modernization/strangler-fig.md) viable — the new system speaks its own
+[strangler fig](/16-legacy-modernization/strangler-fig.md) viable: the new system speaks its own
 language from day one, and the layer absorbs the legacy.
 
 ## When to Use
@@ -103,8 +103,8 @@ adds indirection and protects nothing.
 **When the maintenance cost exceeds that of the coupling.** A one-off integration with a
 stable system, used in one place, may not justify it.
 
-**When it reduces to field-by-field mapping.** If the layer makes no modelling decision —
-merely renaming fields — it is an anemic adapter. Either the external model already served, or
+**When it reduces to field-by-field mapping.** If the layer makes no modelling decision
+(merely renaming fields), it is an anemic adapter. Either the external model already served, or
 the real translation is not being done.
 
 **When there is nobody to maintain it.** An out-of-date layer is worse than none: it gives an
@@ -112,13 +112,13 @@ impression of protection that does not exist.
 
 ## Alternatives
 
-- **Conformist** — deliberately adopting the external model, when independence is not worth
+- **Conformist**: deliberately adopting the external model, when independence is not worth
   the cost. It is a legitimate decision, as long as it is declared.
-- **[Adapter](/03-design-patterns/adapter.md)** — when the incompatibility is of interface and
+- **[Adapter](/03-design-patterns/adapter.md)**: when the incompatibility is of interface and
   not of model.
-- **Negotiating the contract** — when there is a real customer-supplier relationship, changing
+- **Negotiating the contract**: when there is a real customer-supplier relationship, changing
   the other side may be cheaper.
-- **Separate ways** — not integrating.
+- **Separate ways**: not integrating.
 
 ## Trade-offs
 
@@ -131,7 +131,7 @@ impression of protection that does not exist.
 
 The **vendor replacement** axis and the criterion for when the layer pays off are in
 [boundary translation](/08-integration-architecture/integration-anti-corruption.md), which
-treats the pattern from the integration angle — including the quadrant that decides between
+treats the pattern from the integration angle, including the quadrant that decides between
 a full layer and translation at the edge, and where the layer lives.
 
 ## Failure Modes
@@ -147,7 +147,7 @@ signature. One is enough.
 to the nearest one, without anyone deciding whether that is correct.
 
 **A layer that accumulates business rules.** It is the meeting point of the two models, and
-rules migrate there — the same mechanism that degenerates
+rules migrate there: the same mechanism that degenerates
 [facades](/03-design-patterns/facade.md) and buses.
 
 ## Common Mistakes
@@ -184,24 +184,24 @@ with bands defined by the company, `ActiveRestriction` with the four kinds that 
 the business, and `NormalizedScore` on its own scale.
 
 The 40 kinds of occurrence became four. The decision of which four was taken with the risk
-team — and it is exactly the modelling decision the layer exists to concentrate.
+team, and it is exactly the modelling decision the layer exists to concentrate.
 
 The second bureau was added as a second translation, with zero change in the domain: the
 fourteen conditional points the previous integration had scattered through the business code
 became none, and the work stayed contained in two mapping files.
 
 The detail that paid off most: the layer rejects bureau responses that cannot be translated
-safely — rather than mapping them to the nearest value. That turned a class of silent defect
+safely, rather than mapping them to the nearest value. That turned a class of silent defect
 into an explicit integration error.
 
 ## Related Concepts
 
-- [Context Mapping](/04-domain-driven-design/context-mapping.md) — where this pattern sits.
-- [Adapter](/03-design-patterns/adapter.md) — the interface version.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — what is protected.
-- [Boundary Translation](/08-integration-architecture/integration-anti-corruption.md) — the
+- [Context Mapping](/04-domain-driven-design/context-mapping.md): where this pattern sits.
+- [Adapter](/03-design-patterns/adapter.md): the interface version.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): what is protected.
+- [Boundary Translation](/08-integration-architecture/integration-anti-corruption.md): the
   same pattern from the integration angle: when it pays off, and where the layer lives.
-- [Legacy Modernization](/16-legacy-modernization/index.md) — a recurring use.
+- [Legacy Modernization](/16-legacy-modernization/index.md): a recurring use.
 
 ## Practical Exercise
 

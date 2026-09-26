@@ -2,7 +2,7 @@
 id: consistency-vs-availability
 title: Consistency vs. Availability
 sidebar_position: 2
-description: The choice only exists during a partition — and it is per operation, not per system.
+description: The choice only exists during a partition, and it is per operation, not per system.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cap]
 related: [strong-vs-eventual-consistency, sync-vs-async, cost-vs-reliability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,7 @@ choose different sides
 ```
 
 Systems described as "AP" or "CP" are almost always both, in different parts. An e-commerce
-site accepts a sale with possibly stale stock — and refuses a debit with a possibly stale
+site accepts a sale with possibly stale stock, and refuses a debit with a possibly stale
 balance.
 
 ```text
@@ -48,7 +48,7 @@ real axis   which error costs more in this operation: refusing what was valid,
 
 ## Problem
 
-The usual formulation — "choose between consistency and availability" — leads to three
+The usual formulation ("choose between consistency and availability") leads to three
 errors.
 
 **Choosing per system.** A single mode applied to every operation produces either a system
@@ -64,7 +64,7 @@ accepting an invalid order      refund, fraud, manual adjustment, penalty
 ```
 
 **Thinking the choice is permanent.** During the partition, one side is chosen. After it,
-there is reconciliation to do — and the design of that reconciliation is part of the
+there is reconciliation to do, and the design of that reconciliation is part of the
 decision, not a later detail.
 
 ## Core Concepts
@@ -84,7 +84,7 @@ record an audit event           availability     losing is worse than delaying
 
 The "reserve stock" line is the interesting case: the answer depends on the product. For items
 with high stock, accepting oversell and resolving later costs less than refusing sales. For a
-unique item — a numbered ticket, a property — it does not.
+unique item (a numbered ticket, a property), it does not.
 
 ### The cost of each error needs a number
 
@@ -116,7 +116,7 @@ and communicated. See [graceful degradation](/12-reliability/graceful-degradatio
 
 ### Reconciliation is part of the decision
 
-Choosing availability during the partition means accepting divergence — and divergence must be
+Choosing availability during the partition means accepting divergence, and divergence must be
 resolved later:
 
 ```text
@@ -175,7 +175,7 @@ accumulated: a system that operated for months accepting divergence has inconsis
 that a migration to strong consistency must handle.
 
 This favors **starting consistent in the operations with the highest error cost**, and relaxing
-later with evidence — the inverse is harder.
+later with evidence: the inverse is harder.
 
 ## Mental Model
 
@@ -187,13 +187,13 @@ operation, and the choice only exists during the partition.
 Prefer **consistency** when:
 
 - Accepting an invalid operation has a financial, legal or trust cost.
-- The resource is unique or scarce — a numbered ticket, a property, a slot.
+- The resource is unique or scarce: a numbered ticket, a property, a slot.
 - Reconciliation would be manual or impossible.
 - There is a regulatory requirement about the state.
 
 Prefer **availability** when:
 
-- Stale data causes no harm — catalog, search, recommendation.
+- Stale data causes no harm: catalog, search, recommendation.
 - The operation is reversible at low cost.
 - Refusing costs more than fixing later, with numbers.
 - The write can be accepted and confirmed later.
@@ -204,20 +204,20 @@ Prefer **availability** when:
 
 **Without the error-cost numbers** for both sides.
 
-**Outside a partition** — there is no *that* trade-off, and citing CAP to justify weak consistency in
+**Outside a partition**: there is no *that* trade-off, and citing CAP to justify weak consistency in
 normal operation is a conceptual error.
 
 **Without designing the reconciliation.**
 
-**As an excuse not to handle divergence** — "we are eventually consistent" is not a design.
+**As an excuse not to handle divergence**: "we are eventually consistent" is not a design.
 
 ## Alternatives
 
-- **Consistency per operation** — the correct arrangement in most cases.
-- **Reservation with expiry** — lets you accept fast and confirm later, with a short window.
-- **Risk ceiling** — accept divergence up to a cap and harden beyond it: oversell up to 2% of
-  stock, refuse above that.
-- **Asynchronous confirmation** — accept the operation and confirm by notification. See
+- **Consistency per operation**: the correct arrangement in most cases.
+- **Reservation with expiry**: lets you accept fast and confirm later, with a short window.
+- **Risk ceiling**: accept divergence up to a cap and harden beyond it (oversell up to 2% of
+  stock, refuse above that).
+- **Asynchronous confirmation**: accept the operation and confirm by notification. See
   [synchronous vs. asynchronous](/20-trade-offs/sync-vs-async.md).
 
 The third is underused and frequently the best: it captures most of the revenue of
@@ -256,13 +256,13 @@ availability with a fraction of the risk.
 
 **Classifying the system as AP or CP.**
 
-**Not gathering the cost of refusing** — it is usually the missing number.
+**Not gathering the cost of refusing**: it is usually the missing number.
 
 **Treating reconciliation as a future problem.**
 
 **Not measuring divergence time.**
 
-**Confusing a partition with a dependency being unavailable** — they are different failures,
+**Confusing a partition with a dependency being unavailable**: they are different failures,
 with different answers.
 
 ## Real-World Example
@@ -300,7 +300,7 @@ continuous synchronization. Oversell accepted up to a ceiling of 2% of the unit'
 that, the mode hardens automatically and starts requiring central confirmation.
 
 **Exclusive and unique: consistency.** Reservation with mandatory central confirmation. During
-a partition, the sale is refused with an explicit message — 4% of items, and the cost of
+a partition, the sale is refused with an explicit message (4% of items), and the cost of
 refusing is accepted.
 
 **Reconciliation designed**, not improvised: a detected divergence produces an automatic
@@ -327,7 +327,7 @@ The net balance was about $520,000 per year, with the risk concentrated where it
 
 What was recorded afterwards: the decision was stuck for two years because the discussion was
 "consistency or availability", in the abstract, and nobody had the cost of refusing. As soon as
-the two numbers landed in the same table, the decision took one meeting — and it was not one of
+the two numbers landed in the same table, the decision took one meeting. And it was not one of
 the two sides, it was the split by category, which nobody had proposed while the dilemma was
 global.
 

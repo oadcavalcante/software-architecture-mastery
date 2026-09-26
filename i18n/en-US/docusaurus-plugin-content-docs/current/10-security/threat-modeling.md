@@ -2,7 +2,7 @@
 id: threat-modeling
 title: Threat Modeling
 sidebar_position: 10
-description: Turning "let's think about security" into a list of decisions — the section's highest-return practice.
+description: "Turning \"let's think about security\" into a list of decisions: the section's highest-return practice."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, least-privilege, security-failure-modes]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,10 +24,10 @@ last_reviewed: 2026-08-31
 Threat modeling is looking at a design and asking, in a structured way: **what can go wrong here, who would
 do it, and what do we do about it?**
 
-The output is not a report. It is **decisions**: changes to the design, controls to implement, risks
+The output is **decisions**, not a report: changes to the design, controls to implement, risks
 consciously accepted.
 
-It is this section's highest-return practice, because it happens before the code exists — when changing is
+It is this section's highest-return practice, because it happens before the code exists, when changing is
 still cheap.
 
 ## Problem
@@ -55,30 +55,30 @@ The method, reduced to the essential:
 ```
 
 The first question consumes more time than expected, and it is where the value is: most teams discover,
-while drawing the data flow, things nobody knew — a forgotten write path, a service with access to what it
-should not have.
+while drawing the data flow, things nobody knew (a forgotten write path, a service with access to what it
+should not have).
 
 ### Start with the data flow diagram
 
 It is not the pretty architecture diagram. It is a sketch with:
 
-**Processes** — what executes code.
+**Processes**: what executes code.
 
-**Data stores** — where the data stops.
+**Data stores**: where the data stops.
 
-**External entities** — users, partners, third-party systems.
+**External entities**: users, partners, third-party systems.
 
-**Flows** — who sends what to whom.
+**Flows**: who sends what to whom.
 
-**Trust boundaries** — the lines separating different levels of trust.
+**Trust boundaries**: the lines separating different levels of trust.
 
 The boundaries are where to start: they are where data or a command changes hands, and
-that is why the highest-impact threats concentrate there — which does not excuse you from
+that is why the highest-impact threats concentrate there. That does not excuse you from
 looking at the elements inside each domain. See
 [secure boundaries](/10-security/secure-boundaries.md).
 
-The set of flows that cross a boundary from outside — every point where an actor can hand
-data or a command to the system — is the **attack surface**. Each of those flows is
+The set of flows that cross a boundary from outside (every point where an actor can hand
+data or a command to the system) is the **attack surface**. Each of those flows is
 something to defend; each one removed is something that no longer needs defending.
 
 ### STRIDE gives vocabulary for question 2
@@ -94,8 +94,8 @@ denial of service       somebody prevents legitimate use
 elevation of privilege  somebody obtains more access than they have
 ```
 
-The value is not in the acronym. It is in having a list that keeps the team from thinking only about the
-threats they already know — which is the natural bias.
+The value is not in the acronym but in having a list that keeps the team from thinking only about the
+threats they already know. That is the natural bias.
 
 Walking the six categories for each element, starting with the flows that cross a boundary, with
 discipline, finds things free conversation does not find.
@@ -115,7 +115,7 @@ a nation state          practically unlimited resources
 The choice of whom you defend against defines the acceptable cost. An internal HR system and a payments
 platform do not face the same actors, and protecting them equally is wrong in both cases.
 
-Being explicit about that — including about whom you **will not** be able to stop — is what makes the
+Being explicit about that, including about whom you **will not** be able to stop, is what makes the
 discussion honest.
 
 ### Prioritize by impact times likelihood
@@ -143,7 +143,7 @@ to collect, not to store, or to delete beforehand.
 
 **At design time**, before implementing. That is when changing is cheap.
 
-**On structural changes** — a new integration, a new type of data, a new boundary.
+**On structural changes**: a new integration, a new type of data, a new boundary.
 
 **Periodically** for critical systems, because the context changes.
 
@@ -154,7 +154,7 @@ Not on every change. Modeling for each task becomes an emptied ritual, and the t
 A modeling session that ends in a "document with concerns" changes nothing.
 
 The useful output is a short list of decisions, each with an owner and a deadline, and the accepted risks
-recorded **with who accepted them** — because accepting risk is a business decision, not an engineering
+recorded **with who accepted them**, because accepting risk is a business decision, not an engineering
 one.
 
 ## Mental Model
@@ -185,13 +185,13 @@ wrong.
 
 ## Alternatives
 
-- **A security review** — after it is built, for what the modeling did not catch.
-- **A penetration test** — it verifies the implementation, not the design.
-- **Automated analysis** — it finds known defect classes, not bad architectural decisions.
-- **Attack trees** — more detailed, for one specific high-risk scenario.
+- **A security review**: after it is built, for what the modeling did not catch.
+- **A penetration test**: it verifies the implementation, not the design.
+- **Automated analysis**: it finds known defect classes, not bad architectural decisions.
+- **Attack trees**: more detailed, for one specific high-risk scenario.
 
 None substitutes for modeling. The first three happen after the design exists; the attack tree happens
-at design time, but it deepens a scenario somebody already chose and does not cover the whole system — it
+at design time, but it deepens a scenario somebody already chose and does not cover the whole system. It
 is the modeling that says which scenario deserves the tree.
 
 ## Trade-offs
@@ -240,7 +240,7 @@ nation-state resources are different exercises. Without choosing, you defend aga
 functionality or the data that creates the threat is usually cheaper and definitive.
 
 **Ending with no owner and deadline.** A list of threats with no owner and no date is documentation of a
-known risk — which, in an incident, is worse than not having done the exercise.
+known risk. In an incident, that is worse than not having done the exercise.
 
 **Doing it once and never reviewing.** The model describes the system at one moment. Each new integration
 creates a new boundary, and the old model comes to give false confidence.
@@ -269,11 +269,11 @@ actionable ones.
 The decisions:
 
 **Eliminate.** The portal came to receive only the result of the test being viewed, not the complete
-record. That removed 6 of the 31 threats at once — 4 of them among the 9 actionable ones — and it was the
-highest-impact decision — made because
+record. That removed 6 of the 31 threats at once (4 of them among the 9 actionable ones), and it was the
+highest-impact decision, made because
 somebody asked "why are we bringing that in?".
 
-**Mitigate.** Authorization verified per test, not per patient — the original version checked whether the
+**Mitigate.** Authorization verified per test, not per patient: the original version checked whether the
 user was the patient and then listed everything. A sequential test identifier in the URL was swapped for an
 opaque one.
 
@@ -286,7 +286,7 @@ mitigated by an audit trail and periodic review, with a record of who accepted i
 **Transfer.** Sending text message notifications was outsourced, with the contractual requirement not to
 include clinical content in the message.
 
-Nine months later, a contracted penetration test found two problems — both of implementation, none
+Nine months later, a contracted penetration test found two problems: both of implementation, none
 structural.
 
 What the team records: the discovery that most changed the outcome did not come from the threat analysis,
@@ -295,16 +295,16 @@ the patient's data came in and went out.
 
 ## Related Concepts
 
-- [Secure Boundaries](/10-security/secure-boundaries.md) — what the diagram marks.
-- [Least Privilege](/10-security/least-privilege.md) — the most common answer.
+- [Secure Boundaries](/10-security/secure-boundaries.md): what the diagram marks.
+- [Least Privilege](/10-security/least-privilege.md): the most common answer.
 - [Security Failure Modes](/10-security/security-failure-modes.md).
-- [Data Protection](/10-security/data-protection.md) — the "eliminate" answer.
+- [Data Protection](/10-security/data-protection.md): the "eliminate" answer.
 
 ## Practical Exercise
 
 Draw the data flow of a feature your team is going to build, with the trust boundaries marked.
 
-Walk the six STRIDE categories for each element, starting with the flows that cross a boundary. You will find at least one thing nobody had considered —
+Walk the six STRIDE categories for each element, starting with the flows that cross a boundary. You will find at least one thing nobody had considered,
 and probably a data path somebody forgot to mention.
 
 ## Interview Questions

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, graceful-degradation, retry-storms]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 The name comes from shipbuilding: a hull divided into watertight compartments does not sink when one of
 them is breached.
 
-Applied to software, it is **isolating resources** — connections, threads, memory — so that the exhaustion
+Applied to software, it is **isolating resources** (connections, threads, memory) so that the exhaustion
 caused by one part does not reach the others.
 
 It is the protection that works when the others fail: even with no circuit breaker, no adequate timeout and
@@ -42,7 +42,7 @@ a single pool of 200 connections
 ```
 
 See [circuit breakers](/12-reliability/circuit-breakers.md) for the arithmetic. The bulkhead's point is
-that it resolves the same problem by another route — and without depending on correct threshold
+that it resolves the same problem by another route, and without depending on correct threshold
 configuration.
 
 The same holds between customers: one customer sending abnormal volume consumes everybody else's capacity.
@@ -69,7 +69,7 @@ separate machine   isolates what no wrong configuration nullifies
 ```
 
 The two axes combine: you can separate per customer with pools, or per dependency with
-machines. Isolating per customer is not stronger than isolating per dependency — they are
+machines. Isolating per customer is not stronger than isolating per dependency. They are
 different questions. What grows in strength is the right-hand column, and it costs in the same
 order.
 
@@ -89,7 +89,7 @@ simultaneous requests = throughput × latency
 
 See [performance versus scalability](/11-scalability/performance-vs-scalability.md).
 
-And the sum of the compartments can exceed the total available, deliberately — so-called overcommitment,
+And the sum of the compartments can exceed the total available, deliberately: so-called overcommitment,
 betting that not all of them saturate at the same time. That improves utilization and reduces the
 guarantee; the decision needs to be conscious.
 
@@ -104,7 +104,7 @@ with a quota        they exhaust their own quota; the others do not feel it
 
 The quota can be on requests, on connections, on queue workers or on processing capacity.
 
-And the highest-volume customers can receive a dedicated compartment — which also resolves
+And the highest-volume customers can receive a dedicated compartment, which also resolves
 [hotspots](/11-scalability/hotspots.md).
 
 ### Queues need compartments too
@@ -115,8 +115,8 @@ else.
 Separate queues per customer or per priority, with reserved consumption capacity, resolve it. See
 [queue-based scaling](/11-scalability/queue-based-scaling.md).
 
-The common mistake is creating the queues and leaving all the consumers free to take from any of them —
-which reproduces the problem, because the full queue dominates the consumption.
+The common mistake is creating the queues and leaving all the consumers free to take from any of them.
+That reproduces the problem, because the full queue dominates the consumption.
 
 ### The bulkhead needs to reject, not enqueue
 
@@ -138,7 +138,7 @@ separate processes, the same machine  → disk and network shared
 separate machines, the same zone      → power and network shared
 ```
 
-See [redundancy](/12-reliability/redundancy.md) — it is the same correlation problem.
+See [redundancy](/12-reliability/redundancy.md): it is the same correlation problem.
 
 That does not mean partial isolation is useless. It means it protects against a specific set of failures,
 and you need to know which.
@@ -177,18 +177,18 @@ exists, and a second ceiling inside it only adds a number to maintain.
 
 **When the resource that saturates is below the compartment.** Separate pools in the same
 process do not protect against memory exhaustion, and quotas per customer do not protect against
-a saturated shared database. It is not that partial isolation is useless — it protects against a
-set of failures —, it is that it does not protect against **this** one, and adopting it thinking
+a saturated shared database. It is not that partial isolation is useless (it protects against a
+set of failures); it is that it does not protect against **this** one, and adopting it thinking
 it does is worse than not having it.
 
 ## Alternatives
 
-- **A [circuit breaker](/12-reliability/circuit-breakers.md)** — it stops calling instead of isolating.
+- **A [circuit breaker](/12-reliability/circuit-breakers.md)**: it stops calling instead of isolating.
   Complementary.
-- **An aggressive timeout** — it reduces the resource hold time.
-- **Rate limiting** — it controls at the entrance. See
+- **An aggressive timeout**: it reduces the resource hold time.
+- **Rate limiting**: it controls at the entrance. See
   [rate limiting](/05-system-design/rate-limiting.md).
-- **Separate processes or instances** — stronger isolation, higher cost.
+- **Separate processes or instances**: stronger isolation, higher cost.
 
 ## Trade-offs
 
@@ -231,7 +231,7 @@ latency. Guessed, it either wastes capacity or strangles the flow it was suppose
 the wait grows and the caller stalls just the same, only later.
 
 **Not isolating per customer** on multi-tenant platforms. With no compartment per tenant, one customer with
-anomalous usage consumes everybody's capacity — the noisy neighbor problem.
+anomalous usage consumes everybody's capacity: the noisy neighbor problem.
 
 **Assuming isolation where there is a shared resource.** Separate thread compartments that use the same
 database connection pool isolate nothing: the real bottleneck stays common.
@@ -252,9 +252,9 @@ without service.
 **A heavy report.** One large customer generated reports that occupied queue workers for hours. The others'
 reports sat in the queue behind them.
 
-The fixes, in three layers — plus a fourth, adopted after the three were in production:
+The fixes, in three layers, plus a fourth adopted after the three were in production:
 
-**A pool per dependency.** External calls — credit bureaus, payment gateways — came to have separate pools,
+**A pool per dependency.** External calls (credit bureaus, payment gateways) came to have separate pools,
 sized by Little's law with 60% margin. One's exhaustion stopped reaching the main one.
 
 **A quota per customer.** Each company received a limit on simultaneous requests, proportional to the
@@ -271,31 +271,31 @@ layers showed where the concentration was.
 
 Two problems appeared during the implementation:
 
-**Badly sized compartments.** The first version of the external pools was defined by intuition — 10
-connections — and became a bottleneck: requests were refused with the system idle. Measuring the real
+**Badly sized compartments.** The first version of the external pools was defined by intuition (10
+connections) and became a bottleneck: requests were refused with the system idle. Measuring the real
 throughput and latency corrected it.
 
 **Free consumers across queues.** The separate queues were created, and the workers could consume from any
-of them. The reports queue, always full, dominated — reproducing the original problem with more parts. The
+of them. The reports queue, always full, dominated, reproducing the original problem with more parts. The
 fix was dedicating workers to each queue, with a guaranteed minimum ratio.
 
 In the following twelve months, four customers had defective integrations. None affected the others.
 
-In retrospect: isolation per customer had the greatest impact, and it was the most obvious — the platform
+In retrospect: isolation per customer had the greatest impact, and it was the most obvious. The platform
 served 900 companies on a single pool from day one, and nobody had questioned it.
 
 ## Related Concepts
 
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — the complementary protection.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): the complementary protection.
 - [Retry Storms](/12-reliability/retry-storms.md).
-- [Backpressure](/06-distributed-systems/backpressure.md) — the rejection.
-- [Hotspots](/11-scalability/hotspots.md) — disproportionate customers.
+- [Backpressure](/06-distributed-systems/backpressure.md): the rejection.
+- [Hotspots](/11-scalability/hotspots.md): disproportionate customers.
 
 ## Practical Exercise
 
 Check whether your system's external calls use the same connection pool as the main logic.
 
-If they do, calculate how many requests get stuck if the slowest dependency stops responding — and compare
+If they do, calculate how many requests get stuck if the slowest dependency stops responding, and compare
 with the pool's size.
 
 ## Interview Questions
@@ -307,7 +307,7 @@ with the pool's size.
 ## Further Reading
 
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 21
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 21
   ("Handling Overload") for quota per customer and criticality, chapter 22 ("Addressing
   Cascading Failures") for resource exhaustion and containment of propagation.
 - Fowler, Susan. *Production-Ready Microservices*. O'Reilly, 2016.

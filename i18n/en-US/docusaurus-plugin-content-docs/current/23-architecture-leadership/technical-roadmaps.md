@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-strategy-leadership]
 related: [technical-strategy-leadership, architecture-vision, risk-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-A technical roadmap sequences investment in architecture. The hard part is not choosing what to do —
-the strategy already chose. It is choosing **the order**.
+A technical roadmap sequences investment in architecture. The hard part is not choosing what to do
+(the strategy already chose). It is choosing **the order**.
 
 ```text
 the wrong order   nothing delivers value until the end, and the plan
@@ -36,7 +36,7 @@ decides whether the roadmap survives: **each phase has to end in a state where t
 half-done.**
 
 Over a 12-to-24-month horizon, the risk that usually ends a technical project is not lack of merit:
-it is a change of priority, a change of leadership or a budget freeze — and, when it materializes,
+it is a change of priority, a change of leadership or a budget freeze, and, when it materializes,
 what remains is whatever was finished.
 
 ## Problem
@@ -51,7 +51,7 @@ phase 4  decommissioning the old
 ```
 
 Twelve to twenty-four months, with value delivered only from phase 2 or 3 onward. If the plan is
-interrupted in phase 1 — which happens often — the result is unused infrastructure and no benefit.
+interrupted in phase 1 (which happens often) the result is unused infrastructure and no benefit.
 
 And there is the opposite sequencing error: starting with the most valuable without building the
 base, which produces one first delivery and a growing cost in the ones that follow.
@@ -68,7 +68,7 @@ right criterion   "what delivers an observable result soonest,
                   given what is technically possible"
 ```
 
-Frequently the answer is a **new** capability, and not a migration — because it has no regression to
+Frequently the answer is a **new** capability, and not a migration, because it has no regression to
 avoid and it produces a visible result. See the
 [e-commerce case study](/21-case-studies/ecommerce.md), where the first phase was the capability
 that did not exist.
@@ -134,7 +134,7 @@ presented together        prioritization is done with the right information
 ```
 
 Technical roadmaps approved without that conversation are undone in execution, when delivery
-pressure arrives — and the undoing happens by omission, without anybody deciding it.
+pressure arrives, and the undoing happens by omission, without anybody deciding it.
 
 See [technical strategy](/23-architecture-leadership/technical-strategy-leadership.md).
 
@@ -147,7 +147,7 @@ See [technical strategy](/23-architecture-leadership/technical-strategy-leadersh
 Long technical plans are built with information that execution corrects. Reviewing at the end of
 each phase, with what was learned, produces a better plan than executing the original to the end.
 
-What does not work is reviewing by calendar with no new evidence — that turns into recurring
+What does not work is reviewing by calendar with no new evidence: that turns into recurring
 replanning and wears sponsorship down.
 
 ## Mental Model
@@ -163,8 +163,8 @@ interruption as the case to plan for, not as the exception; the question is what
 
 ## When Not to Use
 
-**Diffuse debt, with no single architectural target.** When the work is a sum of local improvements —
-outdated dependencies, flaky tests, confusing modules — there is no sequence to optimize; a fixed
+**Diffuse debt, with no single architectural target.** When the work is a sum of local improvements
+(outdated dependencies, flaky tests, confusing modules) there is no sequence to optimize; a fixed
 percentage of capacity solves it with less ceremony.
 
 **Work that fits in a quarter.** Phasing exists to survive changes of priority across many months;
@@ -181,11 +181,11 @@ choice is made anticipates the decision through the order of the phases. The
 
 ## Alternatives
 
-- **Continuous work with no roadmap** — allocating a fixed percentage of capacity to technical
+- **Continuous work with no roadmap**: allocating a fixed percentage of capacity to technical
   improvement, with no long-term plan. Simple and effective for diffuse debt.
-- **A roadmap integrated with the product one** — a single plan, with technical and product items in
+- **A roadmap integrated with the product one**: a single plan, with technical and product items in
   the same queue. It is the most honest form and the hardest to get.
-- **Slicing by capability** instead of by phase — each delivery is a complete capability.
+- **Slicing by capability** instead of by phase: each delivery is a complete capability.
 
 The second is the best when the organization allows it: it eliminates the fiction that there are two
 capacity budgets.
@@ -279,7 +279,7 @@ phase 4 (4 months)   decommissioning and history migration
 ```
 
 The platform came to be built **pulled by the migration**, and not ahead of it. That produced some
-rework — three platform components were redone when they were generalized in phase 2 — estimated at
+rework (three platform components were redone when they were generalized in phase 2), estimated at
 around six weeks.
 
 The roadmap was presented alongside the product one, in a single prioritization, with total capacity
@@ -302,7 +302,7 @@ completion                       month 22 (forecast: 19)
 platform rework                  ~6 weeks, forecast and accepted
 ```
 
-The three-month interruption happened — as in the two previous roadmaps. The difference is that this
+The three-month interruption happened, as in the two previous roadmaps. The difference is that this
 time it cancelled nothing: the work stopped in a usable state, and resuming was possible. It fell in
 the middle of phase 3, and the rule held inside the phase too: each system was migrated as a unit
 that ends stable, and in month 11 none was half-done.
@@ -324,7 +324,7 @@ Take a technical plan in progress and answer, for each phase: what is left if th
 end of it?
 
 The phases whose answer is "nothing usable" are the ones that will cost everything if the priority
-changes — and, in a plan longer than a year, a change of priority is the case to plan for, not the exception.
+changes, and, in a plan longer than a year, a change of priority is the case to plan for, not the exception.
 
 ## Interview Questions
 

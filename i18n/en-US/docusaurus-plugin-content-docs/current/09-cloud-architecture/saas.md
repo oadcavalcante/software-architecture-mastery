@@ -2,7 +2,7 @@
 id: saas
 title: SaaS
 sidebar_position: 3
-description: Buying the software ready-made — the "build or buy" decision and what it transfers along with it.
+description: "Buying the software ready-made: the \"build or buy\" decision and what it transfers along with it."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [paas]
 related: [paas, vendor-lock-in, managed-services]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-SaaS — software as a service — is ready-made software, operated by a vendor, consumed by subscription.
+SaaS (software as a service) is ready-made software, operated by a vendor, consumed by subscription.
 
 From an architecture point of view, adopting a SaaS is the decision to **buy instead of build**: the vendor
 takes care of everything, including the functionality.
@@ -36,7 +36,7 @@ management, email sending, monitoring, authentication.
 Building each one consumes engineering capacity that could be on what differentiates. And the result is
 usually worse than the specialized product, because it does not receive continuous investment.
 
-The difficulty is not recognizing that in general. It is deciding, case by case, where the line is — and
+The difficulty is not recognizing that in general. It is deciding, case by case, where the line is, and
 not building by reflex what already exists ready-made.
 
 ## Core Concepts
@@ -48,11 +48,11 @@ The criterion that resolves most cases:
 **Is this a source of competitive advantage?** If customers choose you because of it, build. If not, buy. The total-cost
 math, with staff and maintenance, is in [Build vs. Buy](/20-trade-offs/build-vs-buy.md).
 
-A shipping company that builds its own routing engine may be right — route efficiency is the business. The
+A shipping company that builds its own routing engine may be right: route efficiency is the business. The
 same company building a ticketing system is spending capacity on what does not distinguish it.
 
 The most common mistake is not buying what should be built. It is building what should be bought,
-typically because "our case is different" — and it is almost never different enough to justify it.
+typically because "our case is different", and it is almost never different enough to justify it.
 
 ### What you buy along with it
 
@@ -61,7 +61,7 @@ typically because "our case is different" — and it is almost never different e
 **Their data model.** Your data goes into the structure they define.
 
 **Their availability.** If they go down, the functionality goes down with them, and you have no action on
-their system; the only action is the one prepared beforehand — degradation, or a minimal independent path
+their system; the only action is the one prepared beforehand: degradation, or a minimal independent path
 for what is critical. That needs to enter your
 availability calculation. See [availability](/06-distributed-systems/availability.md).
 
@@ -84,7 +84,7 @@ The SaaS solves the functionality. Connecting it to your system is your work, an
 **Anti-corruption.** Their model should not get into yours. See
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
-With many integrated SaaS products, the cost of maintaining the integrations becomes significant — and it
+With many integrated SaaS products, the cost of maintaining the integrations becomes significant, and it
 is an expense nobody budgets at acquisition.
 
 ### Data export is what decides reversibility
@@ -112,10 +112,10 @@ And it means "it is with the vendor" is not an answer for an audit.
 
 ### Silent proliferation
 
-SaaS is easy to buy — a credit card, with no engineering involved. The predictable result is that different
+SaaS is easy to buy: a credit card, with no engineering involved. The predictable result is that different
 teams adopt overlapping tools, with data scattered and no inventory.
 
-That becomes a security problem — accounts with no deprovisioning, data in unknown places — before it
+That becomes a security problem (accounts with no deprovisioning, data in unknown places) before it
 becomes a cost problem.
 
 ## Mental Model
@@ -139,13 +139,13 @@ the roadmap of what distinguishes you.
 into another system within the time a vendor switch would tolerate.
 
 **When their availability does not fit your requirement.** They sit on the synchronous path, and the
-composite availability in series — theirs multiplied by yours — falls below what you promise.
+composite availability in series (theirs multiplied by yours) falls below what you promise.
 
 **When compliance cannot be outsourced.** Regulation requires direct control over where the data resides or
 over the audit of the flow, and the vendor does not provide that guarantee.
 
 **When integration costs more than building.** Two-way synchronization, identity and anti-corruption, added
-up, can exceed the cost of maintaining the functionality — and without that math done, the decision has not
+up, can exceed the cost of maintaining the functionality. And without that math done, the decision has not
 been made.
 
 **When the function is already covered by another SaaS in the house.** An overlapping tool, with neither
@@ -153,10 +153,10 @@ inventory nor governance, adds scattered data and accounts to deprovision, not c
 
 ## Alternatives
 
-- **Building** — when it differentiates.
-- **Self-managed open source** — control of the data, with the operational work.
-- **SaaS with a self-hosted option** — a middle ground, when it exists.
-- **Buying and wrapping** — using the SaaS behind a layer of your own, preserving the possibility of
+- **Building**: when it differentiates.
+- **Self-managed open source**: control of the data, with the operational work.
+- **SaaS with a self-hosted option**: a middle ground, when it exists.
+- **Buying and wrapping**: using the SaaS behind a layer of your own, preserving the possibility of
   switching.
 
 ## Trade-offs
@@ -172,7 +172,7 @@ inventory nor governance, adds scattered data and accounts to deprovision, not c
 
 ## Failure Modes
 
-**Vendor unavailability.** Nothing to do about their system; only what was prepared beforehand remains —
+**Vendor unavailability.** Nothing to do about their system; only what was prepared beforehand remains:
 degradation or a minimal independent path.
 
 **A price change.**
@@ -215,7 +215,7 @@ document management and a human resources system.
 
 All of them had been built years earlier, when the alternatives were worse or more expensive.
 
-The survey showed **4 full-time-equivalent engineers** maintaining those four systems — 13% of capacity, on
+The survey showed **4 full-time-equivalent engineers** maintaining those four systems: 13% of capacity, on
 nothing the company sold.
 
 The replacement with SaaS was done for three of the four:
@@ -230,7 +230,7 @@ maintenance cost accepted.
 Three problems in the transition:
 
 **Exporting from the old ticketing system.** Trivial, because it was their own. The verification of the
-**new** one's export was done before signing — and one of the candidates was discarded precisely because it
+**new** one's export was done before signing, and one of the candidates was discarded precisely because it
 only exported the last 12 months.
 
 **An underestimated integration cost.** Synchronizing users and cost centers among three SaaS products and
@@ -240,16 +240,16 @@ the internal system took twice the estimate, and became recurring maintenance.
 that was supposed to warn about problems had a problem, and there was no alternative. A minimal independent
 monitoring came to exist, for the critical path only.
 
-In retrospect: the decision to buy was positive by the criterion that motivated it — capacity returned to
-the differentiator — even with the recurring integration consuming part of what was freed. What was missing was budgeting the integration as
-a project — it was treated as a detail of the acquisition and consumed more time than evaluating the
+In retrospect: the decision to buy was positive by the criterion that motivated it (capacity returned to
+the differentiator), even with the recurring integration consuming part of what was freed. What was missing was budgeting the integration as
+a project: it was treated as a detail of the acquisition and consumed more time than evaluating the
 vendors.
 
 ## Related Concepts
 
-- [PaaS](/09-cloud-architecture/paas.md) and [IaaS](/09-cloud-architecture/iaas.md) — the models below.
+- [PaaS](/09-cloud-architecture/paas.md) and [IaaS](/09-cloud-architecture/iaas.md): the models below.
 - [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md).
-- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — total cost and build bias.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md): total cost and build bias.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md).
 
@@ -257,7 +257,7 @@ vendors.
 
 List what your team maintains internally. For each item, ask: do customers choose us because of this?
 
-Where the answer is no, check whether a ready-made product exists — and how much time your team spends
+Where the answer is no, check whether a ready-made product exists, and how much time your team spends
 maintaining what does.
 
 ## Interview Questions
@@ -269,5 +269,5 @@ maintaining what does.
 ## Further Reading
 
 - Fowler, Martin. *Utility vs Strategic Dichotomy*. martinfowler.com, 2010.
-- Moore, Geoffrey. *Dealing with Darwin*. Portfolio, 2005 — core versus context.
+- Moore, Geoffrey. *Dealing with Darwin*. Portfolio, 2005. Core versus context.
 - Cagan, Marty. *Inspired*. 2nd ed. Wiley, 2017.

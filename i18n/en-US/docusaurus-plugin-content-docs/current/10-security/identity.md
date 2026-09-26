@@ -2,7 +2,7 @@
 id: identity
 title: Identity
 sidebar_position: 1
-description: Who the requester is — and why identity, authentication and authorization are three distinct questions.
+description: Who the requester is, and why identity, authentication and authorization are three distinct questions.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [oauth2, oidc, authz-models]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,10 +37,10 @@ and changing access rules without touching login.
 
 Systems that confuse the three couple decisions that should be independent.
 
-The classic symptom: the business rule checks the **login method** to decide permission — "if they signed
-in with a corporate password, they are an employee; therefore they can approve".
+The classic symptom: the business rule checks the **login method** to decide permission ("if they signed
+in with a corporate password, they are an employee; therefore they can approve").
 
-When a new authentication path appears — social login, an API key, a certificate — the rule breaks or is
+When a new authentication path appears (social login, an API key, a certificate), the rule breaks or is
 worked around, and permission comes to depend on something that should not decide it.
 
 ## Core Concepts
@@ -52,7 +52,7 @@ A person's internal identity should not be their email, their national ID number
 **Stable.** Emails change. Names change. If the identifier changes, all the associated history is lost or
 needs to be migrated.
 
-**Opaque.** An identifier that carries meaning — sequential, derived from a document — leaks information
+**Opaque.** An identifier that carries meaning (sequential, derived from a document) leaks information
 and allows enumeration.
 
 The robust pattern: an opaque and immutable internal identifier, with email and document as attributes that
@@ -67,8 +67,8 @@ service  authenticates with no interaction, has no session
          exists while the service exists, fixed scope
 ```
 
-Treating both with the same mechanism produces the two known problems: long-lived keys for people — which
-neither expire nor require a second factor — and interactive flows for services, which require a stored
+Treating both with the same mechanism produces the two known problems: long-lived keys for people (which
+neither expire nor require a second factor) and interactive flows for services, which require a stored
 credential.
 
 Each one has its appropriate mechanism, and mixing them is the origin of much of the credential leakage.
@@ -84,7 +84,7 @@ around.
 
 Without federation, each application has its own user list, and deprovisioning depends on somebody
 remembering each one. It takes only one system out of date on the offboarding checklist for former
-employees' accounts to stay active until the next audit — as in the real-world example below.
+employees' accounts to stay active until the next audit, as in the real-world example below.
 
 ### The lifecycle is the part nobody designs
 
@@ -102,7 +102,7 @@ recovery        lost the credential — and this is the most attacked step
 Recovery deserves emphasis: it is, by definition, a path that **bypasses** normal authentication. If it is
 weaker than the login, it is the system's real authentication.
 
-Many compromises come in through there — email recovery with no second factor, security questions
+Many compromises come in through there: email recovery with no second factor, security questions
 answerable with public data, a human support desk that resets a credential with no strong verification.
 
 ### Where identity lives in the system
@@ -120,15 +120,15 @@ dangerous premise that nobody reaches the services without passing through it. S
 [secure boundaries](/10-security/secure-boundaries.md).
 
 When services need to operate without depending on a synchronous call and the token's lifetime is an
-acceptable revocation window, propagation with verification in each service is the choice — the service does
-not trust who calls, it trusts the signature. When revocation has to be immediate — a compromised account, a
-termination — the central query covers what propagation does not, at the price of latency and the
+acceptable revocation window, propagation with verification in each service is the choice: the service does
+not trust who calls, it trusts the signature. When revocation has to be immediate (a compromised account, a
+termination), the central query covers what propagation does not, at the price of latency and the
 dependency.
 
 ### Identifying is not authorizing
 
 Knowing who the requester is does not say what they may do. That separation allows the same identity to
-have different permissions in different contexts — a customer in one organization, an administrator in
+have different permissions in different contexts: a customer in one organization, an administrator in
 another.
 
 Systems that tie permission to the identity, instead of to the relationship between identity and resource,
@@ -151,7 +151,7 @@ Explicit identity decisions pay off when:
 
 ## When Not to Use
 
-The explicit decisions above — a separate identity layer, federation, a designed lifecycle — are cost with no
+The explicit decisions above (a separate identity layer, federation, a designed lifecycle) are cost with no
 return when:
 
 - **There is a single authentication mechanism and no service calling a service.** An internal tool for one
@@ -168,11 +168,11 @@ duplicate reconciliation later, so it is worth it even when the rest is not.
 
 ## Alternatives
 
-- **A managed identity provider** — instead of building. Authentication is specialized work and
+- **A managed identity provider**: instead of building. Authentication is specialized work and
   differentiates almost no product. See [SaaS](/09-cloud-architecture/saas.md).
-- **Corporate federation** — for employees.
-- **Social login** — for consumers, with the caveat of depending on the provider.
-- **Certificates** — for service identity, with no shared secret.
+- **Corporate federation**: for employees.
+- **Social login**: for consumers, with the caveat of depending on the provider.
+- **Certificates**: for service identity, with no shared secret.
 
 ## Trade-offs
 
@@ -203,7 +203,7 @@ duplicate reconciliation later, so it is worth it even when the rest is not.
 
 **Permission tied to the login method.**
 
-**The identity provider unavailable.** Nobody signs in — including whoever would respond to the incident.
+**The identity provider unavailable.** Nobody signs in, including whoever would respond to the incident.
 
 ## Common Mistakes
 
@@ -211,7 +211,7 @@ duplicate reconciliation later, so it is worth it even when the rest is not.
 their history; when the old address is reassigned, somebody else inherits the access.
 
 **Using the same mechanism for a person and a service.** People end up with long-lived keys and no second
-factor, and services with a stored interactive credential — the two sources of leaked credentials described
+factor, and services with a stored interactive credential: the two sources of leaked credentials described
 above.
 
 **Not federating** in an organization with an identity provider available. Offboarding comes to depend on a
@@ -224,9 +224,9 @@ incident, each through a different path.
 decoration.
 
 **Building your own authentication** with no specific reason. The team takes on password storage, second
-factor and abuse detection — work that does not differentiate the product.
+factor and abuse detection: work that does not differentiate the product.
 
-**Having no emergency access path** when the identity provider goes down. Nobody signs in — including whoever
+**Having no emergency access path** when the identity provider goes down. Nobody signs in, including whoever
 has to respond to the incident.
 
 ## Real-World Example
@@ -235,16 +235,16 @@ A services company had six internal applications, each with its own user list an
 
 Three problems, discovered at different moments:
 
-**Active former employees.** An audit found 31 accounts belonging to people who no longer worked there —
+**Active former employees.** An audit found 31 accounts belonging to people who no longer worked there,
 scattered across the six applications. The offboarding process included a list of systems to deactivate,
 and the list was out of date in three of them.
 
-**Recovery exploited.** One of the applications allowed resetting a password by answering two questions —
-mother's name and hometown. Both obtainable publicly. An account with access to financial data was
+**Recovery exploited.** One of the applications allowed resetting a password by answering two questions:
+mother's name and hometown, both obtainable publicly. An account with access to financial data was
 compromised that way.
 
 **Identity by email.** A person changed their surname after marriage, and the corporate email changed with
-it. In four of the six applications, they became a new user — losing history, pending approvals and
+it. In four of the six applications, they became a new user, losing history, pending approvals and
 permissions. In one of them, the old email was later assigned to another person, who inherited the access.
 
 The third case was the most alarming, because it involved no attack at all.
@@ -252,7 +252,7 @@ The third case was the most alarming, because it involved no attack at all.
 The reformulation:
 
 **Federation** with the corporate identity provider. The six applications came to delegate authentication.
-Deprovisioning became automatic — deactivating in the directory ends everything.
+Deprovisioning became automatic: deactivating in the directory ends everything.
 
 **An opaque internal identifier** in each application, with email as a mutable attribute. The migration
 required reconciling the duplicated identities.
@@ -261,18 +261,18 @@ required reconciling the duplicated identities.
 eliminated.
 
 **Emergency access**: two local accounts, with credentials in a physical safe, in case the provider becomes
-unavailable — because the federation created a critical dependency that did not exist before.
+unavailable, because the federation created a critical dependency that did not exist before.
 
 What the team records: the last decision only came up because somebody asked "and if the provider goes
-down?". The federation solved two of the three problems — deprovisioning and, with recovery moved to the
-provider, weak recovery — and created a single point nobody had considered.
+down?". The federation solved two of the three problems (deprovisioning and, with recovery moved to the
+provider, weak recovery) and created a single point nobody had considered.
 
 ## Related Concepts
 
-- [OAuth 2.0](/10-security/oauth2.md) and [OpenID Connect](/10-security/oidc.md) — the protocols.
-- [JWT](/10-security/jwt.md) — the propagation format.
-- [Authorization Models](/10-security/authz-models.md) — the next question.
-- [Authentication](/05-system-design/authentication.md) — the system design level.
+- [OAuth 2.0](/10-security/oauth2.md) and [OpenID Connect](/10-security/oidc.md): the protocols.
+- [JWT](/10-security/jwt.md): the propagation format.
+- [Authorization Models](/10-security/authz-models.md): the next question.
+- [Authentication](/05-system-design/authentication.md): the system design level.
 
 ## Practical Exercise
 

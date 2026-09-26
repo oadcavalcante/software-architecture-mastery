@@ -2,7 +2,7 @@
 id: poison-messages
 title: Poison Messages
 sidebar_position: 28
-description: A mensagem que nunca processa — e trava a fila enquanto tenta.
+description: A mensagem que nunca processa, e trava a fila enquanto tenta.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [dead-letter-queues, retries, duplicate-messages]
 canonical_for: [poison message, mensagem envenenada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-27
 
 Uma *poison message* é uma mensagem que falha em toda tentativa de processamento.
 
-Sem tratamento, ela volta para a fila indefinidamente, consome o consumidor, e —
-em filas com ordem — **bloqueia todas as mensagens seguintes**.
+Sem tratamento, ela volta para a fila indefinidamente, consome o consumidor, e,
+em filas com ordem, **bloqueia todas as mensagens seguintes**.
 
 É um modo de falha frequente em sistemas de mensageria recém-adotados, e o
 tratamento custa pouco perto do dano: um limite de tentativas, uma dead-letter e
@@ -35,7 +35,7 @@ um alerta.
 O consumidor lê a mensagem, tenta processar, lança exceção. Não confirma. A
 mensagem volta a ficar visível. Outro consumidor a lê. Mesma exceção.
 
-Enquanto isso, nada mais é processado — ou porque a mensagem ocupa o consumidor em
+Enquanto isso, nada mais é processado: ou porque a mensagem ocupa o consumidor em
 laço, ou porque a fila preserva ordem e ela é a próxima.
 
 O sistema não emite erro visível. Do lado de fora, ele parece funcionar: o
@@ -60,7 +60,7 @@ entende. Ver
 **Precondição permanentemente ausente.** A mensagem referencia uma entidade que
 não existe e nunca existirá.
 
-Note que a última é ambígua: pode ser desordem — a entidade ainda vai chegar — ou
+Note que a última é ambígua: pode ser desordem (a entidade ainda vai chegar) ou
 permanente. Distinguir exige contexto que o consumidor nem sempre tem.
 
 ### Transitória versus permanente
@@ -78,7 +78,7 @@ funcionar se eu tentar de novo?**
 | Validação de negócio rejeitou | Permanente |
 | Entidade referenciada não existe | Ambígua |
 
-O consumidor precisa classificar — e o padrão de "tente três vezes e mande para
+O consumidor precisa classificar. E o padrão de "tente três vezes e mande para
 dead-letter" trata todas igual, o que é aceitável como rede de segurança e ruim
 como estratégia única.
 
@@ -88,7 +88,7 @@ Toda mensagem precisa de um contador. Após N tentativas, ela sai da fila princi
 para uma [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
 
 Sem limite, o laço é infinito. Com limite mas sem dead-letter, a mensagem é
-descartada silenciosamente — o que troca um problema visível por um invisível.
+descartada silenciosamente, o que troca um problema visível por um invisível.
 
 ### Falha no envenenamento pode não estar na mensagem
 
@@ -112,7 +112,7 @@ não degradação.
 
 ## Modelo Mental
 
-**Toda mensagem precisa de um caminho de saída da fila** — por sucesso ou por
+**Toda mensagem precisa de um caminho de saída da fila**, por sucesso ou por
 desistência. Sem o segundo, ela fica para sempre.
 
 ## Quando Usar
@@ -138,19 +138,19 @@ tentativas fixas desperdiçam. Tratar todas igual, com N pequeno, vale enquanto 
 consumidor não ganhar dependências novas.
 
 **Consumo em lote.** Quando o consumidor confirma o lote inteiro, isolar a
-mensagem ruim exige quebrar o lote — reprocessar item a item ou dividir ao meio
-até achá-la — e o tratamento deixa de ser configuração para virar código. Se o
+mensagem ruim exige quebrar o lote (reprocessar item a item ou dividir ao meio
+até achá-la), e o tratamento deixa de ser configuração para virar código. Se o
 lote é tudo-ou-nada por regra de negócio, mandar o lote inteiro para a
 dead-letter é mais honesto que fingir isolamento.
 
 ## Alternativas
 
-- **[Dead-letter queue](/06-distributed-systems/dead-letter-queues.md)** — a resposta padrão.
-- **Fila de reprocessamento com atraso** — para falhas ambíguas, tentar de novo
+- **[Dead-letter queue](/06-distributed-systems/dead-letter-queues.md)**: a resposta padrão.
+- **Fila de reprocessamento com atraso**: para falhas ambíguas, tentar de novo
   daqui a horas em vez de descartar.
-- **Validação no produtor** — impedir que a mensagem malformada entre. É a
+- **Validação no produtor**: impedir que a mensagem malformada entre. É a
   prevenção, e não elimina a necessidade do tratamento.
-- **Registro de esquema** — garantir compatibilidade entre produtor e consumidor.
+- **Registro de esquema**: garantir compatibilidade entre produtor e consumidor.
 
 ## Trade-offs
 
@@ -185,7 +185,7 @@ uma vez, e a dead-letter recebe milhares.
 ## Erros Comuns
 
 **Não configurar limite de tentativas.** A partição para, e o dano só aparece
-quando o cliente liga — no Exemplo Real, nove horas depois.
+quando o cliente liga: no Exemplo Real, nove horas depois.
 
 **Não distinguir transitório de permanente.** Num sentido, três tentativas de
 desserialização atrasam a saída da mensagem sem chance de sucesso; no outro, uma
@@ -213,7 +213,7 @@ bloqueou a partição daquela filial.
 Nove horas de emissões paradas. Foram descobertas quando a filial ligou
 perguntando por que nenhuma nota estava saindo.
 
-O consumidor estava de pé. O broker estava de pé. Não havia erro em nenhum painel —
+O consumidor estava de pé. O broker estava de pé. Não havia erro em nenhum painel:
 apenas uma partição que não avançava, e não havia métrica de idade da mensagem
 mais antiga por partição.
 
@@ -228,13 +228,13 @@ dead-letter, sem retentativa. Falha de rede e de banco tentam três vezes.
 mensagem mais antiga por partição acima de 15 minutos dispara alerta.
 
 **Sanitização no produtor.** Caracteres de controle passaram a ser removidos na
-origem — a prevenção, que não substitui o tratamento.
+origem: a prevenção, que não substitui o tratamento.
 
 Nos dois anos seguintes, a dead-letter recebeu 34 mensagens. Todas foram
 analisadas em minutos, e nenhuma bloqueou nada.
 
 A avaliação posterior aponta: as quatro correções custaram um dia de trabalho.
-Duas — dead-letter com limite e alerta de idade — eram configuração descrita na
+Duas (dead-letter com limite e alerta de idade) eram configuração descrita na
 documentação do serviço de fila, e bastavam para evitar as nove horas: a mensagem
 sairia da partição após três tentativas, e o alerta dispararia em 15 minutos.
 Classificação e sanitização são código; reduzem o que chega à dead-letter, não o
@@ -242,10 +242,10 @@ risco de travar.
 
 ## Conceitos Relacionados
 
-- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md) — para onde a mensagem vai.
-- [Retries](/06-distributed-systems/retries.md) — a classificação de falha.
-- [Mensageria](/06-distributed-systems/messaging.md) — o canal.
-- [Ordenação](/06-distributed-systems/ordering.md) — por que o bloqueio é pior com ordem.
+- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md): para onde a mensagem vai.
+- [Retries](/06-distributed-systems/retries.md): a classificação de falha.
+- [Mensageria](/06-distributed-systems/messaging.md): o canal.
+- [Ordenação](/06-distributed-systems/ordering.md): por que o bloqueio é pior com ordem.
 
 ## Exercício Prático
 
@@ -263,6 +263,6 @@ observe. Se a fila travar, você reproduziu o incidente antes dele acontecer.
 
 ## Para Aprofundar
 
-- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003 — o padrão
+- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003. O padrão
   *Dead Letter Channel*.
 - Nygard, Michael. *Release It!* 2ª ed., 2018.

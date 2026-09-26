@@ -2,7 +2,7 @@
 id: coupling-vs-duplication
 title: Coupling vs. Duplication
 sidebar_position: 6
-description: Duplication is cheaper than the wrong coupling — and most apparent duplication is not duplication.
+description: Duplication is cheaper than the wrong coupling, and most apparent duplication is not duplication.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [simplicity-vs-flexibility, monolith-vs-microservices, abstraction-vs-complexity]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -37,7 +37,7 @@ them creates a coupling between things that have no relationship.
 real axis   do these two snippets change for the same reason, or for different ones?
 ```
 
-That question — not the similarity of the code — decides.
+That question, not the similarity of the code, decides.
 
 ## Problem
 
@@ -126,7 +126,7 @@ shared database                   couples schema and evolution
 ```
 
 A library common to twelve services means that a fix in it requires twelve coordinated
-deployments — and that none of the twelve can evolve it alone.
+deployments, and that none of the twelve can evolve it alone.
 
 For that reason, **between services, the tolerance for duplication should be higher**.
 Duplicating a data model between two services with different contexts is frequently the
@@ -144,8 +144,8 @@ An underused middle ground: duplicate and record the relationship.
 // separate until the tax rule unifies the two cases.
 ```
 
-This preserves independence and solves the real problem of duplication, which is not the
-repeated code — it is silent divergence.
+This preserves independence and solves the real problem of duplication: not the
+repeated code, but silent divergence.
 
 ### Signs of the wrong choice
 
@@ -164,7 +164,7 @@ duplicated too much
   change effort proportional to the number of copies, always
 ```
 
-The first sign — control parameter — is the most reliable: it indicates that the shared code
+The first sign (control parameter) is the most reliable: it indicates that the shared code
 is serving two different kinds of knowledge.
 
 ### Cost of changing your mind
@@ -181,7 +181,7 @@ nobody mapped.
 ## Mental Model
 
 **Do they change for the same reason?** If yes, it is duplicated knowledge. If not, it is
-similar text — and joining them creates a problem that did not exist.
+similar text, and joining them creates a problem that did not exist.
 
 ## When to Use
 
@@ -215,12 +215,12 @@ Prefer **duplicating** when:
 
 ## Alternatives
 
-- **Duplication with a synchrony note** — keeps independence, avoids silent divergence.
-- **Extract only the stable core** — the part that demonstrably does not vary; leave the rest
+- **Duplication with a synchrony note**: keeps independence, avoids silent divergence.
+- **Extract only the stable core**: the part that demonstrably does not vary; leave the rest
   duplicated.
-- **Contract instead of code** — share the schema and not the implementation. See
+- **Contract instead of code**: share the schema and not the implementation. See
   [integration contracts](/08-integration-architecture/integration-contracts.md).
-- **Automated divergence checking** — tests that compare the behaviors of the copies, without
+- **Automated divergence checking**: tests that compare the behaviors of the copies, without
   joining them.
 
 The last one is elegant for regulated rules between services: the implementations remain
@@ -305,7 +305,7 @@ The separation took seven months:
 the ADR that explains why they are separate.
 
 **Common core extracted**, but minimal: only unit conversions and geographic data structures
-— the part that demonstrably does not vary by context, and that had no control parameter.
+(the part that demonstrably does not vary by context, and that had no control parameter).
 
 **Divergence checking for the regulated case.** Billing and reconciliation must agree by tax
 requirement; a daily test compares the two implementations over a set of cases and alerts
@@ -324,7 +324,7 @@ services depending on the common library        14 (only for the minimal core)
 The 18% increase in code is the accepted cost and was explicitly recorded as such.
 
 The library was not an execution error. It was created when there were two consumers with the
-same need — and the correct decision at that moment probably was to share. The error was not
+same need, and the correct decision at that moment probably was to share. The error was not
 revisiting it when the third and fourth consumers arrived with different reasons for change.
 Each control parameter added was a sign, and none was read as one.
 

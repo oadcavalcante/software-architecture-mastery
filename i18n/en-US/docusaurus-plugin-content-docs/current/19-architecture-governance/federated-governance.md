@@ -2,7 +2,7 @@
 id: federated-governance
 title: Federated Governance
 sidebar_position: 8
-description: The decision stays with the team, coherence stays in the contract — and what remains central is little.
+description: The decision stays with the team, coherence stays in the contract, and what remains central is little.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-standards, governance-pathologies]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -33,7 +33,7 @@ the consequence crosses a boundary    coordinated decision
 the consequence is the organization's central decision
 ```
 
-Applied honestly, that criterion leaves surprisingly little at the center — and it is exactly
+Applied honestly, that criterion leaves surprisingly little at the center, and it is exactly
 that reduction that lets the model deliver speed without losing coherence.
 
 ## Problem
@@ -45,7 +45,7 @@ queue that grows with the number of teams. Decision quality drops with distance 
 problem, and speed drops with scale.
 
 **Autonomy with no contract.** Each team decides everything. Six ways of authenticating, four
-queue systems, fifteen event formats. The cost doesn't appear inside the teams — it appears
+queue systems, fifteen event formats. The cost doesn't appear inside the teams; it appears
 between them, in integration, in shared operations and in the on-call rotation.
 
 ```text
@@ -75,7 +75,7 @@ The operational question: **if this decision goes wrong, who pays?** If the answ
 team", the decision is theirs.
 
 That is more precise than "technical decisions for teams, strategic decisions for the
-center", because apparently small decisions — the format of an event — have high
+center", because apparently small decisions (the format of an event) have high
 externality.
 
 ### The center governs interfaces, not implementations
@@ -87,8 +87,8 @@ local     how each team meets them
 ```
 
 That division is the same one that separates a module's interface from its implementation,
-applied to the organization. It preserves autonomy where it produces value — in the how — and
-coherence where it is necessary — in what crosses.
+applied to the organization. It preserves autonomy where it produces value (in the how) and
+coherence where it is necessary (in what crosses).
 
 See [integration contracts](/08-integration-architecture/integration-contracts.md).
 
@@ -124,7 +124,7 @@ authority. See
 
 The most discussed case of the model is data architecture: domains produce their data as a
 product, with contracts and declared quality, and central governance defines what every data
-product has to have — not what it contains.
+product has to have, not what it contains.
 
 ```text
 central   discovery format, quality requirements, access policy,
@@ -145,7 +145,7 @@ a small organization              coordination cost greater than the benefit
 ```
 
 The first is the most underestimated. Federation presupposes that each team can decide well
-within its scope, and that premise is not uniform. The usual response — train and support —
+within its scope, and that premise is not uniform. The usual response (train and support)
 is slow; the alternative is to modulate the local scope by maturity, which is uncomfortable
 and honest.
 
@@ -176,31 +176,31 @@ chart.
 
 ## When Not to Use
 
-**With no platform that already delivers identity, observability and a pipeline** — each
+**With no platform that already delivers identity, observability and a pipeline**: each
 team rebuilds those pieces, and the sum costs more than the central queue.
 
-**With no representation** — the central set gets defined for the teams, not by them, and
+**With no representation**: the central set gets defined for the teams, not by them, and
 becomes centralization under another name.
 
-**With very uneven maturity**, and no differentiated support — the same local scope for
+**With very uneven maturity**, and no differentiated support: the same local scope for
 everyone hands the less mature teams decisions they cannot yet sustain.
 
-**When all the teams fit in a single decision forum** — the central queue is still short, and
+**When all the teams fit in a single decision forum**: the central queue is still short, and
 a council, contracts and a platform cost more than it does.
 
-**With no consequence** for breaking a contract — the contract becomes a recommendation, and
+**With no consequence** for breaking a contract: the contract becomes a recommendation, and
 coherence goes back to depending on goodwill.
 
-**With a growing central set** — the model is already regressing to centralization, and
+**With a growing central set**: the model is already regressing to centralization, and
 federating on paper only hides it.
 
 ## Alternatives
 
-- **Centralized** — simpler, works up to a certain size.
-- **A community of practice** — voluntary coherence, with no authority; works with a strong
+- **Centralized**: simpler, works up to a certain size.
+- **A community of practice**: voluntary coherence, with no authority; works with a strong
   technical culture.
-- **A platform with no formal governance** — the paved road as the only mechanism.
-- **Partial federation** — central on security and data, local on the rest.
+- **A platform with no formal governance**: the paved road as the only mechanism.
+- **Partial federation**: central on security and data, local on the rest.
 
 The last is the most common arrangement in practice, and frequently the right one.
 
@@ -241,10 +241,10 @@ The last is the most common arrangement in practice, and frequently the right on
 
 **Not investing in a platform** before distributing the decision.
 
-**Not measuring whether the central set is growing** — the regression to centralization is
+**Not measuring whether the central set is growing**: the regression to centralization is
 only noticed once the queue is already back.
 
-**Not treating event format as a high-externality decision** — the incompatibility between
+**Not treating event format as a high-externality decision**: the incompatibility between
 producer and consumer shows up in production, as an incident, and not in the review of the
 team that published it.
 
@@ -267,7 +267,7 @@ average integration time between two teams          from 3 to 9 days
 ```
 
 None of those decisions was wrong locally. All of them had externality the model didn't
-consider, because the division was "technical versus strategic" — and event format is
+consider, because the division was "technical versus strategic", and event format is
 technical.
 
 The redesign, on the externality criterion:
@@ -306,7 +306,7 @@ template adoption in new services             91%
 Two items leaving the central set is the figure the team highlights. Identity and
 observability stopped being written rules because they became a built-in, verified default:
 the template ships them configured, and the platform pipeline refuses to deploy a service
-without them — it is that check, not the template, that covers the 9% of new services outside
+without them. It is that check, not the template, that covers the 9% of new services outside
 it and the legacy services, migrated onto the pipeline. No team has to remember the rule, and
 none can ignore it.
 
@@ -315,13 +315,13 @@ made choices with a significant aggregate effect on the bill. The externality ha
 noticed before.
 
 What the team learned: the first attempt did not fail from too much federation. It failed for
-using the wrong criterion to divide — "technical versus strategic" puts on the local side
+using the wrong criterion to divide: "technical versus strategic" puts on the local side
 decisions whose consequences belong to everyone.
 
 ## Related Concepts
 
 - [Governance Basics](/19-architecture-governance/governance-basics.md).
-- [Platform Engineering](/14-devops-and-platform/platform-engineering.md) — what makes the
+- [Platform Engineering](/14-devops-and-platform/platform-engineering.md): what makes the
   model viable.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
 - [Data Ownership](/07-data-architecture/data-ownership.md).

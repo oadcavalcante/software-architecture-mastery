@@ -2,7 +2,7 @@
 id: business-capabilities
 title: Capacidades de Negócio
 sidebar_position: 7
-description: Discutir sistemas sem falar de sistemas — a ferramenta de maior retorno prático da seção.
+description: "Discutir sistemas sem falar de sistemas: a ferramenta de maior retorno prático da seção."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
 canonical_for: [capacidade de negócio, modelo de capacidades de negócio, estabilidade de capacidade]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -86,15 +86,15 @@ Como decompor, e por que o terceiro nível não é uniforme, está em
 [mapeamento de capacidades](/15-enterprise-architecture/capability-mapping.md). O que
 importa aqui é o teto: para servir a decisões de investimento e portfólio, dois níveis
 completos e um terceiro pontual bastam. Descer ao quarto produz um modelo que ninguém
-mantém — e o valor do modelo depende de ele estar atualizado.
+mantém, e o valor do modelo depende de ele estar atualizado.
 
 O sinal de que se desceu demais: as capacidades do último nível começam a parecer
 funcionalidades de sistema.
 
 ### O valor está no mapeamento
 
-O modelo sozinho é um diagrama. O que produz decisão é sobrepor informação a ele —
-sistemas, custo, criticidade, diferenciação, saúde —, e o mapa de calor que resulta é
+O modelo sozinho é um diagrama. O que produz decisão é sobrepor informação a ele
+(sistemas, custo, criticidade, diferenciação, saúde), e o mapa de calor que resulta é
 descrito em [mapeamento de capacidades](/15-enterprise-architecture/capability-mapping.md).
 Cada pergunta pede uma combinação diferente.
 
@@ -121,7 +121,7 @@ capacidade "cadastro de clientes"
 Quatro sistemas com cadastro próprio, cada um com uma visão parcial. Isso é visível no
 mapa e invisível numa conversa sobre sistemas individuais.
 
-E a conversa que se segue é produtiva porque não começa acusando nenhum sistema — começa
+E a conversa que se segue é produtiva porque não começa acusando nenhum sistema; começa
 constatando que uma capacidade está fragmentada.
 
 Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
@@ -139,7 +139,7 @@ comum            todo mundo tem, ninguém escolhe por isso
                  → comprar
 ```
 
-Ver [SaaS](/09-cloud-architecture/saas.md) — é o mesmo critério, aplicado no nível da
+Ver [SaaS](/09-cloud-architecture/saas.md): é o mesmo critério, aplicado no nível da
 organização.
 
 O achado típico desse exercício: uma parcela relevante do investimento em engenharia
@@ -190,17 +190,17 @@ trimestre, o teste de estabilidade falha por construção: as capacidades de hoj
 existirão no ano que vem, e o modelo envelhece mais rápido que os sistemas.
 
 **Sem fórum que o consuma.** Se não há discussão de orçamento, portfólio ou priorização
-que vá usar o mapa, ele é construído e arquivado — o custo sem o retorno.
+que vá usar o mapa, ele é construído e arquivado: o custo sem o retorno.
 
 **Como substituto de arquitetura técnica.** Ele orienta investimento, não desenho de
 sistema; fronteiras de software vêm de domínios.
 
 ## Alternativas
 
-- **Mapa de fluxo de valor** — orientado a processo, melhor para otimizar fluxo.
-- **Mapeamento de domínios** — orientado a fronteiras de software. Ver
+- **Mapa de fluxo de valor**: orientado a processo, melhor para otimizar fluxo.
+- **Mapeamento de domínios**: orientado a fronteiras de software. Ver
   [DDD](/04-domain-driven-design/index.md).
-- **Inventário de aplicações** — mais simples, sem a lente de negócio. Ver
+- **Inventário de aplicações**: mais simples, sem a lente de negócio. Ver
   [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
 Capacidades e domínios são complementares: capacidades organizam a conversa com o
@@ -242,7 +242,7 @@ aprende que ele não merece confiança.
 **Descer a quatro ou cinco níveis.** O último nível vira lista de funcionalidades, a
 manutenção passa a custar mais que o uso, e o modelo fica desatualizado em meses.
 
-**Não mapear sistemas.** Sem o mapeamento, a duplicação continua invisível — que era o
+**Não mapear sistemas.** Sem o mapeamento, a duplicação continua invisível. E era ela o
 motivo de construir o modelo.
 
 **Não classificar por diferenciação.** A decisão de construir ou comprar volta a ser
@@ -269,15 +269,15 @@ sistemas. Cada um tinha a própria noção de quem é o segurado, e a reconcilia
 eles consumia um time inteiro.
 
 **Investimento desalinhado.** 34% do orçamento de engenharia estava em capacidades
-classificadas como comuns — folha, contabilidade, gestão de documentos. Nenhuma delas
+classificadas como comuns: folha, contabilidade, gestão de documentos. Nenhuma delas
 diferenciava a seguradora, e todas tinham produtos maduros no mercado.
 
-**Risco não nomeado.** A capacidade "cálculo de sinistro" — crítica e diferenciadora —
+**Risco não nomeado.** A capacidade "cálculo de sinistro", crítica e diferenciadora,
 era suportada por um sistema de 22 anos, com dois mantenedores, ambos próximos da
 aposentadoria.
 
 Esse terceiro achado mudou a prioridade do ano. Ele era conhecido individualmente por
-várias pessoas, e nunca tinha aparecido numa discussão de investimento — porque a
+várias pessoas, e nunca tinha aparecido numa discussão de investimento, porque a
 conversa era sobre sistemas, e ninguém apresentava o sistema de sinistros como
 prioridade estratégica.
 
@@ -296,15 +296,15 @@ E uma mudança de processo: a discussão de orçamento passou a acontecer sobre 
 capacidades, não sobre a lista de sistemas.
 
 Na retrospectiva: o modelo levou seis semanas e o mapeamento, mais quatro. Ele
-mudou a conversa mais que qualquer análise técnica dos anos anteriores — porque o
+mudou a conversa mais que qualquer análise técnica dos anos anteriores, porque o
 negócio finalmente conseguia participar dela.
 
 ## Conceitos Relacionados
 
-- [Mapeamento de Capacidades](/15-enterprise-architecture/capability-mapping.md) — o método.
-- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md) — o mapeamento.
+- [Mapeamento de Capacidades](/15-enterprise-architecture/capability-mapping.md): o método.
+- [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md): o mapeamento.
 - [Arquitetura de Negócio](/15-enterprise-architecture/business-architecture.md).
-- [SaaS](/09-cloud-architecture/saas.md) — construir ou comprar.
+- [SaaS](/09-cloud-architecture/saas.md): construir ou comprar.
 
 ## Exercício Prático
 
@@ -324,5 +324,5 @@ mesmo cadastro, é duplicação; se um cadastra e o outro cobra, são partes com
 ## Para Aprofundar
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de negócio.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Arquitetura de negócio.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

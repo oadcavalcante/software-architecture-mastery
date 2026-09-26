@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vendor-lock-in]
 related: [managed-vs-self-hosted, build-vs-buy, simplicity-vs-flexibility]
 canonical_for: [nativo contra portável, prêmio de portabilidade, superfície de dependência, migração hipotética]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-29
 
 Usar profundamente os serviços de um provedor entrega velocidade e capacidade que a camada
 portável não tem. Manter portabilidade preserva a opção de mudar, ao custo de abrir mão de
-parte disso — todos os dias.
+parte disso, todos os dias.
 
 ```text
 eixo real   qual a probabilidade real de migrar, e qual o custo de saída
@@ -32,7 +32,7 @@ eixo real   qual a probabilidade real de migrar, e qual o custo de saída
 
 Portabilidade é um **seguro**: prêmio pago continuamente contra um evento raro. Como todo
 seguro, ele se justifica quando o prêmio contínuo é baixo em relação à probabilidade de
-migrar multiplicada pelo custo de saída — e não quando o medo é grande. Os três termos são
+migrar multiplicada pelo custo de saída, e não quando o medo é grande. Os três termos são
 necessários: sinistro grande com probabilidade desprezível não justifica prêmio nenhum, que
 é o erro que este documento trata.
 
@@ -55,7 +55,7 @@ quanto a portabilidade custa por mês, em velocidade e capacidade não usada?
 ```
 
 Sem eles, a decisão é tomada por aversão, e o resultado típico é uma arquitetura que evita
-tudo que o provedor oferece de melhor — filas, funções, bancos gerenciados, identidade — e
+tudo que o provedor oferece de melhor (filas, funções, bancos gerenciados, identidade) e
 reimplementa versões piores das mesmas coisas, para preservar uma opção que nunca será
 exercida.
 
@@ -81,7 +81,7 @@ serviços de dados e IA
   proprietários            muito baixa     muito alto
 ```
 
-Isso permite uma decisão **por componente** em vez de global — e a decisão por componente é
+Isso permite uma decisão **por componente** em vez de global, e a decisão por componente é
 quase sempre superior, porque concentra o prêmio onde ele é barato.
 
 Ver [aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
@@ -95,8 +95,8 @@ prêmio como seguro, o que ele custa em velocidade, e a probabilidade por motivo
 
 As estimativas abaixo são de **esforço de reescrita** e supõem volume de dados que cabe numa
 janela de corte de um fim de semana. Acima disso, a parcela que domina não é reescrita: é
-transferência de saída, e ela precisa entrar como linha própria — volume, preço de egresso e
-janela.
+transferência de saída, e ela precisa entrar como linha própria (volume, preço de egresso e
+janela).
 
 ```text
 componente               esforço estimado de migração
@@ -124,7 +124,7 @@ usar identidade do provedor            semanas
 manter portável                        construir ou operar identidade
 ```
 
-O prêmio não é só custo de infraestrutura — é tempo de engenharia desviado do produto, e
+O prêmio não é só custo de infraestrutura, é tempo de engenharia desviado do produto, e
 capacidade não usada. Ele é contínuo e invisível, que é a combinação que faz decisões ruins
 sobreviverem.
 
@@ -144,8 +144,8 @@ enquanto isso, ela impediu o uso das capacidades melhores
 É o mesmo mecanismo de [simplicidade vs. flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md):
 abstração construída a partir de um caso tem a forma daquele caso.
 
-O que funciona melhor é **isolar** — concentrar o uso do serviço proprietário em um módulo
-pequeno e identificável — sem generalizar. O custo é quase zero e o benefício na migração é
+O que funciona melhor é **isolar** (concentrar o uso do serviço proprietário em um módulo
+pequeno e identificável) sem generalizar. O custo é quase zero e o benefício na migração é
 quase o mesmo.
 
 ### Portabilidade que vale quase sempre
@@ -161,7 +161,7 @@ observabilidade com protocolo aberto
 ```
 
 Todas reduzem a superfície de dependência, e o sacrifício de capacidade é pequeno o bastante
-para valer o padrão — com duas exceções conhecidas: carga que depende de extensão ou motor
+para valer o padrão, com duas exceções conhecidas: carga que depende de extensão ou motor
 proprietário não cabe no motor padrão, e serviço recém-lançado costuma chegar à ferramenta
 multiprovedor meses depois do provedor. Nos dois casos, a exceção é identificável antes de
 decidir.
@@ -182,7 +182,7 @@ insatisfação com confiabilidade muito baixa     raramente motiva migração co
 exigência de cliente            baixa           multiprovedor parcial
 ```
 
-O primeiro é o mais comum e não exige migração — exige **credibilidade de que a migração é
+O primeiro é o mais comum e não exige migração; exige **credibilidade de que a migração é
 possível**, que é diferente e mais barata de obter.
 
 ### Para qual lado a equipe errou
@@ -198,7 +198,7 @@ pergunte por que o serviço proprietário X não é usado
 "medimos e não compensa"                     → nenhum dos dois; está certo
 ```
 
-A terceira resposta é rara, e é o alvo. As duas primeiras têm em comum a ausência de número —
+A terceira resposta é rara, e é o alvo. As duas primeiras têm em comum a ausência de número:
 uma teme sem estimar, a outra proíbe sem comparar.
 
 ### Custo de mudar de ideia
@@ -208,7 +208,7 @@ portável → nativo   barato: passar a usar o que já está disponível
 nativo → portável   caro: extrair a dependência depois de espalhada
 ```
 
-A assimetria favorece portabilidade — mas com uma correção importante: o custo de "nativo →
+A assimetria favorece portabilidade, mas com uma correção importante: o custo de "nativo →
 portável" cai muito se o uso proprietário estiver **isolado** desde o início.
 
 Isso resolve o dilema na prática: isole sem abstrair, use o provedor a fundo, e mantenha o
@@ -223,7 +223,7 @@ onde não é, e não pague por um sinistro que quase nunca ocorre.
 
 Prefira **portabilidade** quando:
 
-- Ela custa pouco — contêineres, motores padrão, protocolos abertos.
+- Ela custa pouco: contêineres, motores padrão, protocolos abertos.
 - Há exigência contratual ou regulatória de multiprovedor.
 - Há probabilidade concreta de migração, com prazo.
 - O componente é crítico e a alternativa do provedor é proprietária.
@@ -237,7 +237,7 @@ Prefira **nativo** quando:
 
 ## Quando Não Usar
 
-**Como decisão global** — a resposta é por componente.
+**Como decisão global**: a resposta é por componente.
 
 **Com abstração preventiva** construída a partir de um provedor.
 
@@ -249,12 +249,12 @@ Prefira **nativo** quando:
 
 ## Alternativas
 
-- **Isolar sem abstrair** — módulo identificável, sem camada genérica. Vence quando a
+- **Isolar sem abstrair**: módulo identificável, sem camada genérica. Vence quando a
   probabilidade de migrar é baixa mas não nula e o serviço tem substituto de função
   equivalente: custa dias e corta a maior parte do esforço de extração.
-- **Portabilidade seletiva** — nas camadas onde é barata, nativo no resto.
-- **Multiprovedor real** — caro; justificável apenas com exigência concreta.
-- **Nativo com custo de saída documentado** — usar a fundo, e manter a estimativa atualizada.
+- **Portabilidade seletiva**: nas camadas onde é barata, nativo no resto.
+- **Multiprovedor real**: caro; justificável apenas com exigência concreta.
+- **Nativo com custo de saída documentado**: usar a fundo, e manter a estimativa atualizada.
 
 A última é subestimada: saber que sair custa quatro meses é diferente de temer que seja
 impossível, e é suficiente para negociar.
@@ -343,8 +343,8 @@ observabilidade               2 semanas
 saída da arquitetura de 2021  ~7 semanas
 ```
 
-Sete semanas. Esse era o sinistro coberto pelo prêmio de 4,5 engenheiros permanentes e de uma
-entrega 2,3× mais lenta — e o desproporcional entre os dois é o achado que abriu a discussão.
+Sete semanas: esse era o sinistro coberto pelo prêmio de 4,5 engenheiros permanentes e de uma
+entrega 2,3× mais lenta. E o desproporcional entre os dois é o achado que abriu a discussão.
 
 Depois o do cenário que a política existia para evitar: a mesma empresa tendo adotado
 identidade e funções do provedor, sem isolamento.
@@ -384,7 +384,7 @@ identificável, e custo de saída estimado e registrado em ADR, revisado anualme
 **Estimativa de saída consolidada** apresentada ao conselho anualmente, como resposta formal
 à preocupação original.
 
-**Multiprovedor apenas onde exigido por contrato** — dois clientes tinham essa cláusula, e
+**Multiprovedor apenas onde exigido por contrato**: dois clientes tinham essa cláusula, e
 apenas para o armazenamento de dados deles.
 
 Resultados após 18 meses:
@@ -399,7 +399,7 @@ custo de saída consolidado, estimado               ~11 meses
 
 O custo de saída **subiu**, e é preciso dizer de quanto para quanto: de sete semanas para onze
 meses. A comparação com os nove meses do cenário hipotético não vale, porque aquele cenário
-nunca existiu — comparar o real de hoje com um hipotético de ontem é o tipo de conta que faz
+nunca existiu. Comparar o real de hoje com um hipotético de ontem é o tipo de conta que faz
 uma decisão parecer melhor do que foi.
 
 Os onze meses se decompõem assim:
@@ -418,7 +418,7 @@ total                                                ~47 semanas ≈ 11 meses
 Duas leituras saem da tabela. A primeira é que o isolamento fez o que prometia: identidade e
 funções, que sem isolamento somariam trinta semanas, somam dezesseis. A segunda é que isso não
 impediu o total de subir, porque a reforma adotou três serviços proprietários que a política
-antiga não deixava existir. Isolar não barateia a saída em termos absolutos — mantém o custo
+antiga não deixava existir. Isolar não barateia a saída em termos absolutos: mantém o custo
 **estimável e contido no módulo**, em vez de difuso pelo sistema. É uma promessa menor do que
 "portabilidade", e é a que se cumpre.
 
@@ -433,7 +433,7 @@ estimativa crível de saída, e não de uma arquitetura que evitasse a nuvem int
 
 - [Aprisionamento](/09-cloud-architecture/vendor-lock-in.md).
 - [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
-- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md) — o mesmo mecanismo de
+- [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md): o mesmo mecanismo de
   opcionalidade.
 - [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
 

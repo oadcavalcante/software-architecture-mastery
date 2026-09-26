@@ -2,7 +2,7 @@
 id: traces
 title: Traces
 sidebar_position: 3
-description: A anatomia de uma requisição — onde ela passou e onde gastou o tempo.
+description: "A anatomia de uma requisição: onde ela passou e onde gastou o tempo."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, metrics]
 canonical_for: [trace, span, atributo de span, evento de span]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-28
 Um trace é o registro do caminho de uma requisição: por onde ela passou, em que ordem,
 e quanto tempo gastou em cada etapa.
 
-Ele é composto de **spans** — unidades de trabalho com início, fim e relação de pai e
-filho — que formam uma árvore.
+Ele é composto de **spans** (unidades de trabalho com início, fim e relação de pai e
+filho) que formam uma árvore.
 
 O que ele responde e os outros sinais não: **onde o tempo foi**. Métricas dizem que a
 requisição levou 3 segundos; logs dizem que ela falhou; o trace mostra que 2,7 segundos
@@ -60,7 +60,7 @@ span
 A árvore de spans mostra a estrutura: o que aconteceu em sequência, o que aconteceu em
 paralelo, e onde estão as esperas.
 
-Um span sem atributos é quase inútil — ele diz que algo levou 200 ms, sem dizer o quê.
+Um span sem atributos é quase inútil: ele diz que algo levou 200 ms, sem dizer o quê.
 Os atributos são o que permite responder "por que **esta** execução foi lenta?".
 
 ### Granularidade: nem demais, nem de menos
@@ -80,7 +80,7 @@ sim   chamada de rede, consulta ao banco, operação de disco,
 não   validação em memória, mapeamento de objeto, laço simples
 ```
 
-A regra que funciona bem: instrumente as fronteiras — tudo que sai do processo — e as
+A regra que funciona bem: instrumente as fronteiras (tudo que sai do processo) e as
 operações internas caras. O resto entra como atributo ou evento do span pai.
 
 ### Ler um trace: procure as lacunas
@@ -96,11 +96,11 @@ espaços vazios entre spans                  → espera não instrumentada
 ```
 
 A segunda linha é a mais informativa: uma lacuna entre a soma dos filhos e a duração do
-pai indica tempo gasto em algo que não foi instrumentado — frequentemente espera por
+pai indica tempo gasto em algo que não foi instrumentado, frequentemente espera por
 recurso, coleta de lixo, ou serialização.
 
 A terceira revela o problema N+1 visualmente, sem que ninguém precise ter previsto a
-pergunta. A métrica de latência por dependência não o mostra — cada chamada é rápida —; uma
+pergunta. A métrica de latência por dependência não o mostra (cada chamada é rápida); uma
 métrica de chamadas a jusante por requisição mostraria, se alguém a tivesse criado antes. Ver
 [GraphQL](/08-integration-architecture/graphql.md) e
 [bancos de documentos](/07-data-architecture/document-databases.md).
@@ -115,17 +115,17 @@ log     contexto e motivo — o quê e por quê
 A prática madura os conecta: os logs carregam o identificador do trace e do span, e a
 ferramenta permite saltar de um para o outro.
 
-Isso elimina a etapa mais tediosa da investigação — encontrar os logs correspondentes ao
+Isso elimina a etapa mais tediosa da investigação: encontrar os logs correspondentes ao
 trace que se está olhando. Ver
 [identificadores de correlação](/13-observability/correlation-ids.md).
 
-E, na direção inversa, spans podem carregar eventos — registros com carimbo de tempo
-dentro do span — que substituem logs de progresso.
+E, na direção inversa, spans podem carregar eventos (registros com carimbo de tempo
+dentro do span) que substituem logs de progresso.
 
 ### Instrumentação automática cobre a maior parte
 
-Bibliotecas de instrumentação automática criam spans para operações comuns — chamadas
-HTTP, consultas a banco, publicação em fila — sem alteração de código.
+Bibliotecas de instrumentação automática criam spans para operações comuns (chamadas
+HTTP, consultas a banco, publicação em fila) sem alteração de código.
 
 Isso cobre boa parte do valor com custo baixíssimo, e é o ponto de partida certo.
 
@@ -140,7 +140,7 @@ domínio.
 Um span com status de erro, com a exceção como evento, torna traces com falha
 localizáveis por consulta.
 
-Sem isso, encontrar "traces onde algo deu errado" exige inspecionar cada um — o que
+Sem isso, encontrar "traces onde algo deu errado" exige inspecionar cada um, o que
 anula boa parte da utilidade.
 
 E o status precisa propagar: um span filho com erro deveria marcar o pai, para que a
@@ -168,7 +168,7 @@ infraestrutura de coleta, propagação e armazenamento que o trace exige.
 **Sem orçamento para o volume.** Spans por requisição vezes requisições por segundo dão a
 ordem de grandeza: 20 spans a 2.000 req/s são 40 mil spans por segundo, mais de 3 bilhões
 por dia antes de amostragem. Se não há decisão de amostragem e retenção que caiba no
-orçamento, a coleta integral vira a maior conta de observabilidade — ver
+orçamento, a coleta integral vira a maior conta de observabilidade. Ver
 [telemetria](/13-observability/telemetry.md) para as alavancas de custo e
 [rastreamento distribuído](/13-observability/distributed-tracing.md) para a amostragem.
 
@@ -181,13 +181,13 @@ todos os eventos, e taxa e percentil calculados sobre a amostra distorcem.
 
 ## Alternativas
 
-- **Perfilador** — para entender onde o tempo vai **dentro** de um processo. Trace
+- **Perfilador**: para entender onde o tempo vai **dentro** de um processo. Trace
   mostra entre componentes; perfilador mostra dentro.
-- **[Logs](/13-observability/logs.md) com duração por etapa** — o evento canônico com tempos por etapa
+- **[Logs](/13-observability/logs.md) com duração por etapa**: o evento canônico com tempos por etapa
   cobre parte do valor, sem a estrutura de árvore.
-- **[Métricas](/13-observability/metrics.md) por dependência** — mostram tendência por chamada, sem
+- **[Métricas](/13-observability/metrics.md) por dependência**: mostram tendência por chamada, sem
   ligar à requisição individual.
-- **Perfilamento contínuo** — amostragem de pilha em produção; complementa traces para
+- **Perfilamento contínuo**: amostragem de pilha em produção; complementa traces para
   o tempo dentro do processo.
 
 ## Trade-offs
@@ -227,7 +227,7 @@ todos os eventos, e taxa e percentil calculados sobre a amostra distorcem.
 custo, e a árvore fica ilegível: o span que importa se perde entre centenas de 1 ms.
 
 **Não adicionar atributos de domínio.** Sem tipo de cliente, tamanho do lote ou
-identificador do recurso, não se separa a execução lenta da rápida dentro da mesma rota — o
+identificador do recurso, não se separa a execução lenta da rápida dentro da mesma rota: o
 trace diz que demorou, não o que a diferencia.
 
 **Não marcar status de erro.** Não existe consulta por "traces que falharam"; achar a
@@ -236,10 +236,10 @@ falha vira inspeção manual, trace a trace.
 **Não conectar traces a logs.** O identificador do trace não aparece no log, e a
 investigação volta a cruzar duas ferramentas por carimbo de tempo.
 
-**Depender só da instrumentação automática.** Os spans ficam com nomes técnicos — "GET",
-"SELECT" — e a operação de negócio cara que não cruza fronteira nenhuma fica invisível.
+**Depender só da instrumentação automática.** Os spans ficam com nomes técnicos ("GET",
+"SELECT") e a operação de negócio cara que não cruza fronteira nenhuma fica invisível.
 
-**Não instrumentar esperas** — bloqueios, filas internas, aquisição de conexão. O tempo
+**Não instrumentar esperas**: bloqueios, filas internas, aquisição de conexão. O tempo
 aparece como lacuna no pai, e quem lê o trace precisa adivinhar o que a preenche.
 
 ## Exemplo Real
@@ -251,7 +251,7 @@ A instrumentação com traces levou uma semana e mostrou o problema no primeiro 
 inspecionado:
 
 A requisição gerava **147 spans**. A tela consultava a lista de exames de um paciente e,
-para cada exame, buscava o laboratório correspondente — um problema N+1 clássico,
+para cada exame, buscava o laboratório correspondente: um problema N+1 clássico,
 invisível nas métricas porque cada chamada individual levava 22 ms.
 
 ```text
@@ -264,7 +264,7 @@ estava em 22 ms, excelente. O problema era a quantidade de chamadas, e ninguém 
 chamadas a jusante por requisição.
 
 A correção foi uma consulta em lote: de 147 spans para 3, e de 4 segundos para cerca de
-800 ms. Os ~740 ms fora do laço N+1 continuaram — e parte deles era a espera descrita
+800 ms. Os ~740 ms fora do laço N+1 continuaram, e parte deles era a espera descrita
 logo abaixo.
 
 A instrumentação revelou mais três coisas na mesma semana:
@@ -280,8 +280,8 @@ aquisição de uma conexão de banco — o pool estava subdimensionado. Ver
 [escala de banco de dados](/11-scalability/database-scaling.md).
 
 Nenhum dos três aparecia nas métricas e logs que a equipe tinha. O terceiro teria
-aparecido numa métrica de saturação do pool de conexões — um dos
-[sinais dourados](/13-observability/golden-signals.md) —, mas ela não existia; os três
+aparecido numa métrica de saturação do pool de conexões (um dos
+[sinais dourados](/13-observability/golden-signals.md)), mas ela não existia; os três
 foram visíveis no primeiro dia de traces, sem que alguém precisasse saber o que procurar.
 
 O que a equipe registra: eles tinham métricas e logs maduros, e passaram meses
@@ -290,8 +290,8 @@ estrutura, que era exatamente a informação que faltava.
 
 ## Conceitos Relacionados
 
-- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a propagação e a amostragem.
-- [Logs](/13-observability/logs.md) e [Métricas](/13-observability/metrics.md) — os complementos.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md): a propagação e a amostragem.
+- [Logs](/13-observability/logs.md) e [Métricas](/13-observability/metrics.md): os complementos.
 - [Identificadores de Correlação](/13-observability/correlation-ids.md).
 - [Depurabilidade](/13-observability/debuggability.md).
 
@@ -299,7 +299,7 @@ estrutura, que era exatamente a informação que faltava.
 
 Instrumente uma rota do seu sistema com traces e inspecione um trace real.
 
-Procure lacunas entre a duração do span pai e a soma dos filhos — elas apontam para
+Procure lacunas entre a duração do span pai e a soma dos filhos: elas apontam para
 tempo gasto onde ninguém está olhando.
 
 ## Perguntas de Entrevista
@@ -313,4 +313,4 @@ tempo gasto onde ninguém está olhando.
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
   Infrastructure*. Google, 2010.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
-- OpenTelemetry Authors. *OpenTelemetry Specification — Tracing API*, v1.0. CNCF, 2021.
+- OpenTelemetry Authors. *OpenTelemetry Specification. Tracing API*, v1.0. CNCF, 2021.

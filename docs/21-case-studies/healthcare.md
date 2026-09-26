@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-content_version: 6
+content_version: 7
 last_reviewed: 2026-08-29
 ---
 
@@ -33,7 +33,7 @@ sustentam, não as grandezas.
 ## Contexto de Negócio
 
 A **Vitalis** é uma operadora de saúde com rede própria: 12 hospitais, 84 clínicas e 244 pontos
-de atendimento — laboratórios, centros de imagem e unidades de pronto atendimento. Atende 2,8
+de atendimento (laboratórios, centros de imagem e unidades de pronto atendimento). Atende 2,8
 milhões de beneficiários.
 
 O prontuário eletrônico é um sistema construído internamente ao longo de 14 anos. Ele funciona,
@@ -41,7 +41,7 @@ e três características o tornam insustentável:
 
 **Disponibilidade.** O sistema teve 41 horas de indisponibilidade no último ano. Durante uma
 delas, um hospital operou 6 horas com prontuário em papel, e a reconciliação posterior levou
-três semanas. Indisponibilidade em saúde não é inconveniente — é risco clínico, porque o médico
+três semanas. Indisponibilidade em saúde é risco clínico, não inconveniente, porque o médico
 perde acesso a alergias, medicações em uso e histórico.
 
 **Fragmentação.** Cada unidade adquirida ao longo dos anos trouxe seu sistema. Existem hoje 7
@@ -119,7 +119,7 @@ prazo             apontamento de auditoria com prazo de 24 meses
 ```
 
 A restrição de migração é a mais delicada de todo este conjunto de cases: um registro clínico
-migrado com interpretação errada — uma dosagem, uma alergia — pode causar dano.
+migrado com interpretação errada (uma dosagem, uma alergia) pode causar dano.
 
 Essa restrição mudou o método de trabalho, não apenas o cronograma. Migração de dado clínico não
 é verificada por contagem de linhas nem por soma de verificação: ela é verificada clinicamente,
@@ -144,7 +144,7 @@ registros clínicos/dia              ~640 mil
 registros/s, pico                   ~85
 ```
 
-O volume transacional é baixo — 180 consultas por segundo. Como em quase todos os casos deste
+O volume transacional é baixo: 180 consultas por segundo. Como em quase todos os casos deste
 conjunto, a arquitetura não é decidida por escala.
 
 O que dimensiona é o **armazenamento** e a **imagem**:
@@ -169,13 +169,12 @@ Essa distribuição é o que justifica hierarquia de armazenamento, e ela sozinh
 parte da economia possível.
 
 Vale notar como esse número foi obtido, porque ele não estava disponível. O sistema antigo não
-registrava acesso a exames de imagem de forma consultável — a informação existia em registros de
+registrava acesso a exames de imagem de forma consultável: a informação existia em registros de
 aplicação, retidos por 15 dias. Reconstruir a distribuição exigiu três meses de coleta antes de
 qualquer decisão de arquitetura poder ser tomada com fundamento.
 
 Esse é um padrão que se repete em sistemas antigos: a decisão depende de um número que ninguém
-mediu, e medir leva tempo. Começar a coleta cedo — antes de saber exatamente o que se vai decidir
-— é o que evita escolher por intuição meses depois.
+mediu, e medir leva tempo. Começar a coleta cedo, antes de saber exatamente o que se vai decidir, é o que evita escolher por intuição meses depois.
 
 ## Opções de Arquitetura
 
@@ -233,7 +232,7 @@ complexidade      alta
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais
 critérios. Com continuidade em 45%, os totais viram 6,6 / 8,3 / 5,7. Com conformidade em 40%,
-viram 7,7 / 8,1 / 4,8 — a Opção B mantém vantagem estreita. A Opção C não
+viram 7,7 / 8,1 / 4,8. A Opção B mantém vantagem estreita. A Opção C não
 vence em nenhum cenário testado, e a razão é estrutural: ela dificulta simultaneamente
 consolidação e trilha de acesso, que são os dois problemas declarados.
 
@@ -244,12 +243,12 @@ explícitas e a sincronização tratada como parte do fluxo clínico, não como 
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** todas as unidades tivessem conectividade confiável — o que é verdade
+**Opção A venceria se** todas as unidades tivessem conectividade confiável. Isso é verdade
 para 81% delas. Para essas, o modo local é uma capacidade que raramente é exercida, e o custo de
 mantê-la é justificado apenas pelas 19% restantes e pelo risco de falha central.
 
 **Opção C venceria se** as unidades fossem organizações independentes, com autonomia jurídica e
-propriedade própria do dado — o modelo de uma rede credenciada, não de rede própria. A condição
+propriedade própria do dado: o modelo de uma rede credenciada, não de rede própria. A condição
 está registrada: se a Vitalis passar a integrar prestadores externos com propriedade do
 prontuário, o modelo federado volta à mesa para essa parcela.
 
@@ -260,7 +259,7 @@ prontuário, o modelo federado volta à mesa para essa parcela.
 **Nó de Unidade.** Instância local em cada unidade, com o prontuário dos pacientes relevantes e
 capacidade de registrar offline.
 
-**Serviço de Identificação de Paciente.** Resolve identidade entre sistemas — o problema mais
+**Serviço de Identificação de Paciente.** Resolve identidade entre sistemas: o problema mais
 difícil da consolidação.
 
 **Serviço de Consentimento.** Gerencia o que o paciente autorizou compartilhar, com quem e por
@@ -285,7 +284,7 @@ legados e cadastros de qualidade variável, essa é a fonte de erro mais perigos
 ## Dados
 
 **Registro clínico.** Imutável após assinatura. Uma correção é um registro novo que referencia o
-anterior, com o motivo — nunca uma alteração.
+anterior, com o motivo; nunca uma alteração.
 
 ```text
 registro   (id, paciente_id, unidade_id, profissional_id, tipo,
@@ -305,7 +304,7 @@ vinculo    (paciente_mestre_id, sistema_origem, id_origem,
 ```
 
 Vínculos com escore abaixo do limiar exigem confirmação humana. Durante a migração, 11% dos
-registros caíram nessa categoria — cerca de 310 mil casos revisados por uma equipe de 22 pessoas
+registros caíram nessa categoria: cerca de 310 mil casos revisados por uma equipe de 22 pessoas
 ao longo de 14 meses.
 
 **Consentimento.** Versionado e datado. Um acesso é avaliado contra o consentimento vigente no
@@ -314,7 +313,7 @@ momento do acesso, e a trilha registra qual versão foi aplicada.
 **Trilha de acesso.** Append-only, imutável, retida por 20 anos. Cada entrada registra quem
 acessou, qual paciente, qual registro, quando e sob qual justificativa.
 
-O volume — 11 bilhões de entradas — é grande e o padrão de acesso é raro: a trilha é consultada
+O volume (11 bilhões de entradas) é grande e o padrão de acesso é raro: a trilha é consultada
 em auditoria e em investigação, algumas centenas de vezes por mês. Armazenamento frio, com
 consulta lenta e barata.
 
@@ -339,7 +338,7 @@ Quando a conexão cai, ele passa a escrever apenas localmente, marcando os regis
 pendentes.
 
 Na reconexão, os registros pendentes são enviados. Como registros são imutáveis e apenas
-acrescentados, não há conflito de escrita — o conflito possível é **clínico**: dois profissionais
+acrescentados, não há conflito de escrita. O conflito possível é **clínico**: dois profissionais
 em unidades diferentes registrando decisões incompatíveis sobre o mesmo paciente durante a
 partição.
 
@@ -348,23 +347,23 @@ mesmo paciente no mesmo intervalo são detectados na sincronização, ambos são
 alerta é gerado para o profissional responsável, que decide. O sistema **não** resolve conflito
 clínico automaticamente.
 
-**Quais pacientes ficam no nó local.** Não todos — seria inviável. O nó mantém os pacientes com
+**Quais pacientes ficam no nó local.** Não todos; seria inviável. O nó mantém os pacientes com
 atendimento agendado nos próximos 7 dias, os internados, e os atendidos nos últimos 30 dias.
 Cobre 97% dos atendimentos.
 
-Para os 3% restantes — um paciente que chega sem agendamento numa unidade sem conexão — o
+Para os 3% restantes (um paciente que chega sem agendamento numa unidade sem conexão) o
 sistema opera com o que o paciente informar, registra a limitação, e sinaliza o registro como
 produzido sem acesso ao histórico. É uma degradação com consequência clínica, e ela é
 comunicada ao profissional.
 
 A marcação desse registro como "produzido sem histórico" tem uso posterior: quando a unidade
 reconecta e o histórico completo fica disponível, o sistema compara o que foi registrado com o
-que consta no prontuário — alergias, medicações em uso, condições crônicas — e alerta o
+que consta no prontuário (alergias, medicações em uso, condições crônicas) e alerta o
 profissional responsável se houver incompatibilidade.
 
 Esse alerta posterior é uma rede de segurança que a operação valorizou mais do que a equipe
 esperava. Em 14 meses, ele gerou 62 alertas, dos quais 9 resultaram em mudança de conduta
-clínica. Nenhum deles teria sido detectado sem a marcação — o registro pareceria normal.
+clínica. Nenhum deles teria sido detectado sem a marcação: o registro pareceria normal.
 
 **Interoperabilidade.** O Gateway traduz entre o modelo interno e os padrões do setor, tanto
 para receber resultados de laboratórios externos quanto para enviar informações a outras
@@ -393,7 +392,7 @@ assinatura              certificado ICP-Brasil, com carimbo de tempo
 anonimização            para pesquisa e análise, com processo aprovado
 ```
 
-O **acesso em emergência com justificativa** — conhecido no setor como "quebra de vidro" — é a
+O **acesso em emergência com justificativa**, conhecido no setor como "quebra de vidro", é a
 decisão de segurança mais importante. Bloquear o acesso pode custar uma vida; permitir sem
 controle viola a lei. A solução é permitir, exigir justificativa no momento, e revisar depois.
 
@@ -420,7 +419,7 @@ atendimento continua para os 97% de pacientes com dado local. É a degradação 
 sistema, e é ensaiada trimestralmente com corte real de conexão numa unidade por vez.
 
 Se um **Nó de Unidade** falha, aquela unidade opera contra o central diretamente, com latência
-maior. Se as duas coisas falharem juntas, a unidade recorre ao processo em papel — que continua
+maior. Se as duas coisas falharem juntas, a unidade recorre ao processo em papel, que continua
 existindo, documentado e treinado.
 
 Se o **Serviço de Consentimento** fica indisponível, o acesso é negado por padrão, exceto em
@@ -451,7 +450,7 @@ modo local com sincronização saudável está disponível, ainda que desconecta
 
 Essa definição mudou a percepção interna do problema: as 41 horas de indisponibilidade do sistema
 antigo eram, na métrica antiga, indisponibilidade do central. Na métrica nova, o número relevante
-passou a ser horas de unidade sem capacidade de atender — e ele é o alvo real.
+passou a ser horas de unidade sem capacidade de atender, e ele é o alvo real.
 
 ## Implantação
 
@@ -470,7 +469,7 @@ Essa verificação automática é um exemplo de restrição de domínio virando 
 sistema de implantação consulta a ocupação de leitos críticos da unidade antes de liberar a
 janela, e bloqueia se houver paciente em estado que exija acesso contínuo ao prontuário. É uma
 integração incomum entre plataforma de entrega e dado operacional, e ela existe porque a
-alternativa — depender de alguém lembrar de verificar — falhou uma vez.
+alternativa (depender de alguém lembrar de verificar) falhou uma vez.
 
 O incidente que a originou não teve consequência clínica, e foi tratado como se tivesse tido: a
 análise posterior concluiu que o controle não podia depender de disciplina humana em um processo
@@ -481,7 +480,7 @@ executado dezenas de vezes por mês.
 **Fase 1 (meses 1–6): identificação de paciente.** Construção do registro mestre e vinculação dos
 7 sistemas. É a fundação de tudo, e é feita antes de qualquer migração de dado clínico.
 
-Resultado: 89% dos vínculos resolvidos automaticamente; 11% — 310 mil casos — para revisão
+Resultado: 89% dos vínculos resolvidos automaticamente; 11% (310 mil casos) para revisão
 humana, que se estendeu ao longo do projeto.
 
 **Fase 2 (meses 5–12): prontuário central e consolidação de leitura.** O central passa a agregar
@@ -541,14 +540,14 @@ custo de armazenamento de imagem              -61%
 ```
 
 O primeiro número é o resultado do projeto: as horas em que uma unidade não consegue atender
-caíram de 41 para 1,2 por ano, e isso não veio de tornar o central mais disponível — veio de
+caíram de 41 para 1,2 por ano. Isso não veio de tornar o central mais disponível, e sim de
 tornar a unidade capaz de operar sem ele.
 
 E 1,2 h/ano **não cumpre o requisito declarado**. Os 99,99% da tabela de requisitos permitem
 0,88 h/ano; 1,2 equivale a 99,986%. A diferença é de dezenove minutos por ano, e a decisão de
 aceitá-la foi explícita: fechar os dezenove minutos exigia redundância de energia e de enlace
 nas 244 unidades, com custo estimado acima do de todo o projeto. O requisito foi revisto para
-99,98% na unidade, mantido em 99,99% para a consulta ao prontuário consolidado — que é servida
+99,98% na unidade, mantido em 99,99% para a consulta ao prontuário consolidado, que é servida
 pelo central e pelo nó local, e onde a redundância já existe.
 
 ## O que este case ensina
@@ -562,7 +561,7 @@ classe mais difícil de conflito. A exigência regulatória de imutabilidade, qu
 restrição, virou a propriedade que tornou a operação offline tratável.
 
 **Identidade é o problema mais difícil da consolidação.** Antes de qualquer dado clínico, foi
-preciso resolver quem é quem entre sete sistemas. Errar ali não produz um bug — produz o
+preciso resolver quem é quem entre sete sistemas. Errar ali não produz um bug: produz o
 prontuário de uma pessoa misturado ao de outra.
 
 **Falhar fechado, com exceção controlada.** Consentimento indisponível nega acesso; emergência
@@ -593,5 +592,5 @@ unidade? Qual conflito o sistema resolve sozinho e qual precisa de um humano?
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- HL7 International. *FHIR — Fast Healthcare Interoperability Resources*.
-- Conselho Federal de Medicina. *Resolução CFM nº 1.821/2007* — normas para digitalização e uso de sistemas informatizados no prontuário.
+- HL7 International. *FHIR. Fast Healthcare Interoperability Resources*.
+- Conselho Federal de Medicina. *Resolução CFM nº 1.821/2007*. Normas para digitalização e uso de sistemas informatizados no prontuário.

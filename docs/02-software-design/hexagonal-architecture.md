@@ -2,7 +2,7 @@
 id: hexagonal-architecture
 title: Arquitetura Hexagonal
 sidebar_position: 20
-description: O nome mais difundido de Ports and Adapters — o que o hexágono comunica e o que ele confunde.
+description: "O nome mais difundido de Ports and Adapters: o que o hexágono comunica e o que ele confunde."
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ports-and-adapters]
 related: [onion-architecture, clean-architecture, dependency-inversion]
 canonical_for: [arquitetura hexagonal, hexagonal architecture]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-26
 ## Visão Geral
 
 Arquitetura Hexagonal é o nome pelo qual [Ports and Adapters](/02-software-design/ports-and-adapters.md)
-se popularizou. **É o mesmo padrão** — Cockburn adotou os dois nomes, e o segundo
+se popularizou. **É o mesmo padrão**: Cockburn adotou os dois nomes, e o segundo
 é o que ele passou a preferir por ser mais descritivo.
 
 Este documento existe porque o nome "hexagonal" é o mais usado na prática e
@@ -31,8 +31,8 @@ produz mal-entendidos próprios, que vale desfazer.
 ## Problema
 
 O hexágono é uma escolha de desenho, não uma prescrição. Cockburn explicou que
-escolheu seis lados por conveniência gráfica — cabem portas suficientes ao redor
-sem que o desenho fique poluído — e para evitar a leitura de "cima e baixo" que a
+escolheu seis lados por conveniência gráfica (cabem portas suficientes ao redor
+sem que o desenho fique poluído) e para evitar a leitura de "cima e baixo" que a
 imagem de camadas impõe.
 
 Três mal-entendidos vêm daí.
@@ -50,7 +50,7 @@ fossem alternativas.
 ### O que o desenho comunica
 
 Siga as setas: nenhuma delas sai de dentro para fora. O banco e a API externa apontam
-para o núcleo tanto quanto a Web aponta — é essa simetria que o desenho existe para
+para o núcleo tanto quanto a Web aponta: é essa simetria que o desenho existe para
 mostrar.
 
 ```mermaid
@@ -78,7 +78,7 @@ graph TB
 
 Duas ideias, e só duas: existe um **dentro** e um **fora**; e todas as
 dependências de código apontam para dentro. O lado conduzido é o que engana: o núcleo
-*usa* o banco, mas *depende* da porta que ele mesmo declara — e quem depende do banco é
+*usa* o banco, mas *depende* da porta que ele mesmo declara, e quem depende do banco é
 o adaptador.
 
 A ausência de hierarquia entre os elementos do lado de fora é o ponto. Numa
@@ -105,7 +105,7 @@ As mesmas condições de [Ports and Adapters](/02-software-design/ports-and-adap
 canal, valor recorrente em testar sem infraestrutura, dependências voláteis,
 domínio com lógica substancial.
 
-Prefira este **nome** quando o time já o conhece — a familiaridade reduz atrito de
+Prefira este **nome** quando o time já o conhece: a familiaridade reduz atrito de
 adoção.
 
 ## Quando Não Usar
@@ -161,7 +161,7 @@ imposta.
 ## Exemplo Real
 
 Um time adotou hexagonal num serviço novo e, seis meses depois, dois testes de arquitetura
-escritos numa tarde acusaram dezenove violações — domínio importando `infra` e adaptador
+escritos numa tarde acusaram dezenove violações: domínio importando `infra` e adaptador
 importando adaptador. É o caso descrito em
 [arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md), onde a
 lição é sobre a distância entre a arquitetura declarada e a implementada.
@@ -181,7 +181,7 @@ fila própria → gerenciada      adaptador + teste     4 dias
 ```
 
 Nenhuma tocou o domínio. Como referência, a mesma troca de provedor de pagamento em outro serviço
-da empresa — sem isolamento, com o cliente HTTP importado direto pelos casos de uso — levou sete
+da empresa (sem isolamento, com o cliente HTTP importado direto pelos casos de uso) levou sete
 semanas e tocou 41 arquivos.
 
 O custo do padrão, medido no mesmo período:
@@ -196,14 +196,14 @@ portas que nunca tiveram um segundo adaptador
 
 A última linha é a que o time considera a mais honesta, e o critério dela importa: conta as
 portas que nunca tiveram um segundo adaptador **em momento algum** do período. As outras três
-tiveram — não simultaneamente, mas em sequência, quando a infraestrutura foi trocada. Contadas
+tiveram, não simultaneamente, mas em sequência, quando a infraestrutura foi trocada. Contadas
 num instante qualquer, as nove teriam um adaptador só, e a métrica não diria nada. Dois terços
 delas nunca exerceram a indireção, e provavelmente nunca vão. Elas são custo de indireção sem retorno de
-substituição — pagas para que as três que importaram funcionassem.
+substituição, pagas para que as três que importaram funcionassem.
 
 Na retrospectiva: o saldo foi positivo porque o serviço era de integração intensa, com quatro
 dependências externas voláteis. Num serviço de domínio estável e pouca infraestrutura, as mesmas
-seis portas ociosas seriam o resultado inteiro — e a conclusão seria oposta.
+seis portas ociosas seriam o resultado inteiro, e a conclusão seria oposta.
 
 Esse é o critério que o time passou a aplicar antes de adotar o padrão em serviços novos: contar
 as dependências externas que podem mudar. Acima de três, o isolamento se paga; abaixo, ele
@@ -212,17 +212,17 @@ produz indireção que ninguém exerce.
 E há um detalhe de sequência que a equipe considera decisivo: as três trocas foram feitas
 **depois** de o teste de arquitetura existir. Sem ele, as dependências teriam voltado a vazar
 entre uma troca e outra, e a segunda troca já não encontraria o isolamento que a primeira
-supunha. Neste serviço, seis meses sem verificação bastaram para dezenove violações — e não
+supunha. Neste serviço, seis meses sem verificação bastaram para dezenove violações. E não
 há razão para tratar esse número como lei, mas há para tratar a direção como esperada: sem
 mecanismo que imponha a regra, a erosão começa antes de alguém notar.
 
 ## Conceitos Relacionados
 
-- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a formulação original e o
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md): a formulação original e o
   tratamento completo.
 - [Onion](/02-software-design/onion-architecture.md) e
-  [Clean Architecture](/02-software-design/clean-architecture.md) — as variações.
-- [Camadas](/02-software-design/layering.md) — o arranjo que este padrão substitui.
+  [Clean Architecture](/02-software-design/clean-architecture.md): as variações.
+- [Camadas](/02-software-design/layering.md): o arranjo que este padrão substitui.
 
 ## Exercício Prático
 
@@ -239,7 +239,7 @@ Rode e conte as violações antes de corrigir qualquer coisa.
 
 ## Para Aprofundar
 
-- Cockburn, Alistair. *Hexagonal Architecture*, 2005 — inclui a explicação sobre
+- Cockburn, Alistair. *Hexagonal Architecture*, 2005. Inclui a explicação sobre
   a escolha do nome.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — a comparação
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. A comparação
   entre as variações.

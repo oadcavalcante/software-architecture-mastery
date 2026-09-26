@@ -2,7 +2,7 @@
 id: replication
 title: Replicação
 sidebar_position: 13
-description: Manter cópias do mesmo dado — para disponibilidade, para escala de leitura, e ao custo de divergência.
+description: "Manter cópias do mesmo dado: para disponibilidade, para escala de leitura, e ao custo de divergência."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [partitioning, leader-election, conflict-resolution]
 canonical_for: [replicação, réplica, atraso de replicação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-27
 
 Replicação é manter cópias do mesmo dado em nós diferentes.
 
-Ela existe por três razões distintas — **disponibilidade**, **escala de leitura** e
-**proximidade geográfica** — e cada uma admite configurações diferentes.
+Ela existe por três razões distintas (**disponibilidade**, **escala de leitura** e
+**proximidade geográfica**), e cada uma admite configurações diferentes.
 
 O custo é único e inevitável: as cópias divergem, e alguém precisa decidir o que
 fazer com isso.
@@ -33,14 +33,14 @@ fazer com isso.
 
 Com uma cópia, uma falha de nó é perda de dado e de serviço.
 
-Com cópias, a falha é tolerável — e surge a pergunta que organiza todo o assunto:
+Com cópias, a falha é tolerável, e surge a pergunta que organiza todo o assunto:
 **quando uma escrita é considerada feita?**
 
 Se for quando chega ao nó primário, a resposta é rápida e uma falha imediata perde
 a escrita.
 
 Se for quando chega a todas as réplicas, nada se perde e a escrita paga a latência
-da mais lenta — e falha se qualquer uma estiver fora.
+da mais lenta, e falha se qualquer uma estiver fora.
 
 Entre os dois extremos há um espectro, e a posição nele é uma decisão de negócio
 disfarçada de configuração.
@@ -50,12 +50,12 @@ disfarçada de configuração.
 ### As topologias
 
 **Líder único.** Um nó aceita escritas e as propaga. Simples, sem conflito de
-escrita, e o líder é gargalo de escrita e ponto de falha — mitigado por
+escrita, e o líder é gargalo de escrita e ponto de falha, mitigado por
 [eleição de líder](/06-distributed-systems/leader-election.md).
 
 **Múltiplos líderes.** Vários nós aceitam escritas, tipicamente um por região.
 Escrita local e rápida, e **conflito sempre que o mesmo registro é escrito em
-duas regiões** — evitável só roteando as escritas de cada registro para um líder
+duas regiões**, evitável só roteando as escritas de cada registro para um líder
 fixo (afinidade de escrita). Ver [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
 **Sem líder.** Qualquer nó aceita escrita e leitura; a consistência vem de exigir
@@ -78,7 +78,7 @@ Síncrono total é raro na prática: uma réplica lenta ou fora torna toda escri
 lenta ou impossível.
 
 **Semi-síncrono é o ponto a escolher quando a janela de perda aceitável é próxima
-de zero e uma ida e volta cabe no orçamento de latência** — e a configuração por
+de zero e uma ida e volta cabe no orçamento de latência**, e a configuração por
 quórum é a forma generalizada dele.
 
 ### Quórum
@@ -89,7 +89,7 @@ Se `W + R > N`, leitura e escrita se sobrepõem em ao menos uma réplica: alguma
 réplica consultada carrega a escrita mais recente, e a leitura a reconhece se as
 versões forem comparáveis (número de versão, relógio vetorial). A regra não basta
 com quórum relaxado (sloppy quorum), com escrita que falhou após gravar em parte
-das réplicas, nem com escritas concorrentes — Kleppmann (2017, cap. 5) detalha
+das réplicas, nem com escritas concorrentes. Kleppmann (2017, cap. 5) detalha
 esses limites.
 
 ```text
@@ -97,7 +97,7 @@ N = 3, W = 2, R = 2  →  2 + 2 > 3  ✓ conjuntos se sobrepõem
 N = 3, W = 1, R = 1  →  1 + 1 < 3  ✗ pode ler dado velho
 ```
 
-O ajuste de W e R move o sistema no espectro entre latência e consistência — que é
+O ajuste de W e R move o sistema no espectro entre latência e consistência. Esse ajuste é
 exatamente o "else" de [PACELC](/06-distributed-systems/pacelc.md).
 
 ### Atraso de replicação é a métrica que falta
@@ -109,7 +109,7 @@ Ele não é constante: cresce sob carga de escrita, durante manutenção, e quan
 réplica está fazendo outra coisa. Um atraso de milissegundos no caso normal pode
 virar minutos no pico.
 
-Sem monitoramento, ninguém sabe quão velho o dado de uma réplica pode estar — e a
+Sem monitoramento, ninguém sabe quão velho o dado de uma réplica pode estar, e a
 decisão de ler dela foi tomada assumindo um atraso que ninguém verificou.
 
 ### Failover não é gratuito
@@ -139,7 +139,7 @@ determinam o modo de confirmação.
 confirmação assíncrona perde transações confirmadas ao cliente.
 
 **Múltiplos líderes sem estratégia de conflito.** Os conflitos vão acontecer, e a
-resolução padrão — último a escrever vence — descarta dados silenciosamente.
+resolução padrão (último a escrever vence) descarta dados silenciosamente.
 
 **Ler de réplica em operação que não tolera atraso.** Ver
 [consistência](/06-distributed-systems/consistency.md).
@@ -151,11 +151,11 @@ resolução padrão — último a escrever vence — descarta dados silenciosame
 
 ## Alternativas
 
-- **Backup e restauração** — para durabilidade, não para disponibilidade.
-- **[Particionamento](/06-distributed-systems/partitioning.md)** — para escala de escrita, que replicação
+- **Backup e restauração**: para durabilidade, não para disponibilidade.
+- **[Particionamento](/06-distributed-systems/partitioning.md)**: para escala de escrita, que replicação
   não resolve.
-- **Cache** — para escala de leitura, mais barato que réplica em alguns casos.
-- **Nó único com recuperação rápida** — legítimo quando o RTO permite.
+- **Cache**: para escala de leitura, mais barato que réplica em alguns casos.
+- **Nó único com recuperação rápida**: legítimo quando o RTO permite.
 
 ## Trade-offs
 
@@ -207,14 +207,14 @@ Um sistema de pedidos usava replicação assíncrona com uma réplica, para fail
 
 O failover nunca tinha sido testado em produção.
 
-Numa falha de hardware do primário, a promoção da réplica levou 4 minutos —
-manual, porque o processo automatizado não existia.
+Numa falha de hardware do primário, a promoção da réplica levou 4 minutos
+(manual, porque o processo automatizado não existia).
 
 Ao voltar, descobriu-se que 1 800 pedidos confirmados ao cliente não estavam na
 réplica. Eles haviam sido gravados no primário e não propagados antes da falha.
 
 O atraso de replicação, que ninguém monitorava, estava em 90 segundos no momento
-da falha — porque um processo de relatório rodava naquele horário e consumia a
+da falha, porque um processo de relatório rodava naquele horário e consumia a
 réplica.
 
 Três correções, em ordem de efeito.
@@ -231,15 +231,15 @@ escrita refém de uma réplica em manutenção.
 movido para uma réplica dedicada.
 
 E o failover passou a ser exercitado trimestralmente, em produção, em janela
-combinada. Na primeira execução, três problemas de configuração apareceram — todos
+combinada. Na primeira execução, três problemas de configuração apareceram, todos
 que teriam causado incidente numa falha real.
 
 ## Conceitos Relacionados
 
-- [Particionamento](/06-distributed-systems/partitioning.md) — a outra forma de distribuir dados.
-- [Eleição de Líder](/06-distributed-systems/leader-election.md) — como o failover escolhe.
-- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md) — com múltiplos líderes.
-- [Consistência](/06-distributed-systems/consistency.md) — o que a leitura observa.
+- [Particionamento](/06-distributed-systems/partitioning.md): a outra forma de distribuir dados.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md): como o failover escolhe.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md): com múltiplos líderes.
+- [Consistência](/06-distributed-systems/consistency.md): o que a leitura observa.
 
 ## Exercício Prático
 
@@ -256,8 +256,8 @@ Se a resposta da terceira for "nunca", o mecanismo de recuperação é uma hipó
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 5.
-- PostgreSQL Global Development Group. *PostgreSQL 16 Documentation*, 2023 —
+- PostgreSQL Global Development Group. *PostgreSQL 16 Documentation*, 2023,
   cap. 27, *High Availability, Load Balancing, and Replication*, seção 27.2.8
   (Synchronous Replication), e o parâmetro `synchronous_commit` (seção 20.5).

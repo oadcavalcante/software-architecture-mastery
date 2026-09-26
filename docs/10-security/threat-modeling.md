@@ -2,7 +2,7 @@
 id: threat-modeling
 title: Modelagem de Ameaças
 sidebar_position: 10
-description: Transformar "vamos pensar em segurança" numa lista de decisões — a prática de maior retorno da seção.
+description: "Transformar \"vamos pensar em segurança\" numa lista de decisões: a prática de maior retorno da seção."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, least-privilege, security-failure-modes]
 canonical_for: [modelagem de ameaças, STRIDE, superfície de ataque, ator de ameaça]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,7 @@ O produto não é um relatório. São **decisões**: mudanças no desenho, contr
 implementar, riscos aceitos conscientemente.
 
 É a prática de maior retorno desta seção, porque ela acontece antes de o código
-existir — quando mudar ainda é barato.
+existir, quando mudar ainda é barato.
 
 ## Problema
 
@@ -57,30 +57,30 @@ O método, reduzido ao essencial:
 
 A primeira pergunta consome mais tempo do que se espera, e é onde está o valor: a
 maior parte das equipes descobre, ao desenhar o fluxo de dados, coisas que ninguém
-sabia — um caminho de escrita esquecido, um serviço que tem acesso ao que não
-deveria.
+sabia (um caminho de escrita esquecido, um serviço que tem acesso ao que não
+deveria).
 
 ### Comece pelo diagrama de fluxo de dados
 
 Não é o diagrama de arquitetura bonito. É um esboço com:
 
-**Processos** — o que executa código.
+**Processos**: o que executa código.
 
-**Repositórios** — onde o dado para.
+**Repositórios**: onde o dado para.
 
-**Entidades externas** — usuários, parceiros, sistemas de terceiros.
+**Entidades externas**: usuários, parceiros, sistemas de terceiros.
 
-**Fluxos** — quem manda o quê para quem.
+**Fluxos**: quem manda o quê para quem.
 
-**Fronteiras de confiança** — as linhas que separam níveis de confiança diferentes.
+**Fronteiras de confiança**: as linhas que separam níveis de confiança diferentes.
 
 As fronteiras são por onde começar: é nelas que o dado ou o comando muda de dono, e
-por isso é nelas que se concentram as ameaças de maior impacto — o que não dispensa
+por isso é nelas que se concentram as ameaças de maior impacto. Isso não dispensa
 olhar os elementos de dentro de cada domínio. Ver
 [fronteiras seguras](/10-security/secure-boundaries.md).
 
-O conjunto de fluxos que cruzam uma fronteira vindos de fora — cada ponto em que um
-ator consegue entregar dado ou comando ao sistema — é a **superfície de ataque**. Cada
+O conjunto de fluxos que cruzam uma fronteira vindos de fora (cada ponto em que um
+ator consegue entregar dado ou comando ao sistema) é a **superfície de ataque**. Cada
 fluxo desses é algo a defender; cada um que se remove é algo que deixa de precisar de
 defesa.
 
@@ -97,8 +97,8 @@ negação de serviço           alguém impede o uso legítimo
 elevação de privilégio       alguém obtém mais acesso do que tem
 ```
 
-O valor não está na sigla. Está em ter uma lista que impede o time de pensar só nas
-ameaças que já conhece — que é o viés natural.
+O valor não está na sigla, e sim em ter uma lista que impede o time de pensar só nas
+ameaças que já conhece. Esse é o viés natural.
 
 Percorrer as seis categorias para cada elemento, começando pelos fluxos que cruzam
 fronteira, com disciplina, encontra coisas que a conversa livre não encontra.
@@ -119,7 +119,7 @@ A escolha de contra quem você se defende define o custo aceitável. Um sistema
 interno de RH e uma plataforma de pagamentos não enfrentam os mesmos atores, e
 protegê-los igualmente é errado nos dois casos.
 
-Ser explícito sobre isso — inclusive sobre quem você **não** vai conseguir deter —
+Ser explícito sobre isso, inclusive sobre quem você **não** vai conseguir deter,
 é o que torna a discussão honesta.
 
 ### Priorizar por impacto vezes probabilidade
@@ -147,7 +147,7 @@ certa é não coletar, não guardar, ou apagar antes.
 
 **No desenho**, antes de implementar. É quando mudar é barato.
 
-**Em mudanças estruturais** — nova integração, novo tipo de dado, nova fronteira.
+**Em mudanças estruturais**: nova integração, novo tipo de dado, nova fronteira.
 
 **Periodicamente** para sistemas críticos, porque o contexto muda.
 
@@ -159,7 +159,7 @@ para de fazer.
 Uma modelagem que termina em "documento com preocupações" não muda nada.
 
 O produto útil é uma lista curta de decisões, cada uma com responsável e prazo, e
-os riscos aceitos registrados **com quem aceitou** — porque aceitar risco é decisão
+os riscos aceitos registrados **com quem aceitou**, porque aceitar risco é decisão
 de negócio, não de engenharia.
 
 ## Modelo Mental
@@ -192,15 +192,15 @@ o modelo fica errado.
 
 ## Alternativas
 
-- **Revisão de segurança** — depois de pronto, para o que a modelagem não pegou.
-- **Teste de intrusão** — verifica a implementação, não o desenho.
-- **Análise automatizada** — encontra classes conhecidas de defeito, não decisões
+- **Revisão de segurança**: depois de pronto, para o que a modelagem não pegou.
+- **Teste de intrusão**: verifica a implementação, não o desenho.
+- **Análise automatizada**: encontra classes conhecidas de defeito, não decisões
   ruins de arquitetura.
-- **Árvores de ataque** — mais detalhado, para um cenário específico de alto risco.
+- **Árvores de ataque**: mais detalhado, para um cenário específico de alto risco.
 
 Nenhuma substitui a modelagem. As três primeiras acontecem depois de o desenho
 existir; a árvore de ataque acontece no desenho, mas aprofunda um cenário que alguém já
-escolheu, e não cobre o sistema inteiro — é a modelagem que diz qual cenário merece a
+escolheu, e não cobre o sistema inteiro. É a modelagem que diz qual cenário merece a
 árvore.
 
 ## Trade-offs
@@ -244,7 +244,7 @@ escolheu, e não cobre o sistema inteiro — é a modelagem que diz qual cenári
 
 **Não considerar "eliminar" como resposta.** Mitigar é a saída automática, mas remover a funcionalidade ou o dado que cria a ameaça costuma ser mais barato e definitivo.
 
-**Terminar sem dono e prazo.** Uma lista de ameaças sem responsável e sem data é documentação de risco conhecido — o que, num incidente, é pior do que não ter feito o exercício.
+**Terminar sem dono e prazo.** Uma lista de ameaças sem responsável e sem data é documentação de risco conhecido. Num incidente, isso é pior do que não ter feito o exercício.
 
 **Fazer uma vez e nunca revisar.** O modelo descreve o sistema de um momento. Cada integração nova cria fronteira nova, e o modelo antigo passa a dar falsa segurança.
 
@@ -274,10 +274,10 @@ com acesso interno", reduziu para 9 acionáveis.
 As decisões:
 
 **Eliminar.** O portal passou a receber apenas o resultado do exame consultado, não
-o registro completo. Isso removeu 6 das 31 ameaças de uma vez — 4 delas entre as 9
-acionáveis —, e foi a decisão de maior impacto — tomada porque alguém perguntou "por que estamos trazendo isso?".
+o registro completo. Isso removeu 6 das 31 ameaças de uma vez (4 delas entre as 9
+acionáveis), e foi a decisão de maior impacto, tomada porque alguém perguntou "por que estamos trazendo isso?".
 
-**Mitigar.** Autorização verificada por exame, não por paciente — a versão original
+**Mitigar.** Autorização verificada por exame, não por paciente: a versão original
 verificava se o usuário era o paciente e depois listava tudo. Um identificador
 sequencial de exame na URL foi trocado por opaco.
 
@@ -291,7 +291,7 @@ periódica, com registro de quem aceitou.
 **Transferir.** O envio de notificações por mensagem de texto foi terceirizado, com
 o requisito contratual de não incluir conteúdo clínico na mensagem.
 
-Nove meses depois, um teste de intrusão contratado encontrou dois problemas — ambos
+Nove meses depois, um teste de intrusão contratado encontrou dois problemas, ambos
 de implementação, nenhum estrutural.
 
 O que a equipe registra: a descoberta que mais mudou o resultado não veio da análise
@@ -301,10 +301,10 @@ entrava e saía.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](/10-security/secure-boundaries.md) — o que o diagrama marca.
-- [Menor Privilégio](/10-security/least-privilege.md) — a resposta mais comum.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md): o que o diagrama marca.
+- [Menor Privilégio](/10-security/least-privilege.md): a resposta mais comum.
 - [Modos de Falha de Segurança](/10-security/security-failure-modes.md).
-- [Proteção de Dados](/10-security/data-protection.md) — a resposta "eliminar".
+- [Proteção de Dados](/10-security/data-protection.md): a resposta "eliminar".
 
 ## Exercício Prático
 
@@ -313,7 +313,7 @@ fronteiras de confiança marcadas.
 
 Percorra as seis categorias do STRIDE para cada elemento, começando pelos fluxos que
 cruzam fronteira. Você vai encontrar pelo
-menos uma coisa que ninguém tinha considerado — e provavelmente um caminho de dado
+menos uma coisa que ninguém tinha considerado, e provavelmente um caminho de dado
 que alguém esqueceu de mencionar.
 
 ## Perguntas de Entrevista

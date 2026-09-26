@@ -2,7 +2,7 @@
 id: webhooks
 title: Webhooks
 sidebar_position: 6
-description: Notificar em vez de ser consultado — e por que a outra ponta é um servidor que você não controla.
+description: Notificar em vez de ser consultado, e por que a outra ponta é um servidor que você não controla.
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [messaging-integration, event-driven-integration, integration-contracts]
 canonical_for: [webhook, assinatura de webhook, reentrega]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ Um webhook é uma chamada HTTP que **você faz para o servidor de outra pessoa**
 quando algo acontece.
 
 É a forma dominante de integração assíncrona entre organizações, porque não exige
-que o parceiro consuma seu intermediário de mensagens nem adote sua tecnologia —
+que o parceiro consuma seu intermediário de mensagens nem adote sua tecnologia:
 basta ele expor uma URL.
 
 A diferença que organiza tudo: o destino é um servidor que você não controla, com
@@ -41,7 +41,7 @@ e a latência é metade do intervalo. Um parceiro consultando a cada minuto gera
 
 Webhook inverte: o publicador avisa quando há o que avisar.
 
-E, ao inverter, transfere para o publicador um problema que a consulta não tinha —
+E, ao inverter, transfere para o publicador um problema que a consulta não tinha:
 **entregar** para um endpoint que pode estar fora, lento, ou responder errado.
 
 ## Conceitos Centrais
@@ -59,10 +59,10 @@ estar no contrato.
 cabeçalho com assinatura sobre o corpo, usando um segredo compartilhado, é o
 padrão. Sem isso, qualquer um pode forjar eventos.
 
-**Marca de tempo na assinatura.** Permite ao receptor rejeitar requisição antiga — a marca
+**Marca de tempo na assinatura.** Permite ao receptor rejeitar requisição antiga. A marca
 sozinha não impede nada; quem impede é a checagem do outro lado.
 
-**Identificador único do evento.** Permite ao receptor deduplicar — o que ele vai
+**Identificador único do evento.** Permite ao receptor deduplicar, o que ele vai
 precisar fazer, porque sua retentativa vai duplicar.
 
 **Desativação após falhas persistentes.** Um endpoint morto há semanas não deve
@@ -76,7 +76,7 @@ ou o parceiro descobre pela ausência.
 **Responda rápido, processe depois.** Aceite, enfileire, devolva `200`. Processar
 de forma síncrona dentro do webhook é a causa mais comum de timeout e reentrega.
 
-**Verifique a assinatura antes de qualquer coisa** — e, junto dela, a marca de tempo:
+**Verifique a assinatura antes de qualquer coisa** e, junto dela, a marca de tempo:
 recuse o que estiver fora de uma janela de tolerância, na ordem de minutos. Sem essa
 checagem, uma requisição capturada continua válida para sempre, e a assinatura passa a
 atestar apenas que ela um dia foi legítima. Dentro da janela, quem barra a repetição é o
@@ -89,12 +89,12 @@ identificador único do evento.
 chegar antes do de criação.
 
 **Não confie no conteúdo.** Vários provedores recomendam usar o webhook apenas
-como gatilho e consultar a API para obter o estado real — o que elimina de uma vez
+como gatilho e consultar a API para obter o estado real. Isso elimina de uma vez
 os problemas de ordem e de conteúdo defasado.
 
 **Devolva erro quando falhar.** Responder `200` para o que você não processou faz o
 provedor considerar entregue: o evento sai da fila de entregas e só volta se houver painel de
-reentrega — e ainda assim depende de você perceber que perdeu.
+reentrega, e ainda assim depende de você perceber que perdeu.
 
 ### Notificação ou estado
 
@@ -102,7 +102,7 @@ O mesmo trade-off de [eventos de integração](/08-integration-architecture/even
 peso extra: o corpo do webhook trafega para fora da sua organização.
 
 Um webhook gordo com dados sensíveis os replica no ambiente do parceiro. Um
-webhook fino — identificador e tipo — mantém o dado na origem, sob controle de
+webhook fino (identificador e tipo) mantém o dado na origem, sob controle de
 acesso.
 
 Para dados regulados, o fino costuma ser a única opção defensável.
@@ -113,7 +113,7 @@ Permitir que um usuário cadastre uma URL arbitrária para a qual seu servidor f
 requisições é, literalmente, pedir ao seu servidor que acesse um endereço
 escolhido por terceiros.
 
-Sem restrição, isso permite alcançar endereços internos da sua rede — serviços de
+Sem restrição, isso permite alcançar endereços internos da sua rede: serviços de
 metadados da nuvem, bancos, painéis administrativos.
 
 As defesas: recusar endereços privados e locais, resolver o nome e validar o IP
@@ -138,7 +138,7 @@ num destino que não é seu.
 ## Quando Não Usar
 
 **Internamente, quando já existe mensageria.** Ver
-[integração por mensageria](/08-integration-architecture/messaging-integration.md) — ali o intermediário
+[integração por mensageria](/08-integration-architecture/messaging-integration.md). Ali o intermediário
 resolve entrega, ordem e reprocessamento melhor.
 
 **Quando o volume é muito alto.** Milhares de eventos por segundo por parceiro
@@ -156,14 +156,14 @@ consulta.
 
 ## Alternativas
 
-- **Consulta periódica** — simples, sem entrega a garantir, e frequentemente
+- **Consulta periódica**: simples, sem entrega a garantir, e frequentemente
   suficiente. Não descarte cedo.
-- **Fluxo de eventos por assinatura** — o parceiro consome um endpoint que
+- **Fluxo de eventos por assinatura**: o parceiro consome um endpoint que
   mantém a conexão aberta, com posição controlada por ele. Elimina o problema de
   entrega.
-- **[Mensageria](/08-integration-architecture/messaging-integration.md) compartilhada** — quando há confiança e
+- **[Mensageria](/08-integration-architecture/messaging-integration.md) compartilhada**: quando há confiança e
   tecnologia comum.
-- **Arquivo periódico** — ver [integração por arquivo](/08-integration-architecture/file-integration.md).
+- **Arquivo periódico**: ver [integração por arquivo](/08-integration-architecture/file-integration.md).
 
 A segunda opção merece consideração: deixar o consumidor puxar no ritmo dele, com
 posição controlada, remove retentativa, desativação e reentrega do seu lado.
@@ -200,17 +200,17 @@ duas vezes.
 
 ## Erros Comuns
 
-**Processar de forma síncrona dentro do webhook.** O emissor tem um prazo curto e considera falha o que passar dele — então ele reenvia, e o trabalho lento executa de novo enquanto o primeiro ainda roda. Receber, persistir e responder rápido resolve.
+**Processar de forma síncrona dentro do webhook.** O emissor tem um prazo curto e considera falha o que passar dele. Então ele reenvia, e o trabalho lento executa de novo enquanto o primeiro ainda roda. Receber, persistir e responder rápido resolve.
 
 **Não verificar assinatura.** O endpoint é público por natureza; sem verificar a assinatura, qualquer um pode declarar que um pagamento foi aprovado.
 
-**Não validar a URL de destino.** Quem emite webhooks para URLs fornecidas por usuários vira um cliente HTTP que alcança endereços internos — é a via clássica de falsificação de requisição no servidor.
+**Não validar a URL de destino.** Quem emite webhooks para URLs fornecidas por usuários vira um cliente HTTP que alcança endereços internos: é a via clássica de falsificação de requisição no servidor.
 
 **Não deduplicar.** Reentrega é comportamento normal, não excepcional. Sem chave de idempotência, cada reenvio repete o efeito.
 
 **Assumir ordem.** Entregas paralelas e retentativas fazem o evento de cancelamento chegar antes do de criação. O processamento precisa tolerar isso, tipicamente por carimbo de versão.
 
-**Não oferecer reentrega ao parceiro.** Quando o consumidor fica indisponível, sem um meio de pedir os eventos perdidos a única saída é reconciliação manual — de ambos os lados.
+**Não oferecer reentrega ao parceiro.** Quando o consumidor fica indisponível, sem um meio de pedir os eventos perdidos a única saída é reconciliação manual, de ambos os lados.
 
 ## Exemplo Real
 
@@ -231,13 +231,13 @@ Corrigido documentando que a ordem não é garantida, incluindo o instante do ev
 no corpo, e recomendando consulta à API para o estado atual.
 
 **Endpoint desativado em silêncio.** Após 7 dias de falhas, a plataforma
-desativava. Um lojista ficou 3 semanas sem receber e sem saber — descobriu ao
+desativava. Um lojista ficou 3 semanas sem receber e sem saber: descobriu ao
 conciliar. Passou a haver e-mail no primeiro dia de falha, alerta no painel e
 desativação só após 14 dias.
 
 **Assinatura ignorada.** Uma auditoria revelou que cerca de 30% dos lojistas não
 verificavam a assinatura. A plataforma passou a exigir verificação para
-credenciais novas, e a oferecer bibliotecas prontas — a razão da não verificação
+credenciais novas, e a oferecer bibliotecas prontas. A razão da não verificação
 era quase sempre "dava trabalho".
 
 **Acesso à rede interna.** Um pesquisador de segurança cadastrou uma URL apontando
@@ -247,16 +247,16 @@ lista de bloqueio de faixas privadas, validação do IP resolvido, proibição d
 redirecionamentos e envio a partir de rede isolada.
 
 O último foi classificado como o incidente mais grave da história da plataforma, e
-a equipe registra que ele era conhecido na literatura de segurança havia anos —
-faltou alguém fazer a pergunta "para onde exatamente nosso servidor está fazendo
+a equipe registra que ele era conhecido na literatura de segurança havia anos.
+Faltou alguém fazer a pergunta "para onde exatamente nosso servidor está fazendo
 requisições?".
 
 ## Conceitos Relacionados
 
-- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md) — a alternativa interna.
+- [Integração por Mensageria](/08-integration-architecture/messaging-integration.md): a alternativa interna.
 - [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
 - [Idempotência](/06-distributed-systems/idempotency.md).
-- [Backoff](/06-distributed-systems/backoff.md) — a espera entre tentativas.
+- [Backoff](/06-distributed-systems/backoff.md): a espera entre tentativas.
 
 ## Exercício Prático
 

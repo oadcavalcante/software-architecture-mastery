@@ -2,7 +2,7 @@
 id: event-driven
 title: Event-Driven Architecture
 sidebar_position: 26
-description: Components react to facts instead of being called — decoupling in time, at the cost of traceability.
+description: "Components react to facts instead of being called: decoupling in time, at the cost of traceability."
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [observer, cqrs, event-sourcing]
 canonical_for: [event-driven architecture, choreography, orchestration]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -58,10 +58,10 @@ The style's structural decision, and the same one that appears in
 [Mediator](/03-design-patterns/mediator.md) versus
 [Observer](/03-design-patterns/observer.md).
 
-**Orchestration** — a coordinator knows the flow and drives the steps. The flow lives in
+**Orchestration**: a coordinator knows the flow and drives the steps. The flow lives in
 one place, is auditable and visualizable. The coordinator couples.
 
-**Choreography** — each service reacts to the events that concern it. Maximum decoupling,
+**Choreography**: each service reacts to the events that concern it. Maximum decoupling,
 and the flow exists nowhere: understanding it requires assembling what each service does.
 
 | | Orchestration | Choreography |
@@ -81,7 +81,7 @@ both.
 What you gain in decoupling you pay in the ability to answer "what happened to this
 order?".
 
-In a synchronous system, the flow is readable in the code — you can follow it by reading,
+In a synchronous system, the flow is readable in the code: you can follow it by reading,
 and the error comes back to the caller. In an event-driven one there is no such thread: the
 sequence only exists at runtime. Crossing processes requires correlating logs from several
 services in both cases, over time, with the same identifier.
@@ -91,16 +91,16 @@ correlation ID travelling through every event is not optional.
 
 ### The inherited guarantees
 
-The channel is a network, and that forces you to **choose** the delivery guarantee — it
+The channel is a network, and that forces you to **choose** the delivery guarantee. It
 does not impose one. See [delivery guarantees](/06-distributed-systems/delivery-guarantees.md):
 at-most-once is a legitimate choice where loss is acceptable, and the canonical document
 notes that it is rarely considered.
 
 Whoever chooses **at-least-once**, which is the common case, inherits:
 
-Duplication — consumers have to be idempotent.
+Duplication: consumers have to be idempotent.
 Order not guaranteed across partitions.
-Messages that always fail — *poison messages* — need a dead-letter queue.
+Messages that always fail (*poison messages*) need a dead-letter queue.
 And eventual consistency between the services.
 
 See [Level 04](/06-distributed-systems/index.md). None of that is optional; it is what the
@@ -111,7 +111,7 @@ style costs.
 - Multiple independent parties interested in the same fact.
 - The consumers change frequently.
 - The reactions can be asynchronous with no harm to the business.
-- Decoupling in time is needed — the producer should not depend on the consumer's
+- Decoupling in time is needed: the producer should not depend on the consumer's
   availability.
 - There is a need to reprocess history.
 
@@ -136,10 +136,10 @@ appear, and the defects are subtle.
 
 ## Alternatives
 
-- **A synchronous call** — when there is one consumer and the response matters.
-- **Explicit orchestration** — keeping events, but with a coordinator.
-- **Scheduled polling** — simpler than events when the tolerated latency is high.
-- **A [modular monolith](/03-design-patterns/modular-monolith.md) with internal events** —
+- **A synchronous call**: when there is one consumer and the response matters.
+- **Explicit orchestration**: keeping events, but with a coordinator.
+- **Scheduled polling**: simpler than events when the tolerated latency is high.
+- **A [modular monolith](/03-design-patterns/modular-monolith.md) with internal events**:
   the logical decoupling without the network.
 
 ## Trade-offs
@@ -160,7 +160,7 @@ appear, and the defects are subtle.
 
 **Command disguised as an event.** Coupling with the appearance of decoupling.
 
-**Non-idempotent consumer.** Duplication becomes a duplicated effect — a repeated charge
+**Non-idempotent consumer.** Duplication becomes a duplicated effect: a repeated charge
 is the classic case.
 
 **Event silently lost.** With no dead-letter queue and no alert.
@@ -195,7 +195,7 @@ streams.
 
 **Integration between a company's domains.** Business events as a contract between areas.
 
-**Notification and auditing.** Independent, non-critical reactions — the case where
+**Notification and auditing.** Independent, non-critical reactions: the case where
 choreography is clearly appropriate.
 
 In payment systems, the typical split is revealing: the authorization and capture flow is
@@ -208,7 +208,7 @@ A delivery platform adopted pure choreography: nineteen services reacting to eve
 no coordinator.
 
 The symptom appeared in customer support. An order would stay "in preparation"
-indefinitely, and nobody could say why — the expected flow was documented nowhere, and
+indefinitely, and nobody could say why: the expected flow was documented nowhere, and
 reconstructing it required reading nineteen services.
 
 Three engineers took two days to discover that a consumer had stopped processing because
@@ -218,9 +218,9 @@ The fix had two parts.
 
 The operational one: a dead-letter queue and alerting on every consumer.
 
-The structural one: the order's main flow — accepted, preparation, pickup, delivery —
+The structural one: the order's main flow (accepted, preparation, pickup, delivery)
 became orchestrated, with an explicit saga that knows the steps, the deadlines and the
-compensations. The other services — loyalty, analytics, notification, rating — stayed in
+compensations. The other services (loyalty, analytics, notification, rating) stayed in
 choreography.
 
 The result: the critical flow became auditable and gained a deadline per stage; the
@@ -231,19 +231,19 @@ carries legal responsibility and a contractual deadline.
 
 ## Related Concepts
 
-- [Observer](/03-design-patterns/observer.md) — the in-process version.
+- [Observer](/03-design-patterns/observer.md): the in-process version.
 - [CQRS](/03-design-patterns/cqrs.md) and
-  [Event Sourcing](/03-design-patterns/event-sourcing.md) — patterns that frequently
+  [Event Sourcing](/03-design-patterns/event-sourcing.md): patterns that frequently
   accompany it.
-- [Distributed Systems](/06-distributed-systems/index.md) — the guarantees.
-- [Integration](/08-integration-architecture/index.md) — the mechanisms.
+- [Distributed Systems](/06-distributed-systems/index.md): the guarantees.
+- [Integration](/08-integration-architecture/index.md): the mechanisms.
 
 ## Practical Exercise
 
 Pick a business flow in your system and try to describe it in writing, from start to
 finish, without consulting the code.
 
-If you cannot, the flow is emergent. Check whether it is critical — if it is,
+If you cannot, the flow is emergent. Check whether it is critical. If it is,
 orchestration is probably justified.
 
 ## Interview Questions
@@ -255,5 +255,5 @@ orchestration is probably justified.
 ## Further Exploration
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — sagas and choreography.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Sagas and choreography.
 - Fowler, Martin. *What do you mean by "Event-Driven"?*, 2017.

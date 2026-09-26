@@ -2,7 +2,7 @@
 id: retries
 title: Retries
 sidebar_position: 6
-description: Trying again — and why a badly designed retry is the cause, not the cure.
+description: Trying again, and why a badly designed retry is the cause, not the cure.
 doc_type: concept
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [timeouts, idempotency]
 related: [backoff, idempotency, retry-storms]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 A retry is repeating an operation that failed, in the expectation that the failure is transient.
 
-It works because many failures in distributed systems are in fact temporary — a lost packet, an
+It works because many failures in distributed systems are in fact temporary: a lost packet, an
 instance restarting, a momentary spike.
 
 And it is, with uncomfortable frequency, **the cause of the incident rather than the cure**.
@@ -76,13 +76,13 @@ times, with three times the load.
 An operation that failed with a timeout may have been executed. Retrying with no
 [idempotency](/06-distributed-systems/idempotency.md) duplicates the effect.
 
-Hence the rule: **if it is not idempotent, do not retry automatically** — with a
+Hence the rule: **if it is not idempotent, do not retry automatically**, with a
 single exception, the failure in which the request is known not to have reached the server
 (connection refused, DNS error, failure to establish the connection). A timeout does not
 qualify: once the request was sent, the caller cannot tell whether it took effect.
 
-Many HTTP clients retry by default only idempotent methods — the safe ones, such as `GET`,
-and the state-changing idempotent ones, `PUT` and `DELETE` (RFC 9110, 2022) — and not `POST`. That is a reasonable protection and is frequently circumvented by whoever configures
+Many HTTP clients retry by default only idempotent methods: the safe ones, such as `GET`,
+and the state-changing idempotent ones, `PUT` and `DELETE` (RFC 9110, 2022), and not `POST`. That is a reasonable protection and is frequently circumvented by whoever configures
 generic retries without looking.
 
 ### Attempt limit and budget
@@ -92,7 +92,7 @@ Two ways to limit:
 **Count.** Three attempts, then give up. Simple, and under widespread degradation it still
 triples the load.
 
-**Budget.** Limiting the proportion of retries over the total number of requests — for example,
+**Budget.** Limiting the proportion of retries over the total number of requests: for example,
 at most 10% extra attempts in a window. When many things fail, the retry limits itself.
 
 Against a storm, the budget protects where the count fails: under widespread failure, the extra load stays capped at 10% instead of tripling.
@@ -101,7 +101,7 @@ Against a storm, the budget protects where the count fails: under widespread fai
 
 The simplest defense against amplification: **choose one level to retry at.**
 
-Typically the one closest to the origin — the client or the gateway — and disable it in the
+Typically the one closest to the origin (the client or the gateway), and disable it in the
 intermediaries. That preserves resilience and eliminates the multiplicative effect.
 
 When each team configures retries in their own service with no view of the whole, the
@@ -112,7 +112,7 @@ multiplication happens by composition, with nobody having decided.
 If the destination is overloaded, retrying makes it worse. The correct answer is to reduce the
 pressure: [backoff](/06-distributed-systems/backoff.md), a circuit breaker, or shedding load.
 
-A service that returns `429` is explicitly asking you to wait — and retrying immediately ignores
+A service that returns `429` is explicitly asking you to wait, and retrying immediately ignores
 the request.
 
 ### Retry rate is a leading indicator
@@ -120,7 +120,7 @@ the request.
 The instrumentation that pays off most in this area costs little and rarely exists: counting
 retries separately from initial attempts.
 
-A system with well-configured retries hides failures — that is its function. The consequence is
+A system with well-configured retries hides failures: that is its function. The consequence is
 that degradation stays invisible in the success metrics up to the point where the retries can no
 longer keep up, and then the drop is abrupt.
 
@@ -156,20 +156,20 @@ When it is degraded, it is exactly what it cannot take.
 
 **With no backoff.** Retrying immediately concentrates the load at the worst moment.
 
-**With no limit.** Infinite retries occupy resources indefinitely and never fail visibly — which
+**With no limit.** Infinite retries occupy resources indefinitely and never fail visibly, which
 prevents the alert.
 
 **When the destination asked you to wait.** `Retry-After` is an instruction, not a suggestion.
 
 ## Alternatives
 
-- **Fail fast and propagate** — let the caller decide.
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop trying when the failure rate indicates a
+- **Fail fast and propagate**: let the caller decide.
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: stop trying when the failure rate indicates a
   persistent problem.
-- **Queue** — instead of retrying now, enqueue for later. See
+- **Queue**: instead of retrying now, enqueue for later. See
   [queues](/05-system-design/queues.md).
-- **Degrade** — respond without the data.
-- **Hedged request** — send to two replicas simultaneously, instead of retrying after a failure.
+- **Degrade**: respond without the data.
+- **Hedged request**: send to two replicas simultaneously, instead of retrying after a failure.
 
 ## Trade-offs
 
@@ -204,7 +204,7 @@ error will never work and only consumes capacity; retrying a momentary unavailab
 always does. Treating both the same wastes in the first case and delays giving up in the second.
 
 **Retrying a `POST` with no idempotency key.** The first attempt may have had an effect and only
-lost the response. With no key, the retry creates a second order — and the duplication is born
+lost the response. With no key, the retry creates a second order, and the duplication is born
 precisely from the mechanism that existed to provide reliability.
 
 **Enabling it in every service without looking at the chain.** Three layers with three attempts
@@ -223,7 +223,7 @@ wait.
 
 A payments platform had a 25-minute outage that started with a 40-second degradation.
 
-The authorization service became slow — it did not go down. Responses went from 200 ms to 4
+The authorization service became slow, but it did not go down. Responses went from 200 ms to 4
 seconds.
 
 The gateway had three attempts configured, with no backoff. The orders service, which called the
@@ -241,7 +241,7 @@ happened when the team disabled retries manually.
 
 The fixes:
 
-**Retries at a single level** — the gateway. The orders service and the app stopped retrying.
+**Retries at a single level**: the gateway. The orders service and the app stopped retrying.
 
 **Exponential backoff with jitter**, instead of immediate retries.
 
@@ -258,17 +258,17 @@ The original degradation was never the problem. The response to it was.
 
 ## Related Concepts
 
-- [Timeouts](/06-distributed-systems/timeouts.md) — what precedes the retry.
-- [Backoff](/06-distributed-systems/backoff.md) — how to space the attempts.
-- [Idempotency](/06-distributed-systems/idempotency.md) — the prerequisite.
-- [Retry Storms](/12-reliability/retry-storms.md) — the failure mode in detail.
+- [Timeouts](/06-distributed-systems/timeouts.md): what precedes the retry.
+- [Backoff](/06-distributed-systems/backoff.md): how to space the attempts.
+- [Idempotency](/06-distributed-systems/idempotency.md): the prerequisite.
+- [Retry Storms](/12-reliability/retry-storms.md): the failure mode in detail.
 
 ## Practical Exercise
 
 Map the chain of a request in your system and add up the retries configured at each level.
 Multiply.
 
-If the number is greater than five, you have amplification — and it only appears when something
+If the number is greater than five, you have amplification, and it only appears when something
 is already degraded.
 
 ## Interview Questions
@@ -279,6 +279,6 @@ is already degraded.
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — the chapter on handling
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. The chapter on handling
   overload.
 - Nygard, Michael. *Release It!* 2nd ed., 2018.

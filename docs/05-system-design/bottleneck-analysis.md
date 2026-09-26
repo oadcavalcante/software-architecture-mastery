@@ -2,7 +2,7 @@
 id: bottleneck-analysis
 title: Análise de Gargalos
 sidebar_position: 22
-description: Encontrar o recurso que satura primeiro — e por que otimizar qualquer outro não muda nada.
+description: Encontrar o recurso que satura primeiro e por que otimizar qualquer outro não muda nada.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-planning]
 related: [capacity-planning, scalability-basics, hotspots]
 canonical_for: [análise de gargalos, gargalo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -29,14 +29,14 @@ que já tinha folga.
 
 ## Problema
 
-Times otimizam o que é visível, familiar ou desconfortável — raramente o que
+Times otimizam o que é visível, familiar ou desconfortável, raramente o que
 limita.
 
 O padrão: alguém reescreve uma função lenta e ganha 40% naquele trecho. O tempo de
 resposta do sistema não muda, porque a função representava 3% do total e o gargalo
 era o banco.
 
-Isso não é falta de competência. É ausência de medição antes de agir — e a
+Isso não é falta de competência. É ausência de medição antes de agir, e a
 medição é rápida quando se sabe o que procurar.
 
 ## Conceitos Centrais
@@ -57,11 +57,11 @@ alta ou variável.
 
 **Rede.** Banda de saída, especialmente com mídia.
 
-**Bloqueio.** Um recurso serializado por onde tudo passa — um contador, uma linha
+**Bloqueio.** Um recurso serializado por onde tudo passa: um contador, uma linha
 quente, um lock.
 
-Memória raramente limita a vazão diretamente. Ela aparece antes como latência —
-coleta de lixo que cresce, paginação, disputa por page cache — e o intervalo entre
+Memória raramente limita a vazão diretamente. Ela aparece antes como latência
+(coleta de lixo que cresce, paginação, disputa por page cache) e o intervalo entre
 essa degradação e a queda costuma ser curto.
 
 ### Medir antes de agir
@@ -86,8 +86,8 @@ seu limite?**
 ### Utilização e enfileiramento
 
 Um recurso não degrada linearmente. Ele funciona bem até cerca de 70% de
-utilização e piora rápido depois; o mecanismo — a espera em fila crescendo de forma
-não linear conforme a utilização se aproxima de 100% — está em
+utilização e piora rápido depois; o mecanismo (a espera em fila crescendo de forma
+não linear conforme a utilização se aproxima de 100%) está em
 [Latência](/06-distributed-systems/latency.md).
 
 A consequência prática: **um recurso a 85% de utilização já está em degradação**,
@@ -96,7 +96,7 @@ colapso.
 
 ### O gargalo se move
 
-Corrigido um, outro aparece. Isso não é fracasso — é o resultado esperado.
+Corrigido um, outro aparece. Isso não é fracasso, é o resultado esperado.
 
 O sistema tem sempre um gargalo; a pergunta é se ele está acima ou abaixo da
 capacidade necessária. Otimizar até o gargalo atual sair do caminho e o próximo
@@ -110,7 +110,7 @@ Sem esse critério, a otimização não termina.
 > Aqui o foco é a ordem de prioridade que a lei impõe ao esforço, não o teto de
 > paralelismo que ela define.
 
-Se uma etapa representa 20% do tempo total, eliminá-la completamente melhora 20% —
+Se uma etapa representa 20% do tempo total, eliminá-la completamente melhora 20%,
 nunca mais.
 
 Isso dá a ordem de prioridade: **otimize o que representa maior fração do tempo**,
@@ -125,14 +125,14 @@ mexer nele não muda a capacidade.
 
 - O sistema está lento ou instável e ninguém sabe por quê.
 - Antes de qualquer esforço de otimização.
-- Antes de decidir escalar — escalar o que não é gargalo é gastar sem ganho.
+- Antes de decidir escalar: escalar o que não é gargalo é gastar sem ganho.
 - Ao validar se uma mudança de arquitetura resolveria o problema real.
 
 ## Quando Não Usar
 
 **Como substituto de medição.** Análise sem instrumento é palpite.
 
-**Quando o sistema atende ao requisito com folga medida** — latência dentro do
+**Quando o sistema atende ao requisito com folga medida**: latência dentro do
 requisito e nenhum recurso acima dos 70% de utilização. Otimizar o que já basta é
 custo sem retorno; sem o segundo número, a folga é suposta.
 
@@ -141,11 +141,11 @@ otimização não termina.
 
 ## Alternativas
 
-- **Teste de carga** — provocar a saturação em ambiente controlado, em vez de
+- **Teste de carga**: provocar a saturação em ambiente controlado, em vez de
   esperar produção.
-- **Reduzir a carga** — a alternativa menos considerada: uma consulta que não
+- **Reduzir a carga**, a alternativa menos considerada: uma consulta que não
   precisa existir é o ganho mais barato.
-- **Aceitar** — se o gargalo está acima do requisito, não é problema.
+- **Aceitar**: se o gargalo está acima do requisito, não é problema.
 
 ## Trade-offs
 
@@ -168,7 +168,7 @@ comportamento com o volume de produção.
 
 **Corrigir um e não verificar o próximo.** O gargalo se moveu e ninguém olhou.
 
-**Ignorar a cauda.** A média está boa e o percentil 99 está péssimo — e é ele que
+**Ignorar a cauda.** A média está boa e o percentil 99 está péssimo, e é ele que
 o usuário percebe.
 
 ## Erros Comuns
@@ -176,7 +176,7 @@ o usuário percebe.
 **Otimizar sem medir.**
 
 **Escalar antes de identificar o gargalo.** Adicionar instâncias quando o gargalo é
-o banco piora — mais instâncias, mais conexões, mais pressão.
+o banco piora: mais instâncias, mais conexões, mais pressão.
 
 **Olhar só a média.**
 
@@ -201,7 +201,7 @@ serialização                40 ms
 resto                      120 ms
 ```
 
-O banco representava 6%. Réplica de leitura teria melhorado, no melhor caso, 6% —
+O banco representava 6%. Réplica de leitura teria melhorado, no melhor caso, 6%,
 para um problema que exigia 73%.
 
 O serviço de precificação era o gargalo. Investigando: ele fazia uma chamada
@@ -210,7 +210,7 @@ por dia.
 
 A correção foi cache com TTL de 5 minutos na cotação. A latência caiu para 360 ms.
 
-Depois disso o gargalo se moveu para o banco — as 3 consultas passaram a ser metade
+Depois disso o gargalo se moveu para o banco: as 3 consultas passaram a ser metade
 do tempo restante. Mas 360 ms está confortavelmente abaixo do requisito de 800 ms,
 e a equipe parou.
 
@@ -225,8 +225,8 @@ Quando não há rastreamento distribuído disponível, uma sequência de verific
 resolve a maioria dos casos em minutos.
 
 **Um.** O tempo está dentro ou fora do processo? Compare o tempo total da
-requisição com a soma do tempo gasto em chamadas externas — banco, serviços,
-cache. Se a maior parte está fora, o problema não é o seu código.
+requisição com a soma do tempo gasto em chamadas externas (banco, serviços,
+cache). Se a maior parte está fora, o problema não é o seu código.
 
 **Dois.** Quantas consultas por requisição? Um número que cresce com a quantidade
 de itens exibidos é o N+1 clássico. Ver
@@ -242,7 +242,7 @@ aparecem como lentidão sem que nenhum componente esteja ocupado.
 recurso serializado na aplicação.
 
 **Seis.** A CPU está saturada? Se sim, o perfil diz onde. Se não, o tempo está em
-espera — e espera é rede, disco ou bloqueio.
+espera, e espera é rede, disco ou bloqueio.
 
 A ordem importa: as três primeiras respondem a maior parte dos casos de sistema de
 negócio, e as três custam minutos. Começar pelo perfil de CPU é começar pela
@@ -250,11 +250,11 @@ resposta menos provável.
 
 ## Conceitos Relacionados
 
-- [Planejamento de Capacidade](/05-system-design/capacity-planning.md) — a estimativa que antecede.
-- [Escalabilidade Básica](/05-system-design/scalability-basics.md) — o que fazer com o gargalo
+- [Planejamento de Capacidade](/05-system-design/capacity-planning.md): a estimativa que antecede.
+- [Escalabilidade Básica](/05-system-design/scalability-basics.md): o que fazer com o gargalo
   identificado.
-- [Observabilidade](/13-observability/index.md) — os instrumentos.
-- [Hotspots](/11-scalability/index.md) — quando o gargalo é uma chave, não um
+- [Observabilidade](/13-observability/index.md): os instrumentos.
+- [Hotspots](/11-scalability/index.md): quando o gargalo é uma chave, não um
   recurso.
 
 ## Exercício Prático
@@ -262,7 +262,7 @@ resposta menos provável.
 Pegue a operação mais importante do seu sistema e descubra onde o tempo é gasto,
 por etapa.
 
-Se você não consegue responder em minutos, falta instrumentação — e essa é a
+Se você não consegue responder em minutos, falta instrumentação, e essa é a
 descoberta mais valiosa do exercício.
 
 ## Perguntas de Entrevista
@@ -274,5 +274,5 @@ descoberta mais valiosa do exercício.
 ## Para Aprofundar
 
 - Gregg, Brendan. *Systems Performance*. 2ª ed., Addison-Wesley, 2020.
-- Goldratt, Eliyahu. *The Goal*, 1984 — a teoria das restrições, de onde vem a
+- Goldratt, Eliyahu. *The Goal*, 1984. A teoria das restrições, de onde vem a
   ideia de gargalo.

@@ -2,7 +2,7 @@
 id: ordering
 title: Ordenação
 sidebar_position: 26
-description: A ordem em que as mensagens chegam — e por que ordem global custa mais do que quase todo sistema precisa.
+description: A ordem em que as mensagens chegam, e por que ordem global custa mais do que quase todo sistema precisa.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [partitioning, clock-and-time, duplicate-messages]
 canonical_for: [ordenação, ordem de mensagens, ordem por partição]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Ordenação é a garantia sobre a sequência em que mensagens são processadas.
 
 A afirmação que organiza o assunto: **ordem global é cara e quase nunca é o que o
-negócio precisa.** O que ele precisa é ordem **por entidade** — e essa é barata.
+negócio precisa.** O que ele precisa é ordem **por entidade**, e essa é barata.
 
 ## Problema
 
@@ -38,7 +38,7 @@ garantia nenhuma**.
 Se as duas mensagens do mesmo pedido caem em partições diferentes, elas são
 processadas por consumidores diferentes, em ritmos diferentes.
 
-A reação instintiva é pedir ordem global — uma partição só. Isso funciona e
+A reação instintiva é pedir ordem global: uma partição só. Isso funciona e
 elimina o paralelismo: a vazão do tópico inteiro fica limitada a um consumidor.
 
 ## Conceitos Centrais
@@ -81,7 +81,7 @@ Na maior parte dos sistemas de negócio, a resposta é: ordem por entidade basta
 ### Ordem por chave tem um custo escondido
 
 Escolher a chave para preservar ordem também determina a distribuição. Se uma
-chave for muito mais ativa, ela concentra carga numa partição — o
+chave for muito mais ativa, ela concentra carga numa partição: o
 [hotspot](/11-scalability/index.md).
 
 Um sistema que particiona por `id_do_cliente` e tem um cliente corporativo com 40%
@@ -107,13 +107,13 @@ parte dos casos de desordem sem nenhum mecanismo de espera.
 
 A condição que ela impõe: uma única origem responsável pela versão da entidade. Se
 vários produtores emitem eventos da mesma entidade, cada um numera a partir do que
-conhece e as versões colidem — restam um contador compartilhado, que reintroduz a
+conhece e as versões colidem. Restam um contador compartilhado, que reintroduz a
 coordenação que a técnica prometia evitar, ou um ponto único que numera antes de
 publicar.
 
 ### Marca de tempo não estabelece ordem
 
-Tentar ordenar por marca de tempo de máquinas diferentes não funciona — relógios
+Tentar ordenar por marca de tempo de máquinas diferentes não funciona: relógios
 divergem. Ver [relógio e tempo](/06-distributed-systems/clock-and-time.md).
 
 A ordem precisa vir de um contador da entidade, de um número de sequência
@@ -135,13 +135,13 @@ outra partição, esperar por ela trava o consumo para sempre.
 Isso obriga um prazo: depois de N segundos esperando a sequência 7, o consumidor
 precisa decidir entre processar fora de ordem, pular, ou parar e alertar.
 
-Escolher entre as três é decisão de domínio, não técnica — e um consumidor que
+Escolher entre as três é decisão de domínio, não técnica. E um consumidor que
 reordena sem prazo definido vai travar em produção, invariavelmente numa
 madrugada.
 
 ## Modelo Mental
 
-**A pergunta não é "as mensagens estão em ordem?". É "a ordem de quê importa para
+**A pergunta não é "as mensagens estão em ordem?", mas "a ordem de quê importa para
 quem?"**
 
 ## Quando Usar
@@ -152,7 +152,7 @@ quem?"**
 - A distribuição da chave é razoavelmente uniforme.
 
 **Ordem global** quando:
-- Há um requisito genuíno de sequência total — um livro-razão contábil, por
+- Há um requisito genuíno de sequência total: um livro-razão contábil, por
   exemplo.
 - A vazão cabe num consumidor.
 
@@ -163,21 +163,21 @@ quem?"**
 **Ordem por chave quando a chave é desequilibrada.** Vira hotspot.
 
 **Confiar em ordem sem verificar a configuração.** Vários sistemas só garantem
-ordem sob condições específicas — produtor sem envio paralelo, sem retentativa
+ordem sob condições específicas: produtor sem envio paralelo, sem retentativa
 reordenando.
 
 **Ordenar por marca de tempo entre máquinas.**
 
 ## Alternativas
 
-- **Versão na mensagem** — vence quando o evento obsoleto pode ser descartado, isto
+- **Versão na mensagem**: vence quando o evento obsoleto pode ser descartado, isto
   é, quando o estado final depende só do mais recente. Não serve quando cada evento
   precisa ser aplicado.
-- **Operações comutativas** — vencem quando a operação é incremento ou união e o
+- **Operações comutativas**: vencem quando a operação é incremento ou união e o
   domínio não precisa da sequência dos passos.
-- **Buffer de reordenação** — se paga quando todos os eventos precisam ser aplicados
+- **Buffer de reordenação**: se paga quando todos os eventos precisam ser aplicados
   em sequência e a lacuna típica cabe no limite de espera.
-- **Estado no consumidor** — vence quando existe precondição verificável no próprio
+- **Estado no consumidor**: vence quando existe precondição verificável no próprio
   estado (o pedido existe?), e é a única que não exige nada de quem produz.
 
 ## Trade-offs
@@ -191,7 +191,7 @@ reordenando.
 
 ## Modos de Falha
 
-**Evento aplicado fora de ordem.** Estado incorreto — cancelamento antes da
+**Evento aplicado fora de ordem.** Estado incorreto: cancelamento antes da
 criação.
 
 **Hotspot pela chave de ordenação.** Uma partição saturada.
@@ -229,7 +229,7 @@ Um sistema de rastreamento de encomendas processava eventos de status. Um client
 reportou uma encomenda que mostrava "saiu para entrega" depois de "entregue".
 
 A investigação encontrou a causa: os eventos eram particionados por
-`id_do_transportador` — escolha feita para agrupar por parceiro — e uma encomenda
+`id_do_transportador` (escolha feita para agrupar por parceiro), e uma encomenda
 podia trocar de transportador no meio do trajeto.
 
 Ao trocar, os eventos subsequentes iam para outra partição, e a ordem entre os dois
@@ -241,26 +241,26 @@ Inviável.
 
 A correção teve duas partes.
 
-**A chave de partição mudou** para `id_da_encomenda` — a entidade cuja ordem de
+**A chave de partição mudou** para `id_da_encomenda`, a entidade cuja ordem de
 fato importa. Transportador continua sendo um atributo do evento, não a chave.
 
 **Versão na mensagem.** Cada evento carrega um contador sequencial da encomenda,
-atribuído pelo serviço de rastreamento na entrada — não pelo transportador, que
+atribuído pelo serviço de rastreamento na entrada, e não pelo transportador, que
 numeraria a partir do que conhece e colidiria com o transportador anterior. O consumidor descarta eventos com versão menor que a
 última aplicada.
 
 A segunda parte foi a que mais rendeu, e por uma razão que a equipe não previu: ela
-protege contra desordem de **qualquer** origem — retentativa, rebalanceamento,
-reprocessamento manual — e não apenas contra a causa conhecida.
+protege contra desordem de **qualquer** origem (retentativa, rebalanceamento,
+reprocessamento manual), e não apenas contra a causa conhecida.
 
 A distribuição por encomenda também se mostrou mais uniforme que por
 transportador, onde dois parceiros grandes concentravam a carga.
 
 ## Conceitos Relacionados
 
-- [Mensageria](/06-distributed-systems/messaging.md) — o canal.
-- [Particionamento](/06-distributed-systems/partitioning.md) — a escolha da chave.
-- [Relógio e Tempo](/06-distributed-systems/clock-and-time.md) — por que marca de tempo não ordena.
+- [Mensageria](/06-distributed-systems/messaging.md): o canal.
+- [Particionamento](/06-distributed-systems/partitioning.md): a escolha da chave.
+- [Relógio e Tempo](/06-distributed-systems/clock-and-time.md): por que marca de tempo não ordena.
 - [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md).
 
 ## Exercício Prático
@@ -269,7 +269,7 @@ Para cada tópico do seu sistema, responda: qual a chave de partição, e a orde
 qual entidade ela preserva?
 
 Depois verifique se as mensagens carregam versão. Sem ela, detectar desordem depende
-de verificar precondição de estado no consumidor — mais caro, e só cobre os casos em
+de verificar precondição de estado no consumidor: mais caro, e só cobre os casos em
 que o estado torna a inversão visível.
 
 ## Perguntas de Entrevista

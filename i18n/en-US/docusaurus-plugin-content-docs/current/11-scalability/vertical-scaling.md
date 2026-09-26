@@ -2,7 +2,7 @@
 id: vertical-scaling
 title: Vertical Scaling
 sidebar_position: 1
-description: A bigger machine — the right answer more often than the literature suggests.
+description: "A bigger machine: the right answer more often than the literature suggests."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [horizontal-scaling, database-scaling, performance-vs-scalability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -57,7 +57,7 @@ network  tens of gigabits per second
 A relational database on a large instance sustains tens of thousands of transactions per second and tens of
 terabytes.
 
-Most systems that "need to scale" operate at a fraction of that — and the check of how far the system is
+Most systems that "need to scale" operate at a fraction of that, and the check of how far the system is
 from the limit is rarely done before deciding to distribute.
 
 ### What you avoid by not distributing
@@ -71,7 +71,7 @@ It is worth enumerating, because it is the central argument:
 
 **Diagnosis.** A profiler and a debugger answer questions that, distributed, require correlated tracing.
 
-**Partial failure.** Either the process is alive, or it is not — with no "I don't know" state. See
+**Partial failure.** Either the process is alive, or it is not, with no "I don't know" state. See
 [partial failure](/06-distributed-systems/partial-failure.md).
 
 **Network latency between components.** Calls become function calls.
@@ -83,10 +83,10 @@ The engineering time saved is the most relevant item, and the least accounted fo
 Vertical scaling stops for specific reasons, and recognizing them is what indicates the moment to change:
 
 **Availability.** One machine is a single point. This is the most legitimate reason, and it is frequently
-resolved with two machines — a primary and a replica — with no partitioning.
+resolved with two machines (a primary and a replica) with no partitioning.
 
 **Non-linear cost at the top.** Within an instance family the price grows in line with size; the
-disproportion appears when the next step leaves the standard catalog — extended-memory types, dedicated
+disproportion appears when the next step leaves the standard catalog: extended-memory types, dedicated
 instances, owned hardware. From there on, two medium ones come out cheaper than one large one.
 
 **A physical limit reached.** When the largest available type is not enough.
@@ -94,7 +94,7 @@ instances, owned hardware. From there on, two medium ones come out cheaper than 
 **A restart.** Changing the instance type usually requires downtime. With one machine, that is
 unavailability.
 
-**Internal contention.** Above a certain number of cores, the software itself may not scale — internal
+**Internal contention.** Above a certain number of cores, the software itself may not scale: internal
 locks, shared structures. Doubling the cores does not double the throughput.
 
 The last is the one that surprises: not all software takes advantage of a very large machine.
@@ -128,7 +128,7 @@ capacity is being used, and only then consider growing.
 ## Mental Model
 
 **Vertical buys time without buying complexity.** Before distributing, check how far you are from the
-ceiling — it is usually further than the discussion presupposes.
+ceiling: it is usually further than the discussion presupposes.
 
 ## When to Use
 
@@ -137,7 +137,7 @@ ceiling — it is usually further than the discussion presupposes.
 - The distributed complexity is not justified.
 - The component is the database.
 - The team is small.
-- The urgency is immediate — growing the machine takes minutes; distributing takes months.
+- The urgency is immediate: growing the machine takes minutes; distributing takes months.
 
 ## When Not to Use
 
@@ -147,7 +147,7 @@ ceiling — it is usually further than the discussion presupposes.
 
 **When the cost is already disproportionate** relative to two medium machines.
 
-**When the software does not take advantage** — internal contention above a certain size.
+**When the software does not take advantage**: internal contention above a certain size.
 
 **Without measuring.** Growing without knowing what saturates.
 
@@ -155,15 +155,15 @@ ceiling — it is usually further than the discussion presupposes.
 
 ## Alternatives
 
-- **[Horizontal scaling](/11-scalability/horizontal-scaling.md)** — when the ceiling has been reached or
+- **[Horizontal scaling](/11-scalability/horizontal-scaling.md)**: when the ceiling has been reached or
   availability requires it.
-- **A read replica** — it distributes reads without partitioning. See
+- **A read replica**: it distributes reads without partitioning. See
   [replication for scale](/11-scalability/scaling-replication.md).
-- **Caching** — it reduces the load reaching the machine. See
+- **Caching**: it reduces the load reaching the machine. See
   [caching for scale](/11-scalability/scaling-cache.md).
-- **Asynchronous processing** — it takes work off the critical path. See
+- **Asynchronous processing**: it takes work off the critical path. See
   [asynchronous processing](/11-scalability/async-processing.md).
-- **Optimization** — frequently it returns more than any capacity increase.
+- **Optimization**: frequently it returns more than any capacity increase.
 
 ## Trade-offs
 
@@ -195,7 +195,7 @@ ceiling — it is usually further than the discussion presupposes.
 
 **Discarding it by reputation.** "It does not scale" became a reflex, but a common instance today already holds
 hundreds of gigabytes of memory and dozens of cores, and the top of the catalog reaches hundreds of cores
-and terabytes — more than most business systems will ever need.
+and terabytes, more than most business systems will ever need.
 
 **Not measuring how much of the capacity is in use.** Teams decide to distribute with the machine at 30%
 utilization, because nobody looked at the number before designing the next architecture.
@@ -227,7 +227,7 @@ connections               85 of 200
 transactions per second   1,400, at peak
 ```
 
-The database was operating at around a third of the instance's capacity — and it was not one of the largest
+The database was operating at around a third of the instance's capacity, and it was not one of the largest
 available.
 
 The business growth projection, for three years, pointed at 4,000 transactions per second. An instance two
@@ -240,7 +240,7 @@ The decision was to postpone the partitioning and do three things:
 **A read replica** for reports, which accounted for 40% of the load and did not need up-to-the-instant
 data.
 
-**Fixing two queries** that did full scans on large tables — which alone reduced peak CPU from 34% to 21%.
+**Fixing two queries** that did full scans on large tables, which alone reduced peak CPU from 34% to 21%.
 
 Three years later, with the projected volume reached and the features delivered in the period adding work
 to every transaction, the database operates at 48% utilization. The
@@ -252,19 +252,19 @@ capacity.
 
 Two complementary decisions were made at the time:
 
-**A plan for the ceiling.** What would be done when utilization sustainably passed 70% was documented —
+**A plan for the ceiling.** What would be done when utilization sustainably passed 70% was documented,
 including the partitioning design, ready to be executed when necessary.
 
 **A [trend alert](/11-scalability/scaling-capacity-planning.md#a-trend-alert-not-only-a-value-one)**, not only an absolute value one: if utilization grows at a rate that reaches 70% in less
 than six months, the alert fires.
 
 The recorded lesson: the decision to distribute had been made from a growth projection, with no measurement
-at all of what the current infrastructure could handle. The missing calculation — how much of the machine
-are we using — took an hour.
+at all of what the current infrastructure could handle. The missing calculation (how much of the machine
+are we using) took an hour.
 
 ## Related Concepts
 
-- [Horizontal Scaling](/11-scalability/horizontal-scaling.md) — the alternative.
+- [Horizontal Scaling](/11-scalability/horizontal-scaling.md): the alternative.
 - [Database Scaling](/11-scalability/database-scaling.md).
 - [Performance versus Scalability](/11-scalability/performance-vs-scalability.md).
 - [Cloud Compute](/09-cloud-architecture/cloud-compute.md).

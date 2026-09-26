@@ -2,7 +2,7 @@
 id: adr-context
 title: Contexto da Decisão
 sidebar_position: 4
-description: As forças em jogo no momento — a seção que decide se o ADR terá valor daqui a dois anos.
+description: "As forças em jogo no momento: a seção que decide se o ADR terá valor daqui a dois anos."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-structure, adr-alternatives, superseding-decisions]
 canonical_for: [contexto da decisão, força em jogo, restrição vigente, decisão irreversível]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -25,7 +25,7 @@ O contexto responde a uma pergunta: **por que essa decisão precisou ser tomada,
 condições?**
 
 É a seção que determina se o ADR será útil no futuro. Uma decisão registrada sem contexto
-só pode ser obedecida. Uma decisão com contexto pode ser **reavaliada** — porque é possível
+só pode ser obedecida. Uma decisão com contexto pode ser **reavaliada**, porque é possível
 verificar se as condições que a produziram ainda valem.
 
 E é a seção que os autores escrevem pior, com uma falha característica: descrevem o sistema
@@ -125,7 +125,7 @@ Registro raro e valioso: as incertezas do momento.
 ```
 
 Isso muda a leitura futura. Uma decisão tomada sob incerteza declarada é revisável sem
-crítica ao autor — a informação simplesmente não existia. Uma decisão apresentada como
+crítica ao autor: a informação simplesmente não existia. Uma decisão apresentada como
 certa e depois errada parece erro de julgamento.
 
 E ajuda a identificar o momento certo de revisar: quando a incerteza se resolve.
@@ -182,13 +182,13 @@ ele não é contexto.
 
 ## Quando Usar
 
-- Em todo ADR — é a seção que não pode ser omitida.
+- Em todo ADR: é a seção que não pode ser omitida.
 - Com mais cuidado quanto mais irreversível for a decisão.
 - Especialmente quando há restrições temporárias em jogo: elas são as que mais mudam.
 
 ## Quando Não Usar
 
-O contexto detalhado — forças numeradas, origens, incertezas — custa horas de levantamento.
+O contexto detalhado (forças numeradas, origens, incertezas) custa horas de levantamento.
 Há decisões em que esse custo não volta:
 
 **Decisão reversível em dias.** Se desfazer custa menos que levantar os números, um
@@ -197,21 +197,21 @@ Y-Statement registra o suficiente; a reavaliação futura é mais barata refazen
 **Decisão de alcance local**, que afeta só o código de um time e que o próprio time pode
 reverter sem negociar com ninguém. A memória de quem a tomou ainda está por perto.
 
-**Restrição já registrada num documento imutável e datado** — um contrato, um parecer
+**Restrição já registrada num documento imutável e datado**: um contrato, um parecer
 jurídico, um relatório de incidente. Copiar para o ADR cria duas versões que podem
 divergir; referenciar, com a data, preserva a origem.
 
 ## Alternativas
 
-- **Y-Statement** — comprime contexto e decisão numa frase, para casos menores.
-- **Referência a um documento de requisitos** — funciona se o documento for imutável e
+- **Y-Statement**: comprime contexto e decisão numa frase, para casos menores.
+- **Referência a um documento de requisitos**: funciona se o documento for imutável e
   datado; não funciona se ele for vivo.
-- **Lista de forças** em vez de prosa — mais fácil de escrever e de verificar depois.
+- **Lista de forças** em vez de prosa: mais fácil de escrever e de verificar depois.
 
 A última é subestimada quando as forças são independentes e cada uma pode ser verificada
 sozinha: numa revisão, cada item da lista é riscado ou mantido, e a prosa esconde qual
-premissa caiu. Quando as forças se condicionam — o prazo só pesou por causa do tamanho do
-time —, os três a seis parágrafos de prosa carregam a relação que a lista perde.
+premissa caiu. Quando as forças se condicionam (o prazo só pesou por causa do tamanho do
+time), os três a seis parágrafos de prosa carregam a relação que a lista perde.
 
 ## Trade-offs
 
@@ -246,10 +246,10 @@ honesto e desconfortável. Omitir produz um ADR que parece melhor e vale menos.
 ## Erros Comuns
 
 **Escrever o contexto depois da decisão**, como justificativa. O texto seleciona as forças
-que apontavam para a opção escolhida e omite as que apontavam para o outro lado — que são as
+que apontavam para a opção escolhida e omite as que apontavam para o outro lado. São elas
 que a revisão futura precisaria pesar.
 
-**Omitir o prazo** como força — é uma das mais comuns e das menos registradas. Sem ele, uma
+**Omitir o prazo** como força: é uma das mais comuns e das menos registradas. Sem ele, uma
 escolha feita por urgência parece preferência técnica, e sobrevive ao prazo que a justificava.
 
 **Não dizer o tamanho e a experiência do time.** Sem "4 pessoas, nenhuma com Kafka", ninguém
@@ -293,7 +293,7 @@ O último item era decisivo e nunca tinha sido registrado. A solução em quest�
 oferecer o fluxo de aprovação em 2022. A restrição que motivou construir deixou de existir
 dois anos antes de alguém perceber.
 
-E o requisito de quatro etapas tinha sido simplificado pela própria redação em 2023 — ou
+E o requisito de quatro etapas tinha sido simplificado pela própria redação em 2023, ou
 seja, nem existia mais do lado do negócio.
 
 O que foi decidido:
@@ -303,7 +303,7 @@ O que foi decidido:
 **Regra de contexto** para ADRs novos: toda restrição precisa de origem e de uma condição
 que a invalidaria. A frase-modelo adotada foi "esta decisão muda se ___".
 
-**Revisão de ADRs de decisões custosas** a cada 12 meses — apenas verificar se as
+**Revisão de ADRs de decisões custosas** a cada 12 meses: apenas verificar se as
 restrições registradas ainda valem, sem reabrir a decisão. Um exercício de 15 minutos por
 ADR.
 
@@ -313,17 +313,17 @@ Na primeira rodada de revisão, 7 dos 34 ADRs de decisões custosas tinham restr
 não existiam. Dois foram superados. Ver
 [superação](/18-architecture-decisions/superseding-decisions.md).
 
-A lição registrada: o contexto original não era desonesto nem preguiçoso — ele parecia
+A lição registrada: o contexto original não era desonesto nem preguiçoso. Ele parecia
 completo. A frase "requisitos editoriais específicos" descrevia com precisão o que todos
 sabiam em 2021. O problema é que "todos sabiam" é exatamente a informação que evapora.
 
 ## Conceitos Relacionados
 
 - [Estrutura do ADR](/18-architecture-decisions/adr-structure.md).
-- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão.
-- [Superação](/18-architecture-decisions/superseding-decisions.md) — o que se faz quando o contexto muda.
-- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — os números.
-- [Tomada de Decisão](/23-architecture-leadership/decision-making.md) — reversibilidade e rigor.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md): a condição de reversão.
+- [Superação](/18-architecture-decisions/superseding-decisions.md): o que se faz quando o contexto muda.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md): os números.
+- [Tomada de Decisão](/23-architecture-leadership/decision-making.md): reversibilidade e rigor.
 
 ## Exercício Prático
 

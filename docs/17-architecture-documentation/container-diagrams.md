@@ -2,7 +2,7 @@
 id: container-diagrams
 title: Diagramas de Contêiner
 sidebar_position: 4
-description: As unidades executáveis e como se comunicam — o diagrama que responde "onde eu mexo".
+description: "As unidades executáveis e como se comunicam: o diagrama que responde \"onde eu mexo\"."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, context-diagrams, deployment-diagrams]
 canonical_for: [diagrama de contêiner, unidade executável, protocolo de comunicação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ Ele responde à pergunta mais frequente de quem vai trabalhar no sistema: **onde
 mexo, e o que isso afeta?**
 
 E é o segundo diagrama de maior retorno, depois do
-[contexto](/17-architecture-documentation/context-diagrams.md) — juntos, os dois cobrem a maior parte da necessidade
+[contexto](/17-architecture-documentation/context-diagrams.md). Juntos, os dois cobrem a maior parte da necessidade
 real de documentação estrutural.
 
 ## Problema
@@ -47,7 +47,7 @@ o que preciso subir para rodar isto localmente?
 ```
 
 Sem o diagrama, essas respostas vêm de leitura de código e de conversa com quem já
-conhece — o que é caro e produz respostas parciais.
+conhece. Isso é caro e produz respostas parciais.
 
 ## Conceitos Centrais
 
@@ -61,7 +61,7 @@ não   biblioteca, módulo, classe, camada, conceito
 
 O teste: **é separadamente implantável, ou é um armazenamento?**
 
-Uma biblioteca compartilhada entre dois serviços não é contêiner — ela é detalhe interno
+Uma biblioteca compartilhada entre dois serviços não é contêiner: ela é detalhe interno
 de ambos. Uma fila é, porque tem existência própria e precisa ser provisionada.
 
 Ver [modelo C4](/17-architecture-documentation/c4-model.md).
@@ -85,7 +85,7 @@ API → Banco: "lê e grava, SQL/JDBC"
 API → Fila: "publica pedido criado, AMQP"
 ```
 
-Isso responde a "o que preciso saber para trabalhar aqui" — e é o que o diagrama de
+Isso responde a "o que preciso saber para trabalhar aqui", e é o que o diagrama de
 contexto deliberadamente omite.
 
 ### O diagrama revela a arquitetura de verdade
@@ -102,7 +102,7 @@ comunicação em cadeia longa        → disponibilidade composta ruim
 Ver [paisagens de integração](/15-enterprise-architecture/integration-landscapes.md) e
 [disponibilidade](/06-distributed-systems/availability.md).
 
-É comum que a primeira versão do diagrama gere desconforto — porque ela mostra a
+É comum que a primeira versão do diagrama gere desconforto, porque ela mostra a
 estrutura real, e não a pretendida.
 
 ### Ele orienta a execução local
@@ -129,7 +129,7 @@ se há acesso direto ao armazenamento de outro
 ```
 
 A última é a mais reveladora. Ver
-[propriedade do dado](/07-data-architecture/data-ownership.md) — um diagrama que mostra
+[propriedade do dado](/07-data-architecture/data-ownership.md): um diagrama que mostra
 duas aplicações escrevendo no mesmo banco documenta um problema de fronteira.
 
 ### O escopo é um sistema
@@ -138,7 +138,7 @@ O diagrama de contêiner descreve **um** sistema. Sistemas externos aparecem na 
 como caixas únicas, sem detalhe interno.
 
 Expandir para mostrar o interior de vários sistemas produz um diagrama grande demais e
-mistura escopos — o mesmo erro de misturar níveis.
+mistura escopos: o mesmo erro de misturar níveis.
 
 Quando a pergunta atravessa sistemas, o diagrama certo é o de contexto do conjunto, ou um
 de fluxo de dados. Ver
@@ -157,7 +157,7 @@ até 6 contêineres    sistema que uma equipe segura
 13 ou mais           o custo operacional já é a característica dominante
 ```
 
-A pergunta que o diagrama provoca — "por que tantas peças?" — costuma ser mais valiosa que
+A pergunta que o diagrama provoca, "por que tantas peças?", costuma ser mais valiosa que
 qualquer resposta que ele dê. Ver
 [fronteiras de serviço](/05-system-design/service-boundaries.md): decompor em
 unidades implantáveis tem um custo que só fica visível quando ele é desenhado junto.
@@ -182,24 +182,24 @@ permanente.
 
 ## Quando Não Usar
 
-**Para sistema de uma peça só** — não há comunicação interna a mostrar, e a tecnologia cabe
+**Para sistema de uma peça só**: não há comunicação interna a mostrar, e a tecnologia cabe
 numa linha do diagrama de contexto.
 
-**Para sistemas de duas ou três peças** — uma frase no README ("API em Java, PostgreSQL,
+**Para sistemas de duas ou três peças**: uma frase no README ("API em Java, PostgreSQL,
 fila no RabbitMQ") entrega o mesmo e não precisa de manutenção separada.
 
-**Quando a topologia muda toda semana** — em fase de exploração, o diagrama fica defasado
+**Quando a topologia muda toda semana**: em fase de exploração, o diagrama fica defasado
 antes de ser lido; espere as peças estabilizarem.
 
-**Quando o público só precisa do contexto** — gestão, parceiros e auditoria perguntam o que
+**Quando o público só precisa do contexto**: gestão, parceiros e auditoria perguntam o que
 o sistema faz e com quem fala, não onde mexer.
 
 ## Alternativas
 
-- **[Contexto](/17-architecture-documentation/context-diagrams.md)** — quando a pergunta é externa.
-- **[Componente](/17-architecture-documentation/component-diagrams.md)** — quando é sobre o interior de uma peça.
-- **[Implantação](/17-architecture-documentation/deployment-diagrams.md)** — quando é sobre onde roda.
-- **Descrição textual** — para sistemas de duas ou três peças.
+- **[Contexto](/17-architecture-documentation/context-diagrams.md)**: quando a pergunta é externa.
+- **[Componente](/17-architecture-documentation/component-diagrams.md)**: quando é sobre o interior de uma peça.
+- **[Implantação](/17-architecture-documentation/deployment-diagrams.md)**: quando é sobre onde roda.
+- **Descrição textual**: para sistemas de duas ou três peças.
 
 ## Trade-offs
 
@@ -260,7 +260,7 @@ documentada em incidentes anteriores sem que a causa fosse nomeada: mudanças no
 do banco quebravam sistemas que ninguém tinha considerado.
 
 E o diagrama tornou visível outra coisa: a API de pedidos tinha 11 endpoints, e o painel
-administrativo não usava nenhum — ele lia direto.
+administrativo não usava nenhum. Ele lia direto.
 
 As decisões que saíram:
 
@@ -280,20 +280,20 @@ passou a ter resposta visual.
 
 Um problema durante a produção:
 
-**Bibliotecas como caixas.** Os primeiros diagramas incluíam bibliotecas compartilhadas —
+**Bibliotecas como caixas.** Os primeiros diagramas incluíam bibliotecas compartilhadas:
 autenticação, logging, cliente HTTP interno. Isso inflava os diagramas e misturava
 níveis. A regra "é separadamente implantável?" resolveu.
 
 O que se registrou depois: o acesso direto ao banco existia havia cinco anos, era conhecido
-por várias pessoas, e nunca tinha sido tratado como problema arquitetural — até aparecer
+por várias pessoas, e nunca tinha sido tratado como problema arquitetural, até aparecer
 num diagrama com três setas convergindo para a mesma caixa.
 
 ## Conceitos Relacionados
 
 - [Modelo C4](/17-architecture-documentation/c4-model.md).
-- [Diagramas de Contexto](/17-architecture-documentation/context-diagrams.md) — o nível acima.
-- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md) — o abaixo.
-- [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md) — onde roda.
+- [Diagramas de Contexto](/17-architecture-documentation/context-diagrams.md): o nível acima.
+- [Diagramas de Componente](/17-architecture-documentation/component-diagrams.md): o abaixo.
+- [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md): onde roda.
 
 ## Exercício Prático
 
@@ -311,6 +311,6 @@ costuma ser a descoberta mais valiosa do exercício.
 
 ## Para Aprofundar
 
-- Brown, Simon. *The C4 model* — c4model.com.
+- Brown, Simon. *The C4 model*. C4model.com.
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
 - Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021.

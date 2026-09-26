@@ -2,7 +2,7 @@
 id: 09-present-and-defend
 title: "Exercício 09 — Apresentar e Defender"
 sidebar_position: 1
-description: O último exercício — você tem a arquitetura certa e trinta minutos com quem controla o orçamento.
+description: "O último exercício: você tem a arquitetura certa e trinta minutos com quem controla o orçamento."
 doc_type: exercise
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [architecture-presentations, stakeholder-management, negotiating-tradeoffs, cost-management]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-29
 
 Este exercício usa **a sua própria proposta** do
 [exercício 08](/16-legacy-modernization/exercises/08-modernize-legacy.md). Se você não o
-fez, faça antes — não há o que apresentar sem ela.
+fez, faça antes: não há o que apresentar sem ela.
 
 :::
 
@@ -79,7 +79,7 @@ Produza:
 2. A **razão**, com um número que não venha da área de tecnologia.
 3. O que acontece **se nada for feito**, com data.
 4. As **três objeções mais prováveis** e a resposta de cada uma.
-5. O que você faz nas **conversas individuais** antes da reunião — com quem, e o que pergunta.
+5. O que você faz nas **conversas individuais** antes da reunião: com quem, e o que pergunta.
 6. O **fechamento**, com o que ficou de fora e por quê.
 
 ## Perguntas que Você Deveria Fazer
@@ -111,7 +111,7 @@ Sua resposta está boa se:
   formar substituto levou dois anos e meio na última tentativa" é uma frase com data e histórico.
 - **A objeção do ERP de 2019 é endereçada antes de ser feita.** Ela vai ser feita.
 - **A diretora de operações foi conversada antes.** O veto dela é real, e o argumento que a
-  desarma — nenhuma mudança nos quatro meses de safra — é do plano, não da apresentação.
+  desarma (nenhuma mudança nos quatro meses de safra) é do plano, não da apresentação.
 - **Você identificou a menor aprovação suficiente.** Talvez a fase 1 caiba no orçamento vigente,
   e o plurianual possa esperar novembro.
 
@@ -141,7 +141,7 @@ Nenhuma palavra sobre arquitetura. O conselho não decide arquitetura; decide se
 diante de um risco.
 
 **O número que não é seu.** A multa regulatória e as datas de aposentadoria são fatos externos.
-A estimativa de 14 meses é das duas pessoas, não sua — e citá-las como fonte tem um efeito
+A estimativa de 14 meses é das duas pessoas, não sua, e citá-las como fonte tem um efeito
 adicional: quando o presidente as consultar depois, elas vão reconhecer o próprio número.
 
 **O ERP de 2019** vai ser levantado, e a resposta precisa estar pronta:
@@ -160,7 +160,7 @@ Isso converte um histórico de fracasso em argumento a favor: a estrutura da pro
 exatamente ao que deu errado antes.
 
 **A diretora de operações** não é convencida na reunião. Ela é convencida na conversa de
-quinze minutos, dois dias antes, em que você pergunta o que a preocupa — e ela diz "abril" —, e
+quinze minutos, dois dias antes, em que você pergunta o que a preocupa (e ela diz "abril"), e
 você mostra que o cronograma tem quatro meses de congelamento por ano, e pede a ela que revise
 as datas.
 
@@ -168,14 +168,14 @@ Na reunião, ela apoia. Isso vale mais que qualquer slide.
 
 **As duas pessoas fora da sala** são o interessado mais fácil de esquecer e o mais capaz de
 derrubar a proposta. Elas precisam ter sido conversadas antes, e o papel delas na proposta
-precisa ser de autoridade — não de fonte a ser drenada antes de aposentar.
+precisa ser de autoridade, não de fonte a ser drenada antes de aposentar.
 
 Se elas disserem ao presidente "concordamos, e o plano nos coloca decidindo o que está certo",
 a aprovação é formalidade. Se disserem "vão jogar fora dezenove anos", acabou.
 
 **A menor aprovação suficiente** é a pergunta que destrava uma reunião em que o pedido inteiro
 não passaria: talvez a fase 1 caiba no orçamento já aprovado, e o pedido de hoje seja apenas
-autorização para começar — com o plurianual em novembro, já com resultado da fase 1 na mão.
+autorização para começar, com o plurianual em novembro, já com resultado da fase 1 na mão.
 
 Quando o conselho decide por consenso e o orçamento só reabre daqui a um ano, pedir menos com
 resultado antes de pedir mais chega ao total aprovado mais cedo que pedir tudo e ouvir não.

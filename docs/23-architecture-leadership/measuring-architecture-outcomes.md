@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fitness-functions]
 related: [fitness-functions, evolutionary-architecture, cost-management]
 canonical_for: [medição de resultado arquitetural, indicador de arquitetura, evidência de melhoria, atividade contra efeito]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -28,12 +28,12 @@ pergunta com evidência:
 "a arquitetura está melhorando?"
 ```
 
-Sem medição, a resposta é uma narrativa — e narrativas são disputadas por quem tem mais
+Sem medição, a resposta é uma narrativa, e narrativas são disputadas por quem tem mais
 autoridade, não por quem tem razão. Com medição, a conversa muda de natureza: passa a ser sobre
 os números, e discordar deles exige propor outros.
 
-O problema é que arquitetura é medida quase sempre por **atividade** — decisões tomadas, ADRs
-escritos, revisões realizadas, padrões publicados — e nenhuma delas informa se algo melhorou.
+O problema é que arquitetura é medida quase sempre por **atividade** (decisões tomadas, ADRs
+escritos, revisões realizadas, padrões publicados), e nenhuma delas informa se algo melhorou.
 
 ## Problema
 
@@ -50,7 +50,7 @@ Todos esses números crescem com o esforço da área e nenhum responde se a orga
 melhor situação. Eles são, em essência, uma medição de quanto trabalho a área fez.
 
 E há um segundo padrão: medir conformidade. "94% dos sistemas seguem o padrão X" informa sobre
-adesão, não sobre resultado — o padrão pode estar errado, e 94% de conformidade com um padrão
+adesão, não sobre resultado: o padrão pode estar errado, e 94% de conformidade com um padrão
 errado é pior que 40%.
 
 ```text
@@ -80,13 +80,13 @@ capacidade              tempo de onboarding de pessoa nova
 ```
 
 Essas quatro cobrem a maior parte do que arquitetura afeta, e nenhuma delas cresce com o esforço
-da área de arquitetura — o que é exatamente a propriedade desejada.
+da área de arquitetura, e essa é exatamente a propriedade desejada.
 
 Quatro dessas métricas são as de entrega de software consolidadas por Forsgren, Humble e Kim
 (2018): frequência de implantação, tempo de mudança (do commit à produção), taxa de falha em
 mudanças e tempo de recuperação. "Tempo entre decisão e produção" é uma extensão deliberada da
 segunda: começa na decisão, não no commit, e por isso captura também a espera antes de o código
-existir — fila de priorização, aprovação, dependência de outro time. Tempo de construção não é
+existir (fila de priorização, aprovação, dependência de outro time). Tempo de construção não é
 métrica dessa pesquisa; entra aqui porque é o sintoma mais direto de acoplamento na
 [esteira](/14-devops-and-platform/ci-cd.md).
 
@@ -103,7 +103,7 @@ e honesto. E força a pergunta útil na fase de proposta: se não há número qu
 fazer?
 
 Iniciativas sem número declarado são avaliadas depois por narrativa, e quando quem avalia é quem
-propôs, a narrativa conclui que foi um sucesso — não há critério anterior contra o qual ela possa
+propôs, a narrativa conclui que foi um sucesso: não há critério anterior contra o qual ela possa
 perder.
 
 ### Meça antes de começar
@@ -116,7 +116,7 @@ com linha de base    a comparação é aritmética
 Dos erros deste documento, é o único que não se corrige depois: métrica errada se troca e média se
 segmenta a qualquer momento, mas o estado inicial só pode ser medido enquanto ainda é o estado atual.
 Uma iniciativa de 12 meses que não o mediu não tem como demonstrar resultado, mesmo tendo produzido
-um — salvo quando a fonte guarda histórico, como o repositório e a esteira, e a linha de base pode
+um, salvo quando a fonte guarda histórico, como o repositório e a esteira, e a linha de base pode
 ser reconstruída.
 
 E medir antes tem um segundo benefício: frequentemente o número inicial contradiz a percepção que
@@ -150,7 +150,7 @@ fatura                     custo por unidade
 pesquisa interna           carga cognitiva, autonomia percebida
 ```
 
-Quase nada disso exige instrumentação nova. A informação existe e não é extraída — que é uma
+Quase nada disso exige instrumentação nova. A informação existe e não é extraída. Essa é uma
 observação recorrente ao longo deste percurso.
 
 ### Cuidado com o que a métrica incentiva
@@ -190,7 +190,7 @@ não medível    se a fronteira do domínio está correta
 ```
 
 Tentar quantificar o não quantificável produz métricas ruins que desacreditam as boas. Declarar o
-limite — "isto avaliamos por julgamento, e aqui está o raciocínio" — é mais honesto e mais
+limite ("isto avaliamos por julgamento, e aqui está o raciocínio") é mais honesto e mais
 defensável.
 
 ## Modelo Mental
@@ -219,16 +219,16 @@ horizonte avaliado; declarar número para ela produz uma falsa conclusão, para 
 ou no sistema de incidentes, montar a medição inicial pode levar meses; para uma decisão reversível
 e barata, é mais racional decidir por julgamento e medir dali em diante.
 
-**Como relatório** que não muda nenhuma decisão — se nenhuma priorização mudou por causa dos
+**Como relatório** que não muda nenhuma decisão: se nenhuma priorização mudou por causa dos
 números em um ano, o relatório é custo puro e deveria ser reduzido ou eliminado.
 
 ## Alternativas
 
-- **Pesquisa qualitativa com os times** — mais rápida, menos precisa, frequentemente suficiente
+- **Pesquisa qualitativa com os times**: mais rápida, menos precisa, frequentemente suficiente
   para diagnóstico.
-- **Avaliação por pares** — arquitetos de outra área revisando; captura o que métricas não
+- **Avaliação por pares**: arquitetos de outra área revisando; captura o que métricas não
   capturam.
-- **Métricas de entrega apenas** — velocidade e estabilidade cobrem muito, e são baratas de
+- **Métricas de entrega apenas**: velocidade e estabilidade cobrem muito, e são baratas de
   obter.
 
 A terceira é o ponto de partida recomendado: quatro números conhecidos, obtidos da esteira, já
@@ -318,7 +318,7 @@ capacidade em manutenção           de 58% para 66% (piorou)
 ```
 
 A organização estava implantando mais e piorando em quatro das seis métricas. A narrativa
-anterior — de progresso constante — não sobrevivia aos números.
+anterior, de progresso constante, não sobrevivia aos números.
 
 **Segmentação** revelou onde:
 
@@ -333,7 +333,7 @@ tempo entre decisão e produção, por domínio
 Dois domínios concentravam a piora, e ambos eram os que dependiam de um sistema legado comum.
 
 **A estratégia técnica foi refeita** a partir disso: uma frente única, atacando o sistema legado
-que travava os dois domínios — em vez das cinco frentes anteriores, escolhidas por percepção.
+que travava os dois domínios, em vez das cinco frentes anteriores, escolhidas por percepção.
 
 **Cada iniciativa passou a declarar o número antes**, com linha de base e alvo.
 
@@ -359,7 +359,7 @@ O relatório trimestral passou a ter seis números e nenhuma contagem de ativida
 
 A leitura que a equipe faz: a linha de base foi a parte mais desconfortável e a mais valiosa. Ela
 mostrou que a percepção de progresso estava errada, e a segmentação por domínio apontou a causa em
-uma tarde — depois de dois anos de estratégias construídas sobre percepção.
+uma tarde, depois de dois anos de estratégias construídas sobre percepção.
 
 E a pergunta do diretor virou o critério de existência do relatório: qualquer número que não
 ajude a respondê-la foi removido.

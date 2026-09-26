@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-content_version: 6
+content_version: 7
 last_reviewed: 2026-08-30
 ---
 
@@ -53,7 +53,7 @@ código → design → sistemas → sistemas distribuídos → arquitetura → c
 Cada nível pressupõe o anterior, e a dificuldade muda de natureza no caminho. Nos
 primeiros quatro, ela é técnica: entender consistência, latência, acoplamento,
 falha parcial. Do quinto em diante, a parte difícil deixa de ser saber a resposta
-certa e passa a ser fazê-la acontecer numa organização — com orçamento, com times
+certa e passa a ser fazê-la acontecer numa organização: com orçamento, com times
 que discordam, e com uma estrutura que sempre vence quando a arquitetura a
 contraria.
 
@@ -61,17 +61,17 @@ contraria.
 
 Vinte e três seções, organizadas em sete níveis e dois blocos transversais.
 
-**Níveis 01 a 04 — a base técnica.** Fundamentos, design de software, padrões de
+**Níveis 01 a 04: a base técnica.** Fundamentos, design de software, padrões de
 projeto, DDD, design de sistemas e sistemas distribuídos. É onde os conceitos são
 construídos um sobre o outro.
 
-**Níveis 05 e 06 — arquitetura e escala organizacional.** Dados, integração,
+**Níveis 05 e 06: arquitetura e escala organizacional.** Dados, integração,
 nuvem, segurança, escalabilidade, confiabilidade, observabilidade, plataforma,
 documentação, decisões, trade-offs, arquitetura corporativa, modernização de
 legado e governança. A seção de **trade-offs** reúne quinze pares recorrentes,
 cada um com o eixo real de comparação e as condições sob as quais cada lado vence.
 
-**Nível 07 — liderança.** Decisão, influência, comunicação, organização, risco,
+**Nível 07: liderança.** Decisão, influência, comunicação, organização, risco,
 custo e medição de resultado arquitetural.
 
 **Transversais.** Catorze **case studies** completos, do contexto de negócio à
@@ -84,8 +84,8 @@ sob pressão de tempo.
 Nenhum padrão é apresentado sem a discussão de quando **não** usá-lo.
 
 Isso não é uma preferência editorial. Um padrão sem limite de aplicação é uma
-receita, e receitas não sobrevivem ao primeiro contexto que não foi previsto —
-que é justamente o contexto em que arquitetura importa.
+receita, e receitas não sobrevivem ao primeiro contexto que não foi previsto.
+E esse é justamente o contexto em que arquitetura importa.
 
 Pelo mesmo motivo, todo case study apresenta mais de uma arquitetura viável, e
 toda opção descartada declara sob qual mudança de restrição ela passaria a
@@ -112,7 +112,7 @@ exercícios e dos case studies.
 ## Teste de aceitação
 
 O material cumpre seu objetivo quando você, ao receber *"Projete a arquitetura de
-uma plataforma de pagamentos de alto volume"*, não começa desenhando caixas —
+uma plataforma de pagamentos de alto volume"*, não começa desenhando caixas:
 começa perguntando qual é o problema de negócio, quais atributos de qualidade
 importam e quais restrições existem.
 

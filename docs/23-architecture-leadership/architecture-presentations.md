@@ -2,7 +2,7 @@
 id: architecture-presentations
 title: Apresentações de Arquitetura
 sidebar_position: 7
-description: Uma apresentação existe para produzir uma decisão — e a maior parte não pede nenhuma.
+description: Uma apresentação existe para produzir uma decisão, e a maior parte não pede nenhuma.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [communication, stakeholder-management, negotiating-tradeoffs]
 canonical_for: [apresentação de arquitetura, pedido explícito, estrutura de apresentação técnica]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -29,8 +29,8 @@ pergunta que estrutura tudo
   "o que precisa acontecer ao fim desta reunião?"
 ```
 
-A maior parte das apresentações técnicas não responde a essa pergunta. Elas expõem conteúdo —
-contexto, análise, arquitetura, plano — e terminam sem que ninguém saiba o que foi pedido.
+A maior parte das apresentações técnicas não responde a essa pergunta. Elas expõem conteúdo
+(contexto, análise, arquitetura, plano) e terminam sem que ninguém saiba o que foi pedido.
 
 O resultado é previsível: a reunião acaba, as pessoas concordam vagamente, e nada acontece.
 
@@ -46,7 +46,7 @@ tempo: 45 minutos, com 40 de exposição
 resultado: "muito bom, vamos avaliar"
 ```
 
-Nenhum pedido foi feito. "Vamos avaliar" é o que se diz quando não se sabe o que foi pedido — e o
+Nenhum pedido foi feito. "Vamos avaliar" é o que se diz quando não se sabe o que foi pedido. E o
 que se avalia depois é o que cada um lembrou, que é pouco.
 
 E há um segundo problema, específico de apresentações técnicas: **a densidade**. Um slide com um
@@ -83,7 +83,7 @@ Ver [comunicação](/23-architecture-leadership/communication.md).
 Quatro slides, ou quatro parágrafos. O detalhe técnico vai para anexo, e é usado se perguntado.
 
 Essa estrutura funciona porque ela responde às perguntas na ordem em que quem decide as faz. A
-estrutura de engenharia — contexto, análise, conclusão — responde na ordem em que quem construiu
+estrutura de engenharia (contexto, análise, conclusão) responde na ordem em que quem construiu
 a análise a produziu, que é outra coisa.
 
 ### Reserve metade do tempo para discussão
@@ -93,7 +93,7 @@ apresentação de 45 min   20 de exposição, 25 de discussão
 ```
 
 A discussão é onde a decisão acontece. Uma apresentação que ocupa 40 dos 45 minutos deixa cinco
-para o que importa — e o resultado é "vamos avaliar", porque não houve tempo de avaliar.
+para o que importa, e o resultado é "vamos avaliar", porque não houve tempo de avaliar.
 
 E há uma consequência prática: se você não consegue expor em vinte minutos, o material está denso
 demais ou o escopo está errado.
@@ -106,7 +106,7 @@ bom    três diagramas, cada um mostrando uma coisa
 ```
 
 Um diagrama numa apresentação tem alguns segundos de atenção. Se ele exige um minuto de estudo,
-ele não comunica — ele ocupa.
+ele não comunica; ele ocupa.
 
 O que funciona: um diagrama com o mínimo necessário para a mensagem daquele momento, com o resto
 removido. Ver
@@ -128,7 +128,7 @@ não considerada.
 
 ### As conversas individuais vêm antes
 
-Reuniões de decisão raramente mudam posições — elas confirmam posições formadas antes. Isso
+Reuniões de decisão raramente mudam posições: elas confirmam posições formadas antes. Isso
 significa que o trabalho de convencimento acontece antes, individualmente.
 
 ```text
@@ -145,7 +145,7 @@ decisão. Ver
 Por que escrever antes de apresentar força clareza está em
 [comunicação](/23-architecture-leadership/communication.md#escrever-antes-de-apresentar). O que
 muda na apresentação é o papel da reunião: com um documento de duas a quatro páginas circulado
-antes, ela deixa de expor e passa a discutir — as pessoas chegam com perguntas em vez de com
+antes, ela deixa de expor e passa a discutir. As pessoas chegam com perguntas em vez de com
 dúvidas.
 
 O documento circulado não garante leitura. Por isso o formato costuma vir com minutos de leitura
@@ -160,7 +160,7 @@ diagramas que sustentam a discussão.
 ```
 
 Trinta segundos ao final, com o registro enviado depois. Sem isso, a memória de cada participante
-diverge — e a divergência aparece semanas depois, quando é cara.
+diverge, e a divergência aparece semanas depois, quando é cara.
 
 ## Modelo Mental
 
@@ -175,7 +175,7 @@ decidido.** O detalhe vai para anexo.
 
 ## Quando Não Usar
 
-**Quando não há pedido** — uma apresentação informativa deveria ser um documento.
+**Quando não há pedido**: uma apresentação informativa deveria ser um documento.
 
 **Quando a decisão é reversível e barata.** Um comentário assíncrono resolve, e montar pedido,
 conversas prévias e reunião custa mais que errar e desfazer.
@@ -188,7 +188,7 @@ ata e voto não admite que a decisão chegue fechada; conversas prévias que dec
 decisão paralela, e o fórum passa a só carimbar.
 
 As próprias práticas têm custo. Conversas prévias levam dias e podem esvaziar a reunião, e quem
-não foi consultado chega sabendo que os outros já conversaram — e se sente excluído. A pré-leitura
+não foi consultado chega sabendo que os outros já conversaram, e se sente excluído. A pré-leitura
 só funciona se o público de fato lê; num grupo que não lê, os minutos de silêncio viram a
 apresentação inteira.
 
@@ -196,9 +196,9 @@ apresentação inteira.
 
 - **Documento lido antes**, com a reunião dedicada a discussão. É superior para decisões
   complexas.
-- **Conversas individuais apenas** — quando não há necessidade de decisão coletiva.
-- **Demonstração** — quando existe algo funcionando, mostrar vale mais que apresentar.
-- **Nada** — nem toda decisão precisa de reunião; muitas se resolvem de forma assíncrona.
+- **Conversas individuais apenas**: quando não há necessidade de decisão coletiva.
+- **Demonstração**: quando existe algo funcionando, mostrar vale mais que apresentar.
+- **Nada**: nem toda decisão precisa de reunião; muitas se resolvem de forma assíncrona.
 
 O documento lido antes supera a apresentação quando duas condições valem juntas: a decisão é
 complexa o bastante para que o argumento precise ser lido, não ouvido, e o público tem tempo e
@@ -238,7 +238,7 @@ hábito de ler antes. Sem a segunda, ele é só uma apresentação atrasada.
 quem decide passou a apresentação tentando adivinhar aonde ela ia.
 
 **Colocar o detalhe técnico no corpo.** A discussão se desvia para o detalhe que está na tela, e
-a pergunta que decide — vale o custo? — fica sem tempo.
+a pergunta que decide (vale o custo?) fica sem tempo.
 
 **Não reservar tempo de discussão.** As objeções não são feitas na sala; aparecem depois, por
 mensagem, quando já não há quem as responda para todos.
@@ -253,7 +253,7 @@ divergência aparece na execução, quando alguém faz o que achou que foi combi
 ## Exemplo Real
 
 Uma área de arquitetura de uma empresa de seguros tinha uma taxa de aprovação de propostas de 31%.
-As apresentações eram consideradas boas — o material era elogiado — e as decisões não saíam.
+As apresentações eram consideradas boas, o material era elogiado, e as decisões não saíam.
 
 Uma revisão de doze apresentações encontrou o padrão:
 
@@ -300,7 +300,7 @@ As quatro rejeitadas são o resultado que a área considera mais valioso: todas 
 propostas que não avançariam.
 
 A lição registrada: o conteúdo técnico das propostas não mudou. O que mudou foi que ele parou
-de ocupar a reunião — e que o pedido passou a ser feito.
+de ocupar a reunião, e que o pedido passou a ser feito.
 
 E o silêncio de cinco minutos no início, para leitura, foi a mudança mais estranha e a mais
 citada: ela garantiu que todos chegassem ao mesmo ponto de partida, o que a apresentação nunca

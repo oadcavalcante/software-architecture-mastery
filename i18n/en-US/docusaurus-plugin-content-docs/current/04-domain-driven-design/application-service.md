@@ -2,7 +2,7 @@
 id: application-service
 title: Application Service
 sidebar_position: 15
-description: Orchestrating a use case without deciding anything about the business — and the test that reveals when it decides.
+description: Orchestrating a use case without deciding anything about the business, and the test that reveals when it decides.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-service]
 related: [domain-service, aggregate, clean-architecture]
 canonical_for: [application service, use case]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -36,7 +36,7 @@ If that coordination lives in the entity, the entity comes to know persistence. 
 in the HTTP controller, the use case is tied to the channel and cannot be triggered by a
 queue or a terminal.
 
-The application service is the home for that coordination — and it is precisely because it
+The application service is the home for that coordination, and it is precisely because it
 is the point where everything meets that it attracts business rules that should not be
 there.
 
@@ -66,10 +66,10 @@ Facing an application service, ask of each conditional: **would this decision ex
 were no software?**
 
 Checking whether the user has permission, whether the input format is valid, whether the
-resource exists — coordination.
+resource exists is coordination.
 
 Checking whether a shipped order can be cancelled, whether the credit limit allows it,
-whether the waiting period has passed — business, and it belongs to the domain.
+whether the waiting period has passed is business, and it belongs to the domain.
 
 ### It is the transactional boundary
 
@@ -77,7 +77,7 @@ The application service defines where the transaction begins and ends. That make
 responsible for an architectural decision: **one aggregate per transaction**, per
 [aggregate](/04-domain-driven-design/aggregate.md).
 
-When a use case has to change two aggregates, this is where the decision surfaces —
+When a use case has to change two aggregates, this is where the decision surfaces:
 coordinate by event, accept eventual consistency, or recognize that the boundaries are
 wrong.
 
@@ -88,7 +88,7 @@ corresponds to the use case interactor. In
 [Ports and Adapters](/02-software-design/ports-and-adapters.md), it implements the primary
 port.
 
-One application service per use case — `CancelOrder`, `ConfirmPayment` — is preferable to a
+One application service per use case (`CancelOrder`, `ConfirmPayment`) is preferable to a
 service with fifteen methods, for the same cohesion reason that applies anywhere.
 
 ## When to Use
@@ -101,7 +101,7 @@ service with fifteen methods, for the same cohesion reason that applies anywhere
 ## When Not to Use
 
 **When there is no real coordination.** A simple query returning data does not need to pass
-through an application service — it can go straight from a read projection to the
+through an application service: it can go straight from a read projection to the
 controller. See [CQRS](/03-design-patterns/cqrs.md) level 2.
 
 **As a mandatory layer out of symmetry.** Application services that merely forward to the
@@ -115,11 +115,11 @@ the domain: an entity or a domain service to host them is missing.
 
 ## Alternatives
 
-- **A controller calling the domain directly** — appropriate in trivial use cases and simple
+- **A controller calling the domain directly**: appropriate in trivial use cases and simple
   subdomains.
-- **A command with a handler** — the same idea with different vocabulary. See
+- **A command with a handler**: the same idea with different vocabulary. See
   [Command](/03-design-patterns/command.md).
-- **A direct query** — for reads, without going through the domain.
+- **A direct query**: for reads, without going through the domain.
 
 ## Trade-offs
 
@@ -170,7 +170,7 @@ else if subscription.status == ACTIVE:
 ```
 
 The seven-day rule is the statutory right of withdrawal. It is a business decision, and it
-was in an application service — where no domain test covered it and where the product team
+was in an application service, where no domain test covered it and where the product team
 could not find it when looking.
 
 The separation moved the rule into `Subscription.cancel(currentDate)`, which returns the
@@ -179,22 +179,22 @@ subscription determined.
 
 Two concrete gains.
 
-When the company started offering thirty days of withdrawal as a commercial differentiator —
-above the legal minimum — the change was one line in the entity, with the corresponding unit
+When the company started offering thirty days of withdrawal as a commercial differentiator
+(above the legal minimum), the change was one line in the entity, with the corresponding unit
 test. Before, it would have required finding the rule among 700 lines of coordination.
 
-And the same cancellation came to apply to the three channels that triggered it — portal,
-customer service and the automatic delinquency process — which previously had slightly
+And the same cancellation came to apply to the three channels that triggered it (portal,
+customer service and the automatic delinquency process), which previously had slightly
 divergent implementations of the same calculation.
 
 The third implementation, the automatic process, still used 5 days. Nobody knew.
 
 ## Related Concepts
 
-- [Domain Service](/04-domain-driven-design/domain-service.md) — where rules across
+- [Domain Service](/04-domain-driven-design/domain-service.md): where rules across
   aggregates live.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — the transactional boundary.
-- [Clean Architecture](/02-software-design/clean-architecture.md) — the use case as a circle.
+- [Aggregate](/04-domain-driven-design/aggregate.md): the transactional boundary.
+- [Clean Architecture](/02-software-design/clean-architecture.md): the use case as a circle.
 - [Ports and Adapters](/02-software-design/ports-and-adapters.md).
 
 ## Practical Exercise

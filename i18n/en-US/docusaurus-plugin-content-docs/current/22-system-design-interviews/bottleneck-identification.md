@@ -2,7 +2,7 @@
 id: bottleneck-identification
 title: Bottleneck Identification
 sidebar_position: 8
-description: Which resource saturates first — the question that separates whoever drew the design from whoever understood it.
+description: "Which resource saturates first: the question that separates whoever drew the design from whoever understood it."
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [high-level-architecture, interview-scaling, failure-handling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ explicit or not, is always the same:
 "what saturates first?"
 ```
 
-Answering requires understanding your own design — not merely having produced it. A candidate who
+Answering requires understanding your own design, not merely having produced it. A candidate who
 drew from memory freezes here; one who derived each box from a number knows exactly where the load
 accumulates.
 
@@ -67,7 +67,7 @@ service → database     120/s writes   →  fits comfortably
 ```
 
 With the numbers noted, the answer appears: the component with the highest ratio of load to
-capacity is the bottleneck. If none is near its limit, say so — "at this scale, nothing saturates;
+capacity is the bottleneck. If none is near its limit, say so: "at this scale, nothing saturates;
 the first to get tight would be the cache, around 100 thousand per second".
 
 ### The four resources that saturate
@@ -154,8 +154,8 @@ indicates the nature of the problem was not understood.
  and it is not ours."
 ```
 
-Recognizing external dependencies as a bottleneck — and proposing the available fixes: cache, async,
-circuit breaker, negotiating the limit — is a mature answer many candidates do not reach.
+Recognizing external dependencies as a bottleneck, and proposing the available fixes (cache, async,
+circuit breaker, negotiating the limit), is a mature answer many candidates do not reach.
 
 See [circuit breakers](/12-reliability/circuit-breakers.md).
 
@@ -173,11 +173,11 @@ hypothetical bottleneck produces a complex architecture for a scale that does no
 That is one of the most visible differences between mid-level and senior candidates. The first tends
 to solve everything they identify, because identifying and solving look like the same demonstration
 of competence. The second separates the two: identifying demonstrates understanding, and choosing
-not to solve demonstrates judgment — and it is judgment that the role requires.
+not to solve demonstrates judgment, and it is judgment that the role requires.
 
 ## Mental Model
 
-**Propagate the numbers and ask which resource saturates.** Then ask which saturates next — the
+**Propagate the numbers and ask which resource saturates.** Then ask which saturates next: the
 second answer is worth more than the first.
 
 ## When to Use
@@ -195,7 +195,7 @@ their lead.
 
 **When the prompt has no scale requirement.** An internal system for two hundred users has no load to
 propagate, and inventing volume to find a bottleneck produces architecture for an absent problem. One
-sentence is enough — "at this scale, nothing saturates" — and the time goes to what the prompt does
+sentence is enough ("at this scale, nothing saturates"), and the time goes to what the prompt does
 demand, such as consistency or modeling.
 
 **When there is not enough time left to close the main path.** With ten minutes remaining and the
@@ -208,11 +208,11 @@ not exist, and consumes the time you will need to close the path.
 
 ## Alternatives
 
-- **Ask the interviewer** — "where do you think this breaks first?" is legitimate and sometimes
+- **Ask the interviewer**: "where do you think this breaks first?" is legitimate and sometimes
   productive.
-- **Analyze by resource** — go through CPU, memory, input and output, coordination instead of by
+- **Analyze by resource**: go through CPU, memory, input and output, coordination instead of by
   component.
-- **Simulate an increase** — "if the scale were 10×, what would break?" usually makes the bottleneck
+- **Simulate an increase**: "if the scale were 10×, what would break?" usually makes the bottleneck
   obvious.
 
 The last is a useful technique when nothing saturates at the current scale: hypothetically
@@ -328,8 +328,8 @@ thousand redirects per second, 120 creations.
 ```
 
 The third answer is the one that differentiates: it identifies the change in the bottleneck's
-nature, proposes three fixes appropriate to the type, chooses one, and questions the requirement —
-which is exactly what an architect does.
+nature, proposes three fixes appropriate to the type, chooses one, and questions the requirement.
+That is exactly what an architect does.
 
 ## Related Concepts
 

@@ -2,7 +2,7 @@
 id: environment-management
 title: Environment Management
 sidebar_position: 9
-description: Parity, promotion and ephemeral environments — and what their absence produces.
+description: Parity, promotion and ephemeral environments, and what their absence produces.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [infrastructure-as-code]
 related: [infrastructure-as-code, containers-in-delivery, ci-cd]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ contention is one of the largest sources of delay in medium-sized teams.
 
 ## Problem
 
-The traditional arrangement — development, staging, production — has two structural flaws.
+The traditional arrangement (development, staging, production) has two structural flaws.
 
 **Insufficient parity.** Staging has one instance; production has forty. Staging has a thousand records;
 production has two hundred million. Concurrency, volume and configuration problems do not appear
@@ -75,7 +75,7 @@ That resolves the contention and brings a valuable side effect: **it forces the 
 completely declared**, because an environment created from scratch does not tolerate manual steps. See
 [infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md).
 
-The cost is the creation time and the cost of the simultaneous environments — mitigated by reduced capacity
+The cost is the creation time and the cost of the simultaneous environments, mitigated by reduced capacity
 and by automatic destruction at the end.
 
 Where complete ephemeral environments are expensive, a variation works: the new environment is only the
@@ -83,7 +83,7 @@ changed service, pointing at the shared others.
 
 ### Test data: not a full copy of production
 
-Copying all of production, unmasked, is the most common practice — and the one that brings real
+Copying all of production, unmasked, is the most common practice, and the one that brings real
 data into an environment with weaker controls than production's:
 
 ```text
@@ -96,7 +96,7 @@ See [data protection](/10-security/data-protection.md).
 
 The alternatives:
 
-**Synthetic data** generated with the relevant statistical properties — size distribution, cardinality,
+**Synthetic data** generated with the relevant statistical properties: size distribution, cardinality,
 edge cases.
 
 **A masked subset**, with consistent masking that preserves relationships.
@@ -106,7 +106,7 @@ edge cases.
 The third is underestimated: for most tests, a few hundred well-chosen records are worth more than millions
 copied.
 
-And, for volume tests, synthetic data with the real distribution — not uniform. See
+And, for volume tests, synthetic data with the real distribution, not uniform. See
 [capacity planning](/11-scalability/scaling-capacity-planning.md).
 
 ### Promotion, not rebuilding
@@ -129,7 +129,7 @@ about the other.
 
 ### Production is also a verification environment
 
-Accepting that changes the design: part of the verification **only** happens in production — with real
+Accepting that changes the design: part of the verification **only** happens in production, with real
 data, real volume, real concurrency.
 
 ```text
@@ -141,13 +141,13 @@ shadow deployment
 
 See [canary](/14-devops-and-platform/canary.md) and [observability](/13-observability/index.md).
 
-That does not replace the earlier environments — it repositions what is expected of them. They catch most
+That does not replace the earlier environments. It repositions what is expected of them. They catch most
 of the problems; production catches the ones that depend on reality.
 
 ### Fewer environments, better ones
 
 An arrangement with five intermediate environments usually indicates that none of them has enough parity to
-give confidence — and each one adds time to the path.
+give confidence, and each one adds time to the path.
 
 The arrangement that works in most cases:
 
@@ -167,9 +167,9 @@ contention, it produces delay.
 ## When to Use
 
 - **Ephemeral environments** when more than one team contends for the same environment and
-  measurement shows a queue — and the infrastructure can be created from scratch in minutes, not hours.
+  measurement shows a queue, and the infrastructure can be created from scratch in minutes, not hours.
 - **A high-parity environment** when the defects escaping to production are about concurrency, volume
-  or connectivity — the dimensions a reduced environment does not reproduce.
+  or connectivity: the dimensions a reduced environment does not reproduce.
 - **Synthetic data** when the environment lacks production's controls and the behavior under test
   depends on distribution and cardinality, not on real values.
 
@@ -178,7 +178,7 @@ contention, it produces delay.
 **A complete ephemeral environment when creating the whole system takes longer than the verification
 itself.** With dozens of services and databases, an environment that takes an hour to come up trades the
 queue for creation wait, and the cost of simultaneous ones grows with the number of open proposals. There
-the partial variation — only the changed service — delivers the isolation without that cost.
+the partial variation (only the changed service) delivers the isolation without that cost.
 
 **Eliminating contention where there is none.** One team with one shared environment and no measured
 queue does not recover, in waiting time, the investment of declaring the last manual stretch of
@@ -194,12 +194,12 @@ what someone knew how to model. In those cases, a masked subset.
 
 ## Alternatives
 
-- **A shared environment with logical isolation** — namespaces or prefixes, when complete environments are
+- **A shared environment with logical isolation**: namespaces or prefixes, when complete environments are
   expensive.
-- **Contract tests** — they reduce the need for an integrated environment. See
+- **Contract tests**: they reduce the need for an integrated environment. See
   [integration contracts](/08-integration-architecture/integration-contracts.md).
-- **Dependency substitutes** — instead of real instances of everything.
-- **Verification in production** — canary, shadow, flags.
+- **Dependency substitutes**: instead of real instances of everything.
+- **Verification in production**: canary, shadow, flags.
 
 The second is what most reduces the dependence on integrated environments, and it is underused.
 
@@ -251,26 +251,26 @@ The second is what most reduces the dependence on integrated environments, and i
 
 An insurance company had four shared environments and nine teams.
 
-The average time between "the change is ready" and "the change is in production" was 9 days — and the
+The average time between "the change is ready" and "the change is in production" was 9 days, and the
 measurement showed that **6 of those days were environment queue**.
 
 And the parity was low: staging had one instance of each service, 0.1% of the data volume, and a flat
 network topology where production had segmentation.
 
-Three problem classes reached production regularly: concurrency, volume and connectivity — exactly the
+Three problem classes reached production regularly: concurrency, volume and connectivity, exactly the
 three dimensions with no parity.
 
 The reformulation:
 
 **Ephemeral environments per change proposal**, created in 6 minutes, destroyed on merge. That required
-completing the infrastructure declaration — 20% was still manual, and it was the most time-consuming work.
+completing the infrastructure declaration: 20% was still manual, and it was the most time-consuming work.
 
 The queue disappeared.
 
 **One high-parity environment** replaced the four shared ones: the same network topology, the same number
 of instances for the critical services, data volume in the same order of magnitude.
 
-**Synthetic data** replaced the production copy, generated with the real distribution — including the
+**Synthetic data** replaced the production copy, generated with the real distribution, including the
 concentration of large customers, which the previous uniform copy did not represent.
 
 That resolved, as a bonus, a compliance problem that had been open for two years.
@@ -281,7 +281,7 @@ That resolved, as a bonus, a compliance problem that had been open for two years
 
 Result: time from 9 days to 4 hours. The 6 days of queue vanished with the ephemeral environments; the
 other 3 were the integrated verification round in staging, scheduled in batches, which contract tests in
-the pipeline and the canary replaced. And a 60% reduction in incidents caused by deployment — attributed
+the pipeline and the canary replaced. And a 60% reduction in incidents caused by deployment, attributed
 mainly to topology and volume parity.
 
 The recorded conclusion: the four environments existed because each one had been created to resolve a
@@ -290,11 +290,11 @@ faithful environment that replaced them.
 
 ## Related Concepts
 
-- [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md) — what makes ephemeral ones
+- [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md): what makes ephemeral ones
   viable.
-- [Containers in Delivery](/14-devops-and-platform/containers-in-delivery.md) — the promotion.
+- [Containers in Delivery](/14-devops-and-platform/containers-in-delivery.md): the promotion.
 - [Continuous Integration](/14-devops-and-platform/ci-cd.md).
-- [Data Protection](/10-security/data-protection.md) — the test data.
+- [Data Protection](/10-security/data-protection.md): the test data.
 
 ## Practical Exercise
 

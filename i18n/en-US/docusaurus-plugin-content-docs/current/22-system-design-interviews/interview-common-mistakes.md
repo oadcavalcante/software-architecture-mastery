@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-structure]
 related: [interview-structure, communicating-tradeoffs, requirement-clarification]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -39,18 +39,18 @@ them can observe themselves during the interview.
 It is worth noting that the same list describes what goes wrong in real architectural discussions.
 Drawing before understanding the problem, proposing complexity with no justification and not
 declaring assumptions are failures of method that cost dearly in production, not only in an
-interview — which explains why the format evaluates what it evaluates.
+interview. That explains why the format evaluates what it evaluates.
 
 ## Problem
 
 The most frequent mistake is also the fastest to make: the candidate hears the prompt and starts
 talking about a solution in under thirty seconds.
 
-It happens for an understandable reason — silence is uncomfortable, and talking feels productive.
+It happens for an understandable reason: silence is uncomfortable, and talking feels productive.
 But what is communicated is that the problem was not considered.
 
 And there is a second mistake that conventional preparation actively produces: memorizing reference
-architectures. They work while the prompt matches, and collapse at the first variation — which the
+architectures. They work while the prompt matches, and collapse at the first variation, which the
 interviewer will introduce precisely to test them.
 
 ## Core Concepts
@@ -85,8 +85,8 @@ and a number; whoever memorized answers "to decouple", which means nothing speci
 
 There is a second, harder test: change the prompt. "And what if it were a hundred users instead of a
 hundred million?" Whoever derived it simplifies the design on the spot, removing what the scale
-justified. Whoever memorized keeps the same architecture, because it was never tied to any number —
-and that answer is the most revealing an interview produces.
+justified. Whoever memorized keeps the same architecture, because it was never tied to any number.
+And that answer is the most revealing an interview produces.
 
 ### Not declaring assumptions
 
@@ -103,7 +103,7 @@ sinks the design twenty minutes later.
 
 And there is a secondary effect: declared assumptions become a record of what was considered. At the
 end of the interview, they let you say "under the assumptions I made, this is the architecture; if
-any of them is wrong, this is what changes" — which is a much stronger position than presenting a
+any of them is wrong, this is what changes". That is a much stronger position than presenting a
 design as if it were unconditional.
 
 ### Complexity with no justification
@@ -123,7 +123,7 @@ the simplest one, with the condition under which it would stop being enough. See
 
 The wrong calibration comes from a reasonable and false inference: that the interview is looking for
 the most sophisticated architecture the candidate knows. It is looking for the one most appropriate
-to the problem presented — and demonstrating that you know the sophisticated one, without applying
+to the problem presented, and demonstrating that you know the sophisticated one, without applying
 it, is done in one sentence: "if the scale were 50 times larger, I would split it like this".
 
 ### Drawing in silence
@@ -151,7 +151,7 @@ See [interview structure](/22-system-design-interviews/interview-structure.md).
 
 ### Ignoring or yielding too much to the interviewer
 
-Two opposite errors with the same root — not having a grounded position.
+Two opposite errors with the same root: not having a grounded position.
 
 ```text
 ignore    the interviewer suggests an alternative and the candidate
@@ -227,21 +227,21 @@ This catalog serves as a checklist:
 
 ## When Not to Use
 
-**As a source of anxiety** during the interview — monitoring ten mistakes live hinders more than it
+**As a source of anxiety** during the interview: monitoring ten mistakes live hinders more than it
 helps. Pick two to observe.
 
-**As a rigid rule** — there are prompts where drawing early is correct, because the interviewer
+**As a rigid rule**: there are prompts where drawing early is correct, because the interviewer
 asked.
 
-**Without practicing** — recognizing a mistake by reading does not correct it; the habit is formed in
+**Without practicing**: recognizing a mistake by reading does not correct it; the habit is formed in
 simulation.
 
 ## Alternatives
 
-- **Recorded mock** — watching yourself exposes the silent design and poor time management better
+- **Recorded mock**: watching yourself exposes the silent design and poor time management better
   than any list.
-- **Mock interview with a peer** — external feedback catches what self-assessment does not.
-- **Writing ADRs** — the discipline of context, alternatives and consequences is the same, with no
+- **Mock interview with a peer**: external feedback catches what self-assessment does not.
+- **Writing ADRs**: the discipline of context, alternatives and consequences is the same, with no
   time pressure. See
   [alternatives in an ADR](/18-architecture-decisions/adr-alternatives.md).
 
@@ -275,7 +275,7 @@ solving prompts alone or on paper.
 
 Half of the catalog above only shows up when someone interrupts: the follow-up question that exposes
 the memorized architecture, the objection that tests whether you ignore or cave, the clock someone
-else controls. Alone, the candidate practices the part they already master — producing a design —
+else controls. Alone, the candidate practices the part they already master (producing a design)
 and arrives at the interview without having exercised the part that fails. What closes that gap is
 a mock with someone playing the interviewer, free to change the prompt midway.
 
@@ -348,7 +348,7 @@ everything the one in the second knows, and probably more. The difference is tha
 makes the reasoning visible and anchored, and the first presents a result without showing where it
 came from.
 
-That distinction is what the interview format exists to measure — and it is why practicing the
+That distinction is what the interview format exists to measure, and it is why practicing the
 method yields more than studying more architectures.
 
 ## Related Concepts

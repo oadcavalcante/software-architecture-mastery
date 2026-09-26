@@ -2,7 +2,7 @@
 id: relational-databases
 title: Bancos Relacionais
 sidebar_position: 1
-description: O padrão que continua sendo a escolha certa na maioria dos casos — e onde ele de fato não serve.
+description: O padrão que continua sendo a escolha certa na maioria dos casos, e onde ele de fato não serve.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [nosql, transactions, normalization]
 canonical_for: [banco relacional, modelo relacional]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,7 +28,7 @@ como buscar.
 Ele tem cinquenta anos, sobreviveu a várias ondas de substituição, e continua
 sendo a escolha correta para a maioria dos sistemas.
 
-Este documento defende essa posição e delimita onde ela não vale — porque
+Este documento defende essa posição e delimita onde ela não vale, porque
 "relacional por padrão" só é uma boa regra se acompanhada dos casos em que se
 abandona a regra.
 
@@ -41,7 +41,7 @@ A escolha correta vem do padrão de acesso: como o dado é escrito, como é lido
 qual volume, com qual exigência de consistência.
 
 O relacional é o padrão razoável porque atende bem a uma faixa muito ampla desses
-padrões — e porque erra de forma barata quando você descobre que precisava de
+padrões, e porque erra de forma barata quando você descobre que precisava de
 outra coisa.
 
 ## Conceitos Centrais
@@ -70,7 +70,7 @@ responderá em cinco anos não é conhecida hoje.
 ### Esquema rígido é vantagem operacional
 
 A crítica comum é que o esquema atrasa a evolução. O que raramente entra na conta
-é o outro lado: sem esquema, a validação migra para a aplicação — e para **todas**
+é o outro lado: sem esquema, a validação migra para a aplicação, e para **todas**
 as aplicações que escrevem.
 
 Basta um script de correção ou um serviço legado para introduzir registros
@@ -87,11 +87,11 @@ transações por segundo.
 O teto que costuma chegar primeiro é o de custo, não o técnico. A instância é
 comprada em degraus que dobram de preço, a réplica de failover precisa ter o mesmo
 porte, e em banco comercial a licença é cobrada por núcleo. A conta honesta
-compara essa fatura com o custo de operar um modelo distribuído — não o
+compara essa fatura com o custo de operar um modelo distribuído, e não o
 desempenho dos dois.
 
 A maioria dos sistemas que abandona o relacional por escala nunca chegou perto
-desse limite — e frequentemente o problema era
+desse limite, e frequentemente o problema era
 [índice](/07-data-architecture/indexing.md) ou mistura de cargas.
 
 ### Onde ele genuinamente não serve
@@ -122,7 +122,7 @@ escala. Ver [busca](/05-system-design/search.md).
 A decisão não é global. Um sistema pode ter o núcleo transacional em relacional,
 busca num índice invertido e telemetria em série temporal.
 
-O custo é operacional — mais tecnologias para conhecer, monitorar e recuperar — e
+O custo é operacional (mais tecnologias para conhecer, monitorar e recuperar) e
 frequentemente vale. O erro é adotar vários sem que cada um resolva um problema
 concreto.
 
@@ -137,7 +137,7 @@ escolhe por comparação.**
 - Transações com múltiplos registros precisam ser atômicas.
 - Consultas não previstas serão necessárias.
 - Integridade referencial importa.
-- O volume cabe numa instância — que é mais do que se imagina.
+- O volume cabe numa instância, que é mais do que se imagina.
 - Não há razão específica para outra coisa.
 
 ## Quando Não Usar
@@ -146,7 +146,7 @@ Cada caso da lista acima vira erro a partir de uma condição, e é a condição
 se deve verificar:
 
 **Escrita ativa em várias regiões** quando a escrita não pode esperar a ida e
-volta entre elas — dezenas a centenas de milissegundos por coordenação.
+volta entre elas: dezenas a centenas de milissegundos por coordenação.
 
 **Ingestão de eventos ou séries temporais** quando a vazão sustentada passa do que
 a instância absorve mesmo com escrita em lote.
@@ -158,7 +158,7 @@ saltos: cada nível é mais uma junção, e o custo cresce com o grau de cada n�
 só guardados e lidos inteiros.
 
 **Analítico sobre bilhões de linhas** quando as consultas varrem poucas colunas de
-muitas linhas — o armazenamento por linha lê todas as colunas.
+muitas linhas: o armazenamento por linha lê todas as colunas.
 
 **Busca textual** quando o requisito passa do que a busca nativa atende.
 
@@ -167,12 +167,12 @@ muitas linhas — o armazenamento por linha lê todas as colunas.
 
 ## Alternativas
 
-- **[Documento](/07-data-architecture/document-databases.md)** — agregados lidos inteiros.
-- **[Chave-valor](/07-data-architecture/key-value-databases.md)** — acesso por chave, altíssima vazão.
-- **[Colunar](/07-data-architecture/column-stores.md)** — analítico.
-- **[Grafo](/07-data-architecture/graph-databases.md)** — relacionamentos como primeira classe.
-- **Série temporal** — métricas e telemetria.
-- **Relacional distribuído** — mantém o modelo e distribui a escrita, ao custo de
+- **[Documento](/07-data-architecture/document-databases.md)**: agregados lidos inteiros.
+- **[Chave-valor](/07-data-architecture/key-value-databases.md)**: acesso por chave, altíssima vazão.
+- **[Colunar](/07-data-architecture/column-stores.md)**: analítico.
+- **[Grafo](/07-data-architecture/graph-databases.md)**: relacionamentos como primeira classe.
+- **Série temporal**: métricas e telemetria.
+- **Relacional distribuído**: mantém o modelo e distribui a escrita, ao custo de
   latência de coordenação.
 
 ## Trade-offs
@@ -194,7 +194,7 @@ muitas linhas — o armazenamento por linha lê todas as colunas.
 limite de escala.
 
 **Contenção em registro quente.** A latência de escrita sobe só para certas
-chaves — um saldo, um contador —, com fila de espera por bloqueio e tempo esgotado
+chaves (um saldo, um contador), com fila de espera por bloqueio e tempo esgotado
 concentrados num endpoint.
 
 **Migração de esquema travando a tabela.** Em tabelas grandes, uma alteração mal
@@ -213,7 +213,7 @@ na frente de todas.
 
 **Abandonar por escala sem ter medido o limite real.**
 
-**Não usar restrições** — chave estrangeira e unicidade — e reimplementá-las na
+**Não usar restrições** (chave estrangeira e unicidade) e reimplementá-las na
 aplicação, pior.
 
 **Alterar esquema de tabela grande sem estratégia.**
@@ -236,7 +236,7 @@ A migração levou sete meses. Os resultados:
 **Desempenho.** Praticamente igual. O gargalo original eram três consultas sem
 índice adequado, o que a auditoria posterior confirmou.
 
-**Integridade.** Sem chave estrangeira, referências órfãs começaram a aparecer —
+**Integridade.** Sem chave estrangeira, referências órfãs começaram a aparecer:
 remessas apontando para rotas apagadas. Em oito meses, cerca de 12 mil registros
 inconsistentes, corrigidos por script.
 
@@ -246,11 +246,11 @@ consulta virou código.
 
 **Transações.** A operação de transferir uma remessa entre rotas tocava três
 documentos. Sem transação, foi preciso implementar
-[saga](/06-distributed-systems/sagas.md) com compensação — para uma operação
+[saga](/06-distributed-systems/sagas.md) com compensação, para uma operação
 que era uma transação de três linhas.
 
 Dois anos depois, o núcleo transacional voltou para relacional. O que permaneceu
-em documento foi o histórico de eventos de rastreamento — dados de estrutura
+em documento foi o histórico de eventos de rastreamento: dados de estrutura
 variável, escritos uma vez, lidos por chave. Ali o modelo é adequado.
 
 O aprendizado que ficou: a decisão foi tomada a partir de uma premissa que ninguém
@@ -259,10 +259,10 @@ de migração.
 
 ## Conceitos Relacionados
 
-- [NoSQL](/07-data-architecture/nosql.md) — o termo e o que ele esconde.
-- [Transações](/07-data-architecture/transactions.md) — a garantia principal.
-- [Normalização](/07-data-architecture/normalization.md) — o modelo.
-- [Indexação](/07-data-architecture/indexing.md) — o que costuma ser o problema real.
+- [NoSQL](/07-data-architecture/nosql.md): o termo e o que ele esconde.
+- [Transações](/07-data-architecture/transactions.md): a garantia principal.
+- [Normalização](/07-data-architecture/normalization.md): o modelo.
+- [Indexação](/07-data-architecture/indexing.md): o que costuma ser o problema real.
 
 ## Exercício Prático
 
@@ -270,7 +270,7 @@ Se alguém no seu time defende sair do relacional por escala, peça o número: q
 métrica está no limite, e qual é o limite.
 
 Se a resposta não existir, o próximo passo é analisar os planos das consultas
-lentas — não escolher outro banco.
+lentas, e não escolher outro banco.
 
 ## Perguntas de Entrevista
 
@@ -283,5 +283,5 @@ lentas — não escolher outro banco.
 - Codd, E. F. *A Relational Model of Data for Large Shared Data Banks*. CACM,
   1970.
 - Winand, Markus. *SQL Performance Explained*, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 2.

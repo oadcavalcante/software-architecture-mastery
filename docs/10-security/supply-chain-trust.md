@@ -2,7 +2,7 @@
 id: supply-chain-trust
 title: Confiança na Cadeia de Suprimentos
 sidebar_position: 17
-description: Você executa muito mais código de terceiros do que escreve — e a revisão de código não olha para ele.
+description: Você executa muito mais código de terceiros do que escreve, e a revisão de código não olha para ele.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secrets, least-privilege, containers, supply-chain-security]
 canonical_for: [cadeia de suprimentos de software, inventário de dependências, assinatura de artefato, proveniência]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -26,7 +26,7 @@ de dependências, imagens base, ferramentas de construção e da esteira que mon
 
 Cada um desses é código de terceiros executando com os privilégios do seu sistema.
 
-É um vetor que os controles tradicionais deixam descoberto — porque revisão de
+É um vetor que os controles tradicionais deixam descoberto, porque revisão de
 código, teste e varredura de vulnerabilidade do código próprio olham o que você
 escreveu, não o que você importou.
 
@@ -56,7 +56,7 @@ repositório da aplicação.
 **Pacote malicioso publicado com nome parecido.** Erro de digitação instala o pacote
 do atacante.
 
-**Confusão de nomes.** Um pacote interno com o mesmo nome de um público — e o gerenciador
+**Confusão de nomes.** Um pacote interno com o mesmo nome de um público, e o gerenciador
 prefere o público, de versão maior.
 
 **Mantenedor comprometido.** Um pacote legítimo, com milhões de instalações, publica
@@ -79,7 +79,7 @@ que garante que a mesma versão traz o mesmo conteúdo.
 **Construções reproduzíveis**, onde possível: a mesma entrada produz o mesmo artefato,
 o que permite verificar independentemente.
 
-Isso não impede uma dependência maliciosa — impede que ela **entre sem que ninguém
+Isso não impede uma dependência maliciosa: impede que ela **entre sem que ninguém
 altere um arquivo revisado**.
 
 ### Inventário do que roda
@@ -90,7 +90,7 @@ O valor prático aparece no dia em que uma vulnerabilidade grave é divulgada nu
 biblioteca amplamente usada. A pergunta é imediata: **usamos isso, onde, e em qual
 versão?**
 
-Sem inventário, a resposta leva dias de busca manual — e costuma ficar incompleta,
+Sem inventário, a resposta leva dias de busca manual, e costuma ficar incompleta,
 porque a dependência é transitiva e não aparece em nenhum arquivo direto.
 
 Com inventário, é uma consulta.
@@ -104,7 +104,7 @@ construído pela sua esteira.
 código-fonte, com quais entradas.
 
 Isso fecha o caminho de alguém publicar um artefato no registro sem passar pela
-esteira — que é um dos ataques mais eficazes, porque não deixa rastro no repositório.
+esteira. Esse é um dos ataques mais eficazes, porque não deixa rastro no repositório.
 
 A verificação precisa ser **obrigatória na implantação**. Assinar sem verificar é
 cerimônia.
@@ -113,11 +113,11 @@ cerimônia.
 
 Vale repetir, porque muda a postura: a esteira tem acesso ao código, aos segredos e
 ao ambiente produtivo. Na cadeia, ela é o elo em que tudo o que foi importado ganha os
-privilégios de produção — por isso é fronteira de confiança, e não ferramenta de
+privilégios de produção. Por isso é fronteira de confiança, e não ferramenta de
 desenvolvimento.
 
-Os controles que decorrem disso — escopo mínimo, credencial efêmera, isolamento entre
-execuções, aprovação para alterar a própria configuração — estão em
+Os controles que decorrem disso (escopo mínimo, credencial efêmera, isolamento entre
+execuções, aprovação para alterar a própria configuração) estão em
 [segurança da esteira](/14-devops-and-platform/supply-chain-security.md). O que este
 documento precisa deles é uma consequência: se qualquer pessoa pode alterar o arquivo
 da esteira num ramo e vê-lo executar com privilégios, o controle de acesso ao
@@ -126,14 +126,14 @@ compensa isso.
 
 ### Atualizar é o controle contínuo
 
-Boa parte dos comprometimentos por dependência não exige ataque sofisticado — explora
+Boa parte dos comprometimentos por dependência não exige ataque sofisticado: explora
 vulnerabilidade conhecida, com correção disponível há meses.
 
 Contra esse caso, a atualização regular rende mais que qualquer controle exótico. E ela
 depende de duas coisas: automação que propõe as atualizações, e testes que dão
 confiança para aceitá-las.
 
-Sem testes automatizados, atualizar vira aposta, e adiar passa a ser a escolha racional de curto prazo — que acumula o risco que a atualização existia para retirar.
+Sem testes automatizados, atualizar vira aposta, e adiar passa a ser a escolha racional de curto prazo. E adiar acumula o risco que a atualização existia para retirar.
 
 ## Modelo Mental
 
@@ -142,9 +142,9 @@ o que entrou, verificar que não mudou, e limitar o que ele alcança.
 
 ## Quando Usar
 
-Os controles básicos — versão fixa, arquivo de bloqueio versionado, inventário — cabem
-em qualquer sistema que vai a produção. Os pesados — registro espelhado, assinatura com
-proveniência verificada — têm prioridade quando:
+Os controles básicos (versão fixa, arquivo de bloqueio versionado, inventário) cabem
+em qualquer sistema que vai a produção. Os pesados (registro espelhado, assinatura com
+proveniência verificada) têm prioridade quando:
 
 - A aplicação tem muitas dependências.
 - A esteira tem acesso a produção.
@@ -156,12 +156,12 @@ proveniência verificada — têm prioridade quando:
 
 **Artefato que não sai de onde foi construído.** Assinatura e proveniência verificam
 que o que roda é o que a esteira construiu. Uma ferramenta interna construída e
-executada na mesma máquina, sem registro no meio, não tem esse intervalo para proteger —
+executada na mesma máquina, sem registro no meio, não tem esse intervalo para proteger:
 o custo de chave e verificação não compra nada ali.
 
 **Registro espelhado sem dono.** O espelho só protege enquanto alguém o mantém
 disponível e atualizado. Num time pequeno, com poucas dependências e ninguém designado
-para ele, o espelho congela versões — e troca o risco raro de confusão de nomes pelo
+para ele, o espelho congela versões e troca o risco raro de confusão de nomes pelo
 frequente de vulnerabilidade conhecida não corrigida. Sem dono, busque do público com
 arquivo de bloqueio e escopo de nome reservado.
 
@@ -173,12 +173,12 @@ de bloqueio, que já dá integridade.
 
 ## Alternativas
 
-- **Registro interno espelhado** — dependências aprovadas, sem buscar do público
+- **Registro interno espelhado**: dependências aprovadas, sem buscar do público
   diretamente. Resolve confusão de nomes e dá controle sobre o que entra.
-- **Imagens base mínimas** — menos componentes, menos superfície. Ver
+- **Imagens base mínimas**: menos componentes, menos superfície. Ver
   [contêineres](/09-cloud-architecture/containers.md).
 - **Fixar por resumo criptográfico** em vez de por etiqueta.
-- **Reduzir dependências** — a única que diminui a superfície em vez de vigiá-la. Uma biblioteca
+- **Reduzir dependências**: a única que diminui a superfície em vez de vigiá-la. Uma biblioteca
   adicionada para uma função de três linhas traz sua árvore inteira.
 
 ## Trade-offs
@@ -198,12 +198,12 @@ de bloqueio, que já dá integridade.
 
 As células "infraestrutura a manter" e "operação adicional" escondem o custo contínuo,
 que é de três tipos. **Custódia de chave:** a chave de assinatura precisa de guarda,
-rotação e plano para o dia em que vaza — ou, na assinatura sem chave longa, de
+rotação e plano para o dia em que vaza ou, na assinatura sem chave longa, de
 dependência de um serviço de identidade e de um registro de transparência.
 **Disponibilidade:** o registro espelhado e o serviço de verificação passam a estar no
 caminho de toda implantação; se caem, nada sobe, inclusive a correção do incidente.
 **Exceção:** quando a verificação recusa um artefato legítimo no meio de um incidente,
-é preciso um caminho de quebra-vidro — registrado, com dupla aprovação e prazo de
+é preciso um caminho de quebra-vidro, registrado, com dupla aprovação e prazo de
 expiração. Sem ele, o time desliga a verificação na primeira emergência e não a religa.
 A triagem dos alertas da varredura também precisa de dono; sem dono, ela vira o volume
 que todos ignoram.
@@ -230,11 +230,11 @@ que todos ignoram.
 
 **Arquivo de bloqueio fora do controle de versão.** Cada máquina resolve as versões por conta própria, e o resumo criptográfico que garantiria o conteúdo não existe onde a construção roda.
 
-**Bloquear tudo que a varredura aponta.** Sem contexto de exploração, o volume de alertas paralisa — e o time passa a ignorar todos.
+**Bloquear tudo que a varredura aponta.** Sem contexto de exploração, o volume de alertas paralisa, e o time passa a ignorar todos.
 
 **Não manter inventário.** Quando uma vulnerabilidade crítica é anunciada, a pergunta é "nós usamos isso, e onde?". Sem inventário de componentes, a resposta leva dias que não existem.
 
-**Esteira com privilégio excessivo.** A esteira de construção executa código de terceiros por definição — dependências, ações, imagens. Credencial ampla ali é credencial entregue a todos eles.
+**Esteira com privilégio excessivo.** A esteira de construção executa código de terceiros por definição: dependências, ações, imagens. Credencial ampla ali é credencial entregue a todos eles.
 
 **Permitir alteração da esteira sem aprovação.** Se o arquivo de configuração da esteira pode ser alterado no mesmo commit que ela executa, qualquer contribuidor consegue exfiltrar segredos.
 
@@ -248,7 +248,7 @@ Uma empresa de tecnologia teve sua esteira de integração contínua comprometid
 
 O caminho: um colaborador externo abriu uma contribuição num repositório público da
 empresa, alterando o arquivo de configuração da esteira. A execução automática de
-verificação rodava a configuração do próprio ramo enviado — com acesso aos segredos de
+verificação rodava a configuração do próprio ramo enviado, com acesso aos segredos de
 produção, porque a esteira era única.
 
 O código adicionado extraiu as credenciais e as enviou para fora. O incidente foi
@@ -257,7 +257,7 @@ detectado por um alerta de uso anômalo de credencial, três horas depois.
 A auditoria seguinte encontrou:
 
 **Esteira com permissão de administrador** na conta de produção. Ela podia criar
-identidades e alterar políticas — muito além de implantar.
+identidades e alterar políticas, muito além de implantar.
 
 **Segredos de produção acessíveis** em execuções de ramos e de contribuições
 externas.
@@ -268,7 +268,7 @@ qualquer via seria implantado.
 **Faixas abertas** de versão em quatro dos onze serviços.
 
 **Sem inventário.** Uma vulnerabilidade divulgada dois meses antes numa biblioteca
-comum tinha levado nove dias para ser mapeada — e o mapeamento estava incompleto.
+comum tinha levado nove dias para ser mapeada, e o mapeamento estava incompleto.
 
 As correções:
 
@@ -292,19 +292,19 @@ mapeada em minutos.
 
 O comprometimento não usou nenhuma vulnerabilidade de
 software. Usou uma característica de configuração da esteira que estava documentada e
-era conhecida — e que ninguém tinha avaliado como fronteira de confiança.
+era conhecida, e que ninguém tinha avaliado como fronteira de confiança.
 
 ## Conceitos Relacionados
 
-- [Segredos](/10-security/secrets.md) — o que a esteira acessa.
-- [Menor Privilégio](/10-security/least-privilege.md) — o escopo da esteira.
-- [Segurança da Esteira](/14-devops-and-platform/supply-chain-security.md) — os controles da esteira como ambiente de produção.
-- [Contêineres](/09-cloud-architecture/containers.md) — imagens base.
+- [Segredos](/10-security/secrets.md): o que a esteira acessa.
+- [Menor Privilégio](/10-security/least-privilege.md): o escopo da esteira.
+- [Segurança da Esteira](/14-devops-and-platform/supply-chain-security.md): os controles da esteira como ambiente de produção.
+- [Contêineres](/09-cloud-architecture/containers.md): imagens base.
 - [Fronteiras Seguras](/10-security/secure-boundaries.md).
 
 ## Exercício Prático
 
-Descubra o que a sua esteira pode fazer em produção. Não o que ela faz — o que ela
+Descubra o que a sua esteira pode fazer em produção. Não o que ela faz, mas o que ela
 **pode**.
 
 Depois verifique se uma contribuição externa consegue alterar a configuração dela e

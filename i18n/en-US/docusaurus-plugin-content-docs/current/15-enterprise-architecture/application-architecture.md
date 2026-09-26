@@ -2,7 +2,7 @@
 id: application-architecture
 title: Application Architecture
 sidebar_position: 3
-description: Which systems exist and what each one does — and the boundary question, which is the real decision.
+description: Which systems exist and what each one does, and the boundary question, which is the real decision.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [application-portfolios, integration-landscapes, enterprise-data-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ depends on everything.
 
 ## Problem
 
-Boundaries between systems are rarely decided — they emerge.
+Boundaries between systems are rarely decided: they emerge.
 
 ```text
 a system grows and absorbs neighboring responsibilities
@@ -41,7 +41,7 @@ a purchased system brings the vendor's boundary
 an acquisition brings systems with another organization's boundaries
 ```
 
-The result is a set in which each system's responsibility is historical, not logical — and business changes
+The result is a set in which each system's responsibility is historical, not logical, and business changes
 require touching several systems, because the boundary does not correspond to the domain.
 
 ## Core Concepts
@@ -80,10 +80,10 @@ most touch 3 or more     wrong boundaries
 ```
 
 That test measures directly what technical coupling analysis only infers: the ability to change. It has
-two limits — ten changes is a small sample, and the change nobody attempted because it would cross three
+two limits: ten changes is a small sample, and the change nobody attempted because it would cross three
 systems never shows up in the history.
 
-And it is easy to apply — the information is in the change history.
+And it is easy to apply: the information is in the change history.
 
 ### Data cohesion is the strongest criterion
 
@@ -121,7 +121,7 @@ larger systems. See [integration landscapes](/15-enterprise-architecture/integra
 
 ### Responsibility needs to be declared
 
-Each system should have a sentence describing what it is responsible for — and the sentence should not
+Each system should have a sentence describing what it is responsible for, and the sentence should not
 contain "and".
 
 ```text
@@ -140,13 +140,13 @@ A market product has the boundary the vendor chose, and it rarely coincides with
 
 That produces two situations:
 
-**The product does more than necessary.** Features the organization already has elsewhere — and the
+**The product does more than necessary.** Features the organization already has elsewhere, and the
 decision about which to use needs to be made, or duplication arises.
 
 **The product does less.** Part of the domain falls outside, and needs to be built around it.
 
 See [SaaS](/09-cloud-architecture/saas.md) and
-[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md) — the translation
+[anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md): the translation
 layer is what prevents the vendor's boundary from entering the domain.
 
 ### System boundaries and team boundaries influence each other
@@ -155,7 +155,7 @@ This is [Conway's Law](/23-architecture-leadership/conways-law.md) applied to th
 constrains the options in practice: communication inside a team is cheap and frequent; between teams,
 expensive and episodic.
 
-That means a system maintained by two teams tends to develop an internal boundary mirroring the division —
+That means a system maintained by two teams tends to develop an internal boundary mirroring the division,
 and that two systems maintained by the same team tend to couple, because nothing prevents it.
 
 See [Team Topologies](/23-architecture-leadership/team-topologies.md) for the organizational treatment.
@@ -167,7 +167,7 @@ easy.
 And the inverse also holds: a team reorganization with no review of the system boundaries produces teams
 that need to coordinate constantly to change what is theirs.
 
-The order that works: decide the boundary by the domain, then align the team allocation to it — and not the
+The order that works: decide the boundary by the domain, then align the team allocation to it, and not the
 opposite.
 
 ## Mental Model
@@ -196,7 +196,7 @@ axis along which the business varies; redrawing them trades a certain cost for a
 show.
 
 **Two parts owned by one team that change together.** When the same team maintains both and the history
-shows most changes touch both, separating them adds a contract to maintain without buying autonomy — the
+shows most changes touch both, separating them adds a contract to maintain without buying autonomy: the
 boundary costs more than it isolates.
 
 **Reorganizing costs more than living with it.** A wrong boundary in a domain that barely changes charges
@@ -204,11 +204,11 @@ little; the work pays off where the business changes often and the change crosse
 
 ## Alternatives
 
-- **[Bounded context](/04-domain-driven-design/bounded-context.md)** — the same reasoning, with DDD's
+- **[Bounded context](/04-domain-driven-design/bounded-context.md)**: the same reasoning, with DDD's
   method.
-- **[Business capabilities](/15-enterprise-architecture/business-capabilities.md)** — the business lens for
+- **[Business capabilities](/15-enterprise-architecture/business-capabilities.md)**: the business lens for
   grouping.
-- **Keeping it as is** — a legitimate decision when the cost of reorganizing exceeds that of living with
+- **Keeping it as is**: a legitimate decision when the cost of reorganizing exceeds that of living with
   it.
 
 ## Trade-offs
@@ -242,7 +242,7 @@ little; the work pays off where the business changes often and the change crosse
 ## Common Mistakes
 
 **Separating by layer.** A front-end system, a rules one and a data one guarantee that every business
-change crosses all three — and requires coordinating three teams to deliver one feature.
+change crosses all three, and requires coordinating three teams to deliver one feature.
 
 **Separating by organizational area.** The org chart changes at each reorganization; the business
 capability does not. Boundaries drawn over the first need to be redrawn at each structural change.
@@ -253,8 +253,8 @@ it. Without measuring that in the history, the decomposition is aesthetic.
 **Not declaring responsibility.** With no sentence saying what each system answers for, the same capability
 appears in three places and none of them is the source of truth.
 
-**Decomposing by architectural preference.** Deciding the granularity by the chosen style — microservices,
-for example — inverts the order: the boundary comes from the domain, and the style comes afterward.
+**Decomposing by architectural preference.** Deciding the granularity by the chosen style (microservices,
+for example) inverts the order: the boundary comes from the domain, and the style comes afterward.
 
 **Not isolating market products.** A third party's system whose model leaks into the rest ties the
 architecture to the vendor, and replacing it stops being a commercial decision.
@@ -274,9 +274,8 @@ touched more than 5   4
 
 Eighty-five percent of the changes crossed systems.
 
-The boundary analysis found the cause: the systems had been separated by **logistics process stage** —
-pickup, transport, delivery, billing — while the business changes were by **service type**: express
-delivery, less-than-truckload, refrigerated transport.
+The boundary analysis found the cause: the systems had been separated by **logistics process stage** (pickup, transport, delivery, billing), while the business changes were by **service type** (express
+delivery, less-than-truckload, refrigerated transport).
 
 Adding a new service type required changing all four systems.
 
@@ -284,11 +283,11 @@ The boundary was aligned to the process, and the business evolved by service.
 
 The reorganization, over two years, moved the boundary:
 
-**Systems per service type**, each covering the complete cycle — pickup to billing — of its service.
+**Systems per service type**, each covering the complete cycle (pickup to billing) of its service.
 
 **Common capabilities extracted** into shared services: tracking, geocoding, document issuance.
 
-**Consolidation.** The 68 systems became 41 — the earlier decomposition had produced systems that were too
+**Consolidation.** The 68 systems became 41: the earlier decomposition had produced systems that were too
 small, with a high integration cost.
 
 The change test, repeated two years later:
@@ -301,7 +300,7 @@ touched 3 or more     2
 
 And the average delivery time for a business change fell from 11 weeks to 3.
 
-The original boundary was reasonable when it was created — the company had one service type, and the
+The original boundary was reasonable when it was created: the company had one service type, and the
 process was the only axis of variation. It stopped making sense when the business came to vary by service,
 and nobody revisited it.
 

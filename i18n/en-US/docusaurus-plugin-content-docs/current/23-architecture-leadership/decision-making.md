@@ -2,7 +2,7 @@
 id: decision-making
 title: Decision-Making
 sidebar_position: 4
-description: Deciding with insufficient information is the norm — and deferring has a cost nobody accounts for.
+description: Deciding with insufficient information is the norm, and deferring has a cost nobody accounts for.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [negotiating-tradeoffs, risk-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Architectural decisions are made with insufficient information. That is not an anomaly to fix — it
-is the normal condition, and the role requires operating within it.
+Architectural decisions are made with insufficient information. That is not an anomaly to fix but
+the normal condition, and the role requires operating within it.
 
 ```text
 waiting for more information   invisible cost: time, blocked work,
@@ -33,7 +33,7 @@ deciding now                   visible cost: the risk of being wrong
 The asymmetry in visibility is what produces the wrong behavior. A decision error is attributed to
 whoever decided; a month lost waiting for information is attributed to nobody.
 
-That is why the useful criterion is not "do I have enough information?" — it is **"is the cost of
+That is why the useful criterion is not "do I have enough information?" but **"is the cost of
 deferring greater than the risk of being wrong?"**.
 
 ## Problem
@@ -64,7 +64,7 @@ irreversible in practice    analyze deeply, involve whoever owns
 ```
 
 Jeff Bezos called the two ends one-way and two-way door decisions. The useful observation is not
-the taxonomy — it is that most decisions are two-way doors and get one-way door treatment.
+the taxonomy but that most decisions are two-way doors and get one-way door treatment.
 
 See [context in an ADR](/18-architecture-decisions/adr-context.md).
 
@@ -103,7 +103,7 @@ good   "I will decide when we have the partner's latency
 That turns deferral into a plan. And it forces the useful question: is the missing information
 actually going to arrive, and would it change the decision?
 
-Frequently the honest answer is no — the information wasn't coming, or wouldn't change anything —
+Frequently the honest answer is no (the information wasn't coming, or wouldn't change anything),
 and in that case the deferral is avoidance.
 
 ### Decide at the right level
@@ -156,8 +156,8 @@ And it is usually the worst one, because it is made by omission:
 result: each team chose, and now there are four
 ```
 
-The state that results from the absence of a decision is rarely neutral. Recognizing that — "if we
-don't decide, this is what will happen" — frequently resolves the paralysis, because it makes
+The state that results from the absence of a decision is rarely neutral. Recognizing that ("if we
+don't decide, this is what will happen") frequently resolves the paralysis, because it makes
 visible that the alternative to the risk of being wrong is not safety, it is another outcome.
 
 ## Mental Model
@@ -180,7 +180,7 @@ wrong changes nothing: deferring is not an option, and the effort goes into foll
 prescribed process.
 
 **When the cost of deferring really is close to zero.** Nobody is blocked, nothing is being built on
-top of the decision's absence, and the cost of reversal does not grow with time — a tool choice for
+top of the decision's absence, and the cost of reversal does not grow with time: a tool choice for
 a project that only starts next semester, for example. There the criterion always answers "wait",
 and forcing the decision only trades free future information for present risk.
 
@@ -190,11 +190,11 @@ wait for Friday. The method is for open-ended deferrals, not for waits of days w
 
 ## Alternatives
 
-- **A temporary decision with a date** — choosing for three months and reassessing, when the
+- **A temporary decision with a date**: choosing for three months and reassessing, when the
   uncertainty is genuine and the cost of reversal is low.
-- **A pilot** — deciding with evidence instead of with analysis.
-- **Delegating** — when whoever has the context can decide.
-- **The least-regret decision** — the one that minimizes the maximum regret, that is, the largest
+- **A pilot**: deciding with evidence instead of with analysis.
+- **Delegating**: when whoever has the context can decide.
+- **The least-regret decision**: the one that minimizes the maximum regret, that is, the largest
   gap, across scenarios, between the outcome obtained and the best outcome possible in that
   scenario.
 
@@ -298,7 +298,7 @@ team, with no formal analysis. The irreversible ones kept the complete process.
 are blocked, what is being built on top of the decision's absence, and how the cost of reversal
 grows.
 
-**The standard question** — "what missing information would change the choice?" — built into the
+**The standard question** ("what missing information would change the choice?") built into the
 reviews. When the answer is "none", the decision is made in that same meeting.
 
 **Temporary decisions permitted.** For cases of genuine uncertainty, choosing for a fixed period
@@ -325,7 +325,7 @@ deferral was not about information.
 
 - [Negotiating Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
 - [Risk Management](/23-architecture-leadership/risk-management.md).
-- [Context in an ADR](/18-architecture-decisions/adr-context.md) — reversibility.
+- [Context in an ADR](/18-architecture-decisions/adr-context.md): reversibility.
 - [Superseding](/18-architecture-decisions/superseding-decisions.md).
 
 ## Practical Exercise
@@ -343,6 +343,6 @@ The ones with no answer to the second question can be decided today.
 
 ## Further Reading
 
-- Bezos, Jeff. *2015 letter to shareholders* — one-way and two-way door decisions.
+- Bezos, Jeff. *2015 letter to shareholders*. One-way and two-way door decisions.
 - Kahneman, Daniel. *Thinking, Fast and Slow*. Farrar, Straus and Giroux, 2011.
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.

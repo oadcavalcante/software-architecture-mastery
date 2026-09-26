@@ -2,7 +2,7 @@
 id: exceptions
 title: Exceptions
 sidebar_position: 6
-description: The legitimate path to not meeting a standard — without it, non-compliance happens silently.
+description: The legitimate path to not meeting a standard; without it, non-compliance happens silently.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, compliance, governance-pathologies]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -31,17 +31,17 @@ with a light process        the deviation is visible, with a deadline and an own
 ```
 
 An exception process is not a concession to indiscipline. It is the mechanism that **keeps
-governance informed about reality** — and governance that doesn't know where it is being
+governance informed about reality**, and governance that doesn't know where it is being
 disregarded governs nothing.
 
 And there is a secondary use, more valuable than the first: the set of exceptions is the most direct
-signal that comes from whoever **consumes** the standard — each request carries the concrete
-case and the estimated cost, which a survey of teams does not —, and so it says about the cost of
+signal that comes from whoever **consumes** the standard (each request carries the concrete
+case and the estimated cost, which a survey of teams does not), and so it says about the cost of
 complying with it what no compliance metric says.
 
 ## Problem
 
-With no legitimate path, non-compliance doesn't disappear — it becomes invisible.
+With no legitimate path, non-compliance doesn't disappear: it becomes invisible.
 
 ```text
 the team has to deliver
@@ -55,7 +55,7 @@ The result is the worst possible: the deviation exists, nobody knows where, and 
 organization believes it is compliant.
 
 The opposite extreme has a different cost. Exceptions granted with no deadline become
-permanent, and the standard dies by erosion — after thirty indefinite exceptions, there is no
+permanent, and the standard dies by erosion: after thirty indefinite exceptions, there is no
 standard left, only a document.
 
 ## Core Concepts
@@ -111,12 +111,12 @@ security or regulatory risk   approval from whoever owns the risk
 ```
 
 The first level is the most important and the most often absent. Low-risk exceptions that
-only have to be **recorded** — not approved — maintain visibility without creating a queue,
+only have to be **recorded**, not approved, maintain visibility without creating a queue,
 and they are most of the cases.
 
 ### A permanent exception is a signal, not an exception
 
-When an exception is renewed twice — three deadlines in a row without converging —, it has
+When an exception is renewed twice (three deadlines in a row without converging), it has
 stopped being an exception:
 
 ```text
@@ -166,8 +166,8 @@ comply with the standard   2 weeks of migration
 request an exception       5 minutes of form-filling
 ```
 
-The correct asymmetry is not to eliminate that difference — it is inevitable, and it is why
-the process exists. It is to ensure the exception **keeps costing** over time: a short
+The correct asymmetry is not to eliminate that difference (it is inevitable, and it is why
+the process exists). It is to ensure the exception **keeps costing** over time: a short
 deadline, renewal with a fresh justification, and the deviation visible on a dashboard the
 team and the manager can see.
 
@@ -177,30 +177,30 @@ barrier.
 ## Mental Model
 
 **Cheap to request, with a deadline and automatic expiry.** With no legitimate path, the
-deviation exists anyway — only invisible.
+deviation exists anyway, only invisible.
 
 ## When to Use
 
 - When there is a mandatory standard and more teams than the standard's owner follows
-  directly — from that point on, an unrecorded deviation is a deviation nobody sees.
+  directly: from that point on, an unrecorded deviation is a deviation nobody sees.
 - With recording and no approval for low-risk deviations.
 - With automatic expiry, whenever the number of exceptions exceeds what one person tracks
-  from memory — in practice, from a dozen on.
+  from memory, in practice, from a dozen on.
 - Reading the set periodically as a diagnosis of the standards.
 
 ## When Not to Use
 
 **A small organization, with few teams.** When the standard's owner talks to every team each
 week and knows every deviation by name, formal recording duplicates what is already visible
-and adds a form without adding information. Noting the deviation alongside the decision — in
-an [ADR](/18-architecture-decisions/what-is-an-adr.md), for instance — is enough, to be
+and adds a form without adding information. Noting the deviation alongside the decision (in
+an [ADR](/18-architecture-decisions/what-is-an-adr.md), for instance) is enough, to be
 revisited when the organization grows.
 
 **A requirement the organization has no authority to waive.** A PCI DSS or LGPD requirement
 admits no internal exception: nobody inside the company can grant a deadline for breaking the
 law or the contract with the card network. Here the exception process becomes theater; the
-path is to comply or to take the risk to the body that answers for it — legal, the executive
-board — as a formal risk acceptance, with the consequence named.
+path is to comply or to take the risk to the body that answers for it (legal, the executive
+board) as a formal risk acceptance, with the consequence named.
 
 **A standard that is still a recommendation.** If the standard is not mandatory, there is
 nothing to except; the deviation is a legitimate choice, and recording it as an exception
@@ -208,13 +208,13 @@ gives the standard a force it does not have.
 
 ## Alternatives
 
-- **Narrow the standard's scope** — when the exceptions concentrate in one class, the
+- **Narrow the standard's scope**: when the exceptions concentrate in one class, the
   problem is the scope.
-- **Fix the standard** — when there are many exceptions.
-- **Accept it as debt** — when convergence is not going to happen, recording it as debt is
+- **Fix the standard**: when there are many exceptions.
+- **Accept it as debt**: when convergence is not going to happen, recording it as debt is
   more honest than renewing an exception. See
   [technical debt](/01-fundamentals/technical-debt.md).
-- **The standard as a recommendation** — if the exception is the rule, it should not be
+- **The standard as a recommendation**: if the exception is the rule, it should not be
   mandatory.
 
 ## Trade-offs
@@ -259,7 +259,7 @@ renew, and the exception becomes permanent while looking temporary.
 **Treating an exception request as a team failure**, which pushes the deviation into
 silence.
 
-**Not looking at the set** — exceptions are handled case by case and never read together.
+**Not looking at the set**: exceptions are handled case by case and never read together.
 
 ## Real-World Example
 
@@ -290,12 +290,12 @@ perception that asking was risky.
 
 The redesign:
 
-**Three levels by risk.** A low-risk deviation is **recorded** by the team, with no approval
-— a five-field form, effective immediately. Medium risk goes to the standard's owner, with an
+**Three levels by risk.** A low-risk deviation is **recorded** by the team, with no approval:
+a five-field form, effective immediately. Medium risk goes to the standard's owner, with an
 answer within 5 business days. Security or regulatory risk keeps approval, with an answer
 within 10 days.
 
-**A mandatory deadline**, at most 12 months, with automatic expiry — the system shows up as a
+**A mandatory deadline**, at most 12 months, with automatic expiry: the system shows up as a
 deviation again the next day.
 
 **A mandatory exit plan**, with a named owner.
@@ -317,8 +317,8 @@ renewed twice or more                           9
 ```
 
 The 9 renewed twice or more were examined, and all pointed to the same diagnosis: two standards
-were too broad. One of them required every service to publish events to the corporate bus —
-which made no sense for read-only services. The scope was narrowed, and 7 of the 9 exceptions
+were too broad. One of them required every service to publish events to the corporate bus.
+That made no sense for read-only services. The scope was narrowed, and 7 of the 9 exceptions
 ceased to be necessary.
 
 And the quarterly review found another pattern: 14 exceptions concentrated in a single team.
@@ -327,15 +327,15 @@ with a different technological context. The response was to create a specific se
 standards for that class, instead of granting exceptions indefinitely.
 
 In the retrospective: the number of exceptions **rose** from 31 to 119, and that was treated
-as a success. What dropped was the invisible deviation — from 125 to 23. The metric that
+as a success. What dropped was the invisible deviation, from 125 to 23. The metric that
 mattered had never been the number of exceptions.
 
 ## Related Concepts
 
-- [Standards](/19-architecture-governance/governance-standards.md) — what generates
+- [Standards](/19-architecture-governance/governance-standards.md): what generates
   exceptions.
-- [Compliance](/19-architecture-governance/compliance.md) — automatic expiry.
-- [Pathologies](/19-architecture-governance/governance-pathologies.md) — the process that
+- [Compliance](/19-architecture-governance/compliance.md): automatic expiry.
+- [Pathologies](/19-architecture-governance/governance-pathologies.md): the process that
   pushes people into silence.
 - [Technical Debt](/01-fundamentals/technical-debt.md).
 
@@ -344,7 +344,7 @@ mattered had never been the number of exceptions.
 Compare, in your context, the number of recorded exceptions with the number of deviations a
 technical check would find.
 
-The ratio between the two measures how much of the non-compliance is invisible — and it is a
+The ratio between the two measures how much of the non-compliance is invisible, and it is a
 number almost no organization knows.
 
 ## Interview Questions

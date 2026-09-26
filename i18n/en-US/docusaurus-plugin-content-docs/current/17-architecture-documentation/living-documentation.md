@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, documentation-standards, component-diagrams]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 Hand-written documentation goes stale when nothing ties it to the system. The problem is not
-discipline — it is that the information exists in two places and nothing forces the two to
+discipline. It is that the information exists in two places and nothing forces the two to
 agree.
 
 Living documentation attacks the cause: **derive the documentation from the artifact that
@@ -30,7 +30,7 @@ is already true**, so that diverging from the source is impossible while the ext
 runs, and not merely undesirable.
 
 And this topic's central decision is not which tool to use. It is **what can be derived
-and what cannot** — because most architectural value lies precisely in what the machine
+and what cannot**, because most architectural value lies precisely in what the machine
 doesn't know.
 
 ## Problem
@@ -47,7 +47,7 @@ nobody consults it
 nobody updates it
 ```
 
-And the usual remedy — process, reminders, mandatory review — fights the symptom. It
+And the usual remedy (process, reminders, mandatory review) fights the symptom. It
 depends on someone doing, every single time, work that gives no immediate return to
 whoever does it.
 
@@ -70,12 +70,12 @@ who-calls-whom matrix         from the service mesh or the logs
 ```
 
 The pattern is clear: **structure is derivable**. What exists, how it connects, what runs
-where — all of it is declared somewhere executable.
+where: all of it is declared somewhere executable.
 
 See [distributed tracing](/13-observability/distributed-tracing.md) for the last category,
 the most reliable one for what runs frequently: it shows what happens, not what was
-declared. And it is blind to what the window and the sampling miss — the quarterly job, the
-fallback path —, which verification against the declared inventory covers.
+declared. And it is blind to what the window and the sampling miss (the quarterly job, the
+fallback path), which verification against the declared inventory covers.
 
 ### What cannot be derived
 
@@ -106,7 +106,7 @@ diffs are legible
 the text is useful even without rendering
 ```
 
-It is not derivation — the text is still written by hand, and it can still diverge. The
+It is not derivation: the text is still written by hand, and it can still diverge. The
 gain is in the process: a text diagram in the repository is reviewed alongside the change
 that affects it, and the trigger is natural.
 
@@ -128,7 +128,7 @@ does the declared owner exist?
 do the links resolve?
 ```
 
-That preserves the curation — layout, emphasis, grouping — and eliminates silent
+That preserves the curation (layout, emphasis, grouping) and eliminates silent
 divergence. When the verification fails, a person decides what to fix: the document or the
 system.
 
@@ -164,7 +164,7 @@ layout short of curated     recurring
 The calculation: derivation pays off where the information **changes frequently** and is
 **consulted frequently**. Where either is low, writing by hand and verifying is cheaper.
 
-That is the case with the context diagram — it barely changes, and deriving it would mean
+That is the case with the context diagram: it barely changes, and deriving it would mean
 building machinery for a problem that doesn't exist. See
 [context diagrams](/17-architecture-documentation/context-diagrams.md).
 
@@ -183,29 +183,29 @@ machine documents.
 
 ## When Not to Use
 
-**For rationale and decisions** — not derivable.
+**For rationale and decisions**: not derivable.
 
-**Where the information changes or is consulted little** — if the artifact changes less
+**Where the information changes or is consulted little**: if the artifact changes less
 often than the manual review cadence, or hardly anyone opens it, the cost doesn't pay off.
 
 **When the generated diagram exceeds about twelve nodes** and the source has no grouping
-key — domain, team, context — to split it: the result is the 180-node diagram of the
+key (domain, team, context) to split it: the result is the 180-node diagram of the
 Real-World Example.
 
-**With nobody responsible for the tool** — the tool becomes the new debt.
+**With nobody responsible for the tool**: the tool becomes the new debt.
 
-**As a substitute for writing** — the result is complete and meaningless documentation.
+**As a substitute for writing**: the result is complete and meaningless documentation.
 
 The last deserves emphasis: an organization that generates everything and writes nothing
 has correct diagrams and no explanation of why the system is the way it is.
 
 ## Alternatives
 
-- **Writing with a trigger** — update when the corresponding event occurs. See
+- **Writing with a trigger**: update when the corresponding event occurs. See
   [documentation standards](/17-architecture-documentation/documentation-standards.md).
-- **Automated verification** — cheaper than generation, preserves curation.
-- **Diagrams as code** — the middle ground, a process gain.
-- **Accepting aging** with a visible date — legitimate for what changes little.
+- **Automated verification**: cheaper than generation, preserves curation.
+- **Diagrams as code**: the middle ground, a process gain.
+- **Accepting aging** with a visible date: legitimate for what changes little.
 
 ## Trade-offs
 
@@ -247,7 +247,7 @@ has correct diagrams and no explanation of why the system is the way it is.
 
 **Not measuring whether the output is read.** Generated documentation has a maintenance cost like any other. If nobody opens it, the right move is to turn the generation off.
 
-**Ignoring verification as the cheaper option.** For many properties, a test that fails when the rule is violated is worth more than a document that describes it — and it fails when it goes stale.
+**Ignoring verification as the cheaper option.** For many properties, a test that fails when the rule is violated is worth more than a document that describes it, and it fails when it goes stale.
 
 ## Real-World Example
 
@@ -270,15 +270,15 @@ The diagrams were correct and illegible. Use of the portal dropped even further.
 
 The second attempt separated by the nature of the information:
 
-**Derived** — service inventory, real dependencies from tracing, deployment topology, API
+**Derived**: service inventory, real dependencies from tracing, deployment topology, API
 contracts, data schemas. All continuously updated, available as a query and not as a giant
 diagram.
 
-**Written and verified** — context and container diagrams per domain, hand-drawn, with
+**Written and verified**: context and container diagrams per domain, hand-drawn, with
 curated grouping and emphasis. A daily check compares the drawn containers with the
 deployed services and raises an alert to the owner when they diverge.
 
-**Written, with no verification possible** — rationale, ADRs, risks, evolution intent.
+**Written, with no verification possible**: rationale, ADRs, risks, evolution intent.
 
 **Grouping by domain** applied to the derived data: instead of one 180-node diagram, a
 query answering "what does this domain depend on" with five to twelve nodes.
@@ -297,15 +297,15 @@ experiments still running, consuming resources and holding access to production 
 
 Full generation failed not because it was technically wrong, but because it ignored that
 curation is content. Grouping by domain and emphasizing certain relationships is
-architectural information — and it is exactly what automated extraction has no way of
+architectural information, and it is exactly what automated extraction has no way of
 knowing.
 
 ## Related Concepts
 
-- [Documentation Principles](/17-architecture-documentation/documentation-principles.md) — the half-life.
-- [Documentation Standards](/17-architecture-documentation/documentation-standards.md) — the triggers.
-- [Component Diagrams](/17-architecture-documentation/component-diagrams.md) — where generation pays off most.
-- [Distributed Tracing](/13-observability/distributed-tracing.md) — the most reliable source
+- [Documentation Principles](/17-architecture-documentation/documentation-principles.md): the half-life.
+- [Documentation Standards](/17-architecture-documentation/documentation-standards.md): the triggers.
+- [Component Diagrams](/17-architecture-documentation/component-diagrams.md): where generation pays off most.
+- [Distributed Tracing](/13-observability/distributed-tracing.md): the most reliable source
   of dependencies.
 
 ## Practical Exercise

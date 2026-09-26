@@ -2,7 +2,7 @@
 id: strategic-ddd
 title: Strategic DDD
 sidebar_position: 10
-description: The part of DDD that decides architecture — and the one almost always skipped.
+description: The part of DDD that decides architecture, and the one almost always skipped.
 doc_type: foundation
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context, context-mapping]
 related: [tactical-ddd, subdomain, enterprise-architecture]
 canonical_for: [strategic DDD, strategic design]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Strategic DDD is the part that decides **where the boundaries go** and **where to invest**.
 It operates before any decision about aggregates or repositories.
 
-It is also the part almost always skipped — most of what is called "adopting DDD" starts and
+It is also the part almost always skipped: most of what is called "adopting DDD" starts and
 ends with the tactical.
 
 ## The Problem
@@ -35,8 +35,8 @@ Someone reads about aggregates, entities and value objects, applies the patterns
 concludes that DDD is a style of writing classes. The system gains `Aggregate`, `Repository`
 and `ValueObject` in its names, and keeps the same wrong boundaries as before.
 
-The result is the worst of both worlds: the cost of the tactical part — indirection,
-ceremony, more types — with none of the benefit of the strategic one, which is what actually
+The result is the worst of both worlds: the cost of the tactical part (indirection,
+ceremony, more types) with none of the benefit of the strategic one, which is what actually
 changes the architecture.
 
 The correct order is the reverse. **Boundaries come first.** They decide where the modules
@@ -59,7 +59,7 @@ it into areas.
 simplify and what to buy.
 
 **[Bounded context](/04-domain-driven-design/bounded-context.md).** Defining the model's
-boundaries — the decision with the greatest architectural consequence.
+boundaries: the decision with the greatest architectural consequence.
 
 **[Ubiquitous language](/04-domain-driven-design/ubiquitous-language.md).** Establishing the
 vocabulary inside each boundary.
@@ -92,9 +92,9 @@ requires adopting any pattern.
 
 The cost it does have is not an engineering cost: it is the domain experts' calendar and the
 willingness to move boundaries that already have owners. Where both are missing, the
-analysis comes cheap and produces fiction — plausible boundaries nobody will act on.
+analysis comes cheap and produces fiction: plausible boundaries nobody will act on.
 
-A team can apply strategic DDD in full and write code with not a single aggregate — and
+A team can apply strategic DDD in full and write code with not a single aggregate, and
 frequently that is the right decision.
 
 ### The main instrument is conversation
@@ -103,7 +103,7 @@ frequently that is the right decision.
 done with business people in the room.
 
 That is what makes it uncomfortable in organizations structured around layers of
-communication — and it is the real prerequisite, more than any technical knowledge.
+communication, and it is the real prerequisite, more than any technical knowledge.
 
 ## Why This Matters
 
@@ -111,7 +111,7 @@ communication — and it is the real prerequisite, more than any technical knowl
 boundary costs years; a badly designed aggregate costs a refactoring.
 
 **Because it decides where the tactical part pays off.** Without the subdomain
-classification, tactical DDD is applied uniformly — and wasted on four fifths of the system.
+classification, tactical DDD is applied uniformly, and wasted on four fifths of the system.
 
 **Because it connects architecture to the business.** It is the bridge between
 [business context](/01-fundamentals/business-context.md) and software structure, and the
@@ -128,11 +128,11 @@ engineering.
 worth the effort.
 
 **Defining boundaries by organizational structure without checking the vocabulary.** The
-organization is a clue, not the answer — and sometimes it is the organization that is wrong.
+organization is a clue, not the answer, and sometimes it is the organization that is wrong.
 
 **Doing it once and never revisiting.** The business changes, and boundaries age.
 
-**Confusing subdomain with bounded context.** Problem versus solution — treating them as
+**Confusing subdomain with bounded context.** Problem versus solution: treating them as
 synonyms leads to drawing one context per subdomain, and loses the boundary decision exactly
 where the two do not coincide.
 
@@ -144,27 +144,27 @@ started with the tactical part: aggregates, repositories, value objects.
 Six months later, the system had DDD vocabulary and the same problems: every change crossed
 three modules, and two teams constantly blocked each other.
 
-The strategic analysis, done afterwards, took three weeks — two *event storming* sessions
+The strategic analysis, done afterwards, took three weeks: two *event storming* sessions
 with building managers, administrators and the team.
 
-What it revealed: the system was divided by entity — `Building`, `Unit`, `Resident`,
-`Billing` — and the business operated through three distinct capabilities with their own
+What it revealed: the system was divided by entity (`Building`, `Unit`, `Resident`,
+`Billing`) and the business operated through three distinct capabilities with their own
 vocabularies.
 
-**Facilities management** — maintenance, assets, work orders. "Unit" there is a physical
+**Facilities management**: maintenance, assets, work orders. "Unit" there is a physical
 space.
 
-**Finance** — apportionment, billing, delinquency. "Unit" is an ideal fraction with an owner
+**Finance**: apportionment, billing, delinquency. "Unit" is an ideal fraction with an owner
 and a debt history.
 
-**Community** — bookings, assemblies, notices. "Unit" is a group of residents with voting
+**Community**: bookings, assemblies, notices. "Unit" is a group of residents with voting
 rights.
 
 Three meanings of "unit", three bounded contexts, and the system had one `Unit` class with 60
 fields serving all three.
 
 The reorganization by context took four months. The aggregates and repositories already
-built were redistributed — most of the tactical work was reused, but inside the right
+built were redistributed: most of the tactical work was reused, but inside the right
 boundaries.
 
 The conclusion the team recorded: the tactical part was not wrong. It was applied over a
@@ -172,16 +172,16 @@ division that the strategic analysis would have corrected in three weeks, had it
 
 ## Related Concepts
 
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — the central decision.
-- [Subdomain](/04-domain-driven-design/subdomain.md) — the division of the problem.
-- [Context Mapping](/04-domain-driven-design/context-mapping.md) — the relationships.
-- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md) — what comes afterwards.
-- [Enterprise Architecture](/15-enterprise-architecture/index.md) — the same reasoning above
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): the central decision.
+- [Subdomain](/04-domain-driven-design/subdomain.md): the division of the problem.
+- [Context Mapping](/04-domain-driven-design/context-mapping.md): the relationships.
+- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md): what comes afterwards.
+- [Enterprise Architecture](/15-enterprise-architecture/index.md): the same reasoning above
   the system.
 
 ## Practical Exercise
 
-Gather two business people and map, on a timeline, the events that happen in your domain —
+Gather two business people and map, on a timeline, the events that happen in your domain,
 from the start to the end of an important flow.
 
 Observe where the events cluster and where the vocabulary changes owner.
@@ -196,7 +196,7 @@ Compare the clusters with the system's module structure. The differences are the
 
 ## Further Exploration
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — part IV.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Part IV.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.
-- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — still in progress; the
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016. Still in progress; the
   technique first appeared in the 2013 article of the same name.

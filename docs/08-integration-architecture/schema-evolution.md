@@ -2,7 +2,7 @@
 id: schema-evolution
 title: Evolução de Esquema
 sidebar_position: 14
-description: Mudar o contrato sem quebrar quem depende dele — e por que versionar é a última opção, não a primeira.
+description: Mudar o contrato sem quebrar quem depende dele, e por que versionar é a última opção, não a primeira.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, rest]
 canonical_for: [evolução de esquema, compatibilidade retroativa, compatibilidade futura, registro de esquema]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -37,7 +37,7 @@ imprevisível. Um cliente móvel pode ficar meses sem atualizar. Um evento grava
 hoje pode ser lido daqui a três anos.
 
 Isso significa que, em qualquer instante, existem versões diferentes do esquema
-em circulação — nas duas direções.
+em circulação, nas duas direções.
 
 Uma mudança que exige "implantar o produtor e o consumidor juntos" não é
 executável na maioria dos sistemas reais. E tentar executá-la é a origem de
@@ -103,15 +103,15 @@ Compatibilidade futura só funciona se o consumidor ignorar campos que não
 conhece.
 
 Consumidores que falham ao encontrar campo desconhecido tornam **toda** adição
-uma quebra — e a adição é justamente a mudança que deveria ser livre.
+uma quebra, e a adição é justamente a mudança que deveria ser livre.
 
 Isso precisa ser garantido desde o primeiro consumidor, e verificado. Vários
 geradores de código produzem, por padrão, desserialização estrita.
 
 ### Renomear é remover mais adicionar
 
-Não existe renomear compatível. Toda renomeação é uma remoção — que quebra
-a futura — mais uma adição, que o código novo não encontra nos dados antigos.
+Não existe renomear compatível. Toda renomeação é uma remoção (que quebra
+a futura) mais uma adição, que o código novo não encontra nos dados antigos.
 
 O caminho compatível é a convivência:
 
@@ -135,25 +135,25 @@ Um registro central que armazena os esquemas e **valida a compatibilidade na
 publicação** transforma a regra em automação: uma mudança incompatível é
 recusada antes de chegar a produção.
 
-Sem ele, a compatibilidade depende de disciplina e revisão — que funcionam até o
+Sem ele, a compatibilidade depende de disciplina e revisão, que funcionam até o
 dia em que alguém tem pressa.
 
 Ele paga o custo de operá-lo quando há vários consumidores, consumidores fora do
-controle do time ou eventos persistidos — as condições em que uma quebra só
+controle do time ou eventos persistidos: as condições em que uma quebra só
 aparece depois de gravada ou implantada por quem você não coordena.
 
 ### Versionar, quando não há saída
 
 Quando a mudança é genuinamente incompatível, resta conviver:
 
-**Na URL** — explícito, fácil de rotear, e o consumidor precisa mudar o endereço.
+**Na URL**: explícito, fácil de rotear, e o consumidor precisa mudar o endereço.
 
-**No cabeçalho** — o endereço permanece, e fica menos visível.
+**No cabeçalho**: o endereço permanece, e fica menos visível.
 
-**No próprio conteúdo** — o esquema carrega sua versão; comum em eventos.
+**No próprio conteúdo**: o esquema carrega sua versão; comum em eventos.
 
 O custo real não é a escolha entre as três. É que **cada versão viva é código a
-manter**, e a remoção depende de todos os consumidores migrarem — o que demora mais
+manter**, e a remoção depende de todos os consumidores migrarem. Isso demora mais
 do que o planejado sempre que algum consumidor está fora do controle do time.
 
 A pergunta antes de versionar: dá para fazer isso como adição compatível? Na
@@ -174,7 +174,7 @@ para a seguinte, e a leitura só conhece a última.
 ## Modelo Mental
 
 **Compatível é o que permite implantar em qualquer ordem.** Se a mudança exige
-coordenação, ela é incompatível — independentemente de parecer pequena.
+coordenação, ela é incompatível, independentemente de parecer pequena.
 
 ## Quando Usar
 
@@ -204,11 +204,11 @@ catálogo, não gate.
 
 ## Alternativas
 
-- **Campo novo em vez de mudança** — resolve a maioria dos casos.
-- **Tradução na borda** — uma camada converte entre versões, isolando o núcleo.
+- **Campo novo em vez de mudança**: resolve a maioria dos casos.
+- **Tradução na borda**: uma camada converte entre versões, isolando o núcleo.
   Ver [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Duplo preenchimento** — período em que os dois campos são escritos.
-- **Endpoint novo** — em vez de versionar toda a API, versionar a operação que
+- **Duplo preenchimento**: período em que os dois campos são escritos.
+- **Endpoint novo**: em vez de versionar toda a API, versionar a operação que
   mudou.
 
 ## Trade-offs
@@ -264,7 +264,7 @@ sistemas.
 Um campo `valor_cobertura` era gravado em reais. Numa expansão para outro país,
 o time decidiu padronizar em centavos, para evitar arredondamento.
 
-A mudança foi feita mantendo nome e tipo — inteiro. O esquema continuou válido.
+A mudança foi feita mantendo nome e tipo (inteiro). O esquema continuou válido.
 O registro de esquema aprovou. Todos os testes passaram.
 
 Durante **nove dias**, os seis consumidores processaram valores cem vezes
@@ -275,8 +275,8 @@ tomadas.
 
 A validação estrutural do registro não tinha como pegar isso: a mudança era
 compatível em estrutura e incompatível em significado. Pegariam controles de
-outra natureza — alerta de faixa de valores, asserção de faixa no teste de
-contrato do consumidor, conciliação diária — e a equipe só tinha a conciliação,
+outra natureza (alerta de faixa de valores, asserção de faixa no teste de
+contrato do consumidor, conciliação diária) e a equipe só tinha a conciliação,
 rodando tarde demais.
 
 As mudanças de processo:
@@ -294,17 +294,17 @@ nenhuma regra de compatibilidade estrutural as distingue. Alertas de faixa de
 valores nos campos monetários entraram como segunda linha.
 
 **Verificação de consumidor estrito.** A auditoria descobriu que dois dos seis
-consumidores falhavam com campo desconhecido — ou seja, mesmo uma adição pura
+consumidores falhavam com campo desconhecido, ou seja, mesmo uma adição pura
 teria quebrado. Foi corrigido antes de qualquer outra mudança.
 
 O que a equipe registra: o registro de esquema deu falsa segurança. Ele garante
-que o dado *cabe* no formato, não que *significa* a mesma coisa — e a equipe
+que o dado *cabe* no formato, não que *significa* a mesma coisa, e a equipe
 tinha passado a confiar nele como se garantisse as duas.
 
 ## Conceitos Relacionados
 
-- [Contratos de Integração](/08-integration-architecture/integration-contracts.md) — o contexto.
-- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — tradução na borda.
+- [Contratos de Integração](/08-integration-architecture/integration-contracts.md): o contexto.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md): tradução na borda.
 - [Integração Orientada a Eventos](/08-integration-architecture/event-driven-integration.md).
 - [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
@@ -314,7 +314,7 @@ Pegue o último esquema que seu time mudou e classifique a mudança: compatível
 retroativa, futura, as duas, ou nenhuma?
 
 Depois verifique se um consumidor seu falha ao receber um campo que não conhece.
-Se falhar, você não tem compatibilidade futura nenhuma — e toda adição é uma
+Se falhar, você não tem compatibilidade futura nenhuma, e toda adição é uma
 quebra.
 
 ## Perguntas de Entrevista
@@ -327,5 +327,5 @@ quebra.
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 4.
-- Confluent. *Schema Evolution and Compatibility* — documentação do Schema Registry.
-- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021 — capítulo 5.
+- Confluent. *Schema Evolution and Compatibility*. Documentação do Schema Registry.
+- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021. Capítulo 5.

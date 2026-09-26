@@ -2,7 +2,7 @@
 id: measuring-governance
 title: Medição de Governança
 sidebar_position: 10
-description: Medir o efeito e o atrito — sem os dois números, todo mecanismo parece justificado.
+description: "Medir o efeito e o atrito: sem os dois números, todo mecanismo parece justificado."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-pathologies, compliance, governance-basics]
 canonical_for: [atrito medido, efeito de mecanismo, indicador de governança, risco evitado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Em governança, um mecanismo pode ser criado sem nenhuma medição e mantido indefinidamente sem
-nenhuma evidência — ao contrário de um serviço em produção, que tem monitoramento para acusar
+nenhuma evidência, ao contrário de um serviço em produção, que tem monitoramento para acusar
 quando deixa de cumprir a função.
 
 A razão é estrutural: o **efeito** de um mecanismo é um evento que não aconteceu, e o
@@ -38,7 +38,7 @@ atrito   quanto atraso e esforço custou, agregado
 ```
 
 Sem os dois números, a discussão sobre manter ou remover é decidida por quem tem mais
-autoridade — o que é a definição de uma das [patologias](/19-architecture-governance/governance-pathologies.md).
+autoridade. Essa é a definição de uma das [patologias](/19-architecture-governance/governance-pathologies.md).
 
 ## Problema
 
@@ -61,7 +61,7 @@ Do outro lado, o custo:
 Esse número existe e quase nunca é calculado. Quando é, a discussão muda de natureza.
 
 E há uma armadilha de medição própria da área: medir atividade em vez de efeito. Número de
-revisões realizadas, padrões publicados, sessões de comitê — todos crescem com o esforço e
+revisões realizadas, padrões publicados, sessões de comitê: todos crescem com o esforço e
 nenhum informa se algo melhorou.
 
 ## Conceitos Centrais
@@ -78,7 +78,7 @@ divergências evitadas, mensuráveis
 O primeiro é o mais fácil e o mais revelador. Uma revisão que não mudou nenhuma decisão em
 um ano não está produzindo efeito, independentemente de quantas sessões realizou.
 
-E ele precisa ser registrado no momento — reconstruir depois é impossível. Ver
+E ele precisa ser registrado no momento: reconstruir depois é impossível. Ver
 [revisão](/19-architecture-governance/governance-review.md), onde a separação entre bloqueante e recomendação já produz
 esse dado.
 
@@ -114,7 +114,7 @@ A coluna da direita tem o seu próprio risco: indicador que vira meta deixa de m
 cosméticas passam a ser registradas como efeito. A defesa é quem coleta: o registro de
 alteração é feito por quem teve a proposta alterada, não pelo revisor, e o indicador serve
 para decidir sobre o mecanismo, nunca para avaliar quem o opera. O custo de coletar é o de
-um campo a mais no registro de cada revisão — minutos por ocorrência, contra horas para
+um campo a mais no registro de cada revisão: minutos por ocorrência, contra horas para
 reconstruir o dado depois.
 
 ### Indicadores que funcionam
@@ -133,7 +133,7 @@ O terceiro é o mais informativo e o menos usado: comparar exceções registrada
 que uma verificação técnica encontraria mede diretamente a visibilidade da governança. Ver
 [exceções](/19-architecture-governance/exceptions.md).
 
-O último é um indicador sobre o sistema de governança, não sobre um mecanismo — e é o que
+O último é um indicador sobre o sistema de governança, não sobre um mecanismo, e é o que
 melhor prevê acumulação.
 
 ### O contrafactual pode ser testado
@@ -147,7 +147,7 @@ comparar com o período anterior
 ```
 
 Isso exige tolerância a risco e é aplicável apenas onde a consequência de uma falha é
-recuperável — nunca em requisito regulatório ou controle de segurança crítico.
+recuperável, nunca em requisito regulatório ou controle de segurança crítico.
 
 Onde é aplicável, produz evidência que nenhuma análise produz.
 
@@ -187,7 +187,7 @@ corte vier.
 
 ## Quando Usar
 
-- Ao criar qualquer mecanismo — definir a medida antes.
+- Ao criar qualquer mecanismo, definir a medida antes.
 - Em revisão periódica do conjunto.
 - Quando há reclamação difusa de burocracia.
 - Antes de propor remoção.
@@ -199,7 +199,7 @@ atrito total do que instrumentá-la; uma conversa anual com quem a usa basta.
 
 **Controle cuja existência não está em discussão.** Um requisito regulatório não será
 removido qualquer que seja o efeito medido; medir serve para ajustar como ele é cumprido,
-não para decidir se fica — e suspendê-lo para teste está fora de questão.
+não para decidir se fica. E suspendê-lo para teste está fora de questão.
 
 **Sem processo que aja sobre o resultado.** Se nenhum fórum tem autoridade para remover ou
 reformular mecanismos, a medição vira relatório sem consequência e consome o esforço de
@@ -207,10 +207,10 @@ coleta sem retorno. Crie o processo de revisão antes de instrumentar.
 
 ## Alternativas
 
-- **Suspensão temporária** — evidência em vez de medida.
-- **Pesquisa qualitativa** — mais rápida, menos precisa, frequentemente suficiente.
-- **Auditoria de amostra** — para estimar efeito onde a medição contínua é cara.
-- **Indicadores de entrega** — tempo de ciclo e frequência de implantação capturam o atrito
+- **Suspensão temporária**: evidência em vez de medida.
+- **Pesquisa qualitativa**: mais rápida, menos precisa, frequentemente suficiente.
+- **Auditoria de amostra**: para estimar efeito onde a medição contínua é cara.
+- **Indicadores de entrega**: tempo de ciclo e frequência de implantação capturam o atrito
   agregado sem atribuí-lo a um mecanismo. Ver
   [entrega contínua](/14-devops-and-platform/ci-cd.md).
 
@@ -247,19 +247,19 @@ um suspeito.
 
 ## Erros Comuns
 
-**Criar mecanismo sem definir como medi-lo** — o efeito nunca é registrado, e o mecanismo
+**Criar mecanismo sem definir como medi-lo**: o efeito nunca é registrado, e o mecanismo
 fica protegido pelo argumento contrafactual.
 
-**Não registrar quando uma revisão mudou uma decisão** — o dado que não se coleta na hora se
+**Não registrar quando uma revisão mudou uma decisão**: o dado que não se coleta na hora se
 perde.
 
-**Comparar organizações** em vez de comparar a mesma organização ao longo do tempo — a
+**Comparar organizações** em vez de comparar a mesma organização ao longo do tempo: a
 comparação ignora diferenças de risco e de volume, e leva a cortar controles que o contexto
 local exige.
 
-**Não somar o atrito** — cada espera parece pequena isoladamente.
+**Não somar o atrito**: cada espera parece pequena isoladamente.
 
-**Não medir mecanismos removidos por ano** — sem esse número, a acumulação só é percebida
+**Não medir mecanismos removidos por ano**: sem esse número, a acumulação só é percebida
 quando o atrito já virou reclamação generalizada.
 
 ## Exemplo Real
@@ -300,15 +300,15 @@ Nenhum dos dois lados da discussão anterior tinha esses números.
 
 As decisões:
 
-**Dois mecanismos removidos** — o relatório mensal, que ninguém lia, e o formulário de
+**Dois mecanismos removidos**: o relatório mensal, que ninguém lia, e o formulário de
 impacto, cujo único efeito registrado em 12 meses foi apontar um erro que a esteira também
 teria pego.
 
 **Comitê reformulado** para aconselhamento, com portão em três classes. Ver
 [revisão](/19-architecture-governance/governance-review.md).
 
-**Aprovação de nova tecnologia** restrita a tecnologias que entram no plantão compartilhado
-— antes valia para qualquer biblioteca.
+**Aprovação de nova tecnologia** restrita a tecnologias que entram no plantão compartilhado.
+Antes valia para qualquer biblioteca.
 
 **Sete mecanismos convertidos em verificação automática**, escolhidos pela razão entre
 atrito e efeito, e consolidados em quatro verificações na esteira.
@@ -331,14 +331,14 @@ convertidos em verificação automática pegam mais que os equivalentes manuais,
 sempre.
 
 O detalhe que a equipe destaca: a discussão de dois anos terminou em uma reunião, quando a tabela
-foi apresentada. Não houve argumento novo — houve número.
+foi apresentada. Não houve argumento novo; houve número.
 
 ## Conceitos Relacionados
 
-- [Patologias](/19-architecture-governance/governance-pathologies.md) — o que a medição diagnostica.
-- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — custo declarado por mecanismo.
-- [Conformidade](/19-architecture-governance/compliance.md) — a medição do estado.
-- [Exceções](/19-architecture-governance/exceptions.md) — a razão entre exceção e desvio silencioso.
+- [Patologias](/19-architecture-governance/governance-pathologies.md): o que a medição diagnostica.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md): custo declarado por mecanismo.
+- [Conformidade](/19-architecture-governance/compliance.md): a medição do estado.
+- [Exceções](/19-architecture-governance/exceptions.md): a razão entre exceção e desvio silencioso.
 
 ## Exercício Prático
 

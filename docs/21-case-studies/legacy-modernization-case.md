@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [healthcare, banking, multi-tenant-enterprise]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -33,7 +33,7 @@ sustentam, não as grandezas.
 ## Contexto de Negócio
 
 O **Instituto Previdencial** administra a previdência complementar de 41 entes públicos
-estaduais e municipais — um fundo com 2,9 milhões de participantes e R$ 84 bilhões sob gestão.
+estaduais e municipais: um fundo com 2,9 milhões de participantes e R$ 84 bilhões sob gestão.
 
 O sistema de benefícios roda em mainframe desde 1991. Ele calcula, concede e paga 890 mil
 benefícios mensais, e nunca falhou de forma catastrófica em 34 anos.
@@ -51,7 +51,7 @@ um profissional leva de 2 a 3 anos.
 **Custo.** O licenciamento do mainframe e do software de base custa R$ 62 milhões por ano, com
 reajustes acima da inflação.
 
-**Velocidade.** Uma mudança de regra previdenciária — que ocorre por lei, com prazo — leva de 8
+**Velocidade.** Uma mudança de regra previdenciária (que ocorre por lei, com prazo) leva de 8
 a 14 meses para entrar em produção. Duas mudanças legais dos últimos cinco anos entraram fora do
 prazo, com consequência jurídica.
 
@@ -73,8 +73,7 @@ com nomes de seis caracteres, e depender de um valor gravado em um arquivo por u
 executado em 1997. Contar regras exigiria entender o código, e entender o código é o próprio
 projeto.
 
-Essa circularidade — para planejar é preciso saber o escopo, e para saber o escopo é preciso
-executar — é a característica que define modernização de legado antigo. Qualquer método que
+Essa circularidade (para planejar é preciso saber o escopo, e para saber o escopo é preciso executar) é a característica que define modernização de legado antigo. Qualquer método que
 pressuponha escopo conhecido no início está resolvendo um problema diferente.
 
 ## Requisitos Funcionais
@@ -111,12 +110,12 @@ O requisito de equivalência absoluta é o que domina o projeto. Uma diferença 
 benefício é um erro que gera processo judicial, e 890 mil benefícios mensais significam que
 qualquer taxa de erro produz volume.
 
-Uma taxa de erro de 0,01% — que seria excelente em quase qualquer sistema — produziria 89
+Uma taxa de erro de 0,01%, que seria excelente em quase qualquer sistema, produziria 89
 benefícios incorretos por mês, mais de mil por ano. Cada um é uma pessoa idosa recebendo menos
 do que tem direito, ou mais do que deveria com cobrança posterior. Nenhuma das duas é aceitável.
 
 Essa aritmética é o que justifica o critério de zero divergências por três meses, que parece
-excessivo quando lido isoladamente. Ele não é conservadorismo — é a consequência direta do volume
+excessivo quando lido isoladamente. Ele não é conservadorismo: é a consequência direta do volume
 multiplicado pela gravidade individual.
 
 ## Restrições
@@ -153,7 +152,7 @@ revisões judiciais/mês               ~380
 ```
 
 O volume é pequeno em qualquer medida moderna. Quarenta e um cálculos por segundo, noventa
-consultas por segundo no pico. **Nenhuma decisão deste projeto é motivada por escala** — e é
+consultas por segundo no pico. **Nenhuma decisão deste projeto é motivada por escala**, e é
 importante dizer isso, porque projetos de modernização frequentemente são vendidos com argumento
 de escalabilidade que não se sustenta.
 
@@ -238,7 +237,7 @@ conhecimento      o problema principal não é resolvido; quando
 | **Total ponderado** | | **4,9** | **5,9** | **8,7** | **5,0** |
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com risco de erro em 50%, os totais viram
-4,1 / 6,5 / 8,8 / 6,4 — a Opção C mantém vantagem, e por margem maior do que na matriz base.
+4,1 / 6,5 / 8,8 / 6,4. A Opção C mantém vantagem, e por margem maior do que na matriz base.
 Com custo em 40%, viram 5,8 / 6,5 / 8,2 / 3,8. Nenhum cenário testado inverte.
 
 O peso de 30% em risco de erro reflete a natureza do domínio: um erro de cálculo em benefício
@@ -248,7 +247,7 @@ diretoria e o tribunal de contas colocaram acima de todos.
 ## Decisão
 
 **Estrangulamento por domínio com equivalência comprovada (Opção C)**, com a comparação em
-paralelo como o mecanismo central — não como etapa de validação, mas como a forma de **descobrir**
+paralelo como o mecanismo central: não como etapa de validação, mas como a forma de **descobrir**
 as regras que ninguém sabe.
 
 Essa inversão é a ideia central do projeto: em vez de tentar documentar as regras e depois
@@ -256,24 +255,24 @@ implementá-las, o sistema novo é implementado com o melhor entendimento dispon
 paralelo sobre casos reais, e **cada divergência é uma regra descoberta**.
 
 A consequência prática é que o projeto **começa errado de propósito**. A primeira versão do motor
-de cálculo de uma capacidade diverge em milhares de casos, e isso é o resultado esperado — cada
+de cálculo de uma capacidade diverge em milhares de casos, e isso é o resultado esperado: cada
 divergência é informação que não existia. Uma equipe que trate as divergências iniciais como
 fracasso vai abandonar o método na terceira semana.
 
 Comunicar isso à diretoria e ao tribunal de contas antes de começar foi tão importante quanto o
 desenho técnico. O indicador acompanhado não é "quantos erros temos", é "a taxa de divergência
-está caindo" — e a curva descendente é o que demonstra progresso.
+está caindo". A curva descendente é o que demonstra progresso.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** as regras estivessem documentadas e verificáveis — o que ocorre em
+**Opção A venceria se** as regras estivessem documentadas e verificáveis. Isso ocorre em
 sistemas mais novos ou em domínios com especificação normativa completa e atualizada.
 
 **Opção B venceria se** o objetivo fosse exclusivamente sair do mainframe por custo, com prazo
 curto e sem expectativa de melhorar a manutenibilidade. É uma opção legítima como **etapa
 intermediária** em situações de urgência contratual.
 
-**Opção D venceria se** o risco de conhecimento não existisse — se houvesse mercado ou formação
+**Opção D venceria se** o risco de conhecimento não existisse: se houvesse mercado ou formação
 interna para repor as 9 pessoas. Ela permanece parcialmente em uso: o legado é encapsulado
 enquanto é estrangulado, o que é o que permite construir o novo por fora.
 
@@ -306,7 +305,7 @@ teste associados.
 
 O **Catálogo de Regras** é o artefato de maior valor produzido pelo projeto, e ele não existia
 como objetivo inicial. Ele emergiu da necessidade de registrar cada regra descoberta pela
-comparação, e é o que resolve o risco de conhecimento — muito mais que o código novo.
+comparação, e é o que resolve o risco de conhecimento, muito mais que o código novo.
 
 ## Dados
 
@@ -314,7 +313,7 @@ comparação, e é o que resolve o risco de conhecimento — muito mais que o c�
 capacidade seja virada. O Extrator sincroniza continuamente para o sistema novo, que opera em
 modo somente leitura até assumir.
 
-Essa direção única — legado para novo, nunca o inverso — é a lição do case de
+Essa direção única (legado para novo, nunca o inverso) é a lição do case de
 [e-commerce](/21-case-studies/ecommerce.md) aplicada aqui, e foi decidida com base nela: sincronização
 bidirecional entre duas fontes de verdade não funciona.
 
@@ -354,8 +353,7 @@ quais regras foram aplicadas originalmente.
 ```
 
 O critério de saída por capacidade é rigoroso: **zero divergências em 100% das operações, por
-três meses consecutivos**. Para a folha, isso significa três folhas mensais completas — 2,67
-milhões de cálculos — sem uma diferença de centavo.
+três meses consecutivos**. Para a folha, isso significa três folhas mensais completas (2,67 milhões de cálculos) sem uma diferença de centavo.
 
 **O que a comparação encontrou.** Este é o resultado mais transferível do case.
 
@@ -367,7 +365,7 @@ erros do sistema legado                           ~600 (2%)
 ```
 
 Os 600 erros do legado merecem atenção: em 34 anos, o sistema calculava alguns casos de forma
-incorreta, e ninguém sabia. A maior parte era em combinações raras — regimes de transição
+incorreta, e ninguém sabia. A maior parte era em combinações raras: regimes de transição
 específicos, benefícios com múltiplas revisões judiciais. Cada um foi levado à área jurídica, e
 17 resultaram em correção retroativa de benefícios.
 
@@ -398,7 +396,7 @@ A restrição de nunca usar cópia de produção em testes criou um problema rea
 equivalência exige casos reais. A solução foi a comparação rodar **em produção**, com o sistema
 novo em modo sombra, em vez de tentar reproduzir produção em outro ambiente.
 
-Essa decisão — comparar em produção em vez de simular — é a que tornou o método viável, e ela é
+Essa decisão (comparar em produção em vez de simular) é a que tornou o método viável, e ela é
 segura porque o sistema novo não responde a ninguém durante a fase de sombra.
 
 A aprovação dessa abordagem pelo tribunal de contas exigiu demonstrar três propriedades: o
@@ -407,7 +405,7 @@ tem seu acesso registrado e auditável como qualquer outro. Documentar isso form
 meses e foi um pré-requisito do projeto.
 
 Organizações com auditoria externa forte frequentemente descartam a comparação em produção por
-supor que ela não seria aprovada. Neste caso, ela foi — e o argumento decisivo foi que a
+supor que ela não seria aprovada. Neste caso, ela foi. O argumento decisivo foi que a
 alternativa, virar sem comparação, apresentava risco muito maior aos beneficiários.
 
 ## Escalabilidade
@@ -416,8 +414,7 @@ Não há desafio de escala. O sistema novo é dimensionado com folga larga para 
 segundo, e a folha completa roda em cerca de 40 minutos contra as 4h20 do legado.
 
 Essa redução não foi um objetivo e é um efeito colateral do hardware moderno. Ela tem um uso
-prático: a janela folgada permite rodar a folha **duas vezes** durante a coexistência — uma no
-legado, uma no novo — dentro da mesma madrugada, o que é o que viabiliza a comparação mensal.
+prático: a janela folgada permite rodar a folha **duas vezes** durante a coexistência (uma no legado, uma no novo) dentro da mesma madrugada, o que é o que viabiliza a comparação mensal.
 
 ## Confiabilidade
 
@@ -432,7 +429,7 @@ desenho reflete isso: RPO zero com replicação síncrona, RTO de 10 minutos com
 automática, e recuperação de desastre em outra região com ensaio semestral.
 
 A **folha mensal** tem tratamento especial: ela é o único processo cuja falha tem consequência
-imediata e irreversível — 890 mil pessoas sem receber. O plano de contingência inclui um
+imediata e irreversível (890 mil pessoas sem receber). O plano de contingência inclui um
 procedimento de emergência que reprocessa a folha do mês anterior com reajuste, aprovado
 juridicamente, e nunca precisou ser usado.
 
@@ -455,7 +452,7 @@ catalogadas dá uma leitura honesta do progresso.
 
 ## Implantação
 
-O sistema novo tem implantação contínua. O legado mantém seu ciclo original — mudanças ali são
+O sistema novo tem implantação contínua. O legado mantém seu ciclo original: mudanças ali são
 raras e passam pelo processo de sempre.
 
 A virada de uma capacidade é uma mudança de configuração no Roteador, feita em horário de baixa
@@ -475,7 +472,7 @@ Valor entregue cedo: o portal do participante, que não existia, foi construído
 entrou no ar no mês 6. Foi o que sustentou o projeto politicamente no primeiro ano.
 
 **Fase 2 (meses 7–20): simulação de benefício.** A primeira capacidade de cálculo. Escolhida
-porque simulação não gera pagamento — um erro é visível e inofensivo.
+porque simulação não gera pagamento: um erro é visível e inofensivo.
 
 Foi aqui que o método se provou: 11 mil divergências analisadas, 2 800 regras descobertas, e
 nenhum efeito sobre nenhum participante.
@@ -483,8 +480,7 @@ nenhum efeito sobre nenhum participante.
 **Fase 3 (meses 18–36): concessão.** Cálculo de benefício na concessão, com comparação por três
 meses antes da virada.
 
-**Fase 4 (meses 30–52): folha de pagamento.** A capacidade central. Comparada por seis meses —
-o dobro do critério padrão — antes da virada.
+**Fase 4 (meses 30–52): folha de pagamento.** A capacidade central. Comparada por seis meses (o dobro do critério padrão) antes da virada.
 
 **Fase 5 (meses 48–72): revisões, retroativos e casos especiais.** A cauda longa, que concentra a
 maior parte das regras raras.
@@ -539,17 +535,17 @@ semanas em vez de anos. O risco que motivou o projeto foi resolvido.
 E há um resultado que não estava em nenhuma meta: o Catálogo de Regras virou o documento de
 referência do Instituto sobre a própria legislação previdenciária aplicada. Ele é consultado pela
 área jurídica em contestações judiciais, porque descreve com precisão qual regra foi aplicada a
-qual benefício, em qual vigência, com a fonte legal correspondente — informação que antes só
+qual benefício, em qual vigência, com a fonte legal correspondente: informação que antes só
 existia dentro do COBOL, e que nenhum parecer conseguia citar com segurança.
 
 ## O que este case ensina
 
-**A comparação em paralelo não valida — ela descobre.** As 6.400 regras catalogadas não existiam
+**A comparação em paralelo não valida: ela descobre.** As 6.400 regras catalogadas não existiam
 escritas em lugar nenhum. Tentar documentá-las antes de implementar era o caminho da Opção A, e é
 onde projetos desta natureza fracassam.
 
 **O sistema legado estava certo, quase sempre.** 77% das divergências eram erros do sistema novo.
-Tratar o legado como referência, e não como suspeito, é o que torna o método confiável — e os 2%
+Tratar o legado como referência, e não como suspeito, é o que torna o método confiável, e os 2%
 em que ele errava foram encontrados justamente por levá-lo a sério.
 
 **Entregar valor cedo é requisito, não virtude.** Um projeto de sete anos em organização pública
@@ -557,14 +553,13 @@ atravessa duas gestões. O portal do participante no mês 6 comprou a legitimida
 os cinco anos seguintes.
 
 **Toda fase precisa terminar em estado estável.** A restrição orçamentária forçou um desenho em
-que o projeto pode parar a qualquer momento sem deixar nada pela metade. Isso melhorou o plano —
-e é uma disciplina que projetos com orçamento estável raramente adotam.
+que o projeto pode parar a qualquer momento sem deixar nada pela metade. Isso melhorou o plano, e é uma disciplina que projetos com orçamento estável raramente adotam.
 
 ## Conceitos Relacionados
 
 - [Estrangulamento](/16-legacy-modernization/strangler-fig.md).
-- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md) — a lição de fonte única de verdade.
-- [Case: Núcleo Bancário Digital](/21-case-studies/banking.md) — o mesmo método de sombra.
+- [Case: E-commerce Omnicanal](/21-case-studies/ecommerce.md): a lição de fonte única de verdade.
+- [Case: Núcleo Bancário Digital](/21-case-studies/banking.md): o mesmo método de sombra.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 
 ## Exercício Prático
@@ -572,7 +567,7 @@ e é uma disciplina que projetos com orçamento estável raramente adotam.
 Escolha um sistema legado do seu contexto e responda: se você precisasse comprovar que um sistema
 novo se comporta igual a ele, sobre quais casos você compararia?
 
-Se a resposta for "não sei quais casos existem", você está na mesma situação deste case — e a
+Se a resposta for "não sei quais casos existem", você está na mesma situação deste case, e a
 comparação em produção é o único método que produz a lista.
 
 ## Perguntas de Entrevista

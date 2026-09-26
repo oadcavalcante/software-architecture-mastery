@@ -2,7 +2,7 @@
 id: event-driven-integration
 title: Integração Orientada a Eventos
 sidebar_position: 5
-description: Publicar fatos entre sistemas — e a diferença entre evento interno e evento de integração.
+description: Publicar fatos entre sistemas, e a diferença entre evento interno e evento de integração.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, schema-evolution, integration-anti-corruption]
 canonical_for: [catálogo de eventos, evento fino, evento gordo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -29,7 +29,7 @@ Os fundamentos estão em
 Aqui o foco é o que muda quando o evento atravessa a fronteira de um sistema para
 outro: ele deixa de ser detalhe interno e vira **contrato público**.
 
-Essa distinção — evento interno contra evento de integração — é a decisão que
+Essa distinção (evento interno contra evento de integração) é a decisão que
 separa arquiteturas que evoluem das que travam.
 
 ## Problema
@@ -41,7 +41,7 @@ Meses depois, o modelo interno precisa mudar. E não pode: quatro sistemas
 dependem daquele formato, e dois deles são de outros times.
 
 O evento interno virou contrato público sem ninguém decidir isso. O desacoplamento
-que motivou a adoção produziu um acoplamento pior — porque agora o modelo interno
+que motivou a adoção produziu um acoplamento pior, porque agora o modelo interno
 está congelado.
 
 ## Conceitos Centrais
@@ -67,20 +67,20 @@ conseguem mais refatorar.
 
 ### Evento fino ou gordo
 
-**Fino — notificação.** Carrega o identificador e o tipo. O consumidor consulta
+**Fino (notificação).** Carrega o identificador e o tipo. O consumidor consulta
 para saber o resto.
 
 Contrato pequeno, fácil de versionar. E devolve o acoplamento de disponibilidade:
 o consumidor precisa que o publicador responda.
 
-**Gordo — com estado.** Carrega os dados. O consumidor não consulta ninguém.
+**Gordo (com estado).** Carrega os dados. O consumidor não consulta ninguém.
 
 Desacoplamento completo. E o evento vira um contrato amplo: cada campo publicado
 é compromisso.
 
 Um ponto que decide muitos casos: o evento gordo carrega o estado **no momento do
 fato**, e o fino traz o estado **atual** na hora da consulta. Para auditoria e
-para processamento histórico, a primeira é a correta — o preço no momento do
+para processamento histórico, a primeira é a correta: o preço no momento do
 pedido não é o preço de hoje.
 
 Ver [normalização](/07-data-architecture/normalization.md).
@@ -90,7 +90,7 @@ Ver [normalização](/07-data-architecture/normalization.md).
 `PedidoConfirmado`, não `AtualizarStatusPedido`.
 
 Se o nome do evento descreve o que o consumidor deve fazer, o publicador está
-comandando — e conhece os consumidores, o que anula o desacoplamento.
+comandando, e conhece os consumidores, o que anula o desacoplamento.
 
 E o vocabulário precisa ser o do negócio, não o da tabela. `LinhaPedidoInserida`
 expõe o modelo interno; `ItemAdicionadoAoPedido` descreve o fato.
@@ -103,8 +103,8 @@ quem consome, ninguém consegue mudar nada com segurança.
 O catálogo responde a pergunta que o desacoplamento tornou difícil: **quem quebra
 se eu mudar isto?**
 
-Junto com o registro de esquema — que recusa mudanças incompatíveis na publicação
-— é o que permite evoluir eventos sem incidente. Ver
+Junto com o registro de esquema (que recusa mudanças incompatíveis na publicação)
+é o que permite evoluir eventos sem incidente. Ver
 [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 
 ### O consumidor não deve confiar no que não precisa
@@ -123,7 +123,7 @@ futura.
 Dois sistemas publicando eventos relacionados não têm ordem garantida entre si.
 `PagamentoAprovado` pode chegar antes de `PedidoCriado`.
 
-O consumidor precisa tolerar isso — tipicamente guardando o evento fora de
+O consumidor precisa tolerar isso, tipicamente guardando o evento fora de
 sequência ou consultando o estado atual em vez de assumir a ordem.
 
 Ver [ordenação](/06-distributed-systems/ordering.md).
@@ -162,18 +162,18 @@ integração síncrona cabe, e os eventos ficam para as consequências assíncro
 
 ## Alternativas
 
-- **[REST](/08-integration-architecture/rest.md)** — quando a resposta é necessária.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — eventos para fora da organização, sem exigir que
+- **[REST](/08-integration-architecture/rest.md)**: quando a resposta é necessária.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: eventos para fora da organização, sem exigir que
   o parceiro consuma seu intermediário.
-- **Captura de mudanças do banco** — publicar a partir do log do banco, sem tocar
-  a aplicação. Rápido de adotar, e publica o modelo interno — com todo o
+- **Captura de mudanças do banco**: publicar a partir do log do banco, sem tocar
+  a aplicação. Rápido de adotar, e publica o modelo interno, com todo o
   acoplamento que isso traz.
-- **Consulta periódica** — mais simples, e suficiente quando o atraso é
+- **Consulta periódica**: mais simples, e suficiente quando o atraso é
   aceitável.
 
-A terceira merece o alerta: capturar mudanças das tabelas do modelo é
+A terceira merece o alerta. Capturar mudanças das tabelas do modelo é
 frequentemente vendida como integração orientada a eventos, e é exatamente o
-antipadrão descrito acima — o esquema da tabela vira contrato público. Aplicada a
+antipadrão descrito acima: o esquema da tabela vira contrato público. Aplicada a
 uma [caixa de saída transacional](/08-integration-architecture/messaging-integration.md),
 cujas linhas já são o evento de integração traduzido, a captura é só o mecanismo
 de publicação: o contrato continua sendo o que a tradução decidiu.
@@ -223,13 +223,13 @@ origem.
 
 **Nomear evento como comando.** `EnviarEmailDeBoasVindas` é uma ordem disfarçada: o publicador decidiu o que o consumidor faz. `ClienteCadastrado` deixa cada consumidor decidir se reage e como.
 
-**Não manter catálogo.** Sem um lugar que liste os eventos, seus esquemas e quem os consome, ninguém consegue avaliar o impacto de uma mudança — e a avaliação acaba sendo feita em produção.
+**Não manter catálogo.** Sem um lugar que liste os eventos, seus esquemas e quem os consome, ninguém consegue avaliar o impacto de uma mudança, e a avaliação acaba sendo feita em produção.
 
-**Não versionar.** O esquema vai mudar. Sem versão explícita e sem período de convivência, a mudança exige que todos os consumidores atualizem no mesmo instante — coordenação que o modelo por eventos existia para evitar.
+**Não versionar.** O esquema vai mudar. Sem versão explícita e sem período de convivência, a mudança exige que todos os consumidores atualizem no mesmo instante: coordenação que o modelo por eventos existia para evitar.
 
 **Consumidor desserializando o evento inteiro.** Exigir todos os campos faz o consumidor quebrar com a adição de um campo novo, que deveria ser mudança compatível. Ler só o que se usa é o que permite o publicador evoluir.
 
-**Confundir captura de mudanças do banco com integração por eventos.** Capturar alterações das tabelas do modelo publica o esquema físico para fora. É acoplamento ao banco com aparência de evento — e o pior tipo, porque parece desacoplado.
+**Confundir captura de mudanças do banco com integração por eventos.** Capturar alterações das tabelas do modelo publica o esquema físico para fora. É acoplamento ao banco com aparência de evento, e o pior tipo, porque parece desacoplado.
 
 ## Exemplo Real
 
@@ -242,7 +242,7 @@ interno do serviço de agendamento.
 Funcionou por dezoito meses. Depois:
 
 **Refatoração impossível.** O serviço de agendamento precisava separar o conceito
-de "consulta" de "procedimento" — uma mudança de modelo que o negócio exigia.
+de "consulta" de "procedimento": uma mudança de modelo que o negócio exigia.
 Três consumidores dependiam do formato antigo, e um era de um parceiro externo. A
 refatoração ficou parada por sete meses.
 
@@ -256,7 +256,7 @@ rastrear as quatro cópias. Ver
 intelligence que ninguém sabia que consumia o tópico.
 
 **Ciclo.** `ConsultaAgendada` disparava `FaturaGerada`, que em cancelamentos
-disparava `ConsultaReagendada` — que publicava `ConsultaAgendada`. Um caso raro
+disparava `ConsultaReagendada`, que publicava `ConsultaAgendada`. Um caso raro
 gerou um laço que publicou 200 mil eventos numa madrugada.
 
 A reformulação, ao longo de um ano:
@@ -267,7 +267,7 @@ saiu; ficou um identificador opaco de paciente, e quem precisa do dado consulta
 com autorização.
 
 **Catálogo** com publicador, consumidores e esquema. Tornou visível o consumidor
-desconhecido e permitiu ver o ciclo — que ninguém tinha percebido em dezoito
+desconhecido e permitiu ver o ciclo, que ninguém tinha percebido em dezoito
 meses porque nenhum diagrama existia.
 
 **Registro de esquema** com compatibilidade obrigatória.
@@ -278,14 +278,14 @@ Depois disso, a refatoração de "consulta" e "procedimento" foi feita em três
 semanas, sem tocar em nenhum consumidor.
 
 O aprendizado que ficou: a camada de tradução parecia cerimônia desnecessária no
-início — "é o mesmo dado, por que copiar?". O custo dela é pequeno e constante; o
+início ("é o mesmo dado, por que copiar?"). O custo dela é pequeno e constante; o
 custo de não tê-la foi sete meses de uma mudança de negócio bloqueada.
 
 ## Conceitos Relacionados
 
 - [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md).
 - [Integração por Mensageria](/08-integration-architecture/messaging-integration.md).
-- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — onde a tradução vive.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md): onde a tradução vive.
 - [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
 ## Exercício Prático
@@ -293,7 +293,7 @@ custo de não tê-la foi sete meses de uma mudança de negócio bloqueada.
 Pegue um evento que seu sistema publica para fora. Pergunte: se o modelo interno
 mudar amanhã, este evento muda junto?
 
-Se a resposta for sim, você não tem evento de integração — tem seu modelo interno
+Se a resposta for sim, você não tem evento de integração; tem seu modelo interno
 exposto como contrato público.
 
 ## Perguntas de Entrevista

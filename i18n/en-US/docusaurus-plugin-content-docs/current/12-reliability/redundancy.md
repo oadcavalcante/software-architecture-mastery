@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [failover, fault-tolerance, availability-metrics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,8 +27,8 @@ more than one provider.
 The arithmetic is attractive. Two components at 99% availability each, if **independent**, give 99.99%
 combined.
 
-The word that decides everything is the emphasized one. Correlated failures — the ones that hit every copy
-at the same time — nullify redundancy, and they are far more common than the arithmetic suggests.
+The word that decides everything is the emphasized one. Correlated failures (the ones that hit every copy
+at the same time) nullify redundancy, and they are far more common than the arithmetic suggests.
 
 ## Problem
 
@@ -81,7 +81,7 @@ N+M              tolerates M simultaneous failures
 **Active-active** has a decisive operational advantage: the standby copy is being exercised all the time.
 In a passive configuration, the standby may have been broken for months with nobody knowing.
 
-That is the practical reason to prefer active-active when possible — not resource utilization, but the fact
+That is the practical reason to prefer active-active when possible: not resource utilization, but the fact
 that the recovery path is the normal path. Cost, idle capacity and coordination of the two topologies are
 covered in [multi-region](/09-cloud-architecture/multi-region.md).
 
@@ -113,7 +113,7 @@ different providers       against provider failure
 different implementations against a software defect
 ```
 
-The last is the most effective against a code defect and the most expensive — maintaining two
+The last is the most effective against a code defect and the most expensive: maintaining two
 implementations of the same system rarely justifies itself outside safety-critical contexts.
 
 The first three are practicable, at increasing cost. See
@@ -122,7 +122,7 @@ The first three are practicable, at increasing cost. See
 ### Gradual deployment is redundancy in time
 
 Against a code defect, spatial redundancy does not help. What helps is not deploying to everything at the
-same time — in phases or by [canary](/14-devops-and-platform/canary.md):
+same time, in phases or by [canary](/14-devops-and-platform/canary.md):
 
 ```text
 phased deployment   a fraction receives the new version; observe; advance
@@ -131,7 +131,7 @@ fast rollback       going back in minutes
 ```
 
 That protects exactly the class of failure that causes the most incidents in mature systems, and it does
-not appear in discussions about redundancy — because it is not about having more copies.
+not appear in discussions about redundancy, because it is not about having more copies.
 
 ### Redundancy adds failure modes
 
@@ -160,7 +160,7 @@ not resolve.
 - Unavailability has a relevant cost.
 - Service needs to be maintained during maintenance.
 - There is an agreed availability requirement.
-- The component is stateless — the redundancy is cheap.
+- The component is stateless: the redundancy is cheap.
 
 ## When Not to Use
 
@@ -172,7 +172,7 @@ not resolve.
 
 **Against a code defect.** There the answer is gradual deployment.
 
-**When the extra copy costs more per year than the unavailability it prevents** — expected minutes of
+**When the extra copy costs more per year than the unavailability it prevents**: expected minutes of
 downtime per year times the cost of one minute down. The typical case: doubling the infrastructure to cut
 unavailability that already fits within the error budget.
 
@@ -180,11 +180,11 @@ unavailability that already fits within the error budget.
 
 ## Alternatives
 
-- **Fast recovery** — instead of avoiding the failure, shortening the time to resume. Frequently cheaper
+- **Fast recovery**: instead of avoiding the failure, shortening the time to resume. Frequently cheaper
   and sufficient.
-- **[Graceful degradation](/12-reliability/graceful-degradation.md)** — operating with less.
-- **Gradual deployment** — against the most common class of failure.
-- **Simplifying** — fewer components fail less. It is the least cited alternative and frequently the
+- **[Graceful degradation](/12-reliability/graceful-degradation.md)**: operating with less.
+- **Gradual deployment**: against the most common class of failure.
+- **Simplifying**: fewer components fail less. It is the least cited alternative and frequently the
   correct one.
 
 ## Trade-offs
@@ -226,8 +226,8 @@ with the same configuration dependency fail together. What protects is independe
 **Not sizing for the loss.** Redundancy with no headroom changes the failure mode: instead of going down
 right away, the system survives the loss and then saturates with the redistributed load.
 
-**Not exercising the standby.** A passive component that never receives traffic accumulates silent defects
-— divergent configuration, an expired certificate, an old version.
+**Not exercising the standby.** A passive component that never receives traffic accumulates silent defects:
+divergent configuration, an expired certificate, an old version.
 
 **Ignoring shared dependencies.** DNS, authentication, the control plane and the configuration system are
 common to every copy, and they take all of them down at the same time.
@@ -262,11 +262,11 @@ The fixes attacked the correlation, not the quantity:
 certificate came to degrade one zone, not the system.
 
 **Phased configuration.** Configuration changes came to be applied zone by zone, with observation between
-them — the same treatment given to code deployment.
+them, the same treatment given to code deployment.
 
 **[Canary](/14-devops-and-platform/canary.md) deployment.** 5% of the traffic on the new version for an
 hour, compared against the current version not only on errors and latency but on the slope of memory
-consumption per request served — with little traffic the leak does not get to degrade the instance within
+consumption per request served: with little traffic the leak does not get to degrade the instance within
 the window, but the slope diverges in the first minutes. The next memory leak was detected that way, with
 5% impact, not 100%.
 
@@ -278,18 +278,18 @@ And a decision in the opposite direction: the proposal to add a fourth zone was 
 showed that none of the three incidents would have been avoided by it, and the cost would be significant.
 
 The detail the team highlights: they had redundancy to spare and correlation everywhere. The question "what
-would make the three zones go down together?" had never been asked — and the answer had seven items.
+would make the three zones go down together?" had never been asked, and the answer had seven items.
 
 ## Related Concepts
 
-- [Failover](/12-reliability/failover.md) — the switching mechanism.
+- [Failover](/12-reliability/failover.md): the switching mechanism.
 - [Fault Tolerance](/12-reliability/fault-tolerance.md).
 - [Availability Zones](/09-cloud-architecture/availability-zones.md).
-- [Availability](/06-distributed-systems/availability.md) — the arithmetic.
+- [Availability](/06-distributed-systems/availability.md): the arithmetic.
 
 ## Practical Exercise
 
-Choose a redundant component in your system and list everything the copies share — code, configuration,
+Choose a redundant component in your system and list everything the copies share: code, configuration,
 certificate, dependency, quota, credential, zone.
 
 Each item on the list is a failure the redundancy does not cover.

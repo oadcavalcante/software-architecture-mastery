@@ -2,7 +2,7 @@
 id: team-topologies
 title: Team Topologies
 sidebar_position: 19
-description: Four team types and three interaction modes — the vocabulary that makes organizational design discussable.
+description: "Four team types and three interaction modes: the vocabulary that makes organizational design discussable."
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, organizational-architecture, architecture-ownership]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 If architecture reproduces the communication structure, then designing teams is an architectural
-activity — and it needs vocabulary, or it becomes improvisation.
+activity, and it needs vocabulary, or it becomes improvisation.
 
 *Team Topologies*, by Skelton and Pais, provides that vocabulary: four team types and three modes
 of interaction between them.
@@ -57,7 +57,7 @@ nobody can say what each one does in one sentence
 ```
 
 And the most common symptom is **excessive cognitive load**: a team responsible for more things
-than it can hold in mind. It doesn't fail visibly — it gets slow, error-prone, and resistant to
+than it can hold in mind. It doesn't fail visibly: it gets slow, error-prone, and resistant to
 change. See
 [platform engineering](/14-devops-and-platform/platform-engineering.md).
 
@@ -93,7 +93,7 @@ platform team         offers self-service capability,
 
 A platform's interaction mode is **X-as-a-service**: the stream-aligned team consumes it whenever
 it wants, without asking. If it has to open a ticket and wait, the real mode is asymmetric
-collaboration — and the bottleneck appears as soon as request volume exceeds what the platform
+collaboration, and the bottleneck appears as soon as request volume exceeds what the platform
 team can handle.
 
 See [centralization vs. decentralization](/20-trade-offs/centralization-vs-decentralization.md).
@@ -110,7 +110,7 @@ failure     it becomes a permanent dependency
 The mode is **facilitating**, and the defining characteristic is the exit date. An enabling team
 working indefinitely with the same stream-aligned team has stopped enabling and started executing.
 
-Quality, security and data teams frequently should be enabling and become executors — which
+Quality, security and data teams frequently should be enabling and become executors. That
 reproduces the queue the structure existed to avoid.
 
 ### The complicated subsystem is the exception
@@ -140,7 +140,7 @@ germane       the domain learning that creates value
 
 The size of a team's scope is limited by the cognitive load it can bear, not by its execution
 capacity. A team of eight people responsible for twelve services in distinct domains is not
-overloaded with work — it is overloaded with context.
+overloaded with work but with context.
 
 The symptom: the team's people cannot explain what the other components do.
 
@@ -155,8 +155,8 @@ facilitating    when competence is missing, not capacity
 ```
 
 The most common error is **permanent collaboration**: two teams working together indefinitely
-because the boundary between them was never established. Collaboration is expensive — it consumes
-both teams' attention — and it should be treated as a phase, not a state.
+because the boundary between them was never established. Collaboration is expensive (it consumes
+both teams' attention), and it should be treated as a phase, not a state.
 
 The question that resolves it: "what needs to become clear for this to become a contract?"
 
@@ -192,14 +192,14 @@ mode is a choice that should change when the boundary matures.
 
 ## When Not to Use
 
-**As a complete reorganization** by adopting a model — the cost of reorganizing is high and the
+**As a complete reorganization** by adopting a model: the cost of reorganizing is high and the
 model is better as a diagnosis.
 
-**In an organization with few teams** — with three or four teams that fit in a single
+**In an organization with few teams**: with three or four teams that fit in a single
 conversation, dependencies are already visible to everyone, and classifying types and modes reveals
 nothing the weekly conversation doesn't already show.
 
-**Reorganizing teams without changing the architecture** — if the services stay coupled as before,
+**Reorganizing teams without changing the architecture**: if the services stay coupled as before,
 Conway's Law pulls communication back to the old design, and the new labels end up describing a
 structure that doesn't exist.
 
@@ -211,9 +211,9 @@ structure that doesn't exist.
 
 ## Alternatives
 
-- **Teams by domain, with no formal taxonomy** — works well in small organizations.
-- **Communities of practice** — to spread competence without creating an enabling team.
-- **Rotating people** — transfers knowledge with no new structure, and it is cheap.
+- **Teams by domain, with no formal taxonomy**: works well in small organizations.
+- **Communities of practice**: to spread competence without creating an enabling team.
+- **Rotating people**: transfers knowledge with no new structure, and it is cheap.
 
 The third is underrated: moving one person for three months resolves many cases people would try
 to solve with an enabling team.
@@ -259,7 +259,7 @@ their parallel solutions.
 and the enabling team ends up doing the work it was supposed to teach.
 
 **Measuring load by headcount** instead of by context. The answer to slowness becomes hiring, and
-the bigger team stays responsible for the same twelve domains — now with more internal
+the bigger team stays responsible for the same twelve domains, now with more internal
 coordination.
 
 **Adopting the taxonomy** as an end in itself. Every team gets a label, the org chart changes, and
@@ -271,7 +271,7 @@ A logistics company with 190 engineers had 22 teams and a constant complaint: ev
 and nobody could say why. Engineering capacity had grown 40% in two years and delivery had not kept
 up.
 
-A mapping classified the 22 teams and the real interaction modes — not the declared ones:
+A mapping classified the 22 teams and the real interaction modes (not the declared ones):
 
 ```text
 stream-aligned teams, delivering end to end             6
@@ -290,7 +290,7 @@ pairs collaborating in fact, undeclared          31
 pairs with a functioning service contract         7
 ```
 
-Thirty-one pairs collaborating in fact — each one representing recurring coordination with no
+Thirty-one pairs collaborating in fact, each one representing recurring coordination with no
 established boundary. That number explained the slowness better than any technical analysis.
 
 The changes, over 12 months:
@@ -303,11 +303,11 @@ exit date.
 documentation, and the metric of "how many teams use it without opening a ticket". Requests that
 could not be met by self-service became roadmap items, not queues.
 
-**The two permanent enabling teams** — security and data — moved to time-boxed engagements. Security
+**The two permanent enabling teams** (security and data) moved to time-boxed engagements. Security
 kept a permanent automated verification function, which is a service, and transferred design review
 to the teams, as facilitating with a date.
 
-**The unjustified complicated subsystem** — a team maintaining the pricing engine — was dissolved,
+**The unjustified complicated subsystem** (a team maintaining the pricing engine) was dissolved,
 and the competence distributed between two stream-aligned teams, with six months of enablement.
 
 **Undeclared collaborations** were handled case by case: 18 became service contracts with a declared
@@ -327,10 +327,10 @@ engineers                                             190 (unchanged)
 ```
 
 The last number is what leadership highlights: delivery time fell almost by half with no hiring. The
-bottleneck had never been capacity — it was coordination.
+bottleneck had been coordination, never capacity.
 
 The detail the team highlights: measuring "collaborations in fact, undeclared" was the decisive
-instrument. It is simple to obtain — counting recurring dependencies between teams over a quarter —
+instrument. It is simple to obtain (counting recurring dependencies between teams over a quarter),
 and the company had never measured it.
 
 ## Related Concepts

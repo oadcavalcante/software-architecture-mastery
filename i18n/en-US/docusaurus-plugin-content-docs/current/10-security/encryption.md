@@ -2,7 +2,7 @@
 id: encryption
 title: Encryption
 sidebar_position: 6
-description: In transit, at rest and in use — what each one protects, and why "it is encrypted" is not an answer.
+description: "In transit, at rest and in use: what each one protects, and why \"it is encrypted\" is not an answer."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, network-security, data-protection]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ at rest      against whoever obtains the storage medium
 in use       against whoever has access to the execution environment
 ```
 
-"It is encrypted" is not an answer, because it does not say which of those — and each one protects against
+"It is encrypted" is not an answer, because it does not say which of those, and each one protects against
 a different threat, leaving the others open.
 
 ## Problem
@@ -42,7 +42,7 @@ That protects against a specific scenario: somebody physically obtains the disk.
 that scenario is remote.
 
 And it does not protect against the likely scenario: a compromised credential uses the application to read
-the data — and the application decrypts normally, because that is what it does.
+the data, and the application decrypts normally, because that is what it does.
 
 The result is a requirement met on paper, with no real risk reduction.
 
@@ -60,7 +60,7 @@ In practice, the two are combined: the asymmetric one establishes a symmetric ke
 encrypted with it. That is how TLS works.
 
 A third category, frequently confused with encryption: **hash functions** are one-way and have no key.
-Passwords are not encrypted — they go through a slow derivation function, designed to resist mass guessing.
+Passwords are not encrypted: they go through a slow derivation function, designed to resist mass guessing.
 Encrypting a password instead of deriving is a classic mistake.
 
 ### In transit
@@ -72,7 +72,7 @@ trustworthy" is the same one [zero trust](/10-security/zero-trust.md) dismantles
 
 Two points that are usually missing:
 
-**Certificate verification.** Disabling it to "fix" an error nullifies the whole protection — the channel
+**Certificate verification.** Disabling it to "fix" an error nullifies the whole protection: the channel
 is encrypted with whoever is in the middle.
 
 **Mutual TLS** between services, when both ends need to identify each other. See
@@ -86,7 +86,7 @@ reading a discarded volume.
 It does **not** protect against: a compromised application credential, an improper query, a leak from an
 authorization defect, or an administrator with legitimate access.
 
-That does not make it useless — it is a regulatory requirement and cheap defense in depth. It makes it
+That does not make it useless: it is a regulatory requirement and cheap defense in depth. It makes it
 insufficient as an answer to "how do we protect this data?".
 
 ### Field-level encryption is what changes the calculation
@@ -96,8 +96,8 @@ encryption at rest does not: whoever accesses the database reads encrypted data.
 
 The cost is real and needs to be acknowledged:
 
-**You cannot query it.** Searching by an encrypted field requires deterministic encryption — which leaks
-the repetition pattern — or a separate index.
+**You cannot query it.** Searching by an encrypted field requires deterministic encryption (which leaks
+the repetition pattern) or a separate index.
 
 **Sorting and comparison** stop working.
 
@@ -111,7 +111,7 @@ parties' credentials.
 
 A specific and powerful application: encrypting each data subject's data with a key of their own.
 
-Deleting that person's data becomes **discarding the key** — the record remains, and the content becomes
+Deleting that person's data becomes **discarding the key**: the record remains, and the content becomes
 unrecoverable.
 
 That resolves the conflict between immutability and the right to erasure in
@@ -126,13 +126,13 @@ Encryption in use protects data while it is being processed: hardware enclaves i
 memory even from the operating system and the provider. The access it blocks is that of the platform
 operator and of another tenant on the same host.
 
-The cost is specific hardware, lower performance and hard debugging — and it does not change the likely
+The cost is specific hardware, lower performance and hard debugging, and it does not change the likely
 scenario: the application inside the enclave still decrypts for whoever it authorizes. It is justified
 when the provider itself is in the threat model; outside that, this document deals with the other two.
 
 ### Do not implement it
 
-The rule whose mistakes do not show up in testing — and that is why it is the first to give way under a deadline:
+The rule whose mistakes do not show up in testing, and that is why it is the first to give way under a deadline:
 
 **Use mature libraries and standardized algorithms.** Do not invent a scheme, do not combine primitives on
 your own, do not use modes of operation without understanding their requirements.
@@ -140,7 +140,7 @@ your own, do not use modes of operation without understanding their requirements
 The mistakes are subtle and silent: a reused initialization vector, a mode with no authentication, a
 comparison that leaks timing. The system works, the tests pass, and the protection does not exist.
 
-Prefer constructions that make mistakes hard — authenticated encryption, high-level libraries with few
+Prefer constructions that make mistakes hard: authenticated encryption, high-level libraries with few
 options.
 
 ## Mental Model
@@ -150,10 +150,10 @@ protecting.
 
 ## When to Use
 
-- **In transit:** on every connection that crosses a shared network — including the internal one, which
+- **In transit:** on every connection that crosses a shared network, including the internal one, which
   other services and operators also reach. The legitimate exception is the helper process on the same host
   that terminates TLS on the service's behalf.
-- **At rest:** whenever available — it is cheap.
+- **At rest:** whenever available. It is cheap.
 - **On the field:** for sensitive data, when database access is a real threat.
 - **Per subject:** when there is a deletion requirement in immutable storage.
 - **Asymmetric:** when the parties do not share a secret beforehand.
@@ -172,7 +172,7 @@ protecting.
 
 **With certificate verification disabled.**
 
-**When the problem is authorization.** Encryption does not fix a wrong permission — and it is frequently
+**When the problem is authorization.** Encryption does not fix a wrong permission, and it is frequently
 adopted as if it did.
 
 ## Alternatives
@@ -181,10 +181,10 @@ To protect data without encrypting:
 
 - **Not collecting it.** See [data protection](/10-security/data-protection.md).
 - **[Tokenization](/10-security/data-protection.md#tokenization-takes-the-data-out-of-the-system)** and
-  **[pseudonymization](/10-security/data-protection.md#pseudonymization-and-anonymization-are-not-the-same-thing)**
-  — instead of encrypting the data in place, they take it out of the system or unlink it from the subject;
+  **[pseudonymization](/10-security/data-protection.md#pseudonymization-and-anonymization-are-not-the-same-thing)**:
+  instead of encrypting the data in place, they take it out of the system or unlink it from the subject;
   there is no key to protect because there is nothing to decrypt.
-- **Proper authorization** — frequently the control that was actually missing.
+- **Proper authorization**: frequently the control that was actually missing.
 
 ## Trade-offs
 
@@ -213,7 +213,7 @@ To protect data without encrypting:
 
 **A mode with no authentication.** It allows undetected alteration.
 
-**A lost key.** Unrecoverable data — the opposite failure mode and equally serious.
+**A lost key.** Unrecoverable data: the opposite failure mode and equally serious.
 
 **A requirement met with no risk reduced.** Encryption at rest against a compromised-credential threat.
 
@@ -223,18 +223,18 @@ To protect data without encrypting:
 does not protect against a compromised credential, which is the most common route. Without naming the
 threat, you encrypt what was not at risk.
 
-**Encrypting a password instead of deriving it.** Encryption is reversible — whoever obtains the key
+**Encrypting a password instead of deriving it.** Encryption is reversible: whoever obtains the key
 obtains every password. A password requires a slow, salted derivation function, which has no way back.
 
 **Storing the key next to the data.** The key in the same database, on the same server or in the same
 repository nullifies the encryption: whoever reaches one reaches the other.
 
-**Implementing the scheme.** Cryptography fails in details — initialization vector reuse, a
+**Implementing the scheme.** Cryptography fails in details: initialization vector reuse, a
 timing-susceptible comparison, a mode with no authentication. Reviewed libraries exist precisely because
 those mistakes are not visible in testing.
 
 **Disabling certificate verification.** Done to unblock a development environment, it survives to
-production — and turns the encrypted channel into a channel encrypted with whoever is in the middle.
+production, and turns the encrypted channel into a channel encrypted with whoever is in the middle.
 
 **Treating encryption as a substitute for authorization.** Data encrypted at rest is returned decrypted to
 whoever the application lets query. If the authorization is wrong, encryption prevents nothing.
@@ -249,8 +249,8 @@ the requirement marked as met.
 Eighteen months later, an incident: an application credential leaked through an error log, and 40,000
 patients' data was extracted.
 
-Encryption at rest had no effect at all. The application decrypted the data normally — that is what it does
-— and the credential allowed using it.
+Encryption at rest had no effect at all. The application decrypted the data normally (that is what it does),
+and the credential allowed using it.
 
 The subsequent review changed the approach, starting by naming the threats:
 
@@ -263,15 +263,15 @@ a curious database administrator    field encryption + auditing
 a deletion request                  per-subject encryption
 ```
 
-The last three lines had no control at all — including the one for the incident's vector.
+The last three lines had no control at all, including the one for the incident's vector.
 
 What was implemented:
 
 **Field-level encryption** for the document number, the diagnosis and the test result, with keys managed
 outside the database. Searching by document number came to use a separate keyed-hash index (HMAC, key outside the
-database) — a plain hash would be enumerable offline, because the space of document numbers is small.
+database). A plain hash would be enumerable offline, because the space of document numbers is small.
 
-**Per-subject encryption** for the health data, allowing deletion by discarding a key — which resolved a
+**Per-subject encryption** for the health data, allowing deletion by discarding a key. That resolved a
 regulatory requirement that had been pending for two years.
 
 **A reduced scope** for the application credential, with access only to the necessary tables. See
@@ -282,20 +282,20 @@ regulatory requirement that had been pending for two years.
 **Log filtering** to avoid recording credentials.
 
 The point the team underlines: the regulatory requirement said "the data must be encrypted", and they met
-it literally. The question nobody asked — "against whom?" — would have changed the entire answer. Naming the threat, narrowing the
+it literally. The question nobody asked, "against whom?", would have changed the entire answer. Naming the threat, narrowing the
 credential's scope and filtering logs were cheap at any point; field-level and per-subject encryption cost
-a lot because they came later — migrating queries and rewriting the history.
+a lot because they came later: migrating queries and rewriting the history.
 
 ## Related Concepts
 
-- [Key Management](/10-security/key-management.md) — without it, encryption does not work.
-- [Data Protection](/10-security/data-protection.md) — the alternatives to encrypting.
-- [Network Security](/10-security/network-security.md) — encryption in transit.
+- [Key Management](/10-security/key-management.md): without it, encryption does not work.
+- [Data Protection](/10-security/data-protection.md): the alternatives to encrypting.
+- [Network Security](/10-security/network-security.md): encryption in transit.
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md).
 
 ## Practical Exercise
 
-For each type of sensitive data in your system, write down which access it is protected against — and which
+For each type of sensitive data in your system, write down which access it is protected against, and which
 it is not.
 
 The right-hand column usually includes "a compromised application credential", which is the most likely

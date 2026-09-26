@@ -2,7 +2,7 @@
 id: domain-driven-design
 title: Domain-Driven Design
 sidebar_position: 0
-description: Estruturar software a partir do domínio — e decidir onde vale o custo de fazê-lo.
+description: Estruturar software a partir do domínio, e decidir onde vale o custo de fazê-lo.
 doc_type: index
 level: 2
 difficulty: intermediário
@@ -13,14 +13,14 @@ objective: >
 prerequisites: [software-design]
 related: [design-patterns, system-design, enterprise-architecture]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
 # Domain-Driven Design
 
 DDD é a proposta de que a estrutura do software deve espelhar a estrutura do
-negócio — e de que a linguagem usada no código deve ser a mesma usada por quem
+negócio, e de que a linguagem usada no código deve ser a mesma usada por quem
 entende o problema.
 
 ## O problema desta seção
@@ -35,7 +35,7 @@ DDD ataca isso eliminando a tradução: o código usa os termos do domínio, com
 significado exato que eles têm no domínio.
 
 O segundo problema é de escala organizacional. Um modelo único e consistente
-para toda a empresa é atraente e impossível — "cliente" significa coisas
+para toda a empresa é atraente e impossível: "cliente" significa coisas
 genuinamente diferentes em cobrança, logística e suporte. Forçar um modelo
 comum produz um esquema que não serve bem a ninguém. DDD estratégico resolve
 isso admitindo múltiplos modelos com fronteiras explícitas.
@@ -44,7 +44,7 @@ isso admitindo múltiplos modelos com fronteiras explícitas.
 
 **DDD estratégico.** Domínio, subdomínio, core domain, supporting domain e
 generic domain. Bounded context, context mapping e anti-corruption layer. Esta
-é a parte de DDD que decide arquitetura — e a que mais frequentemente é pulada.
+é a parte de DDD que decide arquitetura, e a que mais frequentemente é pulada.
 
 **Ubiquitous language.** O mecanismo que faz o resto funcionar. Sem isso, DDD
 tático vira um conjunto de convenções de nomenclatura sem efeito.
@@ -71,8 +71,8 @@ regra aqui é complexa o bastante para pagar o tático?".
 
 ## Ordem de leitura
 
-Estratégico antes de tático, sempre. A ordem inversa — que é a ordem em que a
-maior parte dos tutoriais apresenta — produz quem sabe escrever um aggregate e
+Estratégico antes de tático, sempre. A ordem inversa (que é a ordem em que a
+maior parte dos tutoriais apresenta) produz quem sabe escrever um aggregate e
 não sabe decidir onde ele deveria morar.
 
 Leia **bounded context** e **ubiquitous language** com atenção especial. São os
@@ -84,7 +84,7 @@ slogan.
 Você consegue conversar com um especialista de negócio e sair com um mapa de
 subdomínios. Consegue argumentar onde uma fronteira deveria estar e por quê.
 Consegue reconhecer quando dois times estão usando a mesma palavra para coisas
-diferentes — que é quase sempre o sintoma de um bounded context faltando.
+diferentes, o que é quase sempre o sintoma de um bounded context faltando.
 
 E consegue dizer não a DDD tático sem culpa, no subdomínio em que ele não se paga.
 

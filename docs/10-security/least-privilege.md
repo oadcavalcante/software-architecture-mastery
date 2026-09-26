@@ -2,7 +2,7 @@
 id: least-privilege
 title: Menor Privilégio
 sidebar_position: 12
-description: Conceder apenas o necessário — o princípio que define o tamanho do dano quando algo dá errado.
+description: "Conceder apenas o necessário: o princípio que define o tamanho do dano quando algo dá errado."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, authz-models, cloud-identity]
 canonical_for: [menor privilégio, escalonamento de privilégio, acumulação de privilégio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Menor privilégio é conceder a cada identidade — pessoa, serviço, processo — apenas o
+Menor privilégio é conceder a cada identidade (pessoa, serviço, processo) apenas o
 acesso necessário para sua função, e nada além.
 
 É o princípio que **define o tamanho do dano** quando algo dá errado. O
@@ -74,7 +74,7 @@ O modo de falha específico de pessoas: alguém muda de função e recebe os ace
 novos, sem perder os antigos.
 
 Depois de alguns anos e algumas mudanças, essa pessoa tem acesso a praticamente
-tudo — sem que nenhuma concessão individual tenha sido errada.
+tudo, sem que nenhuma concessão individual tenha sido errada.
 
 O controle é revisão periódica por função, não por pessoa: **o que este papel
 precisa?**, e não **o que esta pessoa tem?**.
@@ -92,7 +92,7 @@ A elevação temporária permite que o acesso administrativo exista sem estar
 exposto continuamente. Se a credencial de alguém vaza, ela não vem com poderes
 elevados.
 
-É a mudança de maior impacto para acesso humano, e ela é operacionalmente viável —
+É a mudança de maior impacto para acesso humano, e ela é operacionalmente viável:
 o atrito de pedir elevação é pequeno comparado ao de não ter acesso nenhum.
 
 ### Identidade de serviço merece mais rigor que a de pessoa
@@ -131,7 +131,7 @@ Menor privilégio custa: erros de permissão durante o desenvolvimento, tempo pa
 descobrir o escopo exato, atrito operacional.
 
 Fingir que não custa é o que faz a prática ser abandonada na primeira urgência. O
-que a torna sustentável é reduzir o atrito — elevação temporária fácil de pedir,
+que a torna sustentável é reduzir o atrito: elevação temporária fácil de pedir,
 ferramentas que sugerem o escopo com base no uso, ambientes de desenvolvimento mais
 permissivos que produção.
 
@@ -157,7 +157,7 @@ foi concedido:
 
 **Sem registro de uso utilizável.** Se o sistema não registra quais permissões
 foram exercidas, ou guarda menos que um ciclo completo de operação, a redução seria
-por intuição — quebra coisas e desmoraliza a prática. O primeiro passo é ligar o
+por intuição: quebra coisas e desmoraliza a prática. O primeiro passo é ligar o
 registro e esperar o ciclo, não cortar.
 
 **Ambiente de vida curta.** Um ambiente descartável que dura dias, sem dados reais
@@ -174,11 +174,11 @@ contornarem. O contorno é pior que a permissão.
 
 Formas de reduzir alcance sem reescrever toda a política:
 
-- **Elevação temporária** — o de maior retorno para acesso humano.
-- **Separação por conta ou ambiente** — fronteira mais robusta que política. Ver
+- **Elevação temporária**: o de maior retorno para acesso humano.
+- **Separação por conta ou ambiente**: fronteira mais robusta que política. Ver
   [fronteiras seguras](/10-security/secure-boundaries.md).
-- **Credenciais de curta duração** — reduz a janela de exploração.
-- **Análise automatizada de permissões** — compara concedido com usado.
+- **Credenciais de curta duração**: reduz a janela de exploração.
+- **Análise automatizada de permissões**: compara concedido com usado.
 - **Aprovação de duas pessoas** para operações destrutivas.
 
 ## Trade-offs
@@ -244,7 +244,7 @@ O levantamento inicial:
 
 **86% das identidades** tinham permissões nunca exercidas nos últimos 90 dias.
 
-**14 pessoas** com acesso administrativo permanente à produção — de um time de 60.
+**14 pessoas** com acesso administrativo permanente à produção, de um time de 60.
 
 **Todas as 23 identidades de serviço** com permissão de leitura em todos os
 armazenamentos, porque o modelo de política tinha sido copiado da primeira.
@@ -252,7 +252,7 @@ armazenamentos, porque o modelo de política tinha sido copiado da primeira.
 **4 pessoas** que haviam mudado de função mantinham os acessos anteriores; uma delas
 tinha passado por três áreas e acumulava acesso a finanças, operações e engenharia.
 
-**A esteira de implantação** podia alterar políticas de acesso — o que significava
+**A esteira de implantação** podia alterar políticas de acesso, o que significava
 que qualquer pessoa capaz de aprovar uma mudança na esteira podia conceder-se
 qualquer permissão.
 
@@ -266,7 +266,7 @@ só nessas rotinas, que teriam quebrado. Elas foram mantidas.
 
 **Fase 2 — elevação temporária.** O acesso administrativo permanente foi removido
 das 14 pessoas e substituído por elevação de 4 horas mediante justificativa. Nos
-seis meses seguintes, a média foi de 3 elevações por semana no time inteiro — o
+seis meses seguintes, a média foi de 3 elevações por semana no time inteiro: o
 acesso permanente estava sendo mantido para um uso ocasional.
 
 **Fase 3 — escopo por serviço.** Cada identidade de serviço recebeu política própria,
@@ -275,18 +275,18 @@ documentadas que a análise não pegou.
 
 Resultado após um ano: as permissões concedidas caíram cerca de 80%. Além das duas
 quebras de serviço da fase 3, corrigidas com ajuste de política, houve três
-incidentes de "faltou permissão" em acesso humano — todos resolvidos em menos de
+incidentes de "faltou permissão" em acesso humano, todos resolvidos em menos de
 uma hora pelo processo de elevação.
 
 O que se registrou depois: a fase 1 em modo de aviso foi o que tornou tudo viável. A
-proposta original era cortar direto, e o time de operações tinha vetado — com razão.
+proposta original era cortar direto, e o time de operações tinha vetado, com razão.
 Duas semanas registrando o que seria negado transformou uma discussão de risco numa
 lista de exceções.
 
 ## Conceitos Relacionados
 
 - [Fronteiras Seguras](/10-security/secure-boundaries.md).
-- [Modelos de Autorização](/10-security/authz-models.md) — como expressar as permissões.
+- [Modelos de Autorização](/10-security/authz-models.md): como expressar as permissões.
 - [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md).
 - [Auditabilidade](/10-security/auditability.md).
 

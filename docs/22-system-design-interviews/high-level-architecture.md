@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-data-modeling]
 related: [bottleneck-identification, interview-scaling, interview-structure]
 canonical_for: [arquitetura de alto nível em entrevista, fluxo principal desenhado, caixa justificada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -39,15 +39,15 @@ fluxo inteiro é uma base sobre a qual a conversa acontece.
 Dois padrões.
 
 **Complexidade prematura.** O candidato desenha balanceador, gateway, seis microsserviços, fila,
-cache, réplicas, índice de busca e armazenamento de objetos — em três minutos, antes de qualquer
+cache, réplicas, índice de busca e armazenamento de objetos, em três minutos, antes de qualquer
 gargalo ter sido identificado.
 
 O problema não é que os componentes estejam errados. É que nenhum foi justificado, e o
 entrevistador não tem como distinguir julgamento de memorização. A pergunta que vem é "por que
 essa fila?", e a resposta precisa ser melhor que "para desacoplar".
 
-**Desenho incompleto.** O candidato detalha profundamente uma parte — o modelo de cache, por
-exemplo — e nunca fecha o fluxo. Ao fim da entrevista, não existe um caminho completo da
+**Desenho incompleto.** O candidato detalha profundamente uma parte (o modelo de cache, por
+exemplo) e nunca fecha o fluxo. Ao fim da entrevista, não existe um caminho completo da
 requisição do usuário até a resposta.
 
 ```text
@@ -85,14 +85,14 @@ requisição é atendida, e é isso que revela onde ela pode falhar ou ficar len
 ```
 
 A terceira frase é o modelo: ela liga um componente a um número que veio da estimativa e a um
-requisito que veio da clarificação. Essa cadeia — requisito, número, componente — é o que
+requisito que veio da clarificação. Essa cadeia (requisito, número, componente) é o que
 distingue arquitetura de recitação.
 
 Se você não consegue enunciar a razão de uma caixa, ela não deveria estar no desenho ainda.
 
 Vale notar que essa regra também protege contra a pergunta mais desconfortável da entrevista: "o
 que acontece se eu tirar esse componente?". Um candidato que colocou cada caixa por uma razão
-responde imediatamente — "sem o cache, o banco vê 12 mil leituras por segundo em vez de 600, o
+responde imediatamente: "sem o cache, o banco vê 12 mil leituras por segundo em vez de 600, o
 que exigiria muitas réplicas e custaria mais". Um candidato que copiou um modelo não tem resposta,
 e a ausência dela é mais informativa que qualquer desenho.
 
@@ -114,7 +114,7 @@ intermediário. Ele sinaliza que a divisão veio de um modelo mental e não do p
 
 A resposta forte quando o entrevistador pergunta "e microsserviços?": "dividiria se tivéssemos
 times independentes precisando implantar separado, ou se algum componente tivesse perfil de
-escala muito diferente. Aqui, o componente X tem — então eu o separaria, e manteria o resto
+escala muito diferente. Aqui, o componente X tem, então eu o separaria, e manteria o resto
 junto".
 
 ### Marque o volume nas setas
@@ -126,7 +126,7 @@ aplicação → banco          600/s de leitura, 120/s de escrita
 ```
 
 Anotar os números transforma o desenho num instrumento de análise: fica visível onde a carga se
-concentra, e a próxima pergunta — "o que satura primeiro?" — tem resposta imediata. Ver
+concentra, e a próxima pergunta ("o que satura primeiro?") tem resposta imediata. Ver
 [identificação de gargalo](/22-system-design-interviews/bottleneck-identification.md).
 
 ### Complete o fluxo antes de aprofundar
@@ -143,12 +143,12 @@ ele não considera interessante.
 
 Ela também tem um efeito de ritmo. Entrevistas frequentemente derivam para o assunto que o
 candidato conhece melhor, e o avaliador percebe isso. Convidar explicitamente a escolha do tema
-sinaliza confiança em cobrir qualquer um deles — e, na prática, o entrevistador costuma escolher
+sinaliza confiança em cobrir qualquer um deles. E, na prática, o entrevistador costuma escolher
 justamente onde ele tem uma pergunta preparada, o que é a parte da conversa que mais rende.
 
 ### Separe caminho de leitura e de escrita
 
-Quando os dois têm perfis diferentes — e quase sempre têm —, desenhá-los separados esclarece:
+Quando os dois têm perfis diferentes (e quase sempre têm), desenhá-los separados esclarece:
 
 ```text
 escrita   cliente → aplicação → banco → (evento) → processamento
@@ -167,8 +167,8 @@ bom    "cache de sessão", "fila de eventos de pedido",
 ```
 
 Nomear por responsabilidade mantém a conversa no nível de arquitetura e evita que ela derive para
-comparação de produtos. A tecnologia entra como uma nota — "seria um cache em memória, tipo
-Redis" — sem ocupar o centro.
+comparação de produtos. A tecnologia entra como uma nota ("seria um cache em memória, tipo
+Redis"), sem ocupar o centro.
 
 ## Modelo Mental
 
@@ -197,9 +197,9 @@ você terá desenhado duas vezes.
 
 ## Alternativas
 
-- **Descrever o fluxo em texto** — quando não há quadro; menos eficaz, mas viável.
-- **Desenhar dois fluxos** — leitura e escrita separados; melhor quando os perfis divergem.
-- **Começar pelo gargalo** — se a estimativa já apontou um, desenhar em torno dele é legítimo.
+- **Descrever o fluxo em texto**: quando não há quadro; menos eficaz, mas viável.
+- **Desenhar dois fluxos**: leitura e escrita separados; melhor quando os perfis divergem.
+- **Começar pelo gargalo**: se a estimativa já apontou um, desenhar em torno dele é legítimo.
 
 ## Trade-offs
 
@@ -216,7 +216,7 @@ você terá desenhado duas vezes.
 
 O custo do desenho simples é ser lido como falta de repertório, e o risco cresce com a senioridade
 da vaga: cinco caixas de um candidato sênior podem parecer ingenuidade, não disciplina. A mitigação
-cabe numa frase dita antes de perguntar onde aprofundar — "os pontos de expansão que prevejo são a
+cabe numa frase dita antes de perguntar onde aprofundar: "os pontos de expansão que prevejo são a
 leitura, se o acerto do cache cair, e a análise de cliques, que sairia do caminho síncrono". Isso
 mostra que o repertório existe e que ficou fora do quadro por escolha.
 
@@ -302,7 +302,7 @@ serviço → banco        600/s leitura + 120/s escrita
  de cache, disponibilidade, ou análise de cliques?"
 ```
 
-**Se ele pedir análise de cliques**, o desenho ganha uma caixa — e a justificativa vem junto:
+**Se ele pedir análise de cliques**, o desenho ganha uma caixa, e a justificativa vem junto:
 
 ```text
 "cliques são 12 mil eventos por segundo, e a análise tolera
@@ -316,19 +316,19 @@ serviço → banco        600/s leitura + 120/s escrita
  nada mais."
 ```
 
-Note que a caixa nova entrou com um requisito, um número e uma consequência — e que ela só
+Note que a caixa nova entrou com um requisito, um número e uma consequência, e que ela só
 apareceu quando foi pedida.
 
 ## Conceitos Relacionados
 
-- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md) — o passo seguinte.
+- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md): o passo seguinte.
 - [Escala em Entrevista](/22-system-design-interviews/interview-scaling.md).
 - [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 - [Componentes](/05-system-design/components.md).
 
 ## Exercício Prático
 
-Desenhe, em cinco minutos, a arquitetura de um sistema de agendamento — e escreva ao lado de cada
+Desenhe, em cinco minutos, a arquitetura de um sistema de agendamento, e escreva ao lado de cada
 caixa a razão dela em uma frase.
 
 As caixas sem frase são as que você colocou por hábito. Remova-as e veja se o fluxo ainda

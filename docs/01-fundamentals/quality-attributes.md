@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [atributos de qualidade, quality attributes]
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-26
 ---
 
@@ -31,7 +31,7 @@ priorizar e aceitar o que isso custa nos demais.
 
 ## O Problema
 
-Times listam atributos de qualidade como se fossem uma lista de compras — tudo
+Times listam atributos de qualidade como se fossem uma lista de compras: tudo
 desejável, tudo perseguível. O documento diz que o sistema deve ser altamente
 disponível, altamente consistente, de baixa latência, seguro, barato e fácil de
 manter.
@@ -82,7 +82,7 @@ outro?".
 ### Cenários tornam o atributo verificável
 
 Um atributo nomeado é vago. Um atributo em cenário é testável. A estrutura de
-cenário — vinda da prática de análise arquitetural — tem seis partes:
+cenário, vinda da prática de análise arquitetural, tem seis partes:
 
 ```text
 Fonte      Um usuário autenticado
@@ -99,13 +99,13 @@ clareza arquitetural do que dez páginas de prosa sobre qualidade.
 ### Nem todo atributo importa em todo sistema
 
 Um sistema de relatórios internos não precisa de baixa latência. Um protótipo
-descartável não precisa de manutenibilidade — e investir nela é desperdício.
+descartável não precisa de manutenibilidade, e investir nela é desperdício.
 
 Nem sempre o eixo se resolve pelo domínio. Em saúde, a intuição diz que
 consistência vence: dado clínico desatualizado é risco. Mas ausência de dado
 também é, e o [caso de prontuário eletrônico](/21-case-studies/healthcare.md)
 escolhe o registro local durante a partição justamente por isso. O que decide não
-é o setor — é qual das duas falhas o médico enfrenta primeiro.
+é o setor, e sim qual das duas falhas o médico enfrenta primeiro.
 
 A pergunta não é qual atributo é mais importante em abstrato. É qual, se
 falhar neste sistema, causa o dano maior.
@@ -130,7 +130,7 @@ caminho caro. A tabela de conflitos custa uma reunião.
 
 **Porque a priorização é decisão de negócio.** Engenharia informa o custo de cada
 opção; o negócio decide o que vale. Quando a engenharia decide sozinha, escolhe
-tipicamente pureza técnica — que raramente é o que a empresa precisava.
+tipicamente pureza técnica, que raramente é o que a empresa precisava.
 
 ## Erros Comuns
 
@@ -174,7 +174,7 @@ armazenamento, confirmação e descarte.
 
 Se a equipe B tivesse copiado a arquitetura da A, a ordem de grandeza a mais no
 custo por leitura multiplicada pelo volume dela levaria a conta mensal de
-infraestrutura de cerca de R$ 10 mil para R$ 100 mil — acima do orçamento inteiro
+infraestrutura de cerca de R$ 10 mil para R$ 100 mil, acima do orçamento inteiro
 do produto. Se a A tivesse copiado a B, o sistema teria perdido leituras que
 ninguém pode perder.
 
@@ -182,11 +182,11 @@ O que separa as duas não está em nenhum documento de requisitos funcionais.
 
 ## Conceitos Relacionados
 
-- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — como expressá-los
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md): como expressá-los
   de forma verificável.
-- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md) — a
+- [Características Arquiteturais](/01-fundamentals/architecture-characteristics.md): a
   formulação alternativa do mesmo conceito.
-- [Trade-offs](/20-trade-offs/index.md) — a análise dos conflitos, em detalhe.
+- [Trade-offs](/20-trade-offs/index.md): a análise dos conflitos, em detalhe.
 
 ## Exercício Prático
 
@@ -207,6 +207,6 @@ Os que não têm resposta são atributos aspiracionais.
 ## Para Aprofundar
 
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
-  4ª ed., Addison-Wesley, 2021 — a referência sobre cenários de atributo.
+  4ª ed., Addison-Wesley, 2021. A referência sobre cenários de atributo.
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — características arquiteturais e sua priorização.
+  2020. Características arquiteturais e sua priorização.

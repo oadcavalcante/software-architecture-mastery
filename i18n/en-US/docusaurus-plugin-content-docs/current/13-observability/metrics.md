@@ -2,7 +2,7 @@
 id: metrics
 title: Metrics
 sidebar_position: 2
-description: Aggregated numbers at a constant cost — and cardinality, which is what makes them expensive.
+description: Aggregated numbers at a constant cost, and cardinality, which is what makes them expensive.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, golden-signals, dashboards]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -65,7 +65,7 @@ the spikes between samples; a counter misses nothing, because it records everyth
 derived.
 
 And a histogram for request latency under continuous traffic: an individual request's latency has no
-aggregate meaning, the distribution does. A gauge only fits when there is one measurement per period — the
+aggregate meaning, the distribution does. A gauge only fits when there is one measurement per period: the
 duration of a batch job's last run, for example.
 
 ### Percentiles do not sum
@@ -81,7 +81,7 @@ A + B in sequence: p99 ≠ 200 ms
 Percentiles from different sources cannot be summed or averaged. The average of ten instances' p99s **is
 not** the service's p99.
 
-That requires the histograms to be aggregated correctly — summing the buckets, not the calculated
+That requires the histograms to be aggregated correctly: summing the buckets, not the calculated
 percentiles. Systems that store only the percentile calculated per instance do not allow correct
 aggregation.
 
@@ -99,12 +99,12 @@ a bad label    many values, unbounded, unpredictable
 ```
 
 The full URL case is the most insidious: `/orders/4471` as a label creates one series per order. The route
-needs to be the pattern — `/orders/{id}` — not the value.
+needs to be the pattern (`/orders/{id}`), not the value.
 
 And there is a composition effect: two medium-cardinality labels multiply. A hundred values in one and a
 hundred in the other produce ten thousand series.
 
-When the question genuinely requires high cardinality — "which specific customers are suffering?" — the
+When the question genuinely requires high cardinality ("which specific customers are suffering?"), the
 answer is [logs](/13-observability/logs.md) or [traces](/13-observability/traces.md), not metrics.
 
 ### Aggregation loses information, irreversibly
@@ -125,7 +125,7 @@ A system with excellent metrics and no logs detects problems quickly and cannot 
 
 Orders per minute, purchases per hour, transaction value.
 
-They detect what technical metrics do not: a technically healthy system that stopped doing what it should —
+They detect what technical metrics do not: a technically healthy system that stopped doing what it should,
 because an integration broke, a rule went wrong, or a button disappeared from the interface.
 
 And they are the ones that communicate with the business. An alert saying "orders dropped 40% relative to
@@ -137,8 +137,8 @@ See [golden signals](/13-observability/golden-signals.md) and [SLI](/12-reliabil
 
 A metric created to investigate a specific problem stays after the problem is resolved.
 
-They accumulate, they cost, and they fill dashboards. The periodic review — which metrics have been neither
-queried nor alerted on in twelve months — usually allows removing a significant fraction.
+They accumulate, they cost, and they fill dashboards. The periodic review (which metrics have been neither
+queried nor alerted on in twelve months) usually allows removing a significant fraction.
 
 ## Mental Model
 
@@ -156,7 +156,7 @@ queried nor alerted on in twelve months — usually allows removing a significan
 ## When Not to Use
 
 **When the dimension you care about has unbounded values.** If the product of the labels exceeds a few tens
-of thousands of series per metric, each new value is a new series and the cost stops being constant — the
+of thousands of series per metric, each new value is a new series and the cost stops being constant: the
 case of a customer, order or session identifier. The dimension belongs in a log field or a trace attribute.
 
 **When the question is about a specific case.** Aggregation happens at collection; the detail discarded there
@@ -169,14 +169,14 @@ storage.
 
 ## Alternatives
 
-- **[Logs](/13-observability/logs.md)** — for individual context and high cardinality.
-- **[Traces](/13-observability/traces.md)** — for the path and the time breakdown.
-- **Aggregatable events** — storing rich events and aggregating at query time, instead of aggregating at
+- **[Logs](/13-observability/logs.md)**: for individual context and high cardinality.
+- **[Traces](/13-observability/traces.md)**: for the path and the time breakdown.
+- **Aggregatable events**: storing rich events and aggregating at query time, instead of aggregating at
   collection. It costs more storage and preserves the ability to ask new questions.
-- **Exemplars** — metrics that carry pointers to representative traces, linking the aggregate to the
+- **Exemplars**: metrics that carry pointers to representative traces, linking the aggregate to the
   individual.
 
-The last deserves a note: it is not an alternative to metrics but a feature of the metrics system itself — it
+The last deserves a note: it is not an alternative to metrics but a feature of the metrics system itself. It
 partially resolves aggregation's information loss without giving up the constant cost.
 
 ## Trade-offs
@@ -210,12 +210,12 @@ killed for running out of memory, or shows an empty queue while consumers report
 
 **Delayed collection.** The metric arrives too late to alert on.
 
-**A restart zeroing a counter** with the system not handling it — it produces a negative rate.
+**A restart zeroing a counter** with the system not handling it: it produces a negative rate.
 
 ## Common Mistakes
 
 **Using an identifier as a label.** A user or order identifier creates one time series per value. It is the
-cardinality explosion — the metrics system's cost grows without bound and it stops responding.
+cardinality explosion: the metrics system's cost grows without bound and it stops responding.
 
 **The full URL instead of the route pattern.** `/orders/8231` generates one series per order; `/orders/{id}`
 generates one. It is the most common way of exploding cardinality without noticing.
@@ -223,7 +223,7 @@ generates one. It is the most common way of exploding cardinality without notici
 **An average for latency.** Percentiles cannot be reconstructed from averages, so the tail's information is
 lost at collection time and does not come back.
 
-**Not instrumenting business metrics.** Orders per minute detects an incident no technical metric catches —
+**Not instrumenting business metrics.** Orders per minute detects an incident no technical metric catches,
 like the flow that started failing silently on the client side.
 
 **Not reviewing obsolete metrics.** Series nobody queries keep being collected and stored, and the cost
@@ -237,7 +237,7 @@ grows by accumulation with no benefit.
 A subscriptions platform had its metrics system unavailable for 6 hours, in the middle of an incident.
 
 The cause: a metric added two weeks earlier included the customer's plan identifier as a label. There were
-few plans — around twenty. But the field used was the **subscription** identifier, not the plan's, from a
+few plans, around twenty. But the field used was the **subscription** identifier, not the plan's, from a
 naming error in the code.
 
 With 340,000 active subscriptions, the metric generated 340,000 time series. The system degraded for two
@@ -250,26 +250,26 @@ The fixes:
 **A cardinality limit** per metric, with rejection and an alert on being exceeded. A badly instrumented
 metric came to fail on its own, without taking the rest down.
 
-**A label review** across every metric. Three more high-cardinality cases were found — the full URL instead
+**A label review** across every metric. Three more high-cardinality cases were found: the full URL instead
 of the route, in two services, and a session identifier in one.
 
 **An explicit division of labor**, documented: metrics for the aggregate, logs for the individual. The
 metric that caused the problem was replaced by a field in the canonical log event.
 
-**Exemplars** linking the latency metrics to representative traces — which resolved the original need that
+**Exemplars** linking the latency metrics to representative traces. That resolved the original need that
 led somebody to add the identifier as a label.
 
 **A semiannual review** of unqueried metrics. The first removed 40% of them.
 
 What the team learned: the mistake that caused everything was a swapped variable name. What turned it into
-a 6-hour incident was the absence of a cardinality limit — a protection the metrics system offered and
+a 6-hour incident was the absence of a cardinality limit: a protection the metrics system offered and
 nobody had configured.
 
 ## Related Concepts
 
-- [Logs](/13-observability/logs.md) — for the individual.
-- [Traces](/13-observability/traces.md) — for the path.
-- [Golden Signals](/13-observability/golden-signals.md) — what to instrument.
+- [Logs](/13-observability/logs.md): for the individual.
+- [Traces](/13-observability/traces.md): for the path.
+- [Golden Signals](/13-observability/golden-signals.md): what to instrument.
 - [Alerting](/13-observability/alerting.md).
 
 ## Practical Exercise
@@ -286,6 +286,6 @@ Multiply. If the result exceeds a few tens of thousands, you have a cardinality 
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 10.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 10.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
 - OpenTelemetry — the metrics specification.

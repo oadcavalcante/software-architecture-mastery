@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-content_version: 6
+content_version: 7
 last_reviewed: 2026-08-29
 ---
 
@@ -35,13 +35,13 @@ sustentam, não as grandezas.
 O **Banco Aurio** é um banco digital brasileiro com 6,4 milhões de contas abertas, das quais
 3,1 milhões ativas mensalmente. Opera conta de pagamento, cartão pré-pago e crédito pessoal.
 
-O núcleo bancário — o sistema que mantém saldos, lança transações e fecha o dia — é uma
+O núcleo bancário (o sistema que mantém saldos, lança transações e fecha o dia) é uma
 solução de mercado contratada em 2019, cobrada por conta ativa.
 
 Três pressões motivam a revisão:
 
 **Custo por conta.** O contrato cobra R$ 1,42 por conta ativa por mês. Com 3,1 milhões de
-contas ativas, são R$ 52,8 milhões anuais — a segunda maior linha de custo da empresa, atrás
+contas ativas, são R$ 52,8 milhões anuais, a segunda maior linha de custo da empresa, atrás
 apenas de pessoal. E ela cresce linearmente com o sucesso.
 
 **Limites de produto.** O núcleo não suporta contas em múltiplas moedas, nem produtos de
@@ -76,7 +76,7 @@ de fechamento. RF-8 e RF-9 são o que o fornecedor não entrega.
 Vale explicitar por que RF-1 é formulado com partida dobrada e não como "manter saldo". Um
 sistema que guarda saldo como número e o altera a cada operação não tem como responder à
 pergunta que auditoria, regulador e cliente fazem: **de onde veio essa diferença?** Partida
-dobrada não é preferência contábil — é a estrutura de dados que torna o saldo uma consequência
+dobrada não é preferência contábil: é a estrutura de dados que torna o saldo uma consequência
 verificável do histórico, em vez de uma afirmação.
 
 E RF-11 é a razão de o razão ser imutável. Estorno é lançamento novo. Um sistema financeiro
@@ -121,7 +121,7 @@ prazo           a janela de fechamento é reclamação recorrente; a diretoria
 ```
 
 A exigência de operação em paralelo com comprovação de equivalência é a restrição que molda
-todo o plano de migração — ela torna qualquer virada de chave impossível.
+todo o plano de migração: ela torna qualquer virada de chave impossível.
 
 ## Estimativas de Capacidade
 
@@ -138,7 +138,7 @@ com margem                             ~6 000/s
 ```
 
 **Este é o número que muda a análise.** 2.500 lançamentos por segundo, com transações de
-partida dobrada, é atendido por um único banco relacional bem dimensionado — com folga
+partida dobrada, é atendido por um único banco relacional bem dimensionado, com folga
 grande. Não há necessidade de particionar a escrita, e particionar um razão contábil tem
 custo de complexidade muito alto.
 
@@ -153,7 +153,7 @@ O volume de armazenamento é grande; o volume de escrita concorrente não é. Es
 orienta o desenho: **um núcleo transacional pequeno e quente, com histórico frio separado**.
 
 A tabela de saldos tem 6,4 milhões de linhas e cabe inteira em memória. A de lançamentos tem
-52 bilhões e nunca é lida por inteiro — cada consulta de extrato toca uma janela de tempo de
+52 bilhões e nunca é lida por inteiro: cada consulta de extrato toca uma janela de tempo de
 uma conta. São dois perfis de acesso opostos convivendo no mesmo domínio, e tratá-los como um
 só produziria um banco lento nas duas pontas.
 
@@ -207,7 +207,7 @@ risco                      alto na migração e em operação
 ```
 
 A Opção C resolve um problema de escala que as estimativas mostram não existir, e paga por
-isso com transação distribuída em toda transferência entre contas — que é a operação mais
+isso com transação distribuída em toda transferência entre contas, que é a operação mais
 comum de um banco.
 
 ## Análise de Trade-offs
@@ -223,7 +223,7 @@ comum de um banco.
 | **Total ponderado** | | **5,1** | **7,7** | **5,5** |
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com risco de migração em 40%, os totais viram
-5,3 / 7,3 / 4,9 — a Opção B continua vencendo. Com custo em 45%, viram 4,5 / 8,0 / 5,9. A
+5,3 / 7,3 / 4,9. A Opção B continua vencendo. Com custo em 45%, viram 4,5 / 8,0 / 5,9. A
 conclusão é estável.
 
 O critério que mais separa A de B é liberdade de produto, e ele foi deliberadamente
@@ -237,7 +237,7 @@ caminho de evolução explícito para particionamento por conta, caso o volume e
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** a liberdade de produto não fosse necessária — se o roadmap fosse de
+**Opção A venceria se** a liberdade de produto não fosse necessária: se o roadmap fosse de
 produtos que o mercado já cobre. Também venceria se a equipe tivesse menos de 20 engenheiros:
 construir um razão contábil correto exige uma massa crítica que times pequenos não têm.
 
@@ -299,12 +299,12 @@ Conciliador
 
 O **Razão** é deliberadamente pequeno e sem regra de negócio. Ele aceita lançamentos
 balanceados e os grava; toda a lógica de produto vive fora dele e produz lançamentos. Essa
-separação é o que permite acrescentar produtos novos sem tocar no núcleo — que é o problema
+separação é o que permite acrescentar produtos novos sem tocar no núcleo. E esse é o problema
 que o fornecedor não resolvia.
 
 A tentação de colocar regra no razão é grande e reaparece a cada produto novo: seria mais
 simples, para o time de crédito, que o razão soubesse recusar um lançamento que ultrapassa o
-limite. A regra adotada é que o razão conhece exatamente três coisas — contas existem,
+limite. A regra adotada é que o razão conhece exatamente três coisas: contas existem,
 lançamentos somam zero, e uma chave de idempotência não se repete. Qualquer validação além
 disso é de produto e fica fora.
 
@@ -332,7 +332,7 @@ um lançamento novo, de sinal oposto, referenciando o original (RF-11). Isso é 
 auditoria possível e é exigência regulatória.
 
 **Balanceamento.** Toda transação grava lançamentos cuja soma é zero. Uma restrição no banco
-recusa transações desbalanceadas — a verificação é do armazenamento, não da aplicação.
+recusa transações desbalanceadas: a verificação é do armazenamento, não da aplicação.
 
 **Idempotência por chave.** `chave_idempotencia` é única. Uma segunda tentativa com a mesma
 chave retorna o resultado da primeira, sem duplicar. Ver
@@ -340,7 +340,7 @@ chave retorna o resultado da primeira, sem duplicar. Ver
 
 **Saldo como projeção com verificação.** A tabela `saldo` existe para leitura rápida e é
 atualizada na **mesma transação** do lançamento, com controle de versão otimista. Ela não é
-uma réplica eventual — seria uma janela de inconsistência sobre dinheiro, que o requisito
+uma réplica eventual: seria uma janela de inconsistência sobre dinheiro, que o requisito
 proíbe.
 
 Um processo diário recalcula o saldo de uma amostra a partir dos lançamentos e compara. A
@@ -349,16 +349,16 @@ amostra é de 100% das contas com movimento nas últimas 24 h, e de 2% das demai
 A escolha da amostra merece explicação. Recalcular 6,4 milhões de saldos a partir de 52
 bilhões de lançamentos é caro e demorado. Recalcular apenas as contas movimentadas cobre onde
 o erro pode ter sido introduzido; a amostra de 2% das inativas cobre a hipótese de corrupção
-silenciosa em dados que ninguém toca — que é rara e é justamente a que passaria despercebida
+silenciosa em dados que ninguém toca. Ela é rara e é justamente a que passaria despercebida
 indefinidamente.
 
 Em dois anos de operação, a verificação encontrou três divergências. Nenhuma era erro do
 razão: duas vieram de um processo de correção manual mal executado, e uma de um teste que
-escreveu em produção por configuração errada. Todas foram detectadas em menos de 24 horas —
-que é exatamente o valor da verificação.
+escreveu em produção por configuração errada. Todas foram detectadas em menos de 24 horas,
+e esse é exatamente o valor da verificação.
 
 **Histórico particionado por mês.** As partições com mais de 90 dias vão para armazenamento
-mais barato, com consulta mais lenta — aceitável para extrato antigo, que representa 3% das
+mais barato, com consulta mais lenta: aceitável para extrato antigo, que representa 3% das
 consultas.
 
 **PostgreSQL** como banco do razão, com réplica síncrona em outra zona (RPO zero) e réplica
@@ -383,7 +383,7 @@ servindo de estado intermediário. Isso mantém o saldo do cliente correto mesmo
 indisponível.
 
 **Bandeiras de cartão (RF-6).** Arquivos de liquidação em lote, processados de forma
-idempotente por arquivo e por registro — reprocessar o mesmo arquivo não duplica lançamentos.
+idempotente por arquivo e por registro: reprocessar o mesmo arquivo não duplica lançamentos.
 
 **Motor de produtos.** Publica lançamentos como qualquer outra origem. Juros e tarifas não
 têm caminho privilegiado no razão.
@@ -394,7 +394,7 @@ alerta.
 
 A distinção entre incidente e alerta não é semântica. Um alerta vai para um painel e é
 observado; um incidente aciona plantão, tem prazo de resposta e gera análise posterior. A
-escolha de tratar um centavo como incidente foi deliberada e contestada — a objeção era que
+escolha de tratar um centavo como incidente foi deliberada e contestada: a objeção era que
 produziria ruído. Em dois anos, produziu 14 acionamentos, dos quais 11 eram problemas reais
 de integração com terceiros e 3 eram defeitos de conciliação. Nenhum era ruído.
 
@@ -421,7 +421,7 @@ acesso de suporte         somente leitura, com registro e justificativa
 ```
 
 O controle mais importante é o de **credencial de escrita única**: nenhum caminho alternativo
-grava no razão, e isso é verificado automaticamente — uma função de aptidão falha a esteira
+grava no razão, e isso é verificado automaticamente. Uma função de aptidão falha a esteira
 se qualquer outro serviço declarar credencial de escrita naquele esquema. Ver
 [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
@@ -440,7 +440,7 @@ gargalo do teste                    contenção na tabela de saldo, por conta
 ```
 
 A contenção é por conta, não global. Contas comuns têm baixa concorrência; contas de
-liquidação — a conta interna que recebe todas as tarifas, por exemplo — têm alta.
+liquidação (a conta interna que recebe todas as tarifas, por exemplo) têm alta.
 
 A solução é **fragmentação de saldo para contas quentes**: contas internas de alto volume têm
 o saldo dividido em N sublinhas, e o saldo é a soma. A escrita escolhe uma sublinha ao acaso,
@@ -464,7 +464,7 @@ teste             restauração completa testada trimestralmente, por
 ```
 
 O RPO zero custa latência: a confirmação em duas zonas acrescenta ~12 ms ao p99 do
-lançamento. É pago em toda transação e foi aceito explicitamente — dinheiro não tolera perda.
+lançamento. É pago em toda transação e foi aceito explicitamente: dinheiro não tolera perda.
 
 **Degradação desenhada.**
 
@@ -484,7 +484,7 @@ pode não existir.
 
 Essa regra tem uma consequência desconfortável e aceita: durante indisponibilidade do razão, o
 banco fica sem operar. Não há fila de lançamentos pendentes, não há aceite provisório, não há
-"processamos assim que voltar". A alternativa — aceitar e liquidar depois — troca uma
+"processamos assim que voltar". A alternativa (aceitar e liquidar depois) troca uma
 indisponibilidade visível e curta por um risco de inconsistência invisível e indefinido, e é
 a origem de boa parte dos episódios de saldo negativo inexplicado que aparecem no setor.
 
@@ -510,7 +510,7 @@ A linha "lançamento desbalanceado → impossível, mas alarmado" é deliberada:
 banco impede, e o alarme existe porque um disparo indicaria que a restrição foi removida ou
 contornada.
 
-Esse padrão — alarmar o impossível — aparece três vezes no desenho, e a justificativa é a
+Esse padrão (alarmar o impossível) aparece três vezes no desenho, e a justificativa é a
 mesma: garantias estruturais podem ser desfeitas por engano, e o momento de descobrir isso não
 é durante uma auditoria. O custo de manter o alarme é desprezível; o custo de descobrir tarde
 que a restrição foi removida numa migração de esquema não é.
@@ -518,7 +518,7 @@ que a restrição foi removida numa migração de esquema não é.
 A observabilidade do razão também serve a um público que costuma ser esquecido no desenho: a
 área de controles internos e o próprio regulador. Os relatórios de conciliação, a trilha de
 auditoria e o registro de acesso de suporte são construídos com esse público em mente, e
-disponibilizados como consulta em vez de como arquivo enviado sob demanda — o que reduziu o
+disponibilizados como consulta em vez de como arquivo enviado sob demanda. Isso reduziu o
 esforço de atendimento a demandas regulatórias de dias para horas.
 
 ## Implantação
@@ -544,7 +544,7 @@ são comparados, conta a conta.
 
 O critério de saída da fase: **90 dias consecutivos com zero divergência em 6,4 milhões de
 contas.** A primeira tentativa levou 5 meses até atingir o critério; foram encontradas 11
-classes de divergência, das quais 7 eram comportamentos não documentados do núcleo atual — o
+classes de divergência, das quais 7 eram comportamentos não documentados do núcleo atual: o
 tipo de conhecimento que só aparece na comparação.
 
 **Fase 2 (meses 9–12): leitura pelo razão novo.** Consultas de saldo e extrato passam a ser
@@ -552,7 +552,7 @@ servidas pelo razão novo, com o núcleo atual ainda como fonte de escrita. Risc
 reversível por configuração.
 
 **Fase 3 (meses 13–16): escrita por produto.** A escrita migra por produto, não por conta.
-Começa por cartão pré-pago — o produto com menor volume e menor complexidade contábil — e
+Começa por cartão pré-pago (o produto com menor volume e menor complexidade contábil) e
 avança para conta de pagamento e crédito.
 
 Cada produto migrado mantém sombra reversa: o núcleo antigo continua recebendo cópia, para
@@ -563,14 +563,14 @@ fechamento de 3h40 é eliminada. O fechamento vira um processo de agregação qu
 dados já liquidados, sem bloquear escrita.
 
 **Fase 5 (meses 20–26): produtos novos e desligamento.** Multimoeda, conta conjunta e
-investimentos, seguidos do encerramento do contrato com aviso prévio de 12 meses — iniciado
+investimentos, seguidos do encerramento do contrato com aviso prévio de 12 meses, iniciado
 na Fase 3, para não pagar contrato ocioso.
 
 A escolha de iniciar o aviso prévio na Fase 3, e não na Fase 5, foi uma decisão de risco
 consciente: ela cria um prazo irreversível de 12 meses para concluir a migração de escrita. A
 justificativa registrada é que, sem esse prazo, a experiência da organização com projetos
 longos indicava alta probabilidade de a Fase 4 ser adiada indefinidamente por prioridades
-concorrentes — e o contrato do fornecedor, que segue correndo enquanto os dois sistemas convivem, custa
+concorrentes, e o contrato do fornecedor, que segue correndo enquanto os dois sistemas convivem, custa
 R$ 52,8 milhões por ano.
 
 O risco foi mitigado com uma cláusula de extensão negociada previamente, a preço acordado, que
@@ -612,7 +612,7 @@ tempo até um produto novo entrar
 ## O que este case ensina
 
 **A escala de um banco de retalho é menor do que a reputação sugere.** 2.500 lançamentos por
-segundo cabem em um banco relacional. Particionar o razão — que parece a resposta "séria" —
+segundo cabem em um banco relacional. Particionar o razão (que parece a resposta "séria")
 introduz transação distribuída na operação mais comum do domínio, para resolver um problema
 que não existe.
 
@@ -630,7 +630,7 @@ Nenhuma delas teria sido descoberta por leitura de especificação.
 
 - [Idempotência](/06-distributed-systems/idempotency.md).
 - [Consistência Forte](/06-distributed-systems/strong-consistency.md).
-- [Pontos Quentes](/11-scalability/hotspots.md) — a fragmentação de saldo.
+- [Pontos Quentes](/11-scalability/hotspots.md): a fragmentação de saldo.
 - [Case: Plataforma de Pagamentos](/21-case-studies/payments.md).
 
 ## Exercício Prático
@@ -652,5 +652,5 @@ estiver na aplicação e não no banco, ela não é garantia.
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Fowler, Martin. *Accounting Patterns*. martinfowler.com — suplemento de *Analysis Patterns*, Addison-Wesley, 1996.
-- Bacen. *Manual de Regras do Pix* — regulamentação do SPI.
+- Fowler, Martin. *Accounting Patterns*. martinfowler.com. Suplemento de *Analysis Patterns*, Addison-Wesley, 1996.
+- Bacen. *Manual de Regras do Pix*. Regulamentação do SPI.

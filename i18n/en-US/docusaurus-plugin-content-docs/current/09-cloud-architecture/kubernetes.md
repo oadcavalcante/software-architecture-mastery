@@ -2,7 +2,7 @@
 id: kubernetes
 title: Kubernetes
 sidebar_position: 5
-description: Declarative container orchestration — what it solves and the question that precedes adoption.
+description: "Declarative container orchestration: what it solves and the question that precedes adoption."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, serverless, managed-services]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -54,7 +54,7 @@ action:   create 1
 ```
 
 That loop runs continuously, for everything. That is why the system recovers by itself from node failures,
-and why manual changes are undone — the reconciler sees them as drift.
+and why manual changes are undone: the reconciler sees them as drift.
 
 Understanding that changes the mental model: you do not operate the system, you declare what you want and
 the system pursues it.
@@ -95,16 +95,16 @@ startup    is it still starting? it suspends the other two
 ```
 
 The classic mistake is pointing the liveness check at a check that depends on other services: the database
-gets slow, the check fails, the pod is restarted — and restarting does not fix the database, it only makes
+gets slow, the check fails, the pod is restarted. And restarting does not fix the database, it only makes
 things worse. See [failure detection](/06-distributed-systems/failure-detection.md).
 
 The rule: liveness checks only its own process; readiness checks whether **this
-instance** can serve — initialization done, warm-up complete, connection pool
-established.
+instance** can serve (initialization done, warm-up complete, connection pool
+established).
 
 The part the short rule hides: readiness must **not** depend on a resource shared by
 all replicas. If all ten query the same database, one blip takes all ten out of
-rotation at once, and the service is left with no destination at all — partial
+rotation at once, and the service is left with no destination at all: partial
 degradation became a total outage. See
 [graceful degradation](/12-reliability/graceful-degradation.md).
 
@@ -123,14 +123,14 @@ understanding several layers.
 finding out which layer it is in.
 
 **The ecosystem.** The adoption almost always brings along traffic ingress, certificates, metrics, logs,
-policy, secrets — each with its own curve.
+policy, secrets, each with its own curve.
 
 Small teams usually underestimate this because the initial installation is easy. It is the sustained
 operation that costs.
 
 ### Managed removes half of it
 
-A managed Kubernetes removes the control plane's operation — which is the hardest and most critical part.
+A managed Kubernetes removes the control plane's operation, which is the hardest and most critical part.
 
 What remains yours: nodes, networking, policy, scaling, application upgrades, and the whole ecosystem.
 
@@ -172,22 +172,22 @@ across teams are problems of many services. With one, there is nothing to
 orchestrate, and the cost of operating the cluster does not shrink because of it.
 
 **As a synonym for modernization.** If the justification does not name a current
-problem — inconsistent deployment across teams, manual node recovery, scale the
-machines cannot keep up with —, the adoption buys the operating cost without the
+problem (inconsistent deployment across teams, manual node recovery, scale the
+machines cannot keep up with), the adoption buys the operating cost without the
 benefit that pays for it.
 
 **Self-managed, with no dedicated team.** Use managed.
 
-**To solve an architecture problem.** It does not fix wrong service boundaries — it only distributes them
+**To solve an architecture problem.** It does not fix wrong service boundaries. It only distributes them
 better.
 
 ## Alternatives
 
-- **Managed container platforms** — they run containers without exposing the orchestration model. They
+- **Managed container platforms**: they run containers without exposing the orchestration model. They
   cover most cases with far less knowledge.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — with neither capacity nor orchestration.
-- **Machines with auto scaling** — for a few stable services.
-- **Platform as a service** — see [PaaS](/09-cloud-architecture/paas.md).
+- **[Serverless](/09-cloud-architecture/serverless.md)**: with neither capacity nor orchestration.
+- **Machines with auto scaling**: for a few stable services.
+- **Platform as a service**: see [PaaS](/09-cloud-architecture/paas.md).
 
 ## Trade-offs
 
@@ -204,7 +204,7 @@ better.
 |---|---|
 | The provider's control plane — etcd, certificates, upgrades | Yours, with the dedicated team it demands |
 
-The rest of the comparison — operational work, price, version control — is that of
+The rest of the comparison (operational work, price, version control) is that of
 any managed service; see
 [Managed Services](/09-cloud-architecture/managed-services.md).
 
@@ -237,13 +237,13 @@ manager would not deliver.
 workloads on the same node; with no limit, a memory leak takes the neighbors down with it.
 
 **Liveness dependent on other services.** If the liveness probe queries the database, a database slowdown
-restarts every pod at the same time — the probe converts a dependency's degradation into a total outage.
+restarts every pod at the same time: the probe converts a dependency's degradation into a total outage.
 
 **Self-managing the control plane.** Maintaining etcd, certificates and upgrades is a dedicated team's job.
 Providers do it for a cost that is almost always less than one person.
 
 **Not configuring a disruption budget.** Without it, a node maintenance can simultaneously remove every
-replica of a service — the cluster obeys because nobody said how many need to stay.
+replica of a service: the cluster obeys because nobody said how many need to stay.
 
 **Not planning upgrades from the start.** Versions go out of support at a fast pace, and the API changes
 between them. A cluster that goes two years without upgrading accumulates incompatible changes that have to
@@ -256,7 +256,7 @@ A company with 40 engineers and 9 services adopted self-managed Kubernetes, with
 
 Eighteen months later, the balance:
 
-**Two full-time engineers** operating the platform — 5% of engineering capacity, for 9 services.
+**Two full-time engineers** operating the platform: 5% of engineering capacity, for 9 services.
 
 **Eleven incidents** caused by the platform itself: networking, an expired certificate, a failed upgrade, a
 full node disk.
@@ -267,7 +267,7 @@ when finally done, took six weeks.
 **Requests and limits absent** in 7 of the 9 services. A memory leak in one of them took down two nodes.
 
 **Liveness checking the database** in four services. In a database slowdown, every pod of those services
-entered a restart cycle — turning degradation into complete unavailability.
+entered a restart cycle, turning degradation into complete unavailability.
 
 The reassessment led to two decisions:
 
@@ -275,7 +275,7 @@ The reassessment led to two decisions:
 partially allocated. Platform incidents fell to two the following year, both from application
 configuration.
 
-**Configuration fixes** — requests, limits, corrected health checks, disruption budgets — which resolved
+**Configuration fixes** (requests, limits, corrected health checks, disruption budgets), which resolved
 most of the remaining incidents.
 
 And an observation the team recorded honestly: with 9 services, a simpler container platform would have
@@ -288,8 +288,8 @@ migration. See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Related Concepts
 
-- [Containers](/09-cloud-architecture/containers.md) — what it orchestrates.
-- [Serverless](/09-cloud-architecture/serverless.md) — the alternative with no orchestration.
+- [Containers](/09-cloud-architecture/containers.md): what it orchestrates.
+- [Serverless](/09-cloud-architecture/serverless.md): the alternative with no orchestration.
 - [Managed Services](/09-cloud-architecture/managed-services.md).
 - [Service Mesh](/08-integration-architecture/service-mesh.md).
 
@@ -315,4 +315,4 @@ turns somebody else's slowness into your own restart.
 
 - Burns, Brendan et al. *Kubernetes: Up and Running*. 3rd ed. O'Reilly, 2022.
 - Burns, Brendan. *Designing Distributed Systems*. O'Reilly, 2018.
-- The official Kubernetes documentation — concepts and best practices.
+- The official Kubernetes documentation: concepts and best practices.

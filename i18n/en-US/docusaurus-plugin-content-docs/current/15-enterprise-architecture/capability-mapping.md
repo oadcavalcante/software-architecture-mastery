@@ -2,7 +2,7 @@
 id: capability-mapping
 title: Capability Mapping
 sidebar_position: 6
-description: How to build the map — the method, and the mistakes that produce a useless artifact.
+description: "How to build the map: the method, and the mistakes that produce a useless artifact."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, application-portfolios, business-architecture]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -22,11 +22,11 @@ last_reviewed: 2026-08-31
 ## Overview
 
 [Business capabilities](/15-enterprise-architecture/business-capabilities.md) describes what they are and
-what they are for. This document is about **how to build the map** — and how to avoid the mistakes that
+what they are for. This document is about **how to build the map**, and how to avoid the mistakes that
 produce a beautiful and useless artifact.
 
 The exercise looks simple: list what the organization does. In practice, it easily slides into the org
-chart, the processes or the systems — and each deviation produces a model that ages fast.
+chart, the processes or the systems, and each deviation produces a model that ages fast.
 
 ## Problem
 
@@ -35,7 +35,7 @@ A badly run mapping produces one of three bad results:
 **A mirror of the org chart.** The capabilities correspond to departments. At the next reorganization, the
 model is wrong.
 
-**A list of processes.** Verbs instead of nouns, and the model changes when the process changes — which is
+**A list of processes.** Verbs instead of nouns, and the model changes when the process changes; processes change
 constantly.
 
 **A system catalog with business names.** The capabilities were derived from what the systems do, and the
@@ -88,7 +88,7 @@ The mistake of decomposing bottom up: starting by listing everything you do and 
 artificial categories and overlap.
 
 And the third level does not need to exist everywhere. It is useful where mapping to systems requires
-detail — typically in the differentiating capabilities.
+detail, typically in the differentiating capabilities.
 
 ### The exclusivity and exhaustiveness test
 
@@ -100,7 +100,7 @@ exhaustiveness   together, they cover what the organization does
 The practical exhaustiveness test: take five real activities of the organization and check whether each one
 falls into exactly one capability.
 
-The ones that fall into none reveal a gap. The ones that fall into two reveal overlap — and overlap is the
+The ones that fall into none reveal a gap. The ones that fall into two reveal overlap, and overlap is the
 most common defect, because two areas describe the same capability with different words.
 
 ### The heat map is where the value appears
@@ -119,7 +119,7 @@ See [application portfolios](/15-enterprise-architecture/application-portfolios.
 
 Each question calls for a combination. To prioritize risk and modernization, **criticality against
 health**: it produces a short list of priorities that is hard to contest, because it crosses two facts
-business and IT already recognize — critical capabilities supported by bad systems. To decide between
+business and IT already recognize (critical capabilities supported by bad systems). To decide between
 building and buying, **differentiation against cost**, as described in
 [business capabilities](/15-enterprise-architecture/business-capabilities.md).
 
@@ -147,13 +147,13 @@ used in build-or-buy decisions
 reviewed when the business changes
 ```
 
-Maintaining it has a concrete shape: a named owner for the map — usually business architecture, not a
-project that ends —, a structural review tied to the budget cycle, and the systems layer updated along with
+Maintaining it has a concrete shape: a named owner for the map (usually business architecture, not a
+project that ends), a structural review tied to the budget cycle, and the systems layer updated along with
 the [application portfolio](/15-enterprise-architecture/application-portfolios.md), each time a system comes
 in or is retired. The capability structure changes little; the heat map ages within months if the systems
 layer does not follow the portfolio.
 
-If it enters no recurring decision, it is not worth the cost of maintaining — and the honest conclusion is
+If it enters no recurring decision, it is not worth the cost of maintaining, and the honest conclusion is
 that it should not have been built.
 
 ## Mental Model
@@ -175,7 +175,7 @@ alive.
 the map adds weeks of workshops without revealing duplication the list would not show.
 
 **No recurring decision the map can enter.** With no budget cycle, modernization program or build-or-buy
-decision in sight, the map is filed away at the end of the exercise — the most expensive failure mode,
+decision in sight, the map is filed away at the end of the exercise: the most expensive failure mode,
 because the whole cost has already been paid.
 
 **The dominant problem is software boundaries.** If the question is where to split services or who owns
@@ -186,10 +186,10 @@ value stream map shows the waiting; the capability map only shows that the capab
 
 ## Alternatives
 
-- **A value stream map** — process-oriented, better for optimizing workflow.
-- **Domain mapping** — oriented toward software boundaries. See [DDD](/04-domain-driven-design/index.md).
-- **A system inventory** — with no business lens, cheaper.
-- **An industry reference model** — a starting point, with adaptation.
+- **A value stream map**: process-oriented, better for optimizing workflow.
+- **Domain mapping**: oriented toward software boundaries. See [DDD](/04-domain-driven-design/index.md).
+- **A system inventory**: with no business lens, cheaper.
+- **An industry reference model**: a starting point, with adaptation.
 
 The last accelerates the start and produces a generic model if it is not adapted rigorously.
 
@@ -223,11 +223,11 @@ The last accelerates the start and produces a generic model if it is not adapted
 ## Common Mistakes
 
 **Running it without the business.** A map drawn only by the technical area describes systems under another
-name, and the business does not recognize itself in it — which makes it useless for the conversation it
+name, and the business does not recognize itself in it. That makes it useless for the conversation it
 existed to have.
 
 **Decomposing bottom up.** Listing every activity and grouping afterward produces artificial categories,
-defined by how similar the tasks look rather than by what the business needs to know how to do — and the
+defined by how similar the tasks look rather than by what the business needs to know how to do, and the
 same activities end up grouped in two places, which is the overlap the exclusivity test later has to undo.
 
 **Not applying the stability tests.** If an item on the map disappears when the company changes tool or
@@ -250,7 +250,7 @@ An energy company ran two capability mapping exercises two years apart.
 84 capabilities.
 
 It was never used. The later interviews explained why: the capabilities had names the business did not
-recognize — they described what the systems did, with translated technical vocabulary.
+recognize. They described what the systems did, with translated technical vocabulary.
 
 "Metering management" was a system's name. The business called that "reading and billing", and they were
 not the same thing: the system did part of what the business understood by reading, and none of the
@@ -258,7 +258,7 @@ billing.
 
 **The second** was run with the business areas, in four workshops.
 
-It produced 11 level 1 capabilities and 58 at level 2 — and the vocabulary was what people used.
+It produced 11 level 1 capabilities and 58 at level 2, and the vocabulary was what people used.
 
 Three differences in the result:
 
@@ -266,23 +266,23 @@ Three differences in the result:
 none aware of the others. The first exercise had not seen that, because each system had become its own
 capability.
 
-**A gap revealed.** A capability the business considered critical — "demand forecasting" — had no system.
+**A gap revealed.** A capability the business considered critical, "demand forecasting", had no system.
 It was done in a spreadsheet, by three people.
 
 **Prioritization unblocked.** The budget discussion came to happen over the map. The business could take
 part, because it recognized the names.
 
 The criticality-against-health heat map produced a list of six priority capabilities, accepted with no
-dispute — which had not happened in any previous cycle.
+dispute. That had not happened in any previous cycle.
 
 The first exercise was technically competent and produced a correct artifact. It was a map of the system
-architecture under different names, and so it did not serve the purpose — which was enabling the
+architecture under different names, and so it did not serve the purpose: enabling the
 conversation with the business.
 
 ## Related Concepts
 
-- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md) — the concept.
-- [Application Portfolios](/15-enterprise-architecture/application-portfolios.md) — the overlay.
+- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md): the concept.
+- [Application Portfolios](/15-enterprise-architecture/application-portfolios.md): the overlay.
 - [Business Architecture](/15-enterprise-architecture/business-architecture.md).
 - [Technical Strategy](/15-enterprise-architecture/technical-strategy.md).
 
@@ -302,5 +302,5 @@ The ones falling into two reveal overlap; the ones falling into none, a gap.
 ## Further Reading
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — business architecture.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Business architecture.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

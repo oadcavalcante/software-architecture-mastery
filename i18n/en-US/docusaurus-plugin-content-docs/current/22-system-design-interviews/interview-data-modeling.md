@@ -2,7 +2,7 @@
 id: interview-data-modeling
 title: Data Modeling in the Interview
 sidebar_position: 6
-description: Start with the access patterns, not with the entities — that is what decides the storage.
+description: Start with the access patterns, not with the entities. That is what decides the storage.
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-api-design]
 related: [interview-api-design, high-level-architecture, interview-scaling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ interview     access patterns → a model that serves them → storage
 ```
 
 The second order is the correct one because what decides the storage is not the nature of the data
-— it is **how it is read and written**. Two applications with the same entities and different
+but **how it is read and written**. Two applications with the same entities and different
 access patterns call for different storage.
 
 And there is a practical consequence for the interview: starting with the accesses produces a
@@ -45,7 +45,7 @@ candidate   "I'll have a users table, a posts table,
 ```
 
 It is correct and conveys nothing. That model serves any social network, of a thousand or a billion
-users, with any latency requirement. It was not derived — it was remembered.
+users, with any latency requirement. It was remembered, not derived.
 
 The interviewer's next question exposes the problem: "how do you assemble the feed?". If the model
 was not thought through from that query, the answer is a join over millions of rows, and the
@@ -75,7 +75,7 @@ preference.
 ```
 
 Each of those is a model requirement. Number 1 is the one that sizes the system, and it is the one
-that should guide the decisions — the rest accommodate.
+that should guide the decisions. The rest accommodate.
 
 And the writes, with their volumes:
 
@@ -96,14 +96,14 @@ model B   materialized list per user, maintained on write
           → read by key; fast
 ```
 
-The choice between A and B is not about elegance — it is about the read-to-write ratio, and about
+The choice between A and B is not about elegance but about the read-to-write ratio, and about
 the distribution of followers. See the
 [social network case study](/21-case-studies/social-network.md).
 
 Doing that derivation out loud is the content of the evaluation.
 
-What is sought is not that the candidate chooses B — which is the known answer for large social
-networks — but that they show the calculation that leads to B and say under what condition A would
+What is sought is not that the candidate chooses B (which is the known answer for large social
+networks) but that they show the calculation that leads to B and say under what condition A would
 be better. A candidate who proposes the materialized list because they read that this is how it is
 done, and cannot say from what read/write ratio it pays off, is reciting.
 
@@ -188,7 +188,7 @@ query is by date produces a scan of every partition.
 
 The rule of thumb is that the partition key must appear in the filter clause of the dominant query.
 If the query that dominates the volume does not filter by the chosen key, partitioning turns a
-query that touched one index into one that touches every partition — making worse exactly what it
+query that touched one index into one that touches every partition, making worse exactly what it
 was supposed to improve.
 
 ### Distribution of hot data
@@ -207,7 +207,7 @@ See [hotspots](/11-scalability/hotspots.md).
 ## Mental Model
 
 **List the queries first.** The model is derived from the dominant query, and the storage is derived
-from the model — each one with a justification out loud.
+from the model, each one with a justification out loud.
 
 ## When to Use
 
@@ -218,13 +218,13 @@ from the model — each one with a justification out loud.
 ## When Not to Use
 
 **When the problem is analytical or exploratory.** In a reporting or data-investigation system,
-the queries are not known in advance — which is the very reason the relational database appears in
+the queries are not known in advance. That is the very reason the relational database appears in
 the table above as the choice for "unanticipated query". Insisting on listing queries produces an
 invented list, and a model optimized for it makes worse exactly the questions nobody anticipated.
 
 **When the interviewer steers the conversation to another component.** If their interest is the
-fan-out queue or the caching strategy, the model fits in one sentence — "posts by `post_id`, feed by
-`user_id`" —, and deriving it query by query eats the time they want to spend elsewhere.
+fan-out queue or the caching strategy, the model fits in one sentence ("posts by `post_id`, feed by
+`user_id`"), and deriving it query by query eats the time they want to spend elsewhere.
 
 **When the remaining time only fits one query.** Listing the five reads and three writes costs
 minutes; with ten minutes of interview left, derive the model from the dominant query alone and say
@@ -232,9 +232,9 @@ out loud that the others fit around it.
 
 ## Alternatives
 
-- **Model only the dominant query** — when time is tight, it is the one that matters.
+- **Model only the dominant query**: when time is tight, it is the one that matters.
 - **Describe the model in text** instead of drawing tables.
-- **Leave it until after the design** — modeling when the bottleneck appears is legitimate and keeps
+- **Leave it until after the design**: modeling when the bottleneck appears is legitimate and keeps
   the pace.
 
 ## Trade-offs
@@ -263,16 +263,16 @@ out loud that the others fit around it.
 
 ## Common Mistakes
 
-**Starting with an entity diagram** — it produces the remembered model, and the feed question
+**Starting with an entity diagram**: it produces the remembered model, and the feed question
 arrives with no derived answer.
 
-**Not considering both directions** of a relationship — the query left without an index becomes a
+**Not considering both directions** of a relationship: the query left without an index becomes a
 scan when the interviewer asks for it.
 
-**Proposing NoSQL for "scale"** with no number — the first question ("how many reads?") leaves
+**Proposing NoSQL for "scale"** with no number: the first question ("how many reads?") leaves
 the choice unsupported.
 
-**Detailing column types** — it burns minutes that produce no signal and delays the feed question.
+**Detailing column types**: it burns minutes that produce no signal and delays the feed question.
 
 **Not mentioning indexes** where they decide the query's viability.
 

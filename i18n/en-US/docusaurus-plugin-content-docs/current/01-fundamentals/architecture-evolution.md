@@ -2,7 +2,7 @@
 id: architecture-evolution
 title: Architecture Evolution
 sidebar_position: 22
-description: No architecture is final — the question is whether it changes deliberately or by accumulation.
+description: No architecture is final; the question is whether it changes deliberately or by accumulation.
 doc_type: foundation
 level: 1
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-as-decisions]
 related: [technical-debt, legacy-modernization]
 canonical_for: [architecture evolution]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-30
 No architecture is final. Business context changes, volume changes, teams change,
 technology changes, and what was adequate stops being so.
 
-The question is not whether the architecture will change. It is whether it will
-change **by decision** or **by accumulation** — and the second is the default path
+The architecture will change; the question is whether it will
+change **by decision** or **by accumulation**. The second is the default path
 when nobody chooses the first.
 
 ## The Problem
@@ -41,11 +41,11 @@ admitting the original was wrong, the structure is preserved well past its
 validity, and the system accumulates workarounds.
 
 The second is the rewrite. When the distance between the architecture and the need
-grows too large to ignore, the proposal is to start over — which is the most
+grows too large to ignore, the proposal is to start over. That is the most
 expensive and riskiest way to evolve, and the one that fails most.
 
 The path that escapes both is the middle one: continuous, incremental change,
-decided from observed signals — neither preserving the structure past its
+decided from observed signals, neither preserving the structure past its
 validity nor paying the price of starting over.
 
 ## Core Concepts
@@ -58,7 +58,7 @@ An architecture chosen for six engineers and a thousand users was not wrong when
 was chosen. It stopped serving when the team reached sixty and the users a million.
 
 Framing the change as correcting a mistake makes the conversation political.
-Framing it as a response to a change of context makes it technical — and that is
+Framing it as a response to a change of context makes it technical, and that is
 the correct formulation, provided the
 [record of decisions](/01-fundamentals/architecture-as-decisions.md) exists to support it.
 
@@ -80,7 +80,7 @@ The last is the most decisive, and the one that requires having the
 
 ### Designing to be changed
 
-The property that matters is not guessing the future — nobody guesses. It is that
+The property that matters is not guessing the future, since nobody guesses, but that
 changing is possible without rewriting.
 
 Three things produce that, and all three have already appeared in this level:
@@ -96,15 +96,15 @@ before it becomes structural. This is the fitness function idea, which returns i
 
 All three charge before they pay: a boundary imposes indirection where a direct
 call would do, recording decisions asks for discipline with no return inside the
-quarter, and verification has to be maintained — the check nobody fixes ends up
-switched off. The return arrives with the first change they keep contained; until
+quarter, and verification has to be maintained (the check nobody fixes ends up
+switched off). The return arrives with the first change they keep contained; until
 then, the investment looks like bureaucracy.
 
 ### Incremental evolution beats a rewrite in a system that cannot stop
 
 Rewrites fail for structural reasons, not from poor execution: the old system keeps
 evolving during the rewrite, the undocumented rules only surface when the new one
-gets them wrong in production, and the value only arrives at the end — when the
+gets them wrong in production, and the value only arrives at the end, when the
 budget has run out.
 
 Incremental change delivers value before it is complete and can be reversed at any
@@ -114,18 +114,18 @@ the strangler fig.
 
 The rewrite is the right choice under the opposite condition: a system that can be
 frozen while the replacement is built, and whose rules fit in a specification you
-can check. That condition does exist — an internal tool, an already isolated
-component — and it disappears as soon as the system has users who do not stop.
+can check. That condition does exist (an internal tool, an already isolated
+component), and it disappears as soon as the system has users who do not stop.
 
 ## Why This Matters
 
 **Because the alternative happens on its own.** An architecture that is not evolved
-deliberately evolves by accumulating workarounds — which is evolution too, just
+deliberately evolves by accumulating workarounds. That is evolution too, just
 without direction.
 
 **Because it changes what you optimize for in the initial design.** If the
-architecture is going to change, the valuable property is not being right — it is
-being cheap to change. That shifts the priority towards boundaries and
+architecture is going to change, the valuable property is being cheap to change,
+not being right. That shifts the priority towards boundaries and
 reversibility, and away from completeness.
 
 **Because it makes the conversation possible.** "The context changed, and these are
@@ -144,7 +144,7 @@ the one that fails most. It deserves to be the last considered, not the first.
 aesthetic discomfort is cost with no return. The signals above are the criterion.
 
 **Not measuring.** Without instrumentation, degradation is noticed late and as a
-feeling rather than a fact — and a feeling does not sustain an investment proposal.
+feeling rather than a fact, and a feeling does not sustain an investment proposal.
 
 **Changing everything at once.** Even when the direction is right, the change has to
 be sliced into steps that deliver value and can be reversed.
@@ -166,8 +166,8 @@ Then, delivery time growing without scope growing. Finally, the corporate squad
 unable to meet its SLA because a deployment from another squad took everything
 down.
 
-The third signal is what decided it: a driving characteristic — availability for
-one segment — had stopped being met, and there was no local fix. The availability
+The third signal is what decided it: a driving characteristic (availability for
+one segment) had stopped being met, and there was no local fix. The availability
 of the corporate flow depended on the deployment unit, and that unit was shared by
 the four squads: no change inside the corporate module alters who goes to
 production alongside it.
@@ -177,22 +177,22 @@ service: the corporate flow, which had a distinct requirement and a boundary
 already stable in the commit history.
 
 Eighteen months later, a second service was extracted by the same criterion. The
-other two squads remain in the monolith, and there is no plan to take them out — no
+other two squads remain in the monolith, and there is no plan to take them out: no
 signal indicates they should leave.
 
-What is good about this architecture is not its shape. It is that the shape changed
+What is good about this architecture is not its shape but the fact that it changed
 twice, each time for a specific signal, and can change again.
 
 ## Related Concepts
 
-- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md) — what makes
+- [Architecture as a Set of Decisions](/01-fundamentals/architecture-as-decisions.md): what makes
   reassessment possible.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — what accumulates when evolution does not
+- [Technical Debt](/01-fundamentals/technical-debt.md): what accumulates when evolution does not
   happen.
-- [Legacy Modernization](/16-legacy-modernization/index.md) — evolution in
+- [Legacy Modernization](/16-legacy-modernization/index.md): evolution in
   systems that cannot stop.
-- [Evolutionary Architecture](/23-architecture-leadership/evolutionary-architecture.md) —
-  the term and the mechanism: protected dimensions and fitness functions.
+- [Evolutionary Architecture](/23-architecture-leadership/evolutionary-architecture.md):
+  the term and the mechanism (protected dimensions and fitness functions).
 
 ## Practical Exercise
 
@@ -202,7 +202,7 @@ which it was made: team size, volume, constraints.
 Compare with today's context.
 
 Where the distance is large, check whether there is an observable signal that the
-decision stopped serving — or whether it remains adequate despite the change of
+decision stopped serving, or whether it remains adequate despite the change of
 context. Both answers happen, and telling them apart is the exercise.
 
 ## Interview Questions

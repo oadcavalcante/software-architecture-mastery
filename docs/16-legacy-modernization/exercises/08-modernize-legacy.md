@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, incremental-modernization, modernization-risk, organizational-constraints]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -79,7 +79,7 @@ regras de negócio  não estão escritas em lugar nenhum além do código
 
 Produza, em até 90 minutos:
 
-1. A **estratégia**: reescrever, converter, estrangular ou encapsular — com a razão.
+1. A **estratégia**: reescrever, converter, estrangular ou encapsular, com a razão.
 2. A **ordem das fases**, e o que sobra se o trabalho parar ao fim de cada uma.
 3. Como as **regras de negócio** saem do código sem se perderem.
 4. O papel das **duas pessoas** no plano.
@@ -125,7 +125,7 @@ pessoas como risco a mitigar.
 **A estratégia é estrangulamento**, com o legado encapsulado desde cedo.
 
 A razão não é preferência: reescrever exige a especificação que não existe, e converter
-automaticamente preserva a lógica sem resolver o problema de conhecimento — o código gerado
+automaticamente preserva a lógica sem resolver o problema de conhecimento. O código gerado
 continua ilegível para os oito engenheiros novos.
 
 **A ordem, e o que sobra em cada parada:**
@@ -151,14 +151,14 @@ fase 4 (contínuo)  o resto, na ordem do risco
 ```
 
 **A fase 2 é a decisão que resolve o exercício.** A rastreabilidade não precisa estar dentro do
-legado — ela precisa dos dados que o legado produz. Construída fora, ela leva 8 meses em vez dos
+legado: ela precisa dos dados que o legado produz. Construída fora, ela leva 8 meses em vez dos
 14 estimados dentro, e não depende de nenhuma das duas pessoas.
 
 Quem coloca a rastreabilidade dentro do legado consome 14 dos 30 meses, ocupa as duas pessoas
 que são o recurso mais escasso, e chega ao mês 14 sem ter modernizado nada.
 
-**O terceiro requisito fecha por acúmulo.** Cada fase produz código fora do Delphi — a fachada, a
-rastreabilidade, as capacidades extraídas — e esse código é mantido pelos engenheiros novos. Ao fim
+**O terceiro requisito fecha por acúmulo.** Cada fase produz código fora do Delphi (a fachada, a
+rastreabilidade, as capacidades extraídas), e esse código é mantido pelos engenheiros novos. Ao fim
 da fase 2 já há mais de duas pessoas capazes de manter uma parte do sistema; ao fim da fase 3, a
 parte que mais muda.
 
@@ -170,7 +170,7 @@ lembra de ter escrito.
 Ver o [case de modernização](/21-case-studies/legacy-modernization-case.md).
 
 **As duas pessoas** são a autoridade sobre a comparação, não a fonte da especificação. O papel
-delas é decidir, diante de uma divergência, qual comportamento está correto — e esse julgamento é
+delas é decidir, diante de uma divergência, qual comportamento está correto, e esse julgamento é
 o que nenhum documento substitui.
 
 Tratá-las como obstáculo é o erro mais comum e o mais caro: elas podem inviabilizar o projeto
@@ -182,7 +182,7 @@ linha ser escrita, e é o levantamento de melhor retorno do projeto.
 
 **Os picos de safra** definem o calendário: oito meses do ano são úteis, quatro não. As durações
 das fases acima são de calendário e já absorvem as paradas; um plano de 30 meses tem, na prática,
-20 meses de trabalho — e isso precisa estar no cronograma desde o início, não ser descoberto no
+20 meses de trabalho. E isso precisa estar no cronograma desde o início, não ser descoberto no
 primeiro pico.
 
 :::

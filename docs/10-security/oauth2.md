@@ -2,7 +2,7 @@
 id: oauth2
 title: OAuth 2.0
 sidebar_position: 2
-description: Delegação de acesso — e por que ele não é um protocolo de autenticação, apesar de ser usado como um.
+description: Delegação de acesso, e por que ele não é um protocolo de autenticação, apesar de ser usado como um.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [oidc, jwt, identity]
 canonical_for: [OAuth 2.0, delegação de acesso, fluxo de autorização, escopo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -36,7 +36,7 @@ motivo de [OpenID Connect](/10-security/oidc.md) existir.
 Uma aplicação de contabilidade precisa ler suas faturas de um sistema de pagamentos.
 
 Sem OAuth, as opções eram ruins: dar a senha do sistema de pagamentos à contabilidade
-— que passa a poder tudo, para sempre — ou criar uma credencial secundária, com
+(que passa a poder tudo, para sempre) ou criar uma credencial secundária, com
 gestão manual.
 
 OAuth resolve com um token de escopo limitado, revogável, obtido sem que a senha
@@ -53,7 +53,7 @@ servidor de autorização quem autentica o dono e emite tokens
 servidor de recurso    quem detém a API protegida
 ```
 
-A separação entre os dois últimos é o que muitas implementações colapsam — e ela é
+A separação entre os dois últimos é o que muitas implementações colapsam, e ela é
 o que permite que um servidor de autorização sirva muitas APIs.
 
 ### O fluxo que importa hoje
@@ -70,8 +70,8 @@ Dos fluxos originais, apenas um é recomendado para clientes que agem por um usu
 4. cliente troca o código pelo token, provando conhecer o segredo original
 ```
 
-O passo 4 é o ponto: o token nunca trafega pelo canal frontal — não aparece na URL
-de redirecionamento nem no histórico —, e o código interceptado é inútil sem o
+O passo 4 é o ponto: o token nunca trafega pelo canal frontal (não aparece na URL
+de redirecionamento nem no histórico), e o código interceptado é inútil sem o
 segredo. Em cliente público o token ainda chega ao navegador ou ao aparelho;
 protegê-lo ali é problema de armazenamento, não de fluxo.
 
@@ -82,7 +82,7 @@ Os demais fluxos originais saíram de cena: a RFC 9700 (2025) diz que o implíci
 não deve ser usado, porque expunha o token na URL, e proíbe o de senha do usuário,
 que entrega a senha ao cliente e derrota o propósito do protocolo.
 
-**Credenciais de cliente** permanece, e é o fluxo correto quando não há usuário —
+**Credenciais de cliente** permanece, e é o fluxo correto quando não há usuário:
 serviço falando com serviço.
 
 ### Escopo é grosso, autorização é fina
@@ -123,18 +123,18 @@ A duração curta do token de acesso limita a janela de um vazamento, já que re
 tokens autocontidos é difícil. Ver [JWT](/10-security/jwt.md).
 
 O token de renovação precisa de cuidado próprio: para clientes públicos,
-**rotação** — cada uso emite um novo e invalida o anterior — permite detectar
+**rotação** (cada uso emite um novo e invalida o anterior) permite detectar
 reuso, que indica roubo.
 
 ### Cliente público e confidencial
 
-**Confidencial.** Consegue guardar um segredo — aplicação de servidor.
+**Confidencial.** Consegue guardar um segredo: aplicação de servidor.
 
-**Público.** Não consegue — aplicação móvel, aplicação de página única. Qualquer
+**Público.** Não consegue: aplicação móvel, aplicação de página única. Qualquer
 segredo embutido pode ser extraído.
 
 Clientes públicos exigem PKCE e rotação de token de renovação. Tratar um cliente
-público como confidencial — embutindo um segredo no aplicativo — é um equívoco
+público como confidencial, embutindo um segredo no aplicativo, é um equívoco
 recorrente.
 
 ### Redirecionamento é o ponto de ataque
@@ -142,7 +142,7 @@ recorrente.
 O parâmetro que diz para onde devolver o código é a superfície mais explorada.
 
 A defesa: **comparação exata** contra uma lista registrada. Nada de correspondência
-por prefixo, nada de curinga — as duas permitem redirecionar para um destino
+por prefixo, nada de curinga: as duas permitem redirecionar para um destino
 controlado pelo atacante em domínios que parecem legítimos.
 
 ## Modelo Mental
@@ -155,7 +155,7 @@ usuário, precisa de OpenID Connect.
 - Uma aplicação precisa acessar dados em nome de um usuário.
 - Integração com API de terceiro.
 - Você expõe uma API para aplicações de parceiros.
-- Comunicação entre serviços com escopo — fluxo de credenciais de cliente.
+- Comunicação entre serviços com escopo (fluxo de credenciais de cliente).
 - Aplicações móveis e de página única acessando sua API.
 
 ## Quando Não Usar
@@ -164,23 +164,23 @@ usuário, precisa de OpenID Connect.
 
 **Quando o cliente só consegue operar pelo fluxo implícito ou pelo de senha.** Um
 legado que não comporta código de autorização com PKCE não ganha segurança com
-OAuth — ganha a aparência dela. Adotar o protocolo nesse caso é adotar os dois
+OAuth; ganha a aparência dela. Adotar o protocolo nesse caso é adotar os dois
 fluxos que a RFC 9700 retirou; melhor migrar o cliente antes.
 
 **Quando as duas pontas são suas e não há terceiro.** Delegação pressupõe alguém
 concedendo acesso a outra parte. Entre serviços do mesmo dono, com a mesma
-fronteira de confiança, o servidor de autorização vira intermediário sem função —
+fronteira de confiança, o servidor de autorização vira intermediário sem função:
 um token interno de curta duração ou TLS mútuo resolve com menos peças.
 
 **Quando uma chave de API resolve.** Integração servidor a servidor, sem usuário e
-sem escopo variável, não precisa de OAuth — a complexidade não se paga.
+sem escopo variável, não precisa de OAuth: a complexidade não se paga.
 
 ## Alternativas
 
-- **[OpenID Connect](/10-security/oidc.md)** — quando a pergunta é identidade.
-- **Chave de API** — integração simples, sem delegação.
-- **TLS mútuo** — identidade de serviço por certificado, sem token.
-- **Token de acesso de curta duração emitido internamente** — quando as duas pontas
+- **[OpenID Connect](/10-security/oidc.md)**: quando a pergunta é identidade.
+- **Chave de API**: integração simples, sem delegação.
+- **TLS mútuo**: identidade de serviço por certificado, sem token.
+- **Token de acesso de curta duração emitido internamente**: quando as duas pontas
   são suas e não há terceiro envolvido.
 
 ## Trade-offs
@@ -203,8 +203,8 @@ O custo que as tabelas não mostram é operacional. O servidor de autorização 
 no caminho crítico de todo login e de toda renovação: se ele cai, nenhum usuário
 novo entra e os tokens de acesso vão expirando. As chaves de assinatura precisam de
 rotação publicada sem derrubar os servidores de recurso que as validam, e cada
-cliente passa a ter um ciclo de vida — cadastro, URLs de redirecionamento, escopos
-permitidos, desativação — que alguém precisa administrar. Com três parceiros isso é
+cliente passa a ter um ciclo de vida (cadastro, URLs de redirecionamento, escopos
+permitidos, desativação) que alguém precisa administrar. Com três parceiros isso é
 planilha; com trezentos, é produto.
 
 ## Modos de Falha
@@ -229,8 +229,8 @@ outra.
 **Usar OAuth como autenticação.** Qualquer token válido vira login: um token
 emitido para outra aplicação abre a sessão de quem o apresentar.
 
-**Não usar PKCE.** Em cliente público, o código interceptado no redirecionamento — por outro aplicativo
-registrado no mesmo esquema de URL, por exemplo — pode ser trocado pelo token por
+**Não usar PKCE.** Em cliente público, o código interceptado no redirecionamento (por outro aplicativo
+registrado no mesmo esquema de URL, por exemplo) pode ser trocado pelo token por
 quem o interceptou.
 
 **Correspondência frouxa de redirecionamento.** Um domínio do atacante que começa
@@ -253,12 +253,12 @@ acessarem dados dos correntistas, com OAuth 2.0.
 Quatro problemas encontrados numa avaliação de segurança:
 
 **Redirecionamento por prefixo.** A validação aceitava qualquer URL que começasse
-com o domínio registrado. Um parceiro tinha registrado `https://parceiro.com/` — e
+com o domínio registrado. Um parceiro tinha registrado `https://parceiro.com/`, e
 `https://parceiro.com.atacante.net/` passava na verificação. Um atacante conseguiria
 receber códigos de autorização de usuários legítimos.
 
 **Escopo como autorização.** O servidor de recurso verificava se o token tinha
-`contas:ler` e devolvia a conta pedida na URL — sem verificar se aquela conta
+`contas:ler` e devolvia a conta pedida na URL, sem verificar se aquela conta
 pertencia ao usuário do token. Qualquer parceiro autorizado por qualquer correntista
 podia ler qualquer conta, trocando o identificador.
 
@@ -281,19 +281,19 @@ entre o usuário do token e o recurso, nunca do parâmetro. Ver
 
 **Verificação de destinatário** obrigatória em todos os serviços.
 
-**Rotação de token de renovação**, com detecção de reuso — que, no primeiro mês,
+**Rotação de token de renovação**, com detecção de reuso, que, no primeiro mês,
 disparou três vezes e revelou dois casos de token extraído de dispositivo.
 
 Na retrospectiva: o problema mais grave não era de OAuth. O protocolo estava
-implementado corretamente naquele ponto — o erro foi presumir que ter um token com o
+implementado corretamente naquele ponto. O erro foi presumir que ter um token com o
 escopo certo significava poder acessar o recurso pedido.
 
 ## Conceitos Relacionados
 
-- [OpenID Connect](/10-security/oidc.md) — a camada de identidade.
-- [JWT](/10-security/jwt.md) — o formato usual do token.
+- [OpenID Connect](/10-security/oidc.md): a camada de identidade.
+- [JWT](/10-security/jwt.md): o formato usual do token.
 - [Identidade](/10-security/identity.md).
-- [Modelos de Autorização](/10-security/authz-models.md) — o que o escopo não resolve.
+- [Modelos de Autorização](/10-security/authz-models.md): o que o escopo não resolve.
 
 ## Exercício Prático
 

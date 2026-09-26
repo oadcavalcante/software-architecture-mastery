@@ -2,7 +2,7 @@
 id: component-diagrams
 title: Diagramas de Componente
 sidebar_position: 5
-description: O interior de uma peça — o nível mais caro de manter e o menos frequentemente necessário.
+description: "O interior de uma peça: o nível mais caro de manter e o menos frequentemente necessário."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [c4-model, container-diagrams, living-documentation]
 canonical_for: [diagrama de componente, agrupamento lógico, custo de manutenção de diagrama]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ de código e como eles se relacionam.
 justificada. Contexto e contêiner quase sempre valem a pena. Componente, raramente.
 
 A razão é econômica: ele descreve o que muda mais rápido, e por isso desatualiza mais
-rápido — e a informação que ele carrega já está no código, disponível para quem abrir o
+rápido, e a informação que ele carrega já está no código, disponível para quem abrir o
 projeto.
 
 ## Problema
@@ -38,7 +38,7 @@ contêiner, que isso vive na API de Pedidos. Abre o projeto e encontra 240 arqui
 
 O diagrama de contêiner parou cedo demais para essa pergunta.
 
-Mas a resposta óbvia — desenhar todos os componentes de todos os contêineres — produz um
+Mas a resposta óbvia, desenhar todos os componentes de todos os contêineres, produz um
 custo que raramente se paga:
 
 ```text
@@ -48,7 +48,7 @@ cada um com 10 a 20 componentes
 ```
 
 Depois de três meses, eles descrevem uma estrutura que não existe mais, e a pessoa nova é
-mandada para um mapa errado — o que é pior que não ter mapa.
+mandada para um mapa errado. Isso é pior que não ter mapa.
 
 ## Conceitos Centrais
 
@@ -63,7 +63,7 @@ sim   Controlador de Pedidos, Calculadora de Frete, Repositório de Clientes,
 não   uma classe, um pacote qualquer, uma camada inteira
 ```
 
-O componente não é implantável separadamente — se fosse, seria contêiner. Ele é uma
+O componente não é implantável separadamente: se fosse, seria contêiner. Ele é uma
 unidade de organização interna.
 
 E o critério prático: **o componente é algo que você nomearia numa conversa sobre onde
@@ -99,7 +99,7 @@ para argumentar uma decisão de fronteira
 ```
 
 O último é o mais legítimo: um diagrama desenhado para embasar uma decisão é descartável
-por natureza — ele vive na
+por natureza. Ele vive na
 [ADR](/18-architecture-decisions/what-is-an-adr.md), datado, e não precisa ser
 mantido.
 
@@ -120,7 +120,7 @@ Ver [documentação viva](/17-architecture-documentation/living-documentation.md
 retorno, porque é o nível que mais desatualiza.
 
 E há uma condição: gerar só funciona se o código tiver estrutura reconhecível. Um projeto
-sem organização clara produz um diagrama gerado ilegível — o que, aliás, é um diagnóstico.
+sem organização clara produz um diagrama gerado ilegível. Isso, aliás, é um diagnóstico.
 
 ### O código é a documentação primária
 
@@ -170,7 +170,7 @@ gere quando precisar de permanência, e prefira código bem organizado a ambos.
 - Contêiner grande, com estrutura interna não óbvia.
 - Onboarding recorrente no mesmo contêiner.
 - Antes de uma refatoração estrutural, como alvo a discutir.
-- Para embasar uma decisão de fronteira — descartável, dentro da ADR.
+- Para embasar uma decisão de fronteira: descartável, dentro da ADR.
 - Quando for gerado automaticamente.
 
 ## Quando Não Usar
@@ -179,20 +179,20 @@ gere quando precisar de permanência, e prefira código bem organizado a ambos.
 
 **Mantido à mão, em código que muda toda semana.**
 
-**Quando a estrutura de pastas já responde** — isto é, quando uma pessoa nova acha o
+**Quando a estrutura de pastas já responde**, isto é, quando uma pessoa nova acha o
 componente certo pelo nome do diretório, sem perguntar a ninguém.
 
-**Com classes como caixas** — o nível seria o quarto, e raramente vale.
+**Com classes como caixas**: o nível seria o quarto, e raramente vale.
 
-**Sem alguém responsável por atualizá-lo** — se a pergunta "quem mexe neste diagrama
+**Sem alguém responsável por atualizá-lo**: se a pergunta "quem mexe neste diagrama
 quando o código mudar?" não tem um nome como resposta, ele não será mexido.
 
 ## Alternativas
 
-- **Estrutura de diretórios bem nomeada** — resposta sem custo de manutenção.
-- **README por contêiner** — o mapa em texto, mais fácil de manter.
-- **Diagrama gerado** — atual enquanto a geração rodar no build ou na CI.
-- **Nada** — para contêineres pequenos, ler o código é mais rápido.
+- **Estrutura de diretórios bem nomeada**: resposta sem custo de manutenção.
+- **README por contêiner**: o mapa em texto, mais fácil de manter.
+- **Diagrama gerado**: atual enquanto a geração rodar no build ou na CI.
+- **Nada**: para contêineres pequenos, ler o código é mais rápido.
 
 A última é legítima com mais frequência do que se admite: um contêiner de 15 arquivos não
 precisa de diagrama.
@@ -232,7 +232,7 @@ precisa de diagrama.
 
 **Manter à mão o que poderia ser gerado.**
 
-**Não datar** — sem data, o leitor confia.
+**Não datar**: sem data, o leitor confia.
 
 ## Exemplo Real
 
@@ -251,27 +251,27 @@ diagramas de componente   22 — 4 corretos, 18 desatualizados
 
 E, mais grave, dois incidentes tinham sido agravados por diagramas de componente errados:
 em ambos, alguém localizou onde mexer pelo diagrama, mexeu no lugar indicado, e o
-comportamento estava em outro componente — movido numa refatoração meses antes.
+comportamento estava em outro componente, movido numa refatoração meses antes.
 
 A revisão da política:
 
 **Nível de componente removido por padrão.** Os 22 diagramas desenhados à mão foram arquivados.
 
-**Quatro exceções mantidas**, todas em contêineres grandes com onboarding frequente — e
+**Quatro exceções mantidas**, todas em contêineres grandes com onboarding frequente, e
 todas convertidas para geração automática a partir do código.
 
 **README por contêiner** substituiu o resto: um mapa em texto de cinco a dez linhas,
 mantido no repositório do próprio contêiner, revisado junto com mudanças estruturais.
 
-**Diagramas de decisão** passaram a viver nas ADRs, datados e explicitamente não mantidos
-— com uma frase no cabeçalho: "retrato da estrutura em 2026-03; não atualizado".
+**Diagramas de decisão** passaram a viver nas ADRs, datados e explicitamente não mantidos,
+com uma frase no cabeçalho: "retrato da estrutura em 2026-03; não atualizado".
 
 O resultado, medido no ano seguinte: o acervo de diagramas estruturais encolheu de 50
 para 32 (mais os READMEs, um por contêiner, que entraram no lugar dos outros 18), a taxa de itens corretos subiu de 58% para 91%, e nenhum incidente foi agravado
 por documentação errada.
 
 Um efeito não previsto: ao escrever os READMEs, três times descobriram que não conseguiam
-descrever a organização interna em dez linhas — o que virou motivo para refatorar.
+descrever a organização interna em dez linhas. Isso virou motivo para refatorar.
 
 A avaliação posterior aponta: a lição não foi "componentes não importam", e sim que a
 completude tem custo e o custo é contínuo. Documentar tudo produziu menos verdade que
@@ -280,9 +280,9 @@ documentar menos.
 ## Conceitos Relacionados
 
 - [Modelo C4](/17-architecture-documentation/c4-model.md).
-- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o nível acima.
-- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — a saída para este nível.
-- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md) — a meia-vida.
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md): o nível acima.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md): a saída para este nível.
+- [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md): a meia-vida.
 
 ## Exercício Prático
 

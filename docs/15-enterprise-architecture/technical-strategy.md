@@ -2,7 +2,7 @@
 id: technical-strategy
 title: Estratégia Técnica
 sidebar_position: 15
-description: Escolher onde não investir — e por que uma estratégia sem sacrifício não é estratégia.
+description: Escolher onde não investir, e por que uma estratégia sem sacrifício não é estratégia.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, architecture-roadmaps, business-capabilities]
 canonical_for: [estratégia técnica, diagnóstico, renúncia explícita, aposta técnica]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Estratégia técnica é a escolha de **onde a organização vai concentrar esforço técnico** —
+Estratégia técnica é a escolha de **onde a organização vai concentrar esforço técnico**,
 e, necessariamente, onde não vai.
 
 A segunda parte é o que distingue estratégia de lista de intenções. Um documento que
@@ -46,8 +46,8 @@ O documento típico de estratégia técnica é uma lista de aspirações:
 Cinco frases com que ninguém discorda, sem prioridade entre elas, sem indicação do que
 fica de fora.
 
-Diante de uma decisão concreta — investir em modernizar o sistema A ou em melhorar a
-esteira? — o documento não ajuda, porque ambos estão na lista.
+Diante de uma decisão concreta (investir em modernizar o sistema A ou em melhorar a
+esteira?), o documento não ajuda, porque ambos estão na lista.
 
 ## Conceitos Centrais
 
@@ -59,8 +59,8 @@ política     a abordagem escolhida para enfrentá-lo
 ações        o conjunto coerente de coisas que executam a política
 ```
 
-A primeira é a que costuma faltar. Estratégias que começam pelas ações — "vamos adotar
-microsserviços" — pulam a pergunta de que problema isso resolve.
+A primeira é a que costuma faltar. Estratégias que começam pelas ações ("vamos adotar
+microsserviços") pulam a pergunta de que problema isso resolve.
 
 E o diagnóstico precisa ser **específico**:
 
@@ -75,7 +75,7 @@ O segundo aponta a ação. O primeiro, não.
 
 ### Estratégia é escolher o que não fazer
 
-Uma estratégia sem renúncia explícita não é estratégia — é lista de desejos.
+Uma estratégia sem renúncia explícita é lista de desejos.
 
 ```text
 "vamos investir em X, e por isso não vamos investir em Y neste ciclo"
@@ -85,10 +85,10 @@ A segunda metade é o que dá poder à primeira. Sem ela, o investimento se dilu
 avança o suficiente para importar.
 
 E as renúncias precisam ser **nomeadas**. "Não vamos modernizar os sistemas de apoio nos
-próximos 18 meses" é uma decisão que alguém vai contestar — e é exatamente por isso que
+próximos 18 meses" é uma decisão que alguém vai contestar, e é por isso que
 ela precisa estar escrita.
 
-Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — a classificação por
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md): a classificação por
 diferenciação é o critério que sustenta a renúncia.
 
 ### Coerência entre as ações
@@ -105,7 +105,7 @@ incoerente   investir em plataforma + dar autonomia total de tecnologia
 
 O teste: as ações escolhidas se ajudam, ou competem por recursos e se contradizem?
 
-Uma lista de boas iniciativas sem coerência entre si dispersa esforço — e é o resultado
+Uma lista de boas iniciativas sem coerência entre si dispersa esforço, e é o resultado
 mais comum de estratégias construídas por agregação de pedidos de cada área.
 
 ### Estratégia técnica serve à estratégia de negócio
@@ -117,8 +117,8 @@ o que o negócio precisa conseguir fazer nos próximos dois anos?
 o que na tecnologia impede ou limita isso?
 ```
 
-Uma estratégia técnica derivada de preferências de engenharia — "queremos modernizar
-porque a tecnologia é antiga" — não consegue competir por orçamento, e não deveria.
+Uma estratégia técnica derivada de preferências de engenharia ("queremos modernizar
+porque a tecnologia é antiga") não consegue competir por orçamento, e não deveria.
 
 A que se sustenta conecta explicitamente: **esta limitação técnica impede esta
 capacidade de negócio, que vale isto.**
@@ -134,7 +134,7 @@ saberemos em Z meses, observando W
 ```
 
 Isso permite revisar com base em evidência, em vez de defender a posição. E torna
-explícito o que precisa ser verdade — que é o que costuma estar errado quando a
+explícito o que precisa ser verdade, que é o que costuma estar errado quando a
 estratégia falha.
 
 Ver [decisões de arquitetura](/18-architecture-decisions/index.md).
@@ -164,18 +164,18 @@ O que faz a diferença não é o documento, é a repetição em contexto: a estr
 quando uma decisão é tomada, quando uma prioridade é definida, quando algo é recusado.
 
 E há um sinal claro de que ela não pegou: quando as decisões locais contradizem a
-estratégia sem que ninguém note. Isso não é desobediência — é evidência de que a conexão
+estratégia sem que ninguém note. Isso não é desobediência: é evidência de que a conexão
 entre a estratégia e o trabalho cotidiano não foi feita.
 
 A prática que resolve é modesta: incluir na estratégia, para cada aposta, **o que muda
 no dia a dia de quem constrói**. Uma aposta que não altera nenhuma decisão concreta
-provavelmente não é uma aposta — é uma intenção.
+provavelmente é uma intenção, não uma aposta.
 
 ### A estratégia precisa dizer o que fazer com o que já está em andamento
 
 Uma lacuna comum: a estratégia define o futuro e não trata o presente.
 
-No momento em que ela é publicada, há iniciativas em execução — algumas alinhadas, outras
+No momento em que ela é publicada, há iniciativas em execução: algumas alinhadas, outras
 não. Ignorá-las produz duas realidades paralelas.
 
 ```text
@@ -187,7 +187,7 @@ não iniciada e desalinhada não começar
 ```
 
 A segunda linha é a difícil, e o erro característico é deixar a iniciativa continuar
-"porque já investimos" — que é o raciocínio de custo afundado.
+"porque já investimos", que é o raciocínio de custo afundado.
 
 O critério correto ignora o que já foi gasto: **daqui para frente, este investimento é o
 melhor uso do recurso?**
@@ -214,17 +214,17 @@ escolhido.
 
 **Sem disputa por capacidade.** Uma equipe só, sem iniciativas concorrendo pelas mesmas pessoas, já faz a escolha de onde investir ao ordenar a própria fila de trabalho. Um documento de estratégia ali acrescenta cerimônia sem acrescentar decisão.
 
-**Para uma decisão isolada.** Escolher um banco de dados ou um padrão de integração é uma decisão com contexto, opções e consequências — cabe num [registro de decisão](/18-architecture-decisions/index.md). Chamá-la de estratégia não acrescenta diagnóstico nem renúncia.
+**Para uma decisão isolada.** Escolher um banco de dados ou um padrão de integração é uma decisão com contexto, opções e consequências: cabe num [registro de decisão](/18-architecture-decisions/index.md). Chamá-la de estratégia não acrescenta diagnóstico nem renúncia.
 
 **Em crise operacional.** Quando o sistema cai toda semana, a prioridade não está em disputa; o que falta é execução. Formular estratégia nesse momento adia a correção que todos já sabem qual é.
 
 ## Alternativas
 
-- **Princípios** — orientam decisão sem definir prioridade de investimento. Ver
+- **Princípios**: orientam decisão sem definir prioridade de investimento. Ver
   [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
-- **Roteiro** — o que fazer e quando, sem o porquê. Ver
+- **Roteiro**: o que fazer e quando, sem o porquê. Ver
   [roteiros de arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
-- **Arquitetura alvo** — o estado desejado, sem a escolha de onde investir. Ver
+- **Arquitetura alvo**: o estado desejado, sem a escolha de onde investir. Ver
   [arquitetura alvo](/15-enterprise-architecture/target-architecture.md).
 
 Os três são complementares: a estratégia diz por que e onde; o alvo, para onde; o
@@ -326,7 +326,7 @@ se estivermos certos, o tempo de lançamento cai para menos de 6 semanas
 saberemos em 12 meses, observando o tempo dos próximos lançamentos
 ```
 
-Aos 12 meses, os dois lançamentos feitos no novo modelo tinham levado 7 e 6 semanas — perto do alvo, sem atingi-lo. A revisão manteve a aposta, e o terceiro lançamento, no mês 14, saiu em 5 semanas. A aposta se confirmou.
+Aos 12 meses, os dois lançamentos feitos no novo modelo tinham levado 7 e 6 semanas, perto do alvo, sem atingi-lo. A revisão manteve a aposta, e o terceiro lançamento, no mês 14, saiu em 5 semanas. A aposta se confirmou.
 
 E as renúncias tiveram custo: dois sistemas de apoio degradaram, e um incidente de custo
 de infraestrutura consumiu atenção. Ambos foram tratados como consequência aceita, não
@@ -337,9 +337,9 @@ pedido de cada área. Nenhuma delas era errada. O erro foi não escolher.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md) — para onde.
-- [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md) — quando.
-- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md) — o critério de foco.
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md): para onde.
+- [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md): quando.
+- [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md): o critério de foco.
 - [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
 
 ## Exercício Prático

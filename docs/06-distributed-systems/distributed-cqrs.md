@@ -2,7 +2,7 @@
 id: distributed-cqrs
 title: CQRS Distribuído
 sidebar_position: 39
-description: O nível 3 de CQRS de perto — o que muda quando o modelo de leitura vive em outro sistema, alimentado de forma assíncrona.
+description: "O nível 3 de CQRS de perto: o que muda quando o modelo de leitura vive em outro sistema, alimentado de forma assíncrona."
 doc_type: pattern
 level: 4
 difficulty: avançado
@@ -13,14 +13,14 @@ objective: >
 prerequisites: [event-driven-systems, cqrs]
 related: [cqrs, distributed-event-sourcing, eventual-consistency, replication]
 canonical_for: [CQRS distribuído, modelo de leitura, modelo de escrita, projeção]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
 # CQRS Distribuído
 
 > Pré-requisito: [CQRS](/03-design-patterns/cqrs.md) estabelece o que é a separação
-> e os três níveis em que ela aparece. Aqui o foco é o nível 3 — o que muda quando o
+> e os três níveis em que ela aparece. Aqui o foco é o nível 3: o que muda quando o
 > modelo de leitura vive em **outro sistema**, alimentado de forma assíncrona.
 
 ## Visão Geral
@@ -35,7 +35,7 @@ um atraso a monitorar.
 
 ## Problema
 
-O custo do nível 3 não está em construí-lo — está em operá-lo depois.
+O custo do nível 3 está em operá-lo depois, não em construí-lo.
 
 ```text
 construir    uma projeção alimentada por eventos: dias
@@ -66,7 +66,7 @@ Confundir os dois faz um time adotar projeções para um problema que a réplica
 resolveria. Ver [replicação](/06-distributed-systems/replication.md).
 
 O nível 3 se justifica quando a leitura tem requisito de tecnologia que o banco de
-escrita não atende — busca textual em escala, grafo, análise — ou quando a assimetria
+escrita não atende (busca textual em escala, grafo, análise) ou quando a assimetria
 de carga exige escalar os dois lados separadamente.
 
 Adotar o nível 3 por elegância paga consistência eventual, projeções e operação de
@@ -75,7 +75,7 @@ reconstrução para resolver um problema que uma visão resolveria.
 ### A projeção precisa ser reconstruível
 
 No nível 3, o modelo de leitura é derivado. Isso significa que ele pode ser
-descartado e reconstruído — e essa capacidade precisa ser exercitada, não apenas
+descartado e reconstruído, e essa capacidade precisa ser exercitada, não apenas
 existir em teoria.
 
 Um defeito na projeção corrompe a leitura. A correção é consertar o código e
@@ -87,12 +87,12 @@ o tempo.
 
 ### A consistência eventual vaza para a interface
 
-No nível 3 — e também com réplica de leitura —, o usuário que executa uma ação e imediatamente consulta pode não ver
+No nível 3 (e também com réplica de leitura), o usuário que executa uma ação e imediatamente consulta pode não ver
 o efeito.
 
-Ver [consistência eventual](/06-distributed-systems/eventual-consistency.md). As mitigações — atualização
-otimista, estado explícito, leitura direta do modelo de escrita para o próprio autor
-— precisam ser projetadas.
+Ver [consistência eventual](/06-distributed-systems/eventual-consistency.md). As mitigações (atualização
+otimista, estado explícito, leitura direta do modelo de escrita para o próprio autor)
+precisam ser projetadas.
 
 Ignorar isso produz a queixa mais comum de sistemas com CQRS: "salvei e não
 aparece".
@@ -116,7 +116,7 @@ Nenhum modelo único serve bem a todos esses. Essa é a razão real de adoção.
 Eles aparecem juntos com frequência e são independentes.
 
 CQRS pode ser alimentado por captura de mudanças do banco, por eventos de
-integração, ou por processo em lote — sem
+integração, ou por processo em lote, sem
 [event sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 Event sourcing praticamente exige CQRS. A recíproca não vale, e tratá-los como um
@@ -129,7 +129,7 @@ que resolve o problema real.
 
 ## Quando Usar
 
-- A leitura exige tecnologia diferente da escrita — busca, grafo, análise.
+- A leitura exige tecnologia diferente da escrita: busca, grafo, análise.
 - Assimetria de carga grande, com necessidade de escalar separadamente.
 - Muitas visões distintas dos mesmos dados.
 - O modelo de domínio é complexo e as consultas ficam pesadas por causa dele.
@@ -154,11 +154,11 @@ que resolve o problema real.
 
 ## Alternativas
 
-- **Visão materializada do banco** — muito do benefício de leitura, mantida pelo
+- **Visão materializada do banco**: muito do benefício de leitura, mantida pelo
   banco, sem projeção a operar.
-- **Réplica de leitura** — separação de carga sem esquema diferente.
-- **Cache** — quando o problema é volume de leitura repetida.
-- **Índice** — frequentemente a consulta lenta precisa de índice, não de
+- **Réplica de leitura**: separação de carga sem esquema diferente.
+- **Cache**: quando o problema é volume de leitura repetida.
+- **Índice**: frequentemente a consulta lenta precisa de índice, não de
   arquitetura.
 
 A última é a verificação a fazer antes de qualquer coisa: consultas lentas
@@ -217,7 +217,7 @@ alimentada por eventos.
 
 Antes de implementar, a equipe fez uma verificação que mudou a decisão.
 
-**Análise da consulta.** Duas das sete junções eram desnecessárias — resquício de
+**Análise da consulta.** Duas das sete junções eram desnecessárias, resquício de
 uma versão anterior da tela. Removidas, o tempo caiu para 1,8 segundo.
 
 **Índice composto.** Sobre os campos de filtro mais usados. Tempo: 320 ms.
@@ -229,7 +229,7 @@ trabalho.
 
 Um ano depois, um requisito novo justificou de fato o nível 3: busca textual sobre o
 conteúdo dos contratos, com tolerância a erro de digitação, agregação por faceta e
-relevância ajustada por sinais de negócio — e com volume de busca alto o bastante
+relevância ajustada por sinais de negócio, e com volume de busca alto o bastante
 para competir com a carga transacional. A busca textual do banco foi medida antes e
 não sustentou os dois últimos. Ver [busca](/05-system-design/search.md).
 
@@ -252,11 +252,11 @@ custado meses para resolver um problema de índice.
 
 ## Conceitos Relacionados
 
-- [Event Sourcing Distribuído](/06-distributed-systems/distributed-event-sourcing.md) — independente.
-- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) — a consequência.
-- [CQRS](/03-design-patterns/cqrs.md) — os três níveis e a escolha entre eles.
-- [Replicação](/06-distributed-systems/replication.md) — resolve volume, não formato.
-- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — como a projeção é
+- [Event Sourcing Distribuído](/06-distributed-systems/distributed-event-sourcing.md): independente.
+- [Consistência Eventual](/06-distributed-systems/eventual-consistency.md): a consequência.
+- [CQRS](/03-design-patterns/cqrs.md): os três níveis e a escolha entre eles.
+- [Replicação](/06-distributed-systems/replication.md): resolve volume, não formato.
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md): como a projeção é
   alimentada.
 
 ## Exercício Prático
@@ -278,5 +278,5 @@ de modelos passa a ser candidata.
 
 - Young, Greg. *CQRS Documents*, 2010.
 - Fowler, Martin. *CQRS*, 2011.
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 —
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013,
   capítulo 4.

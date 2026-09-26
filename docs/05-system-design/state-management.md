@@ -2,7 +2,7 @@
 id: state-management
 title: Gestão de Estado
 sidebar_position: 6
-description: Onde o estado mora e quem é dono dele — a decisão que determina quão fácil será escalar.
+description: "Onde o estado mora e quem é dono dele: a decisão que determina quão fácil será escalar."
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [stateless-vs-stateful, caching, data-architecture]
 canonical_for: [gestão de estado, state management]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Estado é tudo que o sistema lembra entre uma operação e outra.
 
 Decidir **onde** cada tipo de estado mora é uma das decisões mais consequentes do
-design de sistemas — ela determina o que pode escalar, o que pode falhar sem
+design de sistemas: ela determina o que pode escalar, o que pode falhar sem
 perda, e o que precisa de coordenação.
 
 ## Problema
@@ -57,14 +57,14 @@ problemas.
 | **Em processamento** | Item numa fila sendo tratado | Precisa ser reprocessável | Fila com confirmação |
 | **Efêmero de requisição** | Variáveis de uma chamada | Sim, junto com a requisição | Memória local |
 
-Cache é o único cuja perda é sempre aceitável — porque ele é derivável. Se
+Cache é o único cuja perda é sempre aceitável, porque ele é derivável. Se
 perder cache dói, não era cache: era estado com nome errado.
 
 ### O estado local é o que impede escalar
 
 Uma instância que guarda estado em memória entre requisições cria três problemas.
 
-Requisições do mesmo usuário precisam voltar para a mesma instância — o que exige
+Requisições do mesmo usuário precisam voltar para a mesma instância. Isso exige
 afinidade de sessão no balanceador e desequilibra a carga.
 
 Reiniciar perde. Toda implantação vira perda de estado.
@@ -78,7 +78,7 @@ Ver [sem estado versus com estado](/05-system-design/stateless-vs-stateful.md).
 
 A recomendação prática: **poucos componentes com estado, muitos sem.**
 
-Os com estado — banco, cache distribuído, fila — são os difíceis de operar:
+Os com estado (banco, cache distribuído, fila) são os difíceis de operar:
 replicação, recuperação, consistência. Concentrá-los significa ter poucos lugares
 difíceis, em vez de dificuldade espalhada.
 
@@ -94,10 +94,10 @@ Três opções, com trade-offs distintos:
 rede por requisição, mais um componente a operar.
 
 **No cliente, em token assinado.** Escala sem estado no servidor, ao custo de
-banda — o token viaja em toda requisição. E ele não pode ser revogado antes de
+banda: o token viaja em toda requisição. E ele não pode ser revogado antes de
 expirar, e cresce com o que carrega.
 
-A revogação é o problema que a terceira não resolve — mitigado por expiração curta
+A revogação é o problema que a terceira não resolve, mitigado por expiração curta
 mais uma lista de revogação para casos excepcionais.
 
 ## Modelo Mental
@@ -111,7 +111,7 @@ A resposta classifica o estado e determina onde ele deve morar.
 
 Estado local em memória se justifica quando:
 
-- É derivável e a perda é aceitável — cache.
+- É derivável e a perda é aceitável: cache.
 - Vive dentro de uma requisição.
 - Há uma instância só e continuará assim.
 
@@ -133,11 +133,11 @@ perdem o disco.
 
 ## Alternativas
 
-- **Banco de dados** — para estado que não pode ser perdido.
-- **Cache distribuído** — para estado compartilhado e descartável.
-- **Token assinado** — para sessão sem estado no servidor.
-- **Fila com confirmação** — para estado em processamento.
-- **Não guardar** — a alternativa mais subestimada: recalcular pode ser mais
+- **Banco de dados**: para estado que não pode ser perdido.
+- **Cache distribuído**: para estado compartilhado e descartável.
+- **Token assinado**: para sessão sem estado no servidor.
+- **Fila com confirmação**: para estado em processamento.
+- **Não guardar** (a alternativa mais subestimada): recalcular pode ser mais
   barato que gerenciar.
 
 ## Trade-offs
@@ -186,7 +186,7 @@ Funcionou com duas instâncias. Com oito, três problemas apareceram.
 A carga ficou desigual: instâncias antigas acumulavam sessões ativas e as novas
 ficavam ociosas.
 
-Toda implantação derrubava carrinhos em andamento — e o time passou a implantar
+Toda implantação derrubava carrinhos em andamento, e o time passou a implantar
 só de madrugada, o que reduziu a frequência de entrega.
 
 E um pico de Black Friday derrubou duas instâncias por memória, levando junto os
@@ -194,15 +194,15 @@ carrinhos que estavam nelas.
 
 A reclassificação separou três coisas que estavam misturadas.
 
-**Identidade e autenticação** viraram token assinado com 15 minutos de validade —
+**Identidade e autenticação** viraram token assinado com 15 minutos de validade,
 sem estado no servidor.
 
-**Carrinho** foi para armazenamento compartilhado — o mesmo componente de cache
+**Carrinho** foi para armazenamento compartilhado: o mesmo componente de cache
 distribuído, com o despejo por pressão de memória desligado e expiração de 7 dias.
 Continua sendo estado de sessão, não cache: o negócio aceita perdê-lo no prazo, mas
 não a cada implantação.
 
-**Preferências de exibição** — filtro, ordenação — foram para o cliente. Não
+**Preferências de exibição** (filtro, ordenação) foram para o cliente. Não
 precisavam do servidor.
 
 A afinidade de sessão foi removida, a carga equilibrou, e a implantação deixou de
@@ -227,7 +227,7 @@ têm perfis bem distintos.
 | Componente adicional | Nenhum | Um | Nenhum |
 
 A linha de revogação costuma decidir. Sistemas com requisito de bloqueio
-imediato — financeiro, saúde, qualquer contexto com consequência regulatória — não
+imediato (financeiro, saúde, qualquer contexto com consequência regulatória) não
 podem depender só de expiração.
 
 A combinação que resolve isso: token curto para o acesso, com um estado revogável
@@ -239,11 +239,11 @@ de cabeçalho por carregamento.
 
 ## Conceitos Relacionados
 
-- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — a consequência para
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md): a consequência para
   escala.
-- [Cache](/05-system-design/caching.md) — o estado descartável.
-- [Balanceamento de Carga](/05-system-design/load-balancing.md) — onde a afinidade aparece.
-- [Arquitetura de Dados](/07-data-architecture/index.md) — o estado persistente.
+- [Cache](/05-system-design/caching.md): o estado descartável.
+- [Balanceamento de Carga](/05-system-design/load-balancing.md): onde a afinidade aparece.
+- [Arquitetura de Dados](/07-data-architecture/index.md): o estado persistente.
 
 ## Exercício Prático
 

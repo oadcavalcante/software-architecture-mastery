@@ -2,7 +2,7 @@
 id: alerting
 title: Alertas
 sidebar_position: 7
-description: O que merece acordar alguém — e por que a maioria dos alertas existentes não merece.
+description: O que merece acordar alguém, e por que a maioria dos alertas existentes não merece.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, slo, sre-concepts]
 canonical_for: [alerta acionável, fadiga de alerta, sintoma versus causa, alerta baseado em SLO]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,7 @@ O critério que justifica esse custo é estreito: **algo está afetando usuário
 afetar em breve, e há uma ação humana que resolve.**
 
 A maioria dos alertas de um sistema típico não passa nesse teste. Eles existem porque
-alguém, em algum momento, quis saber de algo — e ninguém revisou depois.
+alguém, em algum momento, quis saber de algo, e ninguém revisou depois.
 
 ## Problema
 
@@ -40,7 +40,7 @@ Repete-se dezenas de vezes ao longo dos anos.
 Ninguém remove. O resultado é um volume que ninguém consegue processar, e a resposta
 humana previsível: **ignorar**.
 
-A partir daí, os alertas param de funcionar — inclusive os bons. Um time que recebe
+A partir daí, os alertas param de funcionar, inclusive os bons. Um time que recebe
 quarenta notificações por dia não reage à quadragésima primeira, mesmo que ela seja a
 importante.
 
@@ -63,7 +63,7 @@ Falhar em qualquer um significa que o alerta deveria ser outra coisa: uma tarefa
 priorizada, um item de painel, ou nada.
 
 O teste de acionabilidade é o mais eficaz. Um alerta cuja resposta é "olhar e ver que
-passou" não é acionável — ele é ruído com aparência de informação.
+passou" não é acionável: ele é ruído com aparência de informação.
 
 ### Alerte no sintoma, não na causa
 
@@ -72,18 +72,18 @@ causa      "CPU acima de 80%"
 sintoma    "a taxa de erro do checkout está acima do limite"
 ```
 
-Alertar em causas produz dois problemas: dispara quando não há impacto — CPU alta pode
-ser normal — e não dispara quando há impacto por uma causa que ninguém previu.
+Alertar em causas produz dois problemas: dispara quando não há impacto (CPU alta pode
+ser normal) e não dispara quando há impacto por uma causa que ninguém previu.
 
 Alertar em sintoma cobre toda causa que se manifesta no sinal medido, inclusive as que
 ninguém previu, ao preço de não dizer qual é. O que não aparece no sintoma escolhido
 continua descoberto, e um pico transitório abaixo do impacto ainda pode disparar.
 
-As causas continuam sendo medidas — elas aparecem no painel e são usadas para
+As causas continuam sendo medidas: elas aparecem no painel e são usadas para
 diagnóstico. Elas simplesmente não acordam ninguém.
 
-A exceção legítima: causas com previsibilidade alta e prazo — "certificado expira em 14
-dias", "disco cheio em 6 horas". Elas são acionáveis e evitam o sintoma.
+A exceção legítima: causas com previsibilidade alta e prazo ("certificado expira em 14
+dias", "disco cheio em 6 horas"). Elas são acionáveis e evitam o sintoma.
 
 ### Baseie no orçamento de erro
 
@@ -116,7 +116,7 @@ A pergunta que classifica: **se isso disparar às 3h, alguém precisa levantar?*
 resposta for não, não é alerta de sobreaviso.
 
 Rebaixar para ticket o que responde "não" a essa pergunta é a intervenção mais rápida para
-reduzir fadiga — o trabalho continua sendo feito, em horário razoável. O que se perde é a
+reduzir fadiga: o trabalho continua sendo feito, em horário razoável. O que se perde é a
 detecção a tempo de uma condição que piora fora do horário; por isso o rebaixamento vale
 só quando a condição não tende a virar sintoma antes da manhã seguinte.
 
@@ -164,29 +164,29 @@ coisa.
 
 - Sintoma afetando usuários, com ação disponível.
 - Consumo acelerado de orçamento de erro.
-- Condição previsível com prazo — certificado, cota, disco.
-- Falha de mecanismo de proteção — réplica perdida, failover desativado. Não há impacto
+- Condição previsível com prazo: certificado, cota, disco.
+- Falha de mecanismo de proteção: réplica perdida, failover desativado. Não há impacto
   ainda, mas a próxima falha deixa de ser absorvida; é a exceção de causa previsível em que
   o prazo é o tempo até a próxima falha.
-- Ausência de algo que deveria acontecer — tarefa não executada, tráfego cessado.
+- Ausência de algo que deveria acontecer: tarefa não executada, tráfego cessado.
 
 ## Quando Não Usar
 
-**Em causas** sem impacto direto — disparam em condição normal e treinam o time a ignorar.
+**Em causas** sem impacto direto: disparam em condição normal e treinam o time a ignorar.
 
-**Sem ação possível** — acordar alguém para observar não muda o desfecho.
+**Sem ação possível**: acordar alguém para observar não muda o desfecho.
 
-**Para o que pode esperar o horário comercial** — o custo da interrupção não compra nada
+**Para o que pode esperar o horário comercial**: o custo da interrupção não compra nada
 que um ticket não entregue.
 
 **Com limiar arbitrário**, quando orçamento de erro está disponível.
 
 ## Alternativas
 
-- **Ticket priorizado** — para o que precisa de ação sem urgência.
-- **Item de painel** — para contexto.
-- **Alerta baseado em [SLO](/12-reliability/slo.md)** — proporcional ao impacto.
-- **Correção automática** — quando a ação é sempre a mesma, automatize em vez de
+- **Ticket priorizado**: para o que precisa de ação sem urgência.
+- **Item de painel**: para contexto.
+- **Alerta baseado em [SLO](/12-reliability/slo.md)**: proporcional ao impacto.
+- **Correção automática**: quando a ação é sempre a mesma, automatize em vez de
   alertar. O melhor alerta é o que deixa de existir.
 
 ## Trade-offs
@@ -221,7 +221,7 @@ que um ticket não entregue.
 
 ## Erros Comuns
 
-**Alertar em causas.** CPU alta pode ser normal; o que precisa acordar alguém é sintoma com impacto — usuário sem conseguir concluir. Alertar em causa gera ruído e treina o time a ignorar.
+**Alertar em causas.** CPU alta pode ser normal; o que precisa acordar alguém é sintoma com impacto (usuário sem conseguir concluir). Alertar em causa gera ruído e treina o time a ignorar.
 
 **Não classificar entre acordar, ticket e painel.** Tratar tudo como urgente esgota o plantão, e o alerta importante chega junto com trinta que não eram.
 
@@ -229,7 +229,7 @@ que um ticket não entregue.
 
 **Notificação sem contexto.** Um alerta que não diz o impacto, o que verificar e onde olhar transfere para quem foi acordado o trabalho de descobrir por que foi acordado.
 
-**Não alertar sobre ausência.** Um processo que parou de rodar não gera erro. Só a verificação pela expectativa — devia ter acontecido e não aconteceu — detecta isso.
+**Não alertar sobre ausência.** Um processo que parou de rodar não gera erro. Só a verificação pela expectativa (devia ter acontecido e não aconteceu) detecta isso.
 
 **Não agrupar alertas em cascata.** Uma causa raiz dispara quarenta notificações de serviços dependentes, e o sinal da causa se perde no meio das consequências.
 
@@ -259,13 +259,13 @@ de correção.
 
 A reformulação:
 
-**43 alertas ativos** — os 27 acionáveis mais os 16 que nunca tinham disparado por defeito
+**43 alertas ativos**: os 27 acionáveis mais os 16 que nunca tinham disparado por defeito
 de configuração e passaram a disparar.
 
 **Alertas por orçamento de erro** para as três jornadas críticas, substituindo nove desses 43
 que eram de limiar. A configuração final ficou em **37**.
 
-**Rebaixamento para ticket** dos 34 que precisavam de ação sem urgência — os que disparavam
+**Rebaixamento para ticket** dos 34 que precisavam de ação sem urgência: os que disparavam
 e ninguém agia, mas que descreviam condição real.
 
 **Agrupamento de cascata**: quando uma dependência falha, os alertas dos serviços que
@@ -280,22 +280,22 @@ Resultado: de 31 notificações por dia para **1,4**. E o tempo médio de respos
 porque cada notificação passou a ser levada a sério.
 
 O aprendizado que ficou: os 115 alertas removidos tinham sido criados por pessoas
-razoáveis, cada um em resposta a um incidente real. Nenhum foi um erro individual — o
+razoáveis, cada um em resposta a um incidente real. Nenhum foi um erro individual: o
 erro foi nunca revisar.
 
 ## Conceitos Relacionados
 
-- [Sinais Dourados](/13-observability/golden-signals.md) — a base.
-- [SLO](/12-reliability/slo.md) — o alerta proporcional.
+- [Sinais Dourados](/13-observability/golden-signals.md): a base.
+- [SLO](/12-reliability/slo.md): o alerta proporcional.
 - [Conceitos de SRE](/13-observability/sre-concepts.md).
-- [Painéis](/13-observability/dashboards.md) — o destino do que não é alerta.
+- [Painéis](/13-observability/dashboards.md): o destino do que não é alerta.
 
 ## Exercício Prático
 
 Pegue os alertas que dispararam no último mês e classifique cada um: gerou ação urgente,
 gerou ação adiável, ou não gerou ação?
 
-A terceira categoria costuma ser a maior — e removê-la é a intervenção de maior retorno
+A terceira categoria costuma ser a maior, e removê-la é a intervenção de maior retorno
 disponível.
 
 ## Perguntas de Entrevista
@@ -306,6 +306,6 @@ disponível.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 6.
-- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018 — capítulo 5.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 6.
+- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018. Capítulo 5.
 - Ewaschuk, Rob. *My Philosophy on Alerting*, 2013.

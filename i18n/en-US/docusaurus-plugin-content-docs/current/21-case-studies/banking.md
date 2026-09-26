@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-translated_from_version: 6
+translated_from_version: 7
 last_reviewed: 2026-08-31
 ---
 
@@ -35,13 +35,13 @@ support, not the magnitudes.
 **Banco Aurio** is a digital bank with 6.4 million accounts opened, of which 3.1 million are
 monthly active. It operates a payment account, a prepaid card and personal credit.
 
-The banking core — the system that holds balances, posts transactions and closes the day — is
+The banking core (the system that holds balances, posts transactions and closes the day) is
 an off-the-shelf solution contracted in 2019, charged per active account.
 
 Three pressures motivate the review:
 
 **Cost per account.** The contract charges $0.28 per active account per month. With 3.1
-million active accounts, that is $10.6 million a year — the company's second-largest cost
+million active accounts, that is $10.6 million a year: the company's second-largest cost
 line, behind only payroll. And it grows linearly with success.
 
 **Product limits.** The core supports neither multi-currency accounts, nor investment
@@ -77,7 +77,7 @@ the closing window. FR-8 and FR-9 are what the vendor doesn't deliver.
 It is worth making explicit why FR-1 is stated as double-entry and not as "maintain a
 balance". A system that stores the balance as a number and alters it on every operation has
 no way to answer the question audit, the regulator and the customer all ask: **where did that
-difference come from?** Double-entry is not an accounting preference — it is the data
+difference come from?** Double-entry is not an accounting preference but the data
 structure that makes the balance a verifiable consequence of the history, rather than an
 assertion.
 
@@ -122,7 +122,7 @@ schedule        the closing window is a recurring complaint; leadership
 ```
 
 The requirement to run in parallel with proof of equivalence is the constraint that shapes the
-whole migration plan — it makes any big-bang switchover impossible.
+whole migration plan: it makes any big-bang switchover impossible.
 
 ## Capacity Estimates
 
@@ -140,7 +140,7 @@ with margin                            ~6,000/s
 ```
 
 **This is the number that changes the analysis.** 2,500 postings per second, with double-entry
-transactions, is served by a single well-sized relational database — with a large margin.
+transactions, is served by a single well-sized relational database, with a large margin.
 There is no need to partition writes, and partitioning an accounting ledger has a very high
 complexity cost.
 
@@ -155,7 +155,7 @@ The storage volume is large; the concurrent write volume is not. That asymmetry 
 design: **a small, hot transactional core, with cold history kept separate**.
 
 The balances table has 6.4 million rows and fits entirely in memory. The entries table has 52
-billion and is never read in full — each statement query touches a time window of one account.
+billion and is never read in full: each statement query touches a time window of one account.
 They are two opposite access profiles coexisting in the same domain, and treating them as one
 would produce a database that is slow at both ends.
 
@@ -208,7 +208,7 @@ risk                       high in migration and in operation
 ```
 
 Option C solves a scale problem the estimates show does not exist, and pays for it with a
-distributed transaction on every transfer between accounts — which is a bank's most common
+distributed transaction on every transfer between accounts, which is a bank's most common
 operation.
 
 ## Trade-off Analysis
@@ -224,7 +224,7 @@ operation.
 | **Weighted total** | | **5.1** | **7.7** | **5.5** |
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With migration risk at 40%, the totals become
-5.3 / 7.3 / 4.9 — Option B still wins. With cost at 45%, they become 4.5 / 8.0 / 5.9. The
+5.3 / 7.3 / 4.9: Option B still wins. With cost at 45%, they become 4.5 / 8.0 / 5.9. The
 conclusion is stable.
 
 The criterion that most separates A from B is product freedom, and it was deliberately
@@ -238,7 +238,7 @@ evolution path to partitioning by account, should volume require it.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** product freedom were not necessary — if the roadmap consisted of
+**Option A would win if** product freedom were not necessary: if the roadmap consisted of
 products the market already covers. It would also win if the team had fewer than 20 engineers:
 building a correct accounting ledger requires a critical mass small teams don't have.
 
@@ -299,12 +299,12 @@ Reconciler
 
 The **Ledger** is deliberately small and free of business rules. It accepts balanced entries
 and writes them; all product logic lives outside it and produces entries. That separation is
-what makes it possible to add new products without touching the core — which is the problem
+what makes it possible to add new products without touching the core. That is the problem
 the vendor didn't solve.
 
 The temptation to put rules in the ledger is strong and returns with every new product: it
 would be simpler, for the credit team, if the ledger knew how to reject an entry that exceeds
-a limit. The rule adopted is that the ledger knows exactly three things — accounts exist,
+a limit. The rule adopted is that the ledger knows exactly three things: accounts exist,
 entries sum to zero, and an idempotency key doesn't repeat. Any validation beyond that is
 product and stays outside.
 
@@ -332,7 +332,7 @@ opposite sign, referencing the original (FR-11). That is what makes auditing pos
 is a regulatory requirement.
 
 **Balancing.** Every transaction writes entries that sum to zero. A database constraint
-rejects unbalanced transactions — the check belongs to the store, not to the application.
+rejects unbalanced transactions: the check belongs to the store, not to the application.
 
 **Idempotency by key.** `idempotency_key` is unique. A second attempt with the same key
 returns the first one's result, without duplicating. See
@@ -340,7 +340,7 @@ returns the first one's result, without duplicating. See
 
 **Balance as a projection with verification.** The `balance` table exists for fast reads and
 is updated in the **same transaction** as the entry, with optimistic version control. It is
-not an eventual replica — that would be an inconsistency window over money, which the
+not an eventual replica: that would be an inconsistency window over money, which the
 requirement forbids.
 
 A daily process recalculates the balance of a sample from the entries and compares. The sample
@@ -349,16 +349,16 @@ is 100% of the accounts with movement in the last 24 h, and 2% of the rest.
 The choice of sample deserves an explanation. Recalculating 6.4 million balances from 52
 billion entries is expensive and slow. Recalculating only the accounts with movement covers
 where an error could have been introduced; the 2% sample of inactive accounts covers the
-hypothesis of silent corruption in data nobody touches — which is rare and is precisely what
+hypothesis of silent corruption in data nobody touches. It is rare and is precisely what
 would go unnoticed indefinitely.
 
 Over two years of operation, the verification found three divergences. None was a ledger
 error: two came from a badly executed manual correction, and one from a test that wrote to
-production because of a misconfiguration. All were detected in under 24 hours — which is
+production because of a misconfiguration. All were detected in under 24 hours, which is
 exactly the value of the verification.
 
 **History partitioned by month.** Partitions older than 90 days move to cheaper storage, with
-slower queries — acceptable for old statements, which account for 3% of queries.
+slower queries, acceptable for old statements, which account for 3% of queries.
 
 **PostgreSQL** as the ledger's database, with a synchronous replica in another zone (RPO zero)
 and an asynchronous replica in another region (disaster recovery).
@@ -382,7 +382,7 @@ system, with the hold serving as the intermediate state. That keeps the customer
 correct even when the settlement system is unavailable.
 
 **Card networks (FR-6).** Batch settlement files, processed idempotently per file and per
-record — reprocessing the same file does not duplicate entries.
+record: reprocessing the same file does not duplicate entries.
 
 **Product engine.** Publishes entries like any other origin. Interest and fees get no
 privileged path into the ledger.
@@ -393,7 +393,7 @@ incident, not an alert.
 
 The distinction between incident and alert is not semantic. An alert goes to a dashboard and is
 observed; an incident pages on-call, has a response deadline and produces a follow-up
-analysis. The choice to treat one cent as an incident was deliberate and contested — the
+analysis. The choice to treat one cent as an incident was deliberate and contested: the
 objection was that it would produce noise. Over two years, it produced 14 pages, of which 11
 were real integration problems with third parties and 3 were reconciliation defects. None was
 noise.
@@ -421,7 +421,7 @@ support access            read-only, with logging and a mandatory
 ```
 
 The most important control is **single write credential**: no alternative path writes to the
-ledger, and that is verified automatically — a fitness function fails the pipeline if any
+ledger, and that is verified automatically. A fitness function fails the pipeline if any
 other service declares write credentials on that schema. See
 [fitness functions](/19-architecture-governance/fitness-functions-governance.md).
 
@@ -440,7 +440,7 @@ bottleneck in the test               contention on the balance table, per accoun
 ```
 
 The contention is per account, not global. Ordinary accounts have low concurrency; settlement
-accounts — the internal account that receives all fees, for example — have high concurrency.
+accounts (the internal account that receives all fees, for example) have high concurrency.
 
 The solution is **balance sharding for hot accounts**: high-volume internal accounts have
 their balance split across N sub-rows, and the balance is the sum. A write picks a sub-row at
@@ -464,7 +464,7 @@ testing           full restore tested quarterly, by someone
 ```
 
 RPO zero costs latency: confirming across two zones adds ~12 ms to the p99 of a posting. It is
-paid on every transaction and was accepted explicitly — money doesn't tolerate loss.
+paid on every transaction and was accepted explicitly: money doesn't tolerate loss.
 
 **Designed degradation.**
 
@@ -485,7 +485,7 @@ creating money that may not exist.
 
 That rule has an uncomfortable and accepted consequence: while the ledger is unavailable, the
 bank does not operate. There is no queue of pending entries, no provisional acceptance, no
-"we'll process it once it's back". The alternative — accept and settle later — trades a visible
+"we'll process it once it's back". The alternative (accept and settle later) trades a visible
 and short outage for an invisible and open-ended risk of inconsistency, and it is the origin of
 a good share of the unexplained negative balance episodes seen in the sector.
 
@@ -511,7 +511,7 @@ The line "unbalanced entry → impossible, but alarmed" is deliberate: the datab
 prevents it, and the alarm exists because a firing would indicate the constraint was removed or
 bypassed.
 
-That pattern — alarming the impossible — appears three times in the design, and the
+That pattern (alarming the impossible) appears three times in the design, and the
 justification is the same: structural guarantees can be undone by mistake, and the moment to
 discover that is not during an audit. The cost of keeping the alarm is negligible; the cost of
 discovering late that the constraint was dropped in a schema migration is not.
@@ -519,7 +519,7 @@ discovering late that the constraint was dropped in a schema migration is not.
 The ledger's observability also serves an audience usually forgotten in the design: internal
 controls and the regulator itself. Reconciliation reports, the audit trail and the support
 access log are built with that audience in mind, and made available as queries rather than as
-files sent on request — which reduced the effort of answering regulatory requests from days to
+files sent on request, which reduced the effort of answering regulatory requests from days to
 hours.
 
 ## Deployment
@@ -545,7 +545,7 @@ are compared, account by account.
 
 The exit criterion for the phase: **90 consecutive days with zero divergence across 6.4
 million accounts.** The first attempt took 5 months to reach the criterion; 11 classes of
-divergence were found, of which 7 were undocumented behaviors of the current core — the kind
+divergence were found, of which 7 were undocumented behaviors of the current core, the kind
 of knowledge that only shows up in the comparison.
 
 **Phase 2 (months 9–12): reads from the new ledger.** Balance and statement queries start being
@@ -553,8 +553,8 @@ served by the new ledger, with the current core still the write source. Low risk
 by configuration.
 
 **Phase 3 (months 13–16): writes per product.** Writes migrate per product, not per account. It
-starts with the prepaid card — the product with the lowest volume and the lowest accounting
-complexity — and advances to the payment account and credit.
+starts with the prepaid card (the product with the lowest volume and the lowest accounting
+complexity) and advances to the payment account and credit.
 
 Each migrated product keeps a reverse shadow: the old core keeps receiving a copy, for
 comparison, until the next product migrates.
@@ -564,14 +564,14 @@ closing window is eliminated. The close becomes an aggregation process running o
 already-settled data, without blocking writes.
 
 **Phase 5 (months 20–26): new products and shutdown.** Multi-currency, joint accounts and
-investments, followed by terminating the contract with 12 months' notice — started in Phase 3,
+investments, followed by terminating the contract with 12 months' notice, started in Phase 3,
 so as not to pay for an idle contract.
 
 The choice to start the notice period in Phase 3, and not Phase 5, was a conscious risk
 decision: it creates an irreversible 12-month deadline to complete the write migration. The
 recorded justification is that, without that deadline, the organization's experience with long
 projects indicated a high probability of Phase 4 being deferred indefinitely by competing
-priorities — and the supplier contract, which keeps running while both systems coexist, costs
+priorities, and the supplier contract, which keeps running while both systems coexist, costs
 $10.6 million a year.
 
 The risk was mitigated with an extension clause negotiated in advance, at an agreed price,
@@ -613,8 +613,8 @@ time for a new product to enter
 ## What this case teaches
 
 **A retail bank's scale is smaller than its reputation suggests.** 2,500 postings per second
-fit in a relational database. Partitioning the ledger — which looks like the "serious" answer
-— introduces a distributed transaction into the domain's most common operation, to solve a
+fit in a relational database. Partitioning the ledger (which looks like the "serious" answer)
+introduces a distributed transaction into the domain's most common operation, to solve a
 problem that doesn't exist.
 
 **The core should be dumb.** All the product freedom came from keeping the ledger free of
@@ -633,7 +633,7 @@ not with the adjective.
 
 - [Idempotency](/06-distributed-systems/idempotency.md).
 - [Strong Consistency](/06-distributed-systems/strong-consistency.md).
-- [Hotspots](/11-scalability/hotspots.md) — balance sharding.
+- [Hotspots](/11-scalability/hotspots.md): balance sharding.
 - [Case: Payments Platform](/21-case-studies/payments.md).
 
 ## Practical Exercise
@@ -655,5 +655,5 @@ the application and not in the database, it is not a guarantee.
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Fowler, Martin. *Accounting Patterns*. martinfowler.com — supplement to *Analysis Patterns*, Addison-Wesley, 1996.
+- Fowler, Martin. *Accounting Patterns*. martinfowler.com. Supplement to *Analysis Patterns*, Addison-Wesley, 1996.
 - Central bank instant payment scheme rulebooks — settlement system regulation.

@@ -2,7 +2,7 @@
 id: diagram-quality
 title: Qualidade de Diagrama
 sidebar_position: 13
-description: O que separa um diagrama que comunica de um que polui — e a legenda que quase nunca existe.
+description: O que separa um diagrama que comunica de um que polui, e a legenda que quase nunca existe.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [c4-model, documentation-principles, living-documentation]
 canonical_for: [qualidade de diagrama, legenda, notação consistente, ruído visual]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -32,7 +32,7 @@ inconsistente, escopo indefinido, e ruído.
 ## Problema
 
 Diagramas de arquitetura costumam ser produzidos para uma apresentação, com alguém
-narrando. Nesse contexto, eles funcionam — a narração preenche as lacunas.
+narrando. Nesse contexto, eles funcionam: a narração preenche as lacunas.
 
 Depois, eles ficam. E são lidos sem narração, por pessoas que não estavam na
 apresentação.
@@ -77,7 +77,7 @@ poucos elementos — três ou quatro formas bastam
 significado estável
 ```
 
-Ver [modelo C4](/17-architecture-documentation/c4-model.md) — ele não prescreve notação, e prescreve consistência
+Ver [modelo C4](/17-architecture-documentation/c4-model.md): ele não prescreve notação, e prescreve consistência
 semântica.
 
 Um conjunto pequeno de convenções, documentado uma vez e reusado, é o que torna diagramas
@@ -120,7 +120,7 @@ alvo         até 12 caixas por diagrama
 acima de 20  o leitor não consegue segurar o conjunto
 ```
 
-Um diagrama com 40 caixas não comunica — ele arquiva.
+Um diagrama com 40 caixas arquiva, em vez de comunicar.
 
 Quando o sistema é grande, a saída é **decompor em vários diagramas**, cada um com um
 recorte e um propósito, e não espremer tudo num só.
@@ -140,10 +140,10 @@ alinhamento consistente
 ```
 
 Linhas que se cruzam são o defeito visual mais comum, e frequentemente indicam que a
-disposição não foi pensada — ou que há elementos demais.
+disposição não foi pensada, ou que há elementos demais.
 
 Ferramentas de geração automática produzem layouts razoáveis e nem sempre bons. Ver
-[documentação viva](/17-architecture-documentation/living-documentation.md) — o trade-off entre layout controlado e
+[documentação viva](/17-architecture-documentation/living-documentation.md): o trade-off entre layout controlado e
 diagrama derivado é real.
 
 ### O que não colocar
@@ -155,8 +155,8 @@ elementos decorativos               ícones que não significam nada
 sobreposição de níveis              ver modelo C4
 ```
 
-O terceiro merece nota: ícones de tecnologia — o logotipo do banco, da nuvem, da
-linguagem — são atraentes e frequentemente redundantes com o rótulo. Eles ocupam espaço e
+O terceiro merece nota: ícones de tecnologia (o logotipo do banco, da nuvem, da
+linguagem) são atraentes e frequentemente redundantes com o rótulo. Eles ocupam espaço e
 não acrescentam.
 
 ### O teste do leitor ausente
@@ -172,8 +172,8 @@ o título diz qual é o escopo?
 a data diz se ainda vale?
 ```
 
-Se alguma resposta for não, a informação faltante está viva apenas na cabeça de uma pessoa
-— o que é precisamente a condição que a documentação existe para eliminar. Um diagrama que
+Se alguma resposta for não, a informação faltante está viva apenas na cabeça de uma pessoa.
+Isso é precisamente a condição que a documentação existe para eliminar. Um diagrama que
 só funciona com seu autor presente não é documentação; é material de apoio para uma
 apresentação.
 
@@ -195,7 +195,7 @@ quando:
 
 **Esboço descartável.** O rascunho de quadro branco apagado na mesma sessão tem o autor
 presente para narrar, e ninguém o lerá depois. Cabeçalho, legenda e data custam minutos
-que não voltam, porque o leitor ausente — a razão de existirem — nunca aparece. O critério
+que não voltam, porque o leitor ausente (a razão de existirem) nunca aparece. O critério
 é o destino: se a foto do quadro vai parar numa página, ele deixou de ser descartável.
 
 **Notação já fixada pela ferramenta.** Um diagrama gerado cuja notação vem da ferramenta,
@@ -212,11 +212,11 @@ perguntas que evita.
 
 ## Alternativas
 
-- **Descrição textual** — para relações simples, um parágrafo pode ser mais claro.
-- **Tabela** — para relações muitas-para-muitas, uma matriz comunica melhor que um
+- **Descrição textual**: para relações simples, um parágrafo pode ser mais claro.
+- **Tabela**: para relações muitas-para-muitas, uma matriz comunica melhor que um
   diagrama com linhas cruzadas.
-- **Vários diagramas menores** — em vez de um grande.
-- **Diagrama gerado** — consistência automática, com menos controle de layout.
+- **Vários diagramas menores**: em vez de um grande.
+- **Diagrama gerado**: consistência automática, com menos controle de layout.
 
 A segunda é subestimada: uma matriz de quem chama quem é mais legível que um diagrama com
 trinta setas.
@@ -255,13 +255,13 @@ trinta setas.
 
 **Não fazer legenda.** Formas e cores que só o autor entende tornam o diagrama ilegível para quem mais precisa dele.
 
-**Usar cor sem significado declarado.** O leitor supõe que a cor significa algo e tira conclusão errada — pior que não ter cor.
+**Usar cor sem significado declarado.** O leitor supõe que a cor significa algo e tira conclusão errada, o que é pior que não ter cor.
 
 **Setas sem rótulo.** "A aponta para B" não diz se é chamada síncrona, evento ou leitura de banco, que é justamente o que muda o entendimento.
 
 **Espremer o sistema inteiro num diagrama.** Acima de uma dúzia de elementos a leitura fica difícil, e acima de vinte o leitor já não segura o conjunto. Vários diagramas em níveis diferentes comunicam mais que um abrangente.
 
-**Não datar.** Sem data, o leitor não sabe se está vendo o sistema de hoje ou de três anos atrás — e supõe que é de hoje.
+**Não datar.** Sem data, o leitor não sabe se está vendo o sistema de hoje ou de três anos atrás, e supõe que é de hoje.
 
 **Testar o diagrama apenas com quem já conhece o sistema.** Essas pessoas preenchem as lacunas com o que já sabem. O teste real é alguém de fora explicar o que entendeu.
 
@@ -283,7 +283,7 @@ O resultado, agregado nas cinco categorias mais frequentes:
 
 Nenhum dos doze tinha legenda. Nenhum tinha data.
 
-E dois deles descreviam sistemas que tinham sido substituídos — o que só foi descoberto
+E dois deles descreviam sistemas que tinham sido substituídos. Isso só foi descoberto
 porque alguém de fora perguntou.
 
 As correções foram simples e o efeito foi grande:
@@ -297,7 +297,7 @@ espessuras de linha, cada uma com significado fixo.
 
 **Rótulos em todas as setas**, com o propósito antes do protocolo.
 
-**Diagramas como código**, versionados no repositório — o que atacou a data e a
+**Diagramas como código**, versionados no repositório. Isso atacou a data e a
 existência pelo processo, não pela garantia: o diagrama é revisado junto com a mudança que
 o afeta, a data de alteração está no histórico, e o diagrama de um sistema desativado
 desaparece quando o repositório é arquivado. O texto ainda é escrito à mão e ainda pode
@@ -319,8 +319,8 @@ isola o efeito de cada uma; a atribuição é leitura da equipe, não medida.
 ## Conceitos Relacionados
 
 - [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md).
-- [Modelo C4](/17-architecture-documentation/c4-model.md) — a consistência semântica.
-- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — diagramas gerados.
+- [Modelo C4](/17-architecture-documentation/c4-model.md): a consistência semântica.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md): diagramas gerados.
 - [Padrões de Documentação](/17-architecture-documentation/documentation-standards.md).
 
 ## Exercício Prático

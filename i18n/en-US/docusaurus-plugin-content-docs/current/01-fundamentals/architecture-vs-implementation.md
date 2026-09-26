@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vs-design]
 related: [dependency-management, technical-debt]
 canonical_for: [intended architecture, actual architecture, architectural drift]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -38,10 +38,10 @@ serialization annotations, and a reporting module reading directly from the
 tables of four other modules.
 
 Nobody decided that. Each individual step was reasonable under schedule pressure,
-and nothing prevented it. The intended architecture was never implemented — only
+and nothing prevented it. The intended architecture was never implemented, only
 drawn.
 
-The common diagnostic error is to call this indiscipline. It is not. It is the
+The common diagnostic error is to call this indiscipline, when it is the
 predictable consequence of a boundary that exists as a verbal agreement rather
 than as a verifiable constraint. **Every boundary that depends solely on memory
 will be crossed.** It is a matter of time and turnover.
@@ -59,7 +59,7 @@ structural.
 
 The characteristic signal is the remark "we don't really follow the architecture
 here any more". When someone can say that, the drift is already known and
-tolerated — which is the stage before it becomes invisible.
+tolerated, the stage before it becomes invisible.
 
 ### Effective boundary versus nominal boundary
 
@@ -71,14 +71,14 @@ An **effective** boundary is enforced by something that fails when it is
 violated. The code does not compile, the test breaks, CI refuses the merge.
 
 The distinction is binary in its criterion: either something fails when the
-boundary is crossed, or nothing does — and a nominal boundary is a suggestion
+boundary is crossed, or nothing does, and a nominal boundary is a suggestion
 with the appearance of a rule. The gradation in the table below measures strength
 among the mechanisms that fail; it is not a middle ground between nominal and
 effective.
 
 ### The mechanisms that make a boundary effective
 
-Ordered by strength — the higher, the less it depends on human vigilance:
+Ordered by strength (the higher, the less it depends on human vigilance):
 
 | Mechanism | Strength | Cost |
 |---|---|---|
@@ -91,7 +91,7 @@ Ordered by strength — the higher, the less it depends on human vigilance:
 
 The table contains the main decision of this document: **boundaries that matter
 deserve an automated mechanism.** Code review is a net whose holes vary in size,
-and the size grows with schedule pressure — exactly when it most needs to work.
+and the size grows with schedule pressure, exactly when it most needs to work.
 
 ### The architecture test
 
@@ -109,7 +109,7 @@ test: "domain does not depend on infrastructure"
 
 It is cheap to write, runs in seconds, and converts the boundary from a verbal
 agreement into a verifiable condition. When someone needs to violate it, they
-have to change the test — which turns the violation into an explicit decision,
+have to change the test. That turns the violation into an explicit decision,
 debatable in review, rather than an import that slips through.
 
 That is the idea that reappears at Level 07 as a
@@ -133,7 +133,7 @@ coupled has all the costs of coupling and none of its benefits.
 
 **Because the code is the documentation the next developer reads.** Newcomers
 learn the architecture by imitating what they find. If what they find violates
-the diagram, the diagram has lost — and every new violation looks consistent with
+the diagram, the diagram has lost, and every new violation looks consistent with
 what already exists.
 
 **Because deciding a boundary without a mechanism is deciding half.** Choosing
@@ -157,12 +157,12 @@ the wrong place, or it has no mechanism. Both are design questions.
 
 **Discovering drift only at the next big refactoring.** Without continuous
 measurement, the divergence is discovered when someone attempts a large change
-and fails — which is the most expensive possible moment to discover it.
+and fails, the most expensive possible moment to discover it.
 
 **Enforcing too many boundaries.** The opposite mistake, and also real. Every
 effective boundary has a cost: indirection, ceremony, friction. A system with
 fifteen enforced boundaries where three would do is as dysfunctional as one with
-none. Enforce the ones that matter — and having to choose which is precisely the
+none. Enforce the ones that matter; having to choose which is precisely the
 architectural work.
 
 ## Real-World Example
@@ -175,7 +175,7 @@ A dependency analysis reveals: four of the eight use cases import the payment
 service's HTTP client directly, bypassing the port that existed for it. The
 entities carry ORM annotations. Two adapters import each other.
 
-The system has the indirection of Hexagonal — ports, adapters, more files — and
+The system has the indirection of Hexagonal (ports, adapters, more files) and
 does not have the property the indirection was supposed to buy: replacing the
 payment client still touches the domain.
 
@@ -184,20 +184,20 @@ domain package imports `infra`, and no adapter imports another adapter. Both
 failed immediately, with nineteen violations.
 
 The instructive part: the nineteen were fixed in three weeks, and no new ones
-appeared afterwards. The problem was never capability or discipline — it was the
+appeared afterwards. The problem was never capability or discipline, but the
 absence of a signal. While violating was silent, violating happened.
 
 ## Related Concepts
 
-- [Architecture vs. Design](/01-fundamentals/architecture-vs-design.md) — the previous boundary.
-- [Dependency Management](/01-fundamentals/dependency-management.md) — the material the real graph
+- [Architecture vs. Design](/01-fundamentals/architecture-vs-design.md): the previous boundary.
+- [Dependency Management](/01-fundamentals/dependency-management.md): the material the real graph
   is made of.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — how drift accumulates and charges
+- [Technical Debt](/01-fundamentals/technical-debt.md): how drift accumulates and charges
   interest.
 
 ## Practical Exercise
 
-Pick a boundary your system claims to have — a layer, a module, a rule of "this
+Pick a boundary your system claims to have: a layer, a module, a rule of "this
 does not access that".
 
 Write a test that fails if it is violated. Do not fix anything yet: run it and
@@ -219,7 +219,7 @@ whoever wrote it; some are the system telling you the boundary was badly drawn.
 ## Further Exploration
 
 - Ford, Neal; Parsons, Rebecca; Kua, Patrick. *Building Evolutionary
-  Architectures*. O'Reilly, 2017 — fitness functions as a mechanism.
+  Architectures*. O'Reilly, 2017. Fitness functions as a mechanism.
 - Documentation for ArchUnit (Java) and equivalents such as `import-linter`
-  (Python) and `dependency-cruiser` (TypeScript) — implementations of the
+  (Python) and `dependency-cruiser` (TypeScript). Implementations of the
   architecture test.

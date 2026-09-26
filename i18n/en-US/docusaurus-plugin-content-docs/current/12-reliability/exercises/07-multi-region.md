@@ -2,18 +2,18 @@
 id: 07-multi-region
 title: "Exercise 07 — Multi-Region Availability"
 sidebar_position: 1
-description: The strong consistency of exercise 03 stays local — and the lesson is recognizing when coordination between regions is avoidable.
+description: The strong consistency of exercise 03 stays local, and the lesson is recognizing when coordination between regions is avoidable.
 doc_type: exercise
 level: 5
 difficulty: advanced
 status: complete
 objective: >
   By the end, the reader decides the replication model per operation and recognizes when
-  coordination between regions is avoidable — and what it would cost if it were not.
+  coordination between regions is avoidable, and what it would cost if it were not.
 prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 This is the last exercise about the system you designed in
 [exercise 03](/05-system-design/exercises/03-ecommerce-backend.md). The decision it tests is the
-second of the three you recorded there — the single transaction covering inventory, order and
+second of the three you recorded there: the single transaction covering inventory, order and
 payment.
 
 :::
@@ -107,7 +107,7 @@ Your answer is good if:
 
 - **You realized almost nothing needs coordinating.** Inventory is per country, orders are per country,
   customers are per country by the brief's data residency premise. Each region operates almost
-  independently — which is the cheapest answer and the most available.
+  independently, which is the cheapest answer and the most available.
 - **The catalog is replicated and orders are not.** The catalog is read-heavy and tolerates delay;
   orders are local writes with rare cross-region queries.
 - **The exercise 03 decision doesn't need to change.** The strong consistency is local to each region,
@@ -147,12 +147,12 @@ No write operation crosses a region. That means the strong consistency from exer
 **local**, and the cost of coordination between regions is zero.
 
 If you had designed in exercise 03 a model with global inventory and cross-country selling, the answer
-here would be different and far more expensive — every reservation would require intercontinental
+here would be different and far more expensive: every reservation would require intercontinental
 coordination, at ~120 ms per confirmation. The decision from two years ago is paying a dividend, not a
 cost.
 
 **That is the point of the whole arc.** The exercise 03 decision caused pain in 04, required product
-work in 05, created an ambiguous state in 06 — and here it is free. Architectural decisions are not
+work in 05, created an ambiguous state in 06, and here it is free. Architectural decisions are not
 good or bad; they are adequate to a set of constraints, and the constraints change in different
 directions.
 
@@ -172,7 +172,7 @@ center that went down: it is the region that runs dispatch and invoicing in Mexi
 Brazil would produce orders that no Mexican system can dispatch or invoice until the region comes
 back, and it would take customer data out of the country.
 
-Accepting checkout being unavailable per country fits within the required 99.95% — 4h23 per year —
+Accepting checkout being unavailable per country fits within the required 99.95% (4h23 per year),
 with little slack: last year's 3h40 incident would consume 84% of that budget on its own. Two
 incidents of the same size in one year blow the requirement, and that is the signal for the
 active-active trigger below.
@@ -190,7 +190,7 @@ an active-active region in Brazil
 ```
 
 **What almost everybody gets wrong:** treating multi-region as a database problem. It is a
-business-boundary problem — and in this brief the business has already answered, by saying there is no
+business-boundary problem, and in this brief the business has already answered, by saying there is no
 cross-country selling. The architecture only had to avoid contradicting that.
 
 :::

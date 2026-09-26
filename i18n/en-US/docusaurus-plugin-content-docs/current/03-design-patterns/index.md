@@ -2,7 +2,7 @@
 id: design-patterns
 title: Design Patterns
 sidebar_position: 0
-description: Patterns as a vocabulary of recurring solutions — always with the condition under which they should not be used.
+description: Patterns as a vocabulary of recurring solutions, always with the condition under which they should not be used.
 doc_type: index
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [fundamentals, domain-driven-design]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ The other half of the value only appears once you know the cost.
 ## The problem this section addresses
 
 Patterns are the part of design knowledge easiest to learn badly. They are concrete,
-have appealing names and fit in a twenty-line example — which makes them memorable
+have appealing names and fit in a twenty-line example. That makes them memorable
 without being understood.
 
 The typical result is the practitioner who applies *Strategy* where an `if` would
@@ -52,7 +52,7 @@ Event Sourcing, Pipes and Filters, Space-Based Architecture and SOA. These opera
 a different level: they decide how the system is deployed and operated, not merely how
 the code is organized. Layered, Hexagonal and Clean Architecture are architectural
 patterns too, but the canonical document for each sits in Level 02, alongside Ports and
-Adapters and Onion — the next section has the links.
+Adapters and Onion; the next section has the links.
 
 ## Five patterns that live in Level 02
 
@@ -86,7 +86,7 @@ architectural patterns in the wrong context.
 ## Reading order
 
 The GoF patterns can be read out of order, by lookup. There is no mandatory
-progression among them. If reading in sequence, start with the behavioural ones —
+progression among them. If reading in sequence, start with the behavioural ones:
 they are the ones that most frequently solve real application-code problems.
 
 The architectural patterns **do** have an order. Read Layered and Modular Monolith
@@ -94,8 +94,8 @@ before Microservices; read Event-Driven before CQRS and Event Sourcing. The sequ
 matters because each one only makes sense as a response to the previous one's
 limitations.
 
-Do not read the distributed architectural patterns — Microservices, Event-Driven,
-Space-Based — before [Level 04](/06-distributed-systems/index.md). They are presented
+Do not read the distributed architectural patterns (Microservices, Event-Driven,
+Space-Based) before [Level 04](/06-distributed-systems/index.md). They are presented
 here as shapes; their real cost only becomes visible after understanding partial
 failure.
 

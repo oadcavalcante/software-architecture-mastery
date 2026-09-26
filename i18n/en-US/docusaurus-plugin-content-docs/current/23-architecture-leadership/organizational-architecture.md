@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, team-topologies, architecture-ownership]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,7 @@ case study: five services on paper and a coupled system in practice.
 
 ## Problem
 
-Architects frequently treat the organization as a given — a constraint to work around, not a variable
+Architects frequently treat the organization as a given: a constraint to work around, not a variable
 to propose. That happens for three reasons, all understandable:
 
 ```text
@@ -106,7 +106,7 @@ authority    the team can decide within its scope
 ```
 
 Giving scope with no capability produces a team that depends on others and cannot say so. Giving scope
-and capability with no authority produces a team that knows what to do and has to ask permission —
+and capability with no authority produces a team that knows what to do and has to ask permission,
 and the queue for that permission starts setting the delivery pace, as in the example at the end of
 this document.
 
@@ -123,7 +123,7 @@ attrition risk           reorganizations trigger departures
 ```
 
 Declaring that cost in a proposal is what makes it credible. A reorganization proposal that doesn't
-mention the productivity drop will be discredited as soon as it happens — and it will happen.
+mention the productivity drop will be discredited as soon as it happens, and it will happen.
 
 Declared beforehand, the same drop is a forecast met, which increases credibility rather than reducing
 it.
@@ -138,10 +138,10 @@ two a year                          organizational cynicism
 ```
 
 That means reorganizations have to be few and well designed. An architect proposing a structural
-change needs high confidence that the proposed boundary is the right one — because the next correction
+change needs high confidence that the proposed boundary is the right one, because the next correction
 will cost far more than the first.
 
-See [bounded contexts](/04-domain-driven-design/bounded-context.md) — the domain boundary is the best
+See [bounded contexts](/04-domain-driven-design/bounded-context.md): the domain boundary is the best
 available evidence.
 
 ### Decision flows are designable
@@ -156,8 +156,8 @@ who resolves disagreement between teams
 how long each decision takes
 ```
 
-Mapping that frequently reveals that the slowness is neither technical nor about team structure — it
-is about the number of people who have to agree. See
+Mapping that frequently reveals that the slowness is neither technical nor about team structure, but
+about the number of people who have to agree. See
 [governance](/23-architecture-leadership/leadership-governance.md).
 
 ### Geographic distribution is architecture
@@ -189,30 +189,30 @@ work structure is far cheaper than changing the formal one.
 ## When Not to Use
 
 **When the decision map points at the bottleneck.** If the slowness sits in an approval queue or a
-committee, moving people preserves the queue — the case in the example below.
+committee, moving people preserves the queue: the case in the example below.
 
 **When there was a reorganization in the last 12 to 18 months.** The previous one hasn't been
 absorbed yet, and the new one lands in the repetition-cost range where people stop investing in
 context.
 
 **When the proposed boundary hasn't been validated** against the
-[bounded contexts](/04-domain-driven-design/bounded-context.md) — repeated reorganizations cost more
+[bounded contexts](/04-domain-driven-design/bounded-context.md): repeated reorganizations cost more
 than the first, and a wrong boundary guarantees the repetition.
 
-**When the work structure would resolve it** — a joint ritual, a temporary assignment or the transfer
+**When the work structure would resolve it**: a joint ritual, a temporary assignment or the transfer
 of a component's ownership, without touching the formal one.
 
-**When there is no sponsorship from engineering leadership** — the proposal dies at approval and
+**When there is no sponsorship from engineering leadership**: the proposal dies at approval and
 spends the architect's political capital for the next one.
 
 ## Alternatives
 
-- **Changing the work structure** — rituals, temporary assignment, transferred ownership — without
+- **Changing the work structure**: rituals, temporary assignment, transferred ownership — without
   touching the formal one.
-- **Changing the decision flow** — removing approvers, delegating limits — frequently more effective
-  and cheaper.
+- **Changing the decision flow**: removing approvers, delegating limits (frequently more effective
+  and cheaper).
 - **Adapting the architecture** to what the structure supports.
-- **Rotating people** — transfers context and creates communication where there was none.
+- **Rotating people**: transfers context and creates communication where there was none.
 
 The first two should always be considered before a formal reorganization, and rarely are.
 
@@ -257,8 +257,8 @@ slowness survives the reorganization.
 **Not declaring the productivity drop.** When it arrives, it reads as the proposal's failure, and the
 pressure is to revert before the new design stabilizes.
 
-**Reorganizing by model** instead of by diagnosis. Copying a ready-made design — by product, by layer,
-by domain — without knowing where the bottleneck is produces the 2022 to 2024 sequence in the example:
+**Reorganizing by model** instead of by diagnosis. Copying a ready-made design (by product, by layer,
+by domain) without knowing where the bottleneck is produces the 2022 to 2024 sequence in the example:
 three reorganizations, each driven by a symptom, none touching the cause.
 
 ## Real-World Example
@@ -324,10 +324,10 @@ reorganizations                           0
 ```
 
 The recorded conclusion: the three previous reorganizations had cost, together, around 14 months of
-reduced productivity — and none of them touched the cause. The cause was in the decision flow, which
+reduced productivity, and none of them touched the cause. The cause was in the decision flow, which
 appears on no org chart and required moving nobody.
 
-And the constraint imposed on the diagnosis — "it can't be reorganizing" — was what forced the search
+And the constraint imposed on the diagnosis ("it can't be reorganizing") was what forced the search
 elsewhere. It stuck as a practice: every reorganization proposal came to require a section showing
 that changes to the work and decision structures were considered and why they don't suffice.
 
@@ -336,7 +336,7 @@ that changes to the work and decision structures were considered and why they do
 - [Conway's Law](/23-architecture-leadership/conways-law.md).
 - [Team Topologies](/23-architecture-leadership/team-topologies.md).
 - [Architecture Ownership](/23-architecture-leadership/architecture-ownership.md).
-- [Governance](/23-architecture-leadership/leadership-governance.md) — the decision flow.
+- [Governance](/23-architecture-leadership/leadership-governance.md): the decision flow.
 
 ## Practical Exercise
 

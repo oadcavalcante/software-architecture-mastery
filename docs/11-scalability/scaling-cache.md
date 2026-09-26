@@ -2,7 +2,7 @@
 id: scaling-cache
 title: Cache para Escala
 sidebar_position: 4
-description: Remover trabalho em vez de adicionar capacidade — e os modos de falha que aparecem só sob carga.
+description: Remover trabalho em vez de adicionar capacidade, e os modos de falha que aparecem só sob carga.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, hotspots, statelessness]
 canonical_for: [taxa de acerto, estampida de cache, cache em camadas, aquecimento de cache]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,21 +25,21 @@ Quando a leitura se repete e a resposta é cara de produzir, cache reduz a carga
 origem por um fator maior do que qualquer aumento realista de capacidade entregaria,
 porque ele **remove trabalho** em vez de adicionar capacidade para executá-lo.
 
-Os fundamentos — o que cachear, invalidação, tempo de vida — estão em
+Os fundamentos (o que cachear, invalidação, tempo de vida) estão em
 [caching](/05-system-design/caching.md). Aqui interessa o que muda sob carga alta:
 os modos de falha que só aparecem em escala, e que transformam o cache de solução em
 causa de indisponibilidade.
 
 ## Problema
 
-Um cache com 90% de acerto reduz a carga na origem em 90%. Um com 99% reduz em 99% —
+Um cache com 90% de acerto reduz a carga na origem em 90%. Um com 99% reduz em 99%:
 dez vezes mais.
 
 Essa não linearidade tem um lado perigoso: a origem passa a ser dimensionada para a
 carga **com** cache. Quando o cache falha, a carga que chega é dez ou cem vezes maior
 do que a origem suporta.
 
-O cache deixa de ser otimização e vira dependência crítica — sem que ninguém tenha
+O cache deixa de ser otimização e vira dependência crítica, sem que ninguém tenha
 decidido isso.
 
 ## Conceitos Centrais
@@ -55,7 +55,7 @@ acerto   carga na origem   redução
   99,9%        0,1%      1.000×
 ```
 
-Subir de 90% para 99% reduz a carga na origem por um fator de dez — mais do que
+Subir de 90% para 99% reduz a carga na origem por um fator de dez, mais do que
 qualquer aumento realista de capacidade entregaria.
 
 Por isso a taxa de acerto é a métrica principal de um cache, e por isso uma queda nela
@@ -84,14 +84,14 @@ requisições recalcula antes de expirar, evitando o momento em que todas encont
 vazio.
 
 **Expiração com variação.** Chaves criadas juntas expiram juntas. Adicionar variação
-aleatória ao tempo de vida dessincroniza — é a mesma lógica de
+aleatória ao tempo de vida dessincroniza. É a mesma lógica de
 [backoff](/06-distributed-systems/backoff.md).
 
 **Servir o velho enquanto revalida.** A requisição recebe o valor expirado; o
 recálculo acontece em segundo plano.
 
 A última é a que dá melhor experiência, e exige que servir dado ligeiramente velho seja
-aceitável — o que costuma ser.
+aceitável, o que costuma ser.
 
 ### Cache em camadas
 
@@ -109,14 +109,14 @@ O cuidado é a **invalidação em camadas**: invalidar no compartilhado não inv
 locais. Os caches locais precisam de tempo de vida curto, ou de um canal de
 invalidação.
 
-E o cache local reintroduz divergência entre instâncias — aceitável para dados que
+E o cache local reintroduz divergência entre instâncias: aceitável para dados que
 toleram alguns segundos de atraso, inaceitável para o que precisa ser consistente. Ver
 [ausência de estado](/11-scalability/statelessness.md).
 
 ### Aquecimento importa na expansão
 
 Uma instância nova sobe com cache local vazio. Ela faz consultas que as outras não
-fazem — no momento em que o sistema está escalando, ou seja, sob pressão.
+fazem, no momento em que o sistema está escalando, ou seja, sob pressão.
 
 Ver [escala horizontal](/11-scalability/horizontal-scaling.md). É um efeito de segunda ordem que
 transforma o escalonamento em um pico adicional na origem.
@@ -127,7 +127,7 @@ tráfego, ou depender apenas do cache compartilhado, que já está quente.
 ### Chave quente no cache
 
 Um cache distribuído particiona por chave. Uma chave muito acessada satura o nó que a
-contém — o mesmo problema de [pontos quentes](/11-scalability/hotspots.md), uma camada acima.
+contém: o mesmo problema de [pontos quentes](/11-scalability/hotspots.md), uma camada acima.
 
 Isso surpreende porque o cache existe justamente para absorver o quente. A saída é
 replicar a chave quente entre nós, ou colocá-la em cache local, onde a distribuição
@@ -150,7 +150,7 @@ para respostas de erro, ou nenhum.
 
 **Cache remove trabalho; capacidade adiciona meios de executá-lo.** Com leitura
 repetida e resposta cara, remover sai mais barato por requisição atendida do que
-adicionar capacidade — ao preço de um cluster a pagar, uma invalidação a manter e uma
+adicionar capacidade, ao preço de um cluster a pagar, uma invalidação a manter e uma
 dependência que precisa ser tratada como tal.
 
 ## Quando Usar
@@ -175,11 +175,11 @@ simultâneas por chave, cada expiração vira um pico na origem igual à concorr
 chave.
 
 **Cache local como fonte autoritativa.** Quando a instância decide com base no próprio
-cache — limite, permissão, estoque —, instâncias diferentes respondem diferente à mesma
+cache (limite, permissão, estoque), instâncias diferentes respondem diferente à mesma
 pergunta.
 
 **Chave de cache sem identidade** em resposta personalizada. Se a resposta varia por
-usuário e a chave não carrega quem pediu, não há cache seguro — só vazamento.
+usuário e a chave não carrega quem pediu, não há cache seguro, só vazamento.
 
 **Para absorver escrita que não admite janela de perda.** Write-behind acelera escrita
 aceitando perder o que ainda não persistiu (ver
@@ -191,11 +191,11 @@ complexidade por pouco ganho.
 
 ## Alternativas
 
-- **Visão materializada** — pré-calcular no banco, sem camada extra.
-- **Réplica de leitura** — distribui sem introduzir invalidação. Ver
+- **Visão materializada**: pré-calcular no banco, sem camada extra.
+- **Réplica de leitura**: distribui sem introduzir invalidação. Ver
   [replicação para escala](/11-scalability/scaling-replication.md).
-- **Otimizar a consulta** — se ela ficar barata, o cache deixa de ser necessário.
-- **Cache de borda** — para conteúdo público, resolve latência e carga de uma vez.
+- **Otimizar a consulta**: se ela ficar barata, o cache deixa de ser necessário.
+- **Cache de borda**: para conteúdo público, resolve latência e carga de uma vez.
 
 ## Trade-offs
 
@@ -235,17 +235,17 @@ complexidade por pouco ganho.
 
 ## Erros Comuns
 
-**Não monitorar a taxa de acerto.** Um cache com 20% de acerto adiciona latência e complexidade sem aliviar a origem — e sem a métrica, ninguém sabe que é o caso.
+**Não monitorar a taxa de acerto.** Um cache com 20% de acerto adiciona latência e complexidade sem aliviar a origem, e sem a métrica, ninguém sabe que é o caso.
 
 **Não proteger contra estampida.** Quando uma chave popular expira, todas as requisições simultâneas vão à origem de uma vez. É o momento em que um cache que funcionava vira a causa da queda.
 
 **Expiração sem variação.** Entradas criadas juntas expiram juntas, e a carga na origem vira picos periódicos. Adicionar aleatoriedade ao prazo dispersa isso.
 
-**Não ter plano para a perda do cache.** Se a origem não aguenta a carga sem cache, o cache deixou de ser otimização e virou dependência crítica — e a queda dele derruba tudo.
+**Não ter plano para a perda do cache.** Se a origem não aguenta a carga sem cache, o cache deixou de ser otimização e virou dependência crítica, e a queda dele derruba tudo.
 
 **Chave sem identidade em resposta personalizada.** Cachear por URL uma resposta que depende do usuário entrega o dado de uma pessoa para outra. É um vazamento criado por otimização.
 
-**Não monitorar a taxa de despejo.** Despejo alto significa memória insuficiente para o conjunto ativo, e o cache passa a trabalhar contra si mesmo — grava o que vai descartar antes de reutilizar.
+**Não monitorar a taxa de despejo.** Despejo alto significa memória insuficiente para o conjunto ativo, e o cache passa a trabalhar contra si mesmo: grava o que vai descartar antes de reutilizar.
 
 ## Exemplo Real
 
@@ -255,7 +255,7 @@ era dimensionado para 3% da carga de leitura.
 Três incidentes ao longo de um ano, todos relacionados ao cache:
 
 **Perda total.** Uma manutenção reiniciou o cluster de cache. Os 100% da carga foram
-para o banco, que saturou em segundos e ficou indisponível por 25 minutos — até o
+para o banco, que saturou em segundos e ficou indisponível por 25 minutos, até o
 cache reaquecer. Não havia plano para esse cenário.
 
 **Estampida.** Uma matéria muito acessada tinha seu cache expirando a cada 60
@@ -278,7 +278,7 @@ expiração.
 **Variação de 20% no tempo de vida**, dessincronizando as expirações.
 
 **Cache local** de 5 segundos nas instâncias de aplicação, absorvendo o topo da
-distribuição — o que reduziu a carga no cache compartilhado em 60% e resolveu a chave
+distribuição, o que reduziu a carga no cache compartilhado em 60% e resolveu a chave
 quente que saturava um nó.
 
 **Descarte de carga** no banco: acima de um limite de conexões, requisições de conteúdo
@@ -290,14 +290,14 @@ exercício passou com degradação parcial e sem indisponibilidade.
 
 A taxa de acerto de 97% era vista como excelente e escondia
 uma dependência crítica. O banco nunca tinha sido dimensionado para operar sem cache, e
-ninguém tinha decidido isso — foi consequência de o cache ter sido adicionado depois.
+ninguém tinha decidido isso: foi consequência de o cache ter sido adicionado depois.
 
 ## Conceitos Relacionados
 
-- [Caching](/05-system-design/caching.md) — os fundamentos.
-- [Pontos Quentes](/11-scalability/hotspots.md) — a chave quente no cache.
-- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — o degrau 3.
-- [Backoff](/06-distributed-systems/backoff.md) — a variação.
+- [Caching](/05-system-design/caching.md): os fundamentos.
+- [Pontos Quentes](/11-scalability/hotspots.md): a chave quente no cache.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md): o degrau 3.
+- [Backoff](/06-distributed-systems/backoff.md): a variação.
 
 ## Exercício Prático
 

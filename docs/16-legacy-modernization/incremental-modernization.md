@@ -2,7 +2,7 @@
 id: incremental-modernization
 title: Modernização Incremental
 sidebar_position: 4
-description: Entregar valor em fatias que sobrevivem a interrupções — a disciplina que faz a modernização terminar.
+description: "Entregar valor em fatias que sobrevivem a interrupções: a disciplina que faz a modernização terminar."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, organizational-constraints, transition-architecture]
 canonical_for: [modernização incremental, fatia defensável, modernização oportunista]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Modernização incremental é dividir o trabalho em fatias que **entregam valor por si**, de
 forma que parar em qualquer ponto deixe a organização melhor que antes.
 
-É a disciplina que faz programas de modernização terminarem — porque a maioria deles é
+É a disciplina que faz programas de modernização terminarem, porque a maioria deles é
 interrompida, e a diferença entre um interrompido com valor e um interrompido sem valor é
 a divisão.
 
@@ -46,7 +46,7 @@ O programa de modernização típico é sequenciado por **dependência técnica*
 Isso é a ordem lógica de construção, e ela concentra todo o valor no fim.
 
 Um programa assim, interrompido no passo 3, produziu infraestrutura e camada de dados que
-não fazem nada — trabalho perdido.
+não fazem nada: trabalho perdido.
 
 ## Conceitos Centrais
 
@@ -64,7 +64,7 @@ não por conveniência técnica.
 Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 E ele tem uma consequência desconfortável: a ordem que entrega valor cedo é
-frequentemente mais trabalhosa que a ordem de construção natural — porque exige fazer
+frequentemente mais trabalhosa que a ordem de construção natural, porque exige fazer
 funcionar parcialmente algo que seria mais simples fazer inteiro.
 
 Esse custo adicional é o prêmio de seguro contra interrupção, e ele se paga na maioria dos
@@ -86,7 +86,7 @@ O preço é operacional. Enquanto houver fatias nos dois lados, a organização 
 sistemas em produção: dados sincronizados entre o modelo antigo e o novo, duas esteiras
 de implantação, dois plantões e a regra de roteamento na interceptação, que cresce a cada
 fatia migrada. Esse custo sobe com o número de fatias em convivência e só cai quando o
-antigo perde a última funcionalidade — por isso a última fatia precisa estar no plano
+antigo perde a última funcionalidade. Por isso a última fatia precisa estar no plano
 desde o início. Como gerir esse período está em
 [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
@@ -118,7 +118,7 @@ estrutural.
 ### A regra do escoteiro tem limite
 
 "Deixe o código melhor do que encontrou" funciona para melhorias pequenas e falha para
-mudanças estruturais — que exigem coordenação e não cabem numa alteração incidental.
+mudanças estruturais, que exigem coordenação e não cabem numa alteração incidental.
 
 E há um risco: refatoração oportunista sem limite transforma uma mudança pequena numa
 grande, com revisão difícil e risco maior.
@@ -138,19 +138,19 @@ bom    "3 das 8 funcionalidades críticas operando no sistema novo"
 A primeira métrica é interna e não comunica nada a quem patrocina. As outras são
 verificáveis e sustentam apoio.
 
-E a primeira tem um problema adicional: ela cresce mesmo quando o valor não cresce — 40%
+E a primeira tem um problema adicional: ela cresce mesmo quando o valor não cresce, e 40%
 do código migrado pode ser 0% do valor, se for a parte errada.
 
 ### Fatias pequenas o suficiente para caber
 
-Uma fatia que leva oito meses não é incremental — ela é um projeto pequeno com os mesmos
+Uma fatia que leva oito meses não é incremental: ela é um projeto pequeno com os mesmos
 problemas do grande.
 
 ```text
 alvo prático   4 a 8 semanas por fatia
 ```
 
-Isso força divisão mais fina, o que é trabalho — e é o que mantém o ciclo de entrega e
+Isso força divisão mais fina, o que é trabalho, e é o que mantém o ciclo de entrega e
 de aprendizado curto.
 
 E cabe na proporção acordada com o produto. Ver
@@ -167,7 +167,7 @@ fatia 2    3 semanas
 fatia 3    2 semanas
 ```
 
-Estimar a primeira pela média das demais produz um atraso logo no início — o pior momento
+Estimar a primeira pela média das demais produz um atraso logo no início: o pior momento
 possível, porque ele erode a confiança antes de qualquer valor ter sido entregue.
 
 Comunicar isso antecipadamente muda a leitura: "a primeira fatia leva o triplo das
@@ -195,7 +195,7 @@ contra ela.
 ## Quando Não Usar
 
 **Sistema pequeno o bastante para um corte único.** Se a substituição inteira cabe em
-poucas semanas, o prêmio de fatiar — interceptação, sincronização, dois sistemas no ar —
+poucas semanas, o prêmio de fatiar (interceptação, sincronização, dois sistemas no ar)
 custa mais que o risco de interrupção que ele cobre.
 
 **Sistema que será aposentado ou apenas contido.** Fatiar pressupõe um destino; sem ele,
@@ -204,7 +204,7 @@ isolar ou desligar é mais barato. Ver
 
 **Domínio sem fatia vertical viável.** Quando um banco compartilhado e processos em lote
 atravessam todas as funcionalidades, nenhuma fatia entra em produção sozinha até esse
-núcleo ser desmontado — e desmontá-lo é trabalho estrutural dirigido, não incremento.
+núcleo ser desmontado, e desmontá-lo é trabalho estrutural dirigido, não incremento.
 
 **Coexistência mais cara que a interrupção.** Se manter os dois sistemas sincronizados
 exige, por regulação ou consistência, reconciliação que custa mais que o risco de o
@@ -212,11 +212,11 @@ programa parar, o corte coordenado sai mais barato.
 
 ## Alternativas
 
-- **Programa dedicado com marcos** — mais rápido, mais vulnerável.
-- **Modernização oportunista pura** — sem programa, mais lenta, mais resiliente.
-- **Congelar e construir ao lado** — o antigo para de evoluir. Ver
+- **Programa dedicado com marcos**: mais rápido, mais vulnerável.
+- **Modernização oportunista pura**: sem programa, mais lenta, mais resiliente.
+- **Congelar e construir ao lado**: o antigo para de evoluir. Ver
   [reconstrução](/16-legacy-modernization/rebuilding.md).
-- **Contenção** — isolar em vez de modernizar.
+- **Contenção**: isolar em vez de modernizar.
 
 ## Trade-offs
 
@@ -255,7 +255,7 @@ a nada.
 
 **Fatiar horizontalmente.** Migrar uma camada de cada vez obriga a manter as duas arquiteturas conversando em todas as funcionalidades, e nenhuma delas fica pronta até o fim.
 
-**Não testar cada fatia contra o critério de defensabilidade.** Se a fatia não entrega algo que se sustenta sozinho, ela não pode ser interrompida — e interrupção é o cenário mais provável.
+**Não testar cada fatia contra o critério de defensabilidade.** Se a fatia não entrega algo que se sustenta sozinho, ela não pode ser interrompida, e interrupção é o cenário mais provável.
 
 **Comunicar progresso em percentual de código.** "40% migrado" não diz nada ao negócio e esconde que os 60% restantes contêm toda a complexidade. Progresso se comunica em capacidade entregue.
 
@@ -293,18 +293,18 @@ fatia 11 casos especiais e desligamento                9 semanas
 Cada fatia atravessava todas as camadas para uma funcionalidade, e entrava em produção
 por [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
-A primeira fatia levou as 7 semanas previstas — o plano já contava que ela construiria a
+A primeira fatia levou as 7 semanas previstas: o plano já contava que ela construiria a
 infraestrutura mínima junto. As seguintes aceleraram, reaproveitando.
 
 Duas coisas aconteceram durante os 22 meses do programa, que incluem os quatro de
 interrupção:
 
 **Interrupção no mês 7.** Uma prioridade regulatória consumiu o time por quatro meses. O
-programa parou com 4 das 11 fatias concluídas — e as quatro estavam em produção,
+programa parou com 4 das 11 fatias concluídas, e as quatro estavam em produção,
 entregando valor. Nada foi perdido.
 
 **Mudança de escopo no mês 15.** Uma aquisição trouxe um sistema que atendia parte do que
-as fatias 8 e 9 fariam. Elas foram removidas do plano — e nada do que já tinha sido feito
+as fatias 8 e 9 fariam. Elas foram removidas do plano, e nada do que já tinha sido feito
 precisou ser desfeito.
 
 No plano original, ambos os eventos teriam sido fatais: a interrupção no mês 7 pegaria o
@@ -312,12 +312,12 @@ programa na fase 2, sem nada entregue; a mudança de escopo no mês 15 invalidar
 das fases anteriores.
 
 O detalhe que a equipe destaca: a primeira fatia custou cerca de 60% a mais que custaria se a
-infraestrutura tivesse sido construída antes, isoladamente. Esse foi o prêmio pago — e
+infraestrutura tivesse sido construída antes, isoladamente. Esse foi o prêmio pago, e
 ele se pagou duas vezes, nos dois eventos.
 
 ## Conceitos Relacionados
 
-- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — o mecanismo.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md): o mecanismo.
 - [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md).
 - [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
 - [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).

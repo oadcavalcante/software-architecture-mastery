@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Leia contexto, requisitos e restrições. **Pare antes das opções de arquitetura** e esboce a
 sua em vinte minutos. Só então continue.
 
-O valor não está em concordar com a decisão do texto — está em descobrir qual restrição você
+O valor não está em concordar com a decisão do texto, e sim em descobrir qual restrição você
 não tinha considerado.
 
 Os números deste case são **ilustrativos**: plausíveis e internamente
@@ -46,7 +46,7 @@ administrativo.
 
 Três pressões de negócio motivam a revisão da arquitetura:
 
-**Omnicanalidade.** A empresa quer vender o estoque das lojas pelo site — "retire na loja",
+**Omnicanalidade.** A empresa quer vender o estoque das lojas pelo site: "retire na loja",
 "entrega a partir da loja mais próxima" e "compre online, troque na loja". Hoje, o estoque
 digital é um centro de distribuição único, e as 1.400 lojas são invisíveis para o site.
 Concorrentes já oferecem isso, e a área comercial estima entre 12% e 18% de aumento de
@@ -57,10 +57,10 @@ mantém a suíte. O prazo médio entre pedido de negócio e produção é de **1
 de produto tem 40 itens em fila há mais de seis meses.
 
 **Custo de licenciamento.** O contrato da suíte foi reajustado em 2025 para R$ 6,4 milhões
-anuais, atrelado a faturamento — a conta cresce com o sucesso do canal.
+anuais, atrelado a faturamento: a conta cresce com o sucesso do canal.
 
 Não há pressão de escala: a suíte aguenta o volume atual. O problema é de **evolução**, não
-de capacidade — e essa distinção é o que orienta toda a análise.
+de capacidade, e essa distinção é o que orienta toda a análise.
 
 ## Requisitos Funcionais
 
@@ -121,7 +121,7 @@ dados               o catálogo tem 380 mil SKUs e 9 anos de histórico
 ```
 
 A restrição do ERP sem API de reserva é a mais limitante e a que menos aparece nas
-discussões iniciais — ela define o desenho de todo o RF-2.
+discussões iniciais: ela define o desenho de todo o RF-2.
 
 ## Estimativas de Capacidade
 
@@ -197,7 +197,7 @@ risco de negócio           alto — a fila de 40 itens continua parada
 
 A suíte suporta customização de disponibilidade, mas o modelo de estoque é de depósito
 único. Estender para 1.400 origens exigiria alterar o núcleo, que é a parte com maior
-restrição contratual de customização — e o fornecedor cotou o desenvolvimento como projeto
+restrição contratual de customização, e o fornecedor cotou o desenvolvimento como projeto
 próprio.
 
 ### Opção B — Reconstrução completa com virada de chave
@@ -247,7 +247,7 @@ definidos **antes** da avaliação:
 | **Total ponderado** | | **5,2** | **4,4** | **7,3** |
 
 Os pesos merecem explicação. Tempo até as funcionalidades novas e redução do prazo de
-mudança somam 50% porque **são o projeto** — a empresa não está resolvendo um problema
+mudança somam 50% porque **são o projeto**: a empresa não está resolvendo um problema
 técnico, está resolvendo uma fila de produto. Risco de interrupção pesa 20% porque o canal
 digital é a única parte do negócio que cresce.
 
@@ -268,12 +268,12 @@ capacidade da equipe em 30%               5,8    4,1    7,0
 
 A Opção C vence em todos os cenários testados, o que aumenta a confiança na decisão. E a
 análise revela algo sobre as outras duas: a Opção A se aproxima quando o risco domina, e a
-Opção B não se aproxima em nenhum cenário — ao contrário, cai, porque todo o valor dela está
+Opção B não se aproxima em nenhum cenário. Ao contrário, cai, porque todo o valor dela está
 no critério que o projeto mais preza. A verificação serve justamente para isso: mostrar que a
 avaliação não foi enviesada para produzir o resultado desejado.
 
 Um critério considerado e **descartado** da matriz: "modernidade da arquitetura". Ele foi
-proposto e recusado por não corresponder a nenhum resultado de negócio verificável — e por
+proposto e recusado por não corresponder a nenhum resultado de negócio verificável, e por
 ser exatamente o tipo de critério que favorece a reconstrução sem que ninguém precise
 defender por quê.
 
@@ -292,25 +292,25 @@ pagamento           baixa          médio         3
 portal admin        baixa          alto          6 (último)
 ```
 
-A primeira extração é a que **não existe** — disponibilidade omnicanal é capacidade nova,
+A primeira extração é a que **não existe**: disponibilidade omnicanal é capacidade nova,
 sem código legado a migrar e sem risco de regressão. Ela entrega RF-1 a RF-3, valida o
 padrão de extração e produz um resultado de negócio em quatro meses.
 
 Pagamento vem em terceiro apesar da baixa taxa de mudança, porque é o módulo com maior
 economia de licença ao sair do escopo contratual.
 
-Promoções, que tem a maior taxa de mudança, vem em quarto por ser o mais acoplado — extraí-lo
+Promoções, que tem a maior taxa de mudança, vem em quarto por ser o mais acoplado: extraí-lo
 cedo exigiria manter uma ponte bidirecional complexa com o carrinho da suíte.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** o requisito de prazo de mudança não existisse — se a fila de produto
+**Opção A venceria se** o requisito de prazo de mudança não existisse: se a fila de produto
 fosse curta e a empresa só precisasse de omnicanalidade. Nesse cenário, 8 meses de
 customização com risco baixo é a resposta certa, e a economia de licença não justificaria
 sozinha o projeto.
 
 **Opção B venceria se** o contrato da suíte terminasse em 2026 sem renovação possível, ou se
-a suíte não suportasse o volume — casos em que a coexistência deixa de ser opção. Também
+a suíte não suportasse o volume, casos em que a coexistência deixa de ser opção. Também
 venceria com uma equipe de 45 pessoas com experiência prévia em plataformas de comércio, em
 que 30 meses viraria 16.
 
@@ -357,8 +357,8 @@ O **adaptador de ERP** merece destaque: ele existe porque o ERP não tem API de 
 concentra toda a tradução entre o modelo de estoque da Vertena e o do fornecedor. Ver
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
-A arquitetura é um **monólito modular** para catálogo, promoções, carrinho e pedido — os
-quatro compartilham modelo de domínio e mudam juntos —, com disponibilidade, reserva e
+A arquitetura é um **monólito modular** para catálogo, promoções, carrinho e pedido (os
+quatro compartilham modelo de domínio e mudam juntos), com disponibilidade, reserva e
 pagamento como serviços separados por terem perfis de carga e de disponibilidade distintos.
 
 Sete unidades implantáveis, não vinte. Ver
@@ -372,7 +372,7 @@ cruzado. A decisão foi tomada com a análise de
 conhecidos, mas a área comercial faz perguntas não previstas o tempo todo, e o volume está
 muito abaixo do limiar em que o relacional exige trabalho.
 
-Os atributos variáveis por categoria (RF-5) usam coluna `jsonb` com índices GIN — o que
+Os atributos variáveis por categoria (RF-5) usam coluna `jsonb` com índices GIN, o que
 elimina a necessidade de um segundo banco.
 
 **Modelo de estoque.**
@@ -388,7 +388,7 @@ fonte da vitrine, com janela de até 3 min. A tabela de reserva é a fonte forte
 confirmada é consistência forte, sem exceção.
 
 Essa separação é a resposta ao conflito entre RF-1 (vitrine, tolerante) e RF-2 (reserva,
-intolerante) — dois requisitos sobre o mesmo dado com necessidades opostas de consistência.
+intolerante): dois requisitos sobre o mesmo dado com necessidades opostas de consistência.
 Ver [consistência forte vs. eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 
 **Índice de busca** alimentado a partir do catálogo por eventos, com janela de 2 minutos.
@@ -416,7 +416,7 @@ conciliação              diária, comparando posição do ERP com posição
 ```
 
 A consequência aceita: durante até 90 segundos, a posição pode estar desatualizada. Isso é
-absorvido por uma **margem de segurança por SKU** — SKUs de giro alto reservam contra uma
+absorvido por uma **margem de segurança por SKU**: SKUs de giro alto reservam contra uma
 posição reduzida em uma unidade, e SKUs de giro baixo, contra a posição integral.
 
 Essa margem é a decisão que torna o desenho viável apesar da limitação do ERP, e ela é
@@ -439,7 +439,7 @@ O ciclo completo de uma reserva de loja, que é o fluxo mais delicado do sistema
 O caminho 5b é o que exigiu mais desenho de produto: uma ruptura na loja não pode virar
 cancelamento do pedido, porque o cliente já pagou e a mercadoria existe em outra origem. A
 reroteirização automática, com aviso e novo prazo, foi construída junto com a operação de
-loja — e é a razão de o índice de cancelamento por ruptura ter ficado em 0,7%, contra os 4%
+loja, e é a razão de o índice de cancelamento por ruptura ter ficado em 0,7%, contra os 4%
 projetados no desenho inicial que previa cancelamento simples.
 
 **Com adquirentes de pagamento.** Assíncrona, com aceite síncrono. O pedido é aceito em menos
@@ -447,8 +447,8 @@ de 400 ms e a autorização ocorre em segundo plano, porque a disponibilidade co
 três adquirentes externos não atinge o requisito de 99,95% no modo síncrono. Ver
 [síncrono vs. assíncrono](/20-trade-offs/sync-vs-async.md).
 
-**Entre serviços internos.** Eventos de domínio para propagação de estado — estoque
-alterado, pedido criado, pagamento autorizado — sobre um mecanismo de mensageria gerenciado.
+**Entre serviços internos.** Eventos de domínio para propagação de estado (estoque
+alterado, pedido criado, pagamento autorizado) sobre um mecanismo de mensageria gerenciado.
 Consultas entre serviços são síncronas, por HTTP com contrato declarado.
 
 **Com a suíte, durante a coexistência.** Bidirecional e explicitamente temporária: a suíte
@@ -485,8 +485,8 @@ produção, e uma exportação diária para uma ferramenta de análise. Ver
 
 ## Escalabilidade
 
-Como as estimativas mostraram, o desafio não é volume — é **distribuição da leitura** e
-**pico concentrado**.
+Como as estimativas mostraram, o desafio é **distribuição da leitura** e
+**pico concentrado**, não volume.
 
 ```text
 catálogo e vitrine        cache de borda com invalidação por evento;
@@ -502,10 +502,10 @@ reserva                   ponto de contenção real — reservas do mesmo SKU
 
 O único ponto que exigiu desenho específico foi a **reserva**: em campanha, o mesmo SKU de
 giro alto na mesma loja recebe reservas concorrentes. A solução é contenção por linha no
-banco com prazo curto, e não bloqueio distribuído — o volume não justifica.
+banco com prazo curto, e não bloqueio distribuído: o volume não justifica.
 
 **Black Friday.** O plano de capacidade prevê 3× o pico observado, com escala manual
-antecipada em 48 horas — automática seria mais elegante e menos previsível, e a operação
+antecipada em 48 horas: automática seria mais elegante e menos previsível, e a operação
 prefere previsibilidade na data mais importante do ano.
 
 ## Confiabilidade
@@ -530,7 +530,7 @@ negociado com a área comercial e é preferível a recusar a venda.
 
 **Modo degradado de estoque.** Se o adaptador de ERP ficar indisponível por mais de 5
 minutos, o sistema deixa de oferecer retirada em loja e passa a operar apenas com o centro
-de distribuição — uma degradação visível, comunicada na vitrine, em vez de reservas contra
+de distribuição: uma degradação visível, comunicada na vitrine, em vez de reservas contra
 posição desconhecida.
 
 ## Observabilidade
@@ -552,7 +552,7 @@ A última linha é uma decisão de desenho de operação: divergência de estoqu
 problema da loja, não da engenharia. O alerta vai para quem pode resolver.
 
 Durante a coexistência, um painel único mostra qual porcentagem do tráfego está em cada
-lado do roteador, por rota — é o instrumento principal de acompanhamento da migração.
+lado do roteador, por rota. É o instrumento principal de acompanhamento da migração.
 
 ## Implantação
 
@@ -568,13 +568,13 @@ O roteador é o componente mais crítico da transição e o mais simples: ele de
 com configuração dinâmica, e permite reverter uma capacidade extraída em segundos sem
 implantação.
 
-Essa propriedade — **reversão em segundos, sem implantação** — foi o que tornou a diretoria
+Essa propriedade (**reversão em segundos, sem implantação**) foi o que tornou a diretoria
 confortável com a abordagem incremental.
 
 ## Estratégia de Evolução
 
 **Fase 1 (meses 1–4): disponibilidade omnicanal.** Serviço de Disponibilidade, Serviço de
-Reserva, Adaptador de ERP e Portal de Loja. Nenhuma extração da suíte — apenas capacidade
+Reserva, Adaptador de ERP e Portal de Loja. Nenhuma extração da suíte, apenas capacidade
 nova, integrada por API. Entrega RF-1 a RF-3.
 
 Resultado esperado e o que de fato ocorreu: aumento de conversão de 14%, dentro da faixa
@@ -585,7 +585,7 @@ próprio, a suíte consome dele por uma ponte, e a busca sai para índice dedica
 
 Esta fase testou o padrão de extração e produziu o aprendizado mais caro do projeto: a
 primeira tentativa manteve a suíte como fonte de verdade do catálogo, com sincronização
-bidirecional. Três meses depois, divergências recorrentes forçaram a inversão — o catálogo
+bidirecional. Três meses depois, divergências recorrentes forçaram a inversão: o catálogo
 novo virou fonte de verdade e a suíte passou a ser somente leitura. **Sincronização
 bidirecional entre duas fontes de verdade não funcionou**, e a lição foi registrada em ADR.
 
@@ -645,8 +645,8 @@ investimento nas fases seguintes.
 
 ## O que este case ensina
 
-**Escala não era o problema.** As estimativas de capacidade — 100 pedidos/s, 12 mil
-leituras/s — descartam qualquer arquitetura justificada por volume. O projeto é sobre
+**Escala não era o problema.** As estimativas de capacidade (100 pedidos/s, 12 mil
+leituras/s) descartam qualquer arquitetura justificada por volume. O projeto é sobre
 velocidade de mudança, e confundir os dois é o erro mais comum em decisões de e-commerce.
 
 **A ordem de extração é a decisão de arquitetura.** Escolher começar pela capacidade que não
@@ -654,7 +654,7 @@ existe, em vez da mais fácil ou da mais valiosa, é o que permitiu entregar res
 quatro meses sem risco de regressão.
 
 **A limitação do fornecedor moldou o desenho.** A ausência de API de reserva no ERP produziu
-o Serviço de Reserva, o adaptador, a margem de segurança por SKU e a conciliação diária —
+o Serviço de Reserva, o adaptador, a margem de segurança por SKU e a conciliação diária:
 cerca de 40% do esforço da Fase 1, por uma restrição que não aparece em nenhum diagrama de
 alto nível.
 
@@ -664,7 +664,7 @@ bidirecional adia a decisão e cobra em divergência.
 
 ## Conceitos Relacionados
 
-- [Estrangulamento](/16-legacy-modernization/strangler-fig.md) — o padrão da migração.
+- [Estrangulamento](/16-legacy-modernization/strangler-fig.md): o padrão da migração.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 - [Monólito vs. Microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 - [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
@@ -675,14 +675,14 @@ Refaça a matriz de decisão procurando um conjunto de pesos que faça a Opção
 
 Nenhuma variação de peso único consegue: os três cenários da análise de sensibilidade já
 mostram isso, e o motivo é que B pontua alto num critério só. Para inverter é preciso mexer nas
-**notas**, não nos pesos — e aí a pergunta deixa de ser "quanto isso importa para o negócio" e
+**notas**, não nos pesos, e aí a pergunta deixa de ser "quanto isso importa para o negócio" e
 passa a ser "a avaliação está certa". Distinguir as duas é o que a análise de sensibilidade
 serve para ensinar.
 
 ## Perguntas de Entrevista
 
 - Por que a primeira capacidade extraída foi a que não existia no sistema legado?
-- Como dois requisitos sobre o mesmo dado — vitrine e reserva — podem ter necessidades
+- Como dois requisitos sobre o mesmo dado (vitrine e reserva) podem ter necessidades
   opostas de consistência?
 - Que restrição do fornecedor moldou 40% do esforço da primeira fase, e por que ela não
   apareceria num diagrama de contexto?

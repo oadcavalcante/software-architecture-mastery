@@ -2,7 +2,7 @@
 id: pipes-and-filters
 title: Pipes and Filters
 sidebar_position: 29
-description: Decomposing processing into independent steps connected by streams — simple, composable and limited.
+description: "Decomposing processing into independent steps connected by streams: simple, composable and limited."
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [event-driven, chain-of-responsibility, decorator]
 canonical_for: [pipes and filters, pipeline]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Pipes and Filters decomposes processing into a sequence of independent steps — the filters
-— connected by channels that carry data — the pipes.
+Pipes and Filters decomposes processing into a sequence of independent steps (the filters)
+connected by channels that carry data (the pipes).
 
 Each filter knows neither what came before nor what comes after. That is what makes the
 steps recombinable.
@@ -52,7 +52,7 @@ graph LR
 ```
 
 The contract between filters is the shape of the data in the pipe. As long as it is
-respected, a filter can be inserted or removed without changing its neighbors — which is
+respected, a filter can be inserted or removed without changing its neighbors. That is
 mechanical fit, not interchangeability. Order remains a constraint of the domain: in the
 Real-World Example, tax computation cannot precede enrichment from the registry, and no
 format contract says so.
@@ -62,26 +62,26 @@ format contract says so.
 The property that gives the style its value: a filter with no state between invocations
 can be run in parallel, retried on failure, and reused in another flow.
 
-A stateful filter — one that accumulates, that depends on order, that keeps context
-between items — loses all three properties. It is legitimate and has to be recognized as
+A stateful filter (one that accumulates, that depends on order, that keeps context
+between items) loses all three properties. It is legitimate and has to be recognized as
 different.
 
 ### The pipe's format is the coupling
 
 The style does not eliminate coupling; it concentrates it in the shape of the data.
 
-A very specific format makes the filters barely recombinable. A very generic one — a map
-of keys, say — allows recombination and eliminates checking: a filter expecting a field
+A very specific format makes the filters barely recombinable. A very generic one (a map
+of keys, say) allows recombination and eliminates checking: a filter expecting a field
 the previous one did not produce fails at runtime.
 
 The trade-off between the two is the style's design decision.
 
 ### Synchrony and asynchrony
 
-**Synchronous, in-process** — the filters are composed functions. Simple, and the whole
+**Synchronous, in-process**: the filters are composed functions. Simple, and the whole
 flow fails together.
 
-**Asynchronous, with queues** — each filter is a consumer. It absorbs peaks, scales per
+**Asynchronous, with queues**: each filter is a consumer. It absorbs peaks, scales per
 step, and brings duplication, ordering and poison messages. See
 [Level 04](/06-distributed-systems/index.md).
 
@@ -98,7 +98,7 @@ The choice changes the nature of what is being built.
 ## When Not to Use
 
 **When the processing is not sequential.** Flows with conditional branching, joins and
-cycles feel artificial as a pipeline — and the correct model is a graph, not a line.
+cycles feel artificial as a pipeline, and the correct model is a graph, not a line.
 
 **When the filters need shared context.** If each step needs to know what happened in the
 previous ones, the decoupling is illusory.
@@ -114,12 +114,12 @@ guaranteeing atomicity over a batch cuts across the structure.
 
 ## Alternatives
 
-- **Composed functions** — a synchronous pipeline with no infrastructure, when there is no
+- **Composed functions**: a synchronous pipeline with no infrastructure, when there is no
   per-step scaling requirement.
-- **[Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md)** — when the
+- **[Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md)**: when the
   semantics is "first to handle stops", not "everyone transforms".
-- **A task graph** — when there is branching and joining.
-- **Monolithic batch processing** — when the steps are never recombined.
+- **A task graph**: when there is branching and joining.
+- **Monolithic batch processing**: when the steps are never recombined.
 
 ## Trade-offs
 
@@ -152,7 +152,7 @@ fails blocks the following ones.
 
 **Modelling a branching flow as a pipeline.** The pattern presupposes steps in sequence.
 When the flow splits by condition and reconverges, fitting it requires pipes with detours
-and filters that know the path — and what is left is no longer a pipeline, it is a badly
+and filters that know the path, and what is left is no longer a pipeline, it is a badly
 written state machine.
 
 **Overly generic pipe format.** An open map between all the filters looks like flexibility
@@ -164,27 +164,27 @@ throughput of the whole; with no backpressure signal, the buffer before it grows
 exhausts memory or disk. The failure appears far from the cause.
 
 **Filters with non-idempotent side effects.** Reprocessing the pipeline is the pattern's
-natural operation — after a failure, to fix a defect, to rebuild history. A filter that
+natural operation: after a failure, to fix a defect, to rebuild history. A filter that
 charges or sends an email on every pass makes that operation impossible.
 
 ## Where it appears in practice
 
 **Unix command-line pipes.** The origin, and an example that teaches the distinction:
-`grep | sort | uniq`. Only `grep` is stateless — `sort` needs the whole input before
+`grep | sort | uniq`. Only `grep` is stateless: `sort` needs the whole input before
 emitting the first line, and `uniq` compares each item with the previous one. A real
 pipeline mixes both kinds, and it is the `sort` in the middle that prevents parallelizing
 and forces waiting for the end of the input.
 
-**Data pipelines.** Ingestion, cleaning, enrichment and loading — where the pattern appears
+**Data pipelines.** Ingestion, cleaning, enrichment and loading, where the pattern appears
 most today, with queues between the steps instead of the in-memory pipe.
 
-**Compilers.** Lexical, syntactic and semantic analysis, optimization, generation — each
+**Compilers.** Lexical, syntactic and semantic analysis, optimization, generation: each
 phase consumes the previous one's output.
 
 **Media processing.** Decode, resize, watermark, encode.
 
 Unix is instructive for a specific reason: the pipe's format is plain text, the most
-generic possible. That gave universal recombination and no checking at all — the trade the
+generic possible. That gave universal recombination and no checking at all: the trade the
 style makes, taken to the extreme, with lasting success in one domain and bad consequences
 in others.
 
@@ -203,19 +203,19 @@ synthetic input.
 Two problems appeared and are worth more than the gain.
 
 The first: the enrichment filter queried the registry per record and brought the registry
-service down — without having been parallelized. It stayed on one instance; what changed
+service down, without having been parallelized. It stayed on one instance; what changed
 was the **rate**. In the 400-line method, each registry query only happened after the
 previous record's tax computation, which was 80% of the time: the bottleneck paced
 everything. Decomposed, enrichment began running at the throughput of the set, about an
 order of magnitude higher, and the registry received that rate all at once.
 
 That is the lesson worth more than the scaling gain: decomposing does not change the total
-number of calls to dependencies, it changes the speed at which they arrive — and whoever
+number of calls to dependencies, it changes the speed at which they arrive, and whoever
 was protected by the bottleneck stops being. The fix was batching and adding rate
 limiting.
 
 The second: a malformed record made the validation filter throw, and the message returned
-to the queue indefinitely — blocking the whole queue. A dead-letter queue and an alert
+to the queue indefinitely, blocking the whole queue. A dead-letter queue and an alert
 fixed it, and they should have been there from the start.
 
 Both are predictable consequences of making the pipeline asynchronous, and both were
@@ -223,11 +223,11 @@ discovered in production.
 
 ## Related Concepts
 
-- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md) — a chain with
+- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md): a chain with
   stopping semantics.
-- [Decorator](/03-design-patterns/decorator.md) — layers that wrap, not steps that
+- [Decorator](/03-design-patterns/decorator.md): layers that wrap, not steps that
   transform.
-- [Event-Driven Architecture](/03-design-patterns/event-driven.md) — when the pipes are
+- [Event-Driven Architecture](/03-design-patterns/event-driven.md): when the pipes are
   queues.
 - [Integration](/08-integration-architecture/index.md).
 
@@ -236,7 +236,7 @@ discovered in production.
 Pick a batch process in your system and identify the sequential steps.
 
 Measure the time of each. If one consumes most of it, it is a candidate for scaling on its
-own — and that is the concrete argument for decomposing.
+own, and that is the concrete argument for decomposing.
 
 ## Interview Questions
 

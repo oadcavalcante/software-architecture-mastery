@@ -2,7 +2,7 @@
 id: modular-design
 title: Modular Design
 sidebar_position: 12
-description: The practical application of modularity — how to divide a real system by capability.
+description: "The practical application of modularity: how to divide a real system by capability."
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [layering]
 related: [package-design, component-design, boundaries]
 canonical_for: [modular design, capability module]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -59,7 +59,7 @@ That reproduces the layering problem on another axis. A change to "a customer ca
 have a credit limit" touches `Customer`, `Order` and `Billing`, because the
 capability *granting credit* is spread across all three entities.
 
-The division that works is by **capability** — what the business does — and each
+The division that works is by **capability** (what the business does), and each
 capability has its own view of the entities it needs. It is the same idea that
 [strategic DDD](/04-domain-driven-design/strategic-ddd.md) formalizes as a bounded
 context.
@@ -77,7 +77,7 @@ billing/
   infra/
 ```
 
-That duplicates structure — each module has its own `infra`. The duplication is
+That duplicates structure: each module has its own `infra`. The duplication is
 accepted deliberately: it is the price of keeping the change contained.
 
 ### The contract is narrow and does not expose the interior
@@ -103,7 +103,7 @@ Three forms, in increasing order of decoupling:
 | Internal domain event | Contract only | The consumer reacts; the source need not know |
 | Local copy of projected data | Minimal, with eventual consistency | The consumer queries frequently |
 
-The second is what most often resolves it, and is the least used — teams tend to
+The second is what most often resolves it, and is the least used: teams tend to
 reach for the direct call out of habit.
 
 ## Mental Model
@@ -120,7 +120,7 @@ in the others, it is not modular.
 - In any system beyond a few tens of thousands of lines.
 - When more than one team works on the same codebase.
 - When parts evolve at different rates.
-- Before considering microservices — the
+- Before considering microservices: the
   [modular monolith](/03-design-patterns/modular-monolith.md) is the step that
   tells you where the boundaries actually are.
 
@@ -142,18 +142,18 @@ its entities has the cost of the division and none of the benefit.
 
 ## Alternatives
 
-- **A flat package** — honest in small systems.
-- **Layers as the primary division** — when the real variation is technical.
-- **Vertical slice by use case** — a finer division still, useful in systems with
+- **A flat package**: honest in small systems.
+- **Layers as the primary division**: when the real variation is technical.
+- **Vertical slice by use case**: a finer division still, useful in systems with
   many independent cases.
-- **Separate services** — when there is a requirement for independent deployment
+- **Separate services**: when there is a requirement for independent deployment
   or scale. It costs far more; see
   [boundaries](/02-software-design/boundaries.md).
 
 ## Trade-offs
 
-The general axis — change contained against indirection, contracts to maintain
-against none — is in [Modularity](/01-fundamentals/modularity.md). What division
+The general axis (change contained against indirection, contracts to maintain
+against none) is in [Modularity](/01-fundamentals/modularity.md). What division
 by capability adds on top of it:
 
 | Modules by capability | No modules |
@@ -186,17 +186,17 @@ imports the entity directly.
 **Creating modules before knowing the domain.** See "when not to use".
 
 **Thinking modules require microservices.** A module boundary is enforced inside a
-single process; what separation by process adds — and what it charges — is in
+single process; what separation by process adds, and what it charges, is in
 [modular monolith](/03-design-patterns/modular-monolith.md).
 
 ## Real-World Example
 
-A logistics system was divided into `Driver`, `Vehicle`, `Route` and `Delivery` —
+A logistics system was divided into `Driver`, `Vehicle`, `Route` and `Delivery`,
 by entity.
 
 The feature "reassign a delivery when the driver becomes unavailable" touched all
-four modules. It was the most frequent operation in the business — some 400 a day
-across a fleet of 300 vehicles — and the only one with a stated latency
+four modules. It was the most frequent operation in the business (some 400 a day
+across a fleet of 300 vehicles) and the only one with a stated latency
 constraint: the dispatcher waits for the confirmation on screen, on a one-second
 budget.
 
@@ -205,7 +205,7 @@ The redivision by capability produced: `planning` (who does what and when),
 `billing`.
 
 Reassignment came to fit entirely inside `planning`, which keeps its own
-projection of driver availability — a local copy, updated by an event from
+projection of driver availability: a local copy, updated by an event from
 `registry`.
 
 The local copy bothered the team at first: it was duplicated data. What it bought
@@ -236,20 +236,20 @@ architecture test, the new boundary is crossed before the quarter ends.
 
 **Accept a transitional `legacy` module.** Whatever has not been classified stays
 there, explicitly, with the rule that it may depend on the new modules but not the
-reverse. That makes progress measurable — the size of `legacy` only goes down.
+reverse. That makes progress measurable: the size of `legacy` only goes down.
 
 ## Related Concepts
 
-- [Modularity](/01-fundamentals/modularity.md) — the concept and the criterion.
-- [Boundaries](/02-software-design/boundaries.md) — what separates the modules.
-- [Package Design](/02-software-design/package-design.md) — the organization
+- [Modularity](/01-fundamentals/modularity.md): the concept and the criterion.
+- [Boundaries](/02-software-design/boundaries.md): what separates the modules.
+- [Package Design](/02-software-design/package-design.md): the organization
   inside each one.
-- [Strategic DDD](/04-domain-driven-design/strategic-ddd.md) — bounded context as the
+- [Strategic DDD](/04-domain-driven-design/strategic-ddd.md): bounded context as the
   formalization of capability.
 
 ## Practical Exercise
 
-List the five most frequent operations in your system — the ones the business asks
+List the five most frequent operations in your system, the ones the business asks
 to change most often.
 
 For each, count how many top-level modules it touches today.
@@ -268,5 +268,5 @@ differences between the two divisions point at where the boundaries are wrong.
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into Modules*.
   CACM, 1972.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — measuring
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Measuring
   boundaries from history.

@@ -2,7 +2,7 @@
 id: coupling
 title: Acoplamento
 sidebar_position: 13
-description: O grau em que mudar uma parte obriga a mudar outra — e por que zero não é a meta.
+description: O grau em que mudar uma parte obriga a mudar outra, e por que zero não é a meta.
 doc_type: concept
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [acoplamento, coupling]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -27,7 +27,7 @@ em outra.
 A afirmação que organiza este documento, e que contraria o que se ensina
 normalmente: **acoplamento não é um defeito a eliminar. É uma quantidade a
 alocar.** Partes que mudam juntas devem estar acopladas. O problema não é
-acoplamento — é acoplamento no lugar errado.
+acoplamento, e sim acoplamento no lugar errado.
 
 ## Problema
 
@@ -35,7 +35,7 @@ acoplamento — é acoplamento no lugar errado.
 questão real.
 
 Um sistema com acoplamento zero entre duas partes que sempre mudam juntas não
-tem uma propriedade boa — tem duplicação, e duplicação de conhecimento é uma
+tem uma propriedade boa: tem duplicação, e duplicação de conhecimento é uma
 forma de acoplamento pior, porque é invisível. Quando a regra muda, os dois
 lugares precisam mudar, e nada avisa se um foi esquecido.
 
@@ -44,7 +44,7 @@ indireção entre partes que nunca mudam independentemente pagou complexidade po
 uma flexibilidade que nunca será exercida.
 
 A pergunta útil não é "como reduzir o acoplamento?". É **"estas duas coisas mudam
-juntas?"** — e alocar acoplamento conforme a resposta.
+juntas?"**, e alocar acoplamento conforme a resposta.
 
 ## Conceitos Centrais
 
@@ -67,10 +67,10 @@ menos que isso.
 ### Aferente e eferente
 
 **Acoplamento aferente** (Ca): quantos módulos dependem deste. Alto Ca significa
-que mudar aqui é caro — muita gente é afetada.
+que mudar aqui é caro: muita gente é afetada.
 
 **Acoplamento eferente** (Ce): de quantos módulos este depende. Alto Ce significa
-que este módulo é frágil — muita coisa pode quebrá-lo.
+que este módulo é frágil: muita coisa pode quebrá-lo.
 
 A distinção importa porque as consequências são opostas. Um módulo com Ca alto
 deve ser estável e mudar pouco; um com Ce alto deve ser periférico e descartável.
@@ -86,7 +86,7 @@ Uma chamada síncrona acopla no tempo; uma mensagem em fila não.
 
 Este é o eixo que domina arquitetura distribuída, e é o assunto de
 [integração](/08-integration-architecture/index.md). Trocar acoplamento
-temporal por acoplamento de formato — a mensagem tem contrato — é a decisão
+temporal por acoplamento de formato (a mensagem tem contrato) é a decisão
 central de sistemas orientados a eventos.
 
 ### Acoplamento é transitivo
@@ -102,7 +102,7 @@ tamanho do fecho transitivo.
 **Acoplamento é a resposta a: se eu mudar isto, o que mais preciso mudar?**
 
 A pergunta é respondível empiricamente. Um histórico de commits mostra quais
-arquivos mudam juntos — que é o acoplamento real, independentemente do que a
+arquivos mudam juntos, que é o acoplamento real, independentemente do que a
 estrutura sugere.
 
 ## Quando Usar
@@ -132,7 +132,7 @@ versionado sai mais barato que a chamada direta.
 
 **Os consumidores da mesma parte querem coisas divergentes.** Um módulo
 compartilhado por três chamadores com requisitos diferentes obriga cada um a
-absorver mudanças feitas para os outros dois — é onde Ca alto deixa de ser
+absorver mudanças feitas para os outros dois; é onde Ca alto deixa de ser
 estabilidade e vira imposto.
 
 **As partes têm exigências de disponibilidade diferentes.** Acoplar no tempo faz
@@ -141,23 +141,23 @@ pagar o acoplamento de formato de uma fila.
 
 ## Alternativas
 
-- **Duplicação deliberada** — quando duas partes coincidem hoje mas devem evoluir
+- **Duplicação deliberada**: quando duas partes coincidem hoje mas devem evoluir
   separadamente. Ver [acoplamento vs. duplicação](/20-trade-offs/index.md).
-- **Acoplamento por contrato explícito** — manter a dependência, tornando-a
+- **Acoplamento por contrato explícito**: manter a dependência, tornando-a
   versionada e negociada em vez de implícita.
-- **Inversão de dependência** — manter o acoplamento e inverter sua direção, o
+- **Inversão de dependência**: manter o acoplamento e inverter sua direção, o
   que é frequentemente mais barato que eliminá-lo.
 
 ## Trade-offs
 
-O eixo real é **acoplamento versus duplicação** — mas ele só vale onde as duas
+O eixo real é **acoplamento versus duplicação**, mas ele só vale onde as duas
 partes compartilham conhecimento. Aí a troca é direta: quem reduz o acoplamento
 passa a manter duas cópias do que sabia uma vez, e a decisão é qual dos dois custa
 menos neste caso.
 
 Fora desse eixo há acoplamento que se reduz de graça. O acoplamento de marca e o de
 controle, na escala acima, saem sem produzir duplicação: passar o identificador e a
-quantia em vez do objeto inteiro não duplica nada. E há troca de um tipo por outro —
+quantia em vez do objeto inteiro não duplica nada. E há troca de um tipo por outro:
 uma mensagem em fila troca acoplamento temporal por acoplamento de formato, sem
 duplicar. O eixo abaixo é o do conhecimento compartilhado, não o de todo
 acoplamento.
@@ -197,12 +197,12 @@ prematuras.
 **Medir acoplamento pela estrutura em vez do histórico.** O grafo de imports
 mostra o acoplamento declarado; o histórico de commits mostra o que já foi
 exercido. Sobre mudanças que já ocorreram, quando os dois divergem o histórico
-está certo — mas ele é cego para o acoplamento ainda não exercido: um módulo de
+está certo. Mas ele é cego para o acoplamento ainda não exercido: um módulo de
 Ca alto e deliberadamente estável não aparece em par co-mudado nenhum, e
 continua caro de mudar.
 
 **Confundir baixo acoplamento com muitas interfaces.** Uma interface com uma
-implementação não desacopla — só adiciona um arquivo.
+implementação não desacopla, só adiciona um arquivo.
 
 **Ignorar acoplamento temporal.** É o que menos aparece em diagramas de
 dependência e, onde a cadeia de chamadas síncronas é longa, o que mais custa no
@@ -223,22 +223,22 @@ O histórico de commits contava outra coisa: em dezoito meses, 94% das alteraç�
 em um vieram acompanhadas de alteração no outro, no mesmo commit.
 
 Os dois módulos eram um só, distribuídos em dois lugares. O acoplamento não tinha
-sido reduzido — tinha sido escondido atrás de uma interface, ao custo de indireção
+sido reduzido; tinha sido escondido atrás de uma interface, ao custo de indireção
 e de dois conjuntos de testes que sempre mudavam juntos.
 
 A decisão foi juntá-los, e a interface entre eles virou uma função interna.
 
 O contraexemplo, no mesmo sistema: `PedidoService` e `NotificacaoService` mudavam
-juntos em 6% dos commits. Ali a separação era real e valia o custo — e, mais
+juntos em 6% dos commits. Ali a separação era real e valia o custo e, mais
 tarde, permitiu que a notificação virasse assíncrona sem tocar em pedido.
 
-O mesmo instrumento — o histórico — respondeu às duas perguntas.
+O mesmo instrumento, o histórico, respondeu às duas perguntas.
 
 ## Conceitos Relacionados
 
-- [Coesão](/01-fundamentals/cohesion.md) — a outra face da mesma decisão.
-- [Modularidade](/01-fundamentals/modularity.md) — onde traçar as fronteiras.
-- [Gestão de Dependências](/01-fundamentals/dependency-management.md) — a direção do acoplamento.
+- [Coesão](/01-fundamentals/cohesion.md): a outra face da mesma decisão.
+- [Modularidade](/01-fundamentals/modularity.md): onde traçar as fronteiras.
+- [Gestão de Dependências](/01-fundamentals/dependency-management.md): a direção do acoplamento.
 
 ## Exercício Prático
 
@@ -257,7 +257,7 @@ juntos são candidatos a separar.
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — métricas de
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Métricas de
   acoplamento de componentes.
-- Tornhill, Adam. *Your Code as a Crime Scene*. Pragmatic Bookshelf, 2015 —
-  acoplamento medido por histórico de versão.
+- Tornhill, Adam. *Your Code as a Crime Scene*. Pragmatic Bookshelf, 2015.
+  Acoplamento medido por histórico de versão.

@@ -2,7 +2,7 @@
 id: bridge
 title: Bridge
 sidebar_position: 7
-description: Separar abstração de implementação para que as duas variem — a resposta à explosão de hierarquia.
+description: "Separar abstração de implementação para que as duas variem: a resposta à explosão de hierarquia."
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adapter]
 related: [adapter, strategy, abstract-factory]
 canonical_for: [bridge]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Bridge separa uma abstração da sua implementação, de modo que as duas possam
 variar independentemente.
 
-É o padrão que resolve a explosão combinatória de hierarquias — o problema que
+É o padrão que resolve a explosão combinatória de hierarquias: o problema que
 aparece quando duas dimensões de variação são modeladas por herança.
 
 ## Problema
@@ -49,7 +49,7 @@ Bridge substitui o produto pela soma:
 ```
 
 Note que nesse tamanho o padrão ainda não venceu: a herança dava 7 tipos também (a base mais
-as seis concretas). O ganho é assintótico e aparece com 4×4 — 17 tipos contra 10 —, e é
+as seis concretas). O ganho é assintótico e aparece com 4×4 (17 tipos contra 10), e é
 exatamente por isso que "Quando Não Usar" manda esperar a terceira ou quarta classe antes de
 separar as hierarquias.
 
@@ -72,7 +72,7 @@ graph LR
 ```
 
 A abstração delega ao implementador. Note que **implementador não é a
-implementação da abstração** — é uma segunda hierarquia, com sua própria
+implementação da abstração**: é uma segunda hierarquia, com sua própria
 interface, em outro nível de granularidade.
 
 ### Bridge não é Adapter
@@ -96,8 +96,8 @@ representa uma decisão isolada, geralmente com um método.
 **Bridge** separa duas dimensões estruturais. O implementador costuma ter várias
 operações primitivas que a abstração combina.
 
-Estruturalmente parecidos; a diferença está em o que varia — algoritmo versus
-dimensão de implementação — e em quantas operações a interface tem.
+Estruturalmente parecidos; a diferença está em o que varia (algoritmo versus
+dimensão de implementação) e em quantas operações a interface tem.
 
 ## Quando Usar
 
@@ -116,7 +116,7 @@ dimensão de implementação — e em quantas operações a interface tem.
 explodiu; ver [YAGNI](/02-software-design/yagni.md).
 
 **Preventivamente.** É um dos padrões mais caros de aplicar cedo, porque exige
-projetar a interface do implementador — as operações primitivas certas — sem
+projetar a interface do implementador (as operações primitivas certas) sem
 conhecer as variações reais. Adivinhar errado ali produz uma interface que cada
 implementador precisa contornar.
 
@@ -126,11 +126,11 @@ compatibilidade.
 
 ## Alternativas
 
-- **[Strategy](/03-design-patterns/strategy.md)** — quando o que varia é um algoritmo.
-- **Composição simples** — passar a dependência sem hierarquia formal de
+- **[Strategy](/03-design-patterns/strategy.md)**: quando o que varia é um algoritmo.
+- **Composição simples**: passar a dependência sem hierarquia formal de
   abstração.
-- **Herança** — enquanto houver uma dimensão só.
-- **Funções de primeira classe** — quando o implementador tem uma operação.
+- **Herança**: enquanto houver uma dimensão só.
+- **Funções de primeira classe**: quando o implementador tem uma operação.
 
 ## Trade-offs
 
@@ -195,7 +195,7 @@ do implementador foi extraída a partir das seis combinações que de fato
 funcionavam.
 
 Resultado: quatro canais e três formatos, com uma tabela explícita de quais
-combinações são válidas — porque elas de fato não são todas independentes.
+combinações são válidas, porque elas de fato não são todas independentes.
 
 Esse último ponto é o mais honesto do caso: Bridge pressupõe independência entre
 as dimensões, e aqui a independência era parcial. A solução ficou sendo Bridge com
@@ -207,7 +207,7 @@ que o domínio exigia.
 O sinal mais confiável está nos nomes das classes: **dois adjetivos que vêm de
 listas diferentes.**
 
-`RelatorioMensalPDF`, `RelatorioAnualPDF`, `RelatorioMensalExcel` — "mensal" e
+`RelatorioMensalPDF`, `RelatorioAnualPDF`, `RelatorioMensalExcel`: "mensal" e
 "anual" vêm de uma lista, "PDF" e "Excel" de outra. O produto das duas é o número
 de classes.
 
@@ -224,20 +224,20 @@ classes? Se for mais de uma, o custo é multiplicativo.
 
 Uma ressalva importante: encontrar o padrão não significa que Bridge é a resposta.
 Se uma das dimensões tem duas variantes estáveis há anos, o produto é pequeno e
-gerenciável. O padrão se paga quando **ambas** as dimensões crescem — e crescer é
+gerenciável. O padrão se paga quando **ambas** as dimensões crescem, e crescer é
 uma afirmação sobre o histórico, não sobre a intuição.
 
 ## Conceitos Relacionados
 
-- [Adapter](/03-design-patterns/adapter.md) — compatibilizar o que já existe.
-- [Strategy](/03-design-patterns/strategy.md) — variar um algoritmo.
-- [Abstract Factory](/03-design-patterns/abstract-factory.md) — frequentemente usado para criar o par
+- [Adapter](/03-design-patterns/adapter.md): compatibilizar o que já existe.
+- [Strategy](/03-design-patterns/strategy.md): variar um algoritmo.
+- [Abstract Factory](/03-design-patterns/abstract-factory.md): frequentemente usado para criar o par
   abstração-implementador coerente.
 
 ## Exercício Prático
 
 Procure no seu sistema hierarquias cujo número de classes é o produto de duas
-listas — dois adjetivos no nome da classe costuma denunciar.
+listas: dois adjetivos no nome da classe costuma denunciar.
 
 Para cada uma, verifique se todas as combinações são válidas. Se não forem, Bridge
 puro não se aplica sem tratamento adicional.

@@ -2,7 +2,7 @@
 id: coupling-vs-duplication
 title: Acoplamento vs. Duplicação
 sidebar_position: 6
-description: Duplicação é mais barata que o acoplamento errado — e a maior parte da duplicação aparente não é duplicação.
+description: Duplicação é mais barata que o acoplamento errado, e a maior parte da duplicação aparente não é duplicação.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [simplicity-vs-flexibility, monolith-vs-microservices, abstraction-vs-complexity]
 canonical_for: [acoplamento contra duplicação, duplicação aparente, eixo de mudança, regra de três]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -37,7 +37,7 @@ entre coisas que não têm relação.
 eixo real   estes dois trechos mudam pela mesma razão, ou por razões diferentes?
 ```
 
-Essa pergunta — não a semelhança do código — decide.
+Essa pergunta, não a semelhança do código, decide.
 
 ## Problema
 
@@ -126,7 +126,7 @@ banco compartilhado                       acopla esquema e evolução
 ```
 
 Uma biblioteca comum a doze serviços significa que uma correção nela exige doze implantações
-coordenadas — e que nenhum dos doze pode evoluí-la sozinho.
+coordenadas, e que nenhum dos doze pode evoluí-la sozinho.
 
 Por isso, **entre serviços, a tolerância a duplicação deve ser maior**. Duplicar um modelo de
 dados entre dois serviços com contextos diferentes é frequentemente a decisão correta, e é
@@ -145,7 +145,7 @@ Um meio-termo subutilizado: duplicar e registrar a relação.
 ```
 
 Isso preserva a independência e resolve o problema real da duplicação, que não é o código
-repetido — é a divergência silenciosa.
+repetido, e sim a divergência silenciosa.
 
 ### Sinais de escolha errada
 
@@ -164,7 +164,7 @@ duplicou demais
   esforço de mudança proporcional ao número de cópias, sempre
 ```
 
-O primeiro sinal — parâmetro de controle — é o mais confiável: ele indica que o código
+O primeiro sinal (parâmetro de controle) é o mais confiável: ele indica que o código
 compartilhado está servindo a dois conhecimentos diferentes.
 
 ### Custo de mudar de ideia
@@ -180,7 +180,7 @@ mapeou.
 
 ## Modelo Mental
 
-**Mudam pela mesma razão?** Se sim, é conhecimento duplicado. Se não, é texto parecido — e
+**Mudam pela mesma razão?** Se sim, é conhecimento duplicado. Se não, é texto parecido, e
 uni-los cria um problema que não existia.
 
 ## Quando Usar
@@ -215,12 +215,12 @@ Prefira **duplicar** quando:
 
 ## Alternativas
 
-- **Duplicação com nota de sincronia** — mantém independência, evita divergência silenciosa.
-- **Extrair só o núcleo estável** — a parte que comprovadamente não varia; deixar o resto
+- **Duplicação com nota de sincronia**: mantém independência, evita divergência silenciosa.
+- **Extrair só o núcleo estável**: a parte que comprovadamente não varia; deixar o resto
   duplicado.
-- **Contrato em vez de código** — compartilhar o esquema e não a implementação. Ver
+- **Contrato em vez de código**: compartilhar o esquema e não a implementação. Ver
   [contratos de integração](/08-integration-architecture/integration-contracts.md).
-- **Verificação automática de divergência** — testes que comparam os comportamentos das
+- **Verificação automática de divergência**: testes que comparam os comportamentos das
   cópias, sem uni-las.
 
 A última é elegante para regras reguladas entre serviços: as implementações continuam
@@ -306,7 +306,7 @@ possui.
 ADR que explica por que estão separadas.
 
 **Núcleo comum extraído**, mas mínimo: apenas conversões de unidade e estruturas de dados
-geográficas — a parte que comprovadamente não varia por contexto, e que não tinha nenhum
+geográficas, a parte que comprovadamente não varia por contexto, e que não tinha nenhum
 parâmetro de controle.
 
 **Verificação de divergência para o caso regulado.** Faturamento e conciliação precisam
@@ -326,7 +326,7 @@ serviços dependendo da biblioteca comum         14 (só para o núcleo mínimo)
 O aumento de 18% em código é o custo aceito e foi explicitamente registrado como tal.
 
 A biblioteca não foi um erro de execução. Ela foi criada quando
-havia dois consumidores com a mesma necessidade — e a decisão correta naquele momento
+havia dois consumidores com a mesma necessidade, e a decisão correta naquele momento
 provavelmente era mesmo compartilhar. O erro foi não revisar quando o terceiro e o quarto
 consumidor chegaram com razões de mudança diferentes. Cada parâmetro de controle adicionado
 era um sinal, e nenhum foi lido como tal.

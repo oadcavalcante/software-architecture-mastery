@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [design-patterns, domain-driven-design]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -29,7 +29,7 @@ responsabilidades separadas, e cujo código é uma teia em que qualquer mudança
 toca sete arquivos em quatro módulos diferentes. A arquitetura existe no
 diagrama e não existe no repositório.
 
-Isso acontece porque fronteira arquitetural não é uma linha desenhada — é uma
+Isso acontece porque fronteira arquitetural não é uma linha desenhada: é uma
 restrição de dependência que precisa ser imposta e verificada. Se nada impede
 que o módulo de faturamento importe diretamente o repositório de usuários, ele
 vai importar, e a fronteira desaparece na terceira sprint.
@@ -40,7 +40,7 @@ executável. É também onde a maior parte do custo de manutenção é decidida.
 ## O que você vai encontrar aqui
 
 **Princípios.** SOLID, DRY, KISS, YAGNI e as heurísticas de design. Tratados
-como ferramentas com faixa de aplicação, não como mandamentos — inclusive os
+como ferramentas com faixa de aplicação, não como mandamentos, inclusive os
 casos em que aplicá-los produz código pior.
 
 **Estrutura.** Encapsulamento, interfaces, fronteiras, camadas, design modular,
@@ -53,7 +53,7 @@ apontam determina o que você consegue mudar sem quebrar.
 
 **Arquiteturas de código.** Clean Architecture, Hexagonal, Onion e Ports and
 Adapters. Quatro nomes para uma mesma ideia central, com diferenças que
-importam menos do que a literatura sugere — e um custo que a literatura
+importam menos do que a literatura sugere, e um custo que a literatura
 menciona pouco.
 
 **Manutenção.** Clean code, code smells e refatoração. Como reconhecer estrutura
@@ -66,7 +66,7 @@ que todo o resto depende, e são os que mais mudam a forma de olhar um
 repositório. Cada um tem uma entrada curta antes: encapsulamento e interfaces
 levam a fronteiras; inversão de dependência leva a direção de dependência.
 
-As quatro arquiteturas de código — Clean, Hexagonal, Onion, Ports and Adapters —
+As quatro arquiteturas de código (Clean, Hexagonal, Onion, Ports and Adapters)
 podem ser lidas em bloco. Elas compartilham a mesma tese; ler as quatro em
 sequência deixa claro o que é essencial e o que é diferença de vocabulário.
 
@@ -90,7 +90,7 @@ e passou a adicioná-la.
 - Criar interface com uma única implementação e chamar isso de desacoplamento.
 - Usar herança onde composição resolveria, por causa de uma economia de digitação.
 - Tratar DRY como proibição de duplicar texto, em vez de proibição de duplicar
-  conhecimento — e acoplar dois módulos que só coincidiam.
+  conhecimento, e acoplar dois módulos que só coincidiam.
 - Refatorar estrutura sem ter um critério que diga quando parar.
 
 ## Continua em

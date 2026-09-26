@@ -2,7 +2,7 @@
 id: enterprise-principles
 title: Princípios Corporativos
 sidebar_position: 10
-description: Regras que orientam decisões distribuídas — e por que a maioria delas não orienta nada.
+description: Regras que orientam decisões distribuídas, e por que a maioria delas não orienta nada.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: [princípio corporativo, princípio acionável, implicação de princípio]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -45,7 +45,7 @@ Nenhum desses ajuda a decidir. Diante de duas alternativas, ambas podem ser defe
 como simples, seguras e boas para o usuário.
 
 O teste que expõe isso: **existe alguém na organização que defenderia o contrário?** Se
-não existir, o princípio não separa opções — ele apenas declara uma virtude. É o teste do
+não existir, o princípio não separa opções: ele apenas declara uma virtude. É o teste do
 inverso, definido em
 [princípios de governança](/19-architecture-governance/governance-principles.md); aqui
 interessa o que vem depois dele: implicações e o teste contra decisões reais.
@@ -86,7 +86,7 @@ implicações  nenhum sistema escreve na base de outro
 ```
 
 Sem implicações, cada pessoa interpreta o princípio de um jeito, e ele deixa de produzir
-coerência — que era o motivo de existir.
+coerência, que era o motivo de existir.
 
 ### Poucos, e revisados
 
@@ -110,7 +110,7 @@ silencioso, ou paralisia.
 
 Uma precisão de vocabulário, porque ela muda o que se escreve no registro: princípio não é
 dispensado, é **ponderado** contra outro princípio. O mecanismo é o mesmo da exceção a
-padrão — registro, justificativa, revisão —, mas o conteúdo do registro é diferente: não
+padrão (registro, justificativa, revisão), mas o conteúdo do registro é diferente: não
 "deixamos de cumprir", e sim "este princípio cedeu àquele, por esta razão". Ver
 [princípios de governança](/19-architecture-governance/governance-principles.md).
 
@@ -124,7 +124,7 @@ e prazo de revisão
 ```
 
 O registro das exceções é informação valiosa: se um princípio acumula exceções, esse é o
-sinal mais forte de que ele precisa ser revisto — porque está errado, porque o escopo ficou
+sinal mais forte de que ele precisa ser revisto, porque está errado, porque o escopo ficou
 largo demais, ou porque é sistematicamente vencido por outro sem que a precedência esteja
 escrita.
 
@@ -140,7 +140,7 @@ a direção teria sido a certa?             se não, o princípio está errado
 alguém teria discordado?                  se não, ele é óbvio
 ```
 
-Princípios escritos em reunião, sem esse teste, tendem a ser declarações de virtude —
+Princípios escritos em reunião, sem esse teste, tendem a ser declarações de virtude,
 porque é isso que soa bem numa reunião.
 
 ### Princípio não é padrão nem regra técnica
@@ -154,7 +154,7 @@ regra      verifica — a esteira falha se não houver marcação
 Ver [padrões](/15-enterprise-architecture/standards.md).
 
 Misturar os três produz um documento longo em que ninguém distingue o que é orientação
-do que é obrigação — e, na dúvida, tudo vira obrigação.
+do que é obrigação. E, na dúvida, tudo vira obrigação.
 
 ### Princípios competem entre si, e isso é útil
 
@@ -167,13 +167,13 @@ direções diferentes.
 ```
 
 Isso parece defeito e é característica. A tensão explicita um trade-off real da
-organização, e força a discussão a acontecer no caso concreto — que é onde ela deve
+organização, e força a discussão a acontecer no caso concreto, que é onde ela deve
 acontecer.
 
 O que não funciona é ordenar os princípios por prioridade fixa: uma hierarquia rígida
 transforma o segundo princípio em decoração, porque o primeiro sempre vence.
 
-O que funciona é dizer **onde** cada princípio governa — por domínio ou por risco —, como
+O que funciona é dizer **onde** cada princípio governa (por domínio ou por risco), como
 detalha [princípios de governança](/19-architecture-governance/governance-principles.md),
 e registrar, quando a tensão aparece, qual venceu e por quê. Ver
 [decisões de arquitetura](/18-architecture-decisions/index.md).
@@ -193,7 +193,7 @@ princípio 1        "dados pertencem a um único sistema"  → aponta: centraliz
 princípio 2        "buscamos simplicidade"               → não aponta nada
 ```
 
-O segundo pode ser usado para defender qualquer um dos lados — manter é simples porque
+O segundo pode ser usado para defender qualquer um dos lados: manter é simples porque
 evita integração; centralizar é simples porque elimina reconciliação.
 
 Essa ambiguidade não é defeito de redação. É o sinal de que o princípio não escolheu
@@ -201,7 +201,7 @@ nada.
 
 E há um segundo teste, mais duro: pergunte a três pessoas de times diferentes o que o
 princípio implica numa situação concreta. Se as respostas divergirem, as implicações não
-foram escritas — e o princípio está produzindo divergência em vez de coerência.
+foram escritas, e o princípio está produzindo divergência em vez de coerência.
 
 ## Modelo Mental
 
@@ -211,7 +211,7 @@ foram escritas — e o princípio está produzindo divergência em vez de coerê
 
 - Onde decisões semelhantes são tomadas por times diferentes.
 - Para orientar sem centralizar.
-- Quando há tensão recorrente entre valores — custo contra velocidade, autonomia contra
+- Quando há tensão recorrente entre valores: custo contra velocidade, autonomia contra
   padronização.
 - Para dar critério a revisões de arquitetura.
 
@@ -219,7 +219,7 @@ foram escritas — e o princípio está produzindo divergência em vez de coerê
 
 **Com um time só, ou poucos times que decidem juntos.** Princípio existe para coordenar
 quem não conversa; onde todos estão na mesma revisão semanal, a conversa direta custa menos
-que escrever, publicar e manter o conjunto — e é mais precisa que ele.
+que escrever, publicar e manter o conjunto, e é mais precisa que ele.
 
 **Onde um acervo de decisões registradas já orienta.** Se os times consultam ADRs passados
 antes de decidir, o precedente carrega o contexto que o princípio abstrai. Escrever
@@ -234,16 +234,16 @@ onde a escolha específica importa e pode ser verificada, um princípio é o ins
 errado.
 
 **Como instrumento de veto.** Se o contexto é de desconfiança entre áreas, princípios
-tendem a ser citados apenas para recusar propostas — e o conjunto passa a ser lido como
+tendem a ser citados apenas para recusar propostas, e o conjunto passa a ser lido como
 lista de proibições, não como critério.
 
 ## Alternativas
 
-- **[Padrões](/15-enterprise-architecture/standards.md)** — quando a escolha específica importa.
-- **Caminho pavimentado** — o padrão embutido, sem depender de o time lembrar. Ver
+- **[Padrões](/15-enterprise-architecture/standards.md)**: quando a escolha específica importa.
+- **Caminho pavimentado**: o padrão embutido, sem depender de o time lembrar. Ver
   [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
-- **Verificação automatizada** — para o que pode ser checado.
-- **Registros de decisão** — o histórico do que foi decidido e por quê, que orienta por
+- **Verificação automatizada**: para o que pode ser checado.
+- **Registros de decisão**: o histórico do que foi decidido e por quê, que orienta por
   precedente. Ver
   [decisões de arquitetura](/18-architecture-decisions/index.md).
 
@@ -290,7 +290,7 @@ abstratos, porque traz o contexto junto.
 
 **Não registrar exceções.** A exceção não registrada vira precedente informal, e o princípio passa a valer para quem não sabia que dava para pedir exceção.
 
-**Não revisar.** Princípios derivam do contexto — tamanho do time, estágio, restrições. Quando o contexto muda e eles não, continuam eliminando opções que voltaram a ser boas.
+**Não revisar.** Princípios derivam do contexto: tamanho do time, estágio, restrições. Quando o contexto muda e eles não, continuam eliminando opções que voltaram a ser boas.
 
 ## Exemplo Real
 
@@ -307,7 +307,7 @@ apontaram e foram decisivos       3
 Os 14 primeiros eram declarações de virtude: "buscamos qualidade", "valorizamos a
 simplicidade", "somos orientados a dados".
 
-E, dos 23, apenas 4 tinham sido citados em alguma discussão nos três anos — sempre para
+E, dos 23, apenas 4 tinham sido citados em alguma discussão nos três anos, sempre para
 justificar uma recusa, nunca para orientar uma escolha.
 
 A reformulação produziu 5 princípios, cada um com lado perdedor explícito e implicações:
@@ -332,23 +332,23 @@ A reformulação produziu 5 princípios, cada um com lado perdedor explícito e 
    → nenhuma entrega é considerada pronta sem telemetria e alertas
 ```
 
-Um sexto candidato — "integração é por contrato explícito, nunca por acesso ao banco
-alheio" — foi rebaixado a implicação do princípio 2: não descartava nada que o 2 já não
+Um sexto candidato ("integração é por contrato explícito, nunca por acesso ao banco
+alheio") foi rebaixado a implicação do princípio 2: não descartava nada que o 2 já não
 descartasse.
 
 Cada um com implicações listadas, exceção possível com registro, e revisão anual.
 
-Nos dezoito meses seguintes, o registro de exceções acumulou 11 casos — e nove deles
+Nos dezoito meses seguintes, o registro de exceções acumulou 11 casos, e nove deles
 eram do princípio 3. A revisão anual reescreveu esse princípio: a lista de tecnologias
 suportadas tinha ficado estreita demais para a variedade de problemas da empresa.
 
 A leitura que a equipe faz: o registro de exceções foi o mecanismo mais valioso. Ele
-transformou "esse princípio atrapalha" — uma reclamação — em evidência de que o princípio
+transformou "esse princípio atrapalha" (uma reclamação) em evidência de que o princípio
 precisava mudar.
 
 ## Conceitos Relacionados
 
-- [Padrões](/15-enterprise-architecture/standards.md) — a prescrição específica.
+- [Padrões](/15-enterprise-architecture/standards.md): a prescrição específica.
 - [Governança Corporativa](/15-enterprise-architecture/enterprise-governance.md).
 - [Níveis de Arquitetura](/15-enterprise-architecture/architecture-levels.md).
 - [Decisões de Arquitetura](/18-architecture-decisions/index.md).
@@ -358,8 +358,8 @@ precisava mudar.
 Pegue os princípios da sua organização e teste cada um contra três decisões reais
 recentes.
 
-Os que não teriam apontado direção, ou com que ninguém discordaria, não são princípios —
-são declarações.
+Os que não teriam apontado direção, ou com que ninguém discordaria, são declarações,
+não princípios.
 
 ## Perguntas de Entrevista
 
@@ -369,6 +369,6 @@ são declarações.
 
 ## Para Aprofundar
 
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — princípios de arquitetura.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Princípios de arquitetura.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

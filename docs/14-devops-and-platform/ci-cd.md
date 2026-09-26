@@ -2,7 +2,7 @@
 id: ci-cd
 title: Integração e Entrega Contínuas
 sidebar_position: 1
-description: Três termos frequentemente confundidos — e por que a maioria dos times não pratica o primeiro.
+description: Três termos frequentemente confundidos, e por que a maioria dos times não pratica o primeiro.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [deployment-strategies, feature-flags, environment-management]
 canonical_for: [integração contínua, entrega contínua, implantação contínua, esteira, lote pequeno]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -36,7 +36,7 @@ uma esteira que roda testes num ramo de longa duração **não é** integração
 ## Problema
 
 Ramos de longa duração acumulam divergência. Quanto mais tempo separados, mais difícil
-a integração — e o conflito não é apenas textual: é semântico, entre mudanças que
+a integração. E o conflito não é apenas textual: é semântico, entre mudanças que
 assumiram estados diferentes do código.
 
 A consequência prática:
@@ -58,15 +58,15 @@ A prática, sem meias palavras: **todo desenvolvedor integra ao ramo principal a
 uma vez por dia**.
 
 Isso é incompatível com ramos de funcionalidade que vivem semanas. E a objeção imediata
-— "mas a funcionalidade não está pronta" — tem resposta:
+("mas a funcionalidade não está pronta") tem resposta:
 
 **Integrar não é liberar.** Código incompleto pode estar no ramo principal, desde que
 não seja alcançável. Ver [feature flags](/14-devops-and-platform/feature-flags.md).
 
 **Dividir a mudança.** A maioria das funcionalidades pode ser entregue em fatias que não
-quebram nada — estrutura primeiro, comportamento depois.
+quebram nada: estrutura primeiro, comportamento depois.
 
-**Padrão de expansão e contração.** Adicionar o novo, migrar, remover o antigo — em três
+**Padrão de expansão e contração.** Adicionar o novo, migrar, remover o antigo, em três
 integrações, em vez de uma grande.
 
 Times que não conseguem integrar diariamente costumam ter um problema de decomposição
@@ -112,7 +112,7 @@ Ver [evolução de esquema](/08-integration-architecture/schema-evolution.md).
 ### Implantação contínua é uma decisão, não o objetivo
 
 Ir a produção automaticamente a cada mudança exige confiança alta na verificação
-automatizada — e nem todo contexto comporta.
+automatizada, e nem todo contexto comporta.
 
 ```text
 faz sentido       produto web, mudanças pequenas, reversão rápida, boa cobertura
@@ -140,7 +140,7 @@ em produção        testes de fumaça, canary, monitoramento
 ```
 
 O princípio: falhe o mais cedo e o mais barato possível. E aceite que parte da
-verificação acontece **em produção** — o que muda a postura sobre reversibilidade.
+verificação acontece **em produção**. Isso muda a postura sobre reversibilidade.
 
 Ver [canary](/14-devops-and-platform/canary.md).
 
@@ -152,18 +152,18 @@ vez estabelecido esse hábito, a esteira deixa de ser sinal.
 O tratamento precisa ser agressivo: teste instável é removido ou corrigido, com prazo.
 Mantê-lo "porque às vezes pega algo" custa mais do que rende.
 
-E a instabilidade precisa ser medida — proporção de execuções que falham e passam na
-reexecução — ou ela cresce sem que ninguém perceba.
+E a instabilidade precisa ser medida (proporção de execuções que falham e passam na
+reexecução), ou ela cresce sem que ninguém perceba.
 
 ## Modelo Mental
 
-**Integrar frequentemente torna cada integração barata.** O resto — entrega, implantação
-— é o que se faz com o ramo principal confiável.
+**Integrar frequentemente torna cada integração barata.** O resto (entrega, implantação)
+é o que se faz com o ramo principal confiável.
 
 ## Quando Usar
 
 - Integração e entrega contínuas sempre que mais de uma pessoa altera o mesmo código e ele
-  vai a produção repetidamente — as exceções estão na seção seguinte.
+  vai a produção repetidamente. As exceções estão na seção seguinte.
 - Implantação contínua onde a reversão é rápida e a verificação é confiável.
 - Prioridade alta quando há vários times no mesmo código.
 
@@ -178,7 +178,7 @@ dispositivo em campo por recolhimento ou visita técnica, não há produção a 
 mudança, nem reversão em minutos.
 
 **Implantação contínua de mudança irreversível.** Migração que apaga ou transforma dados sem
-caminho de volta, ou mensagem já enviada a terceiros, pede uma decisão humana antes de ir —
+caminho de volta, ou mensagem já enviada a terceiros, pede uma decisão humana antes de ir,
 mesmo num time que implanta o resto automaticamente.
 
 **Integração diária no tronco com contribuidores externos.** No modelo de fork e pull request
@@ -188,11 +188,11 @@ a integração diária de todos não.
 
 ## Alternativas
 
-- **Entrega em cadência fixa** — semanal ou quinzenal, com lotes maiores. Legítimo em
+- **Entrega em cadência fixa**: semanal ou quinzenal, com lotes maiores. Legítimo em
   contextos regulados.
-- **Ramos de curta duração** — um a dois dias, integrados rapidamente. Meio-termo
+- **Ramos de curta duração**: um a dois dias, integrados rapidamente. Meio-termo
   praticável.
-- **Desenvolvimento baseado em tronco com flags** — a forma que sustenta integração
+- **Desenvolvimento baseado em tronco com flags**: a forma que sustenta integração
   diária. Ver [feature flags](/14-devops-and-platform/feature-flags.md).
 
 ## Trade-offs
@@ -233,7 +233,7 @@ a integração diária de todos não.
 
 **Ramos de funcionalidade de semanas.** O conflito de mesclagem cresce com o tempo e com o número de ramos abertos, e a integração vira um evento arriscado em vez de rotina.
 
-**Tolerar testes instáveis.** Um teste que falha às vezes ensina o time a reexecutar sem olhar — e a partir daí a suíte inteira deixa de ser sinal.
+**Tolerar testes instáveis.** Um teste que falha às vezes ensina o time a reexecutar sem olhar, e a partir daí a suíte inteira deixa de ser sinal.
 
 **Não medir o tempo da esteira.** Acima de dez ou quinze minutos, as pessoas param de esperar o resultado e passam a agrupar mudanças, o que desfaz o benefício da integração frequente.
 
@@ -271,7 +271,7 @@ Quando algo quebrava, isolar a causa levava horas.
 As mudanças, em ordem:
 
 **Esteira de 38 para 7 minutos.** Paralelização, cache de dependências, e movimentação
-dos testes lentos para uma etapa posterior. Isso sozinho mudou o comportamento — as
+dos testes lentos para uma etapa posterior. Isso sozinho mudou o comportamento: as
 pessoas passaram a integrar mais.
 
 **Testes instáveis** medidos e tratados. Onze foram removidos, quatro corrigidos. A
@@ -292,13 +292,13 @@ implantações de 2 por mês para 31 por semana, e incidentes causados por impla
 pela metade.
 
 A conclusão registrada: a ferramenta estava correta desde o início. O que faltava era a
-prática — e a mudança que mais destravou foi reduzir o tempo da esteira, que era vista
+prática. E a mudança que mais destravou foi reduzir o tempo da esteira, que era vista
 como detalhe de infraestrutura.
 
 ## Conceitos Relacionados
 
 - [Estratégias de Implantação](/14-devops-and-platform/deployment-strategies.md).
-- [Feature Flags](/14-devops-and-platform/feature-flags.md) — o que permite integrar sem liberar.
+- [Feature Flags](/14-devops-and-platform/feature-flags.md): o que permite integrar sem liberar.
 - [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
 - [Evolução de Esquema](/08-integration-architecture/schema-evolution.md).
 
@@ -306,7 +306,7 @@ como detalhe de infraestrutura.
 
 Meça a duração média dos ramos do seu time e o tempo da sua esteira.
 
-Se os ramos vivem mais de dois dias, você não pratica integração contínua — e se a
+Se os ramos vivem mais de dois dias, você não pratica integração contínua. E se a
 esteira leva mais de dez minutos, é provável que essa seja a causa.
 
 ## Perguntas de Entrevista

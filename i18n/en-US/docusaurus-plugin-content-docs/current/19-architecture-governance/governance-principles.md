@@ -2,7 +2,7 @@
 id: governance-principles
 title: Principles in Operation
 sidebar_position: 3
-description: How a principle is actually used at the moment of decision — and the test that separates a principle from a slogan.
+description: How a principle is actually used at the moment of decision, and the test that separates a principle from a slogan.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Principles guide judgment in situations nobody anticipated. That is the function, and it
 defines the quality criterion: **a principle that eliminates no option guides nothing.**
 
-The most efficient test fits in one question — **would anyone defend the opposite?**
+The most efficient test fits in one question: **would anyone defend the opposite?**
 
 ```text
 "we pursue scalable and secure solutions"      nobody defends the opposite → slogan
@@ -33,7 +33,7 @@ The most efficient test fits in one question — **would anyone defend the oppos
 ```
 
 See [enterprise principles](/15-enterprise-architecture/enterprise-principles.md) for how
-to write a principle — the losing side and the implications; here the focus is how they operate at the moment of decision, and what to do
+to write a principle (the losing side and the implications); here the focus is how they operate at the moment of decision, and what to do
 when two of them point in opposite directions.
 
 ## Problem
@@ -48,8 +48,8 @@ nobody would contest:
 "decisions should be data-driven"
 ```
 
-None of those eliminates an option. Faced with a real choice — build or buy, one database
-or two, synchronous or asynchronous — none of them helps.
+None of those eliminates an option. Faced with a real choice (build or buy, one database
+or two, synchronous or asynchronous), none of them helps.
 
 The practical effect is worse than absence: the organization believes it has principles, the
 exercise of formulating them was done and considered complete, and the decision keeps being
@@ -133,13 +133,13 @@ standard    is met or not — not meeting it requires a recorded exception
 
 That means "we are making an exception to principle X", read literally, describes something
 that does not exist: there is no waiving of a principle, because it was never a rule. What
-exists is the **weighing** — this principle yielded to that one, in this case, for this
+exists is the **weighing**: this principle yielded to that one, in this case, for this
 reason.
 
 In organizational practice, however, the weighing uses the same mechanism as an exception to
 a standard: it is recorded, with a justification, and it is reviewed. That is why
 [enterprise principles](/15-enterprise-architecture/enterprise-principles.md) speaks of a
-"declared exception path" — and it is right about the mechanism. The distinction worth
+"declared exception path", and it is right about the mechanism. The distinction worth
 keeping is what gets recorded: in a standard, that the rule was not met; in a principle,
 which other principle prevailed and why. Without that "against what", the record becomes a
 waiver, and then the principle has become a rule without anybody having decided so.
@@ -203,7 +203,7 @@ the reader who is absent from the decision; without that reader, formulating it,
 implications and reviewing it every year costs more than it returns.
 
 **When regulation already fixes the decision.** If the rule requires retaining data for five
-years, the opposite is not a defensible position — it is a violation. The principle merely
+years, the opposite is not a defensible position: it is a violation. The principle merely
 repeats the rule, fails the opposite test by construction, and the right instrument is
 [compliance](/19-architecture-governance/compliance.md).
 
@@ -215,16 +215,16 @@ consistent with the first, and adds little over it.
 the decision is argued, the principle has nowhere to operate; formulating it produces the
 slogan the opposite test exists to stop.
 
-**For recurring decisions with a predictable outcome** — that is a standard.
+**For recurring decisions with a predictable outcome**: that is a standard.
 
 ## Alternatives
 
-- **[Standards](/19-architecture-governance/governance-standards.md)** — when the decision
+- **[Standards](/19-architecture-governance/governance-standards.md)**: when the decision
   is already known.
-- **Templates** — the principle built into the starting point.
-- **[ADRs](/18-architecture-decisions/what-is-an-adr.md)** — a concrete precedent is worth more than
+- **Templates**: the principle built into the starting point.
+- **[ADRs](/18-architecture-decisions/what-is-an-adr.md)**: a concrete precedent is worth more than
   an abstraction; a set of well-recorded decisions teaches the organization's criteria.
-- **Nothing** — in small teams, the shared criterion is tacit and works.
+- **Nothing**: in small teams, the shared criterion is tacit and works.
 
 The third deserves a note: organizations with a good ADR archive frequently need fewer
 principles, because the criteria are visible in the precedents.
@@ -266,7 +266,7 @@ principles, because the criteria are visible in the precedents.
 
 **Not declaring where each principle governs.**
 
-**Confusing a principle with a standard** — and making "an exception to a principle".
+**Confusing a principle with a standard**, and making "an exception to a principle".
 
 **Not measuring citation** in real decisions.
 
@@ -299,7 +299,7 @@ never cited                             5
 The two most cited were the same two that had passed the opposite test comfortably.
 
 And a third, unforeseen finding: in 11 ADRs, two principles had been cited by **opposite
-sides** of the same discussion — team autonomy against reducing the number of technologies.
+sides** of the same discussion (team autonomy against reducing the number of technologies).
 There was no precedence rule, and the 11 decisions had been resolved inconsistently.
 
 The rework:
@@ -318,8 +318,8 @@ technology that enters the shared on-call rotation      → standardization wins
 ```
 
 **Two weighings promoted to standards.** Within the four principles, two decisions repeated
-with the same outcome — choice of relational database and of synchronous integration
-protocol — and became derived standards. The principles stayed on the list, governing the
+with the same outcome (choice of relational database and of synchronous integration
+protocol) and became derived standards. The principles stayed on the list, governing the
 cases the standards don't cover. See
 [standards](/19-architecture-governance/governance-standards.md).
 
@@ -337,11 +337,11 @@ principles removed in the annual review        1 (3 remained)
 ```
 
 The principle removed was "we prefer managed services over components operated by us". The
-review found it had become consensus and no longer eliminated any option under discussion —
+review found it had become consensus and no longer eliminated any option under discussion:
 it had become description, not choice.
 
 The recorded conclusion: the rework multiplied citations fourfold. The numbers don't separate
-the effect of each change — the short list, implications and precedence came in together, and
+the effect of each change: the short list, implications and precedence came in together, and
 the 7 decisions with a resolved conflict are a direct effect of precedence, not of the
 reduction. The case for the short list rests on the mechanism, not the count: the long list
 wasn't consulted because it didn't fit in anyone's head at the moment of decision, which is
@@ -349,12 +349,12 @@ the only moment a principle is any use.
 
 ## Related Concepts
 
-- [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md) — the
+- [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md): the
   formulation.
-- [Standards](/19-architecture-governance/governance-standards.md) — when to prescribe.
-- [Review](/19-architecture-governance/governance-review.md) — where the principle is
+- [Standards](/19-architecture-governance/governance-standards.md): when to prescribe.
+- [Review](/19-architecture-governance/governance-review.md): where the principle is
   applied.
-- [Trade-offs](/20-trade-offs/index.md) — what every principle gives up.
+- [Trade-offs](/20-trade-offs/index.md): what every principle gives up.
 
 ## Practical Exercise
 
@@ -372,5 +372,5 @@ tests are not operating.
 ## Further Reading
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — architecture principles.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Architecture principles.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

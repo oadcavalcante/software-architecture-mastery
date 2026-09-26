@@ -2,7 +2,7 @@
 id: rate-limiting
 title: Rate Limiting
 sidebar_position: 13
-description: Limiting the pace of requests — capacity protection before it is commercial policy.
+description: "Limiting the pace of requests: capacity protection before it is commercial policy."
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [load-balancing]
 related: [queues, load-balancing, security]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Rate limiting restricts how many requests a client can make in an interval.
 
-Before being commercial policy — plans with different quotas — it is **capacity
+Before being commercial policy (plans with different quotas) it is **capacity
 protection**: with no limit, one client alone can consume the whole resource and take the
 service down for everyone else.
 
@@ -40,7 +40,7 @@ makes it slower. See
 
 **Uneven usage.** One large client consumes what was sized for everyone.
 
-With no limit, the system discovers saturation by going down — and it goes down for everyone,
+With no limit, the system discovers saturation by going down, and it goes down for everyone,
 not just for whoever caused it.
 
 ## Core Concepts
@@ -54,12 +54,12 @@ not just for whoever caused it.
 | **Token bucket** | Tokens refilled at a constant rate; each request spends one | Allows a burst up to the bucket size |
 | **Leaky bucket** | Requests leave at a constant rate | Smooths; queues instead of rejecting |
 
-**Token bucket** is the most used, and the reason is that it allows a controlled burst —
-which corresponds to real usage, in which clients make several requests together and then go
+**Token bucket** is the most used, and the reason is that it allows a controlled burst.
+That corresponds to real usage, in which clients make several requests together and then go
 quiet. Limiting rigidly per second rejects legitimate behavior.
 
 The fixed window has a well-known defect: with a limit of 100 per minute, a client can make
-100 in the last second of one window and 100 in the first of the next — 200 in two seconds.
+100 in the last second of one window and 100 in the first of the next (200 in two seconds).
 
 ### The dimension matters more than the algorithm
 
@@ -68,7 +68,7 @@ Limiting **by what** decides whether the protection works:
 **Per authenticated client.** The common case. Fair and it requires authentication.
 
 **Per IP address.** It works for unauthenticated traffic, and it punishes users behind the
-same IP — companies, mobile carriers.
+same IP (companies, mobile carriers).
 
 **Per endpoint.** A search costs more than a simple read; uniform limits protect badly.
 
@@ -116,7 +116,7 @@ is "everyone".
 - An expensive resource that needs protection.
 - There are commercial plans with quotas.
 - Protection against abuse and enumeration.
-- Consuming an external service that has its own limit — limiting on your side avoids being
+- Consuming an external service that has its own limit: limiting on your side avoids being
   blocked.
 
 ## When Not to Use
@@ -132,11 +132,11 @@ unviable, the problem is sizing.
 
 ## Alternatives
 
-- **Queue** — when the work is asynchronous.
-- **Prioritization and load shedding** — reject the least important first.
-- **Quotas over a long period** — monthly instead of per second, when what matters is total
+- **Queue**: when the work is asynchronous.
+- **Prioritization and load shedding**: reject the least important first.
+- **Quotas over a long period**: monthly instead of per second, when what matters is total
   consumption.
-- **[Backpressure](/06-distributed-systems/backpressure.md)** — the mechanism between internal
+- **[Backpressure](/06-distributed-systems/backpressure.md)**: the mechanism between internal
   components.
 
 ## Trade-offs
@@ -194,8 +194,8 @@ Three problems.
 limit was 600, and the sizing had been done for 100 per client.
 
 **A burst at the window boundary.** A client discovered it could make 100 at second 59 and 100
-at second 61. Two hundred in two seconds, and the credit bureau service behind it — which had
-its own limit — blocked the whole company's account for excess.
+at second 61. Two hundred in two seconds, and the credit bureau service behind it, which had
+its own limit, blocked the whole company's account for excess.
 
 **Uniform cost.** A simple lookup and a lookup with full history counted the same, but the
 second cost 40 times more at the bureau. A client making 100 full lookups per minute exhausted
@@ -203,14 +203,14 @@ the monthly quota in days.
 
 The fixes.
 
-The counting moved to the distributed cache, and the algorithm changed to a token bucket —
+The counting moved to the distributed cache, and the algorithm changed to a token bucket,
 which allows a burst up to the bucket size and then enforces the average rate, without the
 fixed window's defect.
 
 The price was one more synchronous dependency on every request's path. The limiter now depends
 on the cache, and what to do when the cache does not answer became a decision to take up front:
-there they chose to [fail open](/10-security/security-failure-modes.md) — let traffic through
-uncounted while the cache comes back, instead of rejecting everyone to protect the bureau.
+there they chose to [fail open](/10-security/security-failure-modes.md) (let traffic through
+uncounted while the cache comes back, instead of rejecting everyone to protect the bureau).
 
 The limit started counting **cost units**, not requests: a simple lookup costs 1, a full
 lookup costs 40. The client has a budget per minute and spends it according to what it asks
@@ -220,15 +220,15 @@ And the responses started carrying `Retry-After` and the quota headers, with doc
 explaining the cost of each operation.
 
 What solved the commercial problem was the third change: clients started seeing the cost of
-what they asked for, and full-lookup usage dropped 60% without anyone being blocked — because
+what they asked for, and full-lookup usage dropped 60% without anyone being blocked, because
 they started asking for the full one only when they needed it.
 
 ## Related Concepts
 
-- [Load Balancing](/05-system-design/load-balancing.md) — frequently at the same point.
-- [Queues](/05-system-design/queues.md) — queue instead of rejecting.
-- [Reliability](/12-reliability/index.md) — retry storms and load shedding.
-- [Security](/10-security/index.md) — protection against abuse.
+- [Load Balancing](/05-system-design/load-balancing.md): frequently at the same point.
+- [Queues](/05-system-design/queues.md): queue instead of rejecting.
+- [Reliability](/12-reliability/index.md): retry storms and load shedding.
+- [Security](/10-security/index.md): protection against abuse.
 
 ## Practical Exercise
 
@@ -247,4 +247,4 @@ protecting anyone or blocking legitimate clients.
 ## Further Reading
 
 - Nygard, Michael. *Release It!* 2nd ed., 2018.
-- RFC 6585 — Additional HTTP Status Codes, which defines the 429.
+- RFC 6585: Additional HTTP Status Codes, which defines the 429.

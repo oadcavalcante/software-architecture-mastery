@@ -2,7 +2,7 @@
 id: deployment-diagrams
 title: Diagramas de Implantação
 sidebar_position: 6
-description: Onde o software realmente roda — o diagrama que responde perguntas de incidente.
+description: "Onde o software realmente roda: o diagrama que responde perguntas de incidente."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, c4-model, living-documentation]
 canonical_for: [diagrama de implantação, nó de infraestrutura, mapeamento lógico-físico]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Um diagrama de implantação mostra **onde cada contêiner roda**: em quais nós de
 infraestrutura, em quantas instâncias, em quais regiões, com quais fronteiras de rede.
 
-Ele responde a uma classe de perguntas que os outros níveis não tocam — e que aparecem
+Ele responde a uma classe de perguntas que os outros níveis não tocam, e que aparecem
 justamente nos momentos em que o custo de não ter resposta é alto:
 
 ```text
@@ -75,8 +75,8 @@ Região sa-east-1
     Banco de Pedidos (primário, zona a; réplica, zona b)
 ```
 
-O mesmo contêiner do nível anterior aparece aqui **quantas vezes ele existir de fato** —
-esse é o mapeamento lógico-físico.
+O mesmo contêiner do nível anterior aparece aqui **quantas vezes ele existir de fato**.
+Esse é o mapeamento lógico-físico.
 
 ### Um diagrama por ambiente
 
@@ -106,7 +106,7 @@ onde termina a criptografia em trânsito
 ```
 
 Isso o torna o artefato de referência para conversas de segurança. Ver
-[modelagem de ameaças](/10-security/threat-modeling.md) — o diagrama de
+[modelagem de ameaças](/10-security/threat-modeling.md): o diagrama de
 implantação é a entrada natural para o exercício.
 
 ### Ele expõe redundância falsa
@@ -131,7 +131,7 @@ topologia **já está declarada** em código de infraestrutura.
 
 Isso muda a equação de manutenção. Um diagrama desenhado à mão vai divergir do que o
 código de infraestrutura declara; um diagrama derivado dele não diverge do declarado. Mas
-herda o drift: se alguém mudou algo no console, o código — e o diagrama gerado dele —
+herda o drift: se alguém mudou algo no console, o código (e o diagrama gerado dele)
 mostra uma topologia que não existe mais. Só o diagrama gerado do estado real mostra o que
 existe.
 
@@ -155,7 +155,7 @@ de gasto, e o mesmo desenho sustenta as duas. Ver
 
 A conversa fica mais concreta quando o requisito de disponibilidade aparece ao lado da
 topologia: pedir 99,99% é pedir uma topologia específica, com um custo específico. Sem o
-desenho, o requisito é negociado como adjetivo — "precisa ser altamente disponível" — e a
+desenho, o requisito é negociado como adjetivo ("precisa ser altamente disponível") e a
 topologia é decidida depois, por quem estiver implementando, sem que ninguém tenha
 comparado as duas coisas.
 
@@ -180,7 +180,7 @@ perguntas que o diagrama responderia.
 
 **Para sistemas de uma instância** sem requisito de disponibilidade.
 
-**Em plataforma gerenciada sem controle de zona nem de instância** — funções serverless,
+**Em plataforma gerenciada sem controle de zona nem de instância**: funções serverless,
 PaaS que escolhe onde roda. A topologia é decisão do provedor; o diagrama não tem o que
 mostrar além de uma caixa.
 
@@ -191,12 +191,12 @@ Desenhar outro por cima é criar uma segunda fonte, que diverge da primeira.
 
 ## Alternativas
 
-- **Código de infraestrutura** — é a fonte de verdade do que foi declarado; mudança manual
+- **Código de infraestrutura**: é a fonte de verdade do que foi declarado; mudança manual
   no console o afasta do que existe.
-- **Painel do provedor** — sempre atual, e sem intenção nem agrupamento.
-- **Diagrama gerado a partir do estado real** — o único que mostra o que existe, inclusive
+- **Painel do provedor**: sempre atual, e sem intenção nem agrupamento.
+- **Diagrama gerado a partir do estado real**: o único que mostra o que existe, inclusive
   o drift em relação ao código.
-- **Diagrama de contêiner** — quando a pergunta é lógica.
+- **Diagrama de contêiner**: quando a pergunta é lógica.
 
 ## Trade-offs
 
@@ -227,18 +227,18 @@ Desenhar outro por cima é criar uma segunda fonte, que diverge da primeira.
 
 ## Erros Comuns
 
-**Não mostrar quantidade de instâncias** — sem a contagem, três instâncias na mesma zona
+**Não mostrar quantidade de instâncias**: sem a contagem, três instâncias na mesma zona
 viram uma caixa, e a redundância ilusória some do desenho.
 
-**Omitir zonas e regiões** — que é justamente o que responde ao raio de impacto.
+**Omitir zonas e regiões**, que é justamente o que responde ao raio de impacto.
 
-**Não marcar fronteiras de rede** — o diagrama deixa de servir de entrada para a modelagem
+**Não marcar fronteiras de rede**: o diagrama deixa de servir de entrada para a modelagem
 de ameaças, que precisa saber o que está exposto.
 
-**Desenhar à mão o que a infraestrutura já declara** — a primeira mudança no código cria
+**Desenhar à mão o que a infraestrutura já declara**: a primeira mudança no código cria
 duas versões da topologia, e ninguém sabe qual vale.
 
-**Não datar** — quem abre o diagrama num incidente não sabe se ele é anterior à última
+**Não datar**: quem abre o diagrama num incidente não sabe se ele é anterior à última
 migração.
 
 ## Exemplo Real
@@ -260,7 +260,7 @@ com o cache como ponto único de falha      4
 Dois casos concretos:
 
 **Sistema de autorização.** Quatro instâncias, balanceador, requisito de 99,95%. As quatro
-instâncias estavam na mesma zona — o grupo de escala tinha sido configurado com uma única
+instâncias estavam na mesma zona: o grupo de escala tinha sido configurado com uma única
 sub-rede três anos antes, e nunca revisado. Uma falha de zona derrubaria o serviço
 inteiro.
 
@@ -268,7 +268,7 @@ inteiro.
 primário. O procedimento de recuperação documentado pressupunha o contrário.
 
 Nenhum dos dois tinha diagrama de implantação antes do exercício. Ambos tinham diagramas
-de contêiner corretos, que mostravam redundância — porque redundância lógica era o que
+de contêiner corretos, que mostravam redundância, porque redundância lógica era o que
 eles descreviam.
 
 O que foi decidido:
@@ -282,8 +282,8 @@ escala com sub-rede única em sistema crítico falha a verificação. Ver
 
 **Revisão anual** de correspondência entre requisito de disponibilidade e topologia real.
 
-Os dois sistemas foram corrigidos em três meses; os demais com lacuna entre zonas — sem
-redundância real, com réplica na zona do primário ou com cache como ponto único — ao longo
+Os dois sistemas foram corrigidos em três meses; os demais com lacuna entre zonas (sem
+redundância real, com réplica na zona do primário ou com cache como ponto único) ao longo
 dos seis meses seguintes. Dois meses depois houve uma falha de zona real, de quatro horas:
 os doze sistemas seguiram operando.
 
@@ -293,7 +293,7 @@ num desenho, com o requisito ao lado.
 
 ## Conceitos Relacionados
 
-- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o nível lógico.
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md): o nível lógico.
 - [Disponibilidade](/06-distributed-systems/availability.md).
 - [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
 - [Modelagem de Ameaças](/10-security/threat-modeling.md).

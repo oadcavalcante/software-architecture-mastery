@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [food-delivery, logistics, messaging-platform]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -38,15 +38,15 @@ day.
 
 The product has an essential difference from [delivery](/21-case-studies/food-delivery.md): here
 both sides of the match are moving, and the rider is physically waiting on the street. An
-assignment error doesn't produce cold food — it produces someone standing at a corner for twenty
-minutes.
+assignment error produces someone standing at a corner for twenty
+minutes, not cold food.
 
 Two pressures motivate revisiting the architecture:
 
 **Match quality.** The current assignment is greedy: each request is assigned to the nearest
 available driver, at the instant it arrives. The data team demonstrated, with simulation over
 real history, that deciding in batches of a few seconds would reduce average wait time by 18%
-and drivers' idle mileage by 12% — with not one additional driver.
+and drivers' idle mileage by 12%, with not one additional driver.
 
 **Cost and latency of the position state.** The system maintains the position of 96 thousand
 drivers with an update every 3 seconds, in a geospatial database that has become the latency
@@ -84,7 +84,7 @@ cost per ride                            30% reduction
 ```
 
 The 8-second requirement for assignment is comfortable compared with the common perception that
-matching has to be instantaneous — and it is that slack that makes batch decisions possible.
+matching has to be instantaneous. That slack is what makes batch decisions possible.
 
 ## Constraints
 
@@ -109,13 +109,13 @@ decision, it is a **proposal**. An algorithm that ignores acceptance probability
 that are optimal on paper and bad in practice.
 
 The effect is concrete and asymmetric. The driver nearest a request may be precisely the one
-least likely to accept it — because the ride goes to an area that is hard to get out of, or
+least likely to accept it, because the ride goes to an area that is hard to get out of, or
 because the fare is low for the pickup distance. Assigning to them and getting a decline costs a
 whole cycle, and the rider waits longer than they would have if the platform had offered to the
 second nearest, who would have accepted.
 
 Modeling that requires accepting that the platform doesn't control the other side. It is a legal
-constraint — there is no employment relationship — that becomes an architectural constraint, and
+constraint (there is no employment relationship) that becomes an architectural constraint, and
 no amount of distance optimization compensates for ignoring it.
 
 ## Capacity Estimates
@@ -145,12 +145,12 @@ time available to evaluate                      < 5 s
 
 One hundred and twenty-six thousand combinations every five seconds, per city. That is the
 computational problem the architecture has to accommodate, and it doesn't exist in the greedy
-model — because the greedy model evaluates one request against a few candidates and is done.
+model, because the greedy model evaluates one request against a few candidates and is done.
 
 In practice the matrix is pruned before being solved: candidates more than 12 minutes of travel
 away are discarded, which reduces the 126 thousand combinations to about 3 thousand in dense
 regions. Pruning is what makes exact resolution viable within the time budget, and the 12-minute
-limit is a per-region parameter — in sparse areas it rises to 25 minutes, because discarding
+limit is a per-region parameter: in sparse areas it rises to 25 minutes, because discarding
 distant candidates there would mean serving nobody.
 
 That density-based tuning is a recurring theme in the system: almost every parameter that works
@@ -225,7 +225,7 @@ prediction, and a bad prediction degrades matching instead of improving it. Opti
 most of the gain without that dependency.
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With quality at 50% and complexity at 10%, the totals
-become 5.3 / 7.5 / 7.6 — Option C edges ahead by 0.1, which is a tie on a subjective scale. That scenario corresponds to an organization with a mature data
+become 5.3 / 7.5 / 7.6: Option C edges ahead by 0.1, which is a tie on a subjective scale. That scenario corresponds to an organization with a mature data
 science capability and an appetite for operating a model in production on the critical path.
 
 ## Decision
@@ -249,7 +249,7 @@ decline rate.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the latency requirement were far tighter — below 2 seconds — or in
+**Option A would win if** the latency requirement were far tighter (below 2 seconds) or in
 cities with density so low that there is rarely more than one request per window. In practice,
 it remains in use: cities where the average number of requests per window is below 1.3 operate
 in greedy mode, because with a batch of one element the two algorithms are identical and greedy
@@ -308,7 +308,7 @@ driver who declined an offer immediately received another, sometimes the same on
 being harassed by the app. The rule is a minimum interval between offers to the same driver.
 
 **Positions for safety.** A compressed time series, partitioned by day and region, on cheap
-storage. Queried rarely — about 900 times a day, almost all for incident investigation — over
+storage. Queried rarely (about 900 times a day, almost all for incident investigation) over
 2.1 billion daily records.
 
 The 6-month retention is regulatory, and the data is sensitive: it allows reconstructing anyone's
@@ -321,11 +321,11 @@ copy. All four were dealt with, and the lesson was recorded: sensitive data leak
 nobody looked, and the mapping has to be exhaustive before declaring retention. See
 [data flow diagrams](/17-architecture-documentation/data-flow-diagrams.md).
 
-**Ride.** PostgreSQL, an explicit state machine, strong consistency. The volume is low — 16 per
-second on average — and correctness is critical: a ride assigned to two drivers is an incident
+**Ride.** PostgreSQL, an explicit state machine, strong consistency. The volume is low (16 per
+second on average) and correctness is critical: a ride assigned to two drivers is an incident
 with people involved.
 
-**Cost matrix.** Ephemeral, built in memory each window and discarded. It is not persisted — only
+**Cost matrix.** Ephemeral, built in memory each window and discarded. It is not persisted: only
 the assignment result and aggregate metrics are kept, for algorithm evaluation.
 
 ## Integration
@@ -349,7 +349,7 @@ Re-entry with raised priority is what prevents a request in a difficult region f
 indefinitely unassigned: with every unmatched cycle, its weight in the cost matrix increases,
 and the search radius for candidates widens.
 
-After three cycles with no assignment — about 50 seconds — the rider is told the wait is above
+After three cycles with no assignment (about 50 seconds) the rider is told the wait is above
 normal and gets the option to wait at a dynamic price or cancel at no cost.
 
 **Offers.** Sent over a persistent connection to the driver app, with a push notification as a
@@ -396,8 +396,8 @@ The assignment problem is solved per region, which keeps the matrix at a tractab
 requests × 1,400 candidates in a capital, against the absurdity of solving it nationally.
 
 Regions are defined by density, not by administrative boundary. A capital has 12 regions; a
-mid-sized city has one. The boundary between regions is a real problem — a request at the edge
-may have its best candidate on the other side — and it is handled by including candidates from
+mid-sized city has one. The boundary between regions is a real problem (a request at the edge
+may have its best candidate on the other side), and it is handled by including candidates from
 neighboring regions in the matrix, with a cost penalty.
 
 The Friday evening peak combined with rain is the sizing scenario. It is partly predictable: the
@@ -405,20 +405,20 @@ platform consumes a weather forecast and raises capacity preemptively.
 
 ## Reliability
 
-If a region's **Matching Engine** fails, that region falls back to greedy mode — which is Option
+If a region's **Matching Engine** fails, that region falls back to greedy mode, which is Option
 A's code, kept in production. Match quality worsens and the service continues.
 
 If the **Availability Grid** becomes unavailable, matching uses the last known position from the
 safety store, with a widened radius. It is worse and it works.
 
-If the **Ride Service** fails, rides in progress continue — the state is in both sides' apps —
+If the **Ride Service** fails, rides in progress continue (the state is in both sides' apps)
 and new assignments stop. It is the most serious degradation.
 
 If **Pricing** fails, the price falls back to the base, with no multiplier. Commercially bad,
 operationally harmless.
 
 If the **Safety Service** fails, rides in progress are not interrupted, and a maximum-severity
-alarm fires — this is the only component whose unavailability is treated as a critical incident
+alarm fires. This is the only component whose unavailability is treated as a critical incident
 even with no immediate effect on the product.
 
 ## Observability
@@ -438,7 +438,7 @@ The **offer acceptance rate** is the metric that validates the acceptance probab
 cost matrix. If the observed rate diverges from the estimated one, the cost model is wrong and
 matching is suboptimal even with the correct algorithm.
 
-That feedback loop — comparing predicted with observed and adjusting — is what allowed match
+That feedback loop (comparing predicted with observed and adjusting) is what allowed match
 quality to keep improving after launch, with no architectural change.
 
 ## Deployment
@@ -453,7 +453,7 @@ Deployment by region has an additional property that proved valuable: since the 
 algorithm is the same code operating with different parameters per region, a change can be tested
 with conservative parameters in one region and aggressive ones in another, over the same period.
 That separated, on several occasions, the effect of the code change from the effect of the
-parameter tuning — a distinction the previous team could not make and that produced wrong
+parameter tuning: a distinction the previous team could not make and that produced wrong
 conclusions about what had worked.
 
 The matching engine has a **simulation over history** mode that allows evaluating an algorithm
@@ -469,11 +469,11 @@ to the algorithm.
 **Phase 2 (months 5–9): batch matching.** The engine with a fixed window, enabled per region,
 starting with mid-sized cities. Greedy mode remains as a fallback.
 
-Measured result in the first cities: average wait time -15%, idle mileage -9% — below the
+Measured result in the first cities: average wait time -15%, idle mileage -9%. That is below the
 simulation's -18% and -12%, and in the right direction.
 
 **Phase 3 (months 10–13): acceptance probability.** Incorporating the acceptance estimate into
-the cost matrix. It is what closes the gap with the simulation — the simulated model assumed
+the cost matrix. It is what closes the gap with the simulation: the simulated model assumed
 deterministic acceptance.
 
 **Phase 4 (months 14–18): window by density and dynamic regions.** Tuning the window per city and
@@ -518,7 +518,7 @@ rider cancellations                     -19%
 ```
 
 The 11% increase in driver earnings per hour is the result the company considers most strategic:
-it comes from reduced idle mileage, and it improves driver retention — which is the supply
+it comes from reduced idle mileage, and it improves driver retention, which is the supply
 constraint of the entire business.
 
 ## What this case teaches
@@ -549,8 +549,8 @@ Keeping the old solution as a live path is cheaper than rebuilding it under pres
 
 ## Practical Exercise
 
-Simulate, on paper, three requests and three drivers with known distances. Solve it greedily —
-assigning each request in arrival order to the nearest available driver — and then by the optimal
+Simulate, on paper, three requests and three drivers with known distances. Solve it greedily
+(assigning each request in arrival order to the nearest available driver), and then by the optimal
 assignment for the set.
 
 Construct an example where greedy produces a total distance 40% worse. It is not hard, and it is

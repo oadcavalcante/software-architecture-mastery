@@ -2,7 +2,7 @@
 id: domain-service
 title: Domain Service
 sidebar_position: 14
-description: A domain rule that belongs to no entity — and the risk of becoming a dumping ground for logic.
+description: A domain rule that belongs to no entity, and the risk of becoming a dumping ground for logic.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [application-service, aggregate, entity]
 canonical_for: [domain service]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 A domain service holds business rules that do not naturally belong to any entity or value
-object — typically because they involve several of them.
+object, typically because they involve several of them.
 
 It is still domain: it knows no infrastructure, orchestrates no transaction, knows nothing
 of HTTP or of the database.
@@ -31,14 +31,14 @@ of HTTP or of the database.
 
 Not every rule fits in an entity.
 
-"Transfer an amount between two accounts" involves two accounts and belongs to neither —
+"Transfer an amount between two accounts" involves two accounts and belongs to neither:
 putting it in `Account` would make one account know and modify another, which violates the
 [aggregate](/04-domain-driven-design/aggregate.md) boundary.
 
 "Assess eligibility" may depend on three different aggregates.
 
-With no place for those rules, they migrate into the application service — where they get
-mixed with orchestration and transaction control — or into an entity that comes to know too
+With no place for those rules, they migrate into the application service (where they get
+mixed with orchestration and transaction control) or into an entity that comes to know too
 much.
 
 The domain service is the correct place for them.
@@ -49,11 +49,11 @@ The domain service is the correct place for them.
 
 A rule belongs in a domain service when:
 
-It is of the domain — it expresses a business decision, not technical coordination.
+It is of the domain: it expresses a business decision, not technical coordination.
 
-It belongs to no entity — forcing it into one produces unnatural coupling.
+It belongs to no entity: forcing it into one produces unnatural coupling.
 
-It is stateless — the service keeps nothing between calls.
+It is stateless: the service keeps nothing between calls.
 
 Missing any of the three, it is something else.
 
@@ -79,18 +79,18 @@ A domain service is named after a business operation: `EligibilityAssessor`,
 `ShippingCalculator`, `TransferBetweenAccounts`.
 
 Names like `OrderManager`, `CustomerHelper` or `GenericProcessor` are a sign the rule was
-not understood — and frequently that the service became a dumping ground.
+not understood, and frequently that the service became a dumping ground.
 
 ### The risk: escaping responsibility
 
 The mode of degeneration is well known: it is easier to write the rule in a service than to
 find where it belongs in the entity.
 
-The result is the anemic model — entities with no behaviour and services with all the logic.
+The result is the anemic model: entities with no behaviour and services with all the logic.
 See [encapsulation](/02-software-design/encapsulation.md).
 
 The check: before creating a domain service, apply the three conditions from the
-definition — it is domain rule, it belongs to no entity, it is stateless. "Involves more than
+definition (it is domain rule, it belongs to no entity, it is stateless). "Involves more than
 one aggregate" is a **heuristic**, not a test: it is right most of the time, and it fails in
 cases like the `ShippingCalculator` above, which meets the three conditions over a single
 aggregate. When the rule involves one aggregate and fits in it, it is that aggregate's.
@@ -118,11 +118,11 @@ and the symptom is a generic name.
 
 ## Alternatives
 
-- **A method on the entity** — when it involves a single aggregate.
-- **A value object with behaviour** — when the rule is about a concept, not about entities.
-- **A factory method** — when the rule is about creation. See
+- **A method on the entity**: when it involves a single aggregate.
+- **A value object with behaviour**: when the rule is about a concept, not about entities.
+- **A factory method**: when the rule is about creation. See
   [factory](/04-domain-driven-design/factory.md).
-- **A policy as an object** — a rule encapsulated as a
+- **A policy as an object**: a rule encapsulated as a
   [Strategy](/03-design-patterns/strategy.md), when there are variants.
 
 ## Trade-offs
@@ -151,7 +151,7 @@ and the symptom is a generic name.
 
 **Creating a service for a rule involving one aggregate.** The dominant mistake.
 
-**A generic name.** `Manager`, `Helper`, `Processor`, `Handler` — none is domain
+**A generic name.** `Manager`, `Helper`, `Processor`, `Handler`: none is domain
 vocabulary.
 
 **Injecting a repository into the domain service.** It is debated; this material's position
@@ -167,13 +167,13 @@ calculation, daily limit checking, audit logging, email notification and transac
 control.
 
 Six responsibilities: three of domain and three not. Two belonged to `Account`, one to a
-domain service, and the other three — auditing, notification and transaction control — to the
+domain service, and the other three (auditing, notification and transaction control) to the
 application layer and to effects.
 
 The separation:
 
 **The rule that belonged to the entity.** Balance validation and the daily limit are
-invariants of `Account`. They moved there — `account.debit(amount)` throws if the balance or
+invariants of `Account`. They moved there: `account.debit(amount)` throws if the balance or
 the limit does not allow it.
 
 **The rule that belonged to a domain service.** The fee calculation depends on the type of
@@ -181,7 +181,7 @@ both accounts, the amount and the time of day. It belongs to neither account. It
 `FeeCalculator`, stateless, testable with two in-memory objects.
 
 **Coordination.** Loading the accounts, calling the debit and the credit, computing the fee,
-persisting, controlling the transaction, publishing the event — all of that went to the
+persisting, controlling the transaction, publishing the event: all of that went to the
 application service.
 
 **Effects.** Auditing and notification became consumers of a
@@ -196,11 +196,11 @@ dropped from days to hours.
 
 ## Related Concepts
 
-- [Application Service](/04-domain-driven-design/application-service.md) — the
+- [Application Service](/04-domain-driven-design/application-service.md): the
   orchestration.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — where most rules belong.
-- [Entity](/04-domain-driven-design/entity.md) — a rule's default home.
-- [Onion Architecture](/02-software-design/onion-architecture.md) — the rings' vocabulary.
+- [Aggregate](/04-domain-driven-design/aggregate.md): where most rules belong.
+- [Entity](/04-domain-driven-design/entity.md): a rule's default home.
+- [Onion Architecture](/02-software-design/onion-architecture.md): the rings' vocabulary.
 
 ## Practical Exercise
 

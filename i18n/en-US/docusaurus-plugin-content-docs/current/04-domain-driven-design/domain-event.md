@@ -2,7 +2,7 @@
 id: domain-event
 title: Domain Event
 sidebar_position: 16
-description: A relevant domain fact, named and published — the coordination mechanism between aggregates.
+description: "A relevant domain fact, named and published: the coordination mechanism between aggregates."
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, event-driven, event-sourcing]
 canonical_for: [domain event, integration event]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,7 +34,7 @@ The [aggregate](/04-domain-driven-design/aggregate.md) rule says: modify one agg
 transaction.
 
 But real use cases cross aggregates. Confirming an order has to reserve stock, start billing
-and notify the customer — three aggregates, possibly three contexts.
+and notify the customer: three aggregates, possibly three contexts.
 
 Two bad ways out.
 
@@ -44,15 +44,15 @@ conflicts.
 Or putting the coordination in the application service, which then knows every aggregate
 involved and becomes the place where the sequencing rule implicitly lives.
 
-Domain events give the third: the aggregate records what happened, and whoever cares reacts
-— each in its own transaction.
+Domain events give the third: the aggregate records what happened, and whoever cares reacts,
+each in its own transaction.
 
 ## Core Concepts
 
 ### The event belongs to the domain, not to the technology
 
 A domain event has a name an expert recognizes. `OrderConfirmed` is a domain event;
-`OrderUpdated` is not — "updated" is database vocabulary.
+`OrderUpdated` is not: "updated" is database vocabulary.
 
 If the expert does not understand the name, the event does not capture a business fact.
 
@@ -85,7 +85,7 @@ model, can change freely, and its consumers are in the same context.
 stable, and expressed in terms that make sense outside.
 
 Publishing domain events directly to the outside ties the internal model to external
-consumers — and any refactoring then breaks them.
+consumers, and any refactoring then breaks them.
 
 The correct practice is translation: the internal event triggers the publication of an
 integration event, with a format of its own.
@@ -95,9 +95,9 @@ integration event, with a format of its own.
 If the transaction writes to the database and the publication goes to a message broker, the
 two are not atomic. It can write and not publish, or publish and fail to write.
 
-The usual solution is the *outbox* pattern — see
+The usual solution is the *outbox* pattern (see
 [delivery guarantees](/06-distributed-systems/delivery-guarantees.md), the canonical document
-on the topic: the event is written to a table in the same transaction, and a separate
+on the topic): the event is written to a table in the same transaction, and a separate
 process publishes it. See
 [distributed systems](/06-distributed-systems/index.md).
 
@@ -115,7 +115,7 @@ diagnose.
 ## When Not to Use
 
 **When the reaction has to be transactional with the origin.** If the stock reservation has
-to happen or the order is void, that is not an event — it is part of the same operation, and
+to happen or the order is void, that is not an event. It is part of the same operation, and
 the aggregate boundary is probably wrong.
 
 **When there is one consumer and it is fixed.** A direct call is simpler and more traceable.
@@ -130,12 +130,12 @@ traceability.
 
 ## Alternatives
 
-- **A direct call to the domain service** — when there is one consumer.
-- **A [saga](/06-distributed-systems/sagas.md)** — when the coordination needs compensation
+- **A direct call to the domain service**: when there is one consumer.
+- **A [saga](/06-distributed-systems/sagas.md)**: when the coordination needs compensation
   and deadlines.
-- **An application service orchestrating** — when the flow is critical and has to be
+- **An application service orchestrating**: when the flow is critical and has to be
   auditable in one place.
-- **A scheduled process** — when the tolerated latency is high.
+- **A scheduled process**: when the tolerated latency is high.
 
 ## Trade-offs
 
@@ -171,7 +171,7 @@ business and forces every consumer to inspect the payload to find out. `OrderCan
 `DeliveryAddressChanged` are different events because they provoke different reactions.
 
 **Publishing before persisting.** If the transaction fails after publication, consumers react
-to a fact that did not happen — and there is no way to withdraw the event from circulation.
+to a fact that did not happen, and there is no way to withdraw the event from circulation.
 
 **Not distinguishing a domain event from an integration event.** The first is internal and
 can change along with the model; the second is a public contract and cannot. Publishing the
@@ -180,7 +180,7 @@ internal one outward freezes the domain model into other teams' consumers.
 **Ignoring the transactional publishing problem.** Writing to the database and publishing to
 the broker are two operations that can diverge: one may succeed and the other fail. It is the
 problem the outbox pattern exists to solve, and ignoring it produces silent, rare
-inconsistency — the worst combination to debug.
+inconsistency: the worst combination to debug.
 
 **Using events for coordination that has to be transactional.** If the next step has to
 happen together with the first or neither does, an event is the wrong tool: it delivers
@@ -195,7 +195,7 @@ The event carried the whole serialized `Policy` object.
 
 Two problems appeared.
 
-A refactoring of the aggregate — renaming an internal field and restructuring the coverages —
+A refactoring of the aggregate (renaming an internal field and restructuring the coverages)
 broke all four consumers simultaneously. The internal model was a public contract without
 anyone having decided so.
 
@@ -205,13 +205,13 @@ was billed. It was discovered three weeks later, in the accounting reconciliatio
 The two fixes.
 
 The aggregate came to record `PolicyIssued` as an **internal** event, with whatever model it
-wants. The application service translates it into `PolicyIssuedV1` — an integration event
+wants. The application service translates it into `PolicyIssuedV1`, an integration event
 with a versioned format, containing only the fields consumers need: number, insured party,
 period, premium, coverages in a format of its own.
 
 Internal refactorings stopped reaching consumers.
 
-The four consumers became idempotent, deduplicating by the event key on write — without
+The four consumers became idempotent, deduplicating by the event key on write. Without
 that, trading loss for at-least-once delivery would have turned into duplicate charges, which
 is worse. And publishing came to use an outbox: the integration event is written in the same
 transaction as the policy, and a process publishes it with at-least-once guarantees.
@@ -220,11 +220,11 @@ The silent loss became impossible.
 
 ## Related Concepts
 
-- [Aggregate](/04-domain-driven-design/aggregate.md) — who records the event.
-- [Application Service](/04-domain-driven-design/application-service.md) — who publishes it.
-- [Event-Driven Architecture](/03-design-patterns/event-driven.md) — the style at system
+- [Aggregate](/04-domain-driven-design/aggregate.md): who records the event.
+- [Application Service](/04-domain-driven-design/application-service.md): who publishes it.
+- [Event-Driven Architecture](/03-design-patterns/event-driven.md): the style at system
   scale.
-- [Event Sourcing](/03-design-patterns/event-sourcing.md) — when the events are the source of
+- [Event Sourcing](/03-design-patterns/event-sourcing.md): when the events are the source of
   truth.
 
 ## Practical Exercise
@@ -245,4 +245,4 @@ only if the transaction commits?
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — the outbox pattern.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. The outbox pattern.

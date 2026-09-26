@@ -2,7 +2,7 @@
 id: sli
 title: SLI
 sidebar_position: 10
-description: O indicador que mede o que o usuário sente — e por que a maioria mede a coisa errada.
+description: O indicador que mede o que o usuário sente, e por que a maioria mede a coisa errada.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [slo, sla, availability-metrics]
 canonical_for: [SLI, indicador de nível de serviço, evento bom]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -21,11 +21,11 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Um SLI — indicador de nível de serviço — é uma medida quantitativa de um aspecto do
+Um SLI (indicador de nível de serviço) é uma medida quantitativa de um aspecto do
 serviço que **importa para o usuário**.
 
 A definição parece óbvia e é violada com frequência: a maioria dos sistemas mede o que
-é fácil de medir — CPU, memória, taxa de erro do servidor — e não o que o usuário
+é fácil de medir (CPU, memória, taxa de erro do servidor) e não o que o usuário
 experimenta.
 
 O bom SLI tem uma forma característica: **a proporção de eventos bons sobre eventos
@@ -39,7 +39,7 @@ E os usuários não conseguem finalizar a compra, porque uma dependência do flu
 pagamento está devolvendo lentidão que o servidor conta como sucesso.
 
 Métricas de recurso descrevem a saúde da infraestrutura. Elas não descrevem a
-experiência — e é a experiência que define se o serviço está funcionando.
+experiência, e é a experiência que define se o serviço está funcionando.
 
 ## Conceitos Centrais
 
@@ -55,7 +55,7 @@ Expressar assim força três decisões explícitas:
 
 **O que é bom.** Respondeu em menos de 300 ms com código de sucesso.
 
-**O que é válido.** Requisições que o serviço deveria atender — excluindo, por
+**O que é válido.** Requisições que o serviço deveria atender, excluindo, por
 exemplo, erros de cliente que não são culpa do sistema.
 
 A terceira decisão é a mais delicada e a mais consequente. Excluir erros de cliente é
@@ -101,7 +101,7 @@ consegue instrumentar, com o do servidor como diagnóstico.
 
 Medir cada endpoint produz dezenas de indicadores que ninguém acompanha.
 
-O que funciona é medir as **jornadas críticas** — o que o usuário está tentando fazer:
+O que funciona é medir as **jornadas críticas** (o que o usuário está tentando fazer):
 
 ```text
 buscar produto      disponibilidade e latência
@@ -134,7 +134,7 @@ Vale ser explícito, porque a confusão é comum:
 **Métrica de recurso.** CPU, memória, disco. São diagnóstico, não indicador de
 serviço.
 
-**Contagem absoluta.** "150 erros por hora" não diz se isso é muito — depende do
+**Contagem absoluta.** "150 erros por hora" não diz se isso é muito: depende do
 volume.
 
 **Média.** Ela esconde a cauda. Um serviço com média de 100 ms pode ter 1% dos usuários
@@ -154,7 +154,7 @@ usuário sofre, ele não é um SLI.
 - Quando há volume suficiente para que um evento isolado não mova a proporção de forma
   perceptível na janela.
 - Quando há compromisso contratual a sustentar.
-- Quando existe um ponto de instrumentação mais próximo do usuário que o servidor —
+- Quando existe um ponto de instrumentação mais próximo do usuário que o servidor:
   balanceador, cliente ou sondagem externa.
 
 ## Quando Não Usar
@@ -177,10 +177,10 @@ mais um gráfico no painel, e o custo de definir "bom" e "válido" não se paga.
 
 ## Alternativas
 
-- **Monitoramento sintético** — sondas que exercitam a jornada periodicamente. Cobre
+- **Monitoramento sintético**: sondas que exercitam a jornada periodicamente. Cobre
   ausência de tráfego e detecta antes do usuário.
-- **Medição no cliente** — a mais fiel, e exige instrumentação e amostragem.
-- **Métricas de recurso** — para diagnóstico, não como indicador.
+- **Medição no cliente**: a mais fiel, e exige instrumentação e amostragem.
+- **Métricas de recurso**: para diagnóstico, não como indicador.
 
 Sintético e real se complementam: o sintético cobre horários de baixo volume, onde o
 real tem poucos eventos para ser confiável.
@@ -226,7 +226,7 @@ o que o usuário tolera.
 
 **Excluir eventos para melhorar o número.** Descartar a janela de manutenção e os erros "do cliente" produz um indicador que fica bom enquanto a experiência piora.
 
-**Não medir jornadas, só componentes.** Cada serviço a 99,9% numa cadeia de cinco entrega 99,5% ao usuário — e é o número do usuário que importa.
+**Não medir jornadas, só componentes.** Cada serviço a 99,9% numa cadeia de cinco entrega 99,5% ao usuário, e é o número do usuário que importa.
 
 ## Exemplo Real
 
@@ -237,8 +237,8 @@ Os usuários reclamavam de não conseguir contratar apólices, e o número não 
 
 A investigação encontrou três razões pelas quais o indicador não via o problema:
 
-**Medido no servidor.** Requisições que falhavam antes de chegar — timeout no
-balanceador, falha de resolução de nome — não entravam na conta. Elas eram cerca de 2%
+**Medido no servidor.** Requisições que falhavam antes de chegar (timeout no
+balanceador, falha de resolução de nome) não entravam na conta. Elas eram cerca de 2%
 do total em horários de pico.
 
 **Diluição por volume.** A contratação de apólice era 0,4% das requisições. Uma falha
@@ -250,11 +250,11 @@ sucesso eram contadas como boas. O usuário desistia antes.
 A reformulação:
 
 **Quatro jornadas com SLI próprio:** buscar cotação, contratar apólice, consultar apólice,
-acionar sinistro. Cada uma com disponibilidade e latência — oito indicadores no total.
+acionar sinistro. Cada uma com disponibilidade e latência: oito indicadores no total.
 
 **Limite de latência definido com dados**, não por intuição: a análise de abandono
 mostrou que acima de 4 segundos a taxa de desistência dobrava. O limite virou 4
-segundos — não um número redondo escolhido em reunião.
+segundos, não um número redondo escolhido em reunião.
 
 **Medição no balanceador**, com sondagem sintética a cada minuto para cobrir os
 horários de baixo volume.
@@ -262,16 +262,16 @@ horários de baixo volume.
 **Medição no cliente** para a jornada de contratação, a mais crítica, capturando o que
 acontece antes de a requisição sair do navegador.
 
-O resultado: o SLI de contratação, medido corretamente, era **97,3%** — não 99,95%.
+O resultado: o SLI de contratação, medido corretamente, era **97,3%**, não 99,95%.
 
 A conclusão registrada: o número antigo não era falso. Ele media exatamente o que
-dizia medir — taxa de erro do servidor. Ele simplesmente não tinha relação com a
+dizia medir: taxa de erro do servidor. Ele simplesmente não tinha relação com a
 pergunta que importava, e ninguém tinha percebido porque a pergunta nunca foi escrita.
 
 ## Conceitos Relacionados
 
-- [SLO](/12-reliability/slo.md) — o alvo sobre o indicador.
-- [SLA](/12-reliability/sla.md) — o compromisso contratual.
+- [SLO](/12-reliability/slo.md): o alvo sobre o indicador.
+- [SLA](/12-reliability/sla.md): o compromisso contratual.
 - [Métricas de Disponibilidade](/12-reliability/availability-metrics.md).
 - [Observabilidade](/13-observability/index.md).
 
@@ -291,6 +291,6 @@ outra coisa.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 4.
-- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018 — capítulos 2 e 3.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 4.
+- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018. Capítulos 2 e 3.
 - Google. *SRE Fundamentals: SLIs, SLAs and SLOs*.

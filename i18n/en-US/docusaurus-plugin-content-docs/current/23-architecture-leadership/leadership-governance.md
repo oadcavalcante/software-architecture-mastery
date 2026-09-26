@@ -2,7 +2,7 @@
 id: leadership-governance
 title: Governance from the Setter's Perspective
 sidebar_position: 11
-description: Designing mechanisms with an owner, a declared cost and an expiry date — and having a process for removing them.
+description: Designing mechanisms with an owner, a declared cost and an expiry date, and having a process for removing them.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [leadership-principles, leadership-standards, fitness-functions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 The [previous level](/19-architecture-governance/index.md) describes how governance operates. This
-document covers whoever **creates** it — and the difference is large, because the creator has a
+document covers whoever **creates** it, and the difference is large, because the creator has a
 responsibility the operator does not:
 
 ```text
@@ -31,7 +31,7 @@ creating    deciding whether it should exist, and for how long
 ```
 
 Every organization has a process for adding mechanisms: an incident happens, a control is created.
-Almost none has a process for removing them — and, among the causes of bureaucratic accumulation,
+Almost none has a process for removing them. Among the causes of bureaucratic accumulation,
 that asymmetry is the only one in the hands of whoever designs the mechanism; regulation and scope
 growth are not. The asymmetry itself is described in
 [governance pathologies](/19-architecture-governance/governance-pathologies.md).
@@ -53,7 +53,7 @@ The original response was proportional to the incident. It stopped being proport
 organization built automated security checking and nobody revisited the manual mechanism.
 
 And there is a second pattern: the mechanism created with no measure. It cannot be assessed, because
-what it should produce was never defined — and without that, the discussion about keeping it is a
+what it should produce was never defined. And without that, the discussion about keeping it is a
 discussion about opinion.
 
 ## Core Concepts
@@ -105,7 +105,7 @@ That gives the act of removing an owner, which was what was missing. And it forc
 whole set, because choosing which one to remove requires looking at all of them.
 
 An organization that has never removed a mechanism has, with high probability, more mechanisms than
-it needs — and the diagnosis holds regardless of which one you examine first.
+it needs, and the diagnosis holds regardless of which one you examine first.
 
 ### Suspending beats arguing
 
@@ -115,7 +115,7 @@ suspending it for a quarter                      evidence in three months
 ```
 
 For deciding whether an existing mechanism should continue, temporary suspension is the instrument
-that produces evidence fastest — and the hardest to get authorization to use. It is applicable to
+that produces evidence fastest, and the hardest to get authorization to use. It is applicable to
 everything except regulatory and critical-security controls. A reduction programme that used it is
 in [governance pathologies](/19-architecture-governance/governance-pathologies.md); what matters here
 is the design: whoever creates the mechanism should anticipate, at creation, that it can be suspended.
@@ -148,7 +148,7 @@ incentive and the authority to adjust it.
 The practice also corrects a common asymmetry: mechanisms tend to be proposed by whoever is
 accountable for a risk and operated by whoever is accountable for delivery, which separates whoever
 decides the cost from whoever pays it. Joining the two roles for a few months is the cheapest
-intervention against disproportionate proposals, and it requires no process at all — just the rule.
+intervention against disproportionate proposals, and it requires no process at all, just the rule.
 
 ### Good governance is invisible
 
@@ -157,7 +157,7 @@ a visible mechanism     someone has to do something extra
 an invisible mechanism  the easy path is already the correct one
 ```
 
-The goal of whoever establishes governance should be to make the mechanisms unnecessary — moving what
+The goal of whoever establishes governance should be to make the mechanisms unnecessary: moving what
 they verify into the platform, the template and the pipeline.
 
 A governance group whose success is measured by the number of mechanisms operated has the incentive
@@ -182,7 +182,7 @@ control's deadline and content, an internal 24-month expiry is theatre: the rene
 anything. The design still applies to owner and measure, but the expiry is the regulator's.
 
 **Sets too small for an annual target.** In an organization with three or four mechanisms, all with
-a measured effect, "remove at least one a year" forces removing what works — or invites meeting the
+a measured effect, "remove at least one a year" forces removing what works, or invites meeting the
 target with an irrelevant mechanism. The target presupposes accumulation; without it, the expiry
 review is enough.
 
@@ -195,11 +195,11 @@ is legitimate; the two weeks of design come afterwards, before the provisional o
 
 ## Alternatives
 
-- **A platform** — moving the property into the paved path, eliminating the mechanism.
-- **A fitness function** — automated rather than human verification. See
+- **A platform**: moving the property into the paved path, eliminating the mechanism.
+- **A fitness function**: automated rather than human verification. See
   [fitness functions](/23-architecture-leadership/fitness-functions.md).
-- **Registration without approval** — for low risks, visibility is enough.
-- **Nothing** — formally accepting the risk is a legitimate answer. See
+- **Registration without approval**: for low risks, visibility is enough.
+- **Nothing**: formally accepting the risk is a legitimate answer. See
   [risk management](/23-architecture-leadership/risk-management.md).
 
 ## Trade-offs
@@ -233,7 +233,7 @@ is legitimate; the two weeks of design come afterwards, before the provisional o
 
 **Renewal as a rubber stamp.** At 24 months, the owner renews without presenting the measure,
 because nobody asked. The expiry then exists only on paper, and the mechanism becomes permanent by
-omission again — now with the appearance of having been reviewed.
+omission again, now with the appearance of having been reviewed.
 
 **Meeting the removal target with the irrelevant mechanism.** The form nobody filled in is removed,
 and the committee that delays every release stays. The target is met and accumulation continues; the
@@ -254,7 +254,7 @@ sign is that the total cost of the set doesn't fall from one year to the next.
 A logistics company with 160 engineers suffered a credential leak: an access key to an object store
 was committed to a public repository by mistake, and stayed exposed for nine days.
 
-The immediate institutional response was the expected one — create a security review committee for
+The immediate institutional response was the expected one: create a security review committee for
 every release. Architecture leadership asked for two weeks before instituting it, to design the
 mechanism with the five fields.
 
@@ -273,7 +273,7 @@ earliest viable point of intervention: in the version control client,
 ```
 
 The committee was never created. In its place: a local check at push time, a check in the pipeline as
-a safety net, and automated credential rotation with a short lifetime — so that an exposed key
+a safety net, and automated credential rotation with a short lifetime, so that an exposed key
 expires before it is useful.
 
 The human mechanism that remained was small and specific: a mandatory security review only for
@@ -292,19 +292,19 @@ human security reviews performed             29 (24 forecast, at 12/year,
                                              plus 5 exceptions)
 ```
 
-At renewal, at 24 months, the owner presented the numbers and the mechanism was kept — with the scope
+At renewal, at 24 months, the owner presented the numbers and the mechanism was kept, with the scope
 of the human reviews widened to include integrations with external partners, which had shown up as a
 gap.
 
 The lesson that stuck: the question "what is the earliest viable point of intervention?" turned a
 proposal costing about a thousand days of accumulated delay per year into a mechanism that adds no
 delay to releases. And it cost two weeks
-of waiting — which was the politically hard part, because right after an incident the pressure is to
+of waiting. That was the politically hard part, because right after an incident the pressure is to
 act, not to design.
 
 ## Related Concepts
 
-- [Governance](/19-architecture-governance/index.md) — the operation.
+- [Governance](/19-architecture-governance/index.md): the operation.
 - [Principles](/23-architecture-leadership/leadership-principles.md).
 - [Standards](/23-architecture-leadership/leadership-standards.md).
 - [Fitness Functions](/23-architecture-leadership/fitness-functions.md).

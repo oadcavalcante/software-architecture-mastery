@@ -2,7 +2,7 @@
 id: sla
 title: SLA
 sidebar_position: 12
-description: O compromisso com penalidade — e por que ele deve ser mais frouxo que o alvo interno.
+description: O compromisso com penalidade, e por que ele deve ser mais frouxo que o alvo interno.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [slo]
 related: [slo, sli, availability-metrics]
 canonical_for: [SLA, acordo de nível de serviço, crédito de serviço, exclusão contratual]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Um SLA — acordo de nível de serviço — é um compromisso **contratual** sobre o nível de
+Um SLA (acordo de nível de serviço) é um compromisso **contratual** sobre o nível de
 serviço, com consequência definida se ele não for cumprido.
 
 Ele é frequentemente confundido com [SLO](/12-reliability/slo.md), e a diferença tem consequência
@@ -33,7 +33,7 @@ SLA  compromisso externo, conservador, com penalidade, orienta negociação
 ```
 
 O SLA deve ser **mais frouxo** que o SLO. Se forem iguais, cada falta ao alvo interno já
-é quebra de contrato — e o time perde a margem que o orçamento de erro deveria dar.
+é quebra de contrato, e o time perde a margem que o orçamento de erro deveria dar.
 
 ## Problema
 
@@ -42,7 +42,7 @@ comercial, sob pressão do cliente, sem que ninguém verifique se o sistema o su
 
 E o inverso também acontece: um SLA conservador demais perde negócio.
 
-Os dois erros vêm da mesma ausência — não há medição histórica que informe o que o
+Os dois erros vêm da mesma ausência: não há medição histórica que informe o que o
 sistema entrega de fato, nem cálculo do que as dependências permitem prometer.
 
 ## Conceitos Centrais
@@ -78,7 +78,7 @@ evento. A mesma porcentagem, compromissos muito diferentes.
 **As exclusões.** Manutenção programada, falha do provedor de nuvem, ataque, força
 maior, problemas de rede do cliente. Exclusões amplas esvaziam o compromisso.
 
-A soma dessas quatro define o que o SLA vale — e um SLA de 99,99% com exclusões amplas
+A soma dessas quatro define o que o SLA vale, e um SLA de 99,99% com exclusões amplas
 promete menos que um de 99,5% sem elas.
 
 ### A penalidade típica não compensa o dano
@@ -99,7 +99,7 @@ Isso é desproporcional ao prejuízo do cliente: uma indisponibilidade de 4 hora
 Duas consequências, uma para cada lado:
 
 **Para quem contrata:** o SLA não é seguro. Ele sinaliza compromisso e não cobre
-prejuízo. A proteção real é arquitetural — redundância, degradação, alternativa.
+prejuízo. A proteção real é arquitetural: redundância, degradação, alternativa.
 
 **Para quem oferece:** o crédito não é o custo principal de descumprir. O custo é a
 perda de confiança e a renovação que não acontece.
@@ -119,7 +119,7 @@ composto         ~99,79%
 Prometer 99,9% com essa composição é prometer o que não se controla. Ver
 [disponibilidade](/06-distributed-systems/availability.md).
 
-Isso não impede prometer mais — impede prometer mais **sem reduzir a dependência
+Isso não impede prometer mais; impede prometer mais **sem reduzir a dependência
 síncrona**: cache, degradação, alternativa, ou tornar a chamada assíncrona.
 
 Calcular a composição antes de assinar é o passo que evita o passivo.
@@ -140,7 +140,7 @@ Ver [SaaS](/09-cloud-architecture/saas.md) e
 
 ### Interno também pode ter acordo
 
-Entre times, um acordo explícito — sem penalidade contratual — cumpre função parecida:
+Entre times, um acordo explícito (sem penalidade contratual) cumpre função parecida:
 o time consumidor sabe o que esperar, e o time provedor sabe o que sustentar.
 
 Chamar isso de SLA gera confusão. É um SLO com consumidor declarado, e funciona melhor
@@ -168,19 +168,19 @@ sua margem de erro.
 
 **Como substituto de proteção arquitetural.** O crédito não cobre o prejuízo.
 
-**Com exclusões tão amplas** que o compromisso fica vazio — do lado de quem contrata,
+**Com exclusões tão amplas** que o compromisso fica vazio: do lado de quem contrata,
 isso é o sinal de que não há compromisso.
 
 **Entre times internos**, com penalidade. Vira burocracia sem valor.
 
 ## Alternativas
 
-- **[SLO](/12-reliability/slo.md) publicado** — transparência sem compromisso contratual. Suficiente
+- **[SLO](/12-reliability/slo.md) publicado**: transparência sem compromisso contratual. Suficiente
   para muitos produtos.
-- **Painel público de disponibilidade** — histórico visível, que constrói confiança
+- **Painel público de disponibilidade**: histórico visível, que constrói confiança
   melhor que uma promessa.
-- **Compromisso por plano** — níveis diferentes com preços diferentes.
-- **Proteção arquitetural** — para quem contrata, vale mais que qualquer cláusula.
+- **Compromisso por plano**: níveis diferentes com preços diferentes.
+- **Proteção arquitetural**: para quem contrata, vale mais que qualquer cláusula.
 
 ## Trade-offs
 
@@ -237,7 +237,7 @@ Ninguém verificou três coisas:
 
 **A composição.** O sistema dependia de um gateway de pagamento com SLA de 99,9% e de
 um provedor de identidade com 99,95%, ambos síncronos no fluxo principal. A
-disponibilidade máxima teórica era cerca de 99,85% — abaixo do prometido, mesmo com o
+disponibilidade máxima teórica era cerca de 99,85%, abaixo do prometido, mesmo com o
 sistema próprio perfeito.
 
 **O histórico.** Os doze meses anteriores tinham média de 99,7%, com dois meses abaixo
@@ -245,7 +245,7 @@ de 99%.
 
 **A definição.** O contrato contava como indisponibilidade "qualquer período em que o
 serviço não responda ou responda com erro". Lentidão não estava excluída
-explicitamente, o que o cliente interpretou — corretamente — como incluída.
+explicitamente, o que o cliente interpretou, corretamente, como incluída.
 
 Nos primeiros seis meses, o SLA foi descumprido em quatro. O crédito acumulado foi
 significativo, e a relação com o cliente ficou tensa.
@@ -274,7 +274,7 @@ identidade por até 15 minutos.
 **Degradação graciosa** para funcionalidades não essenciais. Ver
 [degradação graciosa](/12-reliability/graceful-degradation.md).
 
-Depois disso, a disponibilidade real subiu para 99,93% — e o SLA de 99,5% passou a ter
+Depois disso, a disponibilidade real subiu para 99,93%, e o SLA de 99,5% passou a ter
 folga confortável.
 
 O que se registrou depois: o problema não era o sistema. Era ter prometido um número que
@@ -283,10 +283,10 @@ de dez minutos que teria mostrado isso.
 
 ## Conceitos Relacionados
 
-- [SLO](/12-reliability/slo.md) — o alvo interno.
-- [SLI](/12-reliability/sli.md) — o que é medido.
-- [Disponibilidade](/06-distributed-systems/availability.md) — a composição.
-- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — como sustentar o número.
+- [SLO](/12-reliability/slo.md): o alvo interno.
+- [SLI](/12-reliability/sli.md): o que é medido.
+- [Disponibilidade](/06-distributed-systems/availability.md): a composição.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md): como sustentar o número.
 
 ## Exercício Prático
 
@@ -303,6 +303,6 @@ O resultado é o teto do que você pode prometer. Compare com o que já foi prom
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 4.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 4.
 - Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018.
-- SLAs públicos dos principais provedores de nuvem — leia as exclusões.
+- SLAs públicos dos principais provedores de nuvem: leia as exclusões.

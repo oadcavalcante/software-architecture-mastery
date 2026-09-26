@@ -2,7 +2,7 @@
 id: data-lakehouses
 title: Data Lakehouses
 sidebar_position: 11
-description: Transactions and schemas over files in cheap storage — the convergence and its limits.
+description: "Transactions and schemas over files in cheap storage: the convergence and its limits."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-lakes]
 related: [data-warehouses, column-stores, data-partitioning, transactions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ brings transactions, a declared schema and controlled evolution.
 The goal is to have a [warehouse's](/07-data-architecture/data-warehouses.md) guarantees with object
 storage's cost and openness.
 
-The architecture is real and solves concrete problems. It is not, however, a universal replacement —
+The architecture is real and solves concrete problems. It is not, however, a universal replacement,
 and the marketing around the term obscures limits that matter in the choice.
 
 ## Problem
@@ -60,7 +60,7 @@ Reading the table is reading the log to know which files are valid now. Writing 
 From that the properties follow:
 
 **Atomicity.** The write is only visible when the entry is recorded. A process that fails midway does not
-leave partial data visible — the most common problem of pure lakes.
+leave partial data visible: the most common problem of pure lakes.
 
 **Stable reads.** A long query reads a fixed version and does not see concurrent writes.
 
@@ -78,7 +78,7 @@ it justifies the adoption in many cases.
 
 ### Controlled schema evolution
 
-Adding a column, renaming, promoting a type by widening (int to long, more decimal precision) — with
+Adding a column, renaming, promoting a type by widening (int to long, more decimal precision), with
 the history remaining readable. An incompatible type change, such as text to number, is not covered: it
 requires rewriting the table.
 
@@ -87,7 +87,7 @@ since version 12, and old readers do not break.
 
 ### Time travel has a retention cost
 
-Keeping earlier versions allows auditing, comparing and reverting — and keeps the old files occupying
+Keeping earlier versions allows auditing, comparing and reverting, and keeps the old files occupying
 space.
 
 With no version expiry policy, the storage cost grows indefinitely. And the cleanup is irreversible:
@@ -120,7 +120,7 @@ Compacting small files, expiring versions, physically reordering data, updating 
 None of that happens on its own in the format itself: either a scheduled process runs it, or a managed
 platform runs it under a policy someone has to define. A lakehouse with no maintenance routines degrades
 the same way a lake
-does — and the diagnosis is the same: queries get slow with no change in volume.
+does, and the diagnosis is the same: queries get slow with no change in volume.
 
 ## Mental Model
 
@@ -130,7 +130,7 @@ everything missing is what a log does not solve.
 ## When to Use
 
 - A lake already exists and transactional guarantees are missing.
-- Records have to be changed or deleted — regulation, corrections.
+- Records have to be changed or deleted (regulation, corrections).
 - Keeping a separate lake and warehouse is costing duplication.
 - High volume with a relevant storage cost.
 - An open format is a requirement, for portability.
@@ -142,7 +142,7 @@ everything missing is what a log does not solve.
 
 **For very low latency, high concurrency interactive queries.** A dashboard that must answer in under a
 second for dozens of simultaneous users pays, on every query, for reading the log and opening files in
-object storage — a fixed cost that a warehouse with a cache and local indexes does not have.
+object storage: a fixed cost that a warehouse with a cache and local indexes does not have.
 
 **With many simultaneous writers on the same table.** Each write is an entry in the log, and two writes
 touching the same partition at the same time conflict. When several processes write the same partition
@@ -160,12 +160,12 @@ slow.
 
 ## Alternatives
 
-- **[Warehouse](/07-data-architecture/data-warehouses.md)** — when the tooling and the latency matter
+- **[Warehouse](/07-data-architecture/data-warehouses.md)**: when the tooling and the latency matter
   more than the cost.
-- **A [lake](/07-data-architecture/data-lakes.md) with discipline** — a catalog and a columnar format
+- **A [lake](/07-data-architecture/data-lakes.md) with discipline**: a catalog and a columnar format
   cover part of the cases.
-- **A warehouse with external tables** — querying the lake's files without moving them.
-- **Keeping both** — legitimate when the workloads are genuinely distinct.
+- **A warehouse with external tables**: querying the lake's files without moving them.
+- **Keeping both**: legitimate when the workloads are genuinely distinct.
 
 ## Trade-offs
 
@@ -214,7 +214,7 @@ startup latency a warehouse does not have. For a dashboard with a filter the use
 is noticeable.
 
 **Migrating everything at once.** The business definitions embedded in the old loads only surface when a
-number diverges from the report the executives already know — and then the whole migration loses
+number diverges from the report the executives already know, and then the whole migration loses
 credibility.
 
 **Too many writers on the same table.** The [concurrency control](/07-data-architecture/transactions.md) is optimistic: simultaneous writes to the
@@ -237,7 +237,7 @@ Gains:
 **A single source.** The divergences between platforms disappeared, because there came to be only one
 table.
 
-**Regulation-driven deletion.** Deletion requests became executable — previously they required rewriting
+**Regulation-driven deletion.** Deletion requests became executable. Previously they required rewriting
 whole partitions of the lake, a manual process that took days.
 
 **Storage cost** dropped 60% relative to the warehouse, measured after the version retention was
@@ -248,7 +248,7 @@ adjusted (see below).
 Problems:
 
 **Interactive queries.** The commercial dashboard, with dozens of simultaneous users making small
-queries, became 3 times slower. The solution was keeping an aggregated serving layer in the warehouse —
+queries, became 3 times slower. The solution was keeping an aggregated serving layer in the warehouse;
 that is, both continued to exist, with clearer roles.
 
 **Unscheduled maintenance.** In the first two months nobody configured compaction. Queries degraded
@@ -257,7 +257,7 @@ progressively and the diagnosis took weeks, because the data volume had not chan
 **Version cost.** Time travel was at a default 30-day retention over high-churn tables. The storage of
 old versions came to exceed that of the current data before anyone reviewed it.
 
-The initial expectation was to replace the warehouse. The result was redividing responsibilities —
+The initial expectation was to replace the warehouse. The result was redividing responsibilities:
 lakehouse as the single source and processing layer, warehouse as the serving layer for interactive
 queries.
 
@@ -265,9 +265,9 @@ Trying to eliminate one of the platforms was the wrong goal.
 
 ## Related Concepts
 
-- [Data Lake](/07-data-architecture/data-lakes.md) — the foundation.
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — the comparison.
-- [Columnar](/07-data-architecture/column-stores.md) — the files' format.
+- [Data Lake](/07-data-architecture/data-lakes.md): the foundation.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): the comparison.
+- [Columnar](/07-data-architecture/column-stores.md): the files' format.
 - [Data Partitioning](/07-data-architecture/data-partitioning.md).
 
 ## Practical Exercise

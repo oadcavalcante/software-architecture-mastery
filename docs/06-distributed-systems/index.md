@@ -2,7 +2,7 @@
 id: distributed-systems
 title: Sistemas Distribuídos
 sidebar_position: 0
-description: Por que sistemas distribuídos são difíceis — falha parcial, ordem, duplicação e os limites do que é possível garantir.
+description: "Por que sistemas distribuídos são difíceis: falha parcial, ordem, duplicação e os limites do que é possível garantir."
 doc_type: index
 level: 4
 difficulty: avançado
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [system-design]
 related: [data-architecture, reliability, integration-architecture]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -36,10 +36,10 @@ aconteceu. Repetir pode duplicar; não repetir pode perder.
 Toda a complexidade desta seção deriva daí. Idempotência existe por causa disso.
 Sagas existem por causa disso. Consenso existe por causa disso.
 
-O objetivo aqui não é decorar CAP. É internalizar que **falha parcial é o caso
-normal**, não a exceção — e projetar assumindo isso desde o início. Timeout,
+O objetivo aqui não é decorar CAP, e sim internalizar que **falha parcial é o caso
+normal**, não a exceção, e projetar assumindo isso desde o início. Timeout,
 backoff e circuit breaker se acrescentam depois sem tocar no resto; idempotência
-e reconciliação de estado, não — essas exigem refazer o modelo de dados.
+e reconciliação de estado, não: essas exigem refazer o modelo de dados.
 
 ## O que você vai encontrar aqui
 
@@ -50,7 +50,7 @@ depende.
 **Idempotência.** Tratada como tópico central, não como detalhe. É a propriedade
 que torna retry seguro, e sem ela nada acima funciona.
 
-**Os limites teóricos.** CAP e PACELC, apresentados pelo que de fato afirmam —
+**Os limites teóricos.** CAP e PACELC, apresentados pelo que de fato afirmam,
 que é bem menos do que costumam citar. PACELC descreve melhor o dilema do dia a
 dia: o custo em latência que se paga por consistência mesmo quando não há
 partição.
@@ -62,8 +62,8 @@ significa para quem escreve a aplicação.
 **Coordenação.** Eleição de líder, consenso e locks distribuídos. Inclui a
 pergunta que precede as três: dá para não coordenar?
 
-**Mensageria.** Entrega no máximo uma vez, ao menos uma vez e exatamente uma vez
-— e por que a terceira é uma propriedade de ponta a ponta, não um recurso de
+**Mensageria.** Entrega no máximo uma vez, ao menos uma vez e exatamente uma vez,
+e por que a terceira é uma propriedade de ponta a ponta, não um recurso de
 ferramenta. Ordenação, mensagens duplicadas, poison messages, dead-letter queues
 e backpressure.
 
@@ -73,7 +73,7 @@ sagas e transações distribuídas.
 ## Ordem de leitura
 
 Esta seção tem ordem obrigatória nos primeiros tópicos. Leia **falha parcial**,
-depois **timeouts**, depois **idempotência**, e só então **retries** — que depende
+depois **timeouts**, depois **idempotência**, e só então **retries**, que depende
 dos dois anteriores, e sem idempotência produz duplicata. Nada mais faz sentido
 antes desses quatro.
 
@@ -82,7 +82,7 @@ particionamento, consistência) ou o de mensagens (entrega, ordenação, filas).
 Ambos convergem em sagas e event sourcing, que dependem dos dois.
 
 Deixe **consenso** para o fim. É o tópico mais denso e o menos frequentemente
-implementado à mão — na prática você vai consumir consenso, não escrevê-lo.
+implementado à mão: na prática você vai consumir consenso, não escrevê-lo.
 
 ## Ao terminar
 

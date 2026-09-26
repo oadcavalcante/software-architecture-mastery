@@ -2,7 +2,7 @@
 id: idempotency
 title: Idempotência
 sidebar_position: 8
-description: Executar uma vez ou várias tem o mesmo efeito — a propriedade que torna a retentativa segura.
+description: "Executar uma vez ou várias tem o mesmo efeito: a propriedade que torna a retentativa segura."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [retries, timeouts, duplicate-messages]
 canonical_for: [idempotência, chave de idempotência]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Uma operação é idempotente quando executá-la uma vez ou várias produz o mesmo
 efeito.
 
-É a propriedade que torna [retentativa](/06-distributed-systems/retries.md) segura — e como a retentativa
+É a propriedade que torna [retentativa](/06-distributed-systems/retries.md) segura. E como a retentativa
 é inevitável em sistemas distribuídos, idempotência não é otimização: é
 requisito.
 
@@ -44,7 +44,7 @@ Diante disso há duas opções, e ambas são ruins sem idempotência:
 processamento.
 
 Idempotência dissolve o dilema no eixo do efeito: repetir deixa de duplicar.
-Se vale repetir — se a falha é retentável, com que limite e que espaçamento —
+Se vale repetir (se a falha é retentável, com que limite e que espaçamento)
 é decisão de [retentativa](/06-distributed-systems/retries.md).
 
 Note a assimetria. Sem idempotência, você precisa **adivinhar** o que aconteceu do
@@ -71,7 +71,7 @@ Algumas operações são naturalmente idempotentes: definir um valor absoluto,
 marcar como cancelado, inserir com chave única.
 
 O problema é que ela **quebra com o tempo**. Uma operação de "cancelar pedido" é
-idempotente até alguém adicionar "registrar o motivo do cancelamento com data" —
+idempotente até alguém adicionar "registrar o motivo do cancelamento com data",
 e aí a segunda execução sobrescreve a data original.
 
 Confiar em idempotência natural é confiar que ninguém vai adicionar um efeito
@@ -96,10 +96,10 @@ cliente.
 
 **A chave e o resultado são gravados na mesma transação do efeito.** Se forem
 separados, existe uma janela em que o efeito aconteceu e a chave não foi
-registrada — e a retentativa duplica.
+registrada, e a retentativa duplica.
 
 **A chave tem prazo.** Guardá-las indefinidamente é um vazamento. O prazo precisa
-ser maior que a janela realista de retentativa — tipicamente horas ou dias.
+ser maior que a janela realista de retentativa: tipicamente horas ou dias.
 
 **A chave tem restrição de unicidade.** É o detalhe que a mesma transação não
 resolve sozinha: duas retentativas que chegam ao mesmo tempo abrem transações que
@@ -116,7 +116,7 @@ com unicidade   T1 lê "não existe" → processa → grava
 Sobra decidir o que a segunda chamada recebe enquanto a primeira ainda não
 terminou. Esperar prende conexão e não tem prazo garantido; a resposta usual é
 recusar a concorrente com um erro que diz "esta chave está em processamento",
-deixando o cliente repetir depois. Devolver o resultado não é opção — ele ainda
+deixando o cliente repetir depois. Devolver o resultado não é opção: ele ainda
 não existe.
 
 ### O que fazer quando a chave repete com conteúdo diferente
@@ -124,7 +124,7 @@ não existe.
 Caso de borda que costuma ficar sem tratamento: a mesma chave chega com um corpo
 diferente.
 
-Isso indica erro do cliente — ele reusou a chave para outra operação. A resposta
+Isso indica erro do cliente: ele reusou a chave para outra operação. A resposta
 correta é rejeitar com erro explícito, não processar nem devolver o resultado
 antigo. Devolver o antigo esconde um bug do cliente.
 
@@ -144,7 +144,7 @@ sorte com o tempo entre as execuções, não é idempotente.
 
 ## Quando Usar
 
-- Qualquer operação que possa ser repetida — o que inclui toda chamada de rede.
+- Qualquer operação que possa ser repetida (o que inclui toda chamada de rede).
 - Consumidores de [fila](/05-system-design/queues.md) cujo efeito é observável fora
   do sistema ou irreversível.
 - Endpoints de API que alteram estado.
@@ -156,7 +156,7 @@ sorte com o tempo entre as execuções, não é idempotente.
 **Quando a repetição é o dado.** Medição por chamada, trilha de auditoria de
 tentativas, contador de acessos: nesses casos cada ocorrência precisa contar, e
 colapsar duas em uma perde a informação que o sistema existe para guardar. É o
-único caso em que a idempotência não é apenas cara — é errada.
+único caso em que a idempotência não é apenas cara, é errada.
 
 **Operações sem efeito colateral.** Já são idempotentes; a chave só acrescenta
 escrita.
@@ -165,7 +165,7 @@ escrita.
 Vale reconhecer explicitamente, não presumir.
 
 **Quando o volume de chaves seria proibitivo.** Milhões de operações por segundo
-com chave persistida têm custo real — aí a estratégia muda para
+com chave persistida têm custo real, e aí a estratégia muda para
 [deduplicação por janela](/06-distributed-systems/duplicate-messages.md), que
 troca garantia por custo.
 
@@ -178,16 +178,16 @@ fato inofensivo.
 
 ## Alternativas
 
-- **Deduplicação por janela** — guardar chaves recentes em cache em vez de
+- **Deduplicação por janela**: guardar chaves recentes em cache em vez de
   persistir. Mais barato e com garantia mais fraca.
-- **Detecção de duplicata no consumidor** — verificar se o efeito já existe antes
+- **Detecção de duplicata no consumidor**: verificar se o efeito já existe antes
   de aplicar. Funciona quando há um identificador natural.
-- **Tornar a operação absoluta** — reformular de "some 50" para "defina 150".
+- **Tornar a operação absoluta**: reformular de "some 50" para "defina 150".
   Dispensa o armazenamento de chaves, e vence por isso quando há escritor único
   ou ordenação garantida. Sob escrita concorrente perde: uma retentativa atrasada
   de "defina 150" que chega depois de um "defina 200" legítimo reverte o estado,
   a menos que a escrita seja condicional à versão.
-- **Transação distribuída** — cara, e evita o problema em vez de tratá-lo. Ver
+- **Transação distribuída**: cara, e evita o problema em vez de tratá-lo. Ver
   [transações distribuídas](/06-distributed-systems/distributed-transactions.md).
 
 ## Trade-offs
@@ -217,7 +217,7 @@ reavaliou.
 ## Erros Comuns
 
 **Presumir idempotência natural.** Vale até alguém acrescentar um efeito colateral,
-e a quebra não aparece em teste — aparece na primeira retentativa em produção.
+e a quebra não aparece em teste, aparece na primeira retentativa em produção.
 
 **Servidor gerando a chave.** Cada retentativa chega com chave nova, e o mecanismo
 vira ornamento: existe no código e não deduplica nada.
@@ -257,20 +257,20 @@ a janela: matar o processo entre as duas produzia duplicação. Passou a ser uma
 transação só.
 
 **A segunda chamada precisava devolver o resultado, não erro.** A versão inicial
-devolvia `409 Conflict`. O cliente tratava como falha e mostrava erro ao usuário —
+devolvia `409 Conflict`. O cliente tratava como falha e mostrava erro ao usuário,
 para uma transferência que tinha sido concluída com sucesso. Passou a devolver
 `200` com o resultado original.
 
 Os três detalhes estão na documentação de qualquer provedor de pagamento maduro. O
-que faltou não foi conhecimento — foi tratar idempotência como requisito desde o
+que faltou não foi conhecimento, foi tratar idempotência como requisito desde o
 início, em vez de correção depois do incidente.
 
 ## Conceitos Relacionados
 
-- [Falha Parcial](/06-distributed-systems/partial-failure.md) — o problema que ela resolve.
-- [Retries](/06-distributed-systems/retries.md) — o que ela torna seguro.
-- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md) — o caso em filas.
-- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md) — por que ao menos uma vez é o
+- [Falha Parcial](/06-distributed-systems/partial-failure.md): o problema que ela resolve.
+- [Retries](/06-distributed-systems/retries.md): o que ela torna seguro.
+- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md): o caso em filas.
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md): por que ao menos uma vez é o
   padrão.
 
 ## Exercício Prático

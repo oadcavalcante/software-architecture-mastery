@@ -2,7 +2,7 @@
 id: data-consistency
 title: Consistência de Dados
 sidebar_position: 18
-description: A palavra que significa três coisas diferentes — e como saber de qual se está falando.
+description: A palavra que significa três coisas diferentes, e como saber de qual se está falando.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transactions]
 related: [data-replication, transactions, data-ownership]
 canonical_for: [consistência de dados, integridade referencial, reconciliação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,7 +28,7 @@ last_reviewed: 2026-08-27
 "Consistência" é usada para três coisas diferentes, e a maioria das discussões
 confusas sobre o tema vem de duas pessoas usando sentidos distintos.
 
-**Consistência como restrição.** As regras declaradas do modelo valem — o C de
+**Consistência como restrição.** As regras declaradas do modelo valem: o C de
 ACID.
 
 **Consistência como isolamento.** Transações concorrentes não se atrapalham.
@@ -44,9 +44,9 @@ A pergunta "esse sistema é consistente?" não tem resposta, porque não especif
 qual sentido.
 
 Um banco relacional de instância única tem consistência de restrição e o
-isolamento que o nível configurado entregar — no padrão de
+isolamento que o nível configurado entregar (no padrão de
 [leitura confirmada](/07-data-architecture/transactions.md), menos do que o nome
-sugere — e a de replicação não se aplica.
+sugere), e a de replicação não se aplica.
 
 Um sistema replicado pode ter isolamento perfeito em cada nó e mostrar valores
 diferentes conforme o nó consultado.
@@ -61,7 +61,7 @@ Saber de qual se fala é o pré-requisito de qualquer decisão.
 ### Restrição: a garantia que vale para todos
 
 Chave estrangeira, unicidade, verificação, não-nulo. Declaradas no armazenamento,
-valem para toda escrita — inclusive scripts de correção e integrações que ninguém
+valem para toda escrita, inclusive scripts de correção e integrações que ninguém
 lembra.
 
 O erro característico é implementar essas regras apenas na aplicação. Funciona
@@ -94,7 +94,7 @@ Sistemas que escolhem uma garantia para tudo ou pagam demais ou arriscam demais.
 O caso menos discutido e o mais comum na prática.
 
 Quando o pedido está num serviço e o estoque em outro, nenhuma garantia de banco
-cobre a relação entre eles. A coerência precisa ser construída — com
+cobre a relação entre eles. A coerência precisa ser construída: com
 [sagas](/06-distributed-systems/sagas.md), com eventos, com reconciliação.
 
 E precisa ser **verificada**, porque toda estratégia falha eventualmente.
@@ -107,7 +107,7 @@ duas fontes que deveriam concordar e alerta na divergência.
 Soma dos itens contra o total do pedido. Contagem no banco contra contagem no
 índice de busca. Saldo contra a soma das movimentações.
 
-Sem isso, a divergência é descoberta pelo cliente, por auditoria, ou por acaso —
+Sem isso, a divergência é descoberta pelo cliente, por auditoria, ou por acaso,
 tipicamente meses depois, quando corrigir é caro e a causa já foi esquecida.
 
 Uma reconciliação custa horas para implementar e é a diferença entre detectar em
@@ -168,14 +168,14 @@ produzir decisão.
 
 ## Alternativas
 
-- **[Transação](/07-data-architecture/transactions.md) local** — quando os dados cabem no mesmo
+- **[Transação](/07-data-architecture/transactions.md) local**: quando os dados cabem no mesmo
   armazenamento, a garantia sai de graça.
-- **Reunir os dados** — a fronteira de serviço pode estar no lugar errado.
-- **[Saga](/06-distributed-systems/sagas.md) com compensação** — quando a operação
+- **Reunir os dados**: a fronteira de serviço pode estar no lugar errado.
+- **[Saga](/06-distributed-systems/sagas.md) com compensação**: quando a operação
   atravessa serviços distintos e cada passo tem reversão definida em termos de
   negócio.
-- **Reconciliação periódica** — para divergências raras e corrigíveis.
-- **Garantias de sessão** — resolvem a percepção do usuário a custo baixo.
+- **Reconciliação periódica**: para divergências raras e corrigíveis.
+- **Garantias de sessão**: resolvem a percepção do usuário a custo baixo.
 
 ## Trade-offs
 
@@ -209,7 +209,7 @@ produzir decisão.
 
 ## Erros Comuns
 
-**Não declarar restrições no armazenamento.** Validação só na aplicação falha quando há mais de um caminho de escrita — outro serviço, uma migração, uma correção manual. A restrição no banco é a única que ninguém contorna sem querer.
+**Não declarar restrições no armazenamento.** Validação só na aplicação falha quando há mais de um caminho de escrita: outro serviço, uma migração, uma correção manual. A restrição no banco é a única que ninguém contorna sem querer.
 
 **Não ter reconciliação.** Sistemas distribuídos divergem por falha parcial, e a divergência que ninguém procura só é descoberta pelo cliente. Um processo periódico que compara e reporta é barato e é o que transforma incidente em achado.
 
@@ -230,14 +230,14 @@ Cada uma era atualizada por um caminho diferente, e nenhuma comparação existia
 
 Ao longo de dois anos, as divergências se acumularam:
 
-**Índice de busca.** 3.400 matrículas não apareciam na busca — eventos perdidos em
+**Índice de busca.** 3.400 matrículas não apareciam na busca: eventos perdidos em
 implantações. Alunos relatavam "não encontro meu curso", e o suporte reindexava
 caso a caso, sem investigar a causa.
 
 **Contagem por turma.** Divergia em 8% das turmas. Algumas apareciam com vagas
 disponíveis estando cheias, gerando matrículas acima do limite.
 
-**Referências órfãs.** 900 matrículas apontando para turmas apagadas — não havia
+**Referências órfãs.** 900 matrículas apontando para turmas apagadas: não havia
 chave estrangeira, porque a tabela tinha sido criada por uma migração que a
 omitiu.
 
@@ -251,7 +251,7 @@ trabalho. Passou a detectar em 24 horas o que antes levava meses.
 **Chave estrangeira** declarada, depois de limpar os órfãos.
 
 **Contagem calculada sob demanda** para turmas próximas do limite, e o agregado
-mantido apenas para exibição aproximada — decisão explícita de qual número é
+mantido apenas para exibição aproximada: decisão explícita de qual número é
 autoritativo.
 
 **Reindexação completa periódica**, aceitando que eventos se perdem.
@@ -259,14 +259,14 @@ autoritativo.
 O que se registrou depois: a discussão que destravou tudo foi separar os três
 sentidos da palavra. Antes disso, as reuniões alternavam entre isolamento de
 transação, integridade referencial e sincronia de índice como se fossem o mesmo
-problema — e nenhuma decisão saía.
+problema, e nenhuma decisão saía.
 
 ## Conceitos Relacionados
 
-- [Transações](/07-data-architecture/transactions.md) — o sentido de isolamento.
-- [Replicação de Dados](/07-data-architecture/data-replication.md) — o sentido de replicação.
-- [Consistência](/06-distributed-systems/consistency.md) — o espectro completo.
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — quem é a fonte autoritativa.
+- [Transações](/07-data-architecture/transactions.md): o sentido de isolamento.
+- [Replicação de Dados](/07-data-architecture/data-replication.md): o sentido de replicação.
+- [Consistência](/06-distributed-systems/consistency.md): o espectro completo.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): quem é a fonte autoritativa.
 
 ## Exercício Prático
 
@@ -284,7 +284,7 @@ real da sua consistência.
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
-  capítulos 5 e 7.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
+  Capítulos 5 e 7.
 - Bailis, Peter et al. *Feral Concurrency Control*. SIGMOD, 2015.
 - Helland, Pat. *Life Beyond Distributed Transactions*. CIDR, 2007.

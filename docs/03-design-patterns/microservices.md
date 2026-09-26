@@ -2,7 +2,7 @@
 id: microservices
 title: Microsserviços
 sidebar_position: 25
-description: Serviços implantáveis independentemente — o que se compra, o que se paga, e os pré-requisitos.
+description: "Serviços implantáveis independentemente: o que se compra, o que se paga, e os pré-requisitos."
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-monolith]
 related: [modular-monolith, event-driven, soa]
 canonical_for: [microsserviços, microservices]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Microsserviços organizam a aplicação como um conjunto de serviços pequenos, 
 um implantável de forma independente, com dados próprios, comunicando-se por rede.
 
 A propriedade que define o estilo é **implantabilidade independente**. Tudo o mais
-— tamanho pequeno, tecnologia heterogênea, um time por serviço — é consequência ou
+(tamanho pequeno, tecnologia heterogênea, um time por serviço) é consequência ou
 acessório.
 
 ## Problema
@@ -43,7 +43,7 @@ Uma falha em qualquer parte derruba tudo.
 E uma parte precisa de tecnologia diferente por razão legítima.
 
 Microsserviços resolvem os quatro. O custo é substituir chamadas de função por
-rede — e com isso herdar todo o
+rede, e com isso herdar todo o
 [Nível 04](/06-distributed-systems/index.md).
 
 ## Conceitos Centrais
@@ -60,7 +60,7 @@ rede — e com isso herdar todo o
 | Fronteira imposta pela rede | Refatorar fronteira vira migração |
 
 A última linha das duas colunas é a mais subestimada. A rede impõe a fronteira de
-graça — o que é uma vantagem real. E torna mover a fronteira uma migração de
+graça, o que é uma vantagem real. E torna mover a fronteira uma migração de
 dados, o que é a desvantagem que decide.
 
 ### Os pré-requisitos
@@ -85,19 +85,19 @@ Adotar sem esses pré-requisitos produz os custos sem os benefícios.
 
 "Micro" é o adjetivo mais enganoso do nome. Não há tamanho correto.
 
-O critério é a fronteira de negócio — um [bounded
-context](/04-domain-driven-design/bounded-context.md) — e o tamanho é o que ela produzir.
+O critério é a fronteira de negócio, um [bounded
+context](/04-domain-driven-design/bounded-context.md), e o tamanho é o que ela produzir.
 Serviços pequenos demais geram acoplamento por chamadas encadeadas, que é o
 monolito distribuído.
 
 ### Dados por serviço
 
 A regra, como estado final: **cada serviço é dono dos seus dados, e ninguém mais acessa
-diretamente.** Durante uma decomposição, banco compartilhado é passo de transição legítimo —
+diretamente.** Durante uma decomposição, banco compartilhado é passo de transição legítimo,
 com prazo e dono declarados. O que não é legítimo é chegar ao estado final com ele.
 
 Compartilhar banco entre serviços produz todo o acoplamento de um monolito, com
-todo o custo de distribuição, e sem contrato — paga-se a rede e não se ganha a
+todo o custo de distribuição, e sem contrato: paga-se a rede e não se ganha a
 independência que ela deveria comprar.
 
 A consequência é que consistência entre serviços passa a ser eventual, e
@@ -125,20 +125,20 @@ por pessoa é desproporcional.
 **Para obter isolamento lógico.** Módulos entregam isso.
 
 **Quando a consistência forte entre partes é requisito.** Transações distribuídas
-são caras e sagas mudam a semântica do negócio — o que precisa ser aceito pelo
+são caras e sagas mudam a semântica do negócio. Isso precisa ser aceito pelo
 negócio, não decidido pela engenharia.
 
 **Por reputação.** A decisão é tomada antes da pergunta que a justificaria, e depois a
-pergunta não é mais feita — porque respondê-la agora seria admitir que a resposta já
+pergunta não é mais feita, porque respondê-la agora seria admitir que a resposta já
 estava dada.
 
 ## Alternativas
 
-- **[Monolito modular](/03-design-patterns/modular-monolith.md)** — o default correto.
-- **Extração seletiva** — monolito modular com os poucos serviços que têm razão.
+- **[Monolito modular](/03-design-patterns/modular-monolith.md)**: o default correto.
+- **Extração seletiva**: monolito modular com os poucos serviços que têm razão.
   O arranjo mais comum em sistemas maduros.
-- **[SOA](/03-design-patterns/soa.md)** — serviços maiores, com integração centralizada.
-- **Serverless por função** — granularidade ainda menor, com custos próprios.
+- **[SOA](/03-design-patterns/soa.md)**: serviços maiores, com integração centralizada.
+- **Serverless por função**: granularidade ainda menor, com custos próprios.
 
 ## Trade-offs
 
@@ -186,14 +186,14 @@ projetadas, não descobertas em produção.
 tornam o custo justificável.
 
 **Relatos de reversão.** Vários casos públicos de consolidação de serviços
-motivados por custo operacional — que são tão instrutivos quanto os de adoção.
+motivados por custo operacional, que são tão instrutivos quanto os de adoção.
 
 **Sistemas com fronteiras regulatórias.** Onde partes precisam de isolamento por
 exigência externa, e não por escolha técnica.
 
 O que a literatura de casos mostra de forma consistente: as adoções bem-sucedidas
 partiram de sistemas existentes cujas fronteiras já eram conhecidas, e não de
-projetos novos — a observação que Fowler registrou como *MonolithFirst*. Ver
+projetos novos. É a observação que Fowler registrou como *MonolithFirst*. Ver
 [monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Exemplo Real
@@ -210,27 +210,27 @@ esgotado memória do processo principal duas vezes.
 **Portal do cliente** — requisito organizacional: time separado, com ciclo de
 release próprio e requisito de disponibilidade menor.
 
-O restante — autorização, captura, estorno, cadastro — permaneceu no monolito
+O restante (autorização, captura, estorno, cadastro) permaneceu no monolito
 modular, porque compartilha transação e muda junto.
 
 Quatro anos depois, essa divisão não mudou. Nenhum outro serviço foi extraído,
 porque nenhum outro módulo apresentou uma das três razões.
 
-O que a equipe evitou foi tratar a extração como direção — cada serviço precisou
+O que a equipe evitou foi tratar a extração como direção: cada serviço precisou
 de uma justificativa própria, e a ausência de justificativa manteve o módulo onde
 estava.
 
 ## Conceitos Relacionados
 
-- [Monolito Modular](/03-design-patterns/modular-monolith.md) — o ponto de partida.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — comunicação assíncrona
+- [Monolito Modular](/03-design-patterns/modular-monolith.md): o ponto de partida.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): comunicação assíncrona
   entre serviços.
-- [Sistemas Distribuídos](/06-distributed-systems/index.md) — o que se herda.
-- [SOA](/03-design-patterns/soa.md) — a linhagem anterior.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md): o que se herda.
+- [SOA](/03-design-patterns/soa.md): a linhagem anterior.
 
 ## Exercício Prático
 
-Para cada serviço do seu sistema — ou cada módulo candidato — responda: qual das
+Para cada serviço do seu sistema, ou cada módulo candidato, responda: qual das
 razões justifica a separação? Escala, isolamento de falha, autonomia de time, ou
 regulação?
 
@@ -247,6 +247,6 @@ Os que não têm resposta específica são candidatos a consolidação.
 - Newman, Sam. *Building Microservices*. 2ª ed., O'Reilly, 2021.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Fowler, Martin. *MicroservicePrerequisites*, 2014.
-- Fowler, Martin. *MonolithFirst*, 2015 — por que as adoções bem-sucedidas
+- Fowler, Martin. *MonolithFirst*, 2015. Por que as adoções bem-sucedidas
   começam por um monolito.
 - Richardson, Chris. *Microservices Patterns*. Manning, 2018.

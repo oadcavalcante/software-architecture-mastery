@@ -2,7 +2,7 @@
 id: risk-management
 title: Gestão de Risco
 sidebar_position: 15
-description: Risco arquitetural como responsabilidade de primeira ordem — nomeado, quantificado e com dono.
+description: "Risco arquitetural como responsabilidade de primeira ordem: nomeado, quantificado e com dono."
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, cost-management, measuring-architecture-outcomes]
 canonical_for: [risco arquitetural, registro de risco, apetite a risco, risco aceito formalmente]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Risco arquitetural é a probabilidade de a arquitetura falhar em atender a algo que importa —
+Risco arquitetural é a probabilidade de a arquitetura falhar em atender a algo que importa:
 disponibilidade, segurança, custo, capacidade de mudar, continuidade do conhecimento.
 
 E ele tem uma característica que o distingue do risco de projeto: **ele se materializa devagar e
@@ -33,7 +33,7 @@ risco de projeto        o prazo escorrega, visivelmente
 risco arquitetural      nada acontece, até acontecer tudo
 ```
 
-Por isso ele precisa ser nomeado, quantificado e revisado — porque a ausência de sintoma é o
+Por isso ele precisa ser nomeado, quantificado e revisado, porque a ausência de sintoma é o
 estado normal, e ela é confundida com ausência de risco.
 
 ## Problema
@@ -47,10 +47,10 @@ O risco arquitetural típico existe e não está registrado em lugar nenhum:
 "o certificado é renovado manualmente por uma pessoa"
 ```
 
-Todo mundo sabe. Ninguém é responsável. Nenhuma decisão foi tomada a respeito.
+Todo mundo sabe, ninguém é responsável, e nenhuma decisão foi tomada a respeito.
 
 E há um segundo problema: o registro de riscos que existe e não é usado. Uma planilha com 60
-riscos, todos em amarelo, atualizada uma vez por ano — que cumpre uma exigência de auditoria e
+riscos, todos em amarelo, atualizada uma vez por ano. Ela cumpre uma exigência de auditoria e
 não informa nenhuma decisão.
 
 ```text
@@ -104,7 +104,7 @@ Um risco cujo dono é "a área de arquitetura" geralmente não tem dono, porque 
 raramente tem os recursos para agir. O dono é quem controla a capacidade: o gestor do time, o
 diretor de engenharia, o responsável pelo contrato.
 
-O papel da arquitetura é identificar, quantificar e garantir que a decisão seja tomada — não
+O papel da arquitetura é identificar, quantificar e garantir que a decisão seja tomada, e não
 tomá-la.
 
 ### Quatro respostas possíveis
@@ -116,7 +116,7 @@ evitar    mudar a arquitetura para que o risco não exista
 aceitar   formalmente, com quem tem autoridade
 ```
 
-A quarta é legítima e subutilizada. Aceitar um risco explicitamente — com data, dono e revisão —
+A quarta é legítima e subutilizada. Aceitar um risco explicitamente (com data, dono e revisão)
 é muito melhor que mantê-lo aberto indefinidamente numa lista de "a tratar".
 
 ```text
@@ -155,7 +155,7 @@ Esses números raramente são medidos, e são a origem de uma classe de crise qu
 rápida: quando o risco se materializa, não há como comprar a competência de volta.
 
 Ver o [case de modernização](/21-case-studies/legacy-modernization-case.md), em que o risco de
-conhecimento — nove pessoas, seis se aposentando — foi o que motivou um projeto de sete anos.
+conhecimento (nove pessoas, seis se aposentando) foi o que motivou um projeto de sete anos.
 
 ### Revise em cadência, com o número
 
@@ -166,7 +166,7 @@ por evento   quando algo muda materialmente
 ```
 
 A revisão precisa reavaliar a probabilidade e o impacto, não apenas confirmar que o risco existe.
-Um risco cuja probabilidade caiu deve ser rebaixado ou fechado — e um registro que só cresce
+Um risco cuja probabilidade caiu deve ser rebaixado ou fechado. Um registro que só cresce
 perde utilidade.
 
 ## Modelo Mental
@@ -194,20 +194,20 @@ registro envelhece antes da primeira revisão.
 copiá-los no registro cria duas listas que divergem. Leve ao registro só a consequência agregada,
 quando ela disputa ordenação com os demais riscos.
 
-**Como planilha de conformidade** que ninguém lê — o custo de manutenção é pago e nenhuma decisão
+**Como planilha de conformidade** que ninguém lê: o custo de manutenção é pago e nenhuma decisão
 sai dela.
 
-**Registrando tudo** — um registro com 60 riscos não prioriza nada.
+**Registrando tudo**: um registro com 60 riscos não prioriza nada.
 
 ## Alternativas
 
-- **Modelagem de ameaças** — para riscos de segurança, com método próprio. Ver
+- **Modelagem de ameaças**: para riscos de segurança, com método próprio. Ver
   [modelagem de ameaças](/10-security/threat-modeling.md).
-- **Análise pré-mortem** — imaginar que o projeto falhou e listar as causas; barata e eficaz para
+- **Análise pré-mortem**: imaginar que o projeto falhou e listar as causas; barata e eficaz para
   descobrir riscos que a análise formal não encontra.
-- **Orçamento de erro** — para risco de disponibilidade, mais operacional e mais acionável. Ver
+- **Orçamento de erro**: para risco de disponibilidade, mais operacional e mais acionável. Ver
   [SLO e orçamento de erro](/12-reliability/slo.md).
-- **Exercícios de falha** — descobrir riscos executando, não listando.
+- **Exercícios de falha**: descobrir riscos executando, não listando.
 
 A segunda é subestimada: uma pré-mortem de uma hora com o time costuma produzir mais riscos reais
 que um trimestre de registro formal.
@@ -270,7 +270,7 @@ eliminados ou fundidos, e cada um recebeu probabilidade justificada e impacto es
 **Ordenação por exposição.** Os 23 foram ordenados, e os seis primeiros concentravam cerca de 80%
 da exposição total estimada.
 
-**Dono nomeado**, sempre alguém com capacidade de agir — em 19 casos, gestores de área; em 4, a
+**Dono nomeado**, sempre alguém com capacidade de agir: em 19 casos, gestores de área; em 4, a
 diretoria.
 
 **Apetite declarado**, em quatro afirmações:
@@ -309,7 +309,7 @@ formação em curso e data.
 
 O aprendizado que ficou: o item que mais mudou o comportamento foi o apetite declarado. Antes,
 cada discussão sobre investimento em resiliência era negociada isoladamente; depois, ela virou
-uma verificação contra um número já acordado — e as discussões passaram de negociação a
+uma verificação contra um número já acordado, e as discussões passaram de negociação a
 constatação.
 
 E o exercício de reescrever os riscos com consequência e número revelou que a maioria dos 51 itens que

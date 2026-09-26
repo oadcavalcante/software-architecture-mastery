@@ -2,7 +2,7 @@
 id: internal-developer-platforms
 title: Plataformas Internas
 sidebar_position: 11
-description: A implementação do caminho pavimentado — autosserviço, com o que o desenvolvedor de fato precisa.
+description: "A implementação do caminho pavimentado: autosserviço, com o que o desenvolvedor de fato precisa."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [platform-engineering]
 related: [platform-engineering, environment-management, ci-cd]
 canonical_for: [plataforma interna de desenvolvimento, autosserviço, portal do desenvolvedor, catálogo de serviços]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -26,7 +26,7 @@ pavimentado: um conjunto de capacidades que os times consomem por **autosserviç
 depender de ninguém.
 
 A palavra que define é *autosserviço*. Uma plataforma em que criar um ambiente exige
-abrir um chamado não é plataforma — é uma equipe de infraestrutura com nome novo.
+abrir um chamado não é plataforma: é uma equipe de infraestrutura com nome novo.
 
 Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md) para a disciplina; aqui, o que
 ela entrega e como.
@@ -99,13 +99,13 @@ infraestrutura  o que aquele serviço usa
 Ele responde perguntas que, sem ele, exigem perguntar às pessoas: quem é dono disto?
 quem depende deste serviço? o que quebra se eu mudar isto?
 
-Para isso ele precisa ser **derivado** — da esteira, da declaração de infraestrutura, do
-tráfego observado —, não preenchido à mão. Atualizar um catálogo manual não está no caminho
+Para isso ele precisa ser **derivado** (da esteira, da declaração de infraestrutura, do
+tráfego observado), não preenchido à mão. Atualizar um catálogo manual não está no caminho
 de nenhuma entrega, então ele diverge na velocidade em que serviços nascem, mudam de dono e
 morrem; e um catálogo que responde errado é pior que nenhum, porque quem consulta para de
 perguntar às pessoas.
 
-Ver [propriedade do dado](/07-data-architecture/data-ownership.md) — é o mesmo
+Ver [propriedade do dado](/07-data-architecture/data-ownership.md): é o mesmo
 princípio aplicado a serviços.
 
 ### O modelo de interação decide a adoção
@@ -120,7 +120,7 @@ A terceira é a que sustenta o uso diário: o time declara o que precisa num arq
 com o código, e a plataforma converge. Ver
 [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md).
 
-O portal é complementar — para descobrir o que existe e para ações raras.
+O portal é complementar: para descobrir o que existe e para ações raras.
 
 Plataformas que oferecem **apenas** portal produzem um comportamento previsível: as
 pessoas automatizam por fora, com chamadas diretas à API, e a plataforma perde o
@@ -138,7 +138,7 @@ casos únicos            que só um time precisa
 O último merece atenção: uma plataforma que absorve toda exceção vira um produto com
 centenas de parâmetros, impossível de manter.
 
-A resposta correta para o caso único é a saída do caminho pavimentado — o time
+A resposta correta para o caso único é a saída do caminho pavimentado: o time
 implementa, e a plataforma continua simples.
 
 ### Depreciação precisa ser planejada
@@ -155,7 +155,7 @@ acompanhamento de quem ainda usa
 
 Ver [contratos de integração](/08-integration-architecture/integration-contracts.md).
 
-Plataformas que quebram os times sem aviso perdem a confiança — e a recuperação leva
+Plataformas que quebram os times sem aviso perdem a confiança, e a recuperação leva
 muito mais tempo que a quebra.
 
 ## Modelo Mental
@@ -174,8 +174,8 @@ controle precisa estar no código, não numa pessoa.
 
 **Sem autosserviço.** Chamado não é plataforma.
 
-**Com poucos times consumidores.** A plataforma tem custo fixo — um time dedicado,
-mantendo modelo, provisionamento e catálogo — e o que ela elimina é duplicação entre
+**Com poucos times consumidores.** A plataforma tem custo fixo (um time dedicado,
+mantendo modelo, provisionamento e catálogo), e o que ela elimina é duplicação entre
 times. Com três ou quatro times, a duplicação é menor que esse custo; a conta está em
 [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
@@ -189,12 +189,12 @@ o atrito que sobra está em operar o que já existe.
 
 ## Alternativas
 
-- **Repositórios modelo** — o mínimo viável: um exemplo com tudo configurado, copiado
+- **Repositórios modelo** (o mínimo viável): um exemplo com tudo configurado, copiado
   pelos times.
-- **Bibliotecas e módulos compartilhados** — padrões em código, sem plataforma.
-- **Plataforma comercial** — comprar. Ver
+- **Bibliotecas e módulos compartilhados**: padrões em código, sem plataforma.
+- **Plataforma comercial**: comprar. Ver
   [SaaS](/09-cloud-architecture/saas.md).
-- **Time de habilitação** — capacitar em vez de abstrair.
+- **Time de habilitação**: capacitar em vez de abstrair.
 
 A primeira é subestimada: um repositório modelo bem mantido, com esteira, telemetria e
 implantação prontas, entrega boa parte do valor de uma plataforma com uma fração do
@@ -238,22 +238,22 @@ e com a implantação de produção capaz de rodar sem o portal e o catálogo.
 
 ## Erros Comuns
 
-**Não oferecer autosserviço real** — a fila de chamados continua, e os times seguem
+**Não oferecer autosserviço real**: a fila de chamados continua, e os times seguem
 evitando criar serviços.
 
-**Catálogo preenchido à mão** — ele diverge, deixa de responder quem é dono do quê, e a
+**Catálogo preenchido à mão**: ele diverge, deixa de responder quem é dono do quê, e a
 resposta volta a ser perguntar às pessoas.
 
-**Não ter interface programável** — os times automatizam por fora, com chamadas diretas à
+**Não ter interface programável**: os times automatizam por fora, com chamadas diretas à
 API, e a plataforma perde o controle que deveria ter.
 
-**Aceitar todo caso especial** — cada exceção vira um parâmetro, e a plataforma chega aos
+**Aceitar todo caso especial**: cada exceção vira um parâmetro, e a plataforma chega aos
 20 parâmetros impossíveis de manter do Exemplo Real.
 
-**Não planejar depreciação** — a remoção quebra times sem aviso, e a confiança perdida
+**Não planejar depreciação**: a remoção quebra times sem aviso, e a confiança perdida
 demora mais a voltar que a capacidade removida.
 
-**Não revisar os padrões do modelo** — eles se propagam a tudo que é criado.
+**Não revisar os padrões do modelo**: eles se propagam a tudo que é criado.
 
 ## Exemplo Real
 
@@ -279,8 +279,8 @@ A plataforma foi construída em fases, priorizadas pelo tempo que cada etapa con
 **Fase 1 — criação de serviço.** Um modelo que gera repositório, esteira, implantação,
 telemetria e alertas configurados. De 8 dias para 4 minutos.
 
-**Fase 2 — infraestrutura por declaração.** O time declara num arquivo o que precisa —
-banco, fila, cache — e a plataforma provisiona, com limites e marcação aplicados
+**Fase 2 — infraestrutura por declaração.** O time declara num arquivo o que precisa
+(banco, fila, cache), e a plataforma provisiona, com limites e marcação aplicados
 automaticamente. De 5 dias para 10 minutos.
 
 **Fase 3 — segredos por autosserviço**, com permissões derivadas do serviço. De 3 dias
@@ -308,16 +308,16 @@ A política mudou: casos especiais saem do caminho pavimentado, com a plataforma
 entregando a configuração gerada como ponto de partida.
 
 O ponto que a equipe sublinha: a mudança de comportamento foi maior que a de tempo. Com criação
-de serviço em minutos, os times passaram a decompor adequadamente — e o problema de
+de serviço em minutos, os times passaram a decompor adequadamente. E o problema de
 serviços inchados, que era tratado como questão de arquitetura, era consequência do
 atrito.
 
 ## Conceitos Relacionados
 
-- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md) — a disciplina.
+- [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md): a disciplina.
 - [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
 - [Infraestrutura como Código](/14-devops-and-platform/infrastructure-as-code.md).
-- [Menor Privilégio](/10-security/least-privilege.md) — os padrões do modelo.
+- [Menor Privilégio](/10-security/least-privilege.md): os padrões do modelo.
 
 ## Exercício Prático
 

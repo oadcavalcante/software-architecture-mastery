@@ -2,7 +2,7 @@
 id: golden-signals
 title: Sinais Dourados
 sidebar_position: 10
-description: Quatro medidas que cobrem a maior parte dos problemas — e por onde começar quando não se sabe o que instrumentar.
+description: Quatro medidas que cobrem a maior parte dos problemas, e por onde começar quando não se sabe o que instrumentar.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, alerting, dashboards]
 canonical_for: [sinais dourados, taxa de tráfego, saturação de recurso, sinal de erro]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -31,7 +31,7 @@ erros       que proporção falha
 saturação   quão perto do limite está
 ```
 
-Elas não são exaustivas. São o ponto de partida que evita o padrão comum — instrumentar
+Elas não são exaustivas. São o ponto de partida que evita o padrão comum: instrumentar
 dezenas de métricas específicas e não ter as básicas quando o incidente chega.
 
 ## Problema
@@ -40,8 +40,8 @@ A instrumentação típica cresce por acumulação: alguém adiciona uma métric
 investigar um problema, ela fica, e o painel vai enchendo.
 
 O resultado é um conjunto grande de medidas específicas, com lacunas nas fundamentais.
-Durante um incidente, as perguntas são sempre as mesmas — está lento? quanto tráfego?
-quantos erros? o que está no limite? — e frequentemente não há resposta direta.
+Durante um incidente, as perguntas são sempre as mesmas (está lento? quanto tráfego?
+quantos erros? o que está no limite?) e frequentemente não há resposta direta.
 
 Os quatro sinais existem para garantir que essas perguntas tenham resposta, em todo
 serviço, sempre.
@@ -62,13 +62,13 @@ separadas.
 
 Para descrever a experiência do usuário e para alertar, use **percentis**; a média só
 serve quando o que se quer é trabalho agregado, como custo por requisição. A média de um
-serviço com 99% em 50 ms e 1% em 10 segundos é cerca de 150 ms — um número que não
+serviço com 99% em 50 ms e 1% em 10 segundos é cerca de 150 ms: um número que não
 descreve a experiência de ninguém. Ver
 [latência](/06-distributed-systems/latency.md).
 
 ### Tráfego: o denominador de tudo
 
-Requisições por segundo, mensagens processadas por minuto, transações por hora — a
+Requisições por segundo, mensagens processadas por minuto, transações por hora: a
 unidade depende do serviço.
 
 Ele importa por três razões:
@@ -130,8 +130,8 @@ acontecendo; saturação indica que ele vai acontecer.
 O erro de aplicação: medir os quatro apenas na borda.
 
 Cada serviço da cadeia precisa dos seus. Sem isso, sabe-se que a requisição está lenta e
-não onde ela gasta o tempo — ver
-[rastreamento distribuído](/13-observability/distributed-tracing.md).
+não onde ela gasta o tempo (ver
+[rastreamento distribuído](/13-observability/distributed-tracing.md)).
 
 E cada dependência externa também: latência, tráfego, erros e saturação das chamadas que
 você faz para fora. É onde a maior parte dos problemas se origina, e é o que costuma
@@ -185,15 +185,15 @@ ao método USE nos recursos, cobrem o que a divisão por serviço cobriria.
 
 ## Alternativas
 
-- **Método USE** — utilização, saturação e erros, por recurso. Orientado a
+- **Método USE**: utilização, saturação e erros, por recurso. Orientado a
   infraestrutura, complementa os sinais dourados, que são orientados a serviço.
-- **Método RED** — taxa, erros e duração. Essencialmente os sinais dourados sem
+- **Método RED**: taxa, erros e duração. Essencialmente os sinais dourados sem
   saturação.
-- **[SLI](/12-reliability/sli.md)** — mede a experiência do usuário; os sinais
+- **[SLI](/12-reliability/sli.md)**: mede a experiência do usuário; os sinais
   dourados medem o serviço. São complementares, não substitutos.
 
 A última distinção importa: um SLI ruim com sinais dourados bons indica que o problema
-está fora do serviço — rede, cliente, dependência não instrumentada.
+está fora do serviço (rede, cliente, dependência não instrumentada).
 
 ## Trade-offs
 
@@ -220,15 +220,15 @@ está fora do serviço — rede, cliente, dependência não instrumentada.
 
 ## Erros Comuns
 
-**Não separar latência de sucesso e de erro.** Erros costumam responder rápido, então uma alta na taxa de falha *melhora* a latência agregada — e o painel melhora enquanto o sistema piora.
+**Não separar latência de sucesso e de erro.** Erros costumam responder rápido, então uma alta na taxa de falha *melhora* a latência agregada, e o painel melhora enquanto o sistema piora.
 
-**Usar média como sinal de latência.** Um alerta sobre média não dispara enquanto a cauda degrada — ver [latência](/06-distributed-systems/latency.md).
+**Usar média como sinal de latência.** Um alerta sobre média não dispara enquanto a cauda degrada (ver [latência](/06-distributed-systems/latency.md)).
 
 **Medir CPU como saturação.** Saturação é o recurso mais restrito, que frequentemente é pool de conexões, threads ou profundidade de fila. CPU costuma estar baixa quando o sistema já não aceita mais trabalho.
 
 **Não instrumentar chamadas de saída.** Sem os quatro sinais nas dependências, o serviço aparece lento sem causa visível, e a investigação começa pelo lugar errado.
 
-**Não adaptar para filas e processamento em lote.** Ali os sinais equivalentes são idade da mensagem mais antiga, taxa de conclusão e profundidade — aplicar latência de requisição não mede nada.
+**Não adaptar para filas e processamento em lote.** Ali os sinais equivalentes são idade da mensagem mais antiga, taxa de conclusão e profundidade. Aplicar latência de requisição não mede nada.
 
 **Não alertar sobre queda de tráfego.** Tráfego que despenca é sintoma de falha antes do sistema, e nenhuma métrica de erro acusa: tudo parece saudável porque ninguém está chegando.
 
@@ -237,7 +237,7 @@ está fora do serviço — rede, cliente, dependência não instrumentada.
 Uma plataforma de pagamentos tinha 340 métricas instrumentadas e um painel com 60
 gráficos.
 
-Durante um incidente de latência, a equipe levou 50 minutos para localizar a origem —
+Durante um incidente de latência, a equipe levou 50 minutos para localizar a origem,
 apesar de toda a instrumentação.
 
 A revisão encontrou o problema: as 340 métricas eram específicas, acumuladas ao longo
@@ -258,7 +258,7 @@ A reformulação:
 limitante de cada um.
 
 **Saturação identificada por serviço.** A análise mostrou que em nove dos catorze o
-limitante era o pool de conexões, não CPU — e nenhum tinha essa métrica.
+limitante era o pool de conexões, não CPU, e nenhum tinha essa métrica.
 
 **Instrumentação de saída** para as 23 dependências externas. Isso revelou que um
 provedor de antifraude respondia em 2,8 segundos no percentil 95, contra os 400 ms
@@ -279,14 +279,14 @@ faltavam as quatro medidas que respondem às primeiras perguntas de qualquer inc
 
 ## Conceitos Relacionados
 
-- [Métricas](/13-observability/metrics.md) — como implementá-los.
-- [Alertas](/13-observability/alerting.md) — o que fazer com eles.
+- [Métricas](/13-observability/metrics.md): como implementá-los.
+- [Alertas](/13-observability/alerting.md): o que fazer com eles.
 - [Painéis](/13-observability/dashboards.md).
-- [SLI](/12-reliability/sli.md) — a medida da experiência.
+- [SLI](/12-reliability/sli.md): a medida da experiência.
 
 ## Exercício Prático
 
-Escolha um serviço do seu sistema e verifique se os quatro sinais existem — com latência
+Escolha um serviço do seu sistema e verifique se os quatro sinais existem: com latência
 em percentis, separada por resultado, e saturação do recurso que de fato limita.
 
 A lacuna mais comum é a última: a maioria mede CPU, e o limitante é outra coisa.
@@ -299,6 +299,6 @@ A lacuna mais comum é a última: a maioria mede CPU, e o limitante é outra coi
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 6.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 6.
 - Gregg, Brendan. *The USE Method*, 2012.
 - Wilkie, Tom. *The RED Method*, 2018.

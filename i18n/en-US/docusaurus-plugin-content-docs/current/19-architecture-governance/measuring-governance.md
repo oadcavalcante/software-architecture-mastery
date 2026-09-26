@@ -2,7 +2,7 @@
 id: measuring-governance
 title: Measuring Governance
 sidebar_position: 10
-description: Measuring effect and friction — without both numbers, every mechanism looks justified.
+description: "Measuring effect and friction: without both numbers, every mechanism looks justified."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-pathologies, compliance, governance-basics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 In governance, a mechanism can be created with no measurement at all and kept indefinitely
-with no evidence at all — unlike a service in production, which has monitoring to flag when
+with no evidence at all, unlike a service in production, which has monitoring to flag when
 it stops doing its job.
 
 The reason is structural: a mechanism's **effect** is an event that didn't happen, and its
@@ -38,7 +38,7 @@ friction   how much delay and effort it cost, in aggregate
 ```
 
 Without both numbers, the discussion about keeping or removing is decided by whoever has more
-authority — which is the definition of one of the
+authority. That is the definition of one of the
 [pathologies](/19-architecture-governance/governance-pathologies.md).
 
 ## Problem
@@ -63,7 +63,7 @@ That number exists and is almost never calculated. When it is, the discussion ch
 nature.
 
 And there is a measurement trap specific to this area: measuring activity instead of effect.
-Number of reviews held, standards published, committee sessions — all grow with the effort and
+Number of reviews held, standards published, committee sessions: all grow with the effort and
 none tells you whether anything improved.
 
 ## Core Concepts
@@ -80,7 +80,7 @@ divergences prevented, measurably
 The first is the easiest and the most revealing. A review that changed no decision in a year
 is producing no effect, regardless of how many sessions it held.
 
-And it has to be recorded at the time — reconstructing it later is impossible. See
+And it has to be recorded at the time: reconstructing it later is impossible. See
 [review](/19-architecture-governance/governance-review.md), where separating blocking from
 recommendation already produces that data.
 
@@ -116,7 +116,7 @@ The right-hand column carries its own risk: an indicator that becomes a target s
 cosmetic changes start being recorded as effect. The defense is who collects it: the change
 is recorded by whoever had the proposal changed, not by the reviewer, and the indicator serves
 to decide about the mechanism, never to evaluate whoever runs it. The cost of collecting is
-one more field in the record of each review — minutes per occurrence, against hours to
+one more field in the record of each review: minutes per occurrence, against hours to
 reconstruct the data later.
 
 ### Indicators that work
@@ -135,7 +135,7 @@ The third is the most informative and the least used: comparing recorded excepti
 deviations a technical check would find measures governance visibility directly. See
 [exceptions](/19-architecture-governance/exceptions.md).
 
-The last is an indicator about the governance system, not about a mechanism — and it is the
+The last is an indicator about the governance system, not about a mechanism, and it is the
 best predictor of accumulation.
 
 ### The counterfactual can be tested
@@ -149,7 +149,7 @@ compare with the previous period
 ```
 
 That requires risk tolerance and is applicable only where the consequence of a failure is
-recoverable — never for a regulatory requirement or a critical security control.
+recoverable, never for a regulatory requirement or a critical security control.
 
 Where it is applicable, it produces evidence no analysis produces.
 
@@ -190,7 +190,7 @@ authority.
 
 ## When to Use
 
-- When creating any mechanism — define the measure beforehand.
+- When creating any mechanism: define the measure beforehand.
 - In a periodic review of the set.
 - When there is diffuse complaining about bureaucracy.
 - Before proposing removal.
@@ -202,7 +202,7 @@ friction than instrumenting it; a yearly conversation with the people who use it
 
 **A control whose existence is not up for discussion.** A regulatory requirement won't be
 removed whatever effect is measured; measuring serves to adjust how it is met, not to decide
-whether it stays — and suspending it to test is out of the question.
+whether it stays, and suspending it to test is out of the question.
 
 **No process that acts on the result.** If no forum has the authority to remove or rework
 mechanisms, measurement becomes a report with no consequence and consumes the collection
@@ -210,10 +210,10 @@ effort with no return. Create the review process before instrumenting.
 
 ## Alternatives
 
-- **Temporary suspension** — evidence instead of a measure.
-- **A qualitative survey** — faster, less precise, frequently sufficient.
-- **A sample audit** — to estimate effect where continuous measurement is expensive.
-- **Delivery indicators** — cycle time and deployment frequency capture the aggregate
+- **Temporary suspension**: evidence instead of a measure.
+- **A qualitative survey**: faster, less precise, frequently sufficient.
+- **A sample audit**: to estimate effect where continuous measurement is expensive.
+- **Delivery indicators**: cycle time and deployment frequency capture the aggregate
   friction without attributing it to a mechanism. See
   [continuous delivery](/14-devops-and-platform/ci-cd.md).
 
@@ -250,18 +250,18 @@ governance is a suspect.
 
 ## Common Mistakes
 
-**Creating a mechanism without defining how to measure it** — the effect is never recorded,
+**Creating a mechanism without defining how to measure it**: the effect is never recorded,
 and the mechanism stays shielded by the counterfactual argument.
 
-**Not recording when a review changed a decision** — data not collected at the time is lost.
+**Not recording when a review changed a decision**: data not collected at the time is lost.
 
-**Comparing organizations** instead of comparing the same organization over time — the
+**Comparing organizations** instead of comparing the same organization over time: the
 comparison ignores differences in risk and volume, and leads to cutting controls the local
 context requires.
 
-**Not adding up the friction** — each wait looks small in isolation.
+**Not adding up the friction**: each wait looks small in isolation.
 
-**Not measuring mechanisms removed per year** — without that number, accumulation is only
+**Not measuring mechanisms removed per year**: without that number, accumulation is only
 noticed once friction has already become widespread complaint.
 
 ## Real-World Example
@@ -302,15 +302,15 @@ Neither side of the earlier discussion had those numbers.
 
 The decisions:
 
-**Two mechanisms removed** — the monthly report, which nobody read, and the impact form,
+**Two mechanisms removed**: the monthly report, which nobody read, and the impact form,
 whose only recorded effect in 12 months was flagging an error the pipeline would also have
 caught.
 
 **The committee reworked** into advice, with a gate on three classes. See
 [review](/19-architecture-governance/governance-review.md).
 
-**New technology approval** narrowed to technologies that enter the shared on-call rotation —
-before it applied to any library.
+**New technology approval** narrowed to technologies that enter the shared on-call rotation.
+Before, it applied to any library.
 
 **Seven mechanisms converted into automated checks**, chosen by their ratio of friction to
 effect, and consolidated into four checks in the pipeline.
@@ -333,16 +333,16 @@ converted into automated checks catch more than their manual equivalents, becaus
 every time.
 
 The detail the team highlights: the two-year discussion ended in a single meeting, when the
-table was presented. There was no new argument — there was a number.
+table was presented. There was no new argument, only a number.
 
 ## Related Concepts
 
-- [Pathologies](/19-architecture-governance/governance-pathologies.md) — what measurement
+- [Pathologies](/19-architecture-governance/governance-pathologies.md): what measurement
   diagnoses.
-- [Governance Basics](/19-architecture-governance/governance-basics.md) — the declared cost
+- [Governance Basics](/19-architecture-governance/governance-basics.md): the declared cost
   per mechanism.
-- [Compliance](/19-architecture-governance/compliance.md) — measuring the state.
-- [Exceptions](/19-architecture-governance/exceptions.md) — the ratio of exceptions to silent
+- [Compliance](/19-architecture-governance/compliance.md): measuring the state.
+- [Exceptions](/19-architecture-governance/exceptions.md): the ratio of exceptions to silent
   deviations.
 
 ## Practical Exercise

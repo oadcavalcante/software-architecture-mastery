@@ -2,7 +2,7 @@
 id: state-management
 title: State Management
 sidebar_position: 6
-description: Where state lives and who owns it — the decision that determines how easy it will be to scale.
+description: "Where state lives and who owns it: the decision that determines how easy it will be to scale."
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [stateless-vs-stateful, caching, data-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 State is everything the system remembers between one operation and another.
 
 Deciding **where** each type of state lives is one of the most consequential decisions in
-system design — it determines what can scale, what can fail without loss, and what needs
+system design: it determines what can scale, what can fail without loss, and what needs
 coordination.
 
 ## Problem
@@ -56,14 +56,14 @@ problems.
 | **In-flight** | An item in a queue being handled | Must be reprocessable | Queue with acknowledgment |
 | **Ephemeral request state** | Variables of one call | Yes, along with the request | Local memory |
 
-Cache is the only one whose loss is always acceptable — because it is derivable. If
+Cache is the only one whose loss is always acceptable, because it is derivable. If
 losing the cache hurts, it was not a cache: it was state with the wrong name.
 
 ### Local state is what prevents scaling
 
 An instance that keeps state in memory between requests creates three problems.
 
-Requests from the same user have to come back to the same instance — which requires
+Requests from the same user have to come back to the same instance. That requires
 session affinity in the load balancer and unbalances the load.
 
 Restarting loses it. Every deployment becomes a loss of state.
@@ -77,7 +77,7 @@ See [stateless versus stateful](/05-system-design/stateless-vs-stateful.md).
 
 The practical recommendation: **few stateful components, many stateless ones.**
 
-The stateful ones — database, distributed cache, queue — are the hard ones to operate:
+The stateful ones (database, distributed cache, queue) are the hard ones to operate:
 replication, recovery, consistency. Concentrating them means having a few hard places,
 instead of difficulty spread everywhere.
 
@@ -94,10 +94,10 @@ Three options, with distinct trade-offs:
 one more component to operate.
 
 **On the client, in a signed token.** It scales with no server-side state, at the cost of
-bandwidth — the token travels on every request. And it cannot be revoked before it expires,
+bandwidth: the token travels on every request. And it cannot be revoked before it expires,
 and grows with what it carries.
 
-Revocation is the problem the third does not solve — mitigated by a short expiry plus a
+Revocation is the problem the third does not solve, mitigated by a short expiry plus a
 revocation list for exceptional cases.
 
 ## Mental Model
@@ -111,7 +111,7 @@ The answer classifies the state and determines where it should live.
 
 Local in-memory state is justified when:
 
-- It is derivable and the loss is acceptable — a cache.
+- It is derivable and the loss is acceptable: a cache.
 - It lives within one request.
 - There is a single instance and there will continue to be.
 
@@ -133,11 +133,11 @@ the disk.
 
 ## Alternatives
 
-- **Database** — for state that cannot be lost.
-- **Distributed cache** — for shared, disposable state.
-- **Signed token** — for a session with no server-side state.
-- **Queue with acknowledgment** — for in-flight state.
-- **Do not keep it** — the most underestimated alternative: recomputing can be cheaper
+- **Database**: for state that cannot be lost.
+- **Distributed cache**: for shared, disposable state.
+- **Signed token**: for a session with no server-side state.
+- **Queue with acknowledgment**: for in-flight state.
+- **Do not keep it**, the most underestimated alternative: recomputing can be cheaper
   than managing.
 
 ## Trade-offs
@@ -184,7 +184,7 @@ It worked with two instances. With eight, three problems appeared.
 The load became uneven: older instances accumulated active sessions and the new ones sat
 idle.
 
-Every deployment dropped in-progress carts — and the team started deploying only
+Every deployment dropped in-progress carts, and the team started deploying only
 overnight, which reduced the delivery frequency.
 
 And a Black Friday peak took down two instances on memory, taking with them the carts that
@@ -192,14 +192,14 @@ were on them.
 
 The reclassification separated three things that had been mixed together.
 
-**Identity and authentication** became a signed token with a 15-minute validity — no
+**Identity and authentication** became a signed token with a 15-minute validity: no
 server-side state.
 
-**The cart** moved to shared storage — the same distributed cache component, with
+**The cart** moved to shared storage: the same distributed cache component, with
 memory-pressure eviction turned off and a 7-day expiry. It stays session state, not cache:
 the business accepts losing it at the deadline, but not on every deployment.
 
-**Display preferences** — filter, sort order — moved to the client. They did not need the
+**Display preferences** (filter, sort order) moved to the client. They did not need the
 server.
 
 Session affinity was removed, the load balanced out, and deployments stopped losing carts.
@@ -222,8 +222,8 @@ options have quite distinct profiles.
 | Size | No practical limit | No practical limit | Travels on every request |
 | Additional component | None | One | None |
 
-The revocation line usually decides. Systems with an immediate-blocking requirement —
-financial, healthcare, any context with a regulatory consequence — cannot depend on expiry
+The revocation line usually decides. Systems with an immediate-blocking requirement
+(financial, healthcare, any context with a regulatory consequence) cannot depend on expiry
 alone.
 
 The combination that solves that: a short token for access, with revocable state on the
@@ -236,11 +236,11 @@ per load.
 
 ## Related Concepts
 
-- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md) — the consequence
+- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md): the consequence
   for scaling.
-- [Caching](/05-system-design/caching.md) — the disposable state.
-- [Load Balancing](/05-system-design/load-balancing.md) — where affinity shows up.
-- [Data Architecture](/07-data-architecture/index.md) — the persistent state.
+- [Caching](/05-system-design/caching.md): the disposable state.
+- [Load Balancing](/05-system-design/load-balancing.md): where affinity shows up.
+- [Data Architecture](/07-data-architecture/index.md): the persistent state.
 
 ## Practical Exercise
 

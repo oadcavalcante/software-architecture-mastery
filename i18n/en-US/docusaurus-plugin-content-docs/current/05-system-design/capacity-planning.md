@@ -2,7 +2,7 @@
 id: capacity-planning
 title: Capacity Planning
 sidebar_position: 21
-description: Estimating before building — and why the order of magnitude matters more than precision.
+description: Estimating before building, and why the order of magnitude matters more than precision.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [bottleneck-analysis, scalability-basics, back-of-envelope]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Capacity planning is estimating how much the system needs to handle — in volume, data and
-bandwidth — before building it.
+Capacity planning is estimating how much the system needs to handle (in volume, data and
+bandwidth) before building it.
 
 The goal is not to get the number right. It is **to discover the order of magnitude**, because
 that is what eliminates unviable architectures and reveals where the problem will be.
@@ -32,7 +32,7 @@ that is what eliminates unviable architectures and reveals where the problem wil
 With no estimate, every architectural decision has no criterion. "Do we need a cache?" has no
 answer if nobody knows how many reads per second there are.
 
-The result is deciding by reputation — adopting what large systems adopt — or by familiarity. In
+The result is deciding by reputation (adopting what large systems adopt) or by familiarity. In
 both cases, the system is sized for a scale somebody imagined.
 
 And the estimate is usually avoided for a specific reason: people think it has to be precise. It
@@ -44,7 +44,7 @@ eliminates the wrong options.**
 ### What to estimate, in this order
 
 **Operation volume.** How many per day, and what the peak is. The ratio between peak and average
-matters more than the average — systems go down at the peak.
+matters more than the average: systems go down at the peak.
 
 **The distribution between reads and writes.** A system with a 100-to-1 ratio has a different
 architecture from one with 1 to 1.
@@ -69,8 +69,8 @@ Numbers worth having in your head, because they make estimating fast:
 ```
 
 Rule of thumb for peaks: **the peak is usually 2× to 5× the average** in systems with human
-usage, and much more in systems with a concentrated event — ticket sales, Black Friday, the
-accounting close.
+usage, and much more in systems with a concentrated event (ticket sales, Black Friday, the
+accounting close).
 
 A complete example:
 
@@ -96,12 +96,12 @@ The value is in **ruling out**, not in predicting.
 
 12 requests per second eliminates partitioning as a throughput answer, and with it distributed
 systems and space-based architecture. A database on one instance handles it with orders of
-magnitude of headroom — partitioning for stored volume is still an open question.
+magnitude of headroom. Partitioning for stored volume is still an open question.
 
 12 thousand per second eliminates the single instance and forces you to think about
 partitioning, replicas and caching from the start.
 
-The difference between the two is what the estimate reveals — and it does not change if the real
+The difference between the two is what the estimate reveals, and it does not change if the real
 number is 15 or 9.
 
 ### An estimate is not a forecast
@@ -110,7 +110,7 @@ An estimate says what the system needs to handle given a scenario. A forecast sa
 to happen.
 
 The first is useful and verifiable. The second gets it wrong, and the typical error is on the
-high side — every product expects to grow a hundredfold.
+high side: every product expects to grow a hundredfold.
 
 The question that avoids oversizing: **what is the growth over the next twelve months, and how
 much does it cost to defer the scaling decision until then?** Frequently deferring is cheap, and
@@ -123,15 +123,15 @@ estimate when there is real data is choosing the worse source.
 
 ## Mental Model
 
-**Order of magnitude, not a number.** The question is whether it is tens, thousands or millions —
+**Order of magnitude, not a number.** The question is whether it is tens, thousands or millions,
 because each band has a different architecture.
 
 ## When to Use
 
 - Before deciding the architecture of a new system.
 - When evaluating whether a scaling decision is justified.
-- In a system design interview — see
-  [capacity estimation](/22-system-design-interviews/index.md).
+- In a system design interview (see
+  [capacity estimation](/22-system-design-interviews/index.md)).
 - When sizing infrastructure and budget.
 - Before adopting any distributed component.
 
@@ -149,9 +149,9 @@ time.
 
 ## Alternatives
 
-- **Measure** — when the system exists.
-- **Load test** — to discover the real limit instead of computing it.
-- **Compare with a similar system** — when there is an internal one with a similar profile.
+- **Measure**: when the system exists.
+- **Load test**: to discover the real limit instead of computing it.
+- **Compare with a similar system**: when there is an internal one with a similar profile.
 
 ## Trade-offs
 
@@ -168,7 +168,7 @@ time.
 
 **Forgetting data growth.** The volume per second fits, and three years of storage does not.
 
-**Ignoring bandwidth.** A 500 KB response at 200 requests per second is 100 MB/s of egress —
+**Ignoring bandwidth.** A 500 KB response at 200 requests per second is 100 MB/s of egress,
 frequently the dominant cost.
 
 **Oversizing by optimistic forecast.** Capacity sits idle for most of the day, and the cost per
@@ -180,7 +180,7 @@ improves the next estimate.
 ## Common Mistakes
 
 **Skipping the estimate.** Without it, the architectural decision is made by intuition about
-volume — and intuition about volume is off by orders of magnitude, in both directions.
+volume, and intuition about volume is off by orders of magnitude, in both directions.
 
 **Seeking precision instead of an order of magnitude.** The question the estimate answers is
 whether it fits on one machine or requires a hundred. Refining from 8,200 to 8,350 requests per
@@ -215,27 +215,27 @@ queries: ~50 users, ~2 queries/min → 1.7 /s
 267 writes per second and fewer than 2 reads. A relational database with a table partitioned by
 time handles it comfortably.
 
-The accumulated volume — 1.7 TB/year — was the only number that required a decision: retention.
+The accumulated volume (1.7 TB/year) was the only number that required a decision: retention.
 The conversation with the business defined 90 days in detail and monthly aggregation afterwards,
 which reduced the active store to 420 GB.
 
 The system was built with one relational database instance and an ingestion process. It ran for
 three years.
 
-In the third year, the fleet reached 60 thousand vehicles — 2,000 writes per second — and
+In the third year, the fleet reached 60 thousand vehicles (2,000 writes per second), and
 partitioning became necessary. The decision was made with real data, not with an estimate, and it
 cost two weeks.
 
 What the estimate avoided: three years operating a distributed system for a load one instance
 handled, with the corresponding operational cost.
 
-And what it got right was not the number — the fleet grew more than expected. It was the
+And what it got right was not the number (the fleet grew more than expected). It was the
 **initial order of magnitude**, which was hundreds and not tens of thousands.
 
 ## Reference numbers
 
-Estimating gets fast when a few orders of magnitude are memorized. These do not have to be exact
-— they have to be the right order. They hold for current commodity server hardware and follow the
+Estimating gets fast when a few orders of magnitude are memorized. These do not have to be exact;
+they have to be the right order. They hold for current commodity server hardware and follow the
 canonical table in
 [Back-of-the-Envelope Calculations](/22-system-design-interviews/back-of-envelope.md).
 
@@ -272,12 +272,12 @@ not to size.
 
 ## Related Concepts
 
-- [Bottleneck Analysis](/05-system-design/bottleneck-analysis.md) — where the limit appears.
-- [Scalability Basics](/05-system-design/scalability-basics.md) — what to do with the result.
-- [Back-of-the-Envelope Calculations](/22-system-design-interviews/index.md) — the technique in an
+- [Bottleneck Analysis](/05-system-design/bottleneck-analysis.md): where the limit appears.
+- [Scalability Basics](/05-system-design/scalability-basics.md): what to do with the result.
+- [Back-of-the-Envelope Calculations](/22-system-design-interviews/index.md): the technique in an
   interview.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
-- [Business Context](/01-fundamentals/business-context.md) — where the growth number
+- [Business Context](/01-fundamentals/business-context.md): where the growth number
   being sized for comes from.
 
 ## Practical Exercise
@@ -286,7 +286,7 @@ Estimate the capacity of the system you work on, without looking at metrics: ope
 second at peak, data growth per day, egress bandwidth.
 
 Then compare with the real numbers. The distance between the two says how well you know the
-system — and the exercise improves the next estimate.
+system, and the exercise improves the next estimate.
 
 ## Interview Questions
 
@@ -296,7 +296,7 @@ system — and the exercise improves the next estimate.
 
 ## Further Reading
 
-- Dean, Jeff. *Numbers Everyone Should Know*, 2009 — the original reference latency table; the
+- Dean, Jeff. *Numbers Everyone Should Know*, 2009. The original reference latency table; the
   values above reflect more recent hardware.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — the chapter on capacity
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. The chapter on capacity
   planning.

@@ -2,7 +2,7 @@
 id: olap
 title: OLAP
 sidebar_position: 8
-description: Analytical workload — few large queries that scan a lot and aggregate, with tolerant latency.
+description: "Analytical workload: few large queries that scan a lot and aggregate, with tolerant latency."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oltp]
 related: [data-warehouses, column-stores, denormalization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-OLAP — online analytical processing — describes the workload opposite to the
+OLAP (online analytical processing) describes the workload opposite to the
 [transactional](/07-data-architecture/oltp.md) one: **few queries, each scanning large volumes,
 aggregating, with tolerance for latency of seconds or minutes**.
 
@@ -64,7 +64,7 @@ A typical analytical query reads few columns from many rows. [Columnar](/07-data
 storage keeps each column together, so reading two columns from a fifty-column table reads only what
 is needed.
 
-The gain is not marginal. Add compression — similar adjacent values compress very well — and the
+The gain is not marginal. Add compression (similar adjacent values compress very well) and the
 difference is usually one to two orders of magnitude.
 
 ### Denormalizing is the right choice here
@@ -73,7 +73,7 @@ The criterion that holds in [OLTP](/07-data-architecture/oltp.md) inverts. Since
 concurrent writes and the queries scan, [denormalizing](/07-data-architecture/denormalization.md)
 eliminates joins with no relevant maintenance cost.
 
-It is the reason [dimensional models](/07-data-architecture/data-warehouses.md) — a fact at the center, dimensions around it — dominate analytical
+It is the reason [dimensional models](/07-data-architecture/data-warehouses.md) (a fact at the center, dimensions around it) dominate analytical
 design.
 
 ### Pre-aggregation trades space for time
@@ -86,10 +86,10 @@ periodic check that the two match is the control that is usually missing.
 
 ### Analytical data is historical, and that changes everything
 
-A recorded fact — a sale, a click — does not change after being written. That allows partitioning by
+A recorded fact (a sale, a click) does not change after being written. That allows partitioning by
 time, compressing aggressively, archiving to cheap storage and reprocessing with no coordination.
 
-The changes that do happen — a late-arriving fact, a load correction, deletion for retention — arrive
+The changes that do happen (a late-arriving fact, a load correction, deletion for retention) arrive
 in batches and by period, not row by row. That is why the unit of change is the partition: the whole
 day is deleted and rewritten, as in the Real-World Example below. An analytical system that treats
 each record as individually mutable is paying a cost it does not have to pay.
@@ -99,7 +99,7 @@ each record as individually mutable is paying a cost it does not have to pay.
 Giving business teams direct analytical access is valuable and brings a predictable consequence:
 badly written queries, full scans with no period filter, and cost that grows with no ceiling.
 
-A time limit, a per-user quota and a mandatory partition filter are not bureaucracy — they are what
+A time limit, a per-user quota and a mandatory partition filter are not bureaucracy; they are what
 keeps the platform viable.
 
 ### Freshness is a requirement to be asked about, not presumed
@@ -125,7 +125,7 @@ analytical platform's cost with nobody noticing the trade.
 
 ## Mental Model
 
-**OLAP is about few queries that read a lot.** Columnar, denormalized and historical — all three
+**OLAP is about few queries that read a lot.** Columnar, denormalized and historical: all three
 follow from that.
 
 ## When to Use
@@ -153,11 +153,11 @@ certain volume.
 
 ## Alternatives
 
-- **Read replica** — separates the workload without changing technology. Sufficient for moderate
+- **Read replica**: separates the workload without changing technology. Sufficient for moderate
   volumes.
-- **Materialized view** — pre-aggregation with no separate platform.
-- **[Data warehouse](/07-data-architecture/data-warehouses.md)** — when there are multiple sources.
-- **Querying files directly** — when the volume is large and the frequency low.
+- **Materialized view**: pre-aggregation with no separate platform.
+- **[Data warehouse](/07-data-architecture/data-warehouses.md)**: when there are multiple sources.
+- **Querying files directly**: when the volume is large and the frequency low.
 
 ## Trade-offs
 
@@ -199,7 +199,7 @@ and disk with the transactions during business hours, and degrades exactly what 
 query wants few, wide joins. A normalized model turns a simple question into an eight-table join.
 
 **Building an analytical platform before the volume justifies it.** Up to a certain size, a read
-replica with a few indexes answers everything — with no load pipeline, no dimensional modeling and no
+replica with a few indexes answers everything, with no load pipeline, no dimensional modeling and no
 extra system to operate.
 
 **Not showing the last update time on dashboards.** A load broken three days ago shows exactly the
@@ -213,7 +213,7 @@ same screen as a correct one, and the decision is made on stale data with nobody
 A retail company built an executive dashboard on the replicated transactional database. It worked for
 a year and degraded.
 
-The problem was not the total volume — 200 million sales rows. It was the shape: each dashboard query
+The problem was not the total volume (200 million sales rows). It was the shape: each dashboard query
 joined sale, product, store and calendar, and aggregated by month.
 
 Load time: 90 seconds. The executives stopped using it.
@@ -225,7 +225,7 @@ Three problems appeared afterwards.
 
 **Silent duplication.** The daily load failed midway and was re-run. That day's facts were inserted
 twice, and revenue appeared inflated. Nobody noticed for six days, until a manager found his store's
-number odd. The fix was making the load idempotent — deleting the day's partition before reloading.
+number odd. The fix was making the load idempotent: deleting the day's partition before reloading.
 
 **Self-service cost.** With direct access opened up, one query with no period filter scanned five
 years of data. In one month, the query cost exceeded the storage cost fourfold. Solved with a
@@ -235,16 +235,16 @@ mandatory partition filter and a per-user quota.
 Decisions were made on stale information. The fix was trivial and should have existed from the start:
 a "data through" stamp on each dashboard.
 
-The team records the third as the most embarrassing — it cost one line of interface, the cheapest fix
+The team records the third as the most embarrassing: it cost one line of interface, the cheapest fix
 of the three, and it was the only one whose damage fell on decisions rather than on cost or on a number
 someone eventually checked.
 
 ## Related Concepts
 
-- [OLTP](/07-data-architecture/oltp.md) — the opposite workload.
-- [Column Stores](/07-data-architecture/column-stores.md) — the adequate technology.
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — the platform.
-- [Denormalization](/07-data-architecture/denormalization.md) — the model.
+- [OLTP](/07-data-architecture/oltp.md): the opposite workload.
+- [Column Stores](/07-data-architecture/column-stores.md): the adequate technology.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): the platform.
+- [Denormalization](/07-data-architecture/denormalization.md): the model.
 
 ## Practical Exercise
 
@@ -263,6 +263,6 @@ number is usually the argument that was missing.
 ## Further Reading
 
 - Kimball, Ralph; Ross, Margy. *The Data Warehouse Toolkit*. 3rd ed. Wiley, 2013.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 3.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 3.
 - Abadi, Daniel et al. *The Design and Implementation of Modern Column-Oriented Database Systems*,
   2013.

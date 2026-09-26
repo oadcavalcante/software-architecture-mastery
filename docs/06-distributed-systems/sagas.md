@@ -2,7 +2,7 @@
 id: sagas
 title: Sagas
 sidebar_position: 36
-description: Transações locais encadeadas com compensação — e o custo real de modelar o desfazer.
+description: Transações locais encadeadas com compensação, e o custo real de modelar o desfazer.
 doc_type: pattern
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-transactions]
 related: [idempotency, event-driven-systems, distributed-transactions]
 canonical_for: [saga, compensação, passo pivô]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -29,18 +29,18 @@ inversa.
 
 O que se ganha: nenhuma trava distribuída, nenhum coordenador bloqueante, cada
 passo independente. O que se paga: estados intermediários visíveis, e a
-obrigação de modelar o desfazer — que é a parte difícil e a mais subestimada.
+obrigação de modelar o desfazer, que é a parte difícil e a mais subestimada.
 
 ## Problema
 
 Sem transação distribuída, uma operação de múltiplos passos que falha no meio deixa
 estado parcial.
 
-A saga aceita que o estado parcial existe e o torna **temporário, nomeado e tratado** — em
+A saga aceita que o estado parcial existe e o torna **temporário, nomeado e tratado**, em
 vez de curto e sem nome (2PC) ou permanente (nada).
 
 A dificuldade não está no fluxo de sucesso. Está em responder, para cada passo,
-"como desfazer isto?" — e descobrir que a resposta nem sempre existe.
+"como desfazer isto?", e descobrir que a resposta nem sempre existe.
 
 ## Conceitos Centrais
 
@@ -55,7 +55,7 @@ compensação: houve um débito e houve um estorno
 ```
 
 A diferença é visível para o negócio e para a auditoria. E significa que existe uma
-janela em que o efeito não compensado estava visível — outros podem tê-lo
+janela em que o efeito não compensado estava visível: outros podem tê-lo
 observado e agido sobre ele.
 
 ### Nem tudo é compensável
@@ -69,7 +69,7 @@ compensação?
 a API de terceiro sem operação de cancelamento. Impressão. Envio físico.
 
 Para passos não compensáveis, a técnica é **ordenar a saga para colocá-los por
-último** — depois que todos os passos compensáveis já sucederam.
+último**, depois que todos os passos compensáveis já sucederam.
 
 A reordenação é o que decide se a saga tem ponto de retorno: com os não compensáveis no
 fim, todo passo anterior ao primeiro deles é reversível; com um no meio, a saga passa a ter
@@ -95,34 +95,34 @@ persistente. Isso muda o requisito: os passos posteriores precisam ser
 **Coreografia.** Cada serviço reage a eventos e emite os seus. Não há coordenador.
 
 Baixo acoplamento e nenhum ponto central. Em contrapartida, o fluxo não existe em
-lugar nenhum — está distribuído pelas reações. Depurar exige reconstruir a sequência
+lugar nenhum: está distribuído pelas reações. Depurar exige reconstruir a sequência
 a partir de registros de vários serviços.
 
 **Orquestração.** Um componente conduz: chama o passo 1, ao receber a resposta chama
 o passo 2, e assim por diante.
 
 O fluxo é explícito, legível e testável. Em contrapartida, há um componente que
-conhece todos os passos — acoplamento concentrado.
+conhece todos os passos: acoplamento concentrado.
 
 Os dois estilos são desenvolvidos em
 [arquitetura orientada a eventos](/03-design-patterns/event-driven.md), canônico do tema. O
 que muda numa saga é a compensação: ela é ordem, tem responsável e precisa acontecer mesmo
-quando ninguém está escutando — e é por isso que o canônico manda orquestrar fluxos com
+quando ninguém está escutando, e é por isso que o canônico manda orquestrar fluxos com
 ordem e compensação.
 
 **A ressalva deste documento:** numa saga de dois ou três passos sem passo pivô, a
 coreografia ainda é defensável, porque não há ordem de compensação a coordenar. A partir do
-momento em que existe um pivô, vale a regra do canônico — a dificuldade de depurar
+momento em que existe um pivô, vale a regra do canônico: a dificuldade de depurar
 coreografia cresce mais rápido que o benefício do desacoplamento.
 
 ### A saga precisa ser durável
 
-O estado da saga — qual passo, o que já sucedeu — precisa sobreviver a reinício.
+O estado da saga (qual passo, o que já sucedeu) precisa sobreviver a reinício.
 Se o orquestrador cai no meio, ele precisa retomar.
 
 Isso significa persistir o estado a cada transição, e ter processo que detecta
 sagas paradas e as retoma. Sem isso, uma queda deixa a operação em estado
-intermediário permanente — exatamente o que a saga deveria evitar.
+intermediário permanente: exatamente o que a saga deveria evitar.
 
 ### Compensação também falha
 
@@ -165,11 +165,11 @@ ficaram no meio, e a operação multi-passo que ela autorizou já aconteceu pela
 
 ## Alternativas
 
-- **[Transação distribuída](/06-distributed-systems/distributed-transactions.md)** — quando a atomicidade é
+- **[Transação distribuída](/06-distributed-systems/distributed-transactions.md)**: quando a atomicidade é
   inegociável e as condições permitem.
-- **Caixa de saída transacional** — para o caso simples de banco + evento.
-- **Reunir os dados** — transação local se a fronteira permitir.
-- **Reconciliação em lote** — para divergências raras, corrigir depois pode ser
+- **Caixa de saída transacional**: para o caso simples de banco + evento.
+- **Reunir os dados**: transação local se a fronteira permitir.
+- **Reconciliação em lote**: para divergências raras, corrigir depois pode ser
   mais barato que compensar em linha.
 
 ## Trade-offs
@@ -240,7 +240,7 @@ recebia o cancelamento. A reclamação era constante.
 A reformulação.
 
 **Orquestração.** Um serviço passou a conduzir, com o estado persistido a cada
-transição. O tempo de diagnóstico caiu para minutos — o estado da saga é uma
+transição. O tempo de diagnóstico caiu para minutos: o estado da saga é uma
 consulta.
 
 **Reordenação.** O e-mail foi movido para depois de todos os passos reserváveis.
@@ -253,7 +253,7 @@ cancelamento sem multa dentro de 30 minutos. Isso virou requisito do trecho **an
 pivô**: se a saga não chega ao pagamento em 25 minutos, compensa preventivamente, enquanto
 compensar ainda é grátis.
 
-Depois do pivô a regra não se aplica — e não pode se aplicar, porque ali a saga só avança.
+Depois do pivô a regra não se aplica, e não pode se aplicar, porque ali a saga só avança.
 Para o caso em que a janela do hotel expirava com o pagamento já confirmado, a decisão foi
 mover a reserva para depois do pivô: ela deixou de ser um passo a compensar e passou a ser
 um passo a repetir até suceder. As sagas que pivotaram antes dessa mudança pagaram a multa,
@@ -261,18 +261,18 @@ lançada como custo conhecido em vez de surpresa na conciliação.
 
 Esse último ponto é o que a equipe registra como a lição principal: **a
 compensação tinha uma janela de validade**, e ninguém tinha perguntado. Havia
-sagas que compensavam horas depois e geravam multa — um custo que aparecia na
+sagas que compensavam horas depois e geravam multa: um custo que aparecia na
 conciliação financeira mensal sem que ninguém ligasse à saga.
 
 ## Conceitos Relacionados
 
-- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md) — a alternativa.
-- [Idempotência](/06-distributed-systems/idempotency.md) — requisito.
-- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md) — canônico de
+- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md): a alternativa.
+- [Idempotência](/06-distributed-systems/idempotency.md): requisito.
+- [Arquitetura Orientada a Eventos](/03-design-patterns/event-driven.md): canônico de
   coreografia e orquestração.
-- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md) — o custo
+- [Sistemas Orientados a Eventos](/06-distributed-systems/event-driven-systems.md): o custo
   de rastrear um fluxo que ninguém coordena.
-- [Filas de Mensagens Mortas](/06-distributed-systems/dead-letter-queues.md) — para compensação que falha.
+- [Filas de Mensagens Mortas](/06-distributed-systems/dead-letter-queues.md): para compensação que falha.
 
 ## Exercício Prático
 
@@ -291,5 +291,5 @@ determina a ordem da saga.
 ## Para Aprofundar
 
 - Garcia-Molina, Hector; Salem, Kenneth. *Sagas*. SIGMOD, 1987.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — capítulo 4.
-- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021 — capítulo 6.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Capítulo 4.
+- Newman, Sam. *Building Microservices*. 2ª ed. O'Reilly, 2021. Capítulo 6.

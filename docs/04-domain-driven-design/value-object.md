@@ -2,7 +2,7 @@
 id: value-object
 title: Value Object
 sidebar_position: 12
-description: Objeto definido pelos seus valores, imutável — o bloco tático de melhor retorno.
+description: "Objeto definido pelos seus valores, imutável: o bloco tático de melhor retorno."
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity]
 related: [entity, aggregate, code-smells]
 canonical_for: [value object, objeto de valor]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Um objeto de valor é definido pelos seus atributos, não por identidade. Dois
 objetos com os mesmos valores são intercambiáveis.
 
-É o bloco tático de melhor relação entre esforço e retorno — e o mais
+É o bloco tático de melhor relação entre esforço e retorno, e o mais
 subutilizado.
 
 ## Problema
@@ -38,7 +38,7 @@ void transferir(String origem, String destino, BigDecimal valor)
 
 Três problemas nessa assinatura.
 
-**Troca silenciosa.** Nada impede passar destino no lugar de origem — são do mesmo
+**Troca silenciosa.** Nada impede passar destino no lugar de origem: são do mesmo
 tipo.
 
 **Validação espalhada.** Onde se verifica que a conta é válida? Em cada chamador,
@@ -67,7 +67,7 @@ compartilhado por acidente, e não há necessidade de cópia defensiva.
 
 ### Válido por construção
 
-O construtor valida. Se `Cpf` foi criado pelo construtor, ele é válido — e a ressalva
+O construtor valida. Se `Cpf` foi criado pelo construtor, ele é válido, e a ressalva
 importa, porque esse não é o único caminho: ORMs e desserializadores reconstituem objetos
 por reflexão, sem passar por ele. É por aí que valor inválido entra no domínio.
 
@@ -96,7 +96,7 @@ intervalo, endereço, documento, código, coordenada, percentual, faixa.
 Regra prática: **qualquer conceito que o negócio nomeia e que hoje é um primitivo
 ou um grupo de primitivos que andam juntos.**
 
-O segundo caso — *data clumps* — é o mais frequente: `dataInicio` e `dataFim`
+O segundo caso (*data clumps*) é o mais frequente: `dataInicio` e `dataFim`
 sempre passados juntos são um `Periodo`.
 
 ## Quando Usar
@@ -104,7 +104,7 @@ sempre passados juntos são um `Periodo`.
 - Um conceito do domínio está representado por primitivo.
 - Vários primitivos sempre andam juntos.
 - Há validação que se repete em vários lugares.
-- Há regra sobre o conceito — arredondamento, comparação, formatação — espalhada.
+- Há regra sobre o conceito (arredondamento, comparação, formatação) espalhada.
 - Trocar dois parâmetros do mesmo tipo é um erro possível.
 
 ## Quando Não Usar
@@ -117,23 +117,23 @@ pelo menos validação.
 
 **Em subdomínios genéricos ou de apoio, quando o tipo não tem regra própria.** O corte é
 mais alto fora do core: lá, nome próprio sozinho não paga o invólucro. Com validação ou
-comportamento — um `Cpf` que se valida — ele paga em qualquer subdomínio.
+comportamento (um `Cpf` que se valida) ele paga em qualquer subdomínio.
 
 **Quando a alocação aparece no perfil.** Laço quente que cria um objeto por elemento, ou
 coleção na casa dos milhões de instâncias, em plataforma sem tipo de valor achatado. A
-condição é aparecer no perfil — não parecer que apareceria.
+condição é aparecer no perfil, não parecer que apareceria.
 
 **Para dados de transporte.** Um DTO de API não precisa de objetos de valor
 internos.
 
 ## Alternativas
 
-- **Tipo primitivo com validação centralizada** — menos seguro, mais barato.
-- **Tipo nominal leve** — *newtype*, *opaque type*, unidade de medida: dá segurança de
+- **Tipo primitivo com validação centralizada**: menos seguro, mais barato.
+- **Tipo nominal leve** (*newtype*, *opaque type*, unidade de medida): dá segurança de
   tipo sem classe. Alias **transparente** não serve: o `type` do TypeScript, o `typealias`
   do Kotlin e o `typedef` do C são apelidos para o mesmo tipo, e deixam passar qualquer
   valor da forma certa.
-- **Registro imutável** — quando há valores agrupados e pouco comportamento.
+- **Registro imutável**: quando há valores agrupados e pouco comportamento.
 
 ## Trade-offs
 
@@ -147,7 +147,7 @@ internos.
 | Conversão na fronteira | Direto |
 
 A última linha é o custo real: objetos de valor precisam ser convertidos ao
-atravessar a fronteira do domínio — para persistência, para API. É trabalho de
+atravessar a fronteira do domínio (para persistência, para API). É trabalho de
 mapeamento que os primitivos não exigem.
 
 ## Modos de Falha
@@ -156,7 +156,7 @@ mapeamento que os primitivos não exigem.
 compartilhamento.
 
 **Igualdade não implementada.** Comparação por referência faz dois valores iguais
-parecerem diferentes — e quebra coleções e caches silenciosamente.
+parecerem diferentes, e quebra coleções e caches silenciosamente.
 
 **Invólucro anêmico.** Sem validação nem comportamento.
 
@@ -188,14 +188,14 @@ O primeiro: um cálculo de rateio de férias arredondava a cada parcela, e a som
 das parcelas diferia do total em centavos. Multiplicado por 4 mil funcionários,
 gerou divergência contábil que levou uma semana para diagnosticar.
 
-O segundo: um percentual foi passado como `0.05` num lugar e `5` em outro — os
-dois `double`, nenhum erro de compilação. O desconto saiu 100 vezes maior para 12
+O segundo: um percentual foi passado como `0.05` num lugar e `5` em outro (os
+dois `double`, nenhum erro de compilação). O desconto saiu 100 vezes maior para 12
 funcionários.
 
 A introdução de `Dinheiro` e `Percentual` resolveu os dois.
 
-`Dinheiro` tem `ratear(int partes)` que distribui o resto de forma determinística —
-a última parcela absorve a diferença — e garante que a soma das partes é sempre o
+`Dinheiro` tem `ratear(int partes)` que distribui o resto de forma determinística
+(a última parcela absorve a diferença) e garante que a soma das partes é sempre o
 total. A regra ficou em um lugar, testada.
 
 `Percentual` só se constrói a partir de um valor com unidade explícita:
@@ -207,15 +207,15 @@ persistência. Nos três anos seguintes, nenhum defeito da mesma categoria.
 
 ## Conceitos Relacionados
 
-- [Entity](/04-domain-driven-design/entity.md) — a outra metade da decisão.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — onde eles se compõem.
-- [Code Smells](/02-software-design/code-smells.md) — primitive obsession.
+- [Entity](/04-domain-driven-design/entity.md): a outra metade da decisão.
+- [Aggregate](/04-domain-driven-design/aggregate.md): onde eles se compõem.
+- [Code Smells](/02-software-design/code-smells.md): primitive obsession.
 - [Encapsulamento](/02-software-design/encapsulation.md).
 
 ## Exercício Prático
 
 Procure no seu domínio parâmetros do mesmo tipo primitivo que aparecem juntos numa
-assinatura — dois `String`, duas datas, dois números.
+assinatura: dois `String`, duas datas, dois números.
 
 Cada par é uma troca silenciosa possível, e um candidato a objeto de valor.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-structure]
 related: [interview-structure, communicating-tradeoffs, requirement-clarification]
 canonical_for: [erro em entrevista de system design, arquitetura decorada, desenho prematuro]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ consegue observar-se durante a entrevista.
 
 Vale notar que a mesma lista descreve o que dá errado em discussões arquiteturais reais. Desenhar
 antes de entender o problema, propor complexidade sem justificativa e não declarar premissas são
-falhas de método que custam caro em produção, não apenas em entrevista — o que explica por que
+falhas de método que custam caro em produção, não apenas em entrevista. Isso explica por que
 o formato avalia o que avalia.
 
 ## Problema
@@ -46,11 +46,11 @@ o formato avalia o que avalia.
 O erro mais frequente é também o mais rápido de cometer: o candidato ouve o enunciado e começa a
 falar de solução em menos de trinta segundos.
 
-Ele acontece por uma razão compreensível — silêncio é desconfortável, e falar parece produtivo.
+Ele acontece por uma razão compreensível: silêncio é desconfortável, e falar parece produtivo.
 Mas o que se comunica é que o problema não foi considerado.
 
 E há um segundo erro que a preparação convencional produz ativamente: decorar arquiteturas de
-referência. Elas funcionam enquanto o enunciado coincide, e colapsam na primeira variação — que o
+referência. Elas funcionam enquanto o enunciado coincide, e colapsam na primeira variação, que o
 entrevistador vai introduzir justamente para testá-las.
 
 ## Conceitos Centrais
@@ -85,7 +85,7 @@ número; quem decorou responde "para desacoplar", que não significa nada espec�
 
 Há um segundo teste, mais duro: mudar o enunciado. "E se fossem cem usuários em vez de cem
 milhões?" Quem derivou simplifica o desenho na hora, removendo o que a escala justificava. Quem
-decorou mantém a mesma arquitetura, porque ela nunca esteve ligada a nenhum número — e essa
+decorou mantém a mesma arquitetura, porque ela nunca esteve ligada a nenhum número. Essa
 resposta é a mais reveladora que uma entrevista produz.
 
 ### Não declarar premissas
@@ -103,7 +103,7 @@ silenciosa derruba o desenho vinte minutos depois.
 
 E há um efeito secundário: premissas declaradas viram um registro do que foi considerado. Ao fim
 da entrevista, elas permitem dizer "sob as premissas que assumi, esta é a arquitetura; se alguma
-delas estiver errada, a que muda é esta" — o que é uma posição muito mais forte que apresentar um
+delas estiver errada, a que muda é esta". Essa é uma posição muito mais forte que apresentar um
 desenho como se ele fosse incondicional.
 
 ### Complexidade sem justificativa
@@ -123,7 +123,7 @@ frequentemente a mais simples, com a condição sob a qual ela deixaria de basta
 
 A calibração errada vem de uma inferência razoável e falsa: a de que a entrevista busca a
 arquitetura mais sofisticada que o candidato conhece. Ela busca a mais adequada ao problema
-apresentado — e demonstrar que se conhece a sofisticada, sem aplicá-la, é feito em uma frase:
+apresentado. E demonstrar que se conhece a sofisticada, sem aplicá-la, é feito em uma frase:
 "se a escala fosse 50 vezes maior, eu dividiria assim".
 
 ### Desenhar em silêncio
@@ -151,7 +151,7 @@ Ver [estrutura da entrevista](/22-system-design-interviews/interview-structure.m
 
 ### Ignorar ou ceder demais ao entrevistador
 
-Dois erros opostos com a mesma raiz — não ter posição fundamentada.
+Dois erros opostos com a mesma raiz: não ter posição fundamentada.
 
 ```text
 ignorar    o entrevistador sugere uma alternativa e o candidato
@@ -227,20 +227,20 @@ Este catálogo serve como lista de verificação:
 
 ## Quando Não Usar
 
-**Como fonte de ansiedade** durante a entrevista — monitorar dez erros ao vivo atrapalha mais que
+**Como fonte de ansiedade** durante a entrevista: monitorar dez erros ao vivo atrapalha mais que
 ajuda. Escolha dois para observar.
 
-**Como regra rígida** — há enunciados em que desenhar cedo é correto, porque o entrevistador
+**Como regra rígida**: há enunciados em que desenhar cedo é correto, porque o entrevistador
 pediu.
 
-**Sem praticar** — reconhecer um erro por leitura não o corrige; o hábito se forma em simulação.
+**Sem praticar**: reconhecer um erro por leitura não o corrige; o hábito se forma em simulação.
 
 ## Alternativas
 
-- **Simulação com gravação** — assistir a si mesmo expõe o desenho silencioso e a má gestão de
+- **Simulação com gravação**: assistir a si mesmo expõe o desenho silencioso e a má gestão de
   tempo melhor que qualquer lista.
-- **Entrevista simulada com um par** — o feedback externo pega o que a autoavaliação não pega.
-- **Escrever ADRs** — a disciplina de contexto, alternativas e consequências é a mesma, sem
+- **Entrevista simulada com um par**: o feedback externo pega o que a autoavaliação não pega.
+- **Escrever ADRs**: a disciplina de contexto, alternativas e consequências é a mesma, sem
   pressão de tempo. Ver
   [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
@@ -274,7 +274,7 @@ enunciados sozinho ou por escrito.
 
 Metade do catálogo acima só aparece quando alguém interrompe: a pergunta de acompanhamento que
 expõe a arquitetura decorada, a objeção que testa se você ignora ou cede, o relógio que outra
-pessoa controla. Sozinho, o candidato treina a parte que já domina — produzir um desenho — e chega
+pessoa controla. Sozinho, o candidato treina a parte que já domina (produzir um desenho) e chega
 à entrevista sem ter exercitado a que falha. O que fecha essa lacuna é a simulação com alguém no
 papel de entrevistador, livre para mudar o enunciado no meio.
 
@@ -347,7 +347,7 @@ A diferença entre as duas versões não é de conhecimento: o candidato da prim
 o da segunda sabe, e provavelmente mais. A diferença é que a segunda versão torna o raciocínio
 visível e ancorado, e a primeira apresenta um resultado sem mostrar de onde ele veio.
 
-É essa distinção que o formato de entrevista existe para medir — e é por isso que praticar o
+É essa distinção que o formato de entrevista existe para medir, e é por isso que praticar o
 método rende mais que estudar mais arquiteturas.
 
 ## Conceitos Relacionados

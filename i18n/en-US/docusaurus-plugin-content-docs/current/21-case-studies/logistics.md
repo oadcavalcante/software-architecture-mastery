@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, food-delivery, ecommerce]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -41,7 +41,7 @@ business days.
 
 The essential difference from the [ride-sharing](/21-case-studies/ride-sharing.md) and
 [delivery](/21-case-studies/food-delivery.md) cases is the horizon: here planning is done the
-night before, for the next day, with complete information — and then reality dismantles it.
+night before, for the next day, with complete information, and then reality dismantles it.
 Traffic, an absent recipient, a broken-down vehicle, a lost parcel and a wrong address divert
 between 12% and 18% of the daily plan.
 
@@ -64,15 +64,15 @@ attempt or a refusal; collect proof; and receive a reassignment when the route c
 For the **end customer**: track the parcel; receive an estimated delivery window; reschedule; and
 choose an alternative pickup point.
 
-For the **contracting customer** — the retailer: send the day's parcels with deadlines; track
+For the **contracting customer** (the retailer): send the day's parcels with deadlines; track
 performance; and receive proof of delivery.
 
 And for the **platform**: plan the day's routes optimizing capacity utilization and deadlines;
 replan continuously as deviations occur; predict delay risk before it happens; and balance load
 across centers.
 
-The plan/replan pair is the core. They are two problems with opposite natures — one in batch with
-complete information, the other continuous with partial information — and the architecture has to
+The plan/replan pair is the core. They are two problems with opposite natures (one in batch with
+complete information, the other continuous with partial information), and the architecture has to
 accommodate both without one contaminating the other.
 
 ## Non-Functional Requirements
@@ -119,11 +119,11 @@ of a remote system, it is a local system that synchronizes.
 That distinction looks like vocabulary and is architecture. A remote client assumes the server is
 available and treats the absence of a connection as an error; a local system assumes the opposite
 and treats a connection as an opportunity to synchronize. The two premises lead to completely
-different data structures, conflict handling and user experience — and converting one into the
+different data structures, conflict handling and user experience, and converting one into the
 other later is a rewrite, not an adjustment.
 
 The previous app was a remote client with a cache. It worked while there was signal, and degraded
-unpredictably when there wasn't — which is exactly the behavior that produced lost delivery
+unpredictably when there wasn't. That is exactly the behavior that produced lost delivery
 records.
 
 ## Capacity Estimates
@@ -165,7 +165,7 @@ area. That turns a problem of 1.26 million stops into 41 problems of about 31 th
 in parallel.
 
 Recognizing the decomposability early is what makes the 90-minute window achievable. Without it,
-the problem is intractable in the available time with any technique — and the previous attempt to
+the problem is intractable in the available time with any technique, and the previous attempt to
 solve it globally was abandoned after producing plans that didn't finish before 2am.
 
 ```text
@@ -243,26 +243,26 @@ the day is expensive and slow. An architecture that optimizes while ignoring tha
 operations doesn't execute.
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With deadlines at 50%, the totals become
-5.2 / 7.9 / 6.3 — Option B keeps its advantage. No scenario tested inverts the result, which follows from Option C having a
+5.2 / 7.9 / 6.3, and Option B keeps its advantage. No scenario tested inverts the result, which follows from Option C having a
 structural limitation and not merely a higher cost.
 
 ## Decision
 
 **Batch planning with local automatic replanning (Option B)**, complemented by a restricted
-mechanism for reallocation between routes for specific cases — a broken-down vehicle, and
+mechanism for reallocation between routes for specific cases: a broken-down vehicle, and
 deadline-critical parcels the current route will not manage to meet.
 
 Reallocation between routes is triggered by exception and goes through approval by the desk,
-which still exists, but with 44 people instead of 142 — handling exceptions rather than operating
+which still exists, but with 44 people instead of 142, handling exceptions rather than operating
 all day.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the volume were far smaller — below a few hundred daily routes, a small
+**Option A would win if** the volume were far smaller: below a few hundred daily routes, a small
 desk responds well and automation doesn't pay for itself.
 
 **Option C would win if** the cargo were not physically committed to a vehicle. That is the case
-for operations with dense transfer hubs, where reallocating is cheap — or for motorcycle deliveries
+for operations with dense transfer hubs, where reallocating is cheap, or for motorcycle deliveries
 from pickup points, where each parcel is independent. The condition is recorded: if the network
 adopts urban transfer hubs, Option C is reassessed.
 
@@ -292,7 +292,7 @@ classification.
 Separating the **Night Planner** from the **Replanner** is the system's structural decision. They
 are two different engines, with different objectives: the first optimizes globally with time to
 spare; the second responds locally in seconds. Trying to use the same engine for both was the
-initial attempt, and it failed on both sides — too slow for replanning, and too simple for the
+initial attempt, and it failed on both sides: too slow for replanning, and too simple for the
 nightly plan.
 
 ## Data
@@ -301,7 +301,7 @@ nightly plan.
 and correctness matters: a parcel on two routes is a direct operational problem.
 
 **The day's plan.** Materialized per route, with the sequence of stops and the estimated windows.
-Written once by the Night Planner and altered by the Replanner through the day, with versioning —
+Written once by the Night Planner and altered by the Replanner through the day, with versioning:
 the driver app needs to know whether its copy is stale.
 
 **Tracking events.** Append-only, partitioned by day. Each event carries its origin, the device
@@ -309,7 +309,7 @@ time and the server time, because the difference between the two is information:
 offline arrives late, and the real chronological order is the device's.
 
 **Proof.** Object storage, with the 380 TB dominated by photos. It is the largest storage item and
-one of the largest cost items, and it was optimized by compression and resolution reduction — the
+one of the largest cost items, and it was optimized by compression and resolution reduction: the
 photos exist to prove delivery, not for photographic use.
 
 **Local app state.** An embedded database on the device, with the day's complete route and the
@@ -319,12 +319,12 @@ synchronizes by reconciliation on reconnecting.
 ## Integration
 
 **Nightly ingestion.** The lists arrive at 9pm, with corrections until 11pm. The system accepts
-the initial list, starts preparation — address validation, geocoding, grouping by region — and
+the initial list, starts preparation (address validation, geocoding, grouping by region) and
 incorporates the corrections until the cutoff.
 
 Geocoding is the silent bottleneck: about 4% of addresses don't resolve automatically, and that is
-92 thousand a night. The solution was a cache of already-resolved addresses — which covers 89% of
-cases, because most deliveries go to addresses already visited — and an assisted resolution queue
+92 thousand a night. The solution was a cache of already-resolved addresses (which covers 89% of
+cases, because most deliveries go to addresses already visited) and an assisted resolution queue
 for the rest.
 
 The address cache has a relevant side effect: it stores not the coordinate returned by the
@@ -342,7 +342,7 @@ allows full parallelization and meeting the 90-minute window.
 
 The engine solves by decomposition: first it groups stops into geographic clusters, then it solves
 the order within each cluster, then it assigns clusters to vehicles respecting capacity and
-working hours. It is a heuristic, not an optimal solution — and the measured difference against
+working hours. It is a heuristic, not an optimal solution. The measured difference against
 the optimal solution, on small instances where it is computable, is between 3% and 6%.
 
 **Replanning.** Triggered by an event: a failed attempt, accumulated delay above a threshold, or a
@@ -388,7 +388,7 @@ Nightly planning is the system's computational peak, and it is concentrated: 90 
 use, 22 and a half hours of idleness. Capacity is provisioned on demand for the window and
 released afterwards, which reduced that stage's cost by 74% against fixed capacity.
 
-Public tracking — 41 million queries a day — is served by a cache with event-based invalidation,
+Public tracking (41 million queries a day) is served by a cache with event-based invalidation,
 with a 94% hit rate. Almost all queries are repeats: the recipient checks several times in the
 same day.
 
@@ -401,7 +401,7 @@ rehearsed quarterly.
 If the **Replanner** becomes unavailable, routes follow the original plan and the desk handles
 deviations manually. It is degradation to Option A's mode.
 
-If the **Route Service** fails, the apps keep operating with the local copy — which is the most
+If the **Route Service** fails, the apps keep operating with the local copy. That is the most
 valuable property of the offline design. The day's delivery doesn't stop.
 
 If **Tracking** becomes unavailable, operations continue and the end customer doesn't look
@@ -430,7 +430,7 @@ automatic geocoding rate
 **Plan deviation** is the most informative and least obvious metric: it measures how much of
 reality the plan didn't anticipate, and analyzing the causes is what feeds the planner's
 improvement. It was discovered, for example, that 31% of deviations came from urban circulation
-windows modeled incorrectly — a data correction, not an algorithm one.
+windows modeled incorrectly: a data correction, not an algorithm one.
 
 **Predicted versus actual delay risk** validates the Predictor. It exists to alert the desk before
 the delay, and a predictor with low precision generates alarms that consume the team without
@@ -439,22 +439,22 @@ preventing anything.
 ## Deployment
 
 The night planner is deployed with parallel validation: the new version runs alongside the current
-one for two weeks, and the plans are compared by quality metrics — utilization, total distance,
-delay risk — before any switch.
+one for two weeks, and the plans are compared by quality metrics (utilization, total distance,
+delay risk) before any switch.
 
 No planner deployment between 8pm and 2am. A failure there has no recovery within the window.
 
 Parallel comparison of the planner has a specific difficulty worth recording: the two plans cannot
-both be executed, only one goes to operations. The evaluation is done on plan metrics —
-utilization, distance, predicted risk — and not on the real result, which means one version can
+both be executed, only one goes to operations. The evaluation is done on plan metrics
+(utilization, distance, predicted risk) and not on the real result, which means one version can
 look better on paper and produce a worse result on the street.
 
 The mitigation was running the new version in three centers for two weeks before general adoption,
 with the real result measured. Two of the five versions evaluated in that process were rejected
-despite better plan metrics — in both cases because they produced geographically compact routes
+despite better plan metrics, in both cases because they produced geographically compact routes
 that ignored unmodeled traffic patterns.
 
-The driver app has its own cycle, with 6 months of backward compatibility — part of the contracted
+The driver app has its own cycle, with 6 months of backward compatibility: part of the contracted
 fleet uses handsets that rarely update.
 
 ## Evolution Strategy
@@ -531,7 +531,7 @@ practice, because the cargo is inside the vehicle. Modeling the physical world c
 eliminated an option a purely algorithmic analysis would have chosen.
 
 **The offline client is a system, not a screen.** Treating the driver app as a local system with
-synchronization — and not as a client of a server — resolved 6% of lost records that no
+synchronization, and not as a client of a server, resolved 6% of lost records that no
 connectivity improvement would have solved.
 
 **Deviations are data about the plan.** Measuring how much of reality the plan didn't anticipate,
@@ -547,8 +547,8 @@ wrong urban circulation data, fixable without touching the algorithm.
 
 ## Practical Exercise
 
-List the constraints of a routing problem in your context — capacity, window, deadline, working
-hours — and classify each as a hard constraint or a penalty.
+List the constraints of a routing problem in your context (capacity, window, deadline, working
+hours) and classify each as a hard constraint or a penalty.
 
 The difference decides the algorithm: hard constraints can make the problem infeasible, and
 penalties cannot. Confusing them is the most common cause of planners that produce no solution.

@@ -2,7 +2,7 @@
 id: api-gateways
 title: API Gateways
 sidebar_position: 9
-description: One entry point for many APIs — what it really solves and how it becomes a bottleneck.
+description: "One entry point for many APIs: what it really solves and how it becomes a bottleneck."
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [service-mesh, rest, graphql]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 An API gateway is a single entry point that sits in front of several services and concentrates what is
 common to every call: authentication, rate limiting, routing, logging.
 
-It solves a concrete problem — keeping each service from reimplementing the same edge concerns — and
+It solves a concrete problem (keeping each service from reimplementing the same edge concerns) and
 creates an equally concrete risk: becoming the place where business logic accumulates until nobody can
 change it.
 
@@ -68,7 +68,7 @@ gateway it sits far from whoever understands it.
 business condition is not.
 
 **Orchestration across several services.** A gateway that calls three services and combines responses has
-become an application. If that is necessary, it is a composition service — which may even sit behind the
+become an application. If that is necessary, it is a composition service, which may even sit behind the
 gateway, but not *be* the gateway.
 
 **State.** A cache is acceptable; business session state is not.
@@ -91,7 +91,7 @@ client.
 That solves the organizational bottleneck: the frontend team stops waiting on the platform team to change a
 format.
 
-The cost is duplication among the BFFs, and it is frequently acceptable — the alternative is a generic
+The cost is duplication among the BFFs, and it is frequently acceptable: the alternative is a generic
 gateway that serves everybody badly.
 
 ### It is a single point of failure by construction
@@ -100,7 +100,7 @@ All traffic passes through it. That demands the same care as any critical compon
 stateless, health checking, and capacity sized for the aggregate peak.
 
 And it demands attention to a specific failure mode: **one wrong configuration takes everything down**. A
-badly written routing rule does not affect one service — it affects all of them.
+badly written routing rule does not affect one service; it affects all of them.
 
 That is why the gateway's configuration deserves the same process as code: review, versioning, a test
 environment and gradual rollout.
@@ -134,7 +134,7 @@ that leaves where it should be.
 - Several externally exposed services.
 - Uniform authentication and rate limiting.
 - Diverse clients with different formatting needs.
-- Translation between protocols — REST outside, gRPC inside.
+- Translation between protocols: REST outside, gRPC inside.
 - A single point for edge observability.
 - A public API with partners and quotas.
 
@@ -154,11 +154,11 @@ that leaves where it should be.
 
 ## Alternatives
 
-- **A load balancer with routing** — covers the basics with no new component.
-- **A shared library** — authentication and logging in each service, with no extra hop. It requires
+- **A load balancer with routing**: covers the basics with no new component.
+- **A shared library**: authentication and logging in each service, with no extra hop. It requires
   updating all of them on every change.
-- **A [service mesh](/08-integration-architecture/service-mesh.md)** — for internal traffic.
-- **A BFF** — instead of a generic gateway.
+- **A [service mesh](/08-integration-architecture/service-mesh.md)**: for internal traffic.
+- **A BFF**: instead of a generic gateway.
 
 ## Trade-offs
 
@@ -205,7 +205,7 @@ that leaves where it should be.
 
 **Not sizing for the aggregate peak.**
 
-**Letting the gateway be the only place with authorization.** See [security](/10-security/index.md) —
+**Letting the gateway be the only place with authorization.** See [security](/10-security/index.md):
 defense in depth requires the service to check too.
 
 ## Real-World Example
@@ -222,7 +222,7 @@ by broker type, a transformation that hid fields according to the profile, a rou
 the policy's value. In three years, the gateway had 4,000 lines of configuration with logic, and nobody
 could say what happened to a request without executing it.
 
-**Configuration taking production down.** A badly written routing rule — published directly, with no test —
+**Configuration taking production down.** A badly written routing rule (published directly, with no test)
 left **all** nine services unreachable for 22 minutes. There was neither a test environment for the
 configuration nor a gradual rollout.
 
@@ -230,7 +230,7 @@ configuration nor a gradual rollout.
 required getting into their queue. A field change took three weeks, two of which were waiting.
 
 **Split authorization.** Part of the rules were in the gateway, part in the services. An audit found an
-endpoint where the check existed only in the gateway — and that was reachable internally without passing
+endpoint where the check existed only in the gateway, and that was reachable internally without passing
 through it.
 
 The fixes, over a year:
@@ -241,27 +241,27 @@ discount rule went back to the policy service, where the business team can read 
 **Configuration as code**, with review, a test environment and gradual rollout. Direct publishing stopped
 being possible.
 
-**BFFs per client** — broker, policyholder and partner — each maintained by the respective client's team.
+**BFFs per client** (broker, policyholder and partner), each maintained by the respective client's team.
 The two weeks of queueing disappeared; a field change came to take about a week, which is the work itself.
 
-**Authorization in depth, with the split named.** The gateway checks what is edge-level — a valid token,
-scope, quota — and each service checks what is domain-level: whether *this* broker may see *this* policy.
+**Authorization in depth, with the split named.** The gateway checks what is edge-level (a valid token,
+scope, quota) and each service checks what is domain-level: whether *this* broker may see *this* policy.
 The redundancy exists only in the first layer, and it was accepted consciously; what ended was the domain
 rule living in the gateway.
 
 What the team records: the gateway was never a mistake. The mistake was not having a written rule about
-what may get into it — and, with no rule, each individual exception was reasonable.
+what may get into it. With no rule, each individual exception was reasonable.
 
 ## Related Concepts
 
-- [Service Mesh](/08-integration-architecture/service-mesh.md) — internal traffic.
-- [REST](/08-integration-architecture/rest.md) and [GraphQL](/08-integration-architecture/graphql.md) —
+- [Service Mesh](/08-integration-architecture/service-mesh.md): internal traffic.
+- [REST](/08-integration-architecture/rest.md) and [GraphQL](/08-integration-architecture/graphql.md):
   what it exposes.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
 
 ## Practical Exercise
 
-Open your gateway's configuration and look for any condition that depends on a business value — a profile,
+Open your gateway's configuration and look for any condition that depends on a business value: a profile,
 an amount, a customer type.
 
 Each one of those is a domain rule living at the edge, far from whoever understands it.
@@ -274,6 +274,6 @@ Each one of those is a domain rule living at the edge, far from whoever understa
 
 ## Further Reading
 
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — chapter 8.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Chapter 8.
 - Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021.
 - Calçado, Phil. *The Back-end for Front-end Pattern*, 2015.

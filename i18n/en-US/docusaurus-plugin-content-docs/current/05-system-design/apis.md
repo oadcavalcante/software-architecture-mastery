@@ -2,7 +2,7 @@
 id: apis
 title: APIs
 sidebar_position: 4
-description: The contract between parts — expensive to change because the code on the other side is not yours.
+description: "The contract between parts: expensive to change because the code on the other side is not yours."
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [request-response, pagination, integration-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 An API is the contract between whoever offers a capability and whoever consumes it.
 
-What makes it expensive to change is the other side: there is code you do not control —
+What makes it expensive to change is the other side: there is code you do not control,
 and frequently do not even know about.
 
 ## Problem
@@ -33,7 +33,7 @@ exposes it, the names come from the tables, the fields are the ones that exist.
 
 That works on day one and charges later.
 
-When the internal model changes — and it does — the API changes with it, because it was
+When the internal model changes (and it does), the API changes with it, because it was
 never separated from it. Every internal refactoring becomes a contract change.
 
 And when a new requirement arrives, the API does not accommodate it: it expresses the
@@ -52,7 +52,7 @@ That costs mapping and buys independence: the internal model can be restructured
 touching consumers.
 
 See [anti-corruption
-layer](/04-domain-driven-design/anti-corruption-layer.md) — the same principle, on the
+layer](/04-domain-driven-design/anti-corruption-layer.md): the same principle, on the
 consumer's side.
 
 ### Evolution is the central decision
@@ -69,7 +69,7 @@ Every API changes. What you design is **how** it changes.
 | Narrow validation | No |
 | Make a required request field optional | Yes |
 
-The first and fifth lines depend on the consumer's behavior — which means
+The first and fifth lines depend on the consumer's behavior. That means
 **compatibility is a property of the pair**, not of the API alone.
 
 That is why the documentation has to say explicitly: *consumers must ignore unknown
@@ -88,8 +88,8 @@ Teams that version on every change end up with six live versions and nobody migr
 
 ### Resource granularity
 
-An API that is too fine forces the consumer to make several calls for one operation —
-which multiplies latency, especially on mobile networks.
+An API that is too fine forces the consumer to make several calls for one operation.
+That multiplies latency, especially on mobile networks.
 
 An API that is too coarse returns more than any consumer needs, and every change affects
 everyone.
@@ -103,11 +103,11 @@ What the API returns on failure is as much a contract as the happy path: which c
 with what body, which are retryable, which are permanent.
 
 An API that returns the same generic error for everything forces every consumer to guess
-whether to retry — and the wrong answer produces a retry storm or silent loss.
+whether to retry, and the wrong answer produces a retry storm or silent loss.
 
 ## Mental Model
 
-**Design the API as if you could not change it — and then design how it will change.**
+**Design the API as if you could not change it, and then design how it will change.**
 
 ## When to Use
 
@@ -130,11 +130,11 @@ with no benefit.
 
 ## Alternatives
 
-- **Function call** — inside the process.
-- **Event** — when the consumer reacts to a fact and needs no response. See
+- **Function call**: inside the process.
+- **Event**: when the consumer reacts to a fact and needs no response. See
   [event-driven architecture](/03-design-patterns/event-driven.md).
-- **File or batch** — when the volume is large and the tolerated latency is high.
-- **Direct query against a projection** — for high-volume reads within the same
+- **File or batch**: when the volume is large and the tolerated latency is high.
+- **Direct query against a projection**: for high-volume reads within the same
   organization.
 
 ## Trade-offs
@@ -181,7 +181,7 @@ migration never happens.
 
 ## Real-World Example
 
-An internal catalog API returned the `Product` entity serialized — 42 fields, including
+An internal catalog API returned the `Product` entity serialized: 42 fields, including
 internal identifiers, control fields and the price history.
 
 Three consequences over two years.
@@ -191,12 +191,12 @@ Nobody knew they existed.
 
 The mobile app downloaded 42 fields to display three, on poor connections.
 
-And one consumer came to depend on an internal control field — `recordVersion` — to
+And one consumer came to depend on an internal control field, `recordVersion`, to
 implement caching. That field ceased to exist in a migration, and the consumer's cache
 stopped invalidating.
 
-The redesign created a type belonging to the API, with the fields consumers actually used
-— identified field by field, with a removal notice and a deadline, not by supposition.
+The redesign created a type belonging to the API, with the fields consumers actually used,
+identified field by field, with a removal notice and a deadline, not by supposition.
 
 There were 11 fields. For the other 31, nobody complained within the deadline.
 
@@ -223,15 +223,15 @@ It gives the real list of who actually calls, including whoever never registered
 **Traffic analysis.** Origin by network. It works without the consumer's cooperation and
 misidentifies when there is a proxy in the path.
 
-**Asking.** It works in small organizations and fails silently in the rest — whoever does
+**Asking.** It works in small organizations and fails silently in the rest: whoever does
 not know they consume it does not answer.
 
-The second balances cost and reliability best — and it answers who calls, not what is
+The second balances cost and reliability best, and it answers who calls, not what is
 read. The producer does not see which response fields the consumer consumes: to know
 that, either the request declares the fields it wants, and then the usage shows up in the
 logs, or you announce the removal of a field with a deadline and see who complains. The
 list of consumers is what makes the second path viable: it gives you someone to notify.
-Either one reveals that most of a large API is usually ignored — and every unread field is
+Either one reveals that most of a large API is usually ignored, and every unread field is
 coupling that can be removed.
 
 Without that information, every contract change is a bet, and the only safe policy becomes
@@ -239,10 +239,10 @@ never changing anything.
 
 ## Related Concepts
 
-- [Services](/05-system-design/services.md) — who exposes it.
-- [Request/Response](/05-system-design/request-response.md) — the mechanics.
-- [Pagination](/05-system-design/pagination.md) — the case every listing API faces.
-- [Schema Evolution](/08-integration-architecture/schema-evolution.md) — which changes
+- [Services](/05-system-design/services.md): who exposes it.
+- [Request/Response](/05-system-design/request-response.md): the mechanics.
+- [Pagination](/05-system-design/pagination.md): the case every listing API faces.
+- [Schema Evolution](/08-integration-architecture/schema-evolution.md): which changes
   are compatible, and in which direction.
 
 ## Practical Exercise
@@ -250,7 +250,7 @@ never changing anything.
 Pick an API in your system and answer: who are the consumers? How would you know if one
 broke?
 
-Then find out which response fields are actually read — by announcing the removal of one
+Then find out which response fields are actually read, by announcing the removal of one
 with a deadline, if there is no way for the consumer to declare what it uses. The
 difference between what the API returns and what anyone uses is unnecessary coupling.
 
@@ -263,5 +263,5 @@ difference between what the API returns and what anyone uses is unnecessary coup
 ## Further Reading
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
-- Newman, Sam. *Building Microservices*. 2nd ed., 2021 — contract evolution.
+- Newman, Sam. *Building Microservices*. 2nd ed., 2021. Contract evolution.
 - Preston-Werner, Tom. *Semantic Versioning 2.0.0*, 2013.

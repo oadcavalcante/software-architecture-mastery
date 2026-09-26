@@ -2,7 +2,7 @@
 id: telemetry
 title: Telemetria
 sidebar_position: 6
-description: Instrumentar, coletar e pagar por isso — o custo que cresce mais rápido que o sistema.
+description: "Instrumentar, coletar e pagar por isso: o custo que cresce mais rápido que o sistema."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, metrics, distributed-tracing]
 canonical_for: [telemetria, instrumentação, coletor de telemetria, custo de observabilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Telemetria é o conjunto do que o sistema emite sobre si mesmo — [logs](/13-observability/logs.md),
-[métricas](/13-observability/metrics.md), [traces](/13-observability/traces.md) — e a infraestrutura que coleta, transporta,
+Telemetria é o conjunto do que o sistema emite sobre si mesmo ([logs](/13-observability/logs.md),
+[métricas](/13-observability/metrics.md), [traces](/13-observability/traces.md)) e a infraestrutura que coleta, transporta,
 armazena e consulta esses dados.
 
 Ela é tratada como detalhe de ferramenta e é decisão de arquitetura, por duas razões:
@@ -56,11 +56,11 @@ coleta           um agente ou coletor recebe, processa e envia
 destino          onde é armazenado e consultado
 ```
 
-Com instrumentação padronizada, trocar o destino é configuração no coletor — não
+Com instrumentação padronizada, trocar o destino é configuração no coletor, não
 alteração de código.
 
 O padrão aberto de telemetria existe exatamente para isso. Adotá-lo no início custa pouco
-em código — a instrumentação precisa ser escrita de qualquer forma —, mas não é grátis: a
+em código (a instrumentação precisa ser escrita de qualquer forma), mas não é grátis: a
 maturidade do SDK varia por linguagem, recursos avançados do fornecedor podem faltar, e o
 coletor é um componente a operar. É o preço de manter a troca de destino como
 configuração, não como reescrita.
@@ -135,7 +135,7 @@ custo de telemetria como fração da conta de infraestrutura
 ```
 
 A segunda razão é a mais reveladora. Quando telemetria passa de uma fração razoável da
-infraestrutura — algo entre 5% e 15% na maioria dos casos —, vale investigar.
+infraestrutura (algo entre 5% e 15% na maioria dos casos), vale investigar.
 
 E a tendência importa mais que o valor: telemetria crescendo mais rápido que o tráfego
 indica instrumentação acumulando, não sistema crescendo.
@@ -144,7 +144,7 @@ indica instrumentação acumulando, não sistema crescendo.
 
 O critério que evita acumulação: **qual pergunta este dado responde?**
 
-Se a resposta for "não sei, pode ser útil", provavelmente não será — e vai custar todo
+Se a resposta for "não sei, pode ser útil", provavelmente não será, e vai custar todo
 mês.
 
 A instrumentação que se paga vem de: perguntas que já foram feitas em incidentes,
@@ -158,7 +158,7 @@ decida no coletor, e revise o que é coletado.
 
 ## Quando Usar
 
-- Sempre — a questão é quanto e como.
+- Sempre: a questão é quanto e como.
 - Prioridade alta em sistemas distribuídos.
 - Antes de precisar: instrumentar durante o incidente não é opção.
 
@@ -168,21 +168,21 @@ decida no coletor, e revise o que é coletado.
 
 **Emissão síncrona no caminho crítico.** A latência do coletor entra na latência da requisição, e uma lentidão no sistema de observabilidade vira lentidão no produto.
 
-**Sem limite de recursos** para buffers. Quando o coletor fica indisponível, o buffer cresce até consumir a memória da aplicação — e a telemetria derruba o que deveria observar.
+**Sem limite de recursos** para buffers. Quando o coletor fica indisponível, o buffer cresce até consumir a memória da aplicação, e a telemetria derruba o que deveria observar.
 
 **Sem monitorar descarte.** Telemetria descartada por saturação produz painéis incompletos que parecem completos, e a conclusão tirada deles é errada sem aviso.
 
 **Coletando o que ninguém consulta.** Custo de ingestão e armazenamento cresce com o volume, e a maior parte do que se coleta por precaução nunca é aberta.
 
-**Sem filtragem de dado sensível** antes de sair. Uma vez enviado ao fornecedor, o dado pessoal saiu do seu perímetro — e frequentemente do país.
+**Sem filtragem de dado sensível** antes de sair. Uma vez enviado ao fornecedor, o dado pessoal saiu do seu perímetro, e frequentemente do país.
 
 ## Alternativas
 
-- **Coletor gerenciado do fornecedor** — menos operação, mais acoplamento.
-- **Armazenamento próprio** — mais barato em volume alto, mais operação.
-- **Destinos diferentes por sinal** — métricas num sistema, logs em outro, escolhendo o
+- **Coletor gerenciado do fornecedor**: menos operação, mais acoplamento.
+- **Armazenamento próprio**: mais barato em volume alto, mais operação.
+- **Destinos diferentes por sinal**: métricas num sistema, logs em outro, escolhendo o
   melhor custo para cada perfil.
-- **Perfilamento contínuo** — complementa os três sinais para o tempo dentro do
+- **Perfilamento contínuo**: complementa os três sinais para o tempo dentro do
   processo.
 
 ## Trade-offs
@@ -235,7 +235,7 @@ dizer por quê.
 
 **Cortar retenção como primeira medida de custo.** A economia é imediata e pequena; o custo
 aparece semanas depois, quando investigações que precisam comparar com o mês anterior, ou
-achar quando um defeito começou, não fecham — como no exemplo abaixo.
+achar quando um defeito começou, não fecham, como no exemplo abaixo.
 
 **Não ter coletor**, deixando cada serviço enviar direto. Filtragem, amostragem e remoção de
 dado sensível viram mudança de código em cada serviço, e a política efetiva passa a ser a do
@@ -283,7 +283,7 @@ atributos de alta cardinalidade.
 **Auditoria de uso.** De 410 métricas, 240 não tinham sido consultadas nem alertadas em
 doze meses. Removidas.
 
-**Retenção restaurada** para 30 dias — e ampliada para 90 em armazenamento frio, que
+**Retenção restaurada** para 30 dias, e ampliada para 90 em armazenamento frio, que
 custa uma fração.
 
 **Filtragem de dado sensível no coletor**, que a auditoria revelou não existir: tokens
@@ -294,14 +294,14 @@ e documentos apareciam em registros de erro.
 Resultado: a conta caiu 78% em relação ao pico, com **mais** retenção e mais capacidade
 de investigação.
 
-O que a equipe aprendeu: o primeiro corte — reduzir retenção — foi o pior movimento
+O que a equipe aprendeu: o primeiro corte (reduzir retenção) foi o pior movimento
 possível. Ele atacou a dimensão que mais importa para investigação e deixou intactas as
 três causas reais.
 
 ## Conceitos Relacionados
 
-- [Logs](/13-observability/logs.md), [Métricas](/13-observability/metrics.md) e [Traces](/13-observability/traces.md) — o que é emitido.
-- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a amostragem.
+- [Logs](/13-observability/logs.md), [Métricas](/13-observability/metrics.md) e [Traces](/13-observability/traces.md): o que é emitido.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md): a amostragem.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
 - [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 

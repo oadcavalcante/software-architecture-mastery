@@ -2,7 +2,7 @@
 id: graceful-degradation
 title: Graceful Degradation
 sidebar_position: 13
-description: Working worse instead of stopping — cheap where redundancy is expensive, and the least applied.
+description: "Working worse instead of stopping: cheap where redundancy is expensive, and the least applied."
 doc_type: pattern
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, slo]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ of stopping completely.
 
 It returns more than redundancy when the non-essential dependencies are already on the
 critical path: it does not require permanently idle capacity, which is the other's
-cost. What it does require is one decision — **what is essential?** — and the
+cost. What it does require is one decision (**what is essential?**) and the
 alternative paths that decision creates.
 
 And it is the least applied, because that decision belongs to product, and somebody rarely asks for it.
@@ -36,7 +36,7 @@ And it is the least applied, because that decision belongs to product, and someb
 An application's default behavior is binary: the dependency fails, the request fails, the user sees an
 error.
 
-That means a failure in the recommendations service — which decorates the page — prevents the purchase. A
+That means a failure in the recommendations service, which decorates the page, prevents the purchase. A
 failure in the reviews service prevents seeing the product. A failure in the profile photo prevents the
 login.
 
@@ -104,7 +104,7 @@ defect.
 ### It needs to be exercised
 
 A degraded path that never executes is broken. It is written once, never tested, and it fails at the moment
-it is triggered — typically because the default response has a shape the interface does not expect.
+it is triggered, typically because the default response has a shape the interface does not expect.
 
 Two practices that resolve it:
 
@@ -121,7 +121,7 @@ Under overload, turning off optional features frees resources for the essential 
 shedding, and it is smarter than rejecting requests uniformly. See
 [backpressure](/06-distributed-systems/backpressure.md).
 
-Having a switch per feature — operable with no deployment — is what makes that operational during an
+Having a switch per feature, operable with no deployment, is what makes that operational during an
 incident.
 
 ### Degradation's limits
@@ -135,7 +135,7 @@ Not everything degrades. It is worth being explicit:
 
 **Data controlling a finite resource.** Stock, a seat, a quota.
 
-For those, the correct answer is to fail — clearly, with a useful message.
+For those, the correct answer is to fail: clearly, with a useful message.
 
 ## Mental Model
 
@@ -167,10 +167,10 @@ exist.
 
 ## Alternatives
 
-- **Redundancy** — it avoids the failure instead of degrading. More expensive.
-- **A [circuit breaker](/12-reliability/circuit-breakers.md)** — it stops trying and degrades fast.
-- **A [bulkhead](/12-reliability/bulkheads.md)** — it isolates so the failure does not reach.
-- **Failing fast with a clear message** — when degrading is not possible.
+- **Redundancy**: it avoids the failure instead of degrading. More expensive.
+- **A [circuit breaker](/12-reliability/circuit-breakers.md)**: it stops trying and degrades fast.
+- **A [bulkhead](/12-reliability/bulkheads.md)**: it isolates so the failure does not reach.
+- **Failing fast with a clear message**: when degrading is not possible.
 
 A circuit breaker and degradation are complementary: the first detects that the dependency is down; the
 second defines what to do then.
@@ -207,12 +207,12 @@ second defines what to do then.
 ## Common Mistakes
 
 **Not classifying features.** Without deciding beforehand what is essential and what is accessory, the
-degradation is improvised during the incident — when nobody has time to decide well.
+degradation is improvised during the incident, when nobody has time to decide well.
 
 **Leaving the decision to the developer.** What can be turned off is a product decision, with a business
 consequence. Made in the code, it becomes inconsistent across parts of the system.
 
-**Not testing the degraded path.** It only executes during an incident, so it is usually broken — and the
+**Not testing the degraded path.** It only executes during an incident, so it is usually broken, and the
 discovery happens when it was the last defense.
 
 **Not notifying when the user notices.** An empty recommendation block with no explanation looks like a
@@ -227,7 +227,7 @@ approximate value is worse than refusing. There the correct answer is to fail ex
 ## Real-World Example
 
 An e-commerce platform had the product page depending on seven services. Any one down took the whole page
-down — and with it, the possibility of buying.
+down and, with it, the possibility of buying.
 
 The incident that motivated the change: the recommendations service was down for 40 minutes. The product
 page was unavailable the whole time, and sales stopped.
@@ -248,7 +248,7 @@ questions and answers    optional
 
 The implementation:
 
-**Optional ones omitted** when unavailable, with a 300 ms timeout — if it did not respond, it does not
+**Optional ones omitted** when unavailable, with a 300 ms timeout: if it did not respond, it does not
 appear.
 
 **Reviews** with a notice and a 24-hour cache as a fallback.
@@ -258,7 +258,7 @@ estimate.
 
 **A per-feature switch**, operable with no deployment, to turn off optional features under overload.
 
-**A read-only mode** for the whole catalog, activatable when the write database is unavailable — which
+**A read-only mode** for the whole catalog, activatable when the write database is unavailable. That
 allows continuing to sell with cached stock, accepting orders into a queue.
 
 That last one was the most debated, because accepting an order without confirming stock contradicts the
@@ -272,25 +272,25 @@ In the following eighteen months:
 **The read-only mode** was activated twice, maintaining 70% of the revenue during primary database
 outages.
 
-**One problem:** on one of those occasions, the degraded shipping path was broken — the fixed table had
+**One problem:** on one of those occasions, the degraded shipping path was broken. The fixed table had
 been written 8 months earlier and never executed, with a formatting error. From then on, the degraded paths
 entered the test suite and the monthly exercise.
 
 The learning that stuck: the classification took two hours and had never been done in six years of the
-product. The question "what is essential on this page?" had no owner — neither product nor engineering
+product. The question "what is essential on this page?" had no owner: neither product nor engineering
 considered it theirs.
 
 ## Related Concepts
 
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — it detects and triggers the degradation.
-- [Bulkheads](/12-reliability/bulkheads.md) — it prevents propagation.
-- [SLO](/12-reliability/slo.md) — the target degradation helps sustain.
-- [Backpressure](/06-distributed-systems/backpressure.md) — selective shedding.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): it detects and triggers the degradation.
+- [Bulkheads](/12-reliability/bulkheads.md): it prevents propagation.
+- [SLO](/12-reliability/slo.md): the target degradation helps sustain.
+- [Backpressure](/06-distributed-systems/backpressure.md): selective shedding.
 
 ## Practical Exercise
 
 Take your product's most important screen and list its dependencies. Classify each one as essential,
-important or optional — with somebody from product in the room.
+important or optional, with somebody from product in the room.
 
 Then check what happens today when each one fails. The difference between the classification and the
 current behavior is the work.
@@ -304,5 +304,5 @@ current behavior is the work.
 ## Further Reading
 
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 22.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 22.
 - Fowler, Susan. *Production-Ready Microservices*. O'Reilly, 2016.

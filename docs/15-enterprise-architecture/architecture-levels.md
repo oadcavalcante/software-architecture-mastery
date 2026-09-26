@@ -2,7 +2,7 @@
 id: architecture-levels
 title: Níveis de Arquitetura
 sidebar_position: 20
-description: Quais decisões pertencem a quem — e por que empurrá-las para cima é a causa mais comum de gargalo.
+description: Quais decisões pertencem a quem, e por que empurrá-las para cima é a causa mais comum de gargalo.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [enterprise-governance, architecture-review, enterprise-principles]
 canonical_for: [níveis de arquitetura, arquitetura de solução, alcance de decisão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -32,8 +32,8 @@ de componente dentro do sistema — dias a semanas
 
 A pergunta que organiza esta seção: **qual decisão pertence a qual nível?**
 
-Errar isso produz os dois problemas característicos: decisões locais tomadas em comitê —
-gargalo — e decisões de alcance amplo tomadas por um time isolado — divergência.
+Errar isso produz os dois problemas característicos: decisões locais tomadas em comitê
+(gargalo) e decisões de alcance amplo tomadas por um time isolado (divergência).
 
 ## Problema
 
@@ -48,7 +48,7 @@ Cada resposta é razoável isoladamente. O agregado é uma organização em que 
 triviais sobem, e o tempo entre decidir e construir se estende.
 
 E o efeito colateral é pior: times que não decidem param de pensar arquiteturalmente,
-e a qualidade das decisões locais cai — o que gera mais incidentes, que geram mais
+e a qualidade das decisões locais cai, o que gera mais incidentes, que geram mais
 centralização.
 
 ## Conceitos Centrais
@@ -70,7 +70,7 @@ alcance local + reversão barata   → do time, sem cerimônia
 ```
 
 O quadrante inferior direito contém a **maioria** das decisões, e é onde a centralização
-costuma se intrometer — com custo alto e benefício próximo de zero, porque o erro que o
+costuma se intrometer, com custo alto e benefício próximo de zero, porque o erro que o
 comitê evitaria o time desfaz em dias.
 
 E o quadrante superior direito merece atenção: uma decisão de alcance amplo mas
@@ -100,7 +100,7 @@ de sistema    modelo de dados interno
 de componente estrutura de código, padrões, bibliotecas
 ```
 
-A primeira linha do nível corporativo — propriedade do dado — é a decisão de maior
+A primeira linha do nível corporativo, propriedade do dado, é a decisão de maior
 alcance e a menos tomada explicitamente. Ver
 [propriedade do dado](/07-data-architecture/data-ownership.md).
 
@@ -114,7 +114,7 @@ reverter separa o que passa por revisão do que segue sem cerimônia.
 O sintoma de que a alocação ignora esse eixo: o tempo médio de decisão é o mesmo para
 escolher uma biblioteca e para escolher um modelo de dados corporativo.
 
-E a reversibilidade não é propriedade fixa da decisão — ela cai com o uso. Uma
+E a reversibilidade não é propriedade fixa da decisão: ela cai com o uso. Uma
 biblioteca adotada por um serviço é de mão dupla; a mesma biblioteca espalhada por
 quarenta serviços, com os tipos dela nos contratos entre eles, virou de mão única sem
 que ninguém a tenha decidido de novo. A classificação feita quando a decisão nasce
@@ -127,7 +127,7 @@ elas.
 
 O resultado: uma iniciativa que envolve cinco sistemas não tem ninguém responsável pela
 coerência do conjunto. Cada time faz a sua parte bem, e as fronteiras ficam mal
-resolvidas — contratos improvisados, dados duplicados, responsabilidades sobrepostas.
+resolvidas: contratos improvisados, dados duplicados, responsabilidades sobrepostas.
 
 Esse nível não exige um cargo. Exige que alguém seja responsável pela decomposição e
 pelas fronteiras, com tempo alocado para isso.
@@ -141,13 +141,13 @@ sobe   quando o alcance é genuinamente amplo e a reversão é cara
 desce  em todo o resto
 ```
 
-E o mecanismo que permite descer sem perder coerência não é aprovação — é **caminho
+E o mecanismo que permite descer sem perder coerência não é aprovação, e sim **caminho
 pavimentado**: o padrão embutido no que o time já usa, de forma que a escolha certa seja
 a mais fácil. Ver
 [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
-Quando a regra é técnica — formato de log, versão mínima de biblioteca, configuração de
-rede —, precisar de um comitê para verificá-la é sinal de que ela não foi
+Quando a regra é técnica (formato de log, versão mínima de biblioteca, configuração de
+rede), precisar de um comitê para verificá-la é sinal de que ela não foi
 operacionalizada. Regras regulatórias e de propriedade de dado são a exceção: dependem de
 julgamento e continuam no nível corporativo.
 
@@ -184,7 +184,7 @@ sem ninguém diferente para ocupá-los; a conversa entre os dois times resolve.
 **Setor regulado, quando a norma exige aprovação prévia.** Se o regulador exige aprovação
 documentada para mudança em sistema que trata dado de pagamento ou de saúde, a decisão
 sobe mesmo sendo reversível. O quadrante continua valendo para o que a norma não cobre,
-mas não anula a exigência — tratá-la como decisão local é risco de conformidade.
+mas não anula a exigência: tratá-la como decisão local é risco de conformidade.
 
 **Durante incidente grave ou migração com prazo fixo.** Centralizar por algumas semanas,
 com um responsável decidindo rápido, é deliberado: o custo de coordenar decisões
@@ -193,15 +193,15 @@ centralização quando ele acaba.
 
 **Antes de existir o caminho pavimentado.** Descer decisões pressupõe que o padrão esteja
 embutido em algo que o time usa. Sem isso, descer tudo de uma vez produz a divergência
-que a centralização continha — a ordem é construir o caminho e depois descer.
+que a centralização continha. A ordem é construir o caminho e depois descer.
 
 ## Alternativas
 
-- **Caminho pavimentado** — o padrão embutido, em vez de regra verificada.
-- **Princípios** — orientam sem decidir. Ver
+- **Caminho pavimentado**: o padrão embutido, em vez de regra verificada.
+- **Princípios**: orientam sem decidir. Ver
   [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
-- **Consulta em vez de aprovação** — o time decide, com opinião disponível.
-- **Revisão após o fato** — para decisões reversíveis, revisar depois é mais barato que
+- **Consulta em vez de aprovação**: o time decide, com opinião disponível.
+- **Revisão após o fato**: para decisões reversíveis, revisar depois é mais barato que
   aprovar antes.
 
 ## Trade-offs
@@ -237,7 +237,7 @@ que a centralização continha — a ordem é construir o caminho e depois desce
 
 **Subir decisões reversíveis.** Exigir aprovação para toda biblioteca nova: a pauta do
 comitê incha, a espera chega a semanas, e o time contorna com dependência transitiva não
-declarada — que ninguém revisa.
+declarada, que ninguém revisa.
 
 **Não distinguir mão única de mão dupla.** Um fluxo único de aprovação para tudo: se ele
 é leve, a escolha do banco corporativo passa sem alternativas escritas; se é pesado, a
@@ -282,7 +282,7 @@ alcance amplo, reversão cara      4%   → corretamente ali
 ```
 
 Setenta e um por cento dos itens do comitê eram decisões que o time poderia ter
-tomado — escolha de biblioteca, estrutura de código, ferramenta interna.
+tomado: escolha de biblioteca, estrutura de código, ferramenta interna.
 
 E o comitê aprovava quase tudo: a taxa de rejeição era de 3%. Ele funcionava como
 carimbo com quatro semanas de espera.
@@ -290,12 +290,12 @@ carimbo com quatro semanas de espera.
 A reformulação:
 
 **Classificação na abertura.** Quem propõe declara alcance e reversibilidade. Decisões
-de mão dupla e alcance local não passam pelo comitê — são registradas e seguem.
+de mão dupla e alcance local não passam pelo comitê: são registradas e seguem.
 
 Como quem propõe tem incentivo para se declarar local e reversível, a classificação é
 auditada: a revisão trimestral sorteia uma amostra das decisões registradas e as
-reclassifica, e uma decisão cujo alcance cresceu desde o registro — a biblioteca que três
-times adotaram depois — sobe para o comitê nesse momento.
+reclassifica, e uma decisão cujo alcance cresceu desde o registro (a biblioteca que três
+times adotaram depois) sobe para o comitê nesse momento.
 
 **Caminho pavimentado** substituindo a lista de tecnologias. A plataforma passou a
 oferecer as opções suportadas prontas; usar outra coisa é possível e o time assume a
@@ -303,13 +303,13 @@ operação. Ver
 [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 **Nível de solução criado.** Iniciativas com mais de dois sistemas passaram a ter um
-responsável pela decomposição e pelos contratos, com tempo alocado — sem cargo novo, por
+responsável pela decomposição e pelos contratos, com tempo alocado, sem cargo novo, por
 rotação entre engenheiros seniores.
 
 **Revisão após o fato** para decisões reversíveis, trimestral, olhando padrões em vez de
 casos.
 
-**Comitê reduzido** a decisões de alcance amplo e reversão cara — duas a três por mês,
+**Comitê reduzido** a decisões de alcance amplo e reversão cara: duas a três por mês,
 o mesmo volume que já estava corretamente ali.
 
 Resultado em nove meses: tempo entre propor e construir de quatro semanas para dois
@@ -317,7 +317,7 @@ dias, e o comitê passou a discutir substância.
 
 E um efeito que a equipe não esperava: a **qualidade das decisões locais melhorou**. Com
 a responsabilidade devolvida, os times passaram a escrever registros de decisão e a
-discutir alternativas — o que não faziam quando alguém decidia por eles.
+discutir alternativas, o que não faziam quando alguém decidia por eles.
 
 O ponto que a equipe sublinha: cada item do processo tinha sido criado em resposta a um
 problema real. Nenhum tinha sido revisado quando a organização mudou de tamanho.
@@ -344,7 +344,7 @@ A proporção que cai em "local e reversível" é o desperdício do seu processo
 
 ## Para Aprofundar
 
-- Bezos, Jeff. *Carta aos acionistas de 2015* — decisões de mão única e de mão
+- Bezos, Jeff. *Carta aos acionistas de 2015*. Decisões de mão única e de mão
   dupla.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

@@ -2,7 +2,7 @@
 id: data-protection
 title: Proteção de Dados
 sidebar_position: 14
-description: O controle mais eficaz é não ter o dado — e o que fazer com o que precisa existir.
+description: O controle mais eficaz é não ter o dado, e o que fazer com o que precisa existir.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: [minimização de dados, classificação de dados, pseudonimização, tokenização]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -31,7 +31,7 @@ segurança, não aparece em registro, não precisa ser apagado quando alguém pe
 Para dado que nenhum processo usa, é o controle com a melhor relação entre risco
 eliminado e esforço.
 
-O que resta depois dessa pergunta é o que merece proteção — proporcional ao que ele
+O que resta depois dessa pergunta é o que merece proteção, proporcional ao que ele
 é.
 
 ## Problema
@@ -69,7 +69,7 @@ Cada "não" remove um problema inteiro em vez de mitigá-lo.
 Proteger tudo igualmente é caro e produz o pior resultado: excesso onde não importa,
 insuficiência onde importa.
 
-Uma classificação simples resolve — três ou quatro níveis bastam:
+Uma classificação simples resolve; três ou quatro níveis bastam:
 
 ```text
 público      pode ser divulgado
@@ -87,7 +87,7 @@ Sem classificação, a decisão é tomada campo a campo, por quem estiver implem
 
 **Pseudonimizar** substitui identificadores diretos por referências, mantendo a
 possibilidade de reverter com informação adicional. O dado continua sendo pessoal, do
-ponto de vista regulatório — o risco é reduzido, não eliminado.
+ponto de vista regulatório: o risco é reduzido, não eliminado.
 
 **Anonimizar** remove a possibilidade de reidentificação. O dado deixa de ser pessoal.
 
@@ -110,31 +110,31 @@ Substituir o valor sensível por uma referência sem significado, guardando o or
 num cofre separado com acesso restrito.
 
 O ganho: a maior parte do sistema deixa de ter o dado. Os sistemas que só precisam
-referenciar — para relacionar, para exibir os últimos dígitos — trabalham com o
+referenciar (para relacionar, para exibir os últimos dígitos) trabalham com o
 token, e o escopo de conformidade encolhe drasticamente.
 
 É a técnica padrão para dados de cartão, e subutilizada para documentos e outros
 identificadores.
 
 O custo é operacional. O cofre entra no caminho de todo fluxo que precisa do valor
-original — emissão de nota, envio a órgão regulador, conferência com o titular: se ele
+original (emissão de nota, envio a órgão regulador, conferência com o titular): se ele
 cai, esses fluxos caem junto, e cada detokenização soma uma chamada de rede à
 latência. O risco que estava espalhado se concentra num alvo só, que passa a exigir o
 controle de acesso e a auditoria mais rígidos do sistema. E o acervo já persistido
-precisa ser migrado — varrer bancos, réplicas e extrações, trocar valor por token sem
-quebrar relacionamentos —, um projeto em si.
+precisa ser migrado (varrer bancos, réplicas e extrações, trocar valor por token sem
+quebrar relacionamentos), um projeto em si.
 
 ### Dados de produção em outros ambientes
 
 Ambientes de teste, desenvolvimento e análise que recebem cópia de produção multiplicam
 os lugares onde há dado pessoal, e raramente carregam os controles de produção: acesso
 mais amplo, cifragem ausente, retenção sem dono. Para a proteção de dados, a pergunta
-é qual dado real cada ambiente precisa ter — e a resposta usual é nenhum.
+é qual dado real cada ambiente precisa ter, e a resposta usual é nenhum.
 
-As formas de chegar lá — dados sintéticos, subconjunto mascarado que preserva os
-relacionamentos, conjunto pequeno feito à mão — estão em
+As formas de chegar lá (dados sintéticos, subconjunto mascarado que preserva os
+relacionamentos, conjunto pequeno feito à mão) estão em
 [gestão de ambientes](/14-devops-and-platform/environment-management.md#dados-de-teste-não-cópia-integral-de-produção).
-Ver [segredos](/10-security/secrets.md) — a mesma lógica vale para credenciais.
+Ver [segredos](/10-security/secrets.md): a mesma lógica vale para credenciais.
 
 ### Vazamento por caminhos laterais
 
@@ -174,17 +174,17 @@ que ele é.
 **Cofre de tokenização para dado pouco sensível ou de pouco volume.** O cofre é uma
 dependência de disponibilidade e um alvo a proteger. Para um identificador interno sem
 valor fora do sistema, ou para poucas centenas de registros em que a minimização
-resolve, operar o cofre custa mais que o escopo que ele reduz — cifrar o campo ou não
+resolve, operar o cofre custa mais que o escopo que ele reduz; cifrar o campo ou não
 guardá-lo sai mais barato.
 
 **Classificação formal num sistema de sensibilidade única.** Se todo dado do sistema
-está num só nível — um serviço interno sem dado pessoal, ou um que só guarda dado de
-saúde —, quatro níveis com controles por nível é burocracia sem decisão a tomar. Um
+está num só nível (um serviço interno sem dado pessoal, ou um que só guarda dado de
+saúde), quatro níveis com controles por nível é burocracia sem decisão a tomar. Um
 controle uniforme adequado àquele nível basta; a classificação passa a valer quando
 surge o segundo nível.
 
 **Anonimizar quando a análise precisa do indivíduo.** Anonimização que resiste a
-cruzamento generaliza e suprime até destruir a granularidade — acompanhar a jornada de
+cruzamento generaliza e suprime até destruir a granularidade: acompanhar a jornada de
 um cliente, detectar fraude por padrão individual. Quando é esse o uso que justifica
 guardar o dado, pseudonimize com acesso restrito ao mapeamento, e assuma que o dado
 continua pessoal.
@@ -196,11 +196,11 @@ ambiente com controles de produção, não a cópia crua.
 
 ## Alternativas
 
-- **Não coletar** — o controle definitivo.
-- **Tokenização** — reduz drasticamente o escopo; o cofre continua dentro dele.
-- **Agregação** — guardar o resumo, descartar o detalhe.
-- **Processar sem armazenar** — usar o dado na requisição e não persistir.
-- **[Cifragem por titular](/10-security/encryption.md)** — permite apagamento por descarte de
+- **Não coletar**: o controle definitivo.
+- **Tokenização**: reduz drasticamente o escopo; o cofre continua dentro dele.
+- **Agregação**: guardar o resumo, descartar o detalhe.
+- **Processar sem armazenar**: usar o dado na requisição e não persistir.
+- **[Cifragem por titular](/10-security/encryption.md)**: permite apagamento por descarte de
   chave.
 
 ## Trade-offs
@@ -237,26 +237,26 @@ ambiente com controles de produção, não a cópia crua.
 
 ## Erros Comuns
 
-**Começar por criptografia em vez de minimização.** O dado que não foi coletado não vaza, não precisa de chave e não entra em pedido de exclusão. Cifrar é a segunda melhor resposta; não ter é a primeira. E muitas vezes o controle que faltava era autorização — ver [criptografia](/10-security/encryption.md).
+**Começar por criptografia em vez de minimização.** O dado que não foi coletado não vaza, não precisa de chave e não entra em pedido de exclusão. Cifrar é a segunda melhor resposta; não ter é a primeira. E muitas vezes o controle que faltava era autorização. Ver [criptografia](/10-security/encryption.md).
 
-**Não classificar.** Sem saber quais campos são pessoais ou sensíveis, aplica-se o mesmo controle a tudo — caro demais para o que não precisa e frouxo demais para o que precisa.
+**Não classificar.** Sem saber quais campos são pessoais ou sensíveis, aplica-se o mesmo controle a tudo: caro demais para o que não precisa e frouxo demais para o que precisa.
 
 **Copiar produção.** A base de homologação com dados reais multiplica os lugares onde há dado pessoal, com controles que, na prática, raramente igualam os de produção.
 
-**Classificar sem definir controles por nível.** O rótulo sem consequência não muda onde o dado pode estar nem quem o acessa — é inventário, não proteção.
+**Classificar sem definir controles por nível.** O rótulo sem consequência não muda onde o dado pode estar nem quem o acessa: é inventário, não proteção.
 
 **Registrar corpo de requisição.** É a via mais comum de vazamento interno: dado pessoal e credencial acabam no sistema de logs, que tem retenção longa e acesso mais amplo.
 
-**Confundir pseudonimização com anonimização.** Trocar o nome por um identificador não anonimiza — com data de nascimento e CEP, poucos atributos bastam para reidentificar. Só o dado verdadeiramente anônimo sai do escopo regulatório.
+**Confundir pseudonimização com anonimização.** Trocar o nome por um identificador não anonimiza: com data de nascimento e CEP, poucos atributos bastam para reidentificar. Só o dado verdadeiramente anônimo sai do escopo regulatório.
 
-**Não inventariar os destinos do dado.** Sem saber para onde o dado pessoal flui — análise, suporte, terceiros — não há como atender pedido de exclusão nem responder a incidente.
+**Não inventariar os destinos do dado.** Sem saber para onde o dado pessoal flui (análise, suporte, terceiros), não há como atender pedido de exclusão nem responder a incidente.
 
 ## Exemplo Real
 
 Uma fintech recebeu uma solicitação de exclusão de dados e descobriu que não sabia
 onde eles estavam.
 
-O inventário, feito às pressas, encontrou dados pessoais de clientes em dez lugares —
+O inventário, feito às pressas, encontrou dados pessoais de clientes em dez lugares,
 dos quais sete ninguém tinha listado:
 
 ```text
@@ -284,7 +284,7 @@ com credenciais compartilhadas com dois fornecedores.
 
 A reformulação começou por minimização, não por proteção:
 
-**Revisão de coleta.** Onze campos deixaram de ser coletados — incluindo dados de
+**Revisão de coleta.** Onze campos deixaram de ser coletados, incluindo dados de
 familiares que nenhum processo usava. Três campos passaram a ser guardados de forma
 reduzida: faixa de renda em vez de valor, município em vez de endereço completo,
 últimos dígitos em vez do documento completo onde só a conferência importava.
@@ -293,7 +293,7 @@ reduzida: faixa de renda em vez de valor, município em vez de endereço complet
 sistema trabalha com token. Isso removeu o campo do banco de produção, das réplicas e
 do warehouse.
 
-**Classificação** em quatro níveis, com controles definidos por nível — inclusive
+**Classificação** em quatro níveis, com controles definidos por nível, inclusive
 "não pode aparecer em registro" e "não pode sair para ambiente não produtivo".
 
 **Dados sintéticos** em homologação. A cópia de produção foi eliminada.
@@ -303,17 +303,17 @@ do warehouse.
 **Contratos revistos** com os terceiros, restringindo o que é enviado.
 
 O que a equipe aprendeu: a solicitação de exclusão que iniciou tudo passou a ser
-atendível em dois dias. E a maior parte do ganho veio da primeira etapa — os onze
+atendível em dois dias. E a maior parte do ganho veio da primeira etapa. Os onze
 campos que nenhum processo usava deixaram de existir, e com eles todo o controle que
 teriam exigido em cada um dos dez lugares.
 
 ## Conceitos Relacionados
 
-- [Criptografia](/10-security/encryption.md) — o controle para o que resta.
+- [Criptografia](/10-security/encryption.md): o controle para o que resta.
 - [Auditabilidade](/10-security/auditability.md).
-- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção e
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md): retenção e
   apagamento.
-- [Modelagem de Ameaças](/10-security/threat-modeling.md) — onde "eliminar" aparece como resposta.
+- [Modelagem de Ameaças](/10-security/threat-modeling.md): onde "eliminar" aparece como resposta.
 
 ## Exercício Prático
 

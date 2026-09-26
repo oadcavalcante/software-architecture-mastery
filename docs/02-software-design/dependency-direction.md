@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [package-design, boundaries, component-design]
 canonical_for: [direção de dependência, princípio das dependências acíclicas, dependências acíclicas]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -30,7 +30,7 @@ Num sistema com muitos pacotes, o grafo de dependências entre eles precisa
 satisfazer duas propriedades: ser acíclico, e ter as setas apontando dos pacotes
 voláteis para os estáveis.
 
-A primeira é binária — ou há ciclo ou não há. A segunda é gradual e mensurável.
+A primeira é binária: ou há ciclo ou não há. A segunda é gradual e mensurável.
 
 ## Problema
 
@@ -43,7 +43,7 @@ Isso produz dois problemas que só aparecem quando alguém tenta mudar algo.
 testados, versionados ou extraídos separadamente. Um ciclo entre três pacotes
 transforma os três num só, e ninguém decidiu isso.
 
-**Direção invertida.** Um pacote estável — do qual muitos dependem — que depende
+**Direção invertida.** Um pacote estável (do qual muitos dependem) que depende
 de um volátil herda a instabilidade dele. Cada mudança no volátil se propaga para
 tudo que depende do estável, num efeito que ninguém antecipa porque o caminho é
 transitivo.
@@ -91,14 +91,14 @@ existe um conceito comum que não tinha nome.
 Duas métricas de Martin, úteis como diagnóstico:
 
 **Instabilidade** `I = Ce / (Ca + Ce)`, entre 0 e 1. Um pacote do qual muitos
-dependem e que depende de poucos tem I próximo de 0 — é estável, e mudá-lo é caro.
-O inverso tem I próximo de 1 — é volátil, e mudá-lo é barato.
+dependem e que depende de poucos tem I próximo de 0: é estável, e mudá-lo é caro.
+O inverso tem I próximo de 1: é volátil, e mudá-lo é barato.
 
 **Abstração** `A = (classes abstratas + interfaces) / classes totais`, entre 0
 e 1. Um pacote só de interfaces tem A = 1.
 
 A regra que liga as duas: **um pacote estável deve ser abstrato.** Se muita coisa
-depende dele, ele precisa ser difícil de tornar obsoleto — e abstrações são mais
+depende dele, ele precisa ser difícil de tornar obsoleto, e abstrações são mais
 estáveis que implementações.
 
 Isso define duas zonas problemáticas:
@@ -124,7 +124,7 @@ ou se duas setas formam um ciclo, há trabalho a fazer.
 
 - Sempre que o sistema tem mais de meia dúzia de pacotes.
 - Ao integrar código novo, para não introduzir ciclo.
-- Antes de tentar extrair um módulo para serviço — o ciclo impede.
+- Antes de tentar extrair um módulo para serviço: o ciclo impede.
 - Quando o tempo de build cresce sem que o código cresça na mesma proporção.
 
 ## Quando Não Usar
@@ -145,10 +145,10 @@ indireção.
 
 ## Alternativas
 
-- **Fundir os pacotes** — se dois pacotes formam ciclo e sempre mudam juntos,
+- **Fundir os pacotes**: se dois pacotes formam ciclo e sempre mudam juntos,
   eles eram um só.
-- **Extrair o conceito comum** — normalmente a resposta certa.
-- **Aceitar e documentar** — quando o custo de correção não se paga.
+- **Extrair o conceito comum**: normalmente a resposta certa.
+- **Aceitar e documentar**: quando o custo de correção não se paga.
 
 ## Trade-offs
 
@@ -185,7 +185,7 @@ arestas diretas.
 ## Exemplo Real
 
 Um sistema com dezoito pacotes tinha um ciclo entre `pedido`, `cliente` e
-`faturamento`. Ninguém sabia — o build era monolítico e nada reclamava.
+`faturamento`. Ninguém sabia: o build era monolítico e nada reclamava.
 
 O ciclo impedia a extração de `faturamento` para um serviço, que era o objetivo
 declarado do trimestre.
@@ -199,7 +199,7 @@ um conceito sem nome: a identidade e os dados básicos do cliente, distintos da
 lógica de crédito.
 
 Extraído `cliente-identidade`, do qual os três passaram a depender, o ciclo
-desapareceu — e `cliente` ficou com o que de fato lhe pertencia, a lógica de
+desapareceu, e `cliente` ficou com o que de fato lhe pertencia, a lógica de
 crédito.
 
 O ciclo era sintoma de um conceito faltando, não de uma seta errada. Quando o
@@ -224,16 +224,16 @@ concreto: extrair um módulo, paralelizar o build, testar um pacote isoladamente
 **Reduza a linha de base a cada correção.** A verificação aperta sozinha, e a
 melhoria fica registrada.
 
-Times que tentam a ordem inversa — corrigir tudo antes de verificar — corrigem
+Times que tentam a ordem inversa (corrigir tudo antes de verificar) corrigem
 metade, param por prioridade, e a metade corrigida degrada de volta em um ano.
 
 ## Conceitos Relacionados
 
-- [Gestão de Dependências](/01-fundamentals/dependency-management.md) — a regra
+- [Gestão de Dependências](/01-fundamentals/dependency-management.md): a regra
   geral de direção.
-- [Design de Pacotes](/02-software-design/package-design.md) — como agrupar antes de conectar.
-- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — uma das técnicas.
-- [Fronteiras](/02-software-design/boundaries.md) — o que a direção atravessa.
+- [Design de Pacotes](/02-software-design/package-design.md): como agrupar antes de conectar.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md): uma das técnicas.
+- [Fronteiras](/02-software-design/boundaries.md): o que a direção atravessa.
 
 ## Exercício Prático
 
@@ -254,6 +254,6 @@ que não tem nome?
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — princípios de
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Princípios de
   acoplamento de componentes e as métricas.
 - Documentação de `jdeps`, `dependency-cruiser`, `import-linter`, `ArchUnit`.

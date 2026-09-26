@@ -2,7 +2,7 @@
 id: interview-scaling
 title: Scaling in the Interview
 sidebar_position: 9
-description: The scaling ladder — what you try first, and why "I'll add machines" is rarely the complete answer.
+description: "The scaling ladder: what you try first, and why \"I'll add machines\" is rarely the complete answer."
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-identification]
 related: [bottleneck-identification, failure-handling, high-level-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -51,7 +51,7 @@ queries and rebalancing to fix what replicas or a cache fix without changing the
 set larger than memory, partitioning the cache solves it; partitioning the database does not.
 
 **Answering "I'll add machines" to everything.** It works for stateless components and fails for the
-rest. And it does not distinguish the cases where the extra machine makes things worse — more
+rest. And it does not distinguish the cases where the extra machine makes things worse: more
 instances contending for the same lock increase contention.
 
 ## Core Concepts
@@ -86,7 +86,7 @@ there is an invalidation strategy
 ```
 
 Proposing a cache without mentioning invalidation is the error that almost always generates a
-follow-up question — and it is better to anticipate it.
+follow-up question, and it is better to anticipate it.
 
 The anticipated answer does not need to be elaborate: "invalidation by event on write, with a short
 time-to-live as a safety net" covers most cases and demonstrates that the problem was considered.
@@ -107,7 +107,7 @@ wider range of problems than intuition suggests.
 
 Recognizing that demonstrates proportionality. See
 [vertical scaling](/11-scalability/vertical-scaling.md). Its limit is real and worth stating
-alongside: there is a machine ceiling, and it offers no fault tolerance — a bigger instance is still
+alongside: there is a machine ceiling, and it offers no fault tolerance; a bigger instance is still
 one instance.
 
 ### Horizontal requires statelessness
@@ -165,7 +165,7 @@ materialize              when reads dominate and the computation is expensive
 separate reads and writes when the two have very different profiles
 ```
 
-Those moves solve classes of problem the previous steps do not, and they cost permanent complexity —
+Those moves solve classes of problem the previous steps do not, and they cost permanent complexity:
 intermediate state, eventual consistency, more components to operate.
 
 Proposing them is correct when the previous steps were considered out loud. Proposing them first is
@@ -190,7 +190,7 @@ moment has arrived. A candidate who can only list mechanisms demonstrates readin
 the trigger demonstrates having been in the position of deciding.
 
 And the trigger has a second use: it becomes a metric. Saying "replicas when reads exceed 5 thousand
-per second" is, in practice, defining an alarm — and connecting architecture to operations that way
+per second" is, in practice, defining an alarm, and connecting architecture to operations that way
 is exactly what is expected of a senior role.
 
 ## Mental Model
@@ -212,15 +212,15 @@ complexity than the previous one.
 
 **Scaling a stateful component horizontally**, without handling the state.
 
-**Without declaring the consequence** of each step — replication lag, invalidation, hot key.
+**Without declaring the consequence** of each step: replication lag, invalidation, hot key.
 
-**Without saying where to stop** — scaling indefinitely in an interview suggests there is no
+**Without saying where to stop**: scaling indefinitely in an interview suggests there is no
 criterion.
 
 The order itself stops applying when the prompt already fixes a volume above a single node's
 ceiling: writes or data no machine can hold make partitioning the starting point, not the sixth
-step. The same holds when the availability requirement rules out a single instance — then
-vertical scaling alone leaves the ladder — or when the stated growth makes a later migration
+step. The same holds when the availability requirement rules out a single instance (then
+vertical scaling alone leaves the ladder) or when the stated growth makes a later migration
 costlier than the upfront complexity. In those cases, skipping steps is the answer, as long as
 the number that justifies the skip is stated.
 
@@ -228,9 +228,9 @@ the number that justifies the skip is stated.
 
 - **Reduce the load** instead of increasing the capacity: rate-limit, aggregate, make it
   approximate.
-- **Change the requirement** — questioning whether the required exactness or latency is real is
+- **Change the requirement**: questioning whether the required exactness or latency is real is
   legitimate and frequently productive.
-- **Accept the limit** — declare that the current scale requires no action.
+- **Accept the limit**: declare that the current scale requires no action.
 
 The first is underestimated: rate-limiting per client, aggregating events in a window or making a
 counter approximate solve scaling problems with no additional infrastructure.
@@ -275,7 +275,7 @@ counter approximate solve scaling problems with no additional infrastructure.
 ## Interview Example
 
 **Context.** News feed. Bottleneck identified: assembling the feed makes 96 queries per open, and
-there are 15 thousand opens per second — 1.4 million queries per second on the database.
+there are 15 thousand opens per second (1.4 million queries per second on the database).
 
 **Answer, climbing the steps:**
 
@@ -325,15 +325,15 @@ there are 15 thousand opens per second — 1.4 million queries per second on the
 
 **Likely follow-up question:** "and what if materialization were not possible?"
 
-The correct answer recognizes what that would imply — reads with 96 queries, requiring replicas at
-scale and aggressive per-author caching — and states the cost: dozens of replicas against a feed
+The correct answer recognizes what that would imply (reads with 96 queries, requiring replicas at
+scale and aggressive per-author caching) and states the cost: dozens of replicas against a feed
 store of a few hundred gigabytes. The cost comparison is the argument.
 
 See the [social network case study](/21-case-studies/social-network.md) for the full version.
 
 ## Related Concepts
 
-- [Bottleneck Identification](/22-system-design-interviews/bottleneck-identification.md) — the
+- [Bottleneck Identification](/22-system-design-interviews/bottleneck-identification.md): the
   previous step.
 - [Horizontal Scaling](/11-scalability/horizontal-scaling.md).
 - [Partitioning](/11-scalability/scaling-partitioning.md).

@@ -2,7 +2,7 @@
 id: service-mesh
 title: Malha de Serviço
 sidebar_position: 10
-description: Tirar comunicação da aplicação e pôr na infraestrutura — e a distância entre a adoção e a necessidade.
+description: Tirar comunicação da aplicação e pôr na infraestrutura, e a distância entre a adoção e a necessidade.
 doc_type: pattern
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [api-gateways]
 related: [api-gateways, grpc, integration-architecture]
 canonical_for: [malha de serviço, sidecar, plano de controle, mTLS entre serviços]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -30,7 +30,7 @@ A aplicação deixa de conhecer essas preocupações. Uma política de retentati
 passa a valer para todos os serviços, em todas as linguagens, sem tocar em código.
 
 É a tecnologia desta seção com a maior distância entre **adoção** e
-**necessidade** — e este documento trata isso com franqueza, porque a decisão de
+**necessidade**, e este documento trata isso com franqueza, porque a decisão de
 adotar é frequentemente tomada pelo motivo errado.
 
 ## Problema
@@ -39,7 +39,7 @@ Numa malha com muitos serviços, cada um precisa de retentativa, timeout, disjun
 descoberta, criptografia mútua e rastreamento distribuído.
 
 Em uma linguagem, uma biblioteca compartilhada resolve. Em cinco linguagens, são
-cinco bibliotecas, com comportamentos que divergem — e uma mudança de política
+cinco bibliotecas, com comportamentos que divergem, e uma mudança de política
 exige atualizar e reimplantar dezenas de serviços.
 
 O ponto de dor real é esse: **política de comunicação uniforme, num ambiente
@@ -49,7 +49,7 @@ poliglota, sem reimplantar tudo**.
 
 ### Processo auxiliar e plano de controle
 
-Cada instância de serviço ganha um processo ao lado — o auxiliar — que intercepta
+Cada instância de serviço ganha um processo ao lado, o auxiliar, que intercepta
 todo o tráfego de entrada e saída. O serviço fala com `localhost`; o auxiliar faz
 o resto.
 
@@ -76,8 +76,8 @@ linguagens, com rotação, é trabalho considerável e propenso a erro.
 
 **Retentativa, timeout e disjuntor uniformes.**
 
-**Observabilidade sem instrumentar.** Métricas de tráfego entre serviços — latência,
-taxa de erro, volume — para todos os pares, sem tocar em código.
+**Observabilidade sem instrumentar.** Métricas de tráfego entre serviços (latência,
+taxa de erro, volume) para todos os pares, sem tocar em código.
 
 **Divisão de tráfego.** Implantação gradual e testes com fração do tráfego,
 controlados por configuração.
@@ -89,7 +89,7 @@ centralmente.
 
 Sendo específico, porque é o que decide:
 
-**Latência.** Dois saltos adicionais por chamada — um em cada auxiliar.
+**Latência.** Dois saltos adicionais por chamada: um em cada auxiliar.
 Tipicamente poucos milissegundos, e relevante em cadeias longas.
 
 **Recursos.** Um processo auxiliar por instância. Em centenas de instâncias, isso
@@ -157,7 +157,7 @@ problema correspondente quando não há.
 - Dezenas de serviços, em várias linguagens.
 - Criptografia mútua entre serviços é requisito.
 - Política de comunicação uniforme sem reimplantar.
-- Balanceamento por chamada — especialmente com [gRPC](/08-integration-architecture/grpc.md).
+- Balanceamento por chamada, especialmente com [gRPC](/08-integration-architecture/grpc.md).
 - Divisão de tráfego para implantação gradual.
 - Observabilidade entre serviços sem instrumentar cada um.
 - Já existe orquestração madura e time de plataforma.
@@ -177,16 +177,16 @@ problema correspondente quando não há.
 **Sem resolver a retentativa em camadas antes.**
 
 **Para "resolver" problemas de arquitetura.** Uma malha não conserta fronteiras de
-serviço mal traçadas — ela torna mais fácil não perceber que estão erradas.
+serviço mal traçadas. Ela torna mais fácil não perceber que estão erradas.
 
 ## Alternativas
 
-- **Biblioteca compartilhada** — mesma política, sem processo extra nem latência.
+- **Biblioteca compartilhada**: mesma política, sem processo extra nem latência.
   Exige uma linguagem, ou uma biblioteca por linguagem.
-- **Descoberta e balanceamento na plataforma** — orquestradores já oferecem parte
+- **Descoberta e balanceamento na plataforma**: orquestradores já oferecem parte
   disso.
-- **Criptografia mútua sem malha** — mais trabalhoso e possível.
-- **Malha sem processo auxiliar** — modelos que colocam a função no nó em vez de
+- **Criptografia mútua sem malha**: mais trabalhoso e possível.
+- **Malha sem processo auxiliar**: modelos que colocam a função no nó em vez de
   por instância, reduzindo consumo e latência.
 
 ## Trade-offs
@@ -231,8 +231,8 @@ chamadas falham.
 
 **Esperar que resolva problemas de fronteira de serviço.**
 
-**Adotar tudo de uma vez** em vez de começar por um recurso — tipicamente
-criptografia mútua — e expandir.
+**Adotar tudo de uma vez** em vez de começar por um recurso (tipicamente
+criptografia mútua) e expandir.
 
 ## Exemplo Real
 
@@ -269,14 +269,14 @@ haver alerta de proximidade de expiração.
 
 A conclusão registrada: a adoção foi acertada porque havia um requisito concreto
 que a alternativa não atendia bem. Um time vizinho, com 8 serviços numa linguagem
-só, adotou a mesma malha "para padronizar" e a removeu quatorze meses depois — o
+só, adotou a mesma malha "para padronizar" e a removeu quatorze meses depois: o
 custo operacional era real e o benefício não existia naquele contexto.
 
 ## Conceitos Relacionados
 
-- [API Gateways](/08-integration-architecture/api-gateways.md) — o tráfego de entrada.
-- [gRPC](/08-integration-architecture/grpc.md) — onde o balanceamento por chamada importa.
-- [Retentativas](/06-distributed-systems/retries.md) — o risco de multiplicação.
+- [API Gateways](/08-integration-architecture/api-gateways.md): o tráfego de entrada.
+- [gRPC](/08-integration-architecture/grpc.md): onde o balanceamento por chamada importa.
+- [Retentativas](/06-distributed-systems/retries.md): o risco de multiplicação.
 - [Observabilidade](/13-observability/index.md).
 
 ## Exercício Prático
@@ -285,7 +285,7 @@ Se você usa malha, verifique quantas camadas repetem: a aplicação, a malha, o
 cliente HTTP.
 
 Multiplique os fatores de cada camada para achar o fator por salto, e eleve esse
-fator ao número de saltos da sua cadeia mais longa — a amplificação é exponencial
+fator ao número de saltos da sua cadeia mais longa: a amplificação é exponencial
 na profundidade, não linear. Esse é o número de chamadas que uma única requisição
 pode gerar numa degradação.
 

@@ -2,7 +2,7 @@
 id: supply-chain-security
 title: Segurança da Esteira
 sidebar_position: 12
-description: A esteira é ambiente de produção — e é tratada como se não fosse.
+description: A esteira é ambiente de produção, e é tratada como se não fosse.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, containers-in-delivery, supply-chain-trust]
 canonical_for: [segurança da esteira, isolamento de execução, verificação na implantação, credencial efêmera de esteira]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -33,7 +33,7 @@ interessa o ângulo da entrega: **proteger o caminho entre o código e produçã
 
 ## Problema
 
-Quem controla o que a esteira executa controla o que roda em produção — sem tocar no
+Quem controla o que a esteira executa controla o que roda em produção, sem tocar no
 código da aplicação.
 
 Os caminhos:
@@ -101,7 +101,7 @@ A federação de identidade permite que a esteira autentique sem chave armazenad
 E o escopo precisa ser mínimo: uma esteira que implanta um serviço não deveria poder
 alterar políticas de acesso, criar identidades, nem tocar em outros serviços.
 
-Ver [menor privilégio](/10-security/least-privilege.md) — a permissão de alterar
+Ver [menor privilégio](/10-security/least-privilege.md): a permissão de alterar
 permissões é escalonamento de privilégio.
 
 ### Verificar na implantação, não só assinar
@@ -119,8 +119,8 @@ a implantação recusa o que não tem assinatura e proveniência válidas
 Isso impede o vetor de publicar direto no registro: um artefato que não passou pela
 esteira não tem proveniência, e a implantação o recusa.
 
-O custo aparece no dia em que a verificação falha por motivo alheio a ataque — serviço de
-assinatura fora, chave rotacionada sem propagar — durante um incidente que exige
+O custo aparece no dia em que a verificação falha por motivo alheio a ataque (serviço de
+assinatura fora, chave rotacionada sem propagar) durante um incidente que exige
 implantar. Sem saída de emergência, a correção espera. A saída precisa existir antes:
 um caminho de exceção com aprovação de duas pessoas, registro próprio e alerta a cada
 uso, porque um desvio silencioso é exatamente o caminho que a verificação fecha.
@@ -137,13 +137,13 @@ revisar ações de terceiros antes de adotar
 espelhar internamente as críticas
 ```
 
-Uma ação de terceiro referenciada por etiqueta pode ser reapontada pelo mantenedor — ou
-por quem comprometer a conta dele — e passa a executar código novo em todas as esteiras
+Uma ação de terceiro referenciada por etiqueta pode ser reapontada pelo mantenedor (ou
+por quem comprometer a conta dele) e passa a executar código novo em todas as esteiras
 que a usam.
 
 Fixar por digest transfere o trabalho: a atualização deixa de chegar sozinha e alguém
 precisa propor, revisar e aplicar cada nova versão. Sem automação que abra essas
-propostas, os digests congelam e a esteira acumula vulnerabilidades conhecidas — o
+propostas, os digests congelam e a esteira acumula vulnerabilidades conhecidas: o
 oposto do objetivo. O espelho interno tem o mesmo custo multiplicado: é mais um serviço
 para manter disponível, sincronizar e varrer.
 
@@ -170,12 +170,12 @@ alerta de anomalia        execução fora do padrão, uso de credencial incomum
 inventário de artefatos   o que foi publicado, por qual execução
 ```
 
-Um comprometimento de esteira sem registro é indistinguível de operação normal — e é o
+Um comprometimento de esteira sem registro é indistinguível de operação normal, o
 que torna a investigação impossível.
 
 ### O registro de artefatos é fronteira de confiança
 
-Os requisitos operacionais do registro — retenção, imutabilidade, limpeza — estão em
+Os requisitos operacionais do registro (retenção, imutabilidade, limpeza) estão em
 [contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md). Aqui
 interessa o registro como alvo.
 
@@ -183,7 +183,7 @@ Um componente que costuma ficar fora da análise: o registro onde as imagens e o
 ficam.
 
 Ele é a última parada antes de produção, e comprometê-lo é equivalente a comprometer a
-esteira — com a vantagem, para o atacante, de não deixar rastro no repositório de
+esteira, com a vantagem, para o atacante, de não deixar rastro no repositório de
 código.
 
 ```text
@@ -197,8 +197,8 @@ Sem a primeira linha, as outras protegem pouco: credenciais de publicação dist
 pessoas, ou compartilhadas entre esteiras, tornam o registro um caminho aberto.
 
 E a terceira merece nota: uma imagem publicada há seis meses pode ter adquirido
-vulnerabilidades conhecidas desde então. Varrer apenas na construção deixa de ver isso —
-o que importa é a varredura contínua do que está publicado e em uso.
+vulnerabilidades conhecidas desde então. Varrer apenas na construção deixa de ver isso.
+O que importa é a varredura contínua do que está publicado e em uso.
 
 ## Modelo Mental
 
@@ -216,7 +216,7 @@ Sempre. Prioridade alta quando:
 
 ## Quando Não Usar
 
-O núcleo — configuração protegida, credencial efêmera, verificação na implantação — vale
+O núcleo (configuração protegida, credencial efêmera, verificação na implantação) vale
 para qualquer esteira que alcance produção. O limite está nos controles mais caros:
 
 **Esteira separada para contribuições externas, num repositório que não as aceita.** Sem
@@ -234,11 +234,11 @@ esse serviço a mais.
 
 ## Alternativas
 
-- **Aprovação manual para implantar** — reduz o risco sem resolver o de construção.
-- **Ambiente de implantação separado** — a esteira produz o artefato, outro processo
+- **Aprovação manual para implantar**: reduz o risco sem resolver o de construção.
+- **Ambiente de implantação separado**: a esteira produz o artefato, outro processo
   implanta.
-- **Esteira gerenciada** — o fornecedor cuida do isolamento, ao custo de menos controle.
-- **Verificação de política na admissão** — o ambiente de destino recusa o que não
+- **Esteira gerenciada**: o fornecedor cuida do isolamento, ao custo de menos controle.
+- **Verificação de política na admissão**: o ambiente de destino recusa o que não
   atende, independentemente da esteira. Ver
   [Kubernetes](/09-cloud-architecture/kubernetes.md).
 
@@ -283,7 +283,7 @@ ambiente recusa.
 
 **Credenciais estáticas amplas.** Uma chave de longa duração com permissão de administrador na esteira dá, sozinha, tudo que a esteira alcança em produção, e ela vaza em log de construção com facilidade.
 
-**Não verificar assinatura na implantação.** Assinar sem verificar no momento de implantar é cerimônia — o controle só existe onde alguém recusa o que não confere.
+**Não verificar assinatura na implantação.** Assinar sem verificar no momento de implantar é cerimônia: o controle só existe onde alguém recusa o que não confere.
 
 **Não fixar dependências de construção.** Ações, imagens base e ferramentas referenciadas por etiqueta móvel entram na sua esteira em versões que ninguém revisou.
 
@@ -304,7 +304,7 @@ serviços:
 processo distinto, com credenciais próprias e aprovação para produção, implanta.
 
 **Verificação na admissão.** O ambiente de destino recusa artefatos sem assinatura e
-proveniência válidas — proteção independente da esteira.
+proveniência válidas: proteção independente da esteira.
 
 **Dependências fixadas por digest**, com as críticas espelhadas internamente. A troca de
 etiquetas por digest foi a parte lenta: cada serviço referenciava de oito a quinze ações e
@@ -326,9 +326,9 @@ organização e o menos governado.
 
 ## Conceitos Relacionados
 
-- [Confiança na Cadeia de Suprimentos](/10-security/supply-chain-trust.md) — os
+- [Confiança na Cadeia de Suprimentos](/10-security/supply-chain-trust.md): os
   fundamentos.
-- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md) — proveniência do artefato.
+- [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md): proveniência do artefato.
 - [Segredos](/10-security/secrets.md).
 - [Menor Privilégio](/10-security/least-privilege.md).
 
@@ -337,7 +337,7 @@ organização e o menos governado.
 Verifique se uma contribuição externa ao seu repositório consegue alterar a configuração
 da esteira e executá-la com acesso a segredos.
 
-Depois liste o que a credencial da sua esteira pode fazer em produção — não o que ela
+Depois liste o que a credencial da sua esteira pode fazer em produção: não o que ela
 faz, o que ela **pode**.
 
 ## Perguntas de Entrevista

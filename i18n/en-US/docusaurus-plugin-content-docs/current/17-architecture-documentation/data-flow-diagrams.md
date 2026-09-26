@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [sequence-diagrams, container-diagrams, c4-model]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A data flow diagram follows **one type of data** across systems: where it is born, where it
 passes through, where it is stored, who reads it, and where it leaves.
 
-It is organized by the data, not by the system — and it is that change of axis that makes
+It is organized by the data, not by the system. It is that change of axis that makes
 it useful for questions no structural diagram answers well:
 
 ```text
@@ -38,7 +38,7 @@ what happens when the customer requests deletion?
 ## Problem
 
 Structural diagrams are organized by system. A question about data crosses all of them,
-and the answer has to be assembled by piecing diagrams together — which in practice means
+and the answer has to be assembled by piecing diagrams together. In practice, that means
 nobody knows.
 
 And the question comes up in contexts where being wrong has consequences:
@@ -104,7 +104,7 @@ Each crossing deserves an answer to three questions: what travels, with what pro
 and under what contractual or legal basis.
 
 This diagram is the canonical input for
-[threat modeling](/10-security/threat-modeling.md) — the STRIDE technique is applied
+[threat modeling](/10-security/threat-modeling.md): the STRIDE technique is applied
 element by element over it.
 
 ### One diagram per data type
@@ -126,7 +126,7 @@ and the ones with an ownership dispute.
 By following the data, the question "who owns this" becomes answerable: the owner is
 whoever produces it and has authority over its definition.
 
-The diagram frequently shows the opposite of the org chart — the data team A "owns" is born
+The diagram frequently shows the opposite of the org chart: the data team A "owns" is born
 in a system belonging to team B and is modified by a process belonging to team C.
 
 See [data ownership](/07-data-architecture/data-ownership.md) and
@@ -137,7 +137,7 @@ See [data ownership](/07-data-architecture/data-ownership.md) and
 A practical consequence: without the mapping, honoring a deletion request is guesswork.
 With it, it is a list.
 
-And the mapping usually shows that complete deletion is harder than assumed — immutable
+And the mapping usually shows that complete deletion is harder than assumed: immutable
 backups, analytical aggregates already computed, and application logs with fixed retention
 are cases that require a decision, not code.
 
@@ -193,11 +193,11 @@ to a component, the data axis scatters the answer across several drawings.
 
 ## Alternatives
 
-- **A data catalog** — a structured inventory, more complete and less visual. See
+- **A data catalog**: a structured inventory, more complete and less visual. See
   [data lifecycle](/07-data-architecture/data-lifecycle.md).
-- **A processing register** — the form required by some regulations; textual.
-- **Data lineage** — automated, shows derivation, not trust boundaries.
-- **[Sequence](/17-architecture-documentation/sequence-diagrams.md)** — when the question is order, not location.
+- **A processing register**: the form required by some regulations; textual.
+- **Data lineage**: automated, shows derivation, not trust boundaries.
+- **[Sequence](/17-architecture-documentation/sequence-diagrams.md)**: when the question is order, not location.
 
 Automated lineage is complementary: it covers what manual mapping forgets, and it doesn't
 distinguish what is sensitive.
@@ -233,7 +233,7 @@ distinguish what is sensitive.
 
 ## Common Mistakes
 
-**Mapping only the main path.** The secondary branches — reprocessing, exports, support —
+**Mapping only the main path.** The secondary branches (reprocessing, exports, support)
 are where the data escapes, and they stay off the deletion list.
 
 **Ignoring analytical copies.** The deletion request is honored in the operational
@@ -245,7 +245,7 @@ for how long, and the deletion decision goes back to guesswork.
 **Confusing it with a sequence diagram.** The result shows the order of calls and omits the
 stores, and it fails to answer the one question that motivated the drawing: where the data is.
 
-**Not using the result** — the mapping becomes an audit artifact instead of decision
+**Not using the result**: the mapping becomes an audit artifact instead of decision
 input.
 
 ## Real-World Example
@@ -267,7 +267,7 @@ a spreadsheet on a network share                         1
 ```
 
 Three trust boundary crossings were documented nowhere, including the export to the
-partner — done by a scheduled job created four years earlier, whose author no longer worked
+partner, done by a scheduled job created four years earlier, whose author no longer worked
 at the company.
 
 The decisions:
@@ -275,7 +275,7 @@ The decisions:
 **Sanitized logs.** Identifiers masked and diagnosis removed from application logs, with an
 automated check in the pipeline.
 
-**Staging with synthetic data.** The production copy was eliminated — which required
+**Staging with synthetic data.** The production copy was eliminated. That required
 building test data generation, two months of work nobody had prioritized before.
 
 **Export revisited.** The contract with the partner was renegotiated and the field scope
@@ -284,12 +284,12 @@ reduced from 40 to 9.
 **Retention declared** at each point of rest, and implemented where it did not exist.
 
 **A deletion procedure** written based on the map, including what cannot be deleted and
-why — the immutable backups became a documented exception, with a natural expiry date.
+why: the immutable backups became a documented exception, with a natural expiry date.
 
 **The map reviewed every six months**, with a named owner.
 
 What the team records: the spreadsheet on the network share was found by accident, in a
-conversation, and not by any method. That led to a second practice — automated scanning for
+conversation, and not by any method. That led to a second practice: automated scanning for
 sensitive data patterns in uncatalogued stores.
 
 ## Related Concepts
@@ -301,7 +301,7 @@ sensitive data patterns in uncatalogued stores.
 
 ## Practical Exercise
 
-Choose a sensitive data type in your system and list every point where it rests —
+Choose a sensitive data type in your system and list every point where it rests,
 including logs, backups, staging and analytical copies.
 
 Compare the total with your initial estimate. The difference is the measure of what was

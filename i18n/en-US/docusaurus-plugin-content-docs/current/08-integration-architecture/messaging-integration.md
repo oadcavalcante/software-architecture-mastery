@@ -2,7 +2,7 @@
 id: messaging-integration
 title: Messaging Integration
 sidebar_position: 4
-description: A broker between the ends — what the decoupling solves and what it transfers to operations.
+description: "A broker between the ends: what the decoupling solves and what it transfers to operations."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [event-driven-integration, webhooks, rest]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 In messaging integration, the sender hands the message to a broker and moves on. The receiver consumes it
 when it can.
 
-The fundamentals — delivery guarantees, ordering, duplicates — are in
+The fundamentals (delivery guarantees, ordering, duplicates) are in
 [messaging](/06-distributed-systems/messaging.md). Here the focus is the integration decision: **what
 changes when two ends stop talking to each other directly**.
 
@@ -36,7 +36,7 @@ operational.
 In a synchronous integration, the caller depends on the callee being available **now**. If the destination
 is down, the operation fails.
 
-In a chain of four services with 99.9% each, the combined availability drops to 99.6% — and the user feels
+In a chain of four services with 99.9% each, the combined availability drops to 99.6%, and the user feels
 the fourth link's failure even when their order was already validated. That is
 [compound unavailability](/20-trade-offs/sync-vs-async.md).
 
@@ -50,11 +50,11 @@ saturation climbs the entire chain. See [partial failure](/06-distributed-system
 The central gain: the sender hands off to the broker and the operation ends. If the consumer is down for
 two hours, the messages wait.
 
-That decouples **availability**, not format or semantics — the consumer still needs to understand the
+That decouples **availability**, not format or semantics: the consumer still needs to understand the
 message.
 
 And it moves the dependency: now both ends depend on the broker. It becomes a critical component, with all
-the operations that implies — and with a cost of its own: a managed broker bills by volume or by node, and
+the operations that implies, and with a cost of its own: a managed broker bills by volume or by node, and
 the dashboard, alert and on-call rotation that a stopped consumer demands become a recurring team cost.
 
 ### Queue or topic decides the topology
@@ -160,18 +160,18 @@ partition; with parallel consumption, it recirculates and consumes capacity inde
 **When strict ordering across distinct entities is mandatory.**
 
 **For transferring large volumes.** See
-[batch integration](/08-integration-architecture/batch-integration.md) — messages are not the right
+[batch integration](/08-integration-architecture/batch-integration.md). Messages are not the right
 transport for gigabytes.
 
 ## Alternatives
 
-- **[REST](/08-integration-architecture/rest.md)** — when the response is necessary.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — notifying without a broker of your own.
-- **Periodic polling** — simpler, and sufficient when the delay is acceptable. Frequently discarded too
+- **[REST](/08-integration-architecture/rest.md)**: when the response is necessary.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: notifying without a broker of your own.
+- **Periodic polling**: simpler, and sufficient when the delay is acceptable. Frequently discarded too
   early.
-- **[Batch](/08-integration-architecture/batch-integration.md)** — for high volume and a defined
+- **[Batch](/08-integration-architecture/batch-integration.md)**: for high volume and a defined
   periodicity.
-- **A transactional outbox** — solves the "database plus event" case with no additional messaging.
+- **A transactional outbox**: solves the "database plus event" case with no additional messaging.
 
 ## Trade-offs
 
@@ -223,7 +223,7 @@ called inventory to decrement stock.
 
 Two recurring consequences:
 
-**Blocked sales.** When inventory became unavailable — which happened during deployments and at peaks —
+**Blocked sales.** When inventory became unavailable (which happened during deployments and at peaks),
 sales stopped. On one Black Friday, that was 40 minutes of checkout down because of a service that was not
 on the payment's critical path.
 
@@ -253,23 +253,23 @@ items above only appeared in the physical stock count.
 
 The fixes all came after the incident, and the team records the order that would have avoided the wear:
 
-**A consumer lag alert** — half an hour of work, it would have caught the first and the third.
+**A consumer lag alert**: half an hour of work, it would have caught the first and the third.
 
-**Idempotency by sale identifier** — it would have caught the second.
+**Idempotency by sale identifier**: it would have caught the second.
 
-**A dead-letter queue** with an attempt limit — the third.
+**A dead-letter queue** with an attempt limit: the third.
 
-**A transactional outbox** — the fourth.
+**A transactional outbox**: the fourth.
 
-**Daily reconciliation** between sales and inventory movements — the safety net for everything.
+**Daily reconciliation** between sales and inventory movements: the safety net for everything.
 
 What the team learned: the decision to migrate to a queue was right and solved the problem that motivated
-the change. The mistake was treating messaging as an "asynchronous call" — a change of mechanism — when it
+the change. The mistake was treating messaging as an "asynchronous call" (a change of mechanism) when it
 is a set of new responsibilities that need to exist before the first message.
 
 ## Related Concepts
 
-- [Messaging](/06-distributed-systems/messaging.md) — the fundamentals.
+- [Messaging](/06-distributed-systems/messaging.md): the fundamentals.
 - [Event-Driven Integration](/08-integration-architecture/event-driven-integration.md).
 - [Idempotency](/06-distributed-systems/idempotency.md).
 - [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md).
@@ -290,5 +290,5 @@ That number is your damage window.
 ## Further Reading
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — chapter 3.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Chapter 3.
 - Stopford, Ben. *Designing Event-Driven Systems*. O'Reilly, 2018.

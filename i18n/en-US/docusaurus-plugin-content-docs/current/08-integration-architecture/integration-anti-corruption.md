@@ -2,7 +2,7 @@
 id: integration-anti-corruption
 title: Anti-Corruption Layer in Integration
 sidebar_position: 12
-description: Translating at the boundary so someone else's model does not enter yours — and when the translation is not worth it.
+description: Translating at the boundary so someone else's model does not enter yours, and when the translation is not worth it.
 doc_type: pattern
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, schema-evolution]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ The concept comes from
 [domain-driven design](/04-domain-driven-design/anti-corruption-layer.md). Here it is seen from the
 integration angle: **what happens when you do not have it**, and when its cost is not justified.
 
-The coupling it prevents — model coupling — is the most expensive one when the provider's model is
+The coupling it prevents (model coupling) is the most expensive one when the provider's model is
 foreign to yours and switching is plausible; outside those two conditions it can be cheap enough to
 accept, and the quadrant further on deals with that. It is also the least visible, because it almost never
 arrives as an incident: it appears as an inability to change.
@@ -48,7 +48,7 @@ From then on:
 - Concepts that make no sense in your domain occupy space in it.
 - Business discussions use the provider's vocabulary.
 
-Only the second arrives as a defect, and even that one arrives displaced — the break shows up far from
+Only the second arrives as a defect, and even that one arrives displaced: the break shows up far from
 where the cause is. The other three do not arrive at all: they appear as an estimate that tripled.
 
 ## Core Concepts
@@ -76,7 +76,7 @@ from becoming a public contract.
 It is the same separation between internal events and integration events described in
 [event-driven integration](/08-integration-architecture/event-driven-integration.md).
 
-Without it, refactoring your domain breaks external consumers — and you lose the freedom to change what is
+Without it, refactoring your domain breaks external consumers, and you lose the freedom to change what is
 yours.
 
 ### The cost is real and has to be acknowledged
@@ -88,7 +88,7 @@ This is what the literature usually omits:
 **Changes in two places.** A new provider field you want to use has to pass through the translation.
 
 **Layers that do nothing.** When the external model is practically the same as yours, the translation
-becomes a field-by-field copy — pure ceremony.
+becomes a field-by-field copy: pure ceremony.
 
 **Indirection in debugging.** A wrong value may be at the source or in the translation.
 
@@ -116,15 +116,15 @@ The bottom-right quadrant is what generates useless layers when the pattern is a
 
 ### Where it lives
 
-**At the service's edge** — an adapter only your domain consumes. The common case.
+**At the service's edge**: an adapter only your domain consumes. The common case.
 
-**In its own service** — when several applications integrate with the same external system, and the
+**In its own service**: when several applications integrate with the same external system, and the
 translation should be done once.
 
-**In the event consumer** — translating the external event before it enters.
+**In the event consumer**: translating the external event before it enters.
 
 The second option costs more than it looks. A shared translation service tends to accumulate business
-rules from several consumers and become a coupling point of its own — and, before that, it already charges
+rules from several consumers and become a coupling point of its own. And, before that, it already charges
 a network hop on every call, one more deployment and on-call unit, and a new failure domain: if it goes
 down, **all** the integrations go down at once, not one.
 
@@ -133,7 +133,7 @@ down, **all** the integrations go down at once, not one.
 When replacing an old system gradually, the layer allows the new one to have its own model from the start,
 talking to the legacy one through translation.
 
-Without it, the new system is born with the model of what you wanted to replace — which empties out the
+Without it, the new system is born with the model of what you wanted to replace. That empties out the
 reason for the replacement.
 
 ## Mental Model
@@ -166,14 +166,14 @@ having it appears when you need to change.
 
 ## Alternatives
 
-- **A simple adapter** — thin translation, with no complete intermediate model.
-- **Mapping at deserialization** — for light cases, converting on input.
-- **A consumer-driven contract** — instead of translating, negotiating the format. It requires known
+- **A simple adapter**: thin translation, with no complete intermediate model.
+- **Mapping at deserialization**: for light cases, converting on input.
+- **A consumer-driven contract**: instead of translating, negotiating the format. It requires known
   consumers and a provider willing to run their tests, which rules it out for a public API and makes it
-  expensive with an off-the-shelf vendor — but keeps it viable where there is a real contractual
+  expensive with an off-the-shelf vendor, but keeps it viable where there is a real contractual
   relationship. See
   [integration contracts](/08-integration-architecture/integration-contracts.md).
-- **Accepting the coupling consciously** — a legitimate decision when the model is close and switching is
+- **Accepting the coupling consciously**: a legitimate decision when the model is close and switching is
   implausible, as long as it is recorded.
 
 ## Trade-offs
@@ -214,7 +214,7 @@ knowing what is being lost.
 
 **Putting business rules in the translation.**
 
-**Not testing the translation** — it is where the mapping errors live.
+**Not testing the translation**: it is where the mapping errors live.
 
 **Not reviewing it when the provider evolves.**
 
@@ -223,11 +223,11 @@ knowing what is being lost.
 A logistics company integrated with four carriers, each with its own API.
 
 The first integration was done with no layer: the carrier's objects went straight into the domain. Their
-vocabulary — `shipment`, `waybill`, `consignee` — became the system's vocabulary, including in tables and
+vocabulary (`shipment`, `waybill`, `consignee`) became the system's vocabulary, including in tables and
 screens.
 
 When the second carrier came in, the problem appeared: they used a different vocabulary and a different
-model — grouping by route, not by shipment. There was nowhere to fit them.
+model, grouping by route, not by shipment. There was nowhere to fit them.
 
 The solution at the time was a `carrier_type` field with conditionals scattered around. By the third,
 there were 40 conditional points. The fourth took five months to integrate.
@@ -235,7 +235,7 @@ there were 40 conditional points. The fourth took five months to integrate.
 The redesign introduced its own shipment model, and a translation layer per carrier.
 
 **An internal model defined by the business**, not by any of them. The names became `shipment`,
-`recipient`, `route` — the vocabulary people already used in meetings and that did not exist in the code.
+`recipient`, `route`: the vocabulary people already used in meetings and that did not exist in the code.
 
 **One adapter per carrier**, translating in both directions. The scattered conditionals disappeared.
 
@@ -249,14 +249,14 @@ And a deliberate decision in the opposite direction: the integration with the in
 switched. A layer there would have been a field-by-field copy.
 
 The detail the team highlights: the initial error was not technical, it was one of sequence. With only one
-carrier, integrating directly looked — and was — simpler. The problem is that nobody asked "and when the
+carrier, integrating directly looked (and was) simpler. The problem is that nobody asked "and when the
 second one comes in?", which was a certainty in the business plan.
 
 ## Related Concepts
 
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — the concept in DDD.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): the concept in DDD.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
-- [Event-Driven Integration](/08-integration-architecture/event-driven-integration.md) — event
+- [Event-Driven Integration](/08-integration-architecture/event-driven-integration.md): event
   translation.
 - [Schema Evolution](/08-integration-architecture/schema-evolution.md).
 
@@ -265,7 +265,7 @@ second one comes in?", which was a certainty in the business plan.
 Look in your code for a provider's name or a concept that only exists in their model. Count how many files
 it appears in.
 
-If it appears outside the integration folder, the external model has already entered — and the number of
+If it appears outside the integration folder, the external model has already entered, and the number of
 files is the cost of switching providers.
 
 ## Interview Questions
@@ -276,6 +276,6 @@ files is the cost of switching providers.
 
 ## Further Reading
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — chapter 14.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Chapter 14.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.

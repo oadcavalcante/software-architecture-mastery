@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-estimation]
 related: [capacity-estimation, interview-scaling, bottleneck-identification]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Back-of-the-envelope calculation is the ability to reach the correct order of magnitude using only
 memorized numbers and simple arithmetic.
 
-It matters because most architectural decisions do not depend on precision — they depend on knowing
+It matters because most architectural decisions depend not on precision but on knowing
 whether something is milliseconds or seconds, gigabytes or terabytes, one machine or a thousand.
 
 ```text
@@ -48,12 +48,12 @@ interviewer   "estimate it"
 candidate     (silence)
 ```
 
-The freeze is not a lack of intelligence — it is a lack of anchors. Someone who does not know that
+The freeze is a lack of anchors, not a lack of intelligence. Someone who does not know that
 a random SSD read takes about a tenth of a millisecond and a memory read about a hundred nanoseconds has no way to
 compare the two in their head.
 
 And there is the opposite error: doing complicated math. Multiplying 86,400 by 347 mentally during
-an interview is a waste of attention — rounding to 100,000 × 350 gives the same useful result with
+an interview is a waste of attention: rounding to 100,000 × 350 gives the same useful result with
 a fraction of the effort.
 
 ## Core Concepts
@@ -86,11 +86,11 @@ That answers most latency questions with no math at all.
 
 It is worth understanding why that hierarchy decides so much. A system that makes an
 intercontinental round trip on a request's path cannot get below 150 ms, however good everything
-else is — physics imposes the floor. A system that reads from memory instead of disk improves by
+else is: physics imposes the floor. A system that reads from memory instead of disk improves by
 three orders of magnitude, which no code optimization reaches.
 
 Recognizing that latency is dominated by the slowest link in the chain is what lets you answer
-"how do we reduce the latency of this?" quickly — the answer is to attack the dominant link (remove
+"how do we reduce the latency of this?" quickly: the answer is to attack the dominant link (remove
 it, shorten it or parallelize it), and the references are what let you identify it without measuring.
 
 ### Reference sizes
@@ -107,7 +107,7 @@ minute of high-definition
 ```
 
 For sizes you do not know, decomposing works: an order record has an identifier, a customer, items,
-amounts and timestamps — something between 500 bytes and 2 KB. Declaring the assumption and moving
+amounts and timestamps, something between 500 bytes and 2 KB. Declaring the assumption and moving
 on is the right answer.
 
 An error of a factor of two in the record size rarely changes an architectural decision; freezing
@@ -135,8 +135,8 @@ partitioning for volumes a relational database handles effortlessly.
 
 The wrong calibration has an identifiable origin: the interview literature describes global-scale
 systems, and the intuition formed by it overestimates what requires distribution. A relational
-database on a modern machine handles tens of thousands of reads per second and billions of rows —
-which covers most systems that exist, and a good part of interview prompts.
+database on a modern machine handles tens of thousands of reads per second and billions of rows.
+That covers most systems that exist, and a good part of interview prompts.
 
 Proposing the distributed solution when the simple one suffices is read as a lack of judgment, not
 as ambition. The strong answer is the opposite: "that volume fits in a single database; if it grows
@@ -194,7 +194,7 @@ Doing that check out loud demonstrates calibration, which is exactly what the ex
 
 The plausibility check is also the defense against the most expensive error of this kind of
 calculation: an order of magnitude lost in a conversion. Swapping millions for billions, or
-megabytes for gigabytes, changes the result by a thousand — and the resulting number is usually
+megabytes for gigabytes, changes the result by a thousand, and the resulting number is usually
 absurd in a detectable way, if someone looks at it with a reference in mind.
 
 Having two or three comparison anchors memorized solves that: the approximate traffic of a large
@@ -214,22 +214,22 @@ that the result is plausible.
 
 ## When Not to Use
 
-**When the decision hinges on a difference smaller than 2× to 3×** — choosing between two
+**When the decision hinges on a difference smaller than 2× to 3×**: choosing between two
 neighboring instance sizes, or deciding whether a cache with a 30% hit rate pays off. The
 calculation's margin of error is larger than the difference you want to resolve.
 
-**When what matters is tail latency or contention** — the reference numbers are averages of
+**When what matters is tail latency or contention**: the reference numbers are averages of
 isolated operations; p99 under queueing, locks or garbage collection does not come out of them.
 
-**When the estimate becomes a commitment** — a hardware purchase, a capacity contract, a signed
+**When the estimate becomes a commitment**: a hardware purchase, a capacity contract, a signed
 SLA. There the order of magnitude guides, but measurement or load testing decides.
 
 ## Alternatives
 
-- **Declare the order of magnitude directly** — "we're in the terabytes" — when the math adds
+- **Declare the order of magnitude directly**: "we're in the terabytes", when the math adds
   nothing.
-- **Compare with a known system** — "that's of the order of a mid-sized social network's volume".
-- **Ask** — if the interviewer has the number, using it is faster.
+- **Compare with a known system**: "that's of the order of a mid-sized social network's volume".
+- **Ask**: if the interviewer has the number, using it is faster.
 
 ## Trade-offs
 
@@ -254,16 +254,16 @@ SLA. There the order of magnitude guides, but measurement or load testing decide
 
 **Reciting numbers** without connecting them to a decision.
 
-**Underestimating one machine's capacity** — and proposing unnecessary distribution.
+**Underestimating one machine's capacity**, and proposing unnecessary distribution.
 
 ## Common Mistakes
 
 **Proposing partitioning** for volumes a database handles.
 
-**Confusing bits and bytes** in bandwidth calculations — reading 10 Gbps as 10 GB/s overstates
+**Confusing bits and bytes** in bandwidth calculations: reading 10 Gbps as 10 GB/s overstates
 throughput by 8×.
 
-**Forgetting replication and indexes** in storage — 3× replication plus indexes multiplies the raw
+**Forgetting replication and indexes** in storage: 3× replication plus indexes multiplies the raw
 volume by 3 to 5.
 
 **Not checking whether the result is plausible.**
@@ -351,5 +351,5 @@ If you froze on any of them, that is the anchor you are missing.
 ## Further Reading
 
 - Dean, Jeff. *Numbers Everyone Should Know*. Google, 2009.
-- Bentley, Jon. *Programming Pearls*. 2nd ed. Addison-Wesley, 1999 — ch. 7.
+- Bentley, Jon. *Programming Pearls*. 2nd ed. Addison-Wesley, 1999. Ch. 7.
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.

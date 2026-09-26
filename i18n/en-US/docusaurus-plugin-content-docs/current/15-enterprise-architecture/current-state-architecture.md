@@ -2,7 +2,7 @@
 id: current-state-architecture
 title: Current State Architecture
 sidebar_position: 16
-description: What actually exists — and why the diagram from two years ago doesn't count.
+description: What actually exists, and why the diagram from two years ago doesn't count.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, transition-architecture, application-portfolios]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 The current state is the description of what exists: which systems, what they do, how
 they integrate, who owns them, and what condition they are in.
 
-It is the starting point of any plan — and it is, in most organizations, the most
+It is the starting point of any plan, and it is, in most organizations, the most
 outdated piece.
 
 The problem is not laziness. It is that a hand-made description ages faster than anyone
@@ -36,12 +36,12 @@ needed.
 The recurring pattern: a survey is done for a project, produces detailed diagrams, and is
 filed away.
 
-Six months later, it describes a system that has changed. A year later, it is misleading
-— and misleading is worse than absent, because decisions get made on top of it.
+Six months later, it describes a system that has changed. A year later, it is misleading,
+and misleading is worse than absent, because decisions get made on top of it.
 
 And there is a prior problem: the traditional survey captures the declared topology, not
 the real one. Informal integrations, direct access to another system's database,
-processes running on a forgotten machine — none of that shows up in a diagram drawn in a
+processes running on a forgotten machine: none of that shows up in a diagram drawn in a
 meeting.
 
 ## Core Concepts
@@ -56,14 +56,14 @@ derived   from the service catalog, from tracing, from declared infrastructure,
 drawn     by someone, in a meeting, from what they remember
 ```
 
-See [distributed tracing](/13-observability/distributed-tracing.md) — the real dependency
+See [distributed tracing](/13-observability/distributed-tracing.md): the real dependency
 map comes from there, not from interviews.
 
 What is derived maintains itself. What is drawn ages.
 
-Not everything can be derived — business capabilities, ownership, criticality require
-human judgment. But the part that changes fastest — topology, dependencies, versions,
-cost — can be.
+Not everything can be derived: business capabilities, ownership, criticality require
+human judgment. But the part that changes fastest (topology, dependencies, versions,
+cost) can be.
 
 ### The detail has to be justified by its use
 
@@ -112,7 +112,7 @@ business      criticality, the capability it supports
 The second line is usually the one that reveals the most immediate risk: a critical
 system with a single maintainer is an exposure no technical metric captures.
 
-See [business capabilities](/15-enterprise-architecture/business-capabilities.md) — crossing it with criticality is
+See [business capabilities](/15-enterprise-architecture/business-capabilities.md): crossing it with criticality is
 what turns inventory into priority.
 
 ### Good enough, and current
@@ -121,7 +121,7 @@ A map that is 70% correct and updated weekly is worth more than one that is 95% 
 and eighteen months out of date.
 
 This changes the quality criterion: instead of pursuing completeness, pursue
-**freshness** — and accept that parts of the map will be approximate.
+**freshness**, and accept that parts of the map will be approximate.
 
 And accept explicit gaps: marking "we don't know" is more honest and more useful than
 filling it in with a guess.
@@ -159,24 +159,24 @@ the queue, a broad survey produces a snapshot that ages before anyone consults i
 the derived catalog, which costs almost nothing, is enough.
 
 **When the change is local.** To touch one system and its immediate neighbors, mapping the
-whole organization is disproportionate — an on-demand survey of the area does the job.
+whole organization is disproportionate. An on-demand survey of the area does the job.
 
 **When a single team knows everything.** In an organization with few systems and one team
 operating them, the inventory already lives in the repository and in people's heads;
 formalizing it costs more than it reveals.
 
 **When there is no instrumentation and none is coming.** Without access logs, tracing or a
-cloud catalog, the map can only be drawn — and a drawn map with no maintenance plan repeats
+cloud catalog, the map can only be drawn, and a drawn map with no maintenance plan repeats
 the problem this document describes. In that case, the first investment is in
 instrumentation, not in the survey.
 
 ## Alternatives
 
-- **Derived service catalog** — the minimal and most sustainable version. See
+- **Derived service catalog**: the minimal and most sustainable version. See
   [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
-- **Dependency map from tracing** — automatic and real.
-- **Cost inventory per system** — derived from resource tagging.
-- **On-demand survey** — detail only the area that is going to be touched.
+- **Dependency map from tracing**: automatic and real.
+- **Cost inventory per system**: derived from resource tagging.
+- **On-demand survey**: detail only the area that is going to be touched.
 
 The last one is the most economical: instead of mapping everything, map deeply what is
 about to change.
@@ -214,7 +214,7 @@ about to change.
 
 **Drawing instead of deriving.** A diagram made from memory describes the intended architecture. The current state comes out of cloud inventory, repositories, real traffic and billing.
 
-**Consulting without observing.** People describe the main flows and forget the old integrations, the monthly reports and the direct database access — which are exactly what tends to break in a migration.
+**Consulting without observing.** People describe the main flows and forget the old integrations, the monthly reports and the direct database access. Those are exactly what tends to break in a migration.
 
 **Documenting everything at the same detail.** The effort dilutes and what matters is no more visible than the rest. Detail should follow criticality and the intent to change.
 
@@ -250,14 +250,14 @@ version, who publishes it.
 **Cost per system**, derived from resource tagging. See
 [cost architecture](/09-cloud-architecture/cost-architecture.md).
 
-**Health and ownership** — the only dimensions filled in by hand, reviewed quarterly with
+**Health and ownership**: the only dimensions filled in by hand, reviewed quarterly with
 the teams. They require judgment and change slowly.
 
-**Explicit gaps.** Systems with no identified owner were marked as such — and the list of
+**Explicit gaps.** Systems with no identified owner were marked as such, and the list of
 them became a task, rather than a blank space.
 
 There were 14 ownerless systems, of which 4 nobody knew what they were for. Two were
-decommissioned after three months of monitoring with no access — after checking with the
+decommissioned after three months of monitoring with no access, after checking with the
 business areas the calendar of annual and audit processes, which a three-month window does
 not see. Observation only proves use within the observed window.
 
@@ -265,13 +265,13 @@ not see. Observation only proves use within the observed window.
 produces the detail for the area it will touch, at the moment it will touch it.
 
 What the team records: the four months of interviews produced a description of what
-people believed existed. Observation produced what existed — and the difference between
+people believed existed. Observation produced what existed, and the difference between
 the two was exactly where the risks were.
 
 ## Related Concepts
 
-- [Target Architecture](/15-enterprise-architecture/target-architecture.md) — the destination.
-- [Transition Architecture](/15-enterprise-architecture/transition-architecture.md) — the path.
+- [Target Architecture](/15-enterprise-architecture/target-architecture.md): the destination.
+- [Transition Architecture](/15-enterprise-architecture/transition-architecture.md): the path.
 - [Application Portfolios](/15-enterprise-architecture/application-portfolios.md).
 - [Integration Landscapes](/15-enterprise-architecture/integration-landscapes.md).
 

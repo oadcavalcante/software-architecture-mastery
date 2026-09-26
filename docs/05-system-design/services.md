@@ -2,7 +2,7 @@
 id: services
 title: Serviços
 sidebar_position: 3
-description: Componentes com processo próprio — o que muda quando a chamada atravessa a rede.
+description: "Componentes com processo próprio: o que muda quando a chamada atravessa a rede."
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [apis, service-boundaries, microservices, data-ownership]
 canonical_for: [serviço, granularidade de serviço]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Um serviço é um componente com processo próprio, acessado pela rede, com ciclo de
 implantação independente.
 
-A diferença entre um serviço e um módulo não é conceitual — é **física**, e é o
+A diferença entre um serviço e um módulo é **física**, não conceitual, e é o
 que determina todo o custo adicional.
 
 ## Problema
@@ -101,16 +101,16 @@ imediato.
 ### Serviço é dono dos seus dados
 
 A regra, como estado final: nenhum serviço acessa o banco de outro. Duas coisas a
-qualificam — numa decomposição, banco compartilhado é passo de transição legítimo,
+qualificam: numa decomposição, banco compartilhado é passo de transição legítimo,
 com prazo e dono declarados; e, para dado genuinamente transversal, banco
 compartilhado com governança explícita e processo de mudança é uma opção
 documentada, não um acidente.
 
 O que dá sentido à separação física é essa propriedade. Um banco em comum devolve o
-acoplamento do monolito e mantém a conta da rede — a pior das combinações quando
+acoplamento do monolito e mantém a conta da rede: a pior das combinações quando
 acontece por omissão, que é como quase sempre acontece.
 
-O desenvolvimento do tema — as opções para dado transversal e o custo de cada uma —
+O desenvolvimento do tema (as opções para dado transversal e o custo de cada uma)
 está em [propriedade do dado](/07-data-architecture/data-ownership.md).
 
 ## Modelo Mental
@@ -138,18 +138,18 @@ entre serviços, é migração de dados.
 exercida, e o custo é pago integralmente.
 
 **Quando a indisponibilidade de um torna o outro inútil.** Não há isolamento de
-falha real — há dois pontos de falha onde havia um.
+falha real: há dois pontos de falha onde havia um.
 
 **Quando o time não consegue operar mais um.** Cada serviço adiciona plantão,
 alertas e tempo de diagnóstico.
 
 ## Alternativas
 
-- **Módulo no mesmo processo** — a resposta na maioria dos casos.
-- **[Monolito modular](/03-design-patterns/modular-monolith.md)** — isolamento
+- **Módulo no mesmo processo**: a resposta na maioria dos casos.
+- **[Monolito modular](/03-design-patterns/modular-monolith.md)**: isolamento
   lógico sem custo de rede.
-- **Biblioteca publicada** — ciclo de release próprio sem processo separado.
-- **Processo separado sem API** — um consumidor de fila, por exemplo, que isola
+- **Biblioteca publicada**: ciclo de release próprio sem processo separado.
+- **Processo separado sem API**: um consumidor de fila, por exemplo, que isola
   recurso sem criar contrato síncrono.
 
 ## Trade-offs
@@ -199,7 +199,7 @@ cadeia síncrona: portal → cotação → cadastro → risco → tabela de pre�
 
 Latência média: 1,8 segundo. O requisito era 800 ms.
 
-A análise mostrou que cada serviço respondia em torno de 200 ms — nenhum era
+A análise mostrou que cada serviço respondia em torno de 200 ms. Nenhum era
 lento. O tempo era soma de rede, serialização e espera.
 
 E a disponibilidade: cinco serviços a 99,9% produziam 99,5% na ponta, contra o
@@ -207,19 +207,19 @@ E a disponibilidade: cinco serviços a 99,9% produziam 99,5% na ponta, contra o
 
 A correção teve duas partes.
 
-`Cadastro` e `Risco` foram consolidados — eles sempre eram chamados juntos, sempre
+`Cadastro` e `Risco` foram consolidados: eles sempre eram chamados juntos, sempre
 implantados juntos, e o histórico mostrava 90% de alterações conjuntas.
 
-E a consulta à tabela de preços virou cópia local no serviço consolidado — que era
-quem a chamava — atualizada por evento. A tabela mudava duas vezes por mês;
+E a consulta à tabela de preços virou cópia local no serviço consolidado (que era
+quem a chamava), atualizada por evento. A tabela mudava duas vezes por mês;
 consultá-la a cada cotação era ida à rede para dado praticamente estático.
 
 Resultado: cadeia de cinco para três, latência média de 1,8 s para 1,2 s,
-disponibilidade de 99,5% para 99,7% — e o restante da disponibilidade veio de
+disponibilidade de 99,5% para 99,7%, e o restante da disponibilidade veio de
 retentativa com [circuit breaker](/12-reliability/circuit-breakers.md).
 
 Os 800 ms do requisito não foram atingidos. Dos 1,2 s que sobraram, cerca de 800 ms
-são processamento dos três serviços — o consolidado faz o trabalho de dois — e o
+são processamento dos três serviços (o consolidado faz o trabalho de dois) e o
 resto é rede, em dois saltos. A cadeia devolveu o que a cadeia cobrava; o que falta
 não sai do desenho da chamada.
 
@@ -234,7 +234,7 @@ instâncias entram e saem.
 quebra com escala automática.
 
 **DNS.** O nome resolve para as instâncias ativas. Simples e sujeito a cache do
-cliente — uma instância removida continua recebendo tráfego até o cache expirar.
+cliente: uma instância removida continua recebendo tráfego até o cache expirar.
 
 **Registro de serviços.** Instâncias se registram ao subir e se removem ao sair. O
 cliente consulta. Resolve o cache, e adiciona um componente com estado que precisa
@@ -248,7 +248,7 @@ O que decide entre eles é quanto as instâncias mudam. Num ambiente com número
 de máquinas, configuração basta e é a opção mais previsível. Com escala
 automática, o critério passa a ser por quanto tempo o cliente pode segurar uma
 resposta que já não é verdadeira: a configuração segura para sempre, o DNS até o TTL
-expirar, o registro até a consulta seguinte, e a plataforma não segura nada — o nome
+expirar, o registro até a consulta seguinte, e a plataforma não segura nada. O nome
 é estável e a rotatividade acontece atrás dele.
 
 Vale notar que descoberta resolve **onde**, não **se está saudável**. As duas
@@ -257,11 +257,11 @@ instâncias que subiram e ainda não estão prontas.
 
 ## Conceitos Relacionados
 
-- [Componentes](/05-system-design/components.md) — o conceito geral.
-- [APIs](/05-system-design/apis.md) — o contrato entre serviços.
-- [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde separar.
-- [Microsserviços](/03-design-patterns/microservices.md) — o estilo.
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — de quem é o dado
+- [Componentes](/05-system-design/components.md): o conceito geral.
+- [APIs](/05-system-design/apis.md): o contrato entre serviços.
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md): onde separar.
+- [Microsserviços](/03-design-patterns/microservices.md): o estilo.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): de quem é o dado
   que o serviço guarda.
 
 ## Exercício Prático

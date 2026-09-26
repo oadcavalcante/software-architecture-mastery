@@ -2,7 +2,7 @@
 id: replatforming
 title: Replatforming
 sidebar_position: 5
-description: Changing the infrastructure without changing the application — the first step that unblocks the rest.
+description: "Changing the infrastructure without changing the application: the first step that unblocks the rest."
 doc_type: concept
 level: 6
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, incremental-modernization, cloud-native]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,12 +25,12 @@ Replatforming is moving the application to new infrastructure, with minimal chan
 the code.
 
 Compared with refactoring, rebuilding or replacing, it is the cheapest, fastest and
-lowest-risk strategy — and the most underestimated, because it doesn't solve code problems
+lowest-risk strategy, and the most underestimated, because it doesn't solve code problems
 and therefore looks insufficient.
 
 What it delivers is **unblocking**: an automated pipeline, reproducible environments,
 observability, frequent deployment. And that reduces the cost of all the work that
-follows — including rebuilding, if that is the case.
+follows, including rebuilding, if that is the case.
 
 ## Problem
 
@@ -45,7 +45,7 @@ no telemetry beyond log files on disk
 a quarterly release because each one is an event
 ```
 
-In that context, any change is expensive — including the changes of the modernization
+In that context, any change is expensive, including the changes of the modernization
 itself.
 
 Replatforming first removes those constraints, and the work that follows becomes cheaper.
@@ -83,7 +83,7 @@ development speed doesn't change on its own
 An application that is hard to change is still hard to change after being replatformed.
 See [legacy refactoring](/16-legacy-modernization/legacy-refactoring.md).
 
-Teams that expect an infrastructure change to solve code problems end up frustrated — and
+Teams that expect an infrastructure change to solve code problems end up frustrated, and
 the frustration discredits a strategy that did exactly what it should.
 
 ### Lift and shift is a stage, not a destination
@@ -94,12 +94,12 @@ for reducing cost quickly.
 And it needs a continuation. See
 [cloud native](/09-cloud-architecture/cloud-native.md).
 
-An application moved to the cloud without acquiring the properties the cloud presupposes —
-statelessness, disposability, external configuration — runs there and takes advantage of
+An application moved to the cloud without acquiring the properties the cloud presupposes
+(statelessness, disposability, external configuration) runs there and takes advantage of
 nothing, frequently at a higher cost.
 
 The plan has to include the second phase, with a deadline. Without that, the pressure that
-drove the first one — the contract ending, the cost — ends with it, and nothing else forces
+drove the first one (the contract ending, the cost) ends with it, and nothing else forces
 the second.
 
 ### The minimal adaptations that are worth it
@@ -129,8 +129,8 @@ hidden dependencies        a file, a machine, a scheduled job
 integrations by fixed address  pointing at the old environment
 ```
 
-The third is the one that surprises most: old systems accumulate undocumented
-dependencies — a shared directory, a process running on a forgotten machine, a scheduled
+The third is the one that surprises most. Old systems accumulate undocumented
+dependencies: a shared directory, a process running on a forgotten machine, a scheduled
 task nobody knew existed.
 
 See [current state architecture](/15-enterprise-architecture/current-state-architecture.md).
@@ -142,8 +142,8 @@ shutting it down.
 
 A common and frequently frustrated expectation: replatforming to the cloud reduces cost.
 
-It reduces cost when the sizing is revisited. Moved as is — with the same provisioned
-capacity as a datacenter, where the hardware was already paid for — it usually costs
+It reduces cost when the sizing is revisited. Moved as is (with the same provisioned
+capacity as a datacenter, where the hardware was already paid for), it usually costs
 more.
 
 See [cost architecture](/09-cloud-architecture/cost-architecture.md).
@@ -168,8 +168,8 @@ None of those is caused by the replatforming. They existed and were compensated 
 characteristics of the old environment nobody had documented.
 
 That has two practical implications: the estimate has to include time to deal with them,
-and the parallel operation period has to be long enough for them to appear — some only
-manifest after days of continuous operation.
+and the parallel operation period has to be long enough for them to appear (some only
+manifest after days of continuous operation).
 
 And there is an upside: each of those is a latent defect the replatforming exposes.
 Fixing them improves the system, regardless of the infrastructure change.
@@ -205,15 +205,15 @@ offer. Then the adaptation stops being minimal, and the work is another strategy
 wrong name.
 
 **When the current infrastructure is adequate and there is no deadline.** With no operational
-constraint to remove, replatforming pays the risk of the move — hidden dependencies,
-different performance — without unblocking anything.
+constraint to remove, replatforming pays the risk of the move (hidden dependencies,
+different performance) without unblocking anything.
 
 ## Alternatives
 
-- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)** — when the problem is the code.
-- **[Rebuilding](/16-legacy-modernization/rebuilding.md)** — when the model is wrong.
-- **[Replacing](/16-legacy-modernization/replacing.md)** — when there is an off-the-shelf product.
-- **Keep it where it is** — when the infrastructure serves and there is no deadline.
+- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)**: when the problem is the code.
+- **[Rebuilding](/16-legacy-modernization/rebuilding.md)**: when the model is wrong.
+- **[Replacing](/16-legacy-modernization/replacing.md)**: when there is an off-the-shelf product.
+- **Keep it where it is**: when the infrastructure serves and there is no deadline.
 
 ## Trade-offs
 
@@ -263,8 +263,8 @@ different performance — without unblocking anything.
 An insurance company had to leave its datacenter in 14 months, because a contract was
 ending. Sixty applications, several more than ten years old.
 
-The decision was to replatform, with minimal adaptations only where there was state —
-refactoring or rebuilding did not fit the deadline.
+The decision was to replatform, with minimal adaptations only where there was state.
+Refactoring or rebuilding did not fit the deadline.
 
 Execution, in waves of increasing complexity:
 
@@ -276,14 +276,14 @@ here: externalized configuration, logs to standard output, state off disk, grace
 shutdown.
 
 That added about six weeks to the total, and it was what allowed those applications to
-run with more than one instance — something several had never managed.
+run with more than one instance, something several had never managed.
 
 **Wave 3 — the difficult ones.** 12 applications with obscure dependencies. The inventory
 found: four scheduled jobs on ownerless machines, three integrations by shared directory,
 and one application that depended on a file generated manually once a month.
 
 That last one was only discovered because the month turned over during the parallel
-operation period — and the process failed in the new environment.
+operation period, and the process failed in the new environment.
 
 **Resizing.** The first cost estimate, with capacity replicated, was 40% higher than the
 datacenter. The revision using real utilization brought it to 25% lower.
@@ -291,20 +291,20 @@ datacenter. The revision using real utilization brought it to 25% lower.
 **A parallel period** of 60 days per application, with the old one available.
 
 Result: exit on schedule, with 25% lower cost and an operational capability that had not
-existed — an automated pipeline, reproducible environments, centralized telemetry.
+existed (an automated pipeline, reproducible environments, centralized telemetry).
 
 And the second phase, planned from the start, began in month 16: refactoring and replacing
 the applications the portfolio analysis pointed to. See
 [application portfolios](/15-enterprise-architecture/application-portfolios.md).
 
 The recorded lesson: the replatforming improved no application. It made it possible to
-improve them — which, before, required a maintenance window and a manual procedure for
+improve them. Before, that required a maintenance window and a manual procedure for
 every change.
 
 ## Related Concepts
 
 - [Migration Strategies](/16-legacy-modernization/migration-strategies.md).
-- [Cloud Native](/09-cloud-architecture/cloud-native.md) — the second phase.
+- [Cloud Native](/09-cloud-architecture/cloud-native.md): the second phase.
 - [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md).
 - [Statelessness](/11-scalability/statelessness.md).
 
@@ -313,7 +313,7 @@ every change.
 For a legacy system in your context, list what the current infrastructure prevents:
 pipeline, environments, telemetry, frequent deployment.
 
-Each item is a cost the replatforming would remove — and that makes everything else more
+Each item is a cost the replatforming would remove, and that makes everything else more
 expensive.
 
 ## Interview Questions

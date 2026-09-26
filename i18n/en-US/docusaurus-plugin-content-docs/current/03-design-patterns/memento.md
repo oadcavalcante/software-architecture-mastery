@@ -2,7 +2,7 @@
 id: memento
 title: Memento
 sidebar_position: 17
-description: Capturing and restoring state without breaking encapsulation — and the cost nobody budgets for.
+description: Capturing and restoring state without breaking encapsulation, and the cost nobody budgets for.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [command]
 related: [command, prototype, event-sourcing]
 canonical_for: [memento]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ simply exposing the fields.
 
 ## Problem
 
-An object has to be restored to an earlier state — undo, a checkpoint, a transaction, a
+An object has to be restored to an earlier state: undo, a checkpoint, a transaction, a
 saved draft.
 
 The naive solution is exposing the fields so someone can read them and later write them
@@ -45,13 +45,13 @@ originator knows how to interpret it.
 
 ### The three roles
 
-**Originator** — the object whose state is captured. It creates and interprets
+**Originator**: the object whose state is captured. It creates and interprets
 mementos.
 
-**Memento** — the captured state. Minimal public interface; content accessible only to
+**Memento**: the captured state. Minimal public interface; content accessible only to
 the originator.
 
-**Caretaker** — stores the mementos and decides when to restore. It never examines the
+**Caretaker**: stores the mementos and decides when to restore. It never examines the
 content.
 
 The separation between caretaker and originator is the point of the pattern. Without
@@ -75,7 +75,7 @@ hard to guarantee.
 Storing the whole object on each operation is simple and grows linearly with the number
 of operations.
 
-Storing only what changed is economical and more complex — it requires knowing how to
+Storing only what changed is economical and more complex: it requires knowing how to
 compose the deltas in the right order.
 
 The common practice is hybrid: a complete state every N operations and deltas in
@@ -112,18 +112,18 @@ already sent are not restorable by memento.
 append-only storage already give you the history. Writing on every change does not, by
 itself: an `UPDATE` leaves only the current state, and there is nothing to go back to.
 
-**When the object is immutable.** There is nothing to capture — the previous version
+**When the object is immutable.** There is nothing to capture: the previous version
 still exists.
 
 ## Alternatives
 
-- **Immutable objects** — each operation produces a new version; the previous one is
+- **Immutable objects**: each operation produces a new version; the previous one is
   the memento, with no mechanism. It is the alternative that removes the need for the
   pattern.
-- **A logical inverse** — more economical when reliable.
-- **[Event sourcing](/03-design-patterns/event-sourcing.md)** — storing the events
+- **A logical inverse**: more economical when reliable.
+- **[Event sourcing](/03-design-patterns/event-sourcing.md)**: storing the events
   instead of the state. Memento at system scale.
-- **Versioning in persistence** — when the history is already recorded.
+- **Versioning in persistence**: when the history is already recorded.
 
 ## Trade-offs
 
@@ -145,7 +145,7 @@ the inner object is the same one. See [Prototype](/03-design-patterns/prototype.
 **External state not restored.** The object goes back to the earlier state and the
 world does not.
 
-**Stale memento.** The originator's structure changed between capture and restoration —
+**Stale memento.** The originator's structure changed between capture and restoration,
 relevant when mementos are persisted.
 
 **Caretaker that examines the content.** Encapsulation is lost, and the pattern becomes
@@ -169,7 +169,7 @@ restoration.
 **In-memory transactions.** Transactional data structures that capture the state before
 and restore on abort.
 
-**Work session serialization.** A saved draft is a persisted memento — and it is where
+**Work session serialization.** A saved draft is a persisted memento, and it is where
 versioning the structure starts to matter.
 
 **Checkpoints in long-running processing.** A batch job that saves state periodically so
@@ -198,7 +198,7 @@ When a field was added to the form, the old mementos did not have it. Restoring 
 two-week-old draft produced an object with the new field null, and validation failed
 with an incomprehensible message.
 
-The fix was versioning the memento and writing a migration — which is schema evolution
+The fix was versioning the memento and writing a migration. That is schema evolution
 work, and was not foreseen when the pattern was adopted as an in-memory mechanism.
 
 The lesson: **a persisted memento stops being an implementation detail and becomes a
@@ -206,9 +206,9 @@ public format**, with all the obligations that implies.
 
 ## Related Concepts
 
-- [Command](/03-design-patterns/command.md) — undo by logical inverse.
-- [Prototype](/03-design-patterns/prototype.md) — the shallow copy risk.
-- [Event Sourcing](/03-design-patterns/event-sourcing.md) — the idea at system scale.
+- [Command](/03-design-patterns/command.md): undo by logical inverse.
+- [Prototype](/03-design-patterns/prototype.md): the shallow copy risk.
+- [Event Sourcing](/03-design-patterns/event-sourcing.md): the idea at system scale.
 
 ## Practical Exercise
 

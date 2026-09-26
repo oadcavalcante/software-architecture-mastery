@@ -2,7 +2,7 @@
 id: ports-and-adapters
 title: Ports and Adapters
 sidebar_position: 19
-description: O núcleo não conhece o mundo — a formulação original, antes dos nomes que vieram depois.
+description: "O núcleo não conhece o mundo: a formulação original, antes dos nomes que vieram depois."
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [hexagonal-architecture, onion-architecture, clean-architecture]
 canonical_for: [ports and adapters, porta primária, porta secundária]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -31,7 +31,7 @@ Ports and Adapters, formulado por Alistair Cockburn em 2005, propõe uma regra
 É a formulação original. [Hexagonal](/02-software-design/hexagonal-architecture.md) **não é
 uma variação**: é o outro nome do mesmo padrão, e trocar de nome não muda regra nenhuma. Já
 [Onion](/02-software-design/onion-architecture.md) e
-[Clean Architecture](/02-software-design/clean-architecture.md) são variações de fato —
+[Clean Architecture](/02-software-design/clean-architecture.md) são variações de fato:
 acrescentam anéis e vocabulário sobre a mesma regra de direção.
 
 ## Problema
@@ -41,8 +41,8 @@ canal de entrada e ao mecanismo de persistência, e por isso não podem ser
 testadas nem exercitadas fora deles.
 
 A lógica de negócio vive dentro de controladores HTTP e depende de tabelas.
-Testá-la exige subir um servidor e um banco. Reusá-la por outro canal — uma fila,
-um comando de terminal — exige duplicá-la.
+Testá-la exige subir um servidor e um banco. Reusá-la por outro canal (uma fila,
+um comando de terminal) exige duplicá-la.
 
 Ele descreveu isso como o sintoma de que **o dentro e o fora não estavam
 separados**.
@@ -52,8 +52,8 @@ separados**.
 ### Porta é uma interface definida pelo núcleo
 
 Uma porta declara uma necessidade ou uma capacidade, no vocabulário do domínio.
-Ela pertence ao núcleo — ver
-[inversão de dependência](/02-software-design/dependency-inversion.md).
+Ela pertence ao núcleo (ver
+[inversão de dependência](/02-software-design/dependency-inversion.md)).
 
 **Portas primárias** (ou de condução) são o que o mundo pode pedir ao núcleo:
 casos de uso.
@@ -78,7 +78,7 @@ graph LR
   MEM[Adaptador<br/>em memória] -.implementa.-> PS
 ```
 
-Toda seta de dependência aponta para o núcleo. É a única regra — e é por isso que o
+Toda seta de dependência aponta para o núcleo. É a única regra, e é por isso que o
 adaptador SQL depende da porta, e não a porta dele.
 
 ### A simetria é o ponto
@@ -94,7 +94,7 @@ conhece nenhum.
 
 - Quando a mesma lógica precisa ser acessada por mais de um canal.
 - Quando testar o núcleo sem infraestrutura tem valor real e recorrente.
-- Quando dependências externas são voláteis — provedores, protocolos.
+- Quando dependências externas são voláteis: provedores, protocolos.
 - Em domínios com lógica substancial, onde o núcleo justifica ser protegido.
 
 ## Quando Não Usar
@@ -120,12 +120,12 @@ regra é atravessada em meses e o sistema fica com o custo sem a propriedade.
 
 ## Alternativas
 
-- **Camadas com inversão só na persistência** — captura a maior parte do benefício
+- **Camadas com inversão só na persistência**: captura a maior parte do benefício
   por uma fração do custo, e é o arranjo certo quando a única dependência volátil é o
   banco.
-- **Adaptador só nas dependências voláteis** — inverter o que é instável e chamar
+- **Adaptador só nas dependências voláteis**: inverter o que é instável e chamar
   direto o que é estável.
-- **Transaction script** — em domínios simples, procedimento direto é mais claro.
+- **Transaction script**: em domínios simples, procedimento direto é mais claro.
 
 ## Trade-offs
 
@@ -149,7 +149,7 @@ contornando o núcleo.
 
 **Núcleo anêmico.** Toda a lógica nos adaptadores; o núcleo só define tipos.
 
-**Regra não imposta.** Sem verificação, o núcleo volta a importar infraestrutura — e a
+**Regra não imposta.** Sem verificação, o núcleo volta a importar infraestrutura, e a
 primeira violação costuma chegar antes de alguém pensar em procurá-la.
 
 ## Erros Comuns
@@ -177,8 +177,8 @@ A reorganização definiu `CobrarAssinatura` como porta primária, com três
 adaptadores. A lógica passou a existir uma vez.
 
 O ganho concreto não foi arquitetural: uma divergência de comportamento entre o
-caminho HTTP e o da fila — que já tinha causado dois incidentes de cobrança
-duplicada — deixou de ser possível.
+caminho HTTP e o da fila, que já tinha causado dois incidentes de cobrança
+duplicada, deixou de ser possível.
 
 O contraexemplo, no mesmo sistema: o módulo de cadastro de clientes, que é CRUD
 com validação, permaneceu como controlador chamando repositório. Aplicar o padrão
@@ -196,11 +196,11 @@ alteração; uma lenta é executada no CI e ignorada localmente.
 
 **Determinismo.** Sem banco, sem rede e sem relógio real, o teste não falha por
 motivo alheio à mudança. Testes que falham por motivo alheio à mudança
-deixam de servir como critério de mérge — e o dano não é ficar sem sinal, é ficar com um
+deixam de servir como critério de mérge. O dano não é ficar sem sinal, é ficar com um
 sinal em que ninguém confia e que ainda consome tempo a cada execução.
 
 **Cenários difíceis viram triviais.** Simular o provedor de pagamento fora do ar,
-a chamada que expira, o identificador duplicado — tudo isso é uma linha num
+a chamada que expira, o identificador duplicado: tudo isso é uma linha num
 adaptador em memória e um exercício de infraestrutura sem o padrão.
 
 O terceiro é o que mais rende e o menos mencionado. Ele é o que torna viável
@@ -209,17 +209,17 @@ que quase nunca são exercitados.
 
 ## Conceitos Relacionados
 
-- [Hexagonal](/02-software-design/hexagonal-architecture.md) — o mesmo padrão, outro nome.
+- [Hexagonal](/02-software-design/hexagonal-architecture.md): o mesmo padrão, outro nome.
 - [Onion](/02-software-design/onion-architecture.md) e
-  [Clean Architecture](/02-software-design/clean-architecture.md) — as variações.
-- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — o mecanismo.
+  [Clean Architecture](/02-software-design/clean-architecture.md): as variações.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md): o mecanismo.
 
 ## Exercício Prático
 
 Escolha um caso de uso do seu sistema e liste tudo que ele toca fora do domínio:
 banco, fila, serviço externo, relógio, gerador de identificador.
 
-Para cada um, escreva a porta que o núcleo definiria — no vocabulário do domínio,
+Para cada um, escreva a porta que o núcleo definiria, no vocabulário do domínio,
 não da tecnologia.
 
 Depois estime: quantos arquivos a mais isso custaria, e o que compraria?

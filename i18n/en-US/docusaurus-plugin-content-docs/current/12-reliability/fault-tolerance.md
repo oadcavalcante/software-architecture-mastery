@@ -2,7 +2,7 @@
 id: fault-tolerance
 title: Fault Tolerance
 sidebar_position: 3
-description: Staying correct despite component failure — detect, isolate, recover.
+description: "Staying correct despite component failure: detect, isolate, recover."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [redundancy, resilience, circuit-breakers]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ isolate   keep the failure from propagating
 recover   return to the correct state
 ```
 
-The first is the most neglected. You do not tolerate what you do not notice — and silent failures are the
+The first is the most neglected. You do not tolerate what you do not notice, and silent failures are the
 category that causes the most prolonged damage.
 
 ## Problem
@@ -43,7 +43,7 @@ components, the worse.
 10 components at 99.9% each, with no tolerance → 99.0%
 ```
 
-Adding functionality means adding components, which means worsening the reliability — unless the system
+Adding functionality means adding components, which means worsening the reliability, unless the system
 tolerates their failure.
 
 That makes tolerance not an optimization, but what allows the system to grow without degrading.
@@ -80,7 +80,7 @@ load shedding       rejects instead of accumulating
 
 See [bulkheads](/12-reliability/bulkheads.md) and [circuit breakers](/12-reliability/circuit-breakers.md).
 
-With no isolation, a localized failure consumes shared resources and the whole system stops — the most
+With no isolation, a localized failure consumes shared resources and the whole system stops: the most
 common failure mode in architectures with many dependencies.
 
 ### Recovering needs to be automatic where possible
@@ -111,7 +111,7 @@ a disabled check              the protection vanished
 ```
 
 The common pattern: **the absence of something generates no signal**. Detecting it requires monitoring what
-should happen, not only what happens — consumer lag, a task's last run, replica lag.
+should happen, not only what happens: consumer lag, a task's last run, replica lag.
 
 ### Tolerating has a cost, and it does not always pay off
 
@@ -133,7 +133,7 @@ when reducing the recovery time would have a greater return. See
 
 A side effect that needs to be managed: a system that tolerates well hides the real frequency of failures.
 
-A dependency that fails 5% of the time, with retries and a circuit breaker, produces a good experience —
+A dependency that fails 5% of the time, with retries and a circuit breaker, produces a good experience,
 and the underlying degradation stays invisible until it gets bad enough to beat the protection.
 
 That is why instrumenting the mechanisms themselves matters: retry counts, circuit openings, degradation
@@ -152,7 +152,7 @@ a queued operation       acceptable for a notification, unacceptable for an auth
 a refusal                acceptable when the alternative is a wrong result
 ```
 
-Without that decision, each tolerance mechanism adopts an implicit behavior — and implicit behaviors
+Without that decision, each tolerance mechanism adopts an implicit behavior, and implicit behaviors
 compose badly. One service serves stale data, the next combines it with current data, and the result is
 inconsistent with nothing having visibly failed.
 
@@ -187,10 +187,10 @@ The decision belongs to the domain, not to the infrastructure. See
 
 ## Alternatives
 
-- **Fast recovery** — instead of tolerating, shortening the time to resume.
-- **[Graceful degradation](/12-reliability/graceful-degradation.md)** — operating without the component.
-- **Simplifying** — fewer components fail less.
-- **Replacing the unstable dependency** — treating the cause instead of the symptom.
+- **Fast recovery**: instead of tolerating, shortening the time to resume.
+- **[Graceful degradation](/12-reliability/graceful-degradation.md)**: operating without the component.
+- **Simplifying**: fewer components fail less.
+- **Replacing the unstable dependency**: treating the cause instead of the symptom.
 
 ## Trade-offs
 
@@ -224,22 +224,22 @@ The decision belongs to the domain, not to the infrastructure. See
 
 ## Common Mistakes
 
-**Investing in isolation with no detection** — the failure stays contained and silent; the damage
+**Investing in isolation with no detection**: the failure stays contained and silent; the damage
 accumulates without producing a signal.
 
-**A health check that only tests whether the process responds** — the instance returning wrong
+**A health check that only tests whether the process responds**: the instance returning wrong
 data stays marked healthy and keeps receiving traffic.
 
-**Not monitoring absence** — a stopped consumer and a task that did not run raise no error; the
+**Not monitoring absence**: a stopped consumer and a task that did not run raise no error; the
 effect vanishes and the discovery comes from the customer.
 
-**Not instrumenting the tolerance mechanisms** — retries and circuit openings grow unrecorded, and
+**Not instrumenting the tolerance mechanisms**: retries and circuit openings grow unrecorded, and
 the deterioration only shows when it beats the protection.
 
-**Tolerating instead of fixing the cause** — the dependency that fails 5% of the time becomes a
+**Tolerating instead of fixing the cause**: the dependency that fails 5% of the time becomes a
 permanent condition, paid in retry latency on every call.
 
-**Not exercising it** — the failover that was never triggered discovers its broken configuration
+**Not exercising it**: the failover that was never triggered discovers its broken configuration
 during the incident. See [chaos engineering](/12-reliability/chaos-engineering.md).
 
 ## Real-World Example
@@ -256,7 +256,7 @@ dead-letter queue, which nobody monitored.
 The effect: 2% of the payments confirmed by the gateway were never marked as paid. Customers received
 charges for invoices already paid.
 
-No alert fired in eleven months. The system was available and fast, and that gateway's confirmation flow was correct in 98% of the cases — and the
+No alert fired in eleven months. The system was available and fast, and that gateway's confirmation flow was correct in 98% of the cases, and the
 tolerance worked exactly as designed: it isolated the failure and moved on.
 
 The detection came from the support team, on noticing a pattern in the complaints.
@@ -275,13 +275,13 @@ alert on divergence. That was the fix that would have detected the problem in on
 dashboard and a trend alert.
 
 The later assessment points out: they had invested heavily in isolating and recovering, and almost nothing
-in detecting. The failure was isolated perfectly — and it stayed isolated, silent, for eleven months.
+in detecting. The failure was isolated perfectly, and it stayed isolated, silent, for eleven months.
 
 ## Related Concepts
 
-- [Redundancy](/12-reliability/redundancy.md) — the most common mechanism.
-- [Resilience](/12-reliability/resilience.md) — the broader property.
-- [Bulkheads](/12-reliability/bulkheads.md) and [Circuit Breakers](/12-reliability/circuit-breakers.md) —
+- [Redundancy](/12-reliability/redundancy.md): the most common mechanism.
+- [Resilience](/12-reliability/resilience.md): the broader property.
+- [Bulkheads](/12-reliability/bulkheads.md) and [Circuit Breakers](/12-reliability/circuit-breakers.md):
   the isolation.
 - [Failure Detection](/06-distributed-systems/failure-detection.md).
 

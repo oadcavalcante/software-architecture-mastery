@@ -2,7 +2,7 @@
 id: functional-vs-nonfunctional
 title: Functional vs. Non-Functional Requirements
 sidebar_position: 2
-description: Functional ones say what to build; non-functional ones say how it has to be — and they are the ones that decide the architecture.
+description: Functional ones say what to build; non-functional ones say how it has to be, and they are the ones that decide the architecture.
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,7 @@ is using the distinction in an interview, with the clock running.
 
 Shortening a URL for a thousand users and for a billion are the same functional requirement and
 completely different systems. That is why candidates who list only features produce generic
-architectures — they did not collect the information that differentiates.
+architectures: they did not collect the information that differentiates.
 
 ## Problem
 
@@ -50,7 +50,7 @@ candidate   "so we need: create a link, redirect,
 ```
 
 Three functional requirements and no non-functional ones. The architecture that comes out of that
-is the same for any scale, any latency requirement and any consistency need — which means it was
+is the same for any scale, any latency requirement and any consistency need. That means it was
 not decided, it was remembered.
 
 The opposite error, rarer: listing non-functional requirements as adjectives.
@@ -97,7 +97,7 @@ useless.
 That is the operational test for any non-functional requirement stated in an interview: **which
 architectural option does it rule out?** "It has to be fast" rules out none. "p99 under 100 ms for
 global reads" rules out querying the primary database in another region, rules out long synchronous
-chains and practically mandates a distributed cache — three decisions made by a single number.
+chains and practically mandates a distributed cache: three decisions made by a single number.
 
 When the interviewer does not provide the number, proposing one is better than omitting it. They
 correct it if it is wrong, and the analysis that follows is anchored in something concrete instead
@@ -118,12 +118,12 @@ cost            is there a budget? is there an efficiency constraint?
 ```
 
 Going through the six takes less than a minute and avoids the most common gap: forgetting to ask
-about consistency, whose answer decides replication and the write path — the decisions most
-expensive to reverse once the design is on the board.
+about consistency, whose answer decides replication and the write path (the decisions most
+expensive to reverse once the design is on the board).
 
 The omission of consistency has an identifiable cause: it is the only one of the six with no
 obvious number attached. Scale has volume, latency has milliseconds, availability has nines, cost
-has dollars — consistency has a qualitative question, "what can be stale and for how long".
+has dollars; consistency has a qualitative question, "what can be stale and for how long".
 
 The way to make it concrete is the same: require a window in a unit of time. "Eventually
 consistent" is not a requirement; "up to 30 seconds of delay, acceptable" is. See
@@ -149,7 +149,7 @@ The same holds for consistency, latency and durability. See
 
 ### Explicit priority
 
-When the non-functional requirements conflict — and they do — declaring the priority anticipates
+When the non-functional requirements conflict (and they do), declaring the priority anticipates
 half the trade-off discussion:
 
 ```text
@@ -163,7 +163,7 @@ before they asked.
 
 Declaring a priority has a second, less obvious effect: it protects the coherence of the design. A
 candidate who declared "availability above consistency" and then proposes a synchronous write
-coordinated across regions is contradicting themselves — and will be challenged. The declared
+coordinated across regions is contradicting themselves, and will be challenged. The declared
 priority works as a constraint that keeps the subsequent decisions aligned with each other.
 
 Incoherent architectures are one of the easiest signals to detect in an interview: they optimize for
@@ -211,17 +211,17 @@ requirement instead of clarifying it. In that case, just pull the number out of 
 **When the interviewer already handed over the numbers.** If the prompt states volume, latency and
 availability, redoing the list is theater; confirm it in one sentence and move on to the design.
 
-**As a long list** — five functional and six non-functional are enough; more than that consumes the
+**As a long list**: five functional and six non-functional are enough; more than that consumes the
 design's time.
 
-**Without revisiting** — when the interviewer changes the prompt, the requirements change.
+**Without revisiting**: when the interviewer changes the prompt, the requirements change.
 
 ## Alternatives
 
-- **A one-sentence summary** — "read-heavy, tolerant of delay, availability above consistency" —
+- **A one-sentence summary**: "read-heavy, tolerant of delay, availability above consistency",
   when time is tight.
-- **Explicit prioritization** — three ordered requirements instead of ten in a list.
-- **Leave it to the interviewer** — asking "which of these is most important to you?" is legitimate
+- **Explicit prioritization**: three ordered requirements instead of ten in a list.
+- **Leave it to the interviewer**: asking "which of these is most important to you?" is legitimate
   and productive.
 
 ## Trade-offs
@@ -260,7 +260,7 @@ design's time.
 
 **Not declaring what tolerates delay.**
 
-**Ignoring cost** — in interviews for senior positions, it is a differentiator.
+**Ignoring cost**: in interviews for senior positions, it is a differentiator.
 
 ## Interview Example
 
@@ -328,14 +328,14 @@ that analysis.
 **Likely follow-up question:** "and what if the requirement were 2 seconds instead of 30?"
 
 The correct answer recognizes that this rules out asynchronous fan-out for large audiences, and
-forces either assembly on read or a hybrid strategy — which is exactly the conversation the
+forces either assembly on read or a hybrid strategy. That is exactly the conversation the
 evaluator wants to have.
 
 ## Related Concepts
 
 - [Requirement Clarification](/22-system-design-interviews/requirement-clarification.md).
-- [Capacity Estimation](/22-system-design-interviews/capacity-estimation.md) — the numbers.
-- [Communicating Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md) — the declared
+- [Capacity Estimation](/22-system-design-interviews/capacity-estimation.md): the numbers.
+- [Communicating Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md): the declared
   priority.
 - [Quality Attributes](/01-fundamentals/quality-attributes.md).
 

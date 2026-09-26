@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [centralization-vs-decentralization, coupling-vs-duplication, sync-vs-async]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The question is asked as if it were about code structure. It is not.
+The question is asked as if it were about code structure, and it is not.
 
 ```text
 real axis   do the organizational prerequisites exist, and are the domain
@@ -29,8 +29,8 @@ real axis   do the organizational prerequisites exist, and are the domain
 ```
 
 Microservices solve an **organizational** problem: letting teams deploy and scale
-independently. If that problem does not exist — because there is one team, or because joint
-deployment is not a bother — the architecture delivers cost without benefit.
+independently. If that problem does not exist (because there is one team, or because joint
+deployment is not a bother), the architecture delivers cost without benefit.
 
 And there is a technical prerequisite: splitting into services **fixes boundaries**. Fixing a
 wrong boundary is expensive to correct, and the right boundary is rarely known at the start.
@@ -121,7 +121,7 @@ It delivers most of the organizational benefit of clear boundaries with none of 
 distribution, and it preserves the option to extract later.
 
 The failure mode is well known: without automated checking, boundaries erode within months.
-With it, the erosion becomes visible and measurable — and starts concentrating in the exclusion
+With it, the erosion becomes visible and measurable, and starts concentrating in the exclusion
 list, which is where it hides. See
 [fitness functions](/19-architecture-governance/fitness-functions-governance.md).
 
@@ -185,7 +185,7 @@ Prefer **microservices** when:
 - The operational prerequisites are built.
 - The domain boundaries are known and stable.
 - Components have very different scale profiles.
-- There is an isolation requirement — regulatory, security, availability.
+- There is an isolation requirement: regulatory, security, availability.
 
 Prefer a **modular monolith** when:
 
@@ -203,19 +203,19 @@ Prefer a **modular monolith** when:
 
 **Splitting by layer or by entity.**
 
-**Keeping a non-modular monolith** — the worst of both, and it is where most teams are.
+**Keeping a non-modular monolith**: the worst of both, and it is where most teams are.
 
-**As an irreversible decision** — the modular → extraction sequence is legitimate and
+**As an irreversible decision**: the modular → extraction sequence is legitimate and
 preferable.
 
 ## Alternatives
 
-- **Modular monolith** — the right option more often than either extreme.
-- **Selective extraction** — separate one or two components with a distinct profile, keeping
+- **Modular monolith**: the right option more often than either extreme.
+- **Selective extraction**: separate one or two components with a distinct profile, keeping
   the rest together.
-- **Services per team, not per domain** — coarse granularity, aligned with the real
+- **Services per team, not per domain**: coarse granularity, aligned with the real
   organizational need.
-- **Monolith with specialized replicas** — the same codebase deployed with different
+- **Monolith with specialized replicas**: the same codebase deployed with different
   configurations per load profile.
 
 The last solves the "one component needs different scale" case without splitting anything.
@@ -296,7 +296,7 @@ corresponded to no unit of business change, which explains the 61%.
 
 The correction, over 14 months, was reconsolidation:
 
-**From 31 to 9 services**, regrouped by domain context identified from the change history —
+**From 31 to 9 services**, regrouped by domain context identified from the change history:
 modules that always changed together became one again.
 
 **A modular monolith** absorbed 19 of the 31 services, with internal boundaries checked
@@ -307,7 +307,7 @@ video processing, regulatory isolation in the minors' data service, a very diffe
 cadence in the school integration service, and its own availability requirement in
 authentication.
 
-**A platform built** during the process — a common pipeline, distributed observability,
+**A platform built** during the process: a common pipeline, distributed observability,
 self-service provisioning.
 
 Results after the reconsolidation:
@@ -322,11 +322,11 @@ distributed transactions                         2, both necessary
 ```
 
 And two years later, with the company at 9 teams, two modules of the modular monolith were
-extracted — this time with boundaries proven by two years of changes, and with the platform
+extracted, this time with boundaries proven by two years of changes, and with the platform
 ready. The extractions took 5 and 7 weeks, with no incident.
 
 The later assessment points out: the 2022 monolith was in fact hard to maintain, and the
-diagnosis was right. The error was in the treatment — the problem was the absence of internal
+diagnosis was right. The error was in the treatment: the problem was the absence of internal
 boundaries, and the answer applied was distribution, which fixes boundaries before they are
 known.
 
@@ -339,14 +339,14 @@ later and at a much higher cost.
   [Modular Monolith](/03-design-patterns/modular-monolith.md).
 - [Service Boundaries](/05-system-design/service-boundaries.md).
 - [Centralization vs. Decentralization](/20-trade-offs/centralization-vs-decentralization.md).
-- [Synchronous vs. Asynchronous](/20-trade-offs/sync-vs-async.md) — the cost splitting brings.
+- [Synchronous vs. Asynchronous](/20-trade-offs/sync-vs-async.md): the cost splitting brings.
 
 ## Practical Exercise
 
 Measure, across the last 30 deliveries in your system, how many touched more than one service or
 module.
 
-Above 40%, the boundaries do not correspond to the business's units of change — and splitting
+Above 40%, the boundaries do not correspond to the business's units of change, and splitting
 further will make it worse.
 
 ## Interview Questions

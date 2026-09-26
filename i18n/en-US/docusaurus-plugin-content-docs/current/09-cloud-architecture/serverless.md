@@ -2,7 +2,7 @@
 id: serverless
 title: Serverless
 sidebar_position: 6
-description: Not managing capacity — what you gain, and the four costs the initial presentation omits.
+description: "Not managing capacity: what you gain, and the four costs the initial presentation omits."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, containers, cost-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Serverless is the model in which you neither provision nor manage capacity: you write the code, the
 provider executes it when there is demand, and charges for what ran.
 
-The name is misleading — there are servers, you just do not see them. What characterizes the model is
+The name is misleading: there are servers, you just do not see them. What characterizes the model is
 **scaling to zero** and **charging by usage**.
 
 It solves one specific class of problem well. And it imposes design constraints the initial presentation
@@ -32,7 +32,7 @@ does not mention, and that are the cause of most of the regret.
 
 ## Problem
 
-An application with irregular load — occasional peaks, long idle periods — wastes in the traditional model:
+An application with irregular load (occasional peaks, long idle periods) wastes in the traditional model:
 the capacity stays on, waiting.
 
 Sizing for the peak pays for idleness; sizing for the average fails at the peak. And auto scaling takes
@@ -45,7 +45,7 @@ Serverless removes the decision: there is no capacity to size.
 ### Scaling to zero is what defines it
 
 With no requests, nothing runs and nothing is charged. With a thousand simultaneous requests, a thousand
-executions happen — up to the account's concurrency quota, and at the burst growth rate the provider imposes.
+executions happen, up to the account's concurrency quota, and at the burst growth rate the provider imposes.
 
 That is qualitatively different from auto scaling, which adjusts a number of instances with a delay of
 minutes. Here, within that quota, the response is immediate and the granularity is the request.
@@ -55,7 +55,7 @@ costs almost nothing.
 
 ### The four costs
 
-**A cold start.** When there is no instance ready, the first request pays for the initialization — from
+**A cold start.** When there is no instance ready, the first request pays for the initialization, from
 tens of milliseconds to several seconds, depending on the language and the package size. In sporadic load,
 a relevant fraction of requests pays that.
 
@@ -67,7 +67,7 @@ requests, no reliable persistent connection, and no guaranteed local cache. See
 exceeds any one of them simply does not run.
 
 **Database connections.** Each concurrent execution can open a connection. A thousand simultaneous
-executions against a relational database exhaust the connection limit — and that is the most common failure
+executions against a relational database exhaust the connection limit, and that is the most common failure
 mode of serverless with a traditional database. The solution is a connection pooler
 ([database scaling](/11-scalability/database-scaling.md)), which is infrastructure back again.
 
@@ -123,7 +123,7 @@ percentiles.
 The term has grown: "serverless" databases, queues and storage follow the same logic of charging by usage
 and having no capacity to manage.
 
-Frequently those pieces pay off more than functions do — a database that scales to zero in a test
+Frequently those pieces pay off more than functions do: a database that scales to zero in a test
 environment saves more than migrating code.
 
 ### It couples strongly
@@ -165,12 +165,12 @@ capacity is the problem; it is not when latency is.
 
 ## Alternatives
 
-- **[Containers](/09-cloud-architecture/containers.md) with auto scaling** — no cold start, no execution
+- **[Containers](/09-cloud-architecture/containers.md) with auto scaling**: no cold start, no execution
   limit, with capacity to manage.
-- **Containers that scale to zero** — platforms that combine the two models; frequently the right middle
+- **Containers that scale to zero**: platforms that combine the two models; frequently the right middle
   ground.
-- **A small always-on instance** — for low but constant load, it is usually cheaper and more predictable.
-- **A queue with workers** — for long-running asynchronous processing.
+- **A small always-on instance**: for low but constant load, it is usually cheaper and more predictable.
+- **A queue with workers**: for long-running asynchronous processing.
 
 ## Trade-offs
 
@@ -190,7 +190,7 @@ capacity is the problem; it is not when latency is.
 
 **Database connections exhausted.**
 
-**An execution limit cutting off the processing** — frequently with partially processed data.
+**An execution limit cutting off the processing**, frequently with partially processed data.
 
 **Cost exploding with growth.**
 
@@ -208,7 +208,7 @@ constant-traffic service, it costs more than a reserved instance and adds limits
 have.
 
 **Not calculating the cost inversion point.** There is a volume above which paying per invocation is more
-expensive than keeping capacity on. That number is calculable in an afternoon with the inputs from the section on the inversion point — volume, duration and memory measured against the instance price — and it is rarely calculated.
+expensive than keeping capacity on. That number is calculable in an afternoon with the inputs from the section on the inversion point (volume, duration and memory measured against the instance price), and it is rarely calculated.
 
 **Connecting directly to the relational database.** Each concurrent invocation attempts its own connection,
 and a thousand invocations exhaust the database's limit. A connection pooler between the two is required.
@@ -217,7 +217,7 @@ and a thousand invocations exhaust the database's limit. A connection pooler bet
 initialization. At high percentiles that appears as a long tail, and the p99 requirement is where it hurts.
 
 **Not defining a concurrency ceiling or a cost alert.** The account's default quota is too high to serve as protection, which means an
-accidental loop scales along with it — and the limit becomes the credit card.
+accidental loop scales along with it, and the limit becomes the credit card.
 
 **Assuming state between invocations.** The environment is sometimes reused, which makes a global variable
 appear to work in testing. In production, under concurrency, it leaks data from one request to another.
@@ -227,18 +227,18 @@ appear to work in testing. In production, under concurrency, it leaks data from 
 A media company adopted serverless for processing user-uploaded images: resizing, generating thumbnails,
 extracting metadata.
 
-An ideal case — event-driven, sporadic, short. The cost fell to around an eighth of what it was with
+An ideal case: event-driven, sporadic, short. The cost fell to around an eighth of what it was with
 dedicated machines idle most of the time.
 
 The success motivated migrating the main API too. There all four costs appeared:
 
 **Cold starts.** The API had a 200 ms requirement at the 95th percentile. With cold starts of 1.2 to 2.8
-seconds affecting between 6% and 9% of requests during low-traffic hours — more than the 5% tail the 95th
-percentile discards — the percentile blew past the limit. Provisioned capacity solved it — and it is charged by time kept on, that is, it eliminates the
+seconds affecting between 6% and 9% of requests during low-traffic hours (more than the 5% tail the 95th
+percentile discards), the percentile blew past the limit. Provisioned capacity solved it. And it is charged by time kept on, that is, it eliminates the
 saving that motivated the migration.
 
 **Database connections.** At a peak of 2,000 concurrent executions, the database hit the connection limit
-and started refusing. A connection pooler was added — one more component to operate.
+and started refusing. A connection pooler was added, one more component to operate.
 
 **Inverted cost.** The API had high and reasonably constant load. The monthly cost came out 3.4 times
 higher than that of the previous instances.
@@ -249,15 +249,15 @@ to inspect.
 After seven months, the API went back to containers with auto scaling. The image processing remains
 serverless to this day, and continues to be the right choice for that workload.
 
-What the team learned: the mistake was not adopting serverless — it was generalizing from a case where it
+What the team learned: the mistake was not adopting serverless but generalizing from a case where it
 was perfect. The two workloads have opposite profiles, and the difference was visible in the traffic data
-before the migration. Nobody looked.
+before the migration, and nobody looked.
 
 ## Related Concepts
 
-- [Managed Services](/09-cloud-architecture/managed-services.md) — the previous degree.
-- [Containers](/09-cloud-architecture/containers.md) — the alternative.
-- [Cost Architecture](/09-cloud-architecture/cost-architecture.md) — the inversion point.
+- [Managed Services](/09-cloud-architecture/managed-services.md): the previous degree.
+- [Containers](/09-cloud-architecture/containers.md): the alternative.
+- [Cost Architecture](/09-cloud-architecture/cost-architecture.md): the inversion point.
 - [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Practical Exercise

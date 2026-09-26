@@ -2,7 +2,7 @@
 id: technical-strategy
 title: Technical Strategy
 sidebar_position: 15
-description: Choosing where not to invest — and why a strategy without sacrifice isn't strategy.
+description: Choosing where not to invest, and why a strategy without sacrifice isn't strategy.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, architecture-roadmaps, business-capabilities]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 Technical strategy is the choice of **where the organization will concentrate technical
-effort** — and, necessarily, where it will not.
+effort** and, necessarily, where it will not.
 
 The second part is what distinguishes strategy from a list of intentions. A document that
 enumerates everything that would be good to do guides nothing, because it doesn't help
@@ -46,8 +46,8 @@ The typical technical strategy document is a list of aspirations:
 Five sentences nobody disagrees with, with no priority among them, with no indication of
 what is left out.
 
-Faced with a concrete decision — invest in modernizing system A or in improving the
-pipeline? — the document doesn't help, because both are on the list.
+Faced with a concrete decision (invest in modernizing system A or in improving the
+pipeline?), the document doesn't help, because both are on the list.
 
 ## Core Concepts
 
@@ -59,8 +59,8 @@ policy     the approach chosen to confront it
 actions    the coherent set of things that execute the policy
 ```
 
-The first is the one usually missing. Strategies that start from the actions — "we're
-going to adopt microservices" — skip the question of what problem that solves.
+The first is the one usually missing. Strategies that start from the actions ("we're
+going to adopt microservices") skip the question of what problem that solves.
 
 And the diagnosis has to be **specific**:
 
@@ -75,7 +75,7 @@ The second points at the action. The first does not.
 
 ### Strategy is choosing what not to do
 
-A strategy with nothing explicitly given up is not a strategy — it is a wish list.
+A strategy with nothing explicitly given up is a wish list, not a strategy.
 
 ```text
 "we will invest in X, and therefore we will not invest in Y this cycle"
@@ -85,10 +85,10 @@ The second half is what gives the first its power. Without it, the investment di
 nothing advances enough to matter.
 
 And what is given up has to be **named**. "We will not modernize the supporting systems
-over the next 18 months" is a decision someone will contest — and that is exactly why it
+over the next 18 months" is a decision someone will contest, and that is exactly why it
 has to be written down.
 
-See [business capabilities](/15-enterprise-architecture/business-capabilities.md) — classification by
+See [business capabilities](/15-enterprise-architecture/business-capabilities.md): classification by
 differentiation is the criterion that sustains giving something up.
 
 ### Coherence among the actions
@@ -106,7 +106,7 @@ incoherent   invest in the platform + give total technology autonomy
 The test: do the chosen actions help each other, or compete for resources and contradict
 each other?
 
-A list of good initiatives with no coherence among them disperses effort — and it is the
+A list of good initiatives with no coherence among them disperses effort, and it is the
 most common result of strategies built by aggregating each area's requests.
 
 ### Technical strategy serves business strategy
@@ -118,8 +118,8 @@ what does the business need to be able to do over the next two years?
 what in the technology prevents or limits that?
 ```
 
-A technical strategy derived from engineering preferences — "we want to modernize because
-the technology is old" — cannot compete for budget, and it shouldn't.
+A technical strategy derived from engineering preferences ("we want to modernize because
+the technology is old") cannot compete for budget, and it shouldn't.
 
 The one that holds up connects explicitly: **this technical limitation prevents this
 business capability, which is worth this much.**
@@ -135,7 +135,7 @@ we will know in Z months, by observing W
 ```
 
 That allows revision based on evidence, instead of defending the position. And it makes
-explicit what has to be true — which is usually what turns out to be wrong when the
+explicit what has to be true. That is usually what turns out to be wrong when the
 strategy fails.
 
 See [architecture decisions](/18-architecture-decisions/index.md).
@@ -165,18 +165,18 @@ What makes the difference is not the document, it is repetition in context: the 
 cited when a decision is made, when a priority is set, when something is refused.
 
 And there is a clear sign that it didn't stick: when local decisions contradict the
-strategy without anyone noticing. That is not disobedience — it is evidence that the
+strategy without anyone noticing. That is not disobedience; it is evidence that the
 connection between the strategy and everyday work was never made.
 
 The practice that fixes it is modest: include in the strategy, for each bet, **what
 changes in the day-to-day work of whoever builds**. A bet that changes no concrete
-decision is probably not a bet — it is an intention.
+decision is probably an intention, not a bet.
 
 ### The strategy has to say what to do with what is already underway
 
 A common gap: the strategy defines the future and doesn't address the present.
 
-At the moment it is published, there are initiatives in flight — some aligned, some not.
+At the moment it is published, there are initiatives in flight: some aligned, some not.
 Ignoring them produces two parallel realities.
 
 ```text
@@ -188,7 +188,7 @@ not started and misaligned don't start
 ```
 
 The second line is the hard one, and the characteristic mistake is letting the initiative
-continue "because we've already invested" — which is sunk-cost reasoning.
+continue "because we've already invested", which is sunk-cost reasoning.
 
 The correct criterion ignores what was already spent: **from here forward, is this
 investment the best use of the resource?**
@@ -215,17 +215,17 @@ was chosen.
 
 **With no contention for capacity.** A single team, with no initiatives competing for the same people, already chooses where to invest when it orders its own work queue. A strategy document there adds ceremony without adding a decision.
 
-**For an isolated decision.** Choosing a database or an integration pattern is a decision with context, options and consequences — it belongs in a [decision record](/18-architecture-decisions/index.md). Calling it strategy adds neither diagnosis nor anything given up.
+**For an isolated decision.** Choosing a database or an integration pattern is a decision with context, options and consequences. It belongs in a [decision record](/18-architecture-decisions/index.md). Calling it strategy adds neither diagnosis nor anything given up.
 
 **In an operational crisis.** When the system goes down every week, the priority isn't in dispute; what is missing is execution. Formulating strategy at that moment delays the fix everyone already knows is needed.
 
 ## Alternatives
 
-- **Principles** — they guide decisions without setting investment priority. See
+- **Principles**: they guide decisions without setting investment priority. See
   [enterprise principles](/15-enterprise-architecture/enterprise-principles.md).
-- **Roadmap** — what to do and when, without the why. See
+- **Roadmap**: what to do and when, without the why. See
   [architecture roadmaps](/15-enterprise-architecture/architecture-roadmaps.md).
-- **Target architecture** — the desired state, without the choice of where to invest. See
+- **Target architecture**: the desired state, without the choice of where to invest. See
   [target architecture](/15-enterprise-architecture/target-architecture.md).
 
 The three are complementary: the strategy says why and where; the target, toward what;
@@ -326,7 +326,7 @@ if we are right, launch time drops to under 6 weeks
 we will know in 12 months, by observing the time of the next launches
 ```
 
-At 12 months, the two launches made under the new model had taken 7 and 6 weeks — close to the target, without reaching it. The review kept the bet, and the third launch, in month 14, shipped in 5 weeks. The bet was confirmed.
+At 12 months, the two launches made under the new model had taken 7 and 6 weeks, close to the target, without reaching it. The review kept the bet, and the third launch, in month 14, shipped in 5 weeks. The bet was confirmed.
 
 And what was given up had a cost: two supporting systems degraded, and an infrastructure
 cost incident consumed attention. Both were treated as an accepted consequence, not as a
@@ -337,9 +337,9 @@ area's request. None of them was wrong. The error was not choosing.
 
 ## Related Concepts
 
-- [Target Architecture](/15-enterprise-architecture/target-architecture.md) — toward what.
-- [Architecture Roadmaps](/15-enterprise-architecture/architecture-roadmaps.md) — when.
-- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md) — the criterion for focus.
+- [Target Architecture](/15-enterprise-architecture/target-architecture.md): toward what.
+- [Architecture Roadmaps](/15-enterprise-architecture/architecture-roadmaps.md): when.
+- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md): the criterion for focus.
 - [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md).
 
 ## Practical Exercise

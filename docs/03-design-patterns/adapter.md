@@ -2,7 +2,7 @@
 id: adapter
 title: Adapter
 sidebar_position: 6
-description: Traduzir entre interfaces incompatíveis — o padrão mais útil e menos controverso do catálogo.
+description: "Traduzir entre interfaces incompatíveis: o padrão mais útil e menos controverso do catálogo."
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [facade, bridge, proxy]
 canonical_for: [adapter, adaptador]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -27,17 +27,17 @@ permitindo que classes com interfaces incompatíveis trabalhem juntas.
 É um dos padrões de aplicação mais direta do catálogo, e o que menos exige
 justificativa: na fronteira com código que você não controla, traduzir num ponto
 só é quase sempre preferível a espalhar a forma alheia pelo domínio. A ressalva
-está em "na fronteira" — dentro do próprio código, um adaptador costuma sinalizar
+está em "na fronteira": dentro do próprio código, um adaptador costuma sinalizar
 que a interface deveria ter sido outra desde o começo.
 
 ## Problema
 
 Seu código espera uma interface. A biblioteca oferece outra. Você não controla
-nenhuma das duas — a sua é definida pelo domínio, a dela pelo autor.
+nenhuma das duas: a sua é definida pelo domínio, a dela pelo autor.
 
-Três respostas possíveis. Mudar o seu código para falar a língua da biblioteca —
+Três respostas possíveis. Mudar o seu código para falar a língua da biblioteca,
 o que espalha a dependência por todo lugar e amarra o domínio a ela. Mudar a
-biblioteca — normalmente impossível. Ou traduzir num ponto único.
+biblioteca: normalmente impossível. Ou traduzir num ponto único.
 
 Adapter é a terceira. Ele concentra a dependência num lugar, e é o que torna
 possível trocar a biblioteca alterando um arquivo.
@@ -66,7 +66,7 @@ interface que o domínio define; o adaptador é quem a implementa falando com o
 mundo.
 
 A regra que dá o valor: **o tipo da biblioteca não atravessa o adaptador.** Se o
-adaptador devolve `ExchangeRateResponse` da biblioteca, ele não adaptou nada —
+adaptador devolve `ExchangeRateResponse` da biblioteca, ele não adaptou nada:
 apenas moveu a dependência de lugar.
 
 ### Adapter de objeto e de classe
@@ -79,9 +79,9 @@ O de objeto é preferível pelos motivos usuais de
 
 ### Adapter versus Facade
 
-Confusão frequente. **Adapter** faz uma interface parecer outra — o alvo já
+Confusão frequente. **Adapter** faz uma interface parecer outra: o alvo já
 existe e é definido por outro. **[Facade](/03-design-patterns/facade.md)** cria uma interface nova e
-mais simples sobre um subsistema — ninguém a exigia antes.
+mais simples sobre um subsistema; ninguém a exigia antes.
 
 Adapter atende a um contrato existente; Facade inventa um.
 
@@ -90,7 +90,7 @@ Adapter atende a um contrato existente; Facade inventa um.
 - Integrar biblioteca ou serviço externo cuja interface você não controla.
 - Isolar o domínio de um tipo de terceiro.
 - Fazer código legado atender a uma interface nova sem alterá-lo.
-- Suportar múltiplas implementações de uma mesma capacidade — vários provedores
+- Suportar múltiplas implementações de uma mesma capacidade: vários provedores
   de pagamento, de e-mail, de armazenamento.
 
 ## Quando Não Usar
@@ -105,22 +105,22 @@ apenas repassa com o mesmo nome e os mesmos tipos, ele não está adaptando nada
 biblioteca não isolou.
 
 **Como camada preventiva sobre tudo.** Adaptar bibliotecas estáveis da plataforma
-— coleções, datas — é custo sem benefício. Ver
+(coleções, datas) é custo sem benefício. Ver
 [YAGNI](/02-software-design/yagni.md).
 
 **Quando a incompatibilidade é semântica, não sintática.** Se a biblioteca tem um
 modelo conceitual diferente do seu, o adaptador vira um tradutor complexo que
-esconde a incompatibilidade em vez de resolvê-la — e o vazamento aparece nos
+esconde a incompatibilidade em vez de resolvê-la, e o vazamento aparece nos
 casos de borda.
 
 ## Alternativas
 
-- **Alinhar as interfaces** — quando você controla ambas.
-- **Anti-corruption layer** — o mesmo conceito em escala maior, entre sistemas.
+- **Alinhar as interfaces**: quando você controla ambas.
+- **Anti-corruption layer**: o mesmo conceito em escala maior, entre sistemas.
   Ver [DDD](/04-domain-driven-design/index.md).
-- **Usar o tipo externo diretamente** — quando a dependência é estável e o
+- **Usar o tipo externo diretamente**: quando a dependência é estável e o
   isolamento não se paga.
-- **[Facade](/03-design-patterns/facade.md)** — quando o objetivo é simplificar, não compatibilizar.
+- **[Facade](/03-design-patterns/facade.md)**: quando o objetivo é simplificar, não compatibilizar.
 
 ## Trade-offs
 
@@ -171,7 +171,7 @@ armazenamento de objetos de provedores diferentes.
 Os três compartilham a característica que torna Adapter valioso: **a interface
 alvo foi projetada primeiro, independentemente das implementações**. Quando a
 interface é extraída de uma implementação existente, o resultado é um adaptador
-que só serve àquela — ver [interfaces](/02-software-design/interfaces.md).
+que só serve àquela (ver [interfaces](/02-software-design/interfaces.md)).
 
 ## Exemplo Real
 
@@ -182,9 +182,9 @@ absoluta.
 Sem adaptadores, essa diferença estaria espalhada pela regra de negócio, com
 condicionais por transportadora em vários pontos.
 
-Com um adaptador por transportadora e um tipo `Frete` do domínio — prazo sempre
+Com um adaptador por transportadora e um tipo `Frete` do domínio (prazo sempre
 como data absoluta, calculada a partir do calendário de dias úteis quando
-necessário — a regra ficou com um caso só.
+necessário), a regra ficou com um caso só.
 
 O caso de borda que só apareceu depois é instrutivo: uma das transportadoras
 devolvia prazo negativo em situações de erro. O primeiro adaptador propagava isso
@@ -198,9 +198,9 @@ converter formatos.
 
 ## Conceitos Relacionados
 
-- [Facade](/03-design-patterns/facade.md) — simplificar, não compatibilizar.
-- [Bridge](/03-design-patterns/bridge.md) — separar abstração de implementação por projeto.
-- [Proxy](/03-design-patterns/proxy.md) — mesma interface, comportamento adicional.
+- [Facade](/03-design-patterns/facade.md): simplificar, não compatibilizar.
+- [Bridge](/03-design-patterns/bridge.md): separar abstração de implementação por projeto.
+- [Proxy](/03-design-patterns/proxy.md): mesma interface, comportamento adicional.
 - [Ports and Adapters](/02-software-design/ports-and-adapters.md).
 
 ## Exercício Prático
@@ -220,5 +220,5 @@ uma troca tocaria.
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — anti-corruption
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Anti-corruption
   layer.

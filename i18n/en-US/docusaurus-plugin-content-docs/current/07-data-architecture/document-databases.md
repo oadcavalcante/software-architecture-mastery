@@ -2,7 +2,7 @@
 id: document-databases
 title: Document Databases
 sidebar_position: 3
-description: Aggregates read whole — and why "schemaless" merely moves the schema into the application.
+description: Aggregates read whole, and why "schemaless" merely moves the schema into the application.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, denormalization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-A document database stores nested structures — typically JSON — as the unit of storage and of access.
+A document database stores nested structures (typically JSON) as the unit of storage and of access.
 
 The case where it shines is specific and recognizable: **the data is read and written as a whole**,
 has a structure that varies between instances, and the queries almost always start from the document's
@@ -49,7 +49,7 @@ The central modeling decision is: **what goes into a document and what stays out
 The rule that works: a document is the unit read and written together, and over which consistency has
 to hold.
 
-An order with its items is a document — they are born, change and are read together. A customer with
+An order with its items is a document: they are born, change and are read together. A customer with
 all their orders is not: the orders grow without limit and are queried independently.
 
 Getting that boundary wrong is the model's dominant error, and it is expensive to fix later.
@@ -58,13 +58,13 @@ Getting that boundary wrong is the model's dominant error, and it is expensive t
 
 There is no data with no structure. There is structure the database does not know about.
 
-The effect: validation migrates to the application — and to **every** application that writes,
+The effect: validation migrates to the application, and to **every** application that writes,
 including correction scripts and legacy services.
 
 In practice, a collection with years of use accumulates three or four coexisting formats, and the
 reading code becomes a sequence of defensive checks.
 
-That is not an argument against the model. It is an argument for declaring the schema somewhere —
+That is not an argument against the model. It is an argument for declaring the schema somewhere:
 validation in the database, when available, or a contract checked at the edge.
 
 ### The real flexibility is incremental evolution
@@ -75,7 +75,7 @@ millions of existing records.
 In a large table, altering the schema requires planning. In a document, the new field appears in the
 new records and the code deals with its absence in the old ones.
 
-That is valuable, and it is a specific operational advantage — not an exemption from modeling.
+That is valuable, and it is a specific operational advantage, not an exemption from modeling.
 
 ### Duplication is a choice, not carelessness
 
@@ -85,10 +85,10 @@ Since there are no efficient joins, referenced data is usually copied into the d
 The question that decides: when the original value changes, do the documents that copied it have to
 change?
 
-If the data is a snapshot of the moment — the price at the instant of purchase, the address used for
-that delivery — the copy is correct and permanent.
+If the data is a snapshot of the moment (the price at the instant of purchase, the address used for
+that delivery), the copy is correct and permanent.
 
-If it is a live reference — the customer's current name — copying creates a bulk update problem.
+If it is a live reference (the customer's current name), copying creates a bulk update problem.
 
 ### Transactions across documents exist, and the cost remains
 
@@ -140,10 +140,10 @@ the size limit.
 
 ## Alternatives
 
-- **[Relational](/07-data-architecture/relational-databases.md)** — with a document column, which
+- **[Relational](/07-data-architecture/relational-databases.md)**: with a document column, which
   combines a declared schema and localized flexibility.
-- **[Key-value](/07-data-architecture/key-value-databases.md)** — when there is no query by content.
-- **Inverted index** — when the need is search with relevance.
+- **[Key-value](/07-data-architecture/key-value-databases.md)**: when there is no query by content.
+- **Inverted index**: when the need is search with relevance.
 
 The first deserves emphasis: modern relational databases index fields inside documents stored in a
 column. That covers a good part of the cases without giving up transactions and constraints.
@@ -186,11 +186,11 @@ shows up in the reading code, which ends up handling every variant.
 **Copying live data with no update plan.** The first change to the original value becomes a bulk
 update, and until it finishes the documents disagree with each other.
 
-**Modeling as if they were tables** — one document per entity, with references between them,
+**Modeling as if they were tables**: one document per entity, with references between them,
 reproducing relational without its guarantees.
 
 **Choosing it for being "schemaless".** The decision was made on what the database waives, not on
-the access pattern — and when queries cross entities, the model charges for joins in the application.
+the access pattern. When queries cross entities, the model charges for joins in the application.
 
 ## Real-World Example
 
@@ -215,20 +215,20 @@ What remained correct: the article itself is still a document, read whole per ro
 adequate for it.
 
 What the team records: all three fixes had the same diagnosis. The aggregate boundary was defined by
-initial reading convenience — "the screen shows it all together" — and not by how the data changes.
+initial reading convenience ("the screen shows it all together") and not by how the data changes.
 
 ## Related Concepts
 
-- [NoSQL](/07-data-architecture/nosql.md) — the category and its problems.
-- [Relational Databases](/07-data-architecture/relational-databases.md) — the main comparison.
-- [Denormalization](/07-data-architecture/denormalization.md) — duplication as a decision.
+- [NoSQL](/07-data-architecture/nosql.md): the category and its problems.
+- [Relational Databases](/07-data-architecture/relational-databases.md): the main comparison.
+- [Denormalization](/07-data-architecture/denormalization.md): duplication as a decision.
 - [Data Modeling](/07-data-architecture/data-modeling.md).
 
 ## Practical Exercise
 
 Take the largest document in one of your collections. Look at its size and what makes it grow.
 
-If something inside it grows with no ceiling, that is the wrong aggregate boundary — and the problem
+If something inside it grows with no ceiling, that is the wrong aggregate boundary, and the problem
 appears as failing writes, not as slowness.
 
 ## Interview Questions
@@ -240,5 +240,5 @@ appears as failing writes, not as slowness.
 ## Further Reading
 
 - Sadalage, Pramod; Fowler, Martin. *NoSQL Distilled*. Addison-Wesley, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 2.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — on aggregates.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 2.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. On aggregates.

@@ -2,7 +2,7 @@
 id: vertical-scaling
 title: Escala Vertical
 sidebar_position: 1
-description: Uma máquina maior — a resposta certa com mais frequência do que a literatura sugere.
+description: "Uma máquina maior: a resposta certa com mais frequência do que a literatura sugere."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [horizontal-scaling, database-scaling, performance-vs-scalability]
 canonical_for: [escala vertical, limite da máquina única]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -60,7 +60,7 @@ rede       dezenas de gigabits por segundo
 Um banco de dados relacional numa instância grande sustenta dezenas de milhares de
 transações por segundo e dezenas de terabytes.
 
-A maior parte dos sistemas que "precisa escalar" opera com uma fração disso — e a
+A maior parte dos sistemas que "precisa escalar" opera com uma fração disso, e a
 verificação de quão distante o sistema está do limite raramente é feita antes de
 decidir distribuir.
 
@@ -76,7 +76,7 @@ Vale enumerar, porque é o argumento central:
 **Diagnóstico.** Um perfilador e um depurador respondem perguntas que, distribuídos,
 exigem rastreamento correlacionado.
 
-**Falha parcial.** Ou o processo está vivo, ou não está — sem o estado "não sei". Ver
+**Falha parcial.** Ou o processo está vivo, ou não está, sem o estado "não sei". Ver
 [falha parcial](/06-distributed-systems/partial-failure.md).
 
 **Latência de rede entre componentes.** Chamadas viram chamadas de função.
@@ -90,12 +90,12 @@ A escala vertical para por razões específicas, e reconhecê-las é o que indic
 momento de mudar:
 
 **Disponibilidade.** Uma máquina é um ponto único. Este é o motivo mais legítimo, e
-frequentemente é resolvido com duas máquinas — primária e réplica — sem
+frequentemente é resolvido com duas máquinas (primária e réplica), sem
 particionamento.
 
 **Custo não linear no topo.** Dentro de uma família de instâncias o preço cresce em
 linha com o tamanho; a desproporção aparece quando o próximo passo sai do catálogo
-padrão — tipos de memória estendida, instâncias dedicadas, hardware próprio. A partir
+padrão: tipos de memória estendida, instâncias dedicadas, hardware próprio. A partir
 daí, duas médias saem mais baratas que uma grande.
 
 **Limite físico atingido.** Quando o maior tipo disponível não basta.
@@ -104,7 +104,7 @@ daí, duas médias saem mais baratas que uma grande.
 isso é indisponibilidade.
 
 **Contenção interna.** Acima de certo número de núcleos, o próprio software pode não
-escalar — bloqueios internos, estruturas compartilhadas. Dobrar os núcleos não dobra a
+escalar: bloqueios internos, estruturas compartilhadas. Dobrar os núcleos não dobra a
 vazão.
 
 A última é a que surpreende: nem todo software aproveita uma máquina muito grande.
@@ -140,7 +140,7 @@ crescer.
 ## Modelo Mental
 
 **Vertical compra tempo sem comprar complexidade.** Antes de distribuir, verifique
-quão longe você está do teto — costuma ser mais longe do que a discussão pressupõe.
+quão longe você está do teto. Costuma ser mais longe do que a discussão pressupõe.
 
 ## Quando Usar
 
@@ -149,7 +149,7 @@ quão longe você está do teto — costuma ser mais longe do que a discussão p
 - A complexidade distribuída não se justifica.
 - O componente é o banco de dados.
 - O time é pequeno.
-- A urgência é imediata — crescer a máquina leva minutos; distribuir leva meses.
+- A urgência é imediata: crescer a máquina leva minutos; distribuir leva meses.
 
 ## Quando Não Usar
 
@@ -159,7 +159,7 @@ quão longe você está do teto — costuma ser mais longe do que a discussão p
 
 **Quando o custo já é desproporcional** em relação a duas máquinas médias.
 
-**Quando o software não aproveita** — contenção interna acima de certo tamanho.
+**Quando o software não aproveita**: contenção interna acima de certo tamanho.
 
 **Sem medir.** Crescer sem saber o que satura.
 
@@ -168,15 +168,15 @@ acaba antes da troca.
 
 ## Alternativas
 
-- **[Escala horizontal](/11-scalability/horizontal-scaling.md)** — quando o teto foi atingido ou a
+- **[Escala horizontal](/11-scalability/horizontal-scaling.md)**: quando o teto foi atingido ou a
   disponibilidade exige.
-- **Réplica de leitura** — distribui leitura sem particionar. Ver
+- **Réplica de leitura**: distribui leitura sem particionar. Ver
   [replicação para escala](/11-scalability/scaling-replication.md).
-- **Cache** — reduz a carga que chega à máquina. Ver
+- **Cache**: reduz a carga que chega à máquina. Ver
   [cache para escala](/11-scalability/scaling-cache.md).
-- **Assíncrono** — tira trabalho do caminho crítico. Ver
+- **Assíncrono**: tira trabalho do caminho crítico. Ver
   [processamento assíncrono](/11-scalability/async-processing.md).
-- **Otimização** — frequentemente rende mais que qualquer aumento de capacidade.
+- **Otimização**: frequentemente rende mais que qualquer aumento de capacidade.
 
 ## Trade-offs
 
@@ -207,7 +207,7 @@ distribuída.
 
 ## Erros Comuns
 
-**Descartar por reputação.** "Não escala" virou reflexo, mas uma instância comum de hoje já comporta centenas de gigabytes de memória e dezenas de núcleos, e o topo do catálogo vai a centenas de núcleos e terabytes — mais do que a maioria dos sistemas de negócio precisará.
+**Descartar por reputação.** "Não escala" virou reflexo, mas uma instância comum de hoje já comporta centenas de gigabytes de memória e dezenas de núcleos, e o topo do catálogo vai a centenas de núcleos e terabytes, mais do que a maioria dos sistemas de negócio precisará.
 
 **Não medir quanto da capacidade está em uso.** Times decidem distribuir com a máquina a 30% de utilização, porque ninguém olhou o número antes de projetar a arquitetura seguinte.
 
@@ -234,7 +234,7 @@ conexões                 85 de 200
 transações por segundo   1.400, no pico
 ```
 
-O banco estava operando a cerca de um terço da capacidade da instância — que não era
+O banco estava operando a cerca de um terço da capacidade da instância, que não era
 das maiores disponíveis.
 
 A projeção de crescimento do negócio, para três anos, apontava 4.000 transações por
@@ -248,8 +248,8 @@ minutos.
 **Réplica de leitura** para relatórios, que respondiam por 40% da carga e não
 precisavam de dados do instante.
 
-**Correção de duas consultas** que faziam varredura completa em tabelas grandes — o
-que sozinho reduziu a CPU no pico de 34% para 21%.
+**Correção de duas consultas** que faziam varredura completa em tabelas grandes. Isso
+sozinho reduziu a CPU no pico de 34% para 21%.
 
 Três anos depois, com o volume projetado atingido e as funcionalidades entregues no
 período somando trabalho a cada transação, o banco opera a 48% de utilização.
@@ -262,7 +262,7 @@ teriam consumido a maior parte da capacidade de engenharia do período.
 Duas decisões complementares foram tomadas na época:
 
 **Plano para o teto.** Foi documentado o que seria feito quando a utilização passasse
-de 70% de forma sustentada — incluindo o desenho de particionamento, pronto para ser
+de 70% de forma sustentada, incluindo o desenho de particionamento, pronto para ser
 executado quando necessário.
 
 **[Alerta de tendência](/11-scalability/scaling-capacity-planning.md#alerta-de-tendência-não-só-de-valor)**,
@@ -271,11 +271,11 @@ seis meses, o alerta dispara.
 
 A lição registrada: a decisão de distribuir tinha sido tomada a partir de uma
 projeção de crescimento, sem nenhuma medição do que a infraestrutura atual comportava.
-A conta que faltava — quanto da máquina estamos usando — levou uma hora.
+A conta que faltava (quanto da máquina estamos usando) levou uma hora.
 
 ## Conceitos Relacionados
 
-- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — a alternativa.
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md): a alternativa.
 - [Escala de Banco de Dados](/11-scalability/database-scaling.md).
 - [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
 - [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).

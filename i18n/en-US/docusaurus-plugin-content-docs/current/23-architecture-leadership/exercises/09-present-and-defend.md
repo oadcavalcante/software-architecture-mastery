@@ -2,7 +2,7 @@
 id: 09-present-and-defend
 title: "Exercise 09 — Present and Defend"
 sidebar_position: 1
-description: The last exercise — you have the right architecture and thirty minutes with whoever controls the budget.
+description: "The last exercise: you have the right architecture and thirty minutes with whoever controls the budget."
 doc_type: exercise
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [architecture-presentations, stakeholder-management, negotiating-tradeoffs, cost-management]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 This exercise uses **your own proposal** from
 [exercise 08](/16-legacy-modernization/exercises/08-modernize-legacy.md). If you haven't done it,
-do it first — there is nothing to present without it.
+do it first: there is nothing to present without it.
 
 :::
 
@@ -79,7 +79,7 @@ Produce:
 2. The **reason**, with a number that does not come from the technology group.
 3. What happens **if nothing is done**, with a date.
 4. The **three most likely objections** and the answer to each.
-5. What you do in the **one-on-one conversations** before the meeting — with whom, and what you ask.
+5. What you do in the **one-on-one conversations** before the meeting: with whom, and what you ask.
 6. The **closing**, with what was left out and why.
 
 ## Questions You Should Be Asking
@@ -112,7 +112,7 @@ Your answer is good if:
   record.
 - **The 2019 ERP objection is addressed before it is made.** It will be made.
 - **The operations director was talked to beforehand.** Her veto is real, and the argument that
-  disarms it — no change during the four months of harvest — is in the plan, not in the presentation.
+  disarms it (no change during the four months of harvest) is in the plan, not in the presentation.
 - **You identified the smallest sufficient approval.** Perhaps phase 1 fits in the current budget, and
   the multi-year one can wait until November.
 
@@ -142,7 +142,7 @@ Not one word about architecture. The board doesn't decide architecture; it decid
 capital in the face of a risk.
 
 **The number that isn't yours.** The regulatory fine and the retirement dates are external facts. The
-14-month estimate belongs to the two people, not to you — and citing them as the source has an
+14-month estimate belongs to the two people, not to you, and citing them as the source has an
 additional effect: when the president consults them afterwards, they will recognize their own number.
 
 **The 2019 ERP** will be raised, and the answer has to be ready:
@@ -161,21 +161,21 @@ That converts a history of failure into an argument in favor: the proposal's str
 what went wrong before.
 
 **The operations director** is not convinced in the meeting. She is convinced in the fifteen-minute
-conversation, two days earlier, in which you ask what worries her — and she says "April" — and you show
+conversation, two days earlier, in which you ask what worries her (and she says "April") and you show
 that the schedule has four months of freeze a year, and ask her to review the dates.
 
 In the meeting, she supports it. That is worth more than any slide.
 
 **The two people outside the room** are the stakeholder easiest to forget and the most capable of
 sinking the proposal. They have to have been talked to beforehand, and their role in the proposal has
-to be one of authority — not a source to be drained before retirement.
+to be one of authority, not a source to be drained before retirement.
 
 If they tell the president "we agree, and the plan puts us deciding what is right", the approval is a
 formality. If they say "they're going to throw away nineteen years", it's over.
 
 **The smallest sufficient approval** is the question that unblocks a meeting the full ask would not
 survive: perhaps phase 1 fits in the already-approved budget, and today's ask is just authorization
-to start — with the multi-year one in November, with phase 1's result already in hand.
+to start, with the multi-year one in November, with phase 1's result already in hand.
 
 When the board decides by consensus and the budget only reopens a year from now, asking for less
 with a result before asking for more reaches the full approval sooner than asking for everything

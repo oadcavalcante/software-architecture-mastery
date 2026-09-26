@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, architecture-descriptions, living-documentation]
 canonical_for: [padrão de documentação, gatilho de documentação, dono do documento, gabarito]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -26,8 +26,8 @@ definidas: **o que é obrigatório, quem é dono, e quando precisa ser atualizad
 
 A dificuldade é que a política tende a um de dois extremos. Sem política, cada time
 documenta de um jeito e a maioria não documenta. Com política pesada, produz-se volume que
-ninguém lê — ver
-[princípios de documentação](/17-architecture-documentation/documentation-principles.md).
+ninguém lê (ver
+[princípios de documentação](/17-architecture-documentation/documentation-principles.md)).
 
 O ponto que funciona é estreito: **poucas obrigações, com dono e gatilho, verificadas
 automaticamente onde possível.**
@@ -99,8 +99,8 @@ incidente com causa estrutural → revisar a descrição
 integração nova               → atualizar contexto
 ```
 
-A cadência entra como rede de segurança — uma revisão anual para o que nenhum gatilho
-pegou — e não como mecanismo principal.
+A cadência entra como rede de segurança (uma revisão anual para o que nenhum gatilho
+pegou) e não como mecanismo principal.
 
 ### Gabaritos ajudam se puderem ser encurtados
 
@@ -146,7 +146,7 @@ o diagrama referencia contêineres que ainda existem?
 as seções obrigatórias têm conteúdo além do gabarito?
 ```
 
-Nem tudo é verificável, e o que é verificável a custo baixo paga a verificação — com uma
+Nem tudo é verificável, e o que é verificável a custo baixo paga a verificação, com uma
 ressalva: a recência premia o toque cosmético, o mesmo defeito da revisão por calendário, e
 serve como alerta, não como critério de conformidade. O último item é o mais valioso e o menos
 implementado: detectar texto de gabarito não substituído pega a maior parte do
@@ -157,7 +157,7 @@ Ver [documentação viva](/17-architecture-documentation/living-documentation.md
 ### Exigência proporcional à criticidade
 
 Uma política uniforme trata um serviço interno usado por três pessoas como um sistema de
-pagamento. O resultado previsível é que ambos recebem o mesmo esforço — que é o mínimo
+pagamento. O resultado previsível é que ambos recebem o mesmo esforço, que é o mínimo
 possível.
 
 ```text
@@ -170,7 +170,7 @@ O escalonamento faz mais que economizar esforço: ele comunica prioridade. Quand
 obrigatório, nada é importante, e os times distribuem atenção uniformemente entre coisas
 que não merecem atenção uniforme.
 
-E ele exige uma classificação de criticidade que já deveria existir por outros motivos —
+E ele exige uma classificação de criticidade que já deveria existir por outros motivos:
 recuperação de desastre, resposta a incidente, controle de acesso.
 
 ## Modelo Mental
@@ -186,32 +186,32 @@ recuperação de desastre, resposta a incidente, controle de acesso.
 
 ## Quando Não Usar
 
-**Sem classificação de criticidade, nem como criá-la** — o escalonamento depende dela.
+**Sem classificação de criticidade, nem como criá-la**: o escalonamento depende dela.
 Sem ela, ou tudo cai na faixa alta e a exigência volta a ser uniforme, ou cada time se
 declara de baixa criticidade para fugir da carga.
 
-**Sem esteira onde pendurar a verificação** — pacotes de terceiros, plataformas low-code
+**Sem esteira onde pendurar a verificação**: pacotes de terceiros, plataformas low-code
 e sistemas sem repositório próprio não têm onde rodar a checagem. A política vira
 declaração que ninguém confere, com o custo de escrevê-la e o resultado de não ter uma.
 
-**Para sistema com desligamento marcado** — exigir os cinco artefatos de algo que sai em
+**Para sistema com desligamento marcado**: exigir os cinco artefatos de algo que sai em
 poucos meses gasta esforço num leitor que não vai existir; dono e runbook bastam até o fim.
 
-**Uniforme para sistemas de criticidade diferente** — um sistema interno de uso ocasional e
+**Uniforme para sistemas de criticidade diferente**: um sistema interno de uso ocasional e
 um sistema crítico não merecem a mesma exigência.
 
-**Em uma equipe pequena com um ou dois sistemas** — todos sabem onde está cada coisa e
+**Em uma equipe pequena com um ou dois sistemas**: todos sabem onde está cada coisa e
 quem responde por ela; a política escrita custa manutenção e não transmite nada que a
 conversa não transmita.
 
 ## Alternativas
 
-- **Convenção informal** — funciona até uns três times.
-- **Exemplo de referência** — apontar um sistema bem documentado como padrão a imitar
+- **Convenção informal**: funciona até uns três times.
+- **Exemplo de referência**: apontar um sistema bem documentado como padrão a imitar
   costuma funcionar melhor que uma norma escrita.
-- **Geração automática** — elimina a política onde é aplicável. Ver
+- **Geração automática**: elimina a política onde é aplicável. Ver
   [documentação viva](/17-architecture-documentation/living-documentation.md).
-- **Revisão por pares** — o padrão emerge da revisão em vez de ser prescrito.
+- **Revisão por pares**: o padrão emerge da revisão em vez de ser prescrito.
 
 A segunda é a mais subestimada: "documente como o sistema de pagamentos" comunica mais
 rápido que doze páginas de norma.
@@ -248,20 +248,20 @@ rápido que doze páginas de norma.
 
 **Começar pelo gabarito** em vez de pelas perguntas que doem.
 
-**Confundir política com processo de aprovação** — a documentação passa a ser escrita
+**Confundir política com processo de aprovação**: a documentação passa a ser escrita
 para o aprovador, na véspera da aprovação, e deixa de ser atualizada depois dela.
 
-**Não permitir "não se aplica"** — o time preenche a seção inaplicável com texto genérico,
+**Não permitir "não se aplica"**: o time preenche a seção inaplicável com texto genérico,
 e a verificação de conteúdo deixa de separar o preenchido do vazio.
 
-**Colocar tudo em wiki** — o documento fica fora da revisão de código: a mudança que o
+**Colocar tudo em wiki**: o documento fica fora da revisão de código; a mudança que o
 invalida entra sem que ninguém o veja, e a divergência só aparece quando alguém age sobre
 o texto errado.
 
-**Não verificar nada automaticamente** — a conformidade é medida uma vez, no lançamento da
+**Não verificar nada automaticamente**: a conformidade é medida uma vez, no lançamento da
 política, e decai sem que ninguém perceba até o próximo levantamento manual.
 
-**Não medir uso** — sem isso, não se sabe o que cortar.
+**Não medir uso**: sem isso, não se sabe o que cortar.
 
 ## Exemplo Real
 
@@ -279,21 +279,21 @@ com dono identificável                       11
 atualizada nos últimos 12 meses              16
 ```
 
-A política nova foi deliberadamente curta — uma página:
+A política nova foi deliberadamente curta (uma página):
 
 **Cinco artefatos obrigatórios por sistema**, todos no repositório do próprio sistema:
 README com propósito e como rodar, diagrama de contexto, diagrama de contêiner, ADRs, e
 runbook de incidente.
 
 **Dono como papel**, declarado em um arquivo de metadados no repositório, com integração ao
-cadastro de times — o que tornou o dono verificável e resistente a saídas.
+cadastro de times. Isso tornou o dono verificável e resistente a saídas.
 
 **Gatilhos declarados** e ligados à revisão de código: mudanças em código de
 infraestrutura exigem revisão do diagrama de implantação; contêiner novo exige revisão do
 de contêiner.
 
 **Wiki descontinuado** para documentação técnica de sistema. Conteúdo migrado ou
-arquivado, com um redirecionamento apontando para o repositório — o passo que mais gerou
+arquivado, com um redirecionamento apontando para o repositório: o passo que mais gerou
 resistência e o que mais resolveu divergência.
 
 **Verificação na esteira**: os cinco artefatos existem, têm dono válido, os links resolvem,
@@ -314,7 +314,7 @@ atualizados nos últimos 6 meses              44
 com divergência entre lugares                 0 (só existe um lugar)
 ```
 
-O que a equipe aprendeu: a decisão mais impopular — desligar o wiki — foi a mais efetiva.
+O que a equipe aprendeu: a decisão mais impopular (desligar o wiki) foi a mais efetiva.
 Enquanto existiam dois lugares editáveis de forma independente, a divergência era
 inevitável, e nenhuma política de qualidade resolvia isso.
 
@@ -325,9 +325,9 @@ conformidade dos cinco restantes.
 ## Conceitos Relacionados
 
 - [Princípios de Documentação](/17-architecture-documentation/documentation-principles.md).
-- [Documentação Viva](/17-architecture-documentation/living-documentation.md) — o que pode ser gerado.
+- [Documentação Viva](/17-architecture-documentation/living-documentation.md): o que pode ser gerado.
 - [Descrições de Arquitetura](/17-architecture-documentation/architecture-descriptions.md).
-- [Governança](/19-architecture-governance/index.md) — onde a política vive.
+- [Governança](/19-architecture-governance/index.md): onde a política vive.
 
 ## Exercício Prático
 
@@ -347,5 +347,5 @@ que ficam.
 ## Para Aprofundar
 
 - Clements, Paul et al. *Documenting Software Architectures*. 2ª ed. Addison-Wesley, 2010.
-- Write the Docs. *Docs as Code* — writethedocs.org/guide/docs-as-code.
+- Write the Docs. *Docs as Code*. Writethedocs.org/guide/docs-as-code.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-estimation]
 related: [capacity-estimation, interview-scaling, bottleneck-identification]
 canonical_for: [cálculo de guardanapo, ordem de magnitude, número de referência, aritmética de entrevista]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Cálculo de guardanapo é a habilidade de chegar à ordem de grandeza correta usando apenas números
 memorizados e aritmética simples.
 
-Ele importa porque a maior parte das decisões de arquitetura não depende de precisão — depende de
+Ele importa porque a maior parte das decisões de arquitetura não depende de precisão, e sim de
 saber se algo é milissegundos ou segundos, gigabytes ou terabytes, uma máquina ou mil.
 
 ```text
@@ -48,12 +48,12 @@ entrevistador   "estime"
 candidato       (silêncio)
 ```
 
-O travamento não é falta de inteligência — é falta de âncoras. Quem não sabe que uma leitura
+O travamento não é falta de inteligência, e sim de âncoras. Quem não sabe que uma leitura
 aleatória em SSD leva cerca de um décimo de milissegundo e uma de memória cerca de cem nanossegundos não tem como
 comparar as duas de cabeça.
 
 E há o erro oposto: fazer contas complicadas. Multiplicar 86.400 por 347 mentalmente durante uma
-entrevista é desperdício de atenção — arredondar para 100.000 × 350 dá o mesmo resultado útil com
+entrevista é desperdício de atenção: arredondar para 100.000 × 350 dá o mesmo resultado útil com
 uma fração do esforço.
 
 ## Conceitos Centrais
@@ -86,11 +86,11 @@ Isso responde à maior parte das perguntas de latência sem nenhuma conta.
 
 Vale entender por que essa hierarquia decide tanto. Um sistema que faz uma ida e volta
 intercontinental no caminho de uma requisição não consegue ficar abaixo de 150 ms, por melhor que
-seja tudo o mais — a física impõe o piso. Um sistema que lê de memória em vez de disco melhora
+seja tudo o mais. A física impõe o piso. Um sistema que lê de memória em vez de disco melhora
 por três ordens de grandeza, o que nenhuma otimização de código alcança.
 
 Reconhecer que a latência é dominada pelo elo mais lento da cadeia é o que permite responder
-rapidamente a "como reduzir a latência disso?" — a resposta é atacar o elo dominante (removê-lo,
+rapidamente a "como reduzir a latência disso?". A resposta é atacar o elo dominante (removê-lo,
 encurtá-lo ou paralelizá-lo), e as referências são o que permite identificá-lo sem medir.
 
 ### Tamanhos de referência
@@ -107,7 +107,7 @@ minuto de vídeo em alta
 ```
 
 Para tamanhos que você não sabe, decompor funciona: um registro de pedido tem identificador,
-cliente, itens, valores e carimbos — algo entre 500 bytes e 2 KB. Declarar a premissa e seguir é
+cliente, itens, valores e carimbos (algo entre 500 bytes e 2 KB). Declarar a premissa e seguir é
 a resposta certa.
 
 Um erro de fator dois no tamanho do registro raramente muda uma decisão de arquitetura; travar
@@ -136,7 +136,7 @@ particionamento para volumes que um banco relacional atende sem esforço.
 A calibração errada tem origem identificável: a literatura de entrevistas descreve sistemas de
 escala global, e a intuição formada por ela superestima o que exige distribuição. Um banco
 relacional em máquina moderna atende dezenas de milhares de leituras por segundo e bilhões de
-linhas — o que cobre a maior parte dos sistemas que existem, e boa parte dos enunciados de
+linhas. Isso cobre a maior parte dos sistemas que existem, e boa parte dos enunciados de
 entrevista.
 
 Propor a solução distribuída quando a simples basta é interpretado como falta de julgamento, não
@@ -195,7 +195,7 @@ Fazer essa verificação em voz alta demonstra calibração, que é exatamente o
 
 A verificação de plausibilidade é também a defesa contra o erro mais caro deste tipo de cálculo:
 uma ordem de grandeza perdida numa conversão. Trocar milhões por bilhões, ou megabytes por
-gigabytes, muda o resultado por mil — e o número resultante costuma ser absurdo de uma forma
+gigabytes, muda o resultado por mil, e o número resultante costuma ser absurdo de uma forma
 detectável, se alguém olhar para ele com uma referência em mente.
 
 Ter duas ou três âncoras de comparação memorizadas resolve isso: o tráfego aproximado de um
@@ -216,22 +216,22 @@ confira se o resultado é plausível.
 
 ## Quando Não Usar
 
-**Quando a decisão depende de uma diferença menor que 2× a 3×** — escolher entre duas instâncias
+**Quando a decisão depende de uma diferença menor que 2× a 3×**: escolher entre duas instâncias
 de tamanho vizinho, ou decidir se um cache de 30% de acerto compensa. A margem de erro do cálculo
 é maior que a diferença que se quer resolver.
 
-**Quando o que importa é a latência de cauda ou a contenção** — os números de referência são
+**Quando o que importa é a latência de cauda ou a contenção**: os números de referência são
 médias de operações isoladas; o p99 sob fila, lock ou coleta de lixo não sai deles.
 
-**Quando a estimativa vira compromisso** — compra de hardware, contrato de capacidade, SLA
+**Quando a estimativa vira compromisso**: compra de hardware, contrato de capacidade, SLA
 assinado. Aí a ordem de grandeza orienta, mas quem decide é medição ou teste de carga.
 
 ## Alternativas
 
-- **Declarar a ordem de grandeza direto** — "estamos na casa de terabytes" — quando a conta não
+- **Declarar a ordem de grandeza direto**: "estamos na casa de terabytes", quando a conta não
   acrescenta.
-- **Comparar com um sistema conhecido** — "isso é da ordem do volume de uma rede social média".
-- **Perguntar** — se o entrevistador tem o número, usá-lo é mais rápido.
+- **Comparar com um sistema conhecido**: "isso é da ordem do volume de uma rede social média".
+- **Perguntar**: se o entrevistador tem o número, usá-lo é mais rápido.
 
 ## Trade-offs
 
@@ -256,16 +256,16 @@ assinado. Aí a ordem de grandeza orienta, mas quem decide é medição ou teste
 
 **Recitar números** sem conectar a uma decisão.
 
-**Subestimar a capacidade de uma máquina** — e propor distribuição desnecessária.
+**Subestimar a capacidade de uma máquina** e propor distribuição desnecessária.
 
 ## Erros Comuns
 
 **Propor particionamento** para volumes que um banco atende.
 
-**Confundir bits e bytes** em cálculos de banda — ler 10 Gbps como 10 GB/s superestima a vazão
+**Confundir bits e bytes** em cálculos de banda: ler 10 Gbps como 10 GB/s superestima a vazão
 em 8×.
 
-**Esquecer replicação e índices** no armazenamento — replicação 3× mais índices multiplica o
+**Esquecer replicação e índices** no armazenamento: replicação 3× mais índices multiplica o
 volume bruto por 3 a 5.
 
 **Não verificar se o resultado é plausível.**
@@ -354,5 +354,5 @@ Se você travou em algum, essa é a âncora que está faltando.
 ## Para Aprofundar
 
 - Dean, Jeff. *Numbers Everyone Should Know*. Google, 2009.
-- Bentley, Jon. *Programming Pearls*. 2ª ed. Addison-Wesley, 1999 — cap. 7.
+- Bentley, Jon. *Programming Pearls*. 2ª ed. Addison-Wesley, 1999. Cap. 7.
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.

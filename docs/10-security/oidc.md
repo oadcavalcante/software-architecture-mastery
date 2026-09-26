@@ -2,7 +2,7 @@
 id: oidc
 title: OpenID Connect
 sidebar_position: 3
-description: A camada de identidade sobre OAuth — o que o token de identidade afirma e o que precisa ser verificado.
+description: "A camada de identidade sobre OAuth: o que o token de identidade afirma e o que precisa ser verificado."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, jwt, identity]
 canonical_for: [OpenID Connect, token de identidade, login único]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 OpenID Connect é uma camada fina sobre [OAuth 2.0](/10-security/oauth2.md) que acrescenta o que
 faltava: **um token que afirma identidade**.
 
-Onde OAuth entrega um token de acesso — "o portador pode fazer X" —, OpenID Connect
+Onde OAuth entrega um token de acesso ("o portador pode fazer X"), OpenID Connect
 entrega também um **token de identidade**: "este usuário, com estes atributos,
 autenticou-se neste momento, e este token é para você".
 
@@ -39,8 +39,8 @@ O padrão problemático: a aplicação obtém um token de acesso, chama uma API 
 recebe um identificador de usuário e considera a pessoa autenticada.
 
 O que quebra: nada nesse fluxo garante que o token foi emitido **para essa
-aplicação**. Um token obtido por outra aplicação — inclusive uma maliciosa, à qual o
-usuário concedeu acesso — funciona igual.
+aplicação**. Um token obtido por outra aplicação (inclusive uma maliciosa, à qual o
+usuário concedeu acesso) funciona igual.
 
 OpenID Connect resolve com um token que declara o destinatário e é verificável.
 
@@ -62,7 +62,7 @@ compreendida.
 
 ### As afirmações que precisam ser verificadas
 
-Um token de identidade é um [JWT](/10-security/jwt.md) assinado, e recebê-lo não basta — ele
+Um token de identidade é um [JWT](/10-security/jwt.md) assinado, e recebê-lo não basta. Ele
 precisa ser validado:
 
 ```text
@@ -90,7 +90,7 @@ verificador de código já amarra a resposta à requisição que a originou.
 
 ### `sub` é o identificador, e ele é local ao emissor
 
-O campo `sub` é o identificador estável do usuário — dentro daquele emissor.
+O campo `sub` é o identificador estável do usuário, dentro daquele emissor.
 
 Dois pontos que causam problema:
 
@@ -104,7 +104,7 @@ interna precisa ser a combinação de emissor e `sub`.
 
 ### Escopos e a origem dos atributos
 
-Atributos do usuário vêm por escopos — `openid`, `profile`, `email` — e podem chegar
+Atributos do usuário vêm por escopos (`openid`, `profile`, `email`) e podem chegar
 de dois lugares: dentro do token de identidade, ou de um endpoint de informações do
 usuário.
 
@@ -118,7 +118,7 @@ necessário.
 
 Login único funciona bem. **Logout único** é onde as implementações falham.
 
-O usuário sai de uma aplicação — e continua autenticado nas outras, porque cada uma
+O usuário sai de uma aplicação, e continua autenticado nas outras, porque cada uma
 tem sua própria sessão. Pior, um clique em "entrar" reautentica silenciosamente,
 porque a sessão no provedor continua viva.
 
@@ -126,15 +126,15 @@ As especificações de encerramento existem e a adoção é irregular. O comport
 precisa ser decidido explicitamente: sair de uma aplicação encerra a sessão do
 provedor, ou apenas a local?
 
-Para ambientes com dados sensíveis, encerrar tudo é o esperado — e frequentemente
+Para ambientes com dados sensíveis, encerrar tudo é o esperado, e frequentemente
 não é o que acontece.
 
 ### Descoberta e rotação de chaves
 
 O provedor publica sua configuração e suas chaves públicas em endereços conhecidos.
 
-O cliente deve buscar as chaves e **armazená-las em cache com atualização periódica**
-— porque os provedores rotacionam chaves. Uma implementação que fixa a chave quebra
+O cliente deve buscar as chaves e **armazená-las em cache com atualização periódica**,
+porque os provedores rotacionam chaves. Uma implementação que fixa a chave quebra
 na rotação, tipicamente numa madrugada.
 
 E deve buscar por identificador de chave, não assumir que há uma só.
@@ -150,8 +150,8 @@ emitido.** As duas afirmações são o que torna a autenticação segura.
 - Login único entre várias aplicações.
 - Login social para consumidores.
 - Federação corporativa.
-- Várias aplicações precisam da mesma política de autenticação — segundo fator,
-  bloqueio, trilha de auditoria — aplicada e auditada num só lugar.
+- Várias aplicações precisam da mesma política de autenticação (segundo fator,
+  bloqueio, trilha de auditoria) aplicada e auditada num só lugar.
 
 ## Quando Não Usar
 
@@ -177,12 +177,12 @@ por ele, a dependência vira o limite do sistema.
 
 ## Alternativas
 
-- **[OAuth 2.0](/10-security/oauth2.md) puro** — quando a necessidade é acesso delegado, não
+- **[OAuth 2.0](/10-security/oauth2.md) puro**: quando a necessidade é acesso delegado, não
   identidade.
-- **SAML** — federação corporativa em ambientes que já o usam. Mais verboso, muito
+- **SAML**: federação corporativa em ambientes que já o usam. Mais verboso, muito
   estabelecido.
-- **TLS mútuo** — identidade de serviço.
-- **Sessão própria com credencial local** — quando não há federação nem terceiros, e
+- **TLS mútuo**: identidade de serviço.
+- **Sessão própria com credencial local**: quando não há federação nem terceiros, e
   a simplicidade vale mais.
 
 ## Trade-offs
@@ -222,13 +222,13 @@ por ele, a dependência vira o limite do sistema.
 
 **Não verificar `aud`.** Anula a proteção principal.
 
-**Pular `nonce` onde ele é obrigatório** — quando foi enviado, ou no fluxo implícito.
+**Pular `nonce` onde ele é obrigatório**: quando foi enviado, ou no fluxo implícito.
 
 **Usar o token de identidade como token de acesso**, enviando-o à API de recursos.
 
 **Identificar por e-mail.**
 
-**Não tratar rotação de chaves** — chave pública fixa no código quebra na rotação.
+**Não tratar rotação de chaves**: chave pública fixa no código quebra na rotação.
 
 **Não decidir o comportamento de logout.**
 
@@ -246,13 +246,13 @@ revisão de segurança seis meses depois encontrou inconsistências:
 **Duas aplicações não verificavam `aud`.** Um token emitido para a aplicação de
 alunos era aceito pela aplicação administrativa. Como o provedor era o mesmo e os
 usuários também, um aluno com conta legítima podia obter um token e apresentá-lo à
-aplicação administrativa — que o aceitava e criava uma sessão. A autorização
+aplicação administrativa, que o aceitava e criava uma sessão. A autorização
 subsequente barrava a maior parte das ações, mas não todas.
 
 **Três não usavam `nonce`.**
 
 **Uma identificava por e-mail.** Um aluno alterou o e-mail no cadastro para o de um
-professor — que não tinha ainda acessado o sistema — e, no primeiro login, foi
+professor (que não tinha ainda acessado o sistema) e, no primeiro login, foi
 reconhecido como o professor.
 
 **Nenhuma tratava rotação de chaves.** Todas fixavam a chave pública em
@@ -276,13 +276,13 @@ Os seis times passaram a usá-la em vez de cada um implementar.
 
 O aprendizado que ficou: seis implementações independentes do mesmo protocolo
 produziram seis conjuntos diferentes de omissões. A decisão de deixar cada time
-implementar — tomada para não criar dependência — custou mais que a dependência
+implementar, tomada para não criar dependência, custou mais que a dependência
 teria custado.
 
 ## Conceitos Relacionados
 
-- [OAuth 2.0](/10-security/oauth2.md) — a base.
-- [JWT](/10-security/jwt.md) — o formato do token de identidade.
+- [OAuth 2.0](/10-security/oauth2.md): a base.
+- [JWT](/10-security/jwt.md): o formato do token de identidade.
 - [Identidade](/10-security/identity.md).
 - [Fronteiras Seguras](/10-security/secure-boundaries.md).
 

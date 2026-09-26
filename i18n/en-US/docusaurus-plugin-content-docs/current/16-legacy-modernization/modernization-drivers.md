@@ -2,7 +2,7 @@
 id: modernization-drivers
 title: Modernization Drivers
 sidebar_position: 2
-description: What justifies investing — and why "it's legacy" is not a reason.
+description: What justifies investing, and why "it's legacy" is not a reason.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [legacy-systems, migration-strategies, modernization-risk]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Modernizing is expensive, slow, and carries risk. The question that precedes any
 proposal: **what exactly can't we do because of this system?**
 
 If the answer is "it's old", "the technology is obsolete" or "the code is bad", there is
-no project — there is discomfort.
+no project, only discomfort.
 
 A motive that sustains investment has two properties: it describes a **concrete
 limitation**, and the cost of living with it is **measurable**.
@@ -45,7 +45,7 @@ None of those answers the question whoever decides the budget will ask: **what d
 gain?**
 
 And the result is predictable: the proposal competes with product initiatives that have
-an articulated return, and loses — year after year, until the system fails or the
+an articulated return, and loses, year after year, until the system fails or the
 maintainer leaves.
 
 See [business architecture](/15-enterprise-architecture/business-architecture.md).
@@ -68,7 +68,7 @@ The first three are the ones that most frequently sustain the decision, and the 
 least often appear articulated.
 
 Note that none of them is "the technology is old". Age is an **indicator** of risk, not a
-motive — an old system that is stable, with a team that knows it and that nobody needs to
+motive: an old system that is stable, with a team that knows it and that nobody needs to
 change has no problem.
 
 ### Translating the technical symptom into a business limitation
@@ -88,7 +88,7 @@ expensive proprietary DB    →  $420,000 a year in licensing, for a system
 
 The right-hand column competes for budget. The left-hand one does not.
 
-See [business capabilities](/15-enterprise-architecture/business-capabilities.md) — the
+See [business capabilities](/15-enterprise-architecture/business-capabilities.md), the
 vocabulary that makes that translation.
 
 ### The cost of not doing it has to be calculated
@@ -152,20 +152,20 @@ fraction of the cost with most of the benefit.
 A bias worth naming: engineers prefer to work on modern technology, and that influences
 the assessment of necessity.
 
-That is not dishonesty — it is human, and the motive presented is generally true. But the
+That is not dishonesty; it is human, and the motive presented is generally true. But the
 **priority** assigned to it may not be.
 
 The test: if the same amount of effort were applied to something else, would the return
 be greater? If the honest answer is maybe, the proposal deserves more analysis.
 
 And there is a legitimate motive usually omitted for seeming frivolous: **retaining
-people**. A system nobody wants to maintain has a real hiring and turnover cost — and it
+people**. A system nobody wants to maintain has a real hiring and turnover cost, and it
 should be presented explicitly, with the number, rather than disguised as a technical
 argument.
 
 ### The right moment is before the crisis arrives
 
-A pattern that repeats: modernization is approved after the risk materializes — when the
+A pattern that repeats: modernization is approved after the risk materializes, when the
 maintainer leaves, when the vendor announces end of support, when the system goes down.
 
 At that point, it happens under pressure, with an imposed deadline and without the
@@ -192,7 +192,7 @@ proximity of dependencies' end of support
 
 See [application portfolios](/15-enterprise-architecture/application-portfolios.md).
 
-The first is the most predictive and the easiest to obtain — and it is usually known
+The first is the most predictive and the easiest to obtain, and it is usually known
 informally by several people without ever becoming a number in a prioritization
 discussion.
 
@@ -212,17 +212,17 @@ the cost of living with it.
 
 **Non-negotiable external deadline.** When the vendor announces end of support on a fixed date, or the regulator imposes a deadline, the question "what do we gain?" has already been answered from outside: the alternative is running without support or out of compliance. Calculating the cost of not doing it delays a decision that does not depend on it; the analysis effort goes into the minimum scope that meets the date.
 
-**Exploitable vulnerability with no fix available.** The risk does not reduce honestly to an annual figure — the probability of exploitation cannot be estimated with the precision the calculation would require, and the damage may be on the scale of the company itself. Demanding the number produces a made-up number, and the discussion becomes about it instead of about the exposure.
+**Exploitable vulnerability with no fix available.** The risk does not reduce honestly to an annual figure: the probability of exploitation cannot be estimated with the precision the calculation would require, and the damage may be on the scale of the company itself. Demanding the number produces a made-up number, and the discussion becomes about it instead of about the exposure.
 
-**Small change.** A version upgrade within the support window, a library swap, a migration that fits in days: building the driver analysis costs more than the change itself. The rigor of this document is proportional to the investment — it serves proposals that compete for budget, not the routine maintenance the team already absorbs.
+**Small change.** A version upgrade within the support window, a library swap, a migration that fits in days: building the driver analysis costs more than the change itself. The rigor of this document is proportional to the investment: it serves proposals that compete for budget, not the routine maintenance the team already absorbs.
 
 ## Alternatives
 
 - **Don't modernize**, with a recorded decision and a review deadline.
-- **Partial modernization** — attack the part that causes the problem.
-- **Containment** — isolate the system so it does not limit the rest. See
+- **Partial modernization**: attack the part that causes the problem.
+- **Containment**: isolate the system so it does not limit the rest. See
   [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
-- **Reduce the dependency** — instead of modernizing, reduce what depends on it.
+- **Reduce the dependency**: instead of modernizing, reduce what depends on it.
 
 The third is underrated: a well-isolated legacy system can go on operating for years
 without limiting the evolution around it.
@@ -259,17 +259,17 @@ reason.
 
 ## Common Mistakes
 
-**Arguing from obsolescence.** The proposal is rejected cycle after cycle, and modernization ends up approved only when the crisis arrives, with a deadline imposed from outside — in the Real-World Example, three rejections before the reframing.
+**Arguing from obsolescence.** The proposal is rejected cycle after cycle, and modernization ends up approved only when the crisis arrives, with a deadline imposed from outside: in the Real-World Example, three rejections before the reframing.
 
 **Not translating into a business limitation.** Whoever approves the budget has no way to compare the proposal with product initiatives that have an articulated return, and picks those.
 
 **Not presenting the cost of living with it.** Living with it looks free, and any project estimate loses to zero.
 
-**Proposing complete replacement by reflex.** The budget requested grows with the scope, not with the motive — in the Real-World Example, $840,000 requested against $360,000 spent once the scope was reduced to the optimization engine.
+**Proposing complete replacement by reflex.** The budget requested grows with the scope, not with the motive: in the Real-World Example, $840,000 requested against $360,000 spent once the scope was reduced to the optimization engine.
 
 **Not recording the decision not to do it.** With no record and no review date, the same proposal comes back every year from scratch, and nobody reassesses when conditions change.
 
-**Hiding the retention motive** behind a technical argument. The technical argument is contested on its merits and falls, taking the real motive with it, never having been discussed — and the cost of turnover stays without a number.
+**Hiding the retention motive** behind a technical argument. The technical argument is contested on its merits and falls, taking the real motive with it, never having been discussed, and the cost of turnover stays without a number.
 
 ## Real-World Example
 
@@ -311,13 +311,13 @@ what did not                 vehicle and driver records, integrations, telemetry
 The project as executed extracted the optimization engine and replaced it with a service
 that supports continuous reoptimization. The rest of the system stayed.
 
-Real cost: $360,000, 9 months — less than half the budget, because the scope was reduced
+Real cost: $360,000, 9 months, less than half the budget, because the scope was reduced
 to what solved the motive.
 
 Same-day delivery launched 11 months later.
 
 And the people risk was addressed in parallel, with knowledge transfer from the
-maintainer to three people — treated as its own project, and not as a consequence of the
+maintainer to three people, treated as its own project, and not as a consequence of the
 modernization.
 
 What the team learned: the three previous rejections were correct. The proposal asked for
@@ -325,8 +325,8 @@ $840,000 to solve a technical discomfort, and the business had no way to assess 
 
 ## Related Concepts
 
-- [Legacy Systems](/16-legacy-modernization/legacy-systems.md) — the definition.
-- [Migration Strategies](/16-legacy-modernization/migration-strategies.md) — how to execute.
+- [Legacy Systems](/16-legacy-modernization/legacy-systems.md): the definition.
+- [Migration Strategies](/16-legacy-modernization/migration-strategies.md): how to execute.
 - [Organizational Constraints](/16-legacy-modernization/organizational-constraints.md).
 - [Business Capabilities](/15-enterprise-architecture/business-capabilities.md).
 
@@ -335,7 +335,7 @@ $840,000 to solve a technical discomfort, and the business had no way to assess 
 Take a system your team considers legacy and answer: what exactly can't we do because of
 it, and how much does that cost per year?
 
-If there is no concrete answer, the proposal to modernize it will not be approved — and
+If there is no concrete answer, the proposal to modernize it will not be approved, and
 probably shouldn't be.
 
 ## Interview Questions

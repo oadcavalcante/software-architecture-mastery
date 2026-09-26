@@ -2,7 +2,7 @@
 id: trade-offs
 title: Trade-offs
 sidebar_position: 0
-description: A seção central do percurso — cada escolha arquitetural em função da restrição que a decide.
+description: "A seção central do percurso: cada escolha arquitetural em função da restrição que a decide."
 doc_type: index
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [architecture-decisions, case-studies, system-design-interviews]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -61,7 +61,7 @@ autogerido · cloud-native versus portável.
 
 Nenhum apresenta um lado como vencedor. Cada um estabelece:
 
-1. Qual é o **eixo real** — frequentemente diferente do que o nome do par sugere.
+1. Qual é o **eixo real**, frequentemente diferente do que o nome do par sugere.
 2. As **condições** sob as quais cada lado vence, de forma verificável.
 3. Os **sinais** de que você escolheu errado, observáveis antes do desastre.
 4. O **custo de mudar de ideia** depois, que costuma ser assimétrico e é o que
@@ -73,7 +73,7 @@ opções empatam em mérito, escolhe-se a que é mais barata de abandonar.
 ## Ordem de leitura
 
 Pode ser lida por consulta, quando a decisão aparecer. Mas há valor em ler em
-sequência pelo menos uma vez — o padrão de raciocínio se repete, e é ele que se
+sequência pelo menos uma vez: o padrão de raciocínio se repete, e é ele que se
 está treinando, não os quinze casos.
 
 Se for ler só três: **acoplamento versus duplicação**, **síncrono versus
@@ -83,7 +83,7 @@ mais aparecem no dia a dia e os três em que a intuição comum mais erra.
 ## Ao terminar
 
 Você converte qualquer pergunta de arquitetura numa pergunta condicionada, e
-declara o eixo antes de argumentar. Reconhece um falso dilema — muitos pares
+declara o eixo antes de argumentar. Reconhece um falso dilema: muitos pares
 "opostos" são combináveis.
 
 E consegue defender uma decisão diante de quem prefere a outra sem que a conversa

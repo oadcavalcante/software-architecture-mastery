@@ -2,7 +2,7 @@
 id: governance-principles
 title: Princípios em Operação
 sidebar_position: 3
-description: Como um princípio é de fato usado no momento da decisão — e o teste que separa princípio de slogan.
+description: Como um princípio é de fato usado no momento da decisão, e o teste que separa princípio de slogan.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: [teste do inverso, conflito entre princípios, princípio como critério, hierarquia de princípios]
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -25,7 +25,7 @@ Princípios orientam julgamento em situações que ninguém previu. Essa é a fu
 define o critério de qualidade: **um princípio que não elimina nenhuma opção não orienta
 nada.**
 
-O teste mais eficiente cabe numa pergunta — **alguém defenderia o inverso?**
+O teste mais eficiente cabe numa pergunta: **alguém defenderia o inverso?**
 
 ```text
 "buscamos soluções escaláveis e seguras"     ninguém defende o inverso → slogan
@@ -34,7 +34,7 @@ O teste mais eficiente cabe numa pergunta — **alguém defenderia o inverso?**
 ```
 
 Ver [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) para
-como escrever um princípio — lado perdedor e implicações; aqui o foco é como eles operam no momento da decisão, e o que fazer quando
+como escrever um princípio (lado perdedor e implicações); aqui o foco é como eles operam no momento da decisão, e o que fazer quando
 dois deles apontam para lados opostos.
 
 ## Problema
@@ -49,8 +49,8 @@ afirmações que ninguém contestaria:
 "decisões devem ser baseadas em dados"
 ```
 
-Nenhuma dessas elimina uma opção. Diante de uma escolha real — construir ou comprar, um
-banco ou dois, síncrono ou assíncrono — nenhuma ajuda.
+Nenhuma dessas elimina uma opção. Diante de uma escolha real (construir ou comprar, um
+banco ou dois, síncrono ou assíncrono), nenhuma ajuda.
 
 O efeito prático é pior que a ausência: a organização acredita ter princípios, o exercício
 de formulá-los foi feito e considerado concluído, e a decisão continua sendo tomada por
@@ -134,12 +134,12 @@ padrão      é cumprido ou não — não cumprir exige exceção registrada
 
 Isso significa que "abrimos exceção ao princípio X", lido ao pé da letra, descreve algo que
 não existe: não há dispensa de princípio, porque ele nunca foi regra. O que existe é a
-**ponderação** — este princípio cedeu àquele, neste caso, por esta razão.
+**ponderação**: este princípio cedeu àquele, neste caso, por esta razão.
 
 Na prática organizacional, porém, a ponderação usa o mesmo mecanismo da exceção a padrão:
 fica registrada, com justificativa, e é revista. É por isso que
 [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) fala em
-"exceção declarada" — e está certo quanto ao mecanismo. A distinção que vale guardar é o que
+"exceção declarada", e está certo quanto ao mecanismo. A distinção que vale guardar é o que
 se registra: no padrão, que a regra não foi cumprida; no princípio, qual outro princípio
 prevaleceu e por quê. Sem esse "contra o quê", o registro vira dispensa, e aí o princípio
 virou regra sem que ninguém decidisse isso.
@@ -203,7 +203,7 @@ ausente da decisão; sem esse leitor, formular, manter implicações e revisar t
 mais do que devolve.
 
 **Quando a regulação já fixa a decisão.** Se a norma obriga a reter dados por cinco anos, o
-inverso não é posição defensável — é infração. O princípio só repete a norma, falha no teste
+inverso não é posição defensável, e sim infração. O princípio só repete a norma, falha no teste
 do inverso por construção, e o instrumento certo é
 [conformidade](/19-architecture-governance/compliance.md).
 
@@ -215,15 +215,15 @@ coerente com a primeira, e ganha pouco sobre ela.
 decisão é argumentada, o princípio não tem onde operar; formulá-lo produz o slogan que o
 teste do inverso existe para barrar.
 
-**Para decisões recorrentes de resultado previsível** — isso é padrão.
+**Para decisões recorrentes de resultado previsível**: isso é padrão.
 
 ## Alternativas
 
-- **[Padrões](/19-architecture-governance/governance-standards.md)** — quando a decisão já é conhecida.
-- **Gabaritos** — o princípio embutido no ponto de partida.
-- **[ADRs](/18-architecture-decisions/what-is-an-adr.md)** — precedente concreto vale mais que
+- **[Padrões](/19-architecture-governance/governance-standards.md)**: quando a decisão já é conhecida.
+- **Gabaritos**: o princípio embutido no ponto de partida.
+- **[ADRs](/18-architecture-decisions/what-is-an-adr.md)**: precedente concreto vale mais que
   abstração; um conjunto de decisões bem registradas ensina o critério da organização.
-- **Nada** — em times pequenos, o critério compartilhado é tácito e funciona.
+- **Nada**: em times pequenos, o critério compartilhado é tácito e funciona.
 
 A terceira merece nota: organizações com bom acervo de ADRs frequentemente precisam de
 menos princípios, porque o critério fica visível nos precedentes.
@@ -265,7 +265,7 @@ menos princípios, porque o critério fica visível nos precedentes.
 
 **Não declarar onde cada princípio governa.**
 
-**Confundir princípio com padrão** — e abrir "exceção a princípio".
+**Confundir princípio com padrão** e abrir "exceção a princípio".
 
 **Não medir citação** em decisões reais.
 
@@ -297,8 +297,8 @@ nunca citados                         5
 Os dois mais citados eram os mesmos dois que tinham passado no teste do inverso com folga.
 
 E um terceiro achado, não previsto: em 11 ADRs, dois princípios tinham sido citados por
-**lados opostos** da mesma discussão — autonomia de time contra redução do número de
-tecnologias. Não havia regra de precedência, e as 11 decisões tinham sido resolvidas de
+**lados opostos** da mesma discussão (autonomia de time contra redução do número de
+tecnologias). Não havia regra de precedência, e as 11 decisões tinham sido resolvidas de
 formas inconsistentes.
 
 A reformulação:
@@ -318,8 +318,8 @@ tecnologia que entra no plantão compartilhado               → padronização 
 ```
 
 **Duas ponderações promovidas a padrão.** Dentro dos quatro princípios, duas decisões se
-repetiam com o mesmo resultado — escolha de banco relacional e de protocolo de integração
-síncrona — e viraram padrões derivados. Os princípios continuaram na lista, governando os
+repetiam com o mesmo resultado (escolha de banco relacional e de protocolo de integração
+síncrona) e viraram padrões derivados. Os princípios continuaram na lista, governando os
 casos que os padrões não cobrem. Ver
 [padrões](/19-architecture-governance/governance-standards.md).
 
@@ -338,10 +338,10 @@ princípios removidos na revisão anual         1 (restaram 3)
 
 O princípio removido era "preferimos serviços gerenciados a componentes operados por nós".
 A revisão constatou que ele havia se tornado consenso e não eliminava mais nenhuma opção em
-discussão — tinha virado descrição, não escolha.
+discussão: tinha virado descrição, não escolha.
 
 A conclusão registrada: a reformulação multiplicou as citações por quatro. Os números não
-separam o efeito de cada mudança — lista curta, implicações e precedência entraram juntas, e
+separam o efeito de cada mudança: lista curta, implicações e precedência entraram juntas, e
 as 7 decisões com conflito resolvido são efeito direto da precedência, não da redução. O
 argumento para a lista curta é o mecanismo, não a conta: a lista longa não era consultada
 porque não cabia na cabeça de ninguém no momento da decisão, que é o único momento em que um
@@ -349,11 +349,11 @@ princípio serve.
 
 ## Conceitos Relacionados
 
-- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md) — a
+- [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md): a
   formulação.
-- [Padrões](/19-architecture-governance/governance-standards.md) — quando prescrever.
-- [Revisão](/19-architecture-governance/governance-review.md) — onde o princípio é aplicado.
-- [Trade-offs](/20-trade-offs/index.md) — o que todo princípio abdica.
+- [Padrões](/19-architecture-governance/governance-standards.md): quando prescrever.
+- [Revisão](/19-architecture-governance/governance-review.md): onde o princípio é aplicado.
+- [Trade-offs](/20-trade-offs/index.md): o que todo princípio abdica.
 
 ## Exercício Prático
 
@@ -371,5 +371,5 @@ não estão operando.
 ## Para Aprofundar
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — Architecture Principles. The Open Group.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Architecture Principles. The Open Group.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

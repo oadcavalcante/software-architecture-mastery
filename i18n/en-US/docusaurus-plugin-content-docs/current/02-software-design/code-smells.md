@@ -2,7 +2,7 @@
 id: code-smells
 title: Code Smells
 sidebar_position: 16
-description: Signs that something deserves attention — not defects, and not a list of prohibitions.
+description: "Signs that something deserves attention: not defects, and not a list of prohibitions."
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [clean-code]
 related: [refactoring, technical-debt, dry]
 canonical_for: [code smell]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -65,7 +65,7 @@ taxId` instead of `TaxId`. It scatters validation and allows silent swaps.
 **Speculative generality.** Abstraction for a need that never arrived. See
 [YAGNI](/02-software-design/yagni.md).
 
-**Long parameter list.** Frequently signals that a concept has no name — the
+**Long parameter list.** Frequently signals that a concept has no name: the
 parameters that always travel together are an object.
 
 ### The prioritization criterion
@@ -87,7 +87,7 @@ textual duplication.
 
 They detect the structural kind poorly: shotgun surgery and divergent change are
 properties of the **history**, not of the code at an instant. Finding them requires
-looking at how the repository changed over time — which is what history analysis
+looking at how the repository changed over time. That is what history analysis
 tools do.
 
 ## Mental Model
@@ -119,10 +119,10 @@ until you show what becomes more expensive because of it.
 
 ## Alternatives
 
-- **History metrics** — files that change frequently and change together say more
+- **History metrics**: files that change frequently and change together say more
   than any isolated smell.
-- **Measuring real effort** — how long a typical change takes in that area.
-- **Asking whoever maintains it** — the people working on the code know where it
+- **Measuring real effort**: how long a typical change takes in that area.
+- **Asking whoever maintains it**: the people working on the code know where it
   hurts, and are rarely asked that question.
 
 ## Trade-offs
@@ -170,11 +170,11 @@ The later analysis crossed the 310 fixed ones with the history: 280 of them were
 changed fewer than twice in the year. The interest was close to zero.
 
 The remaining 30 were in four files that appeared in 60% of the commits. None of them
-was the worst-scoring one in the tool — the problems there were shotgun surgery and
+was the worst-scoring one in the tool: the problems there were shotgun surgery and
 inappropriate intimacy, which the analyzer does not detect.
 
 The following quarter dealt with those four files only. Average delivery time dropped
-by close to 20% — the same measure the previous quarter had not moved.
+by close to 20%. It was the same measure the previous quarter had not moved.
 
 The difference between the two quarters was not effort. It was looking at the history
 before choosing.
@@ -196,17 +196,17 @@ Local smells frequently point at boundary problems. The translation:
 | Speculative generality | A future requirement treated as certain |
 
 The right column is what is worth fixing. Fixing the left one without the right
-produces the same problem in a different shape — the 80-line method becomes eight of
+produces the same problem in a different shape: the 80-line method becomes eight of
 ten lines, and the responsibilities remain mixed.
 
 ## Related Concepts
 
-- [Refactoring](/02-software-design/refactoring.md) — how to fix safely.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — interest and
+- [Refactoring](/02-software-design/refactoring.md): how to fix safely.
+- [Technical Debt](/01-fundamentals/technical-debt.md): interest and
   prioritization.
 - [Cohesion](/01-fundamentals/cohesion.md) and
-  [Coupling](/01-fundamentals/coupling.md) — what the structural smells signal.
-- [Clean Code](/02-software-design/clean-code.md) — the local side.
+  [Coupling](/01-fundamentals/coupling.md): what the structural smells signal.
+- [Clean Code](/02-software-design/clean-code.md): the local side.
 
 ## The smells worth discussing in review
 
@@ -222,10 +222,10 @@ when the value is a domain identifier crossing many signatures: create a type, a
 the compiler starts preventing the swap that only attention prevented before.
 
 **Feature envy that crosses a module boundary.** Inside a module, it is a question of
-organization. Across modules, it is a sign that the boundary is in the wrong place —
+organization. Across modules, it is a sign that the boundary is in the wrong place,
 and a wrong boundary costs on every change, not just in that method.
 
-**A name that lies.** A method called `validate` that also persists — the case
+**A name that lies.** A method called `validate` that also persists: the case
 [Clean Code](/02-software-design/clean-code.md) treats as the worst, because the
 distrust spreads to every other name. Of the three, it is the one that pays off most
 in review: the author still has the context to choose between fixing the name and
@@ -255,6 +255,6 @@ first list is the one that matters.
 
 ## Further Exploration
 
-- Fowler, Martin. *Refactoring*. 2nd ed., Addison-Wesley, 2018 — the smell catalogue.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — smells
+- Fowler, Martin. *Refactoring*. 2nd ed., Addison-Wesley, 2018. The smell catalogue.
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Smells
   detected from history.

@@ -2,7 +2,7 @@
 id: cloud-compute
 title: Computação em Nuvem
 sidebar_position: 13
-description: Escolher e dimensionar capacidade — famílias, modelos de compra e o escalonamento que quase nunca é rápido o bastante.
+description: "Escolher e dimensionar capacidade: famílias, modelos de compra e o escalonamento que quase nunca é rápido o bastante."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, cost-architecture, containers]
 canonical_for: [família de instância, modelo de compra, capacidade interrompível, escalonamento automático]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -27,7 +27,7 @@ Computação é onde o código roda, e a escolha tem três dimensões independen
 As três afetam custo e desempenho de formas diferentes, e errar em qualquer uma
 custa mensalmente.
 
-A quarta decisão — **escalonamento** — é a que separa um sistema que responde a
+A quarta decisão, **escalonamento**, é a que separa um sistema que responde a
 picos de um que cai neles.
 
 ## Problema
@@ -38,7 +38,7 @@ com folga, e nunca se revisita.
 O resultado é o padrão da indústria: instâncias com utilização entre 5% e 15%,
 pagas integralmente.
 
-Do outro lado, subdimensionar leva a saturação sob carga — e o escalonamento
+Do outro lado, subdimensionar leva a saturação sob carga, e o escalonamento
 automático, que deveria resolver, costuma ser mais lento que o pico.
 
 Ambos vêm da mesma ausência: ninguém mediu.
@@ -59,7 +59,7 @@ com acelerador     processamento paralelo especializado
 
 Escolher a família errada é mais caro que escolher o tamanho errado: uma aplicação
 que precisa de memória, numa família de propósito geral, obriga a subir de tamanho
-— pagando CPU que não usa — até ter memória suficiente.
+(pagando CPU que não usa) até ter memória suficiente.
 
 A pergunta que orienta: **qual recurso satura primeiro?** Medir isso antes de
 escolher resolve a maior parte do desperdício.
@@ -67,7 +67,7 @@ escolher resolve a maior parte do desperdício.
 ### Arquitetura de processador é dinheiro parado na mesa
 
 Instâncias com processadores de arquitetura alternativa costumam entregar melhor
-relação entre desempenho e preço para cargas comuns — serviços web, aplicações em
+relação entre desempenho e preço para cargas comuns: serviços web, aplicações em
 linguagens interpretadas ou com máquina virtual.
 
 A barreira é a compatibilidade de binários e de imagens de contêiner, que hoje é
@@ -94,7 +94,7 @@ A regra prática que funciona:
 transcodificação, testes, treinamento de modelos.
 
 A capacidade interrompível é subutilizada. Cargas genuinamente reprocessáveis podem
-rodar a uma fração do preço, e o requisito — tolerar interrupção com aviso curto —
+rodar a uma fração do preço, e o requisito (tolerar interrupção com aviso curto)
 é o mesmo de qualquer sistema bem projetado para nuvem.
 
 ### Escalonar não é instantâneo
@@ -117,7 +117,7 @@ inicialização.
 
 **Inicialização rápida da aplicação.**
 
-**Escalonar por métrica antecedente** — profundidade de fila, conexões — em vez de
+**Escalonar por métrica antecedente** (profundidade de fila, conexões) em vez de
 CPU, que reage tarde.
 
 **Escalonamento programado** para picos previsíveis. Quando o pico tem hora
@@ -132,7 +132,7 @@ elimina a janela de 2 a 5 minutos em vez de encurtá-la: se o pico é toda segun
 Uma instância com 20% de CPU média pode estar em 95% nos picos. Redimensionar pela
 média produz saturação.
 
-O dimensionamento correto olha o percentil alto e a duração dos picos — e considera
+O dimensionamento correto olha o percentil alto e a duração dos picos, e considera
 se o escalonamento cobre o restante.
 
 ### Reiniciar precisa ser rotina
@@ -140,8 +140,8 @@ se o escalonamento cobre o restante.
 Instâncias somem: manutenção do provedor, falha de hardware, capacidade
 interrompível retomada.
 
-Isso exige desligamento gracioso — parar de aceitar novas requisições, terminar as
-em andamento, sair do balanceamento — e nada de estado importante em disco local.
+Isso exige desligamento gracioso (parar de aceitar novas requisições, terminar as
+em andamento, sair do balanceamento) e nada de estado importante em disco local.
 
 Aplicações que não fazem isso perdem requisições em todo evento de escalonamento,
 não só em falhas.
@@ -154,7 +154,7 @@ de precisar.** As três decisões são independentes.
 ## Quando Usar
 
 - **Compromisso** para o piso de uso que se manteve nos últimos meses e que não
-  depende de uma migração planejada — reservar acima desse piso é pagar desconto
+  depende de uma migração planejada. Reservar acima desse piso é pagar desconto
   por capacidade ociosa.
 - **Sob demanda** para variação.
 - **Interrompível** para processamento tolerante a interrupção.
@@ -167,7 +167,7 @@ de precisar.** As três decisões são independentes.
 
 **Compromisso antes de a carga estabilizar.**
 
-**Interrompível para carga que não tolera interrupção** — trabalho que não pode ser
+**Interrompível para carga que não tolera interrupção**: trabalho que não pode ser
 refeito do início, cujo ponto de salvamento custa mais que refazer, ou cuja unidade
 de trabalho dura mais que o aviso de retomada sem ponto de salvamento no meio.
 
@@ -179,16 +179,16 @@ de trabalho dura mais que o aviso de retomada sem ponto de salvamento no meio.
 
 ## Alternativas
 
-- **[Contêineres](/09-cloud-architecture/containers.md)** — melhor densidade, escalonamento mais rápido.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a gerenciar.
-- **[Escala vertical](/11-scalability/vertical-scaling.md)** — instância maior em
+- **[Contêineres](/09-cloud-architecture/containers.md)**: melhor densidade, escalonamento mais rápido.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: sem capacidade a gerenciar.
+- **[Escala vertical](/11-scalability/vertical-scaling.md)**: instância maior em
   vez de mais instâncias; simples, com teto e reinício.
-- **[Fila com trabalhadores](/11-scalability/queue-based-scaling.md)** — absorve o
+- **[Fila com trabalhadores](/11-scalability/queue-based-scaling.md)**: absorve o
   pico sem escalar, quando a operação é assíncrona. O mecanismo está em
   [mensageria](/06-distributed-systems/messaging.md).
 
-A última merece destaque: para muitos picos, a resposta certa não é mais capacidade
-— é não precisar processar tudo naquele instante.
+A última merece destaque: para muitos picos, a resposta certa não é mais capacidade,
+e sim não precisar processar tudo naquele instante.
 
 ## Trade-offs
 
@@ -224,7 +224,7 @@ A última merece destaque: para muitos picos, a resposta certa não é mais capa
 
 ## Erros Comuns
 
-**Não medir antes de dimensionar.** Sem perfil de uso de CPU e memória, o dimensionamento sai do palpite — e o palpite erra para cima, porque errar para cima não gera incidente.
+**Não medir antes de dimensionar.** Sem perfil de uso de CPU e memória, o dimensionamento sai do palpite, e o palpite erra para cima, porque errar para cima não gera incidente.
 
 **Dimensionar pela média.** O sistema precisa atender o pico. Dimensionar pela média produz degradação exatamente quando há mais usuários.
 
@@ -234,7 +234,7 @@ A última merece destaque: para muitos picos, a resposta certa não é mais capa
 
 **Não usar escalonamento programado** para picos conhecidos. Escala reativa responde depois que a fila já cresceu. Quando o pico tem hora marcada, subir capacidade antes elimina a janela de degradação.
 
-**Não implementar desligamento gracioso.** Sem drenar conexões e terminar o trabalho em curso, toda redução de escala e toda implantação descartam requisições em andamento — que aparecem como erro intermitente sem causa aparente.
+**Não implementar desligamento gracioso.** Sem drenar conexões e terminar o trabalho em curso, toda redução de escala e toda implantação descartam requisições em andamento, que aparecem como erro intermitente sem causa aparente.
 
 ## Exemplo Real
 
@@ -242,7 +242,7 @@ Uma plataforma de ingressos tinha o problema clássico: vendas abrem num horári
 marcado, e o tráfego multiplica por 200 em segundos.
 
 O escalonamento automático por CPU era a estratégia, e ela falhava toda vez. O pico
-chegava, a CPU subia, o escalonamento começava — e cinco minutos depois, quando a
+chegava, a CPU subia, o escalonamento começava. E cinco minutos depois, quando a
 capacidade estava pronta, a maior parte dos ingressos já tinha sido vendida ou os
 usuários já tinham desistido.
 
@@ -271,16 +271,16 @@ processamento de relatórios e a geração de ingressos em PDF migraram para cap
 interrompível.
 
 Resultado combinado: o sistema passou a suportar as aberturas sem degradação, e o
-custo mensal caiu 38% — apesar de a capacidade de pico ter aumentado.
+custo mensal caiu 38%, apesar de a capacidade de pico ter aumentado.
 
 A lição registrada: eles vinham tentando resolver com ajustes de limiar do
-escalonamento havia mais de um ano. A resposta não estava no escalonamento — estava
+escalonamento havia mais de um ano. A resposta não estava no escalonamento, e sim
 em não depender dele para um evento agendado.
 
 ## Conceitos Relacionados
 
-- [IaaS](/09-cloud-architecture/iaas.md) — o modelo.
-- [Contêineres](/09-cloud-architecture/containers.md) — a alternativa de empacotamento.
+- [IaaS](/09-cloud-architecture/iaas.md): o modelo.
+- [Contêineres](/09-cloud-architecture/containers.md): a alternativa de empacotamento.
 - [Serverless](/09-cloud-architecture/serverless.md).
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
 

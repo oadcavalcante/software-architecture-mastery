@@ -2,7 +2,7 @@
 id: 02-library-system
 title: "Exercício 02 — Sistema de Biblioteca"
 sidebar_position: 1
-description: O segundo exercício do percurso — fronteiras, direção de dependência e o que acontece quando o requisito muda.
+description: "O segundo exercício do percurso: fronteiras, direção de dependência e o que acontece quando o requisito muda."
 doc_type: exercise
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modular-design]
 related: [coupling, cohesion, dependency-direction, boundaries]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -25,7 +25,7 @@ Uma rede de bibliotecas municipais com 14 unidades quer substituir o sistema de 
 que hoje é uma planilha compartilhada por unidade.
 
 O acervo é de cerca de 180 mil exemplares, com 40 mil usuários cadastrados e uma média de 900
-empréstimos por dia em toda a rede. Não há pressão de escala — o sistema roda numa máquina.
+empréstimos por dia em toda a rede. Não há pressão de escala: o sistema roda numa máquina.
 
 Este é o segundo exercício do percurso, e ele não é sobre escala nem sobre distribuição. É
 sobre **fronteiras**: onde separar, o que depende de quê, e o que acontece quando o requisito
@@ -62,11 +62,11 @@ A última restrição é a mais importante do enunciado, e a que se costuma igno
 Produza, em até uma hora:
 
 1. Os **módulos** do sistema, com uma frase dizendo o que cada um esconde do resto.
-2. A **direção das dependências** entre eles — quem importa quem, e quem nunca importa quem.
+2. A **direção das dependências** entre eles: quem importa quem, e quem nunca importa quem.
 3. O **modelo de dados** de empréstimo, reserva e exemplar.
 4. Onde a **regra de prazo e suspensão** vive, e por quê.
 
-Não desenhe camadas técnicas — controlador, serviço, repositório. Desenhe módulos por
+Não desenhe camadas técnicas (controlador, serviço, repositório). Desenhe módulos por
 responsabilidade de domínio.
 
 ## Perguntas que Você Deveria Fazer
@@ -117,13 +117,13 @@ circulação    empréstimo, devolução, renovação, reserva, prazo
 usuários      cadastro, situação, suspensão
 ```
 
-`circulação` depende de `acervo` — ela precisa saber se um exemplar está disponível. `acervo`
+`circulação` depende de `acervo`: ela precisa saber se um exemplar está disponível. `acervo`
 **não** depende de `circulação`: um exemplar sabe onde está e em que estado, e não sabe se
 está emprestado.
 
 Isso é contraintuitivo, porque "emprestado" parece estado do exemplar. Modelá-lo assim acopla
-o acervo à circulação e produz o ciclo. O exemplar tem estado físico — disponível, em trânsito,
-danificado, baixado; **emprestado é um fato da circulação**, não do acervo.
+o acervo à circulação e produz o ciclo. O exemplar tem estado físico (disponível, em trânsito,
+danificado, baixado); **emprestado é um fato da circulação**, não do acervo.
 
 Quem modela "emprestado" como estado do exemplar descobre o problema na transferência: ou
 "emprestado" entra no mesmo conjunto exclusivo, e marcar o exemplar em trânsito apaga o fato de
@@ -131,13 +131,13 @@ que ele está emprestado, ou vira uma marca à parte do estado físico, e nada i
 emprestado ao mesmo tempo.
 
 **A regra de prazo e suspensão** merece módulo próprio, ou pelo menos um ponto único. Ela é a
-única parte do sistema com data de validade conhecida — o enunciado diz que muda por decreto.
+única parte do sistema com data de validade conhecida: o enunciado diz que muda por decreto.
 Um sistema em que essa regra está em três lugares paga a mudança três vezes, a cada decreto.
 
 O detalhe que separa uma resposta boa de uma ótima: a regra precisa ser **datada**. Um
 empréstimo feito sob o decreto anterior é renovado sob qual prazo? A resposta depende da cláusula
-de transição do decreto, que o enunciado não traz — a renovação é discutivelmente um ato novo,
-sujeito à regra nova. Qualquer das duas saídas exige que a regra seja versionada por vigência — e
+de transição do decreto, que o enunciado não traz. A renovação é discutivelmente um ato novo,
+sujeito à regra nova. Qualquer das duas saídas exige que a regra seja versionada por vigência, e
 isso é uma decisão de modelo, não de configuração.
 
 **O que quase todo mundo erra:** o enunciado fixa a fila por título, e o modelo sai mesmo assim

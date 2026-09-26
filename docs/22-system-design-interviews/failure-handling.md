@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-scaling, bottleneck-identification, communicating-tradeoffs]
 canonical_for: [tratamento de falha em entrevista, degradação proposta, percurso de falha]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -39,14 +39,14 @@ A resposta fraca é "temos réplica". A resposta forte percorre o efeito:
  e os redirecionamentos degradam progressivamente."
 ```
 
-A diferença não é conhecimento de mecanismo. É ter percorrido o efeito até o usuário.
+A diferença está em ter percorrido o efeito até o usuário, não no conhecimento de mecanismo.
 
 ## Problema
 
 Três padrões de erro.
 
 **Redundância como resposta única.** Todo componente tem réplica, e nenhum modo de falha é
-descrito. Redundância reduz a probabilidade de falha, não elimina o efeito quando ela ocorre — e
+descrito. Redundância reduz a probabilidade de falha, não elimina o efeito quando ela ocorre, e
 a pergunta é sobre o efeito.
 
 **Ignorar falha parcial.** O candidato considera apenas "está no ar" ou "está fora", e não os
@@ -93,7 +93,7 @@ para prazo agressivo e disjuntor.
 O mecanismo vale ser enunciado, porque ele é contraintuitivo. Quando uma dependência responde em
 2 segundos em vez de 20 milissegundos, cada requisição em andamento ocupa uma conexão e um
 segmento de execução por cem vezes mais tempo. Com carga constante, o número de requisições
-simultâneas no chamador cresce até esgotar o conjunto — e a partir daí ele para de atender tudo,
+simultâneas no chamador cresce até esgotar o conjunto, e a partir daí ele para de atender tudo,
 inclusive o que não depende daquela chamada.
 
 É assim que uma falha localizada vira uma falha total, e é a razão de "sem prazo" ser um defeito
@@ -134,7 +134,7 @@ resposta melhor que inventar um caminho alternativo que criaria inconsistência.
 A tentação de sempre oferecer um caminho alternativo é forte, porque "o sistema continua
 funcionando" soa melhor que "o sistema recusa". Mas aceitar uma operação que não pode ser
 concluída corretamente troca uma indisponibilidade visível e curta por uma inconsistência
-invisível e indefinida — e a segunda costuma ser muito mais cara de resolver, porque
+invisível e indefinida, e a segunda costuma ser muito mais cara de resolver, porque
 ninguém sabe quando ela começou nem quantos registros afetou.
 
 ### Os mecanismos, com a condição de uso
@@ -155,7 +155,7 @@ recusa explícita  quando não há alternativa correta
 ```
 
 Citar o mecanismo é comum; citar a condição é o que demonstra entendimento. "Repetição com recuo
-exponencial, mas só para operações idempotentes — para criação de recurso, preciso de chave de
+exponencial, mas só para operações idempotentes; para criação de recurso, preciso de chave de
 idempotência antes de poder repetir" é uma resposta que poucos dão.
 
 Ver [idempotência](/06-distributed-systems/idempotency.md) e
@@ -176,7 +176,7 @@ operacional.
 
 O mesmo raciocínio se aplica a repetições sincronizadas: se todos os clientes repetem exatamente
 após o mesmo intervalo, eles produzem ondas de carga em vez de uma distribuição suave. Por isso o
-recuo exponencial vem acompanhado de variação aleatória — sem ela, o mecanismo que deveria aliviar
+recuo exponencial vem acompanhado de variação aleatória: sem ela, o mecanismo que deveria aliviar
 a dependência a bombardeia em pulsos regulares.
 
 ### O que o usuário vê
@@ -198,7 +198,7 @@ operou um sistema em produção.
 
 E frequentemente essa conexão revela trabalho que não estava previsto. Um fluxo que passa a ter
 estado intermediário precisa de tela, de texto, de notificação e de um caminho de suporte para
-"e o meu pedido?" — nada disso é código de infraestrutura, e tudo isso é consequência direta da
+"e o meu pedido?". Nada disso é código de infraestrutura, e tudo isso é consequência direta da
 decisão de arquitetura. Mencionar que essa consequência existe demonstra que o candidato entende
 onde o sistema termina.
 
@@ -217,7 +217,7 @@ tudo pode degradar.
 
 **Quando o entrevistador já conduziu para outra fase.** Se ele pediu para aprofundar o modelo de
 dados ou a escala de um componente, abrir o percurso de falhas gasta o tempo que ele quer ver
-aplicado ali — e ignorar o redirecionamento pesa mais que a cobertura ganha.
+aplicado ali, e ignorar o redirecionamento pesa mais que a cobertura ganha.
 
 **Antes de fechar o requisito de disponibilidade.** Sem saber se o sistema precisa de 99,9% ou de
 99,99%, nem qual operação é o núcleo, não há critério para dizer que degradação é aceitável; o
@@ -229,7 +229,7 @@ decide a disponibilidade; aí vale a primeira alternativa abaixo.
 ## Alternativas
 
 - **Escolher os três componentes mais críticos** e detalhar apenas eles, quando o tempo aperta.
-- **Partir de um cenário** — "e se a região inteira cair?" — em vez de percorrer componentes.
+- **Partir de um cenário**: "e se a região inteira cair?", em vez de percorrer componentes.
 - **Perguntar qual falha interessa** ao entrevistador.
 
 ## Trade-offs

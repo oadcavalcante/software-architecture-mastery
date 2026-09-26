@@ -2,7 +2,7 @@
 id: interview-scaling
 title: Escala na Entrevista
 sidebar_position: 9
-description: A ordem de escalada — o que se tenta primeiro, e por que "adiciono máquinas" raramente é a resposta completa.
+description: "A ordem de escalada: o que se tenta primeiro, e por que \"adiciono máquinas\" raramente é a resposta completa."
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-identification]
 related: [bottleneck-identification, failure-handling, high-level-architecture]
 canonical_for: [escala em entrevista, ordem de escalada, escalada barata primeiro]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -51,7 +51,7 @@ rebalanceamento por algo que réplicas ou cache resolvem sem mudar o modelo de d
 quente maior que a memória, particionar o cache resolve; particionar o banco não.
 
 **Responder "adiciono máquinas" a tudo.** Funciona para componentes sem estado e falha para os
-demais. E não distingue os casos em que a máquina adicional piora — mais instâncias disputando o
+demais. E não distingue os casos em que a máquina adicional piora: mais instâncias disputando o
 mesmo bloqueio aumentam a contenção.
 
 ## Conceitos Centrais
@@ -87,7 +87,7 @@ existe uma estratégia de invalidação
 ```
 
 Propor cache sem mencionar invalidação é o erro que quase sempre gera uma pergunta de
-acompanhamento — e é melhor antecipá-la.
+acompanhamento, e é melhor antecipá-la.
 
 A resposta antecipada não precisa ser elaborada: "invalidação por evento na escrita, com tempo de
 vida curto como rede de segurança" cobre a maior parte dos casos e demonstra que o problema foi
@@ -109,7 +109,7 @@ uma faixa de problemas muito maior do que a intuição sugere.
 
 Reconhecer isso demonstra proporcionalidade. Ver
 [escala vertical](/11-scalability/vertical-scaling.md). O limite dela é real e vale enunciar
-junto: existe um teto de máquina, e ela não oferece tolerância a falha — uma instância maior
+junto: existe um teto de máquina, e ela não oferece tolerância a falha. Uma instância maior
 continua sendo uma instância.
 
 ### Horizontal exige ausência de estado
@@ -168,7 +168,7 @@ separar leitura e escrita quando os dois têm perfis muito diferentes
 ```
 
 Esses movimentos resolvem classes de problema que os degraus anteriores não resolvem, e custam
-complexidade permanente — estado intermediário, consistência eventual, mais componentes a operar.
+complexidade permanente: estado intermediário, consistência eventual, mais componentes a operar.
 
 Propô-los é correto quando os degraus anteriores foram considerados em voz alta. Propô-los
 primeiro é o erro.
@@ -192,7 +192,7 @@ difícil é decidir se o momento chegou. Um candidato que só sabe listar mecani
 leitura; um que sabe dizer o gatilho demonstra que já esteve na posição de decidir.
 
 E o gatilho tem um segundo uso: ele vira métrica. Dizer "réplicas quando a leitura passar de 5 mil
-por segundo" é, na prática, definir um alarme — e conectar arquitetura a operação dessa forma é
+por segundo" é, na prática, definir um alarme, e conectar arquitetura a operação dessa forma é
 exatamente o que se espera de uma posição sênior.
 
 ## Modelo Mental
@@ -214,23 +214,23 @@ permanente que o anterior.
 
 **Escalando horizontalmente componente com estado**, sem tratar o estado.
 
-**Sem declarar a consequência** de cada degrau — atraso de replicação, invalidação, chave quente.
+**Sem declarar a consequência** de cada degrau: atraso de replicação, invalidação, chave quente.
 
-**Sem dizer onde parar** — escalar indefinidamente numa entrevista sugere que não há critério.
+**Sem dizer onde parar**: escalar indefinidamente numa entrevista sugere que não há critério.
 
 A ordem em si deixa de valer quando o enunciado já fixa um volume acima do teto de um nó: escrita
 ou dados que nenhuma máquina comporta tornam o particionamento o ponto de partida, não o sexto
-degrau. O mesmo vale quando o requisito de disponibilidade exclui uma instância única — aí a
-escala vertical sozinha sai da escada — ou quando o crescimento declarado torna a migração
+degrau. O mesmo vale quando o requisito de disponibilidade exclui uma instância única (aí a
+escala vertical sozinha sai da escada) ou quando o crescimento declarado torna a migração
 posterior mais cara que a complexidade antecipada. Nesses casos, pular degraus é a resposta,
 desde que o número que justifica o pulo seja dito.
 
 ## Alternativas
 
 - **Reduzir a carga** em vez de aumentar a capacidade: limitar taxa, agregar, tornar aproximado.
-- **Mudar o requisito** — questionar se a exatidão ou a latência exigidas são reais é legítimo e
+- **Mudar o requisito**: questionar se a exatidão ou a latência exigidas são reais é legítimo e
   frequentemente produtivo.
-- **Aceitar o limite** — declarar que a escala atual não exige ação.
+- **Aceitar o limite**: declarar que a escala atual não exige ação.
 
 A primeira é subestimada: limitar taxa por cliente, agregar eventos numa janela ou tornar um
 contador aproximado resolvem problemas de escala sem nenhuma infraestrutura adicional.
@@ -275,7 +275,7 @@ contador aproximado resolvem problemas de escala sem nenhuma infraestrutura adic
 ## Exemplo de Entrevista
 
 **Contexto.** Feed de notícias. Gargalo identificado: a montagem do feed faz 96 consultas por
-abertura, e são 15 mil aberturas por segundo — 1,4 milhão de consultas por segundo no banco.
+abertura, e são 15 mil aberturas por segundo (1,4 milhão de consultas por segundo no banco).
 
 **Pergunta.** "Como você escala isso?"
 
@@ -327,15 +327,15 @@ abertura, e são 15 mil aberturas por segundo — 1,4 milhão de consultas por s
 
 **Pergunta de acompanhamento provável:** "e se a materialização não fosse possível?"
 
-A resposta correta reconhece o que isso implicaria — leitura com 96 consultas, exigindo réplicas
-em escala e cache agressivo por autor — e enuncia o custo: dezenas de réplicas contra um
+A resposta correta reconhece o que isso implicaria (leitura com 96 consultas, exigindo réplicas
+em escala e cache agressivo por autor) e enuncia o custo: dezenas de réplicas contra um
 armazenamento de feed de algumas centenas de gigabytes. A comparação de custo é o argumento.
 
 Ver o [case de rede social](/21-case-studies/social-network.md) para a versão completa.
 
 ## Conceitos Relacionados
 
-- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md) — o passo anterior.
+- [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md): o passo anterior.
 - [Escala Horizontal](/11-scalability/horizontal-scaling.md).
 - [Particionamento](/11-scalability/scaling-partitioning.md).
 - [Cache](/05-system-design/caching.md).

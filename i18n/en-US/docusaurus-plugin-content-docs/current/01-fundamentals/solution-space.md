@@ -2,7 +2,7 @@
 id: solution-space
 title: Solution Space
 sidebar_position: 6
-description: The set of architectures that solve the problem — and why enumerating before choosing is the work.
+description: The set of architectures that solve the problem, and why enumerating before choosing is the work.
 doc_type: foundation
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [solution space]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-30
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-30
 
 The solution space is the set of architectures that would solve the stated
 problem. Architecting is traversing that space, shrinking it with constraints and
-choosing a point — knowing what the other points offered.
+choosing a point, knowing what the other points offered.
 
 The quality of an architectural decision depends less on the option chosen than on
 how many options were genuinely considered.
@@ -36,7 +36,7 @@ alternative becomes the chosen one, and the rest of the work is justifying it.
 That does not happen out of laziness. It happens because the first solution is
 easy to generate and the others require deliberate effort, and because once an
 option is on the table it becomes the default that the others have to prove
-themselves against — instead of being compared on equal terms.
+themselves against, instead of being compared on equal terms.
 
 The cost is invisible: nobody knows what the unconsidered alternative would have
 offered. The delivered system works, so the decision looks good. What does not
@@ -58,7 +58,7 @@ graph TD
 ```
 
 The useful work is in the first three filters. If the last set has a single option,
-the problem was over-constrained — and it is worth checking whether some
+the problem was over-constrained, and it is worth checking whether some
 constraint was in fact negotiable.
 
 ### An option only counts if it is viable
@@ -78,7 +78,7 @@ analysis from retroactive justification.
 
 Two options rarely tie on every criterion. When they tie on the ones that matter,
 the tiebreaker does not come from the comparison: it comes from the
-[cost of reversal](/01-fundamentals/what-is-software-architecture.md) — between
+[cost of reversal](/01-fundamentals/what-is-software-architecture.md). Between
 two options of equal merit, you pick the one that is cheaper to abandon.
 
 Here that has a specific consequence: what makes going back cheap is the recorded
@@ -89,7 +89,7 @@ costs the whole enumeration all over again.
 
 Generating and judging at the same time kills the space. The first option with a
 visible flaw is discarded before the second exists, and the process converges on
-the first one without an obvious flaw — which is rarely the best.
+the first one without an obvious flaw, which is rarely the best.
 
 The order that works: enumerate everything plausible, without judging; only then
 evaluate against the criteria.
@@ -99,19 +99,19 @@ evaluate against the criteria.
 **You do not choose an architecture. You eliminate the ones that do not fit and
 choose among what remains.**
 
-That repositions the work. The question stops being "which is best?" — which has
-no answer — and becomes "what eliminates options here?", which does.
+That repositions the work. The question stops being "which is best?" (which has
+no answer) and becomes "what eliminates options here?", which does.
 
 ## Why This Matters
 
 **Because it makes the decision defensible.** A choice presented with its
 alternatives and criterion can be contested point by point. A choice presented
-alone can only be accepted or rejected wholesale — which is how architectural
+alone can only be accepted or rejected wholesale. That is how architectural
 discussions turn into disputes about authority.
 
 **Because it preserves the information for later.** When the context changes,
 someone will want to reassess. If the alternatives and their conditions were
-recorded, the reassessment is cheap. If not, it starts from zero — and frequently
+recorded, the reassessment is cheap. If not, it starts from zero, and frequently
 reproduces the same analysis with the same result, months later.
 
 **Because it exposes false constraints.** Traversing the space frequently reveals
@@ -122,20 +122,20 @@ service" usually turns out to be "nobody asked".
 
 **Stopping at the first viable option.** The central mistake. Viable is not a
 synonym for adequate, and the first one to appear is the most available in the
-memory of whoever proposed it — not the best.
+memory of whoever proposed it, not the best.
 
 **Listing straw men.** Alternatives included to fill the section, with no stated
 winning condition.
 
 **Confusing familiarity with fit.** The technology the team knows has a legitimate
-advantage — it reduces execution risk. But that advantage has to be stated as a
+advantage: it reduces execution risk. But that advantage has to be stated as a
 criterion, not silently folded into the evaluation.
 
 **Not including "do nothing".** It is a real option, with a cost and a benefit, and
 it frequently wins on problems whose consequence is smaller than the solution.
 
 **Reopening the space indefinitely.** The opposite mistake. There is a point at
-which more analysis costs more than the error it would avoid — especially for
+which more analysis costs more than the error it would avoid, especially for
 decisions that are cheap to reverse. Reversible decisions deserve less
 deliberation, not the same amount.
 
@@ -159,7 +159,7 @@ The fifth and sixth are the ones that usually do not appear, and they are the
 cheapest. In this case, investigation showed that two queries accounted for 80% of
 the load, both without an adequate index.
 
-The solution was the fifth. The others stay recorded with their conditions — and
+The solution was the fifth. The others stay recorded with their conditions, and
 the first was in fact adopted two years later, when volume changed and the stated
 condition came to hold.
 
@@ -168,9 +168,9 @@ a month of re-analysis.
 
 ## Related Concepts
 
-- [Problem Space](/01-fundamentals/problem-space.md) — what comes first.
-- [Constraints](/01-fundamentals/constraints.md) — what shrinks the space.
-- [Trade-offs](/20-trade-offs/index.md) — the comparison criterion.
+- [Problem Space](/01-fundamentals/problem-space.md): what comes first.
+- [Constraints](/01-fundamentals/constraints.md): what shrinks the space.
+- [Trade-offs](/20-trade-offs/index.md): the comparison criterion.
 
 ## Practical Exercise
 
@@ -191,6 +191,6 @@ Then ask: has any of those conditions come to hold since?
 ## Further Exploration
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — the chapter on trade-off analysis.
-- Nygard, Michael. *Documenting Architecture Decisions*, 2011 — the format that
+  2020. The chapter on trade-off analysis.
+- Nygard, Michael. *Documenting Architecture Decisions*, 2011. The format that
   makes the solution space recordable.

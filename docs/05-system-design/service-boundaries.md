@@ -2,7 +2,7 @@
 id: service-boundaries
 title: Fronteiras de Serviço
 sidebar_position: 20
-description: Onde separar processos — a decisão mais cara de reverter no design de sistemas.
+description: "Onde separar processos: a decisão mais cara de reverter no design de sistemas."
 doc_type: concept
 level: 3
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [system-decomposition, microservices, bounded-context]
 canonical_for: [fronteira de serviço]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -78,7 +78,7 @@ git log --since=6.months --no-merges --name-only --pretty=format:%H |
 ```
 
 Se dois grupos de arquivos aparecem juntos em 80% dos commits, separá-los em
-serviços cria uma fronteira que toda mudança precisa atravessar — com coordenação,
+serviços cria uma fronteira que toda mudança precisa atravessar, com coordenação,
 versionamento e período de convivência a cada alteração.
 
 Se aparecem juntos em 5%, a separação captura uma independência real.
@@ -89,7 +89,7 @@ Essa medição custa minutos e quase nunca é feita antes da decisão.
 
 As fronteiras de [bounded
 context](/04-domain-driven-design/bounded-context.md) são as melhores candidatas,
-porque derivam de como o negócio se divide — e negócios se dividem de forma mais
+porque derivam de como o negócio se divide, e negócios se dividem de forma mais
 estável que tecnologias.
 
 Mas nem todo bounded context precisa virar serviço. A conclusão do
@@ -150,11 +150,11 @@ plantão.
 
 ## Alternativas
 
-- **Módulo com fronteira imposta** — a resposta na maioria dos casos.
-- **Extração parcial** — separar só o que tem razão, mantendo o resto junto.
-- **Processo separado sem API síncrona** — um consumidor de fila isola recurso sem
+- **Módulo com fronteira imposta**: a resposta na maioria dos casos.
+- **Extração parcial**: separar só o que tem razão, mantendo o resto junto.
+- **Processo separado sem API síncrona**: um consumidor de fila isola recurso sem
   criar contrato de chamada.
-- **Adiar** — manter como módulo até a razão aparecer.
+- **Adiar**: manter como módulo até a razão aparecer.
 
 ## Trade-offs
 
@@ -187,7 +187,7 @@ caro fazer o inverso.** Isso recomenda errar para o lado de menos serviços.
 ## Erros Comuns
 
 **Decidir por intuição sem medir o histórico.** A taxa de travessia aparece do
-mesmo jeito — depois da extração, quando corrigi-la já custa migração.
+mesmo jeito: depois da extração, quando corrigi-la já custa migração.
 
 **Extrair vários serviços de uma vez.** Sem uma extração de cada vez não há linha de
 base entre elas, e a regressão de latência ou de disponibilidade que aparecer no fim
@@ -221,33 +221,33 @@ sempre implicavam mudança em matrícula. Separá-los criaria uma fronteira que 
 das mudanças atravessariam.
 
 A decisão revisada: `Cursos` e `Matriculas` permaneceram juntos, como módulos com
-fronteira imposta. `Certificados` foi extraído — travessia baixa, e tinha
+fronteira imposta. `Certificados` foi extraído por ter travessia baixa e
 requisito próprio: geração de PDF consumia memória e já tinha derrubado o processo
 principal duas vezes.
 
 `Pagamentos` não foi extraído de imediato. A travessia de 34% era ambígua, e não
-havia razão de qualidade — o requisito veio um ano depois, quando um segundo
+havia razão de qualidade: o requisito veio um ano depois, quando um segundo
 provedor entrou e o time de pagamentos ganhou autonomia. A extração aconteceu ali,
 com a razão registrada.
 
-Resultado após dois anos: três processos implantáveis em vez dos quatro propostos — o
-núcleo `Cursos`+`Matriculas`, `Certificados` e `Pagamentos` — e nenhuma reversão.
+Resultado após dois anos: três processos implantáveis em vez dos quatro propostos (o
+núcleo `Cursos`+`Matriculas`, `Certificados` e `Pagamentos`) e nenhuma reversão.
 
 O ponto que a equipe sublinha: a medição levou uma tarde e mudou metade das decisões.
-Da proposta original, uma fronteira era errada — `Cursos`↔`Matriculas`, e desfazê-la
+Da proposta original, uma fronteira era errada: `Cursos`↔`Matriculas`, e desfazê-la
 custaria migração de dados. A outra era prematura: `Pagamentos` saiu um ano depois,
 pela razão certa e sem nada a desfazer.
 
 ## Conceitos Relacionados
 
-- [Serviços](/05-system-design/services.md) — o que uma fronteira cria.
-- [Decomposição](/05-system-design/system-decomposition.md) — a divisão lógica que precede.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o candidato
+- [Serviços](/05-system-design/services.md): o que uma fronteira cria.
+- [Decomposição](/05-system-design/system-decomposition.md): a divisão lógica que precede.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): o candidato
   natural.
-- [Microsserviços](/03-design-patterns/microservices.md) — o estilo.
-- [Monolito Modular](/03-design-patterns/modular-monolith.md) — a alternativa
+- [Microsserviços](/03-design-patterns/microservices.md): o estilo.
+- [Monolito Modular](/03-design-patterns/modular-monolith.md): a alternativa
   padrão.
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — por que a partição
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): por que a partição
   dos dados decide se a fronteira é real.
 
 ## Exercício Prático
@@ -267,6 +267,6 @@ ser um módulo.
 ## Para Aprofundar
 
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — acoplamento
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Acoplamento
   medido por histórico.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.

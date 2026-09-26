@@ -2,7 +2,7 @@
 id: target-architecture
 title: Arquitetura Alvo
 sidebar_position: 17
-description: Onde se quer chegar — e por que um alvo de três anos raramente sobrevive ao segundo.
+description: Onde se quer chegar, e por que um alvo de três anos raramente sobrevive ao segundo.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: [arquitetura alvo, horizonte de planejamento, propriedade desejada]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-A arquitetura alvo descreve onde a organização quer chegar — a estrutura que resolveria
+A arquitetura alvo descreve onde a organização quer chegar: a estrutura que resolveria
 os problemas que o estado atual tem.
 
 Ela existe para dar direção a decisões distribuídas: dezenas de escolhas, feitas por
@@ -29,7 +29,7 @@ times diferentes, que somadas movem a organização para algum lugar. Sem alvo, 
 movem em direções incompatíveis.
 
 E ela falha de uma forma característica: um desenho detalhado de três anos, revisado
-anualmente, nunca alcançado — porque o contexto muda mais rápido que o plano.
+anualmente, nunca alcançado, porque o contexto muda mais rápido que o plano.
 
 ## Problema
 
@@ -39,7 +39,7 @@ integrações, toda a topologia.
 Dois problemas com isso.
 
 **Ele pressupõe estabilidade que não existe.** Aquisições, mudanças de mercado,
-tecnologias novas, prioridades revistas — em três anos, boa parte das premissas muda.
+tecnologias novas, prioridades revistas: em três anos, boa parte das premissas muda.
 
 **Ele não orienta a decisão de hoje.** Um time diante de uma escolha concreta não
 consegue derivar dela a resposta a partir de um diagrama de estado final.
@@ -62,7 +62,7 @@ propriedades  "cada dado tem um dono único"
 
 Propriedades sobrevivem às mudanças de contexto que invalidam um desenho: uma aquisição
 muda quais sistemas existem, não o fato de que cada dado deve ter um dono. Quando uma
-propriedade não sobrevive, ela é corrigida isoladamente — o desenho precisa ser refeito.
+propriedade não sobrevive, ela é corrigida isoladamente; o desenho precisa ser refeito.
 
 E elas orientam a decisão de hoje: um time que precisa escolher como integrar dois
 sistemas consegue derivar a resposta de "integração por contrato explícito". Não consegue
@@ -101,7 +101,7 @@ Essa derivação é o que permite defender o alvo: cada propriedade tem um probl
 associado, e o custo de não resolvê-lo é conhecido.
 
 Alvos que começam por "queremos microsserviços" ou "queremos ser cloud native" pulam essa
-etapa — e não conseguem responder por que.
+etapa, e não conseguem responder por que.
 
 ### Não precisa ser único
 
@@ -130,11 +130,11 @@ como obstáculo   "isso não está no alvo, então não"
 como orientação  "isso nos afasta do alvo nesta dimensão; vale a pena?"
 ```
 
-A segunda formulação permite que a resposta seja sim — com a consequência conhecida e
+A segunda formulação permite que a resposta seja sim, com a consequência conhecida e
 registrada. E o acúmulo dessas decisões é informação: se muitas propostas se afastam do
 alvo, o alvo pode estar errado.
 
-Ver [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) — o mesmo mecanismo do registro
+Ver [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md): o mesmo mecanismo do registro
 de exceções.
 
 ### Sem transição, é aspiração
@@ -142,12 +142,12 @@ de exceções.
 Um alvo sem caminho é uma declaração de que gostaríamos que as coisas fossem diferentes.
 
 Ver [arquitetura de transição](/15-enterprise-architecture/transition-architecture.md). É o documento que transforma
-o alvo em trabalho — e é o que mais frequentemente falta.
+o alvo em trabalho, e é o que mais frequentemente falta.
 
 ### O alvo precisa ser conhecido por quem decide no dia a dia
 
 Um alvo que existe num documento consultado por poucos não orienta as decisões
-distribuídas que ele deveria orientar — que é a razão de ele existir.
+distribuídas que ele deveria orientar. E orientá-las é a razão de ele existir.
 
 O que o torna presente:
 
@@ -158,8 +158,8 @@ visíveis onde as decisões acontecem — modelos de proposta, listas de verific
 revisitadas quando alguém se afasta delas
 ```
 
-A terceira é a mais eficaz: uma pergunta no modelo de proposta de arquitetura — "esta
-decisão aproxima ou afasta de qual propriedade do alvo?" — faz o alvo entrar na conversa
+A terceira é a mais eficaz: uma pergunta no modelo de proposta de arquitetura ("esta
+decisão aproxima ou afasta de qual propriedade do alvo?") faz o alvo entrar na conversa
 sem exigir que alguém o consulte.
 
 E a quarta fecha o ciclo: cada afastamento registrado é uma oportunidade de verificar se
@@ -167,7 +167,7 @@ o alvo continua certo. Ver
 [decisões de arquitetura](/18-architecture-decisions/index.md).
 
 Um alvo que ninguém cita em decisões concretas, ao longo de um ano, não está orientando
-nada — independentemente de quão bem escrito esteja.
+nada, independentemente de quão bem escrito esteja.
 
 ## Modelo Mental
 
@@ -179,7 +179,7 @@ detalhado de três anos é ficção.
 - Para dar direção a decisões distribuídas.
 - Antes de programas de modernização.
 - Em decisões de investimento de médio prazo.
-- Após mudanças estruturais — aquisição, mudança de estratégia.
+- Após mudanças estruturais: aquisição, mudança de estratégia.
 
 ## Quando Não Usar
 
@@ -191,20 +191,20 @@ propriedades, e o alvo sai como preferência estética. Ver
 decidem juntos, a direção circula na conversa; um alvo formal custa mais do que coordena.
 Princípios ou um roteiro curto bastam.
 
-**Quando nem 12 meses são previsíveis** — uma aquisição em integração, um pivô de
+**Quando nem 12 meses são previsíveis**: uma aquisição em integração, um pivô de
 estratégia em curso. As premissas do alvo mudariam antes da primeira revisão; um roteiro
 de curto prazo, revisado continuamente, orienta melhor até o contexto assentar.
 
 **Quando não há orçamento nem patrocínio para a transição.** O alvo vira aspiração, e o
-programa abandonado custa credibilidade à proposta seguinte — como no exemplo abaixo.
+programa abandonado custa credibilidade à proposta seguinte, como no exemplo abaixo.
 
 ## Alternativas
 
-- **Princípios** — orientam sem descrever estado final. Ver
+- **Princípios**: orientam sem descrever estado final. Ver
   [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
-- **Direção por propriedade** — sem alvo formal, apenas as propriedades a perseguir.
-- **Alvo por capacidade** — em vez de um alvo organizacional único.
-- **Roteiro de curto prazo** — o que fazer nos próximos seis meses, revisado
+- **Direção por propriedade**: sem alvo formal, apenas as propriedades a perseguir.
+- **Alvo por capacidade**: em vez de um alvo organizacional único.
+- **Roteiro de curto prazo**: o que fazer nos próximos seis meses, revisado
   continuamente. Ver
   [roteiros de arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
 
@@ -241,7 +241,7 @@ programa abandonado custa credibilidade à proposta seguinte — como no exemplo
 **Desenhar o estado final.** O desenho envelhece na primeira aquisição, e o time diante
 de uma escolha concreta não consegue derivar dele a resposta.
 
-**Começar pela solução** — "queremos microsserviços" — em vez do problema. Quando alguém
+**Começar pela solução** ("queremos microsserviços") em vez do problema. Quando alguém
 pergunta por que, não há custo de não fazer para mostrar.
 
 **Horizonte longo demais.** A revisão anual reescreve mais da metade do alvo.
@@ -264,7 +264,7 @@ Dezoito meses depois:
 
 **Duas aquisições** trouxeram sistemas que o alvo não previa.
 
-**Uma mudança de estratégia** — expansão para um canal novo — alterou as prioridades.
+**Uma mudança de estratégia** (expansão para um canal novo) alterou as prioridades.
 
 **Doze dos 40 serviços** tinham sido construídos. As fronteiras dos outros 28 já não
 faziam sentido com o que se aprendeu.
@@ -286,18 +286,18 @@ a origina e o custo de não resolvê-lo:
 5. implantação independente         → hoje, release mensal coordenada entre 9 times
 ```
 
-**Alvos diferenciados por capacidade.** As capacidades diferenciadoras — precificação e
-recomendação — receberam alvo ambicioso. As de apoio, alvo de "estável e barato". As
+**Alvos diferenciados por capacidade.** As capacidades diferenciadoras (precificação e
+recomendação) receberam alvo ambicioso. As de apoio, alvo de "estável e barato". As
 comuns, alvo de compra.
 
 **Horizonte de 18 meses**, com revisão semestral.
 
 **Registro de afastamentos.** Propostas que se afastam do alvo são aceitas com
-justificativa registrada. Em um ano, 14 registros — e três deles, todos sobre a
+justificativa registrada. Em um ano, 14 registros, e três deles, todos sobre a
 propriedade 5, levaram à revisão dessa propriedade: a implantação independente não fazia
 sentido para um conjunto de sistemas que compartilhavam um ciclo de negócio.
 
-Dois anos depois, quatro das cinco propriedades tinham avançado substancialmente — e a
+Dois anos depois, quatro das cinco propriedades tinham avançado substancialmente, e a
 quinta tinha sido corrigida.
 
 O que a equipe registra: o alvo em propriedades sobreviveu a uma aquisição e a duas
@@ -305,8 +305,8 @@ mudanças de prioridade. O desenho anterior não tinha sobrevivido a nenhuma.
 
 ## Conceitos Relacionados
 
-- [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md) — o ponto de partida.
-- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md) — o caminho.
+- [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md): o ponto de partida.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md): o caminho.
 - [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
 - [Capacidades de Negócio](/15-enterprise-architecture/business-capabilities.md).
 
@@ -326,5 +326,5 @@ Os elementos sem problema associado são preferência, não alvo.
 ## Para Aprofundar
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura alvo e análise de lacuna.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Arquitetura alvo e análise de lacuna.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

@@ -2,7 +2,7 @@
 id: regions
 title: Regions
 sidebar_position: 8
-description: The cloud's geographic unit — what it isolates, what it costs and why almost everything is regional.
+description: "The cloud's geographic unit: what it isolates, what it costs and why almost everything is regional."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [availability-zones, multi-region, cloud-networking]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,12 +26,12 @@ A region is a geographic area where the provider operates datacenters. São Paul
 It is the **unit of failure isolation and of jurisdiction**: a regional failure should not cross into
 another region, and data written in a region falls under that country's law.
 
-Most cloud services are regional. Understanding what that implies — and which are the global exceptions —
+Most cloud services are regional. Understanding what that implies, and which are the global exceptions,
 is the basis of every availability and compliance decision.
 
 ## Problem
 
-The region choice is usually made once, at the start, with no explicit criterion — typically "the closest
+The region choice is usually made once, at the start, with no explicit criterion: typically "the closest
 one" or "the console's default".
 
 It is hard to reverse: migrating data and infrastructure between regions is a project, not a
@@ -47,7 +47,7 @@ services will be available.
 A region is designed to fail alone. Power, network, cooling and the control planes of regional services are separate.
 
 That is what makes [multi-region](/09-cloud-architecture/multi-region.md) a continuity strategy: if an
-entire region goes down — which happens — the other continues.
+entire region goes down (which happens), the other continues.
 
 What is **not** isolated: the provider's global control plane, authentication, and the global services
 listed below. A failure in those crosses regions, and it is exactly the kind of incident that takes down
@@ -63,7 +63,7 @@ global     DNS, content delivery network, identity and access
 ```
 
 Global services are the coupling point between regions. They have high availability and they are not
-infallible — several wide-reaching incidents were global service failures, not regional ones.
+infallible: several wide-reaching incidents were global service failures, not regional ones.
 
 A multi-region architecture that depends on a global service to work has a single point geography does not
 protect.
@@ -82,7 +82,7 @@ floor; the provider's backbone and a better route shorten only the routing share
 is the number of round trips.
 
 The design consequence: an operation that makes five cross-region calls pays that value five times. See
-[PACELC](/06-distributed-systems/pacelc.md) — strong consistency between distant regions is expensive by
+[PACELC](/06-distributed-systems/pacelc.md): strong consistency between distant regions is expensive by
 physics, not by implementation.
 
 ### Cross-region transfer is billed
@@ -117,11 +117,11 @@ Checking service availability by region is part of the choice, and it is the mos
 Resource limits are applied per region, and initial quotas are usually modest.
 
 In an expansion to a new region, or in a recovery plan that promises to bring up capacity in another
-region, the quota is what blocks it — and it only shows up at the moment you try.
+region, the quota is what blocks it, and it only shows up at the moment you try.
 
 ## Mental Model
 
-**The region is the unit of failure and of law.** Everything else — latency, cost, service availability —
+**The region is the unit of failure and of law.** Everything else (latency, cost, service availability)
 follows from choosing it.
 
 ## When to Use
@@ -129,7 +129,7 @@ follows from choosing it.
 The region choice should be deliberate when:
 
 - There is a data residency requirement.
-- Users are on another continent from the candidate region — a round trip above 100 ms, multiplied by
+- Users are on another continent from the candidate region: a round trip above 100 ms, multiplied by
   each screen's sequential calls.
 - The design expects continuous cross-region traffic, not just occasional copying.
 - A specific service is necessary.
@@ -137,16 +137,16 @@ The region choice should be deliberate when:
 
 ## When Not to Use
 
-**Multiple regions with no need.** See [multi-region](/09-cloud-architecture/multi-region.md) — the cost is
+**Multiple regions with no need.** See [multi-region](/09-cloud-architecture/multi-region.md): the cost is
 high and most systems do not need it.
 
-**Choosing by the console's default** when none of the four determinants — latency, jurisdiction, cost,
-services — was compared across candidates. The default serves whoever set it, not your users.
+**Choosing by the console's default** when none of the four determinants (latency, jurisdiction, cost,
+services) was compared across candidates. The default serves whoever set it, not your users.
 
 **Settling on the region before checking the critical path.** If any service the main flow depends on is
 missing from the region's list, either the choice is wrong or the design is.
 
-**Counting on a global service as if it were redundant** when the system's recovery goes through it —
+**Counting on a global service as if it were redundant** when the system's recovery goes through it:
 switching DNS or credentials during the incident depends on the same global plane that may be down.
 
 **Synchronous cross-region calls** on the critical path, when the operation makes more than one: each
@@ -156,11 +156,11 @@ intercontinental round trip costs 100 to 250 ms.
 
 ## Alternatives
 
-- **One region with several [availability zones](/09-cloud-architecture/availability-zones.md)** — the
+- **One region with several [availability zones](/09-cloud-architecture/availability-zones.md)**: the
   appropriate configuration for most systems.
-- **A content delivery network** — it solves read latency with no multi-region.
-- **A read replica in another region** — read proximity with centralized writes.
-- **[Disaster recovery](/09-cloud-architecture/disaster-recovery.md) in another region** — reduced
+- **A content delivery network**: it solves read latency with no multi-region.
+- **A read replica in another region**: read proximity with centralized writes.
+- **[Disaster recovery](/09-cloud-architecture/disaster-recovery.md) in another region**: reduced
   capacity, activated on demand.
 
 ## Trade-offs
@@ -200,8 +200,8 @@ architecture designed with a service unavailable in the chosen region needs to b
 and a backup in another region may violate a data residency requirement. Both checks are mandatory and
 frequently neither is done.
 
-**Assuming multi-region eliminates the single point.** The provider's global services — DNS, identity, the
-control plane — remain shared across regions.
+**Assuming multi-region eliminates the single point.** The provider's global services (DNS, identity, the
+control plane) remain shared across regions.
 
 **Not requesting a quota increase in the secondary region** before needing it. Quotas are per region and
 approval takes days. Asking during the disaster is too late.
@@ -221,7 +221,7 @@ screen, and the load time reached 2 seconds (12 × (130 + 40) ms) with the serve
 server's metrics looked excellent.
 
 **Transfer cost.** After a partial migration to a Brazilian region, the two sides started talking to each
-other. Cross-region transfer, not anticipated, added a significant monthly expense — and it grew with the
+other. Cross-region transfer, not anticipated, added a significant monthly expense, and it grew with the
 traffic, with nobody watching it.
 
 **Jurisdiction.** A compliance review found that Brazilian patients' health data was stored outside the
@@ -233,22 +233,22 @@ The migration revealed two obstacles the team had not anticipated:
 required an implementation of their own, with three months of work.
 
 **Quotas.** The new region had low limits because the account was new there. The increase took eleven
-business days between request and approval — in the middle of the migration schedule.
+business days between request and approval, in the middle of the migration schedule.
 
 And a detail that almost slipped through: the **backups** were configured to replicate to a US region, by a
 choice made years earlier for "geographic redundancy". Migrating the database would not have resolved the
 compliance issue.
 
 What the team learned: the original choice cost an eight-month migration. It was made in one afternoon,
-with nobody having listed latency, jurisdiction, cost and service availability as criteria — because at the
+with nobody having listed latency, jurisdiction, cost and service availability as criteria, because at the
 time the system had three internal users and the region seemed irrelevant.
 
 ## Related Concepts
 
-- [Availability Zones](/09-cloud-architecture/availability-zones.md) — the subdivision.
-- [Multi-Region](/09-cloud-architecture/multi-region.md) — when to use more than one.
+- [Availability Zones](/09-cloud-architecture/availability-zones.md): the subdivision.
+- [Multi-Region](/09-cloud-architecture/multi-region.md): when to use more than one.
 - [Disaster Recovery](/09-cloud-architecture/disaster-recovery.md).
-- [Cost Architecture](/09-cloud-architecture/cost-architecture.md) — transfer.
+- [Cost Architecture](/09-cloud-architecture/cost-architecture.md): transfer.
 
 ## Practical Exercise
 

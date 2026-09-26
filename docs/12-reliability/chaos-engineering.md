@@ -2,7 +2,7 @@
 id: chaos-engineering
 title: Engenharia do Caos
 sidebar_position: 17
-description: Provocar falhas de propósito para descobrir o que não funciona — antes que ele descubra sozinho.
+description: Provocar falhas de propósito para descobrir o que não funciona, antes que ele descubra sozinho.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [graceful-degradation, failover, redundancy]
 canonical_for: [engenharia do caos, experimento de falha, hipótese de estado estável, raio de alcance]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Engenharia do caos é provocar falhas deliberadamente, em ambiente controlado, p
 verificar se o sistema se comporta como se espera.
 
 Ela não é "quebrar coisas ao acaso". É um método com **hipótese**, **escopo limitado**
-e **critério de interrupção** — mais próximo de um experimento científico que de
+e **critério de interrupção**, mais próximo de um experimento científico que de
 sabotagem.
 
 A premissa que a justifica: mecanismos de tolerância a falha que nunca foram
@@ -37,7 +37,7 @@ incidente.
 Todo sistema tem mecanismos de proteção: circuit breaker, degradação, failover,
 retentativa, redundância.
 
-Muitos são escritos uma vez, testados no caminho feliz, e nunca executados de verdade —
+Muitos são escritos uma vez, testados no caminho feliz, e nunca executados de verdade,
 porque a condição que os aciona é rara.
 
 Quando a condição chega, descobre-se que o comportamento de reserva tem formato errado,
@@ -60,7 +60,7 @@ O código existe. O comportamento, não.
 ```
 
 O passo 1 é o que separa o método de brincadeira. O estado estável precisa ser uma
-métrica que importa — pedidos por minuto, taxa de sucesso de checkout —, não CPU ou
+métrica que importa (pedidos por minuto, taxa de sucesso de checkout), não CPU ou
 número de instâncias.
 
 O passo 2 é o que torna o resultado útil: uma hipótese refutada ensina algo específico.
@@ -78,15 +78,15 @@ A progressão que funciona:
 ```
 
 Pular direto para produção sem ter exercitado antes é como fazer o primeiro teste de
-recuperação durante o incidente — só que voluntariamente.
+recuperação durante o incidente, só que voluntariamente.
 
 E o ambiente de teste tem limite conhecido: ele não reproduz a carga, os dados nem as
 dependências reais. Os achados mais valiosos aparecem em produção.
 
 ### Os experimentos que rendem mais
 
-Em ordem crescente de custo para montar — que é o eixo útil para escolher por onde começar,
-já que o retorno depende do que **este** sistema tem de frágil:
+Em ordem crescente de custo para montar (que é o eixo útil para escolher por onde começar,
+já que o retorno depende do que **este** sistema tem de frágil):
 
 ```text
 matar uma instância            verifica ausência de estado e desligamento gracioso
@@ -99,12 +99,12 @@ expirar certificado            verifica monitoramento
 ```
 
 **Adicionar latência costuma revelar mais que derrubar**, e é menos usado. Dependências raramente caem
-— elas ficam lentas —, e é esse cenário que os mecanismos de proteção costumam não
+(elas ficam lentas), e é esse cenário que os mecanismos de proteção costumam não
 cobrir. Ver [circuit breakers](/12-reliability/circuit-breakers.md).
 
 ### Raio de alcance limitado não é opcional
 
-Um experimento que pode afetar todos os usuários não é um experimento — é um incidente
+Um experimento que pode afetar todos os usuários não é um experimento: é um incidente
 provocado.
 
 As formas de limitar:
@@ -155,7 +155,7 @@ de conhecimento e de procedimento antes de qualquer injeção de falha.
 
 ### Automatizar o que já foi verificado
 
-Um experimento que passou uma vez não garante que continua passando — o sistema muda.
+Um experimento que passou uma vez não garante que continua passando: o sistema muda.
 
 Experimentos que se mostraram valiosos devem virar rotina: execução periódica,
 automática, com alerta se o resultado mudar.
@@ -164,7 +164,7 @@ automática, com alerta se o resultado mudar.
 
 ## Modelo Mental
 
-**O que não é exercitado provavelmente não funciona** — e a única forma de saber de que lado
+**O que não é exercitado provavelmente não funciona**, e a única forma de saber de que lado
 este caso está é exercitar. Engenharia do caos é a verificação de que os
 mecanismos de proteção existem de fato.
 
@@ -196,12 +196,12 @@ mais.
 
 ## Alternativas
 
-- **Exercícios de mesa** — discutir cenários sem provocar. Ver
+- **Exercícios de mesa**: discutir cenários sem provocar. Ver
   [exercício de recuperação](/12-reliability/disaster-recovery-planning.md).
-- **Simulações de incidente** — ensaiar a resposta, com falha simulada.
-- **Testes de recuperação agendados** — exercitar failover e restauração
+- **Simulações de incidente**: ensaiar a resposta, com falha simulada.
+- **Testes de recuperação agendados**: exercitar failover e restauração
   periodicamente. Ver [failover](/12-reliability/failover.md).
-- **Testes de carga com falha** — combinar sobrecarga e indisponibilidade.
+- **Testes de carga com falha**: combinar sobrecarga e indisponibilidade.
 
 A primeira é o ponto de partida certo para quem nunca fez, pelo motivo descrito em
 "Não é só ferramenta": encontra lacunas antes de qualquer injeção de falha.
@@ -239,18 +239,18 @@ A primeira é o ponto de partida certo para quem nunca fez, pelo motivo descrito
 
 ## Erros Comuns
 
-**Começar por produção.** A prática exige maturidade de observabilidade e recuperação. Sem elas, o experimento vira incidente — e o programa perde o patrocínio que levou meses
+**Começar por produção.** A prática exige maturidade de observabilidade e recuperação. Sem elas, o experimento vira incidente, e o programa perde o patrocínio que levou meses
 para conseguir, num ambiente onde pedir de novo exige explicar o incidente antes.
 
-**Não formular hipótese.** Sem declarar antes o que se espera que aconteça, quebrar coisas é só quebrar coisas — não há como distinguir comportamento esperado de descoberta.
+**Não formular hipótese.** Sem declarar antes o que se espera que aconteça, quebrar coisas é só quebrar coisas: não há como distinguir comportamento esperado de descoberta.
 
 **Não limitar o alcance.** Experimento sem raio de dano definido e sem botão de parada é indistinguível de uma falha real, inclusive para quem está de plantão.
 
-**Não injetar latência**, só indisponibilidade. Contra um disjuntor que conta apenas erro, a dependência lenta causa mais dano que a caída: a resposta lenta e bem-sucedida não é erro, o disjuntor não abre, e o timeout — quando existe — é a única defesa. E é o cenário menos exercitado.
+**Não injetar latência**, só indisponibilidade. Contra um disjuntor que conta apenas erro, a dependência lenta causa mais dano que a caída: a resposta lenta e bem-sucedida não é erro, o disjuntor não abre, e o timeout, quando existe, é a única defesa. E é o cenário menos exercitado.
 
 **Não transformar achados em tarefas.** Experimento que revela fragilidade e não gera correção priorizada apenas documenta o risco, o que é pior do que não ter olhado.
 
-**Comprar ferramenta sem estabelecer processo.** A ferramenta injeta falha; o valor está na hipótese, no limite de alcance e no acompanhamento do que foi descoberto — nada disso vem embalado.
+**Comprar ferramenta sem estabelecer processo.** A ferramenta injeta falha; o valor está na hipótese, no limite de alcance e no acompanhamento do que foi descoberto. Nada disso vem embalado.
 
 ## Exemplo Real
 
@@ -276,7 +276,7 @@ perdidas. O desligamento gracioso não estava configurado. Ver
 [ausência de estado](/11-scalability/statelessness.md).
 
 **Injetar 3 segundos de latência no serviço de prontuários, 1% do tráfego.** Falhou de
-forma reveladora: o circuit breaker não abriu, porque contava apenas erro — e o serviço
+forma reveladora: o circuit breaker não abriu, porque contava apenas erro, e o serviço
 respondia com sucesso, devagar. As requisições se acumularam. Ver
 [circuit breakers](/12-reliability/circuit-breakers.md).
 
@@ -284,16 +284,16 @@ Esse foi o achado mais valioso do programa, e o cenário mais provável de acont
 sozinho.
 
 **Tornar o serviço de agendamento indisponível, 5% do tráfego.** A degradação
-funcionou, e a mensagem exibida ao usuário estava em inglês — um texto padrão nunca
+funcionou, e a mensagem exibida ao usuário estava em inglês: um texto padrão nunca
 traduzido, porque nunca tinha sido exibido.
 
 **Derrubar uma zona, fora do pico.** Falhou: as duas zonas restantes operavam a 75% e
 não absorveram. Ver [redundância](/12-reliability/redundancy.md).
 
-**Failover de banco, em janela programada.** Funcionou em 40 segundos — e revelou que a
+**Failover de banco, em janela programada.** Funcionou em 40 segundos, e revelou que a
 aplicação não reconectava automaticamente, exigindo reinício das instâncias.
 
-Seis experimentos, cinco com achado — três em que o mecanismo não funcionou, dois em que
+Seis experimentos, cinco com achado: três em que o mecanismo não funcionou, dois em que
 funcionou e revelou um defeito ao lado. Todos em mecanismos que a equipe acreditava
 funcionarem.
 
@@ -305,16 +305,16 @@ Nos dez meses seguintes, dois incidentes reais ocorreram nas condições exercit
 Ambos foram absorvidos sem indisponibilidade.
 
 O que a equipe aprendeu: os dois anos de investimento em confiabilidade tinham
-produzido mecanismos que, pela metade, não funcionavam — e a outra metade funcionava
-escondendo um defeito ao lado. Não por incompetência — por
+produzido mecanismos que, pela metade, não funcionavam, e a outra metade funcionava
+escondendo um defeito ao lado. Não por incompetência, mas por
 nunca terem sido executados.
 
 ## Conceitos Relacionados
 
-- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — o que se verifica.
-- [Failover](/12-reliability/failover.md) — o exercício mais valioso.
-- [Redundância](/12-reliability/redundancy.md) — a capacidade de absorção.
-- [Observabilidade](/13-observability/index.md) — o pré-requisito.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md): o que se verifica.
+- [Failover](/12-reliability/failover.md): o exercício mais valioso.
+- [Redundância](/12-reliability/redundancy.md): a capacidade de absorção.
+- [Observabilidade](/13-observability/index.md): o pré-requisito.
 
 ## Exercício Prático
 
@@ -322,7 +322,7 @@ Reúna a equipe por uma hora e discuta: o que acontece se o serviço X ficar 5 s
 mais lento agora?
 
 Se houver mais de uma resposta na sala, você encontrou o primeiro experimento a
-executar — e provavelmente o primeiro achado.
+executar, e provavelmente o primeiro achado.
 
 ## Perguntas de Entrevista
 
@@ -334,4 +334,4 @@ executar — e provavelmente o primeiro achado.
 
 - Rosenthal, Casey et al. *Chaos Engineering*. O'Reilly, 2020.
 - Basiri, Ali et al. *Chaos Engineering*. IEEE Software, 2016.
-- Principles of Chaos Engineering — principlesofchaos.org.
+- Principles of Chaos Engineering. principlesofchaos.org.

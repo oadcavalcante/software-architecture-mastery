@@ -2,7 +2,7 @@
 id: jwt
 title: JWT
 sidebar_position: 4
-description: Token autocontido e verificável — e o problema de revogação que a maioria das implementações ignora.
+description: Token autocontido e verificável, e o problema de revogação que a maioria das implementações ignora.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, oidc, secrets]
 canonical_for: [JWT, token autocontido, revogação de token, token de portador]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ JWT é um formato de token **autocontido e assinado**: ele carrega afirmações 
 o portador, e qualquer parte com a chave adequada pode verificá-las sem consultar
 ninguém.
 
-Isso resolve um problema real de escala — verificar identidade sem uma chamada a um
+Isso resolve um problema real de escala: verificar identidade sem uma chamada a um
 serviço central em cada requisição.
 
 E cria um problema estrutural: **um token emitido não pode ser desfeito**. A maior
@@ -37,7 +37,7 @@ Sessões tradicionais guardam estado no servidor: um identificador opaco, e os d
 consultados a cada requisição.
 
 Isso é simples, permite revogação imediata, e exige um armazenamento compartilhado
-consultado em toda requisição — que vira dependência crítica e ponto de contenção
+consultado em toda requisição. Esse armazenamento vira dependência crítica e ponto de contenção
 com muitos serviços.
 
 JWT inverte: o estado viaja no token, verificável localmente. A troca é revogação
@@ -64,7 +64,7 @@ Isso aparece em avaliações de segurança com frequência desconfortável.
 
 ### Revogação é o problema estrutural
 
-Um token válido continua válido até expirar. Não há como cancelá-lo — é essa a
+Um token válido continua válido até expirar. Não há como cancelá-lo: é essa a
 natureza do modelo autocontido.
 
 Isso importa quando: o usuário sai da empresa, a sessão é encerrada, a permissão
@@ -76,17 +76,17 @@ As saídas, com seus custos:
 primeira linha, e é insuficiente sozinha para casos que exigem revogação imediata.
 
 **Lista de revogação.** Consultada a cada requisição. Funciona, e reintroduz a
-consulta que o JWT evitava — embora a uma estrutura muito menor que a de sessões.
+consulta que o JWT evitava, embora a uma estrutura muito menor que a de sessões.
 
 **Versão de credencial.** O token carrega um número; o servidor compara com o valor
 atual do usuário. Invalidar todos os tokens de alguém é incrementar o número. Custa
 uma consulta leve e resolve o caso mais comum.
 
-**Referência opaca.** O token não é um JWT — é um identificador consultado. Sessão
+**Referência opaca.** O token não é um JWT, e sim um identificador consultado. Sessão
 tradicional, com todos os benefícios de revogação.
 
 A escolha honesta: se revogação imediata é requisito, JWT autocontido não é o
-mecanismo certo — ou precisa de uma das mitigações, que reintroduzem estado.
+mecanismo certo, ou precisa de uma das mitigações, que reintroduzem estado.
 
 ### O algoritmo precisa ser fixado
 
@@ -112,7 +112,7 @@ em permanente.
 
 `exp` e `nbf` comparam relógios de máquinas diferentes. Com vários serviços, um
 verificador com relógio adiantado rejeita tokens recém-emitidos como expirados ou
-ainda não válidos — o sintoma são rejeições intermitentes concentradas num serviço.
+ainda não válidos: o sintoma são rejeições intermitentes concentradas num serviço.
 A verificação aceita uma tolerância de desvio de segundos, não de minutos, e os
 relógios ficam sincronizados.
 
@@ -120,7 +120,7 @@ relógios ficam sincronizados.
 
 O token viaja em cada requisição, tipicamente num cabeçalho.
 
-Um JWT com muitas afirmações — lista de permissões, atributos, grupos — pode chegar
+Um JWT com muitas afirmações (lista de permissões, atributos, grupos) pode chegar
 a vários kilobytes, e alguns servidores rejeitam cabeçalhos acima de um limite.
 
 Além disso, permissões dentro do token ficam congeladas até a expiração: alterar
@@ -138,7 +138,7 @@ assinatura:
 
 **No cliente web**, cookie com marcação de acesso restrito a HTTP é preferível ao
 armazenamento local, que é acessível a qualquer script injetado. O preço: o navegador
-envia o cookie sozinho, o que abre requisição forjada entre sites — e exige marcação
+envia o cookie sozinho, o que abre requisição forjada entre sites e exige marcação
 de mesmo sítio ou token antifalsificação. A troca compensa quando esse controle
 existe, porque ele fecha uma classe de ataque, e o armazenamento local deixa aberta
 qualquer injeção de script.
@@ -147,7 +147,7 @@ qualquer injeção de script.
 Cabeçalho ou cookie são os lugares dele.
 
 Existem mecanismos que vinculam o token a uma chave do cliente, tornando-o inútil se
-roubado — pouco adotados, e a resposta certa para cenários de alto valor.
+roubado. São pouco adotados, e a resposta certa para cenários de alto valor.
 
 ## Modelo Mental
 
@@ -166,25 +166,25 @@ rápido, está pagando um preço sem receber o benefício.
 
 **Quando revogação imediata é requisito**, sem mitigação.
 
-**Quando o conteúdo precisa ser confidencial** e JWE não está disponível — o JWT
+**Quando o conteúdo precisa ser confidencial** e JWE não está disponível: o JWT
 assinado é legível por quem o tem.
 
 **Quando o cliente não consegue renovar** e o token precisaria valer horas. Acima de
 alguns minutos sem mecanismo de revogação, a validade vira a janela de acesso de quem
 o roubar.
 
-**Como sessão de aplicação web** quando um cookie de sessão resolve — o que é o caso
+**Como sessão de aplicação web** quando um cookie de sessão resolve, o que é o caso
 da maioria das aplicações de servidor único.
 
 **Para carregar permissões que mudam** com frequência maior que a validade do token.
 
 ## Alternativas
 
-- **Sessão com identificador opaco** — revogação imediata, estado no servidor.
+- **Sessão com identificador opaco**: revogação imediata, estado no servidor.
   Frequentemente a escolha certa, e frequentemente descartada por moda.
-- **Token de referência** — opaco para o cliente, consultado pela API.
-- **JWT com versão de credencial** — meio-termo prático.
-- **JWE** — quando o conteúdo precisa ser confidencial.
+- **Token de referência**: opaco para o cliente, consultado pela API.
+- **JWT com versão de credencial**: meio-termo prático.
+- **JWE**: quando o conteúdo precisa ser confidencial.
 
 ## Trade-offs
 
@@ -213,21 +213,21 @@ da maioria das aplicações de servidor único.
 
 **Cabeçalho grande demais.** Requisições rejeitadas por limite.
 
-**Chave de assinatura vazada.** Permite forjar qualquer token — o pior caso, e o
+**Chave de assinatura vazada.** Permite forjar qualquer token: o pior caso, e o
 motivo de a chave merecer o tratamento de
 [gestão de chaves](/10-security/key-management.md).
 
 ## Erros Comuns
 
-**Colocar dados sensíveis dentro.** O conteúdo é apenas codificado em base64 — legível por qualquer um que tenha o token, inclusive o próprio usuário.
+**Colocar dados sensíveis dentro.** O conteúdo é apenas codificado em base64: legível por qualquer um que tenha o token, inclusive o próprio usuário.
 
 **Expiração longa.** O token não pode ser revogado sem infraestrutura adicional, então a expiração é a única defesa. Vinte e quatro horas de validade são vinte e quatro horas de acesso para quem o roubar.
 
 **Não fixar o algoritmo.** Aceitar o algoritmo declarado no cabeçalho permite o ataque clássico de trocá-lo por `none` ou por um simétrico com a chave pública como segredo. O verificador precisa exigir o algoritmo esperado.
 
-**Não verificar `aud`.** Sem verificar o destinatário, um token emitido para outro serviço da mesma organização é aceito aqui — e o escopo pretendido evapora.
+**Não verificar `aud`.** Sem verificar o destinatário, um token emitido para outro serviço da mesma organização é aceito aqui, e o escopo pretendido evapora.
 
-**Guardar no armazenamento local do navegador.** Fica acessível a qualquer script da página, o que transforma uma falha de script entre sites em roubo de sessão. Cookie com marcação de acesso restrito não tem esse problema — e troca-o pelo de requisição forjada, tratado acima.
+**Guardar no armazenamento local do navegador.** Fica acessível a qualquer script da página, o que transforma uma falha de script entre sites em roubo de sessão. Cookie com marcação de acesso restrito não tem esse problema, mas troca-o pelo de requisição forjada, tratado acima.
 
 **Usar JWT onde sessão resolveria melhor.** Numa aplicação com um back-end só, sessão do lado do servidor é revogável na hora e mais simples. O token autocontido paga o preço da revogação difícil para resolver um problema de distribuição que ali não existe.
 
@@ -243,8 +243,8 @@ inteiro após a desativação da conta. O token na máquina dele continuou váli
 acessou dados de folha depois do desligamento. O processo de saída presumia que
 desativar a conta encerrava o acesso.
 
-**Dados sensíveis no token.** O token carregava nome completo, CPF, cargo e salário
-— porque era conveniente ter isso disponível sem consulta. Qualquer pessoa com
+**Dados sensíveis no token.** O token carregava nome completo, CPF, cargo e salário,
+porque era conveniente ter isso disponível sem consulta. Qualquer pessoa com
 acesso ao navegador, ou a registros que capturavam cabeçalhos, lia tudo.
 
 Os registros de um gateway estavam gravando cabeçalhos completos, incluindo os
@@ -271,7 +271,7 @@ resto passou a ser consultado.
 
 **Cookie com acesso restrito a HTTP** em vez de armazenamento local.
 
-**Registros com omissão** de cabeçalhos de autorização — e os três meses de registros
+**Registros com omissão** de cabeçalhos de autorização, e os três meses de registros
 existentes foram expurgados.
 
 A conclusão registrada: a escolha de JWT tinha sido feita por escala, e o sistema
@@ -281,13 +281,13 @@ quatro problemas.
 ## Conceitos Relacionados
 
 - [OAuth 2.0](/10-security/oauth2.md) e [OpenID Connect](/10-security/oidc.md).
-- [Segredos](/10-security/secrets.md) — a chave de assinatura.
+- [Segredos](/10-security/secrets.md): a chave de assinatura.
 - [Gestão de Chaves](/10-security/key-management.md).
 - [Autenticação](/05-system-design/authentication.md).
 
 ## Exercício Prático
 
-Decodifique um JWT do seu sistema — não precisa de chave nenhuma — e veja o que há
+Decodifique um JWT do seu sistema (não precisa de chave nenhuma) e veja o que há
 dentro. Depois pergunte: essa informação pode ser lida pelo cliente e por quem
 capturar um registro?
 

@@ -2,7 +2,7 @@
 id: cost-management
 title: Gestão de Custo
 sidebar_position: 16
-description: Custo é atributo de qualidade arquitetural — e o único que quem decide orçamento entende sem tradução.
+description: Custo é atributo de qualidade arquitetural, e o único que quem decide orçamento entende sem tradução.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [risk-management]
 related: [risk-management, technical-strategy-leadership, measuring-architecture-outcomes]
 canonical_for: [custo como atributo arquitetural, unidade econômica, atribuição de custo, visibilidade de custo por time]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -42,13 +42,13 @@ tomada sem que o efeito seja calculado.
 Dois padrões.
 
 **Custo invisível na decisão.** A arquitetura é escolhida por critérios técnicos, e o custo
-aparece na fatura meses depois — quando mudá-la é caro. É a mesma dinâmica do case de
+aparece na fatura meses depois, quando mudá-la é caro. É a mesma dinâmica do case de
 [streaming](/21-case-studies/video-streaming.md), em que 96% do custo estava fora do
 datacenter e o esforço de engenharia estava no lugar errado.
 
 **Custo agregado sem atribuição.** A organização sabe que gasta R$ 30 milhões por ano em nuvem e
 não sabe quanto cada sistema, cada time ou cada transação consome. Sem atribuição, ninguém pode
-reduzir — porque a informação não chega a quem toma a decisão que gera o custo.
+reduzir, porque a informação não chega a quem toma a decisão que gera o custo.
 
 ```text
 custo agregado    ninguém age
@@ -87,7 +87,7 @@ Atribuição é a intervenção de maior retorno em gestão de custo, e ela é i
 etiquetagem consistente de recursos, o que é chato de implementar e transformador de operar.
 
 O efeito observado repetidamente: times que passam a ver o próprio custo reduzem entre 20% e 40%
-nos primeiros meses, sem nenhuma diretriz — apenas removendo o que era desperdício invisível.
+nos primeiros meses, sem nenhuma diretriz, apenas removendo o que era desperdício invisível.
 
 ### Custo entra na decisão, não depois dela
 
@@ -129,7 +129,7 @@ capacidade ociosa custa igual, usada ou não
 
 O primeiro item merece destaque: uma decisão de retenção sem prazo gera custo todos os meses
 enquanto vigorar, e costuma não ter data de revisão. Entre as linhas da tabela, é a única que
-cresce sem nenhuma decisão nova — só com o tempo passando.
+cresce sem nenhuma decisão nova, só com o tempo passando.
 
 ### Otimizar custo é como otimizar desempenho
 
@@ -171,7 +171,7 @@ atribuição, ninguém age.
 
 **Quando a conta é pequena frente ao que a atribuição custa.** Etiquetar, manter painéis e
 revisar mensalmente consome horas de engenharia todo mês. Com os 20% a 40% de desperdício
-recuperável descritos acima, uma fatura de R$ 30 mil/mês devolve entre R$ 6 mil e R$ 12 mil/mês —
+recuperável descritos acima, uma fatura de R$ 30 mil/mês devolve entre R$ 6 mil e R$ 12 mil/mês,
 menos que o custo de meio engenheiro dedicado à tarefa. Abaixo desse patamar, uma revisão anual das
 maiores linhas recupera quase o mesmo por uma fração do esforço.
 
@@ -185,12 +185,12 @@ resto sem estimativa.
 
 ## Alternativas
 
-- **Orçamento por time** — cada um recebe um teto e decide dentro dele; simples e eficaz.
-- **Custo como função de aptidão** — verificação automática que alerta quando o custo por unidade
+- **Orçamento por time**: cada um recebe um teto e decide dentro dele; simples e eficaz.
+- **Custo como função de aptidão**: verificação automática que alerta quando o custo por unidade
   ultrapassa um limite. Ver [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
-- **Revisão periódica de maiores linhas** — atacar os 20% que respondem por 80%.
-- **Não gerir** — legítimo nas condições descritas em Quando Não Usar: gerir custo tem custo
-  próprio.
+- **Revisão periódica de maiores linhas**: atacar os 20% que respondem por 80%.
+- **Não gerir**: legítimo nas condições descritas em Quando Não Usar (gerir custo tem custo
+  próprio).
 
 ## Trade-offs
 
@@ -241,7 +241,7 @@ quanto cada sistema consumia.
 
 **Etiquetagem consistente** de todos os recursos, por serviço e por time, implementada em sete
 semanas. O resultado foi imediato e não previsto: a etiquetagem revelou que **19% dos recursos não
-pertenciam a nenhum sistema conhecido** — 12% da fatura, R$ 5,3 milhões/ano — remanescentes de experimentos, ambientes esquecidos,
+pertenciam a nenhum sistema conhecido** (12% da fatura, R$ 5,3 milhões/ano), remanescentes de experimentos, ambientes esquecidos,
 réplicas de migrações concluídas.
 
 Esses 19% foram desligados em duas ondas, com uma semana de observação. Duas reclamações
@@ -250,7 +250,7 @@ apareceram; o resto era desperdício puro.
 **Painéis por time**, com o custo do mês e a tendência, sem nenhuma meta associada. Apenas
 visível.
 
-Nos três meses seguintes, sem nenhuma diretriz, os times reduziram 16% do que restava — dimensionando
+Nos três meses seguintes, sem nenhuma diretriz, os times reduziram 16% do que restava, dimensionando
 instâncias corretamente, ajustando retenção de registros, desligando ambientes de teste fora de
 horário.
 
@@ -297,8 +297,8 @@ propostas arquiteturais com
 As três reduções somaram cerca de R$ 19 milhões/ano (5,3 + 6,2 + 7,5); o crescimento de volume
 devolveu perto de R$ 4 milhões, e a fatura fechou em R$ 29 milhões.
 
-O detalhe que a equipe destaca: a intervenção de maior retorno não foi nenhuma otimização técnica —
-foi tornar o custo visível por time. Os 16% que os times reduziram sozinhos, sem meta e sem
+O detalhe que a equipe destaca: a intervenção de maior retorno não foi nenhuma otimização técnica,
+e sim tornar o custo visível por time. Os 16% que os times reduziram sozinhos, sem meta e sem
 diretriz, foram obtidos apenas por mostrar o número a quem podia agir sobre ele.
 
 E a linha dos registros de aplicação é o exemplo do padrão que se repete: uma decisão de retenção

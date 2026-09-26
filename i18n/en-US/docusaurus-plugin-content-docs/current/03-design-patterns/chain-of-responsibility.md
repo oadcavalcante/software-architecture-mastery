@@ -2,7 +2,7 @@
 id: chain-of-responsibility
 title: Chain of Responsibility
 sidebar_position: 13
-description: Passing the request along a chain until someone handles it — and the risk of nobody handling it.
+description: Passing the request along a chain until someone handles it, and the risk of nobody handling it.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, command, mediator]
 canonical_for: [chain of responsibility]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ whether to handle it or pass it on.
 The gain is decoupling the sender from the handler: the sender does not know which
 element of the chain will respond, nor whether any will.
 
-That last part — **nor whether any will** — is the pattern's central risk.
+That last part, **nor whether any will**, is the pattern's central risk.
 
 ## Problem
 
@@ -62,7 +62,7 @@ The name covers two behaviours worth distinguishing.
 takes it. Used in request dispatch and exception handling.
 
 **Everyone processes.** Each link does something and passes on; nobody interrupts. It
-is the middleware model — authentication, logging, compression. Structurally identical
+is the middleware model: authentication, logging, compression. Structurally identical
 to [Decorator](/03-design-patterns/decorator.md), and the difference in name is
 historical.
 
@@ -77,7 +77,7 @@ The pattern does not answer, and that omission is the source of most of the defe
 the request disappears silently.
 
 Under the "first to handle stops" semantics, the fix is **a final handler that always
-handles** — even if only to log and raise an error. A chain without that link has an
+handles**, even if only to log and raise an error. A chain without that link has an
 invisible failure path.
 
 Under the "everyone processes" semantics the problem does not exist: there is no "nobody
@@ -103,8 +103,8 @@ fix: the assembly should live in one place, not be distributed.
 
 **When the handler is always the same.** Call it directly.
 
-**When the selection is by a known value.** A dispatch table — a map from key to
-handler — is more direct, faster and easier to audit than walking a chain.
+**When the selection is by a known value.** A dispatch table (a map from key to
+handler) is more direct, faster and easier to audit than walking a chain.
 
 **When handling has to be guaranteed and the chain does not guarantee it.** Without a
 final link, the request vanishes.
@@ -116,11 +116,11 @@ in a critical flow, that costs.
 
 ## Alternatives
 
-- **A dispatch table** — when the selection is by key. Simpler and more explicit.
-- **Middleware with a declared order** — for the "everyone processes" semantics.
-- **An explicit conditional** — when there are few stable handlers, and readability
+- **A dispatch table**: when the selection is by key. Simpler and more explicit.
+- **Middleware with a declared order**: for the "everyone processes" semantics.
+- **An explicit conditional**: when there are few stable handlers, and readability
   matters more than decoupling.
-- **[Mediator](/03-design-patterns/mediator.md)** — when the coordination is between
+- **[Mediator](/03-design-patterns/mediator.md)**: when the coordination is between
   objects, not a linear chain.
 
 ## Trade-offs
@@ -158,7 +158,7 @@ in a critical flow, that costs.
 ## Where it appears in practice
 
 **HTTP middleware.** The "everyone processes" semantics, with the possibility of
-interrupting — authentication that rejects before reaching the controller.
+interrupting: authentication that rejects before reaching the controller.
 
 **Exception handling in languages.** The nearest matching `catch` handles it;
 otherwise it propagates. It is the "first to handle" semantics, built in.
@@ -171,7 +171,7 @@ process it.
 
 The exceptions case is instructive: the language supplies a default final handler, which
 **reports** instead of letting the case vanish. On the main path that usually terminates
-the program with a visible error; off it the behaviour varies — in Java and in Python, an
+the program with a visible error; off it the behaviour varies: in Java and in Python, an
 unhandled exception on a secondary thread kills only that thread, and the process carries
 on. It is the guarantee manual implementations forget, and the secondary-thread case shows
 that not even the language gives it for free in every context.
@@ -181,7 +181,7 @@ that not even the language gives it for free in every context.
 An expense approval system used a chain: manager, director, finance, board, each with
 an approval limit.
 
-The defect appeared with an expense above the board's limit — a case nobody had
+The defect appeared with an expense above the board's limit, a case nobody had
 foreseen. The chain ended, no link handled it, and the expense was left in a state with
 neither approval nor rejection. There was no screen that showed it.
 
@@ -190,17 +190,17 @@ It sat there for five weeks until someone asked.
 The fix was a final link, `ApprovalNotDefined`, which records the case, notifies
 administration and marks the expense as pending a manual decision.
 
-What changed was not the pattern — it was admitting that the chain can end without
+What changed was not the pattern but admitting that the chain can end without
 handling, and making that an explicit case rather than silence.
 
 ## Two ways to implement it
 
-The classic structure — each handler referencing the next — is not the only one, and
+The classic structure (each handler referencing the next) is not the only one, and
 the alternative is usually better.
 
 **Linked list.** Each handler holds the next and decides whether to pass on. It is the
 GoF form. The handler controls the flow, which allows pre- and post-processing around
-the next call — necessary for middleware.
+the next call, necessary for middleware.
 
 Cost: assembling the chain requires chaining objects, and the structure is only visible
 by walking the references.
@@ -225,11 +225,11 @@ something after the following ones finish.
 
 ## Related Concepts
 
-- [Decorator](/03-design-patterns/decorator.md) — same structure, "everyone processes"
+- [Decorator](/03-design-patterns/decorator.md): same structure, "everyone processes"
   semantics.
-- [Command](/03-design-patterns/command.md) — what travels along the chain can be a
+- [Command](/03-design-patterns/command.md): what travels along the chain can be a
   command.
-- [Mediator](/03-design-patterns/mediator.md) — non-linear coordination.
+- [Mediator](/03-design-patterns/mediator.md): non-linear coordination.
 
 ## Practical Exercise
 

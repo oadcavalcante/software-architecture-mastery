@@ -2,7 +2,7 @@
 id: infrastructure-as-code
 title: Infraestrutura como Código
 sidebar_position: 2
-description: Declarar o ambiente em vez de configurá-lo — e o desvio que aparece quando alguém mexe à mão.
+description: Declarar o ambiente em vez de configurá-lo, e o desvio que aparece quando alguém mexe à mão.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [environment-management, ci-cd, blue-green]
 canonical_for: [infraestrutura como código, desvio de configuração, estado declarado, ambiente reprodutível]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Infraestrutura como código é declarar o ambiente desejado em arquivos versionados, e
 deixar uma ferramenta convergir a realidade para essa declaração.
 
-O ganho não é automação — é **reprodutibilidade**: o ambiente pode ser recriado do zero,
+O ganho não é automação, e sim **reprodutibilidade**: o ambiente pode ser recriado do zero,
 igual, quantas vezes for preciso.
 
 E, com ela, vêm revisão, histórico, e a capacidade de responder "por que isto está
@@ -44,7 +44,7 @@ O sintoma aparece tarde:
 "o que mudou ontem?"                 não há registro
 ```
 
-Ver [IaaS](/09-cloud-architecture/iaas.md). O problema não é a criação inicial — é
+Ver [IaaS](/09-cloud-architecture/iaas.md). O problema não é a criação inicial, e sim
 tudo o que vem depois.
 
 ## Conceitos Centrais
@@ -56,8 +56,8 @@ imperativo   "crie uma instância, depois configure a rede, depois..."
 declarativo  "o ambiente deve ter isto; convirja para lá"
 ```
 
-A diferença prática: o declarativo é [idempotente](/06-distributed-systems/idempotency.md) —
-reaplicar a mesma declaração a um ambiente já convergido não gera mudança — e permite calcular a diferença entre o desejado e o real antes de agir.
+A diferença prática: o declarativo é [idempotente](/06-distributed-systems/idempotency.md)
+(reaplicar a mesma declaração a um ambiente já convergido não gera mudança) e permite calcular a diferença entre o desejado e o real antes de agir.
 
 Ver [Kubernetes](/09-cloud-architecture/kubernetes.md), que aplica o mesmo princípio a
 contêineres.
@@ -67,7 +67,7 @@ plano de convergência antes de aplicá-lo.
 
 ### Desvio de configuração é o inimigo
 
-Alguém altera algo pelo console — durante um incidente, para testar, por conveniência. A
+Alguém altera algo pelo console: durante um incidente, para testar, por conveniência. A
 realidade passa a divergir da declaração.
 
 As consequências:
@@ -93,7 +93,7 @@ precisam proibir o outro.
 
 ### O estado é um artefato crítico
 
-A ferramenta mantém um registro do que ela criou — o estado. Perdê-lo significa que ela
+A ferramenta mantém um registro do que ela criou: o estado. Perdê-lo significa que ela
 não sabe mais o que gerencia.
 
 ```text
@@ -120,7 +120,7 @@ O critério: um módulo deve remover repetição real, não antecipar variação
 
 E módulos precisam ser versionados: um módulo compartilhado alterado sem versão muda o
 comportamento de todos os ambientes que o usam, simultaneamente. Ver
-[redundância](/12-reliability/redundancy.md) — é o mesmo problema de correlação.
+[redundância](/12-reliability/redundancy.md): é o mesmo problema de correlação.
 
 ### Aplicar em produção é implantação
 
@@ -150,7 +150,7 @@ configuração de aplicação  variáveis e flags, não infraestrutura
 ```
 
 Misturar dados ou segredos na declaração é a origem de vazamentos e de operações
-destrutivas acidentais — uma remoção de recurso que apaga um banco junto.
+destrutivas acidentais: uma remoção de recurso que apaga um banco junto.
 
 Proteções contra exclusão em recursos com estado não são detalhe, são obrigatórias.
 
@@ -184,16 +184,16 @@ temporários são estado do orquestrador; declará-los também põe duas ferrame
 convergindo o mesmo objeto, e cada uma desfaz a outra.
 
 **Para serviço de terceiro sem interface programável.** Se o fornecedor só se configura
-pelo painel, a declaração vira documentação que nenhuma ferramenta aplica — e documentação
+pelo painel, a declaração vira documentação que nenhuma ferramenta aplica, e documentação
 desvia sem que ninguém detecte.
 
 ## Alternativas
 
-- **Ferramentas de configuração de servidor** — para o que roda dentro da máquina, em
+- **Ferramentas de configuração de servidor**: para o que roda dentro da máquina, em
   vez de os recursos de nuvem.
-- **Imagens pré-construídas** — o ambiente vem pronto na imagem, e a infraestrutura só a
+- **Imagens pré-construídas**: o ambiente vem pronto na imagem, e a infraestrutura só a
   instancia. Ver [contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md).
-- **Interfaces de plataforma** — o desenvolvedor declara a intenção e a plataforma
+- **Interfaces de plataforma**: o desenvolvedor declara a intenção e a plataforma
   traduz. Ver
   [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
@@ -260,7 +260,7 @@ Ao fim, 90% dos recursos estavam declarados.
 Um incidente revelou o que os outros 10% significavam.
 
 Uma aplicação da declaração, em produção, removeu uma regra de rede que não estava
-declarada — criada manualmente durante um incidente, oito meses antes, e nunca
+declarada, criada manualmente durante um incidente, oito meses antes, e nunca
 incorporada.
 
 A regra permitia o acesso de um parceiro. A integração parou por 5 horas, e o
@@ -278,7 +278,7 @@ está declarado e diverge. A primeira execução produziu a lista dos 34.
 
 **Caminho rápido.** A queixa das pessoas era legítima: aplicar uma mudança declarada
 levava 25 minutos entre revisão, plano e aplicação. A esteira foi otimizada para 4
-minutos, e o desvio praticamente parou — não por proibição, por conveniência.
+minutos, e o desvio praticamente parou: não por proibição, por conveniência.
 
 **Proteção contra exclusão** em bancos, armazenamentos e recursos com estado. Uma
 tentativa de removê-los pela convergência falha e exige remoção explícita da proteção.
@@ -290,21 +290,21 @@ zona não derruba as três.
 mudança propagar para todos os ambientes na próxima aplicação.
 
 O que a equipe registra: a proibição de usar o console tinha sido tentada antes e
-falhado. O que funcionou foi tornar o caminho declarado mais rápido — o desvio era
+falhado. O que funcionou foi tornar o caminho declarado mais rápido. O desvio era
 sintoma de atrito, não de indisciplina.
 
 ## Conceitos Relacionados
 
 - [Gestão de Ambientes](/14-devops-and-platform/environment-management.md).
 - [Contêineres na Entrega](/14-devops-and-platform/containers-in-delivery.md).
-- [Blue-Green](/14-devops-and-platform/blue-green.md) — o ambiente efêmero.
+- [Blue-Green](/14-devops-and-platform/blue-green.md): o ambiente efêmero.
 - [IaaS](/09-cloud-architecture/iaas.md).
 
 ## Exercício Prático
 
 Compare o que existe na sua conta de nuvem com o que está declarado.
 
-Os recursos que aparecem só na primeira lista são o seu desvio — e cada um é uma
+Os recursos que aparecem só na primeira lista são o seu desvio, e cada um é uma
 surpresa esperando a próxima aplicação.
 
 ## Perguntas de Entrevista

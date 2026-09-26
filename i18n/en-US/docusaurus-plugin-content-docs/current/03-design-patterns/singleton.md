@@ -2,7 +2,7 @@
 id: singleton
 title: Singleton
 sidebar_position: 5
-description: One global instance with global access — the most applied pattern and the most frequently wrong.
+description: "One global instance with global access: the most applied pattern and the most frequently wrong."
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [factory-method, facade, dependency-inversion]
 canonical_for: [singleton]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,15 +29,15 @@ makes the pattern problematic. Almost always you need one, not both.
 
 ## Problem
 
-The stated problem: some resources should exist only once — a connection pool, a
-configuration registry, a cache.
+The stated problem: some resources should exist only once (a connection pool, a
+configuration registry, a cache).
 
 That is legitimate. What the pattern does wrong is solving uniqueness **and**
 global access with the same mechanism.
 
 Uniqueness is a lifecycle decision. Global access is a visibility decision. When
 `Configuration.getInstance()` is scattered across three hundred places, you do not
-have a single instance — you have a hidden dependency in three hundred places, which
+have a single instance; you have a hidden dependency in three hundred places, which
 no signature declares.
 
 The consequences are well known and all derive from the global access, not from the
@@ -56,21 +56,21 @@ encapsulation, with all the concurrency problems that implies.
 
 ### Separate the two decisions
 
-**If you need only one instance** — configure that where the object is created. A
+**If you need only one instance**, configure that where the object is created. A
 dependency injection container does exactly that: application scope, one instance,
 injected into whoever needs it.
 
-**If you need convenient access** — pass the dependency. A signature declaring
+**If you need convenient access**, pass the dependency. A signature declaring
 `(Configuration config)` is honest about what the method needs.
 
 Combining a single instance with explicit injection delivers the uniqueness and the
-testability Singleton promises, at the cost of the explicit wiring — which pays for itself
+testability Singleton promises, at the cost of the explicit wiring, which pays for itself
 in almost everything, and turns into disproportionate noise on the cross-cutting dependencies
 that run through the entire codebase.
 
 ### A stateless singleton is less bad
 
-An immutable, stateless object accessed globally does less damage — there is no race
+An immutable, stateless object accessed globally does less damage: there is no race
 condition and no interference between tests.
 
 There is still a hidden dependency, which is the structural cost. But the operational
@@ -79,13 +79,13 @@ risk drops sharply.
 ### The legitimate case
 
 It exists: infrastructure entry points that the environment already treats as global
-— logging, metrics, the system clock.
+(logging, metrics, the system clock).
 
 Even there, the testable form is a global facade over an injectable instance.
 
 ## When to Use
 
-- Resources the environment already treats as global — logging, metrics — and whose
+- Resources the environment already treats as global (logging, metrics) and whose
   explicit passing throughout the codebase would be disproportionate noise.
 - Immutable, stateless objects.
 - When the language or framework imposes the mechanism.
@@ -108,11 +108,11 @@ spreads a hidden dependency across the whole system.
 
 ## Alternatives
 
-- **Dependency injection with application scope** — uniqueness without global
+- **Dependency injection with application scope**: uniqueness without global
   access. The main alternative.
-- **An explicit parameter** — pass the object.
-- **A context object** — group what crosses many layers.
-- **A module with encapsulated state** — in languages with first-class modules, it
+- **An explicit parameter**: pass the object.
+- **A context object**: group what crosses many layers.
+- **A module with encapsulated state**: in languages with first-class modules, it
   solves this without a class.
 
 ## Trade-offs
@@ -129,7 +129,7 @@ spreads a hidden dependency across the whole system.
 Singleton wins in two columns. One is convenience. The other is the strength of the
 guarantee: the uniqueness is structural, whereas an injection registration wrongly configured
 as transient hands out two instances without warning anyone. The second advantage is real and
-still does not compensate — registration configuration is verifiable in a test, and the
+still does not compensate: registration configuration is verifiable in a test, and the
 coupling that global access creates is not verifiable anywhere.
 
 ## Failure Modes
@@ -137,7 +137,7 @@ coupling that global access creates is not verifiable anywhere.
 **Shared state under concurrency.** Race conditions in code that looks isolated.
 
 **Tests that interfere with each other.** One test changes the singleton, another
-fails afterwards — and the failure depends on the order.
+fails afterwards, and the failure depends on the order.
 
 **Unsafe lazy initialization.** Two threads create two instances.
 
@@ -165,7 +165,7 @@ cross-cutting infrastructure and the object is effectively stateless from the
 caller's point of view.
 
 **Dependency injection containers.** Ironically, the container tends to be a
-singleton — and exists so that nothing else has to be.
+singleton, and exists so that nothing else has to be.
 
 **Connection pools.** One instance per application, but good libraries inject it
 rather than exposing static access.
@@ -180,7 +180,7 @@ A system had `GlobalConfiguration.getInstance()` called in 214 places.
 
 Two problems appeared together.
 
-Tests failed intermittently depending on order — a test that changed a parameter
+Tests failed intermittently depending on order: a test that changed a parameter
 affected the following ones, and CI reordered them.
 
 And nobody could say which parts of the system depended on which parameter, because
@@ -193,14 +193,14 @@ The unexpected result came midway: on declaring the dependencies, the team disco
 that 60% of the 214 points used only three parameters. Those three became method
 parameters, and most of the system stopped depending on configuration at all.
 
-The Singleton was not just hiding a dependency — it was hiding that the dependency
+The Singleton was not just hiding a dependency; it was hiding that the dependency
 was far smaller than it appeared.
 
 ## Related Concepts
 
-- [Dependency Inversion](/02-software-design/dependency-inversion.md) — the
+- [Dependency Inversion](/02-software-design/dependency-inversion.md): the
   structural alternative.
-- [Facade](/03-design-patterns/facade.md) — frequently confused, solves another
+- [Facade](/03-design-patterns/facade.md): frequently confused, solves another
   problem.
 - [Encapsulation](/02-software-design/encapsulation.md).
 
@@ -211,7 +211,7 @@ Count how many calls to static instance-access methods exist in your system.
 Pick the most used one and list, for the first ten usage points, **exactly what**
 each of them consumes from it.
 
-If most use few fields, the real dependency is smaller than the declared one — and
+If most use few fields, the real dependency is smaller than the declared one, and
 can probably become a parameter.
 
 ## Interview Questions

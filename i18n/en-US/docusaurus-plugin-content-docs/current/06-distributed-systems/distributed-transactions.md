@@ -2,7 +2,7 @@
 id: distributed-transactions
 title: Distributed Transactions
 sidebar_position: 35
-description: Atomic commit across services — what 2PC promises, what it blocks, and why it is rarely the answer.
+description: "Atomic commit across services: what 2PC promises, what it blocks, and why it is rarely the answer."
 doc_type: pattern
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals, partial-failure]
 related: [sagas, consensus, idempotency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ A business operation frequently touches more than one store: debiting one accoun
 another, reserving stock and recording an order, creating a user and provisioning a resource.
 
 In a local transaction, the database guarantees atomicity. Across services or databases, there is no
-such guarantee — each participant commits or fails independently.
+such guarantee: each participant commits or fails independently.
 
 The result with no coordination is partial state: money debited and not credited, an order recorded
 with no stock reserved.
@@ -61,18 +61,18 @@ commit later, even if it restarts. It holds the locks until phase 2.
 
 ### The blocking problem
 
-Between answering "yes" and receiving the decision, the participant is **prepared** — with resources
+Between answering "yes" and receiving the decision, the participant is **prepared**, with resources
 locked and no authority to decide on its own.
 
 If the coordinator fails in that interval, the participant is stuck waiting for the decision. It
 cannot commit (it does not know whether everyone agreed) nor abort (committing may have been
 decided).
 
-The wait is not necessarily infinite: the XA specification provides for a **heuristic decision** —
-after some time in doubt, the resource manager can break the wait and decide on its own, releasing
+The wait is not necessarily infinite: the XA specification provides for a **heuristic decision**.
+After some time in doubt, the resource manager can break the wait and decide on its own, releasing
 the locks. The price is that participants may decide differently, and the transaction ends in a mixed
 outcome: part committed, part rolled back. It is atomicity being traded for availability, without the
-application taking part in the choice — and the record of it usually goes to a log nobody reads.
+application taking part in the choice, and the record of it usually goes to a log nobody reads.
 
 That is **2PC's blocking**, and it is the main reason to avoid it: the coordinator's unavailability
 propagates to every participant, locking resources other operations need.
@@ -82,7 +82,7 @@ intervention.
 
 ### The coordinator is a single point
 
-Making the coordinator fault-tolerant requires [consensus](/06-distributed-systems/consensus.md) —
+Making the coordinator fault-tolerant requires [consensus](/06-distributed-systems/consensus.md),
 which adds latency and complexity to a protocol that is already expensive.
 
 Systems that do that correctly exist. Most implementations use a simple coordinator, with the risk of
@@ -124,7 +124,7 @@ Outside those conditions, the cost dominates.
 
 ## When Not to Use
 
-**Between services from different teams.** It couples lifecycle and availability — it contradicts the
+**Between services from different teams.** It couples lifecycle and availability. It contradicts the
 reason for separating the services.
 
 **With many participants.** The combined availability collapses.
@@ -135,7 +135,7 @@ reason for separating the services.
 
 **With no fault-tolerant coordinator.** The blocking will happen.
 
-**When compensation is acceptable.** See [sagas](/06-distributed-systems/sagas.md) — it solves the
+**When compensation is acceptable.** See [sagas](/06-distributed-systems/sagas.md). It solves the
 same problem without locking.
 
 **When the problem is modeling.** If the operation has to be atomic, perhaps the data should be in
@@ -146,13 +146,13 @@ symptom of a mistaken decomposition.
 
 ## Alternatives
 
-- **[Sagas](/06-distributed-systems/sagas.md)** — a sequence of local transactions with compensation.
-- **Transactional outbox** — writes the change and the event in the same local transaction, and
+- **[Sagas](/06-distributed-systems/sagas.md)**: a sequence of local transactions with compensation.
+- **Transactional outbox**: writes the change and the event in the same local transaction, and
   publishes later. It solves the most common case without 2PC.
-- **[Idempotency](/06-distributed-systems/idempotency.md) with retries** — instead of atomicity,
+- **[Idempotency](/06-distributed-systems/idempotency.md) with retries**: instead of atomicity,
   guaranteeing that repetition converges.
-- **Bringing the data together** — if atomicity is essential, putting it in the same store.
-- **Eventual consistency with reconciliation** — accepting temporary divergence and correcting it.
+- **Bringing the data together**: if atomicity is essential, putting it in the same store.
+- **Eventual consistency with reconciliation**: accepting temporary divergence and correcting it.
 
 The transactional outbox deserves emphasis: the most common "I need 2PC" scenario is "update the
 database and publish an event", and it solves that with a local transaction plus a publishing
@@ -188,7 +188,7 @@ the other participants.
 ## Common Mistakes
 
 **Using 2PC out of an atomicity reflex.** The question that goes unasked is whether the business
-accepts compensation — and it almost always does, because it already compensates outside the
+accepts compensation, and it almost always does, because it already compensates outside the
 software: refund, cancellation, adjustment.
 
 **Not considering that the service boundary is wrong.** Needing atomicity between two services is
@@ -196,20 +196,20 @@ usually a symptom that that data belongs to the same owner. 2PC treats the sympt
 wrong boundary.
 
 **A coordinator with no high availability.** It becomes a single point of failure for every
-participant at once — and its failure does not bring the system down, which would be visible: it
+participant at once. And its failure does not bring the system down, which would be visible: it
 locks resources, which is harder to diagnose.
 
 **Not measuring the lock duration.** It is what happened in the Real-World Example: an external query
 inside the prepared phase held locks for tens of seconds, and operations for the same customer piled
 up behind it.
 
-**Ignoring the transactional outbox** for the "database + event" case — which is most of the cases
+**Ignoring the transactional outbox** for the "database + event" case, which is most of the cases
 where anyone considers 2PC.
 
 ## Real-World Example
 
 A logistics platform had an operation that created the shipment, reserved the vehicle's capacity and
-debited the customer's credit — three services, three databases.
+debited the customer's credit: three services, three databases.
 
 The implementation used 2PC with a transaction manager.
 
@@ -231,35 +231,35 @@ The migration to a saga changed the model.
 local transaction. A failure at any point triggers the compensations for the previous steps.
 
 **Explicit intermediate states.** The shipment came to have an "awaiting confirmation" state visible
-in the interface — under 2PC the intermediate state existed just the same, it simply had no name and
+in the interface. Under 2PC the intermediate state existed just the same, it simply had no name and
 no declared duration, and that is why nobody handled it.
 
 **Idempotency at every step.** See [idempotency](/06-distributed-systems/idempotency.md).
 
 What changed operationally: the manual pending items disappeared, and so did the contention. The
-operation came to succeed even with the credit service temporarily slow — the debit happens with a
+operation came to succeed even with the credit service temporarily slow: the debit happens with a
 delay.
 
 What got worse: the "awaiting confirmation" state had to be handled in five screens and two reports,
-and compensating the debit required a new business rule — what to do if the credit was already
-consumed.
+and compensating the debit required a new business rule (what to do if the credit was already
+consumed).
 
 The team considers the trade clearly positive, and records that the work of modeling the
 compensations was larger than the initial estimate, by a wide margin.
 
 ## Related Concepts
 
-- [Sagas](/06-distributed-systems/sagas.md) — the main alternative.
-- [Partial Failure](/06-distributed-systems/partial-failure.md) — the underlying problem.
-- [Consensus](/06-distributed-systems/consensus.md) — what a reliable coordinator requires.
-- [Idempotency](/06-distributed-systems/idempotency.md) — what the alternative requires.
+- [Sagas](/06-distributed-systems/sagas.md): the main alternative.
+- [Partial Failure](/06-distributed-systems/partial-failure.md): the underlying problem.
+- [Consensus](/06-distributed-systems/consensus.md): what a reliable coordinator requires.
+- [Idempotency](/06-distributed-systems/idempotency.md): what the alternative requires.
 
 ## Practical Exercise
 
 Find an operation in your system that touches more than one store. Ask: what happens today if it
 fails midway?
 
-If the answer is "we don't know", that is the real state — neither 2PC nor a saga, just untreated
+If the answer is "we don't know", that is the real state: neither 2PC nor a saga, just untreated
 partial state.
 
 ## Interview Questions
@@ -273,4 +273,4 @@ partial state.
 - Gray, Jim; Reuter, Andreas. *Transaction Processing: Concepts and Techniques*. Morgan Kaufmann,
   1992.
 - Bernstein, Philip; Newcomer, Eric. *Principles of Transaction Processing*. Morgan Kaufmann, 2009.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — chapter 4.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Chapter 4.

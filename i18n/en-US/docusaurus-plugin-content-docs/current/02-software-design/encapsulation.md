@@ -2,7 +2,7 @@
 id: encapsulation
 title: Encapsulation
 sidebar_position: 5
-description: Hiding what can change — and why getters and setters on everything is the opposite of that.
+description: Hiding what can change, and why getters and setters on everything is the opposite of that.
 doc_type: concept
 level: 2
 difficulty: beginner
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [interfaces, boundaries, solid]
 canonical_for: [encapsulation, information hiding]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ last_reviewed: 2026-08-31
 Encapsulation is hiding decisions that can change behind an interface that does
 not.
 
-Parnas's formulation — *information hiding* — is more precise than the version
+Parnas's formulation, *information hiding*, is more precise than the version
 usually taught: it is not about making fields private. It is about deciding **what
 the rest of the system does not need to know**, and making sure it does not.
 
@@ -69,12 +69,12 @@ order.getItems().add(i)      order.addItem(i)
 ```
 
 The right column lets the object guarantee its invariants. The left one spreads
-that responsibility across every caller — and one forgetting is enough.
+that responsibility across every caller, and one forgetting is enough.
 
 ### An invariant is what justifies it
 
 An object with no invariant to protect does not need encapsulation. A data
-structure that merely carries values — a DTO, a configuration record — can and
+structure that merely carries values (a DTO, a configuration record) can and
 should be transparent.
 
 Encapsulating what has no rule to protect is ceremony.
@@ -95,7 +95,7 @@ inside. The rest is the contract.
 
 ## When to Use
 
-- When the object has an invariant — a rule that must always hold.
+- When the object has an invariant: a rule that must always hold.
 - When the internal representation may change and there are consumers.
 - When there is a sequence of operations that has to be respected.
 - When the object belongs to the domain and has behaviour of its own.
@@ -118,10 +118,10 @@ internal state on the outside.
 
 ## Alternatives
 
-- **An immutable type** — if the object does not change, exposing the values is
+- **An immutable type**: if the object does not change, exposing the values is
   safe and the invariant is guaranteed at construction.
-- **A transparent record** — for data with no rule.
-- **A value object** — encapsulates meaning without hiding value. See
+- **A transparent record**: for data with no rule.
+- **A value object**: encapsulates meaning without hiding value. See
   [DDD](/04-domain-driven-design/index.md).
 
 ## Trade-offs
@@ -158,14 +158,14 @@ the wrong practice the easy one.
 **Returning mutable structures.** The most common leak and the least noticed.
 
 **Thinking encapsulation is about security.** It is about cost of change. A private
-field protects against nobody — it protects against dependency.
+field protects against nobody. It protects against dependency.
 
 ## Real-World Example
 
 A `Subscription` class with `getStatus()`, `setStatus()`, `getEndDate()` and
 `setEndDate()`.
 
-The rule "a cancelled subscription cannot have its end date changed" existed — in
+The rule "a cancelled subscription cannot have its end date changed" existed: in
 four different services, three of them checking before calling the setter. The
 fourth did not check.
 
@@ -176,8 +176,8 @@ The fix was not adding the check in the fourth place. It was moving the rule
 inside: `subscription.extend(newDate)` throws if the status is cancelled, and the
 setter stopped existing.
 
-After that the rule held by construction, and the fifth service — written a year
-later by someone else — had no way to get it wrong.
+After that the rule held by construction, and the fifth service, written a year
+later by someone else, had no way to get it wrong.
 
 The detail that matters: the class had had private fields all along.
 Encapsulation was absent even with every field private.
@@ -196,8 +196,8 @@ billing module that exposes `Invoice` with all its fields and relations forces
 consumers to understand the billing model, and ties that model to them.
 
 The practical difference between the two scales is the mechanism. In a class,
-language visibility is enough. In a module, an explicit mechanism is needed —
-declared module, architecture test, dependency analysis — because most languages
+language visibility is enough. In a module, an explicit mechanism is needed
+(declared module, architecture test, dependency analysis) because most languages
 do not enforce package boundaries strongly enough.
 
 See [modular design](/02-software-design/modular-design.md) for the contract and
@@ -205,10 +205,10 @@ See [modular design](/02-software-design/modular-design.md) for the contract and
 
 ## Related Concepts
 
-- [Interfaces](/02-software-design/interfaces.md) — the contract encapsulation
+- [Interfaces](/02-software-design/interfaces.md): the contract encapsulation
   exposes.
-- [Abstraction](/01-fundamentals/abstraction.md) — the general principle.
-- [Boundaries](/02-software-design/boundaries.md) — encapsulation at a larger
+- [Abstraction](/01-fundamentals/abstraction.md): the general principle.
+- [Boundaries](/02-software-design/boundaries.md): encapsulation at a larger
   scale.
 
 ## The anemic object and why it persists
@@ -226,7 +226,7 @@ structure, and resisting it requires extra configuration that not every team kno
 about.
 
 The second is conceptual. Separating data from behaviour is intuitive for anyone
-coming from procedural programming, and the result works — the system does what it
+coming from procedural programming, and the result works: the system does what it
 should. The cost does not show up as a defect; it shows up as a business rule
 duplicated across several services, and as bugs where one of the places forgot to
 check something.
@@ -247,7 +247,7 @@ Pick a domain class in your system and list the rules that should always hold
 about it.
 
 For each rule, find where it is checked. If it is outside the class, count in how
-many places — and check whether all of them check.
+many places, and check whether all of them check.
 
 The missing places are bugs that have not happened yet.
 
@@ -261,6 +261,6 @@ The missing places are bugs that have not happened yet.
 
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into Modules*.
   CACM, 1972.
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 — deep
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018. Deep
   modules.
 - Fowler, Martin. *AnemicDomainModel*, 2003.

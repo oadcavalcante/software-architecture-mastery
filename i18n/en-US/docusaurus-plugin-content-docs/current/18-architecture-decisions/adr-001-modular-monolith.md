@@ -2,7 +2,7 @@
 id: adr-001-modular-monolith
 title: "ADR-001 — Adopt a Modular Monolith"
 sidebar_position: 10
-description: A complete ADR example — choosing a modular monolith over microservices, with the conditions that would invert the decision.
+description: "A complete ADR example: choosing a modular monolith over microservices, with the conditions that would invert the decision."
 doc_type: adr
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-alternatives, adr-consequences]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 :::note Teaching example
 
-This and the four following ADRs describe decisions in a fictional system — **Verano**, a
+This and the four following ADRs describe decisions in a fictional system: **Verano**, a
 food delivery ordering platform. They form a coherent sequence over three years, and they
 exist to show the reasoning, not to serve as a technology template.
 
@@ -38,7 +38,7 @@ exist to show the reasoning, not to serve as a technology template.
 ## Context
 
 We are building the platform from scratch. The current operation runs on a third-party
-system that will be shut down in 18 months, at the end of the contract — the date is
+system that will be shut down in 18 months, at the end of the contract. The date is
 contractual and is not negotiable.
 
 Forces in play, in February 2023:
@@ -65,12 +65,12 @@ Constraints:
   the deadline does not allow learning under pressure.
 
 What we didn't know: whether the commercial projection of 120 orders/s would be confirmed,
-and how the domain would actually divide — none of us had operated this business before.
+and how the domain would actually divide. None of us had operated this business before.
 
 ## Decision
 
 We will build Verano as a **modular monolith**: a single deployable unit, organized into
-modules with explicit boundaries — catalog, cart, order, payment and delivery.
+modules with explicit boundaries (catalog, cart, order, payment and delivery).
 
 Each module has its own database schema and is only accessed by the others through declared
 public interfaces. Direct access to another module's tables is forbidden and verified in
@@ -85,7 +85,7 @@ affected.
 ## Alternatives Considered
 
 **Microservices from the start.** Discarded because it would require building a pipeline,
-monitoring, tracing and on-call for N services before delivering any functionality —
+monitoring, tracing and on-call for N services before delivering any functionality,
 estimated at 4 to 5 months of the 18 available, with a team that has a single engineer
 with distributed operational experience.
 
@@ -106,7 +106,7 @@ uncertainty, and separating them early would fix a division we don't know is rig
 *Would win again if:* those modules' boundaries become stable and their coupling with the
 rest turns out to be low in practice.
 
-**Keep the current system and renegotiate the contract.** Discarded — the vendor has stated
+**Keep the current system and renegotiate the contract.** Discarded: the vendor has stated
 they will not renew under any conditions.
 
 ## Consequences
@@ -116,7 +116,7 @@ delivers functionality from week one instead of building infrastructure. Local t
 between modules, with no eventual consistency to manage.
 
 **Positive (long-term).** The module boundaries, if maintained, make later extraction
-viable — a module with its own schema and a declared interface is a natural candidate to
+viable: a module with its own schema and a declared interface is a natural candidate to
 become a service.
 
 **Negative (immediate).** Coupled deployment: any change ships the whole system. An error
@@ -130,7 +130,7 @@ coordination bottleneck.
 pipeline gains a step to check dependencies between modules.
 
 **Risk accepted.** The module boundaries may erode. A modular monolith with no verification
-becomes an ordinary monolith in 12 to 18 months — this is the most likely failure mode of
+becomes an ordinary monolith in 12 to 18 months. This is the most likely failure mode of
 this decision.
 
 ## Warning Signal
@@ -148,13 +148,13 @@ We will know this decision needs revisiting if:
 A block added 19 months later, with no change to the original text.
 
 The system went into production in July 2024, a month before the deadline. Observed peak
-volume: 41 orders/s — well below the commercial projection of 120.
+volume: 41 orders/s, well below the commercial projection of 120.
 
 Of the four warning-signal conditions, none was met. The team is at 17 engineers; the
 boundary check has 2 exceptions, both with a deadline; deployment time is 11 minutes; and
 the catalog, the heaviest module, asks for 1.4× the capacity of the others.
 
-Boundary erosion, flagged as the main risk, did not materialize — we attribute that to the
+Boundary erosion, flagged as the main risk, did not materialize. We attribute that to the
 automated verification, which rejected 34 cross-access attempts over the period.
 
 One unforeseen cost: the single database became a contention point in schema migrations.
@@ -164,7 +164,7 @@ Decision kept.
 
 ## What to notice in this example
 
-The context records **numbers and their origins** — including that the projection of 120
+The context records **numbers and their origins**, including that the projection of 120
 orders/s came from sales and not from a measurement, which the 2024 review showed to be
 relevant.
 
@@ -182,5 +182,5 @@ The warning signal is **measurable**, and that is why the 2024 review could be o
   [Alternatives](/18-architecture-decisions/adr-alternatives.md),
   [Consequences](/18-architecture-decisions/adr-consequences.md).
 - [Modular Monolith](/03-design-patterns/modular-monolith.md).
-- [ADR-004](/18-architecture-decisions/adr-004-kafka.md) — the decision that came when the
+- [ADR-004](/18-architecture-decisions/adr-004-kafka.md): the decision that came when the
   volume grew.

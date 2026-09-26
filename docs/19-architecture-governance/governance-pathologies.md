@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-review, measuring-governance]
 canonical_for: [patologia de governança, conformidade teatral, ritual de processo, governança sem remoção]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Governança degenera de formas específicas e repetidas. Nenhuma delas começa como erro — cada
+Governança degenera de formas específicas e repetidas. Nenhuma delas começa como erro: cada
 patologia é a resposta razoável a um problema real, aplicada por tempo demais ou no ponto
 errado.
 
@@ -45,7 +45,7 @@ atraso             → cria-se um ponto de verificação
 ```
 
 Cada passo é defensável. Nenhum é revertido. Depois de alguns anos, a organização tem
-dezenas de mecanismos, dos quais uma fração pequena ainda endereça um risco vivo — e o custo
+dezenas de mecanismos, dos quais uma fração pequena ainda endereça um risco vivo. E o custo
 agregado é invisível porque está distribuído em pequenos atrasos.
 
 O sinal mais confiável de que isso aconteceu: **ninguém consegue nomear o último mecanismo
@@ -177,12 +177,12 @@ efeito     verificação duplicada, atrito sem risco correspondente
 saída      mapear cada mecanismo contra os controles automáticos atuais
 ```
 
-Este é o modo mais silencioso do catálogo, porque o mecanismo continua "funcionando" — ele
+Este é o modo mais silencioso do catálogo, porque o mecanismo continua "funcionando": ele
 apenas verifica algo que já não pode dar errado. A aprovação manual de configuração de rede
 sobrevive anos depois de a rede passar a ser declarada em código e verificada na esteira.
 
 O diagnóstico é barato: para cada mecanismo humano, perguntar o que aconteceria se ele fosse
-removido **hoje**, com os controles automáticos que existem hoje — e não com os que existiam
+removido **hoje**, com os controles automáticos que existem hoje, e não com os que existiam
 quando ele foi criado.
 
 A dificuldade é que essa pergunta raramente é feita por quem opera o mecanismo, e quem
@@ -200,7 +200,7 @@ data de validade.
 Este catálogo serve como lista de verificação:
 
 - Ao herdar uma estrutura de governança.
-- Ao propor um mecanismo novo — para prever como ele degenera.
+- Ao propor um mecanismo novo, para prever como ele degenera.
 - Em revisão periódica do conjunto de mecanismos.
 - Quando times reclamam de atrito sem conseguir apontar a causa.
 
@@ -208,10 +208,10 @@ Este catálogo serve como lista de verificação:
 
 **Como acusação.** As pessoas que criaram os mecanismos tinham razão.
 
-**Para remover tudo** — a ausência de governança tem custo próprio, e ele é pior em
+**Para remover tudo**: a ausência de governança tem custo próprio, e ele é pior em
 organizações grandes.
 
-**Sem medir antes** — remover um mecanismo sem saber o que ele previne é aposta.
+**Sem medir antes**: remover um mecanismo sem saber o que ele previne é aposta.
 
 **Quando uma pessoa conhece todos os mecanismos e seus donos.** O catálogo diagnostica
 acumulação sem remoção; num conjunto desse tamanho, o excesso de formalismo aparece em
@@ -219,14 +219,14 @@ mecanismos individuais e se corrige um a um, sem inventário.
 
 ## Alternativas
 
-- **Suspensão temporária** — em vez de remover, suspender por um trimestre e observar.
-- **Redução de escopo** — manter o mecanismo apenas para a classe de risco que o justifica.
-- **Mudança de ponto de intervenção** — quase sempre melhor que remover. Ver
+- **Suspensão temporária**: em vez de remover, suspender por um trimestre e observar.
+- **Redução de escopo**: manter o mecanismo apenas para a classe de risco que o justifica.
+- **Mudança de ponto de intervenção**: quase sempre melhor que remover. Ver
   [fundamentos](/19-architecture-governance/governance-basics.md).
-- **Substituição por automação** — o mecanismo humano vira verificação.
+- **Substituição por automação**: o mecanismo humano vira verificação.
 
 A primeira é a mais subutilizada e a mais informativa: ela produz evidência em vez de
-argumento — desde que a janela cubra ao menos um evento esperado. Um mecanismo que pega algo
+argumento, desde que a janela cubra ao menos um evento esperado. Um mecanismo que pega algo
 uma vez a cada 24 meses passa um trimestre em silêncio em cerca de 88% das vezes
 (e^(-3/24)), suspenso ou não; para risco raro e severo, o trimestre calmo não autoriza a
 remoção, e a evidência precisa vir do histórico de acertos.
@@ -267,7 +267,7 @@ remoção, e a evidência precisa vir do histórico de acertos.
 **Não medir atrito.** A proposta de remoção fica sem argumento contra quem defende o
 mecanismo pelo risco que ele previne: um lado traz um incidente, o outro traz uma impressão.
 
-**Confundir ritual com cultura** — a reunião que "sempre existiu" raramente é cultura.
+**Confundir ritual com cultura**: a reunião que "sempre existiu" raramente é cultura.
 
 **Não perguntar qual foi o último mecanismo removido.**
 
@@ -277,7 +277,7 @@ Uma empresa de serviços financeiros com 500 engenheiros conduziu um inventário
 mecanismos de governança de engenharia, motivado por uma pesquisa interna em que
 "burocracia" apareceu como o principal obstáculo relatado.
 
-O inventário encontrou **34 mecanismos** — comitês, aprovações, relatórios, verificações
+O inventário encontrou **34 mecanismos**: comitês, aprovações, relatórios, verificações
 obrigatórias, formulários. Nenhuma pessoa na organização conhecia todos.
 
 Para cada um, quatro perguntas:
@@ -307,13 +307,13 @@ O programa de redução, ao longo de 12 meses:
 
 **Suspensão de 9 mecanismos** por um trimestre, escolhidos entre os sem dono e os sem
 efetividade demonstrada. Nada quebrou em 7 deles; foram removidos definitivamente. Dois
-foram restabelecidos — um relatório de exposição de dados e uma verificação de dependências
-— agora com dono e com escopo reduzido.
+foram restabelecidos (um relatório de exposição de dados e uma verificação de dependências),
+agora com dono e com escopo reduzido.
 
 **11 mecanismos convertidos em verificação automática**, movendo o ponto de intervenção. Ver
 [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
-**8 mecanismos com escopo reduzido** para a classe de risco que os justificava — o mais
+**8 mecanismos com escopo reduzido** para a classe de risco que os justificava: o mais
 significativo passou de "todo projeto" para "projetos com dado regulado ou compromisso
 irreversível acima de um limite".
 
@@ -346,16 +346,16 @@ exatamente o que faltava.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de intervenção.
-- [Revisão](/19-architecture-governance/governance-review.md) — o comitê que aprova tudo.
-- [Conformidade](/19-architecture-governance/compliance.md) — a conformidade teatral.
-- [Medição](/19-architecture-governance/measuring-governance.md) — como saber se um mecanismo funciona.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md): o ponto de intervenção.
+- [Revisão](/19-architecture-governance/governance-review.md): o comitê que aprova tudo.
+- [Conformidade](/19-architecture-governance/compliance.md): a conformidade teatral.
+- [Medição](/19-architecture-governance/measuring-governance.md): como saber se um mecanismo funciona.
 
 ## Exercício Prático
 
 Pergunte, na sua organização: qual foi o último mecanismo de governança removido, e quando?
 
-Se ninguém souber responder, o conjunto só cresceu — e o diagnóstico independe de qual
+Se ninguém souber responder, o conjunto só cresceu, e o diagnóstico independe de qual
 mecanismo você examine primeiro.
 
 ## Perguntas de Entrevista

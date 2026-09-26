@@ -2,7 +2,7 @@
 id: distributed-fundamentals
 title: Distributed Systems Fundamentals
 sidebar_position: 1
-description: What changes when the call crosses the network — and the eight fallacies everyone believes.
+description: What changes when the call crosses the network, and the eight fallacies everyone believes.
 doc_type: foundation
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [network-failure, partial-failure, latency]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ and receiving is negligible.
 In a network call, all three stop holding.
 
 The call has **three outcomes**, not two: success, failure, and *I don't know*. The third is
-what makes everything hard — when the timeout fires, you do not know whether the operation
+what makes everything hard: when the timeout fires, you do not know whether the operation
 happened.
 
 The process on the other side can die without yours dying. That is
@@ -88,7 +88,7 @@ sequenceDiagram
 From the caller's side, "the response did not arrive" is indistinguishable from "the request
 did not arrive". Retrying may duplicate; not retrying may lose.
 
-The only way out is to make the operation repeatable with no additional effect — which is
+The only way out is to make the operation repeatable with no additional effect. That is
 [idempotency](/06-distributed-systems/idempotency.md), and it is why it is the central concept
 of this section, not a detail.
 
@@ -105,7 +105,7 @@ resolution. See [clocks and time](/06-distributed-systems/clock-and-time.md).
 A node cannot distinguish with certainty between "the other one went down" and "the other one
 is slow". That impossibility is what makes
 [failure detection](/06-distributed-systems/failure-detection.md) a problem of heuristics, not
-of truth — and what underlies the limits of
+of truth, and what underlies the limits of
 [CAP](/06-distributed-systems/cap.md) and [consensus](/06-distributed-systems/consensus.md).
 
 ### The recommendation that precedes everything
@@ -115,8 +115,8 @@ ordering and duplication to your system.
 
 A well-modularized monolith has none of that **between its own modules**. But one
 external integration or one remote database brings partial failure and the third
-outcome back — see [partial failure](/06-distributed-systems/partial-failure.md) and
-[modular monolith](/03-design-patterns/modular-monolith.md).
+outcome back (see [partial failure](/06-distributed-systems/partial-failure.md) and
+[modular monolith](/03-design-patterns/modular-monolith.md)).
 
 ## Why This Matters
 
@@ -128,13 +128,13 @@ that no local test reproduces.
 problems of this section. Recognizing them beforehand is what lets you decide whether it is
 worth it.
 
-**Because idempotency has to come in early.** It is cheap to design and expensive to retrofit
-— it requires changing the data model.
+**Because idempotency has to come in early.** It is cheap to design and expensive to retrofit:
+it requires changing the data model.
 
 ## Common Mistakes
 
 **Treating a remote call as a slower local one.** See
-[Proxy](/03-design-patterns/proxy.md): the transparency invites the error — the failure handling
+[Proxy](/03-design-patterns/proxy.md): the transparency invites the error. The failure handling
 a local call does without never gets written, and partial failure shows up in production as an
 uncaught exception.
 
@@ -145,7 +145,7 @@ did complete, and the two sides end up with different states for the same order.
 loses to an earlier one whose clock was ahead, and the correct data is discarded without a single
 error in the log.
 
-**Retrying with no idempotency.** Every retry after a timeout adds one more effect — it is
+**Retrying with no idempotency.** Every retry after a timeout adds one more effect. It is
 exactly the incident in the example below.
 
 **Distributing by reputation.** The cost is permanent.
@@ -159,22 +159,22 @@ A billing integration had worked for two years. On a Tuesday, 340 customers were
 twice.
 
 The cause: the payment provider had a latency spike. Responses started taking longer than the
-configured 10-second timeout. The HTTP client retried automatically after a timeout — the
+configured 10-second timeout. The HTTP client retried automatically after a timeout: the
 library's default behavior, which nobody had reviewed.
 
 Each retry created a new charge, because the endpoint was not idempotent.
 
-Three wrong premises at the same time. That latency is stable — it varied by an order of
-magnitude. That a timeout means it did not happen — it meant it was unknown. And that retrying
-is safe — it only is if the operation is idempotent.
+Three wrong premises at the same time: that latency is stable, when it varied by an order of
+magnitude; that a timeout means it did not happen, when it meant it was unknown; and that retrying
+is safe, when it only is if the operation is idempotent.
 
 The fix had three parts, and the order matters.
 
-Automatic retries were disabled for non-idempotent operations — an immediate measure, applied
+Automatic retries were disabled for non-idempotent operations, an immediate measure, applied
 the same day.
 
-The endpoint got an idempotency key: the client sends a unique identifier per logical attempt —
-the same one across every retry of that charge — and the provider returns the original result if
+The endpoint got an idempotency key: the client sends a unique identifier per logical attempt
+(the same one across every retry of that charge) and the provider returns the original result if
 the key has already been seen.
 
 And the timeout was recalibrated from the measured 99th percentile, not from the round number
@@ -186,11 +186,11 @@ sometimes takes a while; the latency spike only made visible what had been false
 
 ## Related Concepts
 
-- [Partial Failure](/06-distributed-systems/partial-failure.md) — the structural difference.
-- [Idempotency](/06-distributed-systems/idempotency.md) — the answer to the third outcome.
+- [Partial Failure](/06-distributed-systems/partial-failure.md): the structural difference.
+- [Idempotency](/06-distributed-systems/idempotency.md): the answer to the third outcome.
 - [Timeouts](/06-distributed-systems/timeouts.md) and
-  [Retries](/06-distributed-systems/retries.md) — what to do with the ambiguity.
-- [Modular Monolith](/03-design-patterns/modular-monolith.md) — the alternative to
+  [Retries](/06-distributed-systems/retries.md): what to do with the ambiguity.
+- [Modular Monolith](/03-design-patterns/modular-monolith.md): the alternative to
   distributing.
 
 ## Practical Exercise
@@ -209,10 +209,10 @@ for a latency spike.
 
 ## Further Reading
 
-- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006 — expands on the
+- Rotem-Gal-Oz, Arnon. *Fallacies of Distributed Computing Explained*, 2006. Expands on the
   list attributed to L. Peter Deutsch (the first seven, around 1994) and to James Gosling (the
   eighth), which circulated without formal publication under that title.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 8, on
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 8, on
   the problems of distributed systems.
-- Waldo, Jim et al. *A Note on Distributed Computing*, 1994 — the classic argument against
+- Waldo, Jim et al. *A Note on Distributed Computing*, 1994. The classic argument against
   remote transparency.

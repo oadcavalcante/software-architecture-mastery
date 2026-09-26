@@ -2,7 +2,7 @@
 id: managed-vs-self-hosted
 title: Managed vs. Self-Hosted
 sidebar_position: 13
-description: The math changes when the cost of on-call enters it — and it almost never does.
+description: The math changes when the cost of on-call enters it, and it almost never does.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [build-vs-buy, cost-vs-reliability, cloud-native-vs-portable]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -29,12 +29,12 @@ real axis   is the premium charged by the managed service larger or smaller
             than the real cost of operating that thing with our team?
 ```
 
-The premium is visible — it is on the invoice. The cost of operating is not: it is distributed
+The premium is visible (it is on the invoice). The cost of operating is not: it is distributed
 across on-call, upgrades, incidents, learning and diverted attention.
 
 A useful reference number: managed services usually charge between 2× and 4× the cost of
 equivalent infrastructure. The question is whether the operational effort avoided is worth that
-difference — and, for small teams, it almost always is.
+difference, and, for small teams, it almost always is.
 
 ## Problem
 
@@ -58,7 +58,7 @@ learning, and the cost of relearning when whoever knew it leaves
 ```
 
 Converted into effort, this usually lands between 0.2 and 1 full-time person, depending on the
-component — which at market rates exceeds the premium in most cases.
+component. At market rates, that exceeds the premium in most cases.
 
 The symmetric error is adopting managed without evaluating limits: quotas, the absence of
 necessary configurations, cost that grows non-linearly with volume, and difficulty of exit.
@@ -85,7 +85,7 @@ See [cost vs. reliability](/20-trade-offs/cost-vs-reliability.md).
 ### The premium buys reliability you would not build
 
 Mature managed services make available, with no internal project, things a small team does not
-build — several of them requiring configuration, as the canonical document records:
+build, several of them requiring configuration, as the canonical document records:
 
 ```text
 automatic node recovery
@@ -122,7 +122,7 @@ self-hosted           no exit cost, with a permanent operating cost
 ```
 
 The middle distinction is important and frequently ignored: a managed service that speaks a
-standard protocol has a much lower exit cost than one with a proprietary interface — even from
+standard protocol has a much lower exit cost than one with a proprietary interface, even from
 the same vendor.
 
 See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md) and
@@ -137,7 +137,7 @@ the effect is invisible and cumulative
 ```
 
 A team of 8 people operating five infrastructure components has a significant fraction of its
-capacity outside the product — and it is a fraction nobody budgets.
+capacity outside the product, and it is a fraction nobody budgets.
 
 See [platform engineering](/14-devops-and-platform/platform-engineering.md).
 
@@ -172,7 +172,7 @@ self-hosted → managed   moderate and frequently easier
 ```
 
 The symmetry here is greater than in other pairs, which reduces the weight of reversibility in
-the decision — **except** when the managed service is proprietary, in which case leaving requires
+the decision, **except** when the managed service is proprietary, in which case leaving requires
 a rewrite and the asymmetry returns.
 
 That gives a rule of thumb: prefer managed services with a standard protocol when they exist, and
@@ -181,7 +181,7 @@ the cost of changing your mind stops being a relevant factor.
 ## Mental Model
 
 **Add up the operational effort in money.** The premium on the invoice is visible; the cost of
-operating is distributed — and larger than it looks.
+operating is distributed, and larger than it looks.
 
 ## When to Use
 
@@ -214,11 +214,11 @@ Prefer **self-hosted** when:
 
 ## Alternatives
 
-- **Managed with a standard protocol** — reduces the exit cost to nearly zero.
-- **Self-hosted on an internal platform** — if the platform exists, the marginal cost of the next
+- **Managed with a standard protocol**: reduces the exit cost to nearly zero.
+- **Self-hosted on an internal platform**: if the platform exists, the marginal cost of the next
   component is lower.
-- **Hybrid** — managed in production, self-hosted in development environments.
-- **Managed by an independent third party** — neither the cloud provider nor you.
+- **Hybrid**: managed in production, self-hosted in development environments.
+- **Managed by an independent third party**: neither the cloud provider nor you.
 
 The third reduces cost significantly without affecting reliability where it matters.
 
@@ -262,7 +262,7 @@ The third reduces cost significantly without affecting reliability where it matt
 
 **Not checking whether a standard-protocol version exists.**
 
-**Not re-evaluating when scale changes** — the threshold exists in both directions.
+**Not re-evaluating when scale changes**: the threshold exists in both directions.
 
 ## Real-World Example
 
@@ -285,7 +285,7 @@ containers                 44            9                   12
 total                     121           32                   42
 ```
 
-121 hours per month is about 0.75 full-time engineer, permanently — the conversion base used was
+121 hours per month is about 0.75 full-time engineer, permanently. The conversion base used was
 160 working hours per month. Added to the on-call cost and
 the post-incident recovery time, the estimate landed at ~1.1 people, at $9,400 a month per person
 including taxes and benefits.
@@ -299,24 +299,24 @@ total self-hosted cost                  ~$18,000/month
 cost of the equivalent managed services ~$23,600/month
 ```
 
-Managed was still more expensive — but by 1.3×, not by 3.1×. And the math did not include the
+Managed was still more expensive, but by 1.3×, not by 3.1×. And the math did not include the
 cost of incidents or the diverted attention.
 
 The decision was selective, not uniform:
 
-**Migrated to managed**: messaging and container orchestration — the two with the highest
+**Migrated to managed**: messaging and container orchestration, the two with the highest
 operational effort and no requirement the managed service did not meet. Both with a standard
 protocol, which kept the exit cost low.
 
-**Kept self-hosted**: the relational database and search. The database by scale — the volume made
-the premium high enough to justify the 22 hours — and search because of a specific language
+**Kept self-hosted**: the relational database and search. The database by scale (the volume made
+the premium high enough to justify the 22 hours) and search because of a specific language
 extension the available managed services did not offer. Both decisions recorded in an ADR with a
 reversal condition.
 
 **Cache migrated** because it was cheap on both sides and not worth the attention.
 
 **Restores tested quarterly** on the two components that stayed, with the procedure executed by
-someone who is not the specialist — which revealed, on the first run, that the documented
+someone who is not the specialist. On the first run, this revealed that the documented
 procedure was out of date.
 
 Results after 14 months:
@@ -331,7 +331,7 @@ turnover in the platform team                from 3 departures/year to 0
 
 The floor for these numbers is set by what stayed: the database and search alone accounted for 40
 of the 121 hours and for 14 of the 42 on-call nights, and nothing about the migration reduces
-them. What is left above the floor — 8 hours a month and two on-call nights a year — is the
+them. What is left above the floor (8 hours a month and two on-call nights a year) is the
 residual cost of the three managed services: watching quotas, reviewing configuration that
 arrived turned off, and checking an invoice that grows with volume. Managed is not zero; it is
 less.
@@ -341,19 +341,19 @@ to the product, and the reduction in night on-call was pointed out by the team a
 the greatest effect on quality of work.
 
 The point the team underlines: the 2020 comparison was not wrong in the numbers it used. It was
-incomplete — it compared invoice with invoice, and the work of operating appears on neither.
+incomplete: it compared invoice with invoice, and the work of operating appears on neither.
 
 ## Related Concepts
 
 - [Managed Services](/09-cloud-architecture/managed-services.md).
-- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — the same axis, applied to software.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md): the same axis, applied to software.
 - [Cloud-Native vs. Portable](/20-trade-offs/cloud-native-vs-portable.md).
 - [Platform Engineering](/14-devops-and-platform/platform-engineering.md).
 
 ## Practical Exercise
 
-Log, for one month, the hours your team spends operating one infrastructure component —
-maintenance, incidents, upgrades, on-call.
+Log, for one month, the hours your team spends operating one infrastructure component
+(maintenance, incidents, upgrades, on-call).
 
 Convert it into cost and add it to the price of the machines. Compare with the equivalent managed
 service.

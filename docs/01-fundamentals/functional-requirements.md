@@ -2,7 +2,7 @@
 id: functional-requirements
 title: Requisitos Funcionais
 sidebar_position: 7
-description: O que o sistema faz — e por que sozinhos eles quase nunca determinam a arquitetura.
+description: O que o sistema faz, e por que sozinhos eles quase nunca determinam a arquitetura.
 doc_type: foundation
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [non-functional-requirements, quality-attributes]
 canonical_for: [requisitos funcionais, functional requirements]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -34,8 +34,8 @@ diferentes.**
 
 "Registrar um pedido, cobrar e notificar o cliente" descreve tanto uma loja com
 cem pedidos por dia quanto um marketplace com cem mil por minuto. As funções são
-as mesmas. Tudo o que decide como executá-las — armazenamento, acoplamento
-entre as etapas, garantia de entrega — é diferente nos dois.
+as mesmas. Tudo o que decide como executá-las (armazenamento, acoplamento
+entre as etapas, garantia de entrega) é diferente nos dois.
 
 Isso significa que requisitos funcionais delimitam o que o sistema precisa
 conseguir fazer, mas o **como** é decidido por outra coisa: os
@@ -68,7 +68,7 @@ principal de complexidade essencial.
 
 "Clientes com mais de doze meses e sem inadimplência têm limite ampliado em 40%"
 é uma regra que vai mudar. Onde ela mora, e quão fácil é alterá-la, é uma
-decisão arquitetural — mesmo que a regra em si seja funcional.
+decisão arquitetural, mesmo que a regra em si seja funcional.
 
 ### Requisitos funcionais influenciam fronteiras
 
@@ -87,7 +87,7 @@ outros: o pagamento que falha após o estoque ser reservado, o cliente que cance
 durante o envio, a integração externa que não responde.
 
 Esses casos determinam se o sistema precisa de compensação, de idempotência, de
-máquina de estados — decisões de alto custo de reversão. Não é o funcional
+máquina de estados: decisões de alto custo de reversão. Não é o funcional
 decidindo sozinho: cada exceção expõe uma exigência de consistência ou de
 recuperação que o fluxo principal deixa implícita. Levantá-los junto com o
 fluxo principal é o que evita descobri-los depois.
@@ -108,7 +108,7 @@ em cada caso.
 
 **Porque a separação evita a falha que só aparece sob carga real.** Times que
 levantam apenas o funcional produzem sistemas que fazem tudo certo e não
-aguentam a carga — e o retrabalho para corrigir isso é arquitetural, não
+aguentam a carga. O retrabalho para corrigir isso é arquitetural, não
 incremental.
 
 **Porque os casos de exceção expõem as exigências que decidem estrutura.**
@@ -130,7 +130,7 @@ decidida, e são os que ficam de fora quando o levantamento é apressado.
 
 **Ignorar quem mais precisa da funcionalidade.** Uma funcionalidade consumida por
 outro time ou sistema tem requisito de contrato que uma funcionalidade interna
-não tem — e isso muda seu custo de mudança.
+não tem, e isso muda seu custo de mudança.
 
 **Confundir volume com função.** "Processar mil pedidos por segundo" não é
 requisito funcional. É atributo de qualidade sobre a função "processar pedido", e
@@ -148,12 +148,12 @@ funcionais:
 - Cancelamento parcial existe?
 - O que acontece com o estoque já reservado? E com o pagamento já capturado?
 - Se o pedido já saiu, cancelar vira devolução? É a mesma operação ou outra?
-- Quem pode cancelar — só o cliente, ou também o operador?
+- Quem pode cancelar: só o cliente, ou também o operador?
 
 As respostas mudam a arquitetura de forma direta. Se cancelar só é possível antes
 do pagamento, uma operação simples resolve. Se é possível após captura e envio,
 o sistema precisa de estorno, de reversão de estoque e de coordenação com a
-transportadora — o que provavelmente significa uma
+transportadora. Isso provavelmente significa uma
 [saga](/06-distributed-systems/sagas.md), com tudo o que ela custa.
 
 O mesmo enunciado de uma linha cobre os dois casos. A diferença arquitetural
@@ -161,15 +161,15 @@ entre eles é de meses.
 
 ## Conceitos Relacionados
 
-- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — a outra metade.
-- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — o que de fato decide a
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md): a outra metade.
+- [Atributos de Qualidade](/01-fundamentals/quality-attributes.md): o que de fato decide a
   arquitetura.
-- [Espaço do Problema](/01-fundamentals/problem-space.md) — de onde os requisitos vêm.
+- [Espaço do Problema](/01-fundamentals/problem-space.md): de onde os requisitos vêm.
 
 ## Exercício Prático
 
 Pegue uma funcionalidade do seu sistema e liste todos os casos de exceção que ela
-precisa tratar — falha externa, cancelamento no meio, dado inconsistente,
+precisa tratar: falha externa, cancelamento no meio, dado inconsistente,
 operação repetida.
 
 Para cada um, pergunte: o sistema atual trata isso? Se sim, onde? Se não, o que
@@ -189,5 +189,5 @@ declarados.
 
 - Wiegers, Karl; Beatty, Joy. *Software Requirements*. 3ª ed., Microsoft Press,
   2013.
-- Cockburn, Alistair. *Writing Effective Use Cases*. Addison-Wesley, 2000 —
-  sobre fluxos alternativos e de exceção.
+- Cockburn, Alistair. *Writing Effective Use Cases*. Addison-Wesley, 2000.
+  Sobre fluxos alternativos e de exceção.

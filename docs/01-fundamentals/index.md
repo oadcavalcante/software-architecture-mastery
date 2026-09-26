@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [software-design]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -41,7 +41,7 @@ estética. Com ele, viram análise.
 
 ## O que você vai encontrar aqui
 
-**O que arquitetura é.** A distinção entre arquitetura, design e implementação —
+**O que arquitetura é.** A distinção entre arquitetura, design e implementação,
 e por que a fronteira entre elas é contextual, não absoluta. Arquitetura como
 conjunto de decisões, não como conjunto de diagramas.
 
@@ -54,13 +54,13 @@ separação de responsabilidades. Estas são as métricas com que se avalia se u
 estrutura vai aguentar mudança.
 
 **O custo de estar errado.** Complexidade, gestão de dependências e dívida
-técnica — o que se acumula quando decisões são adiadas ou tomadas sem critério.
+técnica: o que se acumula quando decisões são adiadas ou tomadas sem critério.
 
 **O contexto.** Contexto de negócio, espaço do problema e espaço da solução.
 Arquitetura que ignora o negócio otimiza a coisa errada com grande competência.
 
 **O que dirige a decisão.** Características arquiteturais, princípios de
-arquitetura e evolução — o que seleciona as poucas propriedades que decidem a
+arquitetura e evolução: o que seleciona as poucas propriedades que decidem a
 estrutura, o que mantém consistentes as decisões tomadas sem você na sala, e
 por que nenhuma delas é tomada uma vez só.
 
@@ -68,14 +68,14 @@ por que nenhuma delas é tomada uma vez só.
 
 Leia na ordem do sidebar. Outras seções têm blocos com ordem obrigatória; esta é a
 que tem ordem do primeiro ao último documento, porque nenhum documento usa um
-conceito ainda não definido. O encadeamento se ramifica — modularidade retoma a
+conceito ainda não definido. O encadeamento se ramifica (modularidade retoma a
 fronteira entre arquitetura e design, características arquiteturais retomam
-atributos de qualidade — mas nunca salta para frente.
+atributos de qualidade), mas nunca salta para frente.
 
 Se você já trabalha com sistemas há alguns anos, a tentação é pular. Resista a
 ela em três tópicos especificamente: **atributos de qualidade**, **restrições** e
 **arquitetura como conjunto de decisões**. São os que mais frequentemente estão
-presentes como intuição e ausentes como vocabulário — e vocabulário ausente é o
+presentes como intuição e ausentes como vocabulário. E vocabulário ausente é o
 que impede defender uma decisão diante de quem discorda.
 
 ## Ao terminar

@@ -2,7 +2,7 @@
 id: leadership-principles
 title: Principles from the Writer's Perspective
 sidebar_position: 12
-description: Formulating principles that eliminate options — and removing them when they become consensus.
+description: Formulating principles that eliminate options, and removing them when they become consensus.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 The [previous level](/19-architecture-governance/governance-principles.md) covers how principles
-operate at the moment of decision. This one covers whoever **writes** them — and the writing work
+operate at the moment of decision. This one covers whoever **writes** them, and the writing work
 has three problems of its own:
 
 ```text
@@ -33,7 +33,7 @@ has three problems of its own:
 
 The first is the most decisive. Principles formulated in a workshop, out of what the organization
 would like to be, almost always become slogans. Principles **derived from decisions that have
-already been made** describe the organization's real criteria — and for that reason they are
+already been made** describe the organization's real criteria, and for that reason they are
 recognized and used.
 
 ## Problem
@@ -47,8 +47,8 @@ consolidation into nine principles
 publication on the internal portal
 ```
 
-The predictable result: statements nobody would contest — "we prioritize quality", "we seek
-simplicity" — none of which eliminates an option in any real decision.
+The predictable result: statements nobody would contest ("we prioritize quality", "we seek
+simplicity"), none of which eliminates an option in any real decision.
 
 The problem is not the workshop. It is the source: the organization was asked what it would like to
 be, and not what it actually uses to decide.
@@ -69,7 +69,7 @@ The method that produces usable principles:
 4. validate against decisions you did not use to derive them
 ```
 
-That produces principles that describe what the organization already does — and the practical
+That produces principles that describe what the organization already does, and the practical
 difference is enormous: they are recognized immediately, and the discussion becomes about whether
 the criterion is right, not about whether it is the criterion.
 
@@ -79,12 +79,12 @@ When the decision archive doesn't exist, building it comes before writing princi
 
 ### Apply the inverse test to the extracted criteria
 
-The [inverse test](/19-architecture-governance/governance-principles.md#the-opposite-test) — would
-anyone defend the opposite? — is defined at the previous level. For the writer, what changes is
+The [inverse test](/19-architecture-governance/governance-principles.md#the-opposite-test) (would
+anyone defend the opposite?) is defined at the previous level. For the writer, what changes is
 where it is applied: to the criteria that came out of the ADRs, before they become statements. A
 criterion that shows up in real decisions usually passes, because it was used to reject an option;
 when it fails, it was justification rhetoric repeated across the records, not the criterion that
-decided — and that difference only shows when you reread the options the ADR discarded.
+decided, and that difference only shows when you reread the options the ADR discarded.
 
 ### Implications, not just the statement
 
@@ -108,10 +108,10 @@ rightly so.
 
 ### Precedence between conflicting principles
 
-The forms the rule can take — by domain, by risk — are in
+The forms the rule can take (by domain, by risk) are in
 [Principles in Operation](/19-architecture-governance/governance-principles.md#principles-conflict-and-precedence-has-to-exist).
 Choosing which one applies, and declaring it in the same document as the principles, is the
-writer's responsibility — and it is the part the workshop normally does not do, because it requires
+writer's responsibility, and it is the part the workshop normally does not do, because it requires
 choosing, and the workshop seeks consensus.
 
 When deriving from precedents, the conflict is already in the archive: it is the ADRs that cited
@@ -132,7 +132,7 @@ a principle cited in ADRs and reviews    it's operating
 never cited                              it isn't
 ```
 
-That measurement is cheap — a search of the decision archive — and it is the one least dependent
+That measurement is cheap (a search of the decision archive), and it is the one least dependent
 on opinion. It has two limits: it only sees decisions that became an ADR or a review, and it counts
 a ritual citation the same as one that eliminated an option; reading a sample of the citations
 separates the two. A
@@ -182,7 +182,7 @@ recurrence to draw on. The right work is to build the archive first.
 
 **An organization where the criteria travel unrecorded.** With a few teams under the same technical
 leadership, decisions pass through the same people and the criteria are already shared. A principle
-written there is born as consensus — and consensus is exactly what this document says to retire.
+written there is born as consensus, and consensus is exactly what this document says to retire.
 
 **A recurring decision with a verifiable outcome.** If the right answer is always the same and can
 be checked automatically, the instrument is a standard, not a principle.
@@ -192,12 +192,12 @@ implications that commit the writers, the published list becomes aspiration unde
 
 ## Alternatives
 
-- **An ADR archive** — concrete precedents teach the criteria better than abstractions, and
+- **An ADR archive**: concrete precedents teach the criteria better than abstractions, and
   organizations with a good archive need fewer principles.
-- **A short vision** — three to five statements covering the essentials. See
+- **A short vision**: three to five statements covering the essentials. See
   [architecture vision](/23-architecture-leadership/architecture-vision.md).
-- **Standards** — when the decision is recurring and the outcome predictable.
-- **Nothing** — in small teams, shared criteria are tacit and work.
+- **Standards**: when the decision is recurring and the outcome predictable.
+- **Nothing**: in small teams, shared criteria are tacit and work.
 
 ## Trade-offs
 
@@ -261,7 +261,7 @@ criterion cited                                    ADRs
 other criteria, with fewer than 5 citations          —
 ```
 
-The five criteria added up to 105 citations across the 96 decisions — several ADRs cited more than
+The five criteria added up to 105 citations across the 96 decisions: several ADRs cited more than
 one.
 
 **The inverse test** applied to the five: the first four passed comfortably; the fifth was contested
@@ -273,12 +273,12 @@ build has to name the differentiator in writing.
 writers. For the on-call principle, the obligation fell on leadership: no team takes on on-call
 responsibility without the platform that makes it sustainable.
 
-**Precedence declared** between the two that conflicted — debugging at 3am and buying where we
-aren't differentiated, because a bought product is usually a black box to whoever is on call —,
+**Precedence declared** between the two that conflicted (debugging at 3am and buying where we
+aren't differentiated, because a bought product is usually a black box to whoever is on call),
 resolved by domain: on the clinical care path, debuggability wins; in administrative systems, buying
 wins.
 
-The result was a one-page document, with five statements, published in three weeks — longer than
+The result was a one-page document, with five statements, published in three weeks, longer than
 the workshop's two days, because it included the implication and precedence choices the workshop
 would not have made.
 
@@ -293,12 +293,12 @@ principles added                               0
 ```
 
 The recorded conclusion: the five principles were news to nobody. They described the criteria the
-organization already used, stated memorably — and that is why they were recognized immediately,
+organization already used, stated memorably, and that is why they were recognized immediately,
 instead of having to be sold.
 
 The comparable cost is that of the survey: the workshop, which would have produced aspirations,
 would have cost eight people for two days; reading the ADRs cost one person for three. The rest of
-the three weeks — the discussion of the fifth principle, the implications, the precedence — involved
+the three weeks (the discussion of the fifth principle, the implications, the precedence) involved
 more people and was not measured, and it doesn't enter that comparison.
 
 ## Related Concepts

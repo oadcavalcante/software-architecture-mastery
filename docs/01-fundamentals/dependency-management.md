@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
 canonical_for: [gestão de dependências, dependency management]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -50,13 +50,13 @@ A regra que organiza o assunto:
 
 > **Dependa na direção da estabilidade.**
 
-Um componente é estável quando muda pouco — porque muitos dependem dele, ou
+Um componente é estável quando muda pouco, porque muitos dependem dele, ou
 porque representa algo que não varia. Um componente instável muda com frequência.
 
 Se o estável depende do instável, cada mudança no instável quebra o estável. A
 seta precisa apontar ao contrário.
 
-No caso comum, a regra de negócio muda por decisão da empresa — raro — e o
+No caso comum, a regra de negócio muda por decisão da empresa (raro) e o
 detalhe de infraestrutura muda com versões, provedores e protocolos. Onde essa
 comparação se sustenta, o detalhe deve depender da regra, não o inverso. Ela nem
 sempre se sustenta: para os casos em que o detalhe é o lado estável, ver
@@ -80,7 +80,7 @@ graph LR
 
 O detalhe crucial, e o que mais se erra: **a interface pertence ao lado
 estável**. Se a interface `RepositorioDePedidos` mora no pacote de
-infraestrutura, nada foi invertido — o domínio continua dependendo da
+infraestrutura, nada foi invertido: o domínio continua dependendo da
 infraestrutura, só que através de um arquivo a mais.
 
 ### Ciclos
@@ -89,7 +89,7 @@ Um ciclo de dependências significa que os módulos envolvidos são, na prática
 só: não podem ser compilados, testados, entendidos ou implantados
 separadamente.
 
-Detectá-los é barato — análise estática resolve — e o valor é alto, porque um
+Detectá-los é barato (análise estática resolve) e o valor é alto, porque um
 ciclo é o sinal mais comum de fronteira no lugar errado. Como eles aparecem e
 quais são as duas formas de quebrá-los estão em
 [direção de dependência](/02-software-design/dependency-direction.md).
@@ -119,14 +119,14 @@ Inverter uma dependência vale quando:
 - O lado que muda mais está sendo dependido pelo que muda menos.
 - Você precisa testar o lado estável sem o instável.
 - Existe expectativa real de substituir a implementação.
-- A dependência atravessa uma fronteira que você quer manter — de módulo, de
+- A dependência atravessa uma fronteira que você quer manter: de módulo, de
   time, de sistema.
 
 ## Quando Não Usar
 
-As condições em que inverter custa mais do que resolve — dois lados igualmente
+As condições em que inverter custa mais do que resolve (dois lados igualmente
 estáveis, abstração que não se sustenta, detalhe trivialmente substituível,
-sistema pequeno com implementação única — estão em
+sistema pequeno com implementação única) estão em
 [inversão de dependência](/02-software-design/dependency-inversion.md).
 
 No nível do grafo há um caso a mais: **quando a direção incômoda é sintoma de
@@ -136,11 +136,11 @@ abstração, verifique se o código não está simplesmente no módulo errado.
 
 ## Alternativas
 
-- **Aceitar a direção e isolar o ponto de contato** — deixar a dependência
+- **Aceitar a direção e isolar o ponto de contato**: deixar a dependência
   direta, mas concentrá-la em um lugar. Mais barato que inverter e resolve o
   caso comum.
-- **Adaptador na fronteira** — traduzir na entrada em vez de abstrair no meio.
-- **Duplicar o tipo** — definir o próprio tipo em vez de depender do da
+- **Adaptador na fronteira**: traduzir na entrada em vez de abstrair no meio.
+- **Duplicar o tipo**: definir o próprio tipo em vez de depender do da
   biblioteca. Barato, e evita que o tipo externo se espalhe.
 
 ## Trade-offs
@@ -196,7 +196,7 @@ executa.
 ## Exemplo Real
 
 Um serviço de precificação tinha a regra de negócio dependendo diretamente do
-cliente do provedor de taxas de câmbio — o tipo `ExchangeRateResponse` da
+cliente do provedor de taxas de câmbio: o tipo `ExchangeRateResponse` da
 biblioteca aparecia em quinze assinaturas de método no domínio.
 
 Quando o provedor foi descontinuado, a migração tocou os quinze pontos, os testes
@@ -207,7 +207,7 @@ A correção posterior não foi criar uma interface genérica de provedor de câ
 Foi mais simples: definir um tipo próprio, `Cotacao`, no domínio, e um adaptador
 que traduz a resposta do provedor para ele.
 
-Duas observações. A abstração ficou no ponto de contato — um arquivo — em vez de
+Duas observações. A abstração ficou no ponto de contato (um arquivo) em vez de
 uma interface atravessando o sistema. E o domínio passou a depender de um
 conceito seu, não de um formato de terceiro.
 
@@ -215,9 +215,9 @@ Na migração seguinte, dois anos depois, um arquivo mudou.
 
 ## Conceitos Relacionados
 
-- [Acoplamento](/01-fundamentals/coupling.md) — do que as dependências são feitas.
-- [Abstração](/01-fundamentals/abstraction.md) — o mecanismo da inversão, e seu custo.
-- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md) — como
+- [Acoplamento](/01-fundamentals/coupling.md): do que as dependências são feitas.
+- [Abstração](/01-fundamentals/abstraction.md): o mecanismo da inversão, e seu custo.
+- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md): como
   impor a direção decidida.
 
 ## Exercício Prático
@@ -237,7 +237,7 @@ biblioteca tocaria.
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — princípios de
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Princípios de
   acoplamento e estabilidade de componentes.
-- Documentação de `jdeps`, `dependency-cruiser`, `import-linter` — ferramentas de
+- Documentação de `jdeps`, `dependency-cruiser`, `import-linter`: ferramentas de
   análise de grafo por linguagem.

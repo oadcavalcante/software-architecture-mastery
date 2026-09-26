@@ -2,7 +2,7 @@
 id: state
 title: State
 sidebar_position: 19
-description: O objeto muda de comportamento ao mudar de estado — e por que a máquina de estados explícita é o ganho real.
+description: O objeto muda de comportamento ao mudar de estado, e por que a máquina de estados explícita é o ganho real.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [strategy]
 related: [strategy, command, memento]
 canonical_for: [state, máquina de estados]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -48,7 +48,7 @@ cancelar():
 ```
 
 E a mesma família de verificações se repete em cada operação. O resultado é que
-**as regras de transição não estão em lugar nenhum** — estão distribuídas por
+**as regras de transição não estão em lugar nenhum**: estão distribuídas por
 condicionais, e ninguém consegue responder "quais transições são válidas?" sem
 ler o sistema inteiro.
 
@@ -56,7 +56,7 @@ ler o sistema inteiro.
 
 ### A estrutura
 
-Cancelar sai de dois estados apenas — o condicional do Problema nomeia dois proibidos e
+Cancelar sai de dois estados apenas: o condicional do Problema nomeia dois proibidos e
 cala sobre os outros quatro. A regra só fica visível quando desenhada.
 
 ```mermaid
@@ -76,7 +76,7 @@ válidas. O contexto delega ao estado atual.
 
 ### O ganho real é a máquina explícita
 
-O valor do padrão não é polimorfismo — é que as regras de transição passam a
+O valor do padrão não é polimorfismo, e sim que as regras de transição passam a
 existir num lugar identificável.
 
 Isso permite responder perguntas que antes exigiam leitura completa: quais
@@ -84,7 +84,7 @@ transições existem? Que estados são terminais? Como se chega daqui até ali?
 
 E permite verificação automática de parte disso: percorrer a máquina acha estado
 inalcançável, estado sem saída e transição duplicada. O que ela **não** acha é transição
-faltando — para isso é preciso confrontar a máquina com o negócio, porque o código não sabe
+faltando: para isso é preciso confrontar a máquina com o negócio, porque o código não sabe
 o que deveria existir e não está lá. É o que o Exemplo Real descobre, por leitura humana.
 
 ### Quem faz a transição
@@ -97,7 +97,7 @@ e acopla os estados entre si.
 **O contexto decide.** A tabela de transições fica num lugar. Mais fácil de
 auditar e de visualizar; o contexto cresce.
 
-Para máquinas de negócio auditáveis, a segunda costuma ser preferível — porque a
+Para máquinas de negócio auditáveis, a segunda costuma ser preferível, porque a
 pergunta "quais transições são permitidas?" tem uma resposta em um arquivo.
 
 ## Quando Usar
@@ -113,7 +113,7 @@ pergunta "quais transições são permitidas?" tem uma resposta em um arquivo.
 **Quando há dois estados.** Um booleano e um `if` resolvem.
 
 **Quando o comportamento não muda com o estado.** Se o estado é só um rótulo, não
-há polimorfismo a explorar — é um campo.
+há polimorfismo a explorar: é um campo.
 
 **Quando as transições são triviais e lineares.** Um fluxo sem ramificação nem
 regra não precisa de máquina.
@@ -128,13 +128,13 @@ implementação manual em classes.
 
 ## Alternativas
 
-- **Enum com comportamento** — em linguagens que permitem, o enum carrega a
+- **Enum com comportamento**: em linguagens que permitem, o enum carrega a
   transição e é mais compacto.
-- **Tabela de transições** — um mapa de (estado, evento) para estado, verificável e
+- **Tabela de transições**: um mapa de (estado, evento) para estado, verificável e
   visualizável.
-- **Biblioteca de máquina de estados** — para máquinas grandes ou com
+- **Biblioteca de máquina de estados**: para máquinas grandes ou com
   persistência.
-- **Condicional** — para dois ou três estados estáveis.
+- **Condicional**: para dois ou três estados estáveis.
 
 ## Trade-offs
 
@@ -157,7 +157,7 @@ referências entre eles fica tão acoplada quanto o condicional que substituiu.
 descobre-se em produção.
 
 **Estado persistido divergindo do código.** O banco tem valores que a máquina
-atual não conhece — o modo de falha mais caro, porque aparece em dados antigos.
+atual não conhece: o modo de falha mais caro, porque aparece em dados antigos.
 
 **Explosão de estados.** Combinações de duas dimensões modeladas como estados
 distintos.
@@ -181,14 +181,14 @@ combinatória; use dois campos.
 **Fluxos de pedido, assinatura e sinistro.** O uso mais comum em sistemas de
 negócio, e onde a auditabilidade da máquina tem valor regulatório.
 
-**Conexões de rede.** Aberta, conectando, conectada, fechando, fechada — com
+**Conexões de rede.** Aberta, conectando, conectada, fechando, fechada, com
 transições que o protocolo define.
 
 **Interfaces de usuário com fluxos por etapas.** Cada etapa habilita ações
 diferentes.
 
 Nos casos de negócio, a razão dominante para adotar o padrão não é organização de
-código — é que alguém precisa **responder por escrito** quais transições são
+código, e sim que alguém precisa **responder por escrito** quais transições são
 possíveis, e essa resposta precisa estar em um lugar.
 
 ## Exemplo Real
@@ -198,14 +198,14 @@ por doze serviços.
 
 O problema que forçou a mudança foi de auditoria, não técnico: o regulador pediu a
 documentação das transições possíveis, e o time levou três semanas para
-reconstruí-la lendo o código — e a versão reconstruída tinha erros.
+reconstruí-la lendo o código, e a versão reconstruída tinha erros.
 
 A extração para máquina de estados explícita, com a tabela de transições em um
 arquivo, tornou a resposta imediata. Um teste passou a gerar o diagrama a partir
 da tabela.
 
 Dois achados apareceram durante a extração. Uma transição existia no código e não
-deveria — um sinistro negado podia voltar a "em análise" por um caminho que
+deveria: um sinistro negado podia voltar a "em análise" por um caminho que
 ninguém conhecia. E duas transições que o negócio esperava não existiam.
 
 O padrão não corrigiu essas coisas. Ele as tornou visíveis, que é o que a
@@ -213,9 +213,9 @@ condição espalhada impedia.
 
 ## Conceitos Relacionados
 
-- [Strategy](/03-design-patterns/strategy.md) — mesma estrutura, escolha externa.
-- [Command](/03-design-patterns/command.md) — encapsular a transição como objeto.
-- [Memento](/03-design-patterns/memento.md) — capturar e restaurar estado.
+- [Strategy](/03-design-patterns/strategy.md): mesma estrutura, escolha externa.
+- [Command](/03-design-patterns/command.md): encapsular a transição como objeto.
+- [Memento](/03-design-patterns/memento.md): capturar e restaurar estado.
 
 ## Exercício Prático
 

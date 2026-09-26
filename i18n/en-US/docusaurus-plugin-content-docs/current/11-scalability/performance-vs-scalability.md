@@ -2,7 +2,7 @@
 id: performance-vs-scalability
 title: Performance versus Scalability
 sidebar_position: 13
-description: Two different properties, measured in different ways — and confusing them directs the effort to the wrong place.
+description: Two different properties, measured in different ways, and confusing them directs the effort to the wrong place.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-capacity-planning, hotspots, horizontal-scaling, latency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -68,7 +68,7 @@ by load level. The average mixes the two regimes.
 
 ### Throughput and latency are not the same thing
 
-**Latency** is the time of one operation — and what matters about it is the distribution, not the
+**Latency** is the time of one operation, and what matters about it is the distribution, not the
 average. See [latency](/06-distributed-systems/latency.md).
 
 **Throughput** is the number of operations per unit of time.
@@ -87,7 +87,7 @@ requests in flight = throughput × average latency
 
 Simple and powerful. Practical conclusions come out of it:
 
-**If the latency doubles and the throughput holds, the number of simultaneous requests doubles** — which
+**If the latency doubles and the throughput holds, the number of simultaneous requests doubles**, which
 means double the connections, the memory, the descriptors. That is why a slowdown in one dependency
 exhausts resources with no apparent relation to it.
 
@@ -118,25 +118,25 @@ return more than doubling the machines.
 
 ### Linear scale is the exception
 
-The ideal — double the resources, double the capacity — rarely happens.
+The ideal (double the resources, double the capacity) rarely happens.
 
 The degradation curve and the saturation point are in [horizontal
 scaling](/11-scalability/horizontal-scaling.md), with the numbers and the efficiency column.
 
 What matters for the distinction in this document is how to read it: each node added delivers less than
 the previous one, and past a certain point delivers less than it costs. Which means **scale is no
-substitute for performance** — from saturation onward, the only way to add capacity is to reduce the work
+substitute for performance**: from saturation onward, the only way to add capacity is to reduce the work
 per operation, and that is optimization.
 
 The degradation comes from coordination and from contention over shared resources. There is a point beyond
 which adding nodes **worsens** the result.
 
-Knowing that point for your system — by measuring, not estimating — is what avoids spending on capacity
+Knowing that point for your system (by measuring, not estimating) is what avoids spending on capacity
 that does not deliver.
 
 ### One execution path has one bottleneck at a time
 
-On a given path, one resource is the limiting one, and optimizing another **does not add capacity** — it
+On a given path, one resource is the limiting one, and optimizing another **does not add capacity**: it
 adds slack to something that already had slack. See [bottleneck
 analysis](/05-system-design/bottleneck-analysis.md).
 
@@ -155,7 +155,7 @@ one partition at 100%, rest idle  → a hotspot
 The fourth line is the most deceptive: the average utilization looks comfortable, and the system is
 saturated. See [hotspots](/11-scalability/hotspots.md).
 
-After removing one bottleneck, the next one appears — somewhere else. That is not a failure of the work; it
+After removing one bottleneck, the next one appears, somewhere else. That is not a failure of the work; it
 is how it works.
 
 ## Mental Model
@@ -197,12 +197,12 @@ linearly for a stretch; what does not exist is the infinite stretch. Know your s
 
 Ways to resolve "it is slow" without adding capacity:
 
-- **An appropriate index** — the most common cause. See [indexing](/07-data-architecture/indexing.md).
-- **A cache** — it reduces repeated work.
-- **Asynchronous processing** — it takes the operation off the critical path. See
+- **An appropriate index**: the most common cause. See [indexing](/07-data-architecture/indexing.md).
+- **A cache**: it reduces repeated work.
+- **Asynchronous processing**: it takes the operation off the critical path. See
   [asynchronous processing](/11-scalability/async-processing.md).
-- **Removing the serial fraction** — the highest return when Amdahl's ceiling has been reached.
-- **Separating workloads** — analytics out of transactional. See [OLTP](/07-data-architecture/oltp.md).
+- **Removing the serial fraction**: the highest return when Amdahl's ceiling has been reached.
+- **Separating workloads**: analytics out of transactional. See [OLTP](/07-data-architecture/oltp.md).
 
 ## Trade-offs
 
@@ -272,7 +272,7 @@ of machines would help. The cause was a query with unnecessary joins and no appr
 ms to 180 ms.
 
 **Booking detail: a scale problem.** Fast on its own, degrades. The cause was the connection pool being
-exhausted — 50 connections, with 45 ms of latency, limiting the throughput to around 1,100 req/s by
+exhausted: 50 connections, with 45 ms of latency, limiting the throughput to around 1,100 req/s by
 Little's law. The peak asked for 1,800. Increasing the pool and reducing the connection hold time resolved
 it.
 
@@ -285,7 +285,7 @@ and the single lock was replaced by a per-resource lock, removing the serial fra
 Result: the three operations came within target in six weeks, with no microservices and with no capacity
 increase.
 
-Six months later, with double the volume, the system stayed within target — which would not have happened
+Six months later, with double the volume, the system stayed within target, which would not have happened
 if the original plan had been executed, because the availability search would be equally slow in any
 architecture.
 
@@ -294,7 +294,7 @@ been assembled from the symptom, with no measurement at all distinguishing the t
 
 ## Related Concepts
 
-- [Hotspots](/11-scalability/hotspots.md) — when the average deceives.
+- [Hotspots](/11-scalability/hotspots.md): when the average deceives.
 - [Horizontal Scaling](/11-scalability/horizontal-scaling.md) and
   [Vertical](/11-scalability/vertical-scaling.md).
 - [Capacity Planning](/11-scalability/scaling-capacity-planning.md).
@@ -305,7 +305,7 @@ been assembled from the symptom, with no measurement at all distinguishing the t
 Take the most complained-about operation in your system and measure the latency with a single user and
 under peak load.
 
-The difference between the two numbers says which problem you have — and it probably contradicts the
+The difference between the two numbers says which problem you have, and it probably contradicts the
 hypothesis the team is working on.
 
 ## Interview Questions
@@ -317,5 +317,5 @@ hypothesis the team is working on.
 ## Further Reading
 
 - Amdahl, Gene. *Validity of the Single Processor Approach*, 1967.
-- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007 — the universal scalability law.
+- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007. The universal scalability law.
 - Gregg, Brendan. *Systems Performance*. 2nd ed. Addison-Wesley, 2020.

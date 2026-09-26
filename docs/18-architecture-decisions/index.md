@@ -13,13 +13,13 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [trade-offs, architecture-governance, legacy-modernization]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
 # Decisões de Arquitetura
 
-Diagramas registram o que o sistema é. ADRs registram por que ele é assim — e
+Diagramas registram o que o sistema é. ADRs registram por que ele é assim, e
 essa é a informação que se perde primeiro.
 
 ## O problema desta seção
@@ -32,7 +32,7 @@ Sem a resposta, restam duas opções ruins. Manter a decisão por medo, sem sabe
 se a razão ainda vale. Ou revertê-la sem saber, e redescobrir a razão original
 por meio de um incidente.
 
-O custo real não é o esquecimento em si — é que a decisão deixa de ser
+O custo real não é o esquecimento em si, e sim que a decisão deixa de ser
 reavaliável. Uma decisão cujo contexto foi registrado pode ser revista quando o
 contexto mudar. Uma decisão sem contexto só pode ser obedecida ou quebrada.
 
@@ -47,7 +47,7 @@ precisa incluir as restrições vigentes no momento; alternativas precisam inclu
 sob que condição cada opção descartada voltaria a ganhar.
 
 **Ciclo de vida.** Status e superação. ADR não é apagado nem editado quando muda
-de ideia — é superado por outro, preservando o histórico do raciocínio.
+de ideia: é superado por outro, preservando o histórico do raciocínio.
 
 **Exemplos realistas.** Cinco ADRs completos de um sistema fictício, escritos
 para demonstrar raciocínio:
@@ -61,17 +61,17 @@ ADR-005  Portas e Adaptadores nos Módulos de Domínio
 ```
 
 Pelo menos um deles aparece com status `superseded`, para mostrar a mecânica de
-superação — que é o que a maior parte dos exemplos de ADR omite.
+superação: o que a maior parte dos exemplos de ADR omite.
 
 **Um conjunto de ADRs didáticos.** Cinco decisões de um sistema fictício, escritas no
-formato que a seção ensina — incluindo uma superada por outra, para mostrar a mecânica
+formato que a seção ensina, incluindo uma superada por outra, para mostrar a mecânica
 de superação.
 
 ## Ordem de leitura
 
 Leia **o que é um ADR** e **por que ADRs importam**, depois a **estrutura**. Em
-seguida, as quatro seções que a estrutura abre — contexto, decisão, alternativas,
-consequências — e o ciclo de vida: status e superação. São capítulos curtos, um
+seguida, as quatro seções que a estrutura abre (contexto, decisão, alternativas,
+consequências) e o ciclo de vida: status e superação. São capítulos curtos, um
 por parte do formato e pelo erro que se comete nela.
 
 Só então os cinco exemplos. ADR é um formato simples; o que se aprende é o padrão
@@ -83,8 +83,8 @@ raciocínio arquitetural fica visível.
 ## Ao terminar
 
 Você escreve um ADR que alguém consegue ler em dois anos e entender não só o que
-foi decidido, mas se a razão ainda vale. Reconhece quando uma decisão merece ADR
-— nem toda merece.
+foi decidido, mas se a razão ainda vale. Reconhece quando uma decisão merece ADR:
+nem toda merece.
 
 E consegue superar uma decisão sua sem apagar o registro de tê-la tomado.
 

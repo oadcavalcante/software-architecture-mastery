@@ -2,7 +2,7 @@
 id: file-integration
 title: File Integration
 sidebar_position: 8
-description: The oldest and most used transport between organizations — and what it requires to be reliable.
+description: The oldest and most used transport between organizations, and what it requires to be reliable.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [batch-integration]
 related: [batch-integration, integration-contracts, data-lifecycle]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,29 +24,29 @@ last_reviewed: 2026-08-31
 Exchanging files is the oldest form of integration between systems, and it remains the most common between
 different organizations.
 
-Banks, carriers, government, insurers, payroll — most corporate volume travels as a file dropped somewhere.
+Banks, carriers, government, insurers, payroll: most corporate volume travels as a file dropped somewhere.
 
 It is underestimated because it looks primitive. It is primitive, and it is the one that demands least of
-the two ends: neither has to expose an endpoint or keep synchronous availability for the other — a transfer
+the two ends: neither has to expose an endpoint or keep synchronous availability for the other. A transfer
 protocol and an agreed format are enough.
 
 ## Problem
 
-Two organizations that cannot — by regulation, by policy, by technological incompatibility — expose APIs to
+Two organizations that cannot (by regulation, by policy, by technological incompatibility) expose APIs to
 each other still need to exchange data.
 
 A file solves it with the least coupling possible: a format, a location, a periodicity. Neither end needs
 to know anything about the other's technology.
 
 The price is that **no guarantee comes with it**. There is no confirmed delivery, no transaction, no
-validated schema, no duplicate detection. All of that has to be built on top of the exchange — and it is
+validated schema, no duplicate detection. All of that has to be built on top of the exchange, and it is
 what separates reliable file integration from a permanent source of incidents.
 
 ## Core Concepts
 
 ### Atomic writing: problem number one
 
-The reader can start reading while the writer is still writing. The result is a half-processed file — and
+The reader can start reading while the writer is still writing. The result is a half-processed file, and
 the half looks complete.
 
 The standard solution is simple:
@@ -57,11 +57,11 @@ The standard solution is simple:
 3. rename to the final name        data.csv
 ```
 
-The rename is atomic when source and target are on the same file system — which is why the temporary file
+The rename is atomic when source and target are on the same file system. That is why the temporary file
 goes in the same directory as the final name. Under that condition, the reader never sees a partial file.
 Across mount points, the rename becomes a copy plus a delete and the window reopens.
 
-The alternative, when the rename is not atomic — network mounts, object storage: a **control file** written afterward, with the reader only
+The alternative, when the rename is not atomic (network mounts, object storage): a **control file** written afterward, with the reader only
 processing when it exists.
 
 It is among the category's most frequent defects, and avoiding it costs one rename.
@@ -98,7 +98,7 @@ The defense is a footer or a control file with the record count and the sum of t
 checks before processing.
 
 That detects whatever changes the count or the summed field: truncation and the line lost in an
-intermediate filter. It does not detect corruption outside the summed field — this document's Real-World
+intermediate filter. It does not detect corruption outside the summed field. This document's Real-World
 Example has a case that ran for three weeks with count and sum matching. For that class, the defense is
 schema and encoding validation on input.
 
@@ -107,14 +107,14 @@ schema and encoding validation on input.
 CSV looks trivial and is not. A delimiter inside the field, a line break inside the field, quoting,
 character encoding, date format, decimal separator.
 
-Each of those has already taken down real integrations. The contract needs to fix all of them explicitly —
+Each of those has already taken down real integrations. The contract needs to fix all of them explicitly,
 including the encoding, which is the most frequent cause of "the accents came out wrong".
 
 Formats with a declared schema avoid most of that, and the other end does not always accept them.
 
 ### Ordering and reprocessing
 
-Files can arrive out of order — a retransmission of yesterday's arriving after today's. The processing
+Files can arrive out of order: a retransmission of yesterday's arriving after today's. The processing
 needs to use the date in the name, not the arrival date.
 
 And reprocessing needs to be possible: keeping the original files, with a defined retention, is what allows
@@ -135,7 +135,7 @@ away for free, here you build.
 ## When to Use
 
 - The organizations cannot expose APIs to each other.
-- The partner only offers this channel — banks, government, carriers.
+- The partner only offers this channel (banks, government, carriers).
 - High volume with a defined periodicity.
 - A regulatory requirement for a file in a specific format.
 - The integration needs to work with no common technological dependency.
@@ -161,11 +161,11 @@ a footer and retention to operate without gaining anything the bus does not give
 
 ## Alternatives
 
-- **[Messaging](/08-integration-architecture/messaging-integration.md)** — internally, or when the partner
+- **[Messaging](/08-integration-architecture/messaging-integration.md)**: internally, or when the partner
   accepts it.
-- **A paginated read API** — the partner fetches instead of receiving; it eliminates delivery and absence.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — to notify individual changes.
-- **Object storage with event notification** — a file as the transport, with an arrival notice. It combines
+- **A paginated read API**: the partner fetches instead of receiving; it eliminates delivery and absence.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: to notify individual changes.
+- **Object storage with event notification**: a file as the transport, with an arrival notice. It combines
   the file's reach with immediate reaction.
 
 The last option is the modern design for whoever controls both sides: the file remains the data, and its
@@ -209,7 +209,7 @@ under a temporary name and renaming at the end eliminates the window.
 the same content, and the effect duplicates.
 
 **Not alerting on absence.** The file that did not arrive generates an error nowhere. The check needs to be
-by expectation — it should have arrived by 6 a.m. and it did not.
+by expectation: it should have arrived by 6 a.m. and it did not.
 
 **Not checking counts and totals.** A truncated transfer produces a syntactically valid file with fewer
 records. Without checking the footer against what was processed, the loss is silent.
@@ -230,7 +230,7 @@ Five categories of incident over three years:
 
 **Partial files.** Twelve of the 40 companies wrote directly under the final name. The overnight processing
 sometimes caught the file half-written. Beneficiaries were left unenrolled, and the discovery came from the
-beneficiary trying to use the plan. Fixed by requiring temporary writing plus rename, or a control file —
+beneficiary trying to use the plan. Fixed by requiring temporary writing plus rename, or a control file,
 whichever the company preferred.
 
 **Duplicate reprocessing.** One company resent the file whenever it was unsure whether it had sent it. With
@@ -242,24 +242,24 @@ thousand beneficiaries were not processed, and nobody knew for 11 days. A footer
 sum came to exist, and the processing came to refuse files that do not match.
 
 **Encoding.** One company changed its source system and started sending in another encoding. Every name
-with an accent was written corrupted for three weeks, with the footer's count and sum matching the whole time — the summed
+with an accent was written corrupted for three weeks, with the footer's count and sum matching the whole time: the summed
 field was the amount, and the amount has no accents. The contract did not fix the encoding; it came to,
 with validation on input.
 
 **Accumulated files.** The directory had three years of files with national ID numbers, names and health
-data of beneficiaries — in plain text, with broad permissions, because nobody had defined retention. Found
+data of beneficiaries, in plain text, with broad permissions, because nobody had defined retention. Found
 in an audit. Encryption at rest, restricted access and 90-day retention came to exist, with encrypted
 archiving for what regulation requires keeping.
 
 In retrospect: none of those fixes is sophisticated. All of them are known file integration mechanics,
 documented for decades. They did not exist because the integration was treated as "a simple thing, it is
-just reading a CSV" — and so it never got designed.
+just reading a CSV". So it never got designed.
 
 ## Related Concepts
 
-- [Batch Integration](/08-integration-architecture/batch-integration.md) — the processing.
-- [Integration Contracts](/08-integration-architecture/integration-contracts.md) — format and periodicity.
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention.
+- [Batch Integration](/08-integration-architecture/batch-integration.md): the processing.
+- [Integration Contracts](/08-integration-architecture/integration-contracts.md): format and periodicity.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): retention.
 - [Idempotency](/06-distributed-systems/idempotency.md).
 
 ## Practical Exercise
@@ -277,6 +277,6 @@ If any is missing, it is an incident that has not happened yet.
 
 ## Further Reading
 
-- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003 — *File Transfer*.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 10.
+- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003. *File Transfer*.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 10.
 - RFC 4180 — the comma-separated values file format.

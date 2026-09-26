@@ -2,7 +2,7 @@
 id: containers
 title: Contêineres
 sidebar_position: 4
-description: Empacotar aplicação e dependências juntas — o que isso resolve de fato, e o que continua sendo seu problema.
+description: "Empacotar aplicação e dependências juntas: o que isso resolve de fato, e o que continua sendo seu problema."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [kubernetes, serverless, cloud-compute]
 canonical_for: [contêiner, imagem de contêiner, camada de imagem]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Um contêiner empacota a aplicação com suas dependências — bibliotecas, binários,
-configuração — num artefato imutável que roda igual em qualquer lugar que tenha o
+Um contêiner empacota a aplicação com suas dependências (bibliotecas, binários,
+configuração) num artefato imutável que roda igual em qualquer lugar que tenha o
 tempo de execução.
 
 Ele não é uma máquina virtual leve. É um processo do sistema operacional
@@ -36,7 +36,7 @@ ambiente, e o ambiente varia entre a máquina do desenvolvedor, o servidor de te
 e a produção.
 
 Versão de biblioteca do sistema, variável de ambiente, caminho de arquivo, versão
-do tempo de execução — qualquer diferença muda o comportamento.
+do tempo de execução: qualquer diferença muda o comportamento.
 
 Contêiner resolve levando o ambiente junto. O artefato que passou nos testes é
 literalmente o mesmo que roda em produção.
@@ -56,7 +56,7 @@ A leveza vem de não replicar o sistema operacional. O custo vem do mesmo lugar:
 falha de isolamento no núcleo atravessa contêineres.
 
 Isso significa que **contêiner não é fronteira de segurança forte**. Para separar
-cargas que não confiam umas nas outras, a fronteira precisa ser outra — máquina
+cargas que não confiam umas nas outras, a fronteira precisa ser outra: máquina
 virtual, ou tempos de execução que adicionam isolamento.
 
 ### A imagem é um empilhamento de camadas
@@ -66,8 +66,8 @@ imagens.
 
 Duas consequências práticas:
 
-**A ordem importa para o cache.** Instruções que mudam raramente — instalar
-dependências — devem vir antes das que mudam sempre — copiar o código. Invertido, a
+**A ordem importa para o cache.** Instruções que mudam raramente (instalar
+dependências) devem vir antes das que mudam sempre (copiar o código). Invertido, a
 reconstrução refaz tudo a cada alteração.
 
 **Nada some de verdade.** Um arquivo apagado numa camada posterior continua na
@@ -86,13 +86,13 @@ Isso é o que dá previsibilidade e o que torna reversão trivial: voltar é rei
 a imagem anterior.
 
 E implica uma regra: **nada de mudança manual dentro do contêiner**. Uma correção
-aplicada com acesso direto some quando o contêiner é recriado a partir da imagem —
-o que o orquestrador faz a cada substituição —, e cria divergência que ninguém
+aplicada com acesso direto some quando o contêiner é recriado a partir da imagem
+(o que o orquestrador faz a cada substituição) e cria divergência que ninguém
 rastreia.
 
 ### Estado precisa sair
 
-Contêineres são efêmeros — podem ser recriados a qualquer momento, em qualquer nó.
+Contêineres são efêmeros: podem ser recriados a qualquer momento, em qualquer nó.
 O sistema de arquivos deles morre junto.
 
 Estado que precisa sobreviver vai para volume externo, banco ou armazenamento de
@@ -105,7 +105,7 @@ perdem. Eles precisam ir para a saída padrão e ser coletados de fora.
 ### Imagem pequena não é estética
 
 Uma imagem baseada num sistema completo carrega centenas de pacotes que a aplicação
-não usa — e cada um é superfície de ataque e ruído para o verificador de
+não usa, e cada um é superfície de ataque e ruído para o verificador de
 vulnerabilidades.
 
 Construção em múltiplos estágios resolve: um estágio compila com todas as
@@ -124,7 +124,7 @@ vulneráveis. Sem reconstrução periódica e verificação, a imagem apodrece.
 **Configuração por ambiente.** Ela entra por variável ou por montagem, e continua
 sendo sua.
 
-**Segredos.** Nunca na imagem — ver acima. Ver
+**Segredos.** Nunca na imagem (ver acima). Ver
 [segurança](/10-security/index.md).
 
 **Limites de recurso.** Sem limite de CPU e memória, um contêiner consome o nó
@@ -156,7 +156,7 @@ consistência de ambiente; segurança e operação continuam sendo trabalho.
 
 **Quando a aplicação exige acesso profundo ao núcleo** ou a hardware específico.
 
-**Para uma aplicação única e estável** numa máquina que ninguém toca — o benefício
+**Para uma aplicação única e estável** numa máquina que ninguém toca: o benefício
 não paga a mudança de ferramental.
 
 **Com imagens que nunca são reconstruídas.** Vira passivo de segurança.
@@ -166,11 +166,11 @@ sistema mal desenhado em contêiner.
 
 ## Alternativas
 
-- **Máquina virtual** — isolamento forte, mais pesado.
-- **Pacote do sistema operacional** — para aplicação única e estável.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a dimensionar,
+- **Máquina virtual**: isolamento forte, mais pesado.
+- **Pacote do sistema operacional**: para aplicação única e estável.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: sem capacidade a dimensionar,
   com restrições de duração e de estado.
-- **Tempos de execução com isolamento reforçado** — quando se quer contêiner com
+- **Tempos de execução com isolamento reforçado**: quando se quer contêiner com
   fronteira de segurança mais próxima da máquina virtual.
 
 ## Trade-offs
@@ -221,7 +221,7 @@ reproduzível. Ver
 ## Exemplo Real
 
 Uma empresa de serviços financeiros migrou 30 aplicações para contêineres. A
-consistência entre ambientes melhorou de imediato — a classe de defeito "funciona em
+consistência entre ambientes melhorou de imediato: a classe de defeito "funciona em
 teste, falha em produção" praticamente desapareceu.
 
 Quatro problemas apareceram na primeira auditoria de segurança, um ano depois:
@@ -240,7 +240,7 @@ disponível havia meses.
 contêiner, por ser o padrão.
 
 **Sem limites.** Nenhuma tinha limite de memória. Um vazamento numa aplicação
-consumiu a memória de um nó e derrubou outras cinco que rodavam nele — um incidente
+consumiu a memória de um nó e derrubou outras cinco que rodavam nele: um incidente
 que tinha acontecido meses antes e sido diagnosticado como "problema de
 infraestrutura".
 
@@ -260,15 +260,15 @@ automatizada que recusa imagens com padrões de segredo.
 
 **Referência por digest** em produção, eliminando a etiqueta móvel.
 
-O que a equipe aprendeu: a migração foi tratada como projeto de empacotamento —
-"colocar em contêiner" — e terminou quando as aplicações rodavam. As práticas acima
+O que a equipe aprendeu: a migração foi tratada como projeto de empacotamento
+("colocar em contêiner") e terminou quando as aplicações rodavam. As práticas acima
 não estavam no escopo porque ninguém as tinha listado como parte de adotar
 contêineres.
 
 ## Conceitos Relacionados
 
-- [Kubernetes](/09-cloud-architecture/kubernetes.md) — a orquestração.
-- [Serverless](/09-cloud-architecture/serverless.md) — o modelo sem capacidade a dimensionar.
+- [Kubernetes](/09-cloud-architecture/kubernetes.md): a orquestração.
+- [Serverless](/09-cloud-architecture/serverless.md): o modelo sem capacidade a dimensionar.
 - [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
 - [Segurança](/10-security/index.md).
 

@@ -2,7 +2,7 @@
 id: cohesion
 title: Coesão
 sidebar_position: 14
-description: O grau em que o que está junto pertence junto — a outra face da decisão de fronteira.
+description: O grau em que o que está junto pertence junto, a outra face da decisão de fronteira.
 doc_type: concept
 level: 1
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [modularity, separation-of-concerns]
 canonical_for: [coesão, cohesion]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -36,7 +36,7 @@ parte diferente dele, e as partes não se comunicam.
 
 O custo aparece de três formas. Quem precisa entender uma parte carrega o resto
 junto. Quem altera uma parte arrisca as outras sem motivo. E o módulo vira
-dependência de todo mundo — porque todos precisam de alguma coisa lá dentro,
+dependência de todo mundo, porque todos precisam de alguma coisa lá dentro,
 mesmo que coisas diferentes.
 
 Módulos chamados `utils`, `helpers`, `common` ou `shared` são a manifestação
@@ -80,14 +80,14 @@ pode até aumentar a contagem de dependências de quem consumia várias coisas d
 o que cai é a exposição a mudanças que não lhe dizem respeito.
 
 Mas a relação não é automática. É possível ter um módulo internamente coeso que
-depende de dez outros — coesão alta e acoplamento eferente alto ao mesmo tempo.
+depende de dez outros: coesão alta e acoplamento eferente alto ao mesmo tempo.
 As duas propriedades se relacionam, não se determinam.
 
 ### Coesão é contextual
 
 O mesmo agrupamento pode ser coeso ou não conforme o sistema. Num sistema
 pequeno, "operações de cliente" é uma tarefa bem definida. Num sistema grande,
-"cliente" se fragmenta em cadastro, crédito, preferências e histórico — que mudam
+"cliente" se fragmenta em cadastro, crédito, preferências e histórico, que mudam
 por razões distintas e não pertencem juntos.
 
 Isso significa que coesão degrada com o crescimento sem que ninguém faça nada
@@ -115,7 +115,7 @@ Aumentar coesão vale quando:
 
 **Quando a divisão resultante produz módulos que sempre mudam juntos.** Aumentar
 coesão fragmentando um módulo em três que nunca mudam separadamente troca um
-problema por outro pior — agora há três lugares a manter em sincronia.
+problema por outro pior: agora há três lugares a manter em sincronia.
 
 **Quando a coesão que falta é aparente, não real.** Um módulo que parece agrupar
 assuntos distintos mas cujas partes compartilham uma invariante de negócio é
@@ -130,10 +130,10 @@ tem custo real e benefício hipotético.
 
 ## Alternativas
 
-- **Renomear em vez de dividir** — quando a coesão existe e o nome não a revela.
-- **Mover elementos em vez de dividir o módulo** — frequentemente um ou dois
+- **Renomear em vez de dividir**: quando a coesão existe e o nome não a revela.
+- **Mover elementos em vez de dividir o módulo**: frequentemente um ou dois
   elementos estão no lugar errado, e o resto está bem.
-- **Aceitar e isolar** — colocar o módulo pouco coeso atrás de uma fachada
+- **Aceitar e isolar**: colocar o módulo pouco coeso atrás de uma fachada
   coesa, quando reorganizá-lo é caro demais.
 
 ## Trade-offs
@@ -174,7 +174,7 @@ conceito ainda não foi identificado.
 pequeno pode ser coincidental. Tamanho é consequência.
 
 **Agrupar por tipo técnico.** Todos os validadores, todos os DTOs, todos os
-mapeadores. Coesão lógica — segundo pior nível da escala — e muito comum por
+mapeadores. Coesão lógica (segundo pior nível da escala) e muito comum por
 parecer organizado.
 
 **Ignorar a degradação.** Coesão não é decidida uma vez. Módulos degradam por
@@ -197,15 +197,15 @@ O módulo virou três: `ClienteCadastro`, `ClienteCredito`, `ClientePreferencias
 O histórico foi absorvido pelo módulo de pedidos, onde o dado já morava.
 
 O detalhe instrutivo: a tentação inicial foi criar cinco módulos, um por assunto
-identificado. Manter cadastro e validação juntos — apesar de parecerem
-separáveis — foi a decisão certa, porque as duas mudam pela mesma razão externa e
+identificado. Manter cadastro e validação juntos, apesar de parecerem
+separáveis, foi a decisão certa, porque as duas mudam pela mesma razão externa e
 separá-las teria criado uma fronteira que toda mudança regulatória atravessaria.
 
 ## Conceitos Relacionados
 
-- [Acoplamento](/01-fundamentals/coupling.md) — a outra face.
-- [Modularidade](/01-fundamentals/modularity.md) — a estrutura resultante.
-- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md) — o princípio que
+- [Acoplamento](/01-fundamentals/coupling.md): a outra face.
+- [Modularidade](/01-fundamentals/modularity.md): a estrutura resultante.
+- [Separação de Responsabilidades](/01-fundamentals/separation-of-concerns.md): o princípio que
   orienta a divisão.
 
 ## Exercício Prático
@@ -225,6 +225,6 @@ juntas historicamente. Os grupos são os módulos que deveriam existir.
 ## Para Aprofundar
 
 - Yourdon, Edward; Constantine, Larry. *Structured Design*. Prentice Hall,
-  1979 — a taxonomia original de coesão.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — princípios de
+  1979. A taxonomia original de coesão.
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Princípios de
   coesão de componentes.

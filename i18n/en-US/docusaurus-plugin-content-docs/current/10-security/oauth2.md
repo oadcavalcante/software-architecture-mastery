@@ -2,7 +2,7 @@
 id: oauth2
 title: OAuth 2.0
 sidebar_position: 2
-description: Access delegation — and why it is not an authentication protocol, despite being used as one.
+description: Access delegation, and why it is not an authentication protocol, despite being used as one.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [oidc, jwt, identity]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -35,8 +35,8 @@ exists.
 
 An accounting application needs to read your invoices from a payments system.
 
-Without OAuth, the options were bad: give the payments system's password to the accounting one — which
-then can do everything, forever — or create a secondary credential, with manual management.
+Without OAuth, the options were bad: give the payments system's password to the accounting one (which
+then can do everything, forever) or create a secondary credential, with manual management.
 
 OAuth solves it with a limited-scope, revocable token, obtained without the password ever touching the
 intermediary application.
@@ -52,7 +52,7 @@ authorization server   who authenticates the owner and issues tokens
 resource server        who holds the protected API
 ```
 
-The separation between the last two is what many implementations collapse — and it is what allows one
+The separation between the last two is what many implementations collapse, and it is what allows one
 authorization server to serve many APIs.
 
 ### The flow that matters today
@@ -69,8 +69,8 @@ Of the original flows, only one is recommended for clients acting on behalf of a
 4. the client exchanges the code for the token, proving it knows the original secret
 ```
 
-Step 4 is the point: the token never travels through the front channel — it does not show up in the redirect
-URL or in the history —, and an intercepted code is useless without the secret. In a public client the token
+Step 4 is the point: the token never travels through the front channel (it does not show up in the redirect
+URL or in the history), and an intercepted code is useless without the secret. In a public client the token
 still reaches the browser or the device; protecting it there is a storage problem, not a flow problem.
 
 **PKCE is no longer optional nor exclusive to mobile applications.** It is recommended for all clients,
@@ -80,7 +80,7 @@ The other original flows are gone: RFC 9700 (2025) says the implicit one should 
 exposed the token in the URL, and forbids the user password one, which hands the password to the client and
 defeats the protocol's purpose.
 
-**Client credentials** remains, and it is the correct flow when there is no user — a service talking to a
+**Client credentials** remains, and it is the correct flow when there is no user: a service talking to a
 service.
 
 ### Scope is coarse, authorization is fine
@@ -118,24 +118,24 @@ refresh  days to months — used only to obtain new access tokens
 The access token's short duration limits the window of a leak, since revoking self-contained tokens is
 difficult. See [JWT](/10-security/jwt.md).
 
-The refresh token needs its own care: for public clients, **rotation** — each use issues a new one and
-invalidates the previous — allows detecting reuse, which indicates theft.
+The refresh token needs its own care: for public clients, **rotation** (each use issues a new one and
+invalidates the previous) allows detecting reuse, which indicates theft.
 
 ### Public and confidential clients
 
-**Confidential.** Able to keep a secret — a server application.
+**Confidential.** Able to keep a secret: a server application.
 
-**Public.** Unable to — a mobile application, a single-page application. Any embedded secret can be
+**Public.** Unable to: a mobile application, a single-page application. Any embedded secret can be
 extracted.
 
-Public clients require PKCE and refresh token rotation. Treating a public client as confidential —
-embedding a secret in the app — is a recurring mistake.
+Public clients require PKCE and refresh token rotation. Treating a public client as confidential
+(embedding a secret in the app) is a recurring mistake.
 
 ### The redirect is the attack point
 
 The parameter saying where to return the code is the most exploited surface.
 
-The defense: **exact comparison** against a registered list. No prefix matching, no wildcards — both allow
+The defense: **exact comparison** against a registered list. No prefix matching, no wildcards: both allow
 redirecting to an attacker-controlled destination on domains that look legitimate.
 
 ## Mental Model
@@ -148,7 +148,7 @@ OpenID Connect.
 - An application needs to access data on a user's behalf.
 - Integration with a third party's API.
 - You expose an API for partner applications.
-- Service-to-service communication with scope — the client credentials flow.
+- Service-to-service communication with scope: the client credentials flow.
 - Mobile and single-page applications accessing your API.
 
 ## When Not to Use
@@ -156,22 +156,22 @@ OpenID Connect.
 **For authentication.** Use [OpenID Connect](/10-security/oidc.md).
 
 **When the client can only operate through the implicit or the password flow.** A legacy client that cannot
-handle authorization code with PKCE gains no security from OAuth — it gains the appearance of it. Adopting the
+handle authorization code with PKCE gains no security from OAuth: it gains the appearance of it. Adopting the
 protocol in that case means adopting the two flows RFC 9700 retired; better to migrate the client first.
 
 **When both ends are yours and there is no third party.** Delegation presupposes someone granting access to
 another party. Between services with the same owner, inside the same trust boundary, the authorization server
-becomes an intermediary with no job — a short-lived internal token or mutual TLS does it with fewer parts.
+becomes an intermediary with no job: a short-lived internal token or mutual TLS does it with fewer parts.
 
 **When an API key solves it.** A server-to-server integration, with no user and no variable scope, does not
-need OAuth — the complexity does not pay off.
+need OAuth: the complexity does not pay off.
 
 ## Alternatives
 
-- **[OpenID Connect](/10-security/oidc.md)** — when the question is identity.
-- **An API key** — a simple integration, with no delegation.
-- **Mutual TLS** — service identity by certificate, with no token.
-- **A short-lived access token issued internally** — when both ends are yours and no third party is
+- **[OpenID Connect](/10-security/oidc.md)**: when the question is identity.
+- **An API key**: a simple integration, with no delegation.
+- **Mutual TLS**: service identity by certificate, with no token.
+- **A short-lived access token issued internally**: when both ends are yours and no third party is
   involved.
 
 ## Trade-offs
@@ -193,7 +193,7 @@ need OAuth — the complexity does not pay off.
 The cost the tables do not show is operational. The authorization server enters the critical path of every
 login and every renewal: if it goes down, no new user gets in and access tokens keep expiring. Signing keys
 need rotation published without breaking the resource servers that validate them, and every client acquires a
-lifecycle — registration, redirect URLs, allowed scopes, deactivation — that someone has to administer. With
+lifecycle (registration, redirect URLs, allowed scopes, deactivation) that someone has to administer. With
 three partners that is a spreadsheet; with three hundred, it is a product.
 
 ## Failure Modes
@@ -217,8 +217,8 @@ three partners that is a spreadsheet; with three hundred, it is a product.
 **Using OAuth as authentication.** Any valid token becomes a login: a token issued for another application
 opens a session for whoever presents it.
 
-**Not using PKCE.** In a public client, the code intercepted at the redirect — by another app registered for
-the same URL scheme, for example — can be exchanged for the token by whoever intercepted it.
+**Not using PKCE.** In a public client, the code intercepted at the redirect (by another app registered for
+the same URL scheme, for example) can be exchanged for the token by whoever intercepted it.
 
 **Loose redirect matching.** An attacker's domain that starts with the partner's name receives codes from
 legitimate users.
@@ -240,11 +240,11 @@ OAuth 2.0.
 Four problems found in a security assessment:
 
 **Prefix-based redirect.** The validation accepted any URL starting with the registered domain. One partner
-had registered `https://partner.com/` — and `https://partner.com.attacker.net/` passed the check. An
+had registered `https://partner.com/`, and `https://partner.com.attacker.net/` passed the check. An
 attacker would be able to receive authorization codes from legitimate users.
 
 **Scope as authorization.** The resource server checked whether the token had `accounts:read` and returned
-the account requested in the URL — without checking whether that account belonged to the token's user. Any
+the account requested in the URL, without checking whether that account belonged to the token's user. Any
 partner authorized by any account holder could read any account, by swapping the identifier.
 
 That one was classified as the most serious, and it had existed for two years.
@@ -266,19 +266,19 @@ token's user and the resource, never from the parameter. See
 
 **Mandatory audience verification** in every service.
 
-**Refresh token rotation**, with reuse detection — which, in the first month, fired three times and
+**Refresh token rotation**, with reuse detection. In the first month, it fired three times and
 revealed two cases of a token extracted from a device.
 
 In retrospect: the most serious problem was not an OAuth problem. The protocol was implemented correctly at
-that point — the mistake was presuming that having a token with the right scope meant being able to access
+that point: the mistake was presuming that having a token with the right scope meant being able to access
 the requested resource.
 
 ## Related Concepts
 
-- [OpenID Connect](/10-security/oidc.md) — the identity layer.
-- [JWT](/10-security/jwt.md) — the token's usual format.
+- [OpenID Connect](/10-security/oidc.md): the identity layer.
+- [JWT](/10-security/jwt.md): the token's usual format.
 - [Identity](/10-security/identity.md).
-- [Authorization Models](/10-security/authz-models.md) — what scope does not solve.
+- [Authorization Models](/10-security/authz-models.md): what scope does not solve.
 
 ## Practical Exercise
 

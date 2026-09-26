@@ -2,7 +2,7 @@
 id: debuggability
 title: Depurabilidade
 sidebar_position: 11
-description: Responder perguntas que ninguém antecipou — a propriedade que se projeta no sistema, não na ferramenta.
+description: "Responder perguntas que ninguém antecipou: a propriedade que se projeta no sistema, não na ferramenta."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, traces, correlation-ids]
 canonical_for: [depurabilidade, pergunta não antecipada, alta cardinalidade, contexto de execução]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -36,7 +36,7 @@ resposta em minutos? Ou só consegue consultar o que já estava previsto?
 A instrumentação típica antecipa perguntas: taxa de erro por serviço, latência por rota,
 uso de recursos.
 
-Essas perguntas cobrem os incidentes previstos — que, por serem previstos, já foram
+Essas perguntas cobrem os incidentes previstos, que, por serem previstos, já foram
 mitigados. Ver [resiliência](/12-reliability/resilience.md).
 
 Os incidentes que causam dano vêm de combinações não antecipadas, e as perguntas que
@@ -71,8 +71,8 @@ Isso significa que a depurabilidade vem de [logs](/13-observability/logs.md) e [
 métricas. Um sistema com métricas excelentes e logs pobres detecta problemas e não os
 investiga.
 
-E não basta que os campos existam: eles precisam ser **consultáveis** — indexados, ou
-num sistema que permita filtrar por eles sem varrer tudo.
+E não basta que os campos existam: eles precisam ser **consultáveis** (indexados, ou
+num sistema que permita filtrar por eles sem varrer tudo).
 
 ### Contexto amplo por evento
 
@@ -90,19 +90,19 @@ como chegou        cliente, versão do aplicativo, origem
 decisões           qual caminho de código, quais regras aplicaram
 ```
 
-Ver [logs](/13-observability/logs.md) — o evento canônico. Trinta ou quarenta campos por evento parece
+Ver [logs](/13-observability/logs.md): o evento canônico. Trinta ou quarenta campos por evento parece
 excessivo até a primeira investigação em que a pergunta certa depende do campo que
 ninguém coletou.
 
 Esse contexto tem preço, e ele escala com o tráfego, não com o número de perguntas: um
 evento de 40 campos ocupa na ordem de 1 a 2 KB, e a mil requisições por segundo isso é
 perto de 130 GB por dia antes de qualquer índice. A ordem de corte importa: primeiro
-amostragem por resultado — preservar todos os erros e execuções lentas, amostrar os sucessos
-—, depois retenção escalonada; cortar campos ou encurtar a retenção quente vem por último,
+amostragem por resultado (preservar todos os erros e execuções lentas, amostrar os sucessos),
+depois retenção escalonada; cortar campos ou encurtar a retenção quente vem por último,
 porque são exatamente os modos de falha abaixo. Ver
-[telemetria](/13-observability/telemetry.md) — o custo de observabilidade e suas alavancas.
+[telemetria](/13-observability/telemetry.md): o custo de observabilidade e suas alavancas.
 
-O critério não é "isto será útil?" — é "isto poderia distinguir esta execução de
+O critério não é "isto será útil?", e sim "isto poderia distinguir esta execução de
 outra?".
 
 ### Explorar sem saber o que procurar
@@ -117,7 +117,7 @@ A investigação de um problema não previsto segue um padrão:
 5. repetir
 ```
 
-Isso exige poder consultar de forma arbitrária — agrupar por qualquer campo, comparar
+Isso exige poder consultar de forma arbitrária: agrupar por qualquer campo, comparar
 grupos, encontrar o que distingue as execuções problemáticas das normais.
 
 Ferramentas que só exibem gráficos pré-configurados não suportam esse ciclo. E o ciclo
@@ -137,7 +137,7 @@ variante de experimento.
 Com eles, a pergunta "isso começou depois da implantação de ontem?" vira uma consulta.
 Sem eles, vira arqueologia.
 
-Ver [painéis](/13-observability/dashboards.md) — anotar implantações resolve a versão visualmente; ter o
+Ver [painéis](/13-observability/dashboards.md): anotar implantações resolve a versão visualmente; ter o
 campo resolve analiticamente.
 
 ### Depurabilidade se projeta, não se compra
@@ -152,8 +152,8 @@ expor estado interno         endpoints de diagnóstico, quando seguro
 marcar erros com precisão    motivo específico, não "falhou"
 ```
 
-O terceiro item é o mais negligenciado: um sistema que toma decisões — escolher uma
-rota, aplicar uma regra, selecionar uma variante — e não registra qual foi tomada é
+O terceiro item é o mais negligenciado: um sistema que toma decisões (escolher uma
+rota, aplicar uma regra, selecionar uma variante) e não registra qual foi tomada é
 opaco por construção.
 
 ### Depurar em produção não é opcional
@@ -183,7 +183,7 @@ da tabela é decisão de quem escreve o código.
 ## Quando Usar
 
 - Sistemas distribuídos com muitas interações.
-- Onde os últimos incidentes exigiram perguntas que nenhum painel existente respondia — o
+- Onde os últimos incidentes exigiram perguntas que nenhum painel existente respondia: o
   sinal de que os não antecipados já são a maioria.
 - Onde o tempo de investigação tem custo.
 - Sistemas com muitos clientes e comportamentos heterogêneos.
@@ -195,7 +195,7 @@ se investiga lendo o log inteiro ou reproduzindo localmente; manter esquema de e
 armazenamento consultável custa mais que as poucas investigações que ele acelera.
 
 **Lote determinístico e reexecutável.** Se a entrada fica preservada e a execução repete o
-resultado, rodar de novo com um depurador responde a pergunta — evento rico por item paga
+resultado, rodar de novo com um depurador responde a pergunta: evento rico por item paga
 armazenamento por uma resposta que a reexecução já dá.
 
 **Caminho quente de volume extremo.** Onde a operação custa microssegundos e ocorre milhões
@@ -210,10 +210,10 @@ controlado ao dado de origem. Ver [proteção de dados](/10-security/data-protec
 
 Não há alternativa — há graus:
 
-- **Correlação mínima** — o mínimo viável, muito melhor que nada.
-- **Evento canônico** — o maior salto de capacidade por esforço.
-- **Rastreamento distribuído** — para estrutura e tempo.
-- **Perfilamento contínuo** — para o tempo dentro do processo.
+- **Correlação mínima**: o mínimo viável, muito melhor que nada.
+- **Evento canônico**: o maior salto de capacidade por esforço.
+- **Rastreamento distribuído**: para estrutura e tempo.
+- **Perfilamento contínuo**: para o tempo dentro do processo.
 
 ## Trade-offs
 
@@ -252,7 +252,7 @@ Não há alternativa — há graus:
 
 **Eventos com poucos campos.** Registrar só identificador e mensagem de erro para conter o
 custo de log: na primeira investigação por segmento não há campo por onde agrupar, e cada
-hipótese vira leitura manual de casos — os três meses do exemplo abaixo.
+hipótese vira leitura manual de casos (os três meses do exemplo abaixo).
 
 **Não registrar versão e configuração.** Contar com o horário da implantação para deduzir a
 versão: com implantação gradual, duas versões convivem por horas, e o horário deixa de separar
@@ -291,7 +291,7 @@ agrupar falhas por provedor de pagamento e moeda
 O problema: assinaturas com moeda diferente da configuração padrão da conta, processadas
 pelo provedor B, falhavam por um erro de arredondamento na conversão.
 
-Isso era 0,3% do total e 100% de um subconjunto específico — invisível em qualquer
+Isso era 0,3% do total e 100% de um subconjunto específico, invisível em qualquer
 agregação que não separasse por provedor e moeda simultaneamente.
 
 Nenhuma métrica com essa combinação existia, e criar todas as combinações possíveis
@@ -300,22 +300,22 @@ teria explodido a cardinalidade. Ver [métricas](/13-observability/metrics.md).
 Dois outros achados vieram da mesma instrumentação, nas semanas seguintes:
 
 **Variante de experimento.** Uma variante ativa em 5% dos usuários causava latência
-elevada — o campo de experimento tornou isso uma consulta.
+elevada. O campo de experimento tornou isso uma consulta.
 
 **Versão de aplicativo.** Uma versão antiga do aplicativo móvel enviava um campo em
 formato diferente, causando falhas silenciosas. O campo de versão do cliente revelou a
 correlação imediatamente.
 
 A lição registrada: três meses de investigação sem resultado, resolvidos em duas
-semanas — não por uma ferramenta nova, mas por o sistema passar a emitir os campos que
+semanas, não por uma ferramenta nova, mas por o sistema passar a emitir os campos que
 distinguem uma execução de outra.
 
 ## Conceitos Relacionados
 
-- [Logs](/13-observability/logs.md) — o evento canônico.
-- [Traces](/13-observability/traces.md) — a estrutura.
+- [Logs](/13-observability/logs.md): o evento canônico.
+- [Traces](/13-observability/traces.md): a estrutura.
 - [Identificadores de Correlação](/13-observability/correlation-ids.md).
-- [Métricas](/13-observability/metrics.md) — o que ela não faz.
+- [Métricas](/13-observability/metrics.md): o que ela não faz.
 
 ## Exercício Prático
 

@@ -2,7 +2,7 @@
 id: modular-design
 title: Design Modular
 sidebar_position: 12
-description: A aplicação prática de modularidade — como dividir um sistema real por capacidade.
+description: "A aplicação prática de modularidade: como dividir um sistema real por capacidade."
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [layering]
 related: [package-design, component-design, boundaries]
 canonical_for: [design modular, módulo de capacidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -59,7 +59,7 @@ Isso reproduz o problema das camadas em outro eixo. Uma mudança em "cliente pod
 ter limite de crédito" toca `Cliente`, `Pedido` e `Faturamento`, porque a
 capacidade *concessão de crédito* está espalhada pelas três entidades.
 
-A divisão que funciona é por **capacidade** — o que o negócio faz — e cada
+A divisão que funciona é por **capacidade** (o que o negócio faz), e cada
 capacidade tem sua própria visão das entidades de que precisa. É a mesma ideia
 que o [DDD estratégico](/04-domain-driven-design/strategic-ddd.md) formaliza como
 bounded context.
@@ -77,7 +77,7 @@ cobranca/
   infra/
 ```
 
-Isso duplica estrutura — cada módulo tem seu `infra`. A duplicação é aceita
+Isso duplica estrutura: cada módulo tem seu `infra`. A duplicação é aceita
 deliberadamente: ela é o preço de a mudança ficar contida.
 
 ### O contrato é estreito e não expõe o interior
@@ -102,7 +102,7 @@ Três formas, em ordem crescente de desacoplamento:
 | Evento de domínio interno | De contrato apenas | O consumidor reage; a origem não precisa saber |
 | Cópia local de dados projetados | Mínimo, com consistência eventual | O consumidor precisa consultar com frequência |
 
-A segunda é a que mais frequentemente resolve, e é a menos usada — times tendem a
+A segunda é a que mais frequentemente resolve, e é a menos usada: times tendem a
 alcançar a chamada direta por hábito.
 
 ## Modelo Mental
@@ -118,7 +118,7 @@ outros, ele não está modular.
 - Em qualquer sistema que passe de algumas dezenas de milhares de linhas.
 - Quando mais de um time trabalha na mesma base.
 - Quando partes evoluem em ritmos diferentes.
-- Antes de considerar microsserviços — o
+- Antes de considerar microsserviços: o
   [monolito modular](/03-design-patterns/modular-monolith.md) é o passo que
   informa onde as fronteiras de fato estão.
 
@@ -140,17 +140,17 @@ entidades tem o custo da divisão e nenhum benefício.
 
 ## Alternativas
 
-- **Pacote plano** — honesto em sistemas pequenos.
-- **Camadas como divisão primária** — quando a variação real é técnica.
-- **Vertical slice por caso de uso** — divisão ainda mais fina, útil em sistemas
+- **Pacote plano**: honesto em sistemas pequenos.
+- **Camadas como divisão primária**: quando a variação real é técnica.
+- **Vertical slice por caso de uso**: divisão ainda mais fina, útil em sistemas
   com muitos casos independentes.
-- **Serviços separados** — quando há requisito de implantação ou escala
+- **Serviços separados**: quando há requisito de implantação ou escala
   independente. Custa muito mais; ver [fronteiras](/02-software-design/boundaries.md).
 
 ## Trade-offs
 
-O eixo geral — mudança contida contra indireção, contratos a manter contra
-nenhum — está em [Modularidade](/01-fundamentals/modularity.md). O que a divisão
+O eixo geral (mudança contida contra indireção, contratos a manter contra
+nenhum) está em [Modularidade](/01-fundamentals/modularity.md). O que a divisão
 por capacidade acrescenta sobre ele:
 
 | Módulos por capacidade | Sem módulos |
@@ -183,18 +183,18 @@ direto.
 **Criar módulos antes de conhecer o domínio.** Ver "quando não usar".
 
 **Achar que módulos exigem microsserviços.** A fronteira de módulo é imposta
-dentro de um processo; o que a separação por processo acrescenta — e o que ela
-cobra — está em
+dentro de um processo; o que a separação por processo acrescenta, e o que ela
+cobra, está em
 [monolito modular](/03-design-patterns/modular-monolith.md).
 
 ## Exemplo Real
 
 Um sistema de logística foi dividido em `Motorista`, `Veiculo`, `Rota` e
-`Entrega` — por entidade.
+`Entrega`, por entidade.
 
 A funcionalidade "reatribuir entrega quando o motorista fica indisponível" tocava
-os quatro módulos. Era a operação mais frequente do negócio — cerca de 400 por dia
-numa frota de 300 veículos — e a única com restrição de latência declarada: o
+os quatro módulos. Era a operação mais frequente do negócio (cerca de 400 por dia
+numa frota de 300 veículos) e a única com restrição de latência declarada: o
 despachante espera a confirmação na tela, com orçamento de um segundo.
 
 A redivisão por capacidade produziu: `planejamento` (quem faz o quê e quando),
@@ -202,7 +202,7 @@ A redivisão por capacidade produziu: `planejamento` (quem faz o quê e quando),
 veículos) e `faturamento`.
 
 A reatribuição passou a caber inteira em `planejamento`, que mantém sua própria
-projeção de disponibilidade de motorista — uma cópia local, atualizada por evento
+projeção de disponibilidade de motorista: uma cópia local, atualizada por evento
 de `cadastro`.
 
 A cópia local incomodou o time no início: era duplicação de dados. O que ela
@@ -232,20 +232,20 @@ a fronteira nova é atravessada antes do fim do trimestre.
 
 **Aceite um módulo `legado` transitório.** O que ainda não foi classificado fica
 lá, explicitamente, com a regra de que ele pode depender dos módulos novos mas
-não o contrário. Isso torna o progresso mensurável — o tamanho de `legado` só
+não o contrário. Isso torna o progresso mensurável: o tamanho de `legado` só
 diminui.
 
 ## Conceitos Relacionados
 
-- [Modularidade](/01-fundamentals/modularity.md) — o conceito e o critério.
-- [Fronteiras](/02-software-design/boundaries.md) — o que separa os módulos.
-- [Design de Pacotes](/02-software-design/package-design.md) — a organização dentro de cada um.
-- [DDD estratégico](/04-domain-driven-design/strategic-ddd.md) — bounded context como
+- [Modularidade](/01-fundamentals/modularity.md): o conceito e o critério.
+- [Fronteiras](/02-software-design/boundaries.md): o que separa os módulos.
+- [Design de Pacotes](/02-software-design/package-design.md): a organização dentro de cada um.
+- [DDD estratégico](/04-domain-driven-design/strategic-ddd.md): bounded context como
   formalização da capacidade.
 
 ## Exercício Prático
 
-Liste as cinco operações mais frequentes do seu sistema — as que o negócio pede
+Liste as cinco operações mais frequentes do seu sistema, as que o negócio pede
 mudança com mais frequência.
 
 Para cada uma, conte quantos módulos de topo ela toca hoje.
@@ -264,5 +264,5 @@ entre as duas divisões apontam onde as fronteiras estão erradas.
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
   Modules*. CACM, 1972.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — medir
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Medir
   fronteiras pelo histórico.

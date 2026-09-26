@@ -2,7 +2,7 @@
 id: data-consistency
 title: Data Consistency
 sidebar_position: 18
-description: The word that means three different things — and how to know which one is being discussed.
+description: The word that means three different things, and how to know which one is being discussed.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transactions]
 related: [data-replication, transactions, data-ownership]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ last_reviewed: 2026-08-31
 "Consistency" is used for three different things, and most of the confusing discussions about the topic
 come from two people using distinct senses.
 
-**Consistency as a constraint.** The model's declared rules hold — the C in ACID.
+**Consistency as a constraint.** The model's declared rules hold: the C in ACID.
 
 **Consistency as isolation.** Concurrent transactions do not interfere with each other.
 
@@ -41,8 +41,8 @@ They are independent problems, with independent solutions. A system can have all
 The question "is this system consistent?" has no answer, because it does not specify which sense.
 
 A single-instance relational database has constraint consistency and whatever isolation the configured
-level delivers — under the [read committed](/07-data-architecture/transactions.md) default, less than
-the name suggests — and the replication one does not apply.
+level delivers (under the [read committed](/07-data-architecture/transactions.md) default, less than
+the name suggests), and the replication one does not apply.
 
 A replicated system can have perfect isolation on each node and show different values depending on the
 node queried.
@@ -55,7 +55,7 @@ Knowing which one is being discussed is the prerequisite for any decision.
 
 ### Constraint: the guarantee that holds for everyone
 
-Foreign key, uniqueness, check, not-null. Declared in the store, they hold for every write — including
+Foreign key, uniqueness, check, not-null. Declared in the store, they hold for every write, including
 correction scripts and integrations nobody remembers.
 
 The characteristic error is implementing those rules only in the application. It works while there is a
@@ -86,7 +86,7 @@ Systems that choose one guarantee for everything either overpay or take too much
 The least discussed case and the most common in practice.
 
 When the order is in one service and the stock in another, no database guarantee covers the relationship
-between them. Coherence has to be built — with [sagas](/06-distributed-systems/sagas.md), with events,
+between them. Coherence has to be built: with [sagas](/06-distributed-systems/sagas.md), with events,
 with reconciliation.
 
 And it has to be **verified**, because every strategy eventually fails.
@@ -99,7 +99,7 @@ should agree and alerts on divergence.
 The sum of the items against the order total. The count in the database against the count in the search
 index. The balance against the sum of the movements.
 
-Without that, the divergence is discovered by the customer, by an audit, or by chance — typically months
+Without that, the divergence is discovered by the customer, by an audit, or by chance, typically months
 later, when fixing it is expensive and the cause has been forgotten.
 
 A reconciliation costs hours to implement and is the difference between detecting in a day and detecting
@@ -159,13 +159,13 @@ decision.
 
 ## Alternatives
 
-- **A local [transaction](/07-data-architecture/transactions.md)** — when the data fits in the same
+- **A local [transaction](/07-data-architecture/transactions.md)**: when the data fits in the same
   store, the guarantee comes for free.
-- **Bringing the data together** — the service boundary may be in the wrong place.
-- **A [saga](/06-distributed-systems/sagas.md) with compensation** — when the operation crosses
+- **Bringing the data together**: the service boundary may be in the wrong place.
+- **A [saga](/06-distributed-systems/sagas.md) with compensation**: when the operation crosses
   distinct services and each step has a reversal defined in business terms.
-- **Periodic reconciliation** — for rare and correctable divergences.
-- **Session guarantees** — they solve the user's perception at a low cost.
+- **Periodic reconciliation**: for rare and correctable divergences.
+- **Session guarantees**: they solve the user's perception at a low cost.
 
 ## Trade-offs
 
@@ -200,7 +200,7 @@ decision.
 ## Common Mistakes
 
 **Not declaring constraints in the store.** Validation only in the application fails when there is more
-than one write path — another service, a migration, a manual correction. The constraint in the database
+than one write path (another service, a migration, a manual correction). The constraint in the database
 is the only one nobody circumvents by accident.
 
 **Having no reconciliation.** Distributed systems diverge through partial failure, and the divergence
@@ -228,14 +228,14 @@ Each one was updated by a different path, and no comparison existed.
 
 Over two years, the divergences accumulated:
 
-**The search index.** 3,400 enrollments did not appear in the search — events lost during deployments.
+**The search index.** 3,400 enrollments did not appear in the search: events lost during deployments.
 Students reported "I cannot find my course", and support reindexed case by case, without investigating
 the cause.
 
 **The per-class count.** It diverged in 8% of classes. Some appeared with available seats while full,
 generating enrollments above the limit.
 
-**Orphan references.** 900 enrollments pointing to deleted classes — there was no foreign key, because
+**Orphan references.** 900 enrollments pointing to deleted classes: there was no foreign key, because
 the table had been created by a migration that omitted it.
 
 None of those was detected by monitoring. They all came from complaints.
@@ -248,20 +248,20 @@ detect in 24 hours what previously took months.
 **A foreign key** declared, after cleaning up the orphans.
 
 **A count computed on demand** for classes near the limit, and the aggregate kept only for approximate
-display — an explicit decision about which number is authoritative.
+display: an explicit decision about which number is authoritative.
 
 **Periodic full reindexing**, accepting that events get lost.
 
 What was recorded afterwards: the discussion that unblocked everything was separating the word's three
 senses. Before that, the meetings alternated between transaction isolation, referential integrity and
-index synchronization as if they were the same problem — and no decision came out.
+index synchronization as if they were the same problem, and no decision came out.
 
 ## Related Concepts
 
-- [Transactions](/07-data-architecture/transactions.md) — the isolation sense.
-- [Data Replication](/07-data-architecture/data-replication.md) — the replication sense.
-- [Consistency](/06-distributed-systems/consistency.md) — the full spectrum.
-- [Data Ownership](/07-data-architecture/data-ownership.md) — who is the authoritative source.
+- [Transactions](/07-data-architecture/transactions.md): the isolation sense.
+- [Data Replication](/07-data-architecture/data-replication.md): the replication sense.
+- [Consistency](/06-distributed-systems/consistency.md): the full spectrum.
+- [Data Ownership](/07-data-architecture/data-ownership.md): who is the authoritative source.
 
 ## Practical Exercise
 
@@ -279,6 +279,6 @@ of your consistency.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapters 5 and 7.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapters 5 and 7.
 - Bailis, Peter et al. *Feral Concurrency Control*. SIGMOD, 2015.
 - Helland, Pat. *Life Beyond Distributed Transactions*. CIDR, 2007.

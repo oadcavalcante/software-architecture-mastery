@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-governance]
 related: [governance-review, fitness-functions-governance, governance-pathologies]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -45,10 +45,10 @@ flow design at organizational scale; here the focus is the mechanism itself.
 
 ## Problem
 
-The degeneration is predictable, and this is one of its most common forms — the catalog of
+The degeneration is predictable, and this is one of its most common forms. The catalog of
 the others is in
 [governance pathologies](/19-architecture-governance/governance-pathologies.md). Someone
-identifies a real problem — six ways of authenticating, four different queues, a security
+identifies a real problem: six ways of authenticating, four different queues, a security
 decision made without context. The institutional response is to create a checkpoint.
 
 ```text
@@ -61,7 +61,7 @@ month 20   nobody can explain what the committee prevents
 
 The committee did not fail out of incompetence. It failed because it intervenes **after**
 the decision has been made, and the only lever left at that point is saying no to work
-already done — which is too expensive to use, and therefore isn't used.
+already done. That is too expensive to use, and therefore isn't used.
 
 And there is a symmetrical and less visible cost: with no mechanism at all, each team
 rediscovers the same lessons, and the expensive ones are rediscovered through incidents.
@@ -77,7 +77,7 @@ full autonomy       high speed, high divergence, high rework
 full coordination   high coherence, low speed, decisions far from the context
 ```
 
-Neither extreme works, and the optimum is not the middle — it varies by **class of
+Neither extreme works, and the optimum is not the middle: it varies by **class of
 decision**. A decision that affects only one team should belong to it; one that fixes a data
 format consumed by twelve systems cannot.
 
@@ -102,10 +102,10 @@ in the audit         someone notices months later
 ```
 
 The options are ordered by increasing cost per decision, and the difference between the
-first two and the rest is not marginal — but effectiveness does not follow that order line by
+first two and the rest is not marginal, but effectiveness does not follow that order line by
 line. The **environment** prevents: what does not go through the control does not
 happen, with the caveats of whatever escapes the proxy. The **template** prevents nothing;
-it makes the right thing the default path, and the residue is measured — in the Real-World
+it makes the right thing the default path, and the residue is measured: in the Real-World
 Example, the 6% of new services that did not go through it. The pipeline costs more than
 the template and actually blocks: that is why the two are complementary, with the check
 catching the residue the default path lets through.
@@ -122,7 +122,7 @@ correct   the error is found and remedied review, audit, incident
 ```
 
 Mature governance has all three, in proportion: most of it prevented, some detected, a small
-fraction corrected. Degenerate governance has almost everything at the third level — which
+fraction corrected. Degenerate governance has almost everything at the third level, which
 is the most expensive and the latest.
 
 See [platform engineering](/14-devops-and-platform/platform-engineering.md): the paved road
@@ -182,7 +182,7 @@ toll in 2026 over a problem that no longer exists.
 ## Mental Model
 
 **Move the intervention as early as possible.** In the limit, governance disappears into
-the platform — and a wrong path that doesn't exist doesn't need inspecting.
+the platform, and a wrong path that doesn't exist doesn't need inspecting.
 
 ## When to Use
 
@@ -217,11 +217,11 @@ problem that justified them has gone.
 
 ## Alternatives
 
-- **A platform and templates** — governance built in, with no process.
-- **[Fitness functions](/19-architecture-governance/fitness-functions-governance.md)** —
+- **A platform and templates**: governance built in, with no process.
+- **[Fitness functions](/19-architecture-governance/fitness-functions-governance.md)**:
   continuous, automatic verification.
-- **A community of practice** — coherence through voluntary convergence, with no authority.
-- **Nothing, with records** — only ADRs, letting the coherence emerge.
+- **A community of practice**: coherence through voluntary convergence, with no authority.
+- **Nothing, with records**: only ADRs, letting the coherence emerge.
 
 The first is almost always superior where applicable, and the third works better than
 expected in organizations with a strong technical culture.
@@ -262,7 +262,7 @@ becomes a queue, and the queue starts receiving work that is already implemented
 **Not asking what the earliest intervention point would be.** The objective ends up pursued
 in review, where it costs attention on every decision, when it could live in the template.
 
-**Confusing governance with authority** — the mechanism is the means, not the power. When the
+**Confusing governance with authority**: the mechanism is the means, not the power. When the
 veto becomes the product, teams stop consulting and start working around it.
 
 **Not measuring the friction** the mechanism introduces.
@@ -307,7 +307,7 @@ build. See
 
 **The committee abolished**, replaced by two mechanisms:
 
-- **Voluntary consultation**, with no queue and no approval — any team can request an hour
+- **Voluntary consultation**, with no queue and no approval: any team can request an hour
   with two architects, early, while the design is still malleable.
 - **Mandatory review only for three classes**: decisions that fix a data format consumed by
   others, decisions with regulatory implications, and irreversible cost decisions above a
@@ -337,11 +337,11 @@ take.
 
 ## Related Concepts
 
-- [Enterprise Governance](/15-enterprise-architecture/enterprise-governance.md) — the flow
+- [Enterprise Governance](/15-enterprise-architecture/enterprise-governance.md): the flow
   at scale.
-- [Fitness Functions](/19-architecture-governance/fitness-functions-governance.md) — the
+- [Fitness Functions](/19-architecture-governance/fitness-functions-governance.md): the
   automated intervention.
-- [Pathologies](/19-architecture-governance/governance-pathologies.md) — the modes of
+- [Pathologies](/19-architecture-governance/governance-pathologies.md): the modes of
   degeneration.
 - [Platform Engineering](/14-devops-and-platform/platform-engineering.md).
 

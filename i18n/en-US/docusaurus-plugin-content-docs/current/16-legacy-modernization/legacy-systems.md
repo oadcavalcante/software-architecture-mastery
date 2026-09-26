@@ -2,7 +2,7 @@
 id: legacy-systems
 title: Legacy Systems
 sidebar_position: 1
-description: The useful definition — and why old code is rarely the real problem.
+description: The useful definition, and why old code is rarely the real problem.
 doc_type: foundation
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-drivers, legacy-refactoring, organizational-constraints]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -25,8 +25,8 @@ The most useful definition of a legacy system mentions neither age nor technolog
 
 **A legacy system is a system the organization is afraid to change.**
 
-The fear has concrete causes — no tests, lost knowledge, coupling, no environment to
-verify in — and each one has a different treatment.
+The fear has concrete causes (no tests, lost knowledge, coupling, no environment to
+verify in), and each one has a different treatment.
 
 A twenty-year-old system with good test coverage and a team that knows it is not legacy
 in this sense. A two-year-old system, written by someone who left, with no tests, is.
@@ -48,7 +48,7 @@ problem. See
 
 And there is a framing cost: calling a system legacy is a judgment that affects the
 people who maintain it. It devalues work that sustains the business, and produces the
-predictable effect — nobody wants to work there, which aggravates exactly the knowledge
+predictable effect: nobody wants to work there, which aggravates exactly the knowledge
 problem.
 
 ## Core Concepts
@@ -65,7 +65,7 @@ obsolete dependencies  upgrading is a project in itself
 ```
 
 Note that only the last has anything to do with age. The other five can exist in recent
-systems — and they do, with uncomfortable frequency.
+systems, and they do, with uncomfortable frequency.
 
 ### The embedded knowledge is the most underestimated asset
 
@@ -78,7 +78,7 @@ workarounds for partner system behavior
 business rules that changed and left a trace
 ```
 
-That knowledge is in no document. It is in the code — frequently in the form of
+That knowledge is in no document. It is in the code, frequently in the form of
 conditionals that look arbitrary.
 
 It is the main reason rewrites fail: the new system is built from what people believe the
@@ -94,7 +94,7 @@ The technique that reduces the fear before any change is the characterization te
 defined in
 [legacy refactoring](/16-legacy-modernization/legacy-refactoring.md). What matters here is
 only its effect on the fear: it freezes the behavior that exists, and so makes it possible
-to touch the code without fully understanding it — which is the real situation.
+to touch the code without fully understanding it, which is the real situation.
 
 And tests written that way document: they are the executable description of what the
 system does, produced from it.
@@ -106,13 +106,13 @@ transactions, serve customers, generate revenue.
 
 That has two practical implications:
 
-**The risk of touching it is real.** It is not conservatism — it is that the system does
+**The risk of touching it is real.** It is not conservatism. The system does
 something important, and breaking it has consequences.
 
 **The value is locked in there.** Years of refinement, of fixes, of learning. Discarding
 that is discarding the investment.
 
-See [modernization drivers](/16-legacy-modernization/modernization-drivers.md) — the decision to touch it has to
+See [modernization drivers](/16-legacy-modernization/modernization-drivers.md): the decision to touch it has to
 outweigh that value.
 
 ### Not every legacy system needs to be dealt with
@@ -127,7 +127,7 @@ a system that needs to change and resists → that's the problem
 A legacy system that serves well and does not change can go on that way for as long as
 its dependencies are supported: end of support and vulnerability fixes are changes that
 arrive on someone else's clock, not on the business's demand.
-What it needs is containment — isolation so that it does not limit what is around it —
+What it needs is containment (isolation so that it does not limit what is around it)
 and a plan for the people risk.
 
 ## Common Mistakes
@@ -150,7 +150,7 @@ knowledge problem.
 An insurer had a claims calculation system written in 1998, pointed to internally as the
 example of legacy to replace.
 
-Before approving the replacement, a team spent six weeks on archaeology — reading the
+Before approving the replacement, a team spent six weeks on archaeology: reading the
 code, interviewing whoever maintained it, and writing characterization tests.
 
 What they found:
@@ -162,8 +162,8 @@ active support.
 at the company. Nothing was documented.
 
 **The rules were far more complex than assumed.** The characterization tests captured 340
-behavioral cases. The specification that existed — written for an earlier, abandoned
-replacement project — described about 90.
+behavioral cases. The specification that existed (written for an earlier, abandoned
+replacement project) described about 90.
 
 The other 250 were two decades of accumulation: regulatory exceptions, agreements with
 reinsurers, fixes for cases that turned up in audits.
@@ -174,7 +174,7 @@ conditional, with no comment.
 
 The decision changed:
 
-**Replacement deferred.** The original motive — "it's legacy" — did not hold up.
+**Replacement deferred.** The original motive, "it's legacy", did not hold up.
 
 **Characterization tests kept** as a permanent asset, integrated into the pipeline. They
 became the system's executable documentation.
@@ -185,19 +185,19 @@ year, using the tests as material.
 **Incremental refactoring** where change was frequent, with the tests providing safety.
 
 Two years later, the system is still in production. It is no longer called legacy
-internally — not because it changed technology, but because the organization stopped
+internally, not because it changed technology, but because the organization stopped
 being afraid to touch it.
 
 What was recorded afterwards: the six weeks of archaeology cost a fraction of the
 replacement project, and revealed that the project would solve the wrong problem. The
-rounding rule, on its own, would have been lost in a rewrite — and would have produced a
+rounding rule, on its own, would have been lost in a rewrite, and would have produced a
 legal liability.
 
 ## Related Concepts
 
-- [Modernization Drivers](/16-legacy-modernization/modernization-drivers.md) — when to touch it.
-- [Legacy Refactoring](/16-legacy-modernization/legacy-refactoring.md) — characterization tests.
-- [Rebuilding](/16-legacy-modernization/rebuilding.md) — the risk of lost knowledge.
+- [Modernization Drivers](/16-legacy-modernization/modernization-drivers.md): when to touch it.
+- [Legacy Refactoring](/16-legacy-modernization/legacy-refactoring.md): characterization tests.
+- [Rebuilding](/16-legacy-modernization/rebuilding.md): the risk of lost knowledge.
 - [Organizational Constraints](/16-legacy-modernization/organizational-constraints.md).
 
 ## Practical Exercise
@@ -211,7 +211,7 @@ Each cause has a different treatment, and most are cheaper than replacing.
 
 - What is the useful definition of a legacy system?
 - Why is embedded knowledge the most underestimated asset?
-- When is a legacy system not a problem to be dealt with — and what takes that status away from it?
+- When is a legacy system not a problem to be dealt with, and what takes that status away from it?
 
 ## Further Reading
 

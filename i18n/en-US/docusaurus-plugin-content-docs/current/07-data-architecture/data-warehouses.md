@@ -2,7 +2,7 @@
 id: data-warehouses
 title: Data Warehouses
 sidebar_position: 9
-description: Data from several sources, modeled for analysis — and the cost of maintaining the transformation.
+description: Data from several sources, modeled for analysis, and the cost of maintaining the transformation.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-lakes, column-stores, denormalization]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,15 +28,15 @@ The key word is **multiple**. If there is a single source, a replica or
 [columnar](/07-data-architecture/column-stores.md) storage solves it with no complexity.
 
 What the warehouse adds is the integration: cross-referencing sales from the commercial system, costs
-from finance and support from the help desk — systems that do not know each other and name the same
-things differently.
+from finance and support from the help desk (systems that do not know each other and name the same
+things differently).
 
 ## Problem
 
 Each operational system has its vocabulary, its key and its granularity. The commercial system's
 "customer" is not the same record as finance's "customer".
 
-Answering "what is the margin by customer segment" requires reconciling that — deciding what a customer
+Answering "what is the margin by customer segment" requires reconciling that: deciding what a customer
 is, which identifier holds, what to do when the registrations diverge.
 
 That reconciliation work is the warehouse. The technology is the easy part.
@@ -60,7 +60,7 @@ fact_sales           dimensions
 The model is deliberately [denormalized](/07-data-architecture/denormalization.md): the product
 dimension repeats category and brand instead of referencing them.
 
-That avoids chained joins and makes the queries readable to non-specialists — which is half the purpose.
+That avoids chained joins and makes the queries readable to non-specialists, which is half the purpose.
 
 ### The fact's granularity is irreversible
 
@@ -69,7 +69,7 @@ The most important modeling decision: what does each row of the fact table repre
 A sale? A sale item? A daily total per store?
 
 Fine granularity allows aggregating in any way. Coarse granularity is cheaper and **discards the
-possibility** of more detailed questions — permanently, because the detail was not kept.
+possibility** of more detailed questions, permanently, because the detail was not kept.
 
 The rule: record at the finest granularity the volume allows. Aggregating later is always possible;
 disaggregating never is.
@@ -78,7 +78,7 @@ disaggregating never is.
 
 A customer changes segment. Should the old sales appear in the old segment or the current one?
 
-**Overwrite.** Simple, and it rewrites history — old reports change.
+**Overwrite.** Simple, and it rewrites history: old reports change.
 
 **Version.** A new row in the dimension, with a validity period. The fact points to the version in
 effect at the time. It preserves the history and complicates the load.
@@ -90,7 +90,7 @@ report changed".
 
 ### The load has to be idempotent
 
-Load processes fail midway and are re-run. If the re-run inserts the facts again, the numbers double —
+Load processes fail midway and are re-run. If the re-run inserts the facts again, the numbers double,
 with no error, no alert.
 
 The pattern that works: deleting the period's partition and reloading, instead of inserting
@@ -118,7 +118,7 @@ both correct according to distinct definitions.
 
 ### The real cost is the transformation
 
-The storage technology is a commodity. What costs is writing and maintaining the transformations — and
+The storage technology is a commodity. What costs is writing and maintaining the transformations, and
 every source change that alters a field, type or rule the transformation consumes breaks it.
 
 A warehouse with dozens of sources has a constant stream of maintenance. Budgeting the project without
@@ -155,11 +155,11 @@ indexes and minutes of response time are acceptable, the cost of loading and mod
 
 ## Alternatives
 
-- **Read replica** — when there is one source.
-- **[Columnar](/07-data-architecture/column-stores.md) directly** — with no integration layer.
-- **[Data lake](/07-data-architecture/data-lakes.md)** — for raw data and exploration.
-- **[Lakehouse](/07-data-architecture/data-lakehouses.md)** — the combination.
-- **Federated queries** — querying the sources where they are, without moving them; it avoids the load
+- **Read replica**: when there is one source.
+- **[Columnar](/07-data-architecture/column-stores.md) directly**: with no integration layer.
+- **[Data lake](/07-data-architecture/data-lakes.md)**: for raw data and exploration.
+- **[Lakehouse](/07-data-architecture/data-lakehouses.md)**: the combination.
+- **Federated queries**: querying the sources where they are, without moving them; it avoids the load
   at the cost of performance and of load on the source systems.
 
 ## Trade-offs
@@ -199,7 +199,7 @@ indexes and minutes of response time are acceptable, the cost of loading and mod
 read replica solves it, with no modeling and no load cost.
 
 **A non-idempotent load.** Re-running the day's load is a routine operation after a failure. If it adds
-instead of replacing, the reprocessing duplicates the numbers — and the error is discovered by the
+instead of replacing, the reprocessing duplicates the numbers, and the error is discovered by the
 report.
 
 **Not deciding the strategy for changing dimensions.** When a customer changes region, the old orders
@@ -207,7 +207,7 @@ start counting in the new region if the dimension is overwritten. It is the diff
 and current "sales by region", and nobody notices until the comparison with last year does not match.
 
 **Aggregating too early.** Keeping only the daily total prevents any question by hour or by segment
-later — and the data that would produce the answer has already been discarded.
+later, and the data that would produce the answer has already been discarded.
 
 **Not publishing definitions.** With no written definition of "active customer", each area computes its
 own, and the meeting discusses whose number it is instead of discussing what it shows.
@@ -221,8 +221,8 @@ A pharmacy chain built a warehouse integrating point of sale, stock, finance and
 
 It worked well for two years and the trust collapsed in one week.
 
-The commercial director and the finance director presented different revenue numbers for the same quarter
-— a 4% difference. Both came from the warehouse.
+The commercial director and the finance director presented different revenue numbers for the same quarter:
+a 4% difference. Both came from the warehouse.
 
 The investigation traced the 4% to the first cause below and, along the way, found two more defects
 that distorted the numbers in both reports:
@@ -238,7 +238,7 @@ twice.
 
 The fixes:
 
-**A published glossary** with definitions approved by the business, and a certified metrics layer —
+**A published glossary** with definitions approved by the business, and a certified metrics layer:
 official reports can only use those definitions.
 
 **Versioning in the store dimension**, allowing viewing a sale in the region at the time or the current
@@ -254,15 +254,15 @@ come back, and for a long time the areas kept parallel spreadsheets "to check".
 
 ## Related Concepts
 
-- [OLAP](/07-data-architecture/olap.md) — the workload.
-- [Columnar](/07-data-architecture/column-stores.md) — the typical storage.
+- [OLAP](/07-data-architecture/olap.md): the workload.
+- [Columnar](/07-data-architecture/column-stores.md): the typical storage.
 - [Data Lake](/07-data-architecture/data-lakes.md) and
   [Lakehouse](/07-data-architecture/data-lakehouses.md).
-- [Denormalization](/07-data-architecture/denormalization.md) — the model.
+- [Denormalization](/07-data-architecture/denormalization.md): the model.
 
 ## Practical Exercise
 
-Take two similar metrics used by different areas — revenue, active customers. Ask whoever uses them for
+Take two similar metrics used by different areas (revenue, active customers). Ask whoever uses them for
 each one's exact definition.
 
 If the definitions differ and nobody knew, you have found the next divergent-numbers discussion before it

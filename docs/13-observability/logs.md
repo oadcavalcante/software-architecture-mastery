@@ -2,7 +2,7 @@
 id: logs
 title: Logs
 sidebar_position: 1
-description: O sinal mais flexível e o mais caro — estruturado, com contexto, e amostrado quando preciso.
+description: "O sinal mais flexível e o mais caro: estruturado, com contexto, e amostrado quando preciso."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, traces, correlation-ids]
 canonical_for: [log estruturado, nível de log, amostragem de log, evento canônico]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-28
 
 Logs são registros de eventos discretos: algo aconteceu, aqui está o contexto.
 
-São o sinal mais **flexível** — cabem qualquer informação, e permitem responder
-perguntas que ninguém antecipou. E o mais **caro** — o volume cresce com o tráfego, e o
+São o sinal mais **flexível**: cabem qualquer informação, e permitem responder
+perguntas que ninguém antecipou. E o mais **caro**: o volume cresce com o tráfego, e o
 custo de armazenamento e consulta acompanha.
 
 A tensão entre essas duas propriedades organiza todas as decisões desta área.
@@ -53,8 +53,8 @@ estruturado  {"nivel":"error","evento":"pedido_falhou","pedido_id":"4471",
               "duracao_ms":234}
 ```
 
-A diferença não é estética. O estruturado permite consultar por campo — todos os erros
-de estoque insuficiente do cliente 892 na última hora — sem depender de expressões
+A diferença não é estética. O estruturado permite consultar por campo (todos os erros
+de estoque insuficiente do cliente 892 na última hora) sem depender de expressões
 regulares sobre texto livre.
 
 E ele sobrevive a mudanças: adicionar um campo não quebra consultas existentes;
@@ -77,7 +77,7 @@ canônico    1 linha com: correlação, usuário, rota, resultado, duração tot
             versão do código, instância
 ```
 
-O volume cai por uma ordem de grandeza, e a capacidade de investigação **aumenta** —
+O volume cai por uma ordem de grandeza, e a capacidade de investigação **aumenta**,
 porque cada linha responde sozinha à pergunta "o que aconteceu nesta requisição?", sem
 precisar reunir fragmentos.
 
@@ -121,7 +121,7 @@ polui a métrica de erros e treina o time a ignorá-la.
 **Debug ligado em produção.** Volume explode, custo explode, e o sinal se perde.
 
 A prática que funciona: debug ligável **por requisição** ou por usuário, sem
-reimplantação — o que permite investigar um caso específico sem pagar pelo volume
+reimplantação, o que permite investigar um caso específico sem pagar pelo volume
 completo.
 
 ### Nunca registre dado sensível
@@ -137,7 +137,7 @@ cuidado  nome, e-mail, endereço, dados de saúde
 Ver [proteção de dados](/10-security/data-protection.md) e
 [segredos](/10-security/secrets.md).
 
-A filtragem precisa acontecer **na origem** — na biblioteca de registro, não no
+A filtragem precisa acontecer **na origem**: na biblioteca de registro, não no
 processamento posterior. Um dado que saiu do processo já vazou.
 
 E o caso mais comum: registrar o corpo completo de requisições com erro. É conveniente
@@ -150,7 +150,7 @@ consulta.
 
 As formas de controlar, em ordem de preferência:
 
-**Evento canônico** em vez de linhas dispersas — reduz volume sem perder informação.
+**Evento canônico** em vez de linhas dispersas: reduz volume sem perder informação.
 
 **Amostragem inteligente.** Registrar 100% dos erros e das requisições lentas, e uma
 fração das bem-sucedidas rápidas. Preserva o que interessa.
@@ -160,7 +160,7 @@ fração das bem-sucedidas rápidas. Preserva o que interessa.
 **Cardinalidade sob controle.** Um campo com milhões de valores distintos encarece a
 indexação.
 
-Para quem investiga falhas, a amostragem uniforme — registrar 10% de tudo — é a pior
+Para quem investiga falhas, a amostragem uniforme (registrar 10% de tudo) é a pior
 escolha: ela remove proporcionalmente os erros, que são raros e é o que se quer investigar.
 
 ## Modelo Mental
@@ -178,7 +178,7 @@ mais que trinta linhas com um campo cada.
 
 ## Quando Não Usar
 
-**Para medir tendência.** Use [métricas](/13-observability/metrics.md) — contar linhas de log é caro e
+**Para medir tendência.** Use [métricas](/13-observability/metrics.md): contar linhas de log é caro e
 impreciso.
 
 **Para medir latência agregada.** Métricas fazem isso melhor.
@@ -194,11 +194,11 @@ histograma por lote; log só para o item que falhou.
 
 ## Alternativas
 
-- **[Métricas](/13-observability/metrics.md)** — para agregação e tendência, com custo constante.
-- **[Traces](/13-observability/traces.md)** — para entender o caminho e o tempo de uma requisição.
-- **Evento de auditoria** — quando o requisito é prova, não diagnóstico. Ver
+- **[Métricas](/13-observability/metrics.md)**: para agregação e tendência, com custo constante.
+- **[Traces](/13-observability/traces.md)**: para entender o caminho e o tempo de uma requisição.
+- **Evento de auditoria**: quando o requisito é prova, não diagnóstico. Ver
   [auditabilidade](/10-security/auditability.md).
-- **[Amostragem por cauda](/13-observability/distributed-tracing.md)** — em log, sai quase
+- **[Amostragem por cauda](/13-observability/distributed-tracing.md)**: em log, sai quase
   de graça quando o registro é um evento canônico: a linha só é emitida no fim, já com o
   resultado, sem o buffer de spans que a técnica exige em traces.
 
@@ -241,24 +241,24 @@ expiraram.
 
 **Não usar evento canônico.** Vinte linhas espalhadas por requisição obrigam a reconstruir o que aconteceu. Uma linha larga por requisição, com tudo que importa, responde a maioria das perguntas sozinha.
 
-**Registrar sem motivo estruturado.** Sem campo de causa, agrupar falhas por motivo exige interpretar mensagem — e a mensagem muda quando alguém edita o texto.
+**Registrar sem motivo estruturado.** Sem campo de causa, agrupar falhas por motivo exige interpretar mensagem, e a mensagem muda quando alguém edita o texto.
 
 **Não filtrar dado sensível na origem.** Uma vez enviado, o dado está no sistema de logs pelo tempo de retenção, com acesso mais amplo que o do sistema de origem. Filtrar depois não desfaz.
 
-**Amostrar uniformemente.** Amostragem uniforme descarta erros na mesma proporção que sucessos — e são os erros que se quer investigar. Erro merece amostragem integral.
+**Amostrar uniformemente.** Amostragem uniforme descarta erros na mesma proporção que sucessos, e são os erros que se quer investigar. Erro merece amostragem integral.
 
 **Usar logs para medir tendência.** Contar linhas para saber a taxa de erro é caro e impreciso. Log responde sobre um caso; métrica responde sobre o conjunto.
 
 ## Exemplo Real
 
 Uma plataforma de comércio eletrônico gastava uma fração significativa do orçamento de
-infraestrutura em logs — o segundo maior item da conta.
+infraestrutura em logs: o segundo maior item da conta.
 
 O volume era de bilhões de linhas por dia, e as consultas durante incidentes levavam
 minutos.
 
 A análise mostrou o padrão: cada requisição gerava entre 15 e 40 linhas, a maioria de
-progresso — "iniciando", "etapa concluída", "chamando serviço X".
+progresso ("iniciando", "etapa concluída", "chamando serviço X").
 
 A reformulação:
 
@@ -284,19 +284,19 @@ passou a acontecer na biblioteca, com lista de campos permitidos em vez de bloqu
 
 **Retenção escalonada.** 14 dias consultáveis, 1 ano em armazenamento frio.
 
-Resultado: custo de logs reduzido em cerca de 85% — menos que o volume, porque agentes de
-coleta, pipeline e um ano de armazenamento frio não encolhem com as linhas —, e tempo médio de consulta durante
+Resultado: custo de logs reduzido em cerca de 85% (menos que o volume, porque agentes de
+coleta, pipeline e um ano de armazenamento frio não encolhem com as linhas), e tempo médio de consulta durante
 investigação de 4 minutos para 15 segundos.
 
 Na retrospectiva: a expectativa era ter que escolher entre custo e capacidade de
-investigação. O evento canônico melhorou os dois — porque o problema não era volume de
+investigação. O evento canônico melhorou os dois, porque o problema não era volume de
 informação, era volume de linhas com pouca informação cada.
 
 ## Conceitos Relacionados
 
-- [Métricas](/13-observability/metrics.md) — para tendência.
-- [Traces](/13-observability/traces.md) — para o caminho.
-- [Identificadores de Correlação](/13-observability/correlation-ids.md) — o que conecta.
+- [Métricas](/13-observability/metrics.md): para tendência.
+- [Traces](/13-observability/traces.md): para o caminho.
+- [Identificadores de Correlação](/13-observability/correlation-ids.md): o que conecta.
 - [Depurabilidade](/13-observability/debuggability.md).
 
 ## Exercício Prático
@@ -314,7 +314,7 @@ consegue entender o que aconteceu?
 
 ## Para Aprofundar
 
-- Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022 — eventos
+- Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022. Eventos
   canônicos.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
 - OpenTelemetry — especificação de logs.

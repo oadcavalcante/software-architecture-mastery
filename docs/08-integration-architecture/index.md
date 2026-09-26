@@ -2,7 +2,7 @@
 id: integration-architecture
 title: Arquitetura de Integração
 sidebar_position: 0
-description: Como sistemas conversam através de fronteiras — e por que o contrato importa mais que o protocolo.
+description: Como sistemas conversam através de fronteiras, e por que o contrato importa mais que o protocolo.
 doc_type: index
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-systems]
 related: [data-architecture, cloud-architecture, system-design]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -31,7 +31,7 @@ O problema difícil é o **contrato**: o que uma ponta promete à outra, quem po
 mudar o quê, e o que acontece quando alguém muda. Uma integração morre por
 contrato quebrado, não por escolha de protocolo.
 
-O segundo problema difícil é o **acoplamento**. Toda integração acopla — a
+O segundo problema difícil é o **acoplamento**. Toda integração acopla. A
 questão é acoplar em quê. Em disponibilidade? Em formato de dado? Em modelo de
 domínio? Em ritmo de implantação?
 
@@ -42,7 +42,7 @@ a decisão, e ela é anterior à tecnologia.
 
 **Os estilos síncronos.** REST, GraphQL e gRPC, comparados pelo que cada um
 assume sobre quem consome. GraphQL recebe atenção específica ao que ele
-transfere de custo do cliente para o servidor — que é a parte omitida na
+transfere de custo do cliente para o servidor. É a parte omitida na
 comparação usual.
 
 **Os estilos assíncronos.** Integração por mensageria e por eventos, apoiadas em
@@ -51,14 +51,14 @@ como o que são: uma integração assíncrona em que a outra ponta é um servido
 que você não controla.
 
 **Os estilos que ninguém apresenta em conferência.** Integração em lote e por
-arquivo — que movem, hoje, mais dados corporativos que todo o resto somado, e
+arquivo, que movem, hoje, mais dados corporativos que todo o resto somado, e
 que continuam sendo a resposta certa para uma classe grande de problemas.
 
 **A infraestrutura de comunicação.** API gateways, na borda por onde o tráfego
-entra, e service mesh, no tráfego entre serviços — com a pergunta que precede as
+entra, e service mesh, no tráfego entre serviços, com a pergunta que precede as
 duas: qual problema concreto isso resolve que já não está resolvido?
 
-**Os padrões clássicos.** Enterprise Integration Patterns — o vocabulário que
+**Os padrões clássicos.** Enterprise Integration Patterns: o vocabulário que
 descreve o que roteadores, tradutores e agregadores fazem, e que continua válido
 independentemente da tecnologia da moda.
 
@@ -76,7 +76,7 @@ Os estilos podem ser lidos em qualquer ordem, conforme a necessidade. Se você
 está decidindo agora, leia o par que está considerando e vá direto aos
 trade-offs.
 
-Deixe **service mesh** por último, e leia com ceticismo — é a tecnologia desta
+Deixe **service mesh** por último, e leia com ceticismo: é a tecnologia desta
 seção com a maior distância entre adoção e necessidade.
 
 ## Ao terminar
@@ -86,7 +86,7 @@ acoplamento: o que cada ponta precisa saber sobre a outra, e o que acontece
 quando uma muda.
 
 Consegue projetar um contrato que permite evoluir sem coordenar implantações, e
-reconhece quando uma integração está acoplando modelo de domínio — o acoplamento
+reconhece quando uma integração está acoplando modelo de domínio: o acoplamento
 menos visível, e o mais caro quando o modelo do fornecedor é estranho ao seu e a
 troca é plausível.
 

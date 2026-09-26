@@ -13,13 +13,13 @@ objective: >
 prerequisites: []
 related: [i18n-terminology]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
 # Glossary
 
-Operational definitions — what a term means when someone has to decide with it,
+Operational definitions: what a term means when someone has to decide with it,
 not the dictionary entry.
 
 Where two terms are frequently confused, the distinction is stated.
@@ -38,7 +38,7 @@ model from leaking into yours.
 
 **Availability** — The fraction of time a system responds within the stated
 criterion. Expressed as a percentage over a window; without the window and without
-the criterion, the number means nothing — which is why a system can count as
+the criterion, the number means nothing. That is why a system can count as
 available while returning a wrong result.
 
 ## B
@@ -61,7 +61,7 @@ down the rest. The name comes from the watertight compartments of a ship.
 
 **CAP** — The result stating that, during a network partition, a distributed
 system cannot be simultaneously consistent and available. It concerns behaviour
-**during** the partition only — it is often cited as though it were a permanent
+**during** the partition only. It is often cited as though it were a permanent
 choice among the three letters, which it is not.
 
 **Circuit breaker** — A component that stops calls to a failing service, keeping
@@ -77,7 +77,7 @@ that change together should be coupled.
 
 **CQRS** — Separation between the model used for writing and the one used for
 reading. It solves the case where the two have incompatible requirements. The cost
-of synchronization appears when writes and reads go to separate stores — not
+of synchronization appears when writes and reads go to separate stores, not
 before that.
 
 ## D
@@ -107,14 +107,14 @@ still holds. It turns architectural intent into a test.
 
 **Idempotency** — The property of an operation whose effect is the same whether it
 runs once or many times. It is what makes it safe to repeat a call whose outcome
-you do not know — and therefore the basis of nearly all recovery in distributed
+you do not know, and therefore the basis of nearly all recovery in distributed
 systems.
 
 ## L
 
 **Latency** — The time between request and response. An experience requirement is
 stated in percentiles, because the average hides the tail users feel; the average
-is for sizing — it is what Little's law needs.
+is for sizing: it is what Little's law needs.
 
 ## M
 
@@ -175,7 +175,7 @@ hotspot.
 **SLA** — Service Level Agreement. A contractual commitment about service level,
 with commercial consequences. It is a business decision.
 
-**SLI** — Service Level Indicator. The metric itself — for example, the fraction of
+**SLI** — Service Level Indicator. The metric itself: for example, the fraction of
 requests answered under 300 ms.
 
 **SLO** — Service Level Objective. The internal target on an SLI. It is an
@@ -186,7 +186,7 @@ progressively intercepts traffic from the old one until the old one can be shut
 down.
 
 **Strong consistency** — The guarantee that every read observes the most recent
-write. It costs latency even without a network partition — see PACELC.
+write. It costs latency even without a network partition (see PACELC).
 
 ## T
 

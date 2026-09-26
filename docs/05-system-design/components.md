@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-decomposition]
 related: [services, apis, service-boundaries]
 canonical_for: [componente de sistema]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Um componente é uma parte do sistema com responsabilidade definida, interface
 explícita e ciclo de vida próprio.
 
 Descrever um sistema por seus componentes é o vocabulário mais usado em design de
-sistemas — e o mais frequentemente vago, porque "componente" é usado para coisas
+sistemas, e o mais frequentemente vago, porque "componente" é usado para coisas
 de escalas muito diferentes.
 
 ## Problema
@@ -34,7 +34,7 @@ Diagramas de arquitetura mostram caixas com nomes. O que uma caixa significa var
 enormemente: um processo, uma biblioteca, um módulo, um serviço gerenciado, um
 banco de dados.
 
-Sem definir o que cada caixa é, o diagrama comunica menos do que parece — e
+Sem definir o que cada caixa é, o diagrama comunica menos do que parece, e
 decisões importantes ficam invisíveis. Duas caixas ligadas por uma seta podem ser
 uma chamada de função ou uma requisição de rede entre continentes, e a diferença é
 tudo.
@@ -55,7 +55,7 @@ Um componente cujas quatro respostas não estão claras não está projetado.
 O critério mais útil: **um componente é dono de um conjunto de dados e das
 decisões sobre eles.**
 
-Se dois componentes escrevem na mesma tabela, eles não são dois — são um, dividido
+Se dois componentes escrevem na mesma tabela, eles não são dois: são um, dividido
 em dois lugares, com o acoplamento escondido no banco.
 
 Essa é a regra que mais separa uma decomposição real de uma nominal. Ver
@@ -75,7 +75,7 @@ ele:
 | Serviço gerenciado | Rede | O anterior, mais dependência de fornecedor |
 | Armazenamento | Protocolo próprio | Latência, consistência |
 
-Um diagrama que não distingue esses tipos esconde o custo de cada ligação — que é
+Um diagrama que não distingue esses tipos esconde o custo de cada ligação. Esse custo é
 o que decide latência e modo de falha.
 
 ### Componente sem estado é mais simples em tudo
@@ -93,7 +93,7 @@ As quatro perguntas têm um teste operacional que as resume: **é possível troc
 implementação deste componente sem tocar em nenhum outro?**
 
 Se a resposta é sim, a fronteira é real. Se é não, o desenho tem mais caixas que
-componentes — e o custo aparece na primeira troca, quando uma substituição
+componentes, e o custo aparece na primeira troca, quando uma substituição
 anunciada como local vira uma mudança em quatro lugares.
 
 O teste é útil porque falha barato. Trocar um componente de verdade é raro, mas
@@ -111,8 +111,8 @@ não existe em produção.
 Bancos, caches, filas e gateways são componentes do sistema, com propriedade,
 interface, dependência e modo de falha próprios.
 
-Omiti-los do desenho — ou desenhá-los como caixas genéricas sem decisão associada
-— esconde onde estão os gargalos e os pontos de falha.
+Omiti-los do desenho (ou desenhá-los como caixas genéricas sem decisão associada)
+esconde onde estão os gargalos e os pontos de falha.
 
 ## Modelo Mental
 
@@ -139,11 +139,11 @@ a mesma aparência esconde o que importa.
 
 ## Alternativas
 
-- **Modelo C4** — níveis de zoom com semântica definida por nível. Ver
+- **Modelo C4**: níveis de zoom com semântica definida por nível. Ver
   [documentação de arquitetura](/17-architecture-documentation/index.md).
-- **Diagrama de sequência** — quando a pergunta é sobre comportamento no tempo,
+- **Diagrama de sequência**: quando a pergunta é sobre comportamento no tempo,
   não sobre estrutura.
-- **Diagrama de implantação** — quando a pergunta é onde as coisas rodam.
+- **Diagrama de implantação**: quando a pergunta é onde as coisas rodam.
 
 ## Trade-offs
 
@@ -164,7 +164,7 @@ ele.
 
 **Componente invisível no desenho.** Bancos e filas omitidos escondem os gargalos.
 
-**Tipo não declarado.** Chamada de rede parecendo chamada local — o mesmo problema
+**Tipo não declarado.** Chamada de rede parecendo chamada local: o mesmo problema
 que [Proxy](/03-design-patterns/proxy.md) introduz.
 
 **Componente sem modo de falha definido.** Ninguém sabe o que acontece quando ele
@@ -194,13 +194,13 @@ tabela de ocupação. Não eram dois componentes.
 
 `Notificacoes` não tinha resposta para a quarta: ninguém sabia o que acontecia se
 ela caísse. Descobriu-se que a chamada era síncrona dentro da transação de
-reserva — a indisponibilidade do serviço de e-mail impedia reservas.
+reserva: a indisponibilidade do serviço de e-mail impedia reservas.
 
 E o banco não aparecia no desenho, embora fosse compartilhado por três das cinco
-caixas — o que tornava a independência delas ficção.
+caixas. Isso tornava a independência delas ficção.
 
-O desenho refeito tinha cinco componentes — quatro de aplicação e o banco, que
-passou a aparecer com suas fronteiras de propriedade —, com o tipo de cada um
+O desenho refeito tinha cinco componentes (quatro de aplicação e o banco, que
+passou a aparecer com suas fronteiras de propriedade), com o tipo de cada um
 declarado e a notificação movida para fora do fluxo transacional.
 
 Nada de código mudou nessa etapa. O que mudou foi que três problemas estruturais
@@ -216,16 +216,16 @@ rótulo de seta e escopo declarado, em
 
 O específico de componentes é o critério de parada: desça enquanto cada caixa ainda
 responder às quatro perguntas, e pare aí. Uma caixa que não é dona de dados nem tem
-modo de falha próprio já é detalhe de implementação — e é ela que obriga a redesenhar
+modo de falha próprio já é detalhe de implementação, e é ela que obriga a redesenhar
 todo mês. Os níveis de contêiner e componente do
 [modelo C4](/17-architecture-documentation/c4-model.md) marcam essa fronteira.
 
 ## Conceitos Relacionados
 
-- [Decomposição](/05-system-design/system-decomposition.md) — como as partes surgem.
-- [Serviços](/05-system-design/services.md) — componentes com processo próprio.
-- [APIs](/05-system-design/apis.md) — o contrato entre eles.
-- [Design de Componentes](/02-software-design/component-design.md) — quando
+- [Decomposição](/05-system-design/system-decomposition.md): como as partes surgem.
+- [Serviços](/05-system-design/services.md): componentes com processo próprio.
+- [APIs](/05-system-design/apis.md): o contrato entre eles.
+- [Design de Componentes](/02-software-design/component-design.md): quando
   promover a implantável.
 
 ## Exercício Prático
@@ -244,6 +244,6 @@ onde a próxima surpresa vai aparecer.
 
 ## Para Aprofundar
 
-- Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015 — o modelo C4.
+- Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015. O modelo C4.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4ª ed., 2021.

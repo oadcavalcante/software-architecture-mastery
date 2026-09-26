@@ -2,7 +2,7 @@
 id: rest
 title: REST
 sidebar_position: 1
-description: The default synchronous integration style — what it actually proposes, and what almost everyone calls REST without it being so.
+description: "The default synchronous integration style: what it actually proposes, and what almost everyone calls REST without it being so."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [graphql, grpc, integration-contracts]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,11 +24,11 @@ last_reviewed: 2026-08-31
 REST is an architectural style based on **resources** identified by URL, manipulated through a fixed set
 of verbs, with semantics defined by HTTP itself.
 
-Almost no API called REST is REST in the original sense — most are "HTTP with JSON", which is legitimate
+Almost no API called REST is REST in the original sense: most are "HTTP with JSON", which is legitimate
 and is not the same thing.
 
 The distinction matters less as purity and more for what you lose by ignoring it: caching, idempotency,
-uniform error handling and evolution — all of which the protocol already offers, for free, to whoever uses
+uniform error handling and evolution, all of which the protocol already offers, for free, to whoever uses
 its semantics.
 
 ## Problem
@@ -42,8 +42,8 @@ POST /cancelOrder
 ```
 
 That works, and throws away what the protocol gives. Everything is a `POST`, so no real intermediary caches
-the response, and nothing is safe to retry. Errors become a `200` with a `success: false` field, so no intermediary — proxy, gateway,
-client — understands what happened.
+the response, and nothing is safe to retry. Errors become a `200` with a `success: false` field, so no intermediary (proxy, gateway,
+client) understands what happened.
 
 The result is an API that has to reimplement, in its own convention, things HTTP already solves.
 
@@ -63,11 +63,11 @@ POST   /orders              create
 
 The guiding question: if this were a document, what would its address be?
 
-Actions that do not fit a noun — cancel, approve, reprocess — usually reveal a hidden resource.
+Actions that do not fit a noun (cancel, approve, reprocess) usually reveal a hidden resource.
 "Cancel order" can be `POST /orders/123/cancellation`: the cancellation is a thing, with a date, a reason
 and an author.
 
-That is not word play. A cancellation as a resource has identity, can be queried and audited — which the
+That is not word play. A cancellation as a resource has identity, can be queried and audited, which the
 `POST /cancelOrder` operation does not.
 
 ### Safety and idempotency come from the verb
@@ -109,7 +109,7 @@ that decision away from the caller, and forces every client to reimplement the c
 In the original REST, the response carries links to the next possible actions, and the client navigates
 them instead of constructing URLs.
 
-The promise is decoupling the client from the address structure and communicating state transitions — a
+The promise is decoupling the client from the address structure and communicating state transitions: a
 paid order carries a refund link; a pending one does not.
 
 Adoption is very low, and it is worth being honest about why: most clients are written against a
@@ -123,7 +123,7 @@ Where it pays: long-lived public APIs, with many clients the provider does not c
 See [schema evolution](/08-integration-architecture/schema-evolution.md). Adding a field is free; adding
 a resource is free. Most of an HTTP API's evolution fits in a compatible change.
 
-Versioning in the URL is the most common and most visible form — and each live version is code to
+Versioning in the URL is the most common and most visible form, and each live version is code to
 maintain.
 
 ### Pagination, filtering and sorting are contract
@@ -131,7 +131,7 @@ maintain.
 Large collections need pagination; the choice between offset and cursor, and what each one costs, is in
 [pagination](/05-system-design/pagination.md).
 
-What is specific to an HTTP API: whichever strategy it is, it has to be in the contract — including the
+What is specific to an HTTP API: whichever strategy it is, it has to be in the contract, including the
 maximum limit, the guaranteed ordering and what happens when you ask for more.
 
 ## Mental Model
@@ -169,14 +169,14 @@ millions of records or gigabytes per run: walking it page by page takes longer t
 and a failure midway has no clear resume point.
 
 **When the operation is not about a resource.** Forcing a noun onto computations and complex searches
-produces tortured modeling — there an operation endpoint is more honest.
+produces tortured modeling. There an operation endpoint is more honest.
 
 ## Alternatives
 
-- **[GraphQL](/08-integration-architecture/graphql.md)** — when consumption is variable.
-- **[gRPC](/08-integration-architecture/grpc.md)** — internal, high frequency, strong contract.
-- **[Messaging](/08-integration-architecture/messaging-integration.md)** — asynchronous.
-- **[Webhooks](/08-integration-architecture/webhooks.md)** — to notify instead of being polled.
+- **[GraphQL](/08-integration-architecture/graphql.md)**: when consumption is variable.
+- **[gRPC](/08-integration-architecture/grpc.md)**: internal, high frequency, strong contract.
+- **[Messaging](/08-integration-architecture/messaging-integration.md)**: asynchronous.
+- **[Webhooks](/08-integration-architecture/webhooks.md)**: to notify instead of being polled.
 
 ## Trade-offs
 
@@ -207,7 +207,7 @@ produces tortured modeling — there an operation endpoint is more honest.
 
 **A collection with no pagination.** One query returns everything and takes both sides down.
 
-**A sequence of calls in a loop.** The client makes N requests to assemble one screen — the problem that
+**A sequence of calls in a loop.** The client makes N requests to assemble one screen: the problem that
 motivates [GraphQL](/08-integration-architecture/graphql.md).
 
 ## Common Mistakes
@@ -224,8 +224,8 @@ second record, and deduplication becomes manual work.
 **Versioning by reflex.** Each new version is one more surface to maintain and to retire, created for a
 change that would have fit in compatible evolution.
 
-**Pagination outside the contract.** The client comes to depend on observed behavior — default page
-size, implicit ordering — and breaks when the server imposes a limit that did not exist before.
+**Pagination outside the contract.** The client comes to depend on observed behavior (default page
+size, implicit ordering) and breaks when the server imposes a limit that did not exist before.
 
 **Exposing the internal database model as a resource.** The resource is part of the public contract; the
 internal model has to be able to change.
@@ -241,7 +241,7 @@ Four consequences, all discovered separately:
 `POST` with no idempotency key, each retry created a new shipment. About 300 duplicated shipments per
 month, handled manually by support.
 
-**No caching.** The shipment status lookup was the most called endpoint — 40% of the traffic — and no cache
+**No caching.** The shipment status lookup was the most called endpoint (40% of the traffic), and no cache
 along the path would keep it, because it was a `POST`. The database absorbed everything.
 
 **Error classification in the application.** Each of the eleven clients had its own logic to decide
@@ -249,7 +249,7 @@ whether the text in the `error` field was retryable. Three were wrong, and retri
 permanent errors.
 
 **A useless gateway.** The gateway could only separate reads from writes for rate limiting by enumerating
-the 40 paths one by one; it could not cache nor report error rates — because everything was a `POST` with
+the 40 paths one by one; it could not cache nor report error rates, because everything was a `POST` with
 a `200`.
 
 The migration was done in parallel, with the old API kept for fourteen months.
@@ -268,7 +268,7 @@ that existed only to compensate for a protocol guarantee that was being wasted.
 
 ## Related Concepts
 
-- [GraphQL](/08-integration-architecture/graphql.md) and [gRPC](/08-integration-architecture/grpc.md) —
+- [GraphQL](/08-integration-architecture/graphql.md) and [gRPC](/08-integration-architecture/grpc.md):
   the synchronous alternatives.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
 - [Idempotency](/06-distributed-systems/idempotency.md).
@@ -278,7 +278,7 @@ that existed only to compensate for a protocol guarantee that was being wasted.
 
 Take your team's API and count how many endpoints are `POST`. For each one, ask: does this change state?
 
-The ones that do not should be `GET`, except the search too complex to fit in the URL — the When Not to
+The ones that do not should be `GET`, except the search too complex to fit in the URL: the When Not to
 Use case where an operation endpoint is more honest. Each of the rest is caching and safe retries you are
 leaving on the table.
 

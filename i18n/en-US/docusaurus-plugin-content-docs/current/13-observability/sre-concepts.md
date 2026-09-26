@@ -2,7 +2,7 @@
 id: sre-concepts
 title: SRE Concepts
 sidebar_position: 9
-description: The vocabulary and practices that organize operations at scale — and what is lost by adopting only the name.
+description: The vocabulary and practices that organize operations at scale, and what is lost by adopting only the name.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [slo, alerting, resilience]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Site reliability engineering is an approach to operations that treats reliability as a software engineering
 problem, not a systems administration one.
 
-It brought a set of practices and a vocabulary that spread widely — [SLO](/12-reliability/slo.md), the
+It brought a set of practices and a vocabulary that spread widely: [SLO](/12-reliability/slo.md), the
 error budget, blameless incident analysis, reducing toil.
 
 And what also spread was the pattern of adopting the **name** without the practices: renaming the
@@ -32,7 +32,7 @@ operations team to SRE and continuing to operate the same way.
 
 ## Problem
 
-SRE's practices were born in a specific context — very large scale, dedicated engineering teams, systems
+SRE's practices were born in a specific context: very large scale, dedicated engineering teams, systems
 with thousands of machines.
 
 Not everything transfers. Some practices require scale; others require organizational autonomy the company
@@ -69,7 +69,7 @@ sophisticated automation      the return depends on repetition at volume
 ```
 
 At a company with thirty engineers, a separate SRE team usually creates the division the approach wanted to
-eliminate — those who build and those who operate.
+eliminate: those who build and those who operate.
 
 There, the model that works is the team that builds operating what it builds, with SRE practices applied by
 itself.
@@ -89,7 +89,7 @@ grows with the service  more traffic, more of that work
 Not all operational work is toil in that sense: investigating a new incident requires judgment and produces
 learning.
 
-The criterion the practice establishes — limiting toil to a fraction of the time, typically half — exists
+The criterion the practice establishes (limiting toil to a fraction of the time, typically half) exists
 because it grows naturally until it consumes all the available time, and then there is no capacity left to
 eliminate it.
 
@@ -99,7 +99,7 @@ Measuring the fraction is the first step, and it usually reveals uncomfortable n
 
 The practice is frequently misunderstood. It is not about being kind.
 
-It is about **obtaining information**: if people fear consequences, they omit — and the analysis comes out
+It is about **obtaining information**: if people fear consequences, they omit, and the analysis comes out
 wrong, producing fixes that do not attack the cause.
 
 What characterizes an analysis that works:
@@ -113,7 +113,7 @@ published                 the learning belongs to the organization
 ```
 
 The first line is the test: an analysis concluding "the engineer made a mistake" explains nothing. Every
-mistake seemed reasonable to whoever made it, with the information they had — and understanding why is what
+mistake seemed reasonable to whoever made it, with the information they had, and understanding why is what
 allows changing the system.
 
 ### On-call needs to be sustainable
@@ -160,7 +160,7 @@ require context you may not have.
 **Renaming the team without changing the practices.** The name promises engineering over work
 that stays manual, and the frustration lands on the renamed team.
 
-**A separate SRE team** in a small organization — at around thirty engineers, it recreates the
+**A separate SRE team** in a small organization: at around thirty engineers, it recreates the
 division between those who build and those who operate.
 
 **Adopting every practice** regardless of the context. The ones that depend on scale become
@@ -175,10 +175,10 @@ instead of showing up as a problem, until it turns into turnover.
 
 ## Alternatives
 
-- **The team that builds operates what it builds** — the model appropriate to most organizations.
-- **An internal platform** — it reduces every team's operational work without creating a division. See
+- **The team that builds operates what it builds**: the model appropriate to most organizations.
+- **An internal platform**: it reduces every team's operational work without creating a division. See
   [DevOps and platform](/14-devops-and-platform/index.md).
-- **Partial adoption** — the five practices that transfer, with none of the structure.
+- **Partial adoption**: the five practices that transfer, with none of the structure.
 
 ## Trade-offs
 
@@ -211,7 +211,7 @@ instead of showing up as a problem, until it turns into turnover.
 ## Common Mistakes
 
 **Adopting the vocabulary without the decisions.** The team starts talking about error budgets,
-but nothing changes when one runs out — and the vocabulary loses credibility for the next attempt.
+but nothing changes when one runs out, and the vocabulary loses credibility for the next attempt.
 
 **Creating a separate team prematurely.** Below the volume that justifies specialization, the team
 becomes a deployment bottleneck and the product teams stop caring about operations.
@@ -236,7 +236,7 @@ Eighteen months later, the result was the opposite of what was intended:
 
 **The SRE team became a bottleneck.** Every deployment and every infrastructure change went through it.
 
-**The division came back.** The product teams stopped worrying about operations — "that is SRE's" —, and
+**The division came back.** The product teams stopped worrying about operations ("that is SRE's"), and
 the operational quality of what was built got worse.
 
 **Toil dominated.** An informal measurement indicated that around 80% of the team's time was repetitive
@@ -248,7 +248,7 @@ The reformulation abandoned the structure and started applying the practices it 
 
 **Each team operates what it builds**, with its own on-call.
 
-**The platform team** — what remained of SRE, with two people and later four — came to build tools, not
+**The platform team** (what remained of SRE, with two people and later four) came to build tools, not
 operate services: pipelines, standardized telemetry, generated dashboards, procedures.
 
 **SLOs per service**, defined with product, with an agreed freeze rule.
@@ -265,14 +265,14 @@ In the following twelve months, nighttime pages fell 70%, and the platform team'
 
 The point the team underlines: the practices were never the problem; the structure, wrong for the
 company's size, kept them from being applied. And the team attributes most of the drop in pages to the last
-change — allocated time to fix —, because
+change (allocated time to fix), because
 it closed the loop between being woken and eliminating the cause.
 
 ## Related Concepts
 
-- [SLO](/12-reliability/slo.md) — the central mechanism.
-- [Alerting](/13-observability/alerting.md) — sustainable on-call.
-- [Resilience](/12-reliability/resilience.md) — the learning.
+- [SLO](/12-reliability/slo.md): the central mechanism.
+- [Alerting](/13-observability/alerting.md): sustainable on-call.
+- [Resilience](/12-reliability/resilience.md): the learning.
 - [DevOps and Platform](/14-devops-and-platform/index.md).
 
 ## Practical Exercise
@@ -280,7 +280,7 @@ it closed the loop between being woken and eliminating the cause.
 Measure the fraction of your team's time spent on repetitive, automatable work with no lasting value, over
 two weeks.
 
-If it exceeds half, there is no capacity to eliminate it — and it is going to grow.
+If it exceeds half, there is no capacity to eliminate it, and it is going to grow.
 
 ## Interview Questions
 

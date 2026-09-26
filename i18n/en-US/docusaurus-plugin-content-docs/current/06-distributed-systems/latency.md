@@ -2,7 +2,7 @@
 id: latency
 title: Latency
 sidebar_position: 4
-description: The time between asking and receiving — and why the average hides exactly what matters.
+description: The time between asking and receiving, and why the average hides exactly what matters.
 doc_type: concept
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [timeouts, network-failure, bottleneck-analysis]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ and **in a chain of calls, the tail dominates**.
 The standard way to report latency is the average, and it is almost always the wrong metric.
 
 A system with a 200 ms average can have 5% of requests above 3 seconds. Those 5% are real users,
-and the average never reveals them — because the latency distribution is not symmetric. It has a
+and the average never reveals them, because the latency distribution is not symmetric. It has a
 long right tail, produced by network retransmission, garbage collection, cold caches, contention
 and all the irregularities of a real system.
 
@@ -53,14 +53,14 @@ p999 = 4,200 ms   ← 1 in 1,000
 The p50 and the p99 of the same system usually differ by an order of magnitude.
 
 Which percentile to monitor depends on the volume. With a million requests per day, the p999 is a
-thousand requests — enough people to generate complaints.
+thousand requests: enough people to generate complaints.
 
-And percentiles **do not add up**. A chain's p99 is not the sum of each link's p99 — you have to
+And percentiles **do not add up**. A chain's p99 is not the sum of each link's p99: you have to
 measure end to end.
 
 For the same reason, **you cannot average percentiles**. The average of ten instances' p99s, or of
 each minute's p99 to get the hour's, is not the percentile of anything. Aggregating requires keeping
-the distribution — a histogram that sums across instances and windows — and computing the
+the distribution (a histogram that sums across instances and windows) and computing the
 percentile only at the end.
 
 ### The tail dominates in a chain
@@ -92,7 +92,7 @@ than reducing the average in systems with many calls.
 | Round trip between regions, same continent | ~30 ms |
 | Intercontinental round trip | ~150 ms |
 
-The last line is physics — the speed of light in fiber gives about 200 km/ms, and the path is
+The last line is physics: the speed of light in fiber gives about 200 km/ms, and the path is
 never straight. No code optimization compensates for distance, and that is why
 [CDNs](/05-system-design/cdn.md) and multi-region exist.
 
@@ -102,7 +102,7 @@ A resource responds stably up to about 70% utilization and degrades rapidly afte
 queue wait time grows non-linearly as utilization approaches 100%. The mechanism, with Little's
 law, is in [performance versus scalability](/11-scalability/performance-vs-scalability.md).
 
-The practical consequence: a system that responds well at 60% load can become unusable at 90% —
+The practical consequence: a system that responds well at 60% load can become unusable at 90%,
 not because something broke, but because the queue grew.
 
 ### Variable latency is worse than high latency
@@ -144,15 +144,15 @@ reduces the average latency and worsens the high percentile.
 
 To reduce perceived latency, when optimizing is not enough:
 
-- **Cache** — avoid the operation. See
+- **Cache**: avoid the operation. See
   [caching](/05-system-design/caching.md).
-- **Proximity** — a CDN, a regional replica.
-- **Asynchronous** — respond before completing. See
+- **Proximity**: a CDN, a regional replica.
+- **Asynchronous**: respond before completing. See
   [request/response](/05-system-design/request-response.md).
-- **Hedged request** — send the same request to two replicas and use the first response. It
+- **Hedged request**: send the same request to two replicas and use the first response. It
   reduces the tail at the cost of duplicated work: double the load if the second always goes out,
   about 5% if it only goes out once the first passes the p95.
-- **Degrade** — serve a partial response instead of waiting for the slow one.
+- **Degrade**: serve a partial response instead of waiting for the slow one.
 
 ## Trade-offs
 
@@ -210,13 +210,13 @@ End-to-end measurement, from the client's side, showed another reality: a 180 ms
 a 2.4 s p99.
 
 The cause is arithmetic. With six parallel calls at an 800 ms p99, the chance that none falls in
-the high percentile is `0.99⁶ ≈ 0.94` — that is, **6% of the pages had at least one slow call**,
+the high percentile is `0.99⁶ ≈ 0.94`, that is, **6% of the pages had at least one slow call**,
 and the whole page waited for it.
 
 Two fixes.
 
-Three of the six services were enrichment — reviews, recommendations, history. They got their own
-200 ms deadline, and the page is rendered without them if they blow it. Degradation instead of
+Three of the six services were enrichment: reviews, recommendations, history. They got their own
+200 ms deadline, and the page is rendered without them if they blow it: degradation instead of
 waiting.
 
 And the three essential services got deferred hedged requests: if the response has not arrived by
@@ -230,11 +230,11 @@ The average had never been the problem, and that is why the dashboard never show
 
 ## Related Concepts
 
-- [Timeouts](/06-distributed-systems/timeouts.md) — calibrated from the distribution.
-- [Network Failure](/06-distributed-systems/network-failure.md) — the origin of the variability.
+- [Timeouts](/06-distributed-systems/timeouts.md): calibrated from the distribution.
+- [Network Failure](/06-distributed-systems/network-failure.md): the origin of the variability.
 - [Bottleneck Analysis](/05-system-design/bottleneck-analysis.md).
-- [Observability](/13-observability/index.md) — how to measure.
-- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — where
+- [Observability](/13-observability/index.md): how to measure.
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md): where
   the distribution becomes a requirement with a number.
 
 ## Practical Exercise

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, video-streaming, ride-sharing]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -37,8 +37,8 @@ between businesses and customers: support, notifications and sales. About 40% of
 person to person, and 60% involves a business account on one side.
 
 The product has a requirement that sets it apart from almost every other in this set: **the
-perception of real time is the product**. A message that takes 4 seconds to appear is not a late
-message — it is a broken product, and the user sends it again.
+perception of real time is the product**. A message that takes 4 seconds to appear is a broken product,
+not a late message, and the user sends it again.
 
 Two pressures motivate revisiting the architecture:
 
@@ -53,7 +53,7 @@ million a year, and most of them are idle most of the time.
 ## Functional Requirements
 
 For the **user**: send and receive text, image, audio and document messages; see the state of
-each sent message — sent, delivered, read; take part in group conversations of up to 2,000
+each sent message (sent, delivered, read); take part in group conversations of up to 2,000
 members; search the history; and receive a notification when the app is closed.
 
 For the **business account**: receive messages through an API; reply via a human agent or
@@ -64,12 +64,12 @@ order within a conversation; and synchronize state across a user's multiple devi
 
 The "exactly once" delivery requirement is literally impossible to guarantee in a distributed
 system with network failure. What can be guaranteed is **at least once** delivery with
-deduplication at the destination — and it is that distinction that decides the design.
+deduplication at the destination. That distinction is what decides the design.
 
 It is worth making explicit why it is impossible, because the phrasing shows up in product
 requirements all the time. If the sender sends and gets no acknowledgment, they don't know
 whether the message arrived. Resending risks duplicating; not resending risks losing. There is no
-protocol that resolves that — the information that would decide it simply doesn't exist on the
+protocol that resolves that: the information that would decide it simply doesn't exist on the
 sender's side. What you do is choose the tolerable error (duplicating) and eliminate it at the
 destination, where the information does exist.
 
@@ -122,7 +122,7 @@ of most of the system's real complexity.
 And it interacts badly with the intermittent connectivity constraint. A user with a phone and a
 desktop may have the desktop switched off for a week; on turning it on, they have to receive
 everything that happened, in order, without duplicating what was already read on the phone. That
-means read state is per device, but the "read" state the sender sees is per user — two concepts
+means read state is per device, but the "read" state the sender sees is per user: two concepts
 the interface presents as one.
 
 A large share of the product's historical defects came from treating those two states as the same
@@ -157,8 +157,8 @@ fanout distribution
 deliveries/s at peak (messages × recipients)    ~1.4 million/s
 ```
 
-One million four hundred thousand deliveries per second is the number that sizes the system —
-and it is 12.5× the number of messages at the same peak, because each message reaches 12.5
+One million four hundred thousand deliveries per second is the number that sizes the system.
+It is 12.5× the number of messages at the same peak, because each message reaches 12.5
 recipients on average, thanks to groups.
 
 ```text
@@ -227,12 +227,12 @@ cost              high for low-activity conversations
 | **Weighted total** | | **5.0** | **8.3** | **7.5** |
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With cross-device synchronization at 35%, the totals
-become 4.5 / 8.0 / 8.1 — B and C tie in practice, 0.1 apart on a subjective scale. That is the
+become 4.5 / 8.0 / 8.1: B and C tie in practice, 0.1 apart on a subjective scale. That is the
 scenario in which the product becomes heavily multi-platform, with desktop, web and several
 mobile devices per user; it does not decide on its own, but it shows where the decision gets
 fragile.
 
-With cost at 40%, they become 6.2 / 8.2 / 6.1 — Option B widens its advantage.
+With cost at 40%, they become 6.2 / 8.2 / 6.1, and Option B widens its advantage.
 
 ## Decision
 
@@ -242,11 +242,11 @@ notification, depending on the device's state.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** order were not a requirement — in one-way notification products, for
+**Option A would win if** order were not a requirement: in one-way notification products, for
 example, where each message is independent. That is not the case for a conversation.
 
 **Option C would win if** the average number of devices per user grew significantly, or if
-server-side retention became indefinite — cases in which the log stops being an additional cost
+server-side retention became indefinite: cases in which the log stops being an additional cost
 and becomes the primary storage. The condition is recorded: if the average number of devices
 exceeds 3, or if server-side retention is extended beyond 2 years, the decision is reassessed.
 
@@ -292,7 +292,7 @@ volume, contention is distributed naturally.
 
 Very active groups are the exception: a group of 2,000 members with 40 messages per second
 serializes on that counter. The measured limit is around 900 messages per second per
-conversation, well above what is observed in any real group — and the number is recorded as a
+conversation, well above what is observed in any real group, and the number is recorded as a
 review condition.
 
 **Message.**
@@ -317,7 +317,7 @@ and synchronization is the difference between the device's offset and the conver
 number.
 
 It also resolves reliable delivery. A message is only considered delivered when the device
-acknowledges receipt by advancing its offset — and until then, it remains available for resending.
+acknowledges receipt by advancing its offset. Until then, it remains available for resending.
 That implements at-least-once delivery with deduplication by sequence number, which is the honest
 formulation of "exactly once".
 
@@ -325,17 +325,17 @@ See [delivery guarantees](/06-distributed-systems/delivery-guarantees.md).
 
 A practical consequence of that table is that the storage cost of the pending queue is
 proportional to the number of inactive devices, not to the message volume. A user with a device
-switched off for thirty days accumulates pending items across all their active conversations — and
-that is why server-side retention is 90 days, with a per-device limit beyond which
+switched off for thirty days accumulates pending items across all their active conversations.
+That is why server-side retention is 90 days, with a per-device limit beyond which
 synchronization is truncated and the client receives only recent history.
 
 The limit was set at 20 thousand pending messages per device. Above that, a full synchronization
-would take minutes and consume mobile data in a way users reported as a problem — the decision was
+would take minutes and consume mobile data in a way users reported as a problem. The decision was
 to truncate and offer on-demand loading of the earlier history.
 
 **Session.** In-memory storage with a short TTL, mapping a device to a connection node. An expired
-session simply means the device is treated as offline, and the message goes by notification —
-which makes losing session state harmless.
+session simply means the device is treated as offline, and the message goes by notification.
+That makes losing session state harmless.
 
 ## Integration
 
@@ -356,14 +356,14 @@ large groups, and it is what separates "sent" from "delivered" in the product.
 
 **Groups.** Expanding one send into N recipients happens in the Router, asynchronously. For groups
 up to 200 members, expansion is immediate; above that, it is done in batches with priority by the
-recipient's recent activity — whoever has the conversation open receives first.
+recipient's recent activity: whoever has the conversation open receives first.
 
 That prioritization was a product decision with a large effect: in groups of 2,000 members,
 complete delivery takes up to 8 seconds, and prioritizing the active ones means the ongoing
 conversation perceives no delay.
 
 **Notification.** For offline devices. It is the system's only external dependency on the delivery
-path, and it is asynchronous and retried — the message stays in the pending queue regardless of
+path, and it is asynchronous and retried: the message stays in the pending queue regardless of
 the notification's outcome.
 
 **Reconnection.** When a device reconnects, it reports its last acknowledged sequence per
@@ -403,18 +403,18 @@ capacity is trivial. Cost per connection is what Phase 2 of the plan attacks.
 **Messages** scale by conversation partition. The counter and the storage are partitioned by the
 same identifier, which keeps everything about a conversation together.
 
-**Deliveries** — 1.4 million per second — scale by the number of routers, which are stateless.
+**Deliveries** (1.4 million per second) scale by the number of routers, which are stateless.
 
 The real contention point is none of the three: it is **expanding large groups during peaks**. An
-event that generates simultaneous activity in many large groups — an important match, for example
-— produces a delivery peak disproportionate to the message peak.
+event that generates simultaneous activity in many large groups (an important match, for example)
+produces a delivery peak disproportionate to the message peak.
 
 The mitigation is the expansion queue with priority and the explicit acceptance that, in those
 moments, delivery to inactive members of large groups can take tens of seconds.
 
 That acceptance was negotiated with the product team and recorded, and it is the kind of decision
 that frequently stays implicit. The alternative would be sizing expansion capacity for the peak of
-rare events — which means idle capacity most of the year — or degrading indiscriminately, delaying
+rare events (which means idle capacity most of the year) or degrading indiscriminately, delaying
 those with the conversation open as well.
 
 Prioritizing by recent activity is what allows the perceived experience to stay stable while the
@@ -430,7 +430,7 @@ perceives a reconnection, which the app already treats as a normal case.
 If the **Session Service** becomes unavailable, every device is treated as offline and delivery
 goes by notification. It is slower and more expensive, and it works.
 
-If the **Message Service** fails, sending stops. There is no degradation — accepting a message
+If the **Message Service** fails, sending stops. There is no degradation: accepting a message
 without assigning a sequence would break the order guarantee, which is the central requirement.
 
 If external **Notification** fails, messages stay in the pending queue and are delivered when the
@@ -459,7 +459,7 @@ The **gaps detected** metric is the most important in the set for correctness: i
 whether the transport is losing messages, and the number of gaps filled shows the recovery
 mechanism is working.
 
-Before Option B, that metric did not exist — with no numbering, there was no way to know a message
+Before Option B, that metric did not exist: with no numbering, there was no way to know a message
 had been lost, and the loss showed up as a user complaint weeks later.
 
 ## Deployment
@@ -469,7 +469,7 @@ for clients to migrate naturally and is restarted. A full fleet deployment takes
 and is done outside the two daily peaks.
 
 The Message Service requires more care, because a change in the message format has to be
-compatible with clients on old versions — part of the base runs versions more than a year old. The
+compatible with clients on old versions: part of the base runs versions more than a year old. The
 rule is compatibility for 18 months.
 
 ## Evolution Strategy
@@ -479,7 +479,7 @@ state, with the client still ordering by timestamp. The numbering is recorded an
 without being used.
 
 The comparison period measured the real out-of-order rate: the 0.9% reported underestimated the
-problem — the measurement found 1.7% of messages that would have been displayed out of order, of
+problem. The measurement found 1.7% of messages that would have been displayed out of order, of
 which only half was perceived by the user.
 
 **Phase 2 (months 6–9): client-side ordering and deduplication.** The app starts ordering by
@@ -532,14 +532,14 @@ complaints about message order            -96%
 ```
 
 The 1,100 messages a day recovered by gap detection are the most revealing result: they were being
-lost before, and nobody knew. The numbering did not only fix the order — it made loss observable
+lost before, and nobody knew. The numbering did not only fix the order: it made loss observable
 and recoverable.
 
 ## What this case teaches
 
 **"Exactly once" is repeated delivery with deduplication at the destination.** There is no
 guarantee of single delivery over an unreliable network. What exists is numbering, retrying until
-acknowledged, and discarding duplicates by number — and the user perceives that as single
+acknowledged, and discarding duplicates by number. The user perceives that as single
 delivery.
 
 **Order has to be established at one point.** Device clocks diverge by minutes. Any ordering that
@@ -550,7 +550,7 @@ up as complaints. Afterwards, they became 1,100 daily gaps detected and filled a
 instrumentation came for free with the ordering solution.
 
 **The persistent connection is not mandatory.** Half the connections were idle, and closing them
-did not degrade the experience — because the notification mechanism already existed for offline
+did not degrade the experience, because the notification mechanism already existed for offline
 devices. Recognizing that an idle device and an offline device can be treated the same is what
 delivered the cost target.
 
@@ -564,7 +564,7 @@ delivered the cost target.
 ## Practical Exercise
 
 Describe what happens when a user sends a message, the client doesn't receive the acknowledgment
-and resends it — and the server had received the first one.
+and resends it, and the server had received the first one.
 
 With no sequence number assigned by the server, what prevents the duplicate? The answer shows why
 deduplication needs a stable identifier generated on the client **and** an order assigned on the

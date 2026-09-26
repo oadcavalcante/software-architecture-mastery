@@ -2,7 +2,7 @@
 id: interfaces
 title: Interfaces
 sidebar_position: 6
-description: O contrato entre partes — quem deve defini-lo e por que a largura importa.
+description: "O contrato entre partes: quem deve defini-lo e por que a largura importa."
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encapsulation]
 related: [dependency-inversion, boundaries, solid]
 canonical_for: [interface, contrato de interface]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Uma interface é o contrato entre duas partes: o que uma promete oferecer e a
 outra pode assumir.
 
 A decisão mais consequente sobre uma interface não é quais métodos ela tem. É
-**quem a define** — e a resposta correta, quase sempre, é o consumidor.
+**quem a define**, e a resposta correta, quase sempre, é o consumidor.
 
 ## Problema
 
@@ -48,7 +48,7 @@ que não usa. É o sintoma que o **I** do [SOLID](/02-software-design/solid.md) 
 
 A interface pertence a quem a usa, não a quem a implementa.
 
-Isso é mais que uma questão de organização de arquivos — embora seja isso
+Isso é mais que uma questão de organização de arquivos, embora seja isso
 também, e o lugar onde a interface mora determina a direção da dependência (ver
 [inversão de dependência](/02-software-design/dependency-inversion.md)).
 
@@ -74,8 +74,8 @@ diferentes, mesmo que a mesma classe implemente as duas.
 
 ### Largura da interface versus profundidade do módulo
 
-Ousterhout formula a relação que importa: um bom módulo é **profundo** — interface
-estreita, implementação substancial. Um módulo raso tem interface larga e
+Ousterhout formula a relação que importa: um bom módulo é **profundo** (interface
+estreita, implementação substancial). Um módulo raso tem interface larga e
 implementação fina, e por isso não paga o custo de existir.
 
 A métrica prática: quanto o consumidor deixa de saber por usar isto? Se a resposta
@@ -88,7 +88,7 @@ que é garantido sobre ordenação, se a operação é idempotente, e o que vale
 não há resultado.
 
 Duas implementações com a mesma assinatura e semânticas diferentes não são
-substituíveis — que é a violação de Liskov, aplicada a interfaces.
+substituíveis. É a violação de Liskov, aplicada a interfaces.
 
 ## Modelo Mental
 
@@ -99,7 +99,7 @@ Cada coisa que ele precisa saber sobre a implementação é uma falha do contrat
 
 - Quando há mais de uma implementação real.
 - Quando é preciso substituir a dependência para testar.
-- Quando a interface atravessa uma fronteira que se quer manter — de módulo, de
+- Quando a interface atravessa uma fronteira que se quer manter: de módulo, de
   time, de sistema.
 - Quando o consumidor e o implementador evoluem em ritmos diferentes.
 
@@ -121,11 +121,11 @@ continua precisando saber tudo sobre o outro lado, a interface é decorativa.
 
 ## Alternativas
 
-- **Função como parâmetro** — quando o que varia é um comportamento simples.
-- **Tipagem estrutural** — em linguagens que a oferecem, dispensa a declaração
+- **Função como parâmetro**: quando o que varia é um comportamento simples.
+- **Tipagem estrutural**: em linguagens que a oferecem, dispensa a declaração
   explícita.
-- **Adaptador na fronteira** — traduzir na entrada em vez de abstrair no meio.
-- **Usar o tipo concreto** — quando não há segunda implementação nem necessidade
+- **Adaptador na fronteira**: traduzir na entrada em vez de abstrair no meio.
+- **Usar o tipo concreto**: quando não há segunda implementação nem necessidade
   de teste isolado.
 
 ## Trade-offs
@@ -178,7 +178,7 @@ Um serviço definia `NotificationProvider` com `send(Message)`, extraída do
 cliente de e-mail que já existia. `Message` tinha `assunto`, `corpo` e
 `destinatario`.
 
-Quando push foi adicionado, `Message` ganhou `titulo`, `payload` e `acao` — todos
+Quando push foi adicionado, `Message` ganhou `titulo`, `payload` e `acao`, todos
 nulos para e-mail. Depois SMS: `corpo` limitado a 160 caracteres, `assunto`
 ignorado, e mais um campo, `remetente`, o short code que só esse canal exige.
 
@@ -199,13 +199,13 @@ dentro. Cada provedor passou a ter seu próprio tipo de mensagem, não
 compartilhado.
 
 O código de negócio perdeu sete campos de conhecimento sobre canais de
-notificação — que é exatamente o que a interface original deveria ter escondido e
+notificação. É exatamente o que a interface original deveria ter escondido e
 não escondia.
 
 ## Interfaces evoluem, e isso precisa ser projetado
 
-Uma interface interna pode ser refatorada num commit. Uma interface publicada —
-consumida por outro módulo com release próprio, outro time, ou outro sistema —
+Uma interface interna pode ser refatorada num commit. Uma interface publicada
+(consumida por outro módulo com release próprio, outro time, ou outro sistema)
 não pode.
 
 Três técnicas, em ordem de custo:
@@ -229,10 +229,10 @@ alguém, e a primeira mudança quebra um consumidor que ninguém sabia que exist
 
 ## Conceitos Relacionados
 
-- [Encapsulamento](/02-software-design/encapsulation.md) — o que a interface expõe.
-- [Inversão de Dependência](/02-software-design/dependency-inversion.md) — onde a interface mora.
-- [SOLID](/02-software-design/solid.md) — os princípios I e D.
-- [Abstração](/01-fundamentals/abstraction.md) — quando vale a pena.
+- [Encapsulamento](/02-software-design/encapsulation.md): o que a interface expõe.
+- [Inversão de Dependência](/02-software-design/dependency-inversion.md): onde a interface mora.
+- [SOLID](/02-software-design/solid.md): os princípios I e D.
+- [Abstração](/01-fundamentals/abstraction.md): quando vale a pena.
 
 ## Exercício Prático
 
@@ -250,9 +250,9 @@ diferença mostra quanto conhecimento da implementação está vazando.
 
 ## Para Aprofundar
 
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 —
-  módulos profundos versus rasos.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — o princípio de
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
+  Módulos profundos versus rasos.
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. O princípio de
   segregação de interface.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — interfaces no
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Interfaces no
   vocabulário do domínio.

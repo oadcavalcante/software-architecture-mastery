@@ -2,7 +2,7 @@
 id: redundancy
 title: Redundância
 sidebar_position: 5
-description: Mais de um de tudo — e a correlação, que é o que anula a redundância.
+description: Mais de um de tudo, e a correlação, que é o que anula a redundância.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [failover, fault-tolerance, availability-metrics]
 canonical_for: [redundância, correlação de falhas, redundância N+1, redundância ativa]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -27,8 +27,8 @@ de rede, mais de um provedor.
 A matemática é atraente. Dois componentes com 99% de disponibilidade cada, se
 **independentes**, dão 99,99% combinados.
 
-A palavra que decide tudo é a destacada. Falhas correlacionadas — as que atingem todas
-as cópias ao mesmo tempo — anulam a redundância, e elas são muito mais comuns do que a
+A palavra que decide tudo é a destacada. Falhas correlacionadas, as que atingem todas
+as cópias ao mesmo tempo, anulam a redundância, e elas são muito mais comuns do que a
 matemática sugere.
 
 ## Problema
@@ -87,7 +87,7 @@ N+M            tolera M falhas simultâneas
 exercitada o tempo todo. Numa configuração passiva, a reserva pode estar quebrada há
 meses sem que ninguém saiba.
 
-Essa é a razão prática para preferir ativo-ativo quando possível — não a utilização de
+Essa é a razão prática para preferir ativo-ativo quando possível: não a utilização de
 recursos, mas o fato de que o caminho de recuperação é o caminho normal. Custo,
 ociosidade e coordenação das duas topologias estão em
 [multi-região](/09-cloud-architecture/multi-region.md).
@@ -120,7 +120,7 @@ provedores diferentes  contra falha de provedor
 implementações diferentes contra defeito de software
 ```
 
-A última é a mais eficaz contra defeito de código e a mais cara — manter duas
+A última é a mais eficaz contra defeito de código e a mais cara: manter duas
 implementações do mesmo sistema raramente se justifica fora de contextos de segurança
 crítica.
 
@@ -130,7 +130,7 @@ As três primeiras são praticáveis, com custo crescente. Ver
 ### Implantação gradual é redundância no tempo
 
 Contra defeito de código, a redundância espacial não ajuda. O que ajuda é não implantar
-em tudo ao mesmo tempo — em fases ou por [canary](/14-devops-and-platform/canary.md):
+em tudo ao mesmo tempo, em fases ou por [canary](/14-devops-and-platform/canary.md):
 
 ```text
 implantação em fases   uma fração recebe a versão nova; observa; avança
@@ -139,7 +139,7 @@ reversão rápida        voltar em minutos
 ```
 
 Isso protege exatamente a classe de falha que mais causa incidentes em sistemas
-maduros, e não aparece nas discussões sobre redundância — porque não é sobre ter mais
+maduros, e não aparece nas discussões sobre redundância, porque não é sobre ter mais
 cópias.
 
 ### Redundância adiciona modos de falha
@@ -169,7 +169,7 @@ a lista do que ela não resolve.
 - A indisponibilidade tem custo relevante.
 - É preciso manter serviço durante manutenção.
 - Há requisito de disponibilidade acordado.
-- O componente é sem estado — a redundância é barata.
+- O componente é sem estado: a redundância é barata.
 
 ## Quando Não Usar
 
@@ -181,7 +181,7 @@ a lista do que ela não resolve.
 
 **Contra defeito de código.** Ali a resposta é implantação gradual.
 
-**Quando a cópia extra custa mais por ano que a indisponibilidade que evita** — minutos
+**Quando a cópia extra custa mais por ano que a indisponibilidade que evita**: minutos
 esperados de queda por ano vezes o custo de um minuto parado. O caso típico: dobrar a
 infraestrutura para cortar uma indisponibilidade que já cabe no orçamento de erro.
 
@@ -189,11 +189,11 @@ infraestrutura para cortar uma indisponibilidade que já cabe no orçamento de e
 
 ## Alternativas
 
-- **Recuperação rápida** — em vez de evitar a falha, encurtar o tempo de retomada.
+- **Recuperação rápida**: em vez de evitar a falha, encurtar o tempo de retomada.
   Frequentemente mais barato e suficiente.
-- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — operar com menos.
-- **Implantação gradual** — contra a classe de falha mais comum.
-- **Simplificar** — menos componentes falham menos. É a alternativa menos citada e
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)**: operar com menos.
+- **Implantação gradual**: contra a classe de falha mais comum.
+- **Simplificar**: menos componentes falham menos. É a alternativa menos citada e
   frequentemente a correta.
 
 ## Trade-offs
@@ -233,7 +233,7 @@ infraestrutura para cortar uma indisponibilidade que já cabe no orçamento de e
 
 **Não dimensionar para a perda.** Redundância sem folga muda o modo de falha: em vez de cair na hora, o sistema sobrevive à perda e satura em seguida com a carga redistribuída.
 
-**Não exercitar a reserva.** Componente passivo que nunca recebe tráfego acumula defeitos silenciosos — configuração divergente, certificado vencido, versão antiga.
+**Não exercitar a reserva.** Componente passivo que nunca recebe tráfego acumula defeitos silenciosos: configuração divergente, certificado vencido, versão antiga.
 
 **Ignorar dependências compartilhadas.** DNS, autenticação, plano de controle e sistema de configuração são comuns a todas as cópias, e derrubam todas ao mesmo tempo.
 
@@ -266,11 +266,11 @@ As correções atacaram a correlação, não a quantidade:
 de proximidade. Um certificado expirando passou a degradar uma zona, não o sistema.
 
 **Configuração em fases.** Mudanças de configuração passaram a ser aplicadas zona a
-zona, com observação entre elas — o mesmo tratamento dado a implantação de código.
+zona, com observação entre elas: o mesmo tratamento dado a implantação de código.
 
 **Implantação [canary](/14-devops-and-platform/canary.md).** 5% do tráfego na versão nova
 por uma hora, comparando com a versão atual não só erro e latência, mas a inclinação do
-consumo de memória por requisição servida — com pouco tráfego, o vazamento não chega a
+consumo de memória por requisição servida. Com pouco tráfego, o vazamento não chega a
 degradar a instância na janela, mas a inclinação diverge nos primeiros minutos. O
 vazamento seguinte foi detectado assim, com 5% de impacto, não 100%.
 
@@ -284,20 +284,20 @@ recusada. A análise mostrou que nenhum dos três incidentes teria sido evitado 
 e o custo seria significativo.
 
 O detalhe que a equipe destaca: eles tinham redundância de sobra e correlação em toda parte. A
-pergunta "o que faria as três zonas caírem juntas?" nunca tinha sido feita — e a
+pergunta "o que faria as três zonas caírem juntas?" nunca tinha sido feita, e a
 resposta tinha sete itens.
 
 ## Conceitos Relacionados
 
-- [Failover](/12-reliability/failover.md) — o mecanismo de troca.
+- [Failover](/12-reliability/failover.md): o mecanismo de troca.
 - [Tolerância a Falhas](/12-reliability/fault-tolerance.md).
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
-- [Disponibilidade](/06-distributed-systems/availability.md) — a matemática.
+- [Disponibilidade](/06-distributed-systems/availability.md): a matemática.
 
 ## Exercício Prático
 
 Escolha um componente redundante do seu sistema e liste tudo o que as cópias
-compartilham — código, configuração, certificado, dependência, cota, credencial, zona.
+compartilham: código, configuração, certificado, dependência, cota, credencial, zona.
 
 Cada item da lista é uma falha que a redundância não cobre.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [video-streaming, social-network, logistics]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -32,7 +32,7 @@ sustentam, não as grandezas.
 
 ## Contexto de Negócio
 
-A **Sensia** opera uma plataforma de monitoramento industrial para 340 plantas — mineração,
+A **Sensia** opera uma plataforma de monitoramento industrial para 340 plantas: mineração,
 papel e celulose, siderurgia e geração de energia. Cada planta tem entre 4 mil e 90 mil sensores
 enviando telemetria continuamente: temperatura, vibração, pressão, corrente, vazão.
 
@@ -45,13 +45,13 @@ uma parada de emergência em manutenção programada.
 
 Duas pressões motivam a revisão:
 
-**Custo.** A plataforma gasta R$ 71 milhões por ano, dos quais 58% — R$ 41 milhões — em
+**Custo.** A plataforma gasta R$ 71 milhões por ano, dos quais 58% (R$ 41 milhões) em
 armazenamento de telemetria
 bruta que quase nunca é lida. A diretoria estabeleceu meta de redução de 40% no custo por sensor
 monitorado.
 
 **Latência de alarme.** O p99 do tempo entre a leitura do sensor e o alarme na sala de controle é
-de 34 segundos. Para grandezas de segurança — pressão em vaso, temperatura em mancal — isso é
+de 34 segundos. Para grandezas de segurança (pressão em vaso, temperatura em mancal) isso é
 inaceitável, e dois clientes já apontaram o problema em auditoria de segurança operacional.
 
 ## Requisitos Funcionais
@@ -90,7 +90,7 @@ custo por sensor monitorado                  redução de 40%
 ```
 
 A separação entre "perda zero" para eventos de segurança e "0,1% aceitável" para operacionais é a
-decisão que abre toda a economia possível — e ela precisou ser negociada com clientes, porque
+decisão que abre toda a economia possível, e ela precisou ser negociada com clientes, porque
 a plataforma anterior prometia perda zero para tudo.
 
 ## Restrições
@@ -127,7 +127,7 @@ eventos/dia                          ~363 bilhões
 ```
 
 Quatro milhões e duzentos mil eventos por segundo. Este é o primeiro case deste conjunto em que a
-escala **é** o problema — e a comparação com os anteriores é instrutiva: os cases de pagamentos e
+escala **é** o problema. A comparação com os anteriores é instrutiva: os cases de pagamentos e
 banco tinham centenas de operações por segundo e arquiteturas complexas; este tem milhões e uma
 arquitetura conceitualmente mais simples, porque o dado é pequeno, uniforme e descartável.
 
@@ -149,12 +149,12 @@ eventos nunca lidos de nenhuma forma           ~71%
 
 Setenta e um por cento dos eventos nunca são lidos. O armazenamento bruto inteiro custa
 R$ 41 milhões por ano, e como o evento tem tamanho fixo, esses 71% respondem por cerca de
-R$ 29 milhões — e essa linha é a resposta ao problema de custo.
+R$ 29 milhões. Essa linha é a resposta ao problema de custo.
 
 Obter essa distribuição foi um projeto em si. O sistema anterior não registrava quais eventos
 eram lidos; a informação teve de ser reconstruída instrumentando as consultas por três meses e
 correlacionando com os sensores acessados. Antes disso, a discussão sobre retenção era conduzida
-com opiniões — "a engenharia pode precisar" — e nenhum número.
+com opiniões ("a engenharia pode precisar") e nenhum número.
 
 Esse padrão se repete em sistemas de dados: a decisão de quanto reter depende de saber o que é
 lido, e quase nenhuma plataforma mede isso, porque medir acesso é trabalho e a resposta padrão
@@ -229,7 +229,7 @@ capacidade preditiva  preservada — o centro vê todas as plantas
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais
 critérios. Com complexidade em 30%, os totais viram 4,6 / 6,3 / 6,8 / 7,2. Com capacidade
-preditiva em 35%, viram 4,6 / 7,1 / 6,5 / 8,6 — a Opção D mantém vantagem nos dois.
+preditiva em 35%, viram 4,6 / 7,1 / 6,5 / 8,6. A Opção D mantém vantagem nos dois.
 
 A Opção C não vence em nenhum cenário pelo mesmo motivo: sem visão central, o modelo preditivo é
 treinado apenas com o histórico de uma planta, e a maior parte do valor do produto vem de
@@ -256,11 +256,11 @@ diagnóstico           armazenado localmente,     enviado sob demanda
 
 A classe **diagnóstico** é a decisão de maior efeito no custo: são grandezas de alta frequência
 usadas apenas quando há investigação de falha. Elas ficam num buffer circular local de 7 dias e
-só sobem quando alguém pede — o que ocorre para cerca de 0,2% dos sensores por mês.
+só sobem quando alguém pede. Isso ocorre para cerca de 0,2% dos sensores por mês.
 
 A janela de 7 dias foi negociada com a engenharia de manutenção e é o compromisso central dessa
 classe: investigações de falha começam, em 94% dos casos, dentro de 3 dias do evento. Os 6%
-restantes são investigações tardias, e para elas o dado bruto não existe mais — resta o agregado.
+restantes são investigações tardias, e para elas o dado bruto não existe mais; resta o agregado.
 
 Aceitar essa perda foi difícil e foi decidido com números: estender a janela para 30 dias custaria
 R$ 9 milhões por ano para atender a 6% das investigações, das quais a maior parte chega a
@@ -274,7 +274,7 @@ Sozinha, essa classe representa 61% do volume bruto e passou a custar quase nada
 custo. Ela é a mais flexível, e essa flexibilidade tem valor quando o custo não é o problema.
 
 **Opção B venceria se** as plantas tivessem conectividade confiável. Sem falha de enlace, o nó
-local é complexidade desnecessária — e para as 84 plantas com enlace estável, a Sensia avalia
+local é complexidade desnecessária. Para as 84 plantas com enlace estável, a Sensia avalia
 operá-las em modo B, sem nó local, o que está registrado como possível simplificação.
 
 **Opção C venceria se** o produto fosse apenas monitoramento e alarme, sem predição. A predição
@@ -320,7 +320,7 @@ evento   (sensor_id, timestamp, valor, qualidade)
          qualidade como enumeração de 1 byte
 ```
 
-Não há nome de sensor, unidade, planta nem equipamento no evento — tudo isso está no catálogo, e
+Não há nome de sensor, unidade, planta nem equipamento no evento: tudo isso está no catálogo, e
 incluí-lo multiplicaria o volume por quatro. É uma normalização agressiva justificada
 exclusivamente por escala.
 
@@ -341,7 +341,7 @@ após compressão                     ~260 GB/dia
 De 17 TB para 260 GB por dia. A classificação responde por 83% da redução, e a compressão pelo
 restante.
 
-**Agregados.** Pré-calculados em três janelas — 1 minuto, 15 minutos e 1 hora — com mínimo,
+**Agregados.** Pré-calculados em três janelas (1 minuto, 15 minutos e 1 hora) com mínimo,
 máximo, média, desvio e contagem. Cobrem 97,6% das consultas.
 
 Calcular agregados na ingestão em vez de na consulta é o que permite responder a uma pergunta
@@ -354,7 +354,7 @@ sensores. É o que garante zero perda de evento de segurança durante corte de e
 ## Integração
 
 **Coleta dos sensores.** O ponto mais irregular do sistema. São protocolos industriais de
-gerações diferentes, alguns com limitações severas — um deles não permite mais de 200 leituras
+gerações diferentes, alguns com limitações severas: um deles não permite mais de 200 leituras
 por segundo por controlador, o que exige distribuir a coleta.
 
 O Coletor de Protocolos isola essa irregularidade. Cada protocolo tem um adaptador, e o resto do
@@ -365,7 +365,7 @@ entrega garantida com confirmação por lote; operacionais usam entrega otimista
 tolerada.
 
 Durante corte de enlace, o nó continua operando: alarmes locais funcionam, dados vão para o
-buffer, e a sincronização ocorre na reconexão — com prioridade para eventos de segurança.
+buffer, e a sincronização ocorre na reconexão, com prioridade para eventos de segurança.
 
 ```text
 comportamento durante corte de enlace
@@ -387,7 +387,7 @@ adicionaria a latência do enlace ao caminho crítico de segurança; rotear na b
 cada nó conhecesse a estrutura de escalonamento e os contatos de plantão.
 
 **Predição.** Modelos treinados no centro, com dados de todas as plantas, e servidos tanto no
-centro quanto — para os modelos leves — na borda. Um modelo que detecta anomalia de vibração roda
+centro quanto, para os modelos leves, na borda. Um modelo que detecta anomalia de vibração roda
 localmente e não depende do enlace.
 
 ## Segurança
@@ -412,12 +412,11 @@ atualização do nó
                       de atualização
 ```
 
-A decisão de a plataforma ser **somente leitura** — nunca enviar comando a um controlador — é a
+A decisão de a plataforma ser **somente leitura** (nunca enviar comando a um controlador) é a
 mais importante do desenho de segurança. Ela elimina toda uma classe de risco: um comprometimento
 da plataforma não pode alterar o processo industrial.
 
-Foi contestada por clientes que queriam atuação automática — parar um equipamento ao detectar
-anomalia — e mantida. O compromisso foi gerar o alarme com máxima prioridade e deixar a atuação
+Foi contestada por clientes que queriam atuação automática (parar um equipamento ao detectar anomalia) e mantida. O compromisso foi gerar o alarme com máxima prioridade e deixar a atuação
 para os sistemas de segurança da própria planta, que são certificados para isso.
 
 ## Escalabilidade
@@ -430,7 +429,7 @@ mil sensores tem um nó maior; uma de 4 mil, um menor. Adicionar plantas não af
 **No centro.** A ingestão e o processamento de fluxo são particionados por planta, o que dá
 paralelismo natural e limita o raio de qualquer problema.
 
-O centro processa cerca de 340 mil eventos por segundo — não os 4,2 milhões —, porque a borda já
+O centro processa cerca de 340 mil eventos por segundo (não os 4,2 milhões), porque a borda já
 reduziu. Essa redução de 12× na entrada do centro é o que torna a arquitetura central
 convencional.
 
@@ -464,7 +463,7 @@ própria planta.
 
 Essa propriedade é verificada, não assumida: um teste mensal corta a comunicação de uma planta
 selecionada por rodízio e confirma que os alarmes locais continuam funcionando, com registro do
-resultado. Em 24 meses, o teste foi executado 24 vezes e falhou uma — numa planta em que uma
+resultado. Em 24 meses, o teste foi executado 24 vezes e falhou uma, numa planta em que uma
 atualização tinha deixado a configuração de sirene local inconsistente.
 
 Essa única falha justifica o teste. Ela teria permanecido invisível até um corte real de enlace
@@ -485,7 +484,7 @@ precisão da predição: alertas emitidos contra falhas ocorridas
 ```
 
 A métrica de **sensores sem leitura** é a que detecta o modo de falha mais insidioso: um sensor
-que para de enviar não gera alarme — ele simplesmente some. Sem essa verificação, um sensor de
+que para de enviar não gera alarme; ele simplesmente some. Sem essa verificação, um sensor de
 segurança com defeito produz silêncio, que é indistinguível de "tudo bem".
 
 Essa verificação foi acrescentada depois de um incidente em que um sensor de temperatura de
@@ -503,8 +502,7 @@ Os nós de borda são o desafio: 340 equipamentos, em plantas com autonomia oper
 acessíveis apenas por enlace instável. A atualização é em ondas, assinada, com verificação de
 integridade e reversão automática se o nó não reportar saudável em 10 minutos.
 
-Nenhuma atualização de nó durante parada programada de manutenção da planta — o período em que
-o monitoramento é mais necessário — nem durante partida de equipamento.
+Nenhuma atualização de nó durante parada programada de manutenção da planta (o período em que o monitoramento é mais necessário) nem durante partida de equipamento.
 
 Uma planta pode recusar uma janela de atualização, e algumas recusam por meses. O sistema
 suporta nós com até 4 versões de defasagem, e o protocolo entre borda e centro é
@@ -514,14 +512,14 @@ retrocompatível por 18 meses.
 
 **Fase 1 (meses 1–6): classificação de sensores.** Catalogar e classificar os 12,4 milhões de
 sensores por classe de grandeza. Trabalho de dados e de engenharia de processo, com pouca
-codificação — e é o que destrava tudo o mais.
+codificação, e é o que destrava tudo o mais.
 
 A classificação inicial foi automática por padrão de nome e tipo de equipamento, com revisão
 humana das grandezas de segurança. 4,1% ficaram ambíguas e foram revisadas uma a uma com os
 clientes.
 
 **Fase 2 (meses 5–14): nó de borda.** Implantação nos 340 sites, começando pelas plantas com pior
-enlace — que são as que mais se beneficiam.
+enlace, que são as que mais se beneficiam.
 
 Resultado medido nas primeiras 40 plantas: latência de alarme de segurança de 34 s para 0,4 s;
 volume enviado ao centro reduzido em 91%.
@@ -579,12 +577,12 @@ falhas previstas com > 48 h                de 44% para 71%
 ```
 
 O ganho de precisão preditiva não foi objetivo do projeto e veio de um efeito indireto: com
-agregados consistentes e alta qualidade de dado — sem lacunas por perda de enlace — os modelos
+agregados consistentes e alta qualidade de dado (sem lacunas por perda de enlace) os modelos
 passaram a treinar sobre séries completas. A qualidade do dado melhorou mais que os modelos.
 
 ## O que este case ensina
 
-**Classificar o dado é a decisão de arquitetura.** Não há uma resposta para "quanto reter" — há
+**Classificar o dado é a decisão de arquitetura.** Não há uma resposta para "quanto reter"; há
 uma resposta por classe de grandeza, e descobrir as classes foi 6 meses de trabalho antes de
 qualquer código. Foi o que destravou 54% de redução de custo.
 
@@ -603,7 +601,7 @@ de chegar?".
 
 ## Conceitos Relacionados
 
-- [Case: Streaming de Vídeo](/21-case-studies/video-streaming.md) — o outro case dominado por volume.
+- [Case: Streaming de Vídeo](/21-case-studies/video-streaming.md): o outro case dominado por volume.
 - [Mensageria](/06-distributed-systems/messaging.md).
 - [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md).
 - [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).

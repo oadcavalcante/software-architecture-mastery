@@ -2,7 +2,7 @@
 id: backoff
 title: Backoff
 sidebar_position: 7
-description: Spacing out the attempts — and why without jitter, backoff synchronizes the clients.
+description: Spacing out the attempts, and why backoff without jitter synchronizes the clients.
 doc_type: concept
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [retries]
 related: [retries, rate-limiting, retry-storms]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,20 +24,20 @@ last_reviewed: 2026-08-31
 Backoff is increasing the interval between successive attempts.
 
 It exists because an immediate [retry](/06-distributed-systems/retries.md) concentrates load
-exactly when the destination cannot take it. And the part most often omitted — the **jitter** — is
+exactly when the destination cannot take it. And the part most often omitted, the **jitter**, is
 what actually makes the mechanism work.
 
 ## Problem
 
 A service is unavailable for 30 seconds. A thousand clients fail.
 
-With no backoff, the thousand retry immediately. And again. And again. The service, which was
+With no backoff, the thousand retry immediately, and again, and again. The service, which was
 recovering, receives continuous load and cannot.
 
-With fixed backoff — wait 1 second — the thousand wait a second and try **all at the same time**.
+With fixed backoff (wait 1 second), the thousand wait a second and try **all at the same time**.
 The load did not decrease; it became pulses.
 
-With exponential backoff and no jitter — 1 s, 2 s, 4 s, 8 s — the same thing: the clients that
+With exponential backoff and no jitter (1 s, 2 s, 4 s, 8 s), the same thing: the clients that
 failed together stay synchronized, and the pulses become more spaced out and equally
 concentrated.
 
@@ -58,9 +58,9 @@ The first line gives the growth. The second spreads the clients across the windo
 desynchronizing them.
 
 Without the second line, a thousand clients that failed at the same instant come back at the same
-instant. With it, they spread out — and the destination receives gradual load instead of a pulse.
+instant. With it, they spread out, and the destination receives gradual load instead of a pulse.
 
-That form — drawing from the whole interval — is known as *full jitter*, and experiments published
+That form, drawing from the whole interval, is known as *full jitter*, and experiments published
 by AWS showed it reduces both contention and total completion time compared with variants that
 draw from only part of the interval.
 
@@ -69,7 +69,7 @@ draw from only part of the interval.
 With no limit, the wait grows indefinitely: the tenth attempt would wait more than eight minutes
 with a 1-second base.
 
-A cap — typically tens of seconds — keeps the retry useful. The growth exists to relieve the
+A cap, typically tens of seconds, keeps the retry useful. The growth exists to relieve the
 destination, not to give up through arithmetic exhaustion.
 
 ### Backoff does not replace an attempt limit
@@ -87,7 +87,7 @@ knows more about its own state than the client can infer.
 
 The stated value is the floor of the wait, not the whole wait: a thousand clients that come back
 exactly at the instant indicated come back synchronized. The jitter applies on top of it, never
-below — and the caller's deadline still holds: a `Retry-After` larger than the budget is a reason
+below. And the caller's deadline still holds: a `Retry-After` larger than the budget is a reason
 to give up, not to wait.
 
 Ignoring `Retry-After` and using your own backoff is wasting information the server provided on
@@ -98,7 +98,7 @@ purpose.
 In a [queue](/05-system-design/queues.md), backoff is usually implemented as a redelivery delay:
 the message becomes visible again after N seconds.
 
-The effect is the same and the mechanism is not the client's — it is the queue's. Configuring
+The effect is the same and the mechanism is not the client's but the queue's. Configuring
 retries in the consumer **on top of** the queue's mechanism produces two layers of repetition that
 multiply.
 
@@ -150,20 +150,20 @@ necessary, and the second is the forgotten one.
 **For a permanent failure.** Waiting does not change an invalid request.
 
 **When the operation has a short deadline.** If the user waits 3 seconds, a backoff that reaches 8
-has already exceeded the budget — the attempt happens after the caller has given up.
+has already exceeded the budget: the attempt happens after the caller has given up.
 
-**Backoff with no jitter.** It spaces the pulses out without desynchronizing the clients — and in
+**Backoff with no jitter.** It spaces the pulses out without desynchronizing the clients, and in
 that it is worse than having no backoff at all: it gives the impression of protection, and the
 problem stops being investigated.
 
 ## Alternatives
 
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — stop trying instead of spacing out. More
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: stop trying instead of spacing out. More
   effective when the failure is persistent.
-- **Queue with delay** — let the messaging mechanism handle it.
-- **Retry budget** — limit the proportion instead of the interval. See
+- **Queue with delay**: let the messaging mechanism handle it.
+- **Retry budget**: limit the proportion instead of the interval. See
   [retry storms](/12-reliability/retry-storms.md).
-- **Fail fast** — when the caller's deadline does not accommodate waiting.
+- **Fail fast**: when the caller's deadline does not accommodate waiting.
 
 ## Trade-offs
 
@@ -205,8 +205,8 @@ problem stops being investigated.
 
 A system with 3,000 worker instances consumed a rate-limited internal API.
 
-When the limit was reached, the API returned `429`. The workers had exponential backoff configured
-— with no jitter.
+When the limit was reached, the API returned `429`. The workers had exponential backoff configured,
+with no jitter.
 
 The observed behavior was characteristic: the API alternated between 100% utilization and
 practically zero, in cycles of a few seconds.
@@ -215,28 +215,28 @@ The cause: the workers failed roughly together, waited the same interval, and ca
 On each cycle, the pulse blew through the limit again, and everyone backed off again.
 
 The API's average utilization was about 35% of capacity, and even so the workers took hours to
-finish processing — because most of the time they were waiting in sync.
+finish processing, because most of the time they were waiting in sync.
 
 The fix was one line: draw the wait from the interval `[0, computed]` instead of using the computed
 value.
 
 The result: the API's utilization stabilized around 85%, with no pulses, and the total processing
-time dropped in proportion to the two utilizations — about 2.4x faster.
+time dropped in proportion to the two utilizations, about 2.4x faster.
 
 No capacity was added. What changed was the clients no longer all trying at the same instant.
 
 ## Related Concepts
 
-- [Retries](/06-distributed-systems/retries.md) — the mechanism backoff regulates.
-- [Rate Limiting](/05-system-design/rate-limiting.md) — the server's side.
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — the alternative when the failure persists.
+- [Retries](/06-distributed-systems/retries.md): the mechanism backoff regulates.
+- [Rate Limiting](/05-system-design/rate-limiting.md): the server's side.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): the alternative when the failure persists.
 - [Retry Storms](/12-reliability/index.md).
 
 ## Practical Exercise
 
 Check your system's retry configuration: is there backoff? Does it have jitter?
 
-If it has backoff with no jitter, you have synchronized clients — and that only appears as a
+If it has backoff with no jitter, you have synchronized clients. And that only appears as a
 problem when many fail at the same time.
 
 ## Interview Questions
@@ -247,6 +247,6 @@ problem when many fail at the same time.
 
 ## Further Reading
 
-- Brooker, Marc. *Exponential Backoff and Jitter*. AWS Architecture Blog, 2015 — the experiments
+- Brooker, Marc. *Exponential Backoff and Jitter*. AWS Architecture Blog, 2015. The experiments
   that compared the variants.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.

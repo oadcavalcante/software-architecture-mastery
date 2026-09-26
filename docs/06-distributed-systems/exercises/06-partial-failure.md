@@ -2,7 +2,7 @@
 id: 06-partial-failure
 title: "Exercício 06 — Lidar com Falhas Parciais"
 sidebar_position: 3
-description: Noventa e seis vezes por dia o sistema não sabe se cobrou — e assumir uma resposta é como se criam cobranças duplicadas.
+description: Noventa e seis vezes por dia o sistema não sabe se cobrou, e assumir uma resposta é como se criam cobranças duplicadas.
 doc_type: exercise
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [05-async-processing]
 related: [partial-failure, idempotency, retries, duplicate-messages]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -42,8 +42,8 @@ tempo médio do financeiro por caso             22 minutos
 ```
 
 A causa é conhecida internamente: quando o tempo se esgota sem resposta, o sistema marca o
-pedido como recusado e libera a reserva. Se o adquirente tiver processado a cobrança — e não há
-como saber —, o cliente foi cobrado por um pedido que não existe. E se ele repetir a compra, é
+pedido como recusado e libera a reserva. Se o adquirente tiver processado a cobrança (e não há
+como saber), o cliente foi cobrado por um pedido que não existe. E se ele repetir a compra, é
 cobrado de novo.
 
 ## Requisitos
@@ -115,19 +115,19 @@ Sua resposta está boa se:
   contra um arquivo que chega no dia seguinte não fecham.
 - **Você mediu.** Casos ambíguos abertos, idade do mais antigo, taxa de resolução automática.
 
-Sua resposta é fraca se ela resolve por retentativa sem garantia de idempotência do outro lado —
+Sua resposta é fraca se ela resolve por retentativa sem garantia de idempotência do outro lado:
 isso troca uma duplicidade por outra.
 
 ## Discussão
 
 :::details Abra depois de tentar
 
-**O estado se chama ambíguo** no modelo — o `em verificação` do exercício 05 é o nome que ele
-recebe na tela do cliente —, e ele é a resposta inteira do exercício.
+**O estado se chama ambíguo** no modelo (o `em verificação` do exercício 05 é o nome que ele
+recebe na tela do cliente), e ele é a resposta inteira do exercício.
 
 Marcar como recusado é uma afirmação que o sistema não tem base para fazer. Marcar como
 confirmado é pior. O único enunciado verdadeiro é "enviamos e não sabemos", e ele precisa
-existir no modelo — porque tudo o que vem depois depende de a plataforma admitir que não sabe.
+existir no modelo, porque tudo o que vem depois depende de a plataforma admitir que não sabe.
 
 **O mecanismo:**
 
@@ -145,7 +145,7 @@ existir no modelo — porque tudo o que vem depois depende de a plataforma admit
    registrou
 ```
 
-O limite de 20 consultas por segundo é folgado para 96 casos diários — mas não para um episódio
+O limite de 20 consultas por segundo é folgado para 96 casos diários, mas não para um episódio
 de degradação do adquirente, em que os casos ambíguos podem passar de mil em uma hora. O
 reconciliador precisa de fila com limite de taxa, ou ele agrava a degradação que o produziu.
 
@@ -166,7 +166,7 @@ resolve. Neste domínio, cobrar indevidamente é pior que recusar: a recusa cust
 cobrança custa uma reclamação regulatória e a confiança. Então o escalonamento humano falha
 para o lado de cancelar e estornar.
 
-Num domínio diferente — reserva de assento de voo com a saída em duas horas — a resposta pode
+Num domínio diferente (reserva de assento de voo com a saída em duas horas), a resposta pode
 ser oposta.
 
 **A medição que importa:**
@@ -183,7 +183,7 @@ e é incidente, não métrica.
 
 **O efeito não previsto**, que aparece em sistemas reais: introduzir o estado ambíguo torna o
 problema **mensurável** pela primeira vez. Antes, os 96 casos diários viravam recusas e se
-misturavam às recusas legítimas. Depois, eles são uma categoria com número — e esse número vira
+misturavam às recusas legítimas. Depois, eles são uma categoria com número, e esse número vira
 o argumento para renegociar o contrato com o adquirente.
 
 :::

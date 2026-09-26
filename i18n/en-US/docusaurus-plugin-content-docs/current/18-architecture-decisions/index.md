@@ -13,13 +13,13 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [trade-offs, architecture-governance, legacy-modernization]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
 # Architecture Decisions
 
-Diagrams record what the system is. ADRs record why it is that way — and that is the
+Diagrams record what the system is. ADRs record why it is that way, and that is the
 information that is lost first.
 
 ## The problem in this section
@@ -31,7 +31,7 @@ Without the answer, two bad options remain. Keep the decision out of fear, witho
 whether the reason still holds. Or reverse it unknowingly, and rediscover the original
 reason by way of an incident.
 
-The real cost is not the forgetting itself — it is that the decision stops being
+The real cost is not the forgetting itself. It is that the decision stops being
 reassessable. A decision whose context was recorded can be revisited when the context
 changes. A decision with no context can only be obeyed or broken.
 
@@ -46,7 +46,7 @@ constraints in force at the time; alternatives have to include under what condit
 discarded option would win again.
 
 **Lifecycle.** Status and superseding. An ADR is not deleted or edited when you change
-your mind — it is superseded by another, preserving the history of the reasoning.
+your mind; it is superseded by another, preserving the history of the reasoning.
 
 **Realistic examples.** Five complete ADRs from a fictional system, written to demonstrate
 reasoning:
@@ -60,16 +60,16 @@ ADR-005  Ports and Adapters in the Domain Modules
 ```
 
 At least one of them appears with status `superseded`, to show the mechanics of
-superseding — which is what most ADR examples omit.
+superseding, which is what most ADR examples omit.
 
 **A set of teaching ADRs.** Five decisions from a fictional system, written in the format
-the section teaches — including one superseded by another, to show the mechanics of
+the section teaches, including one superseded by another, to show the mechanics of
 superseding.
 
 ## Reading order
 
 Read **what an ADR is** and **why ADRs matter**, then the **structure**. Next, the four
-sections the structure opens — context, decision, alternatives, consequences — and the
+sections the structure opens (context, decision, alternatives, consequences) and the
 lifecycle: status and superseding. They are short chapters, one per part of the format and
 the mistake made in it.
 
@@ -83,7 +83,7 @@ architectural reasoning becomes visible.
 
 You write an ADR that someone can read in two years and understand not only what was
 decided, but whether the reason still holds. You recognize when a decision deserves an ADR
-— not every one does.
+(not every one does).
 
 And you can supersede a decision of your own without erasing the record of having made it.
 

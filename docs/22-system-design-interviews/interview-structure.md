@@ -2,7 +2,7 @@
 id: interview-structure
 title: Estrutura da Entrevista
 sidebar_position: 12
-description: Ter estrutura é metade da avaliação — ela mostra que você já fez isso antes.
+description: "Ter estrutura é metade da avaliação: ela mostra que você já fez isso antes."
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, communicating-tradeoffs, interview-common-mistakes]
 canonical_for: [estrutura de entrevista, orçamento de tempo da entrevista, condução da conversa]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -34,8 +34,8 @@ A diferença não é de conhecimento. É que a estrutura sinaliza experiência: 
 discussões de arquitetura tem um roteiro, porque descobriu na prática que sem ele a conversa se
 perde.
 
-E há um efeito prático: com fases declaradas, você sabe quanto tempo resta e o que ainda falta —
-o que evita o desfecho mais comum de entrevistas ruins, que é acabar o tempo com o desenho pela
+E há um efeito prático: com fases declaradas, você sabe quanto tempo resta e o que ainda falta.
+Isso evita o desfecho mais comum de entrevistas ruins, que é acabar o tempo com o desenho pela
 metade.
 
 ## Problema
@@ -43,7 +43,7 @@ metade.
 Dois padrões.
 
 **Reagir.** O candidato responde ao que é perguntado e não avança sozinho. A entrevista vira um
-interrogatório, e a avaliação fica sobre respostas isoladas em vez de sobre a condução — que é o
+interrogatório, e a avaliação fica sobre respostas isoladas em vez de sobre a condução, que é o
 que a posição exige.
 
 **Perder o controle do tempo.** O candidato gasta vinte minutos em clarificação e estimativa,
@@ -73,10 +73,10 @@ Para uma entrevista de 45 minutos, com cerca de 40 de conteúdo:
 ```
 
 Para 60 minutos, os quinze minutos a mais não se repartem por igual: a clarificação sobe para 8 a
-10 min, as fases 2 a 4 ganham um ou dois minutos cada, e o aprofundamento fica com o resto — 18 a
-20 min.
+10 min, as fases 2 a 4 ganham um ou dois minutos cada, e o aprofundamento fica com o resto (18 a
+20 min).
 
-O orçamento não é rígido — ele é um instrumento de percepção. Saber que a fase 3 deveria terminar
+O orçamento não é rígido: ele é um instrumento de percepção. Saber que a fase 3 deveria terminar
 por volta do minuto 20 permite perceber, no minuto 25, que é hora de acelerar.
 
 A fase de aprofundamento merece ser protegida com cuidado especial, porque é a que mais
@@ -94,8 +94,8 @@ nele com dois minutos restantes desperdiça a parte da entrevista que mais rende
 ```
 
 Trinta segundos. Eles fazem três coisas: sinalizam experiência; alinham a expectativa, permitindo
-ao entrevistador redirecionar — "pula a API, quero focar em escala"; e criam um contrato que você
-pode invocar depois — "estou passando para a arquitetura".
+ao entrevistador redirecionar ("pula a API, quero focar em escala"); e criam um contrato que você
+pode invocar depois ("estou passando para a arquitetura").
 
 O redirecionamento é o benefício mais concreto dos três. Entrevistadores costumam ter uma área que
 querem avaliar, e ouvir o roteiro é a primeira oportunidade de dizer isso. Sem o anúncio, essa
@@ -142,7 +142,7 @@ ou responder superficialmente para voltar ao roteiro.
 
 A parte que exige disciplina é a segunda metade: **voltar de fato ao ponto adiado**. Prometer
 retornar e não retornar é pior que ter aprofundado na hora, porque sinaliza que a promessa foi um
-recurso para escapar da pergunta. Anotar o ponto adiado num canto do quadro resolve — e o gesto
+recurso para escapar da pergunta. Anotar o ponto adiado num canto do quadro resolve, e o gesto
 de anotar já comunica a intenção.
 
 ### Feche
@@ -170,7 +170,7 @@ Quatro elementos: o resumo, o que monitorar, o que ficou de fora com a razão, e
 com mais tempo. Isso demonstra consciência do próprio trabalho, que é raro.
 
 O terceiro elemento é o mais valioso e o mais contraintuitivo: candidatos evitam mencionar o que
-não cobriram, por receio de chamar atenção para uma lacuna. O efeito é o oposto — dizer o que
+não cobriram, por receio de chamar atenção para uma lacuna. O efeito é o oposto: dizer o que
 ficou de fora, com a razão, transforma uma omissão em decisão. O avaliador que percebe a lacuna
 sozinho registra um esquecimento; o que a ouve declarada registra priorização.
 
@@ -187,8 +187,8 @@ enunciado sobre um problema
 ```
 
 Seguir o roteiro rigidamente quando ele não se aplica é o oposto do que a estrutura deveria
-demonstrar. Anunciar o desvio — "esse enunciado é mais sobre consistência que sobre escala, vou
-gastar menos tempo em estimativa" — mostra que a estrutura é sua, e não decorada.
+demonstrar. Anunciar o desvio ("esse enunciado é mais sobre consistência que sobre escala, vou
+gastar menos tempo em estimativa") mostra que a estrutura é sua, e não decorada.
 
 ## Modelo Mental
 
@@ -197,31 +197,31 @@ isoladas em condução.
 
 ## Quando Usar
 
-- Quando o formato deixa a condução com o candidato — o caso comum em entrevistas de 45 a 60
+- Quando o formato deixa a condução com o candidato: o caso comum em entrevistas de 45 a 60
   minutos.
 - Anunciada no início, em trinta segundos.
 - Com transições marcadas e tempo gerenciado em voz alta.
 
 ## Quando Não Usar
 
-**Quando o entrevistador conduz ativamente** — ele traz a sequência de perguntas pronta, e impor
+**Quando o entrevistador conduz ativamente**: ele traz a sequência de perguntas pronta, e impor
 as seis fases por cima dela disputa o controle em vez de demonstrá-lo.
 
-**Em entrevistas de 30 minutos** — seis fases não cabem; o orçamento de cada uma fica curto demais
+**Em entrevistas de 30 minutos**: seis fases não cabem; o orçamento de cada uma fica curto demais
 para produzir algo, e a versão reduzida (ver Alternativas) serve melhor.
 
-**Quando o enunciado é sobre um problema específico** — "como você garante ordem?" não pede
+**Quando o enunciado é sobre um problema específico**: "como você garante ordem?" não pede
 estimativa nem API; percorrer as fases antes de responder gasta o tempo que a pergunta queria.
 
 **Rigidamente**, quando o enunciado pede outra ordem.
 
 ## Alternativas
 
-- **Perguntar a preferência de estrutura** — "prefere que eu comece por requisitos ou já esboce
-  uma arquitetura?" — funciona bem com entrevistadores que têm agenda própria.
-- **Estrutura reduzida** — em entrevistas de 30 minutos, três fases: requisitos, desenho,
-  aprofundamento.
-- **Seguir o entrevistador** — quando ele conduz ativamente, resistir é contraproducente.
+- **Perguntar a preferência de estrutura**: "prefere que eu comece por requisitos ou já esboce
+  uma arquitetura?"; funciona bem com entrevistadores que têm agenda própria.
+- **Estrutura reduzida**: em entrevistas de 30 minutos, três fases (requisitos, desenho,
+  aprofundamento).
+- **Seguir o entrevistador**: quando ele conduz ativamente, resistir é contraproducente.
 
 ## Trade-offs
 
@@ -250,19 +250,19 @@ estimativa nem API; percorrer as fases antes de responder gasta o tempo que a pe
 
 ## Erros Comuns
 
-**Não anunciar a estrutura** — o entrevistador só redireciona depois que o tempo já foi gasto na
+**Não anunciar a estrutura**: o entrevistador só redireciona depois que o tempo já foi gasto na
 fase errada.
 
-**Não marcar transições** — a entrevista bem conduzida parece difusa, porque o avaliador não
+**Não marcar transições**: a entrevista bem conduzida parece difusa, porque o avaliador não
 sabe em que fase você está.
 
-**Não falar do tempo** quando ele aperta — a priorização fica com você às cegas, quando o
+**Não falar do tempo** quando ele aperta: a priorização fica com você às cegas, quando o
 entrevistador poderia dizer qual parte quer ver.
 
-**Aprofundar antes de fechar o fluxo principal** — o detalhe consome o tempo e o avaliador fica
+**Aprofundar antes de fechar o fluxo principal**: o detalhe consome o tempo e o avaliador fica
 sem ver o desenho completo.
 
-**Terminar sem resumo** e sem dizer o que ficou de fora — a lacuna que o avaliador percebe sozinho
+**Terminar sem resumo** e sem dizer o que ficou de fora: a lacuna que o avaliador percebe sozinho
 vira esquecimento, não priorização.
 
 ## Exemplo de Entrevista
@@ -276,7 +276,7 @@ vira esquecimento, não priorização.
  algo específico, me diga."
 ```
 
-**Minuto 8 — transição.**
+**Minuto 8: transição.**
 
 ```text
 "Acho que tenho o suficiente sobre requisitos: encurtar,
@@ -284,7 +284,7 @@ vira esquecimento, não priorização.
  sem personalização. Vou para as estimativas."
 ```
 
-**Minuto 22 — o entrevistador puxa para um detalhe.**
+**Minuto 22: o entrevistador puxa para um detalhe.**
 
 ```text
 entrevistador  "como você garantiria unicidade do código?"
@@ -299,7 +299,7 @@ candidato      "boa pergunta, e é onde eu ia chegar. Posso
                aprofundamento."
 ```
 
-**Minuto 30 — gestão de tempo.**
+**Minuto 30: gestão de tempo.**
 
 ```text
 "Temos cerca de 15 minutos. Posso aprofundar unicidade do
@@ -307,7 +307,7 @@ candidato      "boa pergunta, e é onde eu ia chegar. Posso
  é mais útil para você?"
 ```
 
-**Minuto 42 — fechamento.**
+**Minuto 42: fechamento.**
 
 ```text
 "Resumindo: quatro componentes, otimizado para leitura, com
@@ -329,12 +329,12 @@ candidato      "boa pergunta, e é onde eu ia chegar. Posso
 ```
 
 O fechamento leva quarenta segundos e é a última coisa que o avaliador ouve. Ele resume, mostra
-consciência dos limites, e nomeia o que ficou de fora com razão — o que é uma demonstração final
+consciência dos limites, e nomeia o que ficou de fora com razão. Essa é uma demonstração final
 de julgamento.
 
 ## Conceitos Relacionados
 
-- [Clarificação de Requisitos](/22-system-design-interviews/requirement-clarification.md) — a primeira fase.
+- [Clarificação de Requisitos](/22-system-design-interviews/requirement-clarification.md): a primeira fase.
 - [Comunicação de Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 - [Erros Comuns](/22-system-design-interviews/interview-common-mistakes.md).
 - [Arquitetura de Alto Nível](/22-system-design-interviews/high-level-architecture.md).
@@ -343,7 +343,7 @@ de julgamento.
 
 Cronometre uma entrevista simulada e anote quanto tempo você gastou em cada fase.
 
-Compare com o orçamento. A fase em que você mais estourou é a que precisa de treino — e na maior
+Compare com o orçamento. A fase em que você mais estourou é a que precisa de treino, e na maior
 parte das vezes é clarificação ou modelo de dados.
 
 ## Perguntas de Entrevista

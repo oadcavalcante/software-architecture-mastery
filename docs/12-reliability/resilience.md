@@ -2,7 +2,7 @@
 id: resilience
 title: Resiliência
 sidebar_position: 4
-description: Absorver o inesperado e se adaptar — o que distingue resiliência de tolerância a falhas.
+description: "Absorver o inesperado e se adaptar: o que distingue resiliência de tolerância a falhas."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fault-tolerance]
 related: [fault-tolerance, chaos-engineering, graceful-degradation]
 canonical_for: [resiliência, capacidade adaptativa, margem de manobra, aprendizado com incidentes]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-28
 Tolerância a falhas trata das falhas **previstas**: você identificou o modo de falha e
 construiu a resposta.
 
-Resiliência é a capacidade de absorver o **inesperado** — o que ninguém previu, a
-combinação improvável, a falha em modo desconhecido — e se adaptar.
+Resiliência é a capacidade de absorver o **inesperado** (o que ninguém previu, a
+combinação improvável, a falha em modo desconhecido) e se adaptar.
 
 A distinção não é acadêmica. Ela muda onde se investe: tolerância é engenharia de
 mecanismos; resiliência inclui pessoas, procedimentos, margem e capacidade de aprender.
@@ -33,14 +33,14 @@ mecanismos; resiliência inclui pessoas, procedimentos, margem e capacidade de a
 ## Problema
 
 Todo mecanismo de tolerância cobre um cenário antecipado. Os incidentes graves quase
-sempre vêm de cenários que ninguém antecipou — não porque a equipe foi negligente, mas
+sempre vêm de cenários que ninguém antecipou, não porque a equipe foi negligente, mas
 porque o espaço de combinações possíveis é grande demais para ser enumerado.
 
 Um sistema com dez mecanismos de tolerância bem construídos ainda vai enfrentar a
 situação para a qual nenhum deles foi projetado.
 
 O que determina o resultado, nesse momento, não é a lista de mecanismos. É a capacidade
-de perceber, entender, decidir e agir sob incerteza — que é a definição prática de
+de perceber, entender, decidir e agir sob incerteza, que é a definição prática de
 resiliência.
 
 ## Conceitos Centrais
@@ -55,7 +55,7 @@ aprender    transformar o ocorrido em capacidade
 ```
 
 Tolerância a falhas cobre principalmente a primeira, transformada em mecanismo. As
-outras três dependem de pessoas, ferramentas e processo — e são o que decide o
+outras três dependem de pessoas, ferramentas e processo, e são o que decide o
 resultado no cenário não previsto.
 
 ### Margem de manobra
@@ -68,8 +68,8 @@ com margem   folga de capacidade, caminho alternativo, funcionalidade que pode s
              desligada, tempo antes do impacto
 ```
 
-Margem é o que dá **opções** durante o incidente. Ela custa — capacidade ociosa,
-caminhos alternativos a manter — e é o que separa um sistema que degrada de um que
+Margem é o que dá **opções** durante o incidente. Ela custa (capacidade ociosa,
+caminhos alternativos a manter) e é o que separa um sistema que degrada de um que
 colapsa.
 
 Ver [planejamento de capacidade](/11-scalability/scaling-capacity-planning.md) e
@@ -88,7 +88,7 @@ reversão em 2 horas      cada decisão é definitiva sob pressão
 Isso orienta investimento: implantação reversível, interruptores por funcionalidade,
 mudanças de configuração sem implantação, migrações com caminho de volta.
 
-Em incidentes disparados por mudança, é ela que fixa o limite inferior da duração — e
+Em incidentes disparados por mudança, é ela que fixa o limite inferior da duração, e
 ela não aparece em diagrama de componentes, porque é propriedade do processo de entrega,
 não da topologia.
 
@@ -110,14 +110,14 @@ autoridade clara          quem decide o quê, sem escalada
 Ver [observabilidade](/13-observability/index.md) e, para o sobreaviso, [conceitos de
 SRE](/13-observability/sre-concepts.md). A diferença entre monitoramento e
 observabilidade é exatamente essa: o primeiro responde perguntas previstas, a segunda
-permite formular perguntas novas — que é o que o cenário desconhecido exige.
+permite formular perguntas novas, que é o que o cenário desconhecido exige.
 
 ### Aprender é a capacidade que compõe
 
 Um incidente que não gera aprendizado será repetido.
 
-A mecânica da análise — sem busca de culpado, foco em condições, ações com dono e
-prazo — está em [conceitos de SRE](/13-observability/sre-concepts.md#análise-de-incidente-sem-busca-de-culpado).
+A mecânica da análise (sem busca de culpado, foco em condições, ações com dono e
+prazo) está em [conceitos de SRE](/13-observability/sre-concepts.md#análise-de-incidente-sem-busca-de-culpado).
 O que ela tem de específico para resiliência é o efeito cumulativo: cada análise que
 vira mudança amplia o conjunto do que foi antecipado, e o próximo incidente precisa de
 uma combinação mais improvável para acontecer.
@@ -133,7 +133,7 @@ Perseguir ausência de falha leva a fragilidade: sistemas otimizados para o caso
 esperado, sem margem, sem alternativas, que funcionam perfeitamente até encontrarem o
 inesperado.
 
-Ver [SLO](/12-reliability/slo.md) — o orçamento de erro é a expressão formal dessa ideia: falha é
+Ver [SLO](/12-reliability/slo.md). O orçamento de erro é a expressão formal dessa ideia: falha é
 esperada e orçada.
 
 ## Modelo Mental
@@ -160,7 +160,7 @@ parada de uma tarde atrasa trabalho, sem perder receita nem dado, não paga capa
 ociosa permanente nem exercícios de mesa mensais.
 
 **Em processamento em lote com janela de recuperação larga.** Se o trabalho pode rodar
-de novo na noite seguinte sem consequência, reexecutar é a resposta ao imprevisto — e
+de novo na noite seguinte sem consequência, reexecutar é a resposta ao imprevisto, e
 ela já existe.
 
 **Em sistema sem operação contínua.** Sem ninguém de sobreaviso nem usuário esperando em
@@ -169,14 +169,14 @@ o investimento vai para tolerância e para recuperação.
 
 ## Alternativas
 
-Não há alternativa a resiliência — há ênfases diferentes:
+Não há alternativa a resiliência; há ênfases diferentes:
 
-- **Mais mecanismos de tolerância** — cobre mais cenários previstos, e não o
+- **Mais mecanismos de tolerância**: cobre mais cenários previstos, e não o
   imprevisto.
-- **Simplificar** — menos interações, menos combinações inesperadas. Frequentemente a
+- **Simplificar**: menos interações, menos combinações inesperadas. Frequentemente a
   intervenção mais eficaz.
-- **Reduzir o alcance** — sistemas menores e isolados falham menos junto.
-- **Reversibilidade** — a de melhor retorno isolado quando os incidentes vêm de
+- **Reduzir o alcance**: sistemas menores e isolados falham menos junto.
+- **Reversibilidade**: a de melhor retorno isolado quando os incidentes vêm de
   mudanças: encurta todos eles sem exigir que nenhum tenha sido previsto.
 
 ## Trade-offs
@@ -235,7 +235,7 @@ adicionar instâncias durante um pico, esgotou a cota de endereços da sub-rede;
 instâncias novas subiam e falhavam; o balanceador as removia e adicionava outras, num
 ciclo.
 
-Nenhum mecanismo de tolerância se aplicava — não havia falha isolada de componente que
+Nenhum mecanismo de tolerância se aplicava: não havia falha isolada de componente que
 a redundância ou o disjuntor pudessem absorver; as instâncias falhavam por uma interação
 entre três decisões razoáveis.
 
@@ -251,7 +251,7 @@ exigia nova construção e implantação: 35 minutos.
 indisponível. Levou 2 horas até alguém suspeitar da cota de endereços.
 
 **Observabilidade insuficiente.** Não havia métrica de endereços disponíveis na
-sub-rede. O sintoma — instâncias falhando ao iniciar — não apontava para a causa.
+sub-rede. O sintoma (instâncias falhando ao iniciar) não apontava para a causa.
 
 As correções foram de resiliência, não de tolerância:
 
@@ -261,7 +261,7 @@ As correções foram de resiliência, não de tolerância:
 
 **Interruptores por funcionalidade**, permitindo reduzir carga sem implantar.
 
-**Métricas de recursos de infraestrutura** — endereços, cotas, limites — que antes não
+**Métricas de recursos de infraestrutura** (endereços, cotas, limites), que antes não
 existiam.
 
 **Exercícios de mesa mensais**, discutindo cenários combinados. O terceiro exercício
@@ -279,14 +279,14 @@ para implementar.
 
 ## Conceitos Relacionados
 
-- [Tolerância a Falhas](/12-reliability/fault-tolerance.md) — o previsto.
-- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — como descobrir o imprevisto.
-- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — a margem em forma de funcionalidade.
+- [Tolerância a Falhas](/12-reliability/fault-tolerance.md): o previsto.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md): como descobrir o imprevisto.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md): a margem em forma de funcionalidade.
 - [Observabilidade](/13-observability/index.md).
 
 ## Exercício Prático
 
-Meça quanto tempo leva para reverter a última mudança implantada no seu sistema — de
+Meça quanto tempo leva para reverter a última mudança implantada no seu sistema, de
 verdade, cronometrado.
 
 Esse número é o limite inferior da duração de qualquer incidente causado por uma

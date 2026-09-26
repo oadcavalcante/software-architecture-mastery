@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: [software-design]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -42,7 +42,7 @@ preference. With it, they become analysis.
 ## What you will find here
 
 **What architecture is.** The distinction between architecture, design and
-implementation — and why the boundary between them is contextual, not absolute.
+implementation, and why the boundary between them is contextual, not absolute.
 Architecture as a set of decisions, not as a set of diagrams.
 
 **What the system must do.** Functional requirements, non-functional
@@ -53,14 +53,14 @@ origin of a good share of wrong architectures.
 separation of concerns. These are the measures by which you judge whether a
 structure will withstand change.
 
-**The cost of being wrong.** Complexity, dependency management and technical debt
-— what accumulates when decisions are deferred or made without criteria.
+**The cost of being wrong.** Complexity, dependency management and technical debt:
+what accumulates when decisions are deferred or made without criteria.
 
 **The context.** Business context, problem space and solution space. Architecture
 that ignores the business optimizes the wrong thing with great competence.
 
 **What drives the decision.** Architectural characteristics, architecture
-principles and evolution — what selects the few properties that decide the
+principles and evolution: what selects the few properties that decide the
 structure, what keeps decisions made without you in the room consistent, and why
 none of them is made only once.
 
@@ -68,14 +68,14 @@ none of them is made only once.
 
 Read in sidebar order. Other sections have blocks with a required order; this is the
 one ordered from first to last document, because no document uses a concept that
-has not been defined yet. The chain branches — modularity picks up the boundary
+has not been defined yet. The chain branches (modularity picks up the boundary
 between architecture and design, architectural characteristics pick up quality
-attributes — but it never jumps forward.
+attributes), but it never jumps forward.
 
 If you have worked with systems for a few years, the temptation is to skip.
 Resist it on three topics specifically: **quality attributes**, **constraints**
 and **architecture as a set of decisions**. These are the ones most often present
-as intuition and absent as vocabulary — and absent vocabulary is what prevents
+as intuition and absent as vocabulary, and absent vocabulary is what prevents
 you from defending a decision to someone who disagrees.
 
 ## By the end

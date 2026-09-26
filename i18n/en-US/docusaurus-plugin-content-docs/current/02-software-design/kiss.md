@@ -2,7 +2,7 @@
 id: kiss
 title: KISS
 sidebar_position: 3
-description: Prefer the simplest solution that solves the problem — and what "simple" means in a verifiable way.
+description: Prefer the simplest solution that solves the problem, and what "simple" means in a verifiable way.
 doc_type: concept
 level: 2
 difficulty: beginner
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [yagni, dry, design-heuristics]
 canonical_for: [KISS, simplicity]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-KISS — *Keep It Simple, Stupid* — advises preferring the simplest solution that
+KISS (*Keep It Simple, Stupid*) advises preferring the simplest solution that
 solves the problem.
 
 As a slogan it is useless: nobody argues for complicating on purpose. What makes
@@ -41,13 +41,13 @@ unknown one feels hard. It is a property of the person.
 recovers the etymology: *simplex* is "one fold"; the opposite is *complex*,
 "braided together". It is a property of the thing.
 
-The two diverge frequently. A familiar ORM can be complex — it brings caching, lazy
+The two diverge frequently. A familiar ORM can be complex: it brings caching, lazy
 loading, session management and SQL generation braided together. Raw SQL can be
 simple and uncomfortable.
 
 When a team says "let's keep it simple" and picks what it already knows, it picked
-easy, not simple. Sometimes that is the right call — familiarity reduces execution
-risk — but it is a different decision, and worth making knowingly.
+easy, not simple. Sometimes that is the right call (familiarity reduces execution
+risk), but it is a different decision, and worth making knowingly.
 
 ## Core Concepts
 
@@ -60,7 +60,7 @@ Three questions that replace impressions:
 3. **How many things change** if I change one?
 
 The third is the most revealing, and it is the same as
-[coupling](/01-fundamentals/coupling.md). In that question — and only there —
+[coupling](/01-fundamentals/coupling.md). In that question, and only there,
 complexity and coupling measure the same thing: how far the structure is
 interleaved. The other two fall outside that axis, and so does essential
 complexity: it comes from the problem, not from the arrangement of the parts.
@@ -93,7 +93,7 @@ you choose easy over simple, say that is what you are doing.
 - Always as the default: start with the simplest option and add mechanism when it
   demonstrates insufficiency.
 - When two solutions meet the requirements and one has fewer parts.
-- When the team is small or has turnover — each extra part costs on each new
+- When the team is small or has turnover: each extra part costs on each new
   person.
 - When the requirement may still change: fewer parts is less to undo.
 
@@ -101,7 +101,7 @@ you choose easy over simple, say that is what you are doing.
 
 **When the simple solution does not meet a stated requirement.** Simplicity is not
 an excuse for missing an SLO. If the requirement demands replication, a single
-instance is not simple — it is inadequate.
+instance is not simple but inadequate.
 
 **When "simple" means leaving essential complexity to the operator.** A system with
 little logic and a forty-step manual procedure book is not simple; it exported the
@@ -115,10 +115,10 @@ the argument is execution-risk reduction, not simplicity.
 
 ## Alternatives
 
-- **The four rules of simple design** (Beck) — they win when the discussion is
-  about code and a test suite exists: they decide by mechanical criterion, without
+- **The four rules of simple design** (Beck): they win when the discussion is
+  about code and a test suite exists, and they decide by mechanical criterion, without
   depending on prior agreement about what counts as simple.
-- **Explicit complexity accounting** — wins when the decision is about topology
+- **Explicit complexity accounting**: wins when the decision is about topology
   rather than code: what it adds and what it removes land on different sides of
   the system, and KISS alone does not say whose bill it is.
 
@@ -156,10 +156,10 @@ complexity too, and frequently more.
 
 A team needed to schedule recurring tasks. Two proposals.
 
-**A** — Introduce a workflow orchestrator. Familiar to two engineers who had used
+**A**: Introduce a workflow orchestrator. Familiar to two engineers who had used
 it before.
 
-**B** — A schedule table and a process that queries it every minute.
+**B**: A schedule table and a process that queries it every minute.
 
 Counting parts: A brought an additional service, its own database, a workflow
 definition language, a permissions model and one more component on call. B brought
@@ -174,8 +174,8 @@ Two years later, the condition has not materialized. The table has 40 lines of c
 and nobody thinks about it.
 
 What would have made the decision wrong: if the real requirement had included
-dependencies between tasks from the start. There B would not be simple — it would
-be insufficient, and would have become a badly built orchestrator by accumulation.
+dependencies between tasks from the start. There B would not be simple but
+insufficient, and would have become a badly built orchestrator by accumulation.
 
 ## The simplicity nobody counts
 
@@ -185,7 +185,7 @@ usually left out weigh more in the total cost.
 **Operational simplicity.** How many things have to be up for the system to work?
 How many alerts exist? How many people can diagnose an incident at three in the
 morning? An elegant architecture that requires specialist knowledge to operate is
-not simple — it moved the complexity somewhere it costs more.
+not simple: it moved the complexity somewhere it costs more.
 
 **Deployment simplicity.** How many steps, how much coordination between
 components, how long until you can roll back. A system whose rollback requires
@@ -193,7 +193,7 @@ three people and a runbook has complexity that appears in no code metric.
 
 **Cognitive simplicity of entry.** How long a new person takes to make their first
 change safely. It is the most honest of the three, because it does not depend on
-whoever is already adapted to the system — and it is the only one that degrades
+whoever is already adapted to the system, and it is the only one that degrades
 silently as the team gets used to things.
 
 All three degrade without showing up in code review, which is where most teams look
@@ -201,9 +201,9 @@ for simplicity.
 
 ## Related Concepts
 
-- [Complexity](/01-fundamentals/complexity.md) — the accounting of both sides.
-- [YAGNI](/02-software-design/yagni.md) — the same principle applied to features.
-- [Design Heuristics](/02-software-design/design-heuristics.md) — verifiable
+- [Complexity](/01-fundamentals/complexity.md): the accounting of both sides.
+- [YAGNI](/02-software-design/yagni.md): the same principle applied to features.
+- [Design Heuristics](/02-software-design/design-heuristics.md): verifiable
   criteria.
 
 ## Practical Exercise
@@ -224,5 +224,5 @@ problem today. The difference is the price of the flexibility you are paying for
 
 - Hickey, Rich. *Simple Made Easy*, Strange Loop 2011.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
-- Beck, Kent. *Extreme Programming Explained*. 2nd ed., 2004 — the four rules of
+- Beck, Kent. *Extreme Programming Explained*. 2nd ed., 2004. The four rules of
   simple design.

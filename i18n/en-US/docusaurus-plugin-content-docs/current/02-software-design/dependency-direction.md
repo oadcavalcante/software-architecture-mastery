@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [package-design, boundaries, component-design]
 canonical_for: [dependency direction, acyclic dependencies principle, acyclic dependencies]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -30,7 +30,7 @@ In a system with many packages, the dependency graph between them has to satisfy
 two properties: it must be acyclic, and the arrows must point from volatile
 packages to stable ones.
 
-The first is binary — either there is a cycle or there is not. The second is
+The first is binary: either there is a cycle or there is not. The second is
 gradual and measurable.
 
 ## Problem
@@ -45,7 +45,7 @@ something.
 versioned or extracted separately. A cycle between three packages turns the three
 into one, and nobody decided that.
 
-**Inverted direction.** A stable package — one many depend on — that depends on a
+**Inverted direction.** A stable package (one many depend on) that depends on a
 volatile one inherits its instability. Every change in the volatile one propagates
 to everything depending on the stable one, in an effect nobody anticipates because
 the path is transitive.
@@ -93,14 +93,14 @@ common concept that had no name.
 Two of Martin's metrics, useful as diagnostics:
 
 **Instability** `I = Ce / (Ca + Ce)`, between 0 and 1. A package many depend on and
-that depends on few has I close to 0 — it is stable, and changing it is expensive.
-The inverse has I close to 1 — it is volatile, and changing it is cheap.
+that depends on few has I close to 0: it is stable, and changing it is expensive.
+The inverse has I close to 1: it is volatile, and changing it is cheap.
 
 **Abstractness** `A = (abstract classes + interfaces) / total classes`, between
 0 and 1. A package of interfaces only has A = 1.
 
 The rule linking the two: **a stable package should be abstract.** If a lot depends
-on it, it has to be hard to make obsolete — and abstractions are more stable than
+on it, it has to be hard to make obsolete, and abstractions are more stable than
 implementations.
 
 That defines two problem zones:
@@ -126,7 +126,7 @@ volatile one, or if two arrows form a cycle, there is work to do.
 
 - Whenever the system has more than half a dozen packages.
 - When integrating new code, so as not to introduce a cycle.
-- Before attempting to extract a module into a service — a cycle prevents it.
+- Before attempting to extract a module into a service: a cycle prevents it.
 - When build time grows without the code growing in the same proportion.
 
 ## When Not to Use
@@ -147,10 +147,10 @@ indirection.
 
 ## Alternatives
 
-- **Merge the packages** — if two packages form a cycle and always change together,
+- **Merge the packages**: if two packages form a cycle and always change together,
   they were one.
-- **Extract the common concept** — usually the right answer.
-- **Accept and document** — when the cost of fixing does not pay off.
+- **Extract the common concept**: usually the right answer.
+- **Accept and document**: when the cost of fixing does not pay off.
 
 ## Trade-offs
 
@@ -189,7 +189,7 @@ pain.
 ## Real-World Example
 
 A system with eighteen packages had a cycle between `order`, `customer` and
-`billing`. Nobody knew — the build was monolithic and nothing complained.
+`billing`. Nobody knew: the build was monolithic and nothing complained.
 
 The cycle prevented extracting `billing` into a service, which was the quarter's
 stated goal.
@@ -202,7 +202,7 @@ depended on a concept with no name: the customer's identity and basic data,
 distinct from the credit logic.
 
 With `customer-identity` extracted, and all three depending on it, the cycle
-disappeared — and `customer` was left with what actually belonged to it, the credit
+disappeared, and `customer` was left with what actually belonged to it: the credit
 logic.
 
 The cycle was a symptom of a missing concept, not of a wrong arrow. When a cycle
@@ -221,25 +221,25 @@ on the wall changes more behaviour than any written policy.
 **new** cycles, accepting the existing ones as a baseline. That stops the situation
 from getting worse while the fix is planned, and costs an afternoon.
 
-**Fix in the order of what is blocking.** Not every cycle — the ones preventing
+**Fix in the order of what is blocking.** Not every cycle, only the ones preventing
 something concrete: extracting a module, parallelizing the build, testing a package
 in isolation.
 
 **Lower the baseline with each fix.** The check tightens on its own, and the
 improvement stays recorded.
 
-Teams that try the reverse order — fix everything before verifying — fix half, stop
+Teams that try the reverse order (fix everything before verifying) fix half, stop
 for priority reasons, and the fixed half degrades back within a year.
 
 ## Related Concepts
 
-- [Dependency Management](/01-fundamentals/dependency-management.md) — the general
+- [Dependency Management](/01-fundamentals/dependency-management.md): the general
   rule of direction.
-- [Package Design](/02-software-design/package-design.md) — how to group before
+- [Package Design](/02-software-design/package-design.md): how to group before
   connecting.
-- [Dependency Inversion](/02-software-design/dependency-inversion.md) — one of the
+- [Dependency Inversion](/02-software-design/dependency-inversion.md): one of the
   techniques.
-- [Boundaries](/02-software-design/boundaries.md) — what the direction crosses.
+- [Boundaries](/02-software-design/boundaries.md): what the direction crosses.
 
 ## Practical Exercise
 
@@ -259,6 +259,6 @@ name?
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component coupling
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Component coupling
   principles and the metrics.
 - Documentation for `jdeps`, `dependency-cruiser`, `import-linter`, `ArchUnit`.

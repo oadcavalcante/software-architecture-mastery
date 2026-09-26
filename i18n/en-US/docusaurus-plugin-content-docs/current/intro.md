@@ -14,7 +14,7 @@ objective: >
 prerequisites: []
 related: []
 canonical_for: []
-translated_from_version: 6
+translated_from_version: 7
 last_reviewed: 2026-08-26
 ---
 
@@ -53,7 +53,7 @@ code → design → systems → distributed systems → architecture → enterpr
 Each level assumes the previous one, and the nature of the difficulty shifts along
 the way. In the first four it is technical: consistency, latency, coupling,
 partial failure. From the fifth onward, the hard part stops being knowing the
-right answer and becomes making it happen inside an organization — with budgets,
+right answer and becomes making it happen inside an organization: with budgets,
 with teams that disagree, and with a structure that always wins when the
 architecture works against it.
 
@@ -85,7 +85,7 @@ reasoning under time pressure.
 No pattern is presented without discussing when **not** to use it.
 
 This is not an editorial preference. A pattern without limits of application is a
-recipe, and recipes do not survive the first unanticipated context — which is
+recipe, and recipes do not survive the first unanticipated context. That is
 exactly the context where architecture matters.
 
 For the same reason, every case study presents more than one viable architecture,
@@ -118,7 +118,7 @@ track either way.
 ## Acceptance test
 
 The material is doing its job when, handed *"Design the architecture for a
-high-volume payment platform"*, you do not start drawing boxes — you start asking
+high-volume payment platform"*, you do not start drawing boxes; you start asking
 what the business problem is, which quality attributes matter, and what
 constraints exist.
 

@@ -2,7 +2,7 @@
 id: architecture-roadmaps
 title: Architecture Roadmaps
 sidebar_position: 19
-description: What to do and when — and why a roadmap without intermediate delivery doesn't survive.
+description: What to do and when, and why a roadmap without intermediate delivery doesn't survive.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ An architecture roadmap arranges in time what
 It answers: **what do we do first, and what depends on what.**
 
 And it fails in a characteristic way: an eighteen-month schedule with chained
-dependencies, in which value only appears at the end — and which does not survive the
+dependencies, in which value only appears at the end, and which does not survive the
 first shift in priority.
 
 ## Problem
@@ -46,7 +46,7 @@ people come and go
 ```
 
 A roadmap that has to be executed in full to deliver anything is betting that none of
-these changes will interrupt it before the end — and if one does, it leaves invested work
+these changes will interrupt it before the end. And if one does, it leaves invested work
 with no return.
 
 ## Core Concepts
@@ -60,13 +60,13 @@ deliveries    each step delivers something usable
               stopping at any point leaves the organization better off
 ```
 
-See [transition architecture](/15-enterprise-architecture/transition-architecture.md) — it is the same principle,
+See [transition architecture](/15-enterprise-architecture/transition-architecture.md): it is the same principle,
 expressed in time.
 
 The question that tests each roadmap item: **if we stop here, is what was delivered worth
 what was spent?**
 
-If the answer is no, the sequence needs to be reordered — by value, not by technical
+If the answer is no, the sequence needs to be reordered: by value, not by technical
 dependency.
 
 ### Precision decreasing with the horizon
@@ -78,7 +78,7 @@ beyond 9 months   themes, with no date commitment
 ```
 
 A roadmap with the same level of detail across the whole horizon conveys a precision that
-does not exist — and creates the expectation that distant dates are commitments.
+does not exist, and creates the expectation that distant dates are commitments.
 
 The format that communicates honestly is the one that shows uncertainty growing with
 distance.
@@ -102,7 +102,7 @@ and June" communicates better than "April", and avoids the conversation about be
 An item someone expects and that is not in the roadmap creates friction when discovered
 late.
 
-Making the absences explicit — "this is not planned for the next 18 months" — is what
+Making the absences explicit ("this is not planned for the next 18 months") is what
 turns an implicit expectation into a conversation. See
 [technical strategy](/15-enterprise-architecture/technical-strategy.md).
 
@@ -125,7 +125,7 @@ order to prioritize.
 
 **Accept temporary duplication.** Sometimes it is cheaper to duplicate than to wait.
 
-See [integration landscapes](/15-enterprise-architecture/integration-landscapes.md) — roadmap dependency reflects
+See [integration landscapes](/15-enterprise-architecture/integration-landscapes.md): roadmap dependency reflects
 structural dependency.
 
 ### Review with evidence
@@ -148,7 +148,7 @@ The most valuable use of a roadmap is not internal. It is **communication**: wit
 business, with other teams, with whoever depends on it.
 
 That changes the format: a roadmap only engineering understands fails at its main use.
-Items expressed in terms of capability and outcome — not technology — are what allows the
+Items expressed in terms of capability and outcome, not technology, are what allows the
 conversation to happen.
 
 ## Mental Model
@@ -178,15 +178,15 @@ other team and no one in the business decides anything based on it, it becomes a
 only its author reads.
 
 **Before strategy and transition exist.** Without something to prioritize and without
-defined intermediate states, the roadmap orders items that have no value criterion yet —
+defined intermediate states, the roadmap orders items that have no value criterion yet,
 and turns into a schedule of technical work.
 
 ## Alternatives
 
-- **Sequence without dates** — dependency and order, with no calendar.
-- **Themes per quarter** — direction with no specific items.
-- **Outcome roadmap** — expressed in capabilities enabled, not in work.
-- **Continuously prioritized flow** — no roadmap, with a continuously reviewed queue.
+- **Sequence without dates**: dependency and order, with no calendar.
+- **Themes per quarter**: direction with no specific items.
+- **Outcome roadmap**: expressed in capabilities enabled, not in work.
+- **Continuously prioritized flow**: no roadmap, with a continuously reviewed queue.
 
 The last one works well for continuous-improvement work, and badly for programs with
 dependencies between teams.
@@ -229,7 +229,7 @@ And the horizon has the same trade-off between usefulness and honesty:
 
 ## Common Mistakes
 
-**Ordering by technical dependency.** It produces a roadmap in which nothing delivers value until the end — and a project like that, if cancelled midway, leaves nothing delivered.
+**Ordering by technical dependency.** It produces a roadmap in which nothing delivers value until the end. And a project like that, if cancelled midway, leaves nothing delivered.
 
 **Uniform detail.** The next quarter can be detailed; the third year cannot be known. Detailing everything equally gives false precision to what is speculation.
 
@@ -237,7 +237,7 @@ And the horizon has the same trade-off between usefulness and honesty:
 
 **Not reviewing quarterly.** Context changes faster than the roadmap's horizon. Without review, it stops describing current intent and becomes a historical document nobody consults.
 
-**Not expressing it in outcomes.** "Migrate to Kubernetes" is not an outcome; "reduce the time to stand up a new service from two weeks to one day" is — and it admits more than one path.
+**Not expressing it in outcomes.** "Migrate to Kubernetes" is not an outcome; "reduce the time to stand up a new service from two weeks to one day" is, and it admits more than one path.
 
 **Not negotiating cross-team dependencies early.** A dependency discovered during execution becomes waiting, because the other team has already committed its quarter to something else.
 
@@ -263,7 +263,7 @@ Fourteen months of work with no defensible return.
 The rework, two years later, changed the structure:
 
 **Sequence by value.** Each roadmap item delivers something usable. The first was
-extracting the catalog — not because it was technically simpler, but because it unblocked
+extracting the catalog, not because it was technically simpler, but because it unblocked
 a business capability that had been awaited for two years.
 
 **Decreasing horizon.** Three months with items and owners; nine months with direction;
@@ -282,7 +282,7 @@ reason. It avoided three discussions that would have happened late.
 
 **Quarterly review** with reordering allowed.
 
-Over the following 18 months, the program was interrupted twice by shifts in priority —
+Over the following 18 months, the program was interrupted twice by shifts in priority,
 and resumed both times. Each interruption left a defensible state, and resuming lost no
 work.
 
@@ -292,10 +292,10 @@ makes sense for surviving.
 
 ## Related Concepts
 
-- [Technical Strategy](/15-enterprise-architecture/technical-strategy.md) — what to prioritize.
-- [Transition Architecture](/15-enterprise-architecture/transition-architecture.md) — the states.
+- [Technical Strategy](/15-enterprise-architecture/technical-strategy.md): what to prioritize.
+- [Transition Architecture](/15-enterprise-architecture/transition-architecture.md): the states.
 - [Target Architecture](/15-enterprise-architecture/target-architecture.md).
-- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md) — the vocabulary.
+- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md): the vocabulary.
 
 ## Practical Exercise
 
@@ -314,4 +314,4 @@ The items that fail the test need to be reordered or re-divided.
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
 - Highsmith, Jim. *Agile Project Management*. 2nd ed. Addison-Wesley, 2009.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — migration planning.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Migration planning.

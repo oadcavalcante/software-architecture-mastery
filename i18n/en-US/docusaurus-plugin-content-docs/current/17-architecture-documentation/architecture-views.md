@@ -2,7 +2,7 @@
 id: architecture-views
 title: Architecture Views
 sidebar_position: 9
-description: A system doesn't fit in one drawing — each view answers one audience's concerns.
+description: "A system doesn't fit in one drawing: each view answers one audience's concerns."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, architecture-descriptions, documentation-principles]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,8 +28,8 @@ shows all of them.
 The answer is to organize documentation into **views**: each view is a representation of
 the system built to answer the concerns of a specific audience.
 
-And the important decision is not which set of views to use. It is **whose concerns need
-answering** — which makes the set vary by system.
+And the important decision is **whose concerns need
+answering**, not which set of views to use. That makes the set vary by system.
 
 ## Problem
 
@@ -49,7 +49,7 @@ same failure as mixing levels of abstraction described in the
 
 The opposite mistake is also common: adopting a canonical set of views and producing all
 of them, regardless of whether anyone is interested in each. That generates documents
-nobody reads — see [documentation principles](/17-architecture-documentation/documentation-principles.md).
+nobody reads. See [documentation principles](/17-architecture-documentation/documentation-principles.md).
 
 ## Core Concepts
 
@@ -99,8 +99,8 @@ physical        mapping onto hardware, for whoever operates
 +1: scenarios   use cases that tie the four together
 ```
 
-The lasting value is not the list. It is the "+1": the **scenarios validate the views** —
-if a concrete scenario cannot be traced through the views, they are incomplete or
+The lasting value is the "+1", not the list: the **scenarios validate the views**.
+If a concrete scenario cannot be traced through the views, they are incomplete or
 inconsistent.
 
 That is the reusable idea, and the most ignored.
@@ -121,7 +121,7 @@ that covers them.
 
 ### Cross-cutting perspectives
 
-Some concerns are not a view — they cut across all of them:
+Some concerns are not a view. They cut across all of them:
 
 ```text
 security          affects structure, deployment, data, operations
@@ -131,8 +131,8 @@ cost              same
 evolvability      same
 ```
 
-Treating them as separate views duplicates information. Treating them as **perspectives** —
-lenses applied over the existing views — avoids the duplication and produces a useful
+Treating them as separate views duplicates information. Treating them as **perspectives**
+(lenses applied over the existing views) avoids the duplication and produces a useful
 question: "what does each view say about security?"
 
 See [quality attributes](/01-fundamentals/quality-attributes.md).
@@ -147,7 +147,7 @@ does a flow in the process view use containers that exist?
 does the data view mention stores that appear in the physical view?
 ```
 
-The more views, the greater the cost of maintaining consistency — and that is why the
+The more views, the greater the cost of maintaining consistency, and that is why the
 number should be the minimum necessary. Views generated from a common source solve part of
 the problem. See [living documentation](/17-architecture-documentation/living-documentation.md).
 
@@ -171,22 +171,22 @@ method.
 with no operations, audit or external integration audience: there is no one else's
 concern to answer, and one or two representations suffice.
 
-**When the expected lifespan is short** — a system that will be replaced before the cost
+**When the expected lifespan is short**: a system that will be replaced before the cost
 of keeping several views consistent pays off.
 
 **Without checking consistency** across the views.
 
 **With cross-cutting concerns turned into views**, duplicating content.
 
-**As a compliance exercise** — the worst use, and the most frequent in large
+**As a compliance exercise**: the worst use, and the most frequent in large
 organizations.
 
 ## Alternatives
 
-- **[C4 model](/17-architecture-documentation/c4-model.md)** — when the concern is only structural.
-- **[arc42](/17-architecture-documentation/architecture-descriptions.md)** — when you want a ready-made structure that goes beyond diagrams.
-- **A single short document** — for small systems, one page with four sections.
-- **Documentation by question** — organize by frequent question instead of by view.
+- **[C4 model](/17-architecture-documentation/c4-model.md)**: when the concern is only structural.
+- **[arc42](/17-architecture-documentation/architecture-descriptions.md)**: when you want a ready-made structure that goes beyond diagrams.
+- **A single short document**: for small systems, one page with four sections.
+- **Documentation by question**: organize by frequent question instead of by view.
 
 The last is underrated and works well: an index of questions ("how does this scale?",
 "where is the customer data?") with short answers covers most of the real need with less
@@ -226,13 +226,13 @@ structure.
 
 **Treating security as a view.** Security cuts across every view. Confining it to one diagram removes it from the others, which is where the decisions happen.
 
-**Not checking consistency.** Views that contradict each other destroy confidence in the whole set — the reader no longer knows which one to believe.
+**Not checking consistency.** Views that contradict each other destroy confidence in the whole set: the reader no longer knows which one to believe.
 
 **Producing every view with the same effort**, without prioritizing. The effort dilutes and the view that would decide something ends up at the same level as the one nobody consults.
 
 ## Real-World Example
 
-An insurer adopted a formal set of views for every system classified as relevant — 34
+An insurer adopted a formal set of views for every system classified as relevant: 34
 systems, seven views each, 238 documents.
 
 The process took fourteen months. Two years later, a usage measurement:
@@ -252,12 +252,12 @@ maintenance cost was the
 same for all of them.
 
 Worse: a consistency audit found divergence between the structural and the deployment view
-in 22 of the 34 systems. The views disagreed with each other — and whoever consulted them
+in 22 of the 34 systems. The views disagreed with each other, and whoever consulted them
 didn't know which was right.
 
 The revision:
 
-**The set reduced to three mandatory views** — structural, deployment and integration —
+**The set reduced to three mandatory views** (structural, deployment and integration),
 chosen by measured use, not by method.
 
 **The data view on demand**, mandatory only for systems handling personal or financial
@@ -269,7 +269,7 @@ data. See
 **Security became a perspective**, not a view: a list of questions applied to the three
 mandatory views during review.
 
-**Consistency verified automatically** where possible — the deployment view came to be
+**Consistency verified automatically** where possible: the deployment view came to be
 derived from the infrastructure code, and a checker compares the containers declared in
 the structural view against those deployed. See
 [living documentation](/17-architecture-documentation/living-documentation.md).
@@ -286,17 +286,17 @@ months of work.
 
 ## Related Concepts
 
-- [C4 Model](/17-architecture-documentation/c4-model.md) — one set of structural views.
-- [Architecture Descriptions](/17-architecture-documentation/architecture-descriptions.md) — the formalization.
-- [Documentation Principles](/17-architecture-documentation/documentation-principles.md) — the reader first.
-- [Quality Attributes](/01-fundamentals/quality-attributes.md) — the perspectives.
+- [C4 Model](/17-architecture-documentation/c4-model.md): one set of structural views.
+- [Architecture Descriptions](/17-architecture-documentation/architecture-descriptions.md): the formalization.
+- [Documentation Principles](/17-architecture-documentation/documentation-principles.md): the reader first.
+- [Quality Attributes](/01-fundamentals/quality-attributes.md): the perspectives.
 
 ## Practical Exercise
 
 List the stakeholders in your system and, for each one, the question they need to answer.
 
 Then compare that with the existing documentation. There are probably documents with no
-stakeholder and stakeholders with no document — and both are problems.
+stakeholder and stakeholders with no document, and both are problems.
 
 ## Interview Questions
 
@@ -306,6 +306,6 @@ stakeholder and stakeholders with no document — and both are problems.
 
 ## Further Reading
 
-- Kruchten, Philippe. *Architectural Blueprints — The 4+1 View Model*. IEEE Software, 1995.
+- Kruchten, Philippe. *Architectural Blueprints. The 4+1 View Model*. IEEE Software, 1995.
 - Rozanski, Nick; Woods, Eoin. *Software Systems Architecture*. 2nd ed. Addison-Wesley, 2011.
 - Clements, Paul et al. *Documenting Software Architectures*. 2nd ed. Addison-Wesley, 2010.

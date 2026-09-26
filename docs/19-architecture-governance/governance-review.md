@@ -2,7 +2,7 @@
 id: governance-review
 title: Revisão como Instrumento
 sidebar_position: 2
-description: Cedo e sem veto, ou tarde e sem efeito — a revisão só funciona num dos dois momentos.
+description: "Cedo e sem veto, ou tarde e sem efeito: a revisão só funciona num dos dois momentos."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-pathologies, exceptions]
 canonical_for: [revisão antecipada, aconselhamento contra portão, pauta de revisão, produto da revisão]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -32,9 +32,9 @@ tarde, sem poder de veto    ritual
 cedo, com poder de veto     ninguém traz nada cedo
 ```
 
-Para a maior parte das decisões, apenas a primeira combinação produz efeito — o veto se
+Para a maior parte das decisões, apenas a primeira combinação produz efeito. O veto se
 justifica num conjunto pequeno de classes, descrito abaixo. E ela é a menos escolhida, porque parece a mais
-fraca — uma revisão sem autoridade formal soa como uma revisão sem consequência.
+fraca: uma revisão sem autoridade formal soa como uma revisão sem consequência.
 
 A prática mostra o contrário: a autoridade de vetar é o que empurra a revisão para o fim,
 onde ela não tem mais o que melhorar.
@@ -86,7 +86,7 @@ aconselhamento  melhora a decisão de quem segue
 
 No modelo de aconselhamento, a decisão permanece com o time, e o registro de que a
 orientação foi dada permanece com a revisão. Se o time seguir caminho diferente, isso é
-legítimo e fica registrado — no [ADR](/18-architecture-decisions/what-is-an-adr.md), com a objeção
+legítimo e fica registrado no [ADR](/18-architecture-decisions/what-is-an-adr.md), com a objeção
 preservada.
 
 Esse registro é o que substitui a autoridade formal: não há veto, e há memória.
@@ -140,7 +140,7 @@ Separar as três primeiras categorias resolve o problema mais comum das revisõe
 de peso desigual apresentados com a mesma ênfase, deixando o time sem critério de
 priorização.
 
-E o registro dessa separação é o que permite avaliar a revisão depois — ver
+E o registro dessa separação é o que permite avaliar a revisão depois. Ver
 [medição](/19-architecture-governance/measuring-governance.md).
 
 ### Quem participa
@@ -153,7 +153,7 @@ quem consome         times afetados, quando há contrato entre eles
 ```
 
 O grupo pequeno funciona melhor. Uma revisão com nove pessoas produz comentários de
-educação, não de julgamento — cada participante sente necessidade de contribuir.
+educação, não de julgamento: cada participante sente necessidade de contribuir.
 
 Três a cinco é o intervalo em que a discussão continua sendo discussão.
 
@@ -168,7 +168,7 @@ pior para     exploração aberta, discordância profunda
 efeito        filtra: só o que precisa de conversa vira reunião
 ```
 
-Escrever força clareza, e comentários escritos são citáveis depois. O custo é latência — e
+Escrever força clareza, e comentários escritos são citáveis depois. O custo é latência, e
 para decisões arquiteturais, dois dias de latência raramente é o gargalo.
 
 ## Modelo Mental
@@ -185,26 +185,26 @@ que não há mais nada a melhorar.
 
 ## Quando Não Usar
 
-**Decisão recorrente já coberta por gabarito ou função de aptidão** — a revisão repete o que
+**Decisão recorrente já coberta por gabarito ou função de aptidão**: a revisão repete o que
 o gabarito já decide e só acrescenta latência.
 
-**Decisão reversível e local a um time** — esperar a sessão custa mais que corrigir o erro,
+**Decisão reversível e local a um time**: esperar a sessão custa mais que corrigir o erro,
 se ele aparecer.
 
-**Desenho já implementado** — sem espaço para mudar, a revisão só pode aprovar ou gerar
+**Desenho já implementado**: sem espaço para mudar, a revisão só pode aprovar ou gerar
 retrabalho; o que cabe ali é registrar a decisão em ADR.
 
-**Como portão para tudo** — a fila cresce, e o veto empurra cada decisão para tarde.
+**Como portão para tudo**: a fila cresce, e o veto empurra cada decisão para tarde.
 
-**Como único mecanismo de governança** — revisão não escala, e é corretiva por natureza.
+**Como único mecanismo de governança**: revisão não escala, e é corretiva por natureza.
 
 ## Alternativas
 
-- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)** — para o que é verificável, mais
+- **[Funções de aptidão](/19-architecture-governance/fitness-functions-governance.md)**: para o que é verificável, mais
   barato e mais confiável.
-- **Consulta voluntária** — sem agenda formal, sob demanda do time.
-- **Revisão por pares entre times** — sem papel central, com efeito de disseminação.
-- **Gabarito** — quando a decisão é recorrente, a revisão vira redundante.
+- **Consulta voluntária**: sem agenda formal, sob demanda do time.
+- **Revisão por pares entre times**: sem papel central, com efeito de disseminação.
+- **Gabarito**: quando a decisão é recorrente, a revisão vira redundante.
 
 A segunda tem uma propriedade útil: o volume de consultas voluntárias é um indicador direto
 de que o mecanismo é percebido como útil.
@@ -283,8 +283,8 @@ O redesenho:
 **Revisão vira aconselhamento** para a maior parte das decisões. Sem aprovação, sem
 bloqueio.
 
-**Quatro classes com portão real**: implicação regulatória — relevante num contexto de dados
-de saúde —, formato de dado entre times, compromisso financeiro acima de um limite, e
+**Quatro classes com portão real**: implicação regulatória (relevante num contexto de dados
+de saúde), formato de dado entre times, compromisso financeiro acima de um limite, e
 exposição pública nova.
 
 **Sessão de 30 minutos com três participantes**, escolhidos por relevância e não por cargo.
@@ -311,7 +311,7 @@ casos em que a divergência se mostrou
 ```
 
 Os 9 casos em que o time acertou contra a recomendação foram usados internamente como
-argumento para manter o modelo. A conclusão registrada se limita ao dado: nas 14 vezes em que o time divergiu, acertou em 9 —
+argumento para manter o modelo. A conclusão registrada se limita ao dado: nas 14 vezes em que o time divergiu, acertou em 9,
 numa amostra enviesada, porque o time só diverge quando tem convicção. Sem o registro de
 divergência, nem esse dado existiria: sob o portão, a divergência não acontecia.
 
@@ -321,16 +321,16 @@ que estava sendo construído antes de estar construído.
 
 ## Conceitos Relacionados
 
-- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md) — o ponto de intervenção.
-- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md) — formatos.
-- [Patologias](/19-architecture-governance/governance-pathologies.md) — o comitê que aprova tudo.
-- [Decisão](/18-architecture-decisions/adr-decision.md) — o registro da divergência.
+- [Fundamentos de Governança](/19-architecture-governance/governance-basics.md): o ponto de intervenção.
+- [Revisão de Arquitetura](/15-enterprise-architecture/architecture-review.md): formatos.
+- [Patologias](/19-architecture-governance/governance-pathologies.md): o comitê que aprova tudo.
+- [Decisão](/18-architecture-decisions/adr-decision.md): o registro da divergência.
 
 ## Exercício Prático
 
 Meça a taxa de aprovação da revisão do seu contexto nos últimos 12 meses.
 
-Acima de 90%, a revisão está recebendo apenas o inevitável — e o diagnóstico é sobre o
+Acima de 90%, a revisão está recebendo apenas o inevitável, e o diagnóstico é sobre o
 momento em que ela acontece, não sobre quem participa.
 
 ## Perguntas de Entrevista

@@ -2,7 +2,7 @@
 id: partial-failure
 title: Falha Parcial
 sidebar_position: 3
-description: Parte do sistema funciona, parte não — a diferença estrutural entre local e distribuído.
+description: "Parte do sistema funciona, parte não: a diferença estrutural entre local e distribuído."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [network-failure]
 related: [idempotency, sagas, circuit-breakers]
 canonical_for: [falha parcial]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Falha parcial é a situação em que parte do sistema funciona e parte não.
 
 É **a** diferença entre sistemas locais e distribuídos. Num processo único, a
-falha é total: se ele morre, morre inteiro, e o estado em memória vai junto — de
+falha é total: se ele morre, morre inteiro, e o estado em memória vai junto, de
 forma consistente. Distribuído, um componente cai enquanto os outros continuam, e
 o sistema fica num estado que ninguém projetou.
 
@@ -42,7 +42,7 @@ diferentes.
 O sistema não está funcionando nem parado. Ele está num estado em que o cliente
 foi cobrado, o estoque foi reservado, e não existe documento fiscal.
 
-Esse estado não aparece em nenhum diagrama. Não é erro de programação — é
+Esse estado não aparece em nenhum diagrama. Não é erro de programação, e sim
 consequência inevitável de a operação atravessar fronteiras que falham
 independentemente.
 
@@ -59,8 +59,8 @@ existem depende de como os passos são despachados.
 Em fluxo sequencial que aborta na primeira falha, os desfechos alcançáveis são N+1:
 sucesso completo, ou parada em cada um dos N passos. Quando os passos correm em
 paralelo, ou quando o fluxo segue adiante depois de um deles falhar, são as 2^N
-combinações de sucesso e falha — 32 para cinco passos — e 3^N quando o timeout
-deixa o desfecho de cada passo desconhecido. Cada desfecho precisa de uma resposta —
+combinações de sucesso e falha (32 para cinco passos), e 3^N quando o timeout
+deixa o desfecho de cada passo desconhecido. Cada desfecho precisa de uma resposta,
 ainda que a resposta seja "aceitamos e corrigimos manualmente".
 
 Esse é o custo que granularidade excessiva impõe a operações multi-passo: **cada
@@ -71,7 +71,7 @@ multiplica.**
 
 **Compensar.** Desfazer o que já foi feito. Estornar a cobrança, liberar o
 estoque. É o que [sagas](/06-distributed-systems/sagas.md) formalizam, e exige que cada passo tenha
-inverso — o que nem sempre existe. Um e-mail enviado não se desenvia.
+inverso, o que nem sempre existe. Um e-mail enviado não se desenvia.
 
 **Retomar.** Persistir o progresso e continuar depois. Exige estado intermediário
 durável e passos [idempotentes](/06-distributed-systems/idempotency.md).
@@ -95,7 +95,7 @@ persistida. Ver [State](/03-design-patterns/state.md).
 ### Falha parcial não exige microsserviços
 
 Ela não depende da arquitetura. Um monolito que chama um serviço de pagamento
-externo e um de e-mail já tem falha parcial — em duas fronteiras.
+externo e um de e-mail já tem falha parcial, em duas fronteiras.
 
 O que microsserviços fazem é multiplicar o número de fronteiras.
 
@@ -112,12 +112,12 @@ erro é registrado, e a lentidão se propaga aos chamadores até esgotar suas
 conexões.
 
 **Correto mas desatualizado.** Uma réplica que parou de replicar continua servindo
-leituras — de dados antigos, sem sinal de que algo está errado.
+leituras: de dados antigos, sem sinal de que algo está errado.
 
 Nenhum desses aparece em contagem de erros. O que medir no lugar de
 disponibilidade está em [falha de rede](/06-distributed-systems/network-failure.md).
 O que importa aqui é que os três produzem estado inconsistente sem que nenhum passo
-tenha falhado — e por isso nenhuma das três respostas (compensar, retomar,
+tenha falhado, e por isso nenhuma das três respostas (compensar, retomar,
 reconciliar) chega a ser acionada.
 
 ## Modelo Mental
@@ -135,7 +135,7 @@ Não é técnica opcional. As decisões que ela informa:
 - Escolher entre compensação, retomada e reconciliação, por operação.
 - Decidir onde persistir o progresso.
 - Definir o que é tolerável ficar inconsistente e por quanto tempo.
-- Dimensionar o esforço de operação — reconciliação exige quem a acompanhe.
+- Dimensionar o esforço de operação: reconciliação exige quem a acompanhe.
 
 ## Quando Não Usar
 
@@ -154,11 +154,11 @@ disso, o que ela acrescenta é mais um estado intermediário para tratar.
 
 ## Alternativas
 
-- **Transação local** — quando os passos cabem no mesmo banco, a falha parcial
+- **Transação local**: quando os passos cabem no mesmo banco, a falha parcial
   desaparece. É a razão para manter no mesmo banco os passos de uma mesma operação.
-- **Reduzir o número de passos** — juntar dois serviços elimina uma fronteira: um
-  desfecho a menos em fluxo sequencial, metade das combinações em fluxo paralelo.
-- **Tornar passos opcionais** — se o e-mail pode falhar sem consequência, sai do
+- **Reduzir o número de passos**: juntar dois serviços elimina uma fronteira (um
+  desfecho a menos em fluxo sequencial, metade das combinações em fluxo paralelo).
+- **Tornar passos opcionais**: se o e-mail pode falhar sem consequência, sai do
   fluxo crítico e vira evento.
 
 ## Trade-offs
@@ -202,10 +202,10 @@ ninguém lê é o mesmo que não ter.
 Um sistema de matrícula em cursos executava quatro passos: reservar vaga, cobrar,
 liberar acesso à plataforma, enviar boas-vindas. Cerca de 300 matrículas por dia.
 
-Não havia persistência de progresso — era uma função chamando quatro serviços em
+Não havia persistência de progresso: era uma função chamando quatro serviços em
 sequência.
 
-Ao longo de um ano, três estados órfãos apareceram — os dois primeiros de forma
+Ao longo de um ano, três estados órfãos apareceram: os dois primeiros de forma
 recorrente, o terceiro em três casos.
 
 **Cobrado sem acesso.** O serviço de plataforma falhava após a cobrança. O aluno
@@ -215,7 +215,7 @@ pagava e não conseguia entrar. Descoberto pelo suporte, corrigido à mão.
 apareciam esgotados com vagas fantasma.
 
 **Acesso sem cobrança.** A retentativa manual do operador reexecutava a partir do
-início: o passo de liberar acesso — já concluído — rodava de novo, inofensivo, mas a
+início: o passo de liberar acesso, já concluído, rodava de novo, inofensivo, mas a
 cobrança era lançada uma segunda vez. Em três casos o operador pulou a cobrança e
 retomou do terceiro passo, supondo-a concluída, e o acesso foi liberado sem
 pagamento.
@@ -223,24 +223,24 @@ pagamento.
 A reformulação transformou a operação numa máquina de estados persistida.
 
 Cada passo grava o resultado antes de avançar. A retomada continua do último passo
-concluído, e todos são idempotentes — reservar a mesma vaga duas vezes é
+concluído, e todos são idempotentes: reservar a mesma vaga duas vezes é
 inofensivo, cobrar com a mesma chave devolve o resultado original.
 
 O envio de boas-vindas saiu do fluxo crítico e virou evento: pode falhar sem
 deixar a matrícula inconsistente.
 
 E foi adicionada reconciliação diária comparando matrículas, cobranças e acessos,
-com alerta acima de cinco divergências no dia — pouco mais de 1% do volume diário.
+com alerta acima de cinco divergências no dia (pouco mais de 1% do volume diário).
 
 Na primeira execução, ela encontrou 47 divergências acumuladas em meses. Ninguém
 sabia que existiam, porque só as que geravam reclamação eram descobertas.
 
 ## Conceitos Relacionados
 
-- [Falha de Rede](/06-distributed-systems/network-failure.md) — a origem.
-- [Idempotência](/06-distributed-systems/idempotency.md) — o que torna a retomada segura.
-- [Sagas](/06-distributed-systems/sagas.md) — a formalização da compensação.
-- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md) — a alternativa e seu
+- [Falha de Rede](/06-distributed-systems/network-failure.md): a origem.
+- [Idempotência](/06-distributed-systems/idempotency.md): o que torna a retomada segura.
+- [Sagas](/06-distributed-systems/sagas.md): a formalização da compensação.
+- [Transações Distribuídas](/06-distributed-systems/distributed-transactions.md): a alternativa e seu
   custo.
 
 ## Exercício Prático

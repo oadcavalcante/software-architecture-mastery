@@ -2,7 +2,7 @@
 id: dashboards
 title: Painéis
 sidebar_position: 8
-description: Para que servem — e por que o painel de acompanhamento é diferente do de investigação.
+description: Para que servem e por que o painel de acompanhamento é diferente do de investigação.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, metrics, alerting]
 canonical_for: [painel, painel de investigação, painel de acompanhamento, painel de serviço]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -40,7 +40,7 @@ Depois de dois anos: 60 gráficos, sem hierarquia, sem indicação do que é nor
 ordem de leitura.
 
 Durante um incidente, às 3h, alguém abre esse painel e precisa decidir onde olhar. O
-excesso de informação não ajuda — ele atrasa.
+excesso de informação não ajuda: ele atrasa.
 
 ## Conceitos Centrais
 
@@ -100,8 +100,8 @@ zero.
 
 A padronização vale mais que a otimização individual.
 
-Se todos os serviços têm o mesmo painel — [sinais dourados](/13-observability/golden-signals.md), na mesma
-posição, com as mesmas escalas —, alguém que investiga um serviço desconhecido sabe onde
+Se todos os serviços têm o mesmo painel ([sinais dourados](/13-observability/golden-signals.md), na mesma
+posição, com as mesmas escalas), alguém que investiga um serviço desconhecido sabe onde
 olhar.
 
 Painéis artesanais, cada um com layout próprio, obrigam a aprender a interpretação de
@@ -114,7 +114,7 @@ longo do tempo.
 
 Métricas mudam de nome, serviços são removidos, gráficos param de funcionar.
 
-Um painel com três gráficos quebrados perde credibilidade inteiro — as pessoas param de
+Um painel com três gráficos quebrados perde credibilidade inteiro: as pessoas param de
 confiar no que veem.
 
 A revisão periódica é a mesma dos [alertas](/13-observability/alerting.md): o que não é consultado, e o
@@ -135,7 +135,7 @@ observabilidade.
 ### O painel exibido permanentemente tem outro requisito
 
 Um painel numa tela na área do time é lido de relance, por pessoas que não estão
-investigando nada — e às vezes por quem não é do time.
+investigando nada, e às vezes por quem não é do time.
 
 Isso impõe restrições que os demais não têm:
 
@@ -145,7 +145,7 @@ Isso impõe restrições que os demais não têm:
 temporal com variação exige interpretação.
 
 **Sem alarme falso.** Um painel que fica vermelho por variação normal treina as pessoas
-a ignorá-lo — o mesmo mecanismo da [fadiga de alerta](/13-observability/alerting.md).
+a ignorá-lo: o mesmo mecanismo da [fadiga de alerta](/13-observability/alerting.md).
 
 **Sem dado sensível.** Ele é visível a visitantes, a quem passa, e a fotos de
 escritório. Valores de receita e nomes de clientes não pertencem ali.
@@ -175,7 +175,7 @@ gráfico, quem percebe primeiro é o usuário. O que exige reação em minutos p
 [alerta](/13-observability/alerting.md); o painel entra depois que ele disparou.
 
 **Como única forma de investigar.** Quando o incidente combina dimensões que nenhum
-gráfico antecipou — um cliente, uma versão, uma região —, o painel não tem o recorte, e o
+gráfico antecipou (um cliente, uma versão, uma região), o painel não tem o recorte, e o
 time que depende dele fica sem caminho. Ver
 [depurabilidade](/13-observability/debuggability.md).
 
@@ -185,10 +185,10 @@ manutenção sem leitor.
 
 ## Alternativas
 
-- **[Alertas](/13-observability/alerting.md)** — para o que precisa de reação.
-- **Consulta ad hoc** — para perguntas novas.
-- **Relatório periódico** — para tendência que não precisa de tempo real.
-- **Painel gerado por modelo** — em vez de construído à mão.
+- **[Alertas](/13-observability/alerting.md)**: para o que precisa de reação.
+- **Consulta ad hoc**: para perguntas novas.
+- **Relatório periódico**: para tendência que não precisa de tempo real.
+- **Painel gerado por modelo**: em vez de construído à mão.
 
 ## Trade-offs
 
@@ -239,7 +239,7 @@ Uma plataforma de logística tinha um painel principal com 64 gráficos, constru
 longo de quatro anos.
 
 Numa análise de incidentes, uma constatação: o tempo médio entre o alerta e a
-identificação do componente afetado era de 22 minutos — e as pessoas relatavam abrir o
+identificação do componente afetado era de 22 minutos, e as pessoas relatavam abrir o
 painel, não encontrar o que precisavam, e ir direto às consultas ad hoc.
 
 O painel tinha deixado de ser usado, sem que ninguém tivesse decidido isso.
@@ -272,10 +272,10 @@ correlação visual respondia a pergunta antes de qualquer investigação.
 
 ## Conceitos Relacionados
 
-- [Sinais Dourados](/13-observability/golden-signals.md) — o conteúdo padrão.
-- [Alertas](/13-observability/alerting.md) — o que não é painel.
-- [Métricas](/13-observability/metrics.md) — a fonte.
-- [Depurabilidade](/13-observability/debuggability.md) — o que o painel não cobre.
+- [Sinais Dourados](/13-observability/golden-signals.md): o conteúdo padrão.
+- [Alertas](/13-observability/alerting.md): o que não é painel.
+- [Métricas](/13-observability/metrics.md): a fonte.
+- [Depurabilidade](/13-observability/debuggability.md): o que o painel não cobre.
 
 ## Exercício Prático
 

@@ -2,7 +2,7 @@
 id: denormalization
 title: Desnormalização
 sidebar_position: 14
-description: Duplicar de propósito — quando o custo de junção supera o custo de manter cópias em dia.
+description: "Duplicar de propósito: quando o custo de junção supera o custo de manter cópias em dia."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [normalization]
 related: [olap, data-modeling, indexing]
 canonical_for: [desnormalização, duplicação controlada]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Desnormalizar é duplicar dados de propósito para evitar junções na leitura.
 
 É uma decisão legítima e frequentemente correta. O que a torna arriscada é ser
-tomada por intuição — "junções são lentas" — em vez de por medição, e sem plano
+tomada por intuição ("junções são lentas") em vez de por medição, e sem plano
 para manter as cópias coerentes.
 
 A pergunta que a governa: **quando o original mudar, o que acontece com as
@@ -39,7 +39,7 @@ Desnormalizar resolve isso e cria um problema novo: a mesma informação passa a
 existir em vários lugares, e mantê-los coerentes vira responsabilidade da
 aplicação.
 
-O erro comum não é desnormalizar — é desnormalizar sem responder o que acontece na
+O erro comum não é desnormalizar, e sim desnormalizar sem responder o que acontece na
 atualização, e descobrir a resposta em produção.
 
 ## Conceitos Centrais
@@ -47,7 +47,7 @@ atualização, e descobrir a resposta em produção.
 ### Duas categorias que se confundem
 
 **Cópia de valor histórico.** O preço cobrado, o endereço da entrega, a alíquota
-aplicada. Esses valores **não devem** mudar quando o cadastro muda — são fatos
+aplicada. Esses valores **não devem** mudar quando o cadastro muda: são fatos
 diferentes do dado atual.
 
 Isso não é desnormalização: é modelagem correta. Ver
@@ -67,7 +67,7 @@ Separar as duas resolve boa parte da confusão sobre o tema.
 
 **Achatar hierarquia.** Categoria e subcategoria direto no produto.
 
-**Repetir a linha inteira.** Modelo dimensional — a dimensão inteira junto do
+**Repetir a linha inteira.** Modelo dimensional: a dimensão inteira junto do
 fato.
 
 Os agregados pré-calculados são os mais valiosos e os mais propensos a divergir,
@@ -84,7 +84,7 @@ exige [idempotência](/06-distributed-systems/idempotency.md).
 **Recalcular periodicamente.** Um processo reconstrói. Simples, com janela de
 divergência maior.
 
-A escolha depende de quanto tempo de divergência o negócio aceita — pergunta que
+A escolha depende de quanto tempo de divergência o negócio aceita: pergunta que
 precisa ser feita ao negócio, não decidida tecnicamente.
 
 ### Verificação de divergência é obrigatória
@@ -104,7 +104,7 @@ Ele quase nunca existe.
 transacional, onde uma junção indexada de poucos registros custa quase nada.
 
 Antes de desnormalizar num sistema transacional, verifique o plano de execução. A
-causa mais comum de consulta lenta é [índice](/07-data-architecture/indexing.md) ausente — e
+causa mais comum de consulta lenta é [índice](/07-data-architecture/indexing.md) ausente, e
 desnormalizar para contornar índice ausente adiciona complexidade permanente para
 resolver algo que uma linha resolveria.
 
@@ -113,8 +113,8 @@ resolver algo que uma linha resolveria.
 Se três serviços podem alterar o original e apenas um sabe atualizar a cópia, a
 divergência é questão de tempo.
 
-Desnormalização exige que toda escrita passe por um ponto que conhece as cópias —
-o que é um requisito de arquitetura, não de implementação.
+Desnormalização exige que toda escrita passe por um ponto que conhece as cópias.
+Isso é um requisito de arquitetura, não de implementação.
 
 ## Modelo Mental
 
@@ -124,7 +124,7 @@ quando se lê muito mais do que se escreve.
 ## Quando Usar
 
 - Modelo analítico. Ver [OLAP](/07-data-architecture/olap.md).
-- Leitura desproporcionalmente mais frequente que escrita — a conta que decide é
+- Leitura desproporcionalmente mais frequente que escrita: a conta que decide é
   leituras × custo da junção evitada contra escritas no original × número de
   cópias a atualizar.
 - A junção foi medida e é o gargalo.
@@ -154,16 +154,16 @@ quase nada, e a cópia fica sem ganho que a pague.
 
 ## Alternativas
 
-- **[Índice](/07-data-architecture/indexing.md) adequado** — em modelo transacional,
+- **[Índice](/07-data-architecture/indexing.md) adequado**: em modelo transacional,
   verifique primeiro; em modelo dimensional a desnormalização é o ponto de partida.
-- **Visão materializada** — o banco mantém a cópia, e o risco de divergência
+- **Visão materializada**: o banco mantém a cópia, e o risco de divergência
   depende de como ele a atualiza. Visão indexada do SQL Server e refresh ON COMMIT
   do Oracle atualizam junto com a escrita; no PostgreSQL o `REFRESH MATERIALIZED
   VIEW` é sob demanda, e a visão herda a janela da estratégia periódica. O MySQL
   não tem o recurso.
-- **Cache** — duplicação com prazo: a expiração não garante coerência, só fixa o
+- **Cache**: duplicação com prazo. A expiração não garante coerência, só fixa o
   teto de quanto tempo a cópia pode divergir.
-- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — separação explícita
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)**: separação explícita
   com projeção reconstruível.
 
 A visão materializada é subutilizada: onde o banco a atualiza junto com a escrita,
@@ -205,8 +205,8 @@ as cópias ficam para trás.
 
 ## Erros Comuns
 
-**Desnormalizar sem medir.** A complexidade fica permanente, e o gargalo real —
-muitas vezes um índice ausente — continua lá.
+**Desnormalizar sem medir.** A complexidade fica permanente, e o gargalo real
+(muitas vezes um índice ausente) continua lá.
 
 **Não implementar verificação de divergência.** A primeira notícia da falha vem de
 um cliente ou de uma conciliação, meses depois.
@@ -239,8 +239,8 @@ diretamente.
 
 **Importação de pedidos** de um canal parceiro, que inseria itens em lote.
 
-A divergência cresceu em silêncio por um ano e meio. Quando foi finalmente medida —
-por acaso, durante outra investigação — **1,8% dos pedidos** tinham total diferente
+A divergência cresceu em silêncio por um ano e meio. Quando foi finalmente medida
+(por acaso, durante outra investigação), **1,8% dos pedidos** tinham total diferente
 da soma dos itens. Com cerca de 40 mil pedidos por mês, eram uns 13 mil pedidos,
 alguns a mais, alguns a menos. A diferença média de R$ 40 por pedido somava mais de
 R$ 500 mil cobrados errado, e a conciliação levou meses.
@@ -262,9 +262,9 @@ times futuros.
 
 ## Conceitos Relacionados
 
-- [Normalização](/07-data-architecture/normalization.md) — a decisão inversa.
-- [Indexação](/07-data-architecture/indexing.md) — verifique antes.
-- [OLAP](/07-data-architecture/olap.md) — onde desnormalizar é o padrão.
+- [Normalização](/07-data-architecture/normalization.md): a decisão inversa.
+- [Indexação](/07-data-architecture/indexing.md): verifique antes.
+- [OLAP](/07-data-architecture/olap.md): onde desnormalizar é o padrão.
 - [CQRS](/03-design-patterns/cqrs.md).
 
 ## Exercício Prático

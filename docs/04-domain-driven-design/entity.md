@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ubiquitous-language]
 related: [value-object, aggregate, repository]
 canonical_for: [entity, entidade, identidade de domínio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -26,7 +26,7 @@ Dois pedidos com exatamente os mesmos dados são pedidos diferentes se têm
 identificadores diferentes.
 
 A distinção entre entidade e [objeto de valor](/04-domain-driven-design/value-object.md) é a primeira
-decisão de modelagem tática, e ela vem do domínio — não de conveniência técnica.
+decisão de modelagem tática, e ela vem do domínio, não de conveniência técnica.
 
 ## Problema
 
@@ -34,7 +34,7 @@ Nem tudo que se persiste é entidade. Tratar tudo como entidade produz três
 problemas.
 
 **Identidade onde não há.** Um endereço com identificador próprio, referenciado
-por outros objetos, gera a pergunta "este endereço é o mesmo?" — que não tem
+por outros objetos, gera a pergunta "este endereço é o mesmo?", que não tem
 resposta útil no domínio.
 
 **Mutabilidade indevida.** Entidades mudam ao longo do tempo; objetos de valor
@@ -72,8 +72,8 @@ por quem escreve a primeira migração. Ver
 | UUID ordenável por tempo | Sem coordenação e com boa localidade | Menos suportado |
 | Natural do domínio | Significado próprio | Muda quando a realidade muda |
 
-A quarta linha merece atenção: identificadores naturais — CPF, número de contrato,
-código de produto — parecem ideais e falham quando o negócio muda a regra. Um
+A quarta linha merece atenção: identificadores naturais (CPF, número de contrato,
+código de produto) parecem ideais e falham quando o negócio muda a regra. Um
 código de produto que "nunca muda" muda na primeira fusão de catálogo.
 
 A recomendação prática: **use identificador artificial como identidade, e trate o
@@ -85,7 +85,7 @@ pode mudar.
 Identificador gerado pelo banco só existe depois da persistência. Isso impede
 construir um grafo de objetos em memória antes de gravar, e complica testes.
 
-Gerar na aplicação — UUID ou equivalente — resolve: a identidade existe antes da gravação, o
+Gerar na aplicação (UUID ou equivalente) resolve: a identidade existe antes da gravação, o
 grafo se monta em memória e o teste não precisa de banco.
 
 ### A entidade tem comportamento
@@ -110,7 +110,7 @@ coordenada. Ver [objeto de valor](/04-domain-driven-design/value-object.md).
 deles?", provavelmente não é entidade.
 
 **Quando o domínio não distingue duas ocorrências idênticas.** É o mesmo eixo da condição
-acima, pelo avesso: imutabilidade não decide nada aqui — dois pagamentos de mesmo valor, no
+acima, pelo avesso: imutabilidade não decide nada aqui. Dois pagamentos de mesmo valor, no
 mesmo dia, pela mesma pessoa são pagamentos diferentes, e nenhum deles muda depois de
 criado. Entidade imutável existe; o que não existe é entidade sem identidade.
 
@@ -119,9 +119,9 @@ paga fora do [core](/04-domain-driven-design/core-domain.md).
 
 ## Alternativas
 
-- **[Objeto de valor](/04-domain-driven-design/value-object.md)** — quando os atributos definem.
-- **Registro transparente** — para dados sem invariante nem identidade.
-- **Identificador simples** — quando basta referenciar sem carregar o objeto.
+- **[Objeto de valor](/04-domain-driven-design/value-object.md)**: quando os atributos definem.
+- **Registro transparente**: para dados sem invariante nem identidade.
+- **Identificador simples**: quando basta referenciar sem carregar o objeto.
 
 ## Trade-offs
 
@@ -163,8 +163,8 @@ identificador público separado.
 
 ## Exemplo Real
 
-Um sistema de locação de equipamentos modelava `Equipamento` como entidade — com
-identificador — e `Contrato` também.
+Um sistema de locação de equipamentos modelava `Equipamento` como entidade (com
+identificador) e `Contrato` também.
 
 `Endereco` de entrega também era entidade, com tabela e identificador próprios.
 
@@ -179,7 +179,7 @@ Corrigir o endereço do cliente deixou de afetar contratos passados, porque cada
 carrega o endereço que valia na época.
 
 O que revelou o erro foi a pergunta do teste: **dois endereços com os mesmos
-dados são o mesmo endereço?** Para o domínio, sim — e isso significa que não é
+dados são o mesmo endereço?** Para o domínio, sim, e isso significa que não é
 entidade.
 
 O contraexemplo no mesmo sistema: `Equipamento` continua entidade, porque duas
@@ -188,9 +188,9 @@ manutenção e de locação próprios.
 
 ## Conceitos Relacionados
 
-- [Value Object](/04-domain-driven-design/value-object.md) — a outra metade da decisão.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — como entidades se agrupam.
-- [Repository](/04-domain-driven-design/repository.md) — como são recuperadas.
+- [Value Object](/04-domain-driven-design/value-object.md): a outra metade da decisão.
+- [Aggregate](/04-domain-driven-design/aggregate.md): como entidades se agrupam.
+- [Repository](/04-domain-driven-design/repository.md): como são recuperadas.
 - [Encapsulamento](/02-software-design/encapsulation.md).
 
 ## Exercício Prático
@@ -212,5 +212,5 @@ o que aconteceria se o identificador precisasse mudar.
 ## Para Aprofundar
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 — o
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013. O
   capítulo sobre identidade.

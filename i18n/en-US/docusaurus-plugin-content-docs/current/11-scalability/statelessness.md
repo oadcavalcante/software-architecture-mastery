@@ -2,7 +2,7 @@
 id: statelessness
 title: Statelessness
 sidebar_position: 3
-description: Horizontal scaling's prerequisite — and the places where state hides.
+description: Horizontal scaling's prerequisite, and the places where state hides.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [horizontal-scaling]
 related: [horizontal-scaling, scaling-load-balancing, scaling-cache]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ The claim "our application is stateless" is made frequently and verified rarely.
 The test is simple and merciless: **turn off an instance in the middle of traffic and see what breaks**. If
 any user loses a cart, has to log in again, or sees an error they would not otherwise see, there is state.
 
-The places where it hides are few and always the same — and each one limits the scale in a different way.
+The places where it hides are few and always the same, and each one limits the scale in a different way.
 
 ## Core Concepts
 
@@ -51,7 +51,7 @@ a counter or accumulator   a statistic kept in the process
 work in progress           long processing started in a request
 ```
 
-The last three are the least remembered. A scheduler in memory vanishes with the instance — and the task
+The last three are the least remembered. A scheduler in memory vanishes with the instance, and the task
 never executes, with no error at all.
 
 ### Session affinity is the patch
@@ -85,12 +85,12 @@ counters           a store with an atomic operation
 ```
 
 The point about local cache deserves a note: a local cache is **legitimate and desirable**, as long as it
-is only a copy — the value needs to exist at the source, and losing the cache may degrade performance,
+is only a copy; the value needs to exist at the source, and losing the cache may degrade performance,
 never correctness. See [caching for scale](/11-scalability/scaling-cache.md).
 
 ### Persistent connections are state by nature
 
-A long-lived connection — WebSocket, event stream, real-time notification — lives on a specific instance.
+A long-lived connection (WebSocket, event stream, real-time notification) lives on a specific instance.
 That is state, and the connection cannot be externalized.
 
 What gets externalized is the **routing**: a record of which instance holds which connection, and a channel
@@ -103,10 +103,10 @@ scales differently. Treating them together limits both.
 
 Being stateless is not enough if the instance dies in the middle of a request.
 
-The instance has to leave the load balancing and finish what is in flight before terminating — the
+The instance has to leave the load balancing and finish what is in flight before terminating: the
 sequence is in [drain before removing](/11-scalability/scaling-load-balancing.md#drain-before-removing).
-The point specific to this page: work in progress is state while it lasts, and without draining every
-scaling event — which should be routine — loses it.
+The point specific to this page: work in progress is state while it lasts, and without draining, every
+scaling event (which should be routine) loses it.
 
 ### The cost is real
 
@@ -117,7 +117,7 @@ a session in memory      ~0.001 ms
 a session in a remote cache  ~1 ms
 ```
 
-A thousand times slower in relative terms, and irrelevant in absolute terms for most applications — a
+A thousand times slower in relative terms, and irrelevant in absolute terms for most applications: a
 request that takes 50 ms does not change because of 1 ms.
 
 Where it matters: very hot paths, with multiple accesses per request. The way out is a
@@ -125,20 +125,20 @@ Where it matters: very hot paths, with multiple accesses per request. The way ou
 
 ## Mental Model
 
-**Stateless means that losing the instance loses no information.** If it loses something, there is state —
+**Stateless means that losing the instance loses no information.** If it loses something, there is state,
 regardless of what the documentation says.
 
 ## When to Use
 
 - Horizontal scaling is necessary or likely.
 - Deployment with no interruption is a requirement.
-- The instances are ephemeral — containers, interruptible capacity.
+- The instances are ephemeral: containers, interruptible capacity.
 - Instance failure tolerance matters.
 - Automatic elasticity is used.
 
 ## When Not to Use
 
-**Intrinsically stateful components** — databases, caches, coordination systems. They have their own
+**Intrinsically stateful components**: databases, caches, coordination systems. They have their own
 strategies.
 
 **During the migration, with a deadline.** While the session has not yet been externalized, removing
@@ -147,18 +147,18 @@ ready. Without a removal date, it becomes the debt described above.
 
 **Externalizing a local cache that is only a copy.** That is a legitimate optimization.
 
-**When the additional latency matters** on the critical path — there the answer is a non-authoritative
+**When the additional latency matters** on the critical path: there the answer is a non-authoritative
 local cache, not keeping the state.
 
 **A single application, on one machine, with no plan to scale.** The cost does not pay off.
 
 ## Alternatives
 
-- **State on the client**, signed — the server keeps nothing. Beware of size and of what is exposed. See
+- **State on the client**, signed: the server keeps nothing. Beware of size and of what is exposed. See
   [JWT](/10-security/jwt.md).
-- **A local cache with invalidation** — performance with no authority.
-- **A separate connection layer** — for persistent connections.
-- **State in a queue** — for work in progress.
+- **A local cache with invalidation**: performance with no authority.
+- **A separate connection layer**: for persistent connections.
+- **State in a queue**: for work in progress.
 
 ## Trade-offs
 
@@ -209,20 +209,20 @@ irreplaceable, the load stays unbalanced and losing one replica drops the sessio
 another and does not find it, and the next deployment deletes it.
 
 **Scheduling in memory.** It vanishes on restart and executes once per instance. Both effects appear when
-the system grows — exactly when nobody is looking at the scheduler.
+the system grows, exactly when nobody is looking at the scheduler.
 
 **Treating the local cache as authoritative.** Instances diverge, and the user sees different responses on
 each reload with nothing wrong in the source data.
 
 **Not implementing graceful shutdown.** The instance leaves the load balancing with work in flight, and
-every scale-down turns into lost requests — the operational consequence is in
+every scale-down turns into lost requests; the operational consequence is in
 [cloud compute](/09-cloud-architecture/cloud-compute.md).
 
 ## Real-World Example
 
 An education platform had an application declared stateless, running on eight instances with auto scaling.
 
-A resilience test — turning off an instance during real traffic — revealed five kinds of state:
+A resilience test (turning off an instance during real traffic) revealed five kinds of state:
 
 **A session in memory.** That instance's users were logged out. Session affinity was enabled on the load
 balancer, and nobody on the current team knew why.
@@ -234,16 +234,16 @@ storage. The partial files vanished, and the teachers had to re-upload.
 in the middle of class.
 
 **Scheduling in memory.** Class reminders were scheduled with a timer in the process. That instance's
-reminders were never sent — no error, no alert. It was discovered that this happened on every deployment,
+reminders were never sent: no error, no alert. It was discovered that this happened on every deployment,
 for two years.
 
 **A participant counter.** Kept in memory, per instance. The displayed number depended on which instance
-served — and nobody had noticed because the divergence was small.
+served, and nobody had noticed because the divergence was small.
 
 The fixes:
 
 **Sessions in a shared cache**, with expiration. The affinity was removed from the load balancer, and the
-load distribution improved immediately — the new instances started receiving traffic.
+load distribution improved immediately: the new instances started receiving traffic.
 
 **Uploads directly to object storage**, with a signed URL. The local disk stopped being used.
 
@@ -257,16 +257,16 @@ lost on every deployment, with no alert in existence.
 
 **Graceful shutdown**, with the node leaving the load balancing before terminating.
 
-The shutdown itself took twenty minutes and exposed three visible failures — session, upload and
+The shutdown itself took twenty minutes and exposed three visible failures: session, upload and
 connection. The two silent findings, scheduling and the counter, came from the investigation it triggered,
 listing what else lived in the process. None of it had been done before because "the application is
 stateless".
 
 ## Related Concepts
 
-- [Horizontal Scaling](/11-scalability/horizontal-scaling.md) — what it enables.
-- [Stateless and Stateful](/05-system-design/stateless-vs-stateful.md) — the fundamentals.
-- [Balancing for Scale](/11-scalability/scaling-load-balancing.md) — the affinity.
+- [Horizontal Scaling](/11-scalability/horizontal-scaling.md): what it enables.
+- [Stateless and Stateful](/05-system-design/stateless-vs-stateful.md): the fundamentals.
+- [Balancing for Scale](/11-scalability/scaling-load-balancing.md): the affinity.
 - [Caching for Scale](/11-scalability/scaling-cache.md).
 
 ## Practical Exercise
@@ -286,7 +286,7 @@ copy of a value.
 
 ## Further Reading
 
-- Wiggins, Adam. *The Twelve-Factor App*, 2011 — processes and state.
+- Wiggins, Adam. *The Twelve-Factor App*, 2011. Processes and state.
 - Fielding, Roy. *Architectural Styles and the Design of Network-based Software
   Architectures*, 2000 — the statelessness constraint.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

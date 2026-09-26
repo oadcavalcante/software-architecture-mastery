@@ -2,7 +2,7 @@
 id: context-mapping
 title: Context Mapping
 sidebar_position: 8
-description: Como os bounded contexts se relacionam — e por que o padrão de relacionamento é organizacional antes de ser técnico.
+description: Como os bounded contexts se relacionam, e por que o padrão de relacionamento é organizacional antes de ser técnico.
 doc_type: concept
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bounded-context]
 related: [anti-corruption-layer, strategic-ddd, integration-architecture]
 canonical_for: [context mapping, mapa de contextos]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -26,7 +26,7 @@ e o **tipo de relacionamento** entre eles.
 
 O que torna a técnica valiosa não é o desenho. É que os padrões de
 relacionamento descrevem **poder e dependência entre times**, não apenas
-integração técnica — e nomear isso torna negociável o que antes era implícito.
+integração técnica, e nomear isso torna negociável o que antes era implícito.
 
 ## Problema
 
@@ -72,7 +72,7 @@ consumidores demais para atender individualmente.
 deliberadamente uma parte pequena do modelo. Reduz duplicação e acopla os dois
 times a cada mudança.
 
-**Caminhos separados.** Nenhuma integração. Duplicar é mais barato que integrar —
+**Caminhos separados.** Nenhuma integração. Duplicar é mais barato que integrar:
 uma conclusão legítima e raramente considerada.
 
 ### O padrão reflete organização
@@ -90,7 +90,7 @@ A observação que torna a técnica útil:
 
 Escolher um padrão que a organização não sustenta não funciona. Declarar
 cliente-fornecedor quando o fornecedor é outra unidade de negócio sem obrigação
-produz frustração recorrente — o padrão real é conformista, e nomeá-lo permite
+produz frustração recorrente: o padrão real é conformista, e nomeá-lo permite
 decidir se vale construir uma anti-corruption layer.
 
 ### Upstream e downstream
@@ -117,7 +117,7 @@ A resposta dá o padrão, e ela é organizacional.
 - Ao desenhar a integração entre contextos novos.
 - Ao entender um cenário existente antes de modificá-lo.
 - Quando conflitos recorrentes entre times envolvem dependência técnica.
-- Antes de decidir extrair um serviço — o padrão informa o custo.
+- Antes de decidir extrair um serviço: o padrão informa o custo.
 
 ## Quando Não Usar
 
@@ -135,13 +135,13 @@ assimetria que se queria negociar vira posição a defender.
 
 ## Alternativas
 
-- **Diagrama de integração técnica** — vence quando a relação de poder já está
-  acordada e o que falta é inventário de dependências: levantamento de impacto,
-  migração de infraestrutura. Mostra as conexões e não quem tem obrigação com quem.
-- **Team Topologies** — vence quando o problema é o desenho dos times, não o
+- **Diagrama de integração técnica**: vence quando a relação de poder já está
+  acordada e o que falta é inventário de dependências (levantamento de impacto,
+  migração de infraestrutura). Mostra as conexões e não quem tem obrigação com quem.
+- **Team Topologies**: vence quando o problema é o desenho dos times, não o
   contrato entre contextos: o mapa nomeia a fricção, Team Topologies muda quem
   responde por quê. Ver [Nível 07](/23-architecture-leadership/index.md).
-- **Cenário de integração corporativo** — vence quando as fronteiras que decidem
+- **Cenário de integração corporativo**: vence quando as fronteiras que decidem
   são entre unidades ou empresas, e o par de contextos é detalhe fino demais. Ver
   [Nível 06](/15-enterprise-architecture/index.md).
 
@@ -199,9 +199,9 @@ O sintoma: toda mudança no prontuário quebrava agendamento, e o time de
 prontuário reagia dizendo que não tinha sido avisado do uso.
 
 O mapeamento revelou que os dois times acreditavam estar em relacionamentos
-diferentes. Agendamento achava que era cliente-fornecedor — que prontuário tinha
-obrigação de manter o contrato. Prontuário achava que agendamento era conformista
-— que consumia por conta e risco.
+diferentes. Agendamento achava que era cliente-fornecedor (que prontuário tinha
+obrigação de manter o contrato). Prontuário achava que agendamento era conformista
+(que consumia por conta e risco).
 
 Nenhum dos dois estava errado sobre o próprio entendimento. Ninguém tinha
 declarado o padrão.
@@ -211,22 +211,22 @@ capacidade de manter compatibilidade com todos os consumidores, e agendamento n�
 tinha peso para exigir.
 
 A decisão foi anti-corruption layer no lado de agendamento, com o custo aceito
-explicitamente — cerca de duas semanas de construção e manutenção conforme
+explicitamente: cerca de duas semanas de construção e manutenção conforme
 prontuário evoluísse.
 
 Nos dezoito meses seguintes, prontuário mudou o modelo três vezes. Agendamento
 ajustou a tradução em cada uma, em horas, sem quebrar em produção e sem conflito
 entre os times.
 
-O que mudou não foi a dependência técnica — ela continua. Foi o padrão ter nome,
+O que mudou não foi a dependência técnica, que continua. Foi o padrão ter nome,
 e o custo ter dono.
 
 ## Conceitos Relacionados
 
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o que se mapeia.
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — um dos padrões, em detalhe.
-- [DDD Estratégico](/04-domain-driven-design/strategic-ddd.md) — a síntese.
-- [Integração](/08-integration-architecture/index.md) — os mecanismos.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): o que se mapeia.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): um dos padrões, em detalhe.
+- [DDD Estratégico](/04-domain-driven-design/strategic-ddd.md): a síntese.
+- [Integração](/08-integration-architecture/index.md): os mecanismos.
 
 ## Exercício Prático
 
@@ -244,7 +244,7 @@ que não tinha nome.
 
 ## Para Aprofundar
 
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — a parte de design
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. A parte de design
   estratégico.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.

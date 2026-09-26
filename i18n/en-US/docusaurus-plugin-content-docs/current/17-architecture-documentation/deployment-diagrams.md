@@ -2,7 +2,7 @@
 id: deployment-diagrams
 title: Deployment Diagrams
 sidebar_position: 6
-description: Where the software actually runs — the diagram that answers incident questions.
+description: "Where the software actually runs: the diagram that answers incident questions."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, c4-model, living-documentation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A deployment diagram shows **where each container runs**: on which infrastructure nodes, in
 how many instances, in which regions, with which network boundaries.
 
-It answers a class of questions the other levels do not touch — and that come up precisely
+It answers a class of questions the other levels do not touch, and that come up precisely
 at the moments when the cost of having no answer is high:
 
 ```text
@@ -76,7 +76,7 @@ Region sa-east-1
 ```
 
 The same container from the previous level appears here **as many times as it actually
-exists** — that is the logical-to-physical mapping.
+exists**: that is the logical-to-physical mapping.
 
 ### One diagram per environment
 
@@ -107,7 +107,7 @@ where encryption in transit ends
 ```
 
 That makes it the reference artifact for security conversations. See
-[threat modeling](/10-security/threat-modeling.md) — the deployment diagram is the natural
+[threat modeling](/10-security/threat-modeling.md): the deployment diagram is the natural
 input for the exercise.
 
 ### It exposes false redundancy
@@ -131,8 +131,8 @@ topology is **already declared** in infrastructure code.
 
 That changes the maintenance equation. A hand-drawn diagram will diverge from what the
 infrastructure code declares; a diagram derived from it does not diverge from what was
-declared. But it inherits drift: if someone changed something in the console, the code —
-and the diagram generated from it — shows a topology that no longer exists. Only a diagram
+declared. But it inherits drift: if someone changed something in the console, the code
+(and the diagram generated from it) shows a topology that no longer exists. Only a diagram
 generated from the real state shows what exists.
 
 See [infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md) and
@@ -155,8 +155,8 @@ and a spending decision, and the same drawing supports both. See
 
 The conversation becomes more concrete when the availability requirement appears next to
 the topology: asking for 99.99% is asking for a specific topology, with a specific cost.
-Without the drawing, the requirement is negotiated as an adjective — "it has to be highly
-available" — and the topology is decided later, by whoever is implementing it, without
+Without the drawing, the requirement is negotiated as an adjective ("it has to be highly
+available"), and the topology is decided later, by whoever is implementing it, without
 anyone having compared the two.
 
 ## Mental Model
@@ -180,7 +180,7 @@ questions the diagram would answer.
 
 **For single-instance systems** with no availability requirement.
 
-**On a managed platform with no control over zones or instances** — serverless functions,
+**On a managed platform with no control over zones or instances**: serverless functions,
 a PaaS that chooses where things run. The topology is the provider's decision; the diagram
 has nothing to show beyond a single box.
 
@@ -192,12 +192,12 @@ does".
 
 ## Alternatives
 
-- **Infrastructure code** — it is the source of truth for what was declared; manual changes
+- **Infrastructure code**: it is the source of truth for what was declared; manual changes
   in the console pull it away from what exists.
-- **The provider's console** — always current, and with no intent or grouping.
-- **A diagram generated from the real state** — the only one that shows what exists,
+- **The provider's console**: always current, and with no intent or grouping.
+- **A diagram generated from the real state**: the only one that shows what exists,
   including drift from the code.
-- **The container diagram** — when the question is logical.
+- **The container diagram**: when the question is logical.
 
 ## Trade-offs
 
@@ -228,18 +228,18 @@ does".
 
 ## Common Mistakes
 
-**Not showing the instance count** — without the count, three instances in the same zone
+**Not showing the instance count**: without the count, three instances in the same zone
 become one box, and the illusory redundancy disappears from the drawing.
 
-**Omitting zones and regions** — which is precisely what answers the blast radius.
+**Omitting zones and regions**, which is precisely what answers the blast radius.
 
-**Not marking network boundaries** — the diagram stops serving as input for threat
+**Not marking network boundaries**: the diagram stops serving as input for threat
 modeling, which needs to know what is exposed.
 
-**Drawing by hand what the infrastructure already declares** — the first change to the code
+**Drawing by hand what the infrastructure already declares**: the first change to the code
 creates two versions of the topology, and no one knows which one holds.
 
-**Not dating it** — whoever opens the diagram during an incident cannot tell whether it
+**Not dating it**: whoever opens the diagram during an incident cannot tell whether it
 predates the last migration.
 
 ## Real-World Example
@@ -261,7 +261,7 @@ with the cache as a single point of failure  4
 Two concrete cases:
 
 **Authorization system.** Four instances, a load balancer, a 99.95% requirement. The four
-instances were in the same zone — the scaling group had been configured with a single
+instances were in the same zone: the scaling group had been configured with a single
 subnet three years earlier, and never revisited. A zone failure would take the whole
 service down.
 
@@ -269,7 +269,7 @@ service down.
 same zone as the primary. The documented recovery procedure assumed the opposite.
 
 Neither had a deployment diagram before the exercise. Both had correct container diagrams,
-which showed redundancy — because logical redundancy was what they described.
+which showed redundancy, because logical redundancy was what they described.
 
 What was decided:
 
@@ -283,8 +283,8 @@ a single subnet in a critical system fails the check. See
 **An annual review** of the correspondence between the availability requirement and the
 real topology.
 
-Both systems were fixed within three months; the others with a cross-zone gap — no real
-redundancy, a replica in the primary's zone, or the cache as a single point of failure —
+Both systems were fixed within three months; the others with a cross-zone gap (no real
+redundancy, a replica in the primary's zone, or the cache as a single point of failure)
 over the following six months. Two months later there was a real zone failure, lasting four
 hours: all twelve systems kept operating.
 
@@ -294,7 +294,7 @@ at it **together**, in a drawing, with the requirement next to it.
 
 ## Related Concepts
 
-- [Container Diagrams](/17-architecture-documentation/container-diagrams.md) — the logical level.
+- [Container Diagrams](/17-architecture-documentation/container-diagrams.md): the logical level.
 - [Availability](/06-distributed-systems/availability.md).
 - [Infrastructure as Code](/14-devops-and-platform/infrastructure-as-code.md).
 - [Threat Modeling](/10-security/threat-modeling.md).

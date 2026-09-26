@@ -2,7 +2,7 @@
 id: eventual-consistency
 title: Eventual Consistency
 sidebar_position: 31
-description: The replicas converge — and the guarantee does not say when, which is exactly what the application needs to know.
+description: The replicas converge, and the guarantee does not say when, which is exactly what the application needs to know.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [strong-consistency, conflict-resolution, replication]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,21 +25,21 @@ Eventual consistency guarantees that, **in the absence of new writes to an item*
 eventually converge on the same value for that item (Vogels, 2008).
 
 The two parts the statement does not cover are the ones that matter in practice: it does not say
-**when**, and quiescence is per item — in a system with continuous traffic the whole set is never
+**when**, and quiescence is per item. In a system with continuous traffic the whole set is never
 quiet at once, so convergence arrives item by item, and for none of them is a deadline promised.
 
 That does not invalidate the guarantee. It means the application has to be designed to observe
-stale data — and that is the part usually forgotten.
+stale data, and that is the part usually forgotten.
 
 ## Problem
 
-Eventual consistency is frequently adopted as a technical consequence — asynchronous replication,
-caching, a read projection — with nobody having decided that the business accepts it.
+Eventual consistency is frequently adopted as a technical consequence (asynchronous replication,
+caching, a read projection) with nobody having decided that the business accepts it.
 
 The result is predictable. The user changes something and does not see it. A report shows a
 different number from the screen. Two screens of the same system disagree.
 
-None of those is a code defect. They are the chosen semantics — except nobody chose consciously,
+None of those is a code defect. They are the chosen semantics, except nobody chose consciously,
 and support finds out through the tickets.
 
 ## Core Concepts
@@ -49,7 +49,7 @@ and support finds out through the tickets.
 It does not promise a deadline. A system that converges in 100 ms and one that converges in 6
 hours both satisfy "eventual consistency".
 
-That is why the relevant operational metric is not the guarantee — it is the **real convergence
+That is why the relevant operational metric is not the guarantee but the **real convergence
 lag**, measured and monitored. See
 [replication](/06-distributed-systems/replication.md).
 
@@ -69,13 +69,13 @@ Three responsibilities that pass to the application:
 
 ### Session guarantees solve most of the perception
 
-The three session guarantees — and why they solve the perception at a low cost — are in
+The three session guarantees (and why they solve the perception at a low cost) are in
 [consistency](/06-distributed-systems/consistency.md). What gets decided here is operational: how
 long the reads of whoever wrote go to the primary.
 
 That number comes from the measured convergence lag, at the high percentile and not the median.
 With 2 seconds typical and minutes in the tail, a 30-second window covers the common case and
-leaves the tail uncovered — it is an explicit decision, not a default to inherit. It is the
+leaves the tail uncovered. It is an explicit decision, not a default to inherit. It is the
 highest-return fix in eventual consistency: it costs a routing rule and gives up no read scaling
 for the rest.
 
@@ -86,7 +86,7 @@ When the delay is unavoidable, the interface can make it understandable instead 
 **Optimistic update.** Show the expected result immediately, and reconcile when it confirms. It is
 what messaging apps do.
 
-**Explicit state.** "Processing", "syncing" — instead of showing the old value as if it were
+**Explicit state.** "Processing", "syncing", instead of showing the old value as if it were
 current.
 
 **Update stamp.** "Data from 3 minutes ago" communicates honestly.
@@ -99,7 +99,7 @@ the data is lagging complains less: the uncertainty stops being indistinguishabl
 "Eventually converges" presupposes a mechanism that makes it converge: read repair, background
 repair, periodic reconciliation.
 
-Without it, divergent replicas can stay divergent indefinitely — which is not eventual consistency,
+Without it, divergent replicas can stay divergent indefinitely. That is not eventual consistency,
 it is permanent inconsistency with a nice name.
 
 ### The lag is not constant
@@ -117,7 +117,7 @@ The lag has a long tail and it is dominated by predictable events:
 
 **Maintenance and deployment.** The consumer is down for minutes.
 
-At those moments, the lag does not go from 200 ms to 400 ms — it goes to minutes or hours. Product
+At those moments, the lag does not go from 200 ms to 400 ms; it goes to minutes or hours. Product
 decisions about what is acceptable have to be made with the high percentile on the table, not the
 median.
 
@@ -130,7 +130,7 @@ measure, not a guarantee you receive.
 
 - The business tolerates the delay, and that was confirmed explicitly.
 - Read scale or availability requires replicas.
-- The data is naturally convergent — counters, aggregates, projections.
+- The data is naturally convergent: counters, aggregates, projections.
 - Between bounded contexts, where strong consistency would couple them.
 
 ## When Not to Use
@@ -141,16 +141,16 @@ measure, not a guarantee you receive.
 **Where an irreversible decision depends on the value.** Authorizing, approving, releasing.
 
 **Where the lag has no owner.** A recorded business decision, monitoring, a convergence mechanism
-and conflict handling are prerequisites — each one detailed in Common Mistakes. Where none of them
+and conflict handling are prerequisites, each one detailed in Common Mistakes. Where none of them
 has someone who measures the lag and answers for it, the inconsistency window is an unverified
 assumption, not a policy.
 
 ## Alternatives
 
-- **[Strong consistency](/06-distributed-systems/strong-consistency.md)** — where the cost pays off.
-- **Session guarantees** — the middle ground that solves the perception.
-- **Causal consistency** — preserves the order between related operations.
-- **Reading from the primary for critical operations** — strong where it matters, eventual for the
+- **[Strong consistency](/06-distributed-systems/strong-consistency.md)**: where the cost pays off.
+- **Session guarantees**: the middle ground that solves the perception.
+- **Causal consistency**: preserves the order between related operations.
+- **Reading from the primary for critical operations**: strong where it matters, eventual for the
   rest.
 
 ## Trade-offs
@@ -184,7 +184,7 @@ answers for its consequence. Engineering states the cost of closing it; it does 
 that it is tolerable.
 
 **Not implementing session guarantees.** Without read-your-own-writes, the user saves a change,
-reloads the page and sees the old value — which is indistinguishable from a defect, and is the most
+reloads the page and sees the old value. That is indistinguishable from a defect, and is the most
 common bug report in eventually consistent systems.
 
 **Not monitoring the lag.** The replication window is a number that varies with load. Without
@@ -192,7 +192,7 @@ measuring it, nobody knows whether it is milliseconds or minutes today, and the 
 the design is never verified.
 
 **Accepting the default conflict resolution without understanding it.** The default is usually last
-writer wins, which discards data silently — and the decision of which write to lose ends up being
+writer wins, which discards data silently, and the decision of which write to lose ends up being
 made by a machine's clock.
 
 **Not communicating the delay in the interface.** "Processing" is honest and cheap; showing stale
@@ -210,9 +210,9 @@ writes": after posting, that user's reads go to the primary for 30 seconds. The 
 disappeared.
 
 **"The like counter goes backwards."** Reads alternating between replicas with different lags.
-Resolved with monotonic reads — the user is pinned to one replica for the session.
+Resolved with monotonic reads: the user is pinned to one replica for the session.
 
-**"A comment appears before the post."** It was not replication lag — it was
+**"A comment appears before the post."** It was not replication lag but
 [ordering](/06-distributed-systems/ordering.md). Comment and post went to different partitions.
 Resolved by the partition key.
 
@@ -220,16 +220,16 @@ The third is instructive because it was diagnosed twice as eventual consistency 
 noticed the replica was up to date and the problem was something else.
 
 And the decision the team recorded as the most important came before all of that: the conversation
-with the business about the acceptable delay. The answer — "a few seconds for other people's
-content, zero for your own" — is exactly the session guarantee policy, and it came from product,
+with the business about the acceptable delay. The answer ("a few seconds for other people's
+content, zero for your own") is exactly the session guarantee policy, and it came from product,
 not from engineering.
 
 ## Related Concepts
 
-- [Consistency](/06-distributed-systems/consistency.md) — the full spectrum.
-- [Strong Consistency](/06-distributed-systems/strong-consistency.md) — the other end.
-- [Conflict Resolution](/06-distributed-systems/conflict-resolution.md) — what convergence requires.
-- [Replication](/06-distributed-systems/replication.md) — where the lag comes from.
+- [Consistency](/06-distributed-systems/consistency.md): the full spectrum.
+- [Strong Consistency](/06-distributed-systems/strong-consistency.md): the other end.
+- [Conflict Resolution](/06-distributed-systems/conflict-resolution.md): what convergence requires.
+- [Replication](/06-distributed-systems/replication.md): where the lag comes from.
 
 ## Practical Exercise
 

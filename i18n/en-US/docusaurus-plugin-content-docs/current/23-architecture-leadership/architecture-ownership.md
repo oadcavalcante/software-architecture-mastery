@@ -2,7 +2,7 @@
 id: architecture-ownership
 title: Architecture Ownership
 sidebar_position: 20
-description: A component with no owner rots — and most organizations don't know how many they have.
+description: A component with no owner rots, and most organizations don't know how many they have.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [team-topologies]
 related: [team-topologies, organizational-architecture, leadership-governance]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 Every software component needs an owner. With no owner, it isn't updated, isn't fixed, isn't measured
-and isn't removed — and it goes on running, because software doesn't stop running for lack of care.
+and isn't removed, and it goes on running, because software doesn't stop running for lack of care.
 
 ```text
 with an owner   somebody is accountable for evolution, operation and decisions
@@ -79,7 +79,7 @@ decisions   decides the component's contracts and boundaries
 ```
 
 They can be separated, and the separation has to be explicit. A component whose operation belongs to
-one team and whose evolution belongs to another works — as long as both know it and the contract
+one team and whose evolution belongs to another works, as long as both know it and the contract
 between them exists.
 
 What doesn't work is implicit separation, in which operation assumes evolution will fix it and
@@ -111,11 +111,11 @@ a component whose owner ceases to exist raises an alert
 ```
 
 The third item is what prevents new orphans from being created. The fourth is what detects the ones
-that appear through organizational change — which is the most common origin.
+that appear through organizational change. That is the most common origin.
 
 The rule has side effects that need their own design. The pipeline block hits precisely the orphan
-that broke: without an exception route — a fix deployment authorized by on-call, recorded, with a
-deadline to assign an owner — the rule prevents the repair in the middle of the incident. The alert
+that broke: without an exception route (a fix deployment authorized by on-call, recorded, with a
+deadline to assign an owner), the rule prevents the repair in the middle of the incident. The alert
 fires in bulk at every reorganization, and if nobody groups it by area it becomes noise the manager
 learns to ignore. And the check is only as good as the team directory: maintaining the integration
 is a permanent cost, and a stale directory produces false alarms or false greens.
@@ -132,7 +132,7 @@ platform                               a platform team as owner,
                                        with the component as a product
 ```
 
-The first model — inner source — works well when the owner has the capacity to review. It fails when
+The first model, inner source, works well when the owner has the capacity to review. It fails when
 the volume of contributions exceeds that capacity, and then it becomes a bottleneck.
 
 What is not a model: "everyone is an owner". That means nobody is.
@@ -146,7 +146,7 @@ with an owner          removal is a decision, with a date
 ```
 
 One of the invisible costs of orphans is that they never die. Systems accumulate components nobody
-uses and everybody maintains — security updates, migrations, infrastructure cost — for want of someone
+uses and everybody maintains (security updates, migrations, infrastructure cost) for want of someone
 with the authority to switch them off.
 
 ### Capacity has to accompany ownership
@@ -176,7 +176,7 @@ ownership goes stale and the orphans stay invisible.
 
 ## When Not to Use
 
-The full mechanism — a file in the repository, a daily check, a pipeline block — costs integration
+The full mechanism (a file in the repository, a daily check, a pipeline block) costs integration
 with the team directory, alert triage and an exception route. It does not pay off when:
 
 **The repository is experimental or a prototype with an expiry date.** Requiring a verified owner for
@@ -185,7 +185,7 @@ applied automatically is enough.
 
 **The organization is small enough that everyone knows every component.** With one or two teams and
 a few dozen components, "whose is this?" is answered in a conversation, and integrating with a team
-directory that rarely changes is dead weight — until the organization grows.
+directory that rarely changes is dead weight, until the organization grows.
 
 **The component is frozen with a shutdown date.** An owner for operations and security until that
 date is enough; demanding all four ownership dimensions for something that will not evolve creates
@@ -193,9 +193,9 @@ paperwork with no effect.
 
 ## Alternatives
 
-- **Collective ownership with rotation** — works in small organizations with a strong culture.
+- **Collective ownership with rotation**: works in small organizations with a strong culture.
 - **A platform team as owner** of everything shared; concentrates and scales badly.
-- **Aggressive archiving** — instead of finding an owner for doubtful components, switch them off and
+- **Aggressive archiving**: instead of finding an owner for doubtful components, switch them off and
   see who complains.
 
 The third is radical, effective and frightening. It works well in environments with good
@@ -254,7 +254,7 @@ conversion service, used by eleven systems, was unavailable for 6 hours. Nobody 
 accountable.
 
 The investigation found it had been built by a team dissolved in 2022, and that the eleven consumers
-had appeared afterwards — each assuming somebody took care of it.
+had appeared afterwards, each assuming somebody took care of it.
 
 A complete inventory, done afterwards, found:
 
@@ -267,7 +267,7 @@ with no identifiable owner at all               89
 with no detectable use in the last 6 months     34
 ```
 
-Eighty-nine orphans, and 34 components running with no use — consuming infrastructure, receiving
+Eighty-nine orphans, and 34 components running with no use: consuming infrastructure, receiving
 security updates, and occupying mental space.
 
 The measures, over 8 months:
@@ -281,8 +281,8 @@ left, raises an alert to the area's manager and enters a resolution queue with a
 **No new deployment without a valid owner.** The pipeline rejects it.
 
 **The 34 unused ones were switched off**, in two waves, with a week of "observed shutdown" before
-definitive removal. Three complaints came in, all from quarterly use the observability didn't capture —
-those three were switched back on, with a designated owner.
+definitive removal. Three complaints came in, all from quarterly use the observability didn't capture.
+Those three were switched back on, with a designated owner.
 
 **The 89 orphans** were handled individually:
 
@@ -298,8 +298,8 @@ The 8 frozen ones are the honest category: components nobody wants to maintain, 
 and whose replacement is on the roadmap. Declaring them as such is better than pretending active
 ownership.
 
-**The 89 with merely nominal ownership** — 57 pointing at a team that no longer existed, 32 with an
-owner who didn't acknowledge the component — were revalidated team by team. The daily check finds
+**The 89 with merely nominal ownership** (57 pointing at a team that no longer existed, 32 with an
+owner who didn't acknowledge the component) were revalidated team by team. The daily check finds
 the former; it can't see the latter, because the team exists, and they only surfaced when each
 manager had to confirm their team's component list. Each one ended with an owner who signed the
 ownership file or went through the same exits as the orphans.
@@ -326,19 +326,19 @@ The last number is the one operations values most: 43 minutes saved per incident
 who to call.
 
 The detail the team highlights: the 198 components with an owner "declared somewhere" gave the
-impression that the organization had 69% coverage. The verification showed 38% — and the difference
+impression that the organization had 69% coverage. The verification showed 38%, and the difference
 between declaring and verifying is the whole difference between an inventory and a fiction.
 
 ## Related Concepts
 
-- [Team Topologies](/23-architecture-leadership/team-topologies.md) — the ownership load.
+- [Team Topologies](/23-architecture-leadership/team-topologies.md): the ownership load.
 - [Organizational Architecture](/23-architecture-leadership/organizational-architecture.md).
-- [Fitness Functions](/23-architecture-leadership/fitness-functions.md) — the verification.
+- [Fitness Functions](/23-architecture-leadership/fitness-functions.md): the verification.
 - [Standards](/19-architecture-governance/governance-standards.md).
 
 ## Practical Exercise
 
-Pick five components of your system and ask who they belong to — first the document, then the people
+Pick five components of your system and ask who they belong to: first the document, then the people
 it names.
 
 The difference between the two answers is the measure of nominal ownership in your organization.

@@ -2,7 +2,7 @@
 id: data-warehouses
 title: Data Warehouses
 sidebar_position: 9
-description: Dados de várias fontes, modelados para análise — e o custo de manter a transformação.
+description: Dados de várias fontes, modelados para análise, e o custo de manter a transformação.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-lakes, column-stores, denormalization]
 canonical_for: [data warehouse, modelo dimensional, tabela fato, tabela dimensão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,15 +28,15 @@ A palavra-chave é **múltiplas**. Se há uma única fonte, uma réplica ou um
 armazenamento [colunar](/07-data-architecture/column-stores.md) resolvem sem a complexidade.
 
 O que o warehouse acrescenta é a integração: cruzar vendas do sistema comercial,
-custos do financeiro e atendimento do suporte — sistemas que não se conhecem e
-nomeiam as mesmas coisas de formas diferentes.
+custos do financeiro e atendimento do suporte (sistemas que não se conhecem e
+nomeiam as mesmas coisas de formas diferentes).
 
 ## Problema
 
 Cada sistema operacional tem seu vocabulário, sua chave e sua granularidade. O
 "cliente" do comercial não é o mesmo registro que o "cliente" do financeiro.
 
-Responder "qual a margem por segmento de cliente" exige reconciliar isso — decidir
+Responder "qual a margem por segmento de cliente" exige reconciliar isso: decidir
 o que é um cliente, qual identificador vale, o que fazer quando os cadastros
 divergem.
 
@@ -62,7 +62,7 @@ O modelo é deliberadamente [desnormalizado](/07-data-architecture/denormalizati
 produto repete categoria e marca em vez de referenciá-las.
 
 Isso evita junções em cadeia e torna as consultas legíveis por quem não é
-especialista — que é metade do propósito.
+especialista. Isso é metade do propósito.
 
 ### A granularidade do fato é irreversível
 
@@ -72,7 +72,7 @@ quê?
 Uma venda? Um item de venda? Um total diário por loja?
 
 Granularidade fina permite agregar de qualquer forma. Granularidade grossa é mais
-barata e **descarta a possibilidade** de perguntas mais detalhadas — permanentemente,
+barata e **descarta a possibilidade** de perguntas mais detalhadas, permanentemente,
 porque o detalhe não foi guardado.
 
 A regra: grave na menor granularidade que o volume permitir. Agregar depois é
@@ -83,7 +83,7 @@ sempre possível; desagregar nunca é.
 Um cliente muda de segmento. As vendas antigas devem aparecer no segmento antigo
 ou no atual?
 
-**Sobrescrever.** Simples, e reescreve a história — relatórios antigos mudam.
+**Sobrescrever.** Simples, e reescreve a história: relatórios antigos mudam.
 
 **Versionar.** Uma nova linha na dimensão, com período de validade. O fato aponta
 para a versão vigente na época. Preserva a história e complica o carregamento.
@@ -96,7 +96,7 @@ A escolha precisa ser feita por dimensão, com o negócio. É a fonte mais comum
 ### O carregamento precisa ser idempotente
 
 Processos de carga falham no meio e são reexecutados. Se a reexecução insere os
-fatos de novo, os números dobram — sem erro, sem alerta.
+fatos de novo, os números dobram, sem erro, sem alerta.
 
 O padrão que funciona: apagar a partição do período e recarregar, em vez de
 inserir incrementalmente. Ver
@@ -124,7 +124,7 @@ com números diferentes, ambos corretos segundo definições distintas.
 ### O custo real é a transformação
 
 A tecnologia de armazenamento é commodity. O que custa é escrever e manter as
-transformações — e cada mudança numa origem que altere um campo, um tipo ou uma
+transformações. E cada mudança numa origem que altere um campo, um tipo ou uma
 regra consumida pela transformação a quebra.
 
 Um warehouse com dezenas de fontes tem um fluxo constante de manutenção. Orçar o
@@ -162,11 +162,11 @@ custo de carga e modelagem não se paga.
 
 ## Alternativas
 
-- **Réplica de leitura** — quando a fonte é uma.
-- **[Colunar](/07-data-architecture/column-stores.md) direto** — sem camada de integração.
-- **[Data lake](/07-data-architecture/data-lakes.md)** — para dados brutos e exploração.
-- **[Lakehouse](/07-data-architecture/data-lakehouses.md)** — a combinação.
-- **Consulta federada** — consultar as fontes onde estão, sem mover; evita a carga
+- **Réplica de leitura**: quando a fonte é uma.
+- **[Colunar](/07-data-architecture/column-stores.md) direto**: sem camada de integração.
+- **[Data lake](/07-data-architecture/data-lakes.md)**: para dados brutos e exploração.
+- **[Lakehouse](/07-data-architecture/data-lakehouses.md)**: a combinação.
+- **Consulta federada**: consultar as fontes onde estão, sem mover; evita a carga
   ao custo de desempenho e de carga nos sistemas de origem.
 
 ## Trade-offs
@@ -204,11 +204,11 @@ custo de carga e modelagem não se paga.
 
 **Construir com uma única fonte.** Se há só uma origem, o valor do warehouse é quase nulo: uma réplica de leitura resolve, sem custo de modelagem e de carga.
 
-**Carga não idempotente.** Reexecutar a carga do dia é operação rotineira depois de falha. Se ela soma em vez de substituir, o reprocesso duplica os números — e o erro é descoberto pelo relatório.
+**Carga não idempotente.** Reexecutar a carga do dia é operação rotineira depois de falha. Se ela soma em vez de substituir, o reprocesso duplica os números, e o erro é descoberto pelo relatório.
 
 **Não decidir a estratégia de dimensão que muda.** Quando um cliente troca de região, os pedidos antigos passam a contar na região nova se a dimensão for sobrescrita. É a diferença entre "vendas por região" histórico e atual, e ninguém percebe até a comparação com o ano anterior não bater.
 
-**Agregar cedo demais.** Guardar só o total diário impede qualquer pergunta por hora ou por segmento depois — e o dado que produziria a resposta já foi descartado.
+**Agregar cedo demais.** Guardar só o total diário impede qualquer pergunta por hora ou por segmento depois, e o dado que produziria a resposta já foi descartado.
 
 **Não publicar definições.** Sem uma definição escrita de "cliente ativo", cada área calcula a sua, e a reunião discute de quem é o número em vez de discutir o que ele mostra.
 
@@ -222,7 +222,7 @@ financeiro e programa de fidelidade.
 Funcionou bem por dois anos e a confiança desmoronou em uma semana.
 
 O diretor comercial e o financeiro apresentaram números de faturamento diferentes
-para o mesmo trimestre — 4% de diferença. Ambos vinham do warehouse.
+para o mesmo trimestre: 4% de diferença. Ambos vinham do warehouse.
 
 A investigação explicou os 4% pela primeira causa abaixo e, no caminho, achou
 mais dois defeitos que distorciam os números dos dois relatórios:
@@ -240,7 +240,7 @@ reexecutada manualmente. Três dias entraram duas vezes.
 As correções:
 
 **Glossário publicado** com definições aprovadas pelo negócio, e uma camada de
-métricas certificadas — relatórios oficiais só podem usar essas definições.
+métricas certificadas: relatórios oficiais só podem usar essas definições.
 
 **Versionamento na dimensão loja**, permitindo ver a venda na região da época ou na
 atual, explicitamente.
@@ -256,15 +256,15 @@ planilhas paralelas "para conferir".
 
 ## Conceitos Relacionados
 
-- [OLAP](/07-data-architecture/olap.md) — a carga.
-- [Colunar](/07-data-architecture/column-stores.md) — o armazenamento típico.
+- [OLAP](/07-data-architecture/olap.md): a carga.
+- [Colunar](/07-data-architecture/column-stores.md): o armazenamento típico.
 - [Data Lake](/07-data-architecture/data-lakes.md) e [Lakehouse](/07-data-architecture/data-lakehouses.md).
-- [Desnormalização](/07-data-architecture/denormalization.md) — o modelo.
+- [Desnormalização](/07-data-architecture/denormalization.md): o modelo.
 
 ## Exercício Prático
 
-Pegue duas métricas parecidas usadas por áreas diferentes — faturamento, clientes
-ativos. Peça a definição exata de cada uma a quem a usa.
+Pegue duas métricas parecidas usadas por áreas diferentes (faturamento, clientes
+ativos). Peça a definição exata de cada uma a quem a usa.
 
 Se as definições diferirem e ninguém souber disso, você encontrou a próxima
 discussão de números divergentes antes que ela aconteça.

@@ -2,7 +2,7 @@
 id: repository
 title: Repository
 sidebar_position: 17
-description: Uma coleção de agregados com aparência de memória — e o que separa um repositório de um DAO.
+description: Uma coleção de agregados com aparência de memória, e o que separa um repositório de um DAO.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, factory, dependency-inversion]
 canonical_for: [repository, repositório]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -31,7 +31,7 @@ estrutura e enorme na consequência.
 ## Problema
 
 O domínio precisa de agregados que estão persistidos. Se ele conhece SQL, ORM ou
-o esquema, a regra de negócio fica amarrada à tecnologia de armazenamento — e
+o esquema, a regra de negócio fica amarrada à tecnologia de armazenamento, e
 testá-la exige um banco.
 
 O repositório resolve invertendo a dependência: a interface pertence ao domínio, a
@@ -46,7 +46,7 @@ A regra que mais reduz o número de repositórios: **só raízes de agregado tê
 repositório.**
 
 Objetos internos são acessados através da raiz. Um `ItemDePedidoRepository`
-permite alterar um item sem passar pelo pedido — o que anula a proteção da
+permite alterar um item sem passar pelo pedido, o que anula a proteção da
 invariante que o [agregado](/04-domain-driven-design/aggregate.md) existe para dar.
 
 ### Repositório não é DAO
@@ -69,7 +69,7 @@ A distinção que decide se o padrão está sendo usado ou apenas nomeado.
 À esquerda, o método expõe a estrutura da consulta. À direita, expressa uma
 pergunta do negócio.
 
-Um repositório com trinta métodos genéricos é um DAO com outro nome — e o domínio
+Um repositório com trinta métodos genéricos é um DAO com outro nome, e o domínio
 continua acoplado à forma de consultar.
 
 ### Repositório não serve à leitura de tela
@@ -77,21 +77,21 @@ continua acoplado à forma de consultar.
 Um erro caro e comum: usar o repositório para alimentar listagens e relatórios.
 
 Repositórios devolvem agregados completos, com todas as invariantes carregadas. Uma
-tela que mostra cinco campos de cem pedidos não precisa de cem agregados — precisa
+tela que mostra cinco campos de cem pedidos não precisa de cem agregados. Precisa
 de uma projeção.
 
 Ver [CQRS](/03-design-patterns/cqrs.md) de nível 2: leitura vai direto ao banco,
 com uma consulta que devolve exatamente o que a tela precisa.
 
 Insistir em usar o repositório para leitura **agrava** os dois defeitos clássicos: pressiona
-o agregado a crescer para servir telas — cuja causa está em
-[agregado](/04-domain-driven-design/aggregate.md) — e multiplica as idas ao banco por carga
+o agregado a crescer para servir telas, cuja causa está em
+[agregado](/04-domain-driven-design/aggregate.md), e multiplica as idas ao banco por carga
 sob demanda, cujo mecanismo está em [proxy](/03-design-patterns/proxy.md).
 
 ### A coleção é uma ilusão útil
 
 A metáfora de coleção em memória orienta o desenho da interface: `adicionar`,
-`remover`, `buscarPor`. Não `salvar`, `atualizar`, `inserir` — que são vocabulário
+`remover`, `buscarPor`. Não `salvar`, `atualizar`, `inserir`, que são vocabulário
 de banco.
 
 A ilusão tem limites: paginação, consultas complexas e desempenho eventualmente
@@ -123,11 +123,11 @@ uma interface e um mapeamento; sem nenhum dos dois benefícios, é cerimônia.
 
 ## Alternativas
 
-- **Projeção de leitura** — para consultas de tela.
-- **Acesso direto ao ORM** — em subdomínios simples.
-- **Unidade de trabalho** — quando o controle transacional é a necessidade
+- **Projeção de leitura**: para consultas de tela.
+- **Acesso direto ao ORM**: em subdomínios simples.
+- **Unidade de trabalho**: quando o controle transacional é a necessidade
   principal.
-- **Consulta especializada** — um objeto por consulta complexa, em vez de mais um
+- **Consulta especializada**: um objeto por consulta complexa, em vez de mais um
   método no repositório.
 
 ## Trade-offs
@@ -154,7 +154,7 @@ desnecessariamente; origem do N+1.
 **Repositório que devolve o tipo do ORM.** O vazamento anula o desacoplamento.
 
 **Repositório com regra de negócio.** Uma consulta que filtra por uma regra
-implícita — "pedidos válidos" — esconde no acesso a dados algo que pertence ao
+implícita ("pedidos válidos") esconde no acesso a dados algo que pertence ao
 domínio.
 
 ## Erros Comuns
@@ -176,13 +176,13 @@ Um sistema de gestão hospitalar tinha `PacienteRepository` com 47 métodos:
 
 Três problemas ao mesmo tempo.
 
-A tela de busca de pacientes carregava agregados completos — com histórico de
-internações e prescrições — para exibir nome, data de nascimento e número do
+A tela de busca de pacientes carregava agregados completos (com histórico de
+internações e prescrições) para exibir nome, data de nascimento e número do
 prontuário. Uma busca que retornava 200 pacientes carregava dezenas de milhares
 de objetos.
 
 `findParaRelatorioMensal` continha, na consulta, a regra de quais pacientes contam
-para o relatório — uma decisão de negócio escondida numa cláusula SQL, que o time
+para o relatório: uma decisão de negócio escondida numa cláusula SQL, que o time
 de compliance não conseguia auditar.
 
 E alterações no esquema se espalhavam por dezenas de métodos sem que nada dissesse quais:
@@ -201,15 +201,15 @@ E a regra do relatório saiu do SQL para um serviço de domínio, onde pôde ser
 testada e auditada.
 
 O que o time registrou: o repositório tinha crescido para 47 métodos um a um, e
-cada adição foi razoável. O problema não foi nenhuma delas — foi não ter um
+cada adição foi razoável. O problema não foi nenhuma delas: foi não ter um
 critério dizendo o que pertence ao repositório e o que não.
 
 ## Conceitos Relacionados
 
-- [Aggregate](/04-domain-driven-design/aggregate.md) — a unidade que o repositório acessa.
-- [Factory](/04-domain-driven-design/factory.md) — a criação, em contraste com a recuperação.
+- [Aggregate](/04-domain-driven-design/aggregate.md): a unidade que o repositório acessa.
+- [Factory](/04-domain-driven-design/factory.md): a criação, em contraste com a recuperação.
 - [Inversão de Dependência](/02-software-design/dependency-inversion.md).
-- [CQRS](/03-design-patterns/cqrs.md) — a leitura por outro caminho.
+- [CQRS](/03-design-patterns/cqrs.md): a leitura por outro caminho.
 
 ## Exercício Prático
 

@@ -2,7 +2,7 @@
 id: disaster-recovery-planning
 title: Planejamento de Recuperação
 sidebar_position: 7
-description: O plano que precisa funcionar no pior dia — e por que ele só existe se for exercitado.
+description: O plano que precisa funcionar no pior dia, e por que ele só existe se for exercitado.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rto]
 related: [rto, rpo, failover]
 canonical_for: [recuperação de desastre, plano de continuidade, exercício de recuperação, autoridade de acionamento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -32,7 +32,7 @@ A frase que resume: um plano nunca executado é documentação, não capacidade.
 ## Problema
 
 Quase toda organização tem um documento de recuperação de desastre. Ele costuma existir
-por exigência de auditoria, e a auditoria verifica que ele existe — não que ele
+por exigência de auditoria, e a auditoria verifica que ele existe, não que ele
 funciona.
 
 O resultado previsível: no dia em que é acionado, descobre-se que o procedimento está
@@ -64,7 +64,7 @@ recuperação não acontece. Ver [segredos](/10-security/secrets.md).
 
 A primeira hora de um desastre costuma ser gasta decidindo se é um desastre.
 
-Sem autoridade definida, a decisão de acionar — que é irreversível e cara — fica
+Sem autoridade definida, a decisão de acionar, que é irreversível e cara, fica
 paralisada entre pessoas que não querem tomá-la sozinhas.
 
 O plano precisa nomear:
@@ -91,7 +91,7 @@ adiável       relatórios, integrações de baixa criticidade
 ```
 
 Restaurar o essencial primeiro reduz o impacto, e essa priorização precisa estar
-decidida antes — durante o incidente, ela vira negociação sob pressão.
+decidida antes: durante o incidente, ela vira negociação sob pressão.
 
 Ver [degradação graciosa](/12-reliability/graceful-degradation.md): operar reduzido é um estado
 legítimo, e frequentemente o correto.
@@ -109,7 +109,7 @@ comprometimento          reconstruir do zero, rotacionar tudo
 ```
 
 Os dois últimos são os que mais divergem: reconstruir num ambiente possivelmente
-comprometido exige premissas diferentes — não se restaura para a mesma infraestrutura,
+comprometido exige premissas diferentes. Não se restaura para a mesma infraestrutura,
 e as credenciais não são reutilizadas.
 
 Ver [confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
@@ -153,19 +153,19 @@ Cópia offline, atualizada, com acesso definido. É trivial e frequentemente aus
 
 ## Quando Não Usar
 
-**Sistema sem estado próprio.** Se todo dado do sistema é derivado — um índice de
-busca, um cache, uma projeção reconstruível a partir da fonte —, a recuperação é
+**Sistema sem estado próprio.** Se todo dado do sistema é derivado (um índice de
+busca, um cache, uma projeção reconstruível a partir da fonte), a recuperação é
 reimplantar e reprocessar. O plano dele é uma linha no plano do sistema que guarda a
 fonte, não um plano separado com autoridade e exercícios.
 
 **Parada tolerável medida em dias.** Quando a operação aguenta dias em processo
-manual e o sistema pode ser reconstruído a partir de fonte externa — parceiros,
-registros fiscais, o próprio cliente —, um procedimento de restauração testado basta.
+manual e o sistema pode ser reconstruído a partir de fonte externa (parceiros,
+registros fiscais, o próprio cliente), um procedimento de restauração testado basta.
 Autoridade nomeada e plano por cenário custam mais do que encurtam.
 
 **Ciclo de exercícios mais caro que a parada.** Se as horas anuais de exercício de
-mesa, parcial e completo, somadas, custam mais que o prejuízo esperado da parada —
-custo por hora vezes duração vezes frequência —, o aparato completo não se paga, e
+mesa, parcial e completo, somadas, custam mais que o prejuízo esperado da parada
+(custo por hora vezes duração vezes frequência), o aparato completo não se paga, e
 restauração testada com um exercício de mesa por ano é o teto útil.
 
 **Equipe pequena demais para manter procedimento por cenário.** Com duas ou três
@@ -175,12 +175,12 @@ documentos que ninguém atualiza.
 
 ## Alternativas
 
-- **Alta disponibilidade** — evita chegar ao cenário. Ver
+- **Alta disponibilidade**: evita chegar ao cenário. Ver
   [redundância](/12-reliability/redundancy.md). Não substitui: ela não cobre erro humano nem
   corrupção.
-- **[Failover](/12-reliability/failover.md) automatizado** — para os cenários previstos.
-- **Réplica atrasada** — proteção barata contra erro humano.
-- **Exercícios de mesa** — o mínimo viável quando o exercício completo não é possível.
+- **[Failover](/12-reliability/failover.md) automatizado**: para os cenários previstos.
+- **Réplica atrasada**: proteção barata contra erro humano.
+- **Exercícios de mesa**: o mínimo viável quando o exercício completo não é possível.
 
 ## Trade-offs
 
@@ -218,7 +218,7 @@ documentos que ninguém atualiza.
 restauração é descoberta durante o incidente, com o relógio do RTO correndo.
 
 **Usar um plano genérico** para cenários que exigem respostas diferentes. O
-procedimento de perda de região restaura para a mesma infraestrutura — que, num
+procedimento de perda de região restaura para a mesma infraestrutura, que, num
 comprometimento, é exatamente o que não se pode fazer.
 
 **Cobrir só a restauração de dados.** O banco volta e o sistema não sobe: os segredos
@@ -227,7 +227,7 @@ ficaram no ambiente que caiu, e a recuperação para esperando por eles.
 **Não nomear quem aciona.** A primeira hora se perde subindo a decisão na hierarquia,
 e ela sai do RTO de qualquer forma.
 
-**Não priorizar o que volta primeiro.** O essencial volta junto com o resto — no
+**Não priorizar o que volta primeiro.** O essencial volta junto com o resto: no
 exemplo abaixo, 5 horas em vez de 40 minutos.
 
 **Guardar o plano só no ambiente que pode cair.** No dia do incidente, o
@@ -242,7 +242,7 @@ verificação anual e nunca é confrontado com a operação real.
 Uma empresa de logística tinha um plano de recuperação de 40 páginas, revisado
 anualmente para a auditoria e nunca executado.
 
-Um erro de migração apagou a tabela de rotas — 4 milhões de registros — às 10h de uma
+Um erro de migração apagou a tabela de rotas (4 milhões de registros) às 10h de uma
 terça-feira.
 
 O que aconteceu:
@@ -272,7 +272,7 @@ A reformulação:
 **Plano por cenário**, com procedimentos distintos para perda de região, corrupção,
 apagamento acidental e comprometimento.
 
-**Autoridade nomeada** — três pessoas, com critérios objetivos de acionamento.
+**Autoridade nomeada**: três pessoas, com critérios objetivos de acionamento.
 
 **Priorização de funções**, com as três essenciais identificadas e procedimento de
 restauração seletiva.
@@ -286,22 +286,22 @@ em decisão, uma janela de 1 hora já teria aplicado o apagamento.
 
 **Cópia offline do plano**, atualizada a cada revisão.
 
-**Exercícios trimestrais** — um de mesa, um parcial, alternados. O exercício completo
+**Exercícios trimestrais**: um de mesa, um parcial, alternados. O exercício completo
 passou a ser anual.
 
 Nos dois anos seguintes, os exercícios encontraram nove problemas, todos corrigidos em
 janela controlada. Um incidente real de corrupção parcial foi resolvido em 35 minutos.
 
 Na retrospectiva: o plano de 40 páginas cumpria a exigência de auditoria
-perfeitamente. Ele nunca tinha sido escrito para ser usado — apenas para existir.
+perfeitamente. Ele nunca tinha sido escrito para ser usado, apenas para existir.
 
 ## Conceitos Relacionados
 
-- [RTO](/12-reliability/rto.md) e [RPO](/12-reliability/rpo.md) — os alvos.
-- [Failover](/12-reliability/failover.md) — o mecanismo.
-- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md) — as
+- [RTO](/12-reliability/rto.md) e [RPO](/12-reliability/rpo.md): os alvos.
+- [Failover](/12-reliability/failover.md): o mecanismo.
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md): as
   estratégias.
-- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — a verificação.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md): a verificação.
 
 ## Exercício Prático
 
@@ -318,6 +318,6 @@ As perguntas sem resposta na sala são as lacunas do seu plano.
 
 ## Para Aprofundar
 
-- ISO. *ISO 22301:2019 — Security and resilience — Business continuity management systems — Requirements*. 2019.
-- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems*. NIST, 2010.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 17, "Testing for Reliability".
+- ISO. *ISO 22301:2019. Security and resilience — Business continuity management systems — Requirements*. 2019.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1. Contingency Planning Guide for Federal Information Systems*. NIST, 2010.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 17, "Testing for Reliability".

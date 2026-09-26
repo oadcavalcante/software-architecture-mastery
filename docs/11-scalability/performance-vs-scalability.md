@@ -2,7 +2,7 @@
 id: performance-vs-scalability
 title: Desempenho versus Escalabilidade
 sidebar_position: 13
-description: Duas propriedades diferentes, medidas de formas diferentes — e confundi-las direciona o esforço para o lugar errado.
+description: Duas propriedades diferentes, medidas de formas diferentes, e confundi-las direciona o esforço para o lugar errado.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-capacity-planning, hotspots, horizontal-scaling, latency]
 canonical_for: [desempenho versus escalabilidade, latência sob carga, lei de Little, lei de Amdahl]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -71,7 +71,7 @@ por nível de carga. A média mistura os dois regimes.
 
 ### Vazão e latência não são a mesma coisa
 
-**Latência** é o tempo de uma operação — e o que interessa dela é a distribuição, não a média.
+**Latência** é o tempo de uma operação, e o que interessa dela é a distribuição, não a média.
 Ver [latência](/06-distributed-systems/latency.md).
 
 **Vazão** é o número de operações por unidade de tempo.
@@ -90,8 +90,8 @@ requisições em andamento = vazão × latência média
 
 Simples e poderosa. Dela saem conclusões práticas:
 
-**Se a latência dobra e a vazão se mantém, o número de requisições simultâneas dobra**
-— o que significa o dobro de conexões, de memória, de descritores. É por isso que uma
+**Se a latência dobra e a vazão se mantém, o número de requisições simultâneas dobra**,
+o que significa o dobro de conexões, de memória, de descritores. É por isso que uma
 lentidão em uma dependência esgota recursos que não têm relação aparente com ela.
 
 **Para sustentar 1.000 req/s com 200 ms de latência**, o sistema precisa suportar 200
@@ -122,7 +122,7 @@ somados na leitura pode render mais que dobrar as máquinas.
 
 ### Escala linear é a exceção
 
-O ideal — dobrar recursos, dobrar capacidade — raramente acontece.
+O ideal (dobrar recursos, dobrar capacidade) raramente acontece.
 
 A curva de degradação e o ponto de saturação estão em
 [escala horizontal](/11-scalability/horizontal-scaling.md), com os números e a coluna de
@@ -130,18 +130,18 @@ eficiência.
 
 O que importa para a distinção deste documento é a leitura: cada nó acrescentado entrega menos
 que o anterior, e passado certo ponto entrega menos que custa. Isso significa que **escala não
-é substituta de desempenho** — a partir da saturação, a única forma de aumentar capacidade é
+é substituta de desempenho**: a partir da saturação, a única forma de aumentar capacidade é
 reduzir o trabalho por operação, que é otimização.
 
 A degradação vem de coordenação e de contenção sobre recursos compartilhados. Existe um
 ponto além do qual adicionar nós **piora** o resultado.
 
-Conhecer esse ponto para o seu sistema — medindo, não estimando — é o que evita gastar
+Conhecer esse ponto para o seu sistema (medindo, não estimando) é o que evita gastar
 com capacidade que não entrega.
 
 ### Um caminho de execução tem um gargalo de cada vez
 
-Num dado caminho, um recurso é o limitante, e otimizar outro **não aumenta a capacidade** —
+Num dado caminho, um recurso é o limitante, e otimizar outro **não aumenta a capacidade**:
 aumenta a folga de algo que já tinha folga. Ver
 [análise de gargalo](/05-system-design/bottleneck-analysis.md).
 
@@ -160,7 +160,7 @@ uma partição a 100%, resto ocioso → ponto quente
 A quarta linha é a que mais engana: a média de utilização parece confortável, e o
 sistema está saturado. Ver [pontos quentes](/11-scalability/hotspots.md).
 
-Depois de remover um gargalo, o próximo aparece — em outro lugar. Isso não é falha do
+Depois de remover um gargalo, o próximo aparece em outro lugar. Isso não é falha do
 trabalho; é como funciona.
 
 ## Modelo Mental
@@ -205,14 +205,14 @@ Conheça o seu ponto de saturação.
 
 Formas de resolver "está lento" sem adicionar capacidade:
 
-- **Índice adequado** — a causa mais comum. Ver
+- **Índice adequado**: a causa mais comum. Ver
   [indexação](/07-data-architecture/indexing.md).
-- **Cache** — reduz trabalho repetido.
-- **Assíncrono** — tira a operação do caminho crítico. Ver
+- **Cache**: reduz trabalho repetido.
+- **Assíncrono**: tira a operação do caminho crítico. Ver
   [processamento assíncrono](/11-scalability/async-processing.md).
-- **Remover a fração serial** — o de maior retorno quando o teto de Amdahl foi
+- **Remover a fração serial**: o de maior retorno quando o teto de Amdahl foi
   atingido.
-- **Separar cargas** — analítico fora do transacional. Ver
+- **Separar cargas**: analítico fora do transacional. Ver
   [OLTP](/07-data-architecture/oltp.md).
 
 ## Trade-offs
@@ -285,7 +285,7 @@ sob carga. Nenhuma quantidade de máquinas ajudaria. A causa era uma consulta co
 junções desnecessárias e sem índice adequado. Corrigida: 2.400 ms para 180 ms.
 
 **Detalhe da reserva: problema de escala.** Rápida sozinha, degrada. A causa era o
-esgotamento do pool de conexões — 50 conexões, com latência de 45 ms, limitando a vazão
+esgotamento do pool de conexões: 50 conexões, com latência de 45 ms, limitando a vazão
 a cerca de 1.100 req/s pela lei de Little. O pico pedia 1.800. Aumentar o pool e reduzir
 o tempo de posse da conexão resolveu.
 
@@ -300,7 +300,7 @@ recurso, removendo a fração serial.
 Resultado: as três operações ficaram dentro do alvo em seis semanas, sem microsserviços
 e sem aumentar capacidade.
 
-Seis meses depois, com o dobro do volume, o sistema continuou dentro do alvo — o que
+Seis meses depois, com o dobro do volume, o sistema continuou dentro do alvo. Isso
 não teria acontecido se o plano original tivesse sido executado, porque a busca de
 disponibilidade seria igualmente lenta em qualquer arquitetura.
 
@@ -310,7 +310,7 @@ três casos.
 
 ## Conceitos Relacionados
 
-- [Pontos Quentes](/11-scalability/hotspots.md) — quando a média engana.
+- [Pontos Quentes](/11-scalability/hotspots.md): quando a média engana.
 - [Escala Horizontal](/11-scalability/horizontal-scaling.md) e [Vertical](/11-scalability/vertical-scaling.md).
 - [Planejamento de Capacidade](/11-scalability/scaling-capacity-planning.md).
 - [Análise de Gargalos](/05-system-design/bottleneck-analysis.md).
@@ -320,7 +320,7 @@ três casos.
 Pegue a operação mais reclamada do seu sistema e meça a latência com um único usuário e
 sob carga de pico.
 
-A diferença entre os dois números diz qual problema você tem — e provavelmente
+A diferença entre os dois números diz qual problema você tem, e provavelmente
 contradiz a hipótese em que o time está trabalhando.
 
 ## Perguntas de Entrevista
@@ -332,6 +332,6 @@ contradiz a hipótese em que o time está trabalhando.
 ## Para Aprofundar
 
 - Amdahl, Gene. *Validity of the Single Processor Approach*, 1967.
-- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007 — a lei da
+- Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007. A lei da
   escalabilidade universal.
 - Gregg, Brendan. *Systems Performance*. 2ª ed. Addison-Wesley, 2020.

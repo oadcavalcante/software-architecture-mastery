@@ -2,7 +2,7 @@
 id: authentication
 title: Authentication
 sidebar_position: 17
-description: Proving who is calling — and where that proof is verified on each request.
+description: Proving who is calling, and where that proof is verified on each request.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [authorization, stateless-vs-stateful, identity]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ is verified. The protocols and the threat model are the subject of
 ## Problem
 
 HTTP has no memory. Every request arrives without knowing who sent it, and proving identity on
-each one would be unviable — nobody types a password per request.
+each one would be unviable: nobody types a password per request.
 
 The way out is: authenticate once and issue a **short-lived credential** that proves the
 earlier authentication.
@@ -53,7 +53,7 @@ does it carry the information with it?
 | Reading the content | The server queries it | Anyone can decode it |
 
 The last line is frequently misunderstood: a signed token **is not encrypted**. It is readable
-by whoever has it — the signature guarantees it was not altered, not that it is secret. Putting
+by whoever has it; the signature guarantees it was not altered, not that it is secret. Putting
 sensitive data there is a leak.
 
 ### Revocation is the token's problem
@@ -61,7 +61,7 @@ sensitive data there is a leak.
 A self-contained token is valid until it expires. If a user is blocked, or logs out, or has the
 credential stolen, the token keeps working.
 
-The mitigations — short expiry, a revocation list, a credential version — and what each one
+The mitigations (short expiry, a revocation list, a credential version) and what each one
 costs are in [JWT](/10-security/jwt.md). One of them matters for the system decision: the
 **separate refresh token**, a short access token plus a long refresh token, the second being
 revocable on the server. It is the arrangement that concentrates the state in a single point
@@ -71,14 +71,14 @@ queried rarely, and the one that lets you choose tokens without giving up revoca
 
 Three places, and the choice determines what happens when something fails:
 
-**At the edge** — a gateway or proxy verifies before forwarding. It centralizes, and the
+**At the edge**: a gateway or proxy verifies before forwarding. It centralizes, and the
 internal services come to trust a header. If someone reaches the service without going through
 the edge, there is no verification.
 
-**In each service** — each one verifies. Defense in depth, at the cost of repetition and of
+**In each service**: each one verifies. Defense in depth, at the cost of repetition and of
 everyone needing the verification key.
 
-**Both** — the edge rejects the obvious traffic and each service confirms. It is the
+**Both**: the edge rejects the obvious traffic and each service confirms. It is the
 recommendation for systems with real trust boundaries.
 
 The choice between the first two is the same question as
@@ -86,8 +86,8 @@ The choice between the first two is the same question as
 
 ### Service authentication is not the same thing
 
-A service calling a service has no user. The options — client credentials, mutual certificates,
-workload identity provided by the platform — have different rotation and scoping requirements.
+A service calling a service has no user. The options (client credentials, mutual certificates,
+workload identity provided by the platform) have different rotation and scoping requirements.
 
 Reusing the user's token for internal calls is common and problematic: it carries the user's
 permissions to places that need different ones, and its short expiry interrupts long operations.
@@ -129,10 +129,10 @@ the benefit of building is nil.
 
 ## Alternatives
 
-- **External identity provider** — delegates the mechanism. See
+- **External identity provider**: delegates the mechanism. See
   [security](/10-security/index.md).
-- **API key** — for server-to-server integration, with no user.
-- **Mutual certificates** — between services, when the platform supports it.
+- **API key**: for server-to-server integration, with no user.
+- **Mutual certificates**: between services, when the platform supports it.
 
 ## Trade-offs
 
@@ -173,7 +173,7 @@ itself any user.
 chain, and each of them becomes a point where the user's credential can be captured or reused
 beyond its scope.
 
-**Not planning key rotation.** When rotation becomes urgent — a suspected leak — a system that
+**Not planning key rotation.** When rotation becomes urgent (a suspected leak), a system that
 did not prepare for it has to choose between invalidating every session at once and living with
 the compromised key.
 
@@ -185,11 +185,11 @@ The internal services trusted an `X-User-Id` header injected by it.
 Two problems appeared in the same quarter.
 
 **Revocation.** An employee was let go and their access was removed from the identity provider.
-Their token kept working for 19 hours — time in which they exported data. The incident required
+Their token kept working for 19 hours, time in which they exported data. The incident required
 notifying legal.
 
-**A forged header.** During a security test, someone reached an internal service directly — the
-network allowed it — and sent an administrator's `X-User-Id`. The service accepted it.
+**A forged header.** During a security test, someone reached an internal service directly (the
+network allowed it) and sent an administrator's `X-User-Id`. The service accepted it.
 
 The fixes.
 
@@ -197,7 +197,7 @@ The access token dropped to 10 minutes, with an 8-hour refresh token, revocable 
 Revocation came to take effect within at most 10 minutes.
 
 Each service started verifying the token's signature, in addition to the gateway. The
-`X-User-Id` header was eliminated — the identity comes from the locally verified token, not from
+`X-User-Id` header was eliminated: the identity comes from the locally verified token, not from
 something someone injected.
 
 And calls between services started using their own service credentials, scoped to what each one
@@ -212,12 +212,12 @@ changed, and nobody revisited it.
 The decision between session and token covers the steady state. The full cycle has four moments,
 and three of them usually go undesigned.
 
-**Issuance.** After authenticating. The decision here is the validity — and it should vary by
+**Issuance.** After authenticating. The decision here is the validity, and it should vary by
 context: a mobile app session and an administrative terminal session do not deserve the same
 window.
 
 **Renewal.** When the short credential expires. The delicate point is **refresh token rotation**:
-issuing a new one on each use and invalidating the previous one allows detecting theft — if an
+issuing a new one on each use and invalidating the previous one allows detecting theft. If an
 already-used refresh token reappears, someone copied it, and the whole token family for that user
 should be invalidated.
 
@@ -232,10 +232,10 @@ detection turns a stolen token into an alarm, instead of silent access valid unt
 
 ## Related Concepts
 
-- [Authorization](/05-system-design/authorization.md) — what comes next.
-- [State Management](/05-system-design/state-management.md) — where the session lives.
-- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md) — why tokens scale.
-- [Security](/10-security/index.md) — protocols, threats and key management.
+- [Authorization](/05-system-design/authorization.md): what comes next.
+- [State Management](/05-system-design/state-management.md): where the session lives.
+- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md): why tokens scale.
+- [Security](/10-security/index.md): protocols, threats and key management.
 
 ## Practical Exercise
 
@@ -253,5 +253,5 @@ anything?
 
 ## Further Reading
 
-- OWASP — *Authentication Cheat Sheet*.
+- OWASP. *Authentication Cheat Sheet*.
 - RFC 6749 and RFC 9068 — OAuth 2.0 and the access token profile.

@@ -2,7 +2,7 @@
 id: data-migration
 title: Migração de Dados
 sidebar_position: 10
-description: A parte mais arriscada e a mais subestimada — onde os erros são irreversíveis.
+description: A parte mais arriscada e a mais subestimada, onde os erros são irreversíveis.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [strangler-fig, migration-strategies, modernization-risk]
 canonical_for: [migração de dados, conciliação de migração, dado que não encaixa, corte de migração]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -28,7 +28,7 @@ A razão é assimétrica: código com defeito se corrige e reimplanta; dado corr
 perdido frequentemente não se recupera.
 
 E ela expõe algo que nenhuma outra parte do projeto expõe: **a qualidade real dos dados
-existentes** — que costuma ser pior do que qualquer pessoa da organização acredita.
+existentes**, que costuma ser pior do que qualquer pessoa da organização acredita.
 
 ## Problema
 
@@ -46,7 +46,7 @@ campos usados para propósitos diferentes do documentado
 histórico que ninguém sabe se ainda importa
 ```
 
-Cada um desses vira uma decisão de negócio no meio de uma janela técnica — e é assim que
+Cada um desses vira uma decisão de negócio no meio de uma janela técnica. E é assim que
 migrações de um fim de semana viram projetos de três meses.
 
 ## Conceitos Centrais
@@ -65,7 +65,7 @@ registros órfãos
 datas impossíveis, valores negativos onde não deveriam
 ```
 
-Esse levantamento — perfilagem — costuma ser feito depois que a migração falha. Feito
+Esse levantamento (perfilagem) costuma ser feito depois que a migração falha. Feito
 antes, ele transforma surpresas em decisões planejadas.
 
 Num sistema com anos de operação, o resultado dele é desconfortável: sistemas antigos
@@ -84,7 +84,7 @@ migrar como está o modelo novo acomoda o caso, com flag
 ```
 
 Nenhuma dessas é decisão técnica. Descartar 4.000 registros inconsistentes é uma decisão
-de negócio, com implicações — e ela precisa ser tomada por quem responde pelos dados,
+de negócio, com implicações, e ela precisa ser tomada por quem responde pelos dados,
 com antecedência.
 
 Ver [propriedade do dado](/07-data-architecture/data-ownership.md).
@@ -102,10 +102,10 @@ amostragem     registros individuais comparados campo a campo
 
 Os três são necessários e insuficientes isoladamente:
 
-**Contagem** não detecta transformação errada — os registros estão lá, com valores
+**Contagem** não detecta transformação errada: os registros estão lá, com valores
 errados.
 
-**Soma** detecta erro agregado e não detecta compensação — dois erros que se anulam.
+**Soma** detecta erro agregado e não detecta compensação (dois erros que se anulam).
 
 **Amostragem** detecta erro de transformação e não cobre casos raros, que são
 justamente os que quebram.
@@ -127,7 +127,7 @@ incremental   migra só o que mudou desde a última execução
 Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 A repetibilidade permite ensaiar: rodar a migração completa em ambiente de teste,
-verificar, corrigir, repetir — até que a execução real seja rotina, não evento.
+verificar, corrigir, repetir, até que a execução real seja rotina, não evento.
 
 Cada ensaio mede a duração com volume real e expõe defeitos de transformação que a
 verificação pega. No exemplo abaixo, o primeiro ensaio levou 41 horas contra uma janela
@@ -143,14 +143,14 @@ o corte          a fonte muda
 depois           o antigo permanece consistente por um período, para reversão
 ```
 
-Manter o antigo atualizado depois do corte — por replicação reversa — é o que torna a
+Manter o antigo atualizado depois do corte, por replicação reversa, é o que torna a
 volta possível. Sem isso, o corte é irreversível a partir da primeira escrita nova.
 
 A replicação reversa tem custo próprio. Ela exige uma transformação inversa, do modelo
 novo para o antigo, que perde informação quando o novo é mais rico: o endereço
 estruturado volta como texto livre, o campo extraído da observação não tem para onde
 voltar. E é um segundo pipeline, com monitoramento e conciliação próprios durante todo o
-período de reversão — divergência entre os dois lados passa a ser um modo de falha a
+período de reversão: divergência entre os dois lados passa a ser um modo de falha a
 vigiar. Quando a transformação inversa perde mais do que o negócio aceita, a saída é
 reduzir o que precisa voltar, cortando por fatia para que a reversão cubra só a fatia
 afetada, ou declarar o corte irreversível e compensar antes dele, com mais ensaios e um
@@ -171,7 +171,7 @@ descartar           com verificação de requisito de retenção
 Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 A opção de manter o sistema antigo como arquivo somente leitura é frequentemente a mais
-barata — e ela colide com o objetivo de desligar o antigo, o que precisa ser reconhecido.
+barata. E ela colide com o objetivo de desligar o antigo, o que precisa ser reconhecido.
 
 ### A migração revela a qualidade real
 
@@ -179,7 +179,7 @@ Uma constatação recorrente: a migração é a primeira vez que alguém olha os
 conjunto.
 
 Ela encontra problemas que existiam há anos e não tinham sido detectados porque nenhum
-processo os exercitava — clientes duplicados, registros órfãos, valores impossíveis.
+processo os exercitava: clientes duplicados, registros órfãos, valores impossíveis.
 
 Isso tem duas consequências: a estimativa precisa incluir tempo para tratá-los, e a
 descoberta tem valor próprio, independentemente da migração.
@@ -201,7 +201,7 @@ necessárias sempre que:
 
 ## Quando Não Usar
 
-O aparato completo — perfilagem, ensaios cronometrados, verificação em níveis, replicação reversa — é desproporcional quando:
+O aparato completo (perfilagem, ensaios cronometrados, verificação em níveis, replicação reversa) é desproporcional quando:
 
 **O volume cabe em conferência manual.** Algumas centenas de registros são conferidos por uma pessoa em horas; ensaiar e montar verificação automatizada custa mais que o erro que evitaria.
 
@@ -215,11 +215,11 @@ O aparato completo — perfilagem, ensaios cronometrados, verificação em níve
 
 ## Alternativas
 
-- **Coexistência sem migração** — o novo começa vazio, e o antigo permanece como fonte
+- **Coexistência sem migração**: o novo começa vazio, e o antigo permanece como fonte
   do histórico. Ver [strangler fig](/16-legacy-modernization/strangler-fig.md).
-- **Migração sob demanda** — o registro é migrado quando acessado pela primeira vez.
-- **Manter o antigo como arquivo** — somente leitura, sem migrar histórico.
-- **Migração incremental por fatia** — por cliente, por região, por período.
+- **Migração sob demanda**: o registro é migrado quando acessado pela primeira vez.
+- **Manter o antigo como arquivo**: somente leitura, sem migrar histórico.
+- **Migração incremental por fatia**: por cliente, por região, por período.
 
 A segunda é elegante e adequada quando o acesso é esparso: a maior parte dos dados
 antigos nunca é acessada, e migrá-los é trabalho desperdiçado.
@@ -256,22 +256,22 @@ antigos nunca é acessada, e migrá-los é trabalho desperdiçado.
 
 ## Erros Comuns
 
-**Não perfilar antes.** Em sistemas com anos de operação, os dados reais têm valores que o modelo novo não aceita — nulos onde há obrigatoriedade, duplicatas onde há unicidade, formatos livres. Descobrir na janela de corte é o que estoura o prazo.
+**Não perfilar antes.** Em sistemas com anos de operação, os dados reais têm valores que o modelo novo não aceita: nulos onde há obrigatoriedade, duplicatas onde há unicidade, formatos livres. Descobrir na janela de corte é o que estoura o prazo.
 
 **Subestimar os dados que não encaixam.** O caso excepcional costuma ser 2% do volume e 60% do esforço, e cada decisão sobre ele é de negócio, não técnica.
 
-**Não ensaiar a migração completa.** Sem ensaio com volume real, ninguém sabe quanto tempo leva — e a janela combinada com o negócio é um chute.
+**Não ensaiar a migração completa.** Sem ensaio com volume real, ninguém sabe quanto tempo leva, e a janela combinada com o negócio é um chute.
 
 **Verificar apenas contagem.** Contagem igual com conteúdo trocado passa na conferência. É preciso somar valores, comparar amostras e reconciliar totais por recorte.
 
 **Não manter o antigo atualizado após o corte.** Sem isso a reversão deixa de existir: voltar significaria perder tudo que foi feito depois do corte.
 
-**Não decidir sobre histórico.** Migrar dez anos ou dois não muda só o volume: o histórico antigo atravessa mais versões de regra e concentra mais dado fora do domínio, e o esforço cresce mais que a proporção de anos. É decisão de negócio — que costuma ser tomada por omissão pela engenharia.
+**Não decidir sobre histórico.** Migrar dez anos ou dois não muda só o volume: o histórico antigo atravessa mais versões de regra e concentra mais dado fora do domínio, e o esforço cresce mais que a proporção de anos. É decisão de negócio, que costuma ser tomada por omissão pela engenharia.
 
 ## Exemplo Real
 
-Uma operadora de saúde migrou o cadastro de beneficiários — 4,2 milhões de registros, 19
-anos — para um sistema novo.
+Uma operadora de saúde migrou o cadastro de beneficiários (4,2 milhões de registros, 19
+anos) para um sistema novo.
 
 O plano original: migração num fim de semana, com janela de 36 horas.
 
@@ -296,13 +296,13 @@ As decisões, tomadas com o negócio ao longo de dois meses:
 ambíguos revisados manualmente.
 
 **Sem CPF válido.** Migrados com marcação, com campanha de atualização junto aos
-beneficiários. Não descartados — muitos eram beneficiários ativos.
+beneficiários. Não descartados: muitos eram beneficiários ativos.
 
 **Dependentes órfãos.** Investigados: 5.900 eram de titulares cancelados havia anos;
 migrados como inativos. Os outros 500 eram erro de dados e foram corrigidos.
 
 **Campo de observação.** Um analista descobriu que ele continha, em cerca de 40.000
-casos, informação sobre carência e restrições contratuais — dado com valor jurídico. Um
+casos, informação sobre carência e restrições contratuais: dado com valor jurídico. Um
 extrator foi escrito para estruturá-lo.
 
 **Endereços.** Serviço de normalização, com 3% que não normalizaram indo para revisão
@@ -311,28 +311,28 @@ manual.
 A execução:
 
 **Sete ensaios completos** em ambiente de teste, cronometrados. O primeiro levou 41
-horas — acima da janela. Os ajustes de paralelização levaram ao sétimo, em 9 horas.
+horas, acima da janela. Os ajustes de paralelização levaram ao sétimo, em 9 horas.
 
 **Verificação em quatro níveis**, incluindo a execução do cálculo de mensalidade nos dois
 sistemas, com comparação registro a registro.
 
 **Replicação reversa** por 60 dias após o corte, mantendo o antigo consistente.
 
-**Fechamento de mês** exercitado no ambiente de teste, com os dados migrados — o que
+**Fechamento de mês** exercitado no ambiente de teste, com os dados migrados. Isso
 encontrou dois problemas de transformação que nenhuma verificação anterior tinha pego.
 
 A migração real levou 8 horas e 40 minutos. Nenhum registro perdido, e a reversão nunca
 foi necessária.
 
 A conclusão registrada: os três meses de perfilagem e preparação foram o projeto. A
-execução foi a parte fácil — e teria sido um desastre sem eles.
+execução foi a parte fácil, e teria sido um desastre sem eles.
 
 O campo de observação com informação jurídica, sozinho, teria produzido um passivo
 significativo se tivesse sido descartado como texto livre.
 
 ## Conceitos Relacionados
 
-- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — a coexistência.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md): a coexistência.
 - [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md).
 - [Risco de Modernização](/16-legacy-modernization/modernization-risk.md).
 - [Consistência de Dados](/07-data-architecture/data-consistency.md).
@@ -342,7 +342,7 @@ significativo se tivesse sido descartado como texto livre.
 Escolha uma entidade central do seu sistema e faça uma perfilagem simples: quantos
 registros violam as regras que o sistema supostamente impõe?
 
-O número costuma ser maior que qualquer estimativa — e ele é o trabalho que uma migração
+O número costuma ser maior que qualquer estimativa, e ele é o trabalho que uma migração
 futura vai enfrentar.
 
 ## Perguntas de Entrevista

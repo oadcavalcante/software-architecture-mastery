@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [quality attributes]
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-30
 ---
 
@@ -31,7 +31,7 @@ which to prioritize and accepting what that costs on the rest.
 
 ## The Problem
 
-Teams list quality attributes as if they were a shopping list — all desirable, all
+Teams list quality attributes as if they were a shopping list: all desirable, all
 worth pursuing. The document says the system must be highly available, strongly
 consistent, low-latency, secure, cheap and easy to maintain.
 
@@ -81,7 +81,7 @@ of the other?".
 ### Scenarios make an attribute verifiable
 
 A named attribute is vague. An attribute in a scenario is testable. The scenario
-structure — from the practice of architectural analysis — has six parts:
+structure (from the practice of architectural analysis) has six parts:
 
 ```text
 Source        An authenticated user
@@ -98,13 +98,13 @@ more architectural clarity than ten pages of prose about quality.
 ### Not every attribute matters in every system
 
 An internal reporting system does not need low latency. A throwaway prototype
-does not need maintainability — and investing in it is waste.
+does not need maintainability, and investing in it is waste.
 
 The axis is not always settled by the domain. In healthcare, intuition says
 consistency wins: stale clinical data is a risk. But absent data is one too, and
 the [electronic health record case](/21-case-studies/healthcare.md) chooses the
 local record during a partition for exactly that reason. What decides is not the
-sector — it is which of the two failures the clinician meets first.
+sector but which of the two failures the clinician meets first.
 
 The question is not which attribute is more important in the abstract. It is
 which, if it fails in this system, does the most damage.
@@ -130,7 +130,7 @@ expensive route. The conflict table costs one meeting.
 
 **Because the prioritization is a business decision.** Engineering informs the cost
 of each option; the business decides what is worth it. When engineering decides
-alone, it typically picks technical purity — which is rarely what the company
+alone, it typically picks technical purity, which is rarely what the company
 needed.
 
 ## Common Mistakes
@@ -158,13 +158,13 @@ function at that moment.
 
 Two teams at the same company build services that record sensor data.
 
-**Team A — industrial monitoring.** A few hundred readings per second, and losing
+**Team A: industrial monitoring.** A few hundred readings per second, and losing
 one means failing to detect a fault condition in equipment. Priority: durability
 and consistency above latency and cost. Architecture: synchronous replicated
 writes, acknowledgement only after persistence in two zones, higher cost per
 reading.
 
-**Team B — application telemetry.** Forty thousand readings per second, and
+**Team B: application telemetry.** Forty thousand readings per second, and
 losing a few out of millions changes no conclusion. Priority: cost and throughput
 above durability. Architecture: batched writes, an in-memory buffer that drops
 under pressure, cost per reading an order of magnitude lower.
@@ -175,18 +175,18 @@ acknowledgement and dropping.
 
 Had team B copied team A's architecture, the extra order of magnitude in cost per
 reading multiplied by B's volume would have taken the monthly infrastructure bill
-from around $2,000 to $20,000 — above the product's entire budget. Had A copied B,
+from around $2,000 to $20,000, above the product's entire budget. Had A copied B,
 the system would have lost readings nobody can lose.
 
 What separates the two appears in no functional requirements document.
 
 ## Related Concepts
 
-- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md) — how to express
+- [Non-Functional Requirements](/01-fundamentals/non-functional-requirements.md): how to express
   them verifiably.
-- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md) — the alternative
+- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md): the alternative
   formulation of the same concept.
-- [Trade-offs](/20-trade-offs/index.md) — the analysis of the conflicts, in
+- [Trade-offs](/20-trade-offs/index.md): the analysis of the conflicts, in
   detail.
 
 ## Practical Exercise
@@ -207,6 +207,6 @@ today? The ones with no answer are aspirational attributes.
 ## Further Exploration
 
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
-  4th ed., Addison-Wesley, 2021 — the reference on attribute scenarios.
+  4th ed., Addison-Wesley, 2021. The reference on attribute scenarios.
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — architecture characteristics and their prioritization.
+  2020. Architecture characteristics and their prioritization.

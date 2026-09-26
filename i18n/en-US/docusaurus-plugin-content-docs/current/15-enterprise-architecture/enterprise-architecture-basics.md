@@ -2,7 +2,7 @@
 id: enterprise-architecture-basics
 title: Enterprise Architecture Fundamentals
 sidebar_position: 1
-description: The problem the discipline solves — and why the traditional way of practicing it fails.
+description: The problem the discipline solves, and why the traditional way of practicing it fails.
 doc_type: foundation
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-levels, enterprise-principles, technical-strategy]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,13 +21,13 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Enterprise architecture is the practice of making decisions that cross systems, teams and years — the ones
+Enterprise architecture is the practice of making decisions that cross systems, teams and years: the ones
 no isolated team can make well, because the reach exceeds their field of view.
 
 The problem it addresses is real: with nobody looking at the whole, each team optimizes locally, and the
 aggregate is worse than the sum of the parts.
 
-The traditional way of practicing it — committees, documents, approvals — frequently produces more friction
+The traditional way of practicing it (committees, documents, approvals) frequently produces more friction
 than value. Understanding why is a prerequisite for doing it differently.
 
 ## Why This Matters
@@ -44,8 +44,8 @@ technology chosen by preference, with a multiplied operational cost
 
 None of those is a team's fault. Each one made the reasonable choice within what it could see.
 
-The cost appears diffusely — more integrations to maintain, more reconciliation, more time to understand
-what exists — and so it is rarely attributed to its cause.
+The cost appears diffusely (more integrations to maintain, more reconciliation, more time to understand
+what exists), and so it is rarely attributed to its cause.
 
 ## Core Concepts
 
@@ -63,7 +63,7 @@ No choice was wrong in isolation. The aggregate is an organization with three st
 bodies of operational knowledge, and three times the on-call cost.
 
 Enterprise architecture's work is making that aggregate cost **visible** at the moment of the local
-decision — not necessarily prohibiting the choice.
+decision, not necessarily prohibiting the choice.
 
 ### The four layers
 
@@ -84,7 +84,7 @@ See [business architecture](/15-enterprise-architecture/business-architecture.md
 The layers' usefulness is allowing a conversation to happen at the right level. An investment discussion
 happens at the business layer; an integration one, at the application layer.
 
-And the data layer is where the widest-reaching decisions live — information ownership and flow cross
+And the data layer is where the widest-reaching decisions live: information ownership and flow cross
 everything. See [data ownership](/07-data-architecture/data-ownership.md).
 
 ### Why the reputation is bad
@@ -121,9 +121,9 @@ distributed credit              the team decides, architecture enables
 hands in the work               building together, not only reviewing
 ```
 
-The first line is the main asset — not because the data is out of the teams' reach, but because each
+The first line is the main asset, not because the data is out of the teams' reach, but because each
 one sees its own part and none has a mandate to cross all of them and aggregate. Where another function
-already does that aggregation — a platform team, a principal engineer — the asset belongs to it, and
+already does that aggregation (a platform team, a principal engineer), the asset belongs to it, and
 enterprise architecture needs a different one.
 
 ### The discipline is continuous, not a project
@@ -142,7 +142,7 @@ An artifact with no use dies. See [architecture documentation](/17-architecture-
 A common false opposition: either the teams decide, or there is enterprise architecture.
 
 The design that works combines both: decisions go down as far as possible, and enterprise architecture
-handles what genuinely crosses — with **constraints and criteria**, not with case-by-case approvals. See
+handles what genuinely crosses, with **constraints and criteria**, not with case-by-case approvals. See
 [architecture levels](/15-enterprise-architecture/architecture-levels.md).
 
 ## Common Mistakes
@@ -165,7 +165,7 @@ asks for an exception, the exception is granted, and the standard ends up bindin
 complain.
 
 **Measuring the function by the artifacts produced.** What gets produced is what can be counted, and the
-expensive work — being in the conversation before the decision — does not enter the count.
+expensive work (being in the conversation before the decision) does not enter the count.
 
 ## Real-World Example
 
@@ -190,7 +190,7 @@ inventory and maintained by the teams themselves.
 **"I do not know whether somebody already solved this problem."** A register of architectural decisions per
 system, searchable, with what was decided and why.
 
-**"I do not know what breaks if I change this."** A dependency map derived from distributed tracing —
+**"I do not know what breaks if I change this."** A dependency map derived from distributed tracing,
 which only sees the instrumented paths. File-based and shared-database integrations were left out and were
 entered by hand, and the map marks which origin each edge comes from. See
 [distributed tracing](/13-observability/distributed-tracing.md).
@@ -198,7 +198,7 @@ entered by hand, and the map marks which origin each edge comes from. See
 **"I do not know how much this costs."** Cost per capability, derived from resource tagging. See
 [cost architecture](/09-cloud-architecture/cost-architecture.md).
 
-None of those is an approval. All of them depend on crossing systems owned by several teams — work none
+None of those is an approval. All of them depend on crossing systems owned by several teams: work none
 of them had any reason to do alone.
 
 The 40-item standards became 6 principles, and the rest became a paved road in the platform. See
@@ -208,12 +208,12 @@ The three-year target state became a twelve-month direction, with an explicit tr
 [transition architecture](/15-enterprise-architecture/transition-architecture.md).
 
 The later assessment points out: the consultancy's work was not technically wrong. It was produced as a
-deliverable, and not as a continuous service to the teams — and so it died on delivery.
+deliverable, and not as a continuous service to the teams. And so it died on delivery.
 
 ## Related Concepts
 
-- [Architecture Levels](/15-enterprise-architecture/architecture-levels.md) — the allocation of decisions.
-- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md) — the central tool.
+- [Architecture Levels](/15-enterprise-architecture/architecture-levels.md): the allocation of decisions.
+- [Business Capabilities](/15-enterprise-architecture/business-capabilities.md): the central tool.
 - [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md).
 - [Technical Strategy](/15-enterprise-architecture/technical-strategy.md).
 

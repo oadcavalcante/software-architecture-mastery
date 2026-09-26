@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design, distributed-systems]
 related: [trade-offs, system-design-interviews]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ Concepts learned in isolation don't combine on their own. Someone can understand
 consistency, partitioning, idempotency and circuit breaking as topics, and still be unable to
 design a system in which all four have to coexist under cost and schedule constraints.
 
-A case study is where the combination happens — and where the conflicts appear. The decision
+A case study is where the combination happens, and where the conflicts appear. The decision
 that improves availability worsens consistency. The one that reduces latency raises the cost.
 The one that simplifies operations couples two domains that should evolve separately.
 
@@ -64,7 +64,7 @@ Business Context → Functional Requirements → Non-Functional Requirements
 ```
 
 The chain above is the analysis. After it, each case closes with six
-consolidation sections — Results, What this case teaches, Related Concepts,
+consolidation sections: Results, What this case teaches, Related Concepts,
 Practical Exercise, Interview Questions and Further Reading.
 
 ## The rule in this section
@@ -73,7 +73,7 @@ Practical Exercise, Interview Questions and Further Reading.
 
 Each one lays out at least three genuinely viable options, with a weighted-criteria decision
 matrix. And every discarded option declares **under what change of constraint it would start
-winning** — if there is no such condition, it wasn't a real option, it was a straw man.
+winning**. If there is no such condition, it wasn't a real option, it was a straw man.
 
 That requirement is what keeps the case from becoming retroactive justification of a choice
 already made.
@@ -95,8 +95,8 @@ your domain: they are the ones that most exercise
 Read the context, requirements and constraints. **Stop before the options.** Sketch your
 architecture in twenty minutes. Only then continue.
 
-The value is not in agreeing with the text's decision — it is in discovering which constraint
-you hadn't considered.
+The value is in discovering which constraint you hadn't considered,
+not in agreeing with the text's decision.
 
 ## By the end
 

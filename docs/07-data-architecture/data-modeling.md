@@ -2,7 +2,7 @@
 id: data-modeling
 title: Modelagem de Dados
 sidebar_position: 12
-description: Uma das decisões mais difíceis de reverter — e por que ela deve partir do padrão de acesso, não do diagrama.
+description: Uma das decisões mais difíceis de reverter, e por que ela deve partir do padrão de acesso, não do diagrama.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [normalization, denormalization, data-ownership]
 canonical_for: [modelagem de dados, modelo conceitual, modelo lógico, modelo físico]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ Modelar dados é decidir quais entidades existem, quais atributos elas têm, com
 relacionam e onde ficam as fronteiras entre elas.
 
 Em sistemas cujos dados acumulam e sobrevivem às versões do código, está entre as
-decisões mais caras de reverter, porque diferente do código — que se reescreve — o
+decisões mais caras de reverter, porque diferente do código (que se reescreve), o
 modelo carrega todos os registros já gravados.
 
 E é frequentemente tomada cedo, com pouca informação, por quem tem menos contexto
@@ -43,7 +43,7 @@ exigem oito junções.
 descobre na segunda tela que o modelo não serve.
 
 A abordagem que funciona é nem uma nem outra: modelar a partir do **padrão de
-acesso** — como o dado nasce, como muda e como é lido — mantendo o vocabulário do
+acesso** (como o dado nasce, como muda e como é lido), mantendo o vocabulário do
 domínio.
 
 ## Conceitos Centrais
@@ -96,17 +96,17 @@ maioria das necessidades.
 reconstruir qualquer momento, e complica toda consulta.
 
 Decidir isso depois de dois anos de operação significa que o histórico daqueles
-dois anos não existe. É irrecuperável — a única decisão desta seção que não admite
+dois anos não existe. É irrecuperável: a única decisão desta seção que não admite
 correção retroativa.
 
 ### Identidade: natural ou artificial
 
-Usar um identificador do negócio — CPF, código de produto — como chave parece
+Usar um identificador do negócio (CPF, código de produto) como chave parece
 econômico e cria acoplamento: quando o negócio muda a regra do código, o modelo
 inteiro sente.
 
 A prática robusta é chave artificial como identidade, e o identificador de negócio
-como atributo com restrição de unicidade — que pode ser alterado sem quebrar
+como atributo com restrição de unicidade. Ele pode ser alterado sem quebrar
 referências.
 
 ### Nomear é modelar
@@ -121,7 +121,7 @@ mesma coisa em todo lugar. Ver
 ### O modelo evolui, e a migração é parte do desenho
 
 Nenhum modelo sobrevive intacto. O que distingue um modelo sustentável não é estar
-certo desde o início — é ser possível mudá-lo.
+certo desde o início, e sim ser possível mudá-lo.
 
 Isso significa: evitar tabelas tão largas que qualquer alteração é arriscada,
 evitar chaves que impedem redistribuição, e manter uma trilha de migrações
@@ -136,7 +136,7 @@ sobre o tempo antes de precisar dele.
 
 Modelagem explícita se paga sempre que:
 
-- Os dados sobrevivem ao sistema atual — quase sempre.
+- Os dados sobrevivem ao sistema atual, quase sempre.
 - Mais de um time lê ou escreve.
 - Há requisito de histórico ou auditoria.
 - O volume vai crescer em ordens de grandeza.
@@ -146,13 +146,13 @@ Modelagem explícita se paga sempre que:
 **Modelagem elaborada para dado descartável.** Cache, telemetria de curta
 retenção, rascunho.
 
-**Normalizar por princípio.** Ver [normalização](/07-data-architecture/normalization.md) — é decisão,
+**Normalizar por princípio.** Ver [normalização](/07-data-architecture/normalization.md): é decisão,
 não virtude.
 
 **Modelar todas as entidades do domínio antes de construir.** O modelo completo
 antecipado envelhece antes de ser usado.
 
-**Modelo genérico** — tabelas de "entidade" e "atributo" que servem para tudo.
+**Modelo genérico**: tabelas de "entidade" e "atributo" que servem para tudo.
 Elas eliminam esquema, índice e legibilidade de uma vez.
 
 O último é um antipadrão persistente e vale nomeá-lo: um modelo que serve para
@@ -160,11 +160,11 @@ qualquer coisa não serve bem para nada.
 
 ## Alternativas
 
-- **Modelagem dirigida por domínio** — agregados como fronteira. Ver
+- **Modelagem dirigida por domínio**: agregados como fronteira. Ver
   [DDD](/04-domain-driven-design/index.md).
-- **Modelagem dimensional** — para analítico. Ver
+- **Modelagem dimensional**: para analítico. Ver
   [data warehouse](/07-data-architecture/data-warehouses.md).
-- **Esquema por leitura** — guardar bruto e interpretar na leitura; adequado a
+- **Esquema por leitura**: guardar bruto e interpretar na leitura; adequado a
   ingestão exploratória, e ver [data lake](/07-data-architecture/data-lakes.md) para os riscos.
 
 ## Trade-offs
@@ -228,8 +228,8 @@ A resposta não existia. Cada mudança de categoria sobrescrevia a anterior.
 A reconstrução parcial foi feita a partir de registros de aplicação e de arquivos
 de faturamento, com esforço de quatro meses e resultado incompleto. Houve multa.
 
-A correção mudou o modelo para versionamento temporal nos atributos que importam —
-categoria, plano e valor — com período de validade. Os demais permaneceram como
+A correção mudou o modelo para versionamento temporal nos atributos que importam
+(categoria, plano e valor), com período de validade. Os demais permaneceram como
 estado atual.
 
 Duas observações que a equipe registrou:
@@ -239,7 +239,7 @@ modelo inteiro, o que teria complicado todas as consultas. Apenas três atributo
 tinham requisito real de histórico.
 
 **Uma tabela de auditoria desde o início teria bastado.** Não era necessário
-versionamento temporal completo em 2022 — bastava registrar as mudanças. O custo
+versionamento temporal completo em 2022: bastava registrar as mudanças. O custo
 teria sido de dias, e a informação existiria.
 
 A pergunta "o que alguém pode querer saber sobre o passado disto?" não tinha sido
@@ -248,9 +248,9 @@ feita.
 ## Conceitos Relacionados
 
 - [Normalização](/07-data-architecture/normalization.md) e [Desnormalização](/07-data-architecture/denormalization.md).
-- [Propriedade do Dado](/07-data-architecture/data-ownership.md) — quem decide o modelo.
-- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção e apagamento.
-- [DDD](/04-domain-driven-design/index.md) — agregados como fronteira.
+- [Propriedade do Dado](/07-data-architecture/data-ownership.md): quem decide o modelo.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md): retenção e apagamento.
+- [DDD](/04-domain-driven-design/index.md): agregados como fronteira.
 
 ## Exercício Prático
 

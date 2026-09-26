@@ -2,7 +2,7 @@
 id: key-value-databases
 title: Key-Value Databases
 sidebar_position: 4
-description: The simplest model there is — access by key, very high throughput, and no querying.
+description: "The simplest model there is: access by key, very high throughput, and no querying."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [document-databases, data-lifecycle, relational-databases]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ access always by a known key?**
 
 ## Problem
 
-A lot of system workload is exactly that — a user session, the result of an expensive computation, a
+A lot of system workload is exactly that: a user session, the result of an expensive computation, a
 counter, a catalog item by identifier, rate limit control.
 
 Serving those workloads from a relational database works and wastes: you pay for an optimizer,
@@ -48,7 +48,7 @@ operation.
 With no querying by content, the store can partition by key with no coordination. With no joins, the
 model forces no operation to cross partitions.
 
-Multi-key operations exist — batch reads, prefix scans — and they are what charge the price: several
+Multi-key operations exist (batch reads, prefix scans), and they are what charge the price: several
 products refuse atomicity across keys in different partitions, and the way out is forcing related keys
 into the same partition or paying for a query to every node. As long as access is one key at a time,
 horizontal scaling is simple: doubling the capacity is adding nodes and redistributing keys. See
@@ -66,7 +66,7 @@ cart:{user_id}
 ```
 
 A prefix convention, a consistent separator and versioning in the prefix when the value's format
-changes. There is no easy bulk rename — badly designed keys stay.
+changes. There is no easy bulk rename: badly designed keys stay.
 
 ### Native expiry eliminates work
 
@@ -81,20 +81,20 @@ See [data lifecycle](/07-data-architecture/data-lifecycle.md).
 
 Many are primarily in memory, with optional persistence. That changes what you can store there.
 
-**If the loss is acceptable** — a cache, a recoverable session — in memory is adequate and fast.
+**If the loss is acceptable** (a cache, a recoverable session), in memory is adequate and fast.
 
 **If the loss is not acceptable**, check exactly what the configuration guarantees: some acknowledge
 the write before persisting, and a crash loses the last few seconds.
 
 Treating an in-memory store as the source of truth without checking that produces data that cannot be
-recovered, and the damage only shows on the first crash — when nothing can be done anymore.
+recovered, and the damage only shows on the first crash, when nothing can be done anymore.
 
 ### Atomic operations cover more than expected
 
 Increment, add to a structure, set-if-absent. Those primitives solve counting, a simple queue, rate
 limiting and light locking with no transaction.
 
-On distributed locking, though, there is a known trap — see
+On distributed locking, though, there is a known trap: see
 [distributed locks](/06-distributed-systems/distributed-locks.md).
 
 ### The value is opaque
@@ -139,11 +139,11 @@ read moves the whole value to use a fraction. See
 
 ## Alternatives
 
-- **[Document](/07-data-architecture/document-databases.md)** — when there is querying by field.
-- **[Relational](/07-data-architecture/relational-databases.md)** — when there are relationships.
-- **A local in-process cache** — when the data fits and consistency between instances does not matter;
+- **[Document](/07-data-architecture/document-databases.md)**: when there is querying by field.
+- **[Relational](/07-data-architecture/relational-databases.md)**: when there are relationships.
+- **A local in-process cache**: when the data fits and consistency between instances does not matter;
   it eliminates a network round trip.
-- **Messaging** — when the need is a queue.
+- **Messaging**: when the need is a queue.
 
 ## Trade-offs
 
@@ -166,10 +166,10 @@ read moves the whole value to use a fraction. See
 
 **Data loss on a crash.** Durability was not what was assumed.
 
-**Keys with no expiry accumulating.** Memory fills and the store starts evicting data — including what
+**Keys with no expiry accumulating.** Memory fills and the store starts evicting data, including what
 matters.
 
-**A hot key.** A heavily accessed key concentrates load on one node — see
+**A hot key.** A heavily accessed key concentrates load on one node; see
 [hotspots](/11-scalability/hotspots.md).
 
 **An incompatible value format.** A deployment changes the serialization and the stored values are no
@@ -188,33 +188,33 @@ category.
 
 **Not versioning the value's format.**
 
-**Storing large values** — moving megabytes per key wastes network and memory.
+**Storing large values**: moving megabytes per key wastes network and memory.
 
 **Using it as a queue.**
 
 **Not monitoring the eviction rate.** It is the sign that the store is discarding data for lack of
-memory — see [caching for scale](/11-scalability/scaling-cache.md).
+memory; see [caching for scale](/11-scalability/scaling-cache.md).
 
 ## Real-World Example
 
 A commerce platform used an in-memory key-value store for sessions, cache and the shopping cart. The
-carts — about 80 thousand active at peak — lived on a separate 16 GB instance, shared with part of the
+carts (about 80 thousand active at peak) lived on a separate 16 GB instance, shared with part of the
 cache.
 
-Sessions and cache: correct use — acceptable loss, native expiry, access by key.
+Sessions and cache: correct use (acceptable loss, native expiry, access by key).
 
 The cart: incorrect use, and it took fourteen months to surface.
 
 During an unplanned restart of that instance, **every active cart was lost**. The fleet's default
 configuration persisted every second, but that instance had persistence disabled by a change made months earlier to reduce
-latency — with nobody connecting the change to the cart.
+latency, with nobody connecting the change to the cart.
 
 The store stayed up; the damage was the carts that vanished and were never rebuilt. Over the following
 hours, conversion fell to half the normal rate for that time of day.
 
 A second problem appeared during the investigation: the eviction rate had been high for weeks, in the
 hundreds of keys per second at peak. Cache
-keys with no expiry filled memory, and the store discarded the least used ones — which were sometimes
+keys with no expiry filled memory, and the store discarded the least used ones, which were sometimes
 the carts of customers who took a while to check out.
 
 That is, carts had been disappearing silently before the incident, and the complaint was treated as
@@ -228,17 +228,17 @@ The fixes:
 
 **An eviction rate alert**, which did not exist.
 
-**A key convention** with a prefix per domain, allowing an inventory of what was occupying memory —
-which nobody could answer before.
+**A key convention** with a prefix per domain, allowing an inventory of what was occupying memory.
+Nobody could answer that before.
 
 The reading the team takes from it: the question "what happens if this node restarts right now?" had
 never been asked about the cart. It would have cost five minutes.
 
 ## Related Concepts
 
-- [Document Databases](/07-data-architecture/document-databases.md) — when there is querying.
-- [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — expiry and retention.
-- [Partitioning](/06-distributed-systems/partitioning.md) — how the scaling works.
+- [Document Databases](/07-data-architecture/document-databases.md): when there is querying.
+- [Data Lifecycle](/07-data-architecture/data-lifecycle.md): expiry and retention.
+- [Partitioning](/06-distributed-systems/partitioning.md): how the scaling works.
 - [Distributed Locks](/06-distributed-systems/distributed-locks.md).
 
 ## Practical Exercise
@@ -246,7 +246,7 @@ never been asked about the cart. It would have cost five minutes.
 List what is in your key-value store. For each category, answer: what happens if that data disappears
 right now?
 
-Where the answer is serious, check the durability configuration — not the product's documentation, that
+Where the answer is serious, check the durability configuration: not the product's documentation, that
 environment's configuration.
 
 ## Interview Questions

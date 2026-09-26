@@ -2,7 +2,7 @@
 id: onion-architecture
 title: Onion Architecture
 sidebar_position: 21
-description: Concentric circles with the domain at the centre — the variation that names the inner layers.
+description: Concentric circles with the domain at the centre, the variation that names the inner layers.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [hexagonal-architecture]
 related: [ports-and-adapters, clean-architecture, layering]
 canonical_for: [onion architecture]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -36,8 +36,8 @@ Ports and Adapters says there is an inside and an outside, and says nothing abou
 the organization of the inside.
 
 In domains with substantial logic, that silence produces a recurring question: where
-does the rule that involves more than one entity live? Inside one of them — which
-forces one to know the other — or in a service?
+does the rule that involves more than one entity live? Inside one of them (which
+forces one to know the other), or in a service?
 
 Onion answers by naming the inner rings.
 
@@ -46,7 +46,7 @@ Onion answers by naming the inner rings.
 ### The rings
 
 The concentric circles are stretched into a vertical chain: the lower a box sits, the
-deeper the ring — domain services land below application services.
+deeper the ring. Domain services land below application services.
 
 ```mermaid
 graph TB
@@ -55,20 +55,20 @@ graph TB
   DS --> DM[Domain Model]
 ```
 
-**Domain model** — entities and value objects, with the rules that depend only on
+**Domain model**: entities and value objects, with the rules that depend only on
 themselves.
 
-**[Domain services](/04-domain-driven-design/domain-service.md)** — rules that involve more
+**[Domain services](/04-domain-driven-design/domain-service.md)**: rules that involve more
 than one entity and belong to none. They are still domain: they know nothing of
 infrastructure.
 
-**[Application services](/04-domain-driven-design/application-service.md)** — use case
+**[Application services](/04-domain-driven-design/application-service.md)**: use case
 orchestration. They coordinate and control the transaction. The interfaces that
-infrastructure implements are declared by whoever needs them, which includes the domain ring
-— restricting them to this ring would leave a domain service with no way to declare what it
+infrastructure implements are declared by whoever needs them, which includes the domain ring:
+restricting them to this ring would leave a domain service with no way to declare what it
 consumes.
 
-**Infrastructure, UI and tests** — the outer ring. All equally external, which is
+**Infrastructure, UI and tests**: the outer ring. All equally external, which is
 the same symmetry as the hexagon.
 
 ### The rule
@@ -82,14 +82,14 @@ Practically nothing in the fundamental property. The difference is one of **inte
 vocabulary**: Onion names the distinction between domain service and application
 service, which Hexagonal leaves open.
 
-That distinction is useful when it genuinely exists — in domains with rules
+That distinction is useful when it genuinely exists: in domains with rules
 involving several entities. In simple domains, it produces a ring that merely
 forwards.
 
 ## When to Use
 
 - When the domain has rules involving several entities that fit in none of them.
-- When the team already uses [DDD](/04-domain-driven-design/index.md) vocabulary —
+- When the team already uses [DDD](/04-domain-driven-design/index.md) vocabulary:
   the rings map directly onto entity, domain service and application service.
 - When distinguishing orchestration from rule has practical value: the two change
   for different reasons.
@@ -112,11 +112,11 @@ rings are directories.
 
 ## Alternatives
 
-- **[Hexagonal](/02-software-design/hexagonal-architecture.md)** — when the
+- **[Hexagonal](/02-software-design/hexagonal-architecture.md)**: when the
   distinction between domain and application service adds nothing.
-- **[Clean Architecture](/02-software-design/clean-architecture.md)** — different
+- **[Clean Architecture](/02-software-design/clean-architecture.md)**: different
   vocabulary for the same structure, with an emphasis on use cases.
-- **Layers with inversion at persistence** — captures most of the benefit with less
+- **Layers with inversion at persistence**: captures most of the benefit with less
   structure.
 
 ## Trade-offs
@@ -167,13 +167,13 @@ An insurance system had its eligibility rule depending on three aggregates: the
 policy, the claims history and the insured party's profile.
 
 Under Hexagonal, with no vocabulary for it, the rule ended up in the application
-service — alongside transaction control and call orchestration.
+service, alongside transaction control and call orchestration.
 
 The effect: testing eligibility required setting up the whole orchestration
 scenario, and a change to the business rule got mixed with coordination changes in
 the same file.
 
-The reorganization into Onion extracted `EligibilityAssessor` as a domain service —
+The reorganization into Onion extracted `EligibilityAssessor` as a domain service,
 with no infrastructure dependency, testable with three in-memory objects.
 
 The application service was left with what belongs to it: fetch the three
@@ -185,13 +185,13 @@ changes most. In another system, with the ring empty, it would not be justified.
 
 ## Related Concepts
 
-- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — the base
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md): the base
   formulation.
-- [Hexagonal](/02-software-design/hexagonal-architecture.md) — the same pattern,
+- [Hexagonal](/02-software-design/hexagonal-architecture.md): the same pattern,
   without internal vocabulary.
-- [Clean Architecture](/02-software-design/clean-architecture.md) — the variation
+- [Clean Architecture](/02-software-design/clean-architecture.md): the variation
   emphasizing use cases.
-- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md) — where the rings' vocabulary
+- [Tactical DDD](/04-domain-driven-design/tactical-ddd.md): where the rings' vocabulary
   comes from.
 
 ## Practical Exercise
@@ -212,5 +212,5 @@ The ones mixed into the orchestration are what Onion names and separates.
 ## Further Exploration
 
 - Palermo, Jeffrey. *The Onion Architecture*, 2008.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — domain services.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Domain services.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

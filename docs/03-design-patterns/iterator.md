@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [composite, visitor, flyweight]
 canonical_for: [iterator, iterador]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -34,19 +34,19 @@ acontece quando uma solução recorrente é absorvida pela plataforma.
 ## Problema
 
 O cliente precisa percorrer uma coleção. Sem abstração, ele precisa saber se é um
-array, uma lista ligada, uma árvore ou um mapa — e cada percurso é diferente.
+array, uma lista ligada, uma árvore ou um mapa, e cada percurso é diferente.
 
 Isso amarra o cliente à estrutura escolhida. Trocar de lista para árvore toca
 todo código que percorre.
 
-Iterator separa **o quê** — os elementos, em sequência — de **como** — a
-estrutura por trás.
+Iterator separa **o quê** (os elementos, em sequência) de **como** (a
+estrutura por trás).
 
 ## Conceitos Centrais
 
 ### A estrutura
 
-O cliente usa, a coleção cria e o concreto implementa — três relações diferentes,
+O cliente usa, a coleção cria e o concreto implementa: três relações diferentes,
 amarradas às mesmas duas assinaturas.
 
 ```mermaid
@@ -61,10 +61,10 @@ sua estrutura.
 
 ### Interno e externo
 
-**Externo** — o cliente controla o avanço. É a forma clássica e a que as
+**Externo**: o cliente controla o avanço. É a forma clássica e a que as
 linguagens adotaram.
 
-**Interno** — a coleção controla e chama uma função para cada elemento.
+**Interno**: a coleção controla e chama uma função para cada elemento.
 `forEach`, `map`, `filter` são iteração interna.
 
 A externa permite parar no meio e percorrer duas coleções em paralelo. A interna
@@ -72,7 +72,7 @@ A externa permite parar no meio e percorrer duas coleções em paralelo. A inter
 
 ### Iteração preguiçosa
 
-A evolução moderna do padrão. Um iterador não precisa ter todos os elementos —
+A evolução moderna do padrão. Um iterador não precisa ter todos os elementos:
 pode gerá-los sob demanda.
 
 Isso permite sequências infinitas, leitura de arquivos maiores que a memória, e
@@ -94,7 +94,7 @@ Um iterador que não declara qual delas oferece é um contrato incompleto.
 
 - É preciso percorrer uma estrutura própria, não coberta pela biblioteca padrão.
 - A estrutura interna deve permanecer escondida.
-- Há mais de uma forma de percurso — em árvores, ordem prévia, posterior, em
+- Há mais de uma forma de percurso: em árvores, ordem prévia, posterior, em
   largura.
 - A geração dos elementos é cara e deve ser preguiçosa.
 
@@ -110,16 +110,16 @@ representação, o iterador não esconde nada.
 reversa às vezes ficam mais legíveis com índice.
 
 **Quando o percurso precisa de contexto de posição.** Se o cliente precisa saber
-onde está na estrutura — profundidade, caminho, ancestrais — a abstração de
+onde está na estrutura (profundidade, caminho, ancestrais), a abstração de
 sequência plana não serve. Ver [Visitor](/03-design-patterns/visitor.md).
 
 ## Alternativas
 
-- **Recursos da linguagem** — geradores, fluxos, laços de iteração.
-- **[Visitor](/03-design-patterns/visitor.md)** — quando o percurso precisa distinguir tipos de nó.
-- **Devolver uma coleção imutável** — mais simples quando o conjunto é pequeno e
+- **Recursos da linguagem**: geradores, fluxos, laços de iteração.
+- **[Visitor](/03-design-patterns/visitor.md)**: quando o percurso precisa distinguir tipos de nó.
+- **Devolver uma coleção imutável**: mais simples quando o conjunto é pequeno e
   cabe em memória.
-- **Callback** — iteração interna sem hierarquia.
+- **Callback**: iteração interna sem hierarquia.
 
 ## Trade-offs
 
@@ -152,7 +152,7 @@ ser fechado; a interface clássica não obriga.
 **Esquecer de fechar iteradores sobre recursos.**
 
 **Assumir que a iteração é barata.** Um iterador preguiçoso sobre banco pode
-disparar uma consulta por elemento — o mesmo N+1 de [Proxy](/03-design-patterns/proxy.md).
+disparar uma consulta por elemento: o mesmo N+1 de [Proxy](/03-design-patterns/proxy.md).
 
 ## Onde ele aparece na prática
 
@@ -168,7 +168,7 @@ classe de iterador.
 
 O último é onde implementar à mão ainda faz sentido em código de aplicação: um
 cursor que busca em lotes e expõe uma sequência plana esconde a paginação do
-consumidor — e é o caso em que o contrato de fechamento importa de verdade.
+consumidor, e é o caso em que o contrato de fechamento importa de verdade.
 
 ## Exemplo Real
 
@@ -184,19 +184,19 @@ A terceira encapsulou a paginação num iterador preguiçoso. O código de negó
 voltou a ser um laço simples sobre uma sequência, e a memória ficou constante.
 
 Dois detalhes que só apareceram na implementação. O iterador precisava fechar a
-conexão ao terminar **e** ao ser abandonado no meio — o que exigiu que ele fosse
+conexão ao terminar **e** ao ser abandonado no meio. Isso exigiu que ele fosse
 usado dentro de um bloco com fechamento garantido.
 
 E a modificação concorrente: registros inseridos durante o processamento apareciam
 ou não conforme a ordenação. O contrato adotado foi instantâneo por consulta
-ordenada por identificador, declarado na documentação do método — porque sem
+ordenada por identificador, declarado na documentação do método, porque sem
 declarar, cada consumidor assumiria uma coisa.
 
 ## Conceitos Relacionados
 
-- [Composite](/03-design-patterns/composite.md) — iterar sobre estrutura em árvore.
-- [Visitor](/03-design-patterns/visitor.md) — percurso com distinção de tipo.
-- [Proxy](/03-design-patterns/proxy.md) — o risco de percurso que dispara consultas.
+- [Composite](/03-design-patterns/composite.md): iterar sobre estrutura em árvore.
+- [Visitor](/03-design-patterns/visitor.md): percurso com distinção de tipo.
+- [Proxy](/03-design-patterns/proxy.md): o risco de percurso que dispara consultas.
 
 ## Exercício Prático
 

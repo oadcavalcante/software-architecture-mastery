@@ -2,7 +2,7 @@
 id: bridge
 title: Bridge
 sidebar_position: 7
-description: Separating abstraction from implementation so both can vary — the answer to hierarchy explosion.
+description: "Separating abstraction from implementation so both can vary: the answer to hierarchy explosion."
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adapter]
 related: [adapter, strategy, abstract-factory]
 canonical_for: [bridge]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Bridge separates an abstraction from its implementation, so the two can vary
 independently.
 
-It is the pattern that solves the combinatorial explosion of hierarchies — the problem
+It is the pattern that solves the combinatorial explosion of hierarchies, the problem
 that appears when two dimensions of variation are modelled through inheritance.
 
 ## Problem
@@ -49,8 +49,8 @@ Bridge replaces the product with the sum:
 ```
 
 Note that at this size the pattern has not won yet: inheritance gave 7 types as well (the
-base plus the six concrete ones). The gain is asymptotic and shows up at 4×4 — 17 types
-against 10 —, and that is exactly why "When Not to Use" says to wait for the third or fourth
+base plus the six concrete ones). The gain is asymptotic and shows up at 4×4 (17 types
+against 10), and that is exactly why "When Not to Use" says to wait for the third or fourth
 class before splitting the hierarchies.
 
 The shape holds a reference to the renderer. The two hierarchies exist separately and
@@ -72,7 +72,7 @@ graph LR
 ```
 
 The abstraction delegates to the implementor. Note that **the implementor is not the
-abstraction's implementation** — it is a second hierarchy, with its own interface, at a
+abstraction's implementation**: it is a second hierarchy, with its own interface, at a
 different level of granularity.
 
 ### Bridge is not Adapter
@@ -96,8 +96,8 @@ interface represents an isolated decision, usually with one method.
 **Bridge** separates two structural dimensions. The implementor tends to have several
 primitive operations that the abstraction combines.
 
-Structurally alike; the difference is in what varies — an algorithm versus a dimension
-of implementation — and in how many operations the interface has.
+Structurally alike; the difference is in what varies (an algorithm versus a dimension
+of implementation) and in how many operations the interface has.
 
 ## When to Use
 
@@ -116,7 +116,7 @@ reason.
 yet; see [YAGNI](/02-software-design/yagni.md).
 
 **Preventively.** It is one of the most expensive patterns to apply early, because it
-requires designing the implementor's interface — the right primitive operations —
+requires designing the implementor's interface (the right primitive operations)
 without knowing the real variations. Guessing wrong there produces an interface every
 implementor has to work around.
 
@@ -125,10 +125,10 @@ the separation is artificial and the code ends up with compatibility checks.
 
 ## Alternatives
 
-- **[Strategy](/03-design-patterns/strategy.md)** — when what varies is an algorithm.
-- **Simple composition** — pass the dependency with no formal abstraction hierarchy.
-- **Inheritance** — while there is only one dimension.
-- **First-class functions** — when the implementor has one operation.
+- **[Strategy](/03-design-patterns/strategy.md)**: when what varies is an algorithm.
+- **Simple composition**: pass the dependency with no formal abstraction hierarchy.
+- **Inheritance**: while there is only one dimension.
+- **First-class functions**: when the implementor has one operation.
 
 ## Trade-offs
 
@@ -188,7 +188,7 @@ The separation into Bridge was done **after** the problem appeared, and the impl
 interface was extracted from the six combinations that actually worked.
 
 Result: four channels and three formats, with an explicit table of which combinations
-are valid — because they genuinely are not all independent.
+are valid, because they genuinely are not all independent.
 
 That last point is the most honest thing about the case: Bridge presupposes independence
 between the dimensions, and here the independence was partial. The solution ended up
@@ -200,7 +200,7 @@ is what the domain required.
 The most reliable sign is in the class names: **two adjectives coming from different
 lists.**
 
-`MonthlyReportPDF`, `AnnualReportPDF`, `MonthlyReportExcel` — "monthly" and "annual"
+`MonthlyReportPDF`, `AnnualReportPDF`, `MonthlyReportExcel`: "monthly" and "annual"
 come from one list, "PDF" and "Excel" from another. The product of the two is the number
 of classes.
 
@@ -217,19 +217,19 @@ is more than one, the cost is multiplicative.
 
 One important caveat: finding the pattern does not mean Bridge is the answer. If one of
 the dimensions has had two stable variants for years, the product is small and
-manageable. The pattern pays off when **both** dimensions grow — and growing is a claim
+manageable. The pattern pays off when **both** dimensions grow, and growing is a claim
 about the history, not about intuition.
 
 ## Related Concepts
 
-- [Adapter](/03-design-patterns/adapter.md) — make compatible what already exists.
-- [Strategy](/03-design-patterns/strategy.md) — vary an algorithm.
-- [Abstract Factory](/03-design-patterns/abstract-factory.md) — frequently used to create
+- [Adapter](/03-design-patterns/adapter.md): make compatible what already exists.
+- [Strategy](/03-design-patterns/strategy.md): vary an algorithm.
+- [Abstract Factory](/03-design-patterns/abstract-factory.md): frequently used to create
   a coherent abstraction-implementor pair.
 
 ## Practical Exercise
 
-Look in your system for hierarchies whose number of classes is the product of two lists —
+Look in your system for hierarchies whose number of classes is the product of two lists:
 two adjectives in the class name usually gives it away.
 
 For each, check whether all the combinations are valid. If they are not, pure Bridge does

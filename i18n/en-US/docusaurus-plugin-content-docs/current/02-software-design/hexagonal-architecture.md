@@ -2,7 +2,7 @@
 id: hexagonal-architecture
 title: Hexagonal Architecture
 sidebar_position: 20
-description: The most widespread name for Ports and Adapters — what the hexagon communicates and what it confuses.
+description: "The most widespread name for Ports and Adapters: what the hexagon communicates and what it confuses."
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ports-and-adapters]
 related: [onion-architecture, clean-architecture, dependency-inversion]
 canonical_for: [hexagonal architecture]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Hexagonal Architecture is the name under which
 [Ports and Adapters](/02-software-design/ports-and-adapters.md) became popular.
-**It is the same pattern** — Cockburn adopted both names, and the second is the one
+**It is the same pattern**: Cockburn adopted both names, and the second is the one
 he came to prefer for being more descriptive.
 
 This document exists because "hexagonal" is the name most used in practice and
@@ -32,8 +32,8 @@ produces misunderstandings of its own, worth clearing up.
 ## Problem
 
 The hexagon is a drawing choice, not a prescription. Cockburn explained that he
-chose six sides for graphical convenience — enough ports fit around it without the
-drawing getting cluttered — and to avoid the "up and down" reading that the layer
+chose six sides for graphical convenience (enough ports fit around it without the
+drawing getting cluttered) and to avoid the "up and down" reading that the layer
 image imposes.
 
 Three misunderstandings come from that.
@@ -50,7 +50,7 @@ adopt as though they were alternatives.
 ### What the drawing communicates
 
 Follow the arrows: none of them goes from the inside out. The database and the external API
-point at the core just as much as the Web does — that symmetry is what the drawing exists to
+point at the core just as much as the Web does. That symmetry is what the drawing exists to
 show.
 
 ```mermaid
@@ -78,7 +78,7 @@ graph TB
 
 Two ideas, and only two: there is an **inside** and an **outside**; and all code
 dependencies point inward. The driven side is the deceptive one: the core *uses* the
-database, but *depends* on the port it declares itself — and what depends on the database is
+database, but *depends* on the port it declares itself, and what depends on the database is
 the adapter.
 
 The absence of hierarchy among the elements on the outside is the point. In a
@@ -106,7 +106,7 @@ The same conditions as
 channel, recurring value in testing without infrastructure, volatile dependencies, a
 domain with substantial logic.
 
-Prefer this **name** when the team already knows it — familiarity reduces adoption
+Prefer this **name** when the team already knows it: familiarity reduces adoption
 friction.
 
 ## When Not to Use
@@ -162,7 +162,7 @@ rule holds and how it will be enforced.
 ## Real-World Example
 
 A team adopted hexagonal in a new service and, six months later, two architecture tests
-written in an afternoon reported nineteen violations — the domain importing `infra` and an
+written in an afternoon reported nineteen violations: the domain importing `infra` and an
 adapter importing an adapter. It is the case described in
 [architecture vs. implementation](/01-fundamentals/architecture-vs-implementation.md), where
 the lesson is about the distance between the declared and the implemented architecture.
@@ -182,8 +182,8 @@ own queue → managed               adapter + test      4 days
 ```
 
 None touched the domain. For reference, the same payment provider swap in another
-service at the company — with no isolation, the HTTP client imported directly by
-the use cases — took seven weeks and touched 41 files.
+service at the company (with no isolation, the HTTP client imported directly by
+the use cases) took seven weeks and touched 41 files.
 
 The cost of the pattern, measured over the same period:
 
@@ -196,15 +196,15 @@ ports that never had a second adapter
 ```
 
 The last line is the one the team considers most honest, and its criterion matters: it counts
-the ports that never had a second adapter **at any point** in the period. The other three did
-— not simultaneously, but in sequence, when the infrastructure was swapped. Counted at any
+the ports that never had a second adapter **at any point** in the period. The other three did,
+not simultaneously but in sequence, when the infrastructure was swapped. Counted at any
 given instant, all nine would have a single adapter, and the metric would say nothing. Two
 thirds of them never exercised the indirection, and probably never will. They are indirection
-cost with no substitution return — paid so that the three that mattered would work.
+cost with no substitution return, paid so that the three that mattered would work.
 
 In retrospect: the balance was positive because the service was integration-heavy,
 with four volatile external dependencies. In a service with a stable domain and
-little infrastructure, the same six idle ports would be the entire result — and the
+little infrastructure, the same six idle ports would be the entire result, and the
 conclusion would be the opposite.
 
 That is the criterion the team came to apply before adopting the pattern in new
@@ -215,17 +215,17 @@ And there is a detail of sequence the team considers decisive: the three swaps w
 made **after** the architecture test existed. Without it, the dependencies would have leaked
 again between one swap and the next, and the second swap would no longer have found the
 isolation the first assumed. In this service, six months without verification were enough for
-nineteen violations — and there is no reason to treat that number as law, but there is reason
+nineteen violations. There is no reason to treat that number as law, but there is reason
 to treat the direction as expected: with no mechanism enforcing the rule, the erosion starts
 before anyone notices.
 
 ## Related Concepts
 
-- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — the original
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md): the original
   formulation and the full treatment.
 - [Onion](/02-software-design/onion-architecture.md) and
-  [Clean Architecture](/02-software-design/clean-architecture.md) — the variations.
-- [Layering](/02-software-design/layering.md) — the arrangement this pattern
+  [Clean Architecture](/02-software-design/clean-architecture.md): the variations.
+- [Layering](/02-software-design/layering.md): the arrangement this pattern
   replaces.
 
 ## Practical Exercise
@@ -243,7 +243,7 @@ Run it and count the violations before fixing anything.
 
 ## Further Exploration
 
-- Cockburn, Alistair. *Hexagonal Architecture*, 2005 — includes the explanation of
+- Cockburn, Alistair. *Hexagonal Architecture*, 2005. Includes the explanation of
   the name choice.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — the comparison
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. The comparison
   between the variations.

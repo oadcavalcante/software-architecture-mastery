@@ -2,7 +2,7 @@
 id: retries
 title: Retries
 sidebar_position: 6
-description: Tentar de novo — e por que retentativa mal projetada é a causa, não a cura.
+description: Tentar de novo, e por que retentativa mal projetada é a causa, não a cura.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [timeouts, idempotency]
 related: [backoff, idempotency, retry-storms]
 canonical_for: [retentativa, retry]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-27
 Retentativa é repetir uma operação que falhou, na expectativa de que a falha seja
 transitória.
 
-Ela funciona porque muitas falhas em sistemas distribuídos são de fato passageiras
-— um pacote perdido, uma instância reiniciando, um pico momentâneo.
+Ela funciona porque muitas falhas em sistemas distribuídos são de fato passageiras:
+um pacote perdido, uma instância reiniciando, um pico momentâneo.
 
 E ela é, com frequência desconfortável, **a causa do incidente em vez da cura**.
 
@@ -78,7 +78,7 @@ três vezes o mesmo erro, com três vezes a carga.
 Uma operação que falhou por timeout pode ter sido executada. Repetir sem
 [idempotência](/06-distributed-systems/idempotency.md) duplica o efeito.
 
-Daí a regra: **se não é idempotente, não repita automaticamente** — com uma
+Daí a regra: **se não é idempotente, não repita automaticamente**, com uma
 única exceção, a falha em que se sabe que a requisição não chegou ao servidor
 (conexão recusada, erro de DNS, falha ao estabelecer a conexão). Timeout não entra
 nela: depois do envio, o chamador não sabe se houve efeito.
@@ -95,7 +95,7 @@ Duas formas de limitar:
 **Contagem.** Três tentativas, e desiste. Simples, e sob degradação generalizada
 ainda triplica a carga.
 
-**Orçamento.** Limitar a proporção de retentativas sobre o total de requisições —
+**Orçamento.** Limitar a proporção de retentativas sobre o total de requisições:
 por exemplo, no máximo 10% de tentativas extras numa janela. Quando muitas coisas
 falham, a retentativa se auto-limita.
 
@@ -105,7 +105,7 @@ Contra tempestade, o orçamento protege onde a contagem falha: sob falha general
 
 A defesa mais simples contra a amplificação: **escolher um nível para repetir.**
 
-Tipicamente o mais próximo da origem — o cliente ou o gateway — e desabilitar nos
+Tipicamente o mais próximo da origem (o cliente ou o gateway), e desabilitar nos
 intermediários. Isso mantém a resiliência e elimina o efeito multiplicativo.
 
 Quando cada equipe configura retentativa no seu serviço sem visão do todo, a
@@ -116,7 +116,7 @@ multiplicação acontece por composição, sem ninguém ter decidido.
 Se o destino está sobrecarregado, repetir agrava. A resposta correta é reduzir a
 pressão: [backoff](/06-distributed-systems/backoff.md), circuit breaker, ou descartar carga.
 
-Um serviço que devolve `429` está pedindo explicitamente que você espere — e
+Um serviço que devolve `429` está pedindo explicitamente que você espere, e
 repetir imediatamente ignora o pedido.
 
 ### Taxa de retentativa é indicador antecedente
@@ -124,7 +124,7 @@ repetir imediatamente ignora o pedido.
 A instrumentação que mais rende nesta área custa pouco e raramente existe: contar
 retentativas separadamente das tentativas iniciais.
 
-Um sistema com retentativa bem configurada esconde falhas — é essa a função dela.
+Um sistema com retentativa bem configurada esconde falhas: é essa a função dela.
 A consequência é que a degradação fica invisível nas métricas de sucesso até o
 ponto em que a retentativa deixa de dar conta, e aí a queda é abrupta.
 
@@ -162,19 +162,19 @@ suporta.
 **Sem backoff.** Repetir imediatamente concentra a carga no pior momento.
 
 **Sem limite.** Retentativa infinita ocupa recurso indefinidamente e nunca falha
-visivelmente — o que impede o alerta.
+visivelmente, o que impede o alerta.
 
 **Quando o destino pediu para esperar.** `Retry-After` é instrução, não sugestão.
 
 ## Alternativas
 
-- **Falhar rápido e propagar** — deixar o chamador decidir.
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — parar de tentar quando a taxa
+- **Falhar rápido e propagar**: deixar o chamador decidir.
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: parar de tentar quando a taxa
   de falha indica problema persistente.
-- **Fila** — em vez de repetir agora, enfileirar para depois. Ver
+- **Fila**: em vez de repetir agora, enfileirar para depois. Ver
   [filas](/05-system-design/queues.md).
-- **Degradar** — responder sem o dado.
-- **Requisição de reserva** — enviar a duas réplicas simultaneamente, em vez de
+- **Degradar**: responder sem o dado.
+- **Requisição de reserva**: enviar a duas réplicas simultaneamente, em vez de
   repetir após falha.
 
 ## Trade-offs
@@ -207,7 +207,7 @@ segundos ocupam a conexão por 9 segundos.
 
 **Configurar retentativa genérica sem distinguir o tipo de falha.** Repetir um erro de validação nunca vai dar certo e só consome capacidade; repetir uma indisponibilidade momentânea quase sempre dá. Tratar os dois igual desperdiça no primeiro caso e atrasa a desistência no segundo.
 
-**Repetir `POST` sem chave de idempotência.** A primeira tentativa pode ter tido efeito e perdido só a resposta. Sem a chave, a repetição cria o segundo pedido — e a duplicação nasce exatamente do mecanismo que existia para dar confiabilidade.
+**Repetir `POST` sem chave de idempotência.** A primeira tentativa pode ter tido efeito e perdido só a resposta. Sem a chave, a repetição cria o segundo pedido, e a duplicação nasce exatamente do mecanismo que existia para dar confiabilidade.
 
 **Habilitar em cada serviço sem olhar a cadeia.** Três camadas com três tentativas cada produzem vinte e sete chamadas ao serviço do fim. A retentativa vira amplificação de carga justamente sobre quem já estava sobrecarregado.
 
@@ -220,7 +220,7 @@ segundos ocupam a conexão por 9 segundos.
 Uma plataforma de pagamentos teve indisponibilidade de 25 minutos que começou
 com uma degradação de 40 segundos.
 
-O serviço de autorização ficou lento — não caiu. As respostas passaram de 200 ms
+O serviço de autorização ficou lento, não caiu. As respostas passaram de 200 ms
 para 4 segundos.
 
 O gateway tinha três tentativas configuradas, sem backoff. O serviço de pedidos,
@@ -238,7 +238,7 @@ recuperação só aconteceu quando o time desabilitou a retentativa manualmente.
 
 As correções:
 
-**Retentativa em um nível só** — no gateway. Serviço de pedidos e aplicativo
+**Retentativa em um nível só**: no gateway. Serviço de pedidos e aplicativo
 deixaram de repetir.
 
 **Backoff exponencial com variação aleatória**, em vez de repetição imediata.
@@ -257,17 +257,17 @@ A degradação original nunca foi o problema. A resposta a ela é que era.
 
 ## Conceitos Relacionados
 
-- [Timeouts](/06-distributed-systems/timeouts.md) — o que precede a retentativa.
-- [Backoff](/06-distributed-systems/backoff.md) — como espaçar as tentativas.
-- [Idempotência](/06-distributed-systems/idempotency.md) — o pré-requisito.
-- [Retry Storms](/12-reliability/retry-storms.md) — o modo de falha em detalhe.
+- [Timeouts](/06-distributed-systems/timeouts.md): o que precede a retentativa.
+- [Backoff](/06-distributed-systems/backoff.md): como espaçar as tentativas.
+- [Idempotência](/06-distributed-systems/idempotency.md): o pré-requisito.
+- [Retry Storms](/12-reliability/retry-storms.md): o modo de falha em detalhe.
 
 ## Exercício Prático
 
 Mapeie a cadeia de uma requisição do seu sistema e some as retentativas
 configuradas em cada nível. Multiplique.
 
-Se o número for maior que cinco, você tem amplificação — e ela só aparece quando
+Se o número for maior que cinco, você tem amplificação, e ela só aparece quando
 algo já está degradado.
 
 ## Perguntas de Entrevista
@@ -279,6 +279,6 @@ algo já está degradado.
 
 ## Para Aprofundar
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — o capítulo
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. O capítulo
   sobre lidar com sobrecarga.
 - Nygard, Michael. *Release It!* 2ª ed., 2018.

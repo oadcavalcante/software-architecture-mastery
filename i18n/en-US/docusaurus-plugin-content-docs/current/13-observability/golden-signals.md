@@ -2,7 +2,7 @@
 id: golden-signals
 title: Golden Signals
 sidebar_position: 10
-description: Four measures that cover most problems — and where to start when you do not know what to instrument.
+description: Four measures that cover most problems, and where to start when you do not know what to instrument.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, alerting, dashboards]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ errors       what proportion fails
 saturation   how close to the limit it is
 ```
 
-They are not exhaustive. They are the starting point that avoids the common pattern — instrumenting dozens
+They are not exhaustive. They are the starting point that avoids the common pattern: instrumenting dozens
 of specific metrics and not having the basic ones when the incident arrives.
 
 ## Problem
@@ -39,7 +39,7 @@ Typical instrumentation grows by accumulation: somebody adds a metric to investi
 and the dashboard fills up.
 
 The result is a large set of specific measures, with gaps in the fundamental ones. During an incident, the
-questions are always the same — is it slow? how much traffic? how many errors? what is at its limit? — and
+questions are always the same (is it slow? how much traffic? how many errors? what is at its limit?) and
 frequently there is no direct answer.
 
 The four signals exist to guarantee those questions have an answer, in every service, always.
@@ -59,12 +59,12 @@ The correct practice: latency of successful requests and of requests with errors
 
 To describe the user's experience and to alert, use **percentiles**; the average only serves when what you
 want is aggregate work, such as cost per request. The average of a service with 99% at 50 ms and 1% at 10
-seconds is about 150 ms — a number that describes nobody's experience. See
+seconds is about 150 ms, a number that describes nobody's experience. See
 [latency](/06-distributed-systems/latency.md).
 
 ### Traffic: the denominator for everything
 
-Requests per second, messages processed per minute, transactions per hour — the unit depends on the
+Requests per second, messages processed per minute, transactions per hour: the unit depends on the
 service.
 
 It matters for three reasons:
@@ -124,7 +124,7 @@ saturation indicates it is going to happen.
 The application mistake: measuring the four only at the edge.
 
 Each service in the chain needs its own. Without that, you know the request is slow and not where it spends
-the time — see [distributed tracing](/13-observability/distributed-tracing.md).
+the time (see [distributed tracing](/13-observability/distributed-tracing.md)).
 
 And each external dependency too: latency, traffic, errors and saturation of the calls you make outward. It
 is where most problems originate, and it is what usually goes uninstrumented.
@@ -174,14 +174,14 @@ would.
 
 ## Alternatives
 
-- **The USE method** — utilization, saturation and errors, per resource. Infrastructure-oriented, it
+- **The USE method**: utilization, saturation and errors, per resource. Infrastructure-oriented, it
   complements the golden signals, which are service-oriented.
-- **The RED method** — rate, errors and duration. Essentially the golden signals without saturation.
-- **[SLI](/12-reliability/sli.md)** — it measures the user's experience; the golden signals measure the
+- **The RED method**: rate, errors and duration. Essentially the golden signals without saturation.
+- **[SLI](/12-reliability/sli.md)**: it measures the user's experience; the golden signals measure the
   service. They are complementary, not substitutes.
 
 The last distinction matters: a bad SLI with good golden signals indicates the problem is outside the
-service — the network, the client, an uninstrumented dependency.
+service (the network, the client, an uninstrumented dependency).
 
 ## Trade-offs
 
@@ -209,10 +209,10 @@ service — the network, the client, an uninstrumented dependency.
 ## Common Mistakes
 
 **Not separating success and error latency.** Errors usually respond fast, so a rise in the failure rate
-*improves* the aggregate latency — and the dashboard improves while the system gets worse.
+*improves* the aggregate latency, and the dashboard improves while the system gets worse.
 
-**Using an average as the latency signal.** An alert on the average does not fire while the tail degrades —
-see [latency](/06-distributed-systems/latency.md).
+**Using an average as the latency signal.** An alert on the average does not fire while the tail degrades.
+See [latency](/06-distributed-systems/latency.md).
 
 **Measuring CPU as saturation.** Saturation is the most constrained resource, which is frequently the
 connection pool, threads or queue depth. CPU is usually low when the system already accepts no more work.
@@ -221,7 +221,7 @@ connection pool, threads or queue depth. CPU is usually low when the system alre
 with no visible cause, and the investigation starts in the wrong place.
 
 **Not adapting for queues and batch processing.** There the equivalent signals are the age of the oldest
-message, the completion rate and the depth — applying request latency measures nothing.
+message, the completion rate and the depth. Applying request latency measures nothing.
 
 **Not alerting on a traffic drop.** Collapsing traffic is a symptom of a failure ahead of the system, and
 no error metric reports it: everything looks healthy because nobody is arriving.
@@ -230,7 +230,7 @@ no error metric reports it: everything looks healthy because nobody is arriving.
 
 A payments platform had 340 metrics instrumented and a dashboard with 60 graphs.
 
-During a latency incident, the team took 50 minutes to localize the origin — despite all the
+During a latency incident, the team took 50 minutes to localize the origin, despite all the
 instrumentation.
 
 The review found the problem: the 340 metrics were specific, accumulated over years, and the basic ones
@@ -250,7 +250,7 @@ The reformulation:
 separated by outcome; traffic; errors by class; saturation of each one's limiting resource.
 
 **Saturation identified per service.** The analysis showed that in nine of the fourteen the limit was the
-connection pool, not CPU — and none had that metric.
+connection pool, not CPU, and none had that metric.
 
 **Outbound instrumentation** for the 23 external dependencies. That revealed that an anti-fraud provider
 responded in 2.8 seconds at the 95th percentile, against the 400 ms contracted. The problem had existed for
@@ -271,14 +271,14 @@ measures that answer any incident's first questions.
 
 ## Related Concepts
 
-- [Metrics](/13-observability/metrics.md) — how to implement them.
-- [Alerting](/13-observability/alerting.md) — what to do with them.
+- [Metrics](/13-observability/metrics.md): how to implement them.
+- [Alerting](/13-observability/alerting.md): what to do with them.
 - [Dashboards](/13-observability/dashboards.md).
-- [SLI](/12-reliability/sli.md) — the measure of experience.
+- [SLI](/12-reliability/sli.md): the measure of experience.
 
 ## Practical Exercise
 
-Choose a service in your system and check whether the four signals exist — with latency in percentiles,
+Choose a service in your system and check whether the four signals exist, with latency in percentiles,
 separated by outcome, and saturation of the resource that actually limits it.
 
 The most common gap is the last: most measure CPU, and the limit is something else.
@@ -291,6 +291,6 @@ The most common gap is the last: most measure CPU, and the limit is something el
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 6.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 6.
 - Gregg, Brendan. *The USE Method*, 2012.
 - Wilkie, Tom. *The RED Method*, 2018.

@@ -2,7 +2,7 @@
 id: service-mesh
 title: Service Mesh
 sidebar_position: 10
-description: Taking communication out of the application and into the infrastructure — and the distance between adoption and need.
+description: Taking communication out of the application and into the infrastructure, and the distance between adoption and need.
 doc_type: pattern
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [api-gateways]
 related: [api-gateways, grpc, integration-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ and observability.
 The application stops knowing about those concerns. A retry policy comes to hold for all services, in all
 languages, without touching code.
 
-It is this section's technology with the largest distance between **adoption** and **need** — and this
+It is this section's technology with the largest distance between **adoption** and **need**, and this
 document treats that frankly, because the decision to adopt is frequently made for the wrong reason.
 
 ## Problem
@@ -37,7 +37,7 @@ In a mesh with many services, each one needs retries, timeouts, a circuit breake
 encryption and distributed tracing.
 
 In one language, a shared library solves it. In five languages, that is five libraries, with behaviors that
-diverge — and a policy change requires updating and redeploying dozens of services.
+diverge, and a policy change requires updating and redeploying dozens of services.
 
 That is the real pain point: **a uniform communication policy, in a polyglot environment, without
 redeploying everything**.
@@ -46,7 +46,7 @@ redeploying everything**.
 
 ### The sidecar and the control plane
 
-Each service instance gains a process alongside it — the sidecar — that intercepts all inbound and outbound
+Each service instance gains a process alongside it (the sidecar) that intercepts all inbound and outbound
 traffic. The service talks to `localhost`; the sidecar does the rest.
 
 The **control plane** distributes configuration and certificates to all the sidecars. It is where the
@@ -71,8 +71,8 @@ long multiplexed connections that pin clients to instances.
 
 **Uniform retries, timeouts and circuit breaking.**
 
-**Observability with no instrumentation.** Service-to-service traffic metrics — latency, error rate, volume
-— for every pair, without touching code.
+**Observability with no instrumentation.** Service-to-service traffic metrics (latency, error rate, volume)
+for every pair, without touching code.
 
 **Traffic splitting.** Gradual rollouts and tests with a fraction of the traffic, controlled by
 configuration.
@@ -83,7 +83,7 @@ configuration.
 
 Being specific, because it is what decides:
 
-**Latency.** Two additional hops per call — one at each sidecar. Typically a few milliseconds, and relevant
+**Latency.** Two additional hops per call, one at each sidecar. Typically a few milliseconds, and relevant
 in long chains.
 
 **Resources.** One sidecar process per instance. Across hundreds of instances, that is CPU and memory that
@@ -151,7 +151,7 @@ not.
 - Dozens of services, in several languages.
 - Mutual encryption between services is a requirement.
 - A uniform communication policy without redeploying.
-- Per-call balancing — especially with [gRPC](/08-integration-architecture/grpc.md).
+- Per-call balancing, especially with [gRPC](/08-integration-architecture/grpc.md).
 - Traffic splitting for gradual rollout.
 - Service-to-service observability without instrumenting each one.
 - Mature orchestration and a platform team already exist.
@@ -170,16 +170,16 @@ not.
 
 **Without resolving layered retries first.**
 
-**To "solve" architecture problems.** A mesh does not fix badly drawn service boundaries — it makes it
+**To "solve" architecture problems.** A mesh does not fix badly drawn service boundaries. It makes it
 easier not to notice they are wrong.
 
 ## Alternatives
 
-- **A shared library** — the same policy, with no extra process and no latency. It requires one language,
+- **A shared library**: the same policy, with no extra process and no latency. It requires one language,
   or one library per language.
-- **Discovery and balancing in the platform** — orchestrators already offer part of this.
-- **Mutual encryption without a mesh** — more laborious and possible.
-- **A sidecar-less mesh** — models that put the function on the node instead of per instance, reducing
+- **Discovery and balancing in the platform**: orchestrators already offer part of this.
+- **Mutual encryption without a mesh**: more laborious and possible.
+- **A sidecar-less mesh**: models that put the function on the node instead of per instance, reducing
   consumption and latency.
 
 ## Trade-offs
@@ -222,7 +222,7 @@ changes.
 
 **Expecting it to solve service boundary problems.**
 
-**Adopting everything at once** instead of starting from one capability — typically mutual encryption — and
+**Adopting everything at once** instead of starting from one capability (typically mutual encryption) and
 expanding.
 
 ## Real-World Example
@@ -256,14 +256,14 @@ expiration came to exist.
 
 The conclusion recorded: the adoption was right because there was a concrete requirement the alternative
 did not serve well. A neighboring team, with 8 services in a single language, adopted the same mesh "to
-standardize" and removed it fourteen months later — the operational cost was real and the benefit did not
+standardize" and removed it fourteen months later: the operational cost was real and the benefit did not
 exist in that context.
 
 ## Related Concepts
 
-- [API Gateways](/08-integration-architecture/api-gateways.md) — inbound traffic.
-- [gRPC](/08-integration-architecture/grpc.md) — where per-call balancing matters.
-- [Retries](/06-distributed-systems/retries.md) — the multiplication risk.
+- [API Gateways](/08-integration-architecture/api-gateways.md): inbound traffic.
+- [gRPC](/08-integration-architecture/grpc.md): where per-call balancing matters.
+- [Retries](/06-distributed-systems/retries.md): the multiplication risk.
 - [Observability](/13-observability/index.md).
 
 ## Practical Exercise
@@ -271,7 +271,7 @@ exist in that context.
 If you use a mesh, check how many layers retry: the application, the mesh, the HTTP client.
 
 Multiply the factors of each layer to get the factor per hop, then raise that factor to the number of
-hops in your longest chain — the amplification is exponential in depth, not linear. That is the number
+hops in your longest chain: the amplification is exponential in depth, not linear. That is the number
 of calls a single request can generate in a degradation.
 
 ## Interview Questions

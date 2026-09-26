@@ -2,7 +2,7 @@
 id: rebuilding
 title: Rebuilding
 sidebar_position: 7
-description: Writing it again — the most expensive, riskiest strategy, and the one chosen by reflex.
+description: "Writing it again: the most expensive, riskiest strategy, and the one chosen by reflex."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, legacy-refactoring, strangler-fig]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -36,7 +36,7 @@ has consumed the support it had.
 Rewrites fail for structural reasons, not from incompetence:
 
 **Moving target.** The old system keeps evolving. The new one chases something that
-changes — and every feature added to the old one increases the distance.
+changes, and every feature added to the old one increases the distance.
 
 **Embedded knowledge.** The old code contains rules nobody documented, accumulated over
 years of operation. See
@@ -45,11 +45,11 @@ years of operation. See
 **Value at the end.** Nothing is delivered until the switchover. A two-year project
 consumes support for 24 months with no result to show.
 
-**Scope that grows.** "Since we're rewriting it, let's take the opportunity to..." — and
+**Scope that grows.** "Since we're rewriting it, let's take the opportunity to...", and
 the new one's scope exceeds the old one's.
 
-None of those recedes with more effort within the same approach — build everything and
-switch all at once. They recede when the approach changes: strict parity, freezing the old
+None of those recedes with more effort within the same approach (build everything and
+switch all at once). They recede when the approach changes: strict parity, freezing the old
 one, characterization tests, strangling. The sections below address each.
 
 ## Core Concepts
@@ -92,7 +92,7 @@ That is unpopular and it is what makes the project executable.
 
 ### Parity is harder than it looks
 
-Reproducing the old system's behavior requires knowing it — and it is not documented.
+Reproducing the old system's behavior requires knowing it, and it is not documented.
 
 The path that works:
 
@@ -108,7 +108,7 @@ See [legacy refactoring](/16-legacy-modernization/legacy-refactoring.md) and
 Comparison in production is the strongest control: the new one processes the same
 traffic, without responding to the user, and the divergences point to where it differs.
 
-Without that, parity is an assumption — verified when the new one goes into production and
+Without that, parity is an assumption, verified when the new one goes into production and
 someone complains.
 
 ### Rebuilding does not exempt you from strangler fig
@@ -116,7 +116,7 @@ someone complains.
 A common mistake: assuming that rebuilding means building everything and switching all at
 once.
 
-The two are independent. It is possible — and almost always better — to rebuild
+The two are independent. It is possible, and almost always better, to rebuild
 **incrementally**, with the new one taking over features gradually. See
 [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
@@ -125,7 +125,7 @@ That removes the most damaging property of a rewrite: value concentrated at the 
 And it introduces a cost the single switchover defers: if the reason to rebuild is a wrong
 domain model, both systems hold the same data in different models while they coexist. Each
 migrated slice requires translating data from the old model to the new, and the slices
-still in the old one have to read what the new one wrote — compatibility in both
+still in the old one have to read what the new one wrote: compatibility in both
 directions, maintained until decommissioning. See
 [data migration](/16-legacy-modernization/data-migration.md).
 
@@ -142,7 +142,7 @@ freeze the old one   new features go to the new one, or wait
 don't freeze         the new one chases a target that moves
 ```
 
-Freezing has a business cost, and it has to be negotiated beforehand — not discovered
+Freezing has a business cost, and it has to be negotiated beforehand, not discovered
 midway.
 
 Where freezing is not possible, strangling is the answer: new features are built in the
@@ -157,7 +157,7 @@ usually lasts. See
 The honest check before starting: **does this project survive the sponsor leaving, a
 shift in priority, and two budget cycles?**
 
-If the answer is no, the approach has to be different — or the project will be
+If the answer is no, the approach has to be different, or the project will be
 interrupted halfway.
 
 ## Mental Model
@@ -189,11 +189,11 @@ for reasons effort does not resolve.
 
 ## Alternatives
 
-- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)** — when the model is right.
-- **[Strangler Fig](/16-legacy-modernization/strangler-fig.md)** — rebuild incrementally.
-- **[Replatforming](/16-legacy-modernization/replatforming.md)** — when the problem is the infrastructure.
-- **[Replacing](/16-legacy-modernization/replacing.md)** — when there is an off-the-shelf product.
-- **Rebuild only the part with the wrong model** — frequently the correct answer.
+- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)**: when the model is right.
+- **[Strangler Fig](/16-legacy-modernization/strangler-fig.md)**: rebuild incrementally.
+- **[Replatforming](/16-legacy-modernization/replatforming.md)**: when the problem is the infrastructure.
+- **[Replacing](/16-legacy-modernization/replacing.md)**: when there is an off-the-shelf product.
+- **Rebuild only the part with the wrong model**: frequently the correct answer.
 
 The last one deserves emphasis: systems rarely have the entire model wrong. See
 [migration strategies](/16-legacy-modernization/migration-strategies.md).
@@ -249,7 +249,7 @@ reproducing parts that were right.
 
 ## Real-World Example
 
-A financial services company rewrote its investment management system — 12 years old,
+A financial services company rewrote its investment management system: 12 years old,
 200,000 lines.
 
 The project was approved with an estimate of 18 months and a scope of parity.
@@ -259,8 +259,8 @@ What happened:
 **Scope grew in month 3.** The product area asked for improvements that "would be easy
 since we're rewriting it". Twenty-three new features came in.
 
-**The old one was not frozen.** It received 14 regulatory changes over two years —
-mandatory, non-negotiable. Each one had to be made twice.
+**The old one was not frozen.** It received 14 regulatory changes over two years
+(mandatory, non-negotiable). Each one had to be made twice.
 
 **Parity not verified.** There were no characterization tests. Validation was against a
 specification written at the start of the project, describing what people believed the
@@ -270,7 +270,7 @@ system did.
 planned.
 
 On Monday, 40 problems were reported. Twenty-eight were behaviors of the old system that
-were not in the specification — return calculation rules, corporate action handling,
+were not in the specification: return calculation rules, corporate action handling,
 rounding specific to each fund type.
 
 Rollback was triggered on the third day. The old system came back, and the project was
@@ -288,10 +288,10 @@ divergences.
 **Strangling** replacing the single switchover. Features migrated one at a time, with
 rollback per feature.
 
-**Scope returned to parity.** The 23 improvements were deferred until after the shutdown —
-and, when it came, 15 of them were no longer wanted.
+**Scope returned to parity.** The 23 improvements were deferred until after the shutdown.
+When it came, 15 of them were no longer wanted.
 
-The old system was shut down in month 47 — 29 months beyond the original estimate.
+The old system was shut down in month 47 (29 months beyond the original estimate).
 
 What the team records: the decision to rebuild was defensible; the data model genuinely
 did not support the products the business wanted to launch. What cost 29 additional
@@ -300,14 +300,14 @@ parity not verified.
 
 ## Related Concepts
 
-- [Migration Strategies](/16-legacy-modernization/migration-strategies.md) — the alternatives.
-- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — rebuilding incrementally.
-- [Legacy Systems](/16-legacy-modernization/legacy-systems.md) — the embedded knowledge.
+- [Migration Strategies](/16-legacy-modernization/migration-strategies.md): the alternatives.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md): rebuilding incrementally.
+- [Legacy Systems](/16-legacy-modernization/legacy-systems.md): the embedded knowledge.
 - [Organizational Constraints](/16-legacy-modernization/organizational-constraints.md).
 
 ## Practical Exercise
 
-If you are considering rebuilding a system, write down what it does — completely.
+If you are considering rebuilding a system, write down what it does, completely.
 
 Then compare that with characterization tests over the real behavior. The difference
 between the two lists is what a rewrite would lose.
@@ -320,6 +320,6 @@ between the two lists is what a rewrite would lose.
 
 ## Further Reading
 
-- Brooks, Frederick. *The Mythical Man-Month*. Addison-Wesley, 1975 — the second system.
+- Brooks, Frederick. *The Mythical Man-Month*. Addison-Wesley, 1975. The second system.
 - Spolsky, Joel. *Things You Should Never Do*, 2000.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.

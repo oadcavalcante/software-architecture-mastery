@@ -2,18 +2,18 @@
 id: 07-multi-region
 title: "Exercício 07 — Disponibilidade Multi-região"
 sidebar_position: 1
-description: A consistência forte do exercício 03 permanece local — e a lição é reconhecer quando a coordenação entre regiões é evitável.
+description: A consistência forte do exercício 03 permanece local, e a lição é reconhecer quando a coordenação entre regiões é evitável.
 doc_type: exercise
 level: 5
 difficulty: avançado
 status: complete
 objective: >
   Ao terminar, o leitor decide o modelo de replicação por operação e reconhece quando a
-  coordenação entre regiões é evitável — e o que ela custaria se não fosse.
+  coordenação entre regiões é evitável, e o que ela custaria se não fosse.
 prerequisites: [06-partial-failure]
 related: [disaster-recovery-planning, graceful-degradation, availability, pacelc]
 canonical_for: []
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-29
 
 Este é o último exercício sobre o sistema que você projetou no
 [exercício 03](/05-system-design/exercises/03-ecommerce-backend.md). A decisão que ele
-testa é a segunda das três que você registrou lá — a transação única cobrindo estoque,
+testa é a segunda das três que você registrou lá: a transação única cobrindo estoque,
 pedido e pagamento.
 
 :::
@@ -109,7 +109,7 @@ Sua resposta está boa se:
 
 - **Você percebeu que quase nada precisa ser coordenado.** Estoque é por país, pedido é por
   país, cliente é por país pela residência de dado do enunciado. Cada região opera quase
-  independente — o que é a resposta mais barata e a mais disponível.
+  independente, o que é a resposta mais barata e a mais disponível.
 - **O catálogo é replicado e o pedido não.** Catálogo é leitura pesada e tolera atraso; pedido é
   escrita local com consulta cruzada rara.
 - **A decisão do exercício 03 não precisa mudar.** A consistência forte é local a cada região,
@@ -150,11 +150,11 @@ Nenhuma operação de escrita atravessa região. Isso significa que a consistên
 exercício 03 continua sendo **local**, e o custo de coordenação entre regiões é zero.
 
 Se você tivesse desenhado no exercício 03 um modelo com estoque global e venda cruzada, a
-resposta aqui seria outra e muito mais cara — cada reserva exigiria coordenação intercontinental,
+resposta aqui seria outra e muito mais cara: cada reserva exigiria coordenação intercontinental,
 com ~120 ms por confirmação. A decisão de dois anos atrás está pagando dividendo, e não custo.
 
 **Isso é o ponto do arco inteiro.** A decisão do exercício 03 causou dor no 04, exigiu trabalho
-de produto no 05, criou um estado ambíguo no 06 — e aqui ela é gratuita. Decisões arquiteturais
+de produto no 05, criou um estado ambíguo no 06, e aqui ela é gratuita. Decisões arquiteturais
 não são boas ou ruins; elas são adequadas a um conjunto de restrições, e as restrições mudam em
 direções diferentes.
 
@@ -174,7 +174,7 @@ distribuição que caiu: é a região que opera despacho e nota fiscal no Méxic
 geraria pedido que nenhum sistema mexicano consegue despachar ou faturar até a região voltar, e
 ainda tiraria o dado do cliente do país.
 
-Aceitar finalização indisponível por país cabe nos 99,95% exigidos — 4h23 por ano — com pouca
+Aceitar finalização indisponível por país cabe nos 99,95% exigidos (4h23 por ano) com pouca
 folga: o incidente de 3h40 do ano passado consumiria 84% desse orçamento sozinho. Dois incidentes
 do mesmo tamanho no mesmo ano estouram o requisito, e é esse o sinal para o gatilho de ativa-ativa
 abaixo.
@@ -192,7 +192,7 @@ região ativa-ativa no Brasil
 ```
 
 **O que quase todo mundo erra:** tratar multirregião como um problema de banco de dados. Ele é
-um problema de fronteira de negócio — e neste enunciado o negócio já respondeu, ao dizer que não
+um problema de fronteira de negócio, e neste enunciado o negócio já respondeu, ao dizer que não
 há venda cruzada. A arquitetura só precisou não contrariar isso.
 
 :::

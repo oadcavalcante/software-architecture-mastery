@@ -2,7 +2,7 @@
 id: pagination
 title: Pagination
 sidebar_position: 14
-description: Delivering results in parts — and why offset breaks at scale.
+description: Delivering results in parts, and why offset breaks at scale.
 doc_type: concept
 level: 3
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [apis, search, database-scaling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -39,7 +39,7 @@ discard 100 thousand rows before returning 20. The cost grows linearly with the 
 last page is the most expensive.
 
 **The set moves.** If a record is inserted between reading page 1 and page 2, everything
-shifts. The user sees a repeated item, or never sees an item that existed — and that is
+shifts. The user sees a repeated item, or never sees an item that existed, and that is
 silent.
 
 For a listing screen with few pages, none of that matters. For export, synchronization or
@@ -73,7 +73,7 @@ The database uses the index to position directly. The cost is the same on page 2
 ### The ordering has to be stable and total
 
 A cursor requires the ordering to be **deterministic**. Ordering only by `created_at` fails if
-two records have the same instant — the position becomes ambiguous and items are skipped or
+two records have the same instant: the position becomes ambiguous and items are skipped or
 repeated.
 
 The fix is to include a unique tiebreaker whenever the ordering column admits ties:
@@ -84,7 +84,7 @@ can reproduce.
 
 ### The cursor is opaque
 
-The cursor returned to the client should be treated as opaque — typically an encoding of the
+The cursor returned to the client should be treated as opaque, typically an encoding of the
 key. That allows changing the internal strategy without breaking consumers, and prevents
 anyone from constructing cursors by hand.
 
@@ -94,7 +94,7 @@ anyone from constructing cursors by hand.
 than the page itself.
 
 Three ways out: do not return a total; return an estimate; or return only whether there is a
-next page — fetching N+1 items and returning N.
+next page (fetching N+1 items and returning N).
 
 The third solves most interfaces, because what they need is to enable or disable the "next"
 button.
@@ -107,7 +107,7 @@ second is the question large systems actually ask.
 ## When to Use
 
 **Offset** when:
-- The set is small — a few hundred.
+- The set is small (a few hundred).
 - The user needs to jump to a specific page.
 - The set is stable during navigation.
 - Simplicity matters more than scale.
@@ -115,7 +115,7 @@ second is the question large systems actually ask.
 **Cursor** when:
 - The set is large.
 - There is concurrent insertion.
-- Consumption is sequential — export, synchronization, infinite scroll.
+- Consumption is sequential: export, synchronization, infinite scroll.
 - Consistency between pages matters.
 
 ## When Not to Use
@@ -132,13 +132,13 @@ jumps; forcing it produces a hack.
 
 ## Alternatives
 
-- **Infinite scroll with a cursor** — the standard in modern interfaces.
-- **Filtering instead of pagination** — if the user is paging to page 40 to find something,
+- **Infinite scroll with a cursor**: the standard in modern interfaces.
+- **Filtering instead of pagination**: if the user is paging to page 40 to find something,
   what is missing is search.
-- **Asynchronous export** — for very large sets, generating a file in the background is better
+- **Asynchronous export**: for very large sets, generating a file in the background is better
   than paginating. See
   [background processing](/05-system-design/background-processing.md).
-- **Streaming** — returning results continuously, when the protocol allows.
+- **Streaming**: returning results continuously, when the protocol allows.
 
 ## Trade-offs
 
@@ -146,7 +146,7 @@ The [Offset versus cursor](#offset-versus-cursor) table already puts the two sid
 What it does not decide is the axis: the choice is made by the access pattern, not by the size
 of the set.
 
-Random access — jumping to page N, showing how many pages exist — only offset delivers, and
+Random access (jumping to page N, showing how many pages exist) only offset delivers, and
 the price is degrading with depth and repeating items under concurrent writes. Sequential
 access a cursor delivers at a constant, stable cost, and the price is giving up the arbitrary
 jump and the trivial ordering.
@@ -193,15 +193,15 @@ undefined order between queries.
 
 The fixes, separated by use case.
 
-The screen kept offset — there are few pages and the user wants to jump. It got an `id`
+The screen kept offset: there are few pages and the user wants to jump. It got an `id`
 tiebreaker in the ordering, which eliminated the repetition. And the `COUNT` became an
 estimate, with the exact number only when the filter narrows the set a lot.
 
 Synchronization got its own endpoint, with a cursor. The daily synchronization went from
 eleven hours to 4 minutes, with a constant cost per page.
 
-The reading the team takes from it: the two use cases looked like the same thing — "list
-orders" — and had incompatible requirements. Trying to serve both with one endpoint was the
+The reading the team takes from it: the two use cases looked like the same thing ("list
+orders") and had incompatible requirements. Trying to serve both with one endpoint was the
 original error.
 
 ## Cursor implementation details
@@ -210,7 +210,7 @@ A cursor looks simple and has three details that decide whether it works.
 
 **The ordering has to match the index.** `ORDER BY created_at, id` is only efficient if a
 [composite index](/07-data-architecture/indexing.md) exists in that exact
-order. Without it, the database sorts the whole set on every page — which is the
+order. Without it, the database sorts the whole set on every page. That is the
 problem the cursor was supposed to avoid.
 
 **The comparison has to be on a tuple.** Comparing field by field with `OR` produces a correct
@@ -222,7 +222,7 @@ result and a bad execution plan:
 ```
 
 The second form lets the database use the composite index directly. Not all databases support
-tuple comparison, and where they do not the first form is unavoidable — it is worth checking
+tuple comparison, and where they do not the first form is unavoidable. It is worth checking
 the plan.
 
 **The cursor has to be versioned.** If the ordering changes, cursors issued earlier stop making
@@ -230,14 +230,14 @@ sense. Encoding a version alongside allows detecting and rejecting them with a c
 instead of silently returning a wrong result.
 
 A fourth detail, for descending order: the comparison inverts to `<`, and forgetting that
-produces pagination that always returns the same page — a defect that passes tests with few
+produces pagination that always returns the same page, a defect that passes tests with few
 records.
 
 ## Related Concepts
 
-- [APIs](/05-system-design/apis.md) — pagination is part of the contract.
-- [Search](/05-system-design/search.md) — when paginating is not the answer.
-- [Background Processing](/05-system-design/background-processing.md) — for large exports.
+- [APIs](/05-system-design/apis.md): pagination is part of the contract.
+- [Search](/05-system-design/search.md): when paginating is not the answer.
+- [Background Processing](/05-system-design/background-processing.md): for large exports.
 - [Scalability](/11-scalability/index.md).
 
 ## Practical Exercise
@@ -257,5 +257,5 @@ offset where you should have a cursor.
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Cursor pagination documentation from mature public APIs — Stripe's and GitHub's are useful
+- Cursor pagination documentation from mature public APIs: Stripe's and GitHub's are useful
   references.

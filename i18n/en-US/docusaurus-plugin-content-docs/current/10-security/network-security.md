@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [zero-trust, secure-boundaries, cloud-networking]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,14 +25,14 @@ Network controls decide who can **reach** what. They do not replace authenticati
 they still hold for a simple reason: what is not reachable is not attackable.
 
 With [zero trust](/10-security/zero-trust.md), the network stopped being the main boundary. It remains as a
-**containment layer** — what limits lateral movement after something goes wrong.
+**containment layer**: what limits lateral movement after something goes wrong.
 
 ## Problem
 
 The typical internal network is flat: anything reaches anything. It was built that way because it is
 simpler, and because the defense was at the perimeter.
 
-The consequence appears in the incident: a compromised service — or an infected developer machine — reaches
+The consequence appears in the incident: a compromised service (or an infected developer machine) reaches
 databases, administrative panels and systems that have nothing to do with it.
 
 The size of the damage is defined by what was reachable, not by what was compromised.
@@ -50,7 +50,7 @@ microsegmented   each service reaches only those it needs
 ```
 
 Microsegmentation is the most effective and the most laborious, because it requires knowing who talks to
-whom — information that rarely exists documented.
+whom: information that rarely exists documented.
 
 The path that does not take production down: record the real traffic, derive the policy, apply it in warning mode,
 then block. Applying it directly takes production down.
@@ -65,7 +65,7 @@ system needs to send data out or receive instructions.
 Restricting egress to the necessary destinations is one of the best-return controls, and one of the least
 applied. See [cloud networking](/09-cloud-architecture/cloud-networking.md).
 
-The positive side effect: it also detects undocumented dependencies — the blocked traffic reveals what
+The positive side effect: it also detects undocumented dependencies. The blocked traffic reveals what
 nobody knew existed.
 
 ### Do not expose what does not need to be exposed
@@ -81,7 +81,7 @@ internal services      never reachable from the internet
 When one of these turns up exposed, the most common origin is a rule created "temporarily" that nobody removed.
 
 Administrative access deserves a note: instead of an open port with a source restriction, a managed session
-service eliminates the need for any exposed port — and records everything.
+service eliminates the need for any exposed port, and records everything.
 
 ### The network does not replace authentication
 
@@ -89,14 +89,14 @@ The structural mistake: a service that accepts any request because "only whoever
 reach it".
 
 That trusts the network as if it were identity. A wrong configuration, a compromised service, or an
-unexpected route breaks the premise — and there is no second line.
+unexpected route breaks the premise, and there is no second line.
 
 The network is **containment**, not authentication. See
 [secure boundaries](/10-security/secure-boundaries.md).
 
 ### Protection against volume is a separate problem
 
-Denial of service attacks are not solved by segmentation. They require absorption capacity — a distribution
+Denial of service attacks are not solved by segmentation. They require absorption capacity: a distribution
 network, filtering at the provider, rate limiting.
 
 It is worth separating the two subjects: segmentation protects against reach; absorption protects against
@@ -106,13 +106,13 @@ volume. Confusing them leads to expecting from one control what it does not do.
 
 Rules that block without logging prevent that attempt and reveal no pattern.
 
-Logging denied connections — and, in the critical segments, the accepted ones too — is what allows
+Logging denied connections (and, in the critical segments, the accepted ones too) is what allows
 detecting internal scanning and lateral movement. See [auditability](/10-security/auditability.md).
 
 ### A private connection with a third party grants more than intended
 
 A specific case worth isolating, because it appears in almost every organization with integrations: a
-private network connection with a partner — to exchange data from one system — normally grants reach to
+private network connection with a partner (to exchange data from one system) normally grants reach to
 the entire network range, not to the system.
 
 The partner comes to be able to reach everything in that range, today and in the future. And the reverse
@@ -127,7 +127,7 @@ The alternatives that limit the reach:
 **Broker-based access**, mediating each connection and logging it.
 
 The practical check: list the active private connections with third parties and, for each one, what that
-partner can reach today. The answer is usually much larger than the system that motivated the connection —
+partner can reach today. The answer is usually much larger than the system that motivated the connection,
 and it frequently includes partners whose contract has already ended.
 
 ## Mental Model
@@ -136,7 +136,7 @@ and it frequently includes partners whose contract has already ended.
 
 ## When to Use
 
-- Where more than one data domain is reachable from the same segment — which is the condition in which
+- Where more than one data domain is reachable from the same segment. That is the condition in which
   containment has something to contain.
 - Priority in environments with many internal services.
 - Where there is concentrated sensitive data.
@@ -147,16 +147,16 @@ and it frequently includes partners whose contract has already ended.
 
 **Microsegmentation where it reproduces per-tier segmentation.** After observing the
 traffic, build the matrix of who talks to whom inside each segment. If it comes out
-nearly full — every service in the segment talks to almost every other, as tends to
-happen with a few services maintained by a single team — per-service policy removes
+nearly full (every service in the segment talks to almost every other, as tends to
+happen with a few services maintained by a single team), per-service policy removes
 little reach beyond what the tier split already removed, and charges the full
 maintenance cost. In the example below, just deriving the policy took three months.
 
 **Microsegmentation where the topology changes faster than the policy.** If services
 come and go every week and the policy is derived by observation, it is always stale:
 either it blocks what was just born, or it becomes a permissive list nobody reviews. In
-that case, service-to-service policy belongs in the application layer — see
-Alternatives.
+that case, service-to-service policy belongs in the application layer (see
+Alternatives).
 
 **An egress allowlist for a system whose destination is the data itself.** A web
 crawler or a service delivering webhooks to customer-supplied URLs reaches, by
@@ -169,11 +169,11 @@ alternative exists.
 
 ## Alternatives
 
-- **Service-to-service authentication** — mutual TLS, tokens. It complements, it does not replace.
-- **Broker-based access** instead of a private network — it avoids granting broad network access.
+- **Service-to-service authentication**: mutual TLS, tokens. It complements, it does not replace.
+- **Broker-based access** instead of a private network: it avoids granting broad network access.
 - **Private endpoints** for managed services. See
   [cloud networking](/09-cloud-architecture/cloud-networking.md).
-- **A service mesh** — policy between services at the application layer. See
+- **A service mesh**: policy between services at the application layer. See
   [service mesh](/08-integration-architecture/service-mesh.md).
 
 ## Trade-offs
@@ -212,7 +212,7 @@ alternative exists.
 **Keeping the network flat.** With no segmentation, compromising any machine gives reach to all the others.
 It is what turns a single intrusion into a general incident.
 
-**Not restricting egress.** Almost everyone filters what comes in and opens what goes out — and it is
+**Not restricting egress.** Almost everyone filters what comes in and opens what goes out, and it is
 through egress that exfiltration and contact with a control server happen.
 
 **Trusting the network instead of authenticating.** "It is on the internal network" is not identity.
@@ -227,7 +227,7 @@ self-inflicted incident.
 expires on its own and a rule that bothers nobody is not reviewed.
 
 **Not logging what was blocked.** Denied traffic is the most direct signal of scanning and lateral
-movement — and it is what almost nobody collects.
+movement, and it is what almost nobody collects.
 
 ## Real-World Example
 
@@ -239,11 +239,11 @@ infrastructure administration panel and three file servers.
 None of that had anything to do with development. All of them were reachable because the corporate network
 was a single one.
 
-The exfiltration — around 40 GB over nine days — went out with no restriction at all, because egress
+The exfiltration (around 40 GB over nine days) went out with no restriction at all, because egress
 traffic was neither filtered nor monitored.
 
 The detection did not come from security, and it could not have come from cost either: 40 GB over nine
-days costs a few dollars in egress and moves no invoice at all. It came from a **new destination** alert —
+days costs a few dollars in egress and moves no invoice at all. It came from a **new destination** alert:
 an anomaly rule nobody had connected to security, created months earlier to catch integration
 misconfiguration.
 
@@ -266,19 +266,19 @@ ports were closed.
 **Service-to-service authentication**, so that the segmentation would not be the only line.
 
 What the team learned: the initial compromise was common and probably unavoidable. What turned a
-single-machine incident into a company-wide one was the topology — and it had been decided out of
+single-machine incident into a company-wide one was the topology, and it had been decided out of
 convenience, fifteen years earlier, when the company had twenty people.
 
 ## Related Concepts
 
-- [Zero Trust](/10-security/zero-trust.md) — the principle.
+- [Zero Trust](/10-security/zero-trust.md): the principle.
 - [Secure Boundaries](/10-security/secure-boundaries.md).
 - [Cloud Networking](/09-cloud-architecture/cloud-networking.md).
 - [Auditability](/10-security/auditability.md).
 
 ## Practical Exercise
 
-From a development machine, try to reach the production database — just the network connection, with no
+From a development machine, try to reach the production database: just the network connection, with no
 credential.
 
 If the connection opens, you have measured your lateral movement. Then ask the same question about egress:

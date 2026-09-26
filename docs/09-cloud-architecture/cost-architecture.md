@@ -2,7 +2,7 @@
 id: cost-architecture
 title: Arquitetura de Custo
 sidebar_position: 14
-description: Na nuvem, o desenho tem preço mensal — e ele é um atributo de qualidade como qualquer outro.
+description: Na nuvem, o desenho tem preço mensal, e ele é um atributo de qualidade como qualquer outro.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [managed-services, serverless, cloud-storage, cost-management]
 canonical_for: [arquitetura de custo, custo por transação, desperdício estrutural]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -27,7 +27,7 @@ consome capacidade ociosa e não muda a fatura.
 Na nuvem, cada requisição, cada gigabyte transferido, cada segundo de execução e
 cada byte armazenado aparecem na conta do mês seguinte.
 
-Isso torna custo um **atributo de qualidade** como latência ou disponibilidade —
+Isso torna custo um **atributo de qualidade** como latência ou disponibilidade:
 algo que se projeta, se mede e se degrada quando ninguém olha. Ver
 [atributos de qualidade](/01-fundamentals/quality-attributes.md).
 
@@ -36,8 +36,8 @@ algo que se projeta, se mede e se degrada quando ninguém olha. Ver
 O custo de nuvem é tratado como assunto financeiro: alguém olha a fatura no fim do
 mês, acha alta, e pede para "otimizar".
 
-A otimização que se segue costuma ser tática — reduzir uma instância, apagar
-volumes órfãos — e recupera uma fração. O custo volta a crescer no trimestre
+A otimização que se segue costuma ser tática (reduzir uma instância, apagar
+volumes órfãos) e recupera uma fração. O custo volta a crescer no trimestre
 seguinte.
 
 Porque a maior parte do custo não vem de configuração. Vem de **decisões de
@@ -60,7 +60,7 @@ operações       consultas, invocações, verificações de saúde
 ```
 
 A terceira e a quarta são as que surpreendem, porque não têm equivalente óbvio na
-infraestrutura própria — e são as que crescem com o tráfego, invisivelmente.
+infraestrutura própria, e são as que crescem com o tráfego, invisivelmente.
 
 ### A métrica que importa é custo por unidade de negócio
 
@@ -104,7 +104,7 @@ Nenhum deles é otimização micro. Todos são de arquitetura ou de disciplina.
 
 ### Marcação é pré-requisito de tudo
 
-Sem etiquetar recursos por time, produto e ambiente, não há como atribuir custo — e
+Sem etiquetar recursos por time, produto e ambiente, não há como atribuir custo, e
 sem atribuição, ninguém é responsável. Por que atribuir e a quem está em
 [gestão de custo](/23-architecture-leadership/cost-management.md); na nuvem, a
 etiqueta é o mecanismo que torna isso possível.
@@ -138,7 +138,7 @@ Vale a honestidade: engenharia gasta tempo, e tempo custa mais que a maior parte
 das economias pequenas.
 
 Perseguir 5% em algo que representa 2% da fatura é trabalho negativo. A regra
-prática é atacar o que está no topo da distribuição — tipicamente dois ou três
+prática é atacar o que está no topo da distribuição: tipicamente dois ou três
 itens respondem pela maior parte da conta.
 
 ## Modelo Mental
@@ -175,12 +175,12 @@ previsível por risco.
 
 Para reduzir custo sem mudar arquitetura:
 
-- **Desligar o que não é usado** fora do horário — o de maior retorno imediato.
+- **Desligar o que não é usado** fora do horário: o de maior retorno imediato.
 - **Redimensionar** com base em utilização real.
-- **Compromisso de uso** — descontos por reserva, para capacidade estável.
-- **Capacidade interrompível** — muito mais barata, para cargas tolerantes.
+- **Compromisso de uso**: descontos por reserva, para capacidade estável.
+- **Capacidade interrompível**: muito mais barata, para cargas tolerantes.
 - **Classes de armazenamento** por frequência de acesso.
-- **Cache** — reduz chamadas cobradas e latência ao mesmo tempo.
+- **Cache**: reduz chamadas cobradas e latência ao mesmo tempo.
 
 ## Trade-offs
 
@@ -208,7 +208,7 @@ etiqueta nem dono, e a linha de armazenamento cresce sem que nenhum serviço nov
 tenha subido.
 
 **Transferência entre zonas dominando a conta.** A linha de transferência sobe mês a
-mês sem aumento correspondente de tráfego externo — chamadas que passaram a cruzar
+mês sem aumento correspondente de tráfego externo: chamadas que passaram a cruzar
 zonas depois de uma mudança de roteamento ou de implantação.
 
 **Retenção infinita.** A linha de armazenamento de registros cresce com o tempo,
@@ -220,7 +220,7 @@ não com o uso, e ninguém sabe dizer quem consulta os dados de mais de um ano.
 
 ## Erros Comuns
 
-**Não marcar recursos.** Sem etiquetas de time, produto e ambiente, a fatura é um número agregado que ninguém consegue atribuir — e o que não tem dono não é reduzido.
+**Não marcar recursos.** Sem etiquetas de time, produto e ambiente, a fatura é um número agregado que ninguém consegue atribuir. E o que não tem dono não é reduzido.
 
 **Não medir custo por unidade de negócio.** O custo total sempre sobe quando a empresa cresce. Custo por pedido ou por usuário ativo distingue crescimento saudável de desperdício, e é o único número que sustenta a conversa.
 
@@ -257,12 +257,12 @@ horário comercial.
 
 As correções, e o que cada uma rendeu:
 
-**Preferência de zona no roteamento** — configuração, dois dias de trabalho.
+**Preferência de zona no roteamento**: configuração, dois dias de trabalho.
 Reduziu a transferência em cerca de 70%.
 
 **Política de ciclo de vida** movendo vídeos sem acesso por 90 dias para classe
 fria e, após um ano, para arquivamento. Reduziu o custo de armazenamento pela
-metade, com a ressalva de que a recuperação de arquivamento tem latência — o que
+metade, com a ressalva de que a recuperação de arquivamento tem latência. Isso
 exigiu tratamento na aplicação para vídeos raramente acessados.
 
 **Desligamento automático** dos ambientes fora do horário e nos fins de semana.
@@ -271,23 +271,23 @@ exigiu tratamento na aplicação para vídeos raramente acessados.
 
 **Varredura semanal de órfãos.**
 
-Resultado: a fatura caiu 44%, e o **custo por hora de vídeo assistida** — a métrica
-que passou a ser acompanhada — caiu 61%.
+Resultado: a fatura caiu 44%, e o **custo por hora de vídeo assistida** (a métrica
+que passou a ser acompanhada) caiu 61%.
 
 A leitura que a equipe faz: nenhuma correção exigiu mudar a arquitetura da aplicação.
 Todas eram decisões de infraestrutura tomadas por omissão, que ninguém revisitou
 porque ninguém era dono do número.
 
-A marcação por produto, que veio primeiro, foi o que tornou tudo o resto possível —
+A marcação por produto, que veio primeiro, foi o que tornou tudo o resto possível,
 e ela era vista como burocracia antes disso.
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md) — a comparação de custo total.
-- [Serverless](/09-cloud-architecture/serverless.md) — outro modelo de cobrança.
-- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
-- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — transferência.
-- [Gestão de Custo](/23-architecture-leadership/cost-management.md) — unidade econômica e atribuição de custo, fora do recorte de nuvem.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md): a comparação de custo total.
+- [Serverless](/09-cloud-architecture/serverless.md): outro modelo de cobrança.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md): retenção.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md): transferência.
+- [Gestão de Custo](/23-architecture-leadership/cost-management.md): unidade econômica e atribuição de custo, fora do recorte de nuvem.
 
 ## Exercício Prático
 
@@ -305,7 +305,7 @@ A tendência dessa razão diz mais que o valor absoluto.
 
 ## Para Aprofundar
 
-- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023 — atribuição de
+- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023. Atribuição de
   custo por marcação de recursos.
-- Amazon Web Services. *Cost Optimization Pillar — AWS Well-Architected Framework*.
-  AWS, 2023 — as dimensões cobradas e os desperdícios estruturais do ponto de vista de um provedor.
+- Amazon Web Services. *Cost Optimization Pillar. AWS Well-Architected Framework*.
+  AWS, 2023. As dimensões cobradas e os desperdícios estruturais do ponto de vista de um provedor.

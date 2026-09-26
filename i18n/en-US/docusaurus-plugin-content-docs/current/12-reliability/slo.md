@@ -2,7 +2,7 @@
 id: slo
 title: SLO
 sidebar_position: 11
-description: The agreed target — and the error budget, which turns reliability into an operational decision.
+description: The agreed target, and the error budget, which turns reliability into an operational decision.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [sli]
 related: [sli, sla, availability-metrics]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ checkout requests served in under 4 seconds, measured over 28 days".
 It is the decision missing from most systems. With no target, "reliable" is an opinion, and every incident
 looks equally serious.
 
-And the SLO brings along the mechanism that makes it operational: the **error budget** — the amount of
+And the SLO brings along the mechanism that makes it operational: the **error budget**, the amount of
 failure the target permits. It turns reliability from an aspiration into a number that gets spent.
 
 ## Problem
@@ -41,7 +41,7 @@ from what can wait. The team reacts to everything, and the roadmap never advance
 loses every contest against a feature that has a deadline and a customer asking for it.
 
 The SLO resolves both by giving a limit: above it, the system is good enough and the work goes to product;
-below it, reliability has priority — and that was agreed beforehand, not negotiated during the crisis.
+below it, reliability has priority, and that was agreed beforehand, not negotiated during the crisis.
 
 ## Core Concepts
 
@@ -55,7 +55,7 @@ an SLO of 99.9% over 28 days
 ```
 
 The budget is meant to be **spent**. A system that stays at 99.99% when the target is 99.9% is
-over-investing in reliability — resources that could be in product.
+over-investing in reliability: resources that could be in product.
 
 And the budget's consumption becomes an operational rule:
 
@@ -66,7 +66,7 @@ budget exhausted           → freeze features, prioritize stability
 ```
 
 That is the concept's most important practical contribution: a rule agreed in advance about when to stop
-shipping and start fixing — which avoids the political discussion during the incident.
+shipping and start fixing. That avoids the political discussion during the incident.
 
 ### The target comes from the business, with the cost on the table
 
@@ -93,10 +93,10 @@ has a cost, and that cost belongs in the conversation about the target.
 
 Chasing zero failure is expensive, impossible and counterproductive.
 
-Impossible because dependencies fail — including the cloud provider, the user's network, DNS.
+Impossible because dependencies fail, including the cloud provider, the user's network, DNS.
 
 Counterproductive because the marginal effort to eliminate the last fraction of failure exceeds any value
-delivered, and because an unreachable target stops guiding decisions — if it is never reached, the budget
+delivered, and because an unreachable target stops guiding decisions: if it is never reached, the budget
 never informs anything.
 
 And there is a perverse effect: if the user experiences 99.9% because of their own network, raising the
@@ -126,7 +126,7 @@ burning 6×                the month's budget runs out in 5 days
 burning 36×               it runs out in 20 hours — page somebody now
 ```
 
-That replaces the threshold alert — "error rate above 1%" — which fires on irrelevant spikes and does not
+That replaces the threshold alert ("error rate above 1%"), which fires on irrelevant spikes and does not
 fire on slow, sustained degradation.
 
 And it allows graduating the response: high and fast burn wakes somebody; moderate and prolonged burn
@@ -173,10 +173,10 @@ balance.** It exists to be spent, not to be preserved.
 
 ## Alternatives
 
-- **A threshold alert** — simpler, fires on noise and misses slow degradation.
-- **Incident tracking** — count and duration, with no target. It describes the past, it does not guide a
+- **A threshold alert**: simpler, fires on noise and misses slow degradation.
+- **Incident tracking**: count and duration, with no target. It describes the past, it does not guide a
   decision.
-- **An SLO per service class** — different targets for journeys of different criticality. Frequently the
+- **An SLO per service class**: different targets for journeys of different criticality. Frequently the
   right design.
 
 ## Trade-offs
@@ -197,7 +197,7 @@ balance.** It exists to be spent, not to be preserved.
 Adopting SLOs also carries an ongoing cost, whatever the target: the SLI needs a reliable
 measurement pipeline, the burn-rate alert needs two windows maintained and calibrated per journey,
 and the target needs revisiting at every relevant business change. Each additional SLO multiplies
-that work — which is why a few tracked targets are worth more than many ignored ones.
+that work. That is why a few tracked targets are worth more than many ignored ones.
 
 ## Failure Modes
 
@@ -205,7 +205,7 @@ that work — which is why a few tracked targets are worth more than many ignore
 
 **An unreachable target.** It loses its guiding value.
 
-**Too loose a target.** It is met with room to spare every month, including when the service gets worse — and
+**Too loose a target.** It is met with room to spare every month, including when the service gets worse, and
 then it stops telling anyone anything.
 
 **Defined without the business.** Nobody respects the freeze.
@@ -258,29 +258,29 @@ generates a prioritized task.
 
 What happened in the first six months:
 
-**Tracking blew the budget twice.** The freeze happened — with no discussion, because the rule was agreed.
+**Tracking blew the budget twice.** The freeze happened, with no discussion, because the rule was agreed.
 Both causes were the same: an external geolocation dependency with no circuit breaker. Once fixed, the
 journey stabilized.
 
-**Shipment creation stayed at 99.995%** — consuming a tenth of the 99.95% budget. By the budget's own
+**Shipment creation stayed at 99.995%**, consuming a tenth of the 99.95% budget. By the budget's own
 yardstick, that is over-investment: there was redundancy and checking the target did not require, and the
 risk it freed up was not being spent on shipping. Part of the effort was reallocated.
 
-**The management report stayed at 98.2%**, below the target — and the analysis showed nobody cared. The
+**The management report stayed at 98.2%**, below the target, and the analysis showed nobody cared. The
 target was renegotiated to 97%, and the team stopped treating failures there as urgent.
 
 What the team learned: the most valuable effect was not technical. It was the quarterly discussion between
 product and engineering ceasing to exist, because an agreed number came to answer the question.
 
-And the third case — lowering a target — was the hardest to accept culturally, and the one that freed the
+And the third case, lowering a target, was the hardest to accept culturally, and the one that freed the
 most capacity.
 
 ## Related Concepts
 
-- [SLI](/12-reliability/sli.md) — what is measured.
-- [SLA](/12-reliability/sla.md) — the external commitment.
+- [SLI](/12-reliability/sli.md): what is measured.
+- [SLA](/12-reliability/sla.md): the external commitment.
 - [Availability Metrics](/12-reliability/availability-metrics.md).
-- [Chaos Engineering](/12-reliability/chaos-engineering.md) — it verifies whether the target holds.
+- [Chaos Engineering](/12-reliability/chaos-engineering.md): it verifies whether the target holds.
 
 ## Practical Exercise
 
@@ -298,6 +298,6 @@ calibrates the target better than any technical discussion.
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapters 3 and 4.
-- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018 — chapters 2 to 5.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapters 3 and 4.
+- Beyer, Betsy et al. *The Site Reliability Workbook*. O'Reilly, 2018. Chapters 2 to 5.
 - Google. *SRE Workbook: Alerting on SLOs*.

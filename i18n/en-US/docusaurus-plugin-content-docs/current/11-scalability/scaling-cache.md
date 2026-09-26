@@ -2,7 +2,7 @@
 id: scaling-cache
 title: Caching for Scale
 sidebar_position: 4
-description: Removing work instead of adding capacity — and the failure modes that only appear under load.
+description: Removing work instead of adding capacity, and the failure modes that only appear under load.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, hotspots, statelessness]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,19 +25,19 @@ When reads repeat and the response is expensive to produce, a cache cuts the loa
 larger factor than any realistic capacity increase would deliver, because it **removes work** instead of
 adding capacity to execute it.
 
-The fundamentals — what to cache, invalidation, time to live — are in
+The fundamentals (what to cache, invalidation, time to live) are in
 [caching](/05-system-design/caching.md). Here what matters is what changes under high load: the failure
 modes that only appear at scale, and that turn the cache from a solution into a cause of unavailability.
 
 ## Problem
 
-A cache with a 90% hit rate reduces the load on the origin by 90%. One with 99% reduces it by 99% — ten
+A cache with a 90% hit rate reduces the load on the origin by 90%. One with 99% reduces it by 99%: ten
 times more.
 
 That non-linearity has a dangerous side: the origin comes to be sized for the load **with** the cache. When
 the cache fails, the load that arrives is ten or a hundred times larger than the origin can take.
 
-The cache stops being an optimization and becomes a critical dependency — without anybody having decided
+The cache stops being an optimization and becomes a critical dependency, without anybody having decided
 that.
 
 ## Core Concepts
@@ -53,7 +53,7 @@ hit rate   load on the origin   reduction
   99.9%          0.1%          1,000×
 ```
 
-Going from 90% to 99% reduces the load on the origin by a factor of ten — more than any realistic capacity
+Going from 90% to 99% reduces the load on the origin by a factor of ten, more than any realistic capacity
 increase would deliver.
 
 That is why the hit rate is a cache's main metric, and why a drop in it is a first-order alert: it precedes
@@ -80,12 +80,12 @@ The defenses, which combine:
 expires, avoiding the moment when all of them find it empty.
 
 **Expiration with jitter.** Keys created together expire together. Adding random variation to the time to
-live desynchronizes them — it is the same logic as [backoff](/06-distributed-systems/backoff.md).
+live desynchronizes them: it is the same logic as [backoff](/06-distributed-systems/backoff.md).
 
 **Serving the stale value while revalidating.** The request receives the expired value; the recomputation
 happens in the background.
 
-The last gives the best experience, and it requires serving slightly stale data to be acceptable — which it
+The last gives the best experience, and it requires serving slightly stale data to be acceptable, which it
 usually is.
 
 ### Layered caching
@@ -103,7 +103,7 @@ little.
 The care needed is **layered invalidation**: invalidating in the shared cache does not invalidate the local
 ones. Local caches need a short time to live, or an invalidation channel.
 
-And a local cache reintroduces divergence between instances — acceptable for data that tolerates a few
+And a local cache reintroduces divergence between instances: acceptable for data that tolerates a few
 seconds of lag, unacceptable for what needs to be consistent. See
 [statelessness](/11-scalability/statelessness.md).
 
@@ -120,7 +120,7 @@ traffic, or depending only on the shared cache, which is already warm.
 
 ### A hot key in the cache
 
-A distributed cache partitions by key. A heavily accessed key saturates the node that holds it — the same
+A distributed cache partitions by key. A heavily accessed key saturates the node that holds it: the same
 [hotspot](/11-scalability/hotspots.md) problem, one layer up.
 
 That surprises people because the cache exists precisely to absorb the hot key. The way out is replicating
@@ -142,7 +142,7 @@ or none.
 ## Mental Model
 
 **A cache removes work; capacity adds means to execute it.** With repeated reads and an expensive response,
-removing costs less per request served than adding capacity — at the price of a cluster to pay for,
+removing costs less per request served than adding capacity, at the price of a cluster to pay for,
 invalidation to maintain, and a dependency that needs to be treated as such.
 
 ## When to Use
@@ -164,11 +164,11 @@ shedding and no cache-loss drill, adding the cache trades a bottleneck for a sin
 **With no stampede protection** on popular keys. With hundreds of simultaneous requests per key, every
 expiration becomes a spike on the origin equal to that key's concurrency.
 
-**A local cache as the authoritative source.** When an instance decides based on its own cache — a limit, a
-permission, stock —, different instances give different answers to the same question.
+**A local cache as the authoritative source.** When an instance decides based on its own cache (a limit, a
+permission, stock), different instances give different answers to the same question.
 
 **A cache key with no identity** on a personalized response. If the response varies per user and the key
-does not carry who asked, there is no safe cache — only a leak.
+does not carry who asked, there is no safe cache, only a leak.
 
 **To absorb writes that admit no loss window.** Write-behind speeds up writes by accepting the loss of what
 has not yet been persisted (see [the write strategies](/05-system-design/caching.md#the-write-strategies));
@@ -178,11 +178,11 @@ when that loss is unacceptable, scaling writes calls for partitioning or a queue
 
 ## Alternatives
 
-- **A materialized view** — precomputing in the database, with no extra layer.
-- **A read replica** — it distributes without introducing invalidation. See
+- **A materialized view**: precomputing in the database, with no extra layer.
+- **A read replica**: it distributes without introducing invalidation. See
   [replication for scale](/11-scalability/scaling-replication.md).
-- **Optimizing the query** — if it becomes cheap, the cache stops being necessary.
-- **An edge cache** — for public content, it resolves latency and load at once.
+- **Optimizing the query**: if it becomes cheap, the cache stops being necessary.
+- **An edge cache**: for public content, it resolves latency and load at once.
 
 ## Trade-offs
 
@@ -223,7 +223,7 @@ when that loss is unacceptable, scaling writes calls for partitioning or a queue
 ## Common Mistakes
 
 **Not monitoring the hit rate.** A cache with a 20% hit rate adds latency and complexity without relieving
-the origin — and with no metric, nobody knows that is the case.
+the origin, and with no metric, nobody knows that is the case.
 
 **Not protecting against a stampede.** When a popular key expires, all the simultaneous requests go to the
 origin at once. It is the moment a cache that was working becomes the cause of the outage.
@@ -232,13 +232,13 @@ origin at once. It is the moment a cache that was working becomes the cause of t
 periodic spikes. Adding randomness to the deadline spreads that out.
 
 **Having no plan for losing the cache.** If the origin cannot take the load with no cache, the cache
-stopped being an optimization and became a critical dependency — and losing it takes everything down.
+stopped being an optimization and became a critical dependency, and losing it takes everything down.
 
 **A key with no identity on a personalized response.** Caching by URL a response that depends on the user
 delivers one person's data to another. It is a leak created by an optimization.
 
 **Not monitoring the eviction rate.** High eviction means insufficient memory for the working set, and the
-cache comes to work against itself — writing what it will discard before reusing.
+cache comes to work against itself: writing what it will discard before reusing.
 
 ## Real-World Example
 
@@ -247,7 +247,7 @@ A news platform used a shared cache with a 97% hit rate. The database was sized 
 Three incidents over a year, all related to the cache:
 
 **Total loss.** A maintenance operation restarted the cache cluster. 100% of the load went to the database,
-which saturated in seconds and was unavailable for 25 minutes — until the cache warmed back up. There was
+which saturated in seconds and was unavailable for 25 minutes, until the cache warmed back up. There was
 no plan for that scenario.
 
 **A stampede.** A heavily accessed article had its cache expiring every 60 seconds. At each expiration,
@@ -267,7 +267,7 @@ absence: the old value is served and the recomputation happens behind it.
 
 **20% jitter on the time to live**, desynchronizing the expirations.
 
-**A local cache** of 5 seconds on the application instances, absorbing the top of the distribution — which
+**A local cache** of 5 seconds on the application instances, absorbing the top of the distribution, which
 reduced the load on the shared cache by 60% and resolved the hot key that was saturating one node.
 
 **Load shedding** on the database: above a connection threshold, requests for non-essential content come to
@@ -278,15 +278,15 @@ went down; after the load shedding and the local cache, the third exercise passe
 and no unavailability.
 
 The 97% hit rate was seen as excellent and it hid a critical dependency. The database had never been sized
-to operate with no cache, and nobody had decided that — it was a consequence of the cache having been added
+to operate with no cache, and nobody had decided that: it was a consequence of the cache having been added
 later.
 
 ## Related Concepts
 
-- [Caching](/05-system-design/caching.md) — the fundamentals.
-- [Hotspots](/11-scalability/hotspots.md) — the hot key in the cache.
-- [Database Scaling](/11-scalability/database-scaling.md) — rung 3.
-- [Backoff](/06-distributed-systems/backoff.md) — the jitter.
+- [Caching](/05-system-design/caching.md): the fundamentals.
+- [Hotspots](/11-scalability/hotspots.md): the hot key in the cache.
+- [Database Scaling](/11-scalability/database-scaling.md): rung 3.
+- [Backoff](/06-distributed-systems/backoff.md): the jitter.
 
 ## Practical Exercise
 

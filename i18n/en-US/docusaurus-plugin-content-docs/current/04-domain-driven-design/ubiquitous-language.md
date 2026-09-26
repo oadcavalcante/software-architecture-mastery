@@ -2,7 +2,7 @@
 id: ubiquitous-language
 title: Ubiquitous Language
 sidebar_position: 7
-description: The shared vocabulary that eliminates translation — the mechanism everything else in DDD depends on.
+description: "The shared vocabulary that eliminates translation: the mechanism everything else in DDD depends on."
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [bounded-context, domain, entity]
 canonical_for: [ubiquitous language]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -37,7 +37,7 @@ has `dt_ini_cob`, and the screen shows "grace period", there are four representa
 one concept. Every conversation between the people involved requires a mental translation,
 and every translation is a chance for divergence.
 
-Worse: when the concept's meaning changes — and business concepts do change — the change
+Worse: when the concept's meaning changes (and business concepts do change), the change
 has to cross four representations, and someone forgets one.
 
 ## Core Concepts
@@ -52,7 +52,7 @@ in the code**: names of classes, methods, variables, events and tables.
 If the expert reads a method name and recognizes the concept, the language is working. If
 they need a translation, it is not.
 
-The test is literal, not a figure of speech — the exercise at the end of this document
+The test is literal, not a figure of speech: the exercise at the end of this document
 applies it.
 
 ### The language is per context
@@ -61,7 +61,7 @@ There is no single language for the whole company. There is one per
 [bounded context](/04-domain-driven-design/bounded-context.md).
 
 "Policy" in underwriting and in billing are different concepts with the same name, and it
-is correct that they should be — as long as the boundary between the contexts is explicit.
+is correct that they should be, as long as the boundary between the contexts is explicit.
 
 Seeking a single corporate language reproduces the canonical model mistake.
 
@@ -82,7 +82,7 @@ When understanding improves and a term changes, the code changes with it. Renami
 of the work, not an optional refactoring deferred to later.
 
 A system whose code uses three-year-old vocabulary while the business speaks another has
-lost the language — and nobody notices until a conversation goes wrong.
+lost the language, and nobody notices until a conversation goes wrong.
 
 ## Mental Model
 
@@ -94,7 +94,7 @@ working.**
 - Always, inside a bounded context with domain complexity.
 - Especially in the [core domain](/04-domain-driven-design/core-domain.md), where precision
   matters most.
-- When more than one person has to talk about the same concept — among developers, or
+- When more than one person has to talk about the same concept, among developers, or
   with the business.
 
 ## When Not to Use
@@ -115,9 +115,9 @@ imprecisions it carries.
 
 ## Alternatives
 
-- **A separately maintained glossary** — better than nothing, and it degrades, because
+- **A separately maintained glossary**: better than nothing, and it degrades, because
   there is no mechanism forcing it to stay in sync with the code.
-- **Consistent technical vocabulary** — appropriate where there is no complex domain.
+- **Consistent technical vocabulary**: appropriate where there is no complex domain.
 
 ## Trade-offs
 
@@ -155,11 +155,11 @@ conversation uses the new one, and the correspondence between the two comes to e
 in the head of whoever was in the modelling session.
 
 **Imposing precision the business does not have.** If the experts use a term ambiguously,
-that is information about the domain — and frequently points at a distinction worth
+that is information about the domain, and frequently points at a distinction worth
 exploring, not correcting unilaterally.
 
 **Negotiating a single term between contexts that disagree.** The agreement produces a
-generic name neither side uses, and each context goes back to translating — now with
+generic name neither side uses, and each context goes back to translating, now with
 nobody recording the translation.
 
 **Keeping the vocabulary in one language in conversation and in another in the code.** It
@@ -175,23 +175,23 @@ A payroll-deductible lending team had, in the code, `Loan`, `Instalment`, `Custo
 In a modelling session, mapping the flow with two experts, four distinctions appeared that
 the code did not make:
 
-**Payroll endorsement** — the act of the employer acknowledging the deduction. The code
+**Payroll endorsement**: the act of the employer acknowledging the deduction. The code
 treated it as a boolean field on `Loan`.
 
-**Deductible margin** — the legal limit on income commitment. It was scattered as a
+**Deductible margin**: the legal limit on income commitment. It was scattered as a
 calculation in three places.
 
-**Portability** and **refinancing** — two kinds of operation with completely different
+**Portability** and **refinancing**: two kinds of operation with completely different
 rules, both represented as `Loan` with a `type` field.
 
-**Margin reservation** — the temporary blocking of the limit during assessment, which
+**Margin reservation**: the temporary blocking of the limit during assessment, which
 expires. It did not exist; it was inferred from the status.
 
 Remodelling with those four distinctions took three months and changed the system's
 structure, not just the names.
 
 The finding that justified the effort: `MarginReservation` did not exist, and the expiry
-logic was implemented as a query filtering by creation date on three different screens —
+logic was implemented as a query filtering by creation date on three different screens,
 with two days of difference between them. There was a business defect nobody had reported
 because nobody had the vocabulary to describe it.
 
@@ -226,12 +226,12 @@ information the divergence carried.
 
 ## Related Concepts
 
-- [Domain](/04-domain-driven-design/domain.md) — the translation problem.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — the language's boundary.
+- [Domain](/04-domain-driven-design/domain.md): the translation problem.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): the language's boundary.
 - [Entity](/04-domain-driven-design/entity.md) and
-  [Value Object](/04-domain-driven-design/value-object.md) — where the language
+  [Value Object](/04-domain-driven-design/value-object.md): where the language
   materializes.
-- [Terminology Policy](/i18n-terminology.md) — this principle applied to this repository
+- [Terminology Policy](/i18n-terminology.md): this principle applied to this repository
   itself.
 
 ## Practical Exercise
@@ -240,7 +240,7 @@ Take the most central class in your domain and show it to a business expert.
 
 Ask them to read the method names and explain what each one does.
 
-Where they hesitate, ask or translate, the language is not shared — and each of those
+Where they hesitate, ask or translate, the language is not shared, and each of those
 points is a candidate for a distinction the model does not make.
 
 ## Interview Questions
@@ -252,6 +252,6 @@ points is a candidate for a distinction the model does not make.
 ## Further Exploration
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — still in progress; the
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016. Still in progress; the
   technique first appeared in the 2013 article of the same name.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

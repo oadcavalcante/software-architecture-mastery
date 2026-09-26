@@ -2,7 +2,7 @@
 id: modular-monolith
 title: Monolito Modular
 sidebar_position: 24
-description: Uma unidade de implantação com fronteiras internas impostas — o default que raramente é considerado.
+description: "Uma unidade de implantação com fronteiras internas impostas: o default que raramente é considerado."
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [microservices, modular-design, boundaries]
 canonical_for: [monolito modular, modular monolith]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Um monolito modular é uma aplicação implantada como unidade única, com front
 internas explícitas e **impostas** entre módulos de capacidade.
 
 É a resposta correta sempre que a necessidade é de isolamento **lógico** e não
-operacional — e é a menos considerada, porque "monolito" carrega uma conotação negativa
+operacional. E é a menos considerada, porque "monolito" carrega uma conotação negativa
 que confunde duas coisas diferentes: implantação única e ausência de estrutura.
 
 ## Problema
@@ -34,18 +34,18 @@ A escolha é apresentada como binária: monolito ou microsserviços. Monolito
 significa código emaranhado; microsserviços significam times autônomos e escala
 independente.
 
-A dicotomia é falsa. O que torna um monolito doloroso não é a implantação única —
-é a ausência de fronteiras. E o que microsserviços entregam de fato divide-se em
+A dicotomia é falsa. O que torna um monolito doloroso não é a implantação única,
+mas a ausência de fronteiras. E o que microsserviços entregam de fato divide-se em
 duas coisas com custos muito diferentes:
 
-**Isolamento lógico** — módulos que não se conhecem por dentro. Um monolito
+**Isolamento lógico**: módulos que não se conhecem por dentro. Um monolito
 modular entrega isso integralmente, por uma fração do custo.
 
-**Isolamento operacional** — implantação, escala e falha independentes. Só
+**Isolamento operacional**: implantação, escala e falha independentes. Só
 serviços separados entregam, e é aqui que o custo real está.
 
 A pergunta útil não é "monolito ou microsserviços?". É **"eu preciso de
-isolamento operacional, ou só de isolamento lógico?"** — e a segunda basta para tudo que
+isolamento operacional, ou só de isolamento lógico?"** E a segunda basta para tudo que
 não tenha requisito próprio de escala, de falha ou de conformidade.
 
 ## Conceitos Centrais
@@ -61,7 +61,7 @@ Três propriedades. Faltando qualquer uma, é apenas um monolito.
 esconde suas entidades, seu esquema e suas dependências.
 
 **Fronteiras impostas por mecanismo.** Teste de arquitetura, módulo de linguagem
-ou análise estática. Sem isso, as fronteiras erodem — ver
+ou análise estática. Sem isso, as fronteiras erodem. Ver
 [arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
 
 ### Dados por módulo
@@ -76,7 +76,7 @@ Impor isso é mais difícil que impor fronteira de código, e há mecanismos: es
 separados no mesmo banco, permissões por módulo, ou verificação estática de quais
 tabelas cada módulo referencia.
 
-Sem essa propriedade, extrair um serviço depois é praticamente impossível — porque
+Sem essa propriedade, extrair um serviço depois é praticamente impossível, porque
 a fronteira nunca existiu onde importava.
 
 ### É o passo que informa a extração
@@ -107,7 +107,7 @@ uns aos outros no release, a fronteira precisa ser de implantação.
 **Quando o isolamento de falha é requisito.** Um módulo que não pode derrubar os
 outros precisa de processo separado.
 
-**Quando partes têm requisitos regulatórios ou de segurança incompatíveis** — dado que não
+**Quando partes têm requisitos regulatórios ou de segurança incompatíveis**: dado que não
 pode residir no mesmo processo ou na mesma jurisdição do resto, ou artefato que precisa ser
 certificado e auditado separadamente. Aí a unidade de implantação única é o que quebra.
 
@@ -117,10 +117,10 @@ custo real.
 
 ## Alternativas
 
-- **[Microsserviços](/03-design-patterns/microservices.md)** — quando o isolamento operacional é
+- **[Microsserviços](/03-design-patterns/microservices.md)**: quando o isolamento operacional é
   necessário.
-- **Monolito sem módulos** — legítimo em sistemas pequenos e de vida curta.
-- **Extração seletiva** — monolito modular com um ou dois serviços extraídos por
+- **Monolito sem módulos**: legítimo em sistemas pequenos e de vida curta.
+- **Extração seletiva**: monolito modular com um ou dois serviços extraídos por
   razão específica. É o arranjo que menos tem nome e o que mais aparece quando se olha um
   sistema maduro de perto, porque é onde a decisão foi tomada componente a componente.
 
@@ -138,7 +138,7 @@ custo real.
 | Fronteira erode sem mecanismo | A rede impede alcançar o código, não os dados |
 
 As quatro primeiras linhas são vantagens do monolito que costumam ser esquecidas
-na comparação. As quatro últimas são o que microsserviços compram — e o preço
+na comparação. As quatro últimas são o que microsserviços compram, e o preço
 está nas colunas de cima.
 
 ## Modos de Falha
@@ -176,8 +176,8 @@ operacional por algo que módulos entregam.
 **Shopify.** Westeinde, Kirsten. *Deconstructing the Monolith*, Shopify Engineering, 2019,
 e o balanço de 2020, *Under Deconstruction: The State of Shopify's Monolith*: o monolito de
 comércio em Ruby foi dividido em componentes dentro do mesmo repositório, com fronteiras
-impostas pela ferramenta Packwerk. A decisão documentada é sobre esse núcleo — a empresa
-opera serviços fora dele —, e é o que a torna útil aqui: a escolha foi por componente, não
+impostas pela ferramenta Packwerk. A decisão documentada é sobre esse núcleo (a empresa
+opera serviços fora dele), e é o que a torna útil aqui: a escolha foi por componente, não
 pela arquitetura inteira.
 
 **Consolidações de serviços de volta em monolitos modulares.** Existem relatos públicos, e
@@ -187,8 +187,8 @@ o motivo declarado costuma ser custo operacional e dificuldade de depuração.
 .NET permitem impor fronteiras em tempo de compilação.
 
 Nos relatos que chegam a público, o padrão é o mesmo: os times mantiveram a modularidade e
-abandonaram a distribuição. Isso é compatível com a tese deste documento — que as duas são
-separáveis —, mas não a confirma: quem reverte e se arrepende raramente escreve sobre isso,
+abandonaram a distribuição. Isso é compatível com a tese deste documento (que as duas são
+separáveis), mas não a confirma: quem reverte e se arrepende raramente escreve sobre isso,
 então a amostra pende para os casos que deram certo.
 
 ## Exemplo Real
@@ -206,24 +206,24 @@ fronteiras como módulos com teste de arquitetura. Dois foram descontinuados.
 
 Três serviços ficaram separados, e essa decisão exigiu resolver primeiro o gargalo
 diagnosticado: os dados dos três saíram do banco compartilhado para bases próprias. Sem
-isso, mantê-los fora não compraria escala nenhuma — continuariam presos ao mesmo limite,
+isso, mantê-los fora não compraria escala nenhuma: continuariam presos ao mesmo limite,
 que era exatamente o motivo de os nove não escalarem.
 
 Resultado: de nove para quatro unidades implantáveis. Tempo de diagnóstico caiu
 para menos de dez minutos. Nenhuma fronteira lógica foi perdida.
 
 O que a equipe registrou no ADR é a parte que interessa: a arquitetura original
-não estava errada em identificar as fronteiras — estava errada em concluir que
+não estava errada em identificar as fronteiras; estava errada em concluir que
 toda fronteira lógica precisava ser uma fronteira de processo.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](/03-design-patterns/microservices.md) — quando o isolamento operacional é
+- [Microsserviços](/03-design-patterns/microservices.md): quando o isolamento operacional é
   necessário.
-- [Design Modular](/02-software-design/modular-design.md) — como executar a
+- [Design Modular](/02-software-design/modular-design.md): como executar a
   divisão.
-- [Fronteiras](/02-software-design/boundaries.md) — os níveis e seus custos.
-- [Design de Componentes](/02-software-design/component-design.md) — quando
+- [Fronteiras](/02-software-design/boundaries.md): os níveis e seus custos.
+- [Design de Componentes](/02-software-design/component-design.md): quando
   promover um módulo.
 
 ## Exercício Prático
@@ -242,9 +242,9 @@ impostas por algum mecanismo? Módulos leem tabelas uns dos outros?
 
 ## Para Aprofundar
 
-- Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019 — o monolito modular
+- Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019. O monolito modular
   como ponto de partida.
 - Fowler, Martin. *MonolithFirst*, 2015.
 - Westeinde, Kirsten. *Deconstructing the Monolith: Designing Software that Maximizes
-  Developer Productivity*. Shopify Engineering, 2019 — e *Under Deconstruction: The State of
+  Developer Productivity*. Shopify Engineering, 2019, e *Under Deconstruction: The State of
   Shopify's Monolith*, 2020, com o que eles fariam diferente.

@@ -2,7 +2,7 @@
 id: key-management
 title: Key Management
 sidebar_position: 7
-description: Where cryptography usually fails — not in the algorithm, but in who has the key and what happens if it vanishes.
+description: "Where cryptography usually fails: not in the algorithm, but in who has the key and what happens if it vanishes."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ decision to encrypt has been made.
 
 ## Problem
 
-Encrypting is the easy part — a library call. The questions that come afterward are what determine whether
+Encrypting is the easy part: a library call. The questions that come afterward are what determine whether
 the protection exists:
 
 Where does the key live? Who can use it? How is it rotated without making the old data unreadable? What
@@ -56,7 +56,7 @@ Three advantages:
 
 **The master key never touches the data.** It can live in a security module that does not export it.
 
-**Rotating the master is cheap.** It is enough to re-encrypt the data keys — which are small — without
+**Rotating the master is cheap.** It is enough to re-encrypt the data keys (which are small) without
 touching the data.
 
 **The scope of a compromise is limited.** A leaked data key compromises only what it encrypted.
@@ -65,12 +65,12 @@ touching the data.
 
 Rotating the key that encrypts terabytes is unviable if it requires re-encrypting everything.
 
-With enveloping, the old data stays encrypted with its data keys, and only the envelope changes — in one of
+With enveloping, the old data stays encrypted with its data keys, and only the envelope changes, in one of
 two ways. Re-encrypting every envelope under the new master costs one pass over the data keys, which are
 small, and frees the old master for disposal. Using the new master only for new data costs no pass at all,
 but the old master must exist as long as any envelope is encrypted under it.
 
-That requires **the key version to be stored alongside the data** — to know what to decrypt with. It is a
+That requires **the key version to be stored alongside the data**, to know what to decrypt with. It is a
 small detail whose absence costs dearly later: without it, decrypting means trying every known key
 against every object.
 
@@ -82,7 +82,7 @@ exist.
 Discarding an old key "because we rotated" makes its data permanently unreadable. That has happened in real
 systems, and there is no recovery.
 
-Discarding is only safe after re-encrypting everything that depended on it — or when the discard is
+Discarding is only safe after re-encrypting everything that depended on it, or when the discard is
 **intentional**, as in per-subject encryption for deletion.
 
 ### A security module and a managed service
@@ -104,7 +104,7 @@ The practical recommendation: a managed service, absent a specific requirement. 
 Whoever administers the storage should not be able to use the key. Whoever can use the key should not be
 able to change its policy.
 
-Without that separation, the encryption does not protect against the administrator — which is frequently
+Without that separation, the encryption does not protect against the administrator, which is frequently
 the threat it was meant to address.
 
 In practice: key policies and data policies under the control of distinct roles, with usage audited.
@@ -114,7 +114,7 @@ In practice: key policies and data policies under the control of distinct roles,
 **Compromise.** The key leaked. Response: rotate, re-encrypt what is viable, and assess what was exposed.
 It requires knowing **what that key encrypted**, which is information that needs to exist beforehand.
 
-**Loss.** The key vanished. There is no technical response. The prevention is a backup of the key — which
+**Loss.** The key vanished. There is no technical response. The prevention is a backup of the key. That
 is itself a problem, because the copy needs the same protection.
 
 Managed services solve loss with durability and versioning. Self-managed keys require an explicit
@@ -129,7 +129,7 @@ An attacker with the token signing key issues valid tokens for any user, with an
 verification detects it.
 
 That is why those keys justify greater protection, more frequent rotation and support for multiple valid
-keys — so that the rotation does not invalidate everything at once. See
+keys, so that the rotation does not invalidate everything at once. See
 [supply chain trust](/10-security/supply-chain-trust.md).
 
 ## Mental Model
@@ -151,14 +151,14 @@ Priority when:
 ## When Not to Use
 
 **Your own management when the platform's transparent encryption suffices.** If the threat model is access
-to the medium — a discarded disk, a stolen copy of the storage — the platform already encrypts and holds the
+to the medium (a discarded disk, a stolen copy of the storage), the platform already encrypts and holds the
 key; a hierarchy of your own adds operations without adding protection against that threat.
 
 **A hardware module with no requirement that justifies it.** High cost and operations, and the managed
 service already delivers the property that matters in most cases: the master never leaves the module.
 
 **A managed service when regulation demands your own custody.** If the rule requires that the key never be
-under the provider's control, a key hosted there does not comply — the path is your own module or an
+under the provider's control, a key hosted there does not comply: the path is your own module or an
 external key the provider only references.
 
 **Enveloping when the volume under the key is small.** If re-encrypting everything fits in a maintenance
@@ -166,11 +166,11 @@ window, rotation is already cheap, and the hierarchy only adds one more piece to
 
 ## Alternatives
 
-- **A managed key service** — the reasonable default.
-- **The platform's transparent encryption** — when the threat model is access to the medium. See
+- **A managed key service**: the reasonable default.
+- **The platform's transparent encryption**: when the threat model is access to the medium. See
   [encryption](/10-security/encryption.md).
-- **Tokenization** — the data leaves the system; the key stops being a local problem.
-- **Not encrypting and not storing** — the only way not to have a key to manage.
+- **Tokenization**: the data leaves the system; the key stops being a local problem.
+- **Not encrypting and not storing**: the only way not to have a key to manage.
 
 ## Trade-offs
 
@@ -193,14 +193,14 @@ window, rotation is already cheap, and the hierarchy only adds one more piece to
 
 **An old key discarded.** Old data unreadable.
 
-**A version not recorded.** Decrypting means trying every known key against every object — a cost
+**A version not recorded.** Decrypting means trying every known key against every object: a cost
 proportional to keys times objects.
 
-**A key alongside the data.** Whoever reads the storage decrypts — the encryption exists and protects nothing.
+**A key alongside the data.** Whoever reads the storage decrypts: the encryption exists and protects nothing.
 
 **A compromised signing key.** It allows forging.
 
-**The key service unavailable.** Nothing decrypts — the system stops.
+**The key service unavailable.** Nothing decrypts, and the system stops.
 
 **No inventory.** You do not know what each key encrypts, and the compromise cannot be assessed.
 
@@ -216,7 +216,7 @@ dataset.
 **Not maintaining a key-to-data inventory.** Without knowing what each key protects, there is no way to
 assess a compromise's impact or to decide the response order.
 
-**Storing the key in the same place as the data.** It nullifies the protection — whoever gets access to the
+**Storing the key in the same place as the data.** It nullifies the protection: whoever gets access to the
 storage gets both.
 
 **Not separating administration from use.** Whoever uses the key to decrypt does not need to be able to
@@ -224,10 +224,10 @@ export it or delete it. Without that separation, compromising the application be
 cryptographic material.
 
 **Treating a signing key as an ordinary key.** Compromising an encryption key exposes data; compromising a
-signing key allows forging identity and authorization — damage of a different and greater nature.
+signing key allows forging identity and authorization: damage of a different and greater nature.
 
 **Having no plan for loss.** A backup of the data does not replace one of the key, and the key's backup
-exists only if someone designed it — with the same protection as the original.
+exists only if someone designed it, with the same protection as the original.
 
 ## Real-World Example
 
@@ -237,12 +237,12 @@ application's configuration.
 Three problems appeared over four years:
 
 **Impossible rotation.** The key was never rotated, because rotating would require re-encrypting 14 million
-documents — estimated at three weeks of processing and a high read and write cost. The key was four years
+documents, estimated at three weeks of processing and a high read and write cost. The key was four years
 old.
 
 **A lost key, and no version to tell which documents.** An earlier partial rotation attempt left around
 200,000 documents encrypted with an intermediate key. Two things went wrong, and it is worth separating
-them: the key had gone missing — that is what made the documents unreadable, until somebody found it
+them: the key had gone missing. That is what made the documents unreadable, until somebody found it
 months later in a decommissioned configuration repository. The missing version in the metadata cost
 something else: without it, even with every key in hand, classifying the archive required attempting
 decryption of each object with each known key.
@@ -254,13 +254,13 @@ the project's justification.
 The reformulation:
 
 **Enveloping.** Each document came to have its own key, encrypted by a master key in a managed service.
-The migration paid the three-week pass over the 14 million documents once — acceptable because it was a
+The migration paid the three-week pass over the 14 million documents once, acceptable because it was a
 one-off and coincided with the classification the archive already required. After it, rotating the master
 became an operation of minutes; under a single key, that same pass would have been the price of every
 rotation.
 
 **The key version** written into each object's metadata. The migration required attempting decryption with
-each known key to classify the archive — and that is how the 200,000 documents were identified.
+each known key to classify the archive, and that is how the 200,000 documents were identified.
 
 **Separation of duties.** The master key's policy came to be controlled by a role distinct from the one
 administering the storage, with usage audited.
@@ -271,15 +271,15 @@ And a discovery during the migration: **the key was in a backup of the configura
 object storage it protected.
 
 The recorded lesson: the decision to encrypt had been well made and well justified. Nothing beyond it was
-decided — and four years later the system had encryption with none of the properties encryption was
+decided, and four years later the system had encryption with none of the properties encryption was
 supposed to deliver.
 
 ## Related Concepts
 
-- [Encryption](/10-security/encryption.md) — what the key protects.
-- [Secrets](/10-security/secrets.md) — the broader category.
+- [Encryption](/10-security/encryption.md): what the key protects.
+- [Secrets](/10-security/secrets.md): the broader category.
 - [Data Protection](/10-security/data-protection.md).
-- [JWT](/10-security/jwt.md) — signing keys.
+- [JWT](/10-security/jwt.md): signing keys.
 
 ## Practical Exercise
 

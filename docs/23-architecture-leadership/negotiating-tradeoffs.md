@@ -2,7 +2,7 @@
 id: negotiating-tradeoffs
 title: Negociação de Trade-offs
 sidebar_position: 8
-description: Negociar interesses, não posições — e descobrir que a discordância técnica raramente é técnica.
+description: Negociar interesses, não posições, e descobrir que a discordância técnica raramente é técnica.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, stakeholder-management, cross-team-architecture]
 canonical_for: [negociação de trade-off, posição contra interesse, opção intermediária, critério objetivo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Duas pessoas competentes olham o mesmo problema e chegam a conclusões opostas. Isso é normal, e a
-razão quase nunca é conhecimento desigual — é que elas estão otimizando coisas diferentes.
+razão quase nunca é conhecimento desigual. Em geral, elas estão otimizando coisas diferentes.
 
 ```text
 posição     "precisamos usar Kafka"
@@ -31,7 +31,7 @@ interesse   "preciso que o meu time não fique refém do time de
 ```
 
 Discutir posições produz impasse. Descobrir interesses frequentemente revela que existe uma opção
-que atende aos dois lados e que ninguém tinha proposto — porque cada um estava defendendo a sua.
+que atende aos dois lados e que ninguém tinha proposto, porque cada um estava defendendo a sua.
 
 Essa é a contribuição central de um arquiteto numa discordância entre times: não decidir quem tem
 razão, mas estruturar a conversa até que a opção melhor apareça.
@@ -52,7 +52,7 @@ os dois times executam sem convicção
 O que não aconteceu em nenhum momento: alguém perguntar por que cada time defende o que defende.
 
 E há um segundo padrão, mais silencioso: a discordância que não é expressa. Um time discorda,
-não diz, e simplesmente não adota. Isso é pior que o impasse, porque não há nada a resolver — só
+não diz, e simplesmente não adota. Isso é pior que o impasse, porque não há nada a resolver, só
 um descumprimento invisível descoberto meses depois.
 
 ## Conceitos Centrais
@@ -89,7 +89,7 @@ ser sobre o sistema.
  proposta não atende"                ainda é sobre o problema
 ```
 
-O papel do arquiteto inclui manter a conversa no segundo enunciado — o que às vezes exige nomear
+O papel do arquiteto inclui manter a conversa no segundo enunciado. Isso às vezes exige nomear
 explicitamente que ela derivou.
 
 ### Critérios antes de opções
@@ -104,7 +104,7 @@ O movimento que destrava a maior parte dos impasses:
 
 Definir critérios antes de comparar opções remove o viés de defender a própria proposta, porque
 ninguém sabe ainda qual delas vence. Definir critérios depois produz critérios escolhidos para
-favorecer uma conclusão — o que ambos os lados fazem sem perceber.
+favorecer uma conclusão, e ambos os lados fazem isso sem perceber.
 
 Ver [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
@@ -119,7 +119,7 @@ opção nova    bancos separados, com o time de plataforma operando
 ```
 
 Discussões entre duas posições tendem a produzir uma vitória ou um meio-termo ruim. A terceira
-opção, construída a partir dos interesses, costuma ser melhor que ambas — e ela só aparece depois
+opção, construída a partir dos interesses, costuma ser melhor que ambas, e ela só aparece depois
 que os interesses estão sobre a mesa.
 
 ### Use critérios objetivos, não autoridade
@@ -160,8 +160,8 @@ Ver [decisão em ADR](/18-architecture-decisions/adr-decision.md).
  time B se confirmar, mudamos."
 ```
 
-Quando a discordância é sobre uma previsão — "isso vai ficar caro de operar", "isso não vai
-escalar" —, e a previsão é testável, decidir temporariamente com medição transforma um debate de
+Quando a discordância é sobre uma previsão ("isso vai ficar caro de operar", "isso não vai
+escalar") e a previsão é testável, decidir temporariamente com medição transforma um debate de
 opinião em um experimento.
 
 Isso só funciona quando a reversão é genuinamente barata. Prometer reversibilidade que não existe
@@ -178,7 +178,7 @@ custo        os times aprendem que discordar terceiriza a decisão
              e passam a escalar mais
 ```
 
-Escalar não é fracasso — é um instrumento. O que degrada a organização é escalar como primeiro
+Escalar é um instrumento, não um fracasso. O que degrada a organização é escalar como primeiro
 recurso, porque isso remove dos times a prática de resolver as próprias discordâncias.
 
 ## Modelo Mental
@@ -211,10 +211,10 @@ há um dono; delegue a decisão a ele em vez de negociar (ver Alternativas).
 
 ## Alternativas
 
-- **Medir** — quando a discordância é sobre uma previsão testável, o experimento decide.
-- **Piloto paralelo** — dois times, duas abordagens, avaliação depois; caro e conclusivo.
+- **Medir**: quando a discordância é sobre uma previsão testável, o experimento decide.
+- **Piloto paralelo**: dois times, duas abordagens, avaliação depois; caro e conclusivo.
 - **Delegar a decisão** a quem arca com a consequência.
-- **Adiar com gatilho** — quando a informação que decide vai chegar.
+- **Adiar com gatilho**: quando a informação que decide vai chegar.
 
 A terceira é frequentemente a resposta correta e raramente é considerada: se a consequência é
 majoritariamente de um dos lados, a decisão provavelmente é dele.
@@ -252,7 +252,7 @@ majoritariamente de um dos lados, a decisão provavelmente é dele.
 vitória de um lado ou meio-termo ruim.
 
 **Propor a terceira opção antes** de conhecer os interesses. Ela é lida como a posição do
-arquiteto, e o impasse ganha uma terceira trincheira em vez de uma saída — além de a opção
+arquiteto, e o impasse ganha uma terceira trincheira em vez de uma saída, além de a opção
 provavelmente não atender à restrição que ninguém revelou ainda.
 
 **Usar experiência como argumento** onde há medição possível. O lado vencido cede à autoridade,
@@ -328,7 +328,7 @@ D                      4      4       4        2     3,70
 ```
 
 C venceu com quase um ponto sobre B e 0,7 sobre D: ela reduzia o
-tempo de mudança para horas — melhor até que a opção A — e não acrescentava modelo operacional
+tempo de mudança para horas (melhor até que a opção A) e não acrescentava modelo operacional
 novo à plataforma.
 
 O custo: a plataforma precisava construir o autoatendimento de esquema, cerca de seis semanas.
@@ -348,7 +348,7 @@ resolver uma discordância virou capacidade de plataforma.
 
 O que a área de arquitetura registra: as duas opções novas, C e D, eram óbvias em retrospecto e
 invisíveis durante quatro meses. Elas só apareceram depois que a conversa mudou de "quem tem
-razão" para "o que cada um precisa" — e a pergunta que produziu essa mudança levou trinta
+razão" para "o que cada um precisa". E a pergunta que produziu essa mudança levou trinta
 segundos.
 
 ## Conceitos Relacionados
@@ -364,7 +364,7 @@ Pegue uma discordância técnica em andamento e escreva, para cada lado, a posi�
 por trás dela.
 
 Depois tente construir uma opção que atenda aos dois interesses. Se ela existir, ela não estava na
-mesa — e é provavelmente melhor que as duas.
+mesa, e é provavelmente melhor que as duas.
 
 ## Perguntas de Entrevista
 

@@ -2,7 +2,7 @@
 id: logs
 title: Logs
 sidebar_position: 1
-description: The most flexible signal and the most expensive — structured, with context, and sampled when necessary.
+description: "The most flexible signal and the most expensive: structured, with context, and sampled when necessary."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, traces, correlation-ids]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-31
 
 Logs are records of discrete events: something happened, here is the context.
 
-They are the most **flexible** signal — they hold any information, and they allow answering questions
-nobody anticipated. And the most **expensive** — the volume grows with the traffic, and the storage and
+They are the most **flexible** signal: they hold any information, and they allow answering questions
+nobody anticipated. And the most **expensive**: the volume grows with the traffic, and the storage and
 query costs follow.
 
 The tension between those two properties organizes every decision in this area.
@@ -53,8 +53,8 @@ structured   {"level":"error","event":"order_failed","order_id":"4471",
               "duration_ms":234}
 ```
 
-The difference is not aesthetic. The structured one allows querying by field — every insufficient stock
-error for customer 892 in the last hour — with no dependence on regular expressions over free text.
+The difference is not aesthetic. The structured one allows querying by field (every insufficient stock
+error for customer 892 in the last hour) with no dependence on regular expressions over free text.
 
 And it survives changes: adding a field does not break existing queries; rewording a text message breaks
 all of them.
@@ -76,7 +76,7 @@ canonical   1 line with: correlation, user, route, outcome, total duration,
             code version, instance
 ```
 
-The volume falls by an order of magnitude, and the investigation capability **increases** — because each
+The volume falls by an order of magnitude, and the investigation capability **increases**, because each
 line answers "what happened in this request?" on its own, with no need to gather fragments.
 
 In systems that emit dozens of lines per request, it is the change that cuts the most volume and
@@ -116,7 +116,7 @@ error metric and trains the team to ignore it.
 
 **Debug on in production.** The volume explodes, the cost explodes, and the signal is lost.
 
-The practice that works: debug switchable **per request** or per user, with no redeployment — which allows
+The practice that works: debug switchable **per request** or per user, with no redeployment. That allows
 investigating a specific case without paying for the full volume.
 
 ### Never record sensitive data
@@ -130,7 +130,7 @@ careful  a name, an email, an address, health data
 
 See [data protection](/10-security/data-protection.md) and [secrets](/10-security/secrets.md).
 
-The filtering needs to happen **at the source** — in the logging library, not in later processing. Data
+The filtering needs to happen **at the source**, in the logging library, not in later processing. Data
 that left the process has already leaked.
 
 And the most common case: logging the complete body of failing requests. It is convenient for debugging and
@@ -142,7 +142,7 @@ Log volume grows with the traffic, and the cost is collection, transport, indexi
 
 The ways to control it, in order of preference:
 
-**A canonical event** instead of scattered lines — it reduces volume with no loss of information.
+**A canonical event** instead of scattered lines: it reduces volume with no loss of information.
 
 **Intelligent sampling.** Recording 100% of errors and slow requests, and a fraction of the fast successful
 ones. It preserves what matters.
@@ -151,7 +151,7 @@ ones. It preserves what matters.
 
 **Cardinality under control.** A field with millions of distinct values makes indexing expensive.
 
-For whoever investigates failures, uniform sampling — recording 10% of everything — is the worst choice: it
+For whoever investigates failures, uniform sampling (recording 10% of everything) is the worst choice: it
 removes errors proportionally, and they are rare and are what you want to investigate.
 
 ## Mental Model
@@ -169,7 +169,7 @@ lines with one field each.
 
 ## When Not to Use
 
-**To measure a trend.** Use [metrics](/13-observability/metrics.md) — counting log lines is expensive and
+**To measure a trend.** Use [metrics](/13-observability/metrics.md): counting log lines is expensive and
 imprecise.
 
 **To measure aggregate latency.** Metrics do it better.
@@ -184,11 +184,11 @@ describes. At that scale, a counter and a histogram per batch; a log only for th
 
 ## Alternatives
 
-- **[Metrics](/13-observability/metrics.md)** — for aggregation and trend, at a constant cost.
-- **[Traces](/13-observability/traces.md)** — to understand a request's path and timing.
-- **An audit event** — when the requirement is proof, not diagnosis. See
+- **[Metrics](/13-observability/metrics.md)**: for aggregation and trend, at a constant cost.
+- **[Traces](/13-observability/traces.md)**: to understand a request's path and timing.
+- **An audit event**: when the requirement is proof, not diagnosis. See
   [auditability](/10-security/auditability.md).
-- **[Tail-based sampling](/13-observability/distributed-tracing.md)** — for logs it comes almost free when
+- **[Tail-based sampling](/13-observability/distributed-tracing.md)**: for logs it comes almost free when
   the record is a canonical event: the line is only emitted at the end, already carrying the outcome,
   without the span buffer the technique requires for traces.
 
@@ -233,12 +233,12 @@ for customer X" becomes a regular expression over gigabytes.
 One wide line per request, with everything that matters, answers most questions on its own.
 
 **Logging with no structured reason.** With no cause field, grouping failures by reason requires
-interpreting a message — and the message changes when somebody edits the text.
+interpreting a message, and the message changes when somebody edits the text.
 
 **Not filtering sensitive data at the source.** Once sent, the data is in the logging system for the
 retention period, with broader access than the source system's. Filtering afterward does not undo it.
 
-**Sampling uniformly.** Uniform sampling discards errors in the same proportion as successes — and it is
+**Sampling uniformly.** Uniform sampling discards errors in the same proportion as successes, and it is
 the errors you want to investigate. Errors deserve full sampling.
 
 **Using logs to measure a trend.** Counting lines to know the error rate is expensive and imprecise. A log
@@ -246,13 +246,13 @@ answers about one case; a metric answers about the set.
 
 ## Real-World Example
 
-An e-commerce platform spent a significant fraction of its infrastructure budget on logs — the second
+An e-commerce platform spent a significant fraction of its infrastructure budget on logs, the second
 largest item on the bill.
 
 The volume was billions of lines per day, and queries during incidents took minutes.
 
-The analysis showed the pattern: each request generated between 15 and 40 lines, most of them progress —
-"starting", "stage completed", "calling service X".
+The analysis showed the pattern: each request generated between 15 and 40 lines, most of them progress
+("starting", "stage completed", "calling service X").
 
 The reformulation:
 
@@ -275,19 +275,19 @@ allowed-field list instead of a blocked one.
 
 **Tiered retention.** 14 days queryable, 1 year in cold storage.
 
-Result: the log cost reduced by around 85% — less than the volume, because collection agents, the pipeline
-and a year of cold storage do not shrink with the lines — and the average query time during investigation went from 4
+Result: the log cost reduced by around 85% (less than the volume, because collection agents, the pipeline
+and a year of cold storage do not shrink with the lines) and the average query time during investigation went from 4
 minutes to 15 seconds.
 
 In retrospect: the expectation was having to choose between cost and investigation capability. The
-canonical event improved both — because the problem was not volume of information, it was volume of lines
+canonical event improved both, because the problem was not volume of information, it was volume of lines
 with little information each.
 
 ## Related Concepts
 
-- [Metrics](/13-observability/metrics.md) — for trends.
-- [Traces](/13-observability/traces.md) — for the path.
-- [Correlation Identifiers](/13-observability/correlation-ids.md) — what connects them.
+- [Metrics](/13-observability/metrics.md): for trends.
+- [Traces](/13-observability/traces.md): for the path.
+- [Correlation Identifiers](/13-observability/correlation-ids.md): what connects them.
 - [Debuggability](/13-observability/debuggability.md).
 
 ## Practical Exercise
@@ -305,6 +305,6 @@ happened?
 
 ## Further Reading
 
-- Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022 — canonical events.
+- Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022. Canonical events.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
 - OpenTelemetry — the logs specification.

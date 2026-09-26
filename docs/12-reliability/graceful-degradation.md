@@ -2,7 +2,7 @@
 id: graceful-degradation
 title: Degradação Graciosa
 sidebar_position: 13
-description: Funcionar pior em vez de parar — barata onde a redundância é cara, e a menos aplicada.
+description: "Funcionar pior em vez de parar: barata onde a redundância é cara, e a menos aplicada."
 doc_type: pattern
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, slo]
 canonical_for: [degradação graciosa, funcionalidade essencial, resposta de reserva]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -36,7 +36,7 @@ E é a menos aplicada, porque essa decisão é de produto, e raramente alguém a
 O comportamento padrão de uma aplicação é binário: a dependência falha, a requisição
 falha, o usuário vê erro.
 
-Isso significa que uma falha no serviço de recomendações — que enfeita a página —
+Isso significa que uma falha no serviço de recomendações, que enfeita a página,
 impede a compra. Uma falha no serviço de avaliações impede ver o produto. Uma falha na
 foto de perfil impede o login.
 
@@ -105,7 +105,7 @@ tem atraso não reporta defeito.
 ### Precisa ser exercitado
 
 Um caminho degradado que nunca executa está quebrado. Ele é escrito uma vez, nunca
-testado, e falha no momento em que é acionado — tipicamente porque a resposta padrão
+testado, e falha no momento em que é acionado, tipicamente porque a resposta padrão
 tem formato que a interface não espera.
 
 Duas práticas que resolvem:
@@ -124,7 +124,7 @@ Isso é descarte de carga seletivo, e é mais inteligente que rejeitar requisiç
 uniformemente. Ver
 [backpressure](/06-distributed-systems/backpressure.md).
 
-Ter um interruptor por funcionalidade — acionável sem implantação — é o que torna isso
+Ter um interruptor por funcionalidade, acionável sem implantação, é o que torna isso
 operacional durante um incidente.
 
 ### Os limites da degradação
@@ -138,7 +138,7 @@ Nem tudo degrada. Vale ser explícito:
 
 **Dados que controlam recurso finito.** Estoque, assento, cota.
 
-Para esses, a resposta correta é falhar — de forma clara, com mensagem útil.
+Para esses, a resposta correta é falhar, de forma clara, com mensagem útil.
 
 ## Modelo Mental
 
@@ -170,10 +170,10 @@ vender o que não existe.
 
 ## Alternativas
 
-- **Redundância** — evita a falha em vez de degradar. Mais caro.
-- **[Circuit breaker](/12-reliability/circuit-breakers.md)** — para de tentar e degrada rápido.
-- **[Bulkhead](/12-reliability/bulkheads.md)** — isola para que a falha não alcance.
-- **Falhar rápido com mensagem clara** — quando degradar não é possível.
+- **Redundância**: evita a falha em vez de degradar. Mais caro.
+- **[Circuit breaker](/12-reliability/circuit-breakers.md)**: para de tentar e degrada rápido.
+- **[Bulkhead](/12-reliability/bulkheads.md)**: isola para que a falha não alcance.
+- **Falhar rápido com mensagem clara**: quando degradar não é possível.
 
 Circuit breaker e degradação são complementares: o primeiro detecta que a dependência
 está fora; o segundo define o que fazer então.
@@ -209,11 +209,11 @@ está fora; o segundo define o que fazer então.
 
 ## Erros Comuns
 
-**Não classificar funcionalidades.** Sem decidir antes o que é essencial e o que é acessório, a degradação é improvisada durante o incidente — quando ninguém tem tempo de decidir bem.
+**Não classificar funcionalidades.** Sem decidir antes o que é essencial e o que é acessório, a degradação é improvisada durante o incidente, quando ninguém tem tempo de decidir bem.
 
 **Deixar a decisão para o desenvolvedor.** O que pode ser desligado é decisão de produto, com consequência de negócio. Tomada no código, ela vira inconsistente entre partes do sistema.
 
-**Não testar o caminho degradado.** Ele só executa em incidente, então costuma estar quebrado — e a descoberta acontece quando ele era a última defesa.
+**Não testar o caminho degradado.** Ele só executa em incidente, então costuma estar quebrado, e a descoberta acontece quando ele era a última defesa.
 
 **Não avisar quando o usuário percebe.** Recomendação vazia sem explicação parece defeito. Uma linha dizendo que o recurso está temporariamente indisponível preserva a confiança.
 
@@ -224,7 +224,7 @@ está fora; o segundo define o que fazer então.
 ## Exemplo Real
 
 Uma plataforma de comércio eletrônico tinha a página de produto dependendo de sete
-serviços. Qualquer um fora derrubava a página inteira — e com ela, a possibilidade de
+serviços. Qualquer um fora derrubava a página inteira e, com ela, a possibilidade de
 comprar.
 
 O incidente que motivou a mudança: o serviço de recomendações ficou fora por 40
@@ -246,7 +246,7 @@ perguntas e respostas opcional
 
 A implementação:
 
-**Opcionais omitidos** quando indisponíveis, com timeout de 300 ms — se não respondeu,
+**Opcionais omitidos** quando indisponíveis, com timeout de 300 ms: se não respondeu,
 não aparece.
 
 **Avaliações** com aviso e cache de 24 horas como reserva.
@@ -258,7 +258,7 @@ marcado como estimativa.
 sob sobrecarga.
 
 **Modo somente leitura** para o catálogo inteiro, acionável quando o banco de escrita
-está indisponível — o que permite continuar vendendo com o estoque em cache, aceitando
+está indisponível, o que permite continuar vendendo com o estoque em cache, aceitando
 pedidos em fila.
 
 Esse último foi o mais discutido, porque aceitar pedido sem confirmar estoque contraria
@@ -274,25 +274,25 @@ degradação parcial.
 **O modo somente leitura** foi acionado duas vezes, mantendo 70% da receita durante
 indisponibilidades do banco primário.
 
-**Um problema:** numa das ocasiões, o caminho degradado de frete estava quebrado — a
+**Um problema:** numa das ocasiões, o caminho degradado de frete estava quebrado. A
 tabela fixa tinha sido escrita 8 meses antes e nunca executada, com um erro de formato.
 A partir daí, os caminhos degradados entraram na suíte de testes e no exercício mensal.
 
 O aprendizado que ficou: a classificação levou duas horas e nunca tinha sido feita em
-seis anos de produto. A pergunta "o que é essencial nesta página?" não tinha dono — nem
+seis anos de produto. A pergunta "o que é essencial nesta página?" não tinha dono: nem
 produto nem engenharia a consideravam sua.
 
 ## Conceitos Relacionados
 
-- [Circuit Breakers](/12-reliability/circuit-breakers.md) — detecta e aciona a degradação.
-- [Bulkheads](/12-reliability/bulkheads.md) — impede a propagação.
-- [SLO](/12-reliability/slo.md) — o alvo que a degradação ajuda a sustentar.
-- [Backpressure](/06-distributed-systems/backpressure.md) — descarte seletivo.
+- [Circuit Breakers](/12-reliability/circuit-breakers.md): detecta e aciona a degradação.
+- [Bulkheads](/12-reliability/bulkheads.md): impede a propagação.
+- [SLO](/12-reliability/slo.md): o alvo que a degradação ajuda a sustentar.
+- [Backpressure](/06-distributed-systems/backpressure.md): descarte seletivo.
 
 ## Exercício Prático
 
 Pegue a tela mais importante do seu produto e liste as dependências dela. Classifique
-cada uma como essencial, importante ou opcional — com alguém de produto na sala.
+cada uma como essencial, importante ou opcional, com alguém de produto na sala.
 
 Depois verifique o que acontece hoje quando cada uma falha. A diferença entre a
 classificação e o comportamento atual é o trabalho.
@@ -306,5 +306,5 @@ classificação e o comportamento atual é o trabalho.
 ## Para Aprofundar
 
 - Nygard, Michael. *Release It!*. 2ª ed. Pragmatic Bookshelf, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 22.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 22.
 - Fowler, Susan. *Production-Ready Microservices*. O'Reilly, 2016.

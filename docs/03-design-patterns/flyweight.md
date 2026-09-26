@@ -2,7 +2,7 @@
 id: flyweight
 title: Flyweight
 sidebar_position: 11
-description: Compartilhar estado comum entre muitos objetos — uma otimização de memória, com tudo que isso implica.
+description: "Compartilhar estado comum entre muitos objetos: uma otimização de memória, com tudo que isso implica."
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [prototype, proxy, singleton]
 canonical_for: [flyweight, estado intrínseco, estado extrínseco]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-26
 Flyweight reduz o consumo de memória compartilhando o estado comum entre muitos
 objetos semelhantes.
 
-É explicitamente uma **otimização** — e o único padrão do catálogo cujo ganho declarado é
+É explicitamente uma **otimização**, e o único padrão do catálogo cujo ganho declarado é
 só consumo de memória, o que o torna o único que não se justifica sem medir antes. Isso muda
 como ele deve ser tratado: aplicar sem medição antes é o erro por definição.
 
@@ -46,10 +46,10 @@ e o próprio caractere.
 
 A separação que define o padrão.
 
-**Intrínseco** — independente do contexto, compartilhável. A fonte, o tamanho, a
+**Intrínseco**: independente do contexto, compartilhável. A fonte, o tamanho, a
 cor. Vive dentro do flyweight.
 
-**Extrínseco** — depende do contexto, não compartilhável. A posição, o índice.
+**Extrínseco**: depende do contexto, não compartilhável. A posição, o índice.
 Fica fora e é passado como parâmetro nas operações.
 
 ```text
@@ -64,7 +64,7 @@ pequeno.
 ### Flyweights precisam ser imutáveis
 
 Se um flyweight é compartilhado por milhares de contextos, alterá-lo afeta todos.
-Imutabilidade não é recomendação aqui — é requisito.
+Imutabilidade aqui é requisito, não recomendação.
 
 ### O custo escondido
 
@@ -81,7 +81,7 @@ objetos muito baratos de criar, a busca pode custar mais que a criação.
 
 ## Quando Usar
 
-- O número de objetos é muito grande — ordem de centenas de milhares ou mais.
+- O número de objetos é muito grande: ordem de centenas de milhares ou mais.
 - A memória foi **medida** e é um gargalo real.
 - A maior parte do estado é repetida e pode ser separada.
 - Os flyweights podem ser imutáveis.
@@ -107,12 +107,12 @@ automaticamente. Reimplementar é trabalho duplicado.
 
 ## Alternativas
 
-- **Estruturas de dados orientadas a valor** — arrays de primitivos em vez de
+- **Estruturas de dados orientadas a valor**: arrays de primitivos em vez de
   objetos, quando a plataforma permite.
-- **Internamento** — reutilizar instâncias imutáveis idênticas, que é Flyweight
+- **Internamento**: reutilizar instâncias imutáveis idênticas, que é Flyweight
   simplificado e frequentemente suficiente.
-- **Carga sob demanda** — não manter tudo em memória.
-- **Não fazer nada** — se a medição não apontou memória como gargalo.
+- **Carga sob demanda**: não manter tudo em memória.
+- **Não fazer nada**: se a medição não apontou memória como gargalo.
 
 ## Trade-offs
 
@@ -158,14 +158,14 @@ plataforma.
 inteiros de faixa pequena, pela mesma razão.
 
 **Motores de renderização de texto.** Glifos e informações de fonte compartilhados
-entre milhões de caracteres — o caso original.
+entre milhões de caracteres: o caso original.
 
 **Motores de jogos.** Texturas, malhas e materiais compartilhados entre milhares
 de instâncias; apenas transformação e estado são por instância.
 
 Nos dois primeiros, o padrão é da plataforma e o programador se beneficia sem
 saber. Nos dois últimos, ele é aplicado deliberadamente e sempre depois de um
-perfil de memória — que é a ordem correta.
+perfil de memória. Essa é a ordem correta.
 
 ## Exemplo Real
 
@@ -178,8 +178,8 @@ de mais de um segundo.
 A análise dos dados revelou que existiam **37 combinações distintas** de ícone,
 cor e tamanho, entre os 400 mil pontos.
 
-Separando o estilo — intrínseco, 37 instâncias — da coordenada e do rótulo —
-extrínsecos — a memória caiu para 180 MB e as pausas para dezenas de
+Separando o estilo (intrínseco, 37 instâncias) da coordenada e do rótulo
+(extrínsecos), a memória caiu para 180 MB e as pausas para dezenas de
 milissegundos.
 
 Dois pontos que valem mais que o ganho. Primeiro: a decisão só foi possível
@@ -192,9 +192,9 @@ registrando a razão. É o trade-off do padrão, e ele foi pago.
 
 ## Conceitos Relacionados
 
-- [Prototype](/03-design-patterns/prototype.md) — cópia em vez de compartilhamento.
-- [Singleton](/03-design-patterns/singleton.md) — instância única, propósito diferente.
-- [Proxy](/03-design-patterns/proxy.md) — frequentemente usado para carga sob demanda, uma
+- [Prototype](/03-design-patterns/prototype.md): cópia em vez de compartilhamento.
+- [Singleton](/03-design-patterns/singleton.md): instância única, propósito diferente.
+- [Proxy](/03-design-patterns/proxy.md): frequentemente usado para carga sob demanda, uma
   alternativa a este padrão.
 
 ## Exercício Prático
@@ -203,7 +203,7 @@ Se seu sistema mantém muitos objetos semelhantes em memória, conte quantas
 combinações distintas de atributos existem de fato.
 
 A razão entre o número de objetos e o número de combinações limita o compartilhamento da
-**parcela intrínseca**, não da memória total — é por isso que 400 mil pontos para 37
+**parcela intrínseca**, não da memória total. É por isso que 400 mil pontos para 37
 combinações, uma razão de 10.800 para 1, renderam 6,7× no caso acima e não 10.800×. Meça
 antes que fração do objeto é intrínseca: é ela que o padrão devolve.
 

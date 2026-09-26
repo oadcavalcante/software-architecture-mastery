@@ -2,7 +2,7 @@
 id: fault-tolerance
 title: Tolerância a Falhas
 sidebar_position: 3
-description: Continuar correto apesar da falha de componentes — detectar, isolar, recuperar.
+description: "Continuar correto apesar da falha de componentes: detectar, isolar, recuperar."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [redundancy, resilience, circuit-breakers]
 canonical_for: [tolerância a falhas, isolamento de falha, recuperação automática, falha silenciosa]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -32,7 +32,7 @@ isolar     impedir que a falha se propague
 recuperar  voltar ao estado correto
 ```
 
-O primeiro é o mais negligenciado. Não se tolera o que não se percebe — e falhas
+O primeiro é o mais negligenciado. Não se tolera o que não se percebe, e falhas
 silenciosas são a categoria que mais causa dano prolongado.
 
 ## Problema
@@ -45,7 +45,7 @@ partes: quanto mais componentes, pior.
 ```
 
 Adicionar funcionalidade significa adicionar componentes, o que significa piorar a
-confiabilidade — a menos que o sistema tolere a falha deles.
+confiabilidade, a menos que o sistema tolere a falha deles.
 
 Isso torna a tolerância não uma otimização, mas o que permite ao sistema crescer sem
 degradar.
@@ -84,7 +84,7 @@ descarte de carga rejeita em vez de acumular
 Ver [bulkheads](/12-reliability/bulkheads.md) e [circuit breakers](/12-reliability/circuit-breakers.md).
 
 Sem isolamento, uma falha localizada consome recursos compartilhados e o sistema inteiro
-para — o modo de falha mais comum em arquiteturas com muitas dependências.
+para: o modo de falha mais comum em arquiteturas com muitas dependências.
 
 ### Recuperar precisa ser automático onde possível
 
@@ -116,7 +116,7 @@ verificação desabilitada       a proteção sumiu
 ```
 
 O padrão comum: **a ausência de algo não gera sinal**. Detectá-la exige monitorar o que
-deveria acontecer, não apenas o que acontece — atraso de consumidor, última execução de
+deveria acontecer, não apenas o que acontece: atraso de consumidor, última execução de
 tarefa, defasagem de réplica.
 
 ### Tolerar tem custo, e ele nem sempre se paga
@@ -141,7 +141,7 @@ Efeito colateral que precisa ser gerenciado: um sistema que tolera bem esconde a
 frequência real de falhas.
 
 Uma dependência que falha 5% das vezes, com retentativa e circuit breaker, produz
-experiência boa — e a degradação subjacente fica invisível até piorar o suficiente para
+experiência boa, e a degradação subjacente fica invisível até piorar o suficiente para
 vencer a proteção.
 
 Por isso a instrumentação dos próprios mecanismos importa: contagem de retentativas,
@@ -160,7 +160,7 @@ operação enfileirada        aceitável para notificação, inaceitável para a
 recusa                      aceitável quando o alternativo é resultado errado
 ```
 
-Sem essa decisão, cada mecanismo de tolerância adota um comportamento implícito — e
+Sem essa decisão, cada mecanismo de tolerância adota um comportamento implícito, e
 comportamentos implícitos combinam mal. Um serviço serve dado velho, o seguinte
 combina com dado atual, e o resultado é inconsistente sem que nada tenha falhado
 visivelmente.
@@ -197,10 +197,10 @@ primeiro.
 
 ## Alternativas
 
-- **Recuperação rápida** — em vez de tolerar, encurtar o tempo de retomada.
-- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — operar sem o componente.
-- **Simplificar** — menos componentes falham menos.
-- **Substituir a dependência instável** — tratar a causa em vez do sintoma.
+- **Recuperação rápida**: em vez de tolerar, encurtar o tempo de retomada.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)**: operar sem o componente.
+- **Simplificar**: menos componentes falham menos.
+- **Substituir a dependência instável**: tratar a causa em vez do sintoma.
 
 ## Trade-offs
 
@@ -235,22 +235,22 @@ não funciona.
 
 ## Erros Comuns
 
-**Investir em isolamento sem detecção** — a falha fica contida e silenciosa; o dano
+**Investir em isolamento sem detecção**: a falha fica contida e silenciosa; o dano
 acumula sem gerar sinal.
 
-**Verificação de saúde que só testa se o processo responde** — a instância que devolve
+**Verificação de saúde que só testa se o processo responde**: a instância que devolve
 dado errado segue marcada como saudável e recebendo tráfego.
 
-**Não monitorar ausência** — o consumidor parado e a tarefa que não rodou não geram
+**Não monitorar ausência**: o consumidor parado e a tarefa que não rodou não geram
 erro; o efeito some e a descoberta vem do cliente.
 
-**Não instrumentar os mecanismos de tolerância** — retentativas e aberturas de circuito
+**Não instrumentar os mecanismos de tolerância**: retentativas e aberturas de circuito
 crescem sem registro, e a piora só aparece quando vence a proteção.
 
-**Tolerar em vez de corrigir a causa** — a dependência que falha 5% das vezes vira
+**Tolerar em vez de corrigir a causa**: a dependência que falha 5% das vezes vira
 condição permanente, paga em latência de retentativa a cada chamada.
 
-**Não exercitar** — o failover que nunca foi acionado descobre a configuração
+**Não exercitar**: o failover que nunca foi acionado descobre a configuração
 quebrada durante o incidente. Ver [engenharia do caos](/12-reliability/chaos-engineering.md).
 
 ## Exemplo Real
@@ -268,7 +268,7 @@ O efeito: 2% dos pagamentos confirmados pelo gateway nunca eram marcados como pa
 Os clientes recebiam cobranças de faturas já pagas.
 
 Nenhum alerta disparou em onze meses. O sistema estava disponível e rápido, e o fluxo de
-confirmação daquele gateway estava correto em 98% dos casos — e a tolerância funcionou exatamente como projetada: isolou a falha e
+confirmação daquele gateway estava correto em 98% dos casos. E a tolerância funcionou exatamente como projetada: isolou a falha e
 seguiu.
 
 A detecção veio do time de atendimento, ao notar um padrão nas reclamações.
@@ -289,14 +289,14 @@ da faixa esperada.
 mensagens descartadas, com painel e alerta de tendência.
 
 A avaliação posterior aponta: eles tinham investido bastante em isolar e recuperar, e quase
-nada em detectar. A falha foi isolada com perfeição — e ficou isolada, silenciosa, por
+nada em detectar. A falha foi isolada com perfeição, e ficou isolada, silenciosa, por
 onze meses.
 
 ## Conceitos Relacionados
 
-- [Redundância](/12-reliability/redundancy.md) — o mecanismo mais comum.
-- [Resiliência](/12-reliability/resilience.md) — a propriedade mais ampla.
-- [Bulkheads](/12-reliability/bulkheads.md) e [Circuit Breakers](/12-reliability/circuit-breakers.md) — o isolamento.
+- [Redundância](/12-reliability/redundancy.md): o mecanismo mais comum.
+- [Resiliência](/12-reliability/resilience.md): a propriedade mais ampla.
+- [Bulkheads](/12-reliability/bulkheads.md) e [Circuit Breakers](/12-reliability/circuit-breakers.md): o isolamento.
 - [Detecção de Falhas](/06-distributed-systems/failure-detection.md).
 
 ## Exercício Prático

@@ -2,7 +2,7 @@
 id: background-processing
 title: Background Processing
 sidebar_position: 12
-description: Work that happens outside the request — and how the user knows it finished.
+description: Work that happens outside the request, and how the user knows it finished.
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [queues]
 related: [queues, request-response, observability]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -36,7 +36,7 @@ Long work inside the request produces three known failures: a timeout midway, wi
 know whether it completed; connections exhausted by waiting; and no way to resume what
 stopped.
 
-Moving it to the background solves all three — and creates a new problem: the work now happens
+Moving it to the background solves all three, and creates a new problem: the work now happens
 in a place nobody is watching.
 
 ## Core Concepts
@@ -65,17 +65,17 @@ view.
 
 Repeated polling works and wastes. Alternatives, depending on the case:
 
-**Webhook** — the system notifies when it finishes. Requires the consumer to have an
+**Webhook**: the system notifies when it finishes. Requires the consumer to have an
 endpoint.
 
-**Persistent connection** — WebSocket or server-sent events. Good for a UI, and it creates
+**Persistent connection**: WebSocket or server-sent events. Good for a UI, and it creates
 connection state. See
 [stateless vs. stateful](/05-system-design/stateless-vs-stateful.md).
 
-**Asynchronous notification** — email or a message. Suitable for long work, of minutes or
+**Asynchronous notification**: email or a message. Suitable for long work, of minutes or
 hours.
 
-**Polling with a growing interval** — the simplest and frequently sufficient.
+**Polling with a growing interval**: the simplest and frequently sufficient.
 
 ### The three triggers
 
@@ -83,7 +83,7 @@ hours.
 one most aligned with [queues](/05-system-design/queues.md).
 
 **Scheduled.** Runs at defined times. The classic error here is implementing the schedule in
-the service's memory — with several instances, each one fires.
+the service's memory: with several instances, each one fires.
 
 **Continuous.** A consumer that keeps reading a queue.
 
@@ -93,13 +93,13 @@ instances executes four times.
 
 ### Idempotency and resumption
 
-All background work can be executed twice — through a retry, through duplication in the
+All background work can be executed twice: through a retry, through duplication in the
 queue, through a restart midway. The requirement that follows is
 [idempotency](/06-distributed-systems/idempotency.md), defined there with the explicit key
 that makes it reliable.
 
 For long work, resumption matters: processing 100 thousand records and failing at 80 thousand
-should not start over from zero. Marking progress allows resumption — and requires the work to
+should not start over from zero. Marking progress allows resumption, and requires the work to
 be divisible.
 
 ### Observability is mandatory
@@ -111,19 +111,19 @@ failure metrics, and an alert for work that does not run within the expected win
 
 The last is the most forgotten: scheduled work that **stops running** generates no error at
 all. Silence is the symptom, and the absence alert is the only path that detects it before
-the effect does — without it, the discovery arrives when someone misses the result.
+the effect does. Without it, the discovery arrives when someone misses the result.
 
 ## Mental Model
 
 **Background work is a promise.** Whoever makes the promise has to give the user a way to know
-whether it was kept — and the operator a way to know whether it was not.
+whether it was kept, and the operator a way to know whether it was not.
 
 ## When to Use
 
 - The work takes more than a few seconds.
 - The user does not need the result immediately.
 - The work can fail and be retried.
-- You need to limit the pace — processing a thousand items without overloading an external
+- You need to limit the pace: processing a thousand items without overloading an external
   service.
 - The work is scheduled.
 
@@ -146,11 +146,11 @@ same data produce an unpredictable result.
 
 ## Alternatives
 
-- **Synchronous** — for short work.
-- **Streaming response** — returning partial results while processing, when the protocol
+- **Synchronous**: for short work.
+- **Streaming response**: returning partial results while processing, when the protocol
   allows.
-- **Precomputation** — if the result is predictable, compute it before it is requested.
-- **Reduce the work** — the least considered alternative: a report that takes ten minutes is
+- **Precomputation**: if the result is predictable, compute it before it is requested.
+- **Reduce the work** (the least considered alternative): a report that takes ten minutes is
   frequently processing data nobody looks at.
 
 ## Trade-offs
@@ -181,7 +181,7 @@ same data produce an unpredictable result.
 ## Common Mistakes
 
 **Scheduling in the service's memory.** It vanishes on every restart and executes N times when
-there are N instances — both problems appear precisely when the system grows or is deployed
+there are N instances. Both problems appear precisely when the system grows or is deployed
 more frequently.
 
 **Not exposing a queryable state.** With no place to ask "did that job run?", the only way to
@@ -189,7 +189,7 @@ answer is to search the logs, and support comes to depend on whoever has access 
 
 **Not alerting on absence of execution.** Monitoring usually watches for errors; a job that
 simply stopped being triggered generates no error at all, and the discovery comes through the
-effect — the report nobody received.
+effect: the report nobody received.
 
 **Not setting a job timeout.** A stuck execution holds resources indefinitely and blocks the
 following ones, turning an isolated failure into a stalled queue.
@@ -211,13 +211,13 @@ several times, generating four identical reports.
 service had three instances. On the first of every month, three reports were generated
 simultaneously, saturating the database.
 
-**Failures were invisible.** Over three months, the February report was not generated — a data
-error made it fail — and nobody noticed until accounting asked in April.
+**Failures were invisible.** Over three months, the February report was not generated (a data
+error made it fail) and nobody noticed until accounting asked in April.
 
 The fixes.
 
 The response became a `202` with an identifier. The screen polls the state and shows progress,
-and the button is disabled while one is in progress — which solved the duplication by clicking.
+and the button is disabled while one is in progress. That solved the duplication by clicking.
 
 The schedule left the service for an external scheduler, which publishes a message to the
 queue. One trigger, one consumer picks it up.
@@ -231,10 +231,10 @@ with no absence alert trades a noisy failure for a silent one.
 
 ## Related Concepts
 
-- [Queues](/05-system-design/queues.md) — the delivery mechanism.
-- [Request/Response](/05-system-design/request-response.md) — the model you leave behind.
-- [Observability](/13-observability/index.md) — how to know what happened.
-- [Reliability](/12-reliability/index.md) — retries and resumption.
+- [Queues](/05-system-design/queues.md): the delivery mechanism.
+- [Request/Response](/05-system-design/request-response.md): the model you leave behind.
+- [Observability](/13-observability/index.md): how to know what happened.
+- [Reliability](/12-reliability/index.md): retries and resumption.
 
 ## Practical Exercise
 
@@ -253,4 +253,4 @@ of failure.
 ## Further Reading
 
 - Nygard, Michael. *Release It!* 2nd ed., 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — absence alerts.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Absence alerts.

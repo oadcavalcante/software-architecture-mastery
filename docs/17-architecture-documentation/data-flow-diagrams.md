@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [sequence-diagrams, container-diagrams, c4-model]
 canonical_for: [diagrama de fluxo de dados, ponto de repouso, travessia de fronteira de confiança]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-29
 Um diagrama de fluxo de dados segue **um tipo de dado** através dos sistemas: onde ele
 nasce, por onde passa, onde é armazenado, quem o lê, e onde ele sai.
 
-Ele é organizado pelo dado, não pelo sistema — e é essa mudança de eixo que o torna útil
+Ele é organizado pelo dado, não pelo sistema, e é essa mudança de eixo que o torna útil
 para perguntas que nenhum diagrama estrutural responde bem:
 
 ```text
@@ -38,7 +38,7 @@ o que acontece quando o cliente pede exclusão?
 ## Problema
 
 Diagramas estruturais são organizados por sistema. Uma pergunta sobre dado atravessa
-todos eles, e a resposta precisa ser montada juntando diagramas — o que na prática
+todos eles, e a resposta precisa ser montada juntando diagramas. Na prática, isso
 significa que ninguém sabe.
 
 E a pergunta aparece em contextos onde errar tem consequência:
@@ -104,7 +104,7 @@ Cada travessia merece resposta a três perguntas: o que trafega, com qual prote�
 qual base contratual ou legal.
 
 Este diagrama é a entrada canônica para
-[modelagem de ameaças](/10-security/threat-modeling.md) — a técnica STRIDE
+[modelagem de ameaças](/10-security/threat-modeling.md): a técnica STRIDE
 é aplicada elemento a elemento sobre ele.
 
 ### Um diagrama por tipo de dado
@@ -126,7 +126,7 @@ têm disputa de propriedade.
 Ao seguir o dado, a pergunta "quem é o dono disto" fica respondível: o dono é quem o
 produz e tem autoridade sobre a definição.
 
-O diagrama frequentemente mostra o contrário do organograma — o dado que o time A
+O diagrama frequentemente mostra o contrário do organograma: o dado que o time A
 "possui" nasce num sistema do time B e é modificado por um processo do time C.
 
 Ver [propriedade do dado](/07-data-architecture/data-ownership.md) e
@@ -137,7 +137,7 @@ Ver [propriedade do dado](/07-data-architecture/data-ownership.md) e
 Uma consequência prática: sem o mapeamento, atender a um pedido de exclusão é adivinhação.
 Com ele, é uma lista.
 
-E o mapeamento costuma mostrar que a exclusão completa é mais difícil do que se supunha —
+E o mapeamento costuma mostrar que a exclusão completa é mais difícil do que se supunha:
 backups imutáveis, agregados analíticos já calculados, e registros de aplicação com
 retenção fixa são casos que exigem decisão, não código.
 
@@ -193,11 +193,11 @@ num componente, o eixo pelo dado espalha a resposta por vários desenhos.
 
 ## Alternativas
 
-- **Catálogo de dados** — inventário estruturado, mais completo e menos visual. Ver
+- **Catálogo de dados**: inventário estruturado, mais completo e menos visual. Ver
   [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
-- **Registro de tratamento** — a forma exigida por algumas regulações; textual.
-- **Linhagem de dados** — automatizada, mostra derivação, não fronteira de confiança.
-- **[Sequência](/17-architecture-documentation/sequence-diagrams.md)** — quando a pergunta é ordem, não localização.
+- **Registro de tratamento**: a forma exigida por algumas regulações; textual.
+- **Linhagem de dados**: automatizada, mostra derivação, não fronteira de confiança.
+- **[Sequência](/17-architecture-documentation/sequence-diagrams.md)**: quando a pergunta é ordem, não localização.
 
 A linhagem automatizada é complementar: ela cobre o que o mapeamento manual esquece, e não
 distingue o que é sensível.
@@ -233,8 +233,8 @@ distingue o que é sensível.
 
 ## Erros Comuns
 
-**Mapear só o caminho principal.** Os ramos secundários — reprocessamento, exportação,
-suporte — são onde o dado escapa, e ficam fora da lista de exclusão.
+**Mapear só o caminho principal.** Os ramos secundários (reprocessamento, exportação,
+suporte) são onde o dado escapa, e ficam fora da lista de exclusão.
 
 **Ignorar cópias analíticas.** O pedido de exclusão é atendido no banco operacional e o
 dado continua no armazém analítico e nos agregados derivados dele.
@@ -245,7 +245,7 @@ por quanto tempo, e a decisão de exclusão volta a ser adivinhação.
 **Confundir com diagrama de sequência.** O resultado mostra a ordem das chamadas e omite
 os armazenamentos, e não responde à única pergunta que motivou o desenho: onde o dado está.
 
-**Não usar o resultado** — o mapeamento vira artefato de auditoria em vez de insumo de
+**Não usar o resultado**: o mapeamento vira artefato de auditoria em vez de insumo de
 decisão.
 
 ## Exemplo Real
@@ -267,7 +267,7 @@ planilha em um compartilhamento de rede                    1
 ```
 
 Três travessias de fronteira de confiança não estavam documentadas em lugar nenhum,
-incluindo a exportação para o parceiro — feita por um processo agendado criado quatro anos
+incluindo a exportação para o parceiro, feita por um processo agendado criado quatro anos
 antes, cujo autor não trabalhava mais na empresa.
 
 As decisões:
@@ -275,7 +275,7 @@ As decisões:
 **Registros higienizados.** Identificadores mascarados e diagnóstico removido dos
 registros de aplicação, com verificação automática na esteira.
 
-**Homologação com dado sintético.** A cópia de produção foi eliminada — o que exigiu
+**Homologação com dado sintético.** A cópia de produção foi eliminada. Isso exigiu
 construir geração de dados de teste, um trabalho de dois meses que ninguém tinha
 priorizado antes.
 
@@ -285,13 +285,13 @@ reduzido de 40 para 9.
 **Retenção declarada** em cada ponto de repouso, e implementada onde não existia.
 
 **Procedimento de exclusão** escrito com base no mapa, incluindo o que não pode ser
-excluído e por quê — os backups imutáveis viraram uma exceção documentada, com prazo de
+excluído e por quê: os backups imutáveis viraram uma exceção documentada, com prazo de
 expiração natural.
 
 **Mapa revisado semestralmente**, com dono nomeado.
 
 O que a equipe registra: a planilha no compartilhamento de rede foi encontrada por acaso,
-numa conversa, e não por nenhum método. Isso levou a uma segunda prática — varredura
+numa conversa, e não por nenhum método. Isso levou a uma segunda prática: varredura
 automática por padrões de dado sensível em armazenamentos não catalogados.
 
 ## Conceitos Relacionados
@@ -303,7 +303,7 @@ automática por padrões de dado sensível em armazenamentos não catalogados.
 
 ## Exercício Prático
 
-Escolha um tipo de dado sensível do seu sistema e liste todos os pontos onde ele repousa —
+Escolha um tipo de dado sensível do seu sistema e liste todos os pontos onde ele repousa,
 incluindo registros, backups, homologação e cópias analíticas.
 
 Compare o total com sua estimativa inicial. A diferença é a medida do que estava

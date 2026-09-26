@@ -2,7 +2,7 @@
 id: database-scaling
 title: Database Scaling
 sidebar_position: 10
-description: Most systems' real bottleneck — and the escalation order that avoids distributing too early.
+description: Most systems' real bottleneck, and the escalation order that avoids distributing too early.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The database is most systems' real bottleneck, and the component whose scaling is most expensive to undo —
+The database is most systems' real bottleneck, and the component whose scaling is most expensive to undo,
 because it is where the state lives, and state does not multiply for free.
 
 There is an escalation order, from cheapest to most expensive. Following it avoids this section's costliest
@@ -30,18 +30,18 @@ decision: **distributing the database before it is necessary**.
 ## Problem
 
 When the system gets slow and the database appears as the limiting factor, the discussion jumps to
-partitioning — the most expensive and most irreversible solution available.
+partitioning: the most expensive and most irreversible solution available.
 
 Before it there is a sequence of interventions that, together, usually deliver one or two orders of
 magnitude. Each one costs days or weeks; partitioning costs months and permanent complexity.
 
-The problem is not partitioning. It is the order.
+The problem is the order, not partitioning.
 
 ## Core Concepts
 
 ### The escalation ladder
 
-From cheapest to most expensive — adding up engineering time, recurring cost and irreversibility. The
+From cheapest to most expensive, adding up engineering time, recurring cost and irreversibility. The
 column below shows only the first axis:
 
 ```text
@@ -58,7 +58,7 @@ column below shows only the first axis:
 ```
 
 That is why a bigger machine, which takes hours to execute, is not rung 1: it raises the bill every month,
-has a ceiling in the instance family, and does not fix the query missing an index — it only postpones the
+has a ceiling in the instance family, and does not fix the query missing an index; it only postpones the
 day it starts hurting again.
 
 The rule: **do not skip rungs**. Each one resolves a different class of problem, and rung 10 does not fix
@@ -76,8 +76,8 @@ writes   scale badly — they have to go to the primary. A low limit.
 Most systems have a ratio of 10 to 1 or more in favor of reads. That means replicas and caches resolve most
 of the problem.
 
-When the bottleneck is genuinely on writes, the options shrink: partition, or reduce the writes — in
-batches, asynchronously, or by eliminating what is not necessary.
+When the bottleneck is genuinely on writes, the options shrink: partition, or reduce the writes (in
+batches, asynchronously, or by eliminating what is not necessary).
 
 Distinguishing the two cases before deciding is what avoids building the wrong solution.
 
@@ -86,7 +86,7 @@ Distinguishing the two cases before deciding is what avoids building the wrong s
 The most common bottleneck and the least suspected.
 
 Each connection consumes memory and a process or thread in the database. The practical limit is a few
-hundred — far below what a horizontally scaled application layer will open.
+hundred, far below what a horizontally scaled application layer will open.
 
 See [horizontal scaling](/11-scalability/horizontal-scaling.md) and Little's law in
 [performance versus scalability](/11-scalability/performance-vs-scalability.md).
@@ -96,7 +96,7 @@ interventions with the best effort-to-result ratio, and it frequently arrives la
 
 ### Write contention is not resolved by capacity
 
-When many transactions contend for the same record, they serialize — regardless of CPU, memory or number of
+When many transactions contend for the same record, they serialize, regardless of CPU, memory or number of
 replicas.
 
 ```text
@@ -119,18 +119,18 @@ See [hotspots](/11-scalability/hotspots.md) and [transactions](/07-data-architec
 
 ### Cold data weighs on everything
 
-Large tables degrade indexes, statistics, maintenance and backups — even if the old data is never queried.
+Large tables degrade indexes, statistics, maintenance and backups, even if the old data is never queried.
 
 Archiving what is not accessed is one of the most underestimated interventions: a table that shrinks 80%
 gets faster at everything, with no architectural change at all.
 
-See [data partitioning](/07-data-architecture/data-partitioning.md) — dropping a partition makes archiving
+See [data partitioning](/07-data-architecture/data-partitioning.md); dropping a partition makes archiving
 a metadata operation.
 
 ### Splitting by domain before partitioning
 
-If the single database is at its limit, separating by context — orders in one database, catalog in another
-— is usually simpler than partitioning.
+If the single database is at its limit, separating by context (orders in one database, catalog in another)
+is usually simpler than partitioning.
 
 Gains: each database gets smaller, scales independently, and the boundary follows the domain, which is a
 division that already exists.
@@ -149,7 +149,7 @@ the discussion suggests.
 
 Each rung has its moment:
 
-- **1 to 3:** before any rung above 4 — except during an incident, when buying time with a bigger machine
+- **1 to 3:** before any rung above 4, except during an incident, when buying time with a bigger machine
   comes first.
 - **4:** when there is still an instance size above the current one and its headroom covers the growth
   projection. See [vertical scaling](/11-scalability/vertical-scaling.md).
@@ -170,18 +170,18 @@ Each rung has its moment:
 
 **Splitting by domain when the boundary does not exist** in the business.
 
-**Increasing the connection pool** with no pooler — it makes the contention in the database worse.
+**Increasing the connection pool** with no pooler: it makes the contention in the database worse.
 
 ## Alternatives
 
-- **Reducing the writes**, through the ways out already listed — beats the ladder when the bottleneck is
+- **Reducing the writes**, through the ways out already listed; beats the ladder when the bottleneck is
   on writes and part of them can be deferred or dropped without changing what the business sees.
-- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a separate read model; beats
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)**: a separate read model; beats
   replicas and caches when reads need a shape the write model does not have.
-- **Appropriate storage per workload** — search in an inverted index, time series in a database of their
+- **Appropriate storage per workload**: search in an inverted index, time series in a database of their
   own; wins when the bottleneck is a workload the relational database serves poorly, not the volume. See
   [NoSQL](/07-data-architecture/nosql.md).
-- **A distributed relational database** — it keeps the model and distributes the writes, at the cost of
+- **A distributed relational database**: it keeps the model and distributes the writes, at the cost of
   coordination latency; beats rung 10 when writes are genuinely the bottleneck and joins and transactions
   across entities must be preserved.
 
@@ -220,7 +220,7 @@ Each rung has its moment:
 ## Common Mistakes
 
 **Jumping to partitioning.** An appropriate index, a read replica and a query fix resolve most cases.
-Partitioning prevents joins and transactions across partitions — a permanent cost for a limit that may not
+Partitioning prevents joins and transactions across partitions: a permanent cost for a limit that may not
 have arrived.
 
 **Not using a connection pooler.** Each connection consumes memory in the database, and application
@@ -234,7 +234,7 @@ history nobody queries usually returns more per engineering week than any other 
 with no retention policy and the indexes have stopped fitting in memory.
 
 **Choosing a partition key without analyzing the query pattern.** If the key does not appear in the
-frequent queries, each one has to ask every partition — and the partitioning has worsened the performance
+frequent queries, each one has to ask every partition, and the partitioning has worsened the performance
 it was supposed to improve.
 
 **Treating write contention as a lack of capacity.** When thousands of transactions contend for the same
@@ -243,7 +243,7 @@ row, adding a machine does not help: the bottleneck is the lock, and the solutio
 ## Real-World Example
 
 A payments platform reached the database's limit: write latency rising, timeouts at peak hours, and the
-proposal on the table was partitioning by merchant identifier — a project estimated at seven months.
+proposal on the table was partitioning by merchant identifier, a project estimated at seven months.
 
 The ladder was walked first:
 
@@ -264,7 +264,7 @@ after falling 45% and a further 30%, no longer justified a replica.
 dedicated replica.
 
 **Rung 7 — archiving.** Transactions older than two years, never queried by the operation, went to cold
-storage. The main table shrank 70%, and the indexes fit in memory — which improved everything.
+storage. The main table shrank 70%, and the indexes fit in memory. That improved everything.
 
 **Write contention.** Discovered in the middle of the process: the merchant's balance was updated with
 read-compute-write on every transaction. Large merchants had dozens of concurrent transactions on the same
@@ -276,7 +276,7 @@ Result after ten weeks: write latency from 340 ms to 28 ms at peak, transactions
 The partitioning plan was shelved with the design ready and a defined trigger: when write utilization
 sustainably passes 60% for a month.
 
-What the team learned: rungs 1 and 2, alone, resolved the incident that motivated the project — and they
+What the team learned: rungs 1 and 2, alone, resolved the incident that motivated the project, and they
 cost one week. The seven-month proposal had been assembled with none of the measurements the ladder
 requires.
 
@@ -284,9 +284,9 @@ requires.
 
 - [Replication for Scale](/11-scalability/scaling-replication.md) and
   [Partitioning](/11-scalability/scaling-partitioning.md).
-- [Hotspots](/11-scalability/hotspots.md) — the contention.
-- [Indexing](/07-data-architecture/indexing.md) — rung 1.
-- [OLTP](/07-data-architecture/oltp.md) — separating workloads.
+- [Hotspots](/11-scalability/hotspots.md): the contention.
+- [Indexing](/07-data-architecture/indexing.md): rung 1.
+- [OLTP](/07-data-architecture/oltp.md): separating workloads.
 
 ## Practical Exercise
 

@@ -2,7 +2,7 @@
 id: speed-vs-quality
 title: Velocidade vs. Qualidade
 sidebar_position: 5
-description: O trade-off existe por semanas, não por anos — e quem o trata como permanente perde os dois.
+description: O trade-off existe por semanas, não por anos, e quem o trata como permanente perde os dois.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-debt]
 related: [cost-vs-reliability, performance-vs-maintainability, simplicity-vs-flexibility]
 canonical_for: [velocidade contra qualidade, prazo de validade do atalho, qualidade como velocidade, atalho deliberado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -32,7 +32,7 @@ anos             alinhados — qualidade é o que sustenta velocidade
 
 A pesquisa sobre desempenho de entrega é consistente nesse ponto: as organizações mais
 rápidas também são as com menor taxa de falha em mudanças. Elas não trocam uma coisa pela
-outra — a capacidade de mudar com segurança é o que permite mudar com frequência.
+outra: a capacidade de mudar com segurança é o que permite mudar com frequência.
 
 ```text
 eixo real   por quanto tempo este atalho será carregado, e o que
@@ -42,7 +42,7 @@ eixo real   por quanto tempo este atalho será carregado, e o que
 ## Problema
 
 O trade-off é invocado numa situação real: prazo, demonstração, janela de mercado. Cortar
-teste, pular revisão, duplicar em vez de estruturar — e entregar.
+teste, pular revisão, duplicar em vez de estruturar e entregar.
 
 Isso funciona. O erro não está em fazer, e sim em não fechar:
 
@@ -67,12 +67,12 @@ atalho deliberado   escolhido, registrado, com data e dono para desfazer
 erosão              acúmulo não decidido, sem registro, sem prazo
 ```
 
-A diferença não está no código produzido — pode ser idêntico. Está no fato de alguém ter
+A diferença não está no código produzido, que pode ser idêntico. Está no fato de alguém ter
 decidido, ter escrito quando desfazer, e ter um dono.
 
 Ver [dívida técnica](/01-fundamentals/technical-debt.md).
 
-Sem registro, um atalho é indistinguível de incompetência seis meses depois — inclusive para
+Sem registro, um atalho é indistinguível de incompetência seis meses depois, inclusive para
 quem o tomou.
 
 ### O custo é por semana, não por evento
@@ -92,8 +92,8 @@ o mesmo atalho por 18 meses                       ~900 h
 ```
 
 O mesmo atalho, decisão completamente diferente. E o segundo número não é o primeiro
-multiplicado pelo prazo: 78 semanas a 4 h/semana dariam ~310 h, e a taxa não fica em 4 — é o
-que a seção sobre [juros compostos](#a-dívida-cobra-juros-compostos) mede. A conta linear
+multiplicado pelo prazo: 78 semanas a 4 h/semana dariam ~310 h, e a taxa não fica em 4 (é o
+que a seção sobre [juros compostos](#a-dívida-cobra-juros-compostos) mede). A conta linear
 subestima o custo em cerca de três vezes, e é a conta que quase todo mundo faz de cabeça.
 
 ### O que nunca vale cortar
@@ -152,7 +152,7 @@ acumulado até o mês 18, interpolando entre os três pontos   ~900 h
 ```
 
 O crescimento não é linear porque cada mudança feita sobre o atalho o consolida. Isso
-implica que o prazo do atalho importa mais que o atalho em si — e que prazos curtos são
+implica que o prazo do atalho importa mais que o atalho em si, e que prazos curtos são
 qualitativamente diferentes de prazos longos.
 
 ### Sinais de escolha errada
@@ -203,7 +203,7 @@ Acelere cortando quando:
 - O escopo do corte é delimitado e conhecido.
 - O prazo para desfazer está registrado, com dono.
 - O corte não é de segurança, dado, formato publicado ou observabilidade.
-- A hipótese ainda está sendo validada — código que pode ser jogado fora.
+- A hipótese ainda está sendo validada: código que pode ser jogado fora.
 
 Invista em qualidade quando:
 
@@ -214,24 +214,24 @@ Invista em qualidade quando:
 
 ## Quando Não Usar
 
-**Como dilema permanente** — ele é temporário por natureza.
+**Como dilema permanente**: ele é temporário por natureza.
 
 **Sem prazo e dono** para o atalho.
 
 **Em segurança, dado, formato publicado ou observabilidade.**
 
-**Como justificativa recorrente** — o terceiro trimestre seguido de "é só desta vez" é
+**Como justificativa recorrente**: o terceiro trimestre seguido de "é só desta vez" é
 erosão.
 
 **Para cortar o que devolve tempo rapidamente.**
 
 ## Alternativas
 
-- **Reduzir escopo em vez de qualidade** — quase sempre melhor: entregar menos, bem feito.
-- **Isolar o atalho** — concentrar o corte num módulo descartável, para que desfazer seja
+- **Reduzir escopo em vez de qualidade**: quase sempre melhor entregar menos, bem feito.
+- **Isolar o atalho**: concentrar o corte num módulo descartável, para que desfazer seja
   local.
-- **Protótipo explícito** — código marcado como descartável, que não entra em produção.
-- **Negociar a data** — a opção que ninguém quer e que frequentemente é a certa.
+- **Protótipo explícito**: código marcado como descartável, que não entra em produção.
+- **Negociar a data**: a opção que ninguém quer e que frequentemente é a certa.
 
 A primeira é a mais subutilizada: sob prazo, cortar funcionalidade é reversível e cortar
 qualidade não.
@@ -271,7 +271,7 @@ qualidade não.
 
 **Não estimar o custo por semana.**
 
-**Cortar observabilidade** — e perder a capacidade de ver o efeito.
+**Cortar observabilidade**, e perder a capacidade de ver o efeito.
 
 **Confundir prática que devolve tempo** com custo de qualidade.
 
@@ -293,8 +293,8 @@ não desfeitos e removidos da lista
   por terem virado "como o sistema é"         4
 ```
 
-Os 4 removidos eram os mais caros. Um deles — ausência de fronteira entre o módulo de
-apólices e o de sinistros — tinha custo estimado de desfazer de duas semanas na largada.
+Os 4 removidos eram os mais caros. Um deles (ausência de fronteira entre o módulo de
+apólices e o de sinistros) tinha custo estimado de desfazer de duas semanas na largada.
 Reestimado em 18 meses: **quatro meses**.
 
 A medição de custo por semana, feita retroativamente com base em tempo de mudança por área:
@@ -307,11 +307,11 @@ A medição de custo por semana, feita retroativamente com base em tempo de muda
 ```
 
 E o dado que mudou a política: a taxa de falha em mudanças nas áreas com atalho pendente era
-de 18%, contra 4% nas demais. O atalho não estava só custando tempo — estava produzindo
+de 18%, contra 4% nas demais. O atalho não estava só custando tempo: estava produzindo
 incidentes.
 
 A leitura que a equipe faz: **Prazo com consequência.** Todo atalho registrado tem data. Vencida a data sem desfazer, o
-item vira pauta obrigatória de priorização com o produto — não uma pauta de engenharia.
+item vira pauta obrigatória de priorização com o produto, não uma pauta de engenharia.
 
 **Custo por semana estimado** no momento do registro, e reestimado a cada trimestre. A
 reestimativa é o que torna a dívida visível: um item que dobra de custo em seis meses passa
@@ -342,7 +342,7 @@ O último par de números é o que a equipe usa para explicar o tema internament
 falha caiu e a frequência de entrega subiu, ao mesmo tempo. No horizonte de dois anos, os
 dois não eram opostos.
 
-O aprendizado que ficou: os 23 atalhos da largada foram uma boa decisão — o produto precisava
+O aprendizado que ficou: os 23 atalhos da largada foram uma boa decisão. O produto precisava
 existir em cinco meses. O erro foi não reestimar o custo deles, o que fez com que os quatro
 mais caros deixassem de parecer dívida e passassem a parecer arquitetura.
 
@@ -350,7 +350,7 @@ mais caros deixassem de parecer dívida e passassem a parecer arquitetura.
 
 - [Dívida Técnica](/01-fundamentals/technical-debt.md).
 - [Custo vs. Confiabilidade](/20-trade-offs/cost-vs-reliability.md).
-- [Entrega Contínua](/14-devops-and-platform/ci-cd.md) — a qualidade que devolve tempo.
+- [Entrega Contínua](/14-devops-and-platform/ci-cd.md): a qualidade que devolve tempo.
 - [Simplicidade vs. Flexibilidade](/20-trade-offs/simplicity-vs-flexibility.md).
 
 ## Exercício Prático

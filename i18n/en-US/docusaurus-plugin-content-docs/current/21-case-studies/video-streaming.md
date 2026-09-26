@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [social-network, high-volume-events, saas-platform]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -39,9 +39,9 @@ countries.
 The business has a characteristic that radically distinguishes its architecture from that of
 transactional systems: **most of the cost and complexity is in delivering bytes**, and not in
 processing requests. The company delivers 3.4 exabytes a year, and the cost of that delivery is
-$37.4 million — against $1.6 million for the entire application infrastructure.
+$37.4 million, against $1.6 million for the entire application infrastructure.
 
-That proportion — 96% of cost in delivery — is what guides the whole analysis. A decision that
+That proportion (96% of cost in delivery) is what guides the whole analysis. A decision that
 improves delivery efficiency by 10% is worth more than any optimization of the control plane.
 
 Two pressures motivate the review:
@@ -109,7 +109,7 @@ The television constraint is the most limiting for technology choices: a 2018 se
 defines the lowest common denominator of format and protocol, and it cannot be abandoned without
 losing subscribers.
 
-That kind of constraint — an installed base that doesn't update — is common in consumer products
+That kind of constraint (an installed base that doesn't update) is common in consumer products
 and rarely appears in architecture discussions, which tend to assume updatable clients. Here it
 determines which encoding formats can be used, which delivery protocol, and even how long a
 manifest version has to keep being served. The company maintains a compatibility matrix per model,
@@ -117,7 +117,7 @@ and it is consulted before any format decision.
 
 ## Capacity Estimates
 
-What sizes this system is not requests per second — it is bandwidth.
+What sizes this system is bandwidth, not requests per second.
 
 ```text
 subscribers                         6.1 million
@@ -141,8 +141,8 @@ playback starts/day                  ~19 million   →  ~220/s, peak ~1,100/s
 telemetry events/day                 ~14 billion   →  ~162 thousand/s
 ```
 
-Telemetry is the only control-plane subsystem with relevant volume — 162 thousand events per
-second — and it is what produces the audience report that pays the studios.
+Telemetry is the only control-plane subsystem with relevant volume (162 thousand events per
+second) and it is what produces the audience report that pays the studios.
 
 ```text
 storage
@@ -209,7 +209,7 @@ risk              medium — negotiating with 6 partners, not dozens
 | **Weighted total** | | **5.6** | **6.5** | **7.4** |
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With risk at 40% and cost at 15%, the totals become
-7.1 / 5.1 / 6.9 — Option A wins, by 0.2. That is the only scenario tested in which the conclusion changes, and it corresponds
+7.1 / 5.1 / 6.9. Option A wins, by 0.2. That is the only scenario tested in which the conclusion changes, and it corresponds
 to an organization with very low risk appetite or with no ability to negotiate with access
 providers.
 
@@ -223,7 +223,7 @@ for residual traffic, including the countries with the smallest base.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the company lacked the scale to negotiate with access providers — below
+**Option A would win if** the company lacked the scale to negotiate with access providers: below
 roughly 1 million subscribers, no provider has an interest in hosting third-party equipment. It
 would also win with a low risk appetite, as the sensitivity analysis shows.
 
@@ -244,7 +244,7 @@ The **control plane** is a conventional application: catalog, profiles, authenti
 recommendation, licensing by window, telemetry and reports. Modest volume, rich logic.
 
 Beyond the two, there is an **ingestion pipeline** that receives a title and produces every
-encoded version, track, subtitle and protection artifact — a batch system, with no latency
+encoded version, track, subtitle and protection artifact: a batch system, with no latency
 requirement, but with a large processing volume.
 
 The control plane's main components:
@@ -262,7 +262,7 @@ and a license, and gets out of the way. No video byte passes through it.
 ## Data
 
 **Catalog.** PostgreSQL as the source of truth, with a read index replicated per region. The volume
-is irrelevant — 42 thousand titles — and the complexity is in the rules: each title has
+is irrelevant (42 thousand titles) and the complexity is in the rules: each title has
 availability windows per country, per plan and per device type.
 
 The licensing rule is evaluated when assembling the response, and not materialized, because the
@@ -270,7 +270,7 @@ windows change frequently and the required precision is one minute. Materializin
 invalidation at that granularity, which is more expensive than evaluating.
 
 **Playback progress.** Key-value store, with one entry per profile and title. Written every 30
-seconds during playback — about 7 thousand writes per second on average, 33 thousand at peak —
+seconds during playback (about 7 thousand writes per second on average, 33 thousand at peak)
 and read when the app
 opens.
 
@@ -305,7 +305,7 @@ decision with a direct effect on the 22%-poor-connections constraint.
 The company moved from a fixed set of bitrates to **per-title encoding**: an animated feature with
 little scene variation reaches equivalent quality at half the bitrate of an action film.
 Re-encoding the catalog with content-adjusted bitrates reduced the average volume delivered by 21%
-with equal perceived quality — and that single change delivered most of the cost reduction target.
+with equal perceived quality, and that single change delivered most of the cost reduction target.
 
 **Content protection.** Licenses issued by a specialized external service, because some studios
 require the key not to reside on Mirante's infrastructure. Issuance is synchronous and sits on the
@@ -340,7 +340,7 @@ providers' networks are physically outside Mirante's control, and they are treat
 infrastructure: they store encrypted segments that cannot be decrypted without a license issued by
 the control plane.
 
-That makes Option C possible without violating the studios' requirements — and it was the condition
+That makes Option C possible without violating the studios' requirements, and it was the condition
 the studios imposed for authorizing the architecture.
 
 ## Scalability
@@ -349,13 +349,13 @@ The control plane scales trivially: 7,000 catalog requests per second and 1,100 
 second are served with room to spare by simple horizontal scaling.
 
 What requires design is **telemetry**, with 162 thousand events per second and a concentrated peak.
-The solution is batch ingestion from the device — each set accumulates events and sends every 60
-seconds — which turns 162 thousand events per second into about 16 thousand requests per second,
+The solution is batch ingestion from the device (each set accumulates events and sends every 60
+seconds), which turns 162 thousand events per second into about 16 thousand requests per second,
 with load spread by the natural misalignment of the timers.
 
 The **Saturday night peak** is 3.2× the average and entirely predictable. Cache capacity is sized
-for it, and the cost of that idleness is accepted because the alternative — degrading at the hour of
-peak viewing — is the worst possible outcome for the product.
+for it, and the cost of that idleness is accepted because the alternative (degrading at the hour of
+peak viewing) is the worst possible outcome for the product.
 
 **Premieres** are the other peak, and they are different: a premiere of an original production
 concentrates up to 40% of simultaneous sessions on a single title in the first hours. The content
@@ -368,7 +368,7 @@ notices nothing; the cost of that traffic goes up. It is the most frequent degra
 cheapest.
 
 If the **license service** becomes unavailable, no new playback starts. Sessions in progress
-continue until the license expires. There is no possible degradation — playing without a license
+continue until the license expires. There is no possible degradation: playing without a license
 violates the studio contract.
 
 If the **Progress Service** fails, playback works and resuming doesn't. The app stores progress
@@ -400,8 +400,8 @@ business                hours watched per title, for the contractual
 ```
 
 Segmenting quality by access provider is the central operational instrument: it identifies that the
-degradation is in a specific network, which is actionable — talk to the provider or install a cache
-— rather than showing up as a diffuse worsening of the average.
+degradation is in a specific network, which is actionable (talk to the provider or install a cache)
+rather than showing up as a diffuse worsening of the average.
 
 ## Deployment
 
@@ -410,7 +410,7 @@ installed in a provider's network cannot be updated at any time, because the mai
 negotiated with the partner.
 
 The consequence is that the caches' software has to be **backward compatible for longer** than the
-rest — the Router has to work with caches two versions behind. The rule adopted is compatibility
+rest: the Router has to work with caches two versions behind. The rule adopted is compatibility
 for 12 months.
 
 Re-encoding the catalog is done in the background, in popularity batches: the most watched titles
@@ -434,7 +434,7 @@ commercial relationship.
 own cache.
 
 **Phase 4 (months 20–26): quality-based routing.** The Router starts considering measured quality,
-not just availability — diverting from a local cache that is degraded before the subscriber
+not just availability, diverting from a local cache that is degraded before the subscriber
 notices.
 
 **Phase 5 (months 24–30): predictive preloading.** Content preloaded into the caches by regional
@@ -473,7 +473,7 @@ telemetry accuracy                     99.96%
 subscription cancellation              -1.8 pp
 ```
 
-The 31% cost reduction exceeded the target, and 21 points came from Phase 1 — the re-encoding,
+The 31% cost reduction exceeded the target, and 21 points came from Phase 1: the re-encoding,
 which depended on no external negotiation and was the cheapest to execute.
 
 The 1.8 percentage point drop in cancellation deserves a methodological caveat the company itself
@@ -484,7 +484,7 @@ that gained an own cache, the drop was 3.1 points; among those on networks still
 third party, 0.4 points.
 
 That comparison between groups the architecture treated differently was possible only because the
-instrumentation segmented quality by access provider from the start — the same observability
+instrumentation segmented quality by access provider from the start. The same observability
 decision that served operations ended up serving the investment evaluation.
 
 ## What this case teaches
@@ -494,7 +494,7 @@ control plane is irrelevant. The first question in a system like this is where t
 the answer completely changes what deserves engineering attention.
 
 **The cheapest change had the greatest effect.** Per-title re-encoding required no negotiation, no
-contract and no new infrastructure — only processing capacity and time. It delivered two thirds of
+contract and no new infrastructure: only processing capacity and time. It delivered two thirds of
 the target before the first cache was installed.
 
 **Third-party infrastructure is hostile by premise.** Treating the caches installed in other

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-scaling, bottleneck-identification, communicating-tradeoffs]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -39,14 +39,14 @@ The weak answer is "we have a replica". The strong answer walks through the effe
  and redirects degrade progressively."
 ```
 
-The difference is not knowledge of mechanisms. It is having walked the effect through to the user.
+The difference is having walked the effect through to the user, not knowledge of mechanisms.
 
 ## Problem
 
 Three error patterns.
 
 **Redundancy as the only answer.** Every component has a replica, and no failure mode is described.
-Redundancy reduces the probability of failure, it does not eliminate the effect when it occurs — and
+Redundancy reduces the probability of failure, it does not eliminate the effect when it occurs. And
 the question is about the effect.
 
 **Ignoring partial failure.** The candidate considers only "up" or "down", and not the intermediate
@@ -93,7 +93,7 @@ the argument for aggressive timeouts and circuit breakers.
 The mechanism is worth stating, because it is counterintuitive. When a dependency responds in 2
 seconds instead of 20 milliseconds, each in-flight request occupies a connection and a thread of
 execution a hundred times longer. Under constant load, the number of concurrent requests in the
-caller grows until the pool is exhausted — and from then on it stops serving everything, including
+caller grows until the pool is exhausted, and from then on it stops serving everything, including
 what does not depend on that call.
 
 That is how a localized failure becomes a total one, and it is why "no timeout" is an architectural
@@ -133,7 +133,7 @@ better answer than inventing an alternative path that would create inconsistency
 
 The temptation to always offer an alternative path is strong, because "the system keeps working"
 sounds better than "the system refuses". But accepting an operation that cannot be completed
-correctly trades a visible, short unavailability for an invisible, indefinite inconsistency — and
+correctly trades a visible, short unavailability for an invisible, indefinite inconsistency, and
 the second is usually far more expensive to resolve, because nobody knows when it started or how
 many records it affected.
 
@@ -155,7 +155,7 @@ explicit refusal  when there is no correct alternative
 ```
 
 Citing the mechanism is common; citing the condition is what demonstrates understanding. "Retry with
-exponential backoff, but only for idempotent operations — for resource creation, I need an
+exponential backoff, but only for idempotent operations; for resource creation, I need an
 idempotency key before I can retry" is an answer few give.
 
 See [idempotency](/06-distributed-systems/idempotency.md) and
@@ -176,7 +176,7 @@ operational experience.
 
 The same reasoning applies to synchronized retries: if every client retries after exactly the same
 interval, they produce waves of load instead of a smooth distribution. That is why exponential
-backoff comes with random jitter — without it, the mechanism that should relieve the dependency
+backoff comes with random jitter: without it, the mechanism that should relieve the dependency
 bombards it in regular pulses.
 
 ### What the user sees
@@ -197,8 +197,8 @@ Connecting the technical failure to what the person on the other side experience
 distinguishes someone who has operated a system in production.
 
 And that connection frequently reveals work that was not anticipated. A flow that gains an
-intermediate state needs a screen, copy, a notification and a support path for "where is my order?"
-— none of that is infrastructure code, and all of it is a direct consequence of the architectural
+intermediate state needs a screen, copy, a notification and a support path for "where is my order?".
+None of that is infrastructure code, and all of it is a direct consequence of the architectural
 decision. Mentioning that the consequence exists demonstrates that the candidate understands where
 the system ends.
 
@@ -217,7 +217,7 @@ not everything can degrade.
 
 **When the interviewer has already steered to another phase.** If they asked to go deeper into the
 data model or the scaling of one component, opening the failure walk spends the time they want to
-see applied there — and ignoring the redirect costs more than the coverage gained.
+see applied there, and ignoring the redirect costs more than the coverage gained.
 
 **Before the availability requirement is settled.** Without knowing whether the system needs 99.9%
 or 99.99%, or which operation is the core, there is no criterion for saying which degradation is
@@ -229,7 +229,7 @@ decides availability; then the first alternative below is the better move.
 ## Alternatives
 
 - **Pick the three most critical components** and detail only those, when time is tight.
-- **Start from a scenario** — "and what if the whole region goes down?" — instead of walking through
+- **Start from a scenario**: "and what if the whole region goes down?", instead of walking through
   components.
 - **Ask which failure interests** the interviewer.
 

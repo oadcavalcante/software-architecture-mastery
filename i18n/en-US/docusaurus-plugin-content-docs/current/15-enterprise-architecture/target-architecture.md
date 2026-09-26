@@ -2,7 +2,7 @@
 id: target-architecture
 title: Target Architecture
 sidebar_position: 17
-description: Where you want to get to — and why a three-year target rarely survives its second.
+description: Where you want to get to, and why a three-year target rarely survives its second.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The target architecture describes where the organization wants to get to — the structure
+The target architecture describes where the organization wants to get to: the structure
 that would solve the problems the current state has.
 
 It exists to give direction to distributed decisions: dozens of choices, made by
@@ -29,7 +29,7 @@ different teams, that together move the organization somewhere. Without a target
 move in incompatible directions.
 
 And it fails in a characteristic way: a detailed three-year drawing, reviewed annually,
-never reached — because context changes faster than the plan.
+never reached, because context changes faster than the plan.
 
 ## Problem
 
@@ -39,7 +39,7 @@ integration, the whole topology.
 Two problems with that.
 
 **It presupposes a stability that does not exist.** Acquisitions, market shifts, new
-technologies, revised priorities — in three years, a good share of the premises changes.
+technologies, revised priorities: in three years, a good share of the premises changes.
 
 **It does not guide today's decision.** A team facing a concrete choice cannot derive the
 answer from a diagram of the end state.
@@ -61,7 +61,7 @@ properties   "every piece of data has a single owner"
 
 Properties survive the changes in context that invalidate a drawing: an acquisition
 changes which systems exist, not the fact that every piece of data should have an owner.
-When a property does not survive, it is corrected on its own — the drawing has to be redone.
+When a property does not survive, it is corrected on its own; the drawing has to be redone.
 
 And they guide today's decision: a team that has to choose how to integrate two systems
 can derive the answer from "integration through an explicit contract". It cannot derive
@@ -101,7 +101,7 @@ That derivation is what makes the target defensible: each property has an associ
 problem, and the cost of not solving it is known.
 
 Targets that start with "we want microservices" or "we want to be cloud native" skip that
-step — and cannot answer why.
+step and cannot answer why.
 
 ### It does not have to be single
 
@@ -130,11 +130,11 @@ as an obstacle   "that isn't in the target, so no"
 as guidance      "that moves us away from the target on this dimension; is it worth it?"
 ```
 
-The second formulation allows the answer to be yes — with the consequence known and
+The second formulation allows the answer to be yes, with the consequence known and
 recorded. And the accumulation of those decisions is information: if many proposals move
 away from the target, the target may be wrong.
 
-See [enterprise principles](/15-enterprise-architecture/enterprise-principles.md) — the same mechanism as the
+See [enterprise principles](/15-enterprise-architecture/enterprise-principles.md): the same mechanism as the
 exception log.
 
 ### Without a transition, it is aspiration
@@ -142,12 +142,12 @@ exception log.
 A target with no path is a statement that we would like things to be different.
 
 See [transition architecture](/15-enterprise-architecture/transition-architecture.md). It is the document that turns
-the target into work — and it is what is most frequently missing.
+the target into work, and it is what is most frequently missing.
 
 ### The target has to be known by whoever decides day to day
 
 A target that lives in a document few people consult does not guide the distributed
-decisions it is supposed to guide — which is the reason it exists.
+decisions it is supposed to guide. Guiding them is the reason it exists.
 
 What makes it present:
 
@@ -158,8 +158,8 @@ visible where decisions happen — proposal templates, checklists
 revisited when someone moves away from them
 ```
 
-The third is the most effective: a question in the architecture proposal template — "does
-this decision move toward or away from which target property?" — brings the target into
+The third is the most effective: a question in the architecture proposal template ("does
+this decision move toward or away from which target property?") brings the target into
 the conversation without requiring anyone to look it up.
 
 And the fourth closes the loop: each recorded departure is an opportunity to check
@@ -167,7 +167,7 @@ whether the target is still right. See
 [architecture decisions](/18-architecture-decisions/index.md).
 
 A target nobody cites in concrete decisions, over the course of a year, is guiding
-nothing — however well written it is.
+nothing, however well written it is.
 
 ## Mental Model
 
@@ -179,7 +179,7 @@ three-year drawing is fiction.
 - To give direction to distributed decisions.
 - Before modernization programs.
 - In medium-term investment decisions.
-- After structural changes — an acquisition, a change of strategy.
+- After structural changes: an acquisition, a change of strategy.
 
 ## When Not to Use
 
@@ -191,21 +191,21 @@ to derive properties from, and the target comes out as aesthetic preference. See
 together, direction travels through conversation; a formal target costs more than it
 coordinates. Principles or a short roadmap are enough.
 
-**When not even 12 months are predictable** — an acquisition being integrated, a strategy
+**When not even 12 months are predictable**: an acquisition being integrated, a strategy
 pivot under way. The target's premises would change before its first review; a short-term
 roadmap, continuously reviewed, guides better until the context settles.
 
 **When there is no budget or sponsorship for the transition.** The target becomes
-aspiration, and the abandoned program costs the next proposal its credibility — as in the
+aspiration, and the abandoned program costs the next proposal its credibility, as in the
 example below.
 
 ## Alternatives
 
-- **Principles** — they guide without describing an end state. See
+- **Principles**: they guide without describing an end state. See
   [enterprise principles](/15-enterprise-architecture/enterprise-principles.md).
-- **Direction by property** — no formal target, only the properties to pursue.
-- **Target per capability** — instead of a single organizational target.
-- **Short-term roadmap** — what to do over the next six months, continuously reviewed.
+- **Direction by property**: no formal target, only the properties to pursue.
+- **Target per capability**: instead of a single organizational target.
+- **Short-term roadmap**: what to do over the next six months, continuously reviewed.
   See [architecture roadmaps](/15-enterprise-architecture/architecture-roadmaps.md).
 
 ## Trade-offs
@@ -241,7 +241,7 @@ example below.
 **Drawing the end state.** The drawing ages at the first acquisition, and a team facing a
 concrete choice cannot derive the answer from it.
 
-**Starting from the solution** — "we want microservices" — instead of the problem. When
+**Starting from the solution** ("we want microservices") instead of the problem. When
 someone asks why, there is no cost of inaction to show.
 
 **A horizon that is too long.** The annual review rewrites more than half of the target.
@@ -264,7 +264,7 @@ Eighteen months later:
 
 **Two acquisitions** brought in systems the target had not anticipated.
 
-**A change of strategy** — expansion into a new channel — shifted the priorities.
+**A change of strategy** (expansion into a new channel) shifted the priorities.
 
 **Twelve of the 40 services** had been built. The boundaries of the other 28 no longer
 made sense given what had been learned.
@@ -287,18 +287,18 @@ rise to it and the cost of not solving it:
                                          9 teams
 ```
 
-**Differentiated targets per capability.** The differentiating capabilities — pricing and
-recommendation — got an ambitious target. The supporting ones, a "stable and cheap"
+**Differentiated targets per capability.** The differentiating capabilities (pricing and
+recommendation) got an ambitious target. The supporting ones, a "stable and cheap"
 target. The common ones, a target of buying.
 
 **An 18-month horizon**, reviewed every six months.
 
 **A departure log.** Proposals that move away from the target are accepted with a
-recorded justification. In one year, 14 entries — and three of them, all about property
+recorded justification. In one year, 14 entries, and three of them, all about property
 5, led to that property being revised: independent deployment made no sense for a set of
 systems that shared a business cycle.
 
-Two years later, four of the five properties had advanced substantially — and the fifth
+Two years later, four of the five properties had advanced substantially, and the fifth
 had been corrected.
 
 What the team records: the target in properties survived an acquisition and two shifts in
@@ -306,8 +306,8 @@ priority. The previous drawing had survived none.
 
 ## Related Concepts
 
-- [Current State Architecture](/15-enterprise-architecture/current-state-architecture.md) — the starting point.
-- [Transition Architecture](/15-enterprise-architecture/transition-architecture.md) — the path.
+- [Current State Architecture](/15-enterprise-architecture/current-state-architecture.md): the starting point.
+- [Transition Architecture](/15-enterprise-architecture/transition-architecture.md): the path.
 - [Architecture Roadmaps](/15-enterprise-architecture/architecture-roadmaps.md).
 - [Business Capabilities](/15-enterprise-architecture/business-capabilities.md).
 
@@ -327,5 +327,5 @@ The elements with no associated problem are preference, not target.
 ## Further Reading
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — target architecture and gap analysis.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Target architecture and gap analysis.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

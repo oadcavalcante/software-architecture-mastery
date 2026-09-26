@@ -2,7 +2,7 @@
 id: facade
 title: Facade
 sidebar_position: 10
-description: Uma interface simples sobre um subsistema complexo — e o risco de virar um objeto que faz tudo.
+description: Uma interface simples sobre um subsistema complexo, e o risco de virar um objeto que faz tudo.
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [adapter, proxy, mediator]
 canonical_for: [facade, fachada]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -51,7 +51,7 @@ graph LR
   F --> A[Classe A] & B[Classe B] & D[Classe C]
 ```
 
-A fachada não impede o acesso direto ao subsistema — ela oferece um caminho mais
+A fachada não impede o acesso direto ao subsistema: ela oferece um caminho mais
 simples para o caso comum. Quem precisa de controle fino continua podendo usar as
 classes por baixo.
 
@@ -89,7 +89,7 @@ todo o sistema depende.
 **Quando o subsistema já é simples.** Uma fachada sobre duas classes é indireção.
 
 **Quando cada cliente precisa de algo diferente.** Se não há operação comum, a
-fachada acumula métodos sem coesão — e vira um `utils` com outro nome.
+fachada acumula métodos sem coesão, e vira um `utils` com outro nome.
 
 **Quando ela vira o único caminho.** Bloquear o acesso direto transforma a
 conveniência em gargalo.
@@ -103,12 +103,12 @@ simetria, uma por módulo, sem operação composta real, são camadas anêmicas.
 
 ## Alternativas
 
-- **Função de conveniência** — quando é uma operação só, uma função basta.
-- **Serviço de aplicação** — em arquiteturas com caso de uso explícito, ele já
+- **Função de conveniência**: quando é uma operação só, uma função basta.
+- **Serviço de aplicação**: em arquiteturas com caso de uso explícito, ele já
   cumpre esse papel.
-- **[Mediator](/03-design-patterns/mediator.md)** — quando o objetivo é coordenar objetos que
+- **[Mediator](/03-design-patterns/mediator.md)**: quando o objetivo é coordenar objetos que
   interagem entre si, não simplificar acesso.
-- **Melhorar o subsistema** — se ele é complexo demais para usar, às vezes a
+- **Melhorar o subsistema**: se ele é complexo demais para usar, às vezes a
   resposta é corrigir isso, não envolvê-lo.
 
 ## Trade-offs
@@ -154,7 +154,7 @@ sobre a sequência de credenciais, sessão, cliente, requisição de upload
 multiparte e confirmação.
 
 **APIs de alto nível de bibliotecas.** Muitas bibliotecas oferecem uma camada
-simples sobre uma de baixo nível — e mantêm as duas acessíveis, que é o formato
+simples sobre uma de baixo nível, e mantêm as duas acessíveis, que é o formato
 correto.
 
 **Serviços de aplicação.** Em Clean Architecture e Onion, o serviço de aplicação
@@ -162,7 +162,7 @@ funciona como fachada sobre o domínio para os adaptadores de entrada.
 
 O padrão comum nos três: **a interface de baixo nível continua disponível**. As
 bibliotecas que escondem completamente a camada inferior acabam gerando
-solicitações de recursos que o autor precisa expor um a um — o que é o sintoma de
+solicitações de recursos que o autor precisa expor um a um, o que é o sintoma de
 fachada obrigatória.
 
 ## Exemplo Real
@@ -171,33 +171,33 @@ Um sistema integrava com um ERP cuja API exigia, para consultar um pedido: abrir
 sessão, autenticar, selecionar empresa, selecionar filial, montar filtro,
 executar consulta, paginar, e fechar sessão.
 
-Oito chamadas, com estado entre elas, replicadas em seis lugares — com variações,
+Oito chamadas, com estado entre elas, replicadas em seis lugares, com variações,
 porque cada desenvolvedor tinha copiado de um ponto diferente e adaptado.
 
 Dois desses lugares esqueciam de fechar a sessão, o que esgotava o limite de
 conexões do ERP a cada poucos dias.
 
 A fachada expôs `consultarPedido(numero)` e concentrou a sequência. O vazamento de
-sessão deixou de acontecer no caminho comum — mas não se tornou impossível, e o
+sessão deixou de acontecer no caminho comum, mas não se tornou impossível, e o
 próprio caso mostra por quê: o cliente de baixo nível continuou acessível, e seis meses
 depois alguém o usou direto. O que cobriu esse caminho foi um teste que esgota o pool de
 conexões e falha quando alguma não volta.
 
 O que o time fez de certo em seguida: **manteve o cliente de baixo nível
 acessível**. Seis meses depois, um relatório precisou de uma consulta em lote que
-a fachada não previa, e foi implementado com o cliente direto — sem que ninguém
+a fachada não previa, e foi implementado com o cliente direto, sem que ninguém
 precisasse alterar a fachada nem esperar por isso.
 
 ## Como impedir que ela cresça
 
 Fachadas que servem clientes com necessidades divergentes tendem a acumular métodos: cada
 cliente novo traz uma composição que só ele usa. Sem contenção deliberada, ela vira o objeto
-central do sistema — e a velocidade disso é dada pelo número de clientes distintos, não pelo
+central do sistema, e a velocidade disso é dada pelo número de clientes distintos, não pelo
 calendário.
 
 Três mecanismos que funcionam:
 
-**Um teto declarado.** Estabeleça um número — dez, quinze métodos — e trate
+**Um teto declarado.** Estabeleça um número (dez, quinze métodos) e trate
 ultrapassá-lo como sinal de que a fachada precisa ser dividida, não expandida. O
 número é arbitrário; ter um não é.
 
@@ -211,19 +211,19 @@ fachada contém condicional que decide algo do domínio? Se sim, a regra pertenc
 outro lugar e migrou porque a fachada era o ponto de encontro conveniente.
 
 O terceiro é o mais importante, porque a degeneração de uma fachada quase nunca é
-por número de métodos — é por acúmulo de decisões que deveriam morar no domínio.
+por número de métodos, e sim por acúmulo de decisões que deveriam morar no domínio.
 
 ## Conceitos Relacionados
 
-- [Adapter](/03-design-patterns/adapter.md) — compatibilizar, não simplificar.
-- [Mediator](/03-design-patterns/mediator.md) — coordenar interação entre objetos.
-- [Proxy](/03-design-patterns/proxy.md) — controlar acesso.
+- [Adapter](/03-design-patterns/adapter.md): compatibilizar, não simplificar.
+- [Mediator](/03-design-patterns/mediator.md): coordenar interação entre objetos.
+- [Proxy](/03-design-patterns/proxy.md): controlar acesso.
 
 ## Exercício Prático
 
 Procure sequências de chamadas repetidas em mais de um lugar do seu sistema.
 
-Para cada uma, verifique se as cópias divergiram — ordem diferente, tratamento de
+Para cada uma, verifique se as cópias divergiram: ordem diferente, tratamento de
 erro diferente, algum passo faltando. Divergência é o sinal de que a sequência
 deveria estar num lugar só.
 

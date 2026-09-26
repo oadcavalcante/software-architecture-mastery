@@ -2,7 +2,7 @@
 id: data-lakehouses
 title: Data Lakehouses
 sidebar_position: 11
-description: Transações e esquema sobre arquivos em armazenamento barato — a convergência e seus limites.
+description: "Transações e esquema sobre arquivos em armazenamento barato: a convergência e seus limites."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-lakes]
 related: [data-warehouses, column-stores, data-partitioning, transactions]
 canonical_for: [lakehouse, formato de tabela aberto, viagem no tempo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,7 +28,7 @@ O objetivo é ter as garantias de um [warehouse](/07-data-architecture/data-ware
 a abertura de armazenamento de objetos.
 
 A arquitetura é real e resolve problemas concretos. Ela não é, porém, um
-substituto universal — e o marketing em torno do termo obscurece limites que
+substituto universal, e o marketing em torno do termo obscurece limites que
 importam na escolha.
 
 ## Problema
@@ -62,8 +62,8 @@ adicionar uma entrada.
 Disso decorrem as propriedades:
 
 **Atomicidade.** A escrita só é visível quando a entrada é registrada. Um processo
-que falha no meio não deixa dados parciais visíveis — o problema mais comum de
-lakes puros.
+que falha no meio não deixa dados parciais visíveis (o problema mais comum de
+lakes puros).
 
 **Leitura estável.** Uma consulta longa lê uma versão fixa e não vê escritas
 concorrentes.
@@ -84,7 +84,7 @@ e sozinha justifica a adoção em muitos casos.
 ### Evolução de esquema controlada
 
 Adicionar coluna, renomear, promover tipo por alargamento (inteiro para longo, mais
-precisão decimal) — com o histórico permanecendo legível. Troca de tipo
+precisão decimal), com o histórico permanecendo legível. Troca de tipo
 incompatível, como texto para número, não entra: exige reescrever a tabela.
 
 É a diferença entre esquema declarado e esquema implícito: o formato sabe que
@@ -92,7 +92,7 @@ aquela coluna existe desde a versão 12, e leitores antigos não quebram.
 
 ### Viagem no tempo tem custo de retenção
 
-Manter versões anteriores permite auditar, comparar e reverter — e mantém os
+Manter versões anteriores permite auditar, comparar e reverter, e mantém os
 arquivos antigos ocupando espaço.
 
 Sem política de expiração de versões, o custo de armazenamento cresce indefinidamente.
@@ -127,7 +127,7 @@ atualizar estatísticas.
 
 Nada disso acontece sozinho no formato em si: ou um processo agendado executa, ou
 uma plataforma gerenciada executa sob uma política que alguém precisa definir. Um
-lakehouse sem rotinas de manutenção degrada da mesma forma que um lake — e o diagnóstico é o mesmo: consultas ficam lentas sem que
+lakehouse sem rotinas de manutenção degrada da mesma forma que um lake. O diagnóstico é o mesmo: consultas ficam lentas sem que
 o volume tenha mudado.
 
 ## Modelo Mental
@@ -138,7 +138,7 @@ vem daí, e tudo o que falta é o que um log não resolve.
 ## Quando Usar
 
 - Já existe um lake e faltam garantias transacionais.
-- É preciso alterar ou apagar registros — regulação, correção.
+- É preciso alterar ou apagar registros (regulação, correção).
 - Manter lake e warehouse separados está custando duplicação.
 - Volume alto com custo de armazenamento relevante.
 - Formato aberto é requisito, por portabilidade.
@@ -151,7 +151,7 @@ vem daí, e tudo o que falta é o que um log não resolve.
 **Para consulta interativa de latência muito baixa e alta concorrência.** Painel
 que precisa responder em menos de um segundo para dezenas de usuários simultâneos
 paga, a cada consulta, a leitura do log e a abertura de arquivos no armazenamento
-de objetos — custo fixo que um warehouse com cache e índices locais não tem.
+de objetos: custo fixo que um warehouse com cache e índices locais não tem.
 
 **Com muitos escritores simultâneos na mesma tabela.** Cada escrita é uma entrada
 no log, e duas escritas que tocam a mesma partição ao mesmo tempo conflitam.
@@ -172,12 +172,12 @@ operar. O lakehouse só compensa quando o volume torna esse banco caro ou lento.
 
 ## Alternativas
 
-- **[Warehouse](/07-data-architecture/data-warehouses.md)** — quando o ferramental e a latência importam
+- **[Warehouse](/07-data-architecture/data-warehouses.md)**: quando o ferramental e a latência importam
   mais que o custo.
-- **[Lake](/07-data-architecture/data-lakes.md) com disciplina** — catálogo e formato colunar cobrem
+- **[Lake](/07-data-architecture/data-lakes.md) com disciplina**: catálogo e formato colunar cobrem
   parte dos casos.
-- **Warehouse com tabelas externas** — consulta arquivos do lake sem movê-los.
-- **Manter os dois** — legítimo quando as cargas são genuinamente distintas.
+- **Warehouse com tabelas externas**: consulta arquivos do lake sem movê-los.
+- **Manter os dois**: legítimo quando as cargas são genuinamente distintas.
 
 ## Trade-offs
 
@@ -220,7 +220,7 @@ operar. O lakehouse só compensa quando o volume torna esse banco caro ou lento.
 
 **Esperar desempenho de warehouse em consulta interativa.** Ler de arquivos em armazenamento de objetos tem latência de partida que um warehouse não tem. Para painel com filtro que o usuário mexe, a diferença é perceptível.
 
-**Migrar tudo de uma vez.** As definições de negócio embutidas nas cargas antigas só aparecem quando um número diverge do relatório que a diretoria já conhece — e aí a migração inteira perde credibilidade.
+**Migrar tudo de uma vez.** As definições de negócio embutidas nas cargas antigas só aparecem quando um número diverge do relatório que a diretoria já conhece, e aí a migração inteira perde credibilidade.
 
 **Muitos escritores na mesma tabela.** O [controle de concorrência](/07-data-architecture/transactions.md) é otimista: escritas simultâneas na mesma partição conflitam e uma delas é rejeitada. Com escritores demais, o retrabalho passa a dominar.
 
@@ -242,8 +242,8 @@ Ganhos:
 **Fonte única.** As divergências entre plataformas desapareceram, porque passou a
 existir uma tabela só.
 
-**Apagamento por regulação.** Solicitações de exclusão passaram a ser executáveis —
-antes exigiam reescrever partições inteiras do lake, um processo manual que levava
+**Apagamento por regulação.** Solicitações de exclusão passaram a ser executáveis.
+Antes exigiam reescrever partições inteiras do lake, um processo manual que levava
 dias.
 
 **Custo de armazenamento** caiu 60% em relação ao warehouse, medido depois de
@@ -256,7 +256,7 @@ Problemas:
 
 **Consultas interativas.** O painel comercial, com dezenas de usuários simultâneos
 fazendo consultas pequenas, ficou 3 vezes mais lento. A solução foi manter uma
-camada agregada de servida no warehouse — ou seja, os dois continuaram existindo,
+camada agregada de servida no warehouse. Ou seja, os dois continuaram existindo,
 com papéis mais claros.
 
 **Manutenção não agendada.** Nos primeiros dois meses ninguém configurou
@@ -268,16 +268,16 @@ tabelas de alta rotatividade. O armazenamento de versões antigas chegou a super
 dos dados atuais antes de alguém revisar.
 
 A expectativa inicial era substituir o warehouse. O
-resultado foi redividir responsabilidades — lakehouse como fonte única e camada de
+resultado foi redividir responsabilidades: lakehouse como fonte única e camada de
 processamento, warehouse como camada de servida para consulta interativa.
 
 A tentativa de eliminar uma das plataformas era o objetivo errado.
 
 ## Conceitos Relacionados
 
-- [Data Lake](/07-data-architecture/data-lakes.md) — a base.
-- [Data Warehouse](/07-data-architecture/data-warehouses.md) — a comparação.
-- [Colunar](/07-data-architecture/column-stores.md) — o formato dos arquivos.
+- [Data Lake](/07-data-architecture/data-lakes.md): a base.
+- [Data Warehouse](/07-data-architecture/data-warehouses.md): a comparação.
+- [Colunar](/07-data-architecture/column-stores.md): o formato dos arquivos.
 - [Particionamento de Dados](/07-data-architecture/data-partitioning.md).
 
 ## Exercício Prático

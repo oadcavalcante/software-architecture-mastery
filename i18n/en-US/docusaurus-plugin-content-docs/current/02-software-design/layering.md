@@ -2,7 +2,7 @@
 id: layering
 title: Layering
 sidebar_position: 11
-description: The most used and most misapplied arrangement of boundaries — and what it costs when the axis is wrong.
+description: The most used and most misapplied arrangement of boundaries, and what it costs when the axis is wrong.
 doc_type: concept
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [boundaries]
 related: [modular-design, package-design, clean-architecture]
 canonical_for: [layering, layered architecture]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ applied without anyone asking whether it serves that particular system.
 
 ## Problem
 
-The canonical division — presentation, application, domain, infrastructure —
+The canonical division (presentation, application, domain, infrastructure)
 organizes code by **technical type**. That is orthogonal to the axis along which
 systems actually change, which is business capability.
 
@@ -71,7 +71,7 @@ The arrangement that works in most business systems inverts the hierarchy:
 ```
 
 On the right, a change in billing stays in billing. The layers still exist and
-still enforce dependency direction — but inside a boundary that matches the axis of
+still enforce dependency direction, but inside a boundary that matches the axis of
 change.
 
 ### Where layers work well as the primary division
@@ -81,7 +81,7 @@ change.
 - **Small systems**, where any division serves and the most conventional one
   reduces onboarding friction.
 - **When the real variation is by layer.** An application with three user
-  interfaces — web, mobile, terminal — over the same domain has genuine variation
+  interfaces (web, mobile, terminal) over the same domain has genuine variation
   in the presentation layer.
 
 ### The anemic layer
@@ -95,12 +95,12 @@ hiding anything.
 ## Mental Model
 
 **A layer is a horizontal boundary. A module is a vertical one.** The question is
-which of the two matches the axis along which your system changes — and the
+which of the two matches the axis along which your system changes, and the
 answer, in business systems, is almost always the vertical one.
 
 ## When to Use
 
-- As the division **inside** a capability module — almost always useful.
+- As the division **inside** a capability module, almost always useful.
 - When dependency direction between policy and detail has to be enforced.
 - As the primary division, under the three conditions in "Where layers work well
   as the primary division", above.
@@ -122,12 +122,12 @@ common, the structure is decorative and the cost remains.
 
 ## Alternatives
 
-- **[Module by capability](/02-software-design/modular-design.md), layers inside** — the
+- **[Module by capability](/02-software-design/modular-design.md), layers inside**: the
   arrangement that works in most cases.
-- **[Ports and Adapters](/02-software-design/ports-and-adapters.md)** — swaps the
+- **[Ports and Adapters](/02-software-design/ports-and-adapters.md)**: swaps the
   stack metaphor for inside and outside, with a single direction rule.
-- **Vertical slice** — organize by use case, with everything it needs together.
-- **No layers** — in small systems, a flat package is honest.
+- **Vertical slice**: organize by use case, with everything it needs together.
+- **No layers**: in small systems, a flat package is honest.
 
 ## Trade-offs
 
@@ -182,7 +182,7 @@ What did not change: the direction rule still held, and was still verified by an
 architecture test. Each module's domain still does not depend on infrastructure.
 
 What did change: the boundary that contains the change became the vertical one.
-The layers remain useful — inside each module, to separate policy from detail.
+The layers remain useful: inside each module, to separate policy from detail.
 
 The original mistake was not using layers. It was using them as the top-level
 division.
@@ -203,7 +203,7 @@ In practice, three layers cover most cases inside a module:
 | Application and domain | Nothing external; it is the policy |
 | Outbound | The persistence and integration technology |
 
-The fourth layer appears when application and domain genuinely diverge — when
+The fourth layer appears when application and domain genuinely diverge: when
 there are rules involving several entities and belonging to none. See
 [Onion](/02-software-design/onion-architecture.md).
 
@@ -212,12 +212,12 @@ where suspicion is warranted.
 
 ## Related Concepts
 
-- [Boundaries](/02-software-design/boundaries.md) — the general concept layers are
+- [Boundaries](/02-software-design/boundaries.md): the general concept layers are
   one arrangement of.
-- [Modular Design](/02-software-design/modular-design.md) — the vertical division.
-- [Clean Architecture](/02-software-design/clean-architecture.md) — layers with an
+- [Modular Design](/02-software-design/modular-design.md): the vertical division.
+- [Clean Architecture](/02-software-design/clean-architecture.md): layers with an
   explicit direction rule.
-- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — the
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md): the
   inside-and-outside alternative.
 
 ## Practical Exercise
@@ -237,7 +237,7 @@ the capability module that should be the primary division.
 ## Further Exploration
 
 - Fowler, Martin. *Patterns of Enterprise Application Architecture*.
-  Addison-Wesley, 2002 — the classic formulation of layers.
+  Addison-Wesley, 2002. The classic formulation of layers.
 - Richards, Mark. *Software Architecture Patterns*. O'Reilly, 2015.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — the dependency
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. The dependency
   rule.

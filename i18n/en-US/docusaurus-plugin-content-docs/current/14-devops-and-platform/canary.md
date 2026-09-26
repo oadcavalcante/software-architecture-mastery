@@ -2,7 +2,7 @@
 id: canary
 title: Canary
 sidebar_position: 6
-description: Exposing a fraction and comparing — the only strategy that detects the problem instead of waiting for somebody to notice.
+description: "Exposing a fraction and comparing: the only strategy that detects the problem instead of waiting for somebody to notice."
 doc_type: pattern
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, feature-flags]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ are **compared** with the old version's, and the decision to expand or revert is
 What distinguishes this strategy from the others: it **detects** the problem. Blue-green and rolling
 deployment replace the version safely; neither of them says whether the new version is worse.
 
-And the detection can be automatic — which turns rollback from a human decision under pressure into the
+And the detection can be automatic, which turns rollback from a human decision under pressure into the
 consequence of a criterion.
 
 ## Problem
@@ -36,7 +36,7 @@ A new version can be wrong in ways the tests do not catch: behavior that depends
 volume, on combinations only production has.
 
 See [deployment strategies](/14-devops-and-platform/deployment-strategies.md). The most dangerous case is
-the change that generates neither errors nor slowness — only a different result.
+the change that generates neither errors nor slowness, only a different result.
 
 With no comparison, that kind of problem is discovered by somebody who notices, which can take hours or
 days.
@@ -58,8 +58,8 @@ correct   canary 5% × control 5%, the same instant
 wrong     canary now × the old version last week
 ```
 
-And the control should not be "all the rest": comparing 5% with 95% introduces scale differences — a warmer
-cache, different connection behavior. A control fraction of the same size is the correct design.
+And the control should not be "all the rest": comparing 5% with 95% introduces scale differences (a warmer
+cache, different connection behavior). A control fraction of the same size is the correct design.
 
 ### What to compare
 
@@ -70,7 +70,7 @@ distribution   the shape of the results, counts, response sizes
 ```
 
 The last two lines are what catch the silent problem. A change that returns fewer results, or different
-results, alters neither latency nor error rate — and it alters the distribution.
+results, alters neither latency nor error rate, and it alters the distribution.
 
 See [debuggability](/13-observability/debuggability.md). Comparing distributions requires the system to
 emit the data that composes them.
@@ -84,7 +84,7 @@ A small fraction for a short time produces few events, and the comparison become
 5% of the traffic, 5 req/s, 10 minutes     → 150 events — insufficient
 ```
 
-Low-volume systems need a larger fraction or a longer time — and, below a certain volume, canary simply
+Low-volume systems need a larger fraction or a longer time, and, below a certain volume, canary simply
 does not work as a statistical mechanism.
 
 And the time needs to cover the relevant cycles: a memory leak does not appear in 10 minutes; a task that
@@ -100,7 +100,7 @@ per instance   one machine runs the new version
 ```
 
 The per-user choice is generally better: it avoids inconsistent behavior and allows comparing journey
-metrics — which require the user to stay on the same version.
+metrics, which require the user to stay on the same version.
 
 And starting with internal users is a cheap practice that catches gross problems before any customer sees
 them.
@@ -132,8 +132,8 @@ Once the canary is approved, the expansion is not immediate:
 5% → 25% → 50% → 100%
 ```
 
-Each step with a new observation window. Scale-dependent problems — contention, connection exhaustion,
-dependency saturation — only appear with volume.
+Each step with a new observation window. Scale-dependent problems (contention, connection exhaustion,
+dependency saturation) only appear with volume.
 
 See [horizontal scaling](/11-scalability/horizontal-scaling.md).
 
@@ -178,12 +178,12 @@ sufficient volume.
 
 ## Alternatives
 
-- **[Blue-green](/14-devops-and-platform/blue-green.md)** — instant rollback, with no detection.
-- **[Rolling deployment](/14-devops-and-platform/rolling-deployments.md)** — gradual replacement, with no
+- **[Blue-green](/14-devops-and-platform/blue-green.md)**: instant rollback, with no detection.
+- **[Rolling deployment](/14-devops-and-platform/rolling-deployments.md)**: gradual replacement, with no
   comparison.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — they expose gradually with no deployment;
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: they expose gradually with no deployment;
   complementary.
-- **Shadow deployment** — the new version processes a copy of the traffic with no response. Zero risk, at
+- **Shadow deployment**: the new version processes a copy of the traffic with no response. Zero risk, at
   the cost of doubling the processing.
 
 The last is the right choice when the behavior can be compared without affecting users.
@@ -237,7 +237,7 @@ The last is the right choice when the behavior can be compared without affecting
 ## Real-World Example
 
 A flight search platform implemented a canary comparing latency, error rate and CPU usage. For a year, it
-never reverted anything — and three behavior incidents passed through it.
+never reverted anything, and three behavior incidents passed through it.
 
 The clearest case: a change in the ranking started excluding flights with long layovers because of a
 threshold error. Latency, errors and CPU were identical. Conversion fell 8%, and nobody noticed for four
@@ -256,10 +256,10 @@ rest.
 **Thresholds calibrated** with a prior experiment: two 5% cohorts running the **same** version, for two
 weeks, to measure each metric's natural variation. The thresholds were set above that noise.
 
-That step is what most improved the analysis's reliability — before, the thresholds had been chosen by
+That step is what most improved the analysis's reliability: before, the thresholds had been chosen by
 intuition, and they were loose enough to catch nothing.
 
-**Expansion in steps** — 5%, 25%, 50%, 100% — with a 20-minute window at each. A connection contention
+**Expansion in steps** (5%, 25%, 50%, 100%) with a 20-minute window at each. A connection contention
 problem appeared at the 50% step, and would not have appeared at 5%.
 
 **A maximum deadline.** A canary that does not conclude in 2 hours is reverted automatically. That was
@@ -282,7 +282,7 @@ most frequently skipped.
 
 ## Practical Exercise
 
-If you use a canary, check which metrics it compares — and whether any of them would change if the system
+If you use a canary, check which metrics it compares, and whether any of them would change if the system
 started returning wrong results with normal latency.
 
 If none would, the canary does not protect against the most dangerous case.
@@ -296,5 +296,5 @@ If none would, the canary does not protect against the most dangerous case.
 ## Further Reading
 
 - Humble, Jez; Farley, David. *Continuous Delivery*. Addison-Wesley, 2010.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 27.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 27.
 - Sato, Danilo. *Canary Release*. martinfowler.com, 2014.

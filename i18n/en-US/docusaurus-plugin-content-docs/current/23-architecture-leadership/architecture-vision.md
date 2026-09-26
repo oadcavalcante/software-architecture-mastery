@@ -2,7 +2,7 @@
 id: architecture-vision
 title: Architecture Vision
 sidebar_position: 3
-description: A destination that guides decisions without prescribing every step — and that has to be memorable.
+description: A destination that guides decisions without prescribing every step, and that has to be memorable.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [technical-strategy-leadership, technical-roadmaps, communication]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ it is       a destination stated in a way someone can
 ```
 
 That last one is the test: a vision that cannot be used to decide a concrete question is not a
-vision — it is a statement of intent.
+vision but a statement of intent.
 
 And there is a second, harder test: **is it memorable?** A vision that has to be looked up in a
 twenty-page document will guide nothing, because the decisions it should guide happen without
@@ -48,8 +48,8 @@ The typical vision document:
  high quality and security."
 ```
 
-That eliminates no option. Faced with a real choice — one database or two, synchronous or
-asynchronous, extract or keep — it helps not at all.
+That eliminates no option. Faced with a real choice (one database or two, synchronous or
+asynchronous, extract or keep), it helps not at all.
 
 And the opposite error: the vision as a detailed diagram of the target state, with forty
 components. It prescribes too much, ages fast, and turns local decisions into compliance with a
@@ -78,10 +78,10 @@ guided each one. If not, it isn't operating.
 
 That test is applicable at any moment and is almost never done. It has the advantage of being
 retrospective: it doesn't require predicting what the vision will guide, only checking what it
-would have guided — and retrospective verification is far more reliable than projection.
+would have guided, and retrospective verification is far more reliable than projection.
 
 When the result is poor, there are two possible diagnoses: the vision is too vague, or it is
-correct and not known. The two require different action, and distinguishing them is simple — just
+correct and not known. The two require different action, and distinguishing them is simple: just
 ask whoever decided whether the vision would have changed anything.
 
 ### Short enough to be remembered
@@ -91,7 +91,7 @@ target   three to five statements, each in one sentence
 ```
 
 That sounds like little and it is the practical limit. Someone deciding something at four in the
-afternoon is not going to open a document — they will decide with what they remember.
+afternoon is not going to open a document. They will decide with what they remember.
 
 ```text
 "Every domain has an owner and its own database."
@@ -124,7 +124,7 @@ decision   how, in each case
 ```
 
 Confusing the three is the most common structural error. A vision that prescribes the path removes
-the autonomy that makes it scalable — and the vision's value is precisely in letting many people
+the autonomy that makes it scalable. And the vision's value is precisely in letting many people
 decide well without coordinating.
 
 See [technical roadmaps](/23-architecture-leadership/technical-roadmaps.md).
@@ -138,7 +138,7 @@ See [technical roadmaps](/23-architecture-leadership/technical-roadmaps.md).
 ```
 
 Stating what the vision does **not** intend is as guiding as what it does intend, and it prevents
-expansive interpretation — the reading that the vision justifies any standardization.
+expansive interpretation: the reading that the vision justifies any standardization.
 
 ### The vision needs an owner and a review
 
@@ -171,7 +171,7 @@ decision being justified against the vision learns three things at once: that th
 that it has consequences, and that it is not dogma. The three together are what produces genuine
 adoption.
 
-The opposite — a vision never cited because no decision contradicts it — usually indicates it is too
+The opposite, a vision never cited because no decision contradicts it, usually indicates it is too
 vague to be contradicted.
 
 ## Mental Model
@@ -190,19 +190,19 @@ it won't guide any decision.
 
 **When everyone who decides fits in one meeting.** With three or four teams and a handful of people deciding architecture, the criteria circulate in the weekly conversation and get corrected the same day. A written vision duplicates what everyone has already heard, and still demands an owner and a review.
 
-**When the premises change faster than the review cycle.** In an organization mid-pivot, with product or business model redefined every quarter, a vision reviewed annually guides with premises already discarded — and with the authority of an official document. Until the context stabilizes, reversible decisions recorded in short ADRs serve better.
+**When the premises change faster than the review cycle.** In an organization mid-pivot, with product or business model redefined every quarter, a vision reviewed annually guides with premises already discarded, and with the authority of an official document. Until the context stabilizes, reversible decisions recorded in short ADRs serve better.
 
-**When there are no decisions yet to derive it from.** A vision that works describes criteria the organization already uses (see the Real-World Example). With half a dozen ADRs there is no recurring criterion to state, and what comes out will be aspiration — the statement of adjectives from the Problem section, in different clothes.
+**When there are no decisions yet to derive it from.** A vision that works describes criteria the organization already uses (see the Real-World Example). With half a dozen ADRs there is no recurring criterion to state, and what comes out will be aspiration: the statement of adjectives from the Problem section, in different clothes.
 
 ## Alternatives
 
-- **Principles** — more granular, guiding judgment in specific situations. See
+- **Principles**: more granular, guiding judgment in specific situations. See
   [principles](/23-architecture-leadership/leadership-principles.md).
-- **A set of ADRs** — concrete precedents teach the organization's criteria better than
+- **A set of ADRs**: concrete precedents teach the organization's criteria better than
   abstractions.
-- **A target architecture** — the diagram of the future state, useful as a complement and not as a
+- **A target architecture**: the diagram of the future state, useful as a complement and not as a
   vision. See [target architecture](/15-enterprise-architecture/target-architecture.md).
-- **Nothing** — in small organizations, conversation resolves it, and a formal vision is ceremony.
+- **Nothing**: in small organizations, conversation resolves it, and a formal vision is ceremony.
 
 ## Trade-offs
 
@@ -221,7 +221,7 @@ it won't guide any decision.
 
 **Adjectives.** "Modern, scalable and secure" eliminates no option and guides no decision.
 
-**Too detailed.** It ages in months, doesn't delegate, and turns into a plan — which is a different
+**Too detailed.** It ages in months, doesn't delegate, and turns into a plan, which is a different
 thing, with a different review cycle.
 
 **No why.** It becomes an arbitrary rule and gets worked around; without the problem it solves, it
@@ -235,7 +235,7 @@ they already wanted to do.
 **No owner and no review.** Nobody updates it, and the out-of-date vision guides in the wrong
 direction with the same authority.
 
-**Communicated once.** It stays unknown to whoever decides day to day — in practice, it doesn't
+**Communicated once.** It stays unknown to whoever decides day to day. In practice, it doesn't
 exist.
 
 ## Common Mistakes
@@ -245,7 +245,7 @@ revised every quarter along with the plan, and stops being a stable reference: w
 doesn't know whether the criterion will still hold next month.
 
 **Writing it in corporate presentation language.** Phrases written to get through a committee don't
-distinguish between two concrete options, so no design review can cite them to decide — and the
+distinguish between two concrete options, so no design review can cite them to decide, and the
 vision stops being cited.
 
 **Not testing it** against real recent decisions. The vision can go years without guiding anything
@@ -271,7 +271,7 @@ architectural decisions citing it (ADRs)          2 of 187
 
 Four percent retention. The document was well written and it wasn't operating.
 
-The rework produced four sentences, derived from the ADR archive itself — the architecture group
+The rework produced four sentences, derived from the ADR archive itself. The architecture group
 read the 187 records and extracted the criteria that had actually been used:
 
 ```text
@@ -298,7 +298,7 @@ What this vision does NOT define:
 ```
 
 **Communication in three places:** cited at the start of every design review; included as a
-mandatory section in ADRs — "which vision item does this decision relate to?"; and in onboarding
+mandatory section in ADRs ("which vision item does this decision relate to?"); and in onboarding
 material for new people.
 
 **An annual review**, with the criterion that each item still has to eliminate options in real
@@ -319,11 +319,11 @@ And in the annual review, one item was removed: the fourth, about the template, 
 The nine exceptions were concentrated in the first five months; in the second half of the year no new
 service considered starting outside the template, and the item no longer eliminated any option under
 discussion. It was promoted to a standard verified
-automatically — which is the correct evolution of a vision item that no longer generates decisions.
+automatically. That is the correct evolution of a vision item that no longer generates decisions.
 
 The subsequent assessment points out: deriving the vision from the ADR archive, rather than writing
-it from scratch, was the soundest methodological decision. The four items were not aspiration —
-they were a description of the criteria the organization already used, stated memorably.
+it from scratch, was the soundest methodological decision. The four items were not aspiration but
+a description of the criteria the organization already used, stated memorably.
 
 ## Related Concepts
 

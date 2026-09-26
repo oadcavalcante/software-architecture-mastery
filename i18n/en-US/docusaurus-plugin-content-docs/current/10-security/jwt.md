@@ -2,7 +2,7 @@
 id: jwt
 title: JWT
 sidebar_position: 4
-description: A self-contained, verifiable token — and the revocation problem most implementations ignore.
+description: A self-contained, verifiable token, and the revocation problem most implementations ignore.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, oidc, secrets]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 JWT is a **self-contained and signed** token format: it carries claims about the bearer, and any party with
 the appropriate key can verify them without consulting anybody.
 
-That solves a real scale problem — verifying identity with no call to a central service on every request.
+That solves a real scale problem: verifying identity with no call to a central service on every request.
 
 And it creates a structural problem: **an issued token cannot be undone**. Most implementations ignore that
 until they need to revoke something.
@@ -34,7 +34,7 @@ until they need to revoke something.
 Traditional sessions keep state on the server: an opaque identifier, and the data looked up on each
 request.
 
-That is simple, allows immediate revocation, and requires a shared store consulted on every request — which
+That is simple, allows immediate revocation, and requires a shared store consulted on every request. That store
 becomes a critical dependency and a point of contention with many services.
 
 JWT inverts it: the state travels in the token, verifiable locally. The trade is revocation for
@@ -61,7 +61,7 @@ This appears in security assessments with uncomfortable frequency.
 
 ### Revocation is the structural problem
 
-A valid token stays valid until it expires. There is no way to cancel it — that is the nature of the
+A valid token stays valid until it expires. There is no way to cancel it: that is the nature of the
 self-contained model.
 
 That matters when: the user leaves the company, the session is terminated, the permission changes, or the
@@ -72,18 +72,18 @@ The ways out, with their costs:
 **A short expiration.** Minutes, with renewal. It limits the window with no lookup at all. It is the first
 line, and it is insufficient on its own for cases requiring immediate revocation.
 
-**A revocation list.** Consulted on each request. It works, and it reintroduces the lookup JWT was avoiding
-— although against a much smaller structure than a session store.
+**A revocation list.** Consulted on each request. It works, and it reintroduces the lookup JWT was avoiding,
+although against a much smaller structure than a session store.
 
 **A credential version.** The token carries a number; the server compares it with the user's current value.
 Invalidating all of somebody's tokens is incrementing the number. It costs a lightweight lookup and solves
 the most common case.
 
-**An opaque reference.** The token is not a JWT — it is an identifier that gets looked up. A traditional
+**An opaque reference.** The token is not a JWT: it is an identifier that gets looked up. A traditional
 session, with all the revocation benefits.
 
 The honest choice: if immediate revocation is a requirement, a self-contained JWT is not the right
-mechanism — or it needs one of the mitigations, which reintroduce state.
+mechanism, or it needs one of the mitigations, which reintroduce state.
 
 ### The algorithm needs to be pinned
 
@@ -107,7 +107,7 @@ Verifying the signature and forgetting expiration is common, and it turns a one-
 one.
 
 `exp` and `nbf` compare clocks on different machines. With several services, a verifier whose clock runs
-ahead rejects freshly issued tokens as expired or not yet valid — the symptom is intermittent rejections
+ahead rejects freshly issued tokens as expired or not yet valid. The symptom is intermittent rejections
 concentrated in one service. Verification allows a skew tolerance of seconds, not minutes, and the clocks
 stay synchronized.
 
@@ -115,7 +115,7 @@ stay synchronized.
 
 The token travels on every request, typically in a header.
 
-A JWT with many claims — a permission list, attributes, groups — can reach several kilobytes, and some
+A JWT with many claims (a permission list, attributes, groups) can reach several kilobytes, and some
 servers reject headers above a limit.
 
 Besides that, permissions inside the token are frozen until expiration: changing a permission has no
@@ -132,7 +132,7 @@ That means the transport and the storage matter as much as the signature:
 
 **In a web client**, an HTTP-only cookie is preferable to local storage, which is accessible to any
 injected script. The price: the browser sends the cookie on its own, which opens cross-site request
-forgery — and requires a same-site attribute or an anti-forgery token. The trade pays off when that control
+forgery, and requires a same-site attribute or an anti-forgery token. The trade pays off when that control
 is in place, because it closes one class of attack, while local storage leaves any script injection open.
 
 **In the URL, the token leaks** into server logs, the history and the referrer header. A header or a cookie
@@ -158,24 +158,24 @@ a price without receiving the benefit.
 
 **When immediate revocation is a requirement**, with no mitigation.
 
-**When the content needs to be confidential** and JWE is not available — a signed JWT is readable by
+**When the content needs to be confidential** and JWE is not available: a signed JWT is readable by
 whoever holds it.
 
 **When the client cannot renew** and the token would need to last hours. Beyond a few minutes with no
 revocation mechanism, the validity becomes the access window for whoever steals it.
 
-**As a web application session** when a session cookie solves it — which is the case for most single-server
+**As a web application session** when a session cookie solves it, which is the case for most single-server
 applications.
 
 **To carry permissions that change** more often than the token's validity.
 
 ## Alternatives
 
-- **A session with an opaque identifier** — immediate revocation, state on the server. Frequently the right
+- **A session with an opaque identifier**: immediate revocation, state on the server. Frequently the right
   choice, and frequently discarded out of fashion.
-- **A reference token** — opaque to the client, looked up by the API.
-- **A JWT with a credential version** — a practical middle ground.
-- **JWE** — when the content needs to be confidential.
+- **A reference token**: opaque to the client, looked up by the API.
+- **A JWT with a credential version**: a practical middle ground.
+- **JWE**: when the content needs to be confidential.
 
 ## Trade-offs
 
@@ -204,12 +204,12 @@ applications.
 
 **A header that is too large.** Requests rejected by a limit.
 
-**The signing key leaked.** It allows forging any token — the worst case, and the reason the key deserves
+**The signing key leaked.** It allows forging any token: the worst case, and the reason the key deserves
 the treatment of [key management](/10-security/key-management.md).
 
 ## Common Mistakes
 
-**Putting sensitive data inside.** The content is only base64-encoded — readable by anybody who has the
+**Putting sensitive data inside.** The content is only base64-encoded, readable by anybody who has the
 token, including the user themselves.
 
 **A long expiration.** The token cannot be revoked without additional infrastructure, so expiration is the
@@ -220,10 +220,10 @@ swapping it for `none` or for a symmetric one with the public key as the secret.
 require the expected algorithm.
 
 **Not verifying `aud`.** Without verifying the audience, a token issued for another service in the same
-organization is accepted here — and the intended scope evaporates.
+organization is accepted here, and the intended scope evaporates.
 
 **Storing it in the browser's local storage.** It becomes accessible to any script on the page, which turns
-a cross-site scripting flaw into session theft. An HTTP-only cookie does not have that problem — and trades it for request forgery, covered above.
+a cross-site scripting flaw into session theft. An HTTP-only cookie does not have that problem, and trades it for request forgery, covered above.
 
 **Using JWT where a session would work better.** In an application with a single backend, a server-side
 session is revocable on the spot and simpler. The self-contained token pays the price of difficult
@@ -240,7 +240,7 @@ account was deactivated. The token on their machine stayed valid, and they acces
 dismissal. The offboarding process presumed that deactivating the account ended the access.
 
 **Sensitive data in the token.** The token carried the full name, the national ID number, the job title and
-the salary — because it was convenient to have that available with no lookup. Anybody with access to the
+the salary, because it was convenient to have that available with no lookup. Anybody with access to the
 browser, or to logs that captured headers, read all of it.
 
 A gateway's logs were recording complete headers, including the tokens. There were three months of salary
@@ -264,7 +264,7 @@ looked up.
 
 **An HTTP-only cookie** instead of local storage.
 
-**Logs with redaction** of authorization headers — and the three months of existing logs were purged.
+**Logs with redaction** of authorization headers, and the three months of existing logs were purged.
 
 The recorded conclusion: the choice of JWT had been made for scale, and the system had 400 users. A
 traditional session would have served comfortably, with none of the four problems.
@@ -272,13 +272,13 @@ traditional session would have served comfortably, with none of the four problem
 ## Related Concepts
 
 - [OAuth 2.0](/10-security/oauth2.md) and [OpenID Connect](/10-security/oidc.md).
-- [Secrets](/10-security/secrets.md) — the signing key.
+- [Secrets](/10-security/secrets.md): the signing key.
 - [Key Management](/10-security/key-management.md).
 - [Authentication](/05-system-design/authentication.md).
 
 ## Practical Exercise
 
-Decode a JWT from your system — no key needed at all — and see what is inside. Then ask: can this
+Decode a JWT from your system (no key needed at all) and see what is inside. Then ask: can this
 information be read by the client and by whoever captures a log?
 
 And answer: how do you revoke that token right now, if you need to?

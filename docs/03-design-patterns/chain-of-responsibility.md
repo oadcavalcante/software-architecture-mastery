@@ -2,7 +2,7 @@
 id: chain-of-responsibility
 title: Chain of Responsibility
 sidebar_position: 13
-description: Passar a requisição por uma cadeia até alguém tratar — e o risco de ninguém tratar.
+description: Passar a requisição por uma cadeia até alguém tratar, e o risco de ninguém tratar.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [decorator, command, mediator]
 canonical_for: [chain of responsibility, cadeia de responsabilidade]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -27,7 +27,7 @@ tratadores. Cada um decide se trata ou repassa ao próximo.
 O ganho é desacoplar quem envia de quem trata: o emissor não sabe qual elemento da
 cadeia vai responder, nem se algum vai.
 
-Essa última parte — **nem se algum vai** — é o risco central do padrão.
+Essa última parte (**nem se algum vai**) é o risco central do padrão.
 
 ## Problema
 
@@ -62,7 +62,7 @@ O nome cobre dois comportamentos que valem distinguir.
 assumir. Usado em despacho de requisição e tratamento de exceção.
 
 **Todos processam.** Cada elo faz algo e repassa; ninguém interrompe. É o modelo
-de middleware — autenticação, registro, compressão. Estruturalmente idêntico a
+de middleware: autenticação, registro, compressão. Estruturalmente idêntico a
 [Decorator](/03-design-patterns/decorator.md), e a diferença de nome é histórica.
 
 Confundir as duas produz cadeias em que alguém interrompe sem querer, ou em que
@@ -76,7 +76,7 @@ O padrão não responde, e essa omissão é a fonte da maior parte dos defeitos:
 requisição desaparece silenciosamente.
 
 Na semântica "primeiro que trata para", a correção é **um tratador final que sempre
-trata** — mesmo que seja para registrar e lançar erro. Uma cadeia sem esse elo tem um
+trata**, mesmo que seja para registrar e lançar erro. Uma cadeia sem esse elo tem um
 caminho de falha invisível.
 
 Na semântica "todos processam" o problema não existe: não há "ninguém tratou", porque
@@ -102,8 +102,8 @@ deve estar num lugar, não distribuída.
 
 **Quando o tratador é sempre o mesmo.** Chame diretamente.
 
-**Quando a seleção é por valor conhecido.** Uma tabela de despacho — mapa de chave
-para tratador — é mais direta, mais rápida e mais fácil de auditar que percorrer
+**Quando a seleção é por valor conhecido.** Uma tabela de despacho (mapa de chave
+para tratador) é mais direta, mais rápida e mais fácil de auditar que percorrer
 uma cadeia.
 
 **Quando o tratamento precisa ser garantido e a cadeia não garante.** Sem elo
@@ -116,11 +116,11 @@ em fluxo crítico, isso custa.
 
 ## Alternativas
 
-- **Tabela de despacho** — quando a seleção é por chave. Mais simples e explícita.
-- **Middleware com ordem declarada** — para a semântica de "todos processam".
-- **Condicional explícito** — quando há poucos tratadores estáveis, e a
+- **Tabela de despacho**: quando a seleção é por chave. Mais simples e explícita.
+- **Middleware com ordem declarada**: para a semântica de "todos processam".
+- **Condicional explícito**: quando há poucos tratadores estáveis, e a
   legibilidade importa mais que o desacoplamento.
-- **[Mediator](/03-design-patterns/mediator.md)** — quando a coordenação é entre objetos, não uma
+- **[Mediator](/03-design-patterns/mediator.md)**: quando a coordenação é entre objetos, não uma
   cadeia linear.
 
 ## Trade-offs
@@ -158,7 +158,7 @@ em fluxo crítico, isso custa.
 ## Onde ele aparece na prática
 
 **Middleware HTTP.** A semântica de "todos processam", com a possibilidade de
-interromper — autenticação que rejeita antes de chegar ao controlador.
+interromper: autenticação que rejeita antes de chegar ao controlador.
 
 **Tratamento de exceção em linguagens.** O `catch` mais próximo que corresponde
 trata; caso contrário sobe. É a semântica de "primeiro que trata", embutida.
@@ -171,7 +171,7 @@ processam.
 
 O caso das exceções é instrutivo: a linguagem fornece um tratador final padrão, que
 **reporta** em vez de deixar sumir. No fluxo principal isso costuma encerrar o programa
-com erro visível; fora dele o comportamento varia — em Java e em Python, exceção não
+com erro visível; fora dele o comportamento varia: em Java e em Python, exceção não
 tratada numa thread secundária mata só aquela thread, e o processo segue. É a garantia que
 implementações manuais esquecem, e o caso da thread secundária mostra que nem a linguagem a
 dá de graça em todo contexto.
@@ -181,7 +181,7 @@ dá de graça em todo contexto.
 Um sistema de aprovação de despesas usava cadeia: gerente, diretor, financeiro,
 conselho, cada um com limite de alçada.
 
-O defeito apareceu com uma despesa acima do limite do conselho — um caso que
+O defeito apareceu com uma despesa acima do limite do conselho, um caso que
 ninguém previu. A cadeia terminou, nenhum elo tratou, e a despesa ficou num
 estado sem aprovação e sem rejeição. Não havia tela que a mostrasse.
 
@@ -190,17 +190,17 @@ Ficou parada por cinco semanas até alguém perguntar.
 A correção foi um elo final `AprovacaoNaoDefinida` que registra o caso, notifica a
 administração e marca a despesa como pendente de decisão manual.
 
-O que mudou não foi o padrão — foi admitir que a cadeia pode terminar sem
+O que mudou não foi o padrão: foi admitir que a cadeia pode terminar sem
 tratamento, e tornar isso um caso explícito em vez de silêncio.
 
 ## Duas formas de implementar
 
-A estrutura clássica — cada tratador referencia o próximo — não é a única, e a
+A estrutura clássica (cada tratador referencia o próximo) não é a única, e a
 alternativa costuma ser melhor.
 
 **Lista ligada.** Cada tratador guarda o próximo e decide repassar. É a forma do
 GoF. O tratador controla o fluxo, o que permite pré e pós-processamento em volta
-da chamada seguinte — necessário para middleware.
+da chamada seguinte, necessário para middleware.
 
 Custo: montar a cadeia exige encadear objetos, e a estrutura só é visível
 percorrendo as referências.
@@ -225,9 +225,9 @@ tratador precisa fazer algo depois que os seguintes terminarem.
 
 ## Conceitos Relacionados
 
-- [Decorator](/03-design-patterns/decorator.md) — mesma estrutura, semântica de "todos processam".
-- [Command](/03-design-patterns/command.md) — o que trafega pela cadeia pode ser um comando.
-- [Mediator](/03-design-patterns/mediator.md) — coordenação não linear.
+- [Decorator](/03-design-patterns/decorator.md): mesma estrutura, semântica de "todos processam".
+- [Command](/03-design-patterns/command.md): o que trafega pela cadeia pode ser um comando.
+- [Mediator](/03-design-patterns/mediator.md): coordenação não linear.
 
 ## Exercício Prático
 

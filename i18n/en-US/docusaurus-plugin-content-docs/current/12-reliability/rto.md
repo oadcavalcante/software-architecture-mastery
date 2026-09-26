@@ -2,7 +2,7 @@
 id: rto
 title: RTO
 sidebar_position: 8
-description: How long until it is back — a business decision with a price, not a technical estimate.
+description: "How long until it is back: a business decision with a price, not a technical estimate."
 doc_type: foundation
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [rpo, disaster-recovery-planning, failover]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-RTO — recovery time objective — is **how long the service can be unavailable** before it is operating
+RTO (recovery time objective) is **how long the service can be unavailable** before it is operating
 again.
 
 It is a business decision, not an engineering estimate. The question that defines it is: how much does each
@@ -38,7 +38,7 @@ With no defined RTO, three things happen.
 excessive or insufficient.
 
 **There is no criterion during the incident.** The pressure is always "as fast as possible", which leads to
-hasty decisions — restoring without verifying, promoting without fencing.
+hasty decisions: restoring without verifying, promoting without fencing.
 
 **The architecture is chosen with no target.** Multi-region, warm standby, pilot light and backups deliver
 very different RTOs, at very different prices. With no target, the choice becomes a preference.
@@ -77,8 +77,8 @@ execution               → 48 min
 verification            → 55 min
 ```
 
-In this example, the execution took 16 minutes and the real RTO was 55. The first three stages —
-detection, response and diagnosis — usually dominate, and they are the least considered when the recovery
+In this example, the execution took 16 minutes and the real RTO was 55. The first three stages
+(detection, response and diagnosis) usually dominate, and they are the least considered when the recovery
 time is estimated.
 
 Reducing the RTO frequently means investing in detection and in decision clarity, not in recovery
@@ -108,7 +108,7 @@ An RTO declared and never measured is an intention.
 The verification is the recovery exercise, timed. See
 [chaos engineering](/12-reliability/chaos-engineering.md) and [failover](/12-reliability/failover.md).
 
-Teams that exercise it discover that the real time is several times the estimate — on the first execution.
+Teams that exercise it discover that the real time is several times the estimate, on the first execution.
 And that it falls substantially with practice.
 
 ### The RTO and the user's expectation are different things
@@ -116,7 +116,7 @@ And that it falls substantially with practice.
 It is worth separating two measures that are usually confused in communication with the business.
 
 **RTO** is when the service is operating again. **Time to normalization** is when the operation returns to
-its previous pace — which includes processing the backlog, reconciling divergences and reprocessing what
+its previous pace. That includes processing the backlog, reconciling divergences and reprocessing what
 was left pending.
 
 ```text
@@ -139,7 +139,7 @@ backlog processing capacity. See [queue-based scaling](/11-scalability/queue-bas
 
 **Measured from the start of the execution**, ignoring detection and decision.
 
-**Never verified** by a timed exercise — the declared number goes on standing as a commitment, and the
+**Never verified** by a timed exercise: the declared number goes on standing as a commitment, and the
 distance between it and the real time only shows up in the first incident.
 
 **Defined without considering dependencies.** The system's RTO cannot be lower than the critical vendor's.
@@ -159,7 +159,7 @@ Two discoveries changed everything:
 partner hospitals suspend elective procedures. Four hours of downtime meant rescheduled procedures, and the
 cost was far greater than anybody in engineering supposed.
 
-**The real recovery time.** The first timed exercise took **11 hours** — almost three times the declared
+**The real recovery time.** The first timed exercise took **11 hours**, almost three times the declared
 RTO. The procedure was out of date, the quota in the secondary region was insufficient, and nobody on the
 current team had executed it.
 
@@ -172,7 +172,7 @@ history and reports        12 h
 ```
 
 The change from 4 hours to 30 minutes on the critical function required moving from backups with automation
-to a pilot light, at significant cost — approved with no discussion once the cost of downtime was
+to a pilot light, at significant cost, approved with no discussion once the cost of downtime was
 presented.
 
 And, of the 30 minutes, the exercise showed that 18 were detection and decision. The larger investment
@@ -181,14 +181,14 @@ ended up going to monitoring and to a clear triggering criterion, not to infrast
 After six quarterly exercises, the measured time stabilized at 22 minutes.
 
 What the team records: the 4-hour number had never been a decision. It was a value copied from a document
-template, and it sustained — on paper — a strategy that would take 11 hours.
+template, and it sustained, on paper, a strategy that would take 11 hours.
 
 ## Related Concepts
 
-- [RPO](/12-reliability/rpo.md) — the partner.
+- [RPO](/12-reliability/rpo.md): the partner.
 - [Disaster Recovery Planning](/12-reliability/disaster-recovery-planning.md).
-- [Failover](/12-reliability/failover.md) — the mechanism.
-- [Availability Metrics](/12-reliability/availability-metrics.md) — the measured recovery time.
+- [Failover](/12-reliability/failover.md): the mechanism.
+- [Availability Metrics](/12-reliability/availability-metrics.md): the measured recovery time.
 
 ## Practical Exercise
 
@@ -205,7 +205,7 @@ Then time a recovery exercise. The difference between the two numbers is your re
 ## Further Reading
 
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- ISO. *ISO 22301:2019 — Security and Resilience: Business Continuity Management
+- ISO. *ISO 22301:2019. Security and Resilience: Business Continuity Management
   Systems — Requirements*. ISO, 2019.
-- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1. Contingency Planning Guide for
   Federal Information Systems*. NIST, 2010.

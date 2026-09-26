@@ -2,7 +2,7 @@
 id: key-management
 title: Gestão de Chaves
 sidebar_position: 7
-description: Onde a criptografia costuma falhar — não no algoritmo, mas em quem tem a chave e o que acontece se ela sumir.
+description: "Onde a criptografia costuma falhar: não no algoritmo, mas em quem tem a chave e o que acontece se ela sumir."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: [gestão de chaves, chave mestra, cifragem envelopada, rotação de chave]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-28
 ---
 
@@ -30,7 +30,7 @@ implementação depois que a decisão de cifrar foi tomada.
 
 ## Problema
 
-Cifrar é a parte fácil — uma chamada de biblioteca. As perguntas que vêm depois é que
+Cifrar é a parte fácil: uma chamada de biblioteca. As perguntas que vêm depois é que
 determinam se a proteção existe:
 
 Onde a chave fica? Quem pode usá-la? Como ela é rotacionada sem tornar ilegíveis os
@@ -58,7 +58,7 @@ Três vantagens:
 **A chave mestra nunca toca o dado.** Ela pode viver num módulo de segurança que não
 a exporta.
 
-**Rotacionar a mestra é barato.** Basta recifrar as chaves de dados — pequenas — sem
+**Rotacionar a mestra é barato.** Basta recifrar as chaves de dados, pequenas, sem
 tocar nos dados.
 
 **O escopo do comprometimento é limitado.** Uma chave de dados vazada compromete
@@ -69,12 +69,12 @@ apenas o que ela cifrou.
 Rotacionar a chave que cifra terabytes é inviável se exigir recifrar tudo.
 
 Com envelopamento, os dados antigos permanecem cifrados com suas chaves de dados, e
-apenas o envelope muda — de uma de duas formas. Recifrar todos os envelopes com a mestra
+apenas o envelope muda, de uma de duas formas. Recifrar todos os envelopes com a mestra
 nova custa uma passagem sobre as chaves de dados, pequenas, e libera a mestra antiga
 para descarte. Usar a mestra nova só para dados novos não custa passagem nenhuma, mas
 a mestra antiga precisa existir enquanto houver envelope cifrado por ela.
 
-Isso exige que **a versão da chave seja guardada junto do dado** — para saber com o
+Isso exige que **a versão da chave seja guardada junto do dado**, para saber com o
 quê decifrar. É um detalhe pequeno cuja ausência cobra caro depois: sem ele, decifrar
 exige tentar cada chave conhecida contra cada objeto.
 
@@ -86,7 +86,7 @@ chave precisa existir.
 Descartar uma chave antiga "porque rotacionamos" torna os dados dela ilegíveis
 permanentemente. Isso já aconteceu em sistemas reais, e a recuperação não existe.
 
-O descarte só é seguro depois de recifrar tudo que dependia dela — ou quando o
+O descarte só é seguro depois de recifrar tudo que dependia dela, ou quando o
 descarte é **intencional**, como em cifragem por titular para apagamento.
 
 ### Módulo de segurança e serviço gerenciado
@@ -108,7 +108,7 @@ A recomendação prática: serviço gerenciado, salvo exigência específica. Ve
 Quem administra o armazenamento não deveria poder usar a chave. Quem pode usar a
 chave não deveria poder alterar a política dela.
 
-Sem essa separação, a cifragem não protege contra o administrador — que é
+Sem essa separação, a cifragem não protege contra o administrador, que é
 frequentemente a ameaça que se queria endereçar.
 
 Na prática: políticas de chave e políticas de dados sob controle de papéis distintos,
@@ -136,7 +136,7 @@ Um atacante com a chave de assinatura de tokens emite tokens válidos para qualq
 usuário, com qualquer permissão, e nenhuma verificação detecta.
 
 Por isso essas chaves justificam proteção maior, rotação mais frequente e suporte a
-múltiplas chaves válidas — para que a rotação não invalide tudo de uma vez. Ver
+múltiplas chaves válidas, para que a rotação não invalide tudo de uma vez. Ver
 [confiança na cadeia de suprimentos](/10-security/supply-chain-trust.md).
 
 ## Modelo Mental
@@ -159,7 +159,7 @@ limites. Prioridade quando:
 ## Quando Não Usar
 
 **Gestão própria quando a cifragem transparente da plataforma basta.** Se o modelo de
-ameaça é acesso ao meio — disco descartado, cópia roubada do armazenamento —, a
+ameaça é acesso ao meio (disco descartado, cópia roubada do armazenamento), a
 plataforma já cifra e custodia a chave; uma hierarquia própria acrescenta operação sem
 acrescentar proteção contra essa ameaça.
 
@@ -168,7 +168,7 @@ serviço gerenciado já entrega a propriedade que importa na maioria dos casos: 
 não sai do módulo.
 
 **Serviço gerenciado quando a regulação exige custódia própria.** Se a norma exige que
-a chave nunca esteja sob controle do provedor, a chave hospedada nele não atende —
+a chave nunca esteja sob controle do provedor, a chave hospedada nele não atende:
 o caminho é módulo próprio ou chave externa que o provedor só referencia.
 
 **Envelopamento quando o volume sob a chave é pequeno.** Se recifrar tudo cabe numa
@@ -177,11 +177,11 @@ operar e a perder.
 
 ## Alternativas
 
-- **Serviço gerenciado de chaves** — o padrão razoável.
-- **Cifragem transparente da plataforma** — quando o modelo de ameaça é acesso ao
+- **Serviço gerenciado de chaves**: o padrão razoável.
+- **Cifragem transparente da plataforma**: quando o modelo de ameaça é acesso ao
   meio. Ver [criptografia](/10-security/encryption.md).
-- **Tokenização** — o dado sai do sistema; a chave deixa de ser problema local.
-- **Não cifrar e não guardar** — a única forma de não ter chave para gerenciar.
+- **Tokenização**: o dado sai do sistema; a chave deixa de ser problema local.
+- **Não cifrar e não guardar**: a única forma de não ter chave para gerenciar.
 
 ## Trade-offs
 
@@ -205,13 +205,13 @@ operar e a perder.
 **Chave antiga descartada.** Dados antigos ilegíveis.
 
 **Versão não registrada.** Decifrar exige tentar cada chave conhecida contra cada
-objeto — custo proporcional a chaves vezes objetos.
+objeto: custo proporcional a chaves vezes objetos.
 
-**Chave junto do dado.** Quem lê o armazenamento decifra — a cifragem existe e não protege.
+**Chave junto do dado.** Quem lê o armazenamento decifra: a cifragem existe e não protege.
 
 **Chave de assinatura comprometida.** Permite forjar.
 
-**Serviço de chaves indisponível.** Nada decifra — o sistema para.
+**Serviço de chaves indisponível.** Nada decifra: o sistema para.
 
 **Sem inventário.** Não se sabe o que cada chave cifra, e o comprometimento não pode
 ser avaliado.
@@ -224,13 +224,13 @@ ser avaliado.
 
 **Não manter inventário de chave para dado.** Sem saber o que cada chave protege, não há como avaliar o impacto de um comprometimento nem decidir a ordem de resposta.
 
-**Guardar a chave no mesmo lugar que o dado.** Anula a proteção — quem obtém acesso ao armazenamento obtém os dois.
+**Guardar a chave no mesmo lugar que o dado.** Anula a proteção: quem obtém acesso ao armazenamento obtém os dois.
 
 **Não separar administração de uso.** Quem usa a chave para decifrar não precisa poder exportá-la nem apagá-la. Sem essa separação, o comprometimento da aplicação vira comprometimento do material criptográfico.
 
-**Tratar chave de assinatura como chave comum.** O comprometimento de uma chave de cifra expõe dados; o de uma chave de assinatura permite forjar identidade e autorização — dano de natureza diferente e maior.
+**Tratar chave de assinatura como chave comum.** O comprometimento de uma chave de cifra expõe dados; o de uma chave de assinatura permite forjar identidade e autorização: dano de natureza diferente e maior.
 
-**Não ter plano para perda.** A cópia de segurança dos dados não substitui a da chave, e a da chave só existe se alguém a projetou — com a mesma proteção da original.
+**Não ter plano para perda.** A cópia de segurança dos dados não substitui a da chave, e a da chave só existe se alguém a projetou, com a mesma proteção da original.
 
 ## Exemplo Real
 
@@ -240,12 +240,12 @@ objetos, com uma chave simétrica guardada em configuração da aplicação.
 Três problemas apareceram ao longo de quatro anos:
 
 **Rotação impossível.** A chave nunca foi rotacionada, porque rotacionar exigiria
-recifrar 14 milhões de documentos — estimado em três semanas de processamento e um
+recifrar 14 milhões de documentos, estimado em três semanas de processamento e um
 custo alto de leitura e escrita. A chave tinha quatro anos.
 
 **Chave perdida, e sem versão para saber quais.** Uma tentativa anterior de rotação parcial
 deixou cerca de 200 mil documentos cifrados com uma chave intermediária. Duas coisas deram
-errado, e vale separá-las: a chave tinha sumido — foi isso que tornou os documentos
+errado, e vale separá-las: a chave tinha sumido, e foi isso que tornou os documentos
 ilegíveis, até que alguém a encontrasse meses depois num repositório de configuração
 desativado. A falta de versão no metadado custou outra coisa: sem ela, mesmo com todas as
 chaves em mãos, classificar o acervo exigiu tentar decifrar cada objeto com cada chave
@@ -259,12 +259,12 @@ A reformulação:
 
 **Envelopamento.** Cada documento passou a ter chave própria, cifrada por uma chave
 mestra em serviço gerenciado. A migração pagou uma vez a passagem de três semanas
-sobre os 14 milhões de documentos — aceitável porque era única e coincidia com a
+sobre os 14 milhões de documentos, aceitável porque era única e coincidia com a
 classificação que o acervo já exigia. Depois dela, rotacionar a mestra passou a ser
 uma operação de minutos; sob chave única, a mesma passagem seria o preço de cada rotação.
 
 **Versão da chave** gravada nos metadados de cada objeto. A migração exigiu tentar
-decifrar com cada chave conhecida para classificar o acervo — e foi assim que os 200
+decifrar com cada chave conhecida para classificar o acervo, e foi assim que os 200
 mil documentos foram identificados.
 
 **Separação de deveres.** A política da chave mestra passou a ser controlada por um
@@ -276,15 +276,15 @@ E uma descoberta durante a migração: **a chave estava numa cópia de seguranç
 configuração**, armazenada no mesmo armazenamento de objetos que ela protegia.
 
 A lição registrada: a decisão de cifrar tinha sido bem tomada e bem justificada.
-Nada além dela foi decidido — e quatro anos depois o sistema tinha cifragem sem
+Nada além dela foi decidido, e quatro anos depois o sistema tinha cifragem sem
 nenhuma das propriedades que a cifragem deveria entregar.
 
 ## Conceitos Relacionados
 
-- [Criptografia](/10-security/encryption.md) — o que a chave protege.
-- [Segredos](/10-security/secrets.md) — a categoria mais ampla.
+- [Criptografia](/10-security/encryption.md): o que a chave protege.
+- [Segredos](/10-security/secrets.md): a categoria mais ampla.
 - [Proteção de Dados](/10-security/data-protection.md).
-- [JWT](/10-security/jwt.md) — chaves de assinatura.
+- [JWT](/10-security/jwt.md): chaves de assinatura.
 
 ## Exercício Prático
 

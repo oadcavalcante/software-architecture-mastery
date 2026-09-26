@@ -2,7 +2,7 @@
 id: template-method
 title: Template Method
 sidebar_position: 21
-description: A classe base define o esqueleto e a subclasse preenche as lacunas — herança onde composição costuma ser melhor.
+description: "A classe base define o esqueleto e a subclasse preenche as lacunas: herança onde composição costuma ser melhor."
 doc_type: pattern
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [strategy, factory-method, composition-vs-inheritance]
 canonical_for: [template method]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -37,7 +37,7 @@ Importar dados: abrir a fonte, validar o formato, transformar, gravar, fechar. A
 sequência é sempre a mesma; validar e transformar dependem do formato.
 
 Sem o padrão, cada importador repete a sequência inteira. Quando a sequência muda
-— acrescentar registro de auditoria entre transformar e gravar — todos precisam
+(acrescentar registro de auditoria entre transformar e gravar), todos precisam
 mudar, e alguém esquece.
 
 ## Conceitos Centrais
@@ -68,8 +68,8 @@ tanto em código de framework e tão pouco em código de aplicação.
 
 ### Ganchos versus operações abstratas
 
-**Operação abstrata** — a subclasse é obrigada a implementar.
-**Gancho** — tem implementação padrão vazia ou trivial; a subclasse pode
+**Operação abstrata**: a subclasse é obrigada a implementar.
+**Gancho**: tem implementação padrão vazia ou trivial; a subclasse pode
 sobrescrever.
 
 Ganchos dão flexibilidade e criam um problema: quem lê a subclasse não sabe quais
@@ -80,7 +80,7 @@ existem sem ler a base. Quanto mais ganchos, menos previsível o comportamento.
 Template Method herda todos os custos de
 [herança de implementação](/02-software-design/composition-vs-inheritance.md):
 um eixo de variação, acoplamento à implementação da base, e o problema da classe
-base frágil — mudar a base quebra subclasses que ninguém tocou.
+base frágil (mudar a base quebra subclasses que ninguém tocou).
 
 Strategy resolve o mesmo problema por composição, sem esses custos.
 
@@ -109,10 +109,10 @@ argumentos dá o mesmo esqueleto sem prender a hierarquia.
 
 ## Alternativas
 
-- **[Strategy](/03-design-patterns/strategy.md)** — composição no lugar da herança. A alternativa
+- **[Strategy](/03-design-patterns/strategy.md)**: composição no lugar da herança. A alternativa
   principal.
-- **Funções passadas como parâmetro** — `processar(validar, transformar)`.
-- **Método template que recebe as etapas** — sem hierarquia, o esqueleto vira uma
+- **Funções passadas como parâmetro**: `processar(validar, transformar)`.
+- **Método template que recebe as etapas**: sem hierarquia, o esqueleto vira uma
   função que aceita as variações.
 
 ## Trade-offs
@@ -153,7 +153,7 @@ uma dependência oculta.
 
 ## Onde ele aparece na prática
 
-**Frameworks de teste.** O ciclo — preparar, executar, verificar, limpar — é um
+**Frameworks de teste.** O ciclo (preparar, executar, verificar, limpar) é um
 template; seus métodos preenchem as lacunas.
 
 **Servlets e controladores.** A classe base trata o protocolo; você implementa o
@@ -187,19 +187,19 @@ importar(leitor, escritor)
   abrir · validar · transformar · gravar · fechar
 ```
 
-Onze leitores, três escritores. A sequência continuou garantida — está na função,
+Onze leitores, três escritores. A sequência continuou garantida: está na função,
 não numa base herdada.
 
 O detalhe que vale reter: o padrão não estava errado enquanto havia um eixo. Ele
 deixou de servir quando apareceu o segundo, que é exatamente a limitação
-declarada em "quando não usar" — e a mesma que derrubou
+declarada em "quando não usar", e a mesma que derrubou
 [Factory Method](/03-design-patterns/factory-method.md) num caso análogo.
 
 ## Como converter para Strategy
 
 A conversão é mecânica quando o padrão deixa de servir, e vale conhecer os passos.
 
-**Um.** Identifique as operações abstratas — as lacunas que as subclasses
+**Um.** Identifique as operações abstratas: as lacunas que as subclasses
 preenchem. Cada conjunto que varia junto é uma estratégia.
 
 **Dois.** Transforme cada conjunto numa interface. Se for uma operação só, uma
@@ -222,13 +222,13 @@ valor padrão.
 
 O passo que costuma travar é o quarto: se as subclasses compartilhavam estado com
 a base por campos protegidos, esse estado precisa virar parâmetro explícito. É
-trabalhoso e é justamente o acoplamento que a conversão elimina — o estado
+trabalhoso e é justamente o acoplamento que a conversão elimina: o estado
 compartilhado era uma dependência oculta entre base e subclasse.
 
 ## Conceitos Relacionados
 
-- [Strategy](/03-design-patterns/strategy.md) — a alternativa por composição.
-- [Factory Method](/03-design-patterns/factory-method.md) — frequentemente usado dentro de um
+- [Strategy](/03-design-patterns/strategy.md): a alternativa por composição.
+- [Factory Method](/03-design-patterns/factory-method.md): frequentemente usado dentro de um
   template.
 - [Composição vs. Herança](/02-software-design/composition-vs-inheritance.md).
 
@@ -249,4 +249,4 @@ ganchos, indica que composição serviria melhor.
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3ª ed., 2018 — sobre projetar para herança.
+- Bloch, Joshua. *Effective Java*. 3ª ed., 2018. Sobre projetar para herança.

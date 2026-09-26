@@ -2,7 +2,7 @@
 id: strong-consistency
 title: Strong Consistency
 sidebar_position: 32
-description: Every read observes the last write — and the latency price you pay always.
+description: Every read observes the last write, and the latency price you pay always.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [eventual-consistency, consensus, pacelc]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,13 +21,13 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Strong consistency — in its strictest form, **linearizability** — guarantees that the system
+Strong consistency (in its strictest form, **linearizability**) guarantees that the system
 behaves as if there were a single copy of the data, with every operation happening instantaneously
 in an order that respects real time.
 
 It is the guarantee that makes reasoning simple: the read sees the last write, period.
 
-And it costs coordination — which means latency, on every operation, forever.
+And it costs coordination, which means latency, on every operation, forever.
 
 ## Problem
 
@@ -38,11 +38,11 @@ That makes the guarantee attractive by default: adopting it eliminates a whole c
 about stale data, conflicts and convergence.
 
 The cost is that it does not scale the same way. In a replicated system, every operation that needs
-a strong guarantee coordinates with a majority of replicas — and coordination is a network round
+a strong guarantee coordinates with a majority of replicas, and coordination is a network round
 trip.
 
 In a single-region configuration, that is acceptable. In a multi-region one, it is frequently
-unviable — and the arithmetic is geometric, not a matter of optimization.
+unviable, and the arithmetic is geometric, not a matter of optimization.
 
 ## Core Concepts
 
@@ -56,7 +56,7 @@ The practical consequence: if A completes before B starts, B sees A's effect. Al
 which replica serves it.
 
 **Serializability** is about transactions: the result is equivalent to some sequential execution.
-The two together — *strict serializability* — give the strongest guarantee available.
+The two together, *strict serializability*, give the strongest guarantee available.
 
 Confusing the two is common. A database can be serializable and not linearizable: the transactions
 are correct, and a read may not see the most recent write.
@@ -66,8 +66,8 @@ are correct, and a read may not see the most recent write.
 Guaranteeing that every read sees the last write requires the write to be known by whoever answers
 the read.
 
-The ways to achieve that — writing to a majority, reading from a majority, or reading from the
-leader — all involve communication between nodes.
+The ways to achieve that (writing to a majority, reading from a majority, or reading from the
+leader) all involve communication between nodes.
 
 ```text
 single region, same zone            → +1 to 2 ms per operation
@@ -77,7 +77,7 @@ intercontinental regions            → +150 ms
 ```
 
 The numbers are floors. A coordinated operation only finishes when the slowest replica in the quorum
-answers, so the observed latency follows that replica's tail, not the network's median — which is
+answers, so the observed latency follows that replica's tail, not the network's median. That is
 where coordination usually gets underestimated.
 
 The last line is what makes global strong consistency impractical for high-frequency operations.
@@ -88,7 +88,7 @@ See [PACELC](/06-distributed-systems/pacelc.md).
 The question that solves most cases is not "strong or eventual?". It is **"strong with respect to
 what?"**.
 
-**Global** strong consistency — all the replicas in the world coordinating — is expensive. **Per
+**Global** strong consistency (all the replicas in the world coordinating) is expensive. **Per
 partition** strong consistency is far cheaper: coordinating only among that partition's replicas,
 which can be close together.
 
@@ -124,7 +124,7 @@ operations the certainty is worth the price.
 
 ## When to Use
 
-- The data controls a finite resource — stock, a seat, a balance, a quota.
+- The data controls a finite resource: stock, a seat, a balance, a quota.
 - An irreversible decision depends on the value read.
 - There is a regulatory requirement for accuracy.
 - Two concurrent operations would produce an invalid state.
@@ -146,10 +146,10 @@ reconciliation.
 
 ## Alternatives
 
-- **Session guarantees** — solve the user's perception at low cost.
-- **Strong consistency per partition** — reduces the scope of the coordination.
-- **Local transaction** — if the data fits on one node, the guarantee comes for free.
-- **Reservation with expiry** — instead of coordinating globally, reserve locally with a deadline
+- **Session guarantees**: solve the user's perception at low cost.
+- **Strong consistency per partition**: reduces the scope of the coordination.
+- **Local transaction**: if the data fits on one node, the guarantee comes for free.
+- **Reservation with expiry**: instead of coordinating globally, reserve locally with a deadline
   and confirm later.
 
 The last is the pattern used in ticketing and bookings: locking locally for minutes solves the real
@@ -191,8 +191,8 @@ maintenance window become an architecture decision, not an operations one.
 
 ## Common Mistakes
 
-**Adopting it uniformly.** Few flows in a system need strong consistency — balance, stock,
-uniqueness. Applying it to the catalog and the history pays latency and availability for a
+**Adopting it uniformly.** Few flows in a system need strong consistency (balance, stock,
+uniqueness). Applying it to the catalog and the history pays latency and availability for a
 guarantee nobody uses.
 
 **Not limiting the scope by partition.** Coordination across all nodes costs far more than
@@ -209,7 +209,7 @@ guarantee the write paid for.
 
 **Not measuring the coordination's latency cost.** Each coordinated write carries at least one round
 trip between replicas. Across zones that is a few milliseconds; across continents, more than a
-hundred — and the number changes which response requirements are achievable.
+hundred, and the number changes which response requirements are achievable.
 
 ## Real-World Example
 
@@ -219,18 +219,18 @@ The original implementation used global strong consistency: the database replica
 regions, with writes requiring a majority.
 
 Each reservation cost 180 ms of coordination. At the opening of sales for a large event, with 40
-thousand simultaneous people, the system could not keep up — the coordination serialized.
+thousand simultaneous people, the system could not keep up: the coordination serialized.
 
 The redesign kept strong consistency and changed the scope.
 
 **Partitioning by event.** Each event has its replicas, in the region where it takes place. The
 coordination to reserve a seat became one among regional replicas: from 180 ms to 8 ms. A
-reservation costs more than one coordinated round trip — which is why the number sits above the
+reservation costs more than one coordinated round trip. That is why the number sits above the
 per-operation band across zones.
 
 **Reservation with expiry.** Instead of coordinating throughout the whole purchase flow, the
-reservation locks the seat for 10 minutes — one coordinated, short operation. The rest of the flow
-— payment, registration — happens with no coordination.
+reservation locks the seat for 10 minutes: one coordinated, short operation. The rest of the flow
+(payment, registration) happens with no coordination.
 
 **Eventual reads for the seat map.** The availability view reads from a local replica, with a
 seconds-long delay. The business accepted it: if a seat appears available and has already been
@@ -242,22 +242,22 @@ Result: the guarantee against selling twice remained absolute, and capacity rose
 order of magnitude.
 
 The later assessment points out: giving up strong consistency for the reservation was never in
-question. What was wrong was the **scope** — coordinating globally something that is intrinsically
+question. What was wrong was the **scope**: coordinating globally something that is intrinsically
 local to an event.
 
 ## Related Concepts
 
-- [Consistency](/06-distributed-systems/consistency.md) — the spectrum.
-- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md) — the other end.
-- [PACELC](/06-distributed-systems/pacelc.md) — the permanent cost.
-- [Consensus](/06-distributed-systems/consensus.md) — the mechanism behind it.
-- [Partitioning](/06-distributed-systems/partitioning.md) — how to reduce the scope.
-- [Strong vs. Eventual Consistency](/20-trade-offs/strong-vs-eventual-consistency.md) — the
+- [Consistency](/06-distributed-systems/consistency.md): the spectrum.
+- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md): the other end.
+- [PACELC](/06-distributed-systems/pacelc.md): the permanent cost.
+- [Consensus](/06-distributed-systems/consensus.md): the mechanism behind it.
+- [Partitioning](/06-distributed-systems/partitioning.md): how to reduce the scope.
+- [Strong vs. Eventual Consistency](/20-trade-offs/strong-vs-eventual-consistency.md): the
   inconsistency window with a number.
 
 ## Practical Exercise
 
-List your system's operations that genuinely require strong consistency — the ones that would
+List your system's operations that genuinely require strong consistency: the ones that would
 produce an invalid state if two happened concurrently.
 
 For each one, ask: what is the smallest coordination scope that suffices? If the answer is smaller
@@ -273,6 +273,6 @@ than the current scope, latency is being paid unnecessarily.
 
 - Herlihy, Maurice; Wing, Jeannette. *Linearizability: A Correctness Condition for Concurrent
   Objects*. TOPLAS, 1990.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 9.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 9.
 - Abadi, Daniel. *Consistency Tradeoffs in Modern Distributed Database System Design*. IEEE
   Computer, 2012.

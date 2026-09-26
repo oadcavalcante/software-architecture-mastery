@@ -2,7 +2,7 @@
 id: subdomain
 title: Subdomain
 sidebar_position: 2
-description: The division of the domain into areas with distinct characteristics — and the investment decision it informs.
+description: The division of the domain into areas with distinct characteristics, and the investment decision it informs.
 doc_type: foundation
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain]
 related: [core-domain, supporting-domain, generic-domain, bounded-context]
 canonical_for: [subdomain]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A subdomain is an area of the domain with cohesion of its own. An insurer has
 underwriting, claims, billing, brokerage, accounting, customer service.
 
-The division into subdomains is not code organization — it is business analysis. It exists
+The division into subdomains is not code organization but business analysis. It exists
 independently of the software, and the software should reflect it.
 
 ## The Problem
@@ -38,8 +38,8 @@ directions.
 Areas that differentiate the company get less attention than they deserve, because they
 compete with the rest for resources.
 
-And areas that differentiate nothing — tax document issuance, authentication, sending email
-— get engineering effort that could have been bought off the shelf.
+And areas that differentiate nothing (tax document issuance, authentication, sending email)
+get engineering effort that could have been bought off the shelf.
 
 The division into subdomains exists to make that allocation deliberate.
 
@@ -49,10 +49,10 @@ The division into subdomains exists to make that allocation deliberate.
 
 A distinction that causes constant confusion:
 
-**A subdomain** is a division of the **problem** — of the business, as it is.
+**A subdomain** is a division of the **problem**: of the business, as it is.
 
 **A [bounded context](/04-domain-driven-design/bounded-context.md)** is a division of the
-**solution** — of the software you build.
+**solution**: of the software you build.
 
 Ideally each subdomain corresponds to one bounded context. In practice, a subdomain may be
 served by two contexts, or a legacy context may cover three subdomains.
@@ -102,7 +102,7 @@ frees up any capacity.
 ## Why This Matters
 
 **Because engineering capacity is finite.** The decision the classification informs is
-where to allocate it — and that is a business decision, not a technical one.
+where to allocate it, and that is a business decision, not a technical one.
 
 **Because it guides where to apply tactical DDD.** The tactical patterns are expensive and
 rarely pay off outside the core; value objects and rich entities pay off in any
@@ -131,7 +131,7 @@ engineering.
 
 A fleet management company mapped seven subdomains.
 
-The initial classification, made by the technical team, marked five as core — including
+The initial classification, made by the technical team, marked five as core, including
 routing, which was the most interesting problem and where three engineers had been working
 for two years.
 
@@ -140,7 +140,7 @@ their contracts was **predictive maintenance**: predicting a component failure b
 stopped the vehicle. No competitor did that well.
 
 Routing, despite being the hardest problem, was comparable to competitors': mature
-libraries solved 90% of the cases, and the remaining 10% were the fleet's own constraints —
+libraries solved 90% of the cases, and the remaining 10% were the fleet's own constraints,
 specific, but not differentiating. Hence supporting, not generic.
 
 The reclassification: predictive maintenance became the only core; routing became
@@ -151,7 +151,7 @@ years of in-house routing became a thin layer over the library, and the three to
 become productive in a domain they did not know.
 
 What matters here is not the specific decision. It is that the classification made by
-engineering and the one made with the business diverged completely — and the second is the
+engineering and the one made with the business diverged completely, and the second is the
 one that counts.
 
 ## How the division survives time
@@ -172,7 +172,7 @@ reflects a technical choice from one moment, and stops making sense when the cho
 changes.
 
 **A change in the subdomain division signals a strategic change.** When the business creates
-a new area or merges two, that usually precedes a reorganization of the system — and
+a new area or merges two, that usually precedes a reorganization of the system, and
 anticipating it is one of the few forms of architectural prediction that works.
 
 It is worth recording the subdomain division somewhere durable and revisiting it annually.
@@ -182,17 +182,17 @@ It is a half-page document that guides decisions for years.
 
 - [Core Domain](/04-domain-driven-design/core-domain.md),
   [Supporting](/04-domain-driven-design/supporting-domain.md) and
-  [Generic](/04-domain-driven-design/generic-domain.md) — the three types.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — the division of the
+  [Generic](/04-domain-driven-design/generic-domain.md): the three types.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): the division of the
   solution.
-- [Domain](/04-domain-driven-design/domain.md) — the whole.
+- [Domain](/04-domain-driven-design/domain.md): the whole.
 - [Business Context](/01-fundamentals/business-context.md).
 
 ## Practical Exercise
 
 List your business's subdomains and classify each into the three types.
 
-Then compare with where engineering effort was actually allocated over the last year — by
+Then compare with where engineering effort was actually allocated over the last year, by
 headcount and by time.
 
 The misalignment between the two lists is the finding.
@@ -206,6 +206,6 @@ The misalignment between the two lists is the finding.
 ## Further Exploration
 
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
-- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016 — still in progress; the
+- Brandolini, Alberto. *Introducing EventStorming*. Leanpub, 2016. Still in progress; the
   technique first appeared in the 2013 article of the same name.
 - Vernon, Vaughn. *Domain-Driven Design Distilled*. Addison-Wesley, 2016.

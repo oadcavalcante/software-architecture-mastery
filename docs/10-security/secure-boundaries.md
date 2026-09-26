@@ -2,7 +2,7 @@
 id: secure-boundaries
 title: Fronteiras Seguras
 sidebar_position: 11
-description: Onde a confiança muda — e por que validar na borda não dispensa validar dentro.
+description: Onde a confiança muda, e por que validar na borda não dispensa validar dentro.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [threat-modeling]
 related: [threat-modeling, zero-trust, least-privilege]
 canonical_for: [fronteira de confiança, defesa em profundidade, validação na borda]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -40,7 +40,7 @@ estão dentro. A crítica completa do perímetro implícito está em
 [confiança zero](/10-security/zero-trust.md); aqui interessa a consequência.
 
 Uma vez lá, se nada mais verifica nada, o alcance é total. A diferença entre um
-incidente contido e um catastrófico raramente é o muro — é o que existe atrás dele.
+incidente contido e um catastrófico raramente é o muro, e sim o que existe atrás dele.
 
 ## Conceitos Centrais
 
@@ -69,12 +69,12 @@ Marcá-las num diagrama é o produto principal de uma
 
 A validação na borda é necessária e insuficiente.
 
-Ela pressupõe que **toda** entrada passa por ela. Basta um caminho alternativo — um
-processo em lote, um script de correção, um endpoint interno, uma fila — para que o
+Ela pressupõe que **toda** entrada passa por ela. Basta um caminho alternativo (um
+processo em lote, um script de correção, um endpoint interno, uma fila) para que o
 pressuposto quebre.
 
 Por isso a regra: cada componente valida o que recebe, dentro do seu próprio
-contexto. Não é redundância desperdiçada — é o que faz o sistema resistir quando um
+contexto. Não é redundância desperdiçada: é o que faz o sistema resistir quando um
 caminho escapa.
 
 E há um ponto sutil: **a validação correta depende do contexto**. A borda valida
@@ -98,15 +98,15 @@ Cada camada não impede o comprometimento. Ela reduz o que ele alcança e o temp
 ser detectado.
 
 Essa é a contribuição mais importante da arquitetura para a segurança, e ela é
-estrutural — não se adiciona depois.
+estrutural: não se adiciona depois.
 
 ### Confiar no chamador é a falha silenciosa
 
 Um serviço interno que aceita `usuario_id` do chamador sem verificar se o chamador
 pode agir por aquele usuário está delegando autorização a quem chama.
 
-Isso funciona enquanto todos os chamadores são corretos. Um chamador comprometido —
-ou um novo, escrito por alguém que não sabia da premissa — passa qualquer
+Isso funciona enquanto todos os chamadores são corretos. Um chamador comprometido
+(ou um novo, escrito por alguém que não sabia da premissa) passa qualquer
 identificador.
 
 A regra: **autorização é responsabilidade de quem detém o recurso**, não de quem
@@ -159,7 +159,7 @@ de reforçá-las sobe quando:
 ## Quando Não Usar
 
 **Dentro de um único processo, entre partes que só se alcançam uma pela outra.**
-Revalidar entre duas funções do mesmo módulo não cria fronteira — a confiança não
+Revalidar entre duas funções do mesmo módulo não cria fronteira: a confiança não
 muda ali. A verificação pertence ao ponto onde o dado entra no processo.
 
 **Verificação que repete a anterior no mesmo contexto.** Defesa em profundidade não é
@@ -168,8 +168,8 @@ já impôs, com a mesma informação, ela custa latência e manutenção e não 
 novo.
 
 **Isolamento forte quando o vazamento custa pouco.** Esquema ou conta por cliente num
-sistema cujos dados não são sensíveis entre clientes — catálogo público, ferramenta
-interna com poucos inquilinos que já se conhecem — paga o custo operacional da tabela
+sistema cujos dados não são sensíveis entre clientes (catálogo público, ferramenta
+interna com poucos inquilinos que já se conhecem) paga o custo operacional da tabela
 abaixo sem risco correspondente. O filtro imposto na camada de acesso basta.
 
 **Registro de toda travessia aceita em caminho de alto volume.** As negações precisam
@@ -178,18 +178,18 @@ Reserve o registro de aceites para as fronteiras em que a auditoria o exige.
 
 ## Alternativas
 
-- **[Confiança zero](/10-security/zero-trust.md)** — vence quando a rede interna deixou
-  de ser um "dentro" (nuvem, trabalho remoto, dezenas de serviços): em vez de marcar
+- **[Confiança zero](/10-security/zero-trust.md)**: vence quando a rede interna deixou
+  de ser um "dentro" (nuvem, trabalho remoto, dezenas de serviços). Em vez de marcar
   fronteiras pontuais, trata toda requisição como travessia. Custa identidade forte
   para cada serviço.
-- **Segmentação de rede** — vence quando a fronteira é atravessada por protocolo que a
+- **Segmentação de rede**: vence quando a fronteira é atravessada por protocolo que a
   aplicação não controla (banco legado, equipamento, serviço de terceiro sem
   autenticação própria): a rede impõe o que o código não consegue. Ver
   [segurança de rede](/10-security/network-security.md).
-- **Isolamento por processo ou por conta** — vence quando um componente executa código
+- **Isolamento por processo ou por conta**: vence quando um componente executa código
   menos confiável (plugin, carga de cliente, dependência de risco): a fronteira passa
   a ser do sistema operacional ou do provedor, não da configuração da aplicação.
-- **Cifragem por cliente** — vence quando o operador do banco ou do backup está fora
+- **Cifragem por cliente**: vence quando o operador do banco ou do backup está fora
   do perímetro de confiança: com acesso aos dados e sem a chave do cliente, nada é
   legível. Ver [gestão de chaves](/10-security/key-management.md).
 
@@ -233,7 +233,7 @@ compartilham a mesma credencial de banco.
 
 **Isolar clientes só por filtro.**
 
-**Não desenhar as fronteiras.** Se não estão num diagrama, elas não são decisão —
+**Não desenhar as fronteiras.** Se não estão num diagrama, elas não são decisão,
 são acidente.
 
 **Não registrar negações.**
@@ -244,7 +244,7 @@ Uma plataforma que servia 400 empresas clientes teve um vazamento entre clientes
 empresa A visualizou dados da empresa B por três semanas antes de reportar.
 
 A causa foi uma consulta nova, escrita para um relatório, sem o filtro de cliente. O
-autor não sabia que precisava — em nenhum outro lugar do código o filtro era
+autor não sabia que precisava: em nenhum outro lugar do código o filtro era
 explícito, porque a camada de acesso o adicionava automaticamente. O relatório usava
 uma consulta direta que contornava essa camada.
 
@@ -262,7 +262,7 @@ E uma quarta, encontrada durante a correção:
 
 **Serviços internos confiando no chamador.** Quatro serviços aceitavam
 `empresa_id` do chamador sem verificar. Um deles era alcançável por um endpoint que,
-por um erro de configuração de rota, respondia a requisições externas — o que teria
+por um erro de configuração de rota, respondia a requisições externas. Isso teria
 permitido acessar qualquer empresa passando o identificador.
 
 Isso não tinha sido explorado, e era o problema mais grave.
@@ -299,13 +299,13 @@ empresa do token, nunca do parâmetro.
 **Registro de negações** em todas as fronteiras.
 
 A lição registrada: a fronteira que falhou não era a que eles vigiavam. O
-perímetro externo era sólido — autenticação forte, gateway, limite de taxa. O
+perímetro externo era sólido: autenticação forte, gateway, limite de taxa. O
 vazamento aconteceu inteiramente **dentro** dele, entre dois clientes legítimos,
 porque ali não havia fronteira nenhuma.
 
 ## Conceitos Relacionados
 
-- [Modelagem de Ameaças](/10-security/threat-modeling.md) — onde as fronteiras são desenhadas.
+- [Modelagem de Ameaças](/10-security/threat-modeling.md): onde as fronteiras são desenhadas.
 - [Confiança Zero](/10-security/zero-trust.md).
 - [Menor Privilégio](/10-security/least-privilege.md).
 - [Modelos de Autorização](/10-security/authz-models.md).
@@ -315,8 +315,8 @@ porque ali não havia fronteira nenhuma.
 Desenhe as fronteiras de confiança do seu sistema. Para cada uma, responda: o que é
 verificado ao atravessar, e o que acontece se essa verificação falhar?
 
-Depois procure caminhos que contornam a borda — processos em lote, scripts, filas,
-endpoints internos. Cada um é uma fronteira que você achava que tinha.
+Depois procure caminhos que contornam a borda (processos em lote, scripts, filas,
+endpoints internos). Cada um é uma fronteira que você achava que tinha.
 
 ## Perguntas de Entrevista
 

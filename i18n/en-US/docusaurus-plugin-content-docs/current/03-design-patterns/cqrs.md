@@ -2,7 +2,7 @@
 id: cqrs
 title: CQRS
 sidebar_position: 27
-description: Separating the write model from the read model — and the cost of keeping them in sync.
+description: Separating the write model from the read model, and the cost of keeping them in sync.
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [event-driven]
 related: [event-sourcing, command, event-driven]
 canonical_for: [CQRS, command-query separation]
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-CQRS — *Command Query Responsibility Segregation* — separates the model used to change
+CQRS (*Command Query Responsibility Segregation*) separates the model used to change
 state from the model used to query it.
 
 The name covers a spectrum, and treating it as one thing is the source of most of the
@@ -31,8 +31,8 @@ misuse. There are three levels, with costs that differ by orders of magnitude.
 
 A single model serving both writes and reads ends up serving both badly.
 
-Writes need invariants, small aggregates and normalization — to guarantee consistency.
-Reads need combined, denormalized data in the shape of the screen — to be fast.
+Writes need invariants, small aggregates and normalization, to guarantee consistency.
+Reads need combined, denormalized data in the shape of the screen, to be fast.
 
 Serving both produces the familiar compromise: aggregates too large to write safely, with
 too many joins to read with performance, and screens that fire chained queries.
@@ -74,8 +74,8 @@ Separate stores mean the read side lags behind the write side by some interval.
 The practical consequence is specific and has to be decided by the business: **the user
 who just saved may not see their own change.**
 
-There are mitigations — reading from the write side right after saving, or waiting for
-projection confirmation — and all of them add complexity.
+There are mitigations (reading from the write side right after saving, or waiting for
+projection confirmation), and all of them add complexity.
 
 ### CQRS does not require event sourcing
 
@@ -87,10 +87,10 @@ event sourcing can exist without CQRS.
 ## When to Use
 
 - **Level 1:** always. It is hygiene.
-- **Level 2:** when the read and write needs genuinely diverge — screens that combine
+- **Level 2:** when the read and write needs genuinely diverge: screens that combine
   data from several aggregates, or aggregates that grew in order to serve queries.
 - **Level 3:** when the read load is orders of magnitude greater than the write load and
-  scaling together is unviable, or when the reads require a different storage model —
+  scaling together is unviable, or when the reads require a different storage model:
   full-text search, graph, time series.
 
 ## When Not to Use
@@ -112,11 +112,11 @@ there is no way to rebuild from scratch, the system is stuck at the first error.
 
 ## Alternatives
 
-- **A single model** — appropriate in most systems.
-- **A read replica** — solves read scaling without separating models.
-- **Materialized views in the database itself** — projections with no additional
+- **A single model**: appropriate in most systems.
+- **A read replica**: solves read scaling without separating models.
+- **Materialized views in the database itself**: projections with no additional
   infrastructure.
-- **Level 2 only** — the middle ground that resolves most cases.
+- **Level 2 only**: the middle ground that resolves most cases.
 
 ## Trade-offs
 
@@ -161,7 +161,7 @@ the support channel.
 
 ## Where it appears in practice
 
-**High-volume e-commerce.** A catalogue read millions of times and updated rarely — the
+**High-volume e-commerce.** A catalogue read millions of times and updated rarely: the
 case where level 3 is clearly justified.
 
 **Search.** A search index is a read projection; almost every system with full-text
@@ -184,7 +184,7 @@ N+1.
 
 The initial proposal was level 3 CQRS, with a read database fed by events.
 
-The analysis changed course. The read load was 200 requests per second — the database
+The analysis changed course. The read load was 200 requests per second, and the database
 handled it comfortably. The problem was not scale; it was the access model.
 
 The solution was level 2: a single hand-written query returning a projection type with
@@ -193,17 +193,17 @@ exactly the screen's fields. No going through the aggregates, no lazy loading.
 The time dropped to 80 ms. No new infrastructure, no eventual consistency, no reprocessing
 to build.
 
-Two years later, full-text search moved to a separate index — level 3, and justified
+Two years later, full-text search moved to a separate index: level 3, and justified
 there, because the requirement was about the storage model, not about scale.
 
 The two levels coexist in the same system, each where it pays off.
 
 ## Related Concepts
 
-- [Command](/03-design-patterns/command.md) — the origin of the vocabulary.
-- [Event Sourcing](/03-design-patterns/event-sourcing.md) — frequently combined,
+- [Command](/03-design-patterns/command.md): the origin of the vocabulary.
+- [Event Sourcing](/03-design-patterns/event-sourcing.md): frequently combined,
   independent.
-- [Event-Driven Architecture](/03-design-patterns/event-driven.md) — the synchronization
+- [Event-Driven Architecture](/03-design-patterns/event-driven.md): the synchronization
   mechanism.
 - [Data Architecture](/07-data-architecture/index.md).
 
@@ -225,5 +225,5 @@ is level 2's gain, with no consistency cost at all.
 
 - Young, Greg. *CQRS Documents*, 2010.
 - Fowler, Martin. *CQRS*, 2011.
-- Meyer, Bertrand. *Object-Oriented Software Construction*, 1988 — command-query
+- Meyer, Bertrand. *Object-Oriented Software Construction*, 1988. Command-query
   separation.

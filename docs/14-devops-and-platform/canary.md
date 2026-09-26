@@ -2,7 +2,7 @@
 id: canary
 title: Canary
 sidebar_position: 6
-description: Expor uma fração e comparar — a única estratégia que detecta o problema em vez de esperar alguém perceber.
+description: "Expor uma fração e comparar: a única estratégia que detecta o problema em vez de esperar alguém perceber."
 doc_type: pattern
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [deployment-strategies]
 related: [deployment-strategies, blue-green, feature-flags]
 canonical_for: [canary, análise de canary, expansão gradual, comparação de coorte]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -29,7 +29,7 @@ O que distingue essa estratégia das outras: ela **detecta** o problema. Blue-gr
 implantação em ondas substituem a versão com segurança; nenhuma das duas diz se a versão
 nova está pior.
 
-E a detecção pode ser automática — o que transforma reversão de decisão humana sob
+E a detecção pode ser automática. Isso transforma reversão de decisão humana sob
 pressão em consequência de um critério.
 
 ## Problema
@@ -38,7 +38,7 @@ Uma versão nova pode estar errada de formas que os testes não pegam: comportam
 depende de dados reais, de volume real, de combinações que só produção tem.
 
 Ver [estratégias de implantação](/14-devops-and-platform/deployment-strategies.md). O caso mais perigoso é a
-mudança que não gera erro nem lentidão — apenas resultado diferente.
+mudança que não gera erro nem lentidão, apenas resultado diferente.
 
 Sem comparação, esse tipo de problema é descoberto por alguém que percebe, o que pode
 levar horas ou dias.
@@ -61,7 +61,7 @@ errado     canary agora × versão antiga na semana passada
 ```
 
 E o controle não deve ser "todo o resto": comparar 5% com 95% introduz diferenças de
-escala — cache mais quente, comportamento de conexão diferente. Uma fração de controle
+escala (cache mais quente, comportamento de conexão diferente). Uma fração de controle
 do mesmo tamanho é o desenho correto.
 
 ### O que comparar
@@ -73,7 +73,7 @@ distribuição  formato dos resultados, contagens, tamanhos de resposta
 ```
 
 As duas últimas linhas são as que pegam o problema silencioso. Uma mudança que retorna
-menos resultados, ou resultados diferentes, não altera latência nem taxa de erro — e
+menos resultados, ou resultados diferentes, não altera latência nem taxa de erro, mas
 altera a distribuição.
 
 Ver [depurabilidade](/13-observability/debuggability.md). Comparar distribuições exige
@@ -88,7 +88,7 @@ Uma fração pequena por pouco tempo produz poucos eventos, e a comparação vir
 5% do tráfego, 5 req/s, 10 minutos     → 150 eventos — insuficiente
 ```
 
-Sistemas de baixo volume precisam de fração maior ou de tempo maior — e, abaixo de certo
+Sistemas de baixo volume precisam de fração maior ou de tempo maior. E, abaixo de certo
 volume, canary simplesmente não funciona como mecanismo estatístico.
 
 E o tempo precisa cobrir os ciclos relevantes: um vazamento de memória não aparece em 10
@@ -104,7 +104,7 @@ por instância   uma máquina roda a versão nova
 ```
 
 A escolha por usuário é geralmente melhor: ela evita comportamento inconsistente e
-permite comparar métricas de jornada — que exigem que o usuário permaneça na mesma
+permite comparar métricas de jornada, que exigem que o usuário permaneça na mesma
 versão.
 
 E começar por usuários internos é uma prática barata que pega problemas grosseiros antes
@@ -138,8 +138,8 @@ Aprovado o canary, a expansão não é imediata:
 5% → 25% → 50% → 100%
 ```
 
-Cada degrau com nova janela de observação. Problemas dependentes de escala — contenção,
-esgotamento de conexões, saturação de dependência — só aparecem com volume.
+Cada degrau com nova janela de observação. Problemas dependentes de escala (contenção,
+esgotamento de conexões, saturação de dependência) só aparecem com volume.
 
 Ver [escala horizontal](/11-scalability/horizontal-scaling.md).
 
@@ -184,11 +184,11 @@ métricas comparáveis e volume suficiente.
 
 ## Alternativas
 
-- **[Blue-green](/14-devops-and-platform/blue-green.md)** — reversão instantânea, sem detecção.
-- **[Implantação em ondas](/14-devops-and-platform/rolling-deployments.md)** — substituição gradual, sem
+- **[Blue-green](/14-devops-and-platform/blue-green.md)**: reversão instantânea, sem detecção.
+- **[Implantação em ondas](/14-devops-and-platform/rolling-deployments.md)**: substituição gradual, sem
   comparação.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — expõe gradualmente sem implantar; complementa.
-- **Implantação sombra** — a versão nova processa cópia do tráfego sem responder. Risco
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: expõe gradualmente sem implantar; complementa.
+- **Implantação sombra**: a versão nova processa cópia do tráfego sem responder. Risco
   zero, custo de dobrar o processamento.
 
 A última é a escolha certa quando o comportamento pode ser comparado sem afetar
@@ -243,7 +243,7 @@ usuários.
 ## Exemplo Real
 
 Uma plataforma de busca de voos implementou canary comparando latência, taxa de erro e
-uso de CPU. Durante um ano, ele nunca reverteu nada — e três incidentes de comportamento
+uso de CPU. Durante um ano, ele nunca reverteu nada, e três incidentes de comportamento
 passaram por ele.
 
 O caso mais claro: uma mudança no ranqueamento passou a excluir voos com escalas longas
@@ -265,10 +265,10 @@ canary contra todo o restante.
 versão, por duas semanas, para medir a variação natural de cada métrica. Os limiares
 foram definidos acima desse ruído.
 
-Esse passo foi o que mais melhorou a confiabilidade da análise — antes, os limiares
+Esse passo foi o que mais melhorou a confiabilidade da análise. Antes, os limiares
 tinham sido escolhidos por intuição, e eram frouxos o suficiente para não pegar nada.
 
-**Expansão em degraus** — 5%, 25%, 50%, 100% — com janela de 20 minutos em cada. Um
+**Expansão em degraus** (5%, 25%, 50%, 100%), com janela de 20 minutos em cada. Um
 problema de contenção de conexões apareceu no degrau de 50%, e não teria aparecido em
 5%.
 
@@ -292,7 +292,7 @@ tornou a comparação confiável, e é o mais frequentemente pulado.
 
 ## Exercício Prático
 
-Se você usa canary, verifique quais métricas ele compara — e se alguma delas mudaria se
+Se você usa canary, verifique quais métricas ele compara, e se alguma delas mudaria se
 o sistema passasse a retornar resultados errados com latência normal.
 
 Se nenhuma mudaria, o canary não protege contra o caso mais perigoso.
@@ -306,5 +306,5 @@ Se nenhuma mudaria, o canary não protege contra o caso mais perigoso.
 ## Para Aprofundar
 
 - Humble, Jez; Farley, David. *Continuous Delivery*. Addison-Wesley, 2010.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 27.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 27.
 - Sato, Danilo. *Canary Release*. martinfowler.com, 2014.

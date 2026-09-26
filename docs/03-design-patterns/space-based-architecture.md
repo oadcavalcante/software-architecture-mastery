@@ -2,7 +2,7 @@
 id: space-based-architecture
 title: Space-Based Architecture
 sidebar_position: 30
-description: Remover o banco do caminho crítico usando memória replicada — escala extrema por um preço alto.
+description: Remover o banco do caminho crítico usando memória replicada, escala extrema por um preço alto.
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [event-driven, cqrs, scalability]
 canonical_for: [space-based architecture, arquitetura baseada em espaço]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -33,7 +33,7 @@ catálogo, e existe para um gargalo específico.
 Sistemas com carga altamente variável e concorrente esbarram no mesmo limite: o
 banco de dados relacional central.
 
-Adicionar servidores de aplicação não resolve — todos convergem para o mesmo
+Adicionar servidores de aplicação não resolve: todos convergem para o mesmo
 banco. Réplicas de leitura ajudam nas consultas e não na escrita. Particionar
 ajuda até que a operação precise atravessar partições.
 
@@ -43,16 +43,16 @@ O estilo parte de uma observação: **se o banco é o gargalo, tire-o do caminho
 
 ### Os componentes
 
-**Unidade de processamento** — contém a lógica e uma grade de dados em memória
+**Unidade de processamento**: contém a lógica e uma grade de dados em memória
 com a parte dos dados de que precisa.
 
-**Grade de dados replicada** — as unidades sincronizam entre si; uma escrita numa
+**Grade de dados replicada**: as unidades sincronizam entre si; uma escrita numa
 delas se propaga às outras.
 
-**Motor de persistência assíncrona** — grava no banco fora do caminho da
+**Motor de persistência assíncrona**: grava no banco fora do caminho da
 requisição.
 
-**Middleware de virtualização** — distribui requisições e gerencia a entrada e
+**Middleware de virtualização**: distribui requisições e gerencia a entrada e
 saída de unidades.
 
 ```mermaid
@@ -65,7 +65,7 @@ graph TB
 
 ### A escala é quase linear
 
-Como não há recurso central no caminho, adicionar unidades adiciona capacidade —
+Como não há recurso central no caminho, adicionar unidades adiciona capacidade,
 até o limite da replicação, que cresce com o número de unidades.
 
 Esse é o ganho, e é real: cargas que nenhum banco central sustenta ficam viáveis.
@@ -113,12 +113,12 @@ operação de todo o catálogo.
 
 Praticamente todas devem ser esgotadas antes:
 
-- **Otimizar consultas e índices** — resolve a maior parte dos casos.
-- **Cache distribuído** — captura boa parte do benefício com muito menos custo.
-- **Réplicas de leitura** — para carga de leitura.
-- **[CQRS](/03-design-patterns/cqrs.md)** — separar os modelos.
-- **Particionamento** — quando as operações não atravessam partições.
-- **Banco distribuído moderno** — vários oferecem escala horizontal sem que a
+- **Otimizar consultas e índices**: resolve a maior parte dos casos.
+- **Cache distribuído**: captura boa parte do benefício com muito menos custo.
+- **Réplicas de leitura**: para carga de leitura.
+- **[CQRS](/03-design-patterns/cqrs.md)**: separar os modelos.
+- **Particionamento**: quando as operações não atravessam partições.
+- **Banco distribuído moderno**: vários oferecem escala horizontal sem que a
   aplicação mude de estilo.
 
 A última alternativa é a que mais reduziu a relevância prática deste estilo:
@@ -158,7 +158,7 @@ que satura a rede.
 
 **Ignorar a janela de perda de dados.** Entre a escrita na grade em memória e a persistência assíncrona existe um intervalo em que uma falha simultânea de nós perde escritas confirmadas ao usuário. Esse intervalo é uma decisão de negócio, não um detalhe de configuração.
 
-**Subestimar a operação.** Grade de dados distribuída exige entender particionamento, rebalanceamento e comportamento sob partição de rede — competência que a maioria dos times não tem e não vai contratar para um sistema só.
+**Subestimar a operação.** Grade de dados distribuída exige entender particionamento, rebalanceamento e comportamento sob partição de rede, competência que a maioria dos times não tem e não vai contratar para um sistema só.
 
 ## Onde ele aparece na prática
 
@@ -173,7 +173,7 @@ ordens de grandeza em minutos.
 **Plataformas de apostas.** Volume concentrado em janelas curtas.
 
 O denominador comum é revelador: **picos extremos e curtos, com tolerância a
-inconsistência momentânea**. Fora desse perfil, o estilo é custo sem retorno — e é
+inconsistência momentânea**. Fora desse perfil, o estilo é custo sem retorno, e é
 por isso que ele aparece em nichos e não em sistemas de negócio comuns.
 
 ## Exemplo Real
@@ -184,14 +184,14 @@ central saturava em segundos, e a fila de espera crescia até o tempo limite.
 
 Antes de considerar este estilo, a equipe esgotou o resto: índices, cache de
 leitura, réplicas, fila de admissão. Cada um comprou algo, e o gargalo permaneceu
-na escrita — a reserva de assento é uma escrita concorrente sobre o mesmo
+na escrita: a reserva de assento é uma escrita concorrente sobre o mesmo
 conjunto de linhas.
 
 A solução adotada foi space-based **apenas para o módulo de reserva**, durante a
 janela de abertura. O inventário de assentos do evento fica em memória replicada;
 reservas acontecem ali; a persistência é assíncrona.
 
-O resto do sistema — cadastro, pagamento, emissão — permaneceu com banco central.
+O resto do sistema (cadastro, pagamento, emissão) permaneceu com banco central.
 
 Duas consequências que a equipe aceitou explicitamente. A primeira é uma janela de até dois
 segundos em que duas unidades podem reservar o mesmo assento, resolvida por reconciliação com
@@ -200,7 +200,7 @@ cancelamento e reembolso.
 A taxa disso não é desprezível, e vale fazer a conta: no pico, 400 mil chegadas em dois
 minutos, concentradas nos melhores lugares, põem milhares de tentativas dentro da mesma
 janela sobre um inventário de dezenas de milhares de assentos. Na primeira abertura, a dupla
-reserva ficou em torno de 2% das confirmações — alto demais para tratar como ruído. Foi por
+reserva ficou em torno de 2% das confirmações, alto demais para tratar como ruído. Foi por
 isso que o inventário passou a ser **particionado por setor**, com cada unidade dona de uma
 faixa de assentos em vez de uma cópia de tudo: a colisão caiu para o que atravessa faixas, na
 casa de 0,05%, e aí sim virou custo de negócio.
@@ -213,10 +213,10 @@ o negócio em vez de descobertas depois.
 
 ## Conceitos Relacionados
 
-- [Microsserviços](/03-design-patterns/microservices.md) — o estilo pode ser aplicado a um serviço.
-- [CQRS](/03-design-patterns/cqrs.md) — alternativa mais barata para separar carga.
-- [Escalabilidade](/11-scalability/index.md) — as estratégias que vêm antes.
-- [Sistemas Distribuídos](/06-distributed-systems/index.md) — replicação e
+- [Microsserviços](/03-design-patterns/microservices.md): o estilo pode ser aplicado a um serviço.
+- [CQRS](/03-design-patterns/cqrs.md): alternativa mais barata para separar carga.
+- [Escalabilidade](/11-scalability/index.md): as estratégias que vêm antes.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md): replicação e
   consistência.
 
 ## Exercício Prático
@@ -236,6 +236,6 @@ Só a última resposta, sendo sim, aponta na direção deste estilo.
 ## Para Aprofundar
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — o capítulo sobre o estilo.
-- Gelernter, David. *Generative Communication in Linda*. TOPLAS, 1985 — a origem
+  2020. O capítulo sobre o estilo.
+- Gelernter, David. *Generative Communication in Linda*. TOPLAS, 1985. A origem
   do conceito de espaço de tuplas.

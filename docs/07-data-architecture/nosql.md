@@ -2,7 +2,7 @@
 id: nosql
 title: NoSQL
 sidebar_position: 2
-description: Um termo que agrupa tecnologias sem nada em comum — e por que usá-lo atrapalha a decisão.
+description: Um termo que agrupa tecnologias sem nada em comum, e por que usá-lo atrapalha a decisão.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [document-databases, key-value-databases, column-stores]
 canonical_for: [NoSQL]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-27
 ## Visão Geral
 
 "NoSQL" não descreve uma tecnologia. Ele agrupa bancos de documentos, chave-valor,
-colunares, de grafo e de série temporal — que **não têm nada em comum** além de
+colunares, de grafo e de série temporal. Esses bancos **não têm nada em comum** além de
 não serem relacionais.
 
 Um banco de grafo e um armazenamento chave-valor são mais diferentes entre si do
@@ -74,7 +74,7 @@ propriedades.
 
 ### As promessas que envelheceram
 
-**"Sem esquema."** Não existe dado sem esquema — existe esquema não declarado. Ele
+**"Sem esquema."** Não existe dado sem esquema; existe esquema não declarado. Ele
 some do banco e reaparece na aplicação, em vários lugares, sem validação. Ver
 [bancos de documentos](/07-data-architecture/document-databases.md).
 
@@ -100,7 +100,7 @@ travessia, por relevância textual.
 **Que perguntas não previstas serão feitas?** Se muitas, modelos otimizados para
 um acesso vão limitar.
 
-Respondidas essas quatro, a escolha do armazenamento é quase mecânica — e a
+Respondidas essas quatro, a escolha do armazenamento é quase mecânica, e a
 palavra "NoSQL" nunca aparece.
 
 ### Poliglota tem custo operacional real
@@ -110,12 +110,12 @@ tecnologia adicional repete, para si, as perguntas de operação da seção segu
 A conta completa está em [custo do segundo banco](/20-trade-offs/sql-vs-nosql.md).
 
 A regra prática: adicione um armazenamento quando houver um problema concreto que
-o atual não resolve — não por adequação teórica.
+o atual não resolve, e não por adequação teórica.
 
 ### O termo esconde as perguntas de operação
 
 Além de agrupar tecnologias incompatíveis, "NoSQL" desloca a conversa para
-capacidade e desempenho — e para longe das perguntas que determinam se a adoção
+capacidade e desempenho, e para longe das perguntas que determinam se a adoção
 vai se sustentar.
 
 As que costumam faltar:
@@ -148,11 +148,11 @@ final dos anos 2000.
 
 Para decidir armazenamento, use as categorias específicas:
 
-- **[Documento](/07-data-architecture/document-databases.md)** — agregados variáveis lidos inteiros.
-- **[Chave-valor](/07-data-architecture/key-value-databases.md)** — acesso por chave, vazão.
-- **[Colunar](/07-data-architecture/column-stores.md)** — analítico.
-- **[Grafo](/07-data-architecture/graph-databases.md)** — travessia.
-- **Série temporal** — métricas com retenção.
+- **[Documento](/07-data-architecture/document-databases.md)**: agregados variáveis lidos inteiros.
+- **[Chave-valor](/07-data-architecture/key-value-databases.md)**: acesso por chave, vazão.
+- **[Colunar](/07-data-architecture/column-stores.md)**: analítico.
+- **[Grafo](/07-data-architecture/graph-databases.md)**: travessia.
+- **Série temporal**: métricas com retenção.
 
 ## Quando Não Usar
 
@@ -177,8 +177,8 @@ um único banco e a carga especializada ainda não gerou incidente nem consulta 
 medida.
 
 **Armazenamento especializado.** Vence quando a medição mostra que o geral não
-atende o padrão de acesso — agregação que leva minutos, expiração implementada por
-varredura, relevância que expressão regular não entrega — e o ganho paga um
+atende o padrão de acesso (agregação que leva minutos, expiração implementada por
+varredura, relevância que expressão regular não entrega) e o ganho paga um
 procedimento operacional a mais.
 
 ## Trade-offs
@@ -213,13 +213,13 @@ nova.
 
 **Tratar como decisão binária.** A pergunta não é relacional ou não; é qual armazenamento serve a cada padrão de acesso. Sistemas maduros usam mais de um, por razões declaradas.
 
-**Adotar por tendência.** A escolha precisa sair de um requisito — volume, forma do dado, padrão de consulta. Adotada por popularidade, ela aparece como limitação meses depois, quando a consulta necessária não é expressável.
+**Adotar por tendência.** A escolha precisa sair de um requisito: volume, forma do dado, padrão de consulta. Adotada por popularidade, ela aparece como limitação meses depois, quando a consulta necessária não é expressável.
 
-**Assumir que "sem esquema" elimina o esquema.** O esquema apenas migra para o código de leitura, e passa a existir em várias versões simultâneas sem que ninguém as declare. A migração continua sendo necessária — só que sem ferramenta.
+**Assumir que "sem esquema" elimina o esquema.** O esquema apenas migra para o código de leitura, e passa a existir em várias versões simultâneas sem que ninguém as declare. A migração continua sendo necessária, só que sem ferramenta.
 
 **Escolher a ferramenta antes de descrever o padrão de acesso.** Bancos orientados a chave exigem modelar a partir das consultas. Escolher primeiro e modelar depois costuma terminar em varredura completa para responder o que era trivial no relacional.
 
-**Adicionar tecnologia sem contar o custo operacional.** Cada armazenamento novo é um conjunto de procedimentos duplicado, e o [custo do segundo banco](/20-trade-offs/sql-vs-nosql.md) raramente entra na comparação — que costuma ser feita só em desempenho.
+**Adicionar tecnologia sem contar o custo operacional.** Cada armazenamento novo é um conjunto de procedimentos duplicado, e o [custo do segundo banco](/20-trade-offs/sql-vs-nosql.md) raramente entra na comparação. Ela costuma ser feita só em desempenho.
 
 ## Exemplo Real
 
@@ -248,16 +248,16 @@ Lenta e sem relevância. Migrada para índice invertido.
 
 Das cinco cargas, o banco de documentos era a escolha certa para uma.
 
-A avaliação posterior aponta: a decisão original não foi entre modelos — foi entre
+A avaliação posterior aponta: a decisão original não foi entre modelos, e sim entre
 "NoSQL" e "SQL", tomada uma vez para as cinco cargas sem descrever o padrão de
 acesso de nenhuma. Por isso não podia acertar para as cinco; acertou para os
 prontuários por coincidência.
 
 ## Conceitos Relacionados
 
-- [Bancos Relacionais](/07-data-architecture/relational-databases.md) — o padrão do qual se abre mão.
+- [Bancos Relacionais](/07-data-architecture/relational-databases.md): o padrão do qual se abre mão.
 - [Bancos de Documentos](/07-data-architecture/document-databases.md), [Chave-Valor](/07-data-architecture/key-value-databases.md),
-  [Colunar](/07-data-architecture/column-stores.md), [Grafo](/07-data-architecture/graph-databases.md) — as categorias reais.
+  [Colunar](/07-data-architecture/column-stores.md), [Grafo](/07-data-architecture/graph-databases.md): as categorias reais.
 
 ## Exercício Prático
 
@@ -276,6 +276,6 @@ tecnologia, há uma escolha que não foi feita por critério.
 ## Para Aprofundar
 
 - Sadalage, Pramod; Fowler, Martin. *NoSQL Distilled*. Addison-Wesley, 2012.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 2.
 - Stonebraker, Michael. *The Traditional RDBMS Wisdom Is All Wrong*, 2013.

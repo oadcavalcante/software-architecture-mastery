@@ -2,7 +2,7 @@
 id: identity
 title: Identidade
 sidebar_position: 1
-description: Quem é o requisitante — e por que identidade, autenticação e autorização são três perguntas distintas.
+description: Quem é o requisitante, e por que identidade, autenticação e autorização são três perguntas distintas.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [oauth2, oidc, authz-models]
 canonical_for: [identidade digital, provedor de identidade, federação, ciclo de vida de identidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -38,10 +38,10 @@ autorização, e mudar regras de acesso sem mexer em login.
 Sistemas que confundem os três acoplam decisões que deveriam ser independentes.
 
 O sintoma clássico: a regra de negócio verifica o **método de login** para decidir
-permissão — "se entrou por senha corporativa, é funcionário; logo, pode aprovar".
+permissão ("se entrou por senha corporativa, é funcionário; logo, pode aprovar").
 
-Quando um caminho de autenticação novo aparece — login social, chave de API,
-certificado — a regra quebra ou é contornada, e a permissão passa a depender de algo
+Quando um caminho de autenticação novo aparece (login social, chave de API,
+certificado), a regra quebra ou é contornada, e a permissão passa a depender de algo
 que não deveria decidi-la.
 
 ## Conceitos Centrais
@@ -54,8 +54,8 @@ usuário.
 **Estável.** E-mails mudam. Nomes mudam. Se o identificador muda, todo o histórico
 associado se perde ou precisa ser migrado.
 
-**Opaco.** Um identificador que carrega significado — sequencial, derivado do
-documento — vaza informação e permite enumeração.
+**Opaco.** Um identificador que carrega significado (sequencial, derivado do
+documento) vaza informação e permite enumeração.
 
 O padrão robusto: um identificador interno opaco e imutável, com e-mail e documento
 como atributos que podem mudar. Ver
@@ -71,7 +71,7 @@ serviço   autentica sem interação, não tem sessão
 ```
 
 Tratar as duas com o mesmo mecanismo produz os dois problemas conhecidos: chaves de
-longa duração para pessoas — que não expiram nem exigem segundo fator — e fluxos
+longa duração para pessoas (que não expiram nem exigem segundo fator) e fluxos
 interativos para serviços, que exigem credencial armazenada.
 
 Cada uma tem seu mecanismo adequado, e misturá-los é a origem de boa parte das
@@ -82,14 +82,14 @@ credenciais que vazam.
 Federar significa delegar a autenticação a um provedor de identidade central: as
 aplicações não guardam senhas nem gerenciam contas.
 
-O ganho mais importante não é conveniência de login único. É **desprovisionamento**:
+O ganho mais importante não é a conveniência de login único, e sim **desprovisionamento**:
 quando alguém sai da organização, o acesso a tudo termina junto, porque não existem
 contas locais espalhadas.
 
 Sem federação, cada aplicação tem sua própria lista de usuários, e o
 desprovisionamento depende de alguém lembrar de cada uma. Basta a lista de sistemas
 do processo de saída estar desatualizada em um deles para que contas de
-ex-funcionários continuem ativas até a próxima auditoria — como no exemplo real
+ex-funcionários continuem ativas até a próxima auditoria, como no exemplo real
 abaixo.
 
 ### O ciclo de vida é a parte que ninguém projeta
@@ -109,7 +109,7 @@ A recuperação merece destaque: ela é, por definição, um caminho que **conto
 autenticação normal. Se ela for mais fraca que o login, ela é a autenticação real do
 sistema.
 
-Muitos comprometimentos entram por aí — recuperação por e-mail sem segundo fator,
+Muitos comprometimentos entram por aí: recuperação por e-mail sem segundo fator,
 perguntas de segurança respondíveis com dados públicos, atendimento humano que
 redefine credencial sem verificação forte.
 
@@ -129,15 +129,15 @@ premissa perigosa de que ninguém alcança os serviços sem passar por ele. Ver
 
 Quando os serviços precisam operar sem depender de uma chamada síncrona e a
 validade do token é um prazo de revogação aceitável, propagação com verificação em
-cada serviço é a escolha — o serviço não confia em quem chama, confia na assinatura.
-Quando a revogação precisa ser imediata — conta comprometida, desligamento —, a
+cada serviço é a escolha: o serviço não confia em quem chama, confia na assinatura.
+Quando a revogação precisa ser imediata (conta comprometida, desligamento), a
 consulta central cobre o que a propagação não cobre, ao preço da latência e da
 dependência.
 
 ### Identificar não é autorizar
 
 Saber quem é o requisitante não diz o que ele pode fazer. Essa separação permite que
-a mesma identidade tenha permissões diferentes em contextos diferentes — cliente numa
+a mesma identidade tenha permissões diferentes em contextos diferentes: cliente numa
 organização, administrador em outra.
 
 Sistemas que amarram permissão à identidade, em vez de à relação entre identidade e
@@ -161,8 +161,8 @@ Decisões explícitas de identidade se pagam quando:
 
 ## Quando Não Usar
 
-As decisões explícitas acima — camada de identidade separada, federação, ciclo de
-vida projetado — são custo sem retorno quando:
+As decisões explícitas acima (camada de identidade separada, federação, ciclo de
+vida projetado) são custo sem retorno quando:
 
 - **Há um único mecanismo de autenticação e nenhum serviço chamando serviço.** Uma
   ferramenta interna de uma equipe, com login do provedor já existente, não tem
@@ -179,12 +179,12 @@ não vale.
 
 ## Alternativas
 
-- **Provedor de identidade gerenciado** — em vez de construir. Autenticação é
+- **Provedor de identidade gerenciado**: em vez de construir. Autenticação é
   trabalho especializado e não diferencia quase nenhum produto. Ver
   [SaaS](/09-cloud-architecture/saas.md).
-- **Federação corporativa** — para funcionários.
-- **Login social** — para consumidores, com a ressalva de depender do provedor.
-- **Certificados** — para identidade de serviço, sem segredo compartilhado.
+- **Federação corporativa**: para funcionários.
+- **Login social**: para consumidores, com a ressalva de depender do provedor.
+- **Certificados**: para identidade de serviço, sem segredo compartilhado.
 
 ## Trade-offs
 
@@ -215,7 +215,7 @@ não vale.
 
 **Permissão amarrada ao método de login.**
 
-**Provedor de identidade indisponível.** Ninguém entra — inclusive quem responderia
+**Provedor de identidade indisponível.** Ninguém entra, inclusive quem responderia
 ao incidente.
 
 ## Erros Comuns
@@ -225,7 +225,7 @@ usuário novo e perde histórico; quando o endereço antigo é reatribuído, out
 herda o acesso.
 
 **Usar o mesmo mecanismo para pessoa e serviço.** Pessoas acabam com chaves de longa
-duração sem segundo fator, e serviços com credencial interativa armazenada — as duas
+duração sem segundo fator, e serviços com credencial interativa armazenada: as duas
 origens de credencial vazada descritas acima.
 
 **Não federar** numa organização com provedor de identidade disponível. O
@@ -243,7 +243,7 @@ armazenamento de senha, segundo fator e detecção de abuso, trabalho que não
 diferencia o produto.
 
 **Não ter caminho de acesso de emergência** quando o provedor de identidade cai.
-Ninguém entra — inclusive quem precisa responder ao incidente.
+Ninguém entra, inclusive quem precisa responder ao incidente.
 
 ## Exemplo Real
 
@@ -253,15 +253,15 @@ lista de usuários e sua própria senha.
 Três problemas, descobertos em momentos diferentes:
 
 **Ex-funcionários ativos.** Uma auditoria encontrou 31 contas de pessoas que não
-trabalhavam mais lá — espalhadas pelas seis aplicações. O processo de saída incluía
+trabalhavam mais lá, espalhadas pelas seis aplicações. O processo de saída incluía
 uma lista de sistemas a desativar, e a lista estava desatualizada em três deles.
 
 **Recuperação explorada.** Uma das aplicações permitia redefinir senha respondendo
-duas perguntas — nome da mãe e cidade natal. Ambas obteníveis publicamente. Uma
+duas perguntas: nome da mãe e cidade natal. Ambas obteníveis publicamente. Uma
 conta com acesso a dados financeiros foi comprometida assim.
 
 **Identidade por e-mail.** Uma pessoa mudou de sobrenome após casamento, e o e-mail
-corporativo mudou junto. Em quatro das seis aplicações, ela virou um usuário novo —
+corporativo mudou junto. Em quatro das seis aplicações, ela virou um usuário novo,
 perdendo histórico, aprovações pendentes e permissões. Em uma delas, o e-mail antigo
 foi posteriormente atribuído a outra pessoa, que herdou o acesso.
 
@@ -270,7 +270,7 @@ O terceiro caso foi o que mais assustou, porque não envolvia nenhum ataque.
 A reformulação:
 
 **Federação** com o provedor de identidade corporativo. As seis aplicações
-passaram a delegar autenticação. O desprovisionamento virou automático — desativar
+passaram a delegar autenticação. O desprovisionamento virou automático: desativar
 no diretório encerra tudo.
 
 **Identificador interno opaco** em cada aplicação, com e-mail como atributo mutável.
@@ -280,20 +280,20 @@ A migração exigiu reconciliar as identidades duplicadas.
 de segurança foram eliminadas.
 
 **Acesso de emergência**: duas contas locais, com credenciais em cofre físico, para
-o caso de o provedor ficar indisponível — porque a federação criou uma dependência
+o caso de o provedor ficar indisponível, porque a federação criou uma dependência
 crítica que não existia antes.
 
 O que a equipe registra: a última decisão só apareceu porque alguém perguntou "e se
-o provedor cair?". A federação resolveu dois dos três problemas — o desprovisionamento
-e, com a recuperação no provedor, a recuperação fraca — e criou um ponto único que
+o provedor cair?". A federação resolveu dois dos três problemas (o desprovisionamento
+e, com a recuperação no provedor, a recuperação fraca) e criou um ponto único que
 ninguém tinha considerado.
 
 ## Conceitos Relacionados
 
-- [OAuth 2.0](/10-security/oauth2.md) e [OpenID Connect](/10-security/oidc.md) — os protocolos.
-- [JWT](/10-security/jwt.md) — o formato de propagação.
-- [Modelos de Autorização](/10-security/authz-models.md) — a pergunta seguinte.
-- [Autenticação](/05-system-design/authentication.md) — o nível de design de
+- [OAuth 2.0](/10-security/oauth2.md) e [OpenID Connect](/10-security/oidc.md): os protocolos.
+- [JWT](/10-security/jwt.md): o formato de propagação.
+- [Modelos de Autorização](/10-security/authz-models.md): a pergunta seguinte.
+- [Autenticação](/05-system-design/authentication.md): o nível de design de
   sistemas.
 
 ## Exercício Prático

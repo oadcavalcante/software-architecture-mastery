@@ -2,7 +2,7 @@
 id: component-diagrams
 title: Component Diagrams
 sidebar_position: 5
-description: The inside of one piece — the most expensive level to maintain and the least frequently needed.
+description: "The inside of one piece: the most expensive level to maintain and the least frequently needed."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [c4-model, container-diagrams, living-documentation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ It is the third level of the [C4 model](/17-architecture-documentation/c4-model.
 to be justified. Context and container are almost always worth it. Component, rarely.
 
 The reason is economic: it describes what changes fastest, and therefore goes out of date
-fastest — and the information it carries is already in the code, available to anyone who
+fastest, and the information it carries is already in the code, available to anyone who
 opens the project.
 
 ## Problem
@@ -39,7 +39,7 @@ files.
 
 The container diagram stopped too early for that question.
 
-But the obvious answer — drawing all the components of all the containers — produces a
+But the obvious answer, drawing all the components of all the containers, produces a
 cost that rarely pays off:
 
 ```text
@@ -49,7 +49,7 @@ each with 10 to 20 components
 ```
 
 After three months, they describe a structure that no longer exists, and the new person is
-sent to a wrong map — which is worse than having no map.
+sent to a wrong map. That is worse than having no map.
 
 ## Core Concepts
 
@@ -64,7 +64,7 @@ yes   Orders Controller, Shipping Calculator, Customer Repository,
 no    a class, an arbitrary package, an entire layer
 ```
 
-A component is not separately deployable — if it were, it would be a container. It is a
+A component is not separately deployable: if it were, it would be a container. It is a
 unit of internal organization.
 
 And the practical criterion: **a component is something you would name in a conversation
@@ -100,7 +100,7 @@ to argue a boundary decision
 ```
 
 The last is the most legitimate: a diagram drawn to support a decision is disposable by
-nature — it lives in the
+nature. It lives in the
 [ADR](/18-architecture-decisions/what-is-an-adr.md), dated, and doesn't have to be
 maintained.
 
@@ -121,7 +121,7 @@ See [living documentation](/17-architecture-documentation/living-documentation.m
 has the highest return, because it is the level that goes out of date the most.
 
 And there is a condition: generating only works if the code has a recognizable structure.
-A project with no clear organization produces an illegible generated diagram — which,
+A project with no clear organization produces an illegible generated diagram. That,
 incidentally, is a diagnosis.
 
 ### The code is the primary documentation
@@ -172,7 +172,7 @@ generate it when you need permanence, and prefer well-organized code to both.
 - A large container, with a non-obvious internal structure.
 - Recurring onboarding into the same container.
 - Before a structural refactoring, as a target to discuss.
-- To support a boundary decision — disposable, inside the ADR.
+- To support a boundary decision (disposable, inside the ADR).
 - When it is generated automatically.
 
 ## When Not to Use
@@ -181,20 +181,20 @@ generate it when you need permanence, and prefer well-organized code to both.
 
 **Maintained by hand, in code that changes every week.**
 
-**When the folder structure already answers it** — that is, when a newcomer finds the
+**When the folder structure already answers it**, that is, when a newcomer finds the
 right component by the directory name, without asking anyone.
 
-**With classes as boxes** — that would be the fourth level, and it is rarely worth it.
+**With classes as boxes**: that would be the fourth level, and it is rarely worth it.
 
-**With nobody responsible for updating it** — if the question "who touches this diagram
+**With nobody responsible for updating it**: if the question "who touches this diagram
 when the code changes?" has no name as its answer, it will not be touched.
 
 ## Alternatives
 
-- **A well-named directory structure** — an answer with no maintenance cost.
-- **A README per container** — the map in text, easier to maintain.
-- **A generated diagram** — current as long as generation runs in the build or CI.
-- **Nothing** — for small containers, reading the code is faster.
+- **A well-named directory structure**: an answer with no maintenance cost.
+- **A README per container**: the map in text, easier to maintain.
+- **A generated diagram**: current as long as generation runs in the build or CI.
+- **Nothing**: for small containers, reading the code is faster.
 
 The last is legitimate more often than people admit: a container of 15 files doesn't need
 a diagram.
@@ -234,7 +234,7 @@ a diagram.
 
 **Maintaining by hand what could be generated.**
 
-**Not dating it** — with no date, the reader trusts it.
+**Not dating it**: with no date, the reader trusts it.
 
 ## Real-World Example
 
@@ -253,19 +253,19 @@ component diagrams   22 — 4 correct, 18 out of date
 
 And, more seriously, two incidents had been made worse by wrong component diagrams: in
 both, someone located where to touch from the diagram, touched the indicated place, and
-the behavior was in another component — moved in a refactoring months earlier.
+the behavior was in another component, moved in a refactoring months earlier.
 
 The policy revision:
 
 **Component level removed by default.** The 22 hand-drawn diagrams were archived.
 
-**Four exceptions kept**, all in large containers with frequent onboarding — and all
+**Four exceptions kept**, all in large containers with frequent onboarding, and all
 converted to automatic generation from the code.
 
 **A README per container** replaced the rest: a five- to ten-line map in text, kept in the
 container's own repository, reviewed alongside structural changes.
 
-**Decision diagrams** moved into the ADRs, dated and explicitly not maintained — with a
+**Decision diagrams** moved into the ADRs, dated and explicitly not maintained, with a
 line in the header: "snapshot of the structure as of 2026-03; not updated".
 
 The result, measured over the following year: the set of structural diagrams shrank from 50
@@ -273,7 +273,7 @@ to 32 (plus the READMEs, one per container, that took the place of the other 18)
 worse by wrong documentation.
 
 An unforeseen effect: while writing the READMEs, three teams discovered they could not
-describe their internal organization in ten lines — which became a reason to refactor.
+describe their internal organization in ten lines. That became a reason to refactor.
 
 The subsequent assessment points out: the lesson was not "components don't matter", but
 that completeness has a cost and the cost is continuous. Documenting everything produced
@@ -282,9 +282,9 @@ less truth than documenting less.
 ## Related Concepts
 
 - [C4 Model](/17-architecture-documentation/c4-model.md).
-- [Container Diagrams](/17-architecture-documentation/container-diagrams.md) — the level above.
-- [Living Documentation](/17-architecture-documentation/living-documentation.md) — the way out at this level.
-- [Documentation Principles](/17-architecture-documentation/documentation-principles.md) — the half-life.
+- [Container Diagrams](/17-architecture-documentation/container-diagrams.md): the level above.
+- [Living Documentation](/17-architecture-documentation/living-documentation.md): the way out at this level.
+- [Documentation Principles](/17-architecture-documentation/documentation-principles.md): the half-life.
 
 ## Practical Exercise
 

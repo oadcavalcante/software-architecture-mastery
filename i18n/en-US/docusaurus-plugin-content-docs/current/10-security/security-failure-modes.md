@@ -2,7 +2,7 @@
 id: security-failure-modes
 title: Security Failure Modes
 sidebar_position: 15
-description: How a system fails when it fails — and why failing closed needs to be a conscious decision.
+description: How a system fails when it fails, and why failing closed needs to be a conscious decision.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, auditability, authz-models]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -79,7 +79,7 @@ When the policy service becomes unavailable, some intermediate responses:
 
 **Allow what was already authorized, deny new grants.**
 
-**A restricted mode** — only the essential operations, for everybody.
+**A restricted mode**: only the essential operations, for everybody.
 
 Those options are better than either extreme, and they require having been designed.
 
@@ -113,12 +113,12 @@ the same effect?**
 
 The general concept is in [fault tolerance](/12-reliability/fault-tolerance.md). In a security control it
 has an aggravating factor: the system keeps working, only without the protection, and nothing in the visible
-behavior betrays the absence — whoever notices first is usually whoever exploits it.
+behavior betrays the absence. Whoever notices first is usually whoever exploits it.
 
 Real examples: a signature check that returns true when it cannot fetch the key; a sensitive-data filter
 that does not run because of a configuration error; a firewall rule that was not applied.
 
-Every relevant control needs a signal — a metric of how many times it ran, an alert if it stops running. A
+Every relevant control needs a signal: a metric of how many times it ran, an alert if it stops running. A
 control with no metric is a control you do not know whether you have.
 
 ### An error message is surface
@@ -145,12 +145,12 @@ Deciding explicitly is necessary for every control. Priority when:
 - The control depends on an external service.
 - There is a decision cache.
 - The system has multiple paths to the same effect.
-- Unavailability has a high cost — the temptation to fail open is greater.
+- Unavailability has a high cost: the temptation to fail open is greater.
 
 ## When Not to Use
 
 **Failing open in authorization with no recorded decision.** When the damage of granting improper access
-outweighs the damage of denying — medical records, financial transactions —, failing open is defensible only
+outweighs the damage of denying (medical records, financial transactions), failing open is defensible only
 if somebody weighed both sides and wrote it down. With no record, the one who decided was the catch block.
 
 **"Always closed" as a blind rule.** For rate limiting and abuse protection, it is frequently the wrong
@@ -163,11 +163,11 @@ and test for a failure that does not happen.
 
 ## Alternatives
 
-- **Graduated degradation** — instead of binary.
-- **A short-lived cache** — a middle ground between availability and revocation.
-- **Local policy evaluation** — it removes the network dependency from the decision. See
+- **Graduated degradation**: instead of binary.
+- **A short-lived cache**: a middle ground between availability and revocation.
+- **Local policy evaluation**: it removes the network dependency from the decision. See
   [authorization models](/10-security/authz-models.md).
-- **Redundancy of the policy service** — it treats the cause instead of the symptom.
+- **Redundancy of the policy service**: it treats the cause instead of the symptom.
 
 ## Trade-offs
 
@@ -196,20 +196,20 @@ and test for a failure that does not happen.
 **Failing closed with no plan.** The system stops and nobody understands why.
 
 **A workaround created under pressure.** Failing closed with no plan leads somebody to disable the control
-during the incident — and not to re-enable it.
+during the incident, and not to re-enable it.
 
 **An error message leaking information.**
 
 ## Common Mistakes
 
-**Not deciding the behavior under failure.** The policy becomes that of whoever wrote each exception handler
-— in the example below, twelve applications, three behaviors in the face of the same outage.
+**Not deciding the behavior under failure.** The policy becomes that of whoever wrote each exception handler:
+in the example below, twelve applications, three behaviors in the face of the same outage.
 
 **Wrapping the check in generic exception handling** so as "not to block the user". The security policy
 becomes the catch block's, and it outlives whoever wrote it.
 
-**Caching the policy with no maximum age.** Revocation stops taking effect while the cache serves — in the
-example, a policy from three weeks earlier, with already-revoked accesses.
+**Caching the policy with no maximum age.** Revocation stops taking effect while the cache serves (in the
+example, a policy from three weeks earlier, with already-revoked accesses).
 
 **Not instrumenting the control.** Failing open shows up on no dashboard; the improper accesses only surface
 in the later audit, if there is one.
@@ -224,7 +224,7 @@ say, and the pressure to disable the control grows with every minute of outage.
 
 A healthcare platform had a central authorization service consulted by twelve applications.
 
-During a 25-minute outage of that service, the observed behavior was inconsistent — because each
+During a 25-minute outage of that service, the observed behavior was inconsistent, because each
 application had implemented the handling on its own:
 
 **Four applications failed closed.** They stopped completely. Correct, and nobody had anticipated it: there
@@ -234,11 +234,11 @@ was neither communication nor a procedure, and support received calls without kn
 user accessed any record. The later audit found 340 accesses that would have been denied — most out of
 curiosity, two by people accessing acquaintances' medical records.
 
-**Three served a cache.** Two with a 5-minute age — appropriate behavior. One with an indefinite cache,
+**Three served a cache.** Two with a 5-minute age: appropriate behavior. One with an indefinite cache,
 which was serving a policy from three weeks earlier, including already-revoked accesses.
 
-The most serious case: one of the five that failed open had exception handling like this — catch any error
-and return allowed, with a comment saying "do not block the user if the service is unstable". Written two
+The most serious case: one of the five that failed open had exception handling like this (catch any error
+and return allowed), with a comment saying "do not block the user if the service is unstable". Written two
 years earlier, by somebody no longer at the company.
 
 The fixes:
@@ -256,7 +256,7 @@ second factor                             closed
 
 **A mandatory cache age**, a maximum of 15 minutes.
 
-**A metric per control** — completed authorization decisions per minute, and an alert if it drops to zero.
+**A metric per control**: completed authorization decisions per minute, and an alert if it drops to zero.
 That would have detected the five applications' silent failure in two minutes; counting call attempts would
 not have, because the five kept calling the service and catching the exception.
 
@@ -265,21 +265,21 @@ not have, because the five kept calling the service and catching the exception.
 **Testing the failure path** in the periodic exercises.
 
 In retrospect: none of the twelve applications had decided the behavior. All of them inherited it from
-whoever wrote the exception handling — and in the worst five, that person had prioritized availability
+whoever wrote the exception handling, and in the worst five, that person had prioritized availability
 without knowing they were making a security decision.
 
 ## Related Concepts
 
-- [Secure Boundaries](/10-security/secure-boundaries.md) — the bypassable controls.
-- [Authorization Models](/10-security/authz-models.md) — deny by default.
-- [Auditability](/10-security/auditability.md) — the log that reveals it.
+- [Secure Boundaries](/10-security/secure-boundaries.md): the bypassable controls.
+- [Authorization Models](/10-security/authz-models.md): deny by default.
+- [Auditability](/10-security/auditability.md): the log that reveals it.
 - [Reliability](/12-reliability/index.md).
 
 ## Practical Exercise
 
 Choose your system's most critical authorization control and turn off its dependency in a test environment.
 
-What happens is your current failure policy — decided or not.
+What happens is your current failure policy, decided or not.
 
 ## Interview Questions
 
@@ -289,7 +289,7 @@ What happens is your current failure policy — decided or not.
 
 ## Further Reading
 
-- Saltzer, Jerome; Schroeder, Michael. *The Protection of Information in Computer Systems*, 1975 — the
+- Saltzer, Jerome; Schroeder, Michael. *The Protection of Information in Computer Systems*, 1975. The
   principle of safe defaults.
 - OWASP. *Error Handling Cheat Sheet*.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.

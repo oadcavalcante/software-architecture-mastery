@@ -2,7 +2,7 @@
 id: cost-vs-reliability
 title: Custo vs. Confiabilidade
 sidebar_position: 4
-description: Cada nono adicional custa cerca de uma ordem de grandeza — e quase nunca vale o último.
+description: Cada nono adicional custa cerca de uma ordem de grandeza, e quase nunca vale o último.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [consistency-vs-availability, managed-vs-self-hosted, speed-vs-quality]
 canonical_for: [custo contra confiabilidade, custo do nono adicional, confiabilidade proporcional, alvo derivado do negócio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -37,8 +37,8 @@ eixo real   o custo de um minuto de indisponibilidade, para este sistema,
             justifica o custo de evitar aquele minuto?
 ```
 
-A pergunta é aritmética, e quase nunca é feita. O alvo é escolhido por aspiração — "queremos
-alta disponibilidade" — e o custo aparece depois, distribuído em infraestrutura, plantão e
+A pergunta é aritmética, e quase nunca é feita. O alvo é escolhido por aspiração ("queremos
+alta disponibilidade") e o custo aparece depois, distribuído em infraestrutura, plantão e
 complexidade.
 
 ## Problema
@@ -54,8 +54,8 @@ painel administrativo interno queda custa ~R$ 0 por 2 horas
 mesmo alvo de 99,95%          mesmo custo de infraestrutura e plantão
 ```
 
-O painel consome redundância multizona, plantão noturno e alarme de página que acorda gente
-— para um sistema cuja indisponibilidade ninguém nota antes das nove da manhã.
+O painel consome redundância multizona, plantão noturno e alarme de página que acorda gente,
+para um sistema cuja indisponibilidade ninguém nota antes das nove da manhã.
 
 **Alvo sem lastro.** O número no contrato ou na apresentação não corresponde ao que a
 arquitetura entrega, e ninguém verificou.
@@ -65,7 +65,7 @@ alvo declarado    99,95%
 topologia real    três instâncias na mesma zona
 ```
 
-Ver [diagramas de implantação](/17-architecture-documentation/deployment-diagrams.md) — a
+Ver [diagramas de implantação](/17-architecture-documentation/deployment-diagrams.md): a
 verificação de correspondência entre alvo e topologia é barata e raramente feita.
 
 ## Conceitos Centrais
@@ -143,7 +143,7 @@ Acima de certo ponto, confiabilidade deixa de ser questão de redundância:
 99,999%  + o processo de mudança vira o gargalo
 ```
 
-No último patamar, a principal causa de indisponibilidade é **mudança** — implantações,
+No último patamar, a principal causa de indisponibilidade é **mudança**: implantações,
 configurações, migrações. Chegar lá exige reduzir a frequência de mudança ou torná-la
 extremamente segura, e ambos têm custo em velocidade de entrega.
 
@@ -193,7 +193,7 @@ alto → baixo    barato de fazer, difícil de aprovar
 ```
 
 A assimetria é organizacional, não técnica. Reduzir um alvo de confiabilidade é
-tecnicamente simples e politicamente difícil — ninguém quer assinar a redução.
+tecnicamente simples e politicamente difícil: ninguém quer assinar a redução.
 
 Isso favorece **começar no alvo derivado do custo**, e não acima dele "por segurança": o
 excedente vira permanente.
@@ -227,19 +227,19 @@ Aceite menos confiabilidade quando:
 
 **Sem verificar** se a topologia entrega o alvo declarado.
 
-**Sem contar o custo operacional** — plantão é o componente mais caro.
+**Sem contar o custo operacional**: plantão é o componente mais caro.
 
 **Perseguindo nonos** acima do que o negócio paga.
 
 ## Alternativas
 
-- **Degradação desenhada** — mantém a operação com parte fora; frequentemente mais barata
+- **Degradação desenhada**: mantém a operação com parte fora; frequentemente mais barata
   que redundância.
-- **Recuperação rápida em vez de prevenção** — reduzir o tempo de recuperação pode ser mais
+- **Recuperação rápida em vez de prevenção**: reduzir o tempo de recuperação pode ser mais
   barato que reduzir a frequência de falha.
-- **Serviço gerenciado** — transfere parte do custo operacional. Ver
+- **Serviço gerenciado**: transfere parte do custo operacional. Ver
   [gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md).
-- **Alvo por componente** — em vez de por sistema.
+- **Alvo por componente**: em vez de por sistema.
 
 A segunda merece destaque: disponibilidade é função de frequência **e** duração da falha, e
 reduzir a duração costuma ser a metade barata da conta.
@@ -299,7 +299,7 @@ R$ 500 a R$ 5 mil                        14
 abaixo de R$ 500                         25
 ```
 
-Vinte e cinco sistemas — quase metade — tinham custo de indisponibilidade inferior a R$ 500
+Vinte e cinco sistemas, quase metade, tinham custo de indisponibilidade inferior a R$ 500
 por hora e consumiam redundância multizona, alarme de página e plantão noturno.
 
 O custo agregado de manter esses 25 no alvo de 99,95%:
@@ -325,7 +325,7 @@ baixo       99%     25 sistemas   zona única, plantão horário comercial
 ```
 
 **Degradação desenhada** nos sistemas de nível alto, o que permitiu manter o efeito para o
-usuário com menos redundância — dois deles passaram a servir dados de cache com indicação de
+usuário com menos redundância: dois deles passaram a servir dados de cache com indicação de
 idade durante indisponibilidade da fonte.
 
 **Investimento redirecionado para tempo de recuperação** nos quatro críticos, em vez de para
@@ -334,7 +334,7 @@ mais redundância: automação de recuperação, restauração testada e ensaios
 **Orçamento de erro publicado por sistema**, com congelamento automático de mudanças quando
 esgotado.
 
-**Verificação automática** de que a topologia corresponde ao alvo — grupo de escala com
+**Verificação automática** de que a topologia corresponde ao alvo: grupo de escala com
 sub-rede única em sistema de nível alto ou crítico falha a esteira.
 
 Resultados após 15 meses:
@@ -353,17 +353,17 @@ O dado que a equipe mais destaca: os sistemas críticos ficaram **mais** confiá
 mudança. A atenção da equipe de operação, antes distribuída entre 52 sistemas com o mesmo
 alarme, passou a se concentrar nos quatro que importavam.
 
-O aprendizado que ficou: a política única de 99,95% tinha sido criada com boa intenção — evitar
-que alguém decidisse mal. Ela não evitou decisão ruim; ela impediu qualquer decisão, e o
+O aprendizado que ficou: a política única de 99,95% tinha sido criada com boa intenção (evitar
+que alguém decidisse mal). Ela não evitou decisão ruim; ela impediu qualquer decisão, e o
 custo apareceu como redundância inútil e plantão desgastado.
 
 ## Conceitos Relacionados
 
-- [SLO](/12-reliability/slo.md) — o orçamento de erro.
-- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md) — frequência e duração.
-- [Degradação Graciosa](/12-reliability/graceful-degradation.md) — a alternativa barata.
+- [SLO](/12-reliability/slo.md): o orçamento de erro.
+- [Métricas de Disponibilidade](/12-reliability/availability-metrics.md): frequência e duração.
+- [Degradação Graciosa](/12-reliability/graceful-degradation.md): a alternativa barata.
 - [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md).
-- [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md) — a
+- [Diagramas de Implantação](/17-architecture-documentation/deployment-diagrams.md): a
   verificação de lastro.
 
 ## Exercício Prático

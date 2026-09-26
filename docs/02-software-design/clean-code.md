@@ -2,7 +2,7 @@
 id: clean-code
 title: Clean Code
 sidebar_position: 15
-description: Código escrito para ser lido — e onde as regras mais repetidas do movimento erram.
+description: Código escrito para ser lido, e onde as regras mais repetidas do movimento erram.
 doc_type: concept
 level: 2
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [code-smells, refactoring, design-heuristics]
 canonical_for: [clean code, código limpo, legibilidade]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-26
 
 ## Visão Geral
 
-Clean Code é o conjunto de práticas para escrever código legível — nomes claros,
+Clean Code é o conjunto de práticas para escrever código legível: nomes claros,
 funções focadas, ausência de surpresa.
 
 O princípio central é sólido: **código é lido muitas mais vezes do que é
@@ -70,7 +70,7 @@ Uma função deve operar num único nível de abstração. Misturar "calcular o 
 devido" com "formatar a data para o padrão do arquivo" obriga o leitor a trocar de
 nível no meio.
 
-A regra popular — "funções devem ter no máximo cinco linhas" — não se sustenta.
+A regra popular, "funções devem ter no máximo cinco linhas", não se sustenta.
 Extrair agressivamente produz o problema oposto: para entender um fluxo, o leitor
 salta por dez funções de três linhas, e a lógica fica distribuída em lugar nenhum.
 
@@ -79,7 +79,7 @@ nível só**.
 
 ### Comentários
 
-A formulação forte de Clean Code — "comentário é sinal de fracasso" — está
+A formulação forte de Clean Code, "comentário é sinal de fracasso", está
 parcialmente errada.
 
 Comentários que explicam **o quê** o código faz são, de fato, redundância que
@@ -96,7 +96,7 @@ código não pode carregar:
    aguardar(800);
 ```
 
-O segundo não é fracasso. É a única forma de registrar aquilo.
+O segundo não é fracasso, e sim a única forma de registrar aquilo.
 
 ### Surpresa é o custo real
 
@@ -111,9 +111,9 @@ frequentemente é você.
 
 ## Quando Usar
 
-- Onde a leitura é frequente e a alteração é cara — regra de negócio, teste, código
+- Onde a leitura é frequente e a alteração é cara: regra de negócio, teste, código
   que outras pessoas vão manter.
-- Com mais rigor onde a lógica de negócio mora — é onde a leitura é mais
+- Com mais rigor onde a lógica de negócio mora: é onde a leitura é mais
   frequente e o erro mais caro.
 
 ## Quando Não Usar
@@ -122,7 +122,7 @@ frequentemente é você.
 legibilidade.
 
 **Quando conflita com desempenho comprovadamente crítico.** Em caminhos quentes,
-código menos elegante e mais rápido pode ser a escolha certa — com comentário
+código menos elegante e mais rápido pode ser a escolha certa, com comentário
 explicando por quê e com a medição que justificou.
 
 **Em código gerado ou descartável.** Migração pontual, script de análise,
@@ -136,12 +136,12 @@ código estável é custo sem retorno.
 
 ## Alternativas
 
-- **Testes como documentação** — um teste bem nomeado comunica intenção melhor que
+- **Testes como documentação**: um teste bem nomeado comunica intenção melhor que
   muitos comentários. Vence quando o que confunde é o comportamento esperado, não a
   estrutura do código.
-- **Tipos expressivos** — um tipo `Cpf` comunica mais que um `String` bem nomeado.
+- **Tipos expressivos**: um tipo `Cpf` comunica mais que um `String` bem nomeado.
   Vence onde criar um tipo é barato e o valor circula por muitas assinaturas.
-- **[Heurísticas de design](/02-software-design/design-heuristics.md)** — critérios mais estruturais
+- **[Heurísticas de design](/02-software-design/design-heuristics.md)**: critérios mais estruturais
   e menos sujeitos a interpretação. Vencem quando o desacordo é sobre onde uma
   responsabilidade mora, e nenhum nome resolve isso.
 
@@ -190,14 +190,14 @@ Uma revisão de código pediu a extração de uma função de 40 linhas em oito 
 menores. O autor discordou; a discussão empacou em preferência.
 
 O critério que a resolveu: pediram a uma pessoa que não conhecia o código que
-lesse cada versão e explicasse o que ela fazia — a de 40 linhas primeiro.
+lesse cada versão e explicasse o que ela fazia (a de 40 linhas primeiro).
 
 Nessa, ela levou três minutos e acertou. Na versão extraída, já sabendo o que o
 código fazia, levou sete e errou a ordem de duas etapas, porque os nomes das
 funções não indicavam sequência. A ordem da leitura jogava a favor da versão
 extraída, e ainda assim ela saiu atrás.
 
-A versão final ficou com três funções, não oito nem uma — separando os três
+A versão final ficou com três funções, não oito nem uma, separando os três
 níveis de abstração que de fato existiam: obter os dados, aplicar a regra,
 persistir o resultado.
 
@@ -219,15 +219,15 @@ negligência no outro.
 | Caminho crítico de desempenho | Especial | Clareza cede a medição, com comentário justificando |
 
 A linha de teste costuma surpreender. Times investem em legibilidade de produção
-e aceitam testes com preparação duplicada e nomes genéricos — quando o teste é
+e aceitam testes com preparação duplicada e nomes genéricos, quando o teste é
 justamente o que a próxima pessoa lê para entender a intenção do código.
 
 ## Conceitos Relacionados
 
-- [Code Smells](/02-software-design/code-smells.md) — os sinais de que algo precisa de atenção.
-- [Refatoração](/02-software-design/refactoring.md) — como mudar sem quebrar.
-- [Heurísticas de Design](/02-software-design/design-heuristics.md) — critérios mais estruturais.
-- [Abstração](/01-fundamentals/abstraction.md) — quando extrair compensa.
+- [Code Smells](/02-software-design/code-smells.md): os sinais de que algo precisa de atenção.
+- [Refatoração](/02-software-design/refactoring.md): como mudar sem quebrar.
+- [Heurísticas de Design](/02-software-design/design-heuristics.md): critérios mais estruturais.
+- [Abstração](/01-fundamentals/abstraction.md): quando extrair compensa.
 
 ## Exercício Prático
 
@@ -235,7 +235,7 @@ Escolha um arquivo do seu sistema e peça a alguém que não o conhece que leia 
 narre o que entende.
 
 Anote onde a pessoa hesita, volta, ou pergunta. Esses pontos são os problemas
-reais de legibilidade — e raramente coincidem com o que uma revisão de estilo
+reais de legibilidade, e raramente coincidem com o que uma revisão de estilo
 apontaria.
 
 ## Perguntas de Entrevista
@@ -247,6 +247,6 @@ apontaria.
 ## Para Aprofundar
 
 - Martin, Robert C. *Clean Code*. Prentice Hall, 2008.
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 —
-  discorda de Clean Code em vários pontos, e vale ler junto.
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
+  Discorda de Clean Code em vários pontos, e vale ler junto.
 - Beck, Kent. *Implementation Patterns*. Addison-Wesley, 2007.

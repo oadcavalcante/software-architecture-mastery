@@ -2,7 +2,7 @@
 id: cloud-networking
 title: Cloud Networking
 sidebar_position: 10
-description: Networking as configuration — what changes when the topology is code and the traffic is billed.
+description: "Networking as configuration: what changes when the topology is code and the traffic is billed."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [cloud-identity, availability-zones, cost-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ In the cloud, the network is defined by configuration: you declare address range
 filtering rules, and they come into existence.
 
 That changes two things relative to a physical network. First, the topology is versionable and
-reproducible. Second, it is easy to get wrong at scale — a permissive rule applied by mistake holds for
+reproducible. Second, it is easy to get wrong at scale: a permissive rule applied by mistake holds for
 everything it reaches.
 
 And there is a third, with no equivalent on your own network: **the traffic is billed**, and where it goes
@@ -55,10 +55,10 @@ private subnet   no inbound route from the internet
 The practical rule: **private by default**. Resources in a public subnet are the exception, justified case
 by case.
 
-That is not paranoia — it is that the alternative, exposing out of convenience and protecting with a
+That is not paranoia: the alternative, exposing out of convenience and protecting with a
 firewall rule, transfers all the security to a configuration a distracted person can loosen.
 
-Private resources that need to reach the internet — for updates, for external APIs — leave through a
+Private resources that need to reach the internet (for updates, for external APIs) leave through a
 translation gateway, which allows egress without allowing ingress.
 
 ### Security groups are the filter that matters
@@ -70,14 +70,14 @@ Two principles that resolve most of it:
 **Deny by default, allow the specific.**
 
 **Reference groups, not address ranges.** Allowing the application's group to reach the database's group is
-more readable and more robust than allowing a range — because it stays correct when the addresses change.
+more readable and more robust than allowing a range, because it stays correct when the addresses change.
 
 The rule that recurs in audits: administrative access open to any source on the internet. It usually
 was created "temporarily".
 
 ### A private endpoint avoids the internet
 
-The provider's managed services — storage, database, queue — have public addresses by default. Your
+The provider's managed services (storage, database, queue) have public addresses by default. Your
 application's traffic to them leaves your network.
 
 A private endpoint brings that service inside your virtual network: the traffic does not pass through the
@@ -105,7 +105,7 @@ See [cost architecture](/09-cloud-architecture/cost-architecture.md) and
 
 ### Address ranges need to be planned
 
-Choosing the virtual network's range seems irrelevant until you need to connect it to another one — a
+Choosing the virtual network's range seems irrelevant until you need to connect it to another one: a
 corporate network, a partner's network, an acquired company's account.
 
 Overlapping ranges prevent a direct connection, and the solution involves address translation, which
@@ -118,7 +118,7 @@ An addressing plan, defined before the first network, costs an afternoon and avo
 A good part of cloud networking incidents are name resolution: a private zone not associated, misconfigured
 forwarding, resolution working from one network and not from another.
 
-They are hard because the symptom is generic — "it does not connect" — and the cause is in a layer nobody
+They are hard because the symptom is generic ("it does not connect") and the cause is in a layer nobody
 looks at first.
 
 ## Mental Model
@@ -143,11 +143,11 @@ Special attention when:
 of use. A service queried a few times a day, from three zones, pays for three endpoints all month to save
 cents of transfer; the gain left is the surface one, and it only exists if the service is configured to
 refuse access from outside. For object storage and some managed tables, some providers offer a gateway
-endpoint with no hourly charge — it is the first thing to check.
+endpoint with no hourly charge, and it is the first thing to check.
 
 **Several virtual networks when one is enough.** Splitting into separate networks and accounts gives fault
 and permission isolation, but each new boundary requires interconnection, routes and name resolution between
-them — the layer where incidents hide. A team with one environment and one application gains little
+them: the layer where incidents hide. A team with one environment and one application gains little
 isolation and pays all the complexity; the split is justified when there are teams, environments or
 compliance requirements that need an administrative boundary.
 
@@ -158,11 +158,11 @@ integration will be broad and permanent.
 
 ## Alternatives
 
-- **Private connectivity to the corporate network** — instead of exposing services.
-- **Administrative access through a managed session service** — it eliminates the need for an open port.
-- **A service mesh** — for policies between services. See
+- **Private connectivity to the corporate network**: instead of exposing services.
+- **Administrative access through a managed session service**: it eliminates the need for an open port.
+- **A service mesh**: for policies between services. See
   [service mesh](/08-integration-architecture/service-mesh.md).
-- **A private endpoint** — instead of a translation gateway for the provider's services.
+- **A private endpoint**: instead of a translation gateway for the provider's services.
 
 ## Trade-offs
 
@@ -208,12 +208,12 @@ only on the security group being right. The private subnet removes the exposure 
 nothing expires on its own and nobody reviews what causes no problem.
 
 **Not using private endpoints.** Without them, traffic to the provider's own services goes out over the
-internet — which adds exposure, latency and, frequently, egress cost.
+internet, which adds exposure, latency and, frequently, egress cost.
 
 **Ignoring the cost of the traffic path.** Transfer between zones, between regions and to the internet have
 very different prices. An architecture that crosses zones with no need pays that on every request.
 
-**Not restricting egress traffic.** Why egress matters is in [network security](/10-security/network-security.md). What is specific to the cloud: the default security group allows all egress, and the translation gateway forwards any destination the route reaches. Restricting it requires an egress rule on the group and, for destinations identified by name, a filter on the egress path — the security group only understands addresses.
+**Not restricting egress traffic.** Why egress matters is in [network security](/10-security/network-security.md). What is specific to the cloud: the default security group allows all egress, and the translation gateway forwards any destination the route reaches. Restricting it requires an egress rule on the group and, for destinations identified by name, a filter on the egress path. The security group only understands addresses.
 
 ## Real-World Example
 
@@ -250,10 +250,10 @@ having been treated as a prerequisite to resolve quickly, and not as part of the
 
 ## Related Concepts
 
-- [Cloud Identity](/09-cloud-architecture/cloud-identity.md) — the other boundary layer.
-- [Availability Zones](/09-cloud-architecture/availability-zones.md) — cross-zone traffic.
+- [Cloud Identity](/09-cloud-architecture/cloud-identity.md): the other boundary layer.
+- [Availability Zones](/09-cloud-architecture/availability-zones.md): cross-zone traffic.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
-- [Network Security](/10-security/network-security.md) — segmentation and egress filtering.
+- [Network Security](/10-security/network-security.md): segmentation and egress filtering.
 - [Security](/10-security/index.md).
 
 ## Practical Exercise
@@ -273,5 +273,5 @@ with "temporarily".
 ## Further Reading
 
 - The major providers' virtual network documentation.
-- NIST SP 800-207 — zero trust architecture.
+- NIST SP 800-207: zero trust architecture.
 - Rice, Liz. *Container Security*. O'Reilly, 2020.

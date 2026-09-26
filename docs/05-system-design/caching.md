@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, load-balancing, scaling-cache]
 canonical_for: [cache, invalidação de cache, TTL]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -26,14 +26,14 @@ frescor** por **latência e carga**.
 
 Quando a razão entre leitura e escrita é alta e a origem é o gargalo comprovado, o
 cache rende mais que ampliar a origem: remove o trabalho em vez de dar capacidade
-para executá-lo. E a decisão que importa não é onde colocar o cache — é **quando o
+para executá-lo. E a decisão que importa não é onde colocar o cache, é **quando o
 dado guardado deixa de valer**.
 
 ## Problema
 
 Cache é fácil de adicionar e difícil de acertar. O padrão que aparece:
 
-Alguém adiciona cache numa consulta lenta. Funciona — a latência cai, a carga do
+Alguém adiciona cache numa consulta lenta. Funciona: a latência cai, a carga do
 banco cai.
 
 Semanas depois, um usuário reclama que alterou um dado e a tela continua mostrando
@@ -60,12 +60,12 @@ que está em cache.
 
 ### As estratégias de escrita
 
-**Write-through** — grava no cache e na origem, sincronamente. Consistente e mais
+**Write-through**: grava no cache e na origem, sincronamente. Consistente e mais
 lento na escrita.
 
-**Write-behind** — grava no cache e persiste depois. Rápido e com janela de perda.
+**Write-behind**: grava no cache e persiste depois. Rápido e com janela de perda.
 
-**Write-around** — grava só na origem, invalidando o cache. Simples, e a próxima
+**Write-around**: grava só na origem, invalidando o cache. Simples, e a próxima
 leitura paga.
 
 A escolha depende de quanto se aceita perder numa falha. Write-behind num sistema
@@ -77,7 +77,7 @@ financeiro é decisão que precisa ser autorizada pelo negócio, não pela engen
 serve dado velho por até N segundos.
 
 **Invalidação explícita.** Quem altera o dado remove do cache. Preciso, e exige
-que todo caminho de escrita conheça o cache — o que é onde os erros moram.
+que todo caminho de escrita conheça o cache. É onde os erros moram.
 
 **Invalidação por evento.** Quem altera publica; o cache reage. Desacopla os
 caminhos de escrita do cache, ao custo de consistência eventual.
@@ -99,15 +99,15 @@ ela, a decisão vira preferência.
 
 ### Cache não é fonte de verdade
 
-Se perder o cache quebra o sistema, ele não era cache — era um banco de dados sem
+Se perder o cache quebra o sistema, ele não era cache, era um banco de dados sem
 durabilidade. Ver
 [gestão de estado](/05-system-design/state-management.md).
 
 O teste é de reconstrução, não de sobrevivência: o que está guardado pode ser
-recalculado a partir da origem? Se pode, é cache — ainda que limpá-lo sature a
+recalculado a partir da origem? Se pode, é cache, ainda que limpá-lo sature a
 origem, que é falta de capacidade, não perda de dado. Se não pode, era estado.
 Confirmar isso em produção é um exercício de perda de cache, feito em janela
-controlada — ver [cache para escala](/11-scalability/scaling-cache.md).
+controlada: ver [cache para escala](/11-scalability/scaling-cache.md).
 
 ## Modelo Mental
 
@@ -134,18 +134,18 @@ não ter que ter um cache que ocasionalmente serve valor errado num contexto que
 não aceita.
 
 **Como correção para consulta ruim.** Um índice ausente resolvido com cache
-esconde o problema — e ele volta quando a taxa de acerto cair.
+esconde o problema, e ele volta quando a taxa de acerto cair.
 
 **Sem medir antes.** Cache adicionado sem perfil frequentemente resolve o que não
 era gargalo.
 
 ## Alternativas
 
-- **Otimizar a origem** — índice, consulta, desnormalização. Frequentemente
+- **Otimizar a origem**: índice, consulta, desnormalização. Frequentemente
   suficiente e sem componente novo.
-- **Projeção de leitura** — um modelo mantido para consulta. Ver
+- **Projeção de leitura**: um modelo mantido para consulta. Ver
   [CQRS](/03-design-patterns/cqrs.md) de nível 2.
-- **O cache mais barato antes do distribuído** — navegador,
+- **O cache mais barato antes do distribuído**: navegador,
   [CDN](/05-system-design/cdn.md) e gateway absorvem parte do tráfego sem
   componente novo na aplicação. Ver [onde o cache pode ficar](#onde-o-cache-pode-ficar).
 
@@ -161,7 +161,7 @@ era gargalo.
 | Comportamento varia com acerto ou erro | Previsível |
 
 A última linha é subestimada: um sistema com cache tem dois perfis de desempenho,
-e o pior deles — cache frio — é o que aparece justamente após um reinício ou um
+e o pior deles (cache frio) é o que aparece justamente após um reinício ou um
 pico.
 
 ## Modos de Falha
@@ -197,8 +197,8 @@ pior momento.
 
 ## Exemplo Real
 
-Uma plataforma de cursos adicionou cache na consulta de catálogo — a mais lenta do
-sistema, 900 ms.
+Uma plataforma de cursos adicionou cache na consulta de catálogo (a mais lenta do
+sistema, 900 ms).
 
 Com TTL de uma hora, a latência caiu para 12 ms e a carga do banco caiu 70%.
 
@@ -208,8 +208,8 @@ Dois problemas apareceram nos meses seguintes.
 até uma hora para aparecer. Reclamação recorrente no suporte.
 
 A correção inicial foi invalidação explícita ao salvar. Funcionou até alguém
-descobrir que havia três caminhos de alteração — painel do instrutor, importação
-em lote e correção administrativa — e só o primeiro invalidava.
+descobrir que havia três caminhos de alteração (painel do instrutor, importação
+em lote e correção administrativa) e só o primeiro invalidava.
 
 **O segundo:** numa implantação, todas as instâncias subiram com cache frio
 simultaneamente. As requisições de catálogo foram todas para o banco ao mesmo
@@ -217,19 +217,19 @@ tempo, e ele saturou por quatro minutos.
 
 As correções finais.
 
-O TTL caiu para 60 segundos — a conversa com o negócio revelou que um minuto era
+O TTL caiu para 60 segundos: a conversa com o negócio revelou que um minuto era
 perfeitamente aceitável, e ninguém tinha perguntado antes de escolher uma hora.
 Isso sozinho resolveu a reclamação sem invalidação nenhuma.
 
 A invalidação explícita foi mantida só onde importava, mas movida para um evento
-publicado pelo domínio — assim os três caminhos passaram a invalidar sem precisar
+publicado pelo domínio, e assim os três caminhos passaram a invalidar sem precisar
 conhecer o cache.
 
 E foi adicionado bloqueio contra estampida: numa expiração, só uma requisição
 recalcula; as demais esperam o resultado.
 
 O que resolveu o problema principal não foi mecanismo. Foi perguntar ao negócio
-qual atraso era aceitável — pergunta que a decisão original tinha pulado.
+qual atraso era aceitável, pergunta que a decisão original tinha pulado.
 
 ## Onde o cache pode ficar
 
@@ -247,7 +247,7 @@ conteúdo idêntico para muitos.
 
 **No gateway.** Antes de chegar à aplicação. Útil para respostas públicas de API.
 
-**Na aplicação, local.** Nanossegundos de acesso, e cada instância tem a sua —
+**Na aplicação, local.** Nanossegundos de acesso, e cada instância tem a sua:
 divergência garantida com múltiplas instâncias.
 
 **Distribuído.** Compartilhado entre instâncias, com uma chamada de rede. É onde a
@@ -257,17 +257,17 @@ maioria dos caches de aplicação vive.
 subdimensionado. Frequentemente o problema atribuído à falta de cache é o banco não
 ter memória suficiente para manter o índice quente.
 
-A ordem de avaliação deveria ser de cima para baixo — a resposta mais barata
+A ordem de avaliação deveria ser de cima para baixo: a resposta mais barata
 primeiro. A ordem de fato costuma ser começar pelo cache distribuído, que é a mais
 visível.
 
 ## Conceitos Relacionados
 
-- [Gestão de Estado](/05-system-design/state-management.md) — cache como estado descartável.
-- [CDN](/05-system-design/cdn.md) — cache na borda.
-- [Escalabilidade](/11-scalability/index.md) — cache como estratégia de escala.
-- [Cache para Escala](/11-scalability/scaling-cache.md) — camadas, estampida e os modos de falha sob carga.
-- [CQRS](/03-design-patterns/cqrs.md) — projeção como alternativa.
+- [Gestão de Estado](/05-system-design/state-management.md): cache como estado descartável.
+- [CDN](/05-system-design/cdn.md): cache na borda.
+- [Escalabilidade](/11-scalability/index.md): cache como estratégia de escala.
+- [Cache para Escala](/11-scalability/scaling-cache.md): camadas, estampida e os modos de falha sob carga.
+- [CQRS](/03-design-patterns/cqrs.md): projeção como alternativa.
 
 ## Exercício Prático
 
@@ -286,4 +286,4 @@ escolhido sem critério.
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Nygard, Michael. *Release It!* 2ª ed., 2018 — cache e estabilidade.
+- Nygard, Michael. *Release It!* 2ª ed., 2018. Cache e estabilidade.

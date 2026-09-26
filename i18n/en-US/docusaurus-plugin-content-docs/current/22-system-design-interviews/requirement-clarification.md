@@ -2,7 +2,7 @@
 id: requirement-clarification
 title: Requirement Clarification
 sidebar_position: 1
-description: The prompt is vague on purpose — and the first thing evaluated is whether you notice it.
+description: The prompt is vague on purpose, and the first thing evaluated is whether you notice it.
 doc_type: concept
 level: 0
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [functional-vs-nonfunctional, interview-structure, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 "Design Twitter." "Design a URL shortener." "Design Uber."
 
 Those prompts are deliberately vague. None of them is answerable as stated, and the first
-competency evaluated is whether the candidate notices that — or starts drawing boxes.
+competency evaluated is whether the candidate notices that or starts drawing boxes.
 
 ```text
 the prompt is not the problem
@@ -44,7 +44,7 @@ candidate     "ok, I'll use a hash of the original URL, store it in
               a key-value database, with a cache in front..."
 ```
 
-The candidate has already decided scale, data model, technology and topology — about a problem
+The candidate has already decided scale, data model, technology and topology, about a problem
 they do not know. They do not know whether it is a thousand or a billion URLs, whether links
 expire, whether there is customization, whether there is click analytics, whether it is public or
 internal.
@@ -104,7 +104,7 @@ The second form is better for three reasons. It demonstrates that you have a sca
 keeps the pace, because the interviewer only has to confirm; and it makes explicit that the number
 is an assumption, which protects the analysis that follows.
 
-Interviewers frequently answer "whatever you find reasonable" — and in that case the proposal has
+Interviewers frequently answer "whatever you find reasonable", and in that case the proposal has
 already resolved the impasse.
 
 ### Every assumption said out loud is an anchor
@@ -115,8 +115,8 @@ already resolved the impasse.
 "I'll assume we don't need custom links in this version"
 ```
 
-Declared assumptions do two things. They let the interviewer correct course early — "actually,
-customization is important" — instead of late, when the architecture has already been drawn on top
+Declared assumptions do two things. They let the interviewer correct course early ("actually,
+customization is important") instead of late, when the architecture has already been drawn on top
 of them. And they record that the decision was conscious, not an omission.
 
 An undeclared and wrong assumption surfaces late, when the architecture already depends on it and
@@ -124,13 +124,13 @@ fixing it costs a redesign. The same assumption declared and wrong is corrected 
 
 ### Implicit requirements exist and are worth points
 
-Some requirements are never stated and are expected — availability, durability, security, cost,
+Some requirements are never stated and are expected: availability, durability, security, cost,
 operations. The list and the weight of each are in
 [the implicit ones worth mentioning](/22-system-design-interviews/functional-vs-nonfunctional.md#the-implicit-ones-worth-mentioning);
 what matters here is when to bring them up, which is during clarification.
 
-Mentioning them briefly — "I'll assume availability matters more than strong consistency here,
-because a temporarily unavailable link is worse than a slightly stale click counter" —
+Mentioning them briefly ("I'll assume availability matters more than strong consistency here,
+because a temporarily unavailable link is worse than a slightly stale click counter")
 demonstrates maturity without consuming time.
 
 ### Note it down and come back
@@ -141,7 +141,7 @@ other. See
 
 That serves three purposes: it keeps you honest about what you promised to solve; it lets the
 interviewer see you did not forget anything; and it gives you something to come back to when time
-gets tight — "I won't cover the analytics dashboard, which was on the lower-priority list".
+gets tight ("I won't cover the analytics dashboard, which was on the lower-priority list").
 
 ### The time budget
 
@@ -167,7 +167,7 @@ asking open-ended, and declare every assumption that changes a decision.
 ## When Not to Use
 
 **When the prompt already comes delimited.** If the interviewer hands over scope, scale and
-constraints — "a public shortener, 100 M links per month, no customization" — redoing the questions
+constraints ("a public shortener, 100 M links per month, no customization"), redoing the questions
 spends the budget confirming what was said. Repeat the numbers in one sentence, ask only about what
 was left out, and move on.
 
@@ -178,14 +178,14 @@ questions. Declare the variation's assumption and answer on top of it.
 **When the answer would not change any box already drawn.** Once the design exists, a scope
 question is only worth asking if it could move a component; if it cannot, it is rigor for show.
 
-**When the decision is yours** — technology choice, topology, database. Asking that transfers the
+**When the decision is yours**: technology choice, topology, database. Asking that transfers the
 decision and wastes the opportunity to show judgment.
 
 ## Alternatives
 
-- **Propose and confirm** — instead of asking open-ended; faster and more demonstrative.
-- **Declare an assumption and move on** — when the interviewer does not answer or says "you decide".
-- **Ask in a block** — three to four questions together, instead of one at a time, keeps the pace.
+- **Propose and confirm**: instead of asking open-ended; faster and more demonstrative.
+- **Declare an assumption and move on**: when the interviewer does not answer or says "you decide".
+- **Ask in a block**: three to four questions together, instead of one at a time, keeps the pace.
 
 ## Trade-offs
 
@@ -213,7 +213,7 @@ decision and wastes the opportunity to show judgment.
 
 **Blowing the clarification budget.**
 
-**Not noting things down** — and promising things that will not be covered.
+**Not noting things down**, and promising things that will not be covered.
 
 ## Common Mistakes
 
@@ -228,7 +228,7 @@ past the 5 to 8 minutes and the interviewer loses the overall picture of what wa
 
 **Treating clarification as a formality** and going back to the memorized script afterwards. The
 design comes out the same as it would without the answers, and the interviewer concludes the
-questions served no purpose — which is worse than not having asked them.
+questions served no purpose. That is worse than not having asked them.
 
 ## Interview Example
 
@@ -287,7 +287,7 @@ The last item deserves attention: asking "public or internal" takes five seconds
 the problem by four orders of magnitude. It is the highest-return question in the list, and it is
 the one most often forgotten.
 
-There is a reason for forgetting it: the candidate assumes the prompt refers to the famous system —
+There is a reason for forgetting it: the candidate assumes the prompt refers to the famous system.
 "URL shortener" evokes large-scale public services. Assuming that is reasonable and it is an
 assumption, and the difference between assuming silently and declaring out loud is the whole
 difference. A candidate who says "I'll assume public scale, in the billions of redirects" and moves
@@ -303,13 +303,13 @@ not exist.
 ## Related Concepts
 
 - [Functional vs. Non-Functional](/22-system-design-interviews/functional-vs-nonfunctional.md).
-- [Interview Structure](/22-system-design-interviews/interview-structure.md) — the time budget.
+- [Interview Structure](/22-system-design-interviews/interview-structure.md): the time budget.
 - [Common Mistakes](/22-system-design-interviews/interview-common-mistakes.md).
 - [Communicating Trade-offs](/22-system-design-interviews/communicating-tradeoffs.md).
 
 ## Practical Exercise
 
-Take a vague prompt — "design a notification system" — and write ten questions.
+Take a vague prompt ("design a notification system") and write ten questions.
 
 Then cross out the ones that change no architectural decision. What remains is what you would ask
 in an interview; the crossed-out ones are what consumes your time.

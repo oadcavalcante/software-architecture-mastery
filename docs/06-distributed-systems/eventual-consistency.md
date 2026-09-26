@@ -2,7 +2,7 @@
 id: eventual-consistency
 title: Consistência Eventual
 sidebar_position: 31
-description: As réplicas convergem — e a garantia não diz quando, que é exatamente o que a aplicação precisa saber.
+description: As réplicas convergem, e a garantia não diz quando, que é exatamente o que a aplicação precisa saber.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [strong-consistency, conflict-resolution, replication]
 canonical_for: [consistência eventual]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -26,23 +26,23 @@ item**, todas as réplicas acabam convergindo para o mesmo valor daquele item
 (Vogels, 2008).
 
 As duas partes que o enunciado não cobre são as que importam na prática: ele não
-diz **quando**, e a quiescência é por item — num sistema com tráfego contínuo o
+diz **quando**, e a quiescência é por item. Num sistema com tráfego contínuo o
 conjunto nunca fica todo quieto, então a convergência chega item a item, e para
 nenhum deles há prazo prometido.
 
 Isso não invalida a garantia. Significa que a aplicação precisa ser projetada para
-observar dado velho — e essa é a parte que costuma ser esquecida.
+observar dado velho, e essa é a parte que costuma ser esquecida.
 
 ## Problema
 
-Consistência eventual é frequentemente adotada como consequência técnica —
-replicação assíncrona, cache, projeção de leitura — sem que ninguém tenha decidido
+Consistência eventual é frequentemente adotada como consequência técnica
+(replicação assíncrona, cache, projeção de leitura), sem que ninguém tenha decidido
 que o negócio a aceita.
 
 O resultado é previsível. O usuário altera algo e não vê. Um relatório mostra
 número diferente da tela. Duas telas do mesmo sistema discordam.
 
-Nenhum desses é defeito de código. São a semântica escolhida — só que ninguém
+Nenhum desses é defeito de código. São a semântica escolhida, só que ninguém
 escolheu conscientemente, e o suporte descobre pelos chamados.
 
 ## Conceitos Centrais
@@ -52,7 +52,7 @@ escolheu conscientemente, e o suporte descobre pelos chamados.
 Ela não promete prazo. Um sistema que converge em 100 ms e outro que converge em 6
 horas ambos satisfazem "consistência eventual".
 
-Por isso a métrica operacional relevante não é a garantia — é o **atraso de
+Por isso a métrica operacional relevante não é a garantia, e sim o **atraso de
 convergência real**, medido e monitorado. Ver
 [replicação](/06-distributed-systems/replication.md).
 
@@ -74,14 +74,14 @@ conflitantes. Ver
 
 ### As garantias de sessão resolvem a maior parte da percepção
 
-As três garantias de sessão — e por que resolvem a percepção a custo baixo —
+As três garantias de sessão, e por que resolvem a percepção a custo baixo,
 estão em [consistência](/06-distributed-systems/consistency.md). O que se decide
 aqui é operacional: por quanto tempo as leituras de quem escreveu vão para a
 primária.
 
 Esse número sai do atraso de convergência medido, no percentil alto e não na
 mediana. Com 2 segundos típicos e minutos na cauda, uma janela de 30 segundos
-cobre o caso comum e deixa a cauda descoberta — é uma decisão explícita, não um
+cobre o caso comum e deixa a cauda descoberta. É uma decisão explícita, não um
 padrão a herdar. É a correção de melhor retorno em consistência eventual: custa
 uma regra de roteamento e não abre mão da escala de leitura para o resto.
 
@@ -93,7 +93,7 @@ confuso:
 **Atualização otimista.** Mostrar o resultado esperado imediatamente, e reconciliar
 quando confirmar. É o que aplicativos de mensagem fazem.
 
-**Estado explícito.** "Processando", "sincronizando" — em vez de mostrar o valor
+**Estado explícito.** "Processando", "sincronizando", em vez de mostrar o valor
 antigo como se fosse atual.
 
 **Marca de atualização.** "Dados de 3 minutos atrás" comunica honestamente.
@@ -107,7 +107,7 @@ indistinguível de defeito.
 "Eventualmente converge" pressupõe um mecanismo que faça convergir: reparo por
 leitura, reparo em segundo plano, reconciliação periódica.
 
-Sem ele, réplicas divergentes podem permanecer divergentes indefinidamente — o que
+Sem ele, réplicas divergentes podem permanecer divergentes indefinidamente. Isso
 não é consistência eventual, é inconsistência permanente com nome bonito.
 
 ### O atraso não é constante
@@ -126,7 +126,7 @@ cumulativamente.
 
 **Manutenção e implantação.** O consumidor fica fora por minutos.
 
-Nesses momentos, o atraso não vai de 200 ms para 400 ms — vai para minutos ou
+Nesses momentos, o atraso não vai de 200 ms para 400 ms, vai para minutos ou
 horas. As decisões de produto sobre o que é aceitável precisam ser tomadas com o
 percentil alto na mesa, não com a mediana.
 
@@ -139,7 +139,7 @@ operacional que você mede, não uma garantia que você recebe.
 
 - O negócio tolera atraso, e isso foi confirmado explicitamente.
 - A escala de leitura ou a disponibilidade exigem réplicas.
-- Os dados são naturalmente convergentes — contadores, agregados, projeções.
+- Os dados são naturalmente convergentes: contadores, agregados, projeções.
 - Entre bounded contexts, onde consistência forte os acoplaria.
 
 ## Quando Não Usar
@@ -150,17 +150,17 @@ operacional que você mede, não uma garantia que você recebe.
 **Onde uma decisão irreversível depende do valor.** Autorizar, aprovar, liberar.
 
 **Onde o atraso não tem dono.** Decisão de negócio registrada, monitoramento,
-mecanismo de convergência e tratamento de conflito são pré-requisitos — cada um
+mecanismo de convergência e tratamento de conflito são pré-requisitos, cada um
 detalhado em Erros Comuns. Onde nenhum deles tem responsável que meça o atraso e
 responda por ele, a janela de inconsistência é suposição não verificada, não
 política.
 
 ## Alternativas
 
-- **[Consistência forte](/06-distributed-systems/strong-consistency.md)** — onde o custo se paga.
-- **Garantias de sessão** — o meio-termo que resolve a percepção.
-- **Consistência causal** — preserva a ordem entre operações relacionadas.
-- **Ler da primária para operações críticas** — forte onde importa, eventual no
+- **[Consistência forte](/06-distributed-systems/strong-consistency.md)**: onde o custo se paga.
+- **Garantias de sessão**: o meio-termo que resolve a percepção.
+- **Consistência causal**: preserva a ordem entre operações relacionadas.
+- **Ler da primária para operações críticas**: forte onde importa, eventual no
   resto.
 
 ## Trade-offs
@@ -191,11 +191,11 @@ escrita perdida era a importante.
 
 **Adotar sem decisão de negócio.** Quem aceita a janela de inconsistência é quem responde pela consequência dela. Engenharia informa o custo de fechá-la; não decide sozinha que ela é tolerável.
 
-**Não implementar garantias de sessão.** Sem leia-suas-escritas, o usuário salva uma alteração, recarrega a página e vê o valor antigo — que é indistinguível de defeito, e é o relato de bug mais comum em sistemas eventualmente consistentes.
+**Não implementar garantias de sessão.** Sem leia-suas-escritas, o usuário salva uma alteração, recarrega a página e vê o valor antigo. Isso é indistinguível de defeito, e é o relato de bug mais comum em sistemas eventualmente consistentes.
 
 **Não monitorar o atraso.** A janela de replicação é um número que varia com a carga. Sem medi-lo, ninguém sabe se hoje ela é de milissegundos ou de minutos, e a suposição usada no projeto nunca é verificada.
 
-**Aceitar a resolução de conflito padrão sem entendê-la.** O padrão costuma ser último a escrever vence, que descarta dados silenciosamente — e a decisão de qual escrita perder acaba sendo tomada pelo relógio de uma máquina.
+**Aceitar a resolução de conflito padrão sem entendê-la.** O padrão costuma ser último a escrever vence, que descarta dados silenciosamente, e a decisão de qual escrita perder acaba sendo tomada pelo relógio de uma máquina.
 
 **Não comunicar o atraso na interface.** "Processando" é honesto e barato; mostrar um valor desatualizado como se fosse definitivo transfere para o usuário uma incerteza que ele não tem como resolver.
 
@@ -212,10 +212,10 @@ seus próprios escritos": após publicar, as leituras daquele usuário vão para
 primária por 30 segundos. A queixa desapareceu.
 
 **"O contador de curtidas volta atrás."** Leituras alternando entre réplicas com
-atrasos diferentes. Resolvida com leituras monotônicas — o usuário fica preso a
+atrasos diferentes. Resolvida com leituras monotônicas: o usuário fica preso a
 uma réplica durante a sessão.
 
-**"Comentário aparece antes do post."** Não era atraso de replicação — era
+**"Comentário aparece antes do post."** Não era atraso de replicação, era
 [ordenação](/06-distributed-systems/ordering.md). Comentário e post iam para partições diferentes.
 Resolvido pela chave de partição.
 
@@ -224,16 +224,16 @@ eventual antes de alguém perceber que a réplica estava em dia e o problema era
 outro.
 
 E a decisão que a equipe registrou como mais importante veio antes de tudo isso: a
-conversa com o negócio sobre atraso aceitável. A resposta — "alguns segundos para
-conteúdo de terceiros, zero para o próprio" — é exatamente a política de garantias
+conversa com o negócio sobre atraso aceitável. A resposta ("alguns segundos para
+conteúdo de terceiros, zero para o próprio") é exatamente a política de garantias
 de sessão, e ela veio do produto, não da engenharia.
 
 ## Conceitos Relacionados
 
-- [Consistência](/06-distributed-systems/consistency.md) — o espectro completo.
-- [Consistência Forte](/06-distributed-systems/strong-consistency.md) — o outro extremo.
-- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md) — o que a convergência exige.
-- [Replicação](/06-distributed-systems/replication.md) — de onde o atraso vem.
+- [Consistência](/06-distributed-systems/consistency.md): o espectro completo.
+- [Consistência Forte](/06-distributed-systems/strong-consistency.md): o outro extremo.
+- [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md): o que a convergência exige.
+- [Replicação](/06-distributed-systems/replication.md): de onde o atraso vem.
 
 ## Exercício Prático
 

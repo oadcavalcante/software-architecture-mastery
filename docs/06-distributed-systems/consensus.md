@@ -2,7 +2,7 @@
 id: consensus
 title: Consenso
 sidebar_position: 17
-description: Fazer vários nós concordarem apesar de falhas — o que consenso garante, o que custa, e por que consumir em vez de implementar.
+description: "Fazer vários nós concordarem apesar de falhas: o que consenso garante, o que custa, e por que consumir em vez de implementar."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leader-election]
 related: [leader-election, distributed-locks, cap]
 canonical_for: [consenso, quórum, Raft, Paxos]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -25,7 +25,7 @@ Consenso é fazer um grupo de nós concordar sobre um valor, de forma que a deci
 seja única, definitiva e sobreviva a falhas.
 
 A teoria está estabelecida desde os anos 1980; o que costuma falhar é a
-implementação, e os defeitos se concentram em dois pontos — segurança sob partição
+implementação, e os defeitos se concentram em dois pontos: segurança sob partição
 e mudança de membros do cluster, que o teste de caminho feliz não exercita. A
 recomendação prática deste documento é direta: **consuma consenso, não o
 implemente.**
@@ -39,12 +39,12 @@ cluster.
 Se dois nós chegarem a respostas diferentes, o sistema fica incoerente de forma
 irrecuperável.
 
-O que torna difícil não é concordar quando tudo funciona — é concordar **apesar
+O que torna difícil não é concordar quando tudo funciona, e sim concordar **apesar
 de** nós que caem, mensagens que se perdem e nós lentos que parecem mortos.
 
 E há um resultado teórico incômodo: o teorema FLP mostra que, num sistema
 assíncrono em que um nó pode falhar, **nenhum algoritmo determinístico garante
-consenso em tempo finito**. Não porque os algoritmos sejam ruins — é impossível.
+consenso em tempo finito**. Não porque os algoritmos sejam ruins, mas porque é impossível.
 
 ## Conceitos Centrais
 
@@ -56,11 +56,11 @@ assíncrono; algoritmos randomizados terminam com probabilidade 1, o que não é
 mesma garantia.
 
 Os algoritmos práticos contornam usando **tempo**: timeouts para suspeitar de
-falha. Isso sacrifica a garantia teórica de terminação — sob condições
-patológicas, a eleição pode não concluir — em troca de funcionar na prática.
+falha. Isso sacrifica a garantia teórica de terminação (sob condições
+patológicas, a eleição pode não concluir) em troca de funcionar na prática.
 
 O que eles nunca sacrificam é a **segurança**: mesmo que não decidam, nunca
-decidem errado. Duas decisões conflitantes são impossíveis — sob o modelo de
+decidem errado. Duas decisões conflitantes são impossíveis, sob o modelo de
 falhas por parada e omissão, que é o que Raft, Paxos e Zab assumem; falha bizantina
 e corrupção silenciosa de disco estão fora dele.
 
@@ -89,7 +89,7 @@ coordenação. É por isso que clusters de consenso têm número ímpar.
 
 Cada decisão exige ao menos uma ida e volta com a maioria. Isso significa:
 
-**Latência.** Uma escrita coordenada custa a latência até a maioria — o que em
+**Latência.** Uma escrita coordenada custa a latência até a maioria, o que em
 configuração multi-região é a distância geográfica.
 
 **Vazão limitada.** Toda decisão passa pelo líder e pela maioria. Consenso não
@@ -106,8 +106,8 @@ snapshot que um nó que voltou se restaura; atualizar versão é reinício em se
 com quórum preservado o tempo todo. E como cada decisão é gravada em disco antes de
 ser confirmada, disco lento vira vazão baixa do cluster inteiro.
 
-Por isso consenso é usado para o **plano de controle** — quem é o líder, qual a
-configuração — e raramente para o plano de dados, onde o volume é alto.
+Por isso consenso é usado para o **plano de controle** (quem é o líder, qual a
+configuração) e raramente para o plano de dados, onde o volume é alto.
 
 ### Os algoritmos
 
@@ -130,7 +130,7 @@ manter configuração. Orquestradores de contêiner, para o estado do cluster.
 Plataformas de streaming, para metadados de partição.
 
 A decisão prática quase nunca é "implementar consenso". É "usar um sistema que já
-o implementa" — e escolher qual.
+o implementa", e escolher qual.
 
 ## Modelo Mental
 
@@ -141,7 +141,7 @@ para nunca ter duas respostas.
 
 - A decisão precisa ser única e definitiva.
 - Duas respostas divergentes seriam irrecuperáveis.
-- O volume de decisões é baixo — plano de controle, não de dados.
+- O volume de decisões é baixo: plano de controle, não de dados.
 - A indisponibilidade do lado minoritário é aceitável.
 
 ## Quando Não Usar
@@ -162,14 +162,14 @@ construção.
 
 ## Alternativas
 
-- **Serviço de coordenação pronto** — ZooKeeper, etcd, Consul. Consenso como
+- **Serviço de coordenação pronto**: ZooKeeper, etcd, Consul. Consenso como
   serviço.
-- **Banco com transação** — para muitos casos, uma transação num banco único dá a
+- **Banco com transação**: para muitos casos, uma transação num banco único dá a
   garantia necessária sem cluster de consenso.
-- **Operações comutativas** — evitar a necessidade. Ver
+- **Operações comutativas**: evitar a necessidade. Ver
   [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
-- **Idempotência** — permitir execução múltipla em vez de garantir única.
-- **Bloqueio com prazo e fencing** — mais fraco e suficiente para coordenação
+- **Idempotência**: permitir execução múltipla em vez de garantir única.
+- **Bloqueio com prazo e fencing**: mais fraco e suficiente para coordenação
   pontual. Ver [locks distribuídos](/06-distributed-systems/distributed-locks.md).
 
 ## Trade-offs
@@ -190,7 +190,7 @@ decidir. Um cluster de 3 com 2 nós fora não faz nada.
 
 **Cluster par.** Sem ganho de tolerância e com mais latência.
 
-**Nós de consenso na mesma zona.** A falha de zona derruba a maioria — anula o
+**Nós de consenso na mesma zona.** A falha de zona derruba a maioria e anula o
 propósito.
 
 **Consenso no caminho crítico de dados.** Latência inaceitável descoberta em
@@ -223,21 +223,21 @@ A estimativa era de dois meses. A revisão mudou o caminho com duas perguntas.
 **"A rotina é idempotente?"** Não era, e podia ser. Ela lançava registros de
 ajuste; uma chave por período de reconciliação, com restrição de unicidade e
 gravada na mesma transação do lançamento, tornava a execução múltipla inofensiva.
-Sem a unicidade não funcionaria — duas execuções simultâneas leem "não existe" e as
+Sem a unicidade não funcionaria: duas execuções simultâneas leem "não existe" e as
 duas lançam. Ver [idempotência](/06-distributed-systems/idempotency.md).
 
 **"Se ela executar duas vezes, o que acontece de fato?"** Com idempotência, nada.
 Sem ela, lançamentos duplicados.
 
 Com a rotina idempotente, a garantia de execução única deixou de ser necessária.
-Restava apenas evitar desperdício de executar duas vezes — o que um bloqueio
-simples com prazo no banco resolve, sem cluster nenhum.
+Restava apenas evitar desperdício de executar duas vezes. Um bloqueio
+simples com prazo no banco resolve isso, sem cluster nenhum.
 
 A implementação levou três dias.
 
 Dois anos depois, houve uma ocasião em que duas instâncias executaram
 simultaneamente por uma falha no bloqueio. O resultado foi trabalho duplicado e
-zero inconsistência — exatamente o que a idempotência garante.
+zero inconsistência: exatamente o que a idempotência garante.
 
 O que a equipe aprendeu: consenso teria resolvido o problema, e o problema não
 precisava de consenso. A pergunta que economizou dois meses foi "o que acontece se
@@ -245,17 +245,17 @@ executar duas vezes?", e ela vem antes de qualquer discussão sobre algoritmo.
 
 ## Conceitos Relacionados
 
-- [Eleição de Líder](/06-distributed-systems/leader-election.md) — a aplicação mais comum.
-- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md) — a alternativa mais fraca.
-- [CAP](/06-distributed-systems/cap.md) — por que consenso é CP.
-- [Idempotência](/06-distributed-systems/idempotency.md) — o que frequentemente dispensa consenso.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md): a aplicação mais comum.
+- [Locks Distribuídos](/06-distributed-systems/distributed-locks.md): a alternativa mais fraca.
+- [CAP](/06-distributed-systems/cap.md): por que consenso é CP.
+- [Idempotência](/06-distributed-systems/idempotency.md): o que frequentemente dispensa consenso.
 
 ## Exercício Prático
 
 Se seu sistema tem alguma operação que "só pode acontecer uma vez", responda: o
 que acontece se ela acontecer duas?
 
-Se a resposta for "nada de grave", você não precisa de consenso — precisa de
+Se a resposta for "nada de grave", você não precisa de consenso, e sim de
 idempotência, que é muito mais barata.
 
 ## Perguntas de Entrevista

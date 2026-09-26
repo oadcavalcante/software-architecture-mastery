@@ -2,7 +2,7 @@
 id: poison-messages
 title: Poison Messages
 sidebar_position: 28
-description: The message that never processes — and stalls the queue while it tries.
+description: The message that never processes, and stalls the queue while it tries.
 doc_type: concept
 level: 4
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [dead-letter-queues, retries, duplicate-messages]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-31
 
 A *poison message* is a message that fails on every processing attempt.
 
-With no handling, it goes back to the queue indefinitely, consumes the consumer, and — in ordered
-queues — **blocks all the messages that follow**.
+With no handling, it goes back to the queue indefinitely, consumes the consumer, and, in ordered
+queues, **blocks all the messages that follow**.
 
 It is a frequent failure mode of newly adopted messaging systems, and the handling costs little next
 to the damage: an attempt limit, a dead-letter, and an alert.
@@ -34,7 +34,7 @@ to the damage: an attempt limit, a dead-letter, and an alert.
 The consumer reads the message, tries to process it, throws an exception. It does not acknowledge.
 The message becomes visible again. Another consumer reads it. The same exception.
 
-Meanwhile, nothing else is processed — either because the message occupies the consumer in a loop,
+Meanwhile, nothing else is processed: either because the message occupies the consumer in a loop,
 or because the queue preserves ordering and it is next.
 
 The system emits no visible error. From the outside, it looks like it is working: the consumer is
@@ -56,7 +56,7 @@ That is discovered hours later, typically by someone asking why an order was not
 **A permanently absent precondition.** The message references an entity that does not exist and
 never will.
 
-Note that the last is ambiguous: it can be disorder — the entity will still arrive — or permanent.
+Note that the last is ambiguous: it can be disorder (the entity will still arrive) or permanent.
 Distinguishing requires context the consumer does not always have.
 
 ### Transient versus permanent
@@ -73,7 +73,7 @@ consumption. The consumer's central decision on each failure: **will this work i
 | Business validation rejected it | Permanent |
 | The referenced entity does not exist | Ambiguous |
 
-The consumer has to classify — and the "try three times and send to dead-letter" pattern treats them
+The consumer has to classify, and the "try three times and send to dead-letter" pattern treats them
 all the same, which is acceptable as a safety net and bad as the only strategy.
 
 ### An attempt limit is mandatory
@@ -82,7 +82,7 @@ Every message needs a counter. After N attempts, it leaves the main queue for a
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
 
 With no limit, the loop is infinite. With a limit but no dead-letter, the message is discarded
-silently — which trades a visible problem for an invisible one.
+silently, which trades a visible problem for an invisible one.
 
 ### The poisoning may not be in the message
 
@@ -104,7 +104,7 @@ That changes the urgency: in an ordered system, a poison message is an incident,
 
 ## Mental Model
 
-**Every message needs a way out of the queue** — through success or through giving up. Without the
+**Every message needs a way out of the queue**: through success or through giving up. Without the
 second, it stays forever.
 
 ## When to Use
@@ -129,17 +129,17 @@ to one database, mapping errors by nature costs more than the fixed N attempts w
 all the same, with a small N, holds until the consumer gains new dependencies.
 
 **Batch consumption.** When the consumer acknowledges the whole batch, isolating the bad message
-requires breaking the batch — reprocessing item by item or halving it until you find it — and the
+requires breaking the batch (reprocessing item by item or halving it until you find it), and the
 handling stops being configuration and becomes code. If the batch is all-or-nothing by business rule,
 sending the whole batch to the dead-letter is more honest than faking isolation.
 
 ## Alternatives
 
-- **[Dead-letter queue](/06-distributed-systems/dead-letter-queues.md)** — the default answer.
-- **Delayed retry queue** — for ambiguous failures, try again in hours instead of discarding.
-- **Validation in the producer** — prevent the malformed message from entering. It is the
+- **[Dead-letter queue](/06-distributed-systems/dead-letter-queues.md)**: the default answer.
+- **Delayed retry queue**: for ambiguous failures, try again in hours instead of discarding.
+- **Validation in the producer**: prevent the malformed message from entering. It is the
   prevention, and it does not remove the need for the handling.
-- **Schema registry** — guarantee compatibility between producer and consumer.
+- **Schema registry**: guarantee compatibility between producer and consumer.
 
 ## Trade-offs
 
@@ -173,7 +173,7 @@ thousands.
 ## Common Mistakes
 
 **Not configuring an attempt limit.** The partition stops, and the damage only shows when the
-customer calls — in the Real-World Example, nine hours later.
+customer calls: in the Real-World Example, nine hours later.
 
 **Not distinguishing transient from permanent.** One way, three deserialization attempts delay the
 message's exit with no chance of success; the other way, a two-minute network outage sends to the
@@ -199,7 +199,7 @@ branch's partition.
 Nine hours of stopped issuance. It was discovered when the branch called asking why no invoices were
 coming out.
 
-The consumer was up. The broker was up. There was no error on any dashboard — only a partition that
+The consumer was up. The broker was up. There was no error on any dashboard, only a partition that
 was not advancing, and there was no metric for the oldest message's age per partition.
 
 Four fixes.
@@ -212,24 +212,24 @@ no retries. Network and database failures try three times.
 **A double alert:** any message in the dead-letter raises a notice, and the oldest message's age per
 partition above 15 minutes raises an alert.
 
-**Sanitization in the producer.** Control characters came to be removed at the source — the
+**Sanitization in the producer.** Control characters came to be removed at the source: the
 prevention, which does not replace the handling.
 
 Over the following two years, the dead-letter received 34 messages. All were analyzed in minutes,
 and none blocked anything.
 
-The later assessment points out: the four fixes cost one day of work. Two — the dead-letter with a
-limit and the age alert — were configuration described in the queue service's documentation, and
+The later assessment points out: the four fixes cost one day of work. Two (the dead-letter with a
+limit and the age alert) were configuration described in the queue service's documentation, and
 they were enough to avoid the nine hours: the message would have left the partition after three
 attempts, and the alert would have fired in 15 minutes. Classification and sanitization are code;
 they reduce what reaches the dead-letter, not the risk of stalling.
 
 ## Related Concepts
 
-- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md) — where the message goes.
-- [Retries](/06-distributed-systems/retries.md) — the failure classification.
-- [Messaging](/06-distributed-systems/messaging.md) — the channel.
-- [Ordering](/06-distributed-systems/ordering.md) — why the blockage is worse with ordering.
+- [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md): where the message goes.
+- [Retries](/06-distributed-systems/retries.md): the failure classification.
+- [Messaging](/06-distributed-systems/messaging.md): the channel.
+- [Ordering](/06-distributed-systems/ordering.md): why the blockage is worse with ordering.
 
 ## Practical Exercise
 
@@ -247,6 +247,6 @@ stalls, you reproduced the incident before it happened.
 
 ## Further Reading
 
-- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003 — the *Dead Letter Channel*
+- Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003. The *Dead Letter Channel*
   pattern.
 - Nygard, Michael. *Release It!* 2nd ed., 2018.

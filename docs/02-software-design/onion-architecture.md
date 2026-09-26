@@ -2,7 +2,7 @@
 id: onion-architecture
 title: Arquitetura Onion
 sidebar_position: 21
-description: Círculos concêntricos com o domínio no centro — a variação que dá nome às camadas internas.
+description: "Círculos concêntricos com o domínio no centro: a variação que dá nome às camadas internas."
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [hexagonal-architecture]
 related: [ports-and-adapters, clean-architecture, layering]
 canonical_for: [arquitetura onion, onion architecture]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -35,8 +35,8 @@ Ports and Adapters diz que existe um dentro e um fora, e não diz nada sobre a
 organização do dentro.
 
 Em domínios com lógica substancial, esse silêncio produz uma pergunta recorrente:
-onde mora a regra que envolve mais de uma entidade? Dentro de uma delas — o que
-força uma a conhecer a outra — ou num serviço?
+onde mora a regra que envolve mais de uma entidade? Dentro de uma delas (o que
+força uma a conhecer a outra) ou num serviço?
 
 Onion responde nomeando os anéis internos.
 
@@ -45,7 +45,7 @@ Onion responde nomeando os anéis internos.
 ### Os anéis
 
 Os círculos concêntricos estão esticados numa cadeia vertical: quanto mais abaixo a
-caixa, mais interno o anel — serviços de domínio caem abaixo dos de aplicação.
+caixa, mais interno o anel. Serviços de domínio caem abaixo dos de aplicação.
 
 ```mermaid
 graph TB
@@ -54,20 +54,20 @@ graph TB
   DS --> DM[Modelo de Domínio]
 ```
 
-**Modelo de domínio** — entidades e objetos de valor, com as regras que dependem
+**Modelo de domínio**: entidades e objetos de valor, com as regras que dependem
 apenas de si.
 
-**[Serviços de domínio](/04-domain-driven-design/domain-service.md)** — regras que
+**[Serviços de domínio](/04-domain-driven-design/domain-service.md)**: regras que
 envolvem mais de uma entidade e não pertencem a nenhuma. Continuam sendo domínio: não
 conhecem infraestrutura.
 
-**[Serviços de aplicação](/04-domain-driven-design/application-service.md)** —
+**[Serviços de aplicação](/04-domain-driven-design/application-service.md)**:
 orquestração de casos de uso. Coordenam e controlam transação. As interfaces que a
 infraestrutura implementa são declaradas por quem precisa delas, o que inclui o anel de
-domínio — restringi-las a este anel deixaria um serviço de domínio sem como declarar o
+domínio. Restringi-las a este anel deixaria um serviço de domínio sem como declarar o
 que consome.
 
-**Infraestrutura, UI e testes** — o anel externo. Todos igualmente externos, o
+**Infraestrutura, UI e testes**: o anel externo. Todos igualmente externos, o
 que é a mesma simetria do hexágono.
 
 ### A regra
@@ -81,7 +81,7 @@ Praticamente nada na propriedade fundamental. A diferença é de **vocabulário
 interno**: Onion dá nome à distinção entre serviço de domínio e serviço de
 aplicação, que Hexagonal deixa em aberto.
 
-Essa distinção é útil quando ela existe de fato — em domínios com regras que
+Essa distinção é útil quando ela existe de fato: em domínios com regras que
 envolvem múltiplas entidades. Em domínios simples, ela produz um anel que só
 repassa.
 
@@ -89,7 +89,7 @@ repassa.
 
 - Quando o domínio tem regras que envolvem várias entidades e não cabem em
   nenhuma delas.
-- Quando o time já usa vocabulário de [DDD](/04-domain-driven-design/index.md) —
+- Quando o time já usa vocabulário de [DDD](/04-domain-driven-design/index.md):
   os anéis mapeiam diretamente em entity, domain service e application service.
 - Quando distinguir orquestração de regra tem valor prático: as duas mudam por
   razões diferentes.
@@ -112,11 +112,11 @@ diretórios.
 
 ## Alternativas
 
-- **[Hexagonal](/02-software-design/hexagonal-architecture.md)** — quando a distinção entre serviço de
+- **[Hexagonal](/02-software-design/hexagonal-architecture.md)**: quando a distinção entre serviço de
   domínio e de aplicação não agrega.
-- **[Clean Architecture](/02-software-design/clean-architecture.md)** — vocabulário diferente para a
+- **[Clean Architecture](/02-software-design/clean-architecture.md)**: vocabulário diferente para a
   mesma estrutura, com ênfase em casos de uso.
-- **Camadas com inversão na persistência** — captura a maior parte do benefício
+- **Camadas com inversão na persistência**: captura a maior parte do benefício
   com menos estrutura.
 
 ## Trade-offs
@@ -168,14 +168,14 @@ Um sistema de seguros tinha a regra de elegibilidade dependendo de três
 agregados: apólice, histórico de sinistros e perfil do segurado.
 
 Sob Hexagonal, sem vocabulário para isso, a regra foi parar no serviço de
-aplicação — junto com o controle de transação e a orquestração de chamadas.
+aplicação, junto com o controle de transação e a orquestração de chamadas.
 
 O efeito: testar a elegibilidade exigia montar o cenário de orquestração inteiro,
 e uma mudança na regra de negócio ficava misturada a mudanças de coordenação no
 mesmo arquivo.
 
 A reorganização em Onion extraiu `AvaliadorDeElegibilidade` como serviço de
-domínio — sem dependência de infraestrutura, testável com três objetos em memória.
+domínio, sem dependência de infraestrutura, testável com três objetos em memória.
 
 O serviço de aplicação ficou com o que lhe cabe: buscar os três agregados,
 chamar o avaliador, persistir o resultado.
@@ -186,12 +186,12 @@ regra que mais muda. Em outro sistema, com o anel vazio, ele não se justificari
 
 ## Conceitos Relacionados
 
-- [Ports and Adapters](/02-software-design/ports-and-adapters.md) — a formulação base.
-- [Hexagonal](/02-software-design/hexagonal-architecture.md) — o mesmo padrão, sem vocabulário
+- [Ports and Adapters](/02-software-design/ports-and-adapters.md): a formulação base.
+- [Hexagonal](/02-software-design/hexagonal-architecture.md): o mesmo padrão, sem vocabulário
   interno.
-- [Clean Architecture](/02-software-design/clean-architecture.md) — a variação com ênfase em casos de
+- [Clean Architecture](/02-software-design/clean-architecture.md): a variação com ênfase em casos de
   uso.
-- [DDD tático](/04-domain-driven-design/tactical-ddd.md) — de onde vem o vocabulário
+- [DDD tático](/04-domain-driven-design/tactical-ddd.md): de onde vem o vocabulário
   dos anéis.
 
 ## Exercício Prático
@@ -212,5 +212,5 @@ As que estão misturadas à orquestração são as que Onion nomeia e separa.
 ## Para Aprofundar
 
 - Palermo, Jeffrey. *The Onion Architecture*, 2008.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — serviços de domínio.
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Serviços de domínio.
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013.

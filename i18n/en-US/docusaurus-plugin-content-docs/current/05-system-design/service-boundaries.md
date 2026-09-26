@@ -2,7 +2,7 @@
 id: service-boundaries
 title: Service Boundaries
 sidebar_position: 20
-description: Where to separate processes — the most expensive decision to reverse in system design.
+description: "Where to separate processes: the most expensive decision to reverse in system design."
 doc_type: concept
 level: 3
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [services]
 related: [system-decomposition, microservices, bounded-context]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -77,7 +77,7 @@ git log --since=6.months --no-merges --name-only --pretty=format:%H |
 ```
 
 If two groups of files appear together in 80% of commits, separating them into services
-creates a boundary that every change has to cross — with coordination, versioning and a
+creates a boundary that every change has to cross, with coordination, versioning and a
 coexistence period on each alteration.
 
 If they appear together in 5%, the separation captures real independence.
@@ -88,7 +88,7 @@ That measurement costs minutes and is almost never done before the decision.
 
 The boundaries of a [bounded
 context](/04-domain-driven-design/bounded-context.md) are the best candidates, because
-they derive from how the business divides — and businesses divide more stably than
+they derive from how the business divides, and businesses divide more stably than
 technologies.
 
 But not every bounded context needs to become a service. The conclusion of the
@@ -150,11 +150,11 @@ rotation.
 
 ## Alternatives
 
-- **A module with an enforced boundary** — the answer in most cases.
-- **Partial extraction** — separate only what has a reason, keeping the rest together.
-- **A separate process with no synchronous API** — a queue consumer isolates resources
+- **A module with an enforced boundary**: the answer in most cases.
+- **Partial extraction**: separate only what has a reason, keeping the rest together.
+- **A separate process with no synchronous API**: a queue consumer isolates resources
   without creating a call contract.
-- **Defer** — keep it as a module until the reason appears.
+- **Defer**: keep it as a module until the reason appears.
 
 ## Trade-offs
 
@@ -188,7 +188,7 @@ services.
 ## Common Mistakes
 
 **Deciding by intuition without measuring the history.** The crossing rate shows up
-either way — after the extraction, when correcting it already costs a migration.
+either way: after the extraction, when correcting it already costs a migration.
 
 **Extracting several services at once.** Without one extraction at a time there is no
 baseline between them, and whatever latency or availability regression shows up at the
@@ -228,29 +228,29 @@ requirement: PDF generation consumed memory and had already taken down the main 
 twice.
 
 `Payments` was not extracted right away. The 34% crossing was ambiguous, and there was
-no quality reason — the requirement came a year later, when a second provider came on
+no quality reason. The requirement came a year later, when a second provider came on
 board and the payments team gained autonomy. The extraction happened then, with the
 reason recorded.
 
-Result after two years: three deployable processes instead of the four proposed — the
-`Courses`+`Enrollments` core, `Certificates` and `Payments` — and no reversals.
+Result after two years: three deployable processes instead of the four proposed (the
+`Courses`+`Enrollments` core, `Certificates` and `Payments`) and no reversals.
 
 The point the team underlines: the measurement took an afternoon and changed half the
-decisions. Of the original proposal, one boundary was wrong — `Courses`↔`Enrollments`,
+decisions. Of the original proposal, one boundary was wrong: `Courses`↔`Enrollments`,
 and undoing it would have cost a data migration. The other was premature: `Payments`
 came out a year later, for the right reason and with nothing to undo.
 
 ## Related Concepts
 
-- [Services](/05-system-design/services.md) — what a boundary creates.
-- [Decomposition](/05-system-design/system-decomposition.md) — the logical division that
+- [Services](/05-system-design/services.md): what a boundary creates.
+- [Decomposition](/05-system-design/system-decomposition.md): the logical division that
   precedes it.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — the natural
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): the natural
   candidate.
-- [Microservices](/03-design-patterns/microservices.md) — the style.
-- [Modular Monolith](/03-design-patterns/modular-monolith.md) — the default
+- [Microservices](/03-design-patterns/microservices.md): the style.
+- [Modular Monolith](/03-design-patterns/modular-monolith.md): the default
   alternative.
-- [Data Ownership](/07-data-architecture/data-ownership.md) — why partitioning the data
+- [Data Ownership](/07-data-architecture/data-ownership.md): why partitioning the data
   decides whether the boundary is real.
 
 ## Practical Exercise
@@ -270,6 +270,6 @@ module.
 ## Further Reading
 
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — coupling
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Coupling
   measured by history.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.

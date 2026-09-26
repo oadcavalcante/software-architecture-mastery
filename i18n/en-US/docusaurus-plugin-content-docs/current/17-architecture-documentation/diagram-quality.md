@@ -2,7 +2,7 @@
 id: diagram-quality
 title: Diagram Quality
 sidebar_position: 13
-description: What separates a diagram that communicates from one that clutters — and the legend that almost never exists.
+description: What separates a diagram that communicates from one that clutters, and the legend that almost never exists.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [c4-model, documentation-principles, living-documentation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ undefined scope, and noise.
 ## Problem
 
 Architecture diagrams are usually produced for a presentation, with someone narrating. In
-that context, they work — the narration fills the gaps.
+that context, they work: the narration fills the gaps.
 
 Then they stay. And they are read without narration, by people who weren't at the
 presentation.
@@ -79,7 +79,7 @@ few elements — three or four shapes suffice
 stable meaning
 ```
 
-See [C4 model](/17-architecture-documentation/c4-model.md) — it prescribes no notation, and it prescribes semantic
+See [C4 model](/17-architecture-documentation/c4-model.md): it prescribes no notation, and it prescribes semantic
 consistency.
 
 A small set of conventions, documented once and reused, is what makes diagrams comparable.
@@ -121,7 +121,7 @@ target        up to 12 boxes per diagram
 above 20      the reader can't hold the whole thing
 ```
 
-A diagram with 40 boxes doesn't communicate — it archives.
+A diagram with 40 boxes archives instead of communicating.
 
 When the system is large, the way out is to **decompose into several diagrams**, each with
 a framing and a purpose, and not to squeeze everything into one.
@@ -141,10 +141,10 @@ consistent alignment
 ```
 
 Crossing lines are the most common visual defect, and they frequently indicate that the
-layout wasn't thought through — or that there are too many elements.
+layout wasn't thought through, or that there are too many elements.
 
 Automatic generation tools produce reasonable layouts and not always good ones. See
-[living documentation](/17-architecture-documentation/living-documentation.md) — the trade-off between controlled
+[living documentation](/17-architecture-documentation/living-documentation.md): the trade-off between controlled
 layout and derived diagram is real.
 
 ### What not to put in
@@ -156,8 +156,8 @@ decorative elements            icons that mean nothing
 overlapping levels             see C4 model
 ```
 
-The third deserves a note: technology icons — the database logo, the cloud logo, the
-language logo — are attractive and frequently redundant with the label. They take up space
+The third deserves a note: technology icons (the database logo, the cloud logo, the
+language logo) are attractive and frequently redundant with the label. They take up space
 and add nothing.
 
 ### The absent-reader test
@@ -173,7 +173,7 @@ does the title say what the scope is?
 does the date say whether it still holds?
 ```
 
-If any answer is no, the missing information lives only in one person's head — which is
+If any answer is no, the missing information lives only in one person's head, which is
 precisely the condition documentation exists to eliminate. A diagram that only works with
 its author present is not documentation; it is supporting material for a presentation.
 
@@ -194,7 +194,7 @@ These practices apply to any diagram meant to be read later. Priority when:
 
 **A disposable sketch.** A whiteboard draft erased in the same session has its author
 present to narrate, and nobody will read it later. Header, legend and date cost minutes
-that never pay back, because the absent reader — the reason they exist — never shows up.
+that never pay back, because the absent reader (the reason they exist) never shows up.
 The criterion is where it ends up: if a photo of the whiteboard lands on a page, it has
 stopped being disposable.
 
@@ -212,11 +212,11 @@ is small next to the questions it prevents.
 
 ## Alternatives
 
-- **Textual description** — for simple relationships, a paragraph can be clearer.
-- **A table** — for many-to-many relationships, a matrix communicates better than a
+- **Textual description**: for simple relationships, a paragraph can be clearer.
+- **A table**: for many-to-many relationships, a matrix communicates better than a
   diagram with crossing lines.
-- **Several smaller diagrams** — instead of one large one.
-- **A generated diagram** — automatic consistency, with less layout control.
+- **Several smaller diagrams**: instead of one large one.
+- **A generated diagram**: automatic consistency, with less layout control.
 
 The second is underrated: a matrix of who calls whom is more legible than a diagram with
 thirty arrows.
@@ -255,13 +255,13 @@ thirty arrows.
 
 **Not making a legend.** Shapes and colors only the author understands make the diagram illegible to whoever needs it most.
 
-**Using color with no declared meaning.** The reader assumes the color means something and draws the wrong conclusion — worse than having no color.
+**Using color with no declared meaning.** The reader assumes the color means something and draws the wrong conclusion, which is worse than having no color.
 
 **Unlabeled arrows.** "A points at B" doesn't say whether it is a synchronous call, an event or a database read, which is exactly what changes the understanding.
 
 **Squeezing the entire system into one diagram.** Past a dozen elements reading gets hard, and past twenty the reader can no longer hold the whole. Several diagrams at different levels communicate more than one comprehensive one.
 
-**Not dating it.** With no date, the reader doesn't know whether they are seeing today's system or one from three years ago — and assumes it is today's.
+**Not dating it.** With no date, the reader doesn't know whether they are seeing today's system or one from three years ago, and assumes it is today's.
 
 **Testing the diagram only with people who already know the system.** Those people fill the gaps with what they already know. The real test is having an outsider explain what they understood.
 
@@ -283,7 +283,7 @@ The aggregate result, across the five most frequent categories:
 
 None of the twelve had a legend. None had a date.
 
-And two of them described systems that had been replaced — which was only discovered
+And two of them described systems that had been replaced. That was only discovered
 because an outsider asked.
 
 The fixes were simple and the effect was large:
@@ -297,7 +297,7 @@ line thicknesses, each with a fixed meaning.
 
 **Labels on every arrow**, with the purpose before the protocol.
 
-**Diagrams as code**, versioned in the repository — which tackled the date and the
+**Diagrams as code**, versioned in the repository. It tackled the date and the
 existence problem through process, not guarantee: the diagram is reviewed together with the
 change that affects it, the date it changed is in the history, and a diagram of a
 decommissioned system disappears when the repository is archived. The text is still
@@ -319,8 +319,8 @@ the effect of each; the attribution is the team's reading, not a measurement.
 ## Related Concepts
 
 - [Documentation Principles](/17-architecture-documentation/documentation-principles.md).
-- [C4 Model](/17-architecture-documentation/c4-model.md) — semantic consistency.
-- [Living Documentation](/17-architecture-documentation/living-documentation.md) — generated diagrams.
+- [C4 Model](/17-architecture-documentation/c4-model.md): semantic consistency.
+- [Living Documentation](/17-architecture-documentation/living-documentation.md): generated diagrams.
 - [Documentation Standards](/17-architecture-documentation/documentation-standards.md).
 
 ## Practical Exercise

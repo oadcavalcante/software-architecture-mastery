@@ -2,7 +2,7 @@
 id: hotspots
 title: Pontos Quentes
 sidebar_position: 11
-description: Quando a média engana — uma partição saturada com o resto ocioso, imune a qualquer quantidade de máquinas.
+description: "Quando a média engana: uma partição saturada com o resto ocioso, imune a qualquer quantidade de máquinas."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-partitioning, performance-vs-scalability, database-scaling]
 canonical_for: [ponto quente, chave quente, distribuição desigual, dispersão de chave]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -25,7 +25,7 @@ Um ponto quente é uma parte do sistema que recebe carga desproporcional: uma pa
 uma chave, uma instância, um registro.
 
 Ele é o modo de falha que **sobrevive a qualquer quantidade de capacidade**. Adicionar
-nós não ajuda, porque o problema não é capacidade total — é distribuição.
+nós não ajuda, porque o problema é de distribuição, não de capacidade total.
 
 E ele é difícil de ver, porque as métricas agregadas escondem: a média de utilização
 parece confortável enquanto uma partição está a 100%.
@@ -37,7 +37,7 @@ O sistema tem dez partições. Nove operam a 15% de utilização; uma está satu
 A média é 23%. Todos os painéis mostram folga. E o sistema está indisponível para os
 usuários daquela partição.
 
-A reação natural — adicionar mais partições — não resolve: a chave quente continua
+A reação natural, adicionar mais partições, não resolve: a chave quente continua
 indo para uma só. Frequentemente piora, porque o rebalanceamento consome capacidade e
 a distribuição continua desigual.
 
@@ -49,7 +49,7 @@ assim caiu".
 ### As origens são poucas e reconhecíveis
 
 **Distribuição natural desigual.** Poucos clientes com volume desproporcional. É a
-regra, não a exceção — em quase todo negócio, uma fração pequena dos clientes gera a
+regra, não a exceção: em quase todo negócio, uma fração pequena dos clientes gera a
 maior parte do tráfego.
 
 **Chave de partição de baixa cardinalidade.** Particionar por estado, por tipo, por
@@ -80,14 +80,14 @@ por partição     máximo 100%, mínimo 15% → saturado
 E a métrica que importa é a **razão entre o máximo e a mediana**. Acima de 3, há
 desequilíbrio; acima de 10, há ponto quente mesmo antes da saturação. A razão não
 substitui o máximo absoluto: uma partição a 100% é ponto quente qualquer que seja a
-razão — no cenário acima, ela dá menos de 7.
+razão (no cenário acima, ela dá menos de 7).
 
-Sem isso, o diagnóstico depende de alguém suspeitar e ir olhar — o que acontece depois
+Sem isso, o diagnóstico depende de alguém suspeitar e ir olhar. Isso acontece depois
 do incidente.
 
 ### As técnicas de dispersão
 
-**Sufixo aleatório na chave.** Uma chave quente vira várias — `produto:123:0` a
+**Sufixo aleatório na chave.** Uma chave quente vira várias: `produto:123:0` a
 `produto:123:9`. A escrita dispersa; a leitura precisa consultar as dez e somar.
 
 Funciona bem para contadores e agregações. Custa complexidade na leitura.
@@ -114,8 +114,8 @@ gravar, remove a contenção sem mudar a distribuição.
 Um ponto quente não é estático. O produto em promoção de hoje é outro amanhã; o
 cliente que cresceu vira o maior.
 
-Isso significa que uma dispersão fixa — decidida uma vez, com base na distribuição
-observada — envelhece.
+Isso significa que uma dispersão fixa (decidida uma vez, com base na distribuição
+observada) envelhece.
 
 As soluções que sobrevivem são adaptativas: detectar a chave quente em tempo de
 execução e dispersá-la sob demanda, ou rebalancear automaticamente.
@@ -131,11 +131,11 @@ contador de estoque de um produto popular
 linha de agregação atualizada por toda venda
 ```
 
-Aqui a dispersão não é de chave — é de modelagem. Um contador único vira contadores
+Aqui a dispersão é de modelagem, não de chave. Um contador único vira contadores
 parciais somados na leitura. Um saldo vira um livro de movimentações, com o saldo
 derivado.
 
-Ver [transações](/07-data-architecture/transactions.md) — é a mesma contenção,
+Ver [transações](/07-data-architecture/transactions.md). É a mesma contenção,
 vista pelo ângulo da escala.
 
 ## Modelo Mental
@@ -148,10 +148,10 @@ mudam para onde a carga vai.
 Atenção a pontos quentes é necessária quando:
 
 - Há particionamento ou distribuição de qualquer tipo.
-- A distribuição de uso entre clientes é desigual — quase sempre.
+- A distribuição de uso entre clientes é desigual (quase sempre).
 - Existem chaves sequenciais ou de baixa cardinalidade.
 - Há registros de referência lidos ou escritos por tudo.
-- Eventos concentrados são parte do negócio — promoções, lançamentos.
+- Eventos concentrados são parte do negócio: promoções, lançamentos.
 
 ## Quando Não Usar
 
@@ -172,10 +172,10 @@ ociosa.
 
 ## Alternativas
 
-- **Cache** — absorve leitura quente sem tocar na distribuição.
-- **Isolamento por cliente** — a solução operacionalmente mais simples.
-- **Modelagem sem contenção** — contadores parciais, livro de movimentações.
-- **Limite de taxa por chave** — não resolve a distribuição, e impede que uma chave
+- **Cache**: absorve leitura quente sem tocar na distribuição.
+- **Isolamento por cliente**: a solução operacionalmente mais simples.
+- **Modelagem sem contenção**: contadores parciais, livro de movimentações.
+- **Limite de taxa por chave**: não resolve a distribuição, e impede que uma chave
   consuma toda a capacidade. Ver
   [rate limiting](/05-system-design/rate-limiting.md).
 
@@ -214,14 +214,14 @@ ociosa.
 **Isolamento vazando.** O cliente grande foi isolado, e um recurso compartilhado
 permaneceu.
 
-**Ponto quente no cache.** Uma chave muito acessada satura um nó do cache — o mesmo
+**Ponto quente no cache.** Uma chave muito acessada satura um nó do cache: o mesmo
 problema, uma camada acima.
 
 ## Erros Comuns
 
 **Não ter métrica por partição.** A média entre partições esconde a que está saturada. Enquanto o painel mostra 30% de uso, uma partição está a 100% e é ela que define a experiência.
 
-**Particionar por chave sequencial.** Identificador crescente ou carimbo de tempo concentram toda a escrita nova na última partição — o pior caso possível, e o mais fácil de criar sem perceber.
+**Particionar por chave sequencial.** Identificador crescente ou carimbo de tempo concentram toda a escrita nova na última partição: o pior caso possível, e o mais fácil de criar sem perceber.
 
 **Particionar por dimensão de baixa cardinalidade.** Estado ou categoria com poucos valores limita o número de partições úteis e garante desequilíbrio, porque os valores nunca têm volume parecido.
 
@@ -244,7 +244,7 @@ recuperando à noite, e piorando semana a semana. A utilização média das part
 de 11%.
 
 A primeira reação, meses antes, tinha sido dobrar o número de partições. Não mudou
-nada — a última partição continuou recebendo tudo, agora com metade dos dados
+nada: a última partição continuou recebendo tudo, agora com metade dos dados
 históricos.
 
 O diagnóstico veio quando alguém adicionou métrica por partição e viu 100% em uma e
@@ -253,8 +253,8 @@ O diagnóstico veio quando alguém adicionou métrica por partição e viu 100% 
 As correções foram em três frentes:
 
 **Chave de partição composta.** Passou a ser resumo criptográfico do identificador do
-cliente, mais o período. A escrita dispersou, e as consultas por cliente — que eram a
-maioria — ficaram melhores, porque os pedidos de um cliente passaram a estar juntos.
+cliente, mais o período. A escrita dispersou, e as consultas por cliente, que eram a
+maioria, ficaram melhores, porque os pedidos de um cliente passaram a estar juntos.
 
 A consulta por intervalo de identificador, que existia em dois relatórios, foi
 reescrita para usar data.
@@ -263,7 +263,7 @@ reescrita para usar data.
 de produtos populares era atualizada por toda venda, com leitura-cálculo-escrita. Em
 promoções, dezenas de transações competiam pela mesma linha.
 
-Substituída por operação relativa com verificação — `UPDATE estoque SET quantidade =
+Substituída por operação relativa com verificação: `UPDATE estoque SET quantidade =
 quantidade - ? WHERE id = ? AND quantidade >= ?`. A contenção caiu drasticamente, e a
 anomalia de atualização perdida, que ninguém tinha notado, desapareceu junto.
 
@@ -285,14 +285,14 @@ métrica agregada, que era o único número disponível.
 - [Particionamento para Escala](/11-scalability/scaling-partitioning.md).
 - [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
 - [Escala de Banco de Dados](/11-scalability/database-scaling.md).
-- [Particionamento](/06-distributed-systems/partitioning.md) — os fundamentos.
+- [Particionamento](/06-distributed-systems/partitioning.md): os fundamentos.
 
 ## Exercício Prático
 
 Para cada recurso particionado do seu sistema, calcule a razão entre a partição mais
 carregada e a mediana.
 
-Se você não conseguir calcular, essa é a lacuna — e ela é a razão de o próximo
+Se você não conseguir calcular, essa é a lacuna, e ela é a razão de o próximo
 incidente demorar para ser diagnosticado.
 
 ## Perguntas de Entrevista

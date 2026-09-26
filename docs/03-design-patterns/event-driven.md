@@ -2,7 +2,7 @@
 id: event-driven
 title: Arquitetura Orientada a Eventos
 sidebar_position: 26
-description: Componentes reagem a fatos em vez de serem chamados — desacoplamento no tempo, ao custo de rastreabilidade.
+description: "Componentes reagem a fatos em vez de serem chamados: desacoplamento no tempo, ao custo de rastreabilidade."
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [observer, cqrs, event-sourcing]
 canonical_for: [arquitetura orientada a eventos, coreografia, orquestração]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -57,10 +57,10 @@ o publicador continua sabendo o que deve acontecer.
 A decisão estrutural do estilo, e a mesma que aparece em
 [Mediator](/03-design-patterns/mediator.md) versus [Observer](/03-design-patterns/observer.md).
 
-**Orquestração** — um coordenador conhece o fluxo e aciona os passos. O fluxo
+**Orquestração**: um coordenador conhece o fluxo e aciona os passos. O fluxo
 está num lugar, é auditável e visualizável. O coordenador acopla.
 
-**Coreografia** — cada serviço reage aos eventos que lhe interessam. Máximo
+**Coreografia**: cada serviço reage aos eventos que lhe interessam. Máximo
 desacoplamento, e o fluxo não existe em lugar nenhum: entendê-lo exige juntar o
 que cada serviço faz.
 
@@ -81,7 +81,7 @@ as duas.
 O que se ganha em desacoplamento se paga em capacidade de responder "o que
 aconteceu com este pedido?".
 
-Num sistema síncrono, o fluxo é legível no código — dá para segui-lo lendo, e o erro volta
+Num sistema síncrono, o fluxo é legível no código: dá para segui-lo lendo, e o erro volta
 a quem chamou. Num orientado a eventos não há esse fio: a sequência só existe em tempo de
 execução. Atravessar processos exige correlacionar registros de vários serviços nos dois
 casos, ao longo do tempo, com o
@@ -92,16 +92,16 @@ um complemento. Correlation ID atravessando todo evento não é opcional.
 
 ### As garantias herdadas
 
-O canal é uma rede, e isso obriga a **escolher** a garantia de entrega — não impõe uma
+O canal é uma rede, e isso obriga a **escolher** a garantia de entrega. Não impõe uma
 delas. Ver [garantias de entrega](/06-distributed-systems/delivery-guarantees.md): no máximo
 uma vez é escolha legítima onde a perda é aceitável, e o canônico registra que ela raramente
 é considerada.
 
 Quem escolhe **ao menos uma vez**, que é o caso comum, herda:
 
-Duplicação — consumidores precisam ser idempotentes.
+Duplicação: consumidores precisam ser idempotentes.
 Ordem não garantida entre partições.
-Mensagens que sempre falham — *poison messages* — precisam de dead-letter queue.
+Mensagens que sempre falham (*poison messages*) precisam de dead-letter queue.
 E consistência eventual entre os serviços.
 
 Ver [Nível 04](/06-distributed-systems/index.md). Nada disso é opcional; é o que
@@ -112,7 +112,7 @@ o estilo custa.
 - Múltiplos interessados independentes no mesmo fato.
 - Os consumidores mudam com frequência.
 - As reações podem ser assíncronas sem prejuízo ao negócio.
-- É preciso desacoplar no tempo — o produtor não deve depender da disponibilidade
+- É preciso desacoplar no tempo: o produtor não deve depender da disponibilidade
   do consumidor.
 - Há necessidade de reprocessar histórico.
 
@@ -137,11 +137,11 @@ aparecer, e os defeitos são sutis.
 
 ## Alternativas
 
-- **Chamada síncrona** — quando há um consumidor e a resposta importa.
-- **Orquestração explícita** — mantendo eventos, mas com um coordenador.
-- **Consulta agendada** — mais simples que evento quando a latência tolerada é
+- **Chamada síncrona**: quando há um consumidor e a resposta importa.
+- **Orquestração explícita**: mantendo eventos, mas com um coordenador.
+- **Consulta agendada**: mais simples que evento quando a latência tolerada é
   alta.
-- **[Monolito modular](/03-design-patterns/modular-monolith.md) com eventos internos** — o
+- **[Monolito modular](/03-design-patterns/modular-monolith.md) com eventos internos**: o
   desacoplamento lógico sem a rede.
 
 ## Trade-offs
@@ -162,7 +162,7 @@ aparecer, e os defeitos são sutis.
 
 **Comando disfarçado de evento.** Acoplamento com aparência de desacoplamento.
 
-**Consumidor não idempotente.** Duplicação vira efeito duplicado — cobrança
+**Consumidor não idempotente.** Duplicação vira efeito duplicado: cobrança
 repetida é o caso clássico.
 
 **Evento perdido silenciosamente.** Sem dead-letter queue e sem alerta.
@@ -197,7 +197,7 @@ fluxos de eventos.
 **Integração entre domínios de uma empresa.** Eventos de negócio como contrato
 entre áreas.
 
-**Notificação e auditoria.** Reações independentes e não críticas — o caso em que
+**Notificação e auditoria.** Reações independentes e não críticas: o caso em que
 coreografia é claramente adequada.
 
 Nos sistemas de pagamento, a divisão típica é reveladora: o fluxo de autorização e
@@ -210,7 +210,7 @@ Uma plataforma de delivery adotou coreografia pura: dezenove serviços reagindo 
 eventos, sem coordenador.
 
 O sintoma apareceu no atendimento. Um pedido ficava "em preparo" indefinidamente,
-e ninguém conseguia dizer por quê — o fluxo esperado não estava documentado em
+e ninguém conseguia dizer por quê: o fluxo esperado não estava documentado em
 lugar nenhum, e reconstruí-lo exigia ler dezenove serviços.
 
 Três engenheiros levaram dois dias para descobrir que um consumidor tinha parado
@@ -220,9 +220,9 @@ A correção teve duas partes.
 
 A operacional: dead-letter queue e alerta em todos os consumidores.
 
-A estrutural: o fluxo principal do pedido — aceito, preparo, coleta, entrega —
+A estrutural: o fluxo principal do pedido (aceito, preparo, coleta, entrega)
 virou orquestrado, com uma saga explícita que conhece os passos, os prazos e as
-compensações. Os demais serviços — fidelidade, análise, notificação, avaliação —
+compensações. Os demais serviços (fidelidade, análise, notificação, avaliação)
 continuaram em coreografia.
 
 O resultado: o fluxo crítico passou a ser auditável e a ter prazo por etapa; as
@@ -233,18 +233,18 @@ tem responsabilidade legal e prazo contratual.
 
 ## Conceitos Relacionados
 
-- [Observer](/03-design-patterns/observer.md) — a versão em processo.
-- [CQRS](/03-design-patterns/cqrs.md) e [Event Sourcing](/03-design-patterns/event-sourcing.md) — padrões que
+- [Observer](/03-design-patterns/observer.md): a versão em processo.
+- [CQRS](/03-design-patterns/cqrs.md) e [Event Sourcing](/03-design-patterns/event-sourcing.md): padrões que
   frequentemente acompanham.
-- [Sistemas Distribuídos](/06-distributed-systems/index.md) — as garantias.
-- [Integração](/08-integration-architecture/index.md) — os mecanismos.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md): as garantias.
+- [Integração](/08-integration-architecture/index.md): os mecanismos.
 
 ## Exercício Prático
 
 Escolha um fluxo de negócio do seu sistema e tente descrevê-lo por escrito, do
 início ao fim, sem consultar o código.
 
-Se não conseguir, o fluxo é emergente. Verifique se ele é crítico — se for,
+Se não conseguir, o fluxo é emergente. Verifique se ele é crítico: se for,
 orquestração provavelmente se justifica.
 
 ## Perguntas de Entrevista
@@ -257,6 +257,6 @@ orquestração provavelmente se justifica.
 
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*.
   Addison-Wesley, 2003.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — sagas e
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Sagas e
   coreografia.
 - Fowler, Martin. *What do you mean by "Event-Driven"?*, 2017.

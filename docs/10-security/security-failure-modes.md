@@ -2,7 +2,7 @@
 id: security-failure-modes
 title: Modos de Falha de Segurança
 sidebar_position: 15
-description: Como um sistema falha quando falha — e por que falhar fechado precisa ser decisão consciente.
+description: Como um sistema falha quando falha, e por que falhar fechado precisa ser decisão consciente.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, auditability, authz-models]
 canonical_for: [falhar fechado, falhar aberto, degradação segura, controle contornável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -85,7 +85,7 @@ ser menor.
 
 **Permitir o que já estava autorizado, negar concessões novas.**
 
-**Modo restrito** — apenas as operações essenciais, para todos.
+**Modo restrito**: apenas as operações essenciais, para todos.
 
 Essas opções são melhores que qualquer extremo, e exigem ter sido projetadas.
 
@@ -122,14 +122,14 @@ caminho para o mesmo efeito?**
 
 O conceito geral está em [tolerância a falhas](/12-reliability/fault-tolerance.md).
 Num controle de segurança, ele tem um agravante: o sistema segue funcionando, só que
-sem a proteção, e nada no comportamento visível denuncia a ausência — quem nota
+sem a proteção, e nada no comportamento visível denuncia a ausência. Quem nota
 primeiro costuma ser quem explora.
 
 Exemplos reais: uma verificação de assinatura que retorna verdadeiro quando não
 consegue buscar a chave; um filtro de dados sensíveis que não roda por erro de
 configuração; uma regra de firewall que não foi aplicada.
 
-Todo controle relevante precisa de sinal — métrica de quantas vezes rodou, alerta se
+Todo controle relevante precisa de sinal: métrica de quantas vezes rodou, alerta se
 parar de rodar. Um controle sem métrica é um controle que você não sabe se existe.
 
 ### Mensagem de erro é superfície
@@ -156,12 +156,12 @@ Decidir explicitamente é necessário para todo controle. Prioridade quando:
 - O controle depende de um serviço externo.
 - Há cache de decisão.
 - O sistema tem múltiplos caminhos para o mesmo efeito.
-- A indisponibilidade tem custo alto — a tentação de falhar aberto é maior.
+- A indisponibilidade tem custo alto: a tentação de falhar aberto é maior.
 
 ## Quando Não Usar
 
 **Falhar aberto em autorização sem decisão registrada.** Quando o dano de conceder
-acesso indevido supera o de negar — prontuário, transação financeira —, falhar aberto
+acesso indevido supera o de negar (prontuário, transação financeira), falhar aberto
 só se defende se alguém pesou os dois lados e deixou isso escrito. Sem registro, quem
 decidiu foi o bloco de captura.
 
@@ -176,11 +176,11 @@ intermediários são código a manter e testar para uma falha que não ocorre.
 
 ## Alternativas
 
-- **Degradação graduada** — em vez de binário.
-- **Cache com prazo curto** — meio-termo entre disponibilidade e revogação.
-- **Avaliação local de política** — remove a dependência de rede na decisão. Ver
+- **Degradação graduada**: em vez de binário.
+- **Cache com prazo curto**: meio-termo entre disponibilidade e revogação.
+- **Avaliação local de política**: remove a dependência de rede na decisão. Ver
   [modelos de autorização](/10-security/authz-models.md).
-- **Redundância do serviço de política** — trata a causa em vez do sintoma.
+- **Redundância do serviço de política**: trata a causa em vez do sintoma.
 
 ## Trade-offs
 
@@ -209,14 +209,14 @@ intermediários são código a manter e testar para uma falha que não ocorre.
 **Falhar fechado sem previsão.** O sistema para e ninguém entende por quê.
 
 **Contorno criado sob pressão.** Falhar fechado sem plano leva alguém a desabilitar
-o controle durante o incidente — e a não reabilitar.
+o controle durante o incidente, e a não reabilitar.
 
 **Mensagem de erro vazando informação.**
 
 ## Erros Comuns
 
 **Não decidir o comportamento sob falha.** A política passa a ser a de quem escreveu
-cada tratamento de exceção — no exemplo abaixo, doze aplicações, três comportamentos
+cada tratamento de exceção: no exemplo abaixo, doze aplicações, três comportamentos
 diante da mesma indisponibilidade.
 
 **Envolver a verificação num tratamento de exceção genérico** para "não bloquear o
@@ -224,7 +224,7 @@ usuário". A política de segurança passa a ser a do bloco de captura, e sobrev
 quem a escreveu.
 
 **Pôr a política em cache sem prazo máximo.** A revogação deixa de valer enquanto o
-cache servir — no exemplo, uma política de três semanas antes, com acessos já
+cache servir: no exemplo, uma política de três semanas antes, com acessos já
 revogados.
 
 **Não instrumentar o controle.** A falha aberta não aparece em painel nenhum; os
@@ -243,7 +243,7 @@ Uma plataforma de saúde tinha um serviço central de autorização consultado p
 aplicações.
 
 Numa indisponibilidade de 25 minutos desse serviço, o comportamento observado foi
-inconsistente — porque cada aplicação tinha implementado o tratamento por conta:
+inconsistente, porque cada aplicação tinha implementado o tratamento por conta:
 
 **Quatro aplicações falharam fechado.** Pararam completamente. Correto, e ninguém
 tinha previsto: não havia comunicação nem procedimento, e o suporte recebeu chamados
@@ -251,7 +251,7 @@ sem saber o que responder.
 
 **Cinco falharam abertas.** Continuaram operando sem verificar autorização. Durante
 25 minutos, qualquer usuário autenticado acessou qualquer registro. A auditoria
-posterior encontrou 340 acessos que teriam sido negados — a maioria de curiosidade,
+posterior encontrou 340 acessos que teriam sido negados: a maioria de curiosidade,
 dois de pessoas acessando prontuários de conhecidos.
 
 **Três serviram cache.** Duas com prazo de 5 minutos — comportamento adequado. Uma
@@ -280,7 +280,7 @@ de doze.
 
 **Cache com prazo obrigatório**, máximo de 15 minutos.
 
-**Métrica por controle** — decisões de autorização concluídas por minuto, e alerta se
+**Métrica por controle**: decisões de autorização concluídas por minuto, e alerta se
 cair a zero. Isso teria detectado a falha silenciosa das cinco aplicações em dois
 minutos; contar tentativas de chamada não teria, porque as cinco continuavam chamando
 o serviço e capturando a exceção.
@@ -291,15 +291,15 @@ usuário.
 **Teste do caminho de falha** nos exercícios periódicos.
 
 Na retrospectiva: nenhuma das doze aplicações tinha decidido o comportamento.
-Todas o herdaram de quem escreveu o tratamento de exceção — e nas cinco piores, essa
+Todas o herdaram de quem escreveu o tratamento de exceção, e nas cinco piores, essa
 pessoa tinha priorizado disponibilidade sem saber que estava tomando uma decisão de
 segurança.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](/10-security/secure-boundaries.md) — os controles contornáveis.
-- [Modelos de Autorização](/10-security/authz-models.md) — negar por padrão.
-- [Auditabilidade](/10-security/auditability.md) — o registro que revela.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md): os controles contornáveis.
+- [Modelos de Autorização](/10-security/authz-models.md): negar por padrão.
+- [Auditabilidade](/10-security/auditability.md): o registro que revela.
 - [Confiabilidade](/12-reliability/index.md).
 
 ## Exercício Prático
@@ -307,7 +307,7 @@ segurança.
 Escolha o controle de autorização mais crítico do seu sistema e desligue a dependência
 dele num ambiente de teste.
 
-O que acontece é a sua política de falha atual — decidida ou não.
+O que acontece é a sua política de falha atual, decidida ou não.
 
 ## Perguntas de Entrevista
 

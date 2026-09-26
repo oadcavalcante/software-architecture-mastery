@@ -2,7 +2,7 @@
 id: design-patterns
 title: Design Patterns
 sidebar_position: 0
-description: Padrões como vocabulário de soluções recorrentes — sempre com a condição sob a qual não devem ser usados.
+description: Padrões como vocabulário de soluções recorrentes, sempre com a condição sob a qual não devem ser usados.
 doc_type: index
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [software-design]
 related: [fundamentals, domain-driven-design]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -27,7 +27,7 @@ A outra metade do valor só aparece quando se conhece o custo.
 ## O problema desta seção
 
 Padrões são a parte do conhecimento de design mais fácil de aprender mal. São
-concretos, têm nome bonito e cabem num exemplo de vinte linhas — o que os torna
+concretos, têm nome bonito e cabem num exemplo de vinte linhas, o que os torna
 memorizáveis sem serem compreendidos.
 
 O resultado típico é o profissional que aplica *Strategy* onde um `if` bastava,
@@ -51,7 +51,7 @@ Event Sourcing, Pipes and Filters, Space-Based Architecture e SOA. Estes operam 
 nível diferente: decidem como o sistema é implantado e operado, não apenas como o
 código é organizado. Layered, Hexagonal e Clean Architecture também são padrões
 arquiteturais, mas o documento canônico de cada um fica no Nível 02, junto com Ports
-and Adapters e Onion — a seção seguinte traz os links.
+and Adapters e Onion. A seção seguinte traz os links.
 
 ## Cinco padrões que moram no Nível 02
 
@@ -85,15 +85,15 @@ arquiteturais corretos em contexto errado.
 ## Ordem de leitura
 
 Os GoF podem ser lidos fora de ordem, por consulta. Não há progressão obrigatória
-entre eles. Se for ler em sequência, comece pelos comportamentais — são os que
+entre eles. Se for ler em sequência, comece pelos comportamentais: são os que
 mais frequentemente resolvem problemas reais de código de aplicação.
 
 Os padrões arquiteturais **têm** ordem. Leia Layered e Monolito Modular antes de
 Microsserviços; leia Event-Driven antes de CQRS e Event Sourcing. A sequência
 importa porque cada um só faz sentido como resposta às limitações do anterior.
 
-Não leia os padrões arquiteturais distribuídos — Microsserviços, Event-Driven,
-Space-Based — antes do [Nível 04](/06-distributed-systems/index.md). Eles são
+Não leia os padrões arquiteturais distribuídos (Microsserviços, Event-Driven,
+Space-Based) antes do [Nível 04](/06-distributed-systems/index.md). Eles são
 apresentados aqui como formas; o custo real deles só fica visível depois de
 entender falha parcial.
 
@@ -101,7 +101,7 @@ entender falha parcial.
 
 Você reconhece o problema antes do padrão. Consegue nomear a estrutura que já
 está no seu código sem ter percebido. E, diante da sugestão de aplicar um
-padrão, consegue perguntar qual força específica ele está aliviando — e concluir,
+padrão, consegue perguntar qual força específica ele está aliviando, e concluir,
 quando for o caso, que nenhuma.
 
 ## Continua em

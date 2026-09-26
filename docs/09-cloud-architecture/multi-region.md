@@ -2,7 +2,7 @@
 id: multi-region
 title: Multi-Região
 sidebar_position: 15
-description: Operar em mais de uma região — o que isso resolve, e por que a maioria dos sistemas não precisa.
+description: "Operar em mais de uma região: o que isso resolve, e por que a maioria dos sistemas não precisa."
 doc_type: pattern
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, availability-zones, disaster-recovery]
 canonical_for: [multi-região, ativo-passivo, ativo-ativo]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -33,7 +33,7 @@ falhas reais, com uma fração da complexidade.
 
 ## Problema
 
-Regiões inteiras falham. É raro, e acontece — e quando acontece, dura horas.
+Regiões inteiras falham. É raro, e acontece. Quando acontece, dura horas.
 
 Para um sistema em região única, isso é indisponibilidade total sem nada a fazer
 além de esperar.
@@ -73,7 +73,7 @@ lugar.
 ### Ativo-ativo esbarra em consistência
 
 Se as duas regiões aceitam escrita para o mesmo dado, você tem
-[conflitos](/06-distributed-systems/conflict-resolution.md) — e a resolução padrão
+[conflitos](/06-distributed-systems/conflict-resolution.md), e a resolução padrão
 descarta dados em silêncio.
 
 Se você exige consistência forte entre regiões, paga latência de coordenação
@@ -90,14 +90,14 @@ conflito.
 vão para a região primária. Cobre a maior parte dos casos de latência sem o problema
 de conflito.
 
-**Estruturas que convergem.** Para dados que admitem — contadores, conjuntos.
+**Estruturas que convergem.** Para dados que admitem (contadores, conjuntos).
 
 A segunda é o desenho mais comum entre implementações bem-sucedidas, e a menos
 divulgada, porque é menos impressionante que ativo-ativo completo.
 
 ### O ponto único que a geografia não protege
 
-Ver [regiões](/09-cloud-architecture/regions.md): serviços globais — DNS, identidade, plano de controle —
+Ver [regiões](/09-cloud-architecture/regions.md): serviços globais (DNS, identidade, plano de controle)
 atravessam regiões.
 
 Uma arquitetura multi-região que depende de um deles para funcionar tem um ponto
@@ -106,7 +106,7 @@ foram exatamente isso.
 
 ### Failover que ninguém testou não funciona
 
-O modo de falha mais comum de multi-região não é a região cair — é o failover
+O modo de falha mais comum de multi-região não é a região cair, mas o failover
 falhar quando é acionado.
 
 Motivos recorrentes: cota insuficiente na região secundária, configuração
@@ -125,8 +125,8 @@ A intuição diz "duas regiões, o dobro do custo". Na prática é mais:
 
 **Transferência entre regiões**, contínua, para replicação.
 
-**Complexidade operacional.** Duas de tudo — implantação, monitoramento,
-configuração — e a garantia de que não divergem.
+**Complexidade operacional.** Duas de tudo (implantação, monitoramento,
+configuração) e a garantia de que não divergem.
 
 **Tempo de engenharia.** O desenho, o failover, os testes.
 
@@ -163,15 +163,15 @@ gera dois sistemas frágeis.
 
 ## Alternativas
 
-- **Três [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)** — cobre a maioria das
+- **Três [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)**: cobre a maioria das
   falhas reais.
-- **[Recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) em outra região** — capacidade
+- **[Recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) em outra região**: capacidade
   reduzida, ativada sob demanda. Muito mais barato.
-- **Réplica de leitura em outra região** — latência de leitura sem o problema de
+- **Réplica de leitura em outra região**: latência de leitura sem o problema de
   escrita.
-- **Rede de distribuição de conteúdo** — resolve latência de conteúdo estático sem
+- **Rede de distribuição de conteúdo**: resolve latência de conteúdo estático sem
   nada disso.
-- **Degradação graciosa** — operar em modo reduzido durante a falha, em vez de
+- **Degradação graciosa**: operar em modo reduzido durante a falha, em vez de
   duplicar tudo.
 
 ## Trade-offs
@@ -218,11 +218,11 @@ gera dois sistemas frágeis.
 
 **Ativo-ativo sem estratégia de escrita.** Escritas simultâneas para o mesmo registro em regiões diferentes conflitam, e a resolução padrão descarta uma delas. Ou se particiona o dado por região, ou se elege uma região de escrita.
 
-**Não verificar cotas na secundária.** A conta tem limites por região. A secundária, pouco usada, costuma ter cota baixa — e o failover para no momento de subir capacidade.
+**Não verificar cotas na secundária.** A conta tem limites por região. A secundária, pouco usada, costuma ter cota baixa, e o failover para no momento de subir capacidade.
 
 **Assumir que multi-região elimina ponto único.** DNS, autenticação, plano de controle e serviços globais do provedor continuam compartilhados, e já causaram interrupções que atingiram todas as regiões ao mesmo tempo.
 
-**Deixar as configurações divergirem.** A região secundária recebe menos mudanças e vai ficando para trás em silêncio. Quando é acionada, comporta-se de forma diferente da primária — que é exatamente o que não se quer durante um desastre.
+**Deixar as configurações divergirem.** A região secundária recebe menos mudanças e vai ficando para trás em silêncio. Quando é acionada, comporta-se de forma diferente da primária. Isso é exatamente o que não se quer durante um desastre.
 
 ## Exemplo Real
 
@@ -232,8 +232,8 @@ motivada por exigência regulatória de continuidade.
 O investimento foi grande: capacidade duplicada, replicação contínua, procedimento
 de promoção documentado.
 
-Na primeira falha real de região — 3 horas de indisponibilidade parcial do provedor
-— o failover foi acionado e levou **2 horas e 40 minutos**, quando o alvo era 15
+Na primeira falha real de região (3 horas de indisponibilidade parcial do provedor),
+o failover foi acionado e levou **2 horas e 40 minutos**, quando o alvo era 15
 minutos.
 
 As causas, todas encontradas durante o incidente:
@@ -246,7 +246,7 @@ chamado emergencial com o provedor: 50 minutos.
 primária ao longo do ano e nunca na secundária. A aplicação subiu e falhou.
 
 **Dependência só na primária.** Um serviço interno de cálculo de taxas existia
-apenas na região primária. A secundária apontava para ele — pela rede, entre
+apenas na região primária. A secundária apontava para ele, pela rede, entre
 regiões. Com a primária degradada, ele não respondia.
 
 **Certificado.** O certificado da secundária tinha expirado quatro meses antes.
@@ -262,7 +262,7 @@ primeiro exercício encontrou dois problemas novos; o terceiro, nenhum.
 
 **Cota provisionada** para capacidade total nas duas regiões.
 
-**Configuração como código**, única, aplicada às duas — divergência de
+**Configuração como código**, única, aplicada às duas: divergência de
 configuração deixou de ser silenciosa. O que fica fora dela continua divergindo, e
 é o que o item seguinte cobre.
 
@@ -273,13 +273,13 @@ configuração deixou de ser silenciosa. O que fica fora dela continua divergind
 Após seis meses de exercícios, o tempo de failover caiu para 9 minutos.
 
 O aprendizado que ficou: eles tinham multi-região havia dois anos e nunca a haviam
-usado. Ter a infraestrutura e **conseguir usá-la** são coisas diferentes — e a
+usado. Ter a infraestrutura e **conseguir usá-la** são coisas diferentes, e a
 diferença só aparece no exercício ou no incidente.
 
 ## Conceitos Relacionados
 
 - [Regiões](/09-cloud-architecture/regions.md) e [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
-- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md) — a alternativa mais barata.
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md): a alternativa mais barata.
 - [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md).
 - [PACELC](/06-distributed-systems/pacelc.md).
 

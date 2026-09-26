@@ -2,7 +2,7 @@
 id: interview-data-modeling
 title: Modelagem de Dados na Entrevista
 sidebar_position: 6
-description: Comece pelos padrões de acesso, não pelas entidades — é o que decide o armazenamento.
+description: "Comece pelos padrões de acesso, não pelas entidades: é o que decide o armazenamento."
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-api-design]
 related: [interview-api-design, high-level-architecture, interview-scaling]
 canonical_for: [modelagem em entrevista, padrão de acesso como ponto de partida, escolha de armazenamento em entrevista]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ tradicional   entidades → relacionamentos → normalização → consultas
 entrevista    padrões de acesso → modelo que os atende → armazenamento
 ```
 
-A segunda ordem é a correta porque o que decide o armazenamento não é a natureza dos dados — é
+A segunda ordem é a correta porque o que decide o armazenamento não é a natureza dos dados, e sim
 **como eles são lidos e escritos**. Duas aplicações com as mesmas entidades e padrões de acesso
 diferentes pedem armazenamentos diferentes.
 
@@ -45,7 +45,7 @@ candidato   "vou ter uma tabela de usuários, uma de posts,
 ```
 
 Está correto e não informa nada. Esse modelo serve a qualquer rede social, de mil ou de um
-bilhão de usuários, com qualquer requisito de latência. Ele não foi derivado — foi lembrado.
+bilhão de usuários, com qualquer requisito de latência. Ele não foi derivado, foi lembrado.
 
 A pergunta seguinte do entrevistador expõe o problema: "como você monta o feed?". Se o modelo não
 foi pensado a partir dessa consulta, a resposta é uma junção sobre milhões de linhas, e a
@@ -75,7 +75,7 @@ preferência.
 ```
 
 Cada uma dessas é um requisito de modelo. A número 1 é a que dimensiona, e é a que deve orientar
-as decisões — as demais se acomodam.
+as decisões; as demais se acomodam.
 
 E as escritas, com seus volumes:
 
@@ -96,14 +96,14 @@ modelo B   lista materializada por usuário, mantida na escrita
            → leitura por chave; rápida
 ```
 
-A escolha entre A e B não é sobre elegância — é sobre a razão entre leitura e escrita, e sobre a
+A escolha entre A e B não é sobre elegância, e sim sobre a razão entre leitura e escrita, e sobre a
 distribuição de seguidores. Ver o
 [case de rede social](/21-case-studies/social-network.md).
 
 Fazer essa derivação em voz alta é o conteúdo da avaliação.
 
-O que se busca não é que o candidato escolha B — que é a resposta conhecida para redes sociais
-grandes —, e sim que ele mostre o cálculo que leva a B e diga sob qual condição A seria melhor.
+O que se busca não é que o candidato escolha B (que é a resposta conhecida para redes sociais
+grandes), e sim que ele mostre o cálculo que leva a B e diga sob qual condição A seria melhor.
 Um candidato que propõe a lista materializada porque leu que é assim que se faz, e não consegue
 dizer a partir de que razão leitura/escrita ela compensa, está recitando.
 
@@ -186,7 +186,7 @@ consulta é por data produz varredura de todas as partições.
 
 A regra prática é que a chave de partição deve aparecer na cláusula de filtro da consulta
 dominante. Se a consulta que domina o volume não filtra pela chave escolhida, o particionamento
-transforma uma consulta que tocava um índice em uma que toca todas as partições — piorando
+transforma uma consulta que tocava um índice em uma que toca todas as partições, piorando
 exatamente o que ele deveria melhorar.
 
 ### Distribuição de dados quentes
@@ -205,7 +205,7 @@ Ver [pontos quentes](/11-scalability/hotspots.md).
 ## Modelo Mental
 
 **Liste as consultas primeiro.** O modelo é derivado da consulta dominante, e o armazenamento é
-derivado do modelo — cada um com uma justificativa em voz alta.
+derivado do modelo, cada um com uma justificativa em voz alta.
 
 ## Quando Usar
 
@@ -216,14 +216,14 @@ derivado do modelo — cada um com uma justificativa em voz alta.
 ## Quando Não Usar
 
 **Quando o problema é analítico ou exploratório.** Num sistema de relatórios ou de investigação
-de dados, as consultas não são conhecidas de antemão — é a própria razão de o relacional aparecer
+de dados, as consultas não são conhecidas de antemão. É a própria razão de o relacional aparecer
 na tabela acima como a escolha para "consulta não prevista". Insistir em listar consultas produz
 uma lista inventada, e um modelo otimizado para ela piora exatamente as perguntas que ninguém
 previu.
 
 **Quando o entrevistador leva a conversa para outro componente.** Se o interesse dele é a fila de
-distribuição ou a estratégia de cache, o modelo cabe numa frase — "posts por `post_id`, feed por
-`usuario_id`" —, e derivá-lo consulta a consulta consome o tempo que ele quer gastar em outro
+distribuição ou a estratégia de cache, o modelo cabe numa frase ("posts por `post_id`, feed por
+`usuario_id`"), e derivá-lo consulta a consulta consome o tempo que ele quer gastar em outro
 lugar.
 
 **Quando o tempo restante só comporta uma consulta.** Listar as cinco leituras e as três escritas
@@ -232,9 +232,9 @@ voz alta que as demais se acomodam a ele.
 
 ## Alternativas
 
-- **Modelar apenas a consulta dominante** — quando o tempo aperta, ela é a que importa.
+- **Modelar apenas a consulta dominante**: quando o tempo aperta, ela é a que importa.
 - **Descrever o modelo em texto** em vez de desenhar tabelas.
-- **Deixar para depois do desenho** — modelar quando o gargalo aparecer é legítimo e mantém o
+- **Deixar para depois do desenho**: modelar quando o gargalo aparecer é legítimo e mantém o
   ritmo.
 
 ## Trade-offs
@@ -263,16 +263,16 @@ voz alta que as demais se acomodam a ele.
 
 ## Erros Comuns
 
-**Começar por diagrama de entidades** — produz o modelo lembrado, e a pergunta do feed chega sem
+**Começar por diagrama de entidades**: produz o modelo lembrado, e a pergunta do feed chega sem
 resposta derivada.
 
-**Não considerar as duas direções** de um relacionamento — a consulta que ficou sem índice vira
+**Não considerar as duas direções** de um relacionamento: a consulta que ficou sem índice vira
 varredura quando o entrevistador a pede.
 
-**Propor NoSQL por "escala"** sem número — a primeira pergunta ("quantas leituras?") deixa a
+**Propor NoSQL por "escala"** sem número: a primeira pergunta ("quantas leituras?") deixa a
 escolha sem sustentação.
 
-**Detalhar tipos de coluna** — consome minutos que não geram sinal e adia a pergunta do feed.
+**Detalhar tipos de coluna**: consome minutos que não geram sinal e adia a pergunta do feed.
 
 **Não mencionar índices** onde eles decidem a viabilidade da consulta.
 

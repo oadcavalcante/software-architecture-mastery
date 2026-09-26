@@ -2,7 +2,7 @@
 id: consistency
 title: Consistência
 sidebar_position: 9
-description: O que uma leitura pode observar — um espectro de garantias, não um interruptor.
+description: "O que uma leitura pode observar: um espectro de garantias, não um interruptor."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [eventual-consistency, strong-consistency, cap]
 canonical_for: [consistência, modelo de consistência]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -31,17 +31,17 @@ pode exigir uma diferente.
 ## Problema
 
 Com uma cópia dos dados, a pergunta sobre réplicas não existe: a leitura vê a
-última escrita gravada. O que sobra é ordenar transações concorrentes — isolamento,
+última escrita gravada. O que sobra é ordenar transações concorrentes: isolamento,
 não replicação.
 
-Com réplicas — e réplicas existem para disponibilidade e para escala — a escrita
+Com réplicas (e réplicas existem para disponibilidade e para escala), a escrita
 chega a elas em momentos diferentes. Uma leitura pode cair numa réplica que ainda
 não recebeu.
 
 O usuário altera o próprio nome, a tela recarrega, e o nome antigo aparece. Isso
 não é defeito de código: é a consequência de ler de uma réplica atrasada.
 
-A discussão costuma degenerar em "queremos consistência forte" — sem que ninguém
+A discussão costuma degenerar em "queremos consistência forte", sem que ninguém
 tenha estabelecido **para quais operações**, e sem que o custo em latência e
 disponibilidade tenha sido colocado na mesa.
 
@@ -59,7 +59,7 @@ individuais. As duas juntas dão *strict serializability*.
 
 **Consistência causal.** Operações relacionadas por causa e efeito são vistas na
 ordem correta por todos; operações independentes podem ser vistas em ordens
-diferentes. Preserva a ordem que o usuário percebe sem exigir coordenação global —
+diferentes. Preserva a ordem que o usuário percebe sem exigir coordenação global:
 mais cobertura de ordenação que as garantias de sessão, a um custo menor que o da
 linearizabilidade.
 
@@ -73,7 +73,7 @@ Entre o forte e o eventual há garantias que resolvem a maior parte dos problema
 percebidos pelo usuário, a custo muito menor:
 
 **[Leia seus próprios escritos](/20-trade-offs/strong-vs-eventual-consistency.md).**
-Quem escreveu vê o que escreveu. Resolve o caso do nome que não atualiza — que é a
+Quem escreveu vê o que escreveu. Resolve o caso do nome que não atualiza. É a
 queixa mais comum de consistência eventual.
 
 **Leituras monotônicas.** Uma vez que você viu um valor, não verá um anterior.
@@ -83,7 +83,7 @@ Impede o efeito de "o dado apareceu e sumiu" ao alternar entre réplicas.
 fez.
 
 Essas três raramente são discutidas e resolvem quase toda a percepção de
-inconsistência — porque o usuário nota a própria inconsistência, e tolera a dos
+inconsistência, porque o usuário nota a própria inconsistência, e tolera a dos
 outros.
 
 ### Por operação, não por sistema
@@ -108,8 +108,8 @@ O ponto que [PACELC](/06-distributed-systems/pacelc.md) formaliza e que
 e coordenação custa idas e voltas de rede.
 
 Isso vale **o tempo todo**, não apenas durante partição. Numa configuração
-multi-região, uma escrita linearizável paga a latência entre regiões — dezenas ou
-centenas de milissegundos — em toda operação.
+multi-região, uma escrita linearizável paga a latência entre regiões (dezenas ou
+centenas de milissegundos) em toda operação.
 
 Partição é rara. Latência é permanente.
 
@@ -123,7 +123,7 @@ A pergunta sem esses três complementos não tem resposta.
 
 Consistência forte quando:
 
-- O dado controla um recurso finito — estoque, assento, saldo.
+- O dado controla um recurso finito: estoque, assento, saldo.
 - Uma decisão irreversível depende do valor lido.
 - Há requisito regulatório de exatidão instantânea.
 - O custo de estar errado supera o custo da latência.
@@ -146,12 +146,12 @@ transacionalmente e desfaz a fronteira. Ver
 
 ## Alternativas
 
-- **Garantias de sessão** — o meio-termo subestimado.
-- **Consistência causal** — quando a ordem entre operações relacionadas importa,
+- **Garantias de sessão**: o meio-termo subestimado.
+- **Consistência causal**: quando a ordem entre operações relacionadas importa,
   mas a ordem global não.
-- **Ler da primária para operações críticas** — consistência forte onde importa,
+- **Ler da primária para operações críticas**: consistência forte onde importa,
   réplica no resto.
-- **Aceitar e reconciliar** — deixar divergir e corrigir por processo.
+- **Aceitar e reconciliar**: deixar divergir e corrigir por processo.
 
 ## Trade-offs
 
@@ -191,14 +191,14 @@ projeto: ou se paga coordenação nas leituras que não precisam, ou se lê dado
 onde a decisão é irreversível.
 
 **Não perguntar ao negócio o atraso aceitável.** A engenharia arbitra o número
-sozinha e erra para o lado caro — consistência forte onde minutos de atraso teriam
+sozinha e erra para o lado caro: consistência forte onde minutos de atraso teriam
 sido aceitos.
 
 **Não conhecer as garantias que o banco de fato oferece.** O nível de isolamento
 configurado raramente é o que o nome sugere.
 
 **Ignorar garantias de sessão.** Escalar direto para consistência forte quando a
-queixa era o usuário não ver a própria escrita — paga-se coordenação global para
+queixa era o usuário não ver a própria escrita: paga-se coordenação global para
 resolver um problema de sessão.
 
 **Não medir o atraso de replicação.** A janela em que a leitura pode estar velha
@@ -219,7 +219,7 @@ foram vendidos até quatro vezes.
 
 As duas causas são a mesma, e as correções foram diferentes.
 
-Para o primeiro caso, a garantia necessária era **leia seus próprios escritos** —
+Para o primeiro caso, a garantia necessária era **leia seus próprios escritos**,
 não consistência forte global. A implementação: após uma escrita, as leituras
 daquele usuário vão para a primária por um período. Custo baixo, queixa eliminada.
 
@@ -227,7 +227,7 @@ Para o segundo, a garantia necessária era **linearizabilidade**, porque estoque
 controla um recurso finito e a decisão é irreversível. A verificação e a reserva
 voltaram para a primária, numa transação.
 
-A conclusão registrada: a migração para réplicas não estava errada — 90% das
+A conclusão registrada: a migração para réplicas não estava errada; 90% das
 leituras continuaram nelas. O erro foi tratar todas as leituras como equivalentes.
 
 E a conversa que mais rendeu foi com o negócio: perguntando o atraso aceitável por
@@ -237,9 +237,9 @@ horas, e apenas estoque e pedido do próprio usuário precisavam de garantia.
 ## Conceitos Relacionados
 
 - [Consistência Eventual](/06-distributed-systems/eventual-consistency.md) e
-  [Forte](/06-distributed-systems/strong-consistency.md) — os extremos do espectro.
-- [CAP](/06-distributed-systems/cap.md) e [PACELC](/06-distributed-systems/pacelc.md) — os limites teóricos.
-- [Replicação](/06-distributed-systems/replication.md) — de onde a divergência vem.
+  [Forte](/06-distributed-systems/strong-consistency.md): os extremos do espectro.
+- [CAP](/06-distributed-systems/cap.md) e [PACELC](/06-distributed-systems/pacelc.md): os limites teóricos.
+- [Replicação](/06-distributed-systems/replication.md): de onde a divergência vem.
 - [Resolução de Conflitos](/06-distributed-systems/conflict-resolution.md).
 
 ## Exercício Prático
@@ -259,8 +259,8 @@ incidente.
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulos 5 e 9.
 - Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.
 - Viotti, Paolo; Vukolić, Marko. *Consistency in Non-Transactional Distributed
-  Storage Systems*. ACM Computing Surveys, 2016 — o mapa completo do espectro.
+  Storage Systems*. ACM Computing Surveys, 2016: o mapa completo do espectro.

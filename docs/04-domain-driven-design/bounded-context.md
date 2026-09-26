@@ -2,7 +2,7 @@
 id: bounded-context
 title: Bounded Context
 sidebar_position: 6
-description: A fronteira dentro da qual um modelo tem significado único — e a decisão de maior consequência arquitetural do DDD.
+description: A fronteira dentro da qual um modelo tem significado único, e a decisão de maior consequência arquitetural do DDD.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain, ubiquitous-language]
 related: [context-mapping, anti-corruption-layer, modular-design]
 canonical_for: [bounded context, contexto delimitado]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -43,10 +43,10 @@ histórico de interações e nível de contrato.
 
 Forçar um modelo comum produz um dos dois resultados, e ambos são ruins.
 
-**O modelo inchado** — uma classe `Cliente` com sessenta campos, dos quais cada
+**O modelo inchado**: uma classe `Cliente` com sessenta campos, dos quais cada
 contexto usa oito, e ninguém sabe quais são obrigatórios em qual situação.
 
-**O modelo mínimo** — só o que é comum aos três, o que deixa cada contexto
+**O modelo mínimo**: só o que é comum aos três, o que deixa cada contexto
 implementando o que falta por fora, com duplicação e divergência.
 
 Bounded context aceita o que a realidade impõe: **modelos diferentes, com
@@ -83,9 +83,9 @@ O que os liga é um identificador compartilhado, não uma classe compartilhada.
 Ver [subdomínio](/04-domain-driven-design/subdomain.md). O ideal é um contexto por subdomínio, e a
 realidade diverge:
 
-Um subdomínio atendido por dois contextos — frequentemente por razão histórica.
+Um subdomínio atendido por dois contextos, frequentemente por razão histórica.
 
-Um contexto cobrindo três subdomínios — o caso típico de sistema legado.
+Um contexto cobrindo três subdomínios: o caso típico de sistema legado.
 
 Quando divergem, isso é informação sobre onde o software não acompanha o negócio.
 
@@ -94,7 +94,7 @@ Quando divergem, isso é informação sobre onde o software não acompanha o neg
 Dentro da fronteira, o modelo é consistente e a linguagem é única. Fora, nada é
 garantido.
 
-Isso significa que a fronteira precisa ser real — imposta por módulo, por
+Isso significa que a fronteira precisa ser real: imposta por módulo, por
 processo, ou por sistema. Uma fronteira que só existe no diagrama não delimita
 nada, e o modelo vaza. Ver
 [arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md).
@@ -103,11 +103,11 @@ nada, e o modelo vaza. Ver
 
 Por padrão, um contexto não expõe seu modelo interno: a comunicação acontece por
 contratos próprios da fronteira, com tradução dos dois lados. Abrir mão da
-tradução — conformista, núcleo compartilhado — é escolha deliberada, decidida
+tradução (conformista, núcleo compartilhado) é escolha deliberada, decidida
 entre as formas de relacionamento abaixo.
 
-As formas de relacionamento entre contextos — parceria, cliente-fornecedor,
-conformista, e outras — são o assunto de
+As formas de relacionamento entre contextos (parceria, cliente-fornecedor,
+conformista, e outras) são o assunto de
 [context mapping](/04-domain-driven-design/context-mapping.md). A defesa contra o modelo alheio é a
 [anti-corruption layer](/04-domain-driven-design/anti-corruption-layer.md).
 
@@ -145,10 +145,10 @@ com noventa por cento de sobreposição e tradução constante provavelmente era
 ## Alternativas
 
 - **[Núcleo compartilhado](/04-domain-driven-design/context-mapping.md)
-  (*shared kernel*)** — vence quando a sobreposição entre os dois contextos é
+  (*shared kernel*)**: vence quando a sobreposição entre os dois contextos é
   alta e os dois times aceitam coordenar cada mudança.
-- **Um contexto só** — legítimo em sistemas pequenos.
-- **Contexto por sistema externo** — cada integração ganha o seu, com tradução na
+- **Um contexto só**: legítimo em sistemas pequenos.
+- **Contexto por sistema externo**: cada integração ganha o seu, com tradução na
   fronteira.
 
 ## Trade-offs
@@ -174,7 +174,7 @@ depender da estrutura interna.
 **Fronteira nominal.** Existe no diagrama e nada a impõe.
 
 **Modelo canônico corporativo.** A tentativa de definir "o cliente da empresa"
-consome anos e não converge — porque a premissa está errada.
+consome anos e não converge, porque a premissa está errada.
 
 **Contextos demais.** Fronteiras onde não há mudança de significado produzem
 tradução constante.
@@ -227,15 +227,15 @@ precisa, no momento em que precisa.
 
 O que gerou mais resistência foi a duplicação do nome do produto nos três
 contextos. Levou tempo aceitar que o nome comercial, o nome regulatório e a
-descrição de embalagem eram de fato três coisas — e que o sistema antigo as
+descrição de embalagem eram de fato três coisas, e que o sistema antigo as
 forçava a ser uma, com um campo que ninguém sabia qual dos três significava.
 
 ## Conceitos Relacionados
 
-- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md) — a linguagem dentro da fronteira.
-- [Context Mapping](/04-domain-driven-design/context-mapping.md) — como os contextos se relacionam.
-- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md) — a defesa na fronteira.
-- [Design Modular](/02-software-design/modular-design.md) — a fronteira em
+- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md): a linguagem dentro da fronteira.
+- [Context Mapping](/04-domain-driven-design/context-mapping.md): como os contextos se relacionam.
+- [Anti-Corruption Layer](/04-domain-driven-design/anti-corruption-layer.md): a defesa na fronteira.
+- [Design Modular](/02-software-design/modular-design.md): a fronteira em
   código.
 
 ## Exercício Prático
@@ -243,7 +243,7 @@ forçava a ser uma, com um campo que ninguém sabia qual dos três significava.
 Escolha três termos centrais do seu domínio. Para cada um, pergunte a pessoas de
 áreas diferentes o que ele significa.
 
-Onde as respostas divergirem — mesmo sutilmente — há uma fronteira de contexto que
+Onde as respostas divergirem, mesmo sutilmente, há uma fronteira de contexto que
 o modelo provavelmente não representa.
 
 ## Perguntas de Entrevista

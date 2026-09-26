@@ -2,7 +2,7 @@
 id: scaling-capacity-planning
 title: Capacity Planning for Scale
 sidebar_position: 12
-description: Knowing when to scale before the incident — with a model, a test and defined headroom.
+description: Knowing when to scale before the incident, with a model, a test and defined headroom.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [performance-vs-scalability]
 related: [performance-vs-scalability, horizontal-scaling, hotspots]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,7 +34,7 @@ spreadsheet and an alert.
 The common pattern is reactive: the system gets slow, somebody investigates, adds capacity.
 
 That works when adding capacity is fast and the bottleneck is capacity. It fails when the change takes
-weeks — partitioning a database, increasing a quota, negotiating a limit with a third party.
+weeks: partitioning a database, increasing a quota, negotiating a limit with a third party.
 
 And it fails silently before that: the degradation happens gradually, and the moment the headroom ran out
 generates no event.
@@ -77,7 +77,7 @@ The 60% row assumes load split evenly across three
 remaining two run at 90%.
 
 The headroom is decided from three things: how much the load varies, how long it takes to add capacity, and
-what needs to be absorbed — the loss of a zone, a seasonal peak.
+what needs to be absorbed (the loss of a zone, a seasonal peak).
 
 With no explicit decision, the headroom is whatever was left after nobody reviewed the sizing.
 
@@ -99,7 +99,7 @@ metrics that already exist.
 
 A test that does not reproduce reality produces false confidence. The mistakes that invalidate it:
 
-**A uniform distribution.** Real traffic is uneven — a few customers concentrate volume, some keys are far
+**A uniform distribution.** Real traffic is uneven: a few customers concentrate volume, some keys are far
 more accessed. A uniform test does not find [hotspots](/11-scalability/hotspots.md).
 
 **Small synthetic data.** Queries are fast on a thousand rows and slow on ten million.
@@ -127,7 +127,7 @@ load     p95 latency    throughput
 1200     2,400 ms          850   ← saturated, throughput falling
 ```
 
-The knee — where the latency starts rising disproportionately — is the real operational limit. Above it,
+The knee (where the latency starts rising disproportionately) is the real operational limit. Above it,
 the system still works and the experience has already degraded.
 
 And the point where throughput **falls** with more load is what load shedding needs to prevent reaching. It is the
@@ -173,7 +173,7 @@ to know.
 
 **The elastic ceiling is an order of magnitude above the peak.** A managed or serverless service
 with a quota ten times the measured peak has no nearby limit to project. The work shrinks to an
-inventory of quotas — reviewed when the peak grows, not every month.
+inventory of quotas, reviewed when the peak grows, not every month.
 
 **Over-provisioning costs less than maintaining the model.** If doubling capacity costs less per
 month than the engineering hours to measure ratios, run a realistic test and review the
@@ -186,12 +186,12 @@ graceful degradation than in a model without data.
 
 ## Alternatives
 
-- **Automatic elasticity** — for variation with no set time, with the caveat that provisioning
+- **Automatic elasticity**: for variation with no set time, with the caveat that provisioning
   time needs to be shorter than the load's rise.
-- **Load shedding** — protecting the essential when the capacity runs out. See
+- **Load shedding**: protecting the essential when the capacity runs out. See
   [backpressure](/06-distributed-systems/backpressure.md).
-- **Graceful degradation** — operating with less instead of stopping.
-- **Scheduled scaling** — for peaks with a set time; it avoids the provisioning
+- **Graceful degradation**: operating with less instead of stopping.
+- **Scheduled scaling**: for peaks with a set time; it avoids the provisioning
   delay that any reactive scheme pays.
 
 ## Trade-offs
@@ -230,7 +230,7 @@ graceful degradation than in a model without data.
 is no way to project anything: capacity becomes a reaction to the previous incident.
 
 **Not deciding the headroom.** How much idle capacity to keep is a cost-against-risk decision. Without
-deciding it, it is defined by accident — and it is usually too large on expensive services and too small on
+deciding it, it is defined by accident, and it is usually too large on expensive services and too small on
 critical ones.
 
 **Alerting on value only.** A fixed threshold warns when it is already close to the limit. The trend warns
@@ -246,7 +246,7 @@ uniform test does not find the hotspot that will saturate first.
 from a high percentile of the load. See [cloud compute](/09-cloud-architecture/cloud-compute.md).
 
 **Not inventorying third-party limits.** A provider quota, an API rate limit and a database connection
-ceiling are usually reached before your own infrastructure's limit — and they are not elastic.
+ceiling are usually reached before your own infrastructure's limit, and they are not elastic.
 
 ## Real-World Example
 
@@ -262,7 +262,7 @@ measurements of the previous openings.
 It revealed something nobody knew: the database consumption per ticket had **grown 40%** in eight months,
 because of two new features. The sizing was still based on the old ratio.
 
-**A realistic load test.** Reproducing the opening pattern — 200,000 people trying to buy in the first 3
+**A realistic load test.** Reproducing the opening pattern: 200,000 people trying to buy in the first 3
 minutes, with the real distribution of events and sections.
 
 The previous test used a uniform distribution across events, and so it had never found the hotspot: one
@@ -273,7 +273,7 @@ started falling at 5,100. The operational target was set at 3,000, with load she
 
 **Third-party limits inventoried.** Each ticket sold is one transaction at the payment gateway, which had a
 contracted limit of 50 transactions per second. Shedding at 4,000 tickets per minute let up to 67 per
-second through. The renegotiation took five weeks — and it would have been
+second through. The renegotiation took five weeks, and it would have been
 discovered during the opening if the inventory had not existed.
 
 **A trend alert.** A weekly projection of when each component reaches 70%, with an alert eight weeks in
@@ -284,19 +284,19 @@ advance.
 The three following openings happened with no degradation.
 
 The recorded lesson: the most important finding was the growth in consumption per ticket. It had happened
-gradually, over eight months, with no alert firing — because no metric looked at the ratio between business
+gradually, over eight months, with no alert firing, because no metric looked at the ratio between business
 and resource.
 
 ## Related Concepts
 
 - [Performance versus Scalability](/11-scalability/performance-vs-scalability.md).
-- [Hotspots](/11-scalability/hotspots.md) — what a uniform test does not find.
-- [Capacity Planning](/05-system-design/capacity-planning.md) — the fundamentals.
-- [Backpressure](/06-distributed-systems/backpressure.md) — the shedding.
+- [Hotspots](/11-scalability/hotspots.md): what a uniform test does not find.
+- [Capacity Planning](/05-system-design/capacity-planning.md): the fundamentals.
+- [Backpressure](/06-distributed-systems/backpressure.md): the shedding.
 
 ## Practical Exercise
 
-Write down the ratio between a business metric and a resource in your system — orders per database query,
+Write down the ratio between a business metric and a resource in your system: orders per database query,
 users per instance.
 
 Compare with the same ratio six months ago. If it grew, your headroom is being consumed with nobody having
@@ -311,5 +311,5 @@ added load.
 ## Further Reading
 
 - Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 18.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 18.
 - Gregg, Brendan. *Systems Performance*. 2nd ed. Addison-Wesley, 2020.

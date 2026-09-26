@@ -2,7 +2,7 @@
 id: containers
 title: Containers
 sidebar_position: 4
-description: Packaging the application and its dependencies together — what that actually solves, and what remains your problem.
+description: "Packaging the application and its dependencies together: what that actually solves, and what remains your problem."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [kubernetes, serverless, cloud-compute]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-A container packages the application with its dependencies — libraries, binaries, configuration — into an
+A container packages the application with its dependencies (libraries, binaries, configuration) into an
 immutable artifact that runs the same anywhere that has the runtime.
 
 It is not a lightweight virtual machine. It is a process of the host operating system, isolated by features
@@ -33,7 +33,7 @@ lightness and the isolation limits.
 "It works on my machine" is the symptom of a real problem: the application depends on the environment, and
 the environment varies between the developer's machine, the test server and production.
 
-A system library version, an environment variable, a file path, a runtime version — any difference changes
+A system library version, an environment variable, a file path, a runtime version: any difference changes
 the behavior.
 
 A container solves it by bringing the environment along. The artifact that passed the tests is literally
@@ -54,7 +54,7 @@ The lightness comes from not replicating the operating system. The cost comes fr
 isolation flaw in the kernel crosses containers.
 
 That means **a container is not a strong security boundary**. To separate workloads that do not trust each
-other, the boundary needs to be something else — a virtual machine, or runtimes that add isolation.
+other, the boundary needs to be something else: a virtual machine, or runtimes that add isolation.
 
 ### The image is a stack of layers
 
@@ -62,8 +62,8 @@ Each build instruction creates a layer, and the layers are shared between images
 
 Two practical consequences:
 
-**Order matters for the cache.** Instructions that rarely change — installing dependencies — should come
-before those that always change — copying the code. Inverted, the rebuild redoes everything on every
+**Order matters for the cache.** Instructions that rarely change (installing dependencies) should come
+before those that always change (copying the code). Inverted, the rebuild redoes everything on every
 change.
 
 **Nothing really disappears.** A file deleted in a later layer is still in the earlier one. A secret copied
@@ -80,11 +80,11 @@ That is what gives predictability and what makes a rollback trivial: going back 
 image.
 
 And it implies a rule: **no manual change inside the container**. A fix applied with direct access vanishes
-when the container is recreated from the image — which the orchestrator does on every replacement — and creates a divergence nobody tracks.
+when the container is recreated from the image (which the orchestrator does on every replacement) and creates a divergence nobody tracks.
 
 ### State needs to go elsewhere
 
-Containers are ephemeral — they can be recreated at any moment, on any node. Their file system dies with
+Containers are ephemeral: they can be recreated at any moment, on any node. Their file system dies with
 them.
 
 State that needs to survive goes to an external volume, a database or object storage. See
@@ -95,7 +95,7 @@ output and be collected from outside.
 
 ### A small image is not an aesthetic matter
 
-An image based on a complete system carries hundreds of packages the application does not use — and each
+An image based on a complete system carries hundreds of packages the application does not use, and each
 one is attack surface and noise for the vulnerability scanner.
 
 A multi-stage build solves it: one stage compiles with all the tooling, and the final stage copies only the
@@ -113,7 +113,7 @@ periodic rebuild and scanning, the image rots.
 
 **Per-environment configuration.** It comes in through a variable or a mount, and it remains yours.
 
-**Secrets.** Never in the image — see above. See [security](/10-security/index.md).
+**Secrets.** Never in the image (see above). See [security](/10-security/index.md).
 
 **Resource limits.** With no CPU and memory limit, a container consumes the whole node and takes down its
 neighbors.
@@ -143,7 +143,7 @@ consistency; security and operations remain work.
 
 **When the application requires deep kernel access** or specific hardware.
 
-**For a single, stable application** on a machine nobody touches — the benefit does not pay for the change
+**For a single, stable application** on a machine nobody touches: the benefit does not pay for the change
 in tooling.
 
 **With images that are never rebuilt.** It becomes a security liability.
@@ -153,10 +153,10 @@ container.
 
 ## Alternatives
 
-- **A virtual machine** — strong isolation, heavier.
-- **An operating system package** — for a single, stable application.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — no capacity to size, with limits on duration and state.
-- **Runtimes with hardened isolation** — when you want a container with a security boundary closer to a
+- **A virtual machine**: strong isolation, heavier.
+- **An operating system package**: for a single, stable application.
+- **[Serverless](/09-cloud-architecture/serverless.md)**: no capacity to size, with limits on duration and state.
+- **Runtimes with hardened isolation**: when you want a container with a security boundary closer to a
   virtual machine's.
 
 ## Trade-offs
@@ -206,7 +206,7 @@ container.
 ## Real-World Example
 
 A financial services company migrated 30 applications to containers. Consistency between environments
-improved immediately — the "works in test, fails in production" defect class practically disappeared.
+improved immediately: the "works in test, fails in production" defect class practically disappeared.
 
 Four problems appeared in the first security audit, a year later:
 
@@ -240,14 +240,14 @@ patterns.
 
 **Reference by digest** in production, eliminating the moving tag.
 
-What the team learned: the migration was treated as a packaging project — "put it in a container" — and
+What the team learned: the migration was treated as a packaging project ("put it in a container") and
 ended when the applications ran. The practices above were not in scope because nobody had listed them as
 part of adopting containers.
 
 ## Related Concepts
 
-- [Kubernetes](/09-cloud-architecture/kubernetes.md) — the orchestration.
-- [Serverless](/09-cloud-architecture/serverless.md) — the model with no capacity to size.
+- [Kubernetes](/09-cloud-architecture/kubernetes.md): the orchestration.
+- [Serverless](/09-cloud-architecture/serverless.md): the model with no capacity to size.
 - [Cloud Compute](/09-cloud-architecture/cloud-compute.md).
 - [Security](/10-security/index.md).
 

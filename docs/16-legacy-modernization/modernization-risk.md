@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [organizational-constraints, data-migration, incremental-modernization]
 canonical_for: [risco de modernização, risco irreversível, controle de risco]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 Modernização é uma das atividades de maior risco em engenharia de software: ela mexe em
 sistemas que funcionam, sustentam receita, e que ninguém entende completamente.
 
-Os riscos são conhecidos e recorrentes. E a maior parte deles tem controle — o que
+Os riscos são conhecidos e recorrentes. E a maior parte deles tem controle. O que
 distingue projetos que dão certo dos que não é frequentemente saber quais aplicar.
 
 Este documento organiza os riscos por natureza, com o controle correspondente.
@@ -144,7 +144,7 @@ não fazer   degradação, mantenedor que sai, obrigação não atendida,
 
 Ver [motivadores de modernização](/16-legacy-modernization/modernization-drivers.md).
 
-Registrar os dois lados é o que permite a decisão informada — e é o que falta quando a
+Registrar os dois lados é o que permite a decisão informada, e é o que falta quando a
 proposta é rejeitada por parecer arriscada demais.
 
 ### Alguns riscos só aparecem no ciclo completo
@@ -161,7 +161,7 @@ sazonalidade — pico de fim de ano, safra, período letivo
 Um sistema novo validado por dois meses não exercitou nenhum deles.
 
 O controle: manter o antigo capaz de assumir até que ao menos um ciclo completo tenha
-passado — e planejar o desligamento em função disso, não do calendário do projeto.
+passado, e planejar o desligamento em função disso, não do calendário do projeto.
 
 ### O registro de risco precisa ser revisado com o que se aprende
 
@@ -189,7 +189,7 @@ que controle se mostrou desnecessário?
 ```
 
 A terceira importa tanto quanto as outras: controles que custam e não pegam nada devem
-sair, ou eles tornam o projeto mais lento sem reduzir risco — e o excesso de cerimônia
+sair, ou eles tornam o projeto mais lento sem reduzir risco. E o excesso de cerimônia
 desacredita os controles que importam.
 
 ## Modelo Mental
@@ -210,7 +210,7 @@ O registro de riscos vale em qualquer modernização; o erro é aplicar o conjun
 controles onde ele não compra redução de risco.
 
 **Fatia totalmente reversível e sem dado migrado.** Se voltar é trocar uma rota e nenhum
-dado mudou de lugar, o paralelo longo e a suspensão custam mais que o risco que cobrem —
+dado mudou de lugar, o paralelo longo e a suspensão custam mais que o risco que cobrem:
 a reversão é o controle.
 
 **Sistema sem processo periódico mais longo que o paralelo.** Se o inventário mostra que o
@@ -233,8 +233,8 @@ Formas de reduzir risco antes de qualquer controle:
 - **Escopo menor.** Modernizar a parte que causa o problema. Ver
   [estratégias de migração](/16-legacy-modernization/migration-strategies.md).
 - **Fatias menores.** Reduzem exposição por passo.
-- **Contenção em vez de substituição** — isolar o legado, sem mexer nele.
-- **Adiar** — quando as condições não estão dadas.
+- **Contenção em vez de substituição**: isolar o legado, sem mexer nele.
+- **Adiar**: quando as condições não estão dadas.
 
 ## Trade-offs
 
@@ -275,7 +275,7 @@ Formas de reduzir risco antes de qualquer controle:
 
 **Não fazer comparação em produção.** Rodar o sistema novo em paralelo e comparar as saídas com o antigo é a forma mais barata de descobrir divergência antes de ela afetar alguém.
 
-**Não exercitar um ciclo completo antes de desligar.** Fechamento mensal, conciliação e relatórios anuais só aparecem no ciclo deles — e é neles que a regra esquecida se revela.
+**Não exercitar um ciclo completo antes de desligar.** Fechamento mensal, conciliação e relatórios anuais só aparecem no ciclo deles, e é neles que a regra esquecida se revela.
 
 **Não registrar o risco de não fazer.** A comparação relevante é contra continuar como está, e sem esse lado a análise mostra só o custo da mudança.
 
@@ -296,7 +296,7 @@ Em dezembro, o processo de apuração anual falhou.
 
 A causa: uma regra de rateio de encargos setoriais, aplicada uma vez por ano, no
 fechamento de dezembro. Ela existia no sistema antigo, num módulo que rodava anualmente e
-que nenhum teste tinha exercitado — porque o período de paralelo foi de março a maio.
+que nenhum teste tinha exercitado, porque o período de paralelo foi de março a maio.
 
 O sistema antigo já estava desligado, e as máquinas, descomissionadas.
 
@@ -307,13 +307,13 @@ regulatória e de resultados de anos anteriores. Houve atraso na entrega da apur
 As mudanças de processo depois:
 
 **Ciclo completo antes de desligar.** Nenhum sistema é desligado antes de o novo ter
-exercitado todos os ciclos — mensal, trimestral, anual.
+exercitado todos os ciclos: mensal, trimestral, anual.
 
 Isso significou, para o programa seguinte, manter o antigo por 14 meses em vez de 2. O
 custo foi aceito.
 
 **Inventário de processos periódicos.** Levantamento explícito de tudo que roda com
-periodicidade mais longa que mensal — trimestral, anual —, com data e responsável.
+periodicidade mais longa que mensal (trimestral, anual), com data e responsável.
 
 Esse levantamento, feito retroativamente, encontrou mais quatro processos anuais em
 outros sistemas que ninguém tinha mapeado.
@@ -322,23 +322,23 @@ outros sistemas que ninguém tinha mapeado.
 antes do descomissionamento.
 
 **Comparação em produção** durante todo o paralelo, com o antigo processando em sombra
-depois do corte — o que teria detectado a divergência em dezembro, com o antigo ainda
+depois do corte. Isso teria detectado a divergência em dezembro, com o antigo ainda
 disponível.
 
 O detalhe que a equipe destaca: o risco de "processo periódico não exercitado" não estava no
 registro. Ele é específico de modernização, e não aparece em listas genéricas de risco de
-projeto — que era o modelo usado.
+projeto (que era o modelo usado).
 
 ## Conceitos Relacionados
 
-- [Migração de Dados](/16-legacy-modernization/data-migration.md) — o risco irreversível principal.
+- [Migração de Dados](/16-legacy-modernization/data-migration.md): o risco irreversível principal.
 - [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
-- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md) — o controle estrutural.
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md): o controle estrutural.
 - [Confiabilidade](/12-reliability/index.md).
 
 ## Exercício Prático
 
-Liste os processos periódicos do sistema que você pretende substituir — mensais,
+Liste os processos periódicos do sistema que você pretende substituir: mensais,
 trimestrais, anuais.
 
 O período de paralelo precisa cobrir o mais longo deles. Se não cobrir, o desligamento é

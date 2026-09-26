@@ -2,7 +2,7 @@
 id: sequence-diagrams
 title: Diagramas de Sequência
 sidebar_position: 7
-description: A ordem no tempo — o diagrama que explica comportamento, não estrutura.
+description: "A ordem no tempo: o diagrama que explica comportamento, não estrutura."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, data-flow-diagrams, diagram-quality]
 canonical_for: [diagrama de sequência, linha de vida, ordem temporal, cenário documentado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -25,10 +25,10 @@ Diagramas estruturais mostram **o que existe**. Diagramas de sequência mostram 
 acontece, em que ordem**.
 
 Essa é a diferença essencial, e ela define o uso: um diagrama de sequência documenta um
-**cenário** — um caminho específico através do sistema, do início ao fim.
+**cenário**, um caminho específico através do sistema, do início ao fim.
 
 Entre os diagramas de arquitetura, é o que mostra ordem e sincronia de um fluxo distribuído
-de forma mais direta — e o inadequado para descrever um sistema inteiro.
+de forma mais direta, e o inadequado para descrever um sistema inteiro.
 
 ## Problema
 
@@ -74,7 +74,7 @@ O nível de abstração precisa ser explícito, e o mais útil costuma ser o de
 Portal → API de Pedidos → Serviço de Pagamento → Fila → Serviço de Estoque
 ```
 
-Um diagrama de sequência entre classes existe e serve a outro propósito — discutir código,
+Um diagrama de sequência entre classes existe e serve a outro propósito: discutir código,
 não arquitetura. Misturar os dois no mesmo desenho produz o mesmo problema de níveis
 misturados descrito no [modelo C4](/17-architecture-documentation/c4-model.md).
 
@@ -124,7 +124,7 @@ API -) Fila: pedido confirmado
 API -->> Portal: 201
 ```
 
-O texto é legível sozinho, versiona bem, e o layout automático de sequência é bom — ao
+O texto é legível sozinho, versiona bem, e o layout automático de sequência é bom, ao
 contrário do de diagramas estruturais. Ver
 [documentação viva](/17-architecture-documentation/living-documentation.md).
 
@@ -133,7 +133,7 @@ contrário do de diagramas estruturais. Ver
 A meia-vida de um diagrama de sequência é a do fluxo que ele descreve, e fluxos de negócio
 mudam devagar comparados a estrutura de código.
 
-Isso os torna surpreendentemente duráveis — desde que descrevam o fluxo em nível de
+Isso os torna surpreendentemente duráveis, desde que descrevam o fluxo em nível de
 contêiner e não de implementação.
 
 ### Latência acumulada fica visível
@@ -170,21 +170,21 @@ lado. Ver [latência](/06-distributed-systems/latency.md).
 
 **Para descrever o sistema.** Ele descreve um caminho.
 
-**Com dezenas de mensagens** — acima de doze, a leitura se perde.
+**Com dezenas de mensagens**: acima de doze, a leitura se perde.
 
 **Com condicionais aninhadas.** Dois cenários, dois diagramas.
 
-**Para fluxos triviais** de duas chamadas — uma frase resolve.
+**Para fluxos triviais** de duas chamadas: uma frase resolve.
 
 **No nível de classe**, quando a conversa é arquitetural.
 
 ## Alternativas
 
-- **Descrição numerada em texto** — para fluxos simples, mais rápida de escrever e ler.
-- **[Fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md)** — quando a pergunta é sobre o dado, não a
+- **Descrição numerada em texto**: para fluxos simples, mais rápida de escrever e ler.
+- **[Fluxo de dados](/17-architecture-documentation/data-flow-diagrams.md)**: quando a pergunta é sobre o dado, não a
   ordem.
-- **Diagrama de estados** — quando o objeto tem ciclo de vida, e não um caminho.
-- **Rastreamento distribuído** — mostra a sequência real, não a pretendida. Ver
+- **Diagrama de estados**: quando o objeto tem ciclo de vida, e não um caminho.
+- **Rastreamento distribuído**: mostra a sequência real, não a pretendida. Ver
   [rastreamento](/13-observability/distributed-tracing.md).
 
 A última merece nota: uma amostra de rastreamento é um diagrama de sequência gerado a
@@ -240,7 +240,7 @@ cobrança. Cerca de 40 casos por mês, tratados manualmente.
 A equipe desenhou o fluxo em sequência, primeiro o caminho feliz. Ele estava correto e não
 revelou nada.
 
-Depois desenharam os caminhos de falha — um diagrama para cada ponto em que uma chamada
+Depois desenharam os caminhos de falha: um diagrama para cada ponto em que uma chamada
 podia falhar. Foram sete diagramas, e três deles não puderam ser completados, porque
 ninguém sabia o que acontecia:
 
@@ -258,7 +258,7 @@ O que saiu do exercício:
 falha, com registro. Ver
 [sagas](/06-distributed-systems/sagas.md).
 
-**Publicação transacional** para o segundo — gravação e evento na mesma transação, com
+**Publicação transacional** para o segundo: gravação e evento na mesma transação, com
 publicação posterior a partir da tabela. Ver
 [garantias de entrega](/06-distributed-systems/delivery-guarantees.md).
 
@@ -277,9 +277,9 @@ diagramas que não conseguiram ser terminados.
 
 ## Conceitos Relacionados
 
-- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o nível dos participantes.
-- [Fluxo de Dados](/17-architecture-documentation/data-flow-diagrams.md) — a alternativa centrada no dado.
-- [Rastreamento Distribuído](/13-observability/distributed-tracing.md) — a sequência
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md): o nível dos participantes.
+- [Fluxo de Dados](/17-architecture-documentation/data-flow-diagrams.md): a alternativa centrada no dado.
+- [Rastreamento Distribuído](/13-observability/distributed-tracing.md): a sequência
   real.
 - [Sagas](/06-distributed-systems/sagas.md).
 

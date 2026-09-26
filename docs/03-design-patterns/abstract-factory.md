@@ -2,7 +2,7 @@
 id: abstract-factory
 title: Abstract Factory
 sidebar_position: 2
-description: Criar famílias de produtos compatíveis — e por que ele quase nunca é a resposta hoje.
+description: Criar famílias de produtos compatíveis, e por que ele quase nunca é a resposta hoje.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [factory-method]
 related: [factory-method, builder, facade]
 canonical_for: [abstract factory]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -72,7 +72,7 @@ classes concretas.
 A força do padrão é sua fraqueza: **adicionar um produto novo à família exige
 alterar a interface da fábrica e todas as implementações.**
 
-Adicionar uma família nova é barato — uma classe. Adicionar um produto é caro —
+Adicionar uma família nova é barato: uma classe. Adicionar um produto é caro:
 toca todas as fábricas existentes.
 
 Isso significa que o padrão só se justifica quando o **conjunto de produtos é
@@ -104,7 +104,7 @@ funções de criação, sem hierarquia paralela.
 ## Quando Não Usar
 
 **Quando não há restrição de compatibilidade.** Se os produtos podem ser
-misturados sem erro, não há família — há objetos independentes, e cada um pode ser
+misturados sem erro, não há família: há objetos independentes, e cada um pode ser
 obtido por injeção.
 
 **Quando produtos novos são frequentes.** Cada um toca todas as fábricas. Se essa
@@ -122,12 +122,12 @@ já faz.
 
 ## Alternativas
 
-- **Injeção de dependência com configuração por perfil** — a resposta na maioria
+- **Injeção de dependência com configuração por perfil**: a resposta na maioria
   dos casos.
-- **[Factory Method](/03-design-patterns/factory-method.md)** — quando é um produto, não uma família.
-- **[Builder](/03-design-patterns/builder.md)** — quando o problema é montar um objeto complexo, não
+- **[Factory Method](/03-design-patterns/factory-method.md)**: quando é um produto, não uma família.
+- **[Builder](/03-design-patterns/builder.md)**: quando o problema é montar um objeto complexo, não
   escolher entre famílias.
-- **Passar um conjunto de funções de criação** — mesma coerência, sem hierarquia.
+- **Passar um conjunto de funções de criação**: mesma coerência, sem hierarquia.
 
 ## Trade-offs
 
@@ -166,7 +166,7 @@ Um sistema de integração bancária precisava gerar, para cada banco, um conjun
 coerente: formatador de arquivo de remessa, parser de retorno, validador de conta
 e calculador de dígito verificador.
 
-Misturar bancos era um defeito real e já tinha acontecido — um retorno de um banco
+Misturar bancos era um defeito real e já tinha acontecido: um retorno de um banco
 processado com o parser de outro produziu conciliação errada por três dias.
 
 `FabricaBancaria` com quatro operações de criação, uma implementação por banco.
@@ -175,18 +175,18 @@ O cliente obtém tudo de uma fábrica e não consegue misturar.
 Onze bancos foram adicionados em quatro anos, cada um uma classe.
 
 O eixo caro nunca foi exercido: nenhum produto novo foi adicionado à família em
-quatro anos. Foi exatamente a condição que justificava o padrão — conjunto de
-produtos estável, famílias variando — e ela se manteve.
+quatro anos. Foi exatamente a condição que justificava o padrão (conjunto de
+produtos estável, famílias variando), e ela se manteve.
 
-Se um quinto produto tivesse surgido, teria tocado doze arquivos existentes — a interface da
-fábrica e as onze implementações — mais as onze classes de produto novas, uma por família.
+Se um quinto produto tivesse surgido, teria tocado doze arquivos existentes (a interface da
+fábrica e as onze implementações), mais as onze classes de produto novas, uma por família.
 É o custo que o eixo rígido cobra, e é por isso que a estabilidade do conjunto de produtos é
 pré-requisito e não detalhe.
 
 ## Onde ele aparece na prática
 
 **APIs de parsing XML em Java.** O caso costuma ser citado aqui, e não deveria:
-`DocumentBuilderFactory` declara uma operação de criação só — `newDocumentBuilder()` —, o que
+`DocumentBuilderFactory` declara uma operação de criação só (`newDocumentBuilder()`), o que
 pelo critério da seção anterior é [factory method](/03-design-patterns/factory-method.md), não
 este padrão. A família coerente existe um nível abaixo, entre `Document`, `Element` e `Text`
 de uma mesma implementação, e quem a mantém junta é o documento, não a fábrica.
@@ -194,8 +194,8 @@ de uma mesma implementação, e quem a mantém junta é o documento, não a fáb
 **Bibliotecas de widgets multiplataforma.** O caso que originou o padrão, hoje
 resolvido por temas na maior parte dos frameworks.
 
-**Drivers de banco.** A compatibilidade é real — não se combina a conexão de um driver com o
-comando de outro —, mas a forma é outra: em JDBC a cadeia é `Connection` cria `Statement` cria
+**Drivers de banco.** A compatibilidade é real (não se combina a conexão de um driver com o
+comando de outro), mas a forma é outra: em JDBC a cadeia é `Connection` cria `Statement` cria
 `ResultSet`, factory methods encadeados, e não uma interface de fábrica com quatro operações.
 Serve como ilustração da *restrição de compatibilidade*, não da estrutura do padrão.
 
@@ -205,15 +205,15 @@ foram projetados para trabalhar juntos e assumem coisas uns dos outros.
 Num sistema de aplicação, essa condição é rara. Quando alguém propõe Abstract
 Factory, a pergunta que decide é direta: **o que quebra concretamente se
 misturarmos objetos de famílias diferentes?** Se não houver resposta específica,
-não há família — há objetos independentes que podem ser injetados um a um, e o
+não há família: há objetos independentes que podem ser injetados um a um, e o
 padrão está sendo usado como agrupamento organizacional, que é uma função que ele
 cumpre mal.
 
 ## Conceitos Relacionados
 
-- [Factory Method](/03-design-patterns/factory-method.md) — um produto, variação por subclasse.
-- [Builder](/03-design-patterns/builder.md) — construção em etapas.
-- [Facade](/03-design-patterns/facade.md) — quando o objetivo é simplificar acesso, não garantir
+- [Factory Method](/03-design-patterns/factory-method.md): um produto, variação por subclasse.
+- [Builder](/03-design-patterns/builder.md): construção em etapas.
+- [Facade](/03-design-patterns/facade.md): quando o objetivo é simplificar acesso, não garantir
   coerência.
 
 ## Exercício Prático

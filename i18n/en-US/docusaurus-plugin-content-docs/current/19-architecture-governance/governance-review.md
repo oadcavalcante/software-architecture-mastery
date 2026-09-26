@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-pathologies, exceptions]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -32,9 +32,9 @@ late, with no veto power      ritual
 early, with veto power        nobody brings anything early
 ```
 
-For most decisions, only the first combination has any effect — veto is justified for a
+For most decisions, only the first combination has any effect. Veto is justified for a
 small set of classes, described below. And it is the least chosen, because it looks like
-the weakest — a review with no formal authority sounds like a review with no consequence.
+the weakest: a review with no formal authority sounds like a review with no consequence.
 
 Practice shows the opposite: the authority to veto is what pushes the review to the end,
 where there is nothing left to improve.
@@ -75,7 +75,7 @@ better still   there is the problem and a sketch
 The highest-value review happens when the team still **has doubts**. A genuine doubt is the
 sign that there is room for influence.
 
-That requires bringing something incomplete to be safe — which is incompatible with a veto.
+That requires bringing something incomplete to be safe. That is incompatible with a veto.
 
 ### Advice, not a gate
 
@@ -86,7 +86,7 @@ advice   improves the decision of whoever proceeds
 
 In the advice model, the decision stays with the team, and the record that the guidance was
 given stays with the review. If the team takes a different path, that is legitimate and gets
-recorded — in the [ADR](/18-architecture-decisions/what-is-an-adr.md), with the objection preserved.
+recorded: in the [ADR](/18-architecture-decisions/what-is-an-adr.md), with the objection preserved.
 
 That record is what replaces formal authority: there is no veto, and there is memory.
 
@@ -140,7 +140,7 @@ Separating the first three categories solves the most common problem with review
 of unequal weight presented with the same emphasis, leaving the team with no prioritization
 criterion.
 
-And recording that separation is what makes it possible to assess the review afterwards — see
+And recording that separation is what makes it possible to assess the review afterwards. See
 [measurement](/19-architecture-governance/measuring-governance.md).
 
 ### Who takes part
@@ -153,7 +153,7 @@ whoever consumes          affected teams, when there is a contract between them
 ```
 
 A small group works better. A review with nine people produces comments of education, not of
-judgment — every participant feels the need to contribute.
+judgment: every participant feels the need to contribute.
 
 Three to five is the range where a discussion is still a discussion.
 
@@ -168,7 +168,7 @@ worse for    open exploration, deep disagreement
 effect       it filters: only what needs a conversation becomes a meeting
 ```
 
-Writing forces clarity, and written comments are quotable later. The cost is latency — and
+Writing forces clarity, and written comments are quotable later. The cost is latency, and
 for architectural decisions, two days of latency is rarely the bottleneck.
 
 ## Mental Model
@@ -185,26 +185,26 @@ when there is nothing left to improve.
 
 ## When Not to Use
 
-**Recurring decision already covered by a template or fitness function** — the review repeats
+**Recurring decision already covered by a template or fitness function**: the review repeats
 what the template already decides and only adds latency.
 
-**Reversible decision local to one team** — waiting for the session costs more than fixing
+**Reversible decision local to one team**: waiting for the session costs more than fixing
 the mistake, if it shows up.
 
-**Design already implemented** — with no room to change, the review can only approve or cause
+**Design already implemented**: with no room to change, the review can only approve or cause
 rework; what fits there is recording the decision in an ADR.
 
-**As a gate for everything** — the queue grows, and the veto pushes every decision late.
+**As a gate for everything**: the queue grows, and the veto pushes every decision late.
 
-**As the only governance mechanism** — review doesn't scale, and it is corrective by nature.
+**As the only governance mechanism**: review doesn't scale, and it is corrective by nature.
 
 ## Alternatives
 
-- **[Fitness functions](/19-architecture-governance/fitness-functions-governance.md)** — for
+- **[Fitness functions](/19-architecture-governance/fitness-functions-governance.md)**: for
   what is verifiable, cheaper and more reliable.
-- **Voluntary consultation** — with no formal agenda, on the team's request.
-- **Peer review between teams** — with no central role, with a dissemination effect.
-- **A template** — when the decision is recurring, the review becomes redundant.
+- **Voluntary consultation**: with no formal agenda, on the team's request.
+- **Peer review between teams**: with no central role, with a dissemination effect.
+- **A template**: when the decision is recurring, the review becomes redundant.
 
 The second has a useful property: the volume of voluntary consultations is a direct indicator
 that the mechanism is perceived as useful.
@@ -282,8 +282,8 @@ The redesign:
 
 **Review becomes advice** for most decisions. No approval, no blocking.
 
-**Four classes with a real gate**: regulatory implications — relevant in a health data
-context — a data format between teams, a financial commitment above a threshold, and new
+**Four classes with a real gate**: regulatory implications (relevant in a health data
+context), a data format between teams, a financial commitment above a threshold, and new
 public exposure.
 
 **A 30-minute session with three participants**, chosen for relevance and not for seniority.
@@ -311,7 +311,7 @@ cases where the divergence proved
 
 The 9 cases where the team was right against the recommendation were used internally as an
 argument for keeping the model. The recorded conclusion is limited to the data: in the 14 times the team diverged, it was right
-in 9 — a biased sample, because the team only diverges when it is convinced. Without the
+in 9 (a biased sample, because the team only diverges when it is convinced). Without the
 divergence record, not even that data would exist: under the gate, divergence didn't happen.
 
 A side effect: the voluntary attendance rate gave the architecture group information the
@@ -320,18 +320,18 @@ built before it was built.
 
 ## Related Concepts
 
-- [Governance Basics](/19-architecture-governance/governance-basics.md) — the intervention
+- [Governance Basics](/19-architecture-governance/governance-basics.md): the intervention
   point.
-- [Architecture Review](/15-enterprise-architecture/architecture-review.md) — formats.
-- [Pathologies](/19-architecture-governance/governance-pathologies.md) — the committee that
+- [Architecture Review](/15-enterprise-architecture/architecture-review.md): formats.
+- [Pathologies](/19-architecture-governance/governance-pathologies.md): the committee that
   approves everything.
-- [Decision](/18-architecture-decisions/adr-decision.md) — recording the divergence.
+- [Decision](/18-architecture-decisions/adr-decision.md): recording the divergence.
 
 ## Practical Exercise
 
 Measure your context's review approval rate over the last 12 months.
 
-Above 90%, the review is only receiving the inevitable — and the diagnosis is about the
+Above 90%, the review is only receiving the inevitable, and the diagnosis is about the
 moment it happens, not about who takes part.
 
 ## Interview Questions

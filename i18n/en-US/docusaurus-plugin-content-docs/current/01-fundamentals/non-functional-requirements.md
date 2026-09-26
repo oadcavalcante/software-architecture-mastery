@@ -2,7 +2,7 @@
 id: non-functional-requirements
 title: Non-Functional Requirements
 sidebar_position: 8
-description: How well the system does what it does — and why without a number they are not requirements.
+description: How well the system does what it does, and why without a number they are not requirements.
 doc_type: foundation
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-requirements]
 related: [quality-attributes, constraints]
 canonical_for: [non-functional requirements]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -30,7 +30,7 @@ arrive without a number.
 ## The Problem
 
 "The system needs to be fast and reliable" appears in practically every
-requirements document. The sentence is not a requirement — it is a wish, and one
+requirements document. The sentence is not a requirement; it is a wish, and one
 nobody would contest.
 
 A requirement must be verifiable. "Fast" cannot be: there is no test that confirms
@@ -50,9 +50,9 @@ part of requirements gathering.
 
 Miss any one of them and it goes back to being a wish.
 
-**Metric** — what is measured, without ambiguity.
-**Number and window** — the value and the period over which it holds.
-**Consequence** — what happens if it is not met.
+**Metric**: what is measured, without ambiguity.
+**Number and window**: the value and the period over which it holds.
+**Consequence**: what happens if it is not met.
 
 ```text
 wish:        "Searches need to be fast."
@@ -64,7 +64,7 @@ requirement: 95% of searches respond in under 300 ms,
 ```
 
 The third part is the one usually missing and the one that matters most. Without a
-stated consequence, the number is arbitrary — and an arbitrary number does not
+stated consequence, the number is arbitrary, and an arbitrary number does not
 survive the first conversation about cost.
 
 ### Percentiles, not averages, in a latency requirement
@@ -89,7 +89,7 @@ of downtime per month and per year is in
 
 Bringing that cost to the table is what turns "do you want 99.9% or 99.99%?" into
 an informed decision. Without it, the answer leans toward the larger number,
-because asking costs the asker nothing — with it, it frequently becomes "99.9% is
+because asking costs the asker nothing. With it, it frequently becomes "99.9% is
 fine".
 
 ### Not every attribute applies equally
@@ -105,7 +105,7 @@ A document listing ten attributes as "high priority" prioritized nothing.
 
 **If you cannot write the test that verifies it, it is not a requirement.**
 
-The test need not be automated — it can be a query against a dashboard, a monthly
+The test need not be automated: it can be a query against a dashboard, a monthly
 measurement. It has to be possible to look at the system and say, without debate,
 whether it meets the requirement.
 
@@ -131,7 +131,7 @@ become a metric, a number, a window and a consequence before entering the
 document.
 
 **Asking for the maximum out of caution.** Stakeholders ask for 99.99% because
-asking costs nothing. It does cost — the cost just shows up in engineering.
+asking costs nothing. It does cost: the cost just shows up in engineering.
 Presenting the cost of each nine before the question changes the answer in most
 cases.
 
@@ -177,7 +177,7 @@ Resulting requirements:
   respond, with transmission within 24 h.
 
 The third requirement was not in the original request and is the one that most
-affects the architecture — it demands a durable queue, reconciliation and a state
+affects the architecture: it demands a durable queue, reconciliation and a state
 machine.
 
 Note also that the restricted window in the first requirement substantially
@@ -185,14 +185,14 @@ reduces cost, without losing anything the business needed.
 
 ## Related Concepts
 
-- [Quality Attributes](/01-fundamentals/quality-attributes.md) — the taxonomy behind these
+- [Quality Attributes](/01-fundamentals/quality-attributes.md): the taxonomy behind these
   requirements.
-- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md) — which of
+- [Architecture Characteristics](/01-fundamentals/architecture-characteristics.md): which of
   these requirements are few enough to drive the structure.
-- [Constraints](/01-fundamentals/constraints.md) — what is not negotiable.
-- [Latency](/06-distributed-systems/latency.md) — why the tail exists, and why
+- [Constraints](/01-fundamentals/constraints.md): what is not negotiable.
+- [Latency](/06-distributed-systems/latency.md): why the tail exists, and why
   the percentile is the honest number.
-- [Reliability](/12-reliability/index.md) — where SLI, SLO and SLA formalize
+- [Reliability](/12-reliability/index.md): where SLI, SLO and SLA formalize
   this.
 
 ## Practical Exercise
@@ -212,7 +212,7 @@ you do not know the consequence, that is the question to take to the stakeholder
 
 ## Further Exploration
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — the
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. The
   chapters on SLOs and error budgets.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
-  4th ed., 2021 — quality attribute scenarios.
+  4th ed., 2021. Quality attribute scenarios.

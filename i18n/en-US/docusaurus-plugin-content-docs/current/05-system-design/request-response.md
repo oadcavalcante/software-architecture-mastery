@@ -2,7 +2,7 @@
 id: request-response
 title: Request/Response
 sidebar_position: 5
-description: The synchronous model and what it couples — the decision that precedes every protocol choice.
+description: "The synchronous model and what it couples: the decision that precedes every protocol choice."
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [queues, background-processing, timeouts]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,22 +25,22 @@ In the request/response model, the caller waits for the response before continui
 default model of HTTP, of RPC and of a database call.
 
 It is simple, familiar and adequate in most cases. It is also what introduces **temporal
-coupling** — and recognizing that is what allows deciding when not to use it.
+coupling**, and recognizing that is what allows deciding when not to use it.
 
 ## Problem
 
 The question usually asked is which protocol to use. The question that precedes it is
 another: **does the caller need the result to continue?**
 
-If it does, synchronous is the model. If it does not — and frequently it does not — waiting
+If it does, synchronous is the model. If it does not (and frequently it does not), waiting
 means the caller becomes unavailable when the callee is.
 
 The pattern that shows up in systems: confirming an order triggers stock reservation,
 charging, notification and tax registration, all synchronous. If the notification service is
-down, the order is not confirmed — although notifying is the least important of the four.
+down, the order is not confirmed, although notifying is the least important of the four.
 
-That is not a protocol decision. It is a decision about what has to happen before responding
-to the user.
+That is a decision about what has to happen before responding
+to the user, not a protocol decision.
 
 ## Core Concepts
 
@@ -56,7 +56,7 @@ whole is the product of the individual ones, and the latency is the sum.
   → 99.6% availability, 400 ms latency
 ```
 
-Swapping synchronous for asynchronous does not remove coupling — it trades temporal coupling
+Swapping synchronous for asynchronous does not remove coupling: it trades temporal coupling
 for format coupling. See
 [queues](/05-system-design/queues.md).
 
@@ -76,7 +76,7 @@ Outside those, synchronous is a choice by habit.
 ### The timeout is part of the contract
 
 Every synchronous call needs a timeout. Without one, the caller waits indefinitely and
-exhausts resources — and the failure propagates upward.
+exhausts resources, and the failure propagates upward.
 
 The timeout has to be **shorter** than the caller's, otherwise it gives up first and the
 chain works for nobody. See
@@ -96,7 +96,7 @@ Separating what is essential from what is enrichment allows degrading instead of
 ## Mental Model
 
 **Ask what happens if the other side is down.** If the answer is "we wait", there is temporal
-coupling — and it has to be deliberate.
+coupling, and it has to be deliberate.
 
 ## When to Use
 
@@ -108,7 +108,7 @@ coupling — and it has to be deliberate.
 
 ## When Not to Use
 
-**When the caller does not use the result.** Notifying, logging, indexing, syncing — none of
+**When the caller does not use the result.** Notifying, logging, indexing, syncing: none of
 that has to block the response.
 
 **When the operation is slow.** An HTTP request that waits thirty seconds consumes a
@@ -116,7 +116,7 @@ connection, exhausts the pool and frequently times out at some proxy along the w
 [background processing](/05-system-design/background-processing.md).
 
 **When the destination is unstable.** Synchronously calling a service less available than you
-lowers your availability to the product of the two — below its level, not equal to it.
+lowers your availability to the product of the two: below its level, not equal to it.
 
 **When the chain gets long.** Each hop multiplies risk and adds latency.
 
@@ -125,13 +125,13 @@ it.
 
 ## Alternatives
 
-- **[Queue](/05-system-design/queues.md)** — decouples in time, at the cost of duplication and
+- **[Queue](/05-system-design/queues.md)**: decouples in time, at the cost of duplication and
   ordering.
-- **[Background processing](/05-system-design/background-processing.md)** — respond accepted
+- **[Background processing](/05-system-design/background-processing.md)**: respond accepted
   and process later.
-- **Event** — when several interested parties react. See
+- **Event**: when several interested parties react. See
   [event-driven architecture](/03-design-patterns/event-driven.md).
-- **Request with a deferred response** — return an operation identifier and a path to query
+- **Request with a deferred response**: return an operation identifier and a path to query
   the result.
 
 ## Trade-offs
@@ -146,7 +146,7 @@ it.
 | Peak propagates backward | Absorbed by the queue |
 | No duplication or ordering to handle | Both to handle |
 
-The fourth and seventh lines are what keeps synchronous the correct default in most cases —
+The fourth and seventh lines are what keeps synchronous the correct default in most cases:
 asynchronous solves availability and charges in data complexity.
 
 ## Failure Modes
@@ -185,7 +185,7 @@ notification. All inside the database transaction.
 
 Two problems arose together on a Tuesday.
 
-The tax service became slow — 8 seconds instead of 200 ms. The database transactions stayed
+The tax service became slow: 8 seconds instead of 200 ms. The database transactions stayed
 open during the wait, holding locks on the order rows.
 
 Within minutes, the connection pool was exhausted and the whole system stopped. The root cause
@@ -200,33 +200,33 @@ order.
 user, but it does not need to hold a database lock.
 
 **Tax and notification** became asynchronous, published after the confirmation. Tax issuance
-has a legal deadline of hours, not milliseconds — nobody had checked that before.
+has a legal deadline of hours, not milliseconds. Nobody had checked that before.
 
 Besides that, all calls got an explicit timeout, and the payment one got a
 [circuit breaker](/12-reliability/circuit-breakers.md).
 
 What changed was not technology. It was asking, for each call, whether the result was needed to
-respond — and two of the four were not.
+respond, and two of the four were not.
 
 ## The timeout budget in a chain
 
 Temporal coupling imposes a fixed budget: the deadline the user accepts is the deadline of the
 whole chain below them, divided among the hops. Every synchronous call added spends part of
-that total — none of them gets a total of its own.
+that total. None of them gets a total of its own.
 
 That is why the timeout of a call is not decided at the point of the call: the correct limit
 depends on what is left above it, and what is left depends on how many hops the request has
 already crossed. It is a global calculation, treated almost always as a local adjustment.
 
-The mechanics — how to distribute that budget and how to propagate the remaining deadline — are
+The mechanics (how to distribute that budget and how to propagate the remaining deadline) are
 in [timeouts](/06-distributed-systems/timeouts.md).
 
 ## Related Concepts
 
-- [APIs](/05-system-design/apis.md) — the call's contract.
-- [Queues](/05-system-design/queues.md) — the asynchronous model.
-- [Background Processing](/05-system-design/background-processing.md) — long operations.
-- [Distributed Systems](/06-distributed-systems/index.md) — timeouts, retries and idempotency.
+- [APIs](/05-system-design/apis.md): the call's contract.
+- [Queues](/05-system-design/queues.md): the asynchronous model.
+- [Background Processing](/05-system-design/background-processing.md): long operations.
+- [Distributed Systems](/06-distributed-systems/index.md): timeouts, retries and idempotency.
 
 ## Practical Exercise
 
@@ -235,7 +235,7 @@ Pick the most important endpoint in your system and list every external call it 
 For each one, answer: is the result needed to respond to the user? Is it inside a database
 transaction?
 
-The ones that answer "no" and "yes" — in that order — are the ones that will take down the
+The ones that answer "no" and "yes", in that order, are the ones that will take down the
 system when the destination gets slow.
 
 ## Interview Questions
@@ -246,6 +246,6 @@ system when the destination gets slow.
 
 ## Further Reading
 
-- Nygard, Michael. *Release It!* 2nd ed., Pragmatic Bookshelf, 2018 — cascades and stability
+- Nygard, Michael. *Release It!* 2nd ed., Pragmatic Bookshelf, 2018. Cascades and stability
   patterns.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.

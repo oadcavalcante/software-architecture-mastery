@@ -2,7 +2,7 @@
 id: clock-and-time
 title: Clocks and Time
 sidebar_position: 34
-description: Why there is no shared "now" — and why timestamps do not order events.
+description: Why there is no shared "now", and why timestamps do not order events.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [ordering, conflict-resolution, consensus]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 In a distributed system there is no shared **now**.
 
 Each machine has its own clock, and they diverge. That means comparing timestamps from different
-machines does not establish order — and systems that depend on that fail in subtle, hard-to-reproduce
+machines does not establish order, and systems that depend on that fail in subtle, hard-to-reproduce
 ways.
 
 ## Problem
@@ -35,7 +35,7 @@ checking expiry, measuring duration.
 Each of those uses has a different problem, and they all come from the same root: one machine's
 clock has no reliable relationship with another's.
 
-**Drift.** Quartz clocks deviate — typically a few seconds per day without synchronization.
+**Drift.** Quartz clocks deviate, typically a few seconds per day without synchronization.
 
 **Imperfect synchronization.** NTP corrects it, with a precision of tens of milliseconds on a good
 network, and far worse under congestion.
@@ -53,7 +53,7 @@ subtracting two instants can get a negative value.
 **recording when something happened**, for display, for long-lived credential expiry.
 
 **Monotonic clock.** A counter that only grows, unrelated to the calendar. It neither goes
-backwards nor jumps — but NTP does adjust its frequency, and, depending on which clock the
+backwards nor jumps, but NTP does adjust its frequency, and, depending on which clock the
 operating system offers, time spent suspended may not be counted. The value only means something
 within the same machine and the same boot: its origin is arbitrary and restarts on every reboot.
 Suitable for **measuring duration**, timeouts and intervals.
@@ -62,7 +62,7 @@ The classic error: measuring an operation's duration by subtracting two wall clo
 corrects in the middle, the result can be negative or absurd.
 
 Within a single process, every measurement of elapsed time should use the monotonic clock.
-Duration that crosses machines or reboots — the age of the oldest message in a queue, for example —
+Duration that crosses machines or reboots (the age of the oldest message in a queue, for example)
 does not have that option: it subtracts wall clock marks, and the number carries the divergence
 between the clocks involved, which has to be stated alongside it.
 
@@ -84,18 +84,18 @@ single point, or the
 When causal order matters and the physical clock does not serve:
 
 **Lamport clock.** One counter per node, incremented on each event and propagated in messages. If A
-caused B, A's counter is smaller. The converse does not hold — smaller counters do not imply
+caused B, A's counter is smaller. The converse does not hold: smaller counters do not imply
 causality.
 
 **Version vector.** One counter per node, kept as a vector. It allows distinguishing "A caused B"
-from "A and B were concurrent" — which is what
+from "A and B were concurrent". That is what
 [conflict detection](/06-distributed-systems/conflict-resolution.md) requires.
 
 The vector is more expensive in space and is the one that actually answers the useful question.
 
 ### Clocks with bounded uncertainty
 
-Some systems use specialized hardware — GPS and atomic clocks — to bound the uncertainty to a few
+Some systems use specialized hardware (GPS and atomic clocks) to bound the uncertainty to a few
 milliseconds, and then **wait out** that uncertainty before committing a transaction.
 
 It is Spanner's approach: instead of pretending the clocks agree, quantifying how much they can
@@ -111,7 +111,7 @@ clocks diverge:
 A server with a lagging clock accepts already-expired credentials. One that is ahead rejects valid
 ones.
 
-That is why token protocols usually recommend a tolerance margin — and why an unsynchronized clock
+That is why token protocols usually recommend a tolerance margin, and why an unsynchronized clock
 shows up as "an intermittent authentication error that goes away on retry".
 
 ## Mental Model
@@ -138,20 +138,20 @@ of elapsed time within the same process.
 **A timestamp to resolve a conflict.** See
 [conflict resolution](/06-distributed-systems/conflict-resolution.md).
 
-**Assuming the clocks are synchronized.** Check — drift happens, and frequently with no alert.
+**Assuming the clocks are synchronized.** Check: drift happens, and frequently with no alert.
 
 **Short expiry with no margin.** A 30-second credential with clocks diverging by 100 ms is fragile.
 
 ## Alternatives
 
-- **Sequence counter** — assigned by a single point, it orders without depending on a clock. It wins
+- **Sequence counter**: assigned by a single point, it orders without depending on a clock. It wins
   when the order is contractual and the throughput fits through one chokepoint; it charges that point
   as a ceiling on the throughput and the availability of every write.
-- **Entity version** — solves ordering and staleness detection. It wins when the order only has to
+- **Entity version**: solves ordering and staleness detection. It wins when the order only has to
   hold within each entity, not across different entities.
-- **Version vector** — wins when concurrent writes have to be told apart from causally ordered ones;
+- **Version vector**: wins when concurrent writes have to be told apart from causally ordered ones;
   it charges state that grows with the number of nodes.
-- **Hybrid clock** — combines a physical and a logical component. It wins when you want causality
+- **Hybrid clock**: combines a physical and a logical component. It wins when you want causality
   without losing the relationship with the calendar; it charges the coupling of both parts on every
   event.
 
@@ -203,7 +203,7 @@ servers. The server that received the **first** had a clock 120 ms ahead.
 
 By timestamp, the first bid appeared to be later. It won the auction.
 
-An audit of the network logs showed the real order, and the result had to be reversed — with legal
+An audit of the network logs showed the real order, and the result had to be reversed, with legal
 consequences.
 
 The investigation revealed that the drift among the four servers varied between 15 and 180 ms over
@@ -218,20 +218,20 @@ number. The order comes from it, not from a clock.
 
 **Drift monitoring** with an alert above 50 ms.
 
-**Duration measurement** migrated to the monotonic clock across the system — a code audit found
+**Duration measurement** migrated to the monotonic clock across the system: a code audit found
 eleven places subtracting wall clock values.
 
 The detail the team highlights: the system worked for three years, and the ordering had been wrong
-in a fraction of the auctions that whole time. It only surfaced when someone contested — and the
+in a fraction of the auctions that whole time. It only surfaced when someone contested, and the
 absence of a central counter was known to nobody, because "use the server's time" seemed too obvious
 to question.
 
 ## Related Concepts
 
-- [Ordering](/06-distributed-systems/ordering.md) — where clocks do not serve.
-- [Conflict Resolution](/06-distributed-systems/conflict-resolution.md) — the same problem.
-- [Timeouts](/06-distributed-systems/timeouts.md) — which need the monotonic clock.
-- [Consensus](/06-distributed-systems/consensus.md) — which establishes order without depending on a
+- [Ordering](/06-distributed-systems/ordering.md): where clocks do not serve.
+- [Conflict Resolution](/06-distributed-systems/conflict-resolution.md): the same problem.
+- [Timeouts](/06-distributed-systems/timeouts.md): which need the monotonic clock.
+- [Consensus](/06-distributed-systems/consensus.md): which establishes order without depending on a
   clock.
 
 ## Practical Exercise
@@ -250,6 +250,6 @@ Then check the drift among your system's machines. If there is no metric, that i
 ## Further Reading
 
 - Lamport, Leslie. *Time, Clocks, and the Ordering of Events in a Distributed System*. CACM, 1978.
-- Corbett, James et al. *Spanner: Google's Globally-Distributed Database*. OSDI, 2012 — the bounded
+- Corbett, James et al. *Spanner: Google's Globally-Distributed Database*. OSDI, 2012. The bounded
   uncertainty approach.
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 8.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 8.

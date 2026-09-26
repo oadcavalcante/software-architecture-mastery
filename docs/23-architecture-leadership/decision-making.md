@@ -2,7 +2,7 @@
 id: decision-making
 title: Tomada de Decisão
 sidebar_position: 4
-description: Decidir com informação insuficiente é o normal — e adiar tem um custo que ninguém contabiliza.
+description: Decidir com informação insuficiente é o normal, e adiar tem um custo que ninguém contabiliza.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [negotiating-tradeoffs, risk-management, cross-team-architecture]
 canonical_for: [decisão sob incerteza, custo de adiar, decisão de mão única, informação que decidiria]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Decisões arquiteturais são tomadas com informação insuficiente. Isso não é uma anomalia a
-corrigir — é a condição normal, e o papel exige operar dentro dela.
+Decisões arquiteturais são tomadas com informação insuficiente. Essa é a condição normal, não uma anomalia a
+corrigir, e o papel exige operar dentro dela.
 
 ```text
 esperar mais informação   custo invisível: tempo, trabalho travado,
@@ -33,7 +33,7 @@ decidir agora             custo visível: risco de errar
 A assimetria de visibilidade é o que produz o comportamento errado. Um erro de decisão é
 atribuído a quem decidiu; um mês perdido esperando informação não é atribuído a ninguém.
 
-Por isso o critério útil não é "tenho informação suficiente?" — é **"o custo de adiar é maior que
+Por isso o critério útil não é "tenho informação suficiente?", e sim **"o custo de adiar é maior que
 o risco de errar?"**.
 
 ## Problema
@@ -62,8 +62,8 @@ irreversível na prática    analise a fundo, envolva quem responde
                            que preserve a opção
 ```
 
-Jeff Bezos chamou as duas pontas de decisões de mão única e de mão dupla. A observação útil não é
-a taxonomia — é que a maior parte das decisões é de mão dupla e recebe tratamento de mão única.
+Jeff Bezos chamou as duas pontas de decisões de mão única e de mão dupla. Mais útil que a taxonomia
+é a observação de que a maior parte das decisões é de mão dupla e recebe tratamento de mão única.
 
 Ver [contexto em ADR](/18-architecture-decisions/adr-context.md).
 
@@ -102,7 +102,7 @@ bom    "vou decidir quando tivermos a medição de latência do
 Isso transforma adiamento em plano. E força a pergunta útil: a informação que falta vai de fato
 chegar, e ela mudaria a decisão?
 
-Frequentemente a resposta honesta é não — a informação não viria, ou não mudaria nada — e nesse
+Frequentemente a resposta honesta é não (a informação não viria, ou não mudaria nada), e nesse
 caso o adiamento é evitação.
 
 ### Decida no nível certo
@@ -155,8 +155,8 @@ E ela costuma ser a pior, porque é tomada por omissão:
 resultado: cada time escolheu, e agora existem quatro
 ```
 
-O estado que resulta da ausência de decisão raramente é neutro. Reconhecer isso — "se não
-decidirmos, o que vai acontecer é isto" — frequentemente resolve a paralisia, porque torna visível
+O estado que resulta da ausência de decisão raramente é neutro. Reconhecer isso ("se não
+decidirmos, o que vai acontecer é isto") frequentemente resolve a paralisia, porque torna visível
 que a alternativa ao risco de errar não é a segurança, é outro resultado.
 
 ## Modelo Mental
@@ -178,7 +178,7 @@ auditoria fixa quando e, muitas vezes, como decidir. Pesar custo de adiar contra
 não muda nada: adiar não é opção, e o esforço vai para cumprir o processo prescrito.
 
 **Quando o custo de adiar é de fato próximo de zero.** Ninguém está bloqueado, nada está sendo
-construído sobre a ausência da decisão, e o custo de reverter não cresce com o tempo — uma
+construído sobre a ausência da decisão, e o custo de reverter não cresce com o tempo: uma
 escolha de ferramenta para um projeto que só começa no próximo semestre, por exemplo. Aí o
 critério sempre responde "espere", e forçar a decisão só troca informação futura gratuita por
 risco presente.
@@ -190,11 +190,11 @@ conhecido.
 
 ## Alternativas
 
-- **Decisão temporária com data** — escolher por três meses e reavaliar, quando a incerteza é
+- **Decisão temporária com data**: escolher por três meses e reavaliar, quando a incerteza é
   genuína e o custo de reverter é baixo.
-- **Piloto** — decidir com evidência em vez de com análise.
-- **Delegar** — quando quem tem o contexto pode decidir.
-- **Decisão de menor arrependimento** — a que minimiza o maior arrependimento, isto é, a maior
+- **Piloto**: decidir com evidência em vez de com análise.
+- **Delegar**: quando quem tem o contexto pode decidir.
+- **Decisão de menor arrependimento**: a que minimiza o maior arrependimento, isto é, a maior
   distância, entre os cenários, entre o resultado obtido e o melhor possível naquele cenário.
 
 A última é útil quando os cenários são muito diferentes e nenhum é claramente provável.
@@ -295,7 +295,7 @@ tomadas pelo time, sem análise formal. As irreversíveis mantiveram o processo 
 bloqueadas, o que está sendo construído sobre a ausência da decisão, e como o custo de reverter
 cresce.
 
-**A pergunta padrão** — "que informação faltante mudaria a escolha?" — incorporada às revisões.
+**A pergunta padrão** ("que informação faltante mudaria a escolha?") incorporada às revisões.
 Quando a resposta é "nenhuma", a decisão é tomada na mesma reunião.
 
 **Decisão temporária permitida.** Para casos de incerteza genuína, escolher por um prazo e
@@ -322,7 +322,7 @@ o adiamento não era sobre informação.
 
 - [Negociação de Trade-offs](/23-architecture-leadership/negotiating-tradeoffs.md).
 - [Gestão de Risco](/23-architecture-leadership/risk-management.md).
-- [Contexto em ADR](/18-architecture-decisions/adr-context.md) — reversibilidade.
+- [Contexto em ADR](/18-architecture-decisions/adr-context.md): reversibilidade.
 - [Superação](/18-architecture-decisions/superseding-decisions.md).
 
 ## Exercício Prático
@@ -340,6 +340,6 @@ As que não tiverem resposta para a segunda pergunta podem ser decididas hoje.
 
 ## Para Aprofundar
 
-- Bezos, Jeff. *Carta aos acionistas de 2015* — decisões de mão única e de mão dupla.
+- Bezos, Jeff. *Carta aos acionistas de 2015*. Decisões de mão única e de mão dupla.
 - Kahneman, Daniel. *Thinking, Fast and Slow*. Farrar, Straus and Giroux, 2011.
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.

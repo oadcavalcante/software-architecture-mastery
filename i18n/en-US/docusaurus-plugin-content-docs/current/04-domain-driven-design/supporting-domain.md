@@ -2,7 +2,7 @@
 id: supporting-domain
 title: Supporting Domain
 sidebar_position: 4
-description: Necessary and business-specific, but not differentiating — build it simply and resist the temptation.
+description: "Necessary and business-specific, but not differentiating: build it simply and resist the temptation."
 doc_type: foundation
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -24,13 +24,13 @@ last_reviewed: 2026-08-31
 A supporting domain is necessary for the business to function, is specific enough that
 there is no off-the-shelf solution, and does not differentiate the company from anyone.
 
-The decision it demands is the hardest of the three: **build, but build simply** — and
+The decision it demands is the hardest of the three: **build, but build simply**, and
 resist the temptation to do it too well.
 
 ## The Problem
 
 Supporting domains are most of the system in most companies, and that is why, measured in
-hours, they are where the most effort is lost — not because a mistake there costs more than
+hours, they are where the most effort is lost, not because a mistake there costs more than
 a mistake in the core.
 
 The mechanism is predictable. A competent engineer works in a supporting subdomain. They see
@@ -38,7 +38,7 @@ legitimate opportunities for improvement: abstract here, generalize there, make 
 configurable.
 
 Each improvement is defensible in isolation. The accumulation produces an elaborate
-subsystem that solves very well a problem that differentiates the company in no way — while
+subsystem that solves very well a problem that differentiates the company in no way, while
 the [core](/04-domain-driven-design/core-domain.md) gets less attention.
 
 It is not a lack of competence. It is the absence of a criterion saying "here, good enough
@@ -57,7 +57,7 @@ criterion it may look like they did less.
 
 ### Do not apply the tactical ceremony here
 
-Aggregates, repositories, domain events — the tactical ceremony costs and only pays off
+Aggregates, repositories, domain events: the tactical ceremony costs and only pays off
 where the rules are genuinely complex and change frequently.
 
 Value objects and entities with behavior stay out of that calculation: they are cheap and
@@ -70,13 +70,13 @@ supporting domain, a direct service with data access is usually the correct answ
 A supporting domain today may become [generic](/04-domain-driven-design/generic-domain.md)
 tomorrow, when someone launches a product that solves it.
 
-It is worth monitoring: contract management, expense approval, role-based access control —
+It is worth monitoring: contract management, expense approval, role-based access control;
 all were supporting in many companies and today have mature market solutions.
 
 ### Where to allocate people
 
 Supporting domains are usually good places for people early in their careers: the problem
-is real and the learning is genuine. The condition is the blast radius — where compliance,
+is real and the learning is genuine. The condition is the blast radius: where compliance,
 money or irreversible data is involved, the consequence is not contained, and the
 classification does not change that.
 
@@ -115,8 +115,8 @@ to defend it as strategic.
 A fintech had a document management subdomain: upload, categorization, expiry validation,
 retention according to regulatory rules.
 
-Necessary — without it there is no compliance. Specific — the retention rules come from
-sector regulation and no off-the-shelf product implemented them. Differentiating? No — no
+Necessary: without it there is no compliance. Specific: the retention rules come from
+sector regulation and no off-the-shelf product implemented them. Differentiating? No. No
 customer chose the fintech because of its document management.
 
 Supporting, therefore.
@@ -130,13 +130,13 @@ Four engineers, eighteen months.
 The actual usage: eleven document types, created in the first month and never changed since.
 The configurable engine was never configured after the initial load.
 
-Rewriting it as direct code — eleven types as constants, retention rules as code, no admin
-interface — took six weeks and removed 80% of the code.
+Rewriting it as direct code (eleven types as constants, retention rules as code, no admin
+interface) took six weeks and removed 80% of the code.
 
 The team was reallocated to the core, which was credit risk assessment.
 
 The mistake was not technical. The configurable engine was well built. The mistake was
-building it in a place where flexibility had no value — and nobody had said so.
+building it in a place where flexibility had no value, and nobody had said so.
 
 ## The degeneration pattern
 
@@ -158,14 +158,14 @@ The most effective intervention is at phase two: treating the first exception as
 exception, with an explicit `if` and a comment, rather than generalizing.
 
 That looks less elegant and is the correct decision in a supporting domain. Elegance has
-value where flexibility has value — and there it does not.
+value where flexibility has value, and there it does not.
 
 ## Related Concepts
 
-- [Subdomain](/04-domain-driven-design/subdomain.md) — the classification.
-- [Core Domain](/04-domain-driven-design/core-domain.md) — where to invest.
-- [Generic Domain](/04-domain-driven-design/generic-domain.md) — what to buy.
-- [YAGNI](/02-software-design/yagni.md) — the principle that applies here with force.
+- [Subdomain](/04-domain-driven-design/subdomain.md): the classification.
+- [Core Domain](/04-domain-driven-design/core-domain.md): where to invest.
+- [Generic Domain](/04-domain-driven-design/generic-domain.md): what to buy.
+- [YAGNI](/02-software-design/yagni.md): the principle that applies here with force.
 
 ## Practical Exercise
 

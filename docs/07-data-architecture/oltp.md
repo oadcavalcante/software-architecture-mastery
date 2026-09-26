@@ -2,7 +2,7 @@
 id: oltp
 title: OLTP
 sidebar_position: 7
-description: Carga transacional — muitas operações pequenas sobre poucos registros, com latência baixa.
+description: "Carga transacional: muitas operações pequenas sobre poucos registros, com latência baixa."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [olap, indexing, transactions]
 canonical_for: [OLTP, carga transacional]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-OLTP — processamento de transações em linha — descreve a carga de trabalho
+OLTP (processamento de transações em linha) descreve a carga de trabalho
 característica de um sistema operacional: **muitas operações pequenas, cada uma
 tocando poucos registros, com exigência de latência baixa e consistência**.
 
@@ -35,7 +35,7 @@ seção.
 
 ## Problema
 
-O problema não é implementar OLTP — quase todo sistema começa assim, e bancos
+O problema não é implementar OLTP: quase todo sistema começa assim, e bancos
 relacionais servem essa carga muito bem.
 
 O problema é o que acontece quando uma carga de perfil oposto passa a compartilhar
@@ -43,8 +43,8 @@ o mesmo armazenamento. Um relatório que varre a tabela de pedidos inteira roda 
 lado das transações e compete pelos mesmos recursos.
 
 O sintoma é conhecido: o sistema fica lento no fim do mês, na hora do fechamento,
-ou sempre que alguém abre determinado painel. E a reação típica — aumentar a
-máquina — trata o sintoma e não a causa.
+ou sempre que alguém abre determinado painel. E a reação típica, aumentar a
+máquina, trata o sintoma e não a causa.
 
 ## Conceitos Centrais
 
@@ -62,8 +62,8 @@ dados                   o estado atual
 consistência            geralmente forte
 ```
 
-Quando alguma dessas foge do padrão — uma operação que varre milhões de linhas,
-ou que tolera segundos de latência — vale perguntar se aquilo é mesmo OLTP.
+Quando alguma dessas foge do padrão (uma operação que varre milhões de linhas,
+ou que tolera segundos de latência), vale perguntar se aquilo é mesmo OLTP.
 
 ### O modelo normalizado serve bem
 
@@ -76,7 +76,7 @@ divergem.
 
 ### Índice é a diferença entre milissegundos e segundos
 
-Como o acesso é seletivo — buscar um pedido, os pedidos de um cliente —
+Como o acesso é seletivo (buscar um pedido, os pedidos de um cliente),
 [índice](/07-data-architecture/indexing.md) adequado é o que mantém a latência.
 
 Sem ele, cada operação varre a tabela, e a degradação é proporcional ao
@@ -85,12 +85,12 @@ crescimento dos dados: o sistema funciona bem por meses e piora sozinho.
 ### Escrita concorrente é o gargalo real
 
 Diferente de OLAP, OLTP escreve muito. Isso traz contenção: duas escritas sobre
-o mesmo registro serializam. Leituras dependem do nível de isolamento — sob MVCC,
+o mesmo registro serializam. Leituras dependem do nível de isolamento: sob MVCC,
 como no PostgreSQL e no InnoDB, leitor não bloqueia escritor.
 
 Por isso [transações](/07-data-architecture/transactions.md) e níveis de isolamento importam aqui e
 quase não importam em analítico. E por isso o gargalo de um sistema OLTP maduro
-raramente é CPU — é bloqueio, contenção de índice e latência de gravação.
+raramente é CPU, e sim bloqueio, contenção de índice e latência de gravação.
 
 ### Separar as cargas é a decisão que resolve
 
@@ -98,7 +98,7 @@ A resposta arquitetural para "o relatório derruba o sistema" não é otimizar o
 relatório. É tirá-lo dali.
 
 Uma [réplica de leitura](/07-data-architecture/data-replication.md), um armazenamento analítico
-separado, ou uma projeção — qualquer uma remove a competição.
+separado, ou uma projeção: qualquer uma remove a competição.
 
 Manter as duas cargas no mesmo lugar por simplicidade funciona enquanto a
 latência transacional não percebe o relatório. O sinal de separar é observável:
@@ -115,15 +115,15 @@ tratar sempre o mesmo suspeito é o que faz diagnósticos demorarem.
 **Sistema em crescimento.** Consultas que eram baratas com mil linhas deixam de
 ser, e planos de execução mudam conforme as estatísticas.
 
-**Sistema maduro sob carga.** Contenção — bloqueios sobre registros quentes,
+**Sistema maduro sob carga.** Contenção: bloqueios sobre registros quentes,
 transações longas, esgotamento de conexões.
 
 **Sistema maduro com carga misturada.** Competição entre operação e análise.
 
 Há ainda um estágio final, menos comum: quando o volume de escrita concorrente
 sobre uma mesma entidade excede o que um único nó consegue serializar. Aí a
-resposta é redesenhar a modelagem para distribuir a contenção — dividir um
-contador único em vários parciais somados na leitura, por exemplo — e não trocar
+resposta é redesenhar a modelagem para distribuir a contenção (dividir um
+contador único em vários parciais somados na leitura, por exemplo) e não trocar
 de armazenamento.
 
 A progressão importa porque a resposta é diferente em cada estágio: índice,
@@ -134,8 +134,8 @@ em todos.
 
 ## Modelo Mental
 
-**OLTP é sobre muitas operações pequenas com latência apertada.** Tudo o mais —
-modelo, índice, isolamento — decorre disso.
+**OLTP é sobre muitas operações pequenas com latência apertada.** Tudo o mais
+(modelo, índice, isolamento) decorre disso.
 
 ## Quando Usar
 
@@ -147,26 +147,26 @@ modelo, índice, isolamento — decorre disso.
 
 ## Quando Não Usar
 
-**Para relatório e análise.** Ver [OLAP](/07-data-architecture/olap.md) — a carga é oposta em todas as
+**Para relatório e análise.** Ver [OLAP](/07-data-architecture/olap.md): a carga é oposta em todas as
 dimensões.
 
 **Para varredura de grandes volumes.** Agregações sobre o histórico inteiro.
 
 **Para exportação em massa.** Vai competir com a operação.
 
-**Como único armazenamento quando já há carga analítica relevante** — relevante
+**Como único armazenamento quando já há carga analítica relevante**, relevante
 no sentido acima: a latência transacional se move quando ela roda. A separação
 deixou de ser opcional.
 
 ## Alternativas
 
-- **[OLAP](/07-data-architecture/olap.md)** — vence quando a consulta agrega
+- **[OLAP](/07-data-architecture/olap.md)**: vence quando a consulta agrega
   histórico e o modelo normalizado obriga a varrer e juntar muito.
-- **Réplica de leitura** — vence quando o modelo serve à consulta e basta tirar a
+- **Réplica de leitura**: vence quando o modelo serve à consulta e basta tirar a
   leitura do primário; tolera atraso de segundos.
-- **[CQRS](/03-design-patterns/cqrs.md)** — vence quando a forma da consulta, e
+- **[CQRS](/03-design-patterns/cqrs.md)**: vence quando a forma da consulta, e
   não só a carga, é incompatível com o modelo de escrita.
-- **Cache** — vence para leitura repetida de dados quentes que toleram ficar
+- **Cache**: vence para leitura repetida de dados quentes que toleram ficar
   momentaneamente desatualizados.
 
 ## Trade-offs
@@ -203,7 +203,7 @@ acelerar.
 
 **Criar índice para toda consulta lenta sem avaliar o custo de escrita.** Cada índice é atualizado em toda inserção e atualização. Uma tabela com quinze índices tem escrita lenta, e o problema seguinte é atribuído ao banco, não à decisão que o causou.
 
-**Manter transação aberta durante chamada externa.** A transação segura bloqueios pelo tempo da resposta de terceiros — que pode ser o timeout inteiro. É como uma lentidão externa vira travamento interno.
+**Manter transação aberta durante chamada externa.** A transação segura bloqueios pelo tempo da resposta de terceiros (que pode ser o timeout inteiro). É como uma lentidão externa vira travamento interno.
 
 **Escolher armazenamento por reputação em vez do padrão de acesso.** O que decide é a forma das consultas e a necessidade de transação, não a popularidade do produto no ano da escolha.
 
@@ -213,7 +213,7 @@ Um sistema de gestão de pedidos degradava todo dia 1º. As lentidões duravam d
 duas a três horas, com tempo de resposta subindo de 80 ms para 4 segundos.
 
 A causa foi encontrada rápido: o fechamento mensal disparava relatórios que
-varriam a tabela de pedidos completa — 400 milhões de linhas — enquanto o sistema
+varriam a tabela de pedidos completa (400 milhões de linhas) enquanto o sistema
 operava.
 
 A primeira reação foi aumentar a máquina. Ajudou por dois meses, até o volume
@@ -221,7 +221,7 @@ crescer de novo.
 
 O que resolveu foi separar as cargas.
 
-**Réplica de leitura** para os relatórios, com atraso de segundos — irrelevante
+**Réplica de leitura** para os relatórios, com atraso de segundos, irrelevante
 para fechamento mensal.
 
 **Armazenamento colunar** para os três relatórios mais pesados, alimentado
@@ -230,7 +230,7 @@ era analítica e finalmente estava num armazenamento analítico.
 
 **Limite de tempo de consulta** na base transacional. Qualquer consulta acima de 5
 segundos é interrompida. Isso quebrou dois relatórios internos, o que foi o
-objetivo — eles não deveriam estar ali.
+objetivo: eles não deveriam estar ali.
 
 A equipe registra que o mais caro foi o tempo entre o primeiro incidente e o
 diagnóstico correto: quase um ano tratando o problema como falta de capacidade,
@@ -238,15 +238,15 @@ quando era mistura de cargas.
 
 ## Conceitos Relacionados
 
-- [OLAP](/07-data-architecture/olap.md) — a carga oposta.
-- [Indexação](/07-data-architecture/indexing.md) — o que sustenta a latência.
-- [Transações](/07-data-architecture/transactions.md) — isolamento e contenção.
-- [Normalização](/07-data-architecture/normalization.md) — o modelo adequado.
+- [OLAP](/07-data-architecture/olap.md): a carga oposta.
+- [Indexação](/07-data-architecture/indexing.md): o que sustenta a latência.
+- [Transações](/07-data-architecture/transactions.md): isolamento e contenção.
+- [Normalização](/07-data-architecture/normalization.md): o modelo adequado.
 
 ## Exercício Prático
 
 Liste as cinco consultas mais lentas do seu banco transacional. Para cada uma,
-classifique: é OLTP — poucos registros por chave — ou é analítica disfarçada?
+classifique: é OLTP (poucos registros por chave) ou é analítica disfarçada?
 
 As analíticas não pertencem ali, e movê-las costuma render mais que qualquer
 otimização.
@@ -259,7 +259,7 @@ otimização.
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 3.
 - Gray, Jim; Reuter, Andreas. *Transaction Processing: Concepts and Techniques*.
   Morgan Kaufmann, 1992.

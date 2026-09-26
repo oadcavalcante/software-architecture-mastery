@@ -2,7 +2,7 @@
 id: decorator
 title: Decorator
 sidebar_position: 9
-description: Adicionar comportamento por composição em tempo de execução — e o custo de empilhar camadas.
+description: Adicionar comportamento por composição em tempo de execução, e o custo de empilhar camadas.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [proxy, composite, strategy]
 canonical_for: [decorator, decorador]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Decorator adiciona responsabilidades a um objeto dinamicamente, envolvendo-o em
 outro objeto que implementa a mesma interface.
 
 É a alternativa à herança para estender comportamento, e resolve o mesmo problema
-de explosão combinatória que [Bridge](/03-design-patterns/bridge.md) resolve — por outro caminho.
+de explosão combinatória que [Bridge](/03-design-patterns/bridge.md) resolve, por outro caminho.
 
 ## Problema
 
@@ -48,7 +48,7 @@ new Buffer(new Compressao(new Cifra(fluxoBase)))
 ### A estrutura
 
 Compare o componente concreto e o decorador: do primeiro sai uma seta, do segundo saem
-duas — e as duas chegam à mesma caixa.
+duas, e as duas chegam à mesma caixa.
 
 ```mermaid
 graph LR
@@ -69,13 +69,13 @@ A propriedade que faz o padrão funcionar: **o decorador é indistinguível do
 objeto original para quem o usa.** Se ele adiciona métodos à interface, deixa de
 poder ser empilhado transparentemente.
 
-Isso limita o padrão a comportamentos que não mudam o contrato — registro,
+Isso limita o padrão a comportamentos que não mudam o contrato: registro,
 cache, validação, medição, controle de acesso.
 
 ### A ordem importa
 
 Empilhar comprimir-depois-cifrar produz resultado diferente de
-cifrar-depois-comprimir — e o segundo comprime mal, porque dados cifrados são
+cifrar-depois-comprimir, e o segundo comprime mal, porque dados cifrados são
 incompressíveis.
 
 Vale reler a pilha acima com isso em mente: na escrita, a camada **mais externa**
@@ -123,12 +123,12 @@ aspectos fazem o mesmo com menos código e com ordem declarada em um lugar.
 
 ## Alternativas
 
-- **Middleware ou interceptadores** — o mesmo conceito, com a ordem declarada
+- **Middleware ou interceptadores**: o mesmo conceito, com a ordem declarada
   explicitamente. Preferível em frameworks que os oferecem.
-- **[Strategy](/03-design-patterns/strategy.md)** — quando o que varia é o algoritmo, não uma camada
+- **[Strategy](/03-design-patterns/strategy.md)**: quando o que varia é o algoritmo, não uma camada
   adicional.
-- **Composição direta** — passar as dependências e chamar na ordem.
-- **[Proxy](/03-design-patterns/proxy.md)** — quando o objetivo é controlar acesso.
+- **Composição direta**: passar as dependências e chamar na ordem.
+- **[Proxy](/03-design-patterns/proxy.md)**: quando o objetivo é controlar acesso.
 
 ## Trade-offs
 
@@ -169,7 +169,7 @@ com seis camadas, isso aparece.
 
 **Fluxos de entrada e saída em Java.** O exemplo canônico:
 `new BufferedReader(new InputStreamReader(new FileInputStream(f)))`. Também é o
-exemplo que mais gera crítica — a verbosidade e a necessidade de conhecer a ordem
+exemplo que mais gera crítica: a verbosidade e a necessidade de conhecer a ordem
 correta são citadas como o custo do padrão levado longe demais.
 
 **Middleware HTTP.** Autenticação, registro, compressão e limitação de taxa
@@ -182,7 +182,7 @@ comportamento preservando a interface.
 **Clientes HTTP com repetição e cache.** Cada preocupação é uma camada.
 
 A lição comparativa: o padrão é o mesmo nos quatro, mas onde a ordem é declarada
-centralmente — middleware — ele funciona muito melhor do que onde cada chamador a
+centralmente (middleware), ele funciona muito melhor do que onde cada chamador a
 monta.
 
 ## Exemplo Real
@@ -199,7 +199,7 @@ O efeito: falhas transitórias eram repetidas, e a resposta de erro final entrav
 no cache. Uma indisponibilidade de dois segundos virava cinco minutos de erro
 servido do cache.
 
-A correção não foi só reordenar. Foi extrair uma função de montagem — `clientePadrao(destino)` — que constrói a pilha na ordem correta e é o único caminho suportado.
+A correção não foi só reordenar. Foi extrair uma função de montagem, `clientePadrao(destino)`, que constrói a pilha na ordem correta e é o único caminho suportado.
 
 O padrão continuou; o que mudou foi tirar a decisão de ordem das mãos de quem
 monta. É a mesma correção que middleware oferece por construção.
@@ -223,8 +223,8 @@ executável.
 correlação.** Isso reconstrói a passagem pela pilha nos registros, que é onde a
 depuração de produção acontece.
 
-**Exponha a composição.** Um método que descreve a pilha montada — os nomes das
-camadas, em ordem — permite verificar em execução o que está ativo. Custa dez
+**Exponha a composição.** Um método que descreve a pilha montada (os nomes das
+camadas, em ordem) permite verificar em execução o que está ativo. Custa dez
 linhas e responde a pergunta que mais aparece em incidente.
 
 A alternativa estrutural continua sendo middleware, onde o framework já oferece
@@ -232,15 +232,15 @@ as quatro coisas.
 
 ## Conceitos Relacionados
 
-- [Proxy](/03-design-patterns/proxy.md) — mesma estrutura, intenção de controle.
-- [Composite](/03-design-patterns/composite.md) — estrutura recursiva parecida.
-- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md) — cadeia com semântica de
+- [Proxy](/03-design-patterns/proxy.md): mesma estrutura, intenção de controle.
+- [Composite](/03-design-patterns/composite.md): estrutura recursiva parecida.
+- [Chain of Responsibility](/03-design-patterns/chain-of-responsibility.md): cadeia com semântica de
   parada.
-- [Strategy](/03-design-patterns/strategy.md) — variação de algoritmo.
+- [Strategy](/03-design-patterns/strategy.md): variação de algoritmo.
 
 ## Exercício Prático
 
-Procure no seu sistema pilhas de objetos que se envolvem — clientes HTTP,
+Procure no seu sistema pilhas de objetos que se envolvem: clientes HTTP,
 repositórios com cache, fluxos.
 
 Para cada pilha, responda: a ordem importa? Onde ela está documentada? O que

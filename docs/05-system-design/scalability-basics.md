@@ -2,7 +2,7 @@
 id: scalability-basics
 title: Estratégias Básicas de Escalabilidade
 sidebar_position: 23
-description: O que fazer depois de identificar o gargalo — na ordem de custo, não de reputação.
+description: O que fazer depois de identificar o gargalo, na ordem de custo, não de reputação.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-analysis]
 related: [caching, load-balancing, queues, scalability]
 canonical_for: [estratégias de escalabilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-27
 Identificado o [gargalo](/05-system-design/bottleneck-analysis.md), há um conjunto conhecido de
 respostas.
 
-Este documento as apresenta **na ordem de custo** — que é diferente da ordem em que
+Este documento as apresenta **na ordem de custo**, que é diferente da ordem em que
 elas costumam ser consideradas. A tendência natural é começar pelas caras.
 
 ## Problema
@@ -35,7 +35,7 @@ partições, mais componentes.
 Essa é a resposta mais cara e frequentemente a última necessária. Antes dela há
 várias que custam ordens de grandeza menos e resolvem a maior parte dos casos.
 
-O erro não é distribuir — é distribuir **antes** de ter esgotado o que é barato.
+O erro não é distribuir, e sim distribuir **antes** de ter esgotado o que é barato.
 E depois de distribuir, voltar atrás custa migração.
 
 ## Conceitos Centrais
@@ -50,7 +50,7 @@ nada e é a menos considerada.
 N+1. Frequentemente o gargalo inteiro está aqui, e a correção leva horas.
 
 **3. Escalar verticalmente.** Uma máquina maior. É desprezado por não parecer
-arquitetura, e resolve mais do que se admite — máquinas modernas comportam cargas
+arquitetura, e resolve mais do que se admite: máquinas modernas comportam cargas
 que exigiriam clusters há uma década. Custa dinheiro e nenhuma complexidade.
 
 **4. Cachear.** Evitar recalcular. Ver [cache](/05-system-design/caching.md). Custa invalidação e um
@@ -77,7 +77,7 @@ instância de banco atual comporta dezenas de milhares de transações por segun
 centenas de gigabytes em memória.
 
 A maior parte dos sistemas que adota particionamento nunca chegou perto de saturar
-uma instância única — e assumiu permanentemente o custo de operações entre
+uma instância única, e assumiu permanentemente o custo de operações entre
 partições.
 
 Escala vertical tem limite, e o limite é mais alto do que a intuição sugere.
@@ -85,8 +85,8 @@ Escala vertical tem limite, e o limite é mais alto do que a intuição sugere.
 ### Ausência de estado é o degrau que destrava
 
 O passo 5 depende de [ausência de estado](/05-system-design/stateless-vs-stateful.md). Um componente
-com estado local não escala horizontalmente sem afinidade — que desequilibra — ou
-sem particionamento — que é o degrau 8.
+com estado local não escala horizontalmente sem afinidade (que desequilibra) ou
+sem particionamento (que é o degrau 8).
 
 Por isso vale investir em ausência de estado cedo: ela é barata quando o sistema é
 pequeno e cara de retrofitar depois.
@@ -105,7 +105,7 @@ Cada um desses é capacidade recuperada sem nenhum custo arquitetural.
 
 Escala aumenta capacidade; ela não corrige lentidão intrínseca. Se cada requisição
 leva 3 segundos por uma consulta ruim, dez instâncias atendem dez vezes mais
-requisições — todas em 3 segundos.
+requisições, todas em 3 segundos.
 
 Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
@@ -123,7 +123,7 @@ resolve o gargalo atual.
 
 ## Quando Não Usar
 
-**Antes de identificar o gargalo.** Escalar o que não limita não muda nada — e
+**Antes de identificar o gargalo.** Escalar o que não limita não muda nada, e
 escalar a aplicação quando o gargalo é o banco piora, porque mais instâncias
 significam mais conexões.
 
@@ -133,18 +133,18 @@ significam mais conexões.
 assumir custo permanente por um problema possivelmente temporário.
 
 **Quando o problema é lentidão intrínseca da operação.** Escala não reduz o
-tempo de serviço — só a espera em fila, e só quando o recurso está saturado.
+tempo de serviço, só a espera em fila, e só quando o recurso está saturado.
 
 **Sem medir depois.** Sem verificação, ninguém sabe se o degrau resolveu.
 
 ## Alternativas
 
-- **Reduzir a carga** — o degrau 1, e o mais barato.
-- **Aceitar a degradação** — se o pico é raro e a consequência é pequena, aceitar
+- **Reduzir a carga**: o degrau 1, e o mais barato.
+- **Aceitar a degradação**: se o pico é raro e a consequência é pequena, aceitar
   pode ser mais barato que dimensionar para ele.
-- **Limitar a taxa** — proteger a capacidade em vez de aumentá-la. Ver
+- **Limitar a taxa**: proteger a capacidade em vez de aumentá-la. Ver
   [rate limiting](/05-system-design/rate-limiting.md).
-- **Degradar** — servir versão mais barata sob pressão.
+- **Degradar**: servir versão mais barata sob pressão.
 
 ## Trade-offs
 
@@ -163,8 +163,8 @@ tempo de serviço — só a espera em fila, e só quando o recurso está saturad
 
 **Escalar a aplicação com o banco saturado.** Mais conexões, mais pressão.
 
-**Particionar com chave errada.** Uma partição concentra a carga — um
-[hotspot](/11-scalability/index.md) — e o particionamento não ajuda.
+**Particionar com chave errada.** Uma partição concentra a carga, um
+[hotspot](/11-scalability/index.md), e o particionamento não ajuda.
 
 **Cache mascarando problema.** A taxa de acerto cai e o problema volta pior.
 
@@ -174,11 +174,11 @@ tempo de serviço — só a espera em fila, e só quando o recurso está saturad
 
 ## Erros Comuns
 
-**Pular direto para distribuição.** Distribuir troca um problema de capacidade por falha parcial, latência de rede e consistência — três problemas mais difíceis que o original, adquiridos antes de esgotar o que era barato.
+**Pular direto para distribuição.** Distribuir troca um problema de capacidade por falha parcial, latência de rede e consistência: três problemas mais difíceis que o original, adquiridos antes de esgotar o que era barato.
 
 **Não considerar escala vertical.** Uma máquina hoje comporta centenas de gigabytes de memória e dezenas de núcleos. Trocar de instância é uma tarde de trabalho e resolve a maior parte dos sistemas de negócio por anos.
 
-**Não medir entre degraus.** Sem medir depois de cada mudança, ninguém sabe se o gargalo se moveu — e otimizar o componente que deixou de ser o limite é trabalho com retorno zero.
+**Não medir entre degraus.** Sem medir depois de cada mudança, ninguém sabe se o gargalo se moveu, e otimizar o componente que deixou de ser o limite é trabalho com retorno zero.
 
 **Confundir escala com desempenho.** São eixos independentes e às vezes opostos: um sistema pode responder em 10 ms e não suportar dobrar a carga, e a otimização que acelera a instância única frequentemente é a que impede distribuir.
 
@@ -192,7 +192,7 @@ regiões.
 
 A subida degrau a degrau levou seis semanas e nunca chegou ao particionamento.
 
-**Degrau 1.** A tela de emissão carregava o histórico completo do cliente —
+**Degrau 1.** A tela de emissão carregava o histórico completo do cliente,
 usado por nenhum campo exibido. Removido: 40 → 65 req/s.
 
 **Degrau 2.** Duas consultas sem índice adequado, encontradas no perfil. Índices
@@ -208,22 +208,22 @@ raramente e eram lidos em toda emissão: 190 → 310 req/s.
 Parou aí, com folga de 55% sobre o requisito.
 
 O custo total: seis semanas de trabalho, majoritariamente medição, e um aumento de
-instância. O plano original — particionamento e multi-região — estava estimado em
+instância. O plano original (particionamento e multi-região) estava estimado em
 dois trimestres e teria adicionado custo operacional permanente.
 
 O que a equipe registrou no ADR: os degraus 1 e 2 sozinhos levaram a capacidade
-de 40 a 140 req/s — 100 dos 160 req/s que faltavam para o requisito, a custo de
-horas — e ambos eram correções de coisas erradas, não escala. Se a proposta
+de 40 a 140 req/s (100 dos 160 req/s que faltavam para o requisito, a custo de
+horas) e ambos eram correções de coisas erradas, não escala. Se a proposta
 original tivesse sido executada, os dois problemas continuariam lá — distribuídos.
 
 ## Conceitos Relacionados
 
-- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md) — o que precede.
+- [Análise de Gargalos](/05-system-design/bottleneck-analysis.md): o que precede.
 - [Cache](/05-system-design/caching.md), [Balanceamento](/05-system-design/load-balancing.md),
-  [Filas](/05-system-design/queues.md) — degraus específicos.
-- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md) — o que destrava a escala
+  [Filas](/05-system-design/queues.md): degraus específicos.
+- [Sem Estado vs. Com Estado](/05-system-design/stateless-vs-stateful.md): o que destrava a escala
   horizontal.
-- [Escalabilidade](/11-scalability/index.md) — o tratamento em profundidade.
+- [Escalabilidade](/11-scalability/index.md): o tratamento em profundidade.
 
 ## Exercício Prático
 

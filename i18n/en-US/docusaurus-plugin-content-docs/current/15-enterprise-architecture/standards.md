@@ -2,7 +2,7 @@
 id: standards
 title: Standards
 sidebar_position: 11
-description: Prescribing specific choices — and why a standard that needs to be checked by a person was never operationalized.
+description: Prescribing specific choices, and why a standard that needs to be checked by a person was never operationalized.
 doc_type: concept
 level: 6
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-principles]
 related: [enterprise-principles, technology-radar, enterprise-governance]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -43,7 +43,7 @@ several describe technologies the organization no longer uses
 ```
 
 And the practical effect: the document is cited only when someone wants to justify a
-refusal — which makes teams see it as an instrument of blocking, not of guidance.
+refusal. That makes teams see it as an instrument of blocking, not of guidance.
 
 ## Core Concepts
 
@@ -96,7 +96,7 @@ legitimacy of the standards that matter.
 
 ### Standards age faster than principles
 
-A principle expresses a value; a standard expresses a choice of technology or format —
+A principle expresses a value; a standard expresses a choice of technology or format,
 and technology changes.
 
 ```text
@@ -107,7 +107,7 @@ standard   "use version 3 of the contract library"   holds for months
 That requires frequent review, and a deprecation mechanism: a replaced standard needs a
 coexistence period and a migration path.
 
-See [integration contracts](/08-integration-architecture/integration-contracts.md) —
+See [integration contracts](/08-integration-architecture/integration-contracts.md):
 internal standards deserve the same treatment as APIs.
 
 ### Exception with a record, not prohibition
@@ -139,7 +139,7 @@ A large number is a symptom that standards are being used where principles or a 
 road would do.
 
 And most documented standards that are not verified could simply cease to exist with no
-consequence — which is an uncomfortable and frequently true observation.
+consequence. That is an uncomfortable and frequently true observation.
 
 ### The standard needs a migration path
 
@@ -162,8 +162,8 @@ And the deadline has to be realistic: a standard that requires migrating 80 serv
 one quarter will not be met, and widespread non-compliance erodes the legitimacy of every
 standard.
 
-The alternative that reduces the cost: when the standard can be applied by the platform —
-updating the service template and propagating it — the migration stops being each team's
+The alternative that reduces the cost: when the standard can be applied by the platform
+(updating the service template and propagating it), the migration stops being each team's
 work. See
 [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
 
@@ -181,13 +181,13 @@ what is left to migrate              a visible, prioritized list
 who is responsible for the migration named
 ```
 
-See [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md) —
+See [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md):
 when the platform knows each service's standard, that traceability is derived and
-no longer depends on each team updating it by hand — the cost moves to maintaining the
+no longer depends on each team updating it by hand. The cost moves to maintaining the
 integration between platform and catalog.
 
 And there is a common case that deserves an explicit decision: systems that will not
-migrate. A system being decommissioned should not consume effort to meet a new standard —
+migrate. A system being decommissioned should not consume effort to meet a new standard,
 and the exception has to be recorded, or it shows up perpetually on the outstanding list.
 
 ### Adoption measured, not declared
@@ -205,7 +205,7 @@ converged    old systems have been migrated
 Measuring adoption separates live standards from dead letter, and produces the
 information that decides the next step: a standard published two years ago and followed
 by 20% of new systems is either wrong, or was not communicated, or has no viable
-migration path — and the three causes require different answers.
+migration path, and the three causes require different answers.
 
 Without that measurement, the default institutional response is to reinforce the
 obligation, which is the one that works in none of the three cases.
@@ -226,21 +226,21 @@ automate it, or accept that it is decorative.
 
 **For preferences with no consequence.** It spends authority on something that affects nobody outside the team, and that authority is missing later.
 
-**In a technology area still being explored.** While teams are still finding out which approach fits — a new kind of storage, a newly arrived framework — fixing the choice freezes whichever option happened to arrive first. That is a job for the [radar](/15-enterprise-architecture/technology-radar.md) in its assess ring, not for a standard.
+**In a technology area still being explored.** While teams are still finding out which approach fits (a new kind of storage, a newly arrived framework), fixing the choice freezes whichever option happened to arrive first. That is a job for the [radar](/15-enterprise-architecture/technology-radar.md) in its assess ring, not for a standard.
 
 **When divergence is settled by conversation.** With three or four teams that talk every week, writing, operationalizing and maintaining a standard costs more than agreeing directly; the standard starts to pay off when the number of teams makes that agreement impossible.
 
 **When only a person can check it and divergence is cheap.** If the standard cannot be built into the template or checked in the pipeline, manual review is a recurring cost; if it costs more than the divergence it prevents, don't standardize.
 
-**Beyond what the organization can operationalize.** Past the range of 5 to 15 operationalized standards, each new one competes with the existing ones for attention and platform maintenance — the next candidate has to replace an old one, not be added to it.
+**Beyond what the organization can operationalize.** Past the range of 5 to 15 operationalized standards, each new one competes with the existing ones for attention and platform maintenance: the next candidate has to replace an old one, not be added to it.
 
 ## Alternatives
 
-- **Paved road** — the standard built in, stronger than any document.
-- **Automated verification** — the pipeline enforces it.
-- **[Principles](/15-enterprise-architecture/enterprise-principles.md)** — when the specific choice does not matter,
+- **Paved road**: the standard built in, stronger than any document.
+- **Automated verification**: the pipeline enforces it.
+- **[Principles](/15-enterprise-architecture/enterprise-principles.md)**: when the specific choice does not matter,
   only the direction.
-- **[Technology radar](/15-enterprise-architecture/technology-radar.md)** — a recommendation with context, without
+- **[Technology radar](/15-enterprise-architecture/technology-radar.md)**: a recommendation with context, without
   obligation.
 
 ## Trade-offs
@@ -274,13 +274,13 @@ automate it, or accept that it is decorative.
 
 ## Common Mistakes
 
-**Documenting without operationalizing.** A standard that doesn't come with a ready template, a library or an automated check depends on each team remembering — and it is followed by those who would have followed it anyway.
+**Documenting without operationalizing.** A standard that doesn't come with a ready template, a library or an automated check depends on each team remembering, and it is followed by those who would have followed it anyway.
 
 **Standardizing preferences.** Standardizing what has no consequence across teams spends authority without buying anything, and that authority is missing when something really matters.
 
 **Not reviewing.** A standard written three years ago may recommend a discontinued technology, and it keeps being cited as the norm because nobody withdrew it.
 
-**Having no exception path.** With no exception process, teams that don't fit the standard simply ignore it — and the violation stops being visible and discussable.
+**Having no exception path.** With no exception process, teams that don't fit the standard simply ignore it, and the violation stops being visible and discussable.
 
 **Writing it without the people who use it.** A standard drafted far from whoever will apply it gets the real cases wrong and is received as an imposition.
 
@@ -326,11 +326,11 @@ documented with manual review       2  — the ones that could not be automated
 communication, and the services still using them entered a migration queue.
 
 **Exception log.** In one year, 9 exceptions recorded. Seven were about the same standard
-— the message format one — which was revised and broadened.
+(the message format one), which was revised and broadened.
 
 **Biannual review**, with the same sample adherence check.
 
-Result: 47 standards became 21, and average adherence rose from 42% to 96% — not from
+Result: 47 standards became 21, and average adherence rose from 42% to 96%, not from
 more control, but because following became the path of least effort.
 
 What was recorded afterwards: the 22 removed preference standards caused no problems at
@@ -338,7 +338,7 @@ all. They existed because someone, at some point, had a preference and wrote it 
 
 ## Related Concepts
 
-- [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md) — guidance without prescription.
+- [Enterprise Principles](/15-enterprise-architecture/enterprise-principles.md): guidance without prescription.
 - [Technology Radar](/15-enterprise-architecture/technology-radar.md).
 - [Enterprise Governance](/15-enterprise-architecture/enterprise-governance.md).
 - [Internal Developer Platforms](/14-devops-and-platform/internal-developer-platforms.md).
@@ -359,6 +359,6 @@ both cases, the document is not working.
 
 ## Further Reading
 
-- The Open Group. *TOGAF Standard*, 10th ed., 2022 — architecture governance.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022. Architecture governance.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

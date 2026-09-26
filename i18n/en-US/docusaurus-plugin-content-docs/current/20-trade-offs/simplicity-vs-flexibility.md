@@ -2,7 +2,7 @@
 id: simplicity-vs-flexibility
 title: Simplicity vs. Flexibility
 sidebar_position: 1
-description: Flexibility is optionality bought upfront — and most options bought are never exercised.
+description: Flexibility is optionality bought upfront, and most options bought are never exercised.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [abstraction-vs-complexity, coupling-vs-duplication, speed-vs-quality]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The pair seems to oppose two virtues. It does not — it opposes **present certainty** to
+The pair seems to oppose two virtues, but it opposes **present certainty** to
 **future optionality**.
 
 Flexibility is an option bought today to be exercised tomorrow. Like any option, it has a
@@ -56,7 +56,7 @@ because flexibility built without knowing the second case accommodates only vari
 first.
 
 And the opposite fails too. A system built with zero optionality at points that demonstrably
-change — data formats, volatile business rules, partner integrations — pays on every change a
+change (data formats, volatile business rules, partner integrations) pays on every change a
 cost a minimal seam would have avoided.
 
 ## Core Concepts
@@ -78,7 +78,7 @@ Cc   cost of carrying the flexibility until then
 ```
 
 You buy the option when `p × Cl > Cc`. The problem is that `p` is systematically
-overestimated and `Cc` is underestimated, because the premium is paid in small installments —
+overestimated and `Cc` is underestimated, because the premium is paid in small installments:
 a little indirection at a time.
 
 ### Unexercised flexibility is pure cost
@@ -110,7 +110,7 @@ is derivable from cases, not anticipatable from one.
 Stopping at the second trades guesswork for a hypothesis with one sample: the variation the two
 of them show may be the one that matters, or may be the only one they happen to share.
 
-Building from one case produces an abstraction shaped like that case — which is exactly what
+Building from one case produces an abstraction shaped like that case, which is exactly what
 does not fit when the second appears.
 
 See [coupling vs. duplication](/20-trade-offs/coupling-vs-duplication.md).
@@ -164,7 +164,7 @@ simple → flexible   local refactoring, with the real cases in hand
 flexible → simple   removing an abstraction used by many, afraid of breaking things
 ```
 
-The asymmetry favors starting simple. Adding flexibility later is done with information — the
+The asymmetry favors starting simple. Adding flexibility later is done with information: the
 cases exist. Removing flexibility is done with uncertainty, because nobody knows who depends
 on it.
 
@@ -181,7 +181,7 @@ Prefer **flexibility** when:
 
 - The change is known and dated, not hypothetical.
 - Adapting later would require data migration or coordination between teams.
-- The point is a published boundary — format, contract, schema.
+- The point is a published boundary: format, contract, schema.
 - Two or more real cases already exist.
 - The cost of the option is small and localized.
 
@@ -194,25 +194,25 @@ Prefer **simplicity** when:
 
 ## When Not to Use
 
-**As a dilemma, when it is a false one.** Many points accept a minimal seam — a function, a
-named boundary — that costs almost nothing and is not an abstraction.
+**As a dilemma, when it is a false one.** Many points accept a minimal seam (a function, a
+named boundary) that costs almost nothing and is not an abstraction.
 
-**Without estimating the cost of adapting later** — without that number, the discussion turns
+**Without estimating the cost of adapting later**: without that number, the discussion turns
 into preference.
 
-**As a generic argument** — "be flexible" and "be simple" decide nothing applied to the whole
+**As a generic argument**: "be flexible" and "be simple" decide nothing applied to the whole
 system. The decision is point by point.
 
-**To justify not deciding** — flexibility is sometimes postponement disguised as design.
+**To justify not deciding**: flexibility is sometimes postponement disguised as design.
 
 ## Alternatives
 
-- **Minimal seam** — name the boundary without creating an abstraction; cheap and reversible.
-- **Defer with a record** — build simple and record in an
+- **Minimal seam**: name the boundary without creating an abstraction; cheap and reversible.
+- **Defer with a record**: build simple and record in an
   [ADR](/18-architecture-decisions/what-is-an-adr.md) what would change the decision.
-- **Isolate instead of generalize** — concentrating the specific in one place is cheaper than
+- **Isolate instead of generalize**: concentrating the specific in one place is cheaper than
   making it generic.
-- **Rule of three** — wait for the third case before abstracting.
+- **Rule of three**: wait for the third case before abstracting.
 
 The first is the right answer more often than either extreme: a `chargePayment` function
 called from one place already gives you the seam for the day there are two providers, with no
@@ -278,7 +278,7 @@ reconciliation used an identifier the interface did not expose
 ```
 
 The abstraction accommodated variations of the first provider. The second was not a variation
-— it was another flow.
+but another flow.
 
 And there was a cost carried for three years nobody had added up:
 
@@ -290,7 +290,7 @@ changes that had to touch the abstraction
   without changing provider                    19
 ```
 
-The rebuild, done with two providers in hand, took seven weeks — and produced a different
+The rebuild, done with two providers in hand, took seven weeks, and produced a different
 abstraction, in which staged authorization and asynchronous capture are the base model, and
 the synchronous provider is the simplified case.
 
@@ -301,31 +301,31 @@ from one place, with no interface. When the second case appears, the abstraction
 from both.
 
 **Cost of adapting later estimated** before buying optionality, and recorded in the ADR. Of
-the 14 cases evaluated in the following two years, 11 had estimates under two weeks — and
+the 14 cases evaluated in the following two years, 11 had estimates under two weeks, and
 none of those got an anticipatory abstraction.
 
 **Annual audit of extension points.** Interfaces with a single implementer for more than 18
 months are candidates for removal. In the first round, 9 of 23 were removed.
 
 **Declared exception for published boundaries.** Event formats and contracts with externals
-still get versioning and optionality from the start, even with no second case — because
+still get versioning and optionality from the start, even with no second case, because
 adapting later requires coordinating third parties.
 
-The lesson recorded: the 2021 decision was not irrational. The error was one of method —
+The lesson recorded: the 2021 decision was not irrational. The error was one of method:
 designing the variation from a single example. The question that was missing was not "will we
 need another provider?", which was right, but "what do we know about how the second provider
 will be different?", whose honest answer was "nothing".
 
 ## Related Concepts
 
-- [Complexity](/01-fundamentals/complexity.md) — what flexibility adds.
-- [YAGNI](/02-software-design/yagni.md) — the corresponding principle.
+- [Complexity](/01-fundamentals/complexity.md): what flexibility adds.
+- [YAGNI](/02-software-design/yagni.md): the corresponding principle.
 - [Abstraction vs. Complexity](/20-trade-offs/abstraction-vs-complexity.md).
-- [Coupling vs. Duplication](/20-trade-offs/coupling-vs-duplication.md) — the rule of three.
+- [Coupling vs. Duplication](/20-trade-offs/coupling-vs-duplication.md): the rule of three.
 
 ## Practical Exercise
 
-List your system's extension points — interfaces, configurations, factories — and count how
+List your system's extension points (interfaces, configurations, factories) and count how
 many have more than one implementation in use.
 
 Those with only one, for over a year, are options bought and not exercised. Add up their

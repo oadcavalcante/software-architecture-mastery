@@ -2,7 +2,7 @@
 id: adr-decision
 title: A Decisão
 sidebar_position: 5
-description: A seção mais curta do ADR — voz ativa, escopo delimitado, sem hedge.
+description: "A seção mais curta do ADR: voz ativa, escopo delimitado, sem hedge."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -12,7 +12,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-consequences, adr-status]
 canonical_for: [voz da decisão, escopo da decisão, decisão inequívoca]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -46,7 +46,7 @@ para o contexto atual, podendo ser reavaliada conforme a evolução."
 Isso não é uma decisão. Não se sabe se foi decidido, quem decidiu, se vale, nem para onde.
 
 A linguagem defensiva tem causa: quem escreve teme comprometer-se e teme errar. Mas o ADR
-existe justamente para registrar um compromisso — e um compromisso registrado com hedge
+existe justamente para registrar um compromisso, e um compromisso registrado com hedge
 não pode ser nem seguido nem contestado.
 
 E há um segundo problema, mais sutil: a decisão que descreve **como** em vez de **o quê**.
@@ -64,11 +64,11 @@ bom    "Vamos usar PostgreSQL como banco primário dos serviços de pedidos."
 ```
 
 A segunda parece aceitável e não é: a voz passiva constata um fato sem sujeito, e ninguém
-fica comprometido com ele. "Vamos" também não nomeia pessoas — isso é trabalho do
-[registro de decisores](#registrar-quem-decidiu) —, mas põe quem assina o ADR como
+fica comprometido com ele. "Vamos" também não nomeia pessoas (isso é trabalho do
+[registro de decisores](#registrar-quem-decidiu)), mas põe quem assina o ADR como
 responsável pelo que a decisão exige daqui a dois anos.
 
-A escolha de "vamos" ou "usaremos" não é estilística. Ela sinaliza que houve compromisso —
+A escolha de "vamos" ou "usaremos" não é estilística. Ela sinaliza que houve compromisso,
 o que distingue um ADR de uma avaliação técnica.
 
 ### Escopo delimitado
@@ -85,7 +85,7 @@ claro   "Vamos usar Kafka para os eventos de domínio entre os serviços de
 O escopo responde a três perguntas: **onde vale, onde não vale, e o que permanece como
 está.**
 
-A terceira é frequentemente omitida e evita a interpretação expansiva — a leitura de que a
+A terceira é frequentemente omitida e evita a interpretação expansiva: a leitura de que a
 decisão substitui tudo que existia antes.
 
 ### O quê, não como
@@ -141,7 +141,7 @@ o custo operacional. A decisão foi tomada aceitando esse risco, com
 revisão prevista em 6 meses."
 ```
 
-Isso preserva a informação de que a objeção existia — o que é exatamente o que se quer
+Isso preserva a informação de que a objeção existia: exatamente o que se quer
 saber se o risco se materializar. E torna o ADR honesto de um jeito que sustenta a prática
 melhor que a aparência de consenso.
 
@@ -154,7 +154,7 @@ Uma categoria subutilizada: registrar o que se decidiu **não** fazer.
 "Não vamos construir uma camada de cache distribuído."
 ```
 
-Essas decisões são invisíveis no código — não há nada para apontar — e são exatamente as
+Essas decisões são invisíveis no código (não há nada para apontar) e são exatamente as
 que serão revisitadas repetidamente sem registro.
 
 ### A decisão precisa ser acionável
@@ -171,7 +171,7 @@ acionável       "Comunicação entre serviços do domínio de pedidos passa a
 ```
 
 A diferença está em três elementos: **o quê**, **onde vale** e **a partir de quando**. O
-terceiro é o mais esquecido — uma decisão sem marco temporal deixa em aberto se o código
+terceiro é o mais esquecido: uma decisão sem marco temporal deixa em aberto se o código
 existente precisa mudar, e essa ambiguidade costuma ser resolvida por cada time de um
 jeito.
 
@@ -188,7 +188,7 @@ ou é implementação.
 
 ## Quando Não Usar
 
-**Com hedge.** "Provavelmente", "por ora", "sujeito a revisão" sem critério — a revisão é o
+**Com hedge.** "Provavelmente", "por ora", "sujeito a revisão" sem critério: a revisão é o
 mecanismo de superação, não uma ressalva. Um gatilho com prazo ou limiar mensurável
 ("reavaliar quando algum domínio passar de 50 eventos/s") não é hedge: é a
 [condição de reversão](/18-architecture-decisions/adr-alternatives.md) escrita junto da
@@ -200,7 +200,7 @@ registro de esquemas que o acompanha, dividir em dois ADRs cria superação inco
 é superado, o outro continua aceito e aponta para uma premissa que não existe mais.
 
 **Listando domínios numa decisão transversal.** Quando a decisão vale para a organização
-inteira — padrão de autenticação, política de retenção de dados —, enumerar domínios
+inteira (padrão de autenticação, política de retenção de dados), enumerar domínios
 afetados envelhece a cada domínio novo e sugere que os omitidos estão fora. O escopo
 correto é "todos"; o que precisa ser delimitado é a exceção.
 
@@ -209,10 +209,10 @@ afirmativa.
 
 ## Alternativas
 
-- **Y-Statement** — comprime contexto, decisão e consequência numa frase estruturada.
-- **Decisão implícita no título** — para casos triviais, o título já é a decisão, e a seção
+- **Y-Statement**: comprime contexto, decisão e consequência numa frase estruturada.
+- **Decisão implícita no título**: para casos triviais, o título já é a decisão, e a seção
   detalha o escopo.
-- **Referência a um padrão** — quando a decisão é adotar algo já definido em outro lugar.
+- **Referência a um padrão**: quando a decisão é adotar algo já definido em outro lugar.
   Ver [padrões](/15-enterprise-architecture/standards.md).
 
 ## Trade-offs
@@ -247,15 +247,15 @@ afirmativa.
 
 **Escrever a decisão como conclusão de uma análise**, em vez de como compromisso.
 
-**Omitir o que não muda** — o que abre espaço para interpretação expansiva.
+**Omitir o que não muda**, o que abre espaço para interpretação expansiva.
 
-**Não registrar decisores** — quando a decisão precisar de revisão, ninguém sabe a quem
+**Não registrar decisores**: quando a decisão precisar de revisão, ninguém sabe a quem
 pedir.
 
-**Não registrar decisões de não fazer** — a mesma proposta volta a cada ciclo, sem registro
+**Não registrar decisões de não fazer**: a mesma proposta volta a cada ciclo, sem registro
 de por que foi recusada.
 
-**Suavizar a decisão** para reduzir atrito na revisão — o que transfere o atrito para o
+**Suavizar a decisão** para reduzir atrito na revisão, o que transfere o atrito para o
 futuro.
 
 ## Exemplo Real
@@ -310,15 +310,15 @@ A correção dos quatro serviços levou sete meses. O tempo de resposta das cons
 convertidas caiu de 2,4 s para 90 ms.
 
 Na retrospectiva: o ADR original não estava errado. Ele estava incompleto de uma
-forma que só era visível para quem não participou da conversa — que é exatamente o público
+forma que só era visível para quem não participou da conversa. E esse é exatamente o público
 do documento.
 
 ## Conceitos Relacionados
 
 - [Estrutura do ADR](/18-architecture-decisions/adr-structure.md).
-- [Contexto](/18-architecture-decisions/adr-context.md) — o que justifica.
-- [Consequências](/18-architecture-decisions/adr-consequences.md) — o que se aceita.
-- [Status](/18-architecture-decisions/adr-status.md) — proposto contra aceito.
+- [Contexto](/18-architecture-decisions/adr-context.md): o que justifica.
+- [Consequências](/18-architecture-decisions/adr-consequences.md): o que se aceita.
+- [Status](/18-architecture-decisions/adr-status.md): proposto contra aceito.
 
 ## Exercício Prático
 

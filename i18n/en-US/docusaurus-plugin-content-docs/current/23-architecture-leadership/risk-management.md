@@ -2,7 +2,7 @@
 id: risk-management
 title: Risk Management
 sidebar_position: 15
-description: Architectural risk as a first-order responsibility — named, quantified and owned.
+description: "Architectural risk as a first-order responsibility: named, quantified and owned."
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, cost-management, measuring-architecture-outcomes]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Architectural risk is the probability of the architecture failing to meet something that matters —
+Architectural risk is the probability of the architecture failing to meet something that matters:
 availability, security, cost, the capacity to change, continuity of knowledge.
 
 And it has a characteristic that distinguishes it from project risk: **it materializes slowly and
@@ -32,7 +32,7 @@ project risk           the deadline slips, visibly
 architectural risk     nothing happens, until everything happens
 ```
 
-That is why it has to be named, quantified and reviewed — because the absence of symptoms is the
+That is why it has to be named, quantified and reviewed, because the absence of symptoms is the
 normal state, and it gets confused with the absence of risk.
 
 ## Problem
@@ -49,7 +49,7 @@ The typical architectural risk exists and is recorded nowhere:
 Everybody knows. Nobody is accountable. No decision has been made about it.
 
 And there is a second problem: the risk register that exists and is not used. A spreadsheet with 60
-risks, all in amber, updated once a year — meeting an audit requirement and informing no decision.
+risks, all in amber, updated once a year, meeting an audit requirement and informing no decision.
 
 ```text
 an unregistered risk       materializes and surprises
@@ -102,7 +102,7 @@ A risk whose owner is "the architecture group" generally has no owner, because a
 has the resources to act. The owner is whoever controls the capacity: the team's manager, the
 engineering director, the contract holder.
 
-Architecture's role is to identify, quantify and ensure the decision is made — not to make it.
+Architecture's role is to identify, quantify and ensure the decision is made, not to make it.
 
 ### Four possible responses
 
@@ -113,8 +113,8 @@ avoid       change the architecture so the risk doesn't exist
 accept      formally, with whoever has the authority
 ```
 
-The fourth is legitimate and underused. Explicitly accepting a risk — with a date, an owner and a
-review — is far better than keeping it open indefinitely on a "to be handled" list.
+The fourth is legitimate and underused. Explicitly accepting a risk (with a date, an owner and a
+review) is far better than keeping it open indefinitely on a "to be handled" list.
 
 ```text
 "we accept the regional unavailability risk until 2028.
@@ -152,7 +152,7 @@ Those numbers are rarely measured, and they are the origin of a class of crisis 
 solution: when the risk materializes, there is no way to buy the competence back.
 
 See the [modernization case study](/21-case-studies/legacy-modernization-case.md), where the
-knowledge risk — nine people, six retiring — was what motivated a seven-year project.
+knowledge risk (nine people, six retiring) was what motivated a seven-year project.
 
 ### Review on a cadence, with the number
 
@@ -163,7 +163,7 @@ by event    when something changes materially
 ```
 
 The review has to reassess probability and impact, not just confirm that the risk exists. A risk
-whose probability has dropped should be downgraded or closed — and a register that only grows loses
+whose probability has dropped should be downgraded or closed, and a register that only grows loses
 usefulness.
 
 ## Mental Model
@@ -191,20 +191,20 @@ stale before its first review.
 into the register creates two lists that drift apart. Bring only the aggregate consequence to the
 register, when it competes for ranking with the other risks.
 
-**As a compliance spreadsheet** nobody reads — the maintenance cost is paid and no decision comes
+**As a compliance spreadsheet** nobody reads: the maintenance cost is paid and no decision comes
 out of it.
 
-**Registering everything** — a register with 60 risks prioritizes nothing.
+**Registering everything**: a register with 60 risks prioritizes nothing.
 
 ## Alternatives
 
-- **Threat modeling** — for security risks, with its own method. See
+- **Threat modeling**: for security risks, with its own method. See
   [threat modeling](/10-security/threat-modeling.md).
-- **A pre-mortem analysis** — imagining the project failed and listing the causes; cheap and
+- **A pre-mortem analysis**: imagining the project failed and listing the causes; cheap and
   effective for discovering risks formal analysis doesn't find.
-- **An error budget** — for availability risk, more operational and more actionable. See
+- **An error budget**: for availability risk, more operational and more actionable. See
   [SLOs and error budgets](/12-reliability/slo.md).
-- **Failure exercises** — discovering risks by running, not by listing.
+- **Failure exercises**: discovering risks by running, not by listing.
 
 The second is underrated: a one-hour pre-mortem with the team usually produces more real risks than a
 quarter of formal registering.
@@ -266,7 +266,7 @@ eliminated or merged, and each got a justified probability and an estimated impa
 **Ordering by exposure.** The 23 were ordered, and the first six concentrated around 80% of the total
 estimated exposure.
 
-**A named owner**, always someone with the capacity to act — in 19 cases, area managers; in 4,
+**A named owner**, always someone with the capacity to act: in 19 cases, area managers; in 4,
 leadership.
 
 **A declared appetite**, in four statements:
@@ -305,7 +305,7 @@ way and a date.
 
 The lesson that stuck: the item that changed behavior most was the declared appetite. Before, every
 discussion about investing in resilience was negotiated in isolation; afterwards, it became a check
-against an already-agreed number — and the discussions went from negotiation to observation.
+against an already-agreed number, and the discussions went from negotiation to observation.
 
 And the exercise of rewriting the risks with a consequence and a number revealed that most of the 51
 items that left described nothing verifiable. They gave the impression of coverage and informed no

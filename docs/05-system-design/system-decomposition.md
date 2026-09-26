@@ -2,7 +2,7 @@
 id: system-decomposition
 title: Decomposição de Sistemas
 sidebar_position: 1
-description: Como ir de um enunciado a um conjunto de partes — o primeiro movimento do design de sistemas.
+description: "Como ir de um enunciado a um conjunto de partes: o primeiro movimento do design de sistemas."
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [components, service-boundaries, modular-design]
 canonical_for: [decomposição de sistemas, system decomposition, teste da mudança, change test]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Decompor é dividir o sistema em partes que podem ser entendidas, construídas,
 implantadas e operadas separadamente.
 
 É o primeiro movimento do design de sistemas, e o que mais condiciona tudo o que
-vem depois — porque as fronteiras escolhidas aqui determinam onde a mudança fica
+vem depois, porque as fronteiras escolhidas aqui determinam onde a mudança fica
 contida e onde ela se espalha.
 
 ## Problema
@@ -50,7 +50,7 @@ organização é que está errada.
 
 ### O critério é capacidade, com requisito de qualidade como segundo eixo
 
-A divisão primária vem das **capacidades de negócio** — o que o sistema faz para
+A divisão primária vem das **capacidades de negócio**: o que o sistema faz para
 quem o usa. Cobrar, catalogar, entregar, atender.
 
 O segundo eixo é o **requisito de qualidade**: partes com necessidades muito
@@ -65,10 +65,10 @@ ainda que pertençam à mesma capacidade.
 
 Duas decisões, frequentemente confundidas:
 
-**Lógica** — quais são as partes conceituais e o que cada uma faz. Barata de
+**Lógica**: quais são as partes conceituais e o que cada uma faz. Barata de
 mudar.
 
-**Física** — quantos processos, quantos artefatos, o que roda onde. Cara de mudar.
+**Física**: quantos processos, quantos artefatos, o que roda onde. Cara de mudar.
 
 A ordem importa. Decidir a decomposição física antes de a lógica se provar produz
 fronteiras de alto custo no lugar errado. Ver
@@ -88,8 +88,8 @@ toca; o procedimento está na seção de
 ### Nem tudo precisa ser decomposto
 
 Um sistema pequeno com um time ganha pouco em ser dividido, salvo quando uma
-parte tem requisito de qualidade que o resto não tem — aí a razão é escala, não
-tamanho. A decomposição tem custo — contratos, tradução, navegação — e ele só se
+parte tem requisito de qualidade que o resto não tem; aí a razão é escala, não
+tamanho. A decomposição tem custo (contratos, tradução, navegação) e ele só se
 paga acima de certa escala de código e de pessoas.
 
 ## Modelo Mental
@@ -122,10 +122,10 @@ refatoração de horas por uma migração de dados e de contrato.
 
 ## Alternativas
 
-- **Monolito com módulos internos** — a resposta na maioria dos casos. Ver
+- **Monolito com módulos internos**: a resposta na maioria dos casos. Ver
   [monolito modular](/03-design-patterns/modular-monolith.md).
-- **Sistema único sem divisão** — legítimo em sistemas pequenos.
-- **Decomposição parcial** — separar apenas o que tem requisito distinto,
+- **Sistema único sem divisão**: legítimo em sistemas pequenos.
+- **Decomposição parcial**: separar apenas o que tem requisito distinto,
   mantendo o resto junto.
 
 ## Trade-offs
@@ -166,7 +166,7 @@ refatoração de horas por uma migração de dados e de contrato.
 ## Exemplo Real
 
 Um sistema de gestão de eventos foi decomposto em `API`, `Processamento`,
-`Notificacoes` e `Relatorios` — divisão por natureza técnica.
+`Notificacoes` e `Relatorios`: divisão por natureza técnica.
 
 Testado contra as cinco mudanças mais frequentes do último ano: adicionar um tipo
 de ingresso, mudar a regra de reembolso, adicionar um campo ao cadastro de
@@ -174,19 +174,19 @@ participante, alterar a política de lotação e incluir um canal de notificaç�
 
 Quatro das cinco tocavam três ou mais partes.
 
-A redecomposição por capacidade produziu `Ingressos`, `Participantes`, `Acesso` —
-controle de entrada no evento — e `Financeiro`.
+A redecomposição por capacidade produziu `Ingressos`, `Participantes`, `Acesso`
+(controle de entrada no evento) e `Financeiro`.
 
 Nova medição das mesmas cinco mudanças: quatro tocavam uma parte só.
 
-A quinta — incluir canal de notificação — continuou atravessando, porque
+A quinta (incluir canal de notificação) continuou atravessando, porque
 notificação é transversal. Ela virou um módulo consumido pelos quatro, com
 contrato explícito, em vez de uma parte de topo.
 
 Nenhuma dessas partes virou processo separado. A decomposição foi lógica, imposta
 por teste de arquitetura, e o sistema continuou sendo um artefato.
 
-Dois anos depois, `Acesso` foi extraído — porque a validação de entrada em eventos
+Dois anos depois, `Acesso` foi extraído, porque a validação de entrada em eventos
 grandes tem pico de carga de ordens de grandeza e precisa escalar sozinha. Uma
 razão, registrada, e só ela.
 
@@ -203,11 +203,11 @@ Três verificações que custam horas e evitam meses.
 **O teste da mudança.** Liste as cinco alterações mais prováveis e conte quantas
 partes cada uma toca. Se a maioria toca três ou mais, a decomposição está no eixo
 errado. Em sistema existente, o histórico responde melhor que a previsão. No
-nível do portfólio o mesmo teste vale para sistemas em vez de partes — ver
-[arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
+nível do portfólio o mesmo teste vale para sistemas em vez de partes (ver
+[arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md)).
 
 **O teste da propriedade.** Para cada parte, liste os dados de que ela é dona. Se
-duas partes escrevem no mesmo lugar, elas são uma parte dividida em duas — e a
+duas partes escrevem no mesmo lugar, elas são uma parte dividida em duas, e a
 fronteira é ficção.
 
 **O teste da explicação.** Peça a alguém que não participou do desenho que explique
@@ -215,21 +215,21 @@ o que cada parte faz, em uma frase, sem usar "e". Nomes que exigem conjunção
 denunciam agrupamento sem conceito por trás.
 
 O primeiro é o mais valioso e o menos feito, porque exige admitir que não se sabe
-como o sistema vai mudar. A resposta honesta é que ninguém sabe — mas o histórico
+como o sistema vai mudar. A resposta honesta é que ninguém sabe, mas o histórico
 de sistemas parecidos, ou do próprio produto, informa muito melhor que a intuição
 de quem está desenhando naquele momento.
 
 Uma decomposição que passa nos três não é garantidamente certa. Uma que falha em
 qualquer um deles põe a fronteira sob suspeita no eixo que aquele teste mede, e
-reexaminá-la custa horas — o que já paga o exercício.
+reexaminá-la custa horas. Isso já paga o exercício.
 
 ## Conceitos Relacionados
 
-- [Componentes](/05-system-design/components.md) — as partes resultantes.
-- [Fronteiras de Serviço](/05-system-design/service-boundaries.md) — onde separar processos.
-- [Design Modular](/02-software-design/modular-design.md) — a execução em
+- [Componentes](/05-system-design/components.md): as partes resultantes.
+- [Fronteiras de Serviço](/05-system-design/service-boundaries.md): onde separar processos.
+- [Design Modular](/02-software-design/modular-design.md): a execução em
   código.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — o critério de
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): o critério de
   domínio.
 
 ## Exercício Prático
@@ -239,7 +239,7 @@ Liste as cinco alterações mais prováveis no seu sistema nos próximos seis me
 Para cada uma, conte quantas partes de topo ela tocaria.
 
 Se a maioria toca três ou mais, liste as partes que aparecem juntas com mais
-frequência — elas são a decomposição que deveria existir.
+frequência: elas são a decomposição que deveria existir.
 
 ## Perguntas de Entrevista
 

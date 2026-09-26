@@ -2,7 +2,7 @@
 id: system-decomposition
 title: System Decomposition
 sidebar_position: 1
-description: How to go from a prompt to a set of parts — the first move in system design.
+description: "How to go from a prompt to a set of parts: the first move in system design."
 doc_type: concept
 level: 3
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [components, service-boundaries, modular-design]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Decomposing is dividing the system into parts that can be understood, built,
 deployed and operated separately.
 
 It is the first move in system design, and the one that most conditions everything
-that follows — because the boundaries chosen here determine where change stays
+that follows, because the boundaries chosen here determine where change stays
 contained and where it spreads.
 
 ## Problem
@@ -51,7 +51,7 @@ frequently it is the organization that is wrong.
 
 ### The criterion is capability, with quality requirements as a second axis
 
-The primary division comes from **business capabilities** — what the system does for
+The primary division comes from **business capabilities**: what the system does for
 whoever uses it. Charge, catalog, deliver, support.
 
 The second axis is the **quality requirement**: parts with very different needs for
@@ -66,9 +66,9 @@ the same capability.
 
 Two decisions, frequently confused:
 
-**Logical** — what the conceptual parts are and what each one does. Cheap to change.
+**Logical**: what the conceptual parts are and what each one does. Cheap to change.
 
-**Physical** — how many processes, how many artifacts, what runs where. Expensive to
+**Physical**: how many processes, how many artifacts, what runs where. Expensive to
 change.
 
 The order matters. Deciding the physical decomposition before the logical one has
@@ -89,8 +89,8 @@ the procedure is in the
 ### Not everything needs to be decomposed
 
 A small system with one team gains little from being divided, except when one part
-has a quality requirement the rest does not — there the reason is scale, not size.
-Decomposition has a cost — contracts, translation, navigation — and it only pays
+has a quality requirement the rest does not: there the reason is scale, not size.
+Decomposition has a cost (contracts, translation, navigation) and it only pays
 off above a certain scale of code and of people.
 
 ## Mental Model
@@ -123,10 +123,10 @@ hours for a migration of data and contract.
 
 ## Alternatives
 
-- **Monolith with internal modules** — the answer in most cases. See
+- **Monolith with internal modules**: the answer in most cases. See
   [modular monolith](/03-design-patterns/modular-monolith.md).
-- **A single system with no division** — legitimate in small systems.
-- **Partial decomposition** — separate only what has a distinct requirement, keeping
+- **A single system with no division**: legitimate in small systems.
+- **Partial decomposition**: separate only what has a distinct requirement, keeping
   the rest together.
 
 ## Trade-offs
@@ -167,7 +167,7 @@ hours for a migration of data and contract.
 ## Real-World Example
 
 An event management system was decomposed into `API`, `Processing`, `Notifications`
-and `Reports` — a division by technical nature.
+and `Reports`: a division by technical nature.
 
 Tested against the five most frequent changes of the last year: adding a ticket
 type, changing the refund rule, adding a field to the attendee record, altering the
@@ -175,19 +175,19 @@ capacity policy and adding a notification channel.
 
 Four of the five touched three or more parts.
 
-Re-decomposing by capability produced `Tickets`, `Attendees`, `Access` — entry
-control at the event — and `Finance`.
+Re-decomposing by capability produced `Tickets`, `Attendees`, `Access` (entry
+control at the event) and `Finance`.
 
 A new measurement of the same five changes: four touched a single part.
 
-The fifth — adding a notification channel — kept crossing, because notification is
+The fifth (adding a notification channel) kept crossing, because notification is
 cross-cutting. It became a module consumed by the four, with an explicit contract,
 instead of a top-level part.
 
 None of those parts became a separate process. The decomposition was logical,
 enforced by architecture tests, and the system remained one artifact.
 
-Two years later, `Access` was extracted — because entry validation at large events
+Two years later, `Access` was extracted, because entry validation at large events
 has load peaks of orders of magnitude and needs to scale on its own. One reason,
 recorded, and only that one.
 
@@ -204,32 +204,32 @@ Three checks that cost hours and save months.
 **The change test.** List the five most likely changes and count how many parts each
 one touches. If most touch three or more, the decomposition is on the wrong axis. In
 an existing system, history answers better than prediction. At the portfolio level
-the same test holds for systems instead of parts — see
-[application architecture](/15-enterprise-architecture/application-architecture.md).
+the same test holds for systems instead of parts (see
+[application architecture](/15-enterprise-architecture/application-architecture.md)).
 
 **The ownership test.** For each part, list the data it owns. If two parts write to
-the same place, they are one part split in two — and the boundary is fiction.
+the same place, they are one part split in two, and the boundary is fiction.
 
 **The explanation test.** Ask someone who did not take part in the design to explain
 what each part does, in one sentence, without using "and". Names that require a
 conjunction reveal grouping with no concept behind it.
 
 The first is the most valuable and the least done, because it requires admitting that
-you do not know how the system will change. The honest answer is that nobody knows —
+you do not know how the system will change. The honest answer is that nobody knows,
 but the history of similar systems, or of the product itself, informs far better than
 the intuition of whoever is drawing at that moment.
 
 A decomposition that passes all three is not guaranteed to be right. One that fails
 any of them puts the boundary under suspicion on the axis that test measures, and
-re-examining it costs hours — which alone pays for the exercise.
+re-examining it costs hours. That alone pays for the exercise.
 
 ## Related Concepts
 
-- [Components](/05-system-design/components.md) — the resulting parts.
-- [Service Boundaries](/05-system-design/service-boundaries.md) — where to separate
+- [Components](/05-system-design/components.md): the resulting parts.
+- [Service Boundaries](/05-system-design/service-boundaries.md): where to separate
   processes.
-- [Modular Design](/02-software-design/modular-design.md) — the execution in code.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — the domain
+- [Modular Design](/02-software-design/modular-design.md): the execution in code.
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): the domain
   criterion.
 
 ## Practical Exercise
@@ -238,7 +238,7 @@ List the five most likely changes to your system over the next six months.
 
 For each one, count how many top-level parts it would touch.
 
-If most touch three or more, list the parts that appear together most often — they
+If most touch three or more, list the parts that appear together most often: they
 are the decomposition that should exist.
 
 ## Interview Questions

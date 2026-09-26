@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, incremental-modernization, modernization-risk, organizational-constraints]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -78,7 +78,7 @@ business rules     are not written down anywhere but the code
 
 Produce, in up to 90 minutes:
 
-1. The **strategy**: rewrite, convert, strangle or encapsulate — with the reason.
+1. The **strategy**: rewrite, convert, strangle or encapsulate, with the reason.
 2. The **order of the phases**, and what is left if the work stops at the end of each one.
 3. How the **business rules** come out of the code without being lost.
 4. The role of the **two people** in the plan.
@@ -124,7 +124,7 @@ risk to mitigate.
 **The strategy is strangling**, with the legacy system encapsulated early on.
 
 The reason is not preference: rewriting requires the specification that doesn't exist, and converting
-automatically preserves the logic without solving the knowledge problem — the generated code stays
+automatically preserves the logic without solving the knowledge problem. The generated code stays
 unreadable to the eight new engineers.
 
 **The order, and what is left at each stop:**
@@ -150,14 +150,14 @@ phase 4 (ongoing)    the rest, in order of risk
 ```
 
 **Phase 2 is the decision that solves the exercise.** The traceability does not have to be inside the
-legacy system — it needs the data the legacy system produces. Built outside, it takes 8 months instead
+legacy system; it needs the data the legacy system produces. Built outside, it takes 8 months instead
 of the 14 estimated inside, and it depends on neither of the two people.
 
 Whoever puts the traceability inside the legacy system consumes 14 of the 30 months, occupies the two
 people who are the scarcest resource, and arrives at month 14 having modernized nothing.
 
-**The third requirement closes by accumulation.** Every phase produces code outside Delphi — the
-facade, the traceability, the extracted capabilities — and that code is maintained by the new
+**The third requirement closes by accumulation.** Every phase produces code outside Delphi (the
+facade, the traceability, the extracted capabilities), and that code is maintained by the new
 engineers. By the end of phase 2 there are already more than two people able to maintain a part of
 the system; by the end of phase 3, the part that changes most.
 
@@ -169,7 +169,7 @@ remembers writing.
 See the [modernization case study](/21-case-studies/legacy-modernization-case.md).
 
 **The two people** are the authority over the comparison, not the source of the specification. Their
-role is to decide, faced with a divergence, which behavior is correct — and that judgment is what no
+role is to decide, faced with a divergence, which behavior is correct, and that judgment is what no
 document replaces.
 
 Treating them as an obstacle is the most common and the most expensive error: they can sink the
@@ -181,7 +181,7 @@ written, and it is the project's highest-return survey.
 
 **The harvest peaks** define the calendar: eight months of the year are usable, four are not. The
 phase durations above are calendar months and already absorb the stoppages; a 30-month plan has, in
-practice, 20 months of work — and that has to be in the schedule from the start, not discovered at
+practice, 20 months of work. That has to be in the schedule from the start, not discovered at
 the first peak.
 
 :::

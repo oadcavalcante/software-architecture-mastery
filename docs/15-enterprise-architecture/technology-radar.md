@@ -2,7 +2,7 @@
 id: technology-radar
 title: Radar Tecnológico
 sidebar_position: 14
-description: O mecanismo que substitui a lista de tecnologias aprovadas — com movimento e contexto.
+description: O mecanismo que substitui a lista de tecnologias aprovadas, com movimento e contexto.
 doc_type: pattern
 level: 6
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-principles, technical-strategy]
 canonical_for: [radar tecnológico, anel de adoção, movimento de tecnologia]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -31,7 +31,7 @@ avaliar      vale entender, sem compromisso
 evitar       não iniciamos nada novo com isso, e há razão registrada
 ```
 
-Ele substitui a lista de tecnologias aprovadas — que é binária, sem contexto, e congela.
+Ele substitui a lista de tecnologias aprovadas, que é binária, sem contexto, e congela.
 
 ## Problema
 
@@ -67,7 +67,7 @@ A última linha é a mais valiosa e a menos registrada: saber que a organizaçã
 algo e por que não deu certo economiza a próxima pessoa que teria a mesma ideia.
 
 E o movimento comunica direção: uma tecnologia que ficou dois anos em "avaliar" sem sair
-de lá diz algo — provavelmente que ninguém tem interesse real nela.
+de lá diz algo, provavelmente que ninguém tem interesse real nela.
 
 ### Cada item precisa de justificativa e contexto
 
@@ -78,7 +78,7 @@ bom    "Kafka — adotar para fluxos de alto volume com retenção;
         que exige menos operação"
 ```
 
-A justificativa é o que permite a quem lê decidir se o caso dele se aplica — e é o que
+A justificativa é o que permite a quem lê decidir se o caso dele se aplica, e é o que
 mantém a decisão revisável quando o contexto muda.
 
 Sem ela, o radar vira lista com nomes bonitos.
@@ -99,7 +99,7 @@ Radares públicos são úteis como referência e não substituem o próprio: ele
 contexto de quem os publica.
 
 Uma tecnologia em "adotar" numa consultoria com centenas de projetos pode ser
-inadequada numa organização com oito engenheiros — porque o custo operacional que a
+inadequada numa organização com oito engenheiros, porque o custo operacional que a
 justifica lá não existe aqui. Ver
 [serviços gerenciados](/09-cloud-architecture/managed-services.md).
 
@@ -114,7 +114,7 @@ substituiu.
 O que funciona: uma revisão periódica com participação dos times, em que quem usou uma
 tecnologia relata a experiência.
 
-Isso o torna um mecanismo de **compartilhamento de aprendizado** além de orientação — e é
+Isso o torna um mecanismo de **compartilhamento de aprendizado** além de orientação, e é
 o que o mantém vivo, porque as pessoas participam da construção.
 
 ### Frequência de revisão
@@ -147,8 +147,8 @@ não se falam. Com oito engenheiros num time, o aprendizado circula na conversa,
 trimestral vira cerimônia sobre decisões que todos já conhecem.
 
 **Quando a divergência tecnológica é baixa por outra razão.** Se o caminho pavimentado já
-embute as escolhas — a esteira só constrói neste runtime, a plataforma só provisiona este
-banco —, o radar descreve o que a ferramenta já decide. Foi o que aconteceu ao fim do
+embute as escolhas (a esteira só constrói neste runtime, a plataforma só provisiona este
+banco), o radar descreve o que a ferramenta já decide. Foi o que aconteceu ao fim do
 Exemplo Real, e é sinal de sucesso, não de falha.
 
 **Quando ninguém vai manter a revisão.** Um radar que envelhece é pior que a ausência dele:
@@ -161,16 +161,16 @@ compra, o que se exige é resposta binária e auditável. O radar orienta e admi
 
 **Sem revisão periódica.**
 
-**Com granularidade errada** — dezenas de bibliotecas, quando o que importa são as
+**Com granularidade errada**: dezenas de bibliotecas, quando o que importa são as
 decisões estruturais.
 
 ## Alternativas
 
-- **Caminho pavimentado** — em vez de recomendar, oferecer pronto. Ver
+- **Caminho pavimentado**: em vez de recomendar, oferecer pronto. Ver
   [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
-- **[Padrões](/15-enterprise-architecture/standards.md)** — quando a escolha específica é obrigatória.
-- **Registro de decisões** — o histórico do que foi escolhido e por quê.
-- **Comunidade de prática** — o compartilhamento de aprendizado sem artefato formal.
+- **[Padrões](/15-enterprise-architecture/standards.md)**: quando a escolha específica é obrigatória.
+- **Registro de decisões**: o histórico do que foi escolhido e por quê.
+- **Comunidade de prática**: o compartilhamento de aprendizado sem artefato formal.
 
 O caminho pavimentado é mais forte que o radar: ele torna a recomendação a opção mais
 fácil, em vez de depender de alguém consultar um documento.
@@ -242,23 +242,23 @@ A substituição por radar mudou três coisas:
 **Justificativa obrigatória.** Cada item passou a ter contexto: para que serve, quando
 não usar, o que se aprendeu.
 
-A migração da lista para o radar exigiu escrever esse contexto — e 18 dos 60 itens não
+A migração da lista para o radar exigiu escrever esse contexto, e 18 dos 60 itens não
 tinham ninguém que soubesse por que estavam ali. Foram removidos.
 
 **Anel de "evitar" com razão.** Sete tecnologias foram para "evitar" com relato do que
-tinha sido tentado e por que não funcionou. Uma delas — um banco de grafo — tinha sido
+tinha sido tentado e por que não funcionou. Uma delas, um banco de grafo, tinha sido
 tentado por três times diferentes em quatro anos, cada um sem saber dos anteriores.
 
 **Construção com os times.** Revisão trimestral, com relatos de quem usou. A primeira
 sessão levou três horas e produziu quatorze relatos de uso que não estavam escritos em
-lugar nenhum — incluindo dois casos em que times diferentes tinham abandonado a mesma
+lugar nenhum, incluindo dois casos em que times diferentes tinham abandonado a mesma
 tecnologia pelo mesmo motivo, sem saber um do outro.
 
-**Movimento registrado.** Em dezoito meses, 23 movimentos — nove entradas em avaliar,
+**Movimento registrado.** Em dezoito meses, 23 movimentos: nove entradas em avaliar,
 seis promoções a experimentar, cinco a adotar, três para evitar.
 
 E uma mudança que veio depois: as tecnologias em "adotar" passaram a ser embutidas no
-caminho pavimentado da plataforma. Isso reduziu a necessidade de consultar o radar —
+caminho pavimentado da plataforma. Isso reduziu a necessidade de consultar o radar:
 usar a opção recomendada virou o caminho mais fácil. Ver
 [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
 
@@ -271,7 +271,7 @@ encontraram resposta útil, e seguiram.
 
 ## Conceitos Relacionados
 
-- [Padrões](/15-enterprise-architecture/standards.md) — a prescrição obrigatória.
+- [Padrões](/15-enterprise-architecture/standards.md): a prescrição obrigatória.
 - [Princípios Corporativos](/15-enterprise-architecture/enterprise-principles.md).
 - [Estratégia Técnica](/15-enterprise-architecture/technical-strategy.md).
 - [Plataformas Internas](/14-devops-and-platform/internal-developer-platforms.md).
@@ -281,7 +281,7 @@ encontraram resposta útil, e seguiram.
 Liste as tecnologias efetivamente em uso nos seus serviços e compare com a lista
 aprovada, se houver.
 
-A diferença mede o quanto a lista descreve a realidade — e, se for grande, ela não está
+A diferença mede o quanto a lista descreve a realidade. E, se for grande, ela não está
 orientando nada.
 
 ## Perguntas de Entrevista
@@ -292,7 +292,7 @@ orientando nada.
 
 ## Para Aprofundar
 
-- Thoughtworks. *Technology Radar*, vol. 29, 2023 — uma edição como âncora do formato; as
+- Thoughtworks. *Technology Radar*, vol. 29, 2023. Uma edição como âncora do formato; as
   demais estão publicadas e mostram o movimento dos itens entre anéis.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Ford, Neal et al. *Building Evolutionary Architectures*. 2ª ed. O'Reilly, 2022.

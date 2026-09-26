@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [architecture-decisions, architecture-leadership, security]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,7 @@ afterwards, by people who didn't make them.
 
 ## What you will find here
 
-**Instruments.** Principles, standards and the forms of compliance — together with the
+**Instruments.** Principles, standards and the forms of compliance, together with the
 exception process, which is what separates living governance from bureaucracy. A standard
 with no exception path is worked around silently.
 
@@ -48,12 +48,12 @@ When to review, who takes part, and what it produces.
 **Automation.** Fitness functions as executable governance. Automatically verifying the
 property you want to preserve is cheaper and more reliable than inspecting a design.
 
-**A distributed model.** Federated governance — when the decision stays with the team and
+**A distributed model.** Federated governance: when the decision stays with the team and
 what remains central. Applicable to organizations past a certain size.
 
 **Pathologies.** How governance becomes a bottleneck, and the signs that it already has.
 
-**Measurement.** The effect and the friction of each mechanism — the two numbers without
+**Measurement.** The effect and the friction of each mechanism: the two numbers without
 which the decision to keep or remove falls to whoever has the most authority.
 
 ## A principle and a standard are not the same thing
@@ -61,8 +61,8 @@ which the decision to keep or remove falls to whoever has the most authority.
 Both guide decisions, but at different points of intervention, and treating them as the
 same thing makes the mechanism miss the point: it prescribes where it should guide, or
 guides where it should prescribe. A principle gives the criterion for the new
-situation — "we prefer X over Y, because Z" — and is weighed against other principles. A
-standard closes the recurring situation — "use X" — and, when it doesn't fit the case,
+situation ("we prefer X over Y, because Z") and is weighed against other principles. A
+standard closes the recurring situation ("use X") and, when it doesn't fit the case,
 requires an explicit exception process.
 
 The line-by-line comparison, with the axis of each row, is in
@@ -76,7 +76,7 @@ standards stalls at the first unforeseen case.
 ## Reading order
 
 Start with **Governance Basics**, which fixes the mechanism and the point of
-intervention — and is a prerequisite for most of the rest. Then **Principles in
+intervention, and is a prerequisite for most of the rest. Then **Principles in
 Operation** and **Standards in Operation**, in that order.
 
 Then **fitness functions**, which is the mechanism with the best ratio of effect to
@@ -92,7 +92,7 @@ You design governance mechanisms proportional to the risk they address. You reco
 a process has become ritual and can propose removing it.
 
 And you can argue for team autonomy with a concrete proposal for how coherence will be
-maintained — which is what makes the argument acceptable to whoever answers for the risk.
+maintained. That is what makes the argument acceptable to whoever answers for the risk.
 
 ## Continues in
 

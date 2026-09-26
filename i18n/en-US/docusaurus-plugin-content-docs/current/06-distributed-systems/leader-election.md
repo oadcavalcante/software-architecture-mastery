@@ -2,7 +2,7 @@
 id: leader-election
 title: Leader Election
 sidebar_position: 16
-description: Choosing who coordinates — and why electing is easy and preventing two leaders is hard.
+description: Choosing who coordinates, and why electing is easy and preventing two leaders is hard.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [replication]
 related: [consensus, distributed-locks, failure-detection]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Leader election is the process by which a group of nodes chooses one to coordinate — accept writes,
+Leader election is the process by which a group of nodes chooses one to coordinate: accept writes,
 distribute work, make decisions that have to be unique.
 
 Choosing is easy. The hard part is **guaranteeing there are not two**, and that difficulty is why
@@ -39,7 +39,7 @@ The other nodes have to detect the failure and elect a replacement. But
 [detecting failure is a heuristic](/06-distributed-systems/failure-detection.md): "not responding" can
 mean down, slow, or on the other side of a partition.
 
-If the nodes elect a new leader and the old one **did not go down** — it was merely unreachable —
+If the nodes elect a new leader and the old one **did not go down** (it was merely unreachable),
 there are two leaders, both accepting writes, both convinced they are the only one.
 
 That is **split brain**, and it is the failure mode the election has to prevent.
@@ -52,7 +52,7 @@ The fundamental mechanism: **a node only becomes leader with a majority vote.**
 
 Since there cannot be two disjoint majorities in the same group, there cannot be two leaders elected
 in the same term. What a majority does not prevent is a leader from an earlier term still believing it
-is the leader — and that is the case the next section deals with.
+is the leader. That is the case the next section deals with.
 
 ```text
 5 nodes, partitioned into 3 and 2
@@ -67,7 +67,7 @@ unavailable. See [CAP](/06-distributed-systems/cap.md).
 
 ### The old leader has to know it lost
 
-Here is the subtle part. The isolated node may not realize it lost the leadership — it receives no
+Here is the subtle part. The isolated node may not realize it lost the leadership: it receives no
 notice, because it is partitioned.
 
 Two defenses:
@@ -76,8 +76,8 @@ Two defenses:
 the majority. Without renewing, the leader **resigns on its own**. That bounds the two-leader window
 to the lease duration.
 
-**Fencing.** Each leadership receives an increasing number. The protected resources — database,
-storage — reject operations with a number lower than the last one seen.
+**Fencing.** Each leadership receives an increasing number. The protected resources (database,
+storage) reject operations with a number lower than the last one seen.
 
 ```text
 leader 1 (epoch 5) is isolated
@@ -104,7 +104,7 @@ changing repeatedly; a long lease does the inverse.
 
 Before electing, it is worth asking whether the coordination is necessary.
 
-Commutative operations — which can happen in any order without changing the result — do not need a
+Commutative operations, which can happen in any order without changing the result, do not need a
 leader. See
 [conflict resolution](/06-distributed-systems/conflict-resolution.md) and structures that converge
 without coordination.
@@ -113,8 +113,8 @@ A leader is the simplest solution to reason about and the most expensive in avai
 
 ### Do not implement it from scratch
 
-Correct election is notoriously hard to implement. The available implementations — based on Raft,
-Paxos or coordination services — were tested against partition scenarios a homegrown implementation
+Correct election is notoriously hard to implement. The available implementations (based on Raft,
+Paxos or coordination services) were tested against partition scenarios a homegrown implementation
 will not have.
 
 See [consensus](/06-distributed-systems/consensus.md).
@@ -126,7 +126,7 @@ serves that second part.
 
 ## When to Use
 
-- An operation has to happen in exactly one place — scheduling, a migration, compaction.
+- An operation has to happen in exactly one place: scheduling, a migration, compaction.
 - Single-leader replication needs automatic failover.
 - There is a resource that does not admit concurrent access across nodes.
 
@@ -149,11 +149,11 @@ architecture, with the corresponding complications.
 
 ## Alternatives
 
-- **Leaderless, with quorums** — replication with no central coordination.
-- **Commutative operations** — avoids the need.
-- **A distributed lock with a deadline** — for one-off coordination, not continuous. See
+- **Leaderless, with quorums**: replication with no central coordination.
+- **Commutative operations**: avoids the need.
+- **A distributed lock with a deadline**: for one-off coordination, not continuous. See
   [distributed locks](/06-distributed-systems/distributed-locks.md).
-- **Partitioning** — instead of one leader for everything, one per partition, which distributes the
+- **Partitioning**: instead of one leader for everything, one per partition, which distributes the
   load and the risk.
 
 ## Trade-offs
@@ -205,8 +205,8 @@ scenario.
 Instance A obtained the leadership and started the closing. Midway, it suffered a 7-minute pause. The
 lease expired. Instance B took over and started the closing from scratch.
 
-Instance A came back from the pause **without knowing** it had lost the leadership — from its point
-of view, nothing had happened — and kept writing from where it left off.
+Instance A came back from the pause **without knowing** it had lost the leadership (from its point
+of view, nothing had happened) and kept writing from where it left off.
 
 Two instances wrote accounting entries for the same closing. The reconciliation took three days.
 
@@ -219,20 +219,20 @@ back, was rejected on its first write.
 **A tested coordination service** instead of the homegrown implementation, with a lease renewed by
 heartbeat and an explicit leadership check before each block of writes.
 
-What makes this case instructive is that the problem was not the election — it worked, and B was
+What makes this case instructive is that the problem was not the election: it worked, and B was
 correctly elected. The problem was **A not knowing it had lost**, and no mechanism preventing it from
 writing.
 
-Fencing is the defense that does not depend on the former leader realizing anything — and, unlike a
+Fencing is the defense that does not depend on the former leader realizing anything, and, unlike a
 leadership check before the write, it has no window between checking and writing.
 
 ## Related Concepts
 
-- [Consensus](/06-distributed-systems/consensus.md) — the mechanism that underpins the election.
-- [Distributed Locks](/06-distributed-systems/distributed-locks.md) — the same problem at a smaller
+- [Consensus](/06-distributed-systems/consensus.md): the mechanism that underpins the election.
+- [Distributed Locks](/06-distributed-systems/distributed-locks.md): the same problem at a smaller
   scale.
-- [Failure Detection](/06-distributed-systems/failure-detection.md) — why it is a heuristic.
-- [Network Failure](/06-distributed-systems/network-failure.md) — the partition that causes it.
+- [Failure Detection](/06-distributed-systems/failure-detection.md): why it is a heuristic.
+- [Network Failure](/06-distributed-systems/network-failure.md): the partition that causes it.
 
 ## Practical Exercise
 
@@ -250,6 +250,6 @@ back, what prevents it from continuing to write?
 
 ## Further Reading
 
-- Kleppmann, Martin. *How to do distributed locking*, 2016 — the argument about fencing.
+- Kleppmann, Martin. *How to do distributed locking*, 2016. The argument about fencing.
 - Ongaro, Diego; Ousterhout, John. *In Search of an Understandable Consensus Algorithm (Raft)*, 2014.
 - Burrows, Mike. *The Chubby Lock Service*. OSDI, 2006.

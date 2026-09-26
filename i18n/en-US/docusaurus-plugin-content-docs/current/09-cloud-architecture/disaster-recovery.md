@@ -2,7 +2,7 @@
 id: disaster-recovery
 title: Disaster Recovery
 sidebar_position: 16
-description: Getting back to operating after what should not happen — and why a plan nobody executed is not a plan.
+description: Getting back to operating after what should not happen, and why a plan nobody executed is not a plan.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [multi-region, availability-zones, data-replication]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ that encrypts the data.
 It is different from high availability. High availability keeps common failures from becoming
 unavailability. Disaster recovery deals with what happens when that was not enough.
 
-And it comes down to two numbers — which need to come from the business, not from engineering.
+And it comes down to two numbers, which need to come from the business, not from engineering.
 
 ## Problem
 
@@ -67,8 +67,8 @@ warm standby           minutes            seconds       high
 active-active          seconds            ~zero         very high
 ```
 
-**Pilot light** deserves attention: a minimal version of the environment stays on — the database
-replicating, the network ready — and the compute capacity is created at activation. It costs a fraction of
+**Pilot light** deserves attention: a minimal version of the environment stays on (the database
+replicating, the network ready) and the compute capacity is created at activation. It costs a fraction of
 a warm standby and delivers an RTO of tens of minutes.
 
 It is the best cost-to-result ratio for most systems that need more than backups, and it is underused.
@@ -77,7 +77,7 @@ The price the table does not show: the standby environment drifts from productio
 and the next. Production gets a new image version, a configuration variable, a permission, and the standby
 region does not; the account's instance quota in the target region stays at the default, sized for the
 pilot and not for the load. The standby design only delivers the table's RTO if activation is exercised at
-the same cadence as deployments — and if failing back to the origin region, which requires replicating
+the same cadence as deployments, and if failing back to the origin region, which requires replicating
 back the data written during the disaster, has been rehearsed too.
 
 See [multi-region](/09-cloud-architecture/multi-region.md) for the higher designs.
@@ -87,7 +87,7 @@ See [multi-region](/09-cloud-architecture/multi-region.md) for the higher design
 See [data replication](/07-data-architecture/data-replication.md). The distinction decides whether you
 survive human error.
 
-Replication copies everything, including the destructive command. A backup has history — it allows going
+Replication copies everything, including the destructive command. A backup has history: it allows going
 back to before the error.
 
 The scenarios **only** the backup covers: accidental deletion, logical corruption, a defective migration,
@@ -102,7 +102,7 @@ A backup that exists and does not restore is worse than none, because it produce
 
 What needs to be tested, periodically and for real:
 
-**The complete restore works** — not just reading the file.
+**The complete restore works**, not just reading the file.
 
 **How long it takes.** Restoring several terabytes can take longer than the RTO.
 
@@ -113,20 +113,20 @@ missing.
 
 ### The plan goes beyond data
 
-The plan's scope — configuration, secrets, certificates, communication —, the triggering authority and the
+The plan's scope (configuration, secrets, certificates, communication), the triggering authority and the
 order in which functions come back are covered in
 [recovery planning](/12-reliability/disaster-recovery-planning.md). This document deals with the technical
 strategy the plan triggers.
 
 Two items of that scope change nature when recovery is to another region. **DNS**: a record with a one-day
-time to live keeps clients pointed at the dead region for a day, however fast everything else comes up —
-the time to live needs to fit in the RTO before the disaster. **External dependencies**: the payment
+time to live keeps clients pointed at the dead region for a day, however fast everything else comes up.
+The time to live needs to fit in the RTO before the disaster. **External dependencies**: the payment
 gateway or partner that allows calls by a list of source addresses refuses the new region until someone on
 their side updates the list.
 
 ## Mental Model
 
-**Each strategy is a continuous rent paid to shorten the two numbers — and what is rented only exists if
+**Each strategy is a continuous rent paid to shorten the two numbers, and what is rented only exists if
 activation has been rehearsed.** Standby capacity that never received traffic is cost, not RTO.
 
 ## When to Use
@@ -151,7 +151,7 @@ replicated at the target.
 
 **A multi-region strategy with no viable second target.** When data residency binds you to a single
 region, or when a managed service the system depends on does not exist in the target region, the standby
-design does not come up. Recovery becomes same-region, from an isolated backup, or at another provider —
+design does not come up. Recovery becomes same-region, from an isolated backup, or at another provider,
 with an RTO of a different order.
 
 **A minutes-level RTO for a system with a manual fallback.** If the operation can run for a day on a manual
@@ -159,12 +159,12 @@ process, backups with restore automation serve, and any step above that is cost 
 
 ## Alternatives
 
-- **Three [availability zones](/09-cloud-architecture/availability-zones.md)** — it covers most real
+- **Three [availability zones](/09-cloud-architecture/availability-zones.md)**: it covers most real
   failures and is not disaster recovery.
-- **Backups with restore automation** — the minimum viable, and sufficient for many systems.
-- **A pilot light** — the best cost-benefit ratio when the required RTO is in the tens of minutes and the
+- **Backups with restore automation**: the minimum viable, and sufficient for many systems.
+- **A pilot light**: the best cost-benefit ratio when the required RTO is in the tens of minutes and the
   cost of downtime does not pay for a warm standby.
-- **A delayed replica** — cheap protection against human error. See
+- **A delayed replica**: cheap protection against human error. See
   [data replication](/07-data-architecture/data-replication.md).
 
 ## Trade-offs
@@ -209,7 +209,7 @@ reverse replication configured, and the system is stuck in the standby region, s
 ## Common Mistakes
 
 **Not defining RTO and RPO with the business.** Without those two numbers, the strategy is chosen by
-engineering intuition — which usually buys more than the business needs, or less than it tolerates.
+engineering intuition, which usually buys more than the business needs, or less than it tolerates.
 
 **Not testing the restore.** The backup's existence says nothing about how long the restore takes or
 whether what comes back is intact. A backup never restored is a hypothesis, not a plan.
@@ -242,7 +242,7 @@ last 30 days' worth were encrypted along with everything else.
 **A backup existed in another account**, made monthly by an old process nobody remembered. It was 26 days
 old.
 
-**The restore had never been tested.** The first attempt failed on a version incompatibility — the backup
+**The restore had never been tested.** The first attempt failed on a version incompatibility: the backup
 was from an earlier database version, and the new environment did not accept it directly.
 
 **Configuration was missing.** The application's secrets were in no backup. All of them had to be
@@ -256,7 +256,7 @@ from partner systems and tax records.
 
 Afterward:
 
-**RTO and RPO defined with the board** — 4 hours and 15 minutes, respectively, for the essential functions.
+**RTO and RPO defined with the board**: 4 hours and 15 minutes, respectively, for the essential functions.
 
 **A pilot light** in another region, with continuous replication.
 
@@ -268,22 +268,22 @@ Afterward:
 
 **Triggering authority** defined in three names.
 
-What was recorded afterward: they met the audit requirement — there were backups and there was a document.
+What was recorded afterward: they met the audit requirement (there were backups and there was a document).
 The audit never asked for a test, and nobody offered one.
 
 ## Related Concepts
 
-- [Multi-Region](/09-cloud-architecture/multi-region.md) — the low-RTO designs.
+- [Multi-Region](/09-cloud-architecture/multi-region.md): the low-RTO designs.
 - [Availability Zones](/09-cloud-architecture/availability-zones.md).
 - [Data Replication](/07-data-architecture/data-replication.md).
-- [Recovery Planning](/12-reliability/disaster-recovery-planning.md) — the plan's scope, the triggering
+- [Recovery Planning](/12-reliability/disaster-recovery-planning.md): the plan's scope, the triggering
   authority and the order of return.
-- [RTO](/12-reliability/rto.md) and [RPO](/12-reliability/rpo.md) — the two numbers.
+- [RTO](/12-reliability/rto.md) and [RPO](/12-reliability/rpo.md): the two numbers.
 - [Reliability](/12-reliability/index.md).
 
 ## Practical Exercise
 
-Find out when the last complete restore test of your system was — not the verification that the backup
+Find out when the last complete restore test of your system was: not the verification that the backup
 exists, the actual restore.
 
 Then ask somebody from the business: how much does each hour of downtime cost? If the two numbers do not
@@ -298,5 +298,5 @@ talk to each other, that is the gap.
 ## Further Reading
 
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- ISO 22301 — business continuity management.
-- NIST SP 800-34 — contingency planning guide.
+- ISO 22301: business continuity management.
+- NIST SP 800-34: contingency planning guide.

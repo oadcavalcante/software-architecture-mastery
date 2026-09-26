@@ -2,7 +2,7 @@
 id: reliability
 title: Reliability
 sidebar_position: 0
-description: Continuing to work when parts fail — with a defined target, not with "as much as possible".
+description: Continuing to work when parts fail, with a defined target, not with "as much as possible".
 doc_type: index
 level: 5
 difficulty: advanced
@@ -13,13 +13,13 @@ objective: >
 prerequisites: [distributed-systems]
 related: [scalability, cloud-architecture, observability]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
 # Level 05 — Reliability
 
-This section deals with continuing to work when parts fail — because they fail.
+This section deals with continuing to work when parts fail, because they fail.
 
 ## This section's problem
 
@@ -28,11 +28,11 @@ partitions, dependencies go down, deployments introduce defects, people make mis
 
 The right question is: **when something fails, what happens?**
 
-That changes the target of the work. Instead of chasing the absence of failure — which does not exist — the
+That changes the target of the work. Instead of chasing the absence of failure (which does not exist), the
 effort goes to **containment**: that one part's failure does not become the whole's failure, that the
 degradation is partial instead of total, and that the recovery is fast.
 
-The second problem is definition. "Maximum possible reliability" is not a target — it is an intention with
+The second problem is definition. "Maximum possible reliability" is not a target but an intention with
 no cost attached. Each additional nine costs disproportionately more, and the decision of how many nines to
 chase belongs to the business, with the price on the table.
 
@@ -41,26 +41,26 @@ too little where it does. And nobody can say whether the system is good.
 
 ## What you will find here
 
-**The measures.** Availability metrics and the reliability fundamentals — what the numbers mean and what
+**The measures.** Availability metrics and the reliability fundamentals: what the numbers mean and what
 they hide.
 
-**The targets.** SLI, SLO and SLA — three things frequently confused, with the error budget as the
+**The targets.** SLI, SLO and SLA: three things frequently confused, with the error budget as the
 mechanism that turns a target into an operational decision.
 
-**The responses to failure.** Fault tolerance, redundancy and failover — mechanisms for the anticipated
-failure mode — and resilience, which deals with the unanticipated and involves people and procedures, not
+**The responses to failure.** Fault tolerance, redundancy and failover (mechanisms for the anticipated
+failure mode) and resilience, which deals with the unanticipated and involves people and procedures, not
 mechanism alone. Redundancy gets specific attention to what nullifies it: correlation.
 
 **The containment patterns.** Circuit breakers, bulkheads and graceful degradation. They are what keep a
 localized failure from propagating.
 
-**The failure mode the protection itself causes.** Retry storms — the case where the defense amplifies the
+**The failure mode the protection itself causes.** Retry storms: the case where the defense amplifies the
 problem.
 
 **Recovery.** Disaster recovery planning, with RTO and RPO treated as what they are: business decisions
 with a price.
 
-**Verification.** Chaos engineering — the practice that answers "does this actually work?" before the
+**Verification.** Chaos engineering: the practice that answers "does this actually work?" before the
 incident.
 
 ## Reading order
@@ -73,7 +73,7 @@ depends on a product decision nobody asks for.
 
 **Circuit breakers**, **bulkheads** and **retry storms** form a block and should be read together, for
 different reasons: the circuit breaker breaks the retry cycle, and the bulkhead contains exhaustion of a
-shared resource — which happens with zero retries.
+shared resource, which happens with zero retries.
 
 Leave **chaos engineering** for the end, and read it as verification of what the previous ones promised,
 not as an independent practice.
@@ -83,13 +83,13 @@ not as an independent practice.
 You define reliability targets in numbers agreed with the business, and you know what each additional nine
 costs.
 
-You can point, on a design, to where a failure propagates and where it is contained — and add containment
+You can point, on a design, to where a failure propagates and where it is contained, and add containment
 where it is missing.
 
 You recognize that redundancy without independence is not redundancy, and that a recovery plan never
 exercised is not a plan.
 
-And you understand that a system's reliability is verified, not presumed — which means causing failures on
+And you understand that a system's reliability is verified, not presumed. That means causing failures on
 purpose, in a controlled window, before they happen on their own.
 
 ## Continues in

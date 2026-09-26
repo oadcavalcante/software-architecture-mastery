@@ -2,7 +2,7 @@
 id: negotiating-tradeoffs
 title: Negotiating Trade-offs
 sidebar_position: 8
-description: Negotiating interests, not positions — and discovering that technical disagreement is rarely technical.
+description: Negotiating interests, not positions, and discovering that technical disagreement is rarely technical.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, stakeholder-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-31
 ## Overview
 
 Two competent people look at the same problem and reach opposite conclusions. That is normal, and
-the reason is almost never unequal knowledge — it is that they are optimizing different things.
+the reason is almost never unequal knowledge, but that they are optimizing different things.
 
 ```text
 position   "we need to use Kafka"
@@ -31,7 +31,7 @@ interest   "I need my team not to be hostage to the payments team
 ```
 
 Debating positions produces deadlock. Discovering interests frequently reveals that there is an
-option serving both sides that nobody had proposed — because each was defending their own.
+option serving both sides that nobody had proposed, because each was defending their own.
 
 That is an architect's central contribution to a disagreement between teams: not deciding who is
 right, but structuring the conversation until the better option appears.
@@ -53,7 +53,7 @@ What never happened at any point: someone asking why each team argues for what t
 
 And there is a second, quieter pattern: the disagreement that is not expressed. A team disagrees,
 doesn't say so, and simply doesn't adopt. That is worse than deadlock, because there is nothing to
-resolve — only an invisible non-compliance discovered months later.
+resolve, only an invisible non-compliance discovered months later.
 
 ## Core Concepts
 
@@ -89,7 +89,7 @@ about the system.
  proposal doesn't meet"              it is still about the problem
 ```
 
-The architect's role includes keeping the conversation in the second formulation — which sometimes
+The architect's role includes keeping the conversation in the second formulation. That sometimes
 requires explicitly naming that it has drifted.
 
 ### Criteria before options
@@ -104,7 +104,7 @@ The move that unblocks most deadlocks:
 
 Defining criteria before comparing options removes the bias of defending your own proposal, because
 nobody yet knows which one wins. Defining criteria afterwards produces criteria chosen to favor a
-conclusion — which both sides do without noticing.
+conclusion. Both sides do that without noticing.
 
 See [alternatives in an ADR](/18-architecture-decisions/adr-alternatives.md).
 
@@ -119,7 +119,7 @@ new option    separate databases, with the platform team operating
 ```
 
 Discussions between two positions tend to produce a victory or a bad compromise. The third option,
-built from the interests, is usually better than both — and it only appears once the interests are
+built from the interests, is usually better than both, and it only appears once the interests are
 on the table.
 
 ### Use objective criteria, not authority
@@ -133,7 +133,7 @@ strong   "let's measure: which of the two meets the latency
 
 When a measurement is possible and both sides agreed beforehand on what to measure, under what load
 and which threshold decides, it ends the discussion in a way no argument does; agreed after the
-result, the measurement only opens a new discussion about the metric. And when there is none, agreement on criteria is the substitute — because it shifts the discussion from "who is
+result, the measurement only opens a new discussion about the metric. And when there is none, agreement on criteria is the substitute, because it shifts the discussion from "who is
 right" to "what better meets what we agreed on".
 
 ### Not every disagreement gets resolved
@@ -160,8 +160,8 @@ See [decision in an ADR](/18-architecture-decisions/adr-decision.md).
  concern is confirmed, we change."
 ```
 
-When the disagreement is about a prediction — "this will get expensive to operate", "this won't
-scale" — and the prediction is testable, deciding temporarily with measurement turns an opinion
+When the disagreement is about a prediction ("this will get expensive to operate", "this won't
+scale") and the prediction is testable, deciding temporarily with measurement turns an opinion
 debate into an experiment.
 
 That only works when reversal is genuinely cheap. Promising reversibility that doesn't exist is
@@ -178,7 +178,7 @@ cost       the teams learn that disagreeing outsources the decision
            and start escalating more
 ```
 
-Escalating is not a failure — it is an instrument. What degrades an organization is escalating as
+Escalating is not a failure but an instrument. What degrades an organization is escalating as
 the first resort, because that removes from the teams the practice of resolving their own
 disagreements.
 
@@ -213,11 +213,11 @@ Alternatives).
 
 ## Alternatives
 
-- **Measure** — when the disagreement is about a testable prediction, the experiment decides.
-- **A parallel pilot** — two teams, two approaches, evaluation afterwards; expensive and
+- **Measure**: when the disagreement is about a testable prediction, the experiment decides.
+- **A parallel pilot**: two teams, two approaches, evaluation afterwards; expensive and
   conclusive.
 - **Delegate the decision** to whoever bears the consequence.
-- **Defer with a trigger** — when the deciding information is going to arrive.
+- **Defer with a trigger**: when the deciding information is going to arrive.
 
 The third is frequently the correct answer and is rarely considered: if the consequence falls mostly
 on one side, the decision is probably theirs.
@@ -255,7 +255,7 @@ on one side, the decision is probably theirs.
 one side's victory or a bad compromise.
 
 **Proposing the third option before** knowing the interests. It is read as the architect's
-position, and the deadlock gains a third trench instead of a way out — besides the option probably
+position, and the deadlock gains a third trench instead of a way out, besides the option probably
 not meeting the constraint nobody has revealed yet.
 
 **Using experience as an argument** where a measurement is possible. The losing side yields to
@@ -331,7 +331,7 @@ D                      4      4       4        2     3.70
 ```
 
 C won by almost a point over B and 0.7 over D: it reduced change time
-to hours — better even than option A — and added no new operating model to the platform.
+to hours, better even than option A, and added no new operating model to the platform.
 
 The cost: the platform had to build the schema self-service, about six weeks. The funding came from
 the architecture budget, which removed the capacity objection.
@@ -350,7 +350,7 @@ resolve a disagreement became a platform capability.
 
 What the architecture group records: the two new options, C and D, were obvious in hindsight and
 invisible for four months. They only appeared once the conversation shifted from "who is right" to
-"what does each of you need" — and the question that produced that shift took thirty seconds.
+"what does each of you need", and the question that produced that shift took thirty seconds.
 
 ## Related Concepts
 
@@ -364,7 +364,7 @@ invisible for four months. They only appeared once the conversation shifted from
 Take a technical disagreement in progress and write, for each side, the position and the interest
 behind it.
 
-Then try to build an option that meets both interests. If it exists, it wasn't on the table — and
+Then try to build an option that meets both interests. If it exists, it wasn't on the table, and
 it is probably better than the two.
 
 ## Interview Questions

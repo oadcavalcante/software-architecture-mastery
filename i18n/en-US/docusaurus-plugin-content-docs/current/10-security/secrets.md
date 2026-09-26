@@ -2,7 +2,7 @@
 id: secrets
 title: Secrets
 sidebar_position: 5
-description: The passwords, keys and tokens the system has to store — and the places where they always leak.
+description: The passwords, keys and tokens the system has to store, and the places where they always leak.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, supply-chain-trust, least-privilege]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ signing key, a private certificate.
 They have an inconvenient property: they need to be accessible to the code at runtime, and that
 accessibility is exactly what exposes them.
 
-The modern strategy is not storing them better. It is **not having them** — replacing static credentials
+Rather than storing them better, the modern strategy is **not having them**: replacing static credentials
 with platform identity and ephemeral credentials. What remains gets proper management.
 
 ## Problem
@@ -59,12 +59,12 @@ The highest-impact change: replacing static credentials with mechanisms that req
 **Platform identity.** The application assumes a role and receives temporary credentials, rotated
 automatically. Nothing to store. See [cloud identity](/09-cloud-architecture/cloud-identity.md).
 
-**Identity federation** for external systems — continuous integration pipelines can authenticate with no
+**Identity federation** for external systems: continuous integration pipelines can authenticate with no
 static key.
 
 **Short-lived certificates** instead of a password.
 
-**Dynamic database credentials** — generated on demand, valid for hours.
+**Dynamic database credentials**: generated on demand, valid for hours.
 
 Each eliminated secret is one that does not need to be rotated, audited or searched for in leaks.
 
@@ -100,7 +100,7 @@ to "how long does it take us to change the database password?" needs to be known
 
 The pattern that allows rotation with no interruption is keeping **two valid credentials** simultaneously
 during the transition: create the new one, update the consumers, revoke the old one. Without that,
-rotating requires downtime — and so it is not done.
+rotating requires downtime, and so it is not done.
 
 ### Detection needs to be automatic
 
@@ -110,7 +110,7 @@ Relying on discipline not to make the mistake does not work at scale.
 
 **A repository scan**, including the complete history.
 
-**Monitoring of public repositories** — providers offer services that detect your keys exposed.
+**Monitoring of public repositories**: providers offer services that detect your keys exposed.
 
 **Automatic revocation** on detection. An exposed key should be considered compromised immediately, not
 assessed.
@@ -120,7 +120,7 @@ assessed.
 The version system's history preserves everything. Deleting the file in a later commit keeps the secret
 recoverable by anybody with access to the repository.
 
-The only correct answer is to **rotate the secret**. Rewriting the history is desirable and secondary —
+The only correct answer is to **rotate the secret**. Rewriting the history is desirable and secondary:
 existing clones and forks still have the copy.
 
 Teams that treat the problem as "remove the file" leave the credential valid.
@@ -131,7 +131,7 @@ Using production credentials in development is common and turns every developer 
 production access.
 
 Separate credentials per environment, with restricted scope, contain the problem. And development data
-should not be a copy of production — see [data protection](/10-security/data-protection.md).
+should not be a copy of production; see [data protection](/10-security/data-protection.md).
 
 ## Mental Model
 
@@ -141,7 +141,7 @@ that do: exercised rotation, audited access, and automatic detection.
 ## When to Use
 
 Explicit management pays off when what the credential protects is worth more than the cost of operating
-the manager — which covers practically everything in production, and leaves out real cases: a single
+the manager. That covers practically everything in production, and leaves out real cases: a single
 service, with a low-value secret, in an environment where platform identity already covers the accesses
 that matter. Priority when:
 
@@ -157,7 +157,7 @@ that matter. Priority when:
 
 **A secret in an environment variable** when the manager allows direct injection. The reason is not process
 listings: `ps` shows the command line, and the environment (`/proc/<pid>/environ`) is readable only by the
-process owner and by root. The real vectors are others — every child process inherits the environment,
+process owner and by root. The real vectors are others: every child process inherits the environment,
 `docker inspect` and the orchestrator object display it, and a memory dump carries it along.
 
 **Sharing a credential between services.** It prevents knowing who used it and forces rotating everything
@@ -171,8 +171,8 @@ together.
 
 ## Alternatives
 
-- **Platform identity** — it eliminates the secret.
-- **Dynamic credentials** — generated on demand, short-lived.
+- **Platform identity**: it eliminates the secret.
+- **Dynamic credentials**: generated on demand, short-lived.
 - **Certificates** with your own authority, instead of a password.
 - **Envelope encryption** for secrets versioned alongside the code, when there is no manager. See
   [key management](/10-security/key-management.md).
@@ -213,7 +213,7 @@ together.
 ## Common Mistakes
 
 **Not eliminating secrets when an alternative exists.** An identity attached to the workload does away with
-the static credential — and what does not exist does not show up in a scan, in a dump or in a repository.
+the static credential, and what does not exist does not show up in a scan, in a dump or in a repository.
 
 **Removing it from the repository without rotating.** Git's history preserves the value, and so do
 existing clones. A committed secret is a compromised secret, and the only remedy is changing it.
@@ -222,7 +222,7 @@ existing clones. A committed secret is a compromised secret, and the only remedy
 incident or to detect anomalous reads.
 
 **Not exercising rotation.** A rotation that has never been done fails on the first attempt, which is
-precisely during a suspected leak — the worst moment to discover something is not automated.
+precisely during a suspected leak: the worst moment to discover something is not automated.
 
 **Using a production credential in development.** It multiplies the places where it exists, with weaker
 controls in all of them, and makes it impossible to know where an access came from.
@@ -249,7 +249,7 @@ What the investigation found:
 The subsequent audit, across the whole environment:
 
 **Secrets in internal repositories.** The complete-history scan found 47 credentials, 31 of which were
-still valid — including production database passwords.
+still valid, including production database passwords.
 
 **Logs with secrets.** A service logged the complete body of failing requests, including partners' tokens.
 
@@ -261,7 +261,7 @@ coordinating eleven deployments, which was the reason it had never been done.
 The reformulation, over ten months:
 
 **Elimination.** The consolidated inventory had 214 secrets in use. Applications in the cloud came to use
-platform identity and the pipeline came to use federation, which eliminated 129 of them — 60%, and most of
+platform identity and the pipeline came to use federation, which eliminated 129 of them (60%), and most of
 what remained is a credential for an external system, which cannot be replaced by an identity.
 
 **A secrets manager** for the rest, with access audited per secret.
@@ -276,9 +276,9 @@ one stopped affecting the others.
 **Secret filtering in the logs.**
 
 In retrospect: the key exposed in the public repository was the trigger, and it remains the most **serious**
-finding — it is the only one with administrator permission and the only one with confirmed third-party use,
+finding: it is the only one with administrator permission and the only one with confirmed third-party use,
 over four months. What the audit revealed afterwards is larger in **scale**, and is a different category of
-risk: 31 valid credentials in internal repositories, with no usage auditing at all and no alert in two years —
+risk: 31 valid credentials in internal repositories, with no usage auditing at all and no alert in two years;
 none with detectable abuse, because there was no record that could have shown it. What separates the two
 is what is known: one is a consummated incident, with administrator permission and public exposure; the
 others have internal scope and unknown usage, and are the surface that makes the next incident likely.
@@ -286,8 +286,8 @@ Confusing the two leads to prioritizing wrong.
 
 ## Related Concepts
 
-- [Key Management](/10-security/key-management.md) — the special case of cryptographic keys.
-- [Least Privilege](/10-security/least-privilege.md) — the scope of what leaks.
+- [Key Management](/10-security/key-management.md): the special case of cryptographic keys.
+- [Least Privilege](/10-security/least-privilege.md): the scope of what leaks.
 - [Supply Chain Trust](/10-security/supply-chain-trust.md).
 - [Cloud Identity](/09-cloud-architecture/cloud-identity.md).
 
@@ -295,7 +295,7 @@ Confusing the two leads to prioritizing wrong.
 
 Run a secret scan on the **complete history** of your repositories, not only on the current state.
 
-For each finding, the question is not "is it still there?" — it is "is that credential still valid?".
+For each finding, the question is not "is it still there?" but "is that credential still valid?".
 
 ## Interview Questions
 

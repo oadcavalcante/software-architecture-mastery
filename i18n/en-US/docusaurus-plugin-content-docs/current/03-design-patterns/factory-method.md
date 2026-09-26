@@ -2,7 +2,7 @@
 id: factory-method
 title: Factory Method
 sidebar_position: 1
-description: Delegating creation to a subclass — and why in most cases a function is enough.
+description: Delegating creation to a subclass, and why in most cases a function is enough.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [abstract-factory, builder, strategy]
 canonical_for: [factory method]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ type it does not know.** If you know the type, you do not need the pattern.
 ## Problem
 
 A framework defines the skeleton of a process and needs to create objects along the
-way — but the concrete objects belong to whoever uses the framework, and the
+way, but the concrete objects belong to whoever uses the framework, and the
 framework cannot know them.
 
 The canonical example is a document editor that knows how to open, save and close
@@ -68,13 +68,13 @@ for each product type. See
 [composition vs. inheritance](/02-software-design/composition-vs-inheritance.md).
 
 In languages with first-class functions, passing a creation function solves the same
-problem with no hierarchy — and that is why the pattern appears less frequently in
+problem with no hierarchy, and that is why the pattern appears less frequently in
 functional code and in modern languages.
 
 ### Do not confuse it with "a static method that creates an object"
 
 Most of what is called a "factory" day to day is a **factory function** or a *static
-factory method* — a named method that constructs and returns an object.
+factory method*: a named method that constructs and returns an object.
 
 That is useful and is not the pattern. The factory function improves readability
 (`Color.fromHex("#1f4e79")` says more than a constructor) and allows caching or
@@ -96,7 +96,7 @@ Confusing the two leads to creating hierarchies where a function would do.
 **When you know the concrete type.** Call the constructor.
 
 **When a factory function solves it.** If the variation does not need to be decided
-by a subclass, passing a creation function is simpler and more flexible — it can
+by a subclass, passing a creation function is simpler and more flexible: it can
 change at runtime, and requires no hierarchy.
 
 **When there is a single implementation.** See
@@ -112,11 +112,11 @@ creation function, the pattern loses its reason to exist.
 
 ## Alternatives
 
-- **A factory function** — the answer in most cases.
-- **A function as a parameter** — pass `() -> Product` instead of inheriting.
-- **[Abstract Factory](/03-design-patterns/abstract-factory.md)** — when it is
+- **A factory function**: the answer in most cases.
+- **A function as a parameter**: pass `() -> Product` instead of inheriting.
+- **[Abstract Factory](/03-design-patterns/abstract-factory.md)**: when it is
   families of related products, not one.
-- **Dependency injection** — receive the object ready rather than creating it.
+- **Dependency injection**: receive the object ready rather than creating it.
 
 ## Trade-offs
 
@@ -151,8 +151,8 @@ exist.
 
 ## Real-World Example
 
-A report export library defined `Exporter` with the process — validate, transform,
-write, finalize — and an abstract `createWriter()`. Each format had its subclass.
+A report export library defined `Exporter` with the process (validate, transform,
+write, finalize) and an abstract `createWriter()`. Each format had its subclass.
 
 It worked well while there were three formats.
 
@@ -164,7 +164,7 @@ The reformulation replaced inheritance with composition: `Exporter(formatter,
 destination)`. Three formatters and three destinations, combinable.
 
 What is worth keeping: Factory Method was correct for the original problem. It
-stopped serving when a second axis appeared — which is exactly the limitation stated
+stopped serving when a second axis appeared. That is exactly the limitation stated
 in "when not to use".
 
 ## Where it appears in practice
@@ -179,7 +179,7 @@ return, and the consumer neither knows nor needs to know.
 subclass or the annotation decides which.
 
 **Creation hooks in frameworks.** The lifecycle calls a method the subclass overrides to
-decide which instance gets created — the canonical form, with dispatch by subclass.
+decide which instance gets created: the canonical form, with dispatch by subclass.
 
 `DriverManager.getConnection` usually makes this list and should not: it is a static method
 that scans a driver registry, exactly what the section "Do not confuse it with 'a static
@@ -191,14 +191,14 @@ classes of whoever uses it. That is the condition that justifies the pattern, an
 absence in an application system is why it is rarely justified there.
 
 In a typical business system, you know the concrete types. It is the difference
-between writing a framework and writing an application — and much of the misuse of
+between writing a framework and writing an application, and much of the misuse of
 patterns comes from applying to the second what was designed for the first.
 
 ## Related Concepts
 
-- [Abstract Factory](/03-design-patterns/abstract-factory.md) — families of products.
-- [Builder](/03-design-patterns/builder.md) — construction in steps.
-- [Template Method](/03-design-patterns/template-method.md) — the same inheritance
+- [Abstract Factory](/03-design-patterns/abstract-factory.md): families of products.
+- [Builder](/03-design-patterns/builder.md): construction in steps.
+- [Template Method](/03-design-patterns/template-method.md): the same inheritance
   mechanics applied to the whole process.
 - [Composition vs. Inheritance](/02-software-design/composition-vs-inheritance.md).
 
@@ -219,5 +219,5 @@ when they are not.
 ## Further Exploration
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3rd ed., 2018 — on static factory methods, which
+- Bloch, Joshua. *Effective Java*. 3rd ed., 2018. On static factory methods, which
   are not this pattern.

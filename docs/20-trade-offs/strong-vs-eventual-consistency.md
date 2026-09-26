@@ -2,7 +2,7 @@
 id: strong-vs-eventual-consistency
 title: Consistência Forte vs. Eventual
 sidebar_position: 12
-description: A janela de inconsistência é um requisito de negócio — e ela precisa de número.
+description: A janela de inconsistência é um requisito de negócio, e ela precisa de número.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [eventual-consistency]
 related: [consistency-vs-availability, sync-vs-async, sql-vs-nosql]
 canonical_for: [consistência forte contra eventual, janela de inconsistência, leitura das próprias escritas, convergência observável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -43,7 +43,7 @@ descreve as duas.
 
 ## Problema
 
-"Somos eventualmente consistentes" é usado como se fosse desenho. Não é — é a ausência de
+"Somos eventualmente consistentes" é usado como se fosse desenho, mas é a ausência de
 três decisões:
 
 ```text
@@ -56,7 +56,7 @@ Sem a primeira, não há como monitorar nem alarmar. Sem a segunda, o usuário v
 incoerentes sem explicação. Sem a terceira, divergências permanentes passam despercebidas.
 
 O erro simétrico é aplicar consistência forte a tudo, pagando coordenação em operações que
-toleravam segundos de atraso — o que aparece como latência em toda leitura e como
+toleravam segundos de atraso. Isso aparece como latência em toda leitura e como
 indisponibilidade quando uma réplica cai.
 
 ## Conceitos Centrais
@@ -75,8 +75,8 @@ posição de entrega no mapa                  < 10 s
 Com número, a janela vira alarme: divergência acima do limite é incidente, não é "assim
 mesmo".
 
-Sem número, não há como distinguir funcionamento normal de falha de replicação — que é
-exatamente como divergências permanentes sobrevivem meses.
+Sem número, não há como distinguir funcionamento normal de falha de replicação. E é
+exatamente assim que divergências permanentes sobrevivem meses.
 
 ### Leitura das próprias escritas
 
@@ -119,7 +119,7 @@ entre regiões                        centenas
 quórum de escrita                    latência do nó mais lento do quórum
 ```
 
-Isso é pago em **toda** operação, todos os dias — não apenas durante falhas. É a razão de
+Isso é pago em **toda** operação, todos os dias, não apenas durante falhas. É a razão de
 o PACELC ser mais relevante no dia a dia que o CAP. Ver
 [PACELC](/06-distributed-systems/pacelc.md).
 
@@ -133,7 +133,7 @@ processo de reconciliação, com registro
 ```
 
 O terceiro item é o mais esquecido: atraso alto é detectável por métrica; divergência
-permanente — uma escrita perdida — não aparece como atraso. Ela exige comparação periódica.
+permanente (uma escrita perdida) não aparece como atraso. Ela exige comparação periódica.
 
 Ver [observabilidade](/13-observability/index.md).
 
@@ -149,7 +149,7 @@ ação bloqueada até a confirmação, quando crítica
 ```
 
 Esconder a inconsistência produz a pior experiência: o usuário vê números que não batem e
-conclui que o sistema está errado — o que, do ponto de vista dele, está.
+conclui que o sistema está errado. E, do ponto de vista dele, está.
 
 ### Sinais de escolha errada
 
@@ -182,7 +182,7 @@ migração de dados de qualidade desconhecida.
 
 ## Modelo Mental
 
-**Eventual quando?** Sem número, não é desenho — é ausência de decisão.
+**Eventual quando?** Sem número, é ausência de decisão, não desenho.
 
 ## Quando Usar
 
@@ -214,11 +214,11 @@ Prefira **consistência eventual** quando:
 
 ## Alternativas
 
-- **Garantias intermediárias** — leitura das próprias escritas e leitura monotônica resolvem
+- **Garantias intermediárias**: leitura das próprias escritas e leitura monotônica resolvem
   a maior parte da percepção de erro.
-- **Forte por operação** — coordenação apenas onde o custo do erro justifica.
-- **Leitura da primária para casos críticos** — mantém a réplica para o resto.
-- **Reserva com confirmação** — aceita rápido, confirma em seguida, expira se não confirmar.
+- **Forte por operação**: coordenação apenas onde o custo do erro justifica.
+- **Leitura da primária para casos críticos**: mantém a réplica para o resto.
+- **Reserva com confirmação**: aceita rápido, confirma em seguida, expira se não confirmar.
 
 A primeira é a mais eficiente em relação custo-benefício e a menos usada.
 
@@ -253,7 +253,7 @@ A primeira é a mais eficiente em relação custo-benefício e a menos usada.
 
 ## Erros Comuns
 
-**Dizer "eventualmente consistente" sem número.** Sem a janela declarada e medida, ninguém sabe se "eventual" significa cem milissegundos ou dez minutos — e a diferença decide se o requisito é atendido.
+**Dizer "eventualmente consistente" sem número.** Sem a janela declarada e medida, ninguém sabe se "eventual" significa cem milissegundos ou dez minutos, e a diferença decide se o requisito é atendido.
 
 **Não tratar o caso do próprio autor da escrita.** Quem acabou de salvar e não vê a mudança reporta perda de dado. É o caso mais visível e o mais barato de resolver, com leitura direcionada ao primário.
 
@@ -288,7 +288,7 @@ divergência entre telas do aplicativo             ~380 (16%)
 divergência real, com escrita perdida             ~120 (5%)
 ```
 
-Quatro quintos dos chamados não eram problema de consistência eventual em si — eram do caso
+Quatro quintos dos chamados não eram problema de consistência eventual em si, e sim do caso
 mais simples e mais barato de resolver.
 
 O que foi desenhado:
@@ -305,7 +305,7 @@ relatórios e agregados                    < 5 min
 **Leitura das próprias escritas**, implementada com roteamento à primária por 10 segundos
 após qualquer escrita da sessão. Resolveu 79% dos chamados com duas semanas de trabalho.
 
-**Consistência forte** nas operações de débito e de verificação de limite — as que decidem
+**Consistência forte** nas operações de débito e de verificação de limite, as que decidem
 se uma transação pode ocorrer. Custo medido: +34 ms no p99 dessas operações, aceito.
 
 **Leitura monotônica** entre telas, fixando a réplica por sessão. Resolveu os 16%.
@@ -350,7 +350,7 @@ E o segundo achado foi a divergência de 11 dias: ela existia porque a monitora�
 Liste os dados que seu sistema replica e escreva, para cada um, a janela de inconsistência
 tolerável em segundos.
 
-Os que você não conseguir preencher são os que não têm requisito — e portanto não têm como
+Os que você não conseguir preencher são os que não têm requisito e, portanto, não têm como
 ser monitorados.
 
 ## Perguntas de Entrevista

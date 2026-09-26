@@ -2,7 +2,7 @@
 id: file-storage
 title: File Storage
 sidebar_position: 16
-description: Where files live — and why the database and the local disk are the two wrong answers.
+description: Where files live, and why the database and the local disk are the two wrong answers.
 doc_type: concept
 level: 3
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, stateless-vs-stateful, cloud-storage]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ the local disk**.
 Files have different properties from records: they are large, immutable in most cases, accessed by
 identifier, and served directly to the client.
 
-Treating them as a record — in the database — or as process state — on the local disk — ignores
+Treating them as a record (in the database) or as process state (on the local disk) ignores
 that.
 
 **In the database:** backups balloon, replication gets slow, the database cache is occupied by
@@ -103,7 +103,7 @@ they accumulate and nobody knows they exist.
 
 ### Immutability simplifies
 
-Treating files as immutable — a new version is a new key — eliminates a class of problems: the
+Treating files as immutable (a new version is a new key) eliminates a class of problems: the
 cache can be eternal, there is no race between read and write, and the history exists for free.
 
 It is the same reason a [CDN](/05-system-design/cdn.md) works better with versioned URLs.
@@ -115,7 +115,7 @@ It is the same reason a [CDN](/05-system-design/cdn.md) works better with versio
 ## When to Use
 
 Object storage when:
-- There are user files — attachments, images, documents.
+- There are user files: attachments, images, documents.
 - The volume grows.
 - The files are served to the client.
 - The application scales horizontally.
@@ -125,7 +125,7 @@ Local disk when:
 - It is a cache, and loss is acceptable.
 
 The database when:
-- The file is small and always read along with the record — a signature, an icon.
+- The file is small and always read along with the record: a signature, an icon.
 - Transactionality with the record is a real requirement.
 
 ## When Not to Use
@@ -138,16 +138,16 @@ The database when:
 
 **With no retention policy.** The corpus grows indefinitely, and the cost with it.
 
-**A signed URL with a long deadline.** A 7-day URL is a public link for 7 days — whoever receives
+**A signed URL with a long deadline.** A 7-day URL is a public link for 7 days: whoever receives
 it, accesses it.
 
 ## Alternatives
 
-- **Object storage** — the default answer.
-- **Network file system** — when access has to look like a local disk; more expensive and with
+- **Object storage**: the default answer.
+- **Network file system**: when access has to look like a local disk; more expensive and with
   more failure modes.
-- **The database, for small blobs** — legitimate below a few kilobytes.
-- **Do not store** — generate on demand, when the cost of generating is lower than that of
+- **The database, for small blobs**: legitimate below a few kilobytes.
+- **Do not store**: generate on demand, when the cost of generating is lower than that of
   keeping.
 
 ## Trade-offs
@@ -162,7 +162,7 @@ it, accesses it.
 | One more component | None |
 
 The fifth line is the real cost: since they are two systems, one can have what the other does not
-— metadata with no bytes, or bytes with no metadata. That needs periodic cleanup.
+(metadata with no bytes, or bytes with no metadata). That needs periodic cleanup.
 
 ## Failure Modes
 
@@ -196,7 +196,7 @@ The fifth line is the real cost: since they are two systems, one can have what t
 
 A document management system stored PDFs in the database, as a binary column.
 
-After three years, the database had 340 GB — 310 of them in PDFs. The consequences:
+After three years, the database had 340 GB, 310 of them in PDFs. The consequences:
 
 The full backup took 6 hours and the restore, 9. The recovery time objective was 2 hours, and
 nobody had tested it.
@@ -207,8 +207,8 @@ And every download consumed a database connection for several seconds, because t
 read the blob and forwarded it.
 
 The migration moved the bytes to object storage, keeping only the metadata in the database. The
-database dropped to 28 GB; the backup, to 20 minutes; and the restore, to 40 — within the 2-hour
-objective, which is now tested every quarter.
+database dropped to 28 GB; the backup, to 20 minutes; and the restore, to 40 (within the 2-hour
+objective, which is now tested every quarter).
 
 Two decisions the team recorded as more important than the migration itself.
 
@@ -220,9 +220,9 @@ That completely removed file traffic from the application, and the processes' me
 dropped by half.
 
 **A weekly reconciliation routine.** It compares metadata and objects, and reports both
-divergences: metadata with no object — which becomes an alert, because it is loss — and an object
-with no metadata for more than 24 hours — which is an orphan from an abandoned upload and is
-removed.
+divergences: metadata with no object (which becomes an alert, because it is loss) and an object
+with no metadata for more than 24 hours (which is an orphan from an abandoned upload and is
+removed).
 
 On its first run, it found 12 thousand orphans accumulated over the four months between the start
 of direct upload and the creation of the routine, from uploads that failed
@@ -230,10 +230,10 @@ midway. Nobody knew they existed.
 
 ## Related Concepts
 
-- [State Management](/05-system-design/state-management.md) — files as persistent state.
-- [CDN](/05-system-design/cdn.md) — serving public files at the edge.
-- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md) — why the local disk breaks.
-- [Cloud](/09-cloud-architecture/index.md) — storage classes and cost.
+- [State Management](/05-system-design/state-management.md): files as persistent state.
+- [CDN](/05-system-design/cdn.md): serving public files at the edge.
+- [Stateless vs. Stateful](/05-system-design/stateless-vs-stateful.md): why the local disk breaks.
+- [Cloud](/09-cloud-architecture/index.md): storage classes and cost.
 
 ## Practical Exercise
 

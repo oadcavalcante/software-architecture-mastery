@@ -2,7 +2,7 @@
 id: capacity-estimation
 title: Estimativa em Entrevista
 sidebar_position: 3
-description: Não para acertar o número — para que a arquitetura tenha uma escala declarada e as decisões tenham critério.
+description: Não para acertar o número, e sim para que a arquitetura tenha uma escala declarada e as decisões tenham critério.
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [back-of-envelope, high-level-architecture, interview-scaling]
 canonical_for: [estimativa em entrevista, escala declarada, número âncora, estimativa que decide]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -33,7 +33,7 @@ com estimativa   "12 mil leituras/s contra
                  que o cache ataca"          a decisão tem base
 ```
 
-Isso muda o que se deve estimar. Não todos os números possíveis — apenas os que mudam uma
+Isso muda o que se deve estimar. Não todos os números possíveis, apenas os que mudam uma
 decisão. Uma estimativa de 20 linhas em que nenhum resultado altera o desenho é tempo perdido
 com aparência de rigor.
 
@@ -46,7 +46,7 @@ justificativa. Quando o entrevistador pergunta "por que particionar?", a respost
 racionalização em vez de um cálculo.
 
 **Estimar tudo.** O candidato calcula requisições por segundo, armazenamento, banda, número de
-servidores, memória de cache, conexões simultâneas, taxa de crescimento em cinco anos — e
+servidores, memória de cache, conexões simultâneas, taxa de crescimento em cinco anos, e
 consome doze minutos. Metade desses números não influencia nenhuma escolha.
 
 ```text
@@ -55,7 +55,7 @@ número que raramente decide  banda de saída em GB/s, número exato
                              de servidores, crescimento em 5 anos
 ```
 
-O segundo grupo aparece porque parece rigoroso. O avaliador não está contando números — está
+O segundo grupo aparece porque parece rigoroso. O avaliador não está contando números, e sim
 observando se você sabe qual deles importa.
 
 ## Conceitos Centrais
@@ -75,7 +75,7 @@ materialização; dominados por escrita pedem particionamento e ingestão assín
 O segundo decide o dimensionamento. Trabalhar com média é o erro mais comum, e a diferença entre
 média e pico costuma ser de 3× a 10×.
 
-O terceiro decide o armazenamento e sua hierarquia. O quarto decide se cache é viável — se o
+O terceiro decide o armazenamento e sua hierarquia. O quarto decide se cache é viável: se o
 conjunto quente cabe em memória a um custo razoável, muitas decisões ficam simples.
 
 O quarto número é o mais esquecido e o de maior alavancagem. Ele exige uma premissa sobre a
@@ -85,7 +85,7 @@ dos registros responde por 90% dos acessos" é uma premissa defensável e transf
 de terabytes em um problema de gigabytes.
 
 Candidatos que não fazem essa distinção acabam propondo soluções dimensionadas para o volume
-total, quando o volume que importa é o quente — e a diferença entre os dois costuma ser de duas
+total, quando o volume que importa é o quente, e a diferença entre os dois costuma ser de duas
 ordens de grandeza.
 
 ### Simplifique os números agressivamente
@@ -112,11 +112,11 @@ Ver [cálculo de guardanapo](/22-system-design-interviews/back-of-envelope.md) p
  Com pico de 3×, chego a 45 mil por segundo."
 ```
 
-O raciocínio é o que está sendo avaliado, não o total. Numa rubrica que pontua o processo — o
-formato usual de system design —, um candidato que erra a aritmética e explica o caminho
+O raciocínio é o que está sendo avaliado, não o total. Numa rubrica que pontua o processo (o
+formato usual de system design), um candidato que erra a aritmética e explica o caminho
 corretamente é avaliado melhor que um que acerta em silêncio.
 
-E declarar cada premissa — "5 aberturas por usuário" — permite ao entrevistador ajustar: "na
+E declarar cada premissa ("5 aberturas por usuário") permite ao entrevistador ajustar: "na
 verdade são 20". O número muda, o método não.
 
 ### Conecte cada número a uma decisão
@@ -139,7 +139,7 @@ Um número sem consequência declarada é aritmética. Um número com consequên
 
 Essa conexão também protege contra uma armadilha comum: chegar a um número e não perceber que
 ele contradiz o que se pretendia propor. Um candidato que calcula 120 escritas por segundo e em
-seguida propõe particionamento de escrita está ignorando o próprio cálculo — e o avaliador vai
+seguida propõe particionamento de escrita está ignorando o próprio cálculo, e o avaliador vai
 notar. Enunciar a consequência logo após o número torna essa contradição impossível de manter.
 
 ### Estime armazenamento com o tamanho do registro
@@ -152,7 +152,7 @@ notar. Enunciar a consequência logo após o número torna essa contradição im
 ```
 
 O passo 2 é onde a maior parte dos candidatos trava. A saída é decompor: um post de texto tem
-identificador, autor, conteúdo, carimbos e metadados — algo entre 300 bytes e 1 KB. Declarar "vou
+identificador, autor, conteúdo, carimbos e metadados (algo entre 300 bytes e 1 KB). Declarar "vou
 assumir 500 bytes" e seguir é a resposta correta.
 
 E lembrar que replicação e índices multiplicam: um fator de 3× a 5× sobre o dado bruto é uma
@@ -184,15 +184,15 @@ produz.
 
 **Quando o entrevistador já dá os números.** "São 50 mil leituras por segundo e 2 TB" encerra
 a etapa: recalcular o que foi entregue gasta minutos que rendem mais no desenho. Resta derivar
-só o que falta — o conjunto quente, quase sempre.
+só o que falta: o conjunto quente, quase sempre.
 
 **Quando o problema não tem dimensão de escala.** Desenho de API, modelagem orientada a objetos,
 máquina de estados de um pedido: nenhuma decisão depende de requisições por segundo, e o tempo
 rende mais em contratos, invariantes e casos de borda.
 
 **Quando a escala cabe num servidor com folga.** Uma ferramenta interna com 200 usuários não
-tem número que mude o desenho; basta dizer isso em uma frase — "qualquer banco relacional
-atende" — e seguir para o que de fato é difícil no problema.
+tem número que mude o desenho; basta dizer isso em uma frase ("qualquer banco relacional
+atende") e seguir para o que de fato é difícil no problema.
 
 **Quando o formato da entrevista pula a etapa.** Rodadas focadas em aprofundar um componente
 já partem de uma escala dada; insistir em estimar desde o início sinaliza que o candidato não
@@ -200,11 +200,11 @@ ouviu a pergunta.
 
 ## Alternativas
 
-- **Declarar a ordem de grandeza** — "estamos na casa de dezenas de milhares por segundo" — quando
+- **Declarar a ordem de grandeza**: "estamos na casa de dezenas de milhares por segundo", quando
   o tempo aperta.
-- **Estimar sob demanda** — fazer o cálculo no momento em que a decisão aparece, em vez de tudo
+- **Estimar sob demanda**: fazer o cálculo no momento em que a decisão aparece, em vez de tudo
   no início.
-- **Perguntar o número** — se o entrevistador tem um em mente, usá-lo é mais rápido e igualmente
+- **Perguntar o número**: se o entrevistador tem um em mente, usá-lo é mais rápido e igualmente
   válido.
 
 A segunda é subestimada e frequentemente melhor: um cálculo feito na hora em que ele decide algo
@@ -314,14 +314,14 @@ foi consciente.
 
 A resposta correta verifica o que muda: o conjunto quente continua cabendo em memória, então o
 cache continua resolvendo; o que muda é o número de instâncias de cache e a necessidade de
-distribuição geográfica. A arquitetura não muda — a capacidade muda. Reconhecer isso é o ponto.
+distribuição geográfica. A arquitetura não muda; a capacidade muda, e reconhecer isso é o ponto.
 
 ## Conceitos Relacionados
 
-- [Cálculo de Guardanapo](/22-system-design-interviews/back-of-envelope.md) — as referências.
+- [Cálculo de Guardanapo](/22-system-design-interviews/back-of-envelope.md): as referências.
 - [Funcionais vs. Não Funcionais](/22-system-design-interviews/functional-vs-nonfunctional.md).
 - [Identificação de Gargalo](/22-system-design-interviews/bottleneck-identification.md).
-- [Planejamento de Capacidade](/05-system-design/capacity-planning.md) — a versão sem pressão
+- [Planejamento de Capacidade](/05-system-design/capacity-planning.md): a versão sem pressão
   de tempo.
 
 ## Exercício Prático

@@ -2,7 +2,7 @@
 id: superseding-decisions
 title: Superseding Decisions
 sidebar_position: 9
-description: Changing your mind without erasing the record — the mechanic that keeps the history useful.
+description: "Changing your mind without erasing the record: the mechanic that keeps the history useful."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -53,7 +53,7 @@ synchronous.
 
 And there is a problem that precedes all of them: the decision that **needs** to be
 superseded and isn't. It stays recorded as in force while the system already does something
-else — a state worse than having no record at all, because the record starts lying with
+else: a state worse than having no record at all, because the record starts lying with
 the appearance of authority.
 
 ## Core Concepts
@@ -68,7 +68,7 @@ the appearance of authority.
 5. the index reflects the change
 ```
 
-Step 1 is the one usually skipped. The new ADR is not an amendment — it needs its own
+Step 1 is the one usually skipped. The new ADR is not an amendment: it needs its own
 context, alternatives and consequences, because the context is now different.
 
 ### The successor's context includes what changed
@@ -138,8 +138,8 @@ reality        4 services use PostgreSQL, 3 use DynamoDB, 1 uses Mongo
 Here the superseding is retroactive: you write an ADR that acknowledges the real practice,
 explains how it got there, and decides what holds from now on.
 
-That is uncomfortable and it is the most honest record available. The alternative — keeping
-an ADR that describes a nonexistent reality — erodes confidence in the whole set.
+That is uncomfortable and it is the most honest record available. The alternative (keeping
+an ADR that describes a nonexistent reality) erodes confidence in the whole set.
 
 ### Reading the chain teaches
 
@@ -153,7 +153,7 @@ long chains on the same topic          the real problem was not addressed
 ```
 
 The last pattern is the most informative. Three supersedings on the same question in four
-years rarely indicate a changing context — they indicate the decision is treating the
+years rarely indicate a changing context. They indicate the decision is treating the
 symptom.
 
 ### The superseded ADR is still correct
@@ -161,7 +161,7 @@ symptom.
 Worth insisting on, because the opposite impulse is strong: a superseded ADR was not wrong.
 It records a decision appropriate to its own context.
 
-Treating it as an error discourages recording — if being superseded is shameful, people
+Treating it as an error discourages recording: if being superseded is shameful, people
 write less and supersede less.
 
 ## Mental Model
@@ -178,27 +178,27 @@ about its own moment.
 
 ## When Not to Use
 
-**When only part of the scope changes and the original declared that scope clearly** — an
+**When only part of the scope changes and the original declared that scope clearly**: an
 ADR that narrows the previous one preserves the part that still holds, whereas superseding
 it wholesale forces the successor to re-decide what nobody questioned.
 
 **When the context hasn't changed** and the review stems from the preference of whoever
-arrived later — with no new premise to cite, the successor has nothing to put in its "what
+arrived later: with no new premise to cite, the successor has nothing to put in its "what
 changed" section, and the chain gains a link that only records a change of opinion.
 
-**When the reassessment keeps the decision** — superseding an ADR with an identical one
+**When the reassessment keeps the decision**: superseding an ADR with an identical one
 bearing a new date lengthens the chain without adding information; the right record is a
 review with no change.
 
-**For decisions that were never implemented** — the correct status is deprecated.
+**For decisions that were never implemented**: the correct status is deprecated.
 
 ## Alternatives
 
-- **Deprecate** — when there is no successor.
-- **A complementary ADR** — when the decision is being detailed, not altered.
-- **Narrowing the scope** — a new ADR that limits the previous one's reach, without
+- **Deprecate**: when there is no successor.
+- **A complementary ADR**: when the decision is being detailed, not altered.
+- **Narrowing the scope**: a new ADR that limits the previous one's reach, without
   superseding it.
-- **A review with no change** — recording that the decision was reassessed and kept, with a
+- **A review with no change**: recording that the decision was reassessed and kept, with a
   date. See [status](/18-architecture-decisions/adr-status.md).
 
 The last is underused and cheap: a "reviewed on (date), kept" block tells you someone
@@ -236,15 +236,15 @@ checked, which is different from nobody having looked.
 
 **Writing the successor as an amendment** to the previous one.
 
-**Not dating the superseding** — without a date, nobody can tell how long the decision was
+**Not dating the superseding**: without a date, nobody can tell how long the decision was
 in force, and the "superseded in less than 1 year" signal becomes unreadable in the chain.
 
 **Not acknowledging divergence from practice**, keeping a fictional ADR.
 
-**Not recording reviews that kept the decision** — a decision that was checked and kept
+**Not recording reviews that kept the decision**: a decision that was checked and kept
 becomes indistinguishable from one nobody looked at.
 
-**Numbering the successor with the predecessor's number** plus a suffix — it breaks
+**Numbering the successor with the predecessor's number** plus a suffix: it breaks
 referenceability.
 
 ## Real-World Example
@@ -262,7 +262,7 @@ ADR-071 (2025)  external identity provider — supersedes 052
 Five decisions, four supersedings, the same question. Each ADR was well written, with
 context, alternatives and consequences.
 
-An annual architecture review read the whole chain at once — something nobody had done —
+An annual architecture review read the whole chain at once (something nobody had done),
 and the pattern appeared:
 
 ```text
@@ -273,14 +273,14 @@ ADR-052  reason for discarding 034: the revocation list became state,
 ADR-071  reason for discarding 052: operational complexity
 ```
 
-ADRs 021, 034 and 052 revolved around a known tension — revocation requires state, and
-stateless tokens don't allow revocation — that none of them named. Each decision solved the
+ADRs 021, 034 and 052 revolved around a known tension (revocation requires state, and
+stateless tokens don't allow revocation) that none of them named. Each decision solved the
 symptom of the previous one and reintroduced the problem of the one before that.
 
 What came out of the review:
 
 **Chain review** built into the annual review: every chain with three or more supersedings
-is read in full, with a single question — "what is the tension that was never named?".
+is read in full, with a single question, "what is the tension that was never named?".
 
 **A "history of this decision" section** in the successors of long chains, summarizing the
 previous ones and what each tried to solve.
@@ -295,16 +295,16 @@ three or more supersedings. All nine, on examination, showed the same symptom pa
 Two of them were reopened on that basis.
 
 The lesson that stuck: each individual ADR in the authentication chain was defensible. The
-problem was only visible in the sequence — and the sequence only existed because no ADR had
+problem was only visible in the sequence, and the sequence only existed because no ADR had
 been deleted or edited.
 
 ## Related Concepts
 
-- [Status](/18-architecture-decisions/adr-status.md) — the states and immutability.
-- [Context](/18-architecture-decisions/adr-context.md) — what changed.
-- [Alternatives](/18-architecture-decisions/adr-alternatives.md) — the reversal condition as
+- [Status](/18-architecture-decisions/adr-status.md): the states and immutability.
+- [Context](/18-architecture-decisions/adr-context.md): what changed.
+- [Alternatives](/18-architecture-decisions/adr-alternatives.md): the reversal condition as
   a trigger.
-- [Modernization](/16-legacy-modernization/index.md) — decisions revisited in old systems.
+- [Modernization](/16-legacy-modernization/index.md): decisions revisited in old systems.
 
 ## Practical Exercise
 

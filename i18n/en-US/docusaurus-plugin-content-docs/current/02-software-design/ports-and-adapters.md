@@ -13,7 +13,7 @@ objective: >
 prerequisites: [dependency-inversion]
 related: [hexagonal-architecture, onion-architecture, clean-architecture]
 canonical_for: [ports and adapters, primary port, secondary port]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,7 @@ It is the original formulation. [Hexagonal](/02-software-design/hexagonal-archit
 a variation**: it is the other name for the same pattern, and changing the name changes no rule.
 [Onion](/02-software-design/onion-architecture.md) and
 [Clean Architecture](/02-software-design/clean-architecture.md), on the other hand, are variations in
-fact — they add rings and vocabulary on top of the same direction rule.
+fact: they add rings and vocabulary on top of the same direction rule.
 
 ## Problem
 
@@ -40,8 +40,8 @@ The problem Cockburn stated is specific: applications get tied to the input chan
 and the persistence mechanism, and so cannot be tested or exercised outside them.
 
 The business logic lives inside HTTP controllers and depends on tables. Testing it
-requires starting a server and a database. Reusing it through another channel — a
-queue, a terminal command — requires duplicating it.
+requires starting a server and a database. Reusing it through another channel (a
+queue, a terminal command) requires duplicating it.
 
 He described that as the symptom that **the inside and the outside were not
 separated**.
@@ -51,8 +51,8 @@ separated**.
 ### A port is an interface defined by the core
 
 A port declares a need or a capability, in the domain's vocabulary. It belongs to
-the core — see
-[dependency inversion](/02-software-design/dependency-inversion.md).
+the core (see
+[dependency inversion](/02-software-design/dependency-inversion.md)).
 
 **Primary ports** (or driving ports) are what the world can ask of the core: use
 cases.
@@ -77,7 +77,7 @@ graph LR
   MEM[In-memory<br/>adapter] -.implements.-> PS
 ```
 
-Every dependency arrow points at the core. That is the only rule — and it is why the SQL
+Every dependency arrow points at the core. That is the only rule, and it is why the SQL
 adapter depends on the port, and not the port on the adapter.
 
 ### The symmetry is the point
@@ -92,7 +92,7 @@ than the database. Here, both are equally external, and the core knows neither.
 
 - When the same logic has to be reached through more than one channel.
 - When testing the core without infrastructure has real, recurring value.
-- When external dependencies are volatile — providers, protocols.
+- When external dependencies are volatile: providers, protocols.
 - In domains with substantial logic, where the core justifies being protected.
 
 ## When Not to Use
@@ -118,12 +118,12 @@ is crossed within months and the system is left with the cost and not the proper
 
 ## Alternatives
 
-- **Layers with inversion only at persistence** — captures most of the benefit for a
+- **Layers with inversion only at persistence**: captures most of the benefit for a
   fraction of the cost, and it is the right arrangement when the only volatile dependency is
   the database.
-- **Adapters only for volatile dependencies** — invert what is unstable and call
+- **Adapters only for volatile dependencies**: invert what is unstable and call
   what is stable directly.
-- **Transaction script** — in simple domains, a direct procedure is clearer.
+- **Transaction script**: in simple domains, a direct procedure is clearer.
 
 ## Trade-offs
 
@@ -147,7 +147,7 @@ the core.
 
 **Anemic core.** All the logic in the adapters; the core only defines types.
 
-**Unenforced rule.** Without verification, the core goes back to importing infrastructure —
+**Unenforced rule.** Without verification, the core goes back to importing infrastructure,
 and the first violation usually arrives before anyone thinks to look for it.
 
 ## Common Mistakes
@@ -176,7 +176,7 @@ The reorganization defined `ChargeSubscription` as a primary port, with three
 adapters. The logic came to exist once.
 
 The concrete gain was not architectural: a behavioural divergence between the HTTP
-path and the queue path — which had already caused two double-charging incidents —
+path and the queue path, which had already caused two double-charging incidents,
 became impossible.
 
 The counterexample, in the same system: the customer registration module, which is
@@ -195,11 +195,11 @@ ignored locally.
 
 **Determinism.** With no database, no network and no real clock, the test does not
 fail for reasons unrelated to the change. Tests that fail for reasons unrelated to the change
-stop serving as a merge criterion — and the damage is not being left without a signal, it is
+stop serving as a merge criterion, and the damage is not being left without a signal, it is
 being left with a signal nobody trusts and that still consumes time on every run.
 
 **Difficult scenarios become trivial.** Simulating the payment provider being down,
-the call that times out, the duplicate identifier — all of that is one line in an
+the call that times out, the duplicate identifier: all of that is one line in an
 in-memory adapter, and an infrastructure exercise without the pattern.
 
 The third is the one that pays most and is mentioned least. It is what makes it
@@ -208,11 +208,11 @@ architecture and almost never get exercised.
 
 ## Related Concepts
 
-- [Hexagonal](/02-software-design/hexagonal-architecture.md) — the same pattern,
+- [Hexagonal](/02-software-design/hexagonal-architecture.md): the same pattern,
   another name.
 - [Onion](/02-software-design/onion-architecture.md) and
-  [Clean Architecture](/02-software-design/clean-architecture.md) — the variations.
-- [Dependency Inversion](/02-software-design/dependency-inversion.md) — the
+  [Clean Architecture](/02-software-design/clean-architecture.md): the variations.
+- [Dependency Inversion](/02-software-design/dependency-inversion.md): the
   mechanism.
 
 ## Practical Exercise
@@ -220,7 +220,7 @@ architecture and almost never get exercised.
 Pick a use case in your system and list everything it touches outside the domain:
 database, queue, external service, clock, identifier generator.
 
-For each, write the port the core would define — in the domain's vocabulary, not
+For each, write the port the core would define, in the domain's vocabulary, not
 the technology's.
 
 Then estimate: how many extra files would that cost, and what would it buy?

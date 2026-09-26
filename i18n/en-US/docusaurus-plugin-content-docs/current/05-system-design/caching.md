@@ -13,7 +13,7 @@ objective: >
 prerequisites: [state-management]
 related: [cdn, load-balancing, scaling-cache]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,14 +26,14 @@ freshness** for **latency and load**.
 
 When the read-to-write ratio is high and the origin is the proven bottleneck, a cache
 returns more than scaling the origin up: it removes the work instead of adding capacity to
-do it. And the decision that matters is not where to put the cache — it is **when the
-stored data stops being valid**.
+do it. And the decision that matters is **when the
+stored data stops being valid**, not where to put the cache.
 
 ## Problem
 
 Caching is easy to add and hard to get right. The pattern that shows up:
 
-Someone adds a cache to a slow query. It works — latency drops, database load drops.
+Someone adds a cache to a slow query. It works: latency drops, database load drops.
 
 Weeks later, a user complains that they changed a value and the screen still shows the old
 one. Someone adds invalidation at that point.
@@ -59,12 +59,12 @@ cached.
 
 ### The write strategies
 
-**Write-through** — writes to the cache and to the origin, synchronously. Consistent and
+**Write-through**: writes to the cache and to the origin, synchronously. Consistent and
 slower on writes.
 
-**Write-behind** — writes to the cache and persists later. Fast and with a loss window.
+**Write-behind**: writes to the cache and persists later. Fast and with a loss window.
 
-**Write-around** — writes only to the origin, invalidating the cache. Simple, and the next
+**Write-around**: writes only to the origin, invalidating the cache. Simple, and the next
 read pays.
 
 The choice depends on how much you accept losing in a failure. Write-behind in a financial
@@ -76,7 +76,7 @@ system is a decision that has to be authorized by the business, not by engineeri
 serves stale data for up to N seconds.
 
 **Explicit invalidation.** Whoever changes the data removes it from the cache. Precise, and
-it requires every write path to know about the cache — which is where the errors live.
+it requires every write path to know about the cache. That is where the errors live.
 
 **Event-based invalidation.** Whoever changes it publishes; the cache reacts. It decouples
 the write paths from the cache, at the cost of eventual consistency.
@@ -97,14 +97,14 @@ Without it, the decision becomes preference.
 
 ### A cache is not the source of truth
 
-If losing the cache breaks the system, it was not a cache — it was a database with no
-durability. See
+If losing the cache breaks the system, it was a database with no
+durability, not a cache. See
 [state management](/05-system-design/state-management.md).
 
 The test is reconstruction, not survival: can what is stored be recomputed from the origin?
-If it can, it is a cache — even if clearing it saturates the origin, which is a lack of
+If it can, it is a cache, even if clearing it saturates the origin, which is a lack of
 capacity, not a loss of data. If it cannot, it was state. Confirming this in production is a
-cache-loss exercise, run in a controlled window — see
+cache-loss exercise, run in a controlled window. See
 [caching for scale](/11-scalability/scaling-cache.md).
 
 ## Mental Model
@@ -129,7 +129,7 @@ size of the bet.
 not to have one than to have a cache that occasionally serves the wrong value in a context
 that does not accept it.
 
-**As a fix for a bad query.** A missing index solved with a cache hides the problem — and it
+**As a fix for a bad query.** A missing index solved with a cache hides the problem, and it
 comes back when the hit rate drops.
 
 **Without measuring first.** A cache added with no profiling frequently solves what was not
@@ -137,11 +137,11 @@ the bottleneck.
 
 ## Alternatives
 
-- **Optimize the origin** — index, query, denormalization. Frequently enough and with no new
+- **Optimize the origin**: index, query, denormalization. Frequently enough and with no new
   component.
-- **Read projection** — a model maintained for querying. See
+- **Read projection**: a model maintained for querying. See
   [CQRS](/03-design-patterns/cqrs.md) at level 2.
-- **The cheaper cache before the distributed one** — the browser, the
+- **The cheaper cache before the distributed one**: the browser, the
   [CDN](/05-system-design/cdn.md) and the gateway absorb part of the traffic with no new
   component in the application. See [where the cache can live](#where-the-cache-can-live).
 
@@ -157,7 +157,7 @@ the bottleneck.
 | Behavior varies with hit or miss | Predictable |
 
 The last line is underestimated: a system with a cache has two performance profiles, and the
-worse of them — a cold cache — is the one that shows up right after a restart or a peak.
+worse of them (a cold cache) is the one that shows up right after a restart or a peak.
 
 ## Failure Modes
 
@@ -192,7 +192,7 @@ the worst moment.
 
 ## Real-World Example
 
-A course platform added a cache to the catalog query — the slowest in the system, 900 ms.
+A course platform added a cache to the catalog query: the slowest in the system, 900 ms.
 
 With a one-hour TTL, latency dropped to 12 ms and database load dropped 70%.
 
@@ -202,7 +202,7 @@ Two problems appeared in the following months.
 to appear. A recurring support complaint.
 
 The initial fix was explicit invalidation on save. It worked until someone discovered there
-were three change paths — the instructor panel, bulk import and administrative correction —
+were three change paths (the instructor panel, bulk import and administrative correction),
 and only the first invalidated.
 
 **The second:** during a deployment, all instances started with a cold cache
@@ -211,19 +211,19 @@ saturated for four minutes.
 
 The final fixes.
 
-The TTL dropped to 60 seconds — the conversation with the business revealed that a minute
+The TTL dropped to 60 seconds: the conversation with the business revealed that a minute
 was perfectly acceptable, and nobody had asked before choosing an hour. That alone resolved
 the complaint with no invalidation at all.
 
 Explicit invalidation was kept only where it mattered, but moved to an event published by
-the domain — so the three paths started invalidating without needing to know about the
+the domain, so the three paths started invalidating without needing to know about the
 cache.
 
 And a stampede lock was added: on an expiry, only one request recomputes; the others wait
 for the result.
 
-What solved the main problem was not a mechanism. It was asking the business what delay was
-acceptable — a question the original decision had skipped.
+What solved the main problem was not a mechanism but asking the business what delay was
+acceptable: a question the original decision had skipped.
 
 ## Where the cache can live
 
@@ -239,7 +239,7 @@ for content identical for many.
 
 **In the gateway.** Before reaching the application. Useful for public API responses.
 
-**In the application, locally.** Nanoseconds of access, and each instance has its own —
+**In the application, locally.** Nanoseconds of access, and each instance has its own:
 guaranteed divergence with multiple instances.
 
 **Distributed.** Shared between instances, with a network call. It is where most application
@@ -250,16 +250,16 @@ undersized.
 Frequently the problem attributed to a lack of caching is the database not having enough
 memory to keep the index hot.
 
-The order of evaluation should be top down — the cheapest answer first. The actual order is
+The order of evaluation should be top down: the cheapest answer first. The actual order is
 usually to start with the distributed cache, which is the most visible.
 
 ## Related Concepts
 
-- [State Management](/05-system-design/state-management.md) — cache as disposable state.
-- [CDN](/05-system-design/cdn.md) — cache at the edge.
-- [Scalability](/11-scalability/index.md) — caching as a scaling strategy.
-- [Caching for Scale](/11-scalability/scaling-cache.md) — layers, stampede and the failure modes under load.
-- [CQRS](/03-design-patterns/cqrs.md) — projection as an alternative.
+- [State Management](/05-system-design/state-management.md): cache as disposable state.
+- [CDN](/05-system-design/cdn.md): cache at the edge.
+- [Scalability](/11-scalability/index.md): caching as a scaling strategy.
+- [Caching for Scale](/11-scalability/scaling-cache.md): layers, stampede and the failure modes under load.
+- [CQRS](/03-design-patterns/cqrs.md): projection as an alternative.
 
 ## Practical Exercise
 
@@ -277,4 +277,4 @@ If you cannot answer the third question for some item, its TTL was chosen with n
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Nygard, Michael. *Release It!* 2nd ed., 2018 — caching and stability.
+- Nygard, Michael. *Release It!* 2nd ed., 2018. Caching and stability.

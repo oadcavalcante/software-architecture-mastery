@@ -2,7 +2,7 @@
 id: factory-method
 title: Factory Method
 sidebar_position: 1
-description: Delegar a criação a uma subclasse — e por que na maioria dos casos uma função basta.
+description: Delegar a criação a uma subclasse, e por que na maioria dos casos uma função basta.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [design-patterns]
 related: [abstract-factory, builder, strategy]
 canonical_for: [factory method]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -30,7 +30,7 @@ tipo concreto ela não conhece.** Se você conhece o tipo, não precisa do padr�
 ## Problema
 
 Um framework define o esqueleto de um processo e precisa criar objetos ao longo
-dele — mas os objetos concretos pertencem a quem usa o framework, e o framework
+dele, mas os objetos concretos pertencem a quem usa o framework, e o framework
 não pode conhecê-los.
 
 O exemplo canônico é um editor de documentos que sabe abrir, salvar e fechar
@@ -65,13 +65,13 @@ nova para cada tipo de produto. Ver
 [composição vs. herança](/02-software-design/composition-vs-inheritance.md).
 
 Em linguagens com funções de primeira classe, passar uma função de criação
-resolve o mesmo problema sem hierarquia — e é por isso que o padrão aparece com
+resolve o mesmo problema sem hierarquia, e é por isso que o padrão aparece com
 menos frequência em código funcional e em linguagens modernas.
 
 ### Não confunda com "método estático que cria objeto"
 
 A maior parte do que se chama de "factory" no dia a dia é uma **função de
-fábrica** ou um *static factory method* — um método nomeado que constrói e
+fábrica** ou um *static factory method*: um método nomeado que constrói e
 devolve um objeto.
 
 Isso é útil e não é o padrão. A função de fábrica melhora legibilidade
@@ -93,7 +93,7 @@ Confundir os dois leva a criar hierarquias onde uma função bastaria.
 **Quando você conhece o tipo concreto.** Chame o construtor.
 
 **Quando uma função de fábrica resolve.** Se a variação não precisa ser decidida
-por subclasse, passar uma função de criação é mais simples e mais flexível — pode
+por subclasse, passar uma função de criação é mais simples e mais flexível: pode
 mudar em execução, e não exige hierarquia.
 
 **Quando há uma única implementação.** Ver [YAGNI](/02-software-design/yagni.md).
@@ -107,11 +107,11 @@ criação, o padrão perde a razão de existir.
 
 ## Alternativas
 
-- **Função de fábrica** — a resposta na maioria dos casos.
-- **Função como parâmetro** — passar `() -> Produto` em vez de herdar.
-- **[Abstract Factory](/03-design-patterns/abstract-factory.md)** — quando são famílias de produtos
+- **Função de fábrica**: a resposta na maioria dos casos.
+- **Função como parâmetro**: passar `() -> Produto` em vez de herdar.
+- **[Abstract Factory](/03-design-patterns/abstract-factory.md)**: quando são famílias de produtos
   relacionados, não um.
-- **Injeção de dependência** — receber o objeto pronto em vez de criá-lo.
+- **Injeção de dependência**: receber o objeto pronto em vez de criá-lo.
 
 ## Trade-offs
 
@@ -146,8 +146,8 @@ padrão.
 
 ## Exemplo Real
 
-Uma biblioteca de exportação de relatórios definia `Exportador` com o processo —
-validar, transformar, escrever, finalizar — e `criarEscritor()` abstrato. Cada
+Uma biblioteca de exportação de relatórios definia `Exportador` com o processo
+(validar, transformar, escrever, finalizar) e `criarEscritor()` abstrato. Cada
 formato tinha sua subclasse.
 
 Funcionou bem enquanto havia três formatos.
@@ -160,7 +160,7 @@ A reformulação substituiu a herança por composição: `Exportador(formatador,
 destino)`. Três formatadores e três destinos, combináveis.
 
 O que vale reter: Factory Method estava correto para o problema original. Ele
-deixou de servir quando um segundo eixo apareceu — que é exatamente a limitação
+deixou de servir quando um segundo eixo apareceu. Essa é exatamente a limitação
 declarada em "quando não usar".
 
 ## Onde ele aparece na prática
@@ -175,7 +175,7 @@ quem consome não sabe nem precisa saber.
 teste; a subclasse ou a anotação decide qual.
 
 **Ganchos de criação em frameworks.** O ciclo de vida chama um método que a subclasse
-sobrescreve para decidir qual instância nasce — a forma canônica, com despacho por subclasse.
+sobrescreve para decidir qual instância nasce: a forma canônica, com despacho por subclasse.
 
 `DriverManager.getConnection` costuma entrar nesta lista e não deveria: é método estático que
 varre um registro de drivers, exatamente o que a seção "Não confunda com método estático que
@@ -188,14 +188,14 @@ padrão, e a ausência dela num sistema de aplicação é a razão pela qual ele
 raramente se justifica ali.
 
 Num sistema de negócio típico, você conhece os tipos concretos. É a diferença
-entre escrever um framework e escrever uma aplicação — e boa parte do uso
+entre escrever um framework e escrever uma aplicação, e boa parte do uso
 indevido de padrões vem de aplicar a segunda o que foi projetado para a primeira.
 
 ## Conceitos Relacionados
 
-- [Abstract Factory](/03-design-patterns/abstract-factory.md) — famílias de produtos.
-- [Builder](/03-design-patterns/builder.md) — construção em etapas.
-- [Template Method](/03-design-patterns/template-method.md) — a mesma mecânica de herança aplicada ao
+- [Abstract Factory](/03-design-patterns/abstract-factory.md): famílias de produtos.
+- [Builder](/03-design-patterns/builder.md): construção em etapas.
+- [Template Method](/03-design-patterns/template-method.md): a mesma mecânica de herança aplicada ao
   processo inteiro.
 - [Composição vs. Herança](/02-software-design/composition-vs-inheritance.md).
 
@@ -217,5 +217,5 @@ sem que sejam.
 ## Para Aprofundar
 
 - Gamma, Erich et al. *Design Patterns*. Addison-Wesley, 1994.
-- Bloch, Joshua. *Effective Java*. 3ª ed., 2018 — sobre static factory methods,
+- Bloch, Joshua. *Effective Java*. 3ª ed., 2018. Sobre static factory methods,
   que não são este padrão.

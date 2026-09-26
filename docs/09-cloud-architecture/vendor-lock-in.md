@@ -2,7 +2,7 @@
 id: vendor-lock-in
 title: Dependência de Fornecedor
 sidebar_position: 18
-description: O custo de sair — e por que os dois extremos, adotar tudo e abstrair tudo, são igualmente ruins.
+description: O custo de sair, e por que os dois extremos (adotar tudo e abstrair tudo) são igualmente ruins.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, serverless, cloud-native]
 canonical_for: [dependência de fornecedor, custo de saída, portabilidade]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-27
 Dependência de fornecedor é o custo de trocar de provedor, medido em tempo,
 dinheiro e risco.
 
-Ela é frequentemente discutida como algo binário — "estamos presos" ou "somos
-portáteis" — e não é. É um espectro, e cada serviço adotado move você nele.
+Ela é frequentemente discutida como algo binário ("estamos presos" ou "somos
+portáteis"), e não é. É um espectro, e cada serviço adotado move você nele.
 
 O erro não está em depender. Está em depender **sem saber quanto custa sair**, ou em
 pagar antecipadamente por uma portabilidade que nunca será usada.
@@ -91,7 +91,7 @@ baixo valor + alto custo de saída   → evite
 ```
 
 O segundo quadrante é onde está a maior parte das decisões interessantes, e onde a
-resposta costuma ser **sim** — desde que a decisão seja registrada, com estimativa
+resposta costuma ser **sim**, desde que a decisão seja registrada, com estimativa
 do custo de saída.
 
 Um banco gerenciado que economiza uma pessoa por ano vale a dependência, mesmo que
@@ -106,7 +106,7 @@ Em vez de abstrair tudo ou nada, isolar o que é caro de trocar:
 **Lógica de negócio sem dependência de bibliotecas do provedor.** O núcleo do
 domínio não deveria importar nada específico.
 
-**Adaptador nas fronteiras** dos serviços de alto acoplamento — ver
+**Adaptador nas fronteiras** dos serviços de alto acoplamento. Ver
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 Isso custa pouco e preserva a maior parte da opção. Abstrair também a infraestrutura
@@ -143,7 +143,7 @@ Não existe ausência de dependência. Existe escolher qual.
 ## Modelo Mental
 
 **Toda decisão de arquitetura cria alguma dependência.** A pergunta é se o valor de
-entrar supera o custo estimado de sair — e se alguém estimou.
+entrar supera o custo estimado de sair, e se alguém estimou.
 
 ## Quando Usar
 
@@ -163,7 +163,7 @@ Aceitar dependência alta faz sentido quando:
 
 **Quando o fornecedor tem risco de continuidade.**
 
-**Multi-nuvem por princípio** — este e o item seguinte invertem o sinal: não são condições em
+**Multi-nuvem por princípio**. Este e o item seguinte invertem o sinal: não são condições em
 que aceitar dependência é errado, são as formas de recusá-la que custam sem entregar.
 
 **Abstrair tudo por precaução.** Paga permanentemente por uma opção improvável.
@@ -173,12 +173,12 @@ renovação de contrato.
 
 ## Alternativas
 
-- **Portabilidade seletiva** — isolar o que é caro, aceitar o resto.
-- **Serviços de código aberto gerenciados** — o motor é portável; a operação, não.
-- **[Contêineres](/09-cloud-architecture/containers.md)** — reduzem a dependência da camada de computação
+- **Portabilidade seletiva**: isolar o que é caro, aceitar o resto.
+- **Serviços de código aberto gerenciados**: o motor é portável; a operação, não.
+- **[Contêineres](/09-cloud-architecture/containers.md)**: reduzem a dependência da camada de computação
   a custo baixo.
-- **Estratégia de saída documentada** — em vez de portabilidade técnica, um plano:
-  o que seria preciso, quanto tempo, quanto custa. Barato e frequentemente
+- **Estratégia de saída documentada**: em vez de portabilidade técnica, um plano
+  (o que seria preciso, quanto tempo, quanto custa). Barato e frequentemente
   suficiente.
 
 A última merece destaque: um documento de duas páginas que responde "como sairíamos
@@ -229,8 +229,8 @@ custa demais.
 ## Exemplo Real
 
 É a mesma empresa de
-[gerenciado contra autogerido](/20-trade-offs/managed-vs-self-hosted.md) — 26 engenheiros,
-cinco componentes de infraestrutura operados internamente —, vista por outro eixo. Lá a
+[gerenciado contra autogerido](/20-trade-offs/managed-vs-self-hosted.md) (26 engenheiros,
+cinco componentes de infraestrutura operados internamente), vista por outro eixo. Lá a
 pergunta é quanto custa operar; aqui é o que a política de portabilidade comprou com esse
 custo.
 
@@ -239,8 +239,8 @@ Tudo em contêineres, tudo com software de código aberto autogerido, tudo port�
 
 Quatro anos depois, o balanço:
 
-**Cerca de 1,1 engenheiro em tempo integral** — o resultado da medição de três meses
-registrada no documento irmão — operando banco, fila, busca, cache e Kubernetes
+**Cerca de 1,1 engenheiro em tempo integral** (o resultado da medição de três meses
+registrada no documento irmão) operando banco, fila, busca, cache e Kubernetes
 autogeridos, para uma equipe de 26.
 
 **A portabilidade nunca foi exercida.** Nenhuma migração foi cogitada em quatro
@@ -257,27 +257,27 @@ diferença a favor do autogerido            ~R$ 28 mil/mês, por quatro anos
 
 E é justamente por isso que a política sobreviveu quatro anos sem revisão: o custo
 que ela impôs não aparecia na conta que a empresa olhava. A conta acima não inclui o
-valor dos recursos de produto adiados — que a equipe considerou maior que a diferença,
+valor dos recursos de produto adiados, que a equipe considerou maior que a diferença,
 e não conseguiu estimar.
 
 **Atraso de entrega.** Vários recursos de produto foram adiados por indisponibilidade
 de gente, alocada em operação.
 
 A revisão levou a uma política diferente, classificada pelo critério de valor contra custo de
-saída — não pelo grau de dependência, que descreve o componente e não a decisão:
+saída, não pelo grau de dependência (que descreve o componente e não a decisão):
 
 **Adotado sem hesitar:** cache gerenciado, com protocolo compatível e custo de saída de dias.
 Alto valor, custo de saída baixo.
 
-**Adotado com registro:** banco gerenciado e fila gerenciada, ambos com motor de código aberto
-— o que reduz a reescrita, mas não os três meses de migração de dados e de reconfiguração que
+**Adotado com registro:** banco gerenciado e fila gerenciada, ambos com motor de código aberto,
+o que reduz a reescrita, mas não os três meses de migração de dados e de reconfiguração que
 a estimativa apontou. Alto valor e alto custo de saída caem no segundo quadrante, e o segundo
 quadrante exige registro. Junto com eles, um serviço proprietário de processamento de eventos,
 com estimativa de quatro meses. Dois dos três engenheiros voltaram ao produto.
 
 **Mantido portável:** o núcleo de domínio, sem nenhuma dependência de biblioteca do
 provedor, e os dados em formatos abertos. Também a busca e o agrupamento de contêineres, que
-seguiram autogeridos — a busca por uma extensão de idioma sem equivalente gerenciado, os
+seguiram autogeridos: a busca por uma extensão de idioma sem equivalente gerenciado, os
 contêineres porque a dependência já era baixa e migrar não economizaria operação. É por isso
 que o saldo é de dois engenheiros, e não de três.
 
@@ -289,14 +289,14 @@ estimado de migração por componente.
 
 O que a equipe aprendeu: a política original vinha de uma experiência ruim que um
 dos fundadores tivera com um fornecedor, anos antes. Ela nunca foi analisada em
-custo — era um princípio, e princípios não são comparados com números.
+custo: era um princípio, e princípios não são comparados com números.
 
 A conta de quatro anos de portabilidade não exercida foi o que mudou a conversa.
 
 ## Conceitos Relacionados
 
-- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md) — a decisão que gera dependência.
-- [Serverless](/09-cloud-architecture/serverless.md) — o grau mais alto.
+- [Serviços Gerenciados](/09-cloud-architecture/managed-services.md): a decisão que gera dependência.
+- [Serverless](/09-cloud-architecture/serverless.md): o grau mais alto.
 - [Cloud Native](/09-cloud-architecture/cloud-native.md).
 - [Trade-offs](/20-trade-offs/index.md).
 

@@ -2,7 +2,7 @@
 id: visitor
 title: Visitor
 sidebar_position: 22
-description: Separar operações da estrutura que percorrem — poderoso, rígido, e quase sempre a escolha errada.
+description: "Separar operações da estrutura que percorrem: poderoso, rígido, e quase sempre a escolha errada."
 doc_type: pattern
 level: 2
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [composite]
 related: [composite, iterator, strategy]
 canonical_for: [visitor, visitante, despacho duplo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -38,7 +38,7 @@ diferentes.
 Uma árvore sintática com números, operadores e variáveis precisa ser avaliada,
 impressa, otimizada, verificada quanto a tipos e serializada.
 
-Colocar cada operação nos nós funciona — mas cada operação nova toca todas as
+Colocar cada operação nos nós funciona, mas cada operação nova toca todas as
 classes de nó, e as classes acumulam responsabilidades sem relação entre si.
 
 Visitor inverte: cada operação vira um objeto que sabe lidar com todos os tipos
@@ -50,11 +50,11 @@ de nó.
 
 A formulação que decide tudo. Existem dois eixos de crescimento:
 
-**Tipos novos** — mais tipos de nó na estrutura.
-**Operações novas** — mais coisas a fazer com a estrutura.
+**Tipos novos**: mais tipos de nó na estrutura.
+**Operações novas**: mais coisas a fazer com a estrutura.
 
 Nas organizações usuais de código orientado a objetos, nenhuma torna os dois baratos ao
-mesmo tempo — é o problema da expressão, enunciado por Wadler em 1998. Há codificações que
+mesmo tempo: é o problema da expressão, enunciado por Wadler em 1998. Há codificações que
 compram as duas direções (*object algebras*, *tagless final*), ao custo de cerimônia ainda
 maior e de recursos que nem toda linguagem oferece.
 
@@ -64,7 +64,7 @@ maior e de recursos que nem toda linguagem oferece.
 | Adicionar operação | **Caro** — toca todos os nós | Barato — uma classe |
 
 Visitor privilegia operações e penaliza tipos. Aplicá-lo a uma estrutura cujos
-tipos crescem é escolher o lado errado do dilema — e é o erro mais comum com este
+tipos crescem é escolher o lado errado do dilema, e é o erro mais comum com este
 padrão.
 
 ### Despacho duplo
@@ -81,7 +81,7 @@ O `aceitar` em cada nó existe só para isso. É cerimônia obrigatória, e o qu
 o padrão verboso.
 
 Em linguagens com correspondência de padrões sobre tipos algébricos, o mesmo se
-escreve sem hierarquia nem `aceitar` — o que explica por que Visitor é raro em
+escreve sem hierarquia nem `aceitar`, o que explica por que Visitor é raro em
 código funcional.
 
 ### O custo de legibilidade
@@ -115,12 +115,12 @@ leitura de cada operação, e em código lido com frequência isso pesa.
 
 ## Alternativas
 
-- **Correspondência de padrões** — em linguagens que oferecem, é superior em quase
+- **Correspondência de padrões**: em linguagens que oferecem, é superior em quase
   tudo.
-- **Método no nó** — quando as operações são poucas e estáveis.
-- **[Iterator](/03-design-patterns/iterator.md) com condicional de tipo** — menos elegante, muito mais
+- **Método no nó**: quando as operações são poucas e estáveis.
+- **[Iterator](/03-design-patterns/iterator.md) com condicional de tipo**: menos elegante, muito mais
   legível, e adequado quando há poucos tipos.
-- **Tabela de despacho** — um mapa de tipo para função, sem hierarquia de
+- **Tabela de despacho**: um mapa de tipo para função, sem hierarquia de
   visitantes.
 
 ## Trade-offs
@@ -137,7 +137,7 @@ leitura de cada operação, e em código lido com frequência isso pesa.
 ## Modos de Falha
 
 **Tipo novo esquecido num visitante.** Depende da forma do visitante: com **interface
-abstrata**, acrescentar um tipo quebra a compilação de todos eles — caro, e é o custo que a
+abstrata**, acrescentar um tipo quebra a compilação de todos eles. É caro, e é o custo que a
 tabela acima cobra. Com **classe base de implementação padrão**, ou em linguagem dinâmica,
 nada quebra: o tipo novo cai no padrão e o comportamento fica errado em silêncio.
 
@@ -147,7 +147,7 @@ produz contaminação.
 **Hierarquia de visitantes.** Um visitante base com comportamento padrão e
 subclasses que sobrescrevem: combina os custos de Visitor com os de herança.
 
-**Ordem de percurso implícita.** Quem controla o percurso — o nó ou o visitante —
+**Ordem de percurso implícita.** Quem controla o percurso (o nó ou o visitante)
 não é óbvio, e mudar isso quebra visitantes que dependiam da ordem.
 
 ## Erros Comuns
@@ -164,8 +164,8 @@ deveria falhar explicitamente, não ignorar.
 ## Onde ele aparece na prática
 
 **Compiladores e interpretadores.** O caso canônico e o que melhor satisfaz a
-condição: a gramática de uma linguagem é estável por anos, e as operações —
-verificação de tipos, otimização, geração de código, formatação — crescem.
+condição: a gramática de uma linguagem é estável por anos, e as operações
+(verificação de tipos, otimização, geração de código, formatação) crescem.
 
 **Ferramentas de análise estática.** Cada regra é um visitante sobre a árvore
 sintática. Regras novas são frequentes; tipos de nó, não.
@@ -176,8 +176,8 @@ sintática. Regras novas são frequentes; tipos de nó, não.
 documento.
 
 Os quatro compartilham a mesma característica, e ela é o teste do padrão: **a
-estrutura foi definida por uma especificação externa** — uma gramática, um
-formato, um padrão — e por isso não muda no ritmo do código. Quando a estrutura é
+estrutura foi definida por uma especificação externa** (uma gramática, um
+formato, um padrão) e por isso não muda no ritmo do código. Quando a estrutura é
 sua e evolui com o domínio, a condição não vale.
 
 ## Exemplo Real
@@ -185,7 +185,7 @@ sua e evolui com o domínio, a condição não vale.
 Um sistema de regras de negócio representava condições como árvore: comparações,
 conjunções, disjunções, negações, referências a campo.
 
-Cinco tipos de nó, definidos pela gramática da linguagem de regras — estável desde
+Cinco tipos de nó, definidos pela gramática da linguagem de regras, estável desde
 o início.
 
 As operações cresceram: avaliar, renderizar para leitura humana, converter em SQL,
@@ -194,11 +194,11 @@ estimar custo, extrair os campos referenciados, validar.
 Seis visitantes, cada um numa classe. Adicionar uma operação nunca tocou os nós.
 
 O contraexemplo, no mesmo sistema: alguém aplicou Visitor à hierarquia de
-documentos do domínio — contrato, apólice, endosso, sinistro. Essa hierarquia
+documentos do domínio (contrato, apólice, endosso, sinistro). Essa hierarquia
 crescia: em dois anos ganhou cinco tipos novos.
 
 Cada tipo novo tocou os quatro visitantes existentes. Em duas ocasiões um tipo foi
-adicionado e um visitante não foi atualizado — e o defeito passou porque nada
+adicionado e um visitante não foi atualizado, e o defeito passou porque nada
 obrigava a exaustividade.
 
 Foi revertido para métodos nos próprios documentos.
@@ -208,9 +208,9 @@ crescia.
 
 ## Conceitos Relacionados
 
-- [Composite](/03-design-patterns/composite.md) — a estrutura sobre a qual Visitor costuma operar.
-- [Iterator](/03-design-patterns/iterator.md) — percurso sem distinção de tipo.
-- [Strategy](/03-design-patterns/strategy.md) — variação de algoritmo sem estrutura.
+- [Composite](/03-design-patterns/composite.md): a estrutura sobre a qual Visitor costuma operar.
+- [Iterator](/03-design-patterns/iterator.md): percurso sem distinção de tipo.
+- [Strategy](/03-design-patterns/strategy.md): variação de algoritmo sem estrutura.
 
 ## Exercício Prático
 

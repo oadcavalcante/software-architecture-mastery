@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [centralization-vs-decentralization, coupling-vs-duplication, sync-vs-async]
 canonical_for: [monólito contra microsserviços, pré-requisito operacional, granularidade de implantação, fronteira instável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -29,8 +29,8 @@ eixo real   os pré-requisitos organizacionais existem, e as fronteiras
 ```
 
 Microsserviços resolvem um problema **organizacional**: permitir que times implantem e
-escalem de forma independente. Se esse problema não existe — porque há um time, ou porque a
-implantação conjunta não incomoda —, a arquitetura entrega custo sem benefício.
+escalem de forma independente. Se esse problema não existe (porque há um time, ou porque a
+implantação conjunta não incomoda), a arquitetura entrega custo sem benefício.
 
 E há um pré-requisito técnico: separar em serviços **fixa fronteiras**. Fixar uma fronteira
 errada é caro de corrigir, e a fronteira certa raramente é conhecida no início.
@@ -122,7 +122,7 @@ Ele entrega a maior parte do benefício organizacional de fronteiras claras sem 
 custos da distribuição, e mantém a opção de extrair depois.
 
 O modo de falha é conhecido: sem verificação automática, as fronteiras erodem em prazo de
-meses. Com ela, a erosão fica visível e mensurável — e passa a se concentrar na lista de
+meses. Com ela, a erosão fica visível e mensurável, e passa a se concentrar na lista de
 exclusões, que é onde ela se esconde. Ver
 [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md).
 
@@ -187,7 +187,7 @@ Prefira **microsserviços** quando:
 - Os pré-requisitos operacionais estão construídos.
 - As fronteiras do domínio são conhecidas e estáveis.
 - Componentes têm perfis de escala muito diferentes.
-- Há requisito de isolamento — regulatório, de segurança, de disponibilidade.
+- Há requisito de isolamento: regulatório, de segurança, de disponibilidade.
 
 Prefira **monólito modular** quando:
 
@@ -205,18 +205,18 @@ Prefira **monólito modular** quando:
 
 **Dividindo por camada ou por entidade.**
 
-**Mantendo monólito não modular** — o pior dos dois, e é onde a maioria está.
+**Mantendo monólito não modular**: o pior dos dois, e é onde a maioria está.
 
-**Como decisão irreversível** — a sequência modular → extração é legítima e preferível.
+**Como decisão irreversível**: a sequência modular → extração é legítima e preferível.
 
 ## Alternativas
 
-- **Monólito modular** — a opção certa com mais frequência do que qualquer dos extremos.
-- **Extração seletiva** — separar um ou dois componentes com perfil distinto, mantendo o
+- **Monólito modular**: a opção certa com mais frequência do que qualquer dos extremos.
+- **Extração seletiva**: separar um ou dois componentes com perfil distinto, mantendo o
   resto junto.
-- **Serviços por time, não por domínio** — granularidade grossa, alinhada à necessidade
+- **Serviços por time, não por domínio**: granularidade grossa, alinhada à necessidade
   organizacional real.
-- **Monólito com réplicas especializadas** — a mesma base de código implantada com
+- **Monólito com réplicas especializadas**: a mesma base de código implantada com
   configurações diferentes por perfil de carga.
 
 A última resolve o caso "um componente precisa de escala diferente" sem dividir nada.
@@ -298,7 +298,7 @@ não correspondiam a nenhuma unidade de mudança do negócio, o que explica os 6
 A correção, em 14 meses, foi de reconsolidação:
 
 **De 31 para 9 serviços**, reagrupados por contexto de domínio identificado a partir do
-histórico de mudanças — módulos que sempre mudavam juntos voltaram a ser um.
+histórico de mudanças: módulos que sempre mudavam juntos voltaram a ser um.
 
 **Um monólito modular** absorveu 19 dos 31 serviços, com fronteiras internas verificadas
 automaticamente.
@@ -308,7 +308,7 @@ escala distinto no processamento de vídeo, isolamento regulatório no serviço 
 menores, cadência de mudança muito diferente no serviço de integração com escolas, e
 requisito de disponibilidade próprio na autenticação.
 
-**Plataforma construída** durante o processo — esteira comum, observabilidade distribuída,
+**Plataforma construída** durante o processo: esteira comum, observabilidade distribuída,
 provisionamento por autoatendimento.
 
 Resultados após a reconsolidação:
@@ -323,11 +323,11 @@ transações distribuídas                         2, ambas necessárias
 ```
 
 E dois anos depois, com a empresa em 9 times, dois módulos do monólito modular foram
-extraídos — desta vez com fronteiras provadas por dois anos de mudanças, e com a plataforma
+extraídos, desta vez com fronteiras provadas por dois anos de mudanças, e com a plataforma
 pronta. As extrações levaram 5 e 7 semanas, sem incidente.
 
 A avaliação posterior aponta: o monólito de 2022 era de fato difícil de manter, e o diagnóstico
-estava certo. O erro foi de tratamento — o problema era ausência de fronteiras internas, e a
+estava certo. O erro foi de tratamento: o problema era ausência de fronteiras internas, e a
 resposta aplicada foi distribuição, que fixa fronteiras antes de conhecê-las.
 
 Modularizar teria resolvido o problema real, e a metade do trabalho foi exatamente isso,
@@ -339,13 +339,13 @@ dois anos depois e com custo muito maior.
   [Monólito Modular](/03-design-patterns/modular-monolith.md).
 - [Fronteiras de Serviço](/05-system-design/service-boundaries.md).
 - [Centralização vs. Descentralização](/20-trade-offs/centralization-vs-decentralization.md).
-- [Síncrono vs. Assíncrono](/20-trade-offs/sync-vs-async.md) — o custo que a divisão traz.
+- [Síncrono vs. Assíncrono](/20-trade-offs/sync-vs-async.md): o custo que a divisão traz.
 
 ## Exercício Prático
 
 Meça, nas últimas 30 entregas do seu sistema, quantas tocaram mais de um serviço ou módulo.
 
-Acima de 40%, as fronteiras não correspondem às unidades de mudança do negócio — e dividir
+Acima de 40%, as fronteiras não correspondem às unidades de mudança do negócio, e dividir
 mais vai piorar.
 
 ## Perguntas de Entrevista

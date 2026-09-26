@@ -2,7 +2,7 @@
 id: constraints
 title: Constraints
 sidebar_position: 10
-description: What is not negotiable — and why mistaking a constraint for a preference is expensive in both directions.
+description: What is not negotiable, and why mistaking a constraint for a preference is expensive in both directions.
 doc_type: foundation
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [business-context, solution-space]
 canonical_for: [constraints]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -22,23 +22,23 @@ last_reviewed: 2026-08-30
 ## Overview
 
 Constraints are conditions the architecture has to respect and that are outside
-the control of whoever is architecting. They are not optimized — they are obeyed.
+the control of whoever is architecting. They are obeyed, not optimized.
 
-The skill that matters here is not dealing with constraints. It is telling the
+The skill that matters here is not dealing with constraints but telling the
 real ones from the ones that only look real.
 
 ## The Problem
 
 Constraints arrive mixed in with preferences, and the two use the same language.
 "We can't use a managed service", "it has to be in Java", "the data has to stay in
-our datacentre" — each of those sentences may be a non-negotiable constraint or
+our datacentre": each of those sentences may be a non-negotiable constraint or
 somebody's preference that nobody has challenged.
 
 The two corresponding mistakes are expensive and symmetric.
 
 **Accepting a preference as a constraint** eliminates options that were available.
 The solution space shrinks for no reason, and the chosen architecture is worse
-than it could have been — without anyone knowing, because the alternative was
+than it could have been, without anyone knowing, because the alternative was
 discarded before being evaluated.
 
 **Treating a constraint as negotiable** burns credibility and time on lost battles,
@@ -50,7 +50,7 @@ of work.
 
 ### The categories
 
-Three of them — regulatory, organizational and economic — are the factors
+Three of them (regulatory, organizational and economic) are the factors
 [Business Context](/01-fundamentals/business-context.md) enumerates, seen here from
 the side of the limit they impose and of how far each one gives.
 
@@ -68,7 +68,7 @@ unviable even when technically correct.
 **Inherited technical.** Legacy systems that cannot be switched off, existing
 integrations, data formats with history.
 
-**Temporal.** A deadline with an external consequence — a market event, a
+**Temporal.** A deadline with an external consequence: a market event, a
 regulatory obligation, a public commitment.
 
 ### The test for a constraint
@@ -79,11 +79,11 @@ One question separates a constraint from a preference:
 
 A real constraint has a specific answer and someone who answers for it: a fine, a
 breach of contract, a lawsuit, a physical impossibility, a project cancelled for
-lack of funds. The consequence does not have to come from outside — an
+lack of funds. The consequence does not have to come from outside: an
 organizational or budgetary constraint is internal, and no less real for it.
 
 A preference has a vague or circular answer: "it's not our standard", "we prefer it
-this way", "we've always done it like that". None of those is false or irrelevant —
+this way", "we've always done it like that". None of those is false or irrelevant,
 but all are negotiable, and have to be treated as such.
 
 ### Constraints have an expiry date
@@ -132,7 +132,7 @@ extra cost stays invisible.
 highest-return question in the whole gathering, and it is almost never asked.
 
 **Accepting an ownerless constraint.** Every real constraint has someone
-accountable for it — legal, compliance, finance, the customer. A constraint whose
+accountable for it: legal, compliance, finance, the customer. A constraint whose
 owner nobody can name deserves verification.
 
 **Treating an organizational constraint as less real than a technical one.** "We
@@ -143,8 +143,8 @@ limit, and more often ignored because it is uncomfortable.
 Reviewing them periodically is cheap and sometimes frees up valuable options.
 
 **Confusing a constraint with a quality attribute.** "The system needs to handle 10
-thousand requests per second" is a quality attribute — negotiable against cost.
-"The data cannot leave the country" is a constraint — there is no negotiating with
+thousand requests per second" is a quality attribute: negotiable against cost.
+"The data cannot leave the country" is a constraint: there is no negotiating with
 volume.
 
 ## Real-World Example
@@ -154,14 +154,14 @@ stay on-premises."*
 
 Taken as stated, the constraint eliminates managed services for storage, processing
 and analytics, and the resulting architecture requires three people dedicated to
-operations — which the team does not have.
+operations, which the team does not have.
 
 The test applied: *what happens if we violate it?*
 
 The answer came in three layers. First: "it's company policy". Second, asking the
 policy owner: "because customer data can't go outside". Third, asking legal: the
 real requirement is that **personally identifiable** customer data reside in the
-country, under an adequate processing agreement — and there are cloud providers
+country, under an adequate processing agreement, and there are cloud providers
 that meet that in full in a local region.
 
 The real constraint was narrower than the stated one, and it was not
@@ -171,15 +171,15 @@ The final architecture uses managed services in a national region for the main
 volume, with a subset of sensitive data isolated under stricter control. The
 operations team still has the people it had.
 
-What matters here is not that the constraint was false — it was real, just
+What matters here is not that the constraint was false: it was real, just
 different. Accepting the second-hand formulation would have cost an entire
 architecture.
 
 ## Related Concepts
 
-- [Business Context](/01-fundamentals/business-context.md) — where constraints come from.
-- [Solution Space](/01-fundamentals/solution-space.md) — what they shrink.
-- [Quality Attributes](/01-fundamentals/quality-attributes.md) — what is negotiable, by contrast.
+- [Business Context](/01-fundamentals/business-context.md): where constraints come from.
+- [Solution Space](/01-fundamentals/solution-space.md): what they shrink.
+- [Quality Attributes](/01-fundamentals/quality-attributes.md): what is negotiable, by contrast.
 
 ## Practical Exercise
 
@@ -201,6 +201,6 @@ unknown owner deserve verification. The old ones deserve re-examination.
 ## Further Exploration
 
 - Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
-  2020 — constraints as an architectural driver.
+  2020. Constraints as an architectural driver.
 - Ford, Neal; Parsons, Rebecca; Kua, Patrick. *Building Evolutionary
-  Architectures*. O'Reilly, 2017 — constraints that change over time.
+  Architectures*. O'Reilly, 2017. Constraints that change over time.

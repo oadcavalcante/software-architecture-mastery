@@ -2,7 +2,7 @@
 id: scaling-capacity-planning
 title: Planejamento de Capacidade para Escala
 sidebar_position: 12
-description: Saber quando escalar antes do incidente — com modelo, teste e folga definida.
+description: Saber quando escalar antes do incidente, com modelo, teste e folga definida.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [performance-vs-scalability]
 related: [performance-vs-scalability, horizontal-scaling, hotspots]
 canonical_for: [modelo de capacidade, folga operacional, teste de carga, alerta de tendência]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -36,7 +36,7 @@ incidente é uma planilha e um alerta.
 O padrão comum é reativo: o sistema fica lento, alguém investiga, adiciona capacidade.
 
 Isso funciona quando adicionar capacidade é rápido e o gargalo é capacidade. Falha
-quando a mudança leva semanas — particionar um banco, aumentar cota, negociar limite
+quando a mudança leva semanas: particionar um banco, aumentar cota, negociar limite
 com terceiro.
 
 E falha silenciosamente antes disso: a degradação acontece gradualmente, e o momento em
@@ -81,8 +81,8 @@ A linha de 60% supõe carga repartida igualmente entre três
 as duas restantes passam a 90%.
 
 A folga é decidida a partir de três coisas: quanto varia a carga, quanto tempo leva
-para adicionar capacidade, e o que precisa ser absorvido — a perda de uma zona, um pico
-sazonal.
+para adicionar capacidade, e o que precisa ser absorvido (a perda de uma zona, um pico
+sazonal).
 
 Sem decisão explícita, a folga é o que sobrou depois que ninguém revisou o
 dimensionamento.
@@ -105,7 +105,7 @@ implementar sobre métricas que já existem.
 
 Um teste que não reproduz a realidade produz confiança falsa. Os erros que invalidam:
 
-**Distribuição uniforme.** Tráfego real é desigual — poucos clientes concentram
+**Distribuição uniforme.** Tráfego real é desigual: poucos clientes concentram
 volume, algumas chaves são muito mais acessadas. Um teste uniforme não encontra
 [pontos quentes](/11-scalability/hotspots.md).
 
@@ -135,7 +135,7 @@ carga    latência p95    vazão
 1200       2.400 ms       850   ← saturado, vazão caindo
 ```
 
-O joelho — onde a latência começa a subir desproporcionalmente — é o limite operacional
+O joelho, onde a latência começa a subir desproporcionalmente, é o limite operacional
 real. Acima dele, o sistema ainda funciona e a experiência já degradou.
 
 E o ponto onde a vazão **cai** com mais carga é o que o descarte de carga precisa
@@ -183,7 +183,7 @@ modelo projetaria uma data que ninguém precisa conhecer.
 
 **O teto elástico está uma ordem de grandeza acima do pico.** Serviço gerenciado ou
 serverless com cota dez vezes maior que o pico medido não tem limite próximo a projetar.
-O trabalho se reduz ao inventário de cotas — revisado quando o pico crescer, não todo
+O trabalho se reduz ao inventário de cotas, revisado quando o pico crescer, não todo
 mês.
 
 **Sobredimensionar custa menos que manter o modelo.** Se dobrar a capacidade custa, por
@@ -197,12 +197,12 @@ em descarte de carga e degradação graciosa do que num modelo sem dados.
 
 ## Alternativas
 
-- **Elasticidade automática** — para variação sem hora marcada, com a ressalva de que o
+- **Elasticidade automática**: para variação sem hora marcada, com a ressalva de que o
   tempo de provisionamento precisa ser menor que a subida da carga.
-- **Descarte de carga** — proteger o essencial quando a capacidade acaba. Ver
+- **Descarte de carga**: proteger o essencial quando a capacidade acaba. Ver
   [backpressure](/06-distributed-systems/backpressure.md).
-- **Degradação graciosa** — operar com menos em vez de parar.
-- **Escalonamento programado** — para picos com hora marcada; evita o atraso de
+- **Degradação graciosa**: operar com menos em vez de parar.
+- **Escalonamento programado**: para picos com hora marcada; evita o atraso de
   provisionamento que qualquer esquema reativo paga.
 
 ## Trade-offs
@@ -240,7 +240,7 @@ pedido.
 
 **Não ter modelo.** Sem uma relação declarada entre unidade de negócio e recurso consumido, não há como projetar nada: a capacidade vira reação ao incidente anterior.
 
-**Não decidir a folga.** Quanta capacidade ociosa manter é uma decisão de custo contra risco. Sem decidi-la, ela é definida por acidente — e costuma ser grande demais em serviços caros e pequena demais nos críticos.
+**Não decidir a folga.** Quanta capacidade ociosa manter é uma decisão de custo contra risco. Sem decidi-la, ela é definida por acidente, e costuma ser grande demais em serviços caros e pequena demais nos críticos.
 
 **Alertar só por valor.** Um limiar fixo avisa quando já está perto do limite. A tendência avisa dias antes, que é o tempo necessário para conseguir cota ou otimizar.
 
@@ -252,7 +252,7 @@ pedido.
 dimensionamento parte do percentil alto da carga. Ver
 [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
-**Não inventariar limites de terceiros.** Cota de provedor, limite de taxa de API e teto de conexão do banco costumam ser atingidos antes do limite da sua própria infraestrutura — e não são elásticos.
+**Não inventariar limites de terceiros.** Cota de provedor, limite de taxa de API e teto de conexão do banco costumam ser atingidos antes do limite da sua própria infraestrutura, e não são elásticos.
 
 ## Exemplo Real
 
@@ -270,7 +270,7 @@ Ela revelou algo que ninguém sabia: o consumo de banco por ingresso tinha **cre
 40%** em oito meses, por causa de duas funcionalidades novas. O dimensionamento
 continuava baseado na razão antiga.
 
-**Teste de carga realista.** Reprodução do padrão de abertura — 200 mil pessoas
+**Teste de carga realista.** Reprodução do padrão de abertura: 200 mil pessoas
 tentando comprar nos primeiros 3 minutos, com a distribuição real de eventos e setores.
 
 O teste anterior usava distribuição uniforme entre eventos, e por isso nunca havia
@@ -284,7 +284,7 @@ descarte de carga acima de 4.000.
 **Limites de terceiros inventariados.** Cada ingresso vendido é uma transação no
 gateway de pagamento, que tinha limite contratado de 50 transações por segundo. O
 descarte em 4.000 ingressos por minuto deixava passar até 67 por segundo. A renegociação levou cinco
-semanas — e teria sido descoberta durante a abertura se o inventário não existisse.
+semanas, e teria sido descoberta durante a abertura se o inventário não existisse.
 
 **Alerta de tendência.** Projeção semanal de quando cada componente atinge 70%, com
 alerta em oito semanas de antecedência.
@@ -296,18 +296,18 @@ As três aberturas seguintes ocorreram sem degradação.
 
 A lição registrada: o achado mais importante foi o crescimento do consumo por
 ingresso. Ele tinha acontecido gradualmente, ao longo de oito meses, sem que nenhum
-alerta disparasse — porque nenhuma métrica olhava a razão entre negócio e recurso.
+alerta disparasse, porque nenhuma métrica olhava a razão entre negócio e recurso.
 
 ## Conceitos Relacionados
 
 - [Desempenho versus Escalabilidade](/11-scalability/performance-vs-scalability.md).
-- [Pontos Quentes](/11-scalability/hotspots.md) — o que teste uniforme não encontra.
-- [Capacity Planning](/05-system-design/capacity-planning.md) — os fundamentos.
-- [Backpressure](/06-distributed-systems/backpressure.md) — o descarte.
+- [Pontos Quentes](/11-scalability/hotspots.md): o que teste uniforme não encontra.
+- [Capacity Planning](/05-system-design/capacity-planning.md): os fundamentos.
+- [Backpressure](/06-distributed-systems/backpressure.md): o descarte.
 
 ## Exercício Prático
 
-Escreva a razão entre uma métrica de negócio e um recurso do seu sistema — pedidos por
+Escreva a razão entre uma métrica de negócio e um recurso do seu sistema: pedidos por
 consulta ao banco, usuários por instância.
 
 Compare com a mesma razão de seis meses atrás. Se ela cresceu, sua folga está sendo
@@ -322,5 +322,5 @@ consumida sem que ninguém tenha adicionado carga.
 ## Para Aprofundar
 
 - Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 18.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Capítulo 18.
 - Gregg, Brendan. *Systems Performance*. 2ª ed. Addison-Wesley, 2020.

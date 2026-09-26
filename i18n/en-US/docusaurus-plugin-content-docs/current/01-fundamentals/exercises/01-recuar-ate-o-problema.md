@@ -2,7 +2,7 @@
 id: 01-recuar-ate-o-problema
 title: "Exercise 01 — Back Up to the Problem"
 sidebar_position: 1
-description: The first exercise on the path — separating problem from solution, turning a wish into a number and enumerating what nobody enumerated.
+description: "The first exercise on the path: separating problem from solution, turning a wish into a number and enumerating what nobody enumerated."
 doc_type: exercise
 level: 1
 difficulty: beginner
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [problem-space]
 related: [solution-space, non-functional-requirements, constraints, business-context]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 ## Context
 
 You joined a fleet management company three weeks ago. The product tracks corporate customers'
-vehicles — carriers, distributors, rental companies — and today serves 340 companies, with around 28
+vehicles (carriers, distributors, rental companies), and today serves 340 companies, with around 28
 thousand vehicles tracked.
 
 On Thursday, the product director calls you in and says:
@@ -36,7 +36,7 @@ minutes and writes them to a relational database. The deadline mentioned is "bef
 show", in five months.
 
 This is the first exercise on the path, and it is not about designing architecture. It is about what
-happens **before** designing — and it is the stage that decides whether the design will solve the right
+happens **before** designing. That is the stage that decides whether the design will solve the right
 problem.
 
 ## Requirements
@@ -61,8 +61,8 @@ deadline mentioned       5 months, anchored to an industry trade show
 budget                   was not mentioned, and nobody asked
 ```
 
-The last line is the most important in the brief. A cost not mentioned is not a cost that doesn't exist
-— it is a cost nobody checked, and it usually shows up after the decision.
+The last line is the most important in the brief. A cost not mentioned is not a cost that doesn't exist;
+it is a cost nobody checked, and it usually shows up after the decision.
 
 ## Your Task
 
@@ -110,7 +110,7 @@ Your answer is good if:
 
 - **The problem statement does not contain the word "dashboard".** If it does, you documented the
   director's solution, not their problem. The problem is probably something like *"operators don't know
-  which vehicles need action now"* — and an alert, not a panel, is a possible answer to that.
+  which vehicles need action now"*, and an alert, not a panel, is a possible answer to that.
 
 - **The requirements have a consequence, not just a number.** "P95 under 400 ms" is better than "fast"
   and still insufficient: with no consequence, the number is arbitrary and doesn't survive the first
@@ -128,7 +128,7 @@ Your answer is good if:
   any technical decision. Whoever missed it will propose WebSockets to transmit stale data.
 
 Your answer is weak if it contains an architecture. Not because architecture is wrong, but because it
-wasn't what was asked — and producing a design before having a stated problem is exactly the habit this
+wasn't what was asked, and producing a design before having a stated problem is exactly the habit this
 path exists to undo.
 
 ## Discussion
@@ -142,7 +142,7 @@ between "two minutes" and "two seconds" costs an entire architecture; the distan
 
 **The telemetry frequency is a ceiling.** Data that arrives every two minutes does not get fresher by
 being transmitted faster. Whoever proposes WebSockets here is optimizing the stretch that is not the
-bottleneck — and the bottleneck, if there is one, is in the embedded device and its data plan, which
+bottleneck. The bottleneck, if there is one, is in the embedded device and its data plan, which
 cost orders of magnitude more to change.
 
 **The constraint that was a preference is the deadline.** "Before the trade show" looks temporal and
@@ -153,11 +153,11 @@ projects, and the second one can happen later.
 **The customer distribution matters more than the average.** The median has 26 vehicles; the largest has
 4,100. A solution sized by the average serves both badly: it is excess for the other 339 customers and a
 shortfall for one. That suggests the right question is not "how many vehicles do we support", but "does
-the large customer behave the same as the small one?" — and frequently it doesn't: whoever has 4,100
+the large customer behave the same as the small one?". Frequently it doesn't: whoever has 4,100
 vehicles doesn't look at a map, they look at exceptions.
 
 **What "reliable" probably means here.** It isn't the dashboard's availability. It is that the position
-shown isn't wrong — a vehicle displayed somewhere it isn't causes a wrong decision, which is worse than
+shown isn't wrong: a vehicle displayed somewhere it isn't causes a wrong decision, which is worse than
 no information. That shifts the requirement from availability to declared correctness and freshness,
 which changes the architecture: it becomes necessary to display the data's age, and not only the data.
 
@@ -166,13 +166,13 @@ frequently the most restrictive. Six engineers with nobody dedicated to data is 
 constraint: a solution that requires operating a streaming system is not going to exist, regardless of
 being technically right.
 
-**The most common outcome of this exercise in practice.** Backing up produces an alert — not a dashboard
-— for a short list of conditions that require action, with the existing panel kept for lookups. It costs
+**The most common outcome of this exercise in practice.** Backing up produces an alert (not a dashboard)
+for a short list of conditions that require action, with the existing panel kept for lookups. It costs
 a fraction, solves the stated problem, and leaves time to find out whether the dashboard was necessary.
 
 It is worth noting what backing up does **not** do: it does not reject the dashboard. If the answers show
 that operators do watch screens continuously and that the decision changes with seconds of delay, the
-dashboard wins — and it wins now by comparison, with verifiable requirements, instead of by having been
+dashboard wins, and it wins now by comparison, with verifiable requirements, instead of by having been
 the first thing said.
 
 :::

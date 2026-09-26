@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging, idempotency]
 related: [idempotency, duplicate-messages, ordering]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -23,9 +23,9 @@ last_reviewed: 2026-08-31
 
 Three possible guarantees when a message crosses the network:
 
-**At most once** — it can be lost, it never duplicates.
-**At least once** — it is never lost, it can duplicate.
-**Exactly once** — it neither loses nor duplicates.
+**At most once**: it can be lost, it never duplicates.
+**At least once**: it is never lost, it can duplicate.
+**Exactly once**: it neither loses nor duplicates.
 
 The third is the desired one, is advertised by several tools, and **does not exist as a property of
 the channel**. Understanding why is what keeps you from building systems on a guarantee that is not
@@ -37,14 +37,14 @@ The choice between the first two is straightforward and comes from the nature of
 
 If the producer does not wait for an acknowledgment, the message can be lost: **at most once**.
 
-If it resends until acknowledged, it is never lost — and the acknowledgment can be lost, causing a
+If it resends until acknowledged, it is never lost, and the acknowledgment can be lost, causing a
 resend of something already delivered: **at least once**.
 
 There is no third option at the channel level. It is a direct consequence of the
 [third outcome](/06-distributed-systems/distributed-fundamentals.md): when the acknowledgment does
 not arrive, the producer does not know whether the message arrived.
 
-The temptation is to look for a tool that solves it. It cannot — the problem belongs to the
+The temptation is to look for a tool that solves it. It cannot: the problem belongs to the
 protocol, not to the implementation.
 
 ## Core Concepts
@@ -54,9 +54,9 @@ protocol, not to the implementation.
 To not duplicate, the producer would have to know whether the message arrived. To know, it would
 need the acknowledgment. If the acknowledgment is lost, it does not know.
 
-Any decision it makes — resend or not — can be wrong.
+Any decision it makes, resend or not, can be wrong.
 
-That is not an engineering limitation. It is the same result that makes
+That is not an engineering limitation but the same result that makes
 [idempotency](/06-distributed-systems/idempotency.md) necessary.
 
 ### What the tools actually offer
@@ -68,10 +68,10 @@ within a window. That solves duplication **in delivery to the broker**, not in p
 consumer.
 
 **Transactional processing.** Reading, processing and committing the read offset in a single
-transaction — possible when the read and the write are in the same system.
+transaction, possible when the read and the write are in the same system.
 
 The second is genuine and limited: it holds while the effect does not leave the system. The moment
-the consumer calls an external service or writes to another database, the guarantee ends — because
+the consumer calls an external service or writes to another database, the guarantee ends, because
 that call does not participate in the transaction.
 
 And that is exactly what real consumers do.
@@ -88,7 +88,7 @@ consumer: idempotent     →  the effect happens 1 time
                             exactly-once effect
 ```
 
-The guarantee is not in the channel — it is in the composition. And the part the application
+The guarantee is in the composition, not in the channel. And the part the application
 controls is the idempotency.
 
 That is the reason idempotency is the central concept of this level.
@@ -98,8 +98,8 @@ That is the reason idempotency is the central concept of this level.
 It is frequently dismissed and it has a place: high-volume telemetry, aggregated metrics, presence
 signals.
 
-Losing a few samples among millions changes no conclusion, and the cost of guaranteeing delivery —
-acknowledgment, retries, durable storage — is disproportionate.
+Losing a few samples among millions changes no conclusion, and the cost of guaranteeing delivery
+(acknowledgment, retries, durable storage) is disproportionate.
 
 Choosing **at most once** deliberately, where the loss is acceptable, is a legitimate architectural
 decision and is rarely considered.
@@ -113,7 +113,7 @@ If the broker did not persist it, the message does not exist and nobody knows.
 
 **Acknowledging the read before processing.** The consumer marks the message as processed on
 receipt, and then fails to process it. It is the default behavior in several libraries, and the loss
-produces no error anywhere — not in the producer, not in the broker, not in the consumer.
+produces no error anywhere: not in the producer, not in the broker, not in the consumer.
 
 **In-memory buffering.** The producer accumulates messages to send in a batch and the process
 terminates. The batch vanishes.
@@ -125,8 +125,8 @@ failed.
 operations with no shared transaction: the commit goes through and the publish fails, and the fact
 exists without the message. That is what the *outbox* pattern resolves: the message is written to a
 table inside the same transaction as the data, and a separate process reads it from there and
-publishes it to the broker. Publishing can repeat — the process dies between publishing and marking
-the row as sent — so the outbox delivers at least once, and the consumer has to tolerate duplicates.
+publishes it to the broker. Publishing can repeat (the process dies between publishing and marking
+the row as sent), so the outbox delivers at least once, and the consumer has to tolerate duplicates.
 
 None of those five seams is fixed by changing the nominal guarantee of the channel: all of them sit
 outside the leg the broker covers. Auditing them is the work that remains.
@@ -137,12 +137,12 @@ outside the leg the broker covers. Auditing them is the work that remains.
 
 ## When to Use
 
-**At least once** — the default. Almost every business case, with an idempotent consumer.
+**At least once**: the default. Almost every business case, with an idempotent consumer.
 
-**At most once** — when the loss is acceptable and the volume makes the guarantee expensive:
-telemetry, metrics, ephemeral signals.
+**At most once**: when the loss is acceptable and the volume makes the guarantee expensive
+(telemetry, metrics, ephemeral signals).
 
-**Broker deduplication** — as an additional layer, reducing the frequency of duplication without
+**Broker deduplication**: as an additional layer, reducing the frequency of duplication without
 replacing idempotency.
 
 ## When Not to Use
@@ -159,14 +159,14 @@ an external service has left the transactional scope.
 
 ## Alternatives
 
-There is no alternative to the three guarantees — what exists is where to place the responsibility:
+There is no alternative to the three guarantees. What exists is where to place the responsibility:
 
-- **Idempotency in the consumer** — the default answer, and the only one that does not depend on a
+- **Idempotency in the consumer**: the default answer, and the only one that does not depend on a
   promise from the channel; it stops serving where the repetition is itself the data, as in
   per-call metering or an audit trail of attempts.
-- **Deduplication by key** — check whether it has already been processed before applying.
-- **Commutative operations** — if order and repetition do not matter, the problem disappears.
-- **Reconciliation** — accept divergence and correct it through a separate process.
+- **Deduplication by key**: check whether it has already been processed before applying.
+- **Commutative operations**: if order and repetition do not matter, the problem disappears.
+- **Reconciliation**: accept divergence and correct it through a separate process.
 
 ## Trade-offs
 
@@ -205,7 +205,7 @@ database.
 the only defense that does not depend on any infrastructure promise.
 
 **Not considering at most once where it would fit.** Telemetry and metrics tolerate loss, and
-accepting that explicitly eliminates retries, deduplication and state storage — a large saving that
+accepting that explicitly eliminates retries, deduplication and state storage: a large saving that
 is rarely evaluated.
 
 **Acknowledging before processing.** Acknowledging receipt and then failing converts at-least-once
@@ -214,7 +214,7 @@ into at-most-once with nobody having decided it, and the message is lost silentl
 ## Real-World Example
 
 A team migrated payment event processing to a platform that advertised exactly-once semantics, and
-removed the consumer's idempotency check — "the platform guarantees it".
+removed the consumer's idempotency check: "the platform guarantees it".
 
 It worked for four months.
 
@@ -229,7 +229,7 @@ failed. The message was redelivered. The consumer captured it again.
 
 217 payments captured twice in one day.
 
-A careful reading of the documentation — done after the incident — made the scope clear: the
+A careful reading of the documentation, done after the incident, made the scope clear: the
 guarantee holds for the platform's internal flow, and external systems require idempotency on the
 application's side.
 
@@ -242,9 +242,9 @@ on the marketing was the decision that caused the incident.
 
 ## Related Concepts
 
-- [Idempotency](/06-distributed-systems/idempotency.md) — what makes at-least-once safe.
-- [Duplicate Messages](/06-distributed-systems/duplicate-messages.md) — the practical handling.
-- [Messaging](/06-distributed-systems/messaging.md) — the channel.
+- [Idempotency](/06-distributed-systems/idempotency.md): what makes at-least-once safe.
+- [Duplicate Messages](/06-distributed-systems/duplicate-messages.md): the practical handling.
+- [Messaging](/06-distributed-systems/messaging.md): the channel.
 - [Partial Failure](/06-distributed-systems/partial-failure.md).
 
 ## Practical Exercise
@@ -252,7 +252,7 @@ on the marketing was the decision that caused the incident.
 For each message consumer in your system, answer: what happens if the same message is processed
 twice?
 
-If any effect leaves the system — an external call, a write to another database — the tool's
+If any effect leaves the system (an external call, a write to another database), the tool's
 guarantee does not cover it, regardless of what it advertises.
 
 ## Interview Questions

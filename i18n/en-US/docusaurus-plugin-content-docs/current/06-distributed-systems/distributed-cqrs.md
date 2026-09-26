@@ -2,7 +2,7 @@
 id: distributed-cqrs
 title: Distributed CQRS
 sidebar_position: 39
-description: CQRS level 3 up close — what changes when the read model lives in another system, fed asynchronously.
+description: "CQRS level 3 up close: what changes when the read model lives in another system, fed asynchronously."
 doc_type: pattern
 level: 4
 difficulty: advanced
@@ -13,14 +13,14 @@ objective: >
 prerequisites: [event-driven-systems, cqrs]
 related: [cqrs, distributed-event-sourcing, eventual-consistency, replication]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
 # Distributed CQRS
 
 > Prerequisite: [CQRS](/03-design-patterns/cqrs.md) establishes what the separation is and
-> the three levels it appears in. Here the focus is level 3 — what changes when the read
+> the three levels it appears in. Here the focus is level 3: what changes when the read
 > model lives in **another system**, fed asynchronously.
 
 ## Overview
@@ -34,7 +34,7 @@ projection to rebuild, a window in which the two sides disagree, and a lag to mo
 
 ## Problem
 
-Level 3's cost is not in building it — it is in operating it afterwards.
+Level 3's cost is in operating it afterwards, not in building it.
 
 ```text
 build      a projection fed by events: days
@@ -64,8 +64,8 @@ A read replica solves **volume**; level 3 solves **shape and technology**. Confu
 team adopt projections for a problem the replica would solve. See
 [replication](/06-distributed-systems/replication.md).
 
-Level 3 is justified when the read side has a technology requirement the write database does not meet —
-full-text search at scale, graph, analytics — or when the load asymmetry requires scaling the two sides
+Level 3 is justified when the read side has a technology requirement the write database does not meet
+(full-text search at scale, graph, analytics) or when the load asymmetry requires scaling the two sides
 separately.
 
 Adopting level 3 for elegance pays eventual consistency, projections and rebuild operations to solve
@@ -73,7 +73,7 @@ a problem a view would solve.
 
 ### The projection has to be rebuildable
 
-At level 3, the read model is derived. That means it can be discarded and rebuilt — and that
+At level 3, the read model is derived. That means it can be discarded and rebuilt, and that
 capability has to be exercised, not merely exist in theory.
 
 A defect in the projection corrupts the reads. The fix is to fix the code and rebuild. If the rebuild
@@ -83,10 +83,10 @@ The practice that works: rebuilding periodically in a test environment, and know
 
 ### Eventual consistency leaks into the interface
 
-At level 3 — and with a read replica too — a user who performs an action and immediately queries may not see the effect.
+At level 3 (and with a read replica too), a user who performs an action and immediately queries may not see the effect.
 
-See [eventual consistency](/06-distributed-systems/eventual-consistency.md). The mitigations —
-optimistic update, explicit state, reading directly from the write model for the author — have to be
+See [eventual consistency](/06-distributed-systems/eventual-consistency.md). The mitigations
+(optimistic update, explicit state, reading directly from the write model for the author) have to be
 designed.
 
 Ignoring that produces the most common complaint in CQRS systems: "I saved and it does not show".
@@ -109,7 +109,7 @@ No single model serves all of those well. That is the real reason for adoption.
 
 They appear together frequently and are independent.
 
-CQRS can be fed by database change capture, by integration events, or by a batch process — with no
+CQRS can be fed by database change capture, by integration events, or by a batch process, with no
 [event sourcing](/06-distributed-systems/distributed-event-sourcing.md).
 
 Event sourcing practically requires CQRS. The converse does not hold, and treating them as a package
@@ -122,7 +122,7 @@ real problem is.
 
 ## When to Use
 
-- Reading requires different technology from writing — search, graph, analytics.
+- Reading requires different technology from writing: search, graph, analytics.
 - A large load asymmetry, with a need to scale separately.
 - Many distinct views of the same data.
 - The domain model is complex and the queries become heavy because of it.
@@ -147,11 +147,11 @@ real problem is.
 
 ## Alternatives
 
-- **A database materialized view** — much of the read benefit, maintained by the database, with no
+- **A database materialized view**: much of the read benefit, maintained by the database, with no
   projection to operate.
-- **Read replica** — load separation with no different schema.
-- **Cache** — when the problem is the volume of repeated reads.
-- **An index** — frequently the slow query needs an index, not architecture.
+- **Read replica**: load separation with no different schema.
+- **Cache**: when the problem is the volume of repeated reads.
+- **An index**: frequently the slow query needs an index, not architecture.
 
 The last is the check to do before anything else: slow queries have motivated many CQRS adoptions an
 index would have solved.
@@ -206,7 +206,7 @@ The initial proposal was level 3 CQRS with a projection in a document store, fed
 
 Before implementing, the team ran a check that changed the decision.
 
-**Query analysis.** Two of the seven joins were unnecessary — leftovers from an earlier version of
+**Query analysis.** Two of the seven joins were unnecessary: leftovers from an earlier version of
 the screen. Removed, the time dropped to 1.8 seconds.
 
 **A composite index.** Over the most used filter fields. Time: 320 ms.
@@ -217,7 +217,7 @@ None of those is level 3 CQRS. The problem was solved with three days of work.
 
 A year later, a new requirement genuinely justified level 3: full-text search over the contracts'
 content, with typo tolerance, facet aggregation and relevance tuned by business
-signals — and with a search load high enough to compete with the transactional one.
+signals, and with a search load high enough to compete with the transactional one.
 The database's own text search was measured first and did not sustain the last two.
 See [search](/05-system-design/search.md).
 
@@ -239,11 +239,11 @@ months to solve an index problem.
 
 ## Related Concepts
 
-- [Distributed Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md) — independent.
-- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md) — the consequence.
-- [CQRS](/03-design-patterns/cqrs.md) — the three levels and choosing between them.
-- [Replication](/06-distributed-systems/replication.md) — solves volume, not shape.
-- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md) — how the projection is fed.
+- [Distributed Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md): independent.
+- [Eventual Consistency](/06-distributed-systems/eventual-consistency.md): the consequence.
+- [CQRS](/03-design-patterns/cqrs.md): the three levels and choosing between them.
+- [Replication](/06-distributed-systems/replication.md): solves volume, not shape.
+- [Event-Driven Systems](/06-distributed-systems/event-driven-systems.md): how the projection is fed.
 
 ## Practical Exercise
 
@@ -263,4 +263,4 @@ candidate.
 
 - Young, Greg. *CQRS Documents*, 2010.
 - Fowler, Martin. *CQRS*, 2011.
-- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 — chapter 4.
+- Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013. Chapter 4.

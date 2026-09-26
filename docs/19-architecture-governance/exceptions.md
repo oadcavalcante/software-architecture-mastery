@@ -2,7 +2,7 @@
 id: exceptions
 title: Exceções
 sidebar_position: 6
-description: O caminho legítimo para não cumprir um padrão — sem ele, o descumprimento acontece em silêncio.
+description: O caminho legítimo para não cumprir um padrão. Sem ele, o descumprimento acontece em silêncio.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, compliance, governance-pathologies]
 canonical_for: [exceção com prazo, expiração de exceção, exceção permanente, exceção como diagnóstico]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -31,16 +31,16 @@ com processo leve         o desvio fica visível, com prazo e dono
 ```
 
 Um processo de exceção não é uma concessão à indisciplina. Ele é o mecanismo que **mantém a
-governança informada sobre a realidade** — e uma governança que não sabe onde está sendo
+governança informada sobre a realidade**. Uma governança que não sabe onde está sendo
 descumprida não governa nada.
 
-E há um uso secundário, mais valioso que o primeiro: o conjunto de exceções é o sinal mais direto que vem de quem **consome** o padrão — cada
-pedido traz o caso concreto e o custo estimado, o que uma pesquisa com times não traz —, e por isso diz
+E há um uso secundário, mais valioso que o primeiro: o conjunto de exceções é o sinal mais direto que vem de quem **consome** o padrão (cada
+pedido traz o caso concreto e o custo estimado, o que uma pesquisa com times não traz), e por isso diz
 sobre o custo de cumpri-lo o que nenhuma métrica de conformidade diz.
 
 ## Problema
 
-Sem caminho legítimo, o descumprimento não desaparece — ele fica invisível.
+Sem caminho legítimo, o descumprimento não desaparece: ele fica invisível.
 
 ```text
 o time precisa entregar
@@ -54,7 +54,7 @@ O resultado é o pior possível: o desvio existe, ninguém sabe onde, e a organi
 estar conforme.
 
 O extremo oposto tem custo diferente. Exceções concedidas sem prazo viram permanentes, e o
-padrão morre por erosão — depois de trinta exceções indefinidas, não há mais padrão, apenas
+padrão morre por erosão: depois de trinta exceções indefinidas, não há mais padrão, apenas
 um documento.
 
 ## Conceitos Centrais
@@ -111,12 +111,12 @@ risco de segurança ou
 ```
 
 O primeiro nível é o mais importante e o mais ausente. Exceções de baixo risco que só
-precisam ser **registradas** — não aprovadas — mantêm a visibilidade sem criar fila, e são a
+precisam ser **registradas** (não aprovadas) mantêm a visibilidade sem criar fila, e são a
 maior parte dos casos.
 
 ### Exceção permanente é sinal, não é exceção
 
-Quando uma exceção é renovada duas vezes — três prazos seguidos sem convergir —, ela deixou de
+Quando uma exceção é renovada duas vezes (três prazos seguidos sem convergir), ela deixou de
 ser exceção:
 
 ```text
@@ -165,8 +165,8 @@ cumprir o padrão    2 semanas de migração
 pedir exceção       5 minutos de formulário
 ```
 
-A assimetria correta não é eliminar essa diferença — ela é inevitável, e é a razão de o
-processo existir. É garantir que a exceção **continue custando** ao longo do tempo: prazo
+A assimetria correta não é eliminar essa diferença (ela é inevitável, e é a razão de o
+processo existir). É garantir que a exceção **continue custando** ao longo do tempo: prazo
 curto, renovação com justificativa nova, e o desvio visível num painel que o time e o gestor
 enxergam.
 
@@ -175,29 +175,29 @@ O que mantém o incentivo é a permanência do custo, não a altura da barreira 
 ## Modelo Mental
 
 **Barato de pedir, com prazo e expiração automática.** Sem caminho legítimo, o desvio existe
-do mesmo jeito — só que invisível.
+do mesmo jeito, só que invisível.
 
 ## Quando Usar
 
-- Quando há padrão obrigatório e mais times do que o dono do padrão acompanha diretamente —
+- Quando há padrão obrigatório e mais times do que o dono do padrão acompanha diretamente:
   a partir daí, desvio sem registro é desvio que ninguém vê.
 - Com registro sem aprovação para desvios de baixo risco.
 - Com expiração automática, sempre que o número de exceções ultrapassar o que uma pessoa
-  acompanha de memória — na prática, a partir de uma dúzia.
+  acompanha de memória (na prática, a partir de uma dúzia).
 - Lendo o conjunto periodicamente como diagnóstico dos padrões.
 
 ## Quando Não Usar
 
 **Organização pequena, com poucos times.** Quando o dono do padrão conversa com cada time
 toda semana e conhece cada desvio pelo nome, o registro formal duplica o que já é visível e
-acrescenta formulário sem acrescentar informação. Basta anotar o desvio junto à decisão —
-num [ADR](/18-architecture-decisions/what-is-an-adr.md), por exemplo — e revisitar quando a organização crescer.
+acrescenta formulário sem acrescentar informação. Basta anotar o desvio junto à decisão
+(num [ADR](/18-architecture-decisions/what-is-an-adr.md), por exemplo) e revisitar quando a organização crescer.
 
 **Requisito que a organização não tem autoridade para dispensar.** Uma exigência de PCI DSS
 ou de LGPD não admite exceção interna: não há quem, dentro da empresa, possa conceder prazo
 para descumprir a lei ou o contrato com a bandeira. Aqui o processo de exceção vira teatro;
-o caminho é cumprir ou levar o risco à instância que responde por ele — jurídico, diretoria
-— como aceite formal de risco, com a consequência nomeada.
+o caminho é cumprir ou levar o risco à instância que responde por ele (jurídico, diretoria)
+como aceite formal de risco, com a consequência nomeada.
 
 **Padrão que ainda é recomendação.** Se o padrão não é obrigatório, não há o que excetuar;
 o desvio é uma escolha legítima, e registrá-lo como exceção dá ao padrão uma força que ele
@@ -205,13 +205,13 @@ não tem.
 
 ## Alternativas
 
-- **Restringir o escopo do padrão** — quando as exceções se concentram numa classe, o
+- **Restringir o escopo do padrão**: quando as exceções se concentram numa classe, o
   problema é o escopo.
-- **Corrigir o padrão** — quando as exceções são muitas.
-- **Aceitar como dívida** — quando a convergência não vai acontecer, registrá-la como
+- **Corrigir o padrão**: quando as exceções são muitas.
+- **Aceitar como dívida**: quando a convergência não vai acontecer, registrá-la como
   dívida é mais honesto que renovar exceção. Ver
   [dívida técnica](/01-fundamentals/technical-debt.md).
-- **Padrão como recomendação** — se a exceção é a regra, ele não deveria ser obrigatório.
+- **Padrão como recomendação**: se a exceção é a regra, ele não deveria ser obrigatório.
 
 ## Trade-offs
 
@@ -254,7 +254,7 @@ renovar, e a exceção vira permanente com aparência de temporária.
 
 **Tratar pedido de exceção como falha do time**, o que empurra o desvio para o silêncio.
 
-**Não olhar o conjunto** — exceções são tratadas caso a caso e nunca lidas juntas.
+**Não olhar o conjunto**: exceções são tratadas caso a caso e nunca lidas juntas.
 
 ## Exemplo Real
 
@@ -285,12 +285,12 @@ tinham criado a percepção de que pedir era arriscado.
 
 O redesenho:
 
-**Três níveis por risco.** Desvio de baixo risco é **registrado** pelo time, sem aprovação —
+**Três níveis por risco.** Desvio de baixo risco é **registrado** pelo time, sem aprovação:
 um formulário de cinco campos, com efeito imediato. Risco médio vai ao dono do padrão,
 com resposta em até 5 dias úteis. Risco de segurança ou regulatório mantém aprovação, com
 resposta em até 10 dias.
 
-**Prazo obrigatório**, máximo de 12 meses, com expiração automática — o sistema volta a
+**Prazo obrigatório**, máximo de 12 meses, com expiração automática: o sistema volta a
 aparecer como desvio no dia seguinte.
 
 **Plano de saída obrigatório**, com dono nomeado.
@@ -313,7 +313,7 @@ renovadas duas vezes ou mais                   9
 
 As 9 renovadas duas vezes ou mais foram examinadas, e todas apontavam para o mesmo diagnóstico: dois
 padrões estavam largos demais. Um deles exigia que todo serviço publicasse eventos no
-barramento corporativo — o que não fazia sentido para serviços de leitura pura. O escopo foi
+barramento corporativo. Isso não fazia sentido para serviços de leitura pura. O escopo foi
 restringido, e 7 das 9 exceções deixaram de ser necessárias.
 
 E a revisão trimestral encontrou outro padrão: 14 exceções concentradas num único time.
@@ -322,14 +322,14 @@ contexto tecnológico diferente. A resposta foi criar um conjunto de padrões es
 essa classe, em vez de conceder exceções indefinidamente.
 
 Na retrospectiva: o número de exceções **subiu** de 31 para 119, e isso foi tratado
-como sucesso. O que caiu foi o desvio invisível — de 125 para 23. A métrica que importava
+como sucesso. O que caiu foi o desvio invisível, de 125 para 23. A métrica que importava
 nunca tinha sido o número de exceções.
 
 ## Conceitos Relacionados
 
-- [Padrões](/19-architecture-governance/governance-standards.md) — o que gera exceção.
-- [Conformidade](/19-architecture-governance/compliance.md) — a expiração automática.
-- [Patologias](/19-architecture-governance/governance-pathologies.md) — o processo que empurra ao silêncio.
+- [Padrões](/19-architecture-governance/governance-standards.md): o que gera exceção.
+- [Conformidade](/19-architecture-governance/compliance.md): a expiração automática.
+- [Patologias](/19-architecture-governance/governance-pathologies.md): o processo que empurra ao silêncio.
 - [Dívida Técnica](/01-fundamentals/technical-debt.md).
 
 ## Exercício Prático
@@ -337,7 +337,7 @@ nunca tinha sido o número de exceções.
 Compare, no seu contexto, o número de exceções registradas com o número de desvios que uma
 verificação técnica encontraria.
 
-A razão entre os dois mede quanto do descumprimento está invisível — e é um número que
+A razão entre os dois mede quanto do descumprimento está invisível. É um número que
 quase nenhuma organização conhece.
 
 ## Perguntas de Entrevista

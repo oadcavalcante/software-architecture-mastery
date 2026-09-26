@@ -2,7 +2,7 @@
 id: enterprise-data-architecture
 title: Enterprise Data Architecture
 sidebar_position: 4
-description: Data that crosses systems — ownership, master data and the cost of not deciding.
+description: "Data that crosses systems: ownership, master data and the cost of not deciding."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [integration-landscapes, application-architecture, data-ownership]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,8 +25,8 @@ The data fundamentals are in
 [data architecture](/07-data-architecture/index.md). What matters here is what changes at
 the organizational level: **data that crosses systems**.
 
-The central decision is ownership — which system is the source of truth for each piece of
-data — and it is, among all enterprise architecture decisions, the one with the widest
+The central decision is ownership (which system is the source of truth for each piece of
+data), and it is, among all enterprise architecture decisions, the one with the widest
 reach and the one least often made explicitly.
 
 Without it, the same data exists in diverging versions in several places, and the
@@ -66,14 +66,14 @@ system of record   holds the data, accepts writes, is authoritative
 consumer           reads, keeps a copy if needed, is never authoritative
 ```
 
-This does not mean a single database — it means **single authority**. Copies may exist
+This does not mean a single database; it means **single authority**. Copies may exist
 for performance or autonomy; they are derived, and divergence is always resolved in favor
 of the source.
 
 See [data ownership](/07-data-architecture/data-ownership.md).
 
 The decision of which system is the record for each entity is the core of this area, and
-it frequently does not exist — systems established themselves as the source by historical
+it frequently does not exist: systems established themselves as the source by historical
 accident.
 
 ### Master data is the hard case
@@ -105,7 +105,7 @@ and solves the problem well.
 **Hub with synchronization.** A central system that reconciles and distributes. Complex,
 and the reconciliation is never perfect.
 
-The first is the one that most often works and the one least considered — because it
+The first is the one that most often works and the one least considered, because it
 requires choosing an existing system, which creates political conflict.
 
 ### Fragmentation has a measurable cost
@@ -120,7 +120,7 @@ integrations maintained only to synchronize
 opportunities lost by not being able to answer questions
 ```
 
-See [integration landscapes](/15-enterprise-architecture/integration-landscapes.md) — a high
+See [integration landscapes](/15-enterprise-architecture/integration-landscapes.md): a high
 fraction of an organization's integrations exists only to propagate data that is
 duplicated.
 
@@ -153,7 +153,7 @@ continuous measurement    not an annual audit
 correction process        who fixes it, in how long
 ```
 
-See [data consistency](/07-data-architecture/data-consistency.md) — periodic
+See [data consistency](/07-data-architecture/data-consistency.md): periodic
 reconciliation is the mechanism that makes quality verifiable.
 
 ### Analytical data needs ownership too
@@ -195,15 +195,15 @@ consumers' synchronous reads and cannot be strengthened, declaring it the source
 divergence for unavailability. Fix the capacity first, or accept the fragmentation for
 now.
 
-**Data local to one system.** Not all data needs a single source — what only one system
+**Data local to one system.** Not all data needs a single source: what only one system
 uses belongs to it.
 
 ## Alternatives
 
-- **Record by consensus** — declare an existing system as the source.
+- **Record by consensus**: declare an existing system as the source.
 - **Dedicated master data service.**
-- **Virtual consolidation** — an index without moving data.
-- **Accept the fragmentation** — a legitimate decision when the cost of solving exceeds
+- **Virtual consolidation**: an index without moving data.
+- **Accept the fragmentation**: a legitimate decision when the cost of solving exceeds
   the cost of living with it, provided it is recorded.
 
 The last one deserves serious consideration: consolidating master data is a multi-year
@@ -227,7 +227,7 @@ project, and it does not always pay off.
 The dependency in the first table is operational. The source becomes an availability
 dependency for every consumer that writes or reads the data, and needs an SLO matching
 the most demanding of them. Each consumer must decide what it does when the source is
-down — refuse the operation, or proceed with its copy and accept stale data — and the
+down (refuse the operation, or proceed with its copy and accept stale data), and the
 derived copies need an invalidation policy: time-based expiry, or a change event
 published by the source.
 
@@ -256,7 +256,7 @@ every system onto one store, the cost explodes, and the initiative dies before d
 any source.
 
 **Creating a hub as the solution.** Without deciding who owns each field, the hub becomes
-one more divergent record — reconciliation now has ten sides instead of nine.
+one more divergent record: reconciliation now has ten sides instead of nine.
 
 **Not measuring the cost of fragmentation.** Without a number, the ownership decision
 loses every priority contest to new features.
@@ -281,19 +281,19 @@ impossible to answer how many unique patients the network served
 one regulatory fine for inconsistent data in a report
 ```
 
-Nine systems, and none was the source — each considered itself to be.
+Nine systems, and none was the source: each considered itself to be.
 
 The chosen approach was record by consensus: the scheduling system, which already had the
 most complete record and was the entry point for most patients, was declared the source.
 
-This created conflict — three departments argued that their system should be the source —
+This created conflict (three departments argued that their system should be the source),
 and the decision was made with a stated criterion: where the data is born most often, and
 where quality is highest.
 
 Execution, in phases:
 
 **Phase 1.** The other eight systems started reading from the source, keeping their own
-records for writes — and every local write was also sent to the source. On conflict, the
+records for writes, and every local write was also sent to the source. On conflict, the
 source's value prevailed and the case went to a review queue. This alone reduced
 divergences visible to the patient.
 
@@ -317,14 +317,14 @@ for everything else.
 
 ## Related Concepts
 
-- [Data Ownership](/07-data-architecture/data-ownership.md) — the fundamentals.
-- [Integration Landscapes](/15-enterprise-architecture/integration-landscapes.md) — the cost of propagation.
+- [Data Ownership](/07-data-architecture/data-ownership.md): the fundamentals.
+- [Integration Landscapes](/15-enterprise-architecture/integration-landscapes.md): the cost of propagation.
 - [Application Architecture](/15-enterprise-architecture/application-architecture.md).
 - [Data Consistency](/07-data-architecture/data-consistency.md).
 
 ## Practical Exercise
 
-Pick a central entity in your organization — customer, product — and list how many
+Pick a central entity in your organization (customer, product) and list how many
 systems it exists in.
 
 Then ask, for each one: is this the source, or a copy? If more than one answers "source",

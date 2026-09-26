@@ -2,7 +2,7 @@
 id: configuration
 title: Configuration
 sidebar_position: 19
-description: What varies between environments — and why making something configurable is a decision, not a default.
+description: What varies between environments, and why making something configurable is a decision, not a default.
 doc_type: concept
 level: 3
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [components]
 related: [secrets, environment-management, feature-flags]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Configuration is what changes between environments or between runs without chang
 database address, the pool size, a timeout, an integration key.
 
 The question this document answers is not how to store configuration. It is **what should be
-configurable** — because every configuration point is a parameter to document, test and get
+configurable**, because every configuration point is a parameter to document, test and get
 wrong.
 
 ## Problem
@@ -37,8 +37,8 @@ combinations, and no team tests a thousand combinations. The ones that run in pr
 ones somebody configured; the rest were never exercised.
 
 The late symptom: a configuration file with 80 entries, 60 of which have had the same value in
-every environment since they were created. They are not configuration — they are code with a
-layer of indirection.
+every environment since they were created. They are code with a
+layer of indirection, not configuration.
 
 **Configuration is for what actually varies.** The rest is a constant.
 
@@ -55,18 +55,18 @@ layer of indirection.
 A secret is configuration with an additional requirement: never in a repository, never in logs,
 rotatable. See [secrets](/10-security/secrets.md).
 
-The frequent error is treating the three the same — constants become unnecessary configuration,
+The frequent error is treating the three the same: constants become unnecessary configuration,
 and secrets become environment variables in a versioned file.
 
 ### An environment variable is the reasonable default
 
-Simple, supported on any platform, and it separates configuration from the artifact — the same
+Simple, supported on any platform, and it separates configuration from the artifact: the same
 binary runs in any environment.
 
 The limitations appear when: the configuration has to change without restarting; there is nested
 structure; or the volume grows to the point where the list becomes unmanageable.
 
-That is where a configuration service comes in — which solves that and adds a dependency on the
+That is where a configuration service comes in. It solves that and adds a dependency on the
 startup path.
 
 ### Fail fast at startup
@@ -74,7 +74,7 @@ startup path.
 Invalid configuration should take the process down **at startup**, not on the first request that
 uses it.
 
-Validating everything at startup — presence, type, range — turns a production error into a
+Validating everything at startup (presence, type, range) turns a production error into a
 container that does not start. The difference is between a deployment that fails visibly and a
 system that works until someone accesses the specific feature.
 
@@ -85,9 +85,9 @@ configured it hides the problem until the wrong moment.
 
 Configuration that changes without restarting is attractive and introduces two things: the system
 comes to have configuration state that can diverge between instances, and the change stops going
-through the deployment process — which means less review and less trace.
+through the deployment process, and that means less review and less trace.
 
-It is worth it for what needs to change fast — log level, feature flags. It is not worth it for
+It is worth it for what needs to change fast: log level, feature flags. It is not worth it for
 what changes rarely.
 
 See [feature flags](/14-devops-and-platform/feature-flags.md), which is a specific case with its own
@@ -107,7 +107,7 @@ it is one, it is a constant in disguise.
 ## When to Use
 
 - The value genuinely differs between environments.
-- The value has to be adjusted without a new build — capacity, timeout.
+- The value has to be adjusted without a new build: capacity, timeout.
 - It is a secret, and cannot be in the code.
 - It is a credential or the address of an external dependency.
 
@@ -126,10 +126,10 @@ no review.
 
 ## Alternatives
 
-- **A constant in the code** — for what does not vary.
-- **A configuration service** — when the volume or the reloading justifies it.
-- **A secrets vault** — for credentials.
-- **A feature flag** — for temporary behavior variation.
+- **A constant in the code**: for what does not vary.
+- **A configuration service**: when the volume or the reloading justifies it.
+- **A secrets vault**: for credentials.
+- **A feature flag**: for temporary behavior variation.
 
 ## Trade-offs
 
@@ -160,14 +160,14 @@ did not.
 ## Common Mistakes
 
 **Not validating at startup.** The wrong configuration only manifests when the path that uses it
-is exercised — sometimes weeks later, in production, in a rare flow. Validating everything at
+is exercised, sometimes weeks later, in production, in a rare flow. Validating everything at
 startup converts that into an immediate, visible failure.
 
 **A default for what should be mandatory.** A default value for a database address or an
 integration key makes the service start pointing at the wrong place instead of refusing to start.
 
 **Logging configuration without masking.** The configuration dump at startup is a common and
-useful practice — and it takes passwords and keys into the logging system, which usually has long
+useful practice, and it takes passwords and keys into the logging system, which usually has long
 retention and broader access than the secret's.
 
 **Putting business rules in configuration.** A rule in a configuration file escapes code review,
@@ -190,7 +190,7 @@ indirection.
 
 **Four had a default value that masked absence.** One of them was an integration's timeout: if the
 variable was missing, it assumed 60 seconds. During an environment migration, it was missing, and
-the 60-second timeout — against the expected 5 — held connections until the pool was exhausted.
+the 60-second timeout (against the expected 5) held connections until the pool was exhausted.
 The incident lasted 25 minutes.
 
 **Three were secrets in a versioned file.** Mandatory rotation, and the repository's history had to
@@ -202,15 +202,15 @@ mandatory and validated at startup.
 
 The most valuable change was the validation: the process now fails to start if any mandatory
 configuration is missing or out of range. The error that cost 25 minutes would become a container
-that does not start — visible on the first deployment attempt.
+that does not start, visible on the first deployment attempt.
 
 ## Configuration in containers
 
 Containers change two premises about configuration, and ignoring that produces specific problems.
 
-**The same artifact runs in every environment** — built once and promoted, as set out in
+**The same artifact runs in every environment**, built once and promoted, as set out in
 [containers in delivery](/14-devops-and-platform/containers-in-delivery.md). The consequence for
-configuration: **no environment configuration can be in the image** — no file, no value baked into
+configuration: **no environment configuration can be in the image**, no file, no value baked into
 the build.
 
 **The file system is ephemeral.** Configuration written to disk on first use vanishes in the next
@@ -230,10 +230,10 @@ not start, with a message that does not mention configuration.
 
 ## Related Concepts
 
-- [State Management](/05-system-design/state-management.md) — configuration is startup state.
-- [Security](/10-security/index.md) — secrets management.
-- [DevOps and Platform](/14-devops-and-platform/index.md) — environments and feature flags.
-- [YAGNI](/02-software-design/yagni.md) — speculative configuration.
+- [State Management](/05-system-design/state-management.md): configuration is startup state.
+- [Security](/10-security/index.md): secrets management.
+- [DevOps and Platform](/14-devops-and-platform/index.md): environments and feature flags.
+- [YAGNI](/02-software-design/yagni.md): speculative configuration.
 
 ## Practical Exercise
 
@@ -251,5 +251,5 @@ code are junk. The ones with a silent default are the next incident.
 
 ## Further Reading
 
-- Wiggins, Adam. *The Twelve-Factor App*, 2011 — the configuration factor.
-- OWASP — *Secrets Management Cheat Sheet*.
+- Wiggins, Adam. *The Twelve-Factor App*, 2011. The configuration factor.
+- OWASP. *Secrets Management Cheat Sheet*.

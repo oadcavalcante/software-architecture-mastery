@@ -2,7 +2,7 @@
 id: context-diagrams
 title: Diagramas de Contexto
 sidebar_position: 3
-description: O sistema e o mundo em volta — o diagrama mais útil e o mais barato de manter.
+description: "O sistema e o mundo em volta: o diagrama mais útil e o mais barato de manter."
 doc_type: concept
 level: 5
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, container-diagrams, diagram-quality]
 canonical_for: [diagrama de contexto, fronteira do sistema, ator externo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Um diagrama de contexto mostra **o sistema, quem o usa, e com que outros sistemas ele
-conversa** — e nada mais.
+conversa**, e nada mais.
 
 É o diagrama de maior retorno da documentação de arquitetura: ele é entendido por
 qualquer pessoa, responde à pergunta mais frequente, e envelhece devagar.
@@ -41,10 +41,10 @@ o que quebra se ele sair do ar?
 onde ele começa e termina?
 ```
 
-Sem ele, cada resposta exige alguém que conheça o sistema — e essa pessoa responde de
+Sem ele, cada resposta exige alguém que conheça o sistema, e essa pessoa responde de
 memória, com omissões.
 
-E a fronteira — onde o sistema começa e termina — é uma decisão de arquitetura que
+E a fronteira, onde o sistema começa e termina, é uma decisão de arquitetura que
 frequentemente não foi tomada explicitamente. Desenhá-la força a decisão.
 
 ## Conceitos Centrais
@@ -78,8 +78,8 @@ alvo    5 a 12 caixas
 acima disso  provavelmente a fronteira está errada, ou há detalhe demais
 ```
 
-Se o contexto tem 30 caixas, ou o sistema tem responsabilidades demais — o que é uma
-descoberta arquitetural — ou o diagrama inclui coisas que não conversam diretamente.
+Se o contexto tem 30 caixas, ou o sistema tem responsabilidades demais (o que é uma
+descoberta arquitetural) ou o diagrama inclui coisas que não conversam diretamente.
 
 Ver [arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
@@ -94,8 +94,8 @@ melhor Sistema A → Sistema B: "consulta limite de crédito antes de aprovar pe
 O rótulo da relação é onde está a informação. Uma seta sem rótulo diz que existe
 dependência e não diz o que se perde se ela falhar.
 
-E o rótulo em termos de **propósito** — não de mecanismo — é o que o torna compreensível
-para quem não é técnico. O mecanismo — protocolo, formato — pertence ao diagrama de
+E o rótulo em termos de **propósito**, não de mecanismo, é o que o torna compreensível
+para quem não é técnico. O mecanismo (protocolo, formato) pertence ao diagrama de
 contêiner.
 
 ### A fronteira é uma decisão
@@ -132,7 +132,7 @@ propósito.
 Ele muda quando: uma integração nova aparece, um sistema é desativado, ou a fronteira
 muda.
 
-Isso é raro — da ordem de uma vez por ano na maioria dos sistemas —, o que o torna barato de
+Isso é raro (da ordem de uma vez por ano na maioria dos sistemas), o que o torna barato de
 manter.
 
 O que não é barato é mantê-lo quando ele contém detalhe que não pertence ao nível. Essa
@@ -147,7 +147,7 @@ negócio, produto, operação, segurança e engenharia conseguem lê-lo sem prep
 Isso muda o critério de qualidade. Um diagrama de contêiner ruim atrapalha engenheiros; um
 diagrama de contexto ruim desalinha a organização inteira sobre o que o sistema é.
 
-Por isso vale investir mais tempo aqui do que a simplicidade do artefato sugere — na
+Por isso vale investir mais tempo aqui do que a simplicidade do artefato sugere: na
 escolha do nome do sistema, na redação das relações, e sobretudo na decisão do que fica
 dentro da fronteira.
 
@@ -157,7 +157,7 @@ dentro da fronteira.
 
 ## Quando Usar
 
-- Para todo sistema cujas integrações já não cabem numa frase — é o mínimo de
+- Para todo sistema cujas integrações já não cabem numa frase: é o mínimo de
   documentação.
 - Ao integrar pessoas novas.
 - Em conversas com o negócio.
@@ -180,10 +180,10 @@ se justifica quando alguém precisa do propósito de cada relação.
 
 ## Alternativas
 
-- **Diagrama de contêiner** — quando a pergunta é sobre o interior. Ver
+- **Diagrama de contêiner**: quando a pergunta é sobre o interior. Ver
   [diagramas de contêiner](/17-architecture-documentation/container-diagrams.md).
-- **Mapa de dependências derivado** — automático, sem a lente de propósito.
-- **Descrição textual** — para sistemas com poucas integrações, um parágrafo basta.
+- **Mapa de dependências derivado**: automático, sem a lente de propósito.
+- **Descrição textual**: para sistemas com poucas integrações, um parágrafo basta.
 
 ## Trade-offs
 
@@ -202,7 +202,7 @@ se justifica quando alguém precisa do propósito de cada relação.
 
 O segundo é a decisão difícil deste nível: um contexto honesto costuma ter mais caixas do
 que se gostaria. O critério de desempate: agrupar sistemas externos do mesmo tipo e
-propósito numa caixa — três bancos pagadores viram "bancos" — é legítimo; omitir uma
+propósito numa caixa (três bancos pagadores viram "bancos") é legítimo; omitir uma
 dependência direta para caber no alvo não é, porque esconde exatamente o que o diagrama
 existe para revelar. Se, depois de agrupar, ainda passa de 12, o problema é de fronteira,
 não de estética.
@@ -240,7 +240,7 @@ não de estética.
 Uma empresa de logística passou por um incidente em que a desativação de um sistema
 interno quebrou três processos que ninguém tinha antecipado.
 
-A investigação revelou que não havia diagrama de contexto de nenhum sistema — a
+A investigação revelou que não havia diagrama de contexto de nenhum sistema: a
 documentação existente era de componentes internos.
 
 A produção de contextos para os 40 sistemas levou seis semanas, e foi feita com uma
@@ -257,7 +257,7 @@ pertencia ao sistema. Em dois deles, a discordância refletia uma responsabilida
 tinha sido absorvida sem decisão.
 
 **Dependências externas não mapeadas.** Cinco sistemas dependiam de serviços de terceiros
-que não apareciam em nenhum inventário — incluindo um serviço de geocodificação usado por
+que não apareciam em nenhum inventário, incluindo um serviço de geocodificação usado por
 três sistemas, com contrato vencido.
 
 O uso posterior:
@@ -266,7 +266,7 @@ O uso posterior:
 tempo até a primeira contribuição caiu perceptivelmente.
 
 **Avaliação de impacto.** Antes de qualquer desativação ou mudança de contrato, o contexto
-é consultado — e a lista de consumidores é verificada contra o tráfego real.
+é consultado, e a lista de consumidores é verificada contra o tráfego real.
 
 **Conversas com o negócio.** Os contextos passaram a ser usados em discussões de
 prioridade, porque as áreas conseguiam lê-los.
@@ -281,8 +281,8 @@ priorizar durante anos.
 
 ## Conceitos Relacionados
 
-- [Modelo C4](/17-architecture-documentation/c4-model.md) — o nível acima.
-- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md) — o zoom seguinte.
+- [Modelo C4](/17-architecture-documentation/c4-model.md): o nível acima.
+- [Diagramas de Contêiner](/17-architecture-documentation/container-diagrams.md): o zoom seguinte.
 - [Qualidade de Diagrama](/17-architecture-documentation/diagram-quality.md).
 - [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md).
 
@@ -302,6 +302,6 @@ ainda tem jargão.
 
 ## Para Aprofundar
 
-- Brown, Simon. *The C4 model* — c4model.com.
+- Brown, Simon. *The C4 model*. C4model.com.
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.

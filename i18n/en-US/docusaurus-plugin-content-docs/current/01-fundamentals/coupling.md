@@ -2,7 +2,7 @@
 id: coupling
 title: Coupling
 sidebar_position: 13
-description: The degree to which changing one part forces a change in another — and why zero is not the goal.
+description: The degree to which changing one part forces a change in another, and why zero is not the goal.
 doc_type: concept
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [modularity]
 related: [cohesion, dependency-management, separation-of-concerns]
 canonical_for: [coupling]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -26,7 +26,7 @@ change in another.
 
 The claim that organizes this document, and that runs against what is normally
 taught: **coupling is not a defect to eliminate. It is a quantity to allocate.**
-Parts that change together should be coupled. The problem is not coupling — it is
+Parts that change together should be coupled. The problem is not coupling; it is
 coupling in the wrong place.
 
 ## Problem
@@ -35,7 +35,7 @@ coupling in the wrong place.
 real question.
 
 A system with zero coupling between two parts that always change together does
-not have a good property — it has duplication, and duplicated knowledge is a
+not have a good property: it has duplication, and duplicated knowledge is a
 worse form of coupling, because it is invisible. When the rule changes, both
 places have to change, and nothing warns you if one was forgotten.
 
@@ -44,7 +44,7 @@ between parts that never change independently paid complexity for a flexibility
 that will never be exercised.
 
 The useful question is not "how do I reduce coupling?". It is **"do these two
-things change together?"** — and allocating coupling according to the answer.
+things change together?"**, and then allocating coupling according to the answer.
 
 ## Core Concepts
 
@@ -67,10 +67,10 @@ with less than that.
 ### Afferent and efferent
 
 **Afferent coupling** (Ca): how many modules depend on this one. High Ca means
-changing here is expensive — many people are affected.
+changing here is expensive: many people are affected.
 
 **Efferent coupling** (Ce): how many modules this one depends on. High Ce means
-this module is fragile — many things can break it.
+this module is fragile: many things can break it.
 
 The distinction matters because the consequences are opposite. A module with high
 Ca should be stable and change rarely; one with high Ce should be peripheral and
@@ -87,7 +87,7 @@ call couples in time; a queued message does not.
 
 This is the axis that dominates distributed architecture, and it is the subject of
 [integration](/08-integration-architecture/index.md). Trading temporal coupling
-for format coupling — the message has a contract — is the central decision of
+for format coupling (the message has a contract) is the central decision of
 event-driven systems.
 
 ### Coupling is transitive
@@ -103,7 +103,7 @@ size of the transitive closure.
 **Coupling is the answer to: if I change this, what else do I have to change?**
 
 The question is answerable empirically. A commit history shows which files change
-together — which is the real coupling, regardless of what the structure suggests.
+together, and that is the real coupling, regardless of what the structure suggests.
 
 ## When to Use
 
@@ -133,7 +133,7 @@ contract comes out cheaper than the direct call.
 
 **The consumers of the same part want divergent things.** A module shared by
 three callers with different requirements forces each of them to absorb changes
-made for the other two — that is where high Ca stops being stability and becomes
+made for the other two. That is where high Ca stops being stability and becomes
 a tax.
 
 **The parts have different availability requirements.** Coupling in time makes
@@ -142,16 +142,16 @@ there it is worth paying the format coupling of a queue.
 
 ## Alternatives
 
-- **Deliberate duplication** — when two parts coincide today but should evolve
+- **Deliberate duplication**: when two parts coincide today but should evolve
   separately. See [coupling vs. duplication](/20-trade-offs/index.md).
-- **Coupling through an explicit contract** — keeping the dependency, making it
+- **Coupling through an explicit contract**: keeping the dependency, making it
   versioned and negotiated rather than implicit.
-- **Dependency inversion** — keeping the coupling and inverting its direction,
+- **Dependency inversion**: keeping the coupling and inverting its direction,
   which is frequently cheaper than eliminating it.
 
 ## Trade-offs
 
-The real axis is **coupling versus duplication** — but it only holds where the two
+The real axis is **coupling versus duplication**, but it only holds where the two
 parts share knowledge. There the trade is direct: whoever reduces the coupling now
 maintains two copies of what was known once, and the decision is which of the two
 costs less in this case.
@@ -159,7 +159,7 @@ costs less in this case.
 Outside that axis there is coupling that can be reduced for free. Stamp coupling and
 control coupling, on the scale above, go away without producing any duplication:
 passing the identifier and the amount instead of the whole object duplicates nothing.
-And there is trading one kind for another — a queued message trades temporal coupling
+And there is trading one kind for another: a queued message trades temporal coupling
 for format coupling, with no duplication. The axis below is the one of shared
 knowledge, not of all coupling.
 
@@ -197,13 +197,13 @@ abstractions.
 
 **Measuring coupling from structure rather than history.** The import graph shows
 declared coupling; the commit history shows what has already been exercised. On
-changes that have already happened, when the two diverge the history is right —
+changes that have already happened, when the two diverge the history is right,
 but it is blind to coupling not yet exercised: a module with high Ca, kept
 deliberately stable, shows up in no co-changed pair and remains expensive to
 change.
 
 **Confusing low coupling with many interfaces.** An interface with one
-implementation does not decouple — it only adds a file.
+implementation does not decouple: it only adds a file.
 
 **Ignoring temporal coupling.** It is the least visible in dependency diagrams
 and, where the chain of synchronous calls is long, the most expensive one on the
@@ -222,7 +222,7 @@ The commit history told a different story: over eighteen months, 94% of changes
 to one came with a change to the other, in the same commit.
 
 The two modules were one, spread across two places. The coupling had not been
-reduced — it had been hidden behind an interface, at the cost of indirection and
+reduced; it had been hidden behind an interface, at the cost of indirection and
 of two test suites that always changed together.
 
 The decision was to merge them, and the interface between them became an internal
@@ -230,16 +230,16 @@ function.
 
 The counter-example, in the same system: `OrderService` and `NotificationService`
 changed together in 6% of commits. There the separation was real and worth the
-cost — and it later allowed notification to become asynchronous without touching
+cost, and it later allowed notification to become asynchronous without touching
 orders.
 
-The same instrument — the history — answered both questions.
+The same instrument, the history, answered both questions.
 
 ## Related Concepts
 
-- [Cohesion](/01-fundamentals/cohesion.md) — the other face of the same decision.
-- [Modularity](/01-fundamentals/modularity.md) — where to draw the boundaries.
-- [Dependency Management](/01-fundamentals/dependency-management.md) — the direction of coupling.
+- [Cohesion](/01-fundamentals/cohesion.md): the other face of the same decision.
+- [Modularity](/01-fundamentals/modularity.md): where to draw the boundaries.
+- [Dependency Management](/01-fundamentals/dependency-management.md): the direction of coupling.
 
 ## Practical Exercise
 
@@ -259,7 +259,7 @@ are candidates for splitting.
 
 ## Further Exploration
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Component
   coupling metrics.
-- Tornhill, Adam. *Your Code as a Crime Scene*. Pragmatic Bookshelf, 2015 —
-  coupling measured from version history.
+- Tornhill, Adam. *Your Code as a Crime Scene*. Pragmatic Bookshelf, 2015.
+  Coupling measured from version history.

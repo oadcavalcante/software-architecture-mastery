@@ -2,7 +2,7 @@
 id: event-driven-systems
 title: Event-Driven Systems
 sidebar_position: 37
-description: Communication through published facts — the decoupling you gain and the traceability you lose.
+description: "Communication through published facts: the decoupling you gain and the traceability you lose."
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [sagas, distributed-event-sourcing, ordering]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ asking for actions.
 The producer does not know who consumes. The consumer reacts when it can.
 
 The gain is real decoupling: adding a consumer does not touch the producer. The cost is that the
-business flow stops existing anywhere readable — it emerges from the reactions.
+business flow stops existing anywhere readable: it emerges from the reactions.
 
 ## Problem
 
@@ -37,7 +37,7 @@ to be available now.
 When a business action triggers five consequences, a direct call produces a service that knows five
 others and fails if any of them is down.
 
-Events invert that — and trade one set of problems for another.
+Events invert that, and trade one set of problems for another.
 
 ## Core Concepts
 
@@ -50,8 +50,8 @@ command: "process the payment"   → directed, can be refused
 event:   "payment processed"     → a fact, you do not refuse the past
 ```
 
-Naming in the past tense is not aesthetic convention. An event named as a command — `SendEmail`
-published to a topic — reveals that the producer knows what should happen, which nullifies the
+Naming in the past tense is not aesthetic convention. An event named as a command (`SendEmail`
+published to a topic) reveals that the producer knows what should happen, which nullifies the
 decoupling.
 
 ### Two types of event, with opposite implications
@@ -59,7 +59,7 @@ decoupling.
 **Notification.** It carries the minimum: an identifier and a type. The consumer queries the producer
 for details.
 
-A small payload and availability coupling back — the consumer needs the producer to respond.
+A small payload and availability coupling back: the consumer needs the producer to respond.
 
 **Event with state.** It carries the necessary data. The consumer queries nobody.
 
@@ -79,7 +79,7 @@ operational cost:
 
 - Understanding a change's effect requires knowing who consumes.
 - Debugging requires [distributed tracing](/13-observability/distributed-tracing.md).
-- A consumer that stopped returns no error to whoever published — what you observe is the absence of
+- A consumer that stopped returns no error to whoever published: what you observe is the absence of
   an effect, and the error, when there is one, sits in the consumer's own log.
 
 The third is the most dangerous, and the metric that exposes it is the age of the oldest message, not
@@ -149,11 +149,11 @@ gain in independence you pay for in traceability.
 
 ## Alternatives
 
-- **Direct call** — when the response is necessary.
-- **Point-to-point queue** — asynchronous with no multiple consumers.
-- **Explicit orchestration** — a readable flow with asynchronous steps. See
+- **Direct call**: when the response is necessary.
+- **Point-to-point queue**: asynchronous with no multiple consumers.
+- **Explicit orchestration**: a readable flow with asynchronous steps. See
   [sagas](/06-distributed-systems/sagas.md).
-- **Periodic polling** — simpler, and sufficient when the delay is acceptable.
+- **Periodic polling**: simpler, and sufficient when the delay is acceptable.
 
 ## Trade-offs
 
@@ -186,7 +186,7 @@ gain in independence you pay for in traceability.
 
 **A broken contract.** A field removed; unknown consumers fail.
 
-**An event cascade.** One event generates another, which generates another — and nobody has the map.
+**An event cascade.** One event generates another, which generates another, and nobody has the map.
 Cycles are possible.
 
 **A storm.** A batch operation publishes millions of events and drowns the consumers.
@@ -194,12 +194,12 @@ Cycles are possible.
 ## Common Mistakes
 
 **Naming an event as a command.** The producer goes back to deciding the reaction, and the next
-consumer only comes in by changing the producer — the decoupling that justified the event is gone.
+consumer only comes in by changing the producer: the decoupling that justified the event is gone.
 
 **Treating the event as an internal structure.** A field rename in a routine refactor breaks
 consumers nobody listed.
 
-**Not implementing idempotency.** The first redelivery — a rebalance, a consumer restart — duplicates
+**Not implementing idempotency.** The first redelivery (a rebalance, a consumer restart) duplicates
 the effect in production, where the tests do not reproduce it.
 
 **Adopting it globally.** Integrations that needed the response gain indirection with no benefit, and
@@ -222,7 +222,7 @@ Three problems appeared.
 
 **A consumer stalled for nine days.** The tax invoice consumer failed after a deployment, with a
 deserialization error. There was no lag alert. The discovery came from the tax department during the
-month-end close — nine days of unissued invoices.
+month-end close: nine days of unissued invoices.
 
 **An unexpected cascade.** `OrderCreated` triggered `StockReserved`, which triggered
 `RestockNeeded`, which under certain conditions triggered a purchase order that published
@@ -238,7 +238,7 @@ The fixes, in the order the team believes they should have come:
 **A schema registry** with mandatory compatibility. Renaming a field came to be rejected at
 publication.
 
-**An [event catalog](/08-integration-architecture/event-driven-integration.md)** — who publishes,
+**An [event catalog](/08-integration-architecture/event-driven-integration.md)**: who publishes,
 who consumes. It made the unknown consumers visible and allowed detecting the cycle.
 
 **Distributed tracing** mandatory on every event.
@@ -251,11 +251,11 @@ as a global decision, when the right answer was per integration.
 
 ## Related Concepts
 
-- [Messaging](/06-distributed-systems/messaging.md) — the infrastructure.
-- [Sagas](/06-distributed-systems/sagas.md) — coordination over events.
+- [Messaging](/06-distributed-systems/messaging.md): the infrastructure.
+- [Sagas](/06-distributed-systems/sagas.md): coordination over events.
 - [Ordering](/06-distributed-systems/ordering.md) and [Delivery
   Guarantees](/06-distributed-systems/delivery-guarantees.md).
-- [Idempotency](/06-distributed-systems/idempotency.md) — a requirement.
+- [Idempotency](/06-distributed-systems/idempotency.md): a requirement.
 
 ## Practical Exercise
 
@@ -268,11 +268,11 @@ Then: is there an alert if a consumer stops? If not, that is the most urgent gap
 ## Interview Questions
 
 - What is the difference between an event and a command, and why does it matter?
-- Notification or event with state — what changes?
+- Notification or event with state: what changes?
 - How is a stalled consumer detected?
 
 ## Further Reading
 
 - Fowler, Martin. *What do you mean by "Event-Driven"?*, 2017.
 - Stopford, Ben. *Designing Event-Driven Systems*. O'Reilly, 2018.
-- Richardson, Chris. *Microservices Patterns*. Manning, 2018 — chapter 3.
+- Richardson, Chris. *Microservices Patterns*. Manning, 2018. Chapter 3.

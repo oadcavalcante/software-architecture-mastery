@@ -2,7 +2,7 @@
 id: managed-services
 title: Managed Services
 sidebar_position: 7
-description: Buying operations instead of doing them — the cloud's central economic decision, and what it charges later.
+description: "Buying operations instead of doing them: the cloud's central economic decision, and what it charges later."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [vendor-lock-in, cost-architecture, serverless, managed-vs-self-hosted]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ replicates, backs up, monitors and recovers.
 
 You pay more per unit of resource and stop doing the work.
 
-It is the cloud's central economic decision, and it is usually made by the wrong criterion — comparing a
+It is the cloud's central economic decision, and it is usually made by the wrong criterion: comparing a
 list price with the cost of a machine, instead of comparing **total cost of operation**.
 
 ## Problem
@@ -42,7 +42,7 @@ It looks three times more expensive. What the second line does not include: inst
 tuning, monitoring, version upgrades, security patching, backup configuration and testing, replicas, a
 recovery plan, on-call, and the time for somebody to learn how to do all of that.
 
-A fraction of a person dedicated to it costs more than the difference. And that is the honest comparison —
+A fraction of a person dedicated to it costs more than the difference. And that is the honest comparison,
 not price against price.
 
 ## Core Concepts
@@ -55,7 +55,7 @@ somebody is the provider's.
 **Upgrades and patching.** The security pipeline for a self-managed database is continuous and mandatory
 work. Postponing it accumulates risk.
 
-**A tested backup.** Not the one that exists — the one that has been restored. See
+**A tested backup.** Not the one that exists, but the one that has been restored. See
 [data replication](/07-data-architecture/data-replication.md).
 
 **Deep knowledge.** Tuning a database under load requires specific experience most teams do not have and
@@ -72,7 +72,7 @@ not exposed.
 
 **Extensions and features.** A database extension you use may not be available.
 
-**A maintenance window.** The provider restarts when it decides, within the window — and your application
+**A maintenance window.** The provider restarts when it decides, within the window, and your application
 needs to tolerate that.
 
 **Deep diagnosis.** With no access to the machine, certain problems become a support ticket instead of an
@@ -89,7 +89,7 @@ Operating a relational database differentiates almost no company. Operating the 
 Work that does not differentiate should be bought when it is buyable. That frees people for what only they
 can do.
 
-The honest exception: at very large scale, the price difference comes to pay for a dedicated team — and
+The honest exception: at very large scale, the price difference comes to pay for a dedicated team, and
 then self-managing makes sense again, with the numbers on the table.
 
 ### Managed is not infallible
@@ -106,7 +106,7 @@ It reduces the work, not the responsibility:
 [indexing](/07-data-architecture/indexing.md).
 
 **The provider has incidents.** With the service in a single region and a single vendor, the only action is
-waiting — which needs to be in the plan. What changes that condition is redundancy paid for separately:
+waiting. That needs to be in the plan. What changes that condition is redundancy paid for separately:
 [multi-region](/09-cloud-architecture/multi-region.md) and
 [disaster recovery](/09-cloud-architecture/disaster-recovery.md).
 
@@ -142,22 +142,22 @@ something else, the trade is good.
 
 **When the component is the differentiator.**
 
-**When the service does not meet a specific requirement** — a version, an extension, a configuration.
+**When the service does not meet a specific requirement**: a version, an extension, a configuration.
 
 **At a scale where the difference pays for a team**, with the numbers verified.
 
 **When the dependency is unacceptable.** See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
-**When the durability requirement exceeds the service's ceiling** — regulatory retention longer than the
+**When the durability requirement exceeds the service's ceiling**: regulatory retention longer than the
 configurable maximum, or multi-zone that the contracted plan does not expose.
 
 ## Alternatives
 
-- **Self-managed** — full control, full work.
-- **Managed by a third party** — not by the cloud provider; it reduces dependency on a single vendor while
+- **Self-managed**: full control, full work.
+- **Managed by a third party**: not by the cloud provider; it reduces dependency on a single vendor while
   keeping the operational benefit.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — the next degree.
-- **Open source with an operator** — on [Kubernetes](/09-cloud-architecture/kubernetes.md), it automates
+- **[Serverless](/09-cloud-architecture/serverless.md)**: the next degree.
+- **Open source with an operator**: on [Kubernetes](/09-cloud-architecture/kubernetes.md), it automates
   part of the operation without leaving your control. An intermediate cost, and somebody still needs to
   operate the operator.
 
@@ -211,7 +211,7 @@ with managed services.
 
 The survey of what that consumed, done over a quarter:
 
-**1.5 full-time-equivalent people** dedicated to operating those four components — upgrades, tuning,
+**1.5 full-time-equivalent people** dedicated to operating those four components: upgrades, tuning,
 incidents, backups.
 
 **14 incidents** in the year, 9 of them related to those components.
@@ -219,13 +219,13 @@ incidents, backups.
 **A database version two years out of date**, with pending security patches, because the upgrade required a
 window that was never prioritized.
 
-**A restore never tested.** The first attempt, made during the survey, failed — the documented procedure
+**A restore never tested.** The first attempt, made during the survey, failed: the documented procedure
 was out of date.
 
 The migration to managed services was done for three of the four components:
 
 **The database, cache and queue** migrated. The infrastructure bill rose, and the total bill fell: about 1.1 of
-the 1.5 people went back to the product — search kept consuming the rest —, and the incidents of the three
+the 1.5 people went back to the product (search kept consuming the rest), and the incidents of the three
 migrated components, 7 of the 9, went to 1 the following year.
 
 **Search stayed self-managed.** The available managed service did not support a relevance feature the
@@ -235,22 +235,22 @@ cost accepted.
 Two problems in the migration:
 
 **Backup retention.** The managed service's default was 7 days. The regulatory requirement was 5 years. It
-was configured — and it was only noticed because somebody asked; the assumption was "the managed service
+was configured. And it was only noticed because somebody asked; the assumption was "the managed service
 takes care of that".
 
 **The maintenance window.** The provider restarted the instance during the window, and the application did
 not tolerate reconnection. Three incidents until reconnection handling was implemented.
 
-What the team records: the comparison that supported the previous decision — 40% of the price — was true
+What the team records: the comparison that supported the previous decision (40% of the price) was true
 and irrelevant. Nobody had put the cost of the people on the same spreadsheet, because it was already paid.
 
 ## Related Concepts
 
-- [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md) — the other side.
-- [Serverless](/09-cloud-architecture/serverless.md) — the next degree.
+- [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md): the other side.
+- [Serverless](/09-cloud-architecture/serverless.md): the next degree.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
-- [Managed vs. Self-Hosted](/20-trade-offs/managed-vs-self-hosted.md) — the detailed math.
-- [Availability Zones](/09-cloud-architecture/availability-zones.md) — what to check.
+- [Managed vs. Self-Hosted](/20-trade-offs/managed-vs-self-hosted.md): the detailed math.
+- [Availability Zones](/09-cloud-architecture/availability-zones.md): what to check.
 
 ## Practical Exercise
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [04-scaling-ecommerce]
 related: [messaging, delivery-guarantees, idempotency, eventual-consistency]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ acquirer out of the transaction.
 
 The decision is made: payment authorization leaves the synchronous checkout path.
 
-The gain is known — checkout availability stops depending on the acquirer's 99.5%, the p95 goes back
+The gain is known: checkout availability stops depending on the acquirer's 99.5%, the p95 goes back
 to the hundreds-of-milliseconds range, and connections stop getting stuck.
 
 What nobody has sized yet is the cost.
@@ -152,8 +152,8 @@ old app versions     14-month-old versions show "confirmed";
 The last line is the most uncomfortable, and the only one no work of yours resolves: in a product with
 an installed app, the update is the customer's decision, and part of your base will see a message that
 has stopped being true without your being able to fix it. The ways out are to degrade the behavior for
-old versions — keeping them in the synchronous flow, for instance, which hands that slice back the
-unavailability the change was meant to take out of checkout — or to force an update, which has a cost
+old versions (keeping them in the synchronous flow, for instance, which hands that slice back the
+unavailability the change was meant to take out of checkout) or to force an update, which has a cost
 of its own.
 
 **The 30-minute reservation** against an authorization that rarely exceeds 3 seconds looks comfortable,
@@ -162,8 +162,8 @@ scenario, the reservation expires first, and the order is authorized against inv
 been sold to somebody else.
 
 The fix: either the reservation is extended while the order is authorizing, or the authorization checks
-the reservation before confirming. The second is simpler and creates a new outcome — "authorized, no
-inventory" — which needs handling and a refund.
+the reservation before confirming. The second is simpler and creates a new outcome, "authorized, no
+inventory", which needs handling and a refund.
 
 **What almost everybody gets wrong:** treating the intermediate state's deadline as a detail. An order
 that has been "authorizing" for three days is a customer with money possibly held and no information.

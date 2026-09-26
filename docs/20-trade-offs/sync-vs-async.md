@@ -2,7 +2,7 @@
 id: sync-vs-async
 title: Síncrono vs. Assíncrono
 sidebar_position: 9
-description: Assíncrono compra disponibilidade com estado intermediário — e o estado intermediário é trabalho de produto.
+description: Assíncrono compra disponibilidade com estado intermediário, e o estado intermediário é trabalho de produto.
 doc_type: tradeoff
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [consistency-vs-availability, monolith-vs-microservices, strong-vs-eventual-consistency]
 canonical_for: [síncrono contra assíncrono, indisponibilidade composta, custo do estado pendente, resposta imediata]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -30,7 +30,7 @@ eixo real   o chamador precisa da resposta para prosseguir, e o que custa
 ```
 
 A primeira metade elimina a maior parte dos casos: se a resposta é necessária **agora** para
-o usuário decidir, assíncrono não é opção. A segunda decide o resto — e envolve um número
+o usuário decidir, assíncrono não é opção. A segunda decide o resto e envolve um número
 que raramente é calculado: a disponibilidade composta de uma cadeia de chamadas.
 
 ## Problema
@@ -48,7 +48,7 @@ enquanto cada equipe olha apenas o seu número.
 Ver [disponibilidade](/06-distributed-systems/availability.md).
 
 A latência compõe de forma parecida, e pior: as médias somam, mas os percentis **não**. O p99
-da cadeia não é o do pior elo — a chance de algum elo cair na própria cauda cresce com o número
+da cadeia não é o do pior elo: a chance de algum elo cair na própria cauda cresce com o número
 de elos, e a cauda da cadeia fica pior que a de qualquer um deles isoladamente. Ver
 [latência](/06-distributed-systems/latency.md).
 
@@ -58,7 +58,7 @@ no p99, com um elo degradado                    > 2 s
 ```
 
 O erro oposto: tornar assíncrono o que precisa de resposta. Um usuário que precisa saber se
-o pagamento foi aceito não é atendido por "processando, avisaremos" — a menos que o produto
+o pagamento foi aceito não é atendido por "processando, avisaremos", a menos que o produto
 seja redesenhado para isso, o que é trabalho real.
 
 ## Conceitos Centrais
@@ -88,7 +88,7 @@ consulta de status             endpoint, tela, suporte
 tempo excedido                 o que acontece com um pedido pendente há 3 dias?
 ```
 
-Nenhum desses é código de infraestrutura — todos são produto. Ignorá-los é o erro mais comum
+Nenhum desses é código de infraestrutura: todos são produto. Ignorá-los é o erro mais comum
 da adoção de assíncrono: a arquitetura muda, o produto não, e o usuário fica sem resposta.
 
 Ver [consistência eventual](/06-distributed-systems/eventual-consistency.md).
@@ -104,7 +104,7 @@ assíncrono  A aceita, registra, e B processa quando voltar
             A permanece disponível
 ```
 
-Isso é decisivo quando a dependência é externa e menos confiável que o sistema — um parceiro
+Isso é decisivo quando a dependência é externa e menos confiável que o sistema: um parceiro
 com 98,7% de disponibilidade não pode estar no caminho síncrono de um sistema com requisito
 de 99,9%.
 
@@ -116,7 +116,7 @@ assíncrono  a fila absorve; o consumidor processa no seu ritmo
 ```
 
 Isso permite dimensionar o processamento pela média em vez de pelo pico, com efeito direto
-em custo — e é frequentemente o argumento econômico mais forte a favor.
+em custo, e é frequentemente o argumento econômico mais forte a favor.
 
 Ver [processamento assíncrono](/11-scalability/async-processing.md).
 
@@ -185,11 +185,11 @@ A assimetria aqui é pequena, e o que decide é a superfície exposta: se o cont
 consumidor já promete resposta imediata, mudá-lo exige coordenar quem consome.
 
 Isso favorece decidir cedo e explicitamente, e registrar o modo escolhido como parte do
-contrato — não como detalhe de implementação.
+contrato, não como detalhe de implementação.
 
 ## Modelo Mental
 
-**A resposta é necessária agora?** Se não, o assíncrono compra disponibilidade e escala — ao
+**A resposta é necessária agora?** Se não, o assíncrono compra disponibilidade e escala, ao
 preço de um estado intermediário que é trabalho de produto.
 
 ## Quando Usar
@@ -197,7 +197,7 @@ preço de um estado intermediário que é trabalho de produto.
 Prefira **síncrono** quando:
 
 - A resposta é necessária para o chamador prosseguir.
-- O fluxo é curto — uma ou duas dependências.
+- O fluxo é curto: uma ou duas dependências.
 - As dependências são confiáveis e rápidas.
 - A operação é uma consulta.
 - O produto não comporta estado intermediário.
@@ -220,16 +220,16 @@ Prefira **assíncrono** quando:
 
 **Síncrono com dependência externa** menos confiável que o requisito.
 
-**Assíncrono para consulta simples** — a complexidade não se paga.
+**Assíncrono para consulta simples**: a complexidade não se paga.
 
 ## Alternativas
 
-- **Aceite síncrono com processamento assíncrono** — o híbrido mais comum e frequentemente
+- **Aceite síncrono com processamento assíncrono**: o híbrido mais comum e frequentemente
   o certo.
-- **Prazo curto com alternativa assíncrona** — responde rápido quando dá, aceita quando não.
-- **Cache com atualização assíncrona** — leitura síncrona sobre dado mantido em segundo
+- **Prazo curto com alternativa assíncrona**: responde rápido quando dá, aceita quando não.
+- **Cache com atualização assíncrona**: leitura síncrona sobre dado mantido em segundo
   plano.
-- **Disjuntor com resposta degradada** — mantém o síncrono e trata a falha. Ver
+- **Disjuntor com resposta degradada**: mantém o síncrono e trata a falha. Ver
   [disjuntores](/12-reliability/circuit-breakers.md).
 
 A última é a alternativa mais barata quando o problema é apenas resiliência e não escala.
@@ -266,7 +266,7 @@ A última é a alternativa mais barata quando o problema é apenas resiliência 
 
 ## Erros Comuns
 
-**Não calcular a disponibilidade composta** de uma cadeia. Cinco dependências síncronas a 99,9% entregam 99,5% ao usuário — e o número de cada uma parecia aceitável isoladamente.
+**Não calcular a disponibilidade composta** de uma cadeia. Cinco dependências síncronas a 99,9% entregam 99,5% ao usuário, e o número de cada uma parecia aceitável isoladamente.
 
 **Adotar assíncrono sem mudar o produto.** O estado intermediário precisa existir na interface e no vocabulário do negócio. Escondê-lo transfere a ambiguidade para o suporte.
 
@@ -279,7 +279,7 @@ A última é a alternativa mais barata quando o problema é apenas resiliência 
 ## Exemplo Real
 
 Uma empresa de seguros tinha o fluxo de emissão de apólice totalmente síncrono, atravessando
-seis serviços — cadastro, análise de risco, bureau externo, precificação, emissão e
+seis serviços: cadastro, análise de risco, bureau externo, precificação, emissão e
 notificação.
 
 Números de 12 meses:
@@ -336,12 +336,12 @@ chamados de suporte perguntando pelo estado          picos nos 2 primeiros meses
 ```
 
 Os chamados de suporte são o dado que a equipe destaca. Nos primeiros dois meses, eles
-**subiram** — o estado intermediário existia e a comunicação não era clara o suficiente. A
+**subiram**: o estado intermediário existia e a comunicação não era clara o suficiente. A
 correção foi de produto: nomes de estado em linguagem do cliente, prazo explícito e
 notificação proativa.
 
-A avaliação posterior aponta: a parte técnica da migração levou seis semanas. A parte de produto —
-telas, textos, prazos, escalonamento, comunicação de recusa — levou quatro meses e não tinha
+A avaliação posterior aponta: a parte técnica da migração levou seis semanas. A parte de produto
+(telas, textos, prazos, escalonamento, comunicação de recusa) levou quatro meses e não tinha
 sido estimada. Ela é o custo real de tornar um fluxo assíncrono, e é o que a decisão precisa
 prever.
 
@@ -349,7 +349,7 @@ prever.
 
 - [Mensageria](/06-distributed-systems/messaging.md) e
   [Idempotência](/06-distributed-systems/idempotency.md).
-- [Disponibilidade](/06-distributed-systems/availability.md) — a composição.
+- [Disponibilidade](/06-distributed-systems/availability.md): a composição.
 - [Consistência Forte vs. Eventual](/20-trade-offs/strong-vs-eventual-consistency.md).
 - [Processamento Assíncrono](/11-scalability/async-processing.md).
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 6
+translated_from_version: 7
 last_reviewed: 2026-08-31
 ---
 
@@ -33,14 +33,14 @@ support, not the magnitudes.
 ## Business Context
 
 **Vitalis** is a health insurer with its own network: 12 hospitals, 84 clinics and 244 points of
-care — laboratories, imaging centers and urgent care units. It serves 2.8 million members.
+care (laboratories, imaging centers and urgent care units). It serves 2.8 million members.
 
 The electronic health record is a system built in-house over 14 years. It works, and three
 characteristics make it unsustainable:
 
 **Availability.** The system had 41 hours of downtime last year. During one of them, a hospital
 operated for 6 hours on paper records, and the subsequent reconciliation took three weeks.
-Downtime in healthcare is not an inconvenience — it is clinical risk, because the physician loses
+Downtime in healthcare is clinical risk, not an inconvenience, because the physician loses
 access to allergies, current medications and history.
 
 **Fragmentation.** Every unit acquired over the years brought its own system. There are now 7
@@ -120,7 +120,7 @@ schedule          an audit finding with a 24-month deadline
 ```
 
 The migration constraint is the most delicate in this whole set of cases: a clinical record
-migrated with the wrong interpretation — a dosage, an allergy — can cause harm.
+migrated with the wrong interpretation (a dosage, an allergy) can cause harm.
 
 That constraint changed the way of working, not just the schedule. Migrating clinical data is not
 verified by row counts or checksums: it is verified clinically, by sampling, with healthcare
@@ -145,7 +145,7 @@ clinical entries/day                ~640 thousand
 entries/s, peak                     ~85
 ```
 
-The transactional volume is low — 180 lookups per second. As in almost every case in this set, the
+The transactional volume is low: 180 lookups per second. As in almost every case in this set, the
 architecture is not decided by scale.
 
 What sizes it is **storage** and **imaging**:
@@ -169,13 +169,13 @@ That distribution is what justifies storage tiering, and on its own it accounts 
 of the possible savings.
 
 It is worth noting how that number was obtained, because it wasn't available. The old system
-didn't record imaging access in a queryable way — the information existed in application logs,
+didn't record imaging access in a queryable way: the information existed in application logs,
 retained for 15 days. Reconstructing the distribution required three months of collection before
 any architectural decision could be made on solid ground.
 
 That is a pattern that repeats in old systems: the decision depends on a number nobody measured,
-and measuring takes time. Starting the collection early — before knowing exactly what you are
-going to decide — is what prevents choosing by intuition months later.
+and measuring takes time. Starting the collection early (before knowing exactly what you are
+going to decide) is what prevents choosing by intuition months later.
 
 ## Architecture Options
 
@@ -233,7 +233,7 @@ complexity        high
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other
 criteria. With continuity at 45%, the totals become 6.6 / 8.3 / 5.7. With compliance at 40%, they
-become 7.7 / 8.1 / 4.8 — Option B keeps a narrow advantage. Option C wins
+become 7.7 / 8.1 / 4.8: Option B keeps a narrow advantage. Option C wins
 in no scenario tested, and the reason is structural: it simultaneously hinders consolidation and
 the access trail, which are the two stated problems.
 
@@ -244,12 +244,12 @@ and synchronization treated as part of the clinical flow, not as a technical det
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** every unit had reliable connectivity — which is true for 81% of them.
+**Option A would win if** every unit had reliable connectivity, which is true for 81% of them.
 For those, local mode is a capability that is rarely exercised, and the cost of maintaining it is
 justified only by the remaining 19% and by the risk of a central failure.
 
 **Option C would win if** the units were independent organizations, with legal autonomy and their
-own ownership of the data — the model of an accredited network, not of an owned network. The
+own ownership of the data: the model of an accredited network, not of an owned network. The
 condition is recorded: if Vitalis starts integrating external providers who own the record, the
 federated model comes back on the table for that portion.
 
@@ -260,7 +260,7 @@ federated model comes back on the table for that portion.
 **Unit Node.** A local instance at each unit, with the record of the relevant patients and the
 ability to record offline.
 
-**Patient Identity Service.** Resolves identity across systems — the hardest problem in
+**Patient Identity Service.** Resolves identity across systems: the hardest problem in
 consolidation.
 
 **Consent Service.** Manages what the patient authorized to share, with whom and for how long.
@@ -284,7 +284,7 @@ systems and records of varying quality, that is the migration's most dangerous s
 ## Data
 
 **Clinical entry.** Immutable after signature. A correction is a new entry referencing the
-previous one, with the reason — never an alteration.
+previous one, with the reason, never an alteration.
 
 ```text
 entry      (id, patient_id, unit_id, professional_id, type,
@@ -304,7 +304,7 @@ link       (master_patient_id, source_system, source_id,
 ```
 
 Links with a score below the threshold require human confirmation. During the migration, 11% of
-records fell into that category — about 310 thousand cases reviewed by a team of 22 people over
+records fell into that category: about 310 thousand cases reviewed by a team of 22 people over
 14 months.
 
 **Consent.** Versioned and dated. An access is evaluated against the consent in force at the
@@ -313,7 +313,7 @@ moment of access, and the trail records which version was applied.
 **Access trail.** Append-only, immutable, retained for 20 years. Each entry records who accessed
 it, which patient, which entry, when and under what justification.
 
-The volume — 11 billion entries — is large and the access pattern is rare: the trail is queried in
+The volume (11 billion entries) is large and the access pattern is rare: the trail is queried in
 audits and investigations, a few hundred times a month. Cold storage, with slow and cheap queries.
 
 **Imaging.** Tiered by age and access.
@@ -336,7 +336,7 @@ In normal operation, the unit node writes to the center synchronously and keeps 
 the connection drops, it switches to writing only locally, marking the entries as pending.
 
 On reconnection, the pending entries are sent. Since entries are immutable and only appended,
-there is no write conflict — the possible conflict is **clinical**: two professionals at different
+there is no write conflict. The possible conflict is **clinical**: two professionals at different
 units recording incompatible decisions about the same patient during the partition.
 
 That case is rare and has explicit handling: when entries from different units about the same
@@ -344,23 +344,23 @@ patient in the same interval are detected during synchronization, both are prese
 is raised to the responsible professional, who decides. The system does **not** resolve clinical
 conflicts automatically.
 
-**Which patients stay on the local node.** Not all of them — that would be unviable. The node keeps
+**Which patients stay on the local node.** Not all of them: that would be unviable. The node keeps
 patients with an appointment scheduled in the next 7 days, inpatients, and those seen in the last
 30 days. It covers 97% of encounters.
 
-For the remaining 3% — a patient who arrives without an appointment at a unit with no connection —
+For the remaining 3% (a patient who arrives without an appointment at a unit with no connection),
 the system operates with whatever the patient reports, records the limitation, and flags the entry
 as produced without access to the history. It is a degradation with clinical consequences, and it
 is communicated to the professional.
 
 Flagging that entry as "produced without history" has later use: when the unit reconnects and the
 complete history becomes available, the system compares what was recorded against what the record
-holds — allergies, current medications, chronic conditions — and alerts the responsible
+holds (allergies, current medications, chronic conditions) and alerts the responsible
 professional if there is an incompatibility.
 
 That later alert is a safety net operations valued more than the team expected. Over 14 months, it
 generated 62 alerts, of which 9 resulted in a change of clinical management. None of them would
-have been detected without the flag — the entry would have looked normal.
+have been detected without the flag: the entry would have looked normal.
 
 **Interoperability.** The Gateway translates between the internal model and industry standards,
 both to receive results from external laboratories and to send information to other payers and to
@@ -415,7 +415,7 @@ for the 97% of patients with local data. It is the system's most important degra
 rehearsed quarterly with a real connection cut at one unit at a time.
 
 If a **Unit Node** fails, that unit operates against the center directly, with higher latency. If
-both fail together, the unit falls back to the paper process — which still exists, documented and
+both fail together, the unit falls back to the paper process, which still exists, documented and
 trained.
 
 If the **Consent Service** becomes unavailable, access is denied by default, except in an
@@ -446,7 +446,7 @@ in local mode with healthy synchronization is available, even though disconnecte
 
 That definition changed the internal perception of the problem: the old system's 41 hours of
 downtime were, under the old metric, downtime of the center. Under the new metric, the relevant
-number became hours of a unit unable to treat patients — and that is the real target.
+number became hours of a unit unable to treat patients, and that is the real target.
 
 ## Deployment
 
@@ -463,7 +463,7 @@ That automatic verification is an example of a domain constraint becoming a pipe
 deployment system queries the unit's critical bed occupancy before releasing the window, and
 blocks if there is a patient in a condition requiring continuous access to the record. It is an
 unusual integration between the delivery platform and operational data, and it exists because the
-alternative — depending on someone remembering to check — failed once.
+alternative (depending on someone remembering to check) failed once.
 
 The incident that caused it had no clinical consequence, and it was treated as if it had: the
 subsequent analysis concluded that the control could not depend on human discipline in a process
@@ -474,7 +474,7 @@ executed dozens of times a month.
 **Phase 1 (months 1–6): patient identity.** Building the master record and linking the 7 systems.
 It is the foundation of everything, and it is done before any clinical data migration.
 
-Result: 89% of links resolved automatically; 11% — 310 thousand cases — for human review, which
+Result: 89% of links resolved automatically; 11% (310 thousand cases) for human review, which
 extended throughout the project.
 
 **Phase 2 (months 5–12): central record and read consolidation.** The center starts aggregating
@@ -534,14 +534,14 @@ image storage cost                            -61%
 ```
 
 The first number is the project's result: the hours in which a unit cannot treat patients dropped
-from 41 to 1.2 a year, and that did not come from making the center more available — it came from
-making the unit able to operate without it.
+from 41 to 1.2 a year, and that came from making the unit able to operate
+without it, not from making the center more available.
 
 And 1.2 h/year **does not meet the declared requirement**. The 99.99% in the requirements table
 allows 0.88 h/year; 1.2 amounts to 99.986%. The difference is nineteen minutes a year, and the
 decision to accept it was explicit: closing those nineteen minutes required power and link redundancy
 across the 244 sites, at an estimated cost above that of the whole project. The requirement was
-revised to 99.98% at the site, and kept at 99.99% for the consolidated record query — which is served
+revised to 99.98% at the site, and kept at 99.99% for the consolidated record query, which is served
 by both the center and the local node, where the redundancy already exists.
 
 ## What this case teaches
@@ -585,5 +585,5 @@ conflict does the system resolve on its own and which needs a human?
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- HL7 International. *FHIR — Fast Healthcare Interoperability Resources*.
-- Brazilian Federal Council of Medicine (CFM). *Resolution No. 1,821/2007* — standards for digitizing and computerizing medical records.
+- HL7 International. *FHIR. Fast Healthcare Interoperability Resources*.
+- Brazilian Federal Council of Medicine (CFM). *Resolution No. 1,821/2007*. Standards for digitizing and computerizing medical records.

@@ -2,7 +2,7 @@
 id: architecture-ownership
 title: Propriedade de Arquitetura
 sidebar_position: 20
-description: Componente sem dono apodrece — e a maior parte das organizações não sabe quantos tem.
+description: Componente sem dono apodrece, e a maior parte das organizações não sabe quantos tem.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [team-topologies]
 related: [team-topologies, organizational-architecture, leadership-governance]
 canonical_for: [propriedade de arquitetura, componente órfão, dono como papel, propriedade verificável]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 Todo componente de software precisa de um dono. Sem dono, ele não é atualizado, não é corrigido,
-não é medido e não é removido — e continua rodando, porque software não para de rodar por falta
+não é medido e não é removido. E continua rodando, porque software não para de rodar por falta
 de cuidado.
 
 ```text
@@ -80,7 +80,7 @@ decisão       decide contratos e fronteiras do componente
 ```
 
 Elas podem estar separadas, e a separação precisa ser explícita. Um componente cuja operação é de
-um time e cuja evolução é de outro funciona — desde que ambos saibam e o contrato entre eles
+um time e cuja evolução é de outro funciona, desde que ambos saibam e o contrato entre eles
 exista.
 
 O que não funciona é a separação implícita, em que operação assume que evolução vai corrigir e
@@ -113,11 +113,11 @@ um componente cujo dono deixa de existir gera alerta
 ```
 
 O terceiro item é o que impede a criação de órfãos novos. O quarto é o que detecta os que surgem
-por mudança organizacional — que é a origem mais comum.
+por mudança organizacional, que é a origem mais comum.
 
 A regra tem efeitos colaterais que precisam de desenho próprio. O bloqueio na esteira atinge
-justamente o órfão que quebrou: sem uma rota de exceção — implantação de correção autorizada pelo
-plantão, registrada, com prazo para designar dono —, a regra impede o conserto no meio do
+justamente o órfão que quebrou: sem uma rota de exceção (implantação de correção autorizada pelo
+plantão, registrada, com prazo para designar dono), a regra impede o conserto no meio do
 incidente. O alerta dispara em lote a cada reorganização, e se ninguém o agrupa por área ele vira
 ruído que o gestor aprende a ignorar. E a verificação só é tão boa quanto o cadastro de times:
 manter a integração é custo permanente, e um cadastro defasado produz falso alarme ou falso verde.
@@ -134,7 +134,7 @@ plataforma                          um time de plataforma como dono,
                                     com o componente como produto
 ```
 
-O primeiro modelo — código aberto interno — funciona bem quando o dono tem capacidade de revisar.
+O primeiro modelo (código aberto interno) funciona bem quando o dono tem capacidade de revisar.
 Ele falha quando o volume de contribuições excede essa capacidade, e aí ele vira gargalo.
 
 O que não é modelo: "todos são donos". Isso significa que ninguém é.
@@ -148,7 +148,7 @@ com dono                  a remoção é decisão, com data
 ```
 
 Um dos custos invisíveis de órfãos é que eles nunca morrem. Sistemas acumulam componentes que
-ninguém usa e todos mantêm — atualizações de segurança, migrações, custo de infraestrutura — por
+ninguém usa e todos mantêm (atualizações de segurança, migrações, custo de infraestrutura) por
 falta de alguém com autoridade para desligá-los.
 
 ### Capacidade precisa acompanhar a propriedade
@@ -179,7 +179,7 @@ propriedade desatualiza e os órfãos ficam invisíveis.
 
 ## Quando Não Usar
 
-O mecanismo completo — arquivo no repositório, verificação diária, bloqueio na esteira — cobra
+O mecanismo completo (arquivo no repositório, verificação diária, bloqueio na esteira) cobra
 integração com o cadastro de times, triagem de alertas e rota de exceção. Ele não se paga quando:
 
 **O repositório é experimental ou protótipo com data de expiração.** Exigir dono verificado de algo
@@ -188,7 +188,7 @@ aplicada automaticamente.
 
 **A organização é pequena o bastante para que todos conheçam todos os componentes.** Com um ou dois
 times e poucas dezenas de componentes, a pergunta "de quem é isto?" se responde numa conversa, e a
-integração com um cadastro de times que muda pouco é peso morto — até a organização crescer.
+integração com um cadastro de times que muda pouco é peso morto, até a organização crescer.
 
 **O componente está congelado com data de desligamento.** Basta o dono de operação e segurança até
 a data; exigir as quatro dimensões de propriedade de algo que não vai evoluir cria trabalho de
@@ -196,9 +196,9 @@ papel sem efeito.
 
 ## Alternativas
 
-- **Propriedade coletiva com rodízio** — funciona em organizações pequenas com forte cultura.
+- **Propriedade coletiva com rodízio**: funciona em organizações pequenas com forte cultura.
 - **Time de plataforma como dono** de tudo que é compartilhado; concentra e escala mal.
-- **Arquivamento agressivo** — em vez de encontrar dono para componentes duvidosos, desligá-los e
+- **Arquivamento agressivo**: em vez de encontrar dono para componentes duvidosos, desligá-los e
   ver quem reclama.
 
 A terceira é radical, eficaz e assustadora. Ela funciona bem em ambientes com boa observabilidade:
@@ -257,7 +257,7 @@ serviço de conversão de moeda, usado por onze sistemas, ficou indisponível po
 sabia quem era responsável.
 
 A investigação encontrou que ele tinha sido construído por um time dissolvido em 2022, e que os
-onze consumidores tinham surgido depois — cada um assumindo que alguém cuidava.
+onze consumidores tinham surgido depois, cada um assumindo que alguém cuidava.
 
 Um inventário completo, feito depois, encontrou:
 
@@ -270,7 +270,7 @@ sem nenhum dono identificável                  89
 sem uso detectável nos últimos 6 meses         34
 ```
 
-Oitenta e nove órfãos, e 34 componentes rodando sem uso — consumindo infraestrutura, recebendo
+Oitenta e nove órfãos, e 34 componentes rodando sem uso, consumindo infraestrutura, recebendo
 atualizações de segurança, e ocupando espaço mental.
 
 As medidas, ao longo de 8 meses:
@@ -285,7 +285,7 @@ papel foi desligado, gera alerta ao gestor da área e entra numa fila de resolu�
 
 **Os 34 sem uso foram desligados**, em duas ondas, com uma semana de "desligamento observado"
 antes da remoção definitiva. Três reclamações apareceram, todas de uso trimestral que a
-observabilidade não captava — esses três foram religados, com dono designado.
+observabilidade não captava. Esses três foram religados, com dono designado.
 
 **Os 89 órfãos** foram tratados individualmente:
 
@@ -301,8 +301,8 @@ Os 8 congelados são a categoria honesta: componentes que ninguém quer manter, 
 usados, e cuja substituição está no roteiro. Declará-los assim é melhor que fingir propriedade
 ativa.
 
-**Os 89 com propriedade apenas nominal** — 57 apontando para time inexistente, 32 com dono que não
-reconhecia o componente — foram revalidados time a time. A verificação diária encontra os
+**Os 89 com propriedade apenas nominal** (57 apontando para time inexistente, 32 com dono que não
+reconhecia o componente) foram revalidados time a time. A verificação diária encontra os
 primeiros; os segundos ela não enxerga, porque o time existe, e só apareceram quando cada gestor
 teve de confirmar a lista de componentes do seu time. Cada um terminou com dono que assinou o
 arquivo de propriedade ou entrou nas mesmas saídas dos órfãos.
@@ -329,19 +329,19 @@ O último número é o que a operação valoriza mais: 43 minutos economizados p
 simplesmente por saber a quem ligar.
 
 O detalhe que a equipe destaca: os 198 componentes com dono "declarado em algum lugar" davam a impressão
-de que a organização tinha 69% de cobertura. A verificação mostrou 38% — e a diferença entre
+de que a organização tinha 69% de cobertura. A verificação mostrou 38%. A diferença entre
 declarar e verificar é toda a diferença entre um inventário e uma ficção.
 
 ## Conceitos Relacionados
 
-- [Topologias de Time](/23-architecture-leadership/team-topologies.md) — a carga de propriedade.
+- [Topologias de Time](/23-architecture-leadership/team-topologies.md): a carga de propriedade.
 - [Arquitetura Organizacional](/23-architecture-leadership/organizational-architecture.md).
-- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md) — a verificação.
+- [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md): a verificação.
 - [Padrões](/19-architecture-governance/governance-standards.md).
 
 ## Exercício Prático
 
-Escolha cinco componentes do seu sistema e pergunte a quem eles pertencem — primeiro ao
+Escolha cinco componentes do seu sistema e pergunte a quem eles pertencem: primeiro ao
 documento, depois às pessoas que ele indica.
 
 A diferença entre as duas respostas é a medida da propriedade nominal na sua organização.

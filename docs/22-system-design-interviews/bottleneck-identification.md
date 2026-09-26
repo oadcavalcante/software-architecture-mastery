@@ -2,7 +2,7 @@
 id: bottleneck-identification
 title: Identificação de Gargalo
 sidebar_position: 8
-description: Qual recurso satura primeiro — a pergunta que separa quem desenhou de quem entendeu o desenho.
+description: "Qual recurso satura primeiro: a pergunta que separa quem desenhou de quem entendeu o desenho."
 doc_type: concept
 level: 0
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [high-level-architecture, interview-scaling, failure-handling]
 canonical_for: [identificação de gargalo em entrevista, primeiro recurso a saturar, gargalo deslocado]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ explícita ou não, é sempre a mesma:
 "o que satura primeiro?"
 ```
 
-Responder exige entender o próprio desenho — não apenas tê-lo produzido. Um candidato que
+Responder exige entender o próprio desenho, não apenas tê-lo produzido. Um candidato que
 desenhou por memória trava aqui; um que derivou cada caixa de um número sabe exatamente onde a
 carga se acumula.
 
@@ -66,7 +66,7 @@ serviço → banco        120/s escrita  →  cabe folgado
 ```
 
 Com os números anotados, a resposta aparece: o componente com a maior razão entre carga e
-capacidade é o gargalo. Se nenhum estiver perto do limite, diga isso — "nesta escala, nada satura;
+capacidade é o gargalo. Se nenhum estiver perto do limite, diga isso: "nesta escala, nada satura;
 o primeiro a apertar seria o cache, por volta de 100 mil por segundo".
 
 ### Os quatro recursos que saturam
@@ -153,8 +153,8 @@ indica que a natureza do problema não foi entendida.
  e ele não é nosso."
 ```
 
-Reconhecer dependências externas como gargalo — e propor as correções disponíveis: cache,
-assíncrono, disjuntor, negociação de limite — é uma resposta madura que muitos candidatos não
+Reconhecer dependências externas como gargalo (e propor as correções disponíveis: cache,
+assíncrono, disjuntor, negociação de limite) é uma resposta madura que muitos candidatos não
 alcançam.
 
 Ver [disjuntores](/12-reliability/circuit-breakers.md).
@@ -173,11 +173,11 @@ gargalos hipotéticos produz uma arquitetura complexa para uma escala que não e
 Essa é uma das diferenças mais visíveis entre candidatos de nível intermediário e sênior. O
 primeiro tende a resolver tudo que identifica, porque identificar e resolver parecem a mesma
 demonstração de competência. O segundo separa as duas coisas: identificar demonstra compreensão,
-e escolher não resolver demonstra julgamento — e é o julgamento que a posição exige.
+e escolher não resolver demonstra julgamento. É o julgamento que a posição exige.
 
 ## Modelo Mental
 
-**Propague os números e pergunte qual recurso satura.** Depois pergunte qual satura em seguida —
+**Propague os números e pergunte qual recurso satura.** Depois pergunte qual satura em seguida:
 a segunda resposta vale mais que a primeira.
 
 ## Quando Usar
@@ -190,7 +190,7 @@ a segunda resposta vale mais que a primeira.
 
 **Quando o entrevistador direcionou a conversa para outro eixo.** Se ele pediu o modelo de dados ou o contrato da API, abrir uma análise de saturação responde a uma pergunta que não foi feita. O custo é o tempo da sessão gasto no eixo que ele não quer avaliar, e o sinal de que você não escuta a condução.
 
-**Quando o enunciado não tem requisito de escala.** Um sistema interno para duzentos usuários não tem carga a propagar, e inventar volume para achar gargalo produz arquitetura para um problema ausente. Uma frase basta — "nesta escala, nada satura" — e o tempo vai para o que o enunciado exige, como consistência ou modelagem.
+**Quando o enunciado não tem requisito de escala.** Um sistema interno para duzentos usuários não tem carga a propagar, e inventar volume para achar gargalo produz arquitetura para um problema ausente. Uma frase basta ("nesta escala, nada satura"), e o tempo vai para o que o enunciado exige, como consistência ou modelagem.
 
 **Quando falta tempo para fechar o caminho principal.** Com dez minutos restantes e o fluxo de escrita ainda sem desenho, a análise de gargalo troca um sistema completo e ingênuo por um fragmento otimizado. O entrevistador avalia o primeiro; o segundo não se sustenta sozinho.
 
@@ -200,11 +200,11 @@ tempo que faltará para fechar o caminho.
 
 ## Alternativas
 
-- **Perguntar ao entrevistador** — "onde você acha que isso quebra primeiro?" é legítimo e às
+- **Perguntar ao entrevistador**: "onde você acha que isso quebra primeiro?" é legítimo e às
   vezes produtivo.
-- **Analisar por recurso** — percorrer CPU, memória, entrada e saída, coordenação em vez de por
+- **Analisar por recurso**: percorrer CPU, memória, entrada e saída, coordenação em vez de por
   componente.
-- **Simular um aumento** — "se a escala fosse 10×, o que quebraria?" costuma tornar o gargalo
+- **Simular um aumento**: "se a escala fosse 10×, o que quebraria?" costuma tornar o gargalo
   óbvio.
 
 A última é uma técnica útil quando nada satura na escala atual: aumentar hipoteticamente revela a
@@ -321,7 +321,7 @@ de forma exata?"
 ```
 
 A terceira resposta é a que diferencia: ela identifica a mudança de natureza do gargalo, propõe
-três correções apropriadas ao tipo, escolhe uma, e questiona o requisito — que é exatamente o que
+três correções apropriadas ao tipo, escolhe uma, e questiona o requisito. É exatamente o que
 um arquiteto faz.
 
 ## Conceitos Relacionados

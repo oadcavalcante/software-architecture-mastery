@@ -2,7 +2,7 @@
 id: auditability
 title: Auditabilidade
 sidebar_position: 13
-description: Provar o que aconteceu — e por que registro que pode ser apagado por quem age não serve.
+description: Provar o que aconteceu, e por que registro que pode ser apagado por quem age não serve.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [security-failure-modes, data-protection, least-privilege]
 canonical_for: [trilha de auditoria, não repúdio, registro imutável, detecção de anomalia]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -33,7 +33,7 @@ detecção       perceber o anômalo enquanto acontece
 ```
 
 Os três exigem coisas diferentes do registro, e um sistema que atende apenas ao
-segundo — o caso comum — não serve para os outros dois.
+segundo (o caso comum) não serve para os outros dois.
 
 ## Problema
 
@@ -43,7 +43,7 @@ investigação.
 Os motivos se repetem:
 
 O registro tem o que era fácil de registrar, não o que a pergunta exige. Não há
-identificação de quem agiu — apenas o serviço. A retenção é menor que o tempo até a
+identificação de quem agiu, apenas do serviço. A retenção é menor que o tempo até a
 descoberta. E, o mais grave, o registro está no mesmo lugar que o sistema auditado,
 acessível a quem o comprometeu.
 
@@ -62,8 +62,8 @@ resultado sucesso ou falha, e por quê
 ```
 
 Duas ausências comuns tornam o registro inútil: **quem**, quando o sistema registra
-apenas o serviço que executou; e **falhas**, quando só o sucesso é registrado — e a
-tentativa negada é justamente o sinal de ataque.
+apenas o serviço que executou; e **falhas**, quando só o sucesso é registrado (e a
+tentativa negada é justamente o sinal de ataque).
 
 ### O registro precisa ser inviolável
 
@@ -82,14 +82,14 @@ As propriedades necessárias:
 **Verificação de integridade.** Encadeamento por resumo, ou assinatura, permitindo
 detectar alteração.
 
-Sem isso, um atacante com acesso administrativo consegue apagar o rastro — e, se ele
+Sem isso, um atacante com acesso administrativo consegue apagar o rastro. E, se ele
 pretende continuar no ambiente sem ser notado, tem motivo para fazê-lo cedo.
 
 ### Não repúdio exige mais que registro
 
 Provar que **aquela pessoa** fez algo, de forma que ela não possa negar, exige:
 
-**Identidade individual.** Contas compartilhadas destroem não repúdio — não há como
+**Identidade individual.** Contas compartilhadas destroem não repúdio: não há como
 atribuir a ação a uma pessoa.
 
 **Autenticação forte.** Se a credencial é facilmente roubada, "foi a conta dela" não
@@ -107,7 +107,7 @@ Ponemon Institute, 2024) estima média de 194 dias para identificar uma violaç�
 intervalo, uma retenção de 30 dias significa que a investigação começa sem os dados do
 início.
 
-A retenção precisa cobrir o tempo típico até a detecção, mais margem — o que
+A retenção precisa cobrir o tempo típico até a detecção, mais margem, o que
 tipicamente significa um ano ou mais para eventos de segurança, e o que a regulação
 exigir para os demais.
 
@@ -116,8 +116,8 @@ E os registros antigos podem ir para armazenamento frio. Ver
 
 ### O registro não pode conter o que ele protege
 
-O paradoxo prático: registros de auditoria frequentemente contêm dados sensíveis —
-corpo de requisição, parâmetros, cabeçalhos com credenciais.
+O paradoxo prático: registros de auditoria frequentemente contêm dados sensíveis
+(corpo de requisição, parâmetros, cabeçalhos com credenciais).
 
 O registro passa a ser um alvo, com acesso mais amplo que o sistema original. É um
 padrão recorrente: dados protegidos no banco, expostos em texto legível no sistema de
@@ -177,13 +177,13 @@ na observabilidade, com a retenção dela.
 
 ## Alternativas
 
-- **Registro de auditoria da plataforma** — o provedor de nuvem já registra ações de
+- **Registro de auditoria da plataforma**: o provedor de nuvem já registra ações de
   infraestrutura; usar isso é mais barato e mais confiável que reimplementar.
-- **Captura de mudanças do banco** — para rastrear alterações de dados sem instrumentar
+- **Captura de mudanças do banco**: para rastrear alterações de dados sem instrumentar
   a aplicação.
-- **[Event sourcing](/06-distributed-systems/distributed-event-sourcing.md)** — o
+- **[Event sourcing](/06-distributed-systems/distributed-event-sourcing.md)**: o
   histórico é o modelo, e a auditoria vem junto.
-- **Versionamento temporal** — para saber como um registro estava em cada momento.
+- **Versionamento temporal**: para saber como um registro estava em cada momento.
 
 ## Trade-offs
 
@@ -246,7 +246,7 @@ senha conhecida por sete pessoas. Os registros mostravam a conta, não a pessoa.
 foi possível atribuir os acessos a ninguém especificamente.
 
 **Sem registro de leitura.** O sistema registrava alterações, não consultas. Os acessos
-indevidos eram leituras, e não deixaram rastro no sistema — a suspeita surgiu de um
+indevidos eram leituras, e não deixaram rastro no sistema. A suspeita surgiu de um
 cliente que percebeu que seus dados eram conhecidos por alguém.
 
 **Retenção de 60 dias.** Quando a investigação começou, os primeiros dois meses já não
@@ -256,8 +256,8 @@ existiam.
 como afirmar que não houve.
 
 O resultado: a instituição soube que houve acesso indevido, não soube por quem nem a
-extensão, e teve que notificar todos os clientes potencialmente afetados — cerca de
-80 mil — em vez dos efetivamente acessados.
+extensão, e teve que notificar todos os clientes potencialmente afetados (cerca de
+80 mil) em vez dos efetivamente acessados.
 
 A reformulação:
 
@@ -277,7 +277,7 @@ integridade por encadeamento.
 consultas a clientes sem relação com o trabalho do operador.
 
 Onze meses depois, o alerta de consultas sem relação com o trabalho do operador detectou um caso semelhante em dois
-dias — com identificação da pessoa, dos 14 registros acessados, e sem necessidade de
+dias, com identificação da pessoa, dos 14 registros acessados, e sem necessidade de
 notificação em massa.
 
 O detalhe que a equipe destaca: eles cumpriam a exigência regulatória de "manter trilha de
@@ -287,15 +287,15 @@ investigação fez.
 ## Conceitos Relacionados
 
 - [Modos de Falha de Segurança](/10-security/security-failure-modes.md).
-- [Menor Privilégio](/10-security/least-privilege.md) — identidade individual.
+- [Menor Privilégio](/10-security/least-privilege.md): identidade individual.
 - [Proteção de Dados](/10-security/data-protection.md).
-- [Observabilidade](/13-observability/index.md) — o parente próximo, com outro
+- [Observabilidade](/13-observability/index.md): o parente próximo, com outro
   propósito.
 
 ## Exercício Prático
 
-Escolha um incidente hipotético — alguém acessou indevidamente um registro sensível há
-seis meses — e tente responder: quem, o quê, quando, de onde.
+Escolha um incidente hipotético (alguém acessou indevidamente um registro sensível há
+seis meses) e tente responder: quem, o quê, quando, de onde.
 
 As perguntas que você não conseguir responder são as lacunas da sua auditoria.
 

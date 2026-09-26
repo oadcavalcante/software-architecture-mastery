@@ -2,7 +2,7 @@
 id: clean-code
 title: Clean Code
 sidebar_position: 15
-description: Code written to be read — and where the movement's most repeated rules go wrong.
+description: Code written to be read, and where the movement's most repeated rules go wrong.
 doc_type: concept
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fundamentals]
 related: [code-smells, refactoring, design-heuristics]
 canonical_for: [clean code, readability]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Clean Code is the set of practices for writing readable code — clear names, focused
+Clean Code is the set of practices for writing readable code: clear names, focused
 functions, absence of surprise.
 
 The central principle is sound: **code is read many more times than it is
@@ -70,17 +70,17 @@ A function should operate at a single level of abstraction. Mixing "calculate th
 amount due" with "format the date for the file's standard" forces the reader to
 switch levels midway.
 
-The popular rule — "functions should be at most five lines" — does not hold up.
+The popular rule, "functions should be at most five lines", does not hold up.
 Extracting aggressively produces the opposite problem: to understand a flow, the
 reader jumps through ten three-line functions, and the logic ends up living
 nowhere.
 
-The useful criterion is not size. It is **whether the function tells a coherent
-story at a single level**.
+The useful criterion is **whether the function tells a coherent
+story at a single level**, not size.
 
 ### Comments
 
-Clean Code's strong formulation — "a comment is a sign of failure" — is partly
+Clean Code's strong formulation, "a comment is a sign of failure", is partly
 wrong.
 
 Comments that explain **what** the code does are indeed redundancy that ages. But
@@ -96,7 +96,7 @@ comments that explain **why** carry information the code cannot carry:
    wait(800);
 ```
 
-The second is not a failure. It is the only way to record that.
+The second is not a failure but the only way to record that.
 
 ### Surprise is the real cost
 
@@ -112,9 +112,9 @@ frequently you.
 
 ## When to Use
 
-- Where reading is frequent and change is expensive — business rules, tests, code
+- Where reading is frequent and change is expensive: business rules, tests, code
   other people will maintain.
-- With more rigour where the business logic lives — that is where reading is most
+- With more rigour where the business logic lives: that is where reading is most
   frequent and error most expensive.
 
 ## When Not to Use
@@ -123,7 +123,7 @@ frequently you.
 readability worse.
 
 **When it conflicts with demonstrably critical performance.** On hot paths, less
-elegant and faster code can be the right choice — with a comment explaining why and
+elegant and faster code can be the right choice, with a comment explaining why and
 the measurement that justified it.
 
 **In generated or throwaway code.** A one-off migration, an analysis script, a
@@ -137,12 +137,12 @@ stable code is cost with no return.
 
 ## Alternatives
 
-- **Tests as documentation** — a well-named test communicates intent better than
+- **Tests as documentation**: a well-named test communicates intent better than
   many comments. Wins when what confuses is the expected behaviour, not the
   structure of the code.
-- **Expressive types** — a `NationalId` type communicates more than a well-named `String`.
+- **Expressive types**: a `NationalId` type communicates more than a well-named `String`.
   Wins where creating a type is cheap and the value travels through many signatures.
-- **[Design heuristics](/02-software-design/design-heuristics.md)** — more
+- **[Design heuristics](/02-software-design/design-heuristics.md)**: more
   structural criteria, less open to interpretation. Win when the disagreement is
   about where a responsibility lives, and no name settles that.
 
@@ -191,14 +191,14 @@ A code review asked for a 40-line function to be extracted into eight smaller on
 The author disagreed; the discussion stalled on preference.
 
 The criterion that resolved it: they asked someone who did not know the code to
-read each version and explain what it did — the 40-line one first.
+read each version and explain what it did, starting with the 40-line one.
 
 On that one, they took three minutes and got it right. On the extracted version,
 already knowing what the code did, they took seven and got the order of two steps
 wrong, because the function names did not indicate sequence. The reading order
 favoured the extracted version, and it still came out behind.
 
-The final version ended up with three functions, not eight and not one — separating
+The final version ended up with three functions, not eight and not one, separating
 the three levels of abstraction that genuinely existed: fetch the data, apply the
 rule, persist the result.
 
@@ -220,18 +220,18 @@ and negligence on the other.
 | Performance-critical path | Special | Clarity yields to measurement, with a comment justifying it |
 
 The test row tends to surprise. Teams invest in production readability and accept
-tests with duplicated setup and generic names — when the test is precisely what the
+tests with duplicated setup and generic names, when the test is precisely what the
 next person reads to understand the code's intent.
 
 ## Related Concepts
 
-- [Code Smells](/02-software-design/code-smells.md) — the signs that something
+- [Code Smells](/02-software-design/code-smells.md): the signs that something
   needs attention.
-- [Refactoring](/02-software-design/refactoring.md) — how to change without
+- [Refactoring](/02-software-design/refactoring.md): how to change without
   breaking.
-- [Design Heuristics](/02-software-design/design-heuristics.md) — more structural
+- [Design Heuristics](/02-software-design/design-heuristics.md): more structural
   criteria.
-- [Abstraction](/01-fundamentals/abstraction.md) — when extracting pays off.
+- [Abstraction](/01-fundamentals/abstraction.md): when extracting pays off.
 
 ## Practical Exercise
 
@@ -239,7 +239,7 @@ Pick a file in your system and ask someone who does not know it to read it and
 narrate what they understand.
 
 Note where the person hesitates, backtracks, or asks. Those points are the real
-readability problems — and they rarely coincide with what a style review would flag.
+readability problems, and they rarely coincide with what a style review would flag.
 
 ## Interview Questions
 
@@ -250,6 +250,6 @@ readability problems — and they rarely coincide with what a style review would
 ## Further Exploration
 
 - Martin, Robert C. *Clean Code*. Prentice Hall, 2008.
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 —
-  disagrees with Clean Code on several points, and is worth reading alongside.
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
+  Disagrees with Clean Code on several points, and is worth reading alongside.
 - Beck, Kent. *Implementation Patterns*. Addison-Wesley, 2007.

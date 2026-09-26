@@ -2,7 +2,7 @@
 id: repository
 title: Repository
 sidebar_position: 17
-description: A collection of aggregates with the appearance of memory — and what separates a repository from a DAO.
+description: A collection of aggregates with the appearance of memory, and what separates a repository from a DAO.
 doc_type: pattern
 level: 2
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, factory, dependency-inversion]
 canonical_for: [repository]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ enormous in consequence.
 ## Problem
 
 The domain needs aggregates that are persisted. If it knows SQL, an ORM or the schema, the
-business rules become tied to the storage technology — and testing them requires a database.
+business rules become tied to the storage technology, and testing them requires a database.
 
 The repository solves that by inverting the dependency: the interface belongs to the domain,
 the implementation to infrastructure. See
@@ -45,7 +45,7 @@ The rule that most reduces the number of repositories: **only aggregate roots ha
 repositories.**
 
 Internal objects are accessed through the root. An `OrderItemRepository` allows changing an
-item without going through the order — which nullifies the invariant protection the
+item without going through the order. That nullifies the invariant protection the
 [aggregate](/04-domain-driven-design/aggregate.md) exists to provide.
 
 ### A repository is not a DAO
@@ -68,7 +68,7 @@ The distinction that decides whether the pattern is being used or merely named.
 On the left, the method exposes the query's structure. On the right, it expresses a business
 question.
 
-A repository with thirty generic methods is a DAO under another name — and the domain stays
+A repository with thirty generic methods is a DAO under another name, and the domain stays
 coupled to the way of querying.
 
 ### A repository does not serve screen reads
@@ -76,20 +76,20 @@ coupled to the way of querying.
 An expensive and common mistake: using the repository to feed listings and reports.
 
 Repositories return complete aggregates, with all the invariants loaded. A screen showing
-five fields of a hundred orders does not need a hundred aggregates — it needs a projection.
+five fields of a hundred orders does not need a hundred aggregates: it needs a projection.
 
 See [CQRS](/03-design-patterns/cqrs.md) level 2: reads go straight to the database, with a
 query returning exactly what the screen needs.
 
 Insisting on using the repository for reads **aggravates** both classic defects: it pressures
-the aggregate to grow in order to serve screens — whose cause is in
-[aggregate](/04-domain-driven-design/aggregate.md) — and it multiplies trips to the database
+the aggregate to grow in order to serve screens (whose cause is in
+[aggregate](/04-domain-driven-design/aggregate.md)), and it multiplies trips to the database
 through lazy loading, whose mechanism is in [proxy](/03-design-patterns/proxy.md).
 
 ### The collection is a useful illusion
 
 The in-memory collection metaphor guides the interface's design: `add`, `remove`, `findBy`.
-Not `save`, `update`, `insert` — which are database vocabulary.
+Not `save`, `update`, `insert`, which are database vocabulary.
 
 The illusion has limits: pagination, complex queries and performance eventually leak.
 Recognizing where it leaks is part of using the pattern well.
@@ -119,10 +119,10 @@ interface and a mapping; with neither benefit, it is ceremony.
 
 ## Alternatives
 
-- **A read projection** — for screen queries.
-- **Direct ORM access** — in simple subdomains.
-- **A unit of work** — when transaction control is the main need.
-- **A specialized query object** — one object per complex query, rather than one more method
+- **A read projection**: for screen queries.
+- **Direct ORM access**: in simple subdomains.
+- **A unit of work**: when transaction control is the main need.
+- **A specialized query object**: one object per complex query, rather than one more method
   on the repository.
 
 ## Trade-offs
@@ -147,7 +147,7 @@ of N+1.
 
 **Repository that returns the ORM's type.** The leak nullifies the decoupling.
 
-**Repository with business rules.** A query filtering by an implicit rule — "valid orders" —
+**Repository with business rules.** A query filtering by an implicit rule ("valid orders")
 hides in data access something that belongs to the domain.
 
 ## Common Mistakes
@@ -169,12 +169,12 @@ A hospital management system had a `PatientRepository` with 47 methods: `findByN
 
 Three problems at once.
 
-The patient search screen loaded complete aggregates — with admission and prescription
-history — to display name, date of birth and record number. A search returning 200 patients
+The patient search screen loaded complete aggregates (with admission and prescription
+history) to display name, date of birth and record number. A search returning 200 patients
 loaded tens of thousands of objects.
 
 `findForMonthlyReport` contained, in the query, the rule for which patients count towards the
-report — a business decision hidden in an SQL clause, which the compliance team could not
+report: a business decision hidden in an SQL clause, which the compliance team could not
 audit.
 
 And schema changes spread through dozens of methods with nothing saying which: the last column
@@ -192,15 +192,15 @@ And the report's rule moved out of SQL into a domain service, where it could be 
 audited.
 
 What the team recorded: the repository had grown to 47 methods one at a time, and each
-addition was reasonable. The problem was none of them — it was not having a criterion saying
+addition was reasonable. The problem was none of them. It was not having a criterion saying
 what belongs in the repository and what does not.
 
 ## Related Concepts
 
-- [Aggregate](/04-domain-driven-design/aggregate.md) — the unit the repository accesses.
-- [Factory](/04-domain-driven-design/factory.md) — creation, in contrast to retrieval.
+- [Aggregate](/04-domain-driven-design/aggregate.md): the unit the repository accesses.
+- [Factory](/04-domain-driven-design/factory.md): creation, in contrast to retrieval.
 - [Dependency Inversion](/02-software-design/dependency-inversion.md).
-- [CQRS](/03-design-patterns/cqrs.md) — reads by another route.
+- [CQRS](/03-design-patterns/cqrs.md): reads by another route.
 
 ## Practical Exercise
 

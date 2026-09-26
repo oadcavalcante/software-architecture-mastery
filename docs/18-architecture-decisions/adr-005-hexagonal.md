@@ -2,7 +2,7 @@
 id: adr-005-hexagonal
 title: "ADR-005 — Portas e Adaptadores nos Módulos de Domínio"
 sidebar_position: 14
-description: Exemplo de ADR com escopo estreito e discordância registrada — adotar hexagonal só onde ela se paga.
+description: "Exemplo de ADR com escopo estreito e discordância registrada: adotar hexagonal só onde ela se paga."
 doc_type: adr
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, adr-consequences]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -39,7 +39,7 @@ declarado** e **discordância registrada**.
 Três anos depois do [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md), o monólito modular continua
 sendo a estrutura da Verano, e continua sustentando o negócio. Mas duas pressões apareceram.
 
-**Extração.** O módulo de entrega passou a ter perfil de carga muito diferente do resto —
+**Extração.** O módulo de entrega passou a ter perfil de carga muito diferente do resto:
 picos concentrados em duas janelas do dia, com necessidade de escala independente. A
 condição "módulo isolado exigindo capacidade acima de 3× a dos demais", registrada como
 sinal de alerta no ADR-001, foi atingida em novembro de 2025.
@@ -78,13 +78,13 @@ independente poderia ser resolvida sem extração.
 
 ## Decisão
 
-Vamos adotar **portas e adaptadores** nos três módulos com lógica de domínio substantiva —
+Vamos adotar **portas e adaptadores** nos três módulos com lógica de domínio substantiva:
 **pedido, entrega e antifraude**.
 
 Nesses módulos, a lógica de domínio passa a depender apenas de interfaces declaradas por
 ela mesma. Banco, provedores externos, mensageria e transporte entram como adaptadores.
 
-**Não vamos** aplicar o padrão aos quatro módulos restantes — catálogo, carrinho,
+**Não vamos** aplicar o padrão aos quatro módulos restantes: catálogo, carrinho,
 notificação e pagamento continuam com acesso direto a banco e a clientes de integração. Nos
 módulos que são essencialmente integração ou consulta, a inversão acrescentaria camada sem
 lógica para proteger.
@@ -95,21 +95,21 @@ código novo e às áreas tocadas por mudança, com prazo de 12 meses.
 ## Alternativas Consideradas
 
 **Aplicar a todos os sete módulos.** Descartada porque quatro deles não têm lógica de
-domínio a isolar — a camada adicional seria custo sem retorno, e o padrão perderia
+domínio a isolar: a camada adicional seria custo sem retorno, e o padrão perderia
 credibilidade justamente onde ele importa.
 
 *Voltaria a ganhar se:* algum desses quatro desenvolver lógica de domínio própria. Catálogo
 é o candidato mais provável, com as regras de precificação no roteiro.
 
 **Não adotar; extrair o módulo de entrega diretamente.** Descartada porque a extração sem
-isolamento prévio exigiria desemaranhar as dependências durante a extração — que é o
+isolamento prévio exigiria desemaranhar as dependências durante a extração, que é o
 momento de maior risco. Fazer o isolamento antes permite extrair depois com o domínio já
 independente.
 
 *Voltaria a ganhar se:* a extração fosse urgente e a lógica do módulo já fosse isolada.
 
 **Anti-corruption layer apenas nas integrações externas**, sem inverter as dependências de
-persistência. Descartada como insuficiente para o objetivo de extração — os três módulos
+persistência. Descartada como insuficiente para o objetivo de extração. Os três módulos
 compartilham esquema e transações com os demais, e essa camada não toca nesse acoplamento:
 ele continuaria inteiro, para ser desemaranhado no momento da extração. Mas foi adotada
 como **passo intermediário** nos três módulos, por ser mais barata e dar resultado antes.
@@ -160,19 +160,19 @@ O escopo é **estreito e declarado nos dois sentidos**: três módulos sim, quat
 critério explícito. Ver [decisão](/18-architecture-decisions/adr-decision.md).
 
 A discordância tem seção própria, com o argumento de quem discordou preservado e a
-mitigação registrada. Se o risco se materializar, a objeção estará lá — e ela era boa. Ver
+mitigação registrada. Se o risco se materializar, a objeção estará lá, e ela era boa. Ver
 [consequências](/18-architecture-decisions/adr-consequences.md).
 
 Uma alternativa descartada foi **parcialmente adotada** como passo intermediário. Isso é
 comum na prática e raramente registrado.
 
 O contexto liga esta decisão ao sinal de alerta do [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md),
-atingido dois meses antes. A cadeia de decisões da Verano é navegável de ponta a ponta —
-que é o efeito que o registro contínuo produz.
+atingido dois meses antes. A cadeia de decisões da Verano é navegável de ponta a ponta.
+Esse é o efeito que o registro contínuo produz.
 
 ## Conceitos Relacionados
 
-- [Decisão](/18-architecture-decisions/adr-decision.md) — escopo e discordância.
+- [Decisão](/18-architecture-decisions/adr-decision.md): escopo e discordância.
 - [Arquitetura Hexagonal](/02-software-design/hexagonal-architecture.md).
-- [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md) — a decisão estrutural que este complementa.
+- [ADR-001](/18-architecture-decisions/adr-001-modular-monolith.md): a decisão estrutural que este complementa.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).

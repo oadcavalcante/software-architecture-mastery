@@ -2,7 +2,7 @@
 id: latency
 title: Latência
 sidebar_position: 4
-description: O tempo entre pedir e receber — e por que a média esconde exatamente o que importa.
+description: O tempo entre pedir e receber, e por que a média esconde exatamente o que importa.
 doc_type: concept
 level: 4
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [timeouts, network-failure, bottleneck-analysis]
 canonical_for: [latência, percentil, cauda de latência]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -32,7 +32,7 @@ A forma padrão de relatar latência é a média, e ela é quase sempre a métri
 errada.
 
 Um sistema com média de 200 ms pode ter 5% das requisições acima de 3 segundos.
-Esses 5% são usuários reais, e a média nunca os revela — porque a distribuição de
+Esses 5% são usuários reais, e a média nunca os revela, porque a distribuição de
 latência não é simétrica. Ela tem uma cauda longa à direita, produzida por
 retentativa de rede, coleta de lixo, cache frio, contenção e todas as
 irregularidades de um sistema real.
@@ -56,15 +56,15 @@ p999 = 4 200 ms  ← 1 em 1 000
 O p50 e o p99 do mesmo sistema costumam diferir por uma ordem de grandeza.
 
 Qual percentil monitorar depende do volume. Com um milhão de requisições por dia,
-o p999 são mil requisições — pessoas suficientes para gerar reclamação.
+o p999 são mil requisições: pessoas suficientes para gerar reclamação.
 
-E percentis **não somam**. O p99 de uma cadeia não é a soma dos p99 de cada elo —
-é preciso medir de ponta a ponta.
+E percentis **não somam**. O p99 de uma cadeia não é a soma dos p99 de cada elo.
+É preciso medir de ponta a ponta.
 
 Pela mesma razão, **não se tira média de percentis**. A média dos p99 de dez
 instâncias, ou dos p99 de cada minuto para obter o da hora, não é o percentil de
-nada. Agregar exige guardar a distribuição — um histograma que se soma entre
-instâncias e janelas — e calcular o percentil só no fim.
+nada. Agregar exige guardar a distribuição (um histograma que se soma entre
+instâncias e janelas) e calcular o percentil só no fim.
 
 ### A cauda domina em cadeia
 
@@ -95,7 +95,7 @@ cauda importa mais que reduzir a média em sistemas com muitas chamadas.
 | Ida e volta entre regiões, mesmo continente | ~30 ms |
 | Ida e volta intercontinental | ~150 ms |
 
-A última linha é física — a velocidade da luz em fibra dá cerca de 200 km/ms, e o
+A última linha é física: a velocidade da luz em fibra dá cerca de 200 km/ms, e o
 caminho nunca é reto. Nenhuma otimização de código compensa distância, e é por isso
 que [CDN](/05-system-design/cdn.md) e multi-região existem.
 
@@ -107,7 +107,7 @@ conforme a utilização se aproxima de 100%. O mecanismo, com a lei de Little, e
 em [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
 A consequência prática: um sistema que responde bem a 60% de carga pode ficar
-inutilizável a 90% — não porque algo quebrou, mas porque a fila cresceu.
+inutilizável a 90%, não porque algo quebrou, mas porque a fila cresceu.
 
 ### Latência variável é pior que latência alta
 
@@ -147,15 +147,15 @@ paralelas reduz a latência média e piora o percentil alto.
 
 Para reduzir latência percebida, quando otimizar não basta:
 
-- **Cache** — evitar a operação. Ver
+- **Cache**: evitar a operação. Ver
   [cache](/05-system-design/caching.md).
-- **Proximidade** — CDN, réplica regional.
-- **Assíncrono** — responder antes de completar. Ver
+- **Proximidade**: CDN, réplica regional.
+- **Assíncrono**: responder antes de completar. Ver
   [request/response](/05-system-design/request-response.md).
-- **Requisição de reserva** — enviar a mesma requisição a duas réplicas e usar a
+- **Requisição de reserva**: enviar a mesma requisição a duas réplicas e usar a
   primeira resposta. Reduz a cauda ao custo de trabalho duplicado: o dobro da carga
   se a segunda sai sempre, cerca de 5% se ela só sai quando a primeira passa do p95.
-- **Degradar** — servir resposta parcial em vez de esperar a lenta.
+- **Degradar**: servir resposta parcial em vez de esperar a lenta.
 
 ## Trade-offs
 
@@ -215,12 +215,12 @@ A medição de ponta a ponta, do lado do cliente, mostrou outra realidade: p50 d
 180 ms, p95 de 1,2 s, p99 de 2,4 s.
 
 A causa é aritmética. Com seis chamadas paralelas de p99 de 800 ms, a chance de
-nenhuma cair no percentil alto é `0,99⁶ ≈ 0,94` — ou seja, **6% das páginas tinham
+nenhuma cair no percentil alto é `0,99⁶ ≈ 0,94`, ou seja, **6% das páginas tinham
 ao menos uma chamada lenta**, e a página inteira esperava por ela.
 
 Duas correções.
 
-Três dos seis serviços eram enriquecimento — avaliações, recomendações, histórico.
+Três dos seis serviços eram enriquecimento: avaliações, recomendações, histórico.
 Passaram a ter prazo próprio de 200 ms, e a página é renderizada sem eles se
 estourarem. Degradação em vez de espera.
 
@@ -236,11 +236,11 @@ A média nunca tinha sido o problema, e por isso o painel nunca mostrou nada.
 
 ## Conceitos Relacionados
 
-- [Timeouts](/06-distributed-systems/timeouts.md) — calibrados a partir da distribuição.
-- [Falha de Rede](/06-distributed-systems/network-failure.md) — a origem da variabilidade.
+- [Timeouts](/06-distributed-systems/timeouts.md): calibrados a partir da distribuição.
+- [Falha de Rede](/06-distributed-systems/network-failure.md): a origem da variabilidade.
 - [Análise de Gargalos](/05-system-design/bottleneck-analysis.md).
-- [Observabilidade](/13-observability/index.md) — como medir.
-- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md) — onde
+- [Observabilidade](/13-observability/index.md): como medir.
+- [Requisitos Não-Funcionais](/01-fundamentals/non-functional-requirements.md): onde
   a distribuição vira requisito com número.
 
 ## Exercício Prático

@@ -2,7 +2,7 @@
 id: complexity
 title: Complexity
 sidebar_position: 17
-description: Essential complexity comes from the problem; accidental complexity from our choices — and only one of them is removable.
+description: Essential complexity comes from the problem; accidental complexity from our choices, and only one of them is removable.
 doc_type: concept
 level: 1
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexity, essential complexity, accidental complexity]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ special case, one more service.
 
 The effect is compound, not additive. Two independent configuration flags produce
 four possible combinations; ten produce a thousand. Nobody decides to create a
-thousand paths — they appear.
+thousand paths; they appear.
 
 The late symptom is characteristic: simple changes take weeks, nobody can predict
 the effect of an alteration, and new people take months to become productive. At
@@ -69,7 +69,7 @@ complexity in networking, deployment, observability and partial failure.
 Introducing a queue removes temporal coupling and adds ordering, duplication and
 dead letters.
 
-None of those trades is wrong. The error is accounting for only one side — which
+None of those trades is wrong. The error is accounting for only one side. That
 produces the pattern of decisions that appear to simplify and complicate.
 
 ### Where complexity hurts
@@ -77,7 +77,7 @@ produces the pattern of decisions that appear to simplify and complicate.
 Complexity in an isolated place is tolerable. Scattered complexity is what kills.
 
 Ousterhout names three symptoms, and the one he calls worst is **unknown
-unknowns** — not knowing what needs to change. What matters here is one of the
+unknowns**: not knowing what needs to change. What matters here is one of the
 other two, **cognitive load**: understanding one part requires knowing many others. A dense, self-contained
 module is preferable to ten simple modules whose interaction is unpredictable.
 
@@ -103,11 +103,11 @@ positive given the context? Whoever proposes usually states only the first term.
 
 Adding complexity is justified when:
 
-- It reduces exposed essential complexity — an abstraction that genuinely hides.
-- It is required by a real, stated quality requirement — replication for
-  contracted availability.
-- It replaces greater complexity — a mature framework instead of equivalent
-  in-house code.
+- It reduces exposed essential complexity (an abstraction that genuinely hides).
+- It is required by a real, stated quality requirement (replication for
+  contracted availability).
+- It replaces greater complexity (a mature framework instead of equivalent
+  in-house code).
 - The cost of not adding it is greater and already observable, not hypothetical.
 
 ## When Not to Use
@@ -123,7 +123,7 @@ transition.
 **When the team cannot operate the result.** A correct architecture that demands
 competence the team does not have charges a cost the drawing does not show: learning
 to operate it while it is already in production. The classification does not change
-— it stays essential — but the cost of adopting it does.
+(it stays essential), but the cost of adopting it does.
 
 **When the simple alternative has not yet failed.** The correct order is to use
 the simple option until it demonstrates insufficiency. Anticipating the failure of
@@ -131,11 +131,11 @@ the simple option is guessing with a cost.
 
 ## Alternatives
 
-- **Not doing it** — always an option, with measurable cost and benefit.
-- **Doing it manually** — automating a rare process can cost more than performing
+- **Not doing it**: always an option, with measurable cost and benefit.
+- **Doing it manually**: automating a rare process can cost more than performing
   it by hand.
-- **Deferring** — keeping the option open without paying for it now.
-- **Removing something** — reducing scope instead of adding mechanism. It is the
+- **Deferring**: keeping the option open without paying for it now.
+- **Removing something**: reducing scope instead of adding mechanism. It is the
   least considered alternative and frequently the best.
 
 ## Trade-offs
@@ -193,10 +193,10 @@ would isolate load.
 
 Accounting for both sides:
 
-*Removes* — the report load leaves the main process, and deploying reports no
+*Removes*: the report load leaves the main process, and deploying reports no
 longer requires deploying the rest.
 
-*Adds* — one more pipeline, one more set of alerts, authentication between
+*Adds*: one more pipeline, one more set of alerts, authentication between
 services, handling unavailability of the report service, either a copy of the data
 or remote access to it, and one more thing on call.
 
@@ -206,24 +206,24 @@ reporting?
 The measurement answered 4%, concentrated in two unindexed queries.
 
 With the indexes fixed, the load dropped to 0.3% and the proposal lost its
-rationale. The cost of the separate service — permanent, operational, spread
-across the whole team — would have been paid to solve a problem that one migration
+rationale. The cost of the separate service (permanent, operational, spread
+across the whole team) would have been paid to solve a problem that one migration
 solved.
 
-What is worth keeping is not that extracting a service is bad. It is that the
+What is worth keeping is not that extracting a service is bad, but that the
 decision was being made with one side of the ledger, and measuring cost an
 afternoon.
 
 ## Related Concepts
 
-- [Abstraction](/01-fundamentals/abstraction.md) — the tool that reduces or adds complexity.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — what happens when accidental
+- [Abstraction](/01-fundamentals/abstraction.md): the tool that reduces or adds complexity.
+- [Technical Debt](/01-fundamentals/technical-debt.md): what happens when accidental
   complexity is taken on knowing the cost.
-- [Trade-offs](/20-trade-offs/index.md) — the accounting of both sides.
+- [Trade-offs](/20-trade-offs/index.md): the accounting of both sides.
 
 ## Practical Exercise
 
-List five mechanisms in your system — a queue, a cache, an abstraction layer, a
+List five mechanisms in your system: a queue, a cache, an abstraction layer, a
 flag, a separate service.
 
 For each: what problem does it solve? Is that problem observable today or was it
@@ -241,7 +241,7 @@ accidental complexity.
 ## Further Exploration
 
 - Brooks, Frederick P. *No Silver Bullet: Essence and Accidents of Software Engineering*.
-  IFIP, 1986 — the essential/accidental distinction.
+  IFIP, 1986. The essential/accidental distinction.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
-- Moseley, Ben; Marks, Peter. *Out of the Tar Pit*, 2006 — complexity arising from
+- Moseley, Ben; Marks, Peter. *Out of the Tar Pit*, 2006. Complexity arising from
   state.

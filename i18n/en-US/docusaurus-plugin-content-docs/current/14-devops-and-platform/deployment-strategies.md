@@ -2,7 +2,7 @@
 id: deployment-strategies
 title: Deployment Strategies
 sidebar_position: 4
-description: How the new version replaces the old one — and the criterion for choosing among the options.
+description: How the new version replaces the old one, and the criterion for choosing among the options.
 doc_type: tradeoff
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [blue-green, canary, rolling-deployments]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -37,11 +37,11 @@ comes from the change's risk.
 
 ## Problem
 
-In a stable system, change is the main source of incidents — which makes deployment the moment where the
+In a stable system, change is the main source of incidents, which makes deployment the moment where the
 risk concentrates. It is the premise of chapter 27 of Beyer et al. (2016), listed in Going Deeper, and the
 reason it treats deployment as a reliability problem rather than a process one.
 
-That does not mean deploying less — the opposite, see
+That does not mean deploying less. The opposite: see
 [continuous integration](/14-devops-and-platform/ci-cd.md). It means that **how** you deploy matters.
 
 With no strategy, the deployment is an abrupt switch: the new version replaces the old one, and if it is
@@ -64,7 +64,7 @@ See [rolling deployments](/14-devops-and-platform/rolling-deployments.md),
 [blue-green](/14-devops-and-platform/blue-green.md) and [canary](/14-devops-and-platform/canary.md).
 
 The central distinction: **rolling and blue-green are replacement mechanisms; canary is a verification
-mechanism.** They combine — a successful canary deployment usually ends with a rolling deployment of the
+mechanism.** They combine: a successful canary deployment usually ends with a rolling deployment of the
 rest.
 
 ### Compatibility between versions is the prerequisite
@@ -80,7 +80,7 @@ shared state          sessions, caches — readable by both
 
 See [schema evolution](/08-integration-architecture/schema-evolution.md).
 
-Without that, the only possible strategy is stopping everything and switching — which is what you want to
+Without that, the only possible strategy is stopping everything and switching, which is what you want to
 avoid.
 
 The pattern that resolves it: **expand, migrate, contract**. Add the new while keeping the old; migrate;
@@ -104,7 +104,7 @@ nothing, and what counts is how many events reach each side during the period. S
 ### Reverting needs to be easier than fixing
 
 The operational principle that guides everything: under pressure, revert first and investigate afterward,
-with the system stable. But that is only the right decision **while reverting stays cheap** — which is why
+with the system stable. But that is only the right decision **while reverting stays cheap**. That is why
 the four requirements below are requirements and not recommendations. Where the migration has already run
 or the state has already diverged, reverting stops being automatic and becomes a decision with a risk of
 its own, to be thought through in the middle of an incident. Keeping rollback cheap is what avoids that
@@ -122,7 +122,7 @@ tested       exercised, not presumed
 The third is the one that usually fails: reverting the code is easy; reverting a database migration that
 has already run is not. That is why compatible migrations are a prerequisite.
 
-See [resilience](/12-reliability/resilience.md) — reversibility is worth more than being right.
+See [resilience](/12-reliability/resilience.md): reversibility is worth more than being right.
 
 ### The choice comes from the risk
 
@@ -142,7 +142,7 @@ validates; the rest goes gradually.
 See [feature flags](/14-devops-and-platform/feature-flags.md). With flags, the code can go to production
 disabled, and the release becomes a separate decision, reversible in seconds.
 
-That changes the calculation: the deployment becomes low risk — the new code does nothing — and the risk
+That changes the calculation: the deployment becomes low risk (the new code does nothing), and the risk
 concentrates in the release, which is controllable independently.
 
 Teams that combine the two techniques deploy frequently and release carefully.
@@ -162,7 +162,7 @@ Teams that combine the two techniques deploy frequently and release carefully.
 
 **Any gradual strategy with no compatibility between versions.**
 
-**Canary below the volume that makes the comparison significant** — the
+**Canary below the volume that makes the comparison significant**: the
 [criterion](/14-devops-and-platform/canary.md) is the number of events per side, not the fraction.
 
 **Blue-green with no capacity for the duplicated environment.**
@@ -173,14 +173,14 @@ Teams that combine the two techniques deploy frequently and release carefully.
 
 ## Alternatives
 
-- **Deployment with downtime** — legitimate for systems that tolerate a window, and far simpler.
-- **[Feature flags](/14-devops-and-platform/feature-flags.md)** — they separate deploying from releasing,
+- **Deployment with downtime**: legitimate for systems that tolerate a window, and far simpler.
+- **[Feature flags](/14-devops-and-platform/feature-flags.md)**: they separate deploying from releasing,
   reducing the risk of both.
-- **Shadow deployment** — the new version receives a copy of the traffic with no response to the user. It
+- **Shadow deployment**: the new version receives a copy of the traffic with no response to the user. It
   verifies behavior at zero risk, at the cost of doubling the load.
 
 The last one wins when the new behavior can be compared against the old without the user receiving the
-answer — a change of algorithm, of ranking, of query engine — and the cost of processing the traffic twice
+answer (a change of algorithm, of ranking, of query engine) and the cost of processing the traffic twice
 is acceptable.
 
 ## Trade-offs
@@ -228,19 +228,19 @@ is acceptable.
 A booking platform used rolling deployment for everything, with manual rollback.
 
 An incident exposed the limits: a change in the availability calculation had an error that only appeared
-with real data from certain hotels — around 4% of searches returned the wrong result, with no error and no
+with real data from certain hotels. Around 4% of searches returned the wrong result, with no error and no
 slowness.
 
 The platform served about 240 searches per second. The rolling deployment took the version to every
-instance in 12 minutes, and the problem was detected 6 hours later, by a partner — more than 200 thousand
+instance in 12 minutes, and the problem was detected 6 hours later, by a partner: more than 200 thousand
 searches with incorrect availability, some of them turned into bookings that had to be cancelled.
 
 No technical metric changed: normal latency, no errors, normal traffic.
 
 The changes:
 
-**Canary for behavior changes**, with automatic comparison of business metrics — conversion rate, result
-distribution, average value. The fraction and the window came from the [significance
+**Canary for behavior changes**, with automatic comparison of business metrics (conversion rate, result
+distribution, average value). The fraction and the window came from the [significance
 criterion](/14-devops-and-platform/canary.md), not from a round number:
 
 ```text
@@ -248,7 +248,7 @@ criterion](/14-devops-and-platform/canary.md), not from a round number:
 defect in 4% of them              ~1.3 thousand cases in the canary
 ```
 
-The 2% for 30 minutes the team proposed first would give 8.6 thousand searches and 350 cases — detectable,
+The 2% for 30 minutes the team proposed first would give 8.6 thousand searches and 350 cases: detectable,
 but with too narrow a margin for an automatic threshold that must not fire on noise. The canary's design is
 in the canonical document; what this one decides is **when** to use it.
 
@@ -257,26 +257,26 @@ significantly fewer options for a subset of searches.
 
 **Rolling kept** for low-risk changes, which are the majority.
 
-**Blue-green for infrastructure changes** — a runtime version, a base library migration.
+**Blue-green for infrastructure changes**: a runtime version, a base library migration.
 
 **Automated rollback**, triggered by the canary's comparison, with a measured time of 90 seconds.
 
 **Compatible migrations** made mandatory, verified in review.
 
-**A risk classification** when opening the change, defining the strategy — with the author declaring
+**A risk classification** when opening the change, defining the strategy, with the author declaring
 whether it alters observable behavior.
 
 In the following twelve months, the canary automatically reverted seven deployments. Three would have been
 silent behavior incidents like the original.
 
-The point the team underlines: rolling deployment was never wrong — it protects against unavailability, and
+The point the team underlines: rolling deployment was never wrong. It protects against unavailability, and
 it did that well. It simply does not protect against what happened, and nobody had made that distinction.
 
 ## Related Concepts
 
 - [Blue-Green](/14-devops-and-platform/blue-green.md), [Canary](/14-devops-and-platform/canary.md),
   [Rolling Deployments](/14-devops-and-platform/rolling-deployments.md).
-- [Feature Flags](/14-devops-and-platform/feature-flags.md) — separating deploying from releasing.
+- [Feature Flags](/14-devops-and-platform/feature-flags.md): separating deploying from releasing.
 - [Continuous Integration](/14-devops-and-platform/ci-cd.md).
 - [Schema Evolution](/08-integration-architecture/schema-evolution.md).
 
@@ -300,4 +300,4 @@ to be invisible because none of those deployments failed.
 
 - Humble, Jez; Farley, David. *Continuous Delivery*. Addison-Wesley, 2010.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 27.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapter 27.

@@ -2,7 +2,7 @@
 id: leadership-standards
 title: Standards from the Setter's Perspective
 sidebar_position: 13
-description: Publishing a standard is taking on a commitment — to the path, to the migration and to the retirement.
+description: "Publishing a standard is taking on a commitment: to the path, to the migration and to the retirement."
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leadership-principles]
 related: [leadership-principles, leadership-governance, cross-team-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ answer who pays             for migrating the existing systems
 retire it                   when it stops making sense
 ```
 
-A standard published without all three is an aspiration with the appearance of a rule — and the
+A standard published without all three is an aspiration with the appearance of a rule, and the
 result is predictable: low adoption, silent circumvention, and the group that published it
 reinforcing mandatoriness as the answer to everything.
 
@@ -48,8 +48,8 @@ it is published on the portal
 it is announced by email
 ```
 
-Six months later, adoption is at 22%, and the institutional reaction is to reinforce mandatoriness —
-which does not work, because the problem was never discipline.
+Six months later, adoption is at 22%, and the institutional reaction is to reinforce mandatoriness.
+It does not work, because the problem was never discipline.
 
 ```text
 published and not adopted for lack of a path
@@ -91,7 +91,7 @@ below           revise the standard before promoting it
 That stage turns low adoption into information about the standard instead of a failure of the teams,
 and it costs only time. It is the publisher's most effective instrument, and the least used.
 
-A standard nobody adopts voluntarily probably shouldn't be mandatory — or needs a path before it is.
+A standard nobody adopts voluntarily probably shouldn't be mandatory, or needs a path before it is.
 
 ### No standard without a path
 
@@ -116,7 +116,7 @@ See [platform engineering](/14-devops-and-platform/platform-engineering.md).
 ```
 
 With no answer as to who pays, that is aspiration. Teams have their own priorities, and migrating for
-compliance competes with delivering value — and loses.
+compliance competes with delivering value, and loses.
 
 ```text
 centrally funded                 the most effective, and the most expensive
@@ -135,15 +135,15 @@ systems persists for years, and whoever operates both lives with two ways of doi
 exchange, it competes with no product priority, which is why adoption is high.
 
 The choice between migrating and not migrating should be explicit at the moment of publication, with
-the cost of each estimated — not discovered months later, when the migration isn't happening and
+the cost of each estimated, not discovered months later, when the migration isn't happening and
 nobody knows whether it was expected.
 
 ### A swap rule
 
-The [swap rule](/19-architecture-governance/governance-standards.md) — to add a standard, remove
-another, except for regulatory risk — is defined in standards in operation. For the publisher, the
+The [swap rule](/19-architecture-governance/governance-standards.md) (to add a standard, remove
+another, except for regulatory risk) is defined in standards in operation. For the publisher, the
 effect that matters is a different one: it gives the act of publishing a cost, and it forces whoever
-proposes the new standard to say which existing one is worth less than it — which is rare when
+proposes the new standard to say which existing one is worth less than it. That is rare when
 publishing has no cost.
 
 ### Written by whoever applies it
@@ -179,8 +179,8 @@ adoption is information about the standard.
 
 ## When to Use
 
-- When the publisher can deliver the path along with it — a template, tooling or a working
-  example — and not just the text.
+- When the publisher can deliver the path along with it (a template, tooling or a working
+  example), and not just the text.
 - When there is an answer for the migration: named funding, or the explicit decision that it applies
   only to new systems.
 - When the publishing group has the sponsorship to sustain the recommendation stage and read adoption
@@ -188,25 +188,25 @@ adoption is information about the standard.
 
 ## When Not to Use
 
-**When the decision hasn't recurred enough** to have a known outcome — publishing freezes a choice
+**When the decision hasn't recurred enough** to have a known outcome: publishing freezes a choice
 the teams are still learning to make; the right stage is a recommendation, or nothing.
 
-**When the affected teams use stacks too different** for a single template — the standard will be
+**When the affected teams use stacks too different** for a single template: the standard will be
 written for one of them and wrong for the others, as in the example below; that's a principle.
 
-**When there is no budget to migrate and the risk lies in the existing systems** — the "new systems
+**When there is no budget to migrate and the risk lies in the existing systems**: the "new systems
 only" way out doesn't solve it, and the standard becomes compliance-chasing with no path; what fits
 is a funded project, not a standard.
 
-**When the publisher has no way to measure adoption** — without the measurement, the recommendation
+**When the publisher has no way to measure adoption**: without the measurement, the recommendation
 stage produces no information, and low adoption only shows up as a symptom, years later.
 
 ## Alternatives
 
-- **A template with no written standard** — the property built in, with no document.
-- **A permanent recommendation** — when mandatoriness isn't justified.
-- **Applying it only to new systems** — convergence by renewal, with no migration.
-- **A technology radar** — signals direction without prescribing. See
+- **A template with no written standard**: the property built in, with no document.
+- **A permanent recommendation**: when mandatoriness isn't justified.
+- **Applying it only to new systems**: convergence by renewal, with no migration.
+- **A technology radar**: signals direction without prescribing. See
   [technology radar](/15-enterprise-architecture/technology-radar.md).
 
 The first is the most effective where applicable: a standard that exists only as the template's
@@ -249,7 +249,7 @@ default configuration doesn't have to be remembered or verified.
 
 **Not considering** applying it only to new systems.
 
-**Not linking it to the ADR** that originated the standard — the review loses the context that would say whether it still holds.
+**Not linking it to the ADR** that originated the standard: the review loses the context that would say whether it still holds.
 
 ## Real-World Example
 
@@ -266,7 +266,7 @@ project structure standard          9%
 ```
 
 The first two had a ready template at publication; the last two did not. The two with a template were
-the two with high adoption, and nobody had noticed it, because the institutional reading of low adoption was indiscipline — and
+the two with high adoption, and nobody had noticed it, because the institutional reading of low adoption was indiscipline, and
 the response under way was a compliance-chasing plan per area.
 
 Architecture leadership proposed inverting the reading before chasing anything: interview the teams
@@ -281,25 +281,25 @@ project structure standard  "there's no tool that generates this;
                             two days and delivers nothing to the user"
 ```
 
-Neither cause was discipline. The first was a wrong standard — written by someone who used one
+Neither cause was discipline. The first was a wrong standard, written by someone who used one
 language, for four. The second was a standard with no path and no funding.
 
 What the organization came to require before publishing:
 
-**A ready path** — a template, a migration tool or a working example. Without that, no publication.
+**A ready path**: a template, a migration tool or a working example. Without that, no publication.
 
 **A recommendation stage** of six months, with voluntary adoption measured before making it
 mandatory.
 
-**An explicit answer as to who pays** for migrating the existing systems — including the option not
+**An explicit answer as to who pays** for migrating the existing systems, including the option not
 to migrate, applying the standard only to new systems.
 
 **Written by whoever applies it**, reviewed by whoever has the broad view.
 
 The two problematic standards were handled in opposite ways: the error handling one was rewritten by a
 group with representatives from all four languages, and adoption rose to 78% in eight months. The
-project structure one was downgraded to a recommendation and came to apply only to new services —
-adoption in new services landed at 94%, and the existing ones were not touched.
+project structure one was downgraded to a recommendation and came to apply only to new services.
+Adoption in new services landed at 94%, and the existing ones were not touched.
 
 In the retrospective: neither standard needed compliance-chasing. One was wrong and was fixed; the
 other was right and lacked a path. The planned chasing would have pushed both into silent
@@ -318,8 +318,8 @@ Pick three standards from your organization and check whether each has an adopti
 review date and an answer as to who pays for the migration.
 
 For each gap, note which of the three causes of low adoption it predicts. Where one of the four is
-missing and adoption is high anyway, find out where it came from — an informal template, a dedicated
-owner — before counting on it for the next standard.
+missing and adoption is high anyway, find out where it came from (an informal template, a dedicated
+owner) before counting on it for the next standard.
 
 ## Interview Questions
 

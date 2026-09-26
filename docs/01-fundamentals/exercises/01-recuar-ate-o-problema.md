@@ -2,7 +2,7 @@
 id: 01-recuar-ate-o-problema
 title: "Exercício 01 — Recuar até o Problema"
 sidebar_position: 1
-description: O primeiro exercício do percurso — separar problema de solução, converter desejo em número e enumerar o que ninguém enumerou.
+description: "O primeiro exercício do percurso: separar problema de solução, converter desejo em número e enumerar o que ninguém enumerou."
 doc_type: exercise
 level: 1
 difficulty: iniciante
@@ -14,7 +14,7 @@ objective: >
 prerequisites: [problem-space]
 related: [solution-space, non-functional-requirements, constraints, business-context]
 canonical_for: []
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-30
 ## Contexto
 
 Você entrou há três semanas numa empresa de gestão de frotas. O produto acompanha
-veículos de clientes corporativos — transportadoras, distribuidoras, locadoras — e hoje
+veículos de clientes corporativos (transportadoras, distribuidoras, locadoras) e hoje
 atende 340 empresas, com cerca de 28 mil veículos rastreados.
 
 Na quinta-feira, o diretor de produto chama você e diz:
@@ -35,8 +35,8 @@ O time tem seis engenheiros. Existe um sistema funcionando, que recebe posição
 telemetria a cada dois minutos e grava num banco relacional. O prazo mencionado é "antes
 da feira do setor", em cinco meses.
 
-Este é o primeiro exercício do percurso, e ele não é sobre desenhar arquitetura. É sobre o
-que acontece **antes** de desenhar — e é a etapa que decide se o desenho vai resolver o
+Este é o primeiro exercício do percurso, e ele não trata de desenhar arquitetura, e sim do
+que acontece **antes** de desenhar: a etapa que decide se o desenho vai resolver o
 problema certo.
 
 ## Requisitos
@@ -62,7 +62,7 @@ orçamento                não foi mencionado, e ninguém perguntou
 ```
 
 A última linha é a mais importante do enunciado. Um custo não mencionado não é um custo
-inexistente — é um custo que ninguém verificou, e ele costuma aparecer depois da decisão.
+inexistente: é um custo que ninguém verificou, e ele costuma aparecer depois da decisão.
 
 ## Sua Tarefa
 
@@ -111,7 +111,7 @@ Sua resposta está boa se:
 
 - **O enunciado do problema não contém a palavra "dashboard".** Se contiver, você
   documentou a solução do diretor, não o problema dele. O problema provavelmente é algo
-  como *"operadores não sabem quais veículos exigem ação agora"* — e alerta, não painel, é
+  como *"operadores não sabem quais veículos exigem ação agora"*. E alerta, não painel, é
   uma resposta possível para isso.
 
 - **Os requisitos têm consequência, não só número.** "P95 abaixo de 400 ms" é melhor que
@@ -132,7 +132,7 @@ Sua resposta está boa se:
   WebSocket para transmitir dado velho.
 
 Sua resposta está fraca se ela contém uma arquitetura. Não porque arquitetura seja errada,
-mas porque não era o pedido — e produzir desenho antes de ter problema declarado é
+mas porque não era o pedido. E produzir desenho antes de ter problema declarado é
 exatamente o hábito que este percurso existe para desfazer.
 
 ## Discussão
@@ -146,7 +146,7 @@ arquitetura inteira; a distância entre "um dia" e "dois minutos" já está reso
 
 **A frequência da telemetria é um teto.** Dado que chega a cada dois minutos não fica mais
 fresco por ser transmitido mais rápido. Quem propõe WebSocket aqui está otimizando o
-trecho que não é o gargalo — e o gargalo, se existir, está no dispositivo embarcado e no
+trecho que não é o gargalo. O gargalo, se existir, está no dispositivo embarcado e no
 plano de dados dele, que custam ordens de grandeza mais para mudar.
 
 **A restrição que era preferência é o prazo.** "Antes da feira" parece temporal e externo,
@@ -157,11 +157,11 @@ São projetos diferentes, e o segundo pode acontecer depois.
 **A distribuição dos clientes importa mais que a média.** A mediana tem 26 veículos; a
 maior tem 4.100. Uma solução dimensionada pela média serve mal a ambos: é sobra para os
 outros 339 clientes e falta para um. Isso sugere que a pergunta certa não é "quantos
-veículos suportar", e sim "o comportamento do cliente grande é o mesmo do pequeno?" — e
+veículos suportar", e sim "o comportamento do cliente grande é o mesmo do pequeno?". E
 frequentemente não é: quem tem 4.100 veículos não olha um mapa, olha exceções.
 
 **O que "confiável" provavelmente significa aqui.** Não é disponibilidade do dashboard. É
-que a posição mostrada não esteja errada — um veículo exibido em lugar onde não está causa
+que a posição mostrada não esteja errada: um veículo exibido em lugar onde não está causa
 uma decisão errada, o que é pior que nenhuma informação. Isso desloca o requisito de
 disponibilidade para correção e frescor declarados, o que muda a arquitetura: passa a ser
 necessário exibir a idade do dado, e não apenas o dado.
@@ -171,14 +171,14 @@ qualquer outro, e frequentemente o mais restritivo. Seis engenheiros sem ningué
 a dados é uma restrição organizacional dura: uma solução que exija operar um sistema de
 streaming não vai existir, independentemente de estar tecnicamente certa.
 
-**O desfecho mais comum deste exercício na prática.** O recuo produz um alerta — não um
-dashboard — para uma lista curta de condições que exigem ação, com o painel existente
+**O desfecho mais comum deste exercício na prática.** O recuo produz um alerta, não um
+dashboard, para uma lista curta de condições que exigem ação, com o painel existente
 mantido para consulta. Custa uma fração, resolve o problema declarado, e sobra tempo para
 descobrir se o dashboard era necessário.
 
 Vale notar o que o recuo **não** faz: ele não rejeita o dashboard. Se as respostas
 mostrarem que operadores de fato acompanham telas continuamente e que a decisão muda com
-segundos de atraso, o dashboard vence — e vence agora por comparação, com requisitos
+segundos de atraso, o dashboard vence, e vence agora por comparação, com requisitos
 verificáveis, em vez de por ter sido a primeira coisa dita.
 
 :::

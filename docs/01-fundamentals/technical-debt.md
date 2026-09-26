@@ -2,7 +2,7 @@
 id: technical-debt
 title: Dívida Técnica
 sidebar_position: 18
-description: Custo futuro assumido conscientemente — e por que quase tudo que recebe esse nome não é dívida.
+description: Custo futuro assumido conscientemente, e por que quase tudo que recebe esse nome não é dívida.
 doc_type: concept
 level: 1
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [dívida técnica, technical debt]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -26,7 +26,7 @@ agora em vez da adequada.
 
 A metáfora é de Ward Cunningham e tem uma parte que quase sempre se perde: dívida
 pressupõe **decisão consciente** e **intenção de pagar**. Sem os dois, não é
-dívida — é trabalho mal feito, que é outra coisa e se trata de outro jeito.
+dívida: é trabalho mal feito, que é outra coisa e se trata de outro jeito.
 
 ## Problema
 
@@ -42,7 +42,7 @@ respeitável. Chamar de dívida o que foi feito por desconhecimento transforma u
 problema de capacidade em uma escolha estratégica que ninguém fez.
 
 A pergunta que separa os casos: **alguém decidiu isso sabendo do custo?** Se sim,
-é dívida. Se não, é outra coisa — e o que fazer com ela depende de por que ninguém
+é dívida. Se não, é outra coisa, e o que fazer com ela depende de por que ninguém
 decidiu. Faltou competência, resolve-se aprendendo; faltou conhecimento que só o
 trabalho dava, refatora-se com o que se aprendeu.
 
@@ -60,9 +60,9 @@ imprudente.
 
 Para Fowler, as quatro células são dívida técnica: o quadrante classifica tipos,
 não separa o que conta como dívida. Este documento diverge e mantém o sentido
-estreito de Cunningham — só o quadrante superior esquerdo é dívida. O inferior
+estreito de Cunningham: só o quadrante superior esquerdo é dívida. O inferior
 direito é falta de competência. O superior direito é imprudência. O inferior
-esquerdo é aprendizado — e é inevitável e saudável.
+esquerdo é aprendizado, e é inevitável e saudável.
 
 Tratar os quatro com a mesma palavra impede tratar cada um com a resposta
 correta.
@@ -70,13 +70,13 @@ correta.
 ### Juros
 
 O custo da dívida não é o esforço de corrigi-la. São os **juros**: o custo extra
-que ela cobra enquanto existe — em cada mudança que passa por ela e em cada
+que ela cobra enquanto existe, em cada mudança que passa por ela e em cada
 operação que ela onera. Passo manual antes de todo deploy, plantão acordado pelo
 mesmo alarme, dependência vulnerável que precisa ser vigiada: isso é juro
 cobrado sem que ninguém toque no código.
 
 Isso muda a decisão de quando pagar. Dívida em código que ninguém toca e que nada
-custa para operar tem juros zero — é dívida sem custo corrente, e pagá-la é gasto
+custa para operar tem juros zero: é dívida sem custo corrente, e pagá-la é gasto
 puro. Dívida no caminho de toda mudança tem juros altos e se paga rápido.
 
 A pergunta operacional não é "isto está ruim?", e sim **"quanto isto está nos
@@ -86,8 +86,8 @@ caminho crítico.
 ### Dívida arquitetural
 
 Dívida no nível de código é local e paga-se com refatoração. Dívida arquitetural
-— uma fronteira no lugar errado, um modelo de dados inadequado, um acoplamento
-estrutural — não se paga incrementalmente com a mesma facilidade.
+(uma fronteira no lugar errado, um modelo de dados inadequado, um acoplamento
+estrutural) não se paga incrementalmente com a mesma facilidade.
 
 Os juros dela também são maiores: afetam toda mudança que atravessa a fronteira
 errada, não apenas quem toca aquele arquivo.
@@ -124,7 +124,7 @@ Assumir dívida deliberadamente faz sentido quando:
   concorrente.
 - **O código será descartado, com data e dono.** Dívida em algo que de fato for
   jogado fora não chega a vencer. Sem data e sem responsável, "provavelmente será
-  descartado" é expectativa — e o protótipo que virou produção é o primeiro modo
+  descartado" é expectativa. E o protótipo que virou produção é o primeiro modo
   de falha desta página.
 - **Os juros são baixos e conhecidos.** Atalho num módulo periférico e estável.
 
@@ -138,24 +138,24 @@ contrato público tem juros que crescem com o sistema e é a mais cara de pagar.
 Atalho ali raramente compensa.
 
 **Quando o "depois" é estruturalmente improvável.** Se o time nunca teve espaço
-para pagar dívida anterior, assumir mais não é financiamento — é acumulação.
+para pagar dívida anterior, assumir mais não é financiamento: é acumulação.
 
 **Quando a alternativa correta custa pouco mais.** Se fazer certo custa dois dias
 a mais, não há dívida a discutir.
 
 ## Alternativas
 
-- **Reduzir escopo** — entregar menos, bem feito. Vence quando a janela exige
+- **Reduzir escopo**: entregar menos, bem feito. Vence quando a janela exige
   *algo* na data e o escopo é divisível: o que entra vai sem atalho, o resto
-  espera. Perde quando o escopo é indivisível — meia obrigação regulatória não
+  espera. Perde quando o escopo é indivisível: meia obrigação regulatória não
   cumpre nada.
-- **Descartar explicitamente** — construir sabendo que será jogado fora, sem
+- **Descartar explicitamente**: construir sabendo que será jogado fora, sem
   fingir que vira produção. Vence quando o objetivo é responder uma pergunta e a
   resposta chega em semanas. Perde quando ninguém banca o descarte, e aí é dívida
   com outro nome.
-- **Negociar prazo** — a alternativa que engenharia menos exercita. Vence quando a
+- **Negociar prazo**: a alternativa que engenharia menos exercita. Vence quando a
   data é interna e o custo do atraso é menor que os juros previstos. Perde diante
-  de consequência externa — evento, contrato, regulador — em que a data não se
+  de consequência externa (evento, contrato, regulador) em que a data não se
   move.
 
 ## Trade-offs
@@ -182,7 +182,7 @@ sobre o atalho, e removê-lo passa a exigir tocar tudo o que veio depois.
 corrigi-la, e o contorno vira dívida também. O custo cresce de forma acelerada.
 
 **Dívida invisível.** Não registrada, não medida, percebida só como "o sistema
-está lento para mudar" — sem causa identificável.
+está lento para mudar", sem causa identificável.
 
 **Refatoração sem critério.** Pagar a dívida errada. Times gastam trimestres
 melhorando código de juros baixos porque era o mais visível ou o mais
@@ -194,7 +194,7 @@ desconfortável.
 por desconhecimento.
 
 **Priorizar pelo que incomoda mais.** O código mais feio raramente é o mais caro.
-Priorize pelo que aparece no caminho de mudanças frequentes — o histórico de
+Priorize pelo que aparece no caminho de mudanças frequentes: o histórico de
 commits informa isso melhor que a impressão.
 
 **Pedir "um sprint de dívida técnica".** Trata sintoma. Sem entender por que a
@@ -206,15 +206,15 @@ dívida se acumula, ela volta na mesma taxa.
 
 Um time precisava lançar cobrança recorrente em seis semanas para uma janela
 comercial. O modelo adequado exigia máquina de estados de assinatura, tratamento
-de tentativas e reconciliação — estimados em onze semanas.
+de tentativas e reconciliação, estimados em onze semanas.
 
 A dívida assumida: um campo de status simples, sem histórico, com tentativa de
 cobrança em processo agendado sem retentativa estruturada.
 
 **O que foi feito diferente do usual:** registraram um ADR com o que foi feito, o
-que teria sido feito, e a condição de pagamento — *"quando o volume passar de
+que teria sido feito, e a condição de pagamento (*"quando o volume passar de
 5 mil assinaturas ativas ou quando a taxa de falha de cobrança exigir análise por
-tentativa"*.
+tentativa"*).
 
 Quatorze meses depois, a segunda condição se materializou. O time tinha o
 registro, a alternativa desenhada, e o argumento pronto para priorizar. A
@@ -228,10 +228,10 @@ A diferença não estava na qualidade da decisão original. Estava no registro.
 
 ## Conceitos Relacionados
 
-- [Complexidade](/01-fundamentals/complexity.md) — a forma que a dívida acumulada assume.
-- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md) — como o sistema muda ao
+- [Complexidade](/01-fundamentals/complexity.md): a forma que a dívida acumulada assume.
+- [Evolução da Arquitetura](/01-fundamentals/architecture-evolution.md): como o sistema muda ao
   longo do tempo.
-- [ADRs](/18-architecture-decisions/what-is-an-adr.md) — onde a dívida deliberada é
+- [ADRs](/18-architecture-decisions/what-is-an-adr.md): onde a dívida deliberada é
   registrada.
 
 ## Exercício Prático
@@ -252,8 +252,8 @@ custo extra por causa daquilo? Os de juros zero podem ficar.
 
 ## Para Aprofundar
 
-- Cunningham, Ward. *The WyCash Portfolio Management System*, OOPSLA 1992 — a
+- Cunningham, Ward. *The WyCash Portfolio Management System*, OOPSLA 1992. A
   metáfora original.
 - Fowler, Martin. *Technical Debt Quadrant*, 2009.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — medir
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Medir
   juros pelo histórico de mudança.

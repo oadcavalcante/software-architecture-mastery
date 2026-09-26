@@ -2,7 +2,7 @@
 id: queue-based-scaling
 title: Escala Dirigida por Fila
 sidebar_position: 9
-description: Desacoplar taxa de chegada de taxa de processamento — e escalar pelo indicador que reage antes.
+description: Desacoplar taxa de chegada de taxa de processamento, e escalar pelo indicador que reage antes.
 doc_type: pattern
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [async-processing]
 related: [async-processing, horizontal-scaling, scaling-capacity-planning]
 canonical_for: [escala dirigida por fila, profundidade de fila, amortecedor de carga, descarte por prazo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -27,7 +27,7 @@ processamento**.
 Isso resolve o problema que capacidade não resolve bem: picos curtos e intensos, que
 duram menos que o tempo de provisionar máquinas.
 
-E ela oferece um indicador que reage antes de qualquer métrica de recurso — a
+E ela oferece um indicador que reage antes de qualquer métrica de recurso: a
 **profundidade da fila**.
 
 ## Problema
@@ -36,7 +36,7 @@ Escalonamento automático por CPU é reativo e lento: a métrica sobe, o alarme 
 capacidade sobe, a aplicação inicia. Ver
 [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
-O intervalo é de minutos. Muitos picos duram menos que isso — e quando a capacidade
+O intervalo é de minutos. Muitos picos duram menos que isso, e quando a capacidade
 chega, o pico passou.
 
 Sem fila, o excesso vira erro: requisições recusadas, timeouts, retentativas que
@@ -60,7 +60,7 @@ chegada 500/s, processamento 300/s, sustentado
 ```
 
 Ver [processamento assíncrono](/11-scalability/async-processing.md). A fila resolve pico, não
-sobrecarga sustentada — e usá-la para a segunda transforma um erro imediato num atraso
+sobrecarga sustentada, e usá-la para a segunda transforma um erro imediato num atraso
 crescente que ninguém percebe.
 
 A verificação: a **capacidade média de processamento precisa exceder a taxa média de
@@ -74,7 +74,7 @@ latência             idem
 profundidade da fila reage no instante em que a chegada supera o processamento
 ```
 
-Escalonar pela profundidade — ou, melhor, pela **idade da mensagem mais antiga** — dá
+Escalonar pela profundidade (ou, melhor, pela **idade da mensagem mais antiga**) dá
 minutos de antecedência em relação a métricas de recurso.
 
 A idade é preferível à contagem porque ela se traduz diretamente em experiência: "a
@@ -85,7 +85,7 @@ dependendo da capacidade de consumo.
 
 ### Teto e descarte não são opcionais
 
-Uma fila sem limite acumula até esgotar o armazenamento — e a recuperação de uma fila
+Uma fila sem limite acumula até esgotar o armazenamento, e a recuperação de uma fila
 com milhões de mensagens é lenta.
 
 Três controles:
@@ -110,7 +110,7 @@ Uma única fila processa em ordem de chegada. Numa recuperação após incidente
 significa que o trabalho novo espera atrás de horas de acumulado.
 
 Filas separadas por prioridade, com consumidores dedicados ou com proporção definida de
-consumo, resolvem — e a decisão de quais operações são prioritárias precisa vir do
+consumo, resolvem, e a decisão de quais operações são prioritárias precisa vir do
 negócio.
 
 O erro comum é criar prioridade sem reservar capacidade para a fila de baixa
@@ -130,14 +130,14 @@ chaves. Ver [ordenação](/06-distributed-systems/ordering.md).
 gargalo.
 
 **Número de partições.** Em sistemas particionados, o paralelismo máximo é o número de
-partições — adicionar consumidores além disso não faz nada.
+partições: adicionar consumidores além disso não faz nada.
 
 O terceiro é o mais frequente e o mais surpreendente: dobrar os consumidores sem
 aumentar as partições não muda nada.
 
 ### Escalar a zero é possível e tem custo
 
-Quando a fila está vazia, os consumidores podem ser desligados — o que economiza em
+Quando a fila está vazia, os consumidores podem ser desligados, o que economiza em
 cargas esporádicas.
 
 O custo é a latência de retomada: a primeira mensagem depois de um período ocioso
@@ -149,7 +149,7 @@ resposta rápida, um mínimo de consumidores sempre ativos é necessário.
 
 ## Modelo Mental
 
-**A fila converte excesso em atraso.** Ela compra tempo para a capacidade chegar — e
+**A fila converte excesso em atraso.** Ela compra tempo para a capacidade chegar, mas
 não substitui capacidade.
 
 ## Quando Usar
@@ -177,13 +177,13 @@ não substitui capacidade.
 
 ## Alternativas
 
-- **Capacidade provisionada antes do pico** — quando ele é previsível, escalonamento
+- **Capacidade provisionada antes do pico**: quando ele é previsível, escalonamento
   programado é melhor que qualquer reação. Ver
   [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
-- **Limite de taxa** — recusa na borda, em vez de acumular. Ver
+- **Limite de taxa**: recusa na borda, em vez de acumular. Ver
   [rate limiting](/05-system-design/rate-limiting.md).
-- **Descarte de carga** — rejeitar o menos importante para preservar o essencial.
-- **Processamento em lote** — agrupar reduz o custo por item.
+- **Descarte de carga**: rejeitar o menos importante para preservar o essencial.
+- **Processamento em lote**: agrupar reduz o custo por item.
 
 ## Trade-offs
 
@@ -222,19 +222,19 @@ repetições.
 
 **Usar fila para sobrecarga sustentada.** Fila absorve pico; se a entrada supera a saída em média, ela só transforma indisponibilidade imediata em atraso crescente.
 
-**Não definir teto.** Escala automática por profundidade sem limite responde a um produtor defeituoso subindo consumidores até estourar a cota — ou a fatura.
+**Não definir teto.** Escala automática por profundidade sem limite responde a um produtor defeituoso subindo consumidores até estourar a cota, ou a fatura.
 
 **Não descartar trabalho expirado.** Processar a mensagem cuja janela de utilidade passou consome capacidade que o trabalho ainda útil precisa, e prolonga a recuperação.
 
 **Escalar por CPU quando a profundidade está disponível.** Consumidor que espera por rede tem CPU baixa com fila crescendo. A profundidade da fila é o sinal direto; CPU é um substituto ruim.
 
-**Não reservar capacidade para baixa prioridade.** Sem reserva, um pico de alta prioridade deixa a fila secundária parada por horas — e ela costuma conter o que vira reclamação depois.
+**Não reservar capacidade para baixa prioridade.** Sem reserva, um pico de alta prioridade deixa a fila secundária parada por horas, e ela costuma conter o que vira reclamação depois.
 
 **Adicionar consumidores sem aumentar partições.** Em log particionado, o paralelismo é limitado pelo número de partições. Consumidores além disso ficam ociosos e o custo sobe sem ganho.
 
 ## Exemplo Real
 
-Uma plataforma de entrega de alimentos tinha picos previsíveis — almoço e jantar — com
+Uma plataforma de entrega de alimentos tinha picos previsíveis (almoço e jantar) com
 volume oito vezes maior que a média.
 
 O escalonamento automático por CPU não acompanhava: o pico do almoço subia em cerca de
@@ -258,13 +258,13 @@ painel do restaurante em média; relatórios e indexação em baixa. Com 20% do 
 reservado para a baixa, para que ela não parasse.
 
 **Descarte por prazo.** Notificações de status com mais de 10 minutos passaram a ser
-descartadas — a informação já não era útil, e processá-las consumia capacidade
+descartadas: a informação já não era útil, e processá-las consumia capacidade
 necessária para as atuais.
 
 Dois problemas apareceram:
 
 **Partições insuficientes.** O escalonamento subia até 40 consumidores, e a vazão parava
-de crescer em 12 — o número de partições do tópico. Descoberto ao comparar o número de
+de crescer em 12: o número de partições do tópico. Descoberto ao comparar o número de
 consumidores com a vazão. As partições foram aumentadas para 48.
 
 **Recuperação lenta.** Numa indisponibilidade de 40 minutos do serviço de pagamento, a
@@ -273,20 +273,20 @@ novos entravam atrás. A priorização por prazo de entrega foi adicionada: pedi
 entrega mais próxima são processados primeiro, independentemente da ordem de chegada.
 
 O aprendizado que ficou: o escalonamento programado resolveu mais que a fila para os
-picos conhecidos. A fila continua sendo essencial — para o imprevisto e para a
-recuperação — e a expectativa inicial, de que ela sozinha resolveria os picos diários,
+picos conhecidos. A fila continua sendo essencial (para o imprevisto e para a
+recuperação), e a expectativa inicial, de que ela sozinha resolveria os picos diários,
 estava errada.
 
 ## Conceitos Relacionados
 
 - [Processamento Assíncrono](/11-scalability/async-processing.md).
-- [Backpressure](/06-distributed-systems/backpressure.md) — o teto.
-- [Escala Horizontal](/11-scalability/horizontal-scaling.md) — o consumidor.
-- [Filas](/05-system-design/queues.md) — os fundamentos.
+- [Backpressure](/06-distributed-systems/backpressure.md): o teto.
+- [Escala Horizontal](/11-scalability/horizontal-scaling.md): o consumidor.
+- [Filas](/05-system-design/queues.md): os fundamentos.
 
 ## Exercício Prático
 
-Se você tem filas, verifique se o escalonamento usa a profundidade ou a CPU — e se
+Se você tem filas, verifique se o escalonamento usa a profundidade ou a CPU, e se
 existe alerta sobre a idade da mensagem mais antiga.
 
 Depois compare o número de consumidores com o número de partições. Se os consumidores

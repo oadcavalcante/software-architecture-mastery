@@ -2,7 +2,7 @@
 id: distributed-locks
 title: Distributed Locks
 sidebar_position: 18
-description: Coordinating exclusive access between processes — and why the lock alone does not guarantee exclusion.
+description: Coordinating exclusive access between processes, and why the lock alone does not guarantee exclusion.
 doc_type: concept
 level: 4
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consensus]
 related: [leader-election, consensus, idempotency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -30,12 +30,12 @@ eliminate it.
 ## Problem
 
 A local lock works because the operating system guarantees only one thread holds it, and because the
-thread holding it is alive by definition — if it dies, the process dies and the lock is released.
+thread holding it is alive by definition: if it dies, the process dies and the lock is released.
 
 Distributed, neither of those holds.
 
 The holder can become unreachable without dying. If the lock does not expire, it stays held
-indefinitely. If it expires, another process acquires it — and the first one **can keep operating**,
+indefinitely. If it expires, another process acquires it, and the first one **can keep operating**,
 without knowing it lost.
 
 ```mermaid
@@ -64,7 +64,7 @@ Both writes happen. The lock worked as specified and mutual exclusion was not ob
 With no deadline, a holder that dies locks the resource forever. With a deadline, the window above
 exists.
 
-There is no deadline value that eliminates the problem — only values that make the window more or
+There is no deadline value that eliminates the problem, only values that make the window more or
 less likely. Garbage collection pauses, virtual machine suspension, disk slowness and network
 partitions produce delays no reasonable deadline covers.
 
@@ -87,7 +87,7 @@ A returns  → writes with token 33 → the resource rejects it
 
 That works even when A does not know it lost, because the check does not depend on A.
 
-The requirement is that the resource participates — that it knows how to compare tokens. Storage
+The requirement is that the resource participates: that it knows how to compare tokens. Storage
 that accepts any write cannot be protected that way, and then the lock is only a probabilistic
 optimization.
 
@@ -95,7 +95,7 @@ optimization.
 
 The distinction that decides how much rigor is necessary:
 
-**For efficiency.** Avoiding duplicated work. If two processes execute, the result is waste — not
+**For efficiency.** Avoiding duplicated work. If two processes execute, the result is waste, not
 incorrectness. Here a simple lock with a deadline suffices, and fencing is unnecessary.
 
 **For correctness.** Two executions produce an invalid state. Here a lock with a deadline **is not
@@ -112,7 +112,7 @@ Before coordinating, three questions:
 See [idempotency](/06-distributed-systems/idempotency.md).
 
 **Can the resource enforce the exclusion?** A uniqueness constraint in the database, or a conditional
-update, guarantees correctness with no external lock — and the database already handles concurrency
+update, guarantees correctness with no external lock, and the database already handles concurrency
 very well.
 
 **Can the operation be partitioned?** If each process handles a disjoint subset, there is no
@@ -122,7 +122,7 @@ The third is the most elegant and the least considered.
 
 ### Where the lock lives matters
 
-A lock in a system with no consensus — a single-node distributed cache, for example — can be lost
+A lock in a system with no consensus (a single-node distributed cache, for example) can be lost
 during a node failure, allowing two holders.
 
 A lock in a system with consensus is reliable regarding acquisition, and it remains subject to the
@@ -136,7 +136,7 @@ deadline problem.
 
 - Coordination for efficiency, avoiding duplicated work.
 - The resource offers no exclusion mechanism of its own.
-- The operation is one-off, not a continuous leadership — for that, see
+- The operation is one-off, not a continuous leadership. For that, see
   [leader election](/06-distributed-systems/leader-election.md).
 
 ## When Not to Use
@@ -160,11 +160,11 @@ better guarantees.
 
 ## Alternatives
 
-- **Uniqueness constraint** — the database enforces it.
-- **Conditional update** — "update if the version is X", which is optimistic locking.
-- **Idempotency** — allowing multiple execution.
-- **Partitioning** — eliminating the concurrency.
-- **[Leader election](/06-distributed-systems/leader-election.md)** — for continuous coordination
+- **Uniqueness constraint**: the database enforces it.
+- **Conditional update**: "update if the version is X", which is optimistic locking.
+- **Idempotency**: allowing multiple execution.
+- **Partitioning**: eliminating the concurrency.
+- **[Leader election](/06-distributed-systems/leader-election.md)**: for continuous coordination
   instead of one-off.
 
 ## Trade-offs
@@ -215,15 +215,15 @@ the instance. The deadline expired and the renewal did not happen.
 
 Another instance acquired the lock and started importing the same file.
 
-The first came back from the pause, renewed the lock — the service accepted it, because the renewal
-did not check whether it was still the holder — and continued.
+The first came back from the pause, renewed the lock (the service accepted it, because the renewal
+did not check whether it was still the holder) and continued.
 
 Two instances imported the same file. 12 thousand duplicated records.
 
 Three fixes, and the order reveals the reasoning.
 
 **The first attempt** was to increase the deadline to 5 minutes. That reduced the probability and did
-not eliminate the problem — it merely required a longer pause.
+not eliminate the problem: it merely required a longer pause.
 
 **The second** was fixing the renewal: checking ownership before renewing, with an atomic operation.
 That prevented the specific case and does not prevent the instance from continuing to write after
@@ -233,25 +233,25 @@ losing the lock.
 record came to have a key derived from the file and the line, with a uniqueness constraint in the
 database. Importing twice comes to insert once.
 
-The lock stayed, now explicitly as an efficiency optimization — avoiding duplicated work — and not as
+The lock stayed, now explicitly as an efficiency optimization (avoiding duplicated work) and not as
 a correctness guarantee.
 
 In retrospect: they spent two weeks tuning deadlines for a problem that had no deadline-based
-solution. The right question — "what happens if it imports twice?" — came later, and the answer took
+solution. The right question, "what happens if it imports twice?", came later, and the answer took
 three days.
 
 ## Related Concepts
 
-- [Leader Election](/06-distributed-systems/leader-election.md) — the same problem, with fencing.
-- [Consensus](/06-distributed-systems/consensus.md) — what makes the acquisition reliable.
-- [Idempotency](/06-distributed-systems/idempotency.md) — the alternative that usually wins.
+- [Leader Election](/06-distributed-systems/leader-election.md): the same problem, with fencing.
+- [Consensus](/06-distributed-systems/consensus.md): what makes the acquisition reliable.
+- [Idempotency](/06-distributed-systems/idempotency.md): the alternative that usually wins.
 - [Partial Failure](/06-distributed-systems/partial-failure.md).
 
 ## Practical Exercise
 
 If your system uses distributed locks, classify each use: is it for efficiency or for correctness?
 
-For the correctness ones, check whether fencing exists. If it does not, exclusion is not guaranteed —
+For the correctness ones, check whether fencing exists. If it does not, exclusion is not guaranteed,
 and it is worth asking whether idempotency would solve it.
 
 ## Interview Questions
@@ -262,5 +262,5 @@ and it is worth asking whether idempotency would solve it.
 
 ## Further Reading
 
-- Kleppmann, Martin. *How to do distributed locking*, 2016 — the reference article on the problem.
+- Kleppmann, Martin. *How to do distributed locking*, 2016. The reference article on the problem.
 - Burrows, Mike. *The Chubby Lock Service*. OSDI, 2006.

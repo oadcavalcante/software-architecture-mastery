@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [legacy-modernization-case, logistics, saas-platform]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,8 @@ last_reviewed: 2026-08-31
 Read the context, requirements and constraints. **Stop before the architecture options** and
 sketch your own in twenty minutes. Only then continue.
 
-The value is not in agreeing with the text's decision — it is in discovering which constraint
-you hadn't considered.
+The value is in discovering which constraint you hadn't considered,
+not in agreeing with the text's decision.
 
 This case's numbers are **illustrative**: plausible and internally
 consistent, not measured in a named system. What is learned is the reasoning they
@@ -45,7 +45,7 @@ suite covers catalog, cart, order, payment, promotions and an admin portal.
 
 Three business pressures motivate revisiting the architecture:
 
-**Omnichannel.** The company wants to sell store inventory through the site — "pick up in
+**Omnichannel.** The company wants to sell store inventory through the site: "pick up in
 store", "ship from the nearest store" and "buy online, exchange in store". Today, digital
 inventory is a single distribution center, and the 1,400 stores are invisible to the site.
 Competitors already offer this, and the commercial team estimates a 12% to 18% increase in
@@ -56,10 +56,10 @@ maintains the suite. The average time from a business request to production is *
 The product team has 40 items queued for more than six months.
 
 **Licensing cost.** The suite's contract was repriced in 2025 to $1.28 million a year, tied to
-revenue — the bill grows with the channel's success.
+revenue: the bill grows with the channel's success.
 
 There is no scale pressure: the suite handles the current volume. The problem is one of
-**evolution**, not capacity — and that distinction guides the whole analysis.
+**evolution**, not capacity, and that distinction guides the whole analysis.
 
 ## Functional Requirements
 
@@ -120,7 +120,7 @@ data                the catalog has 380 thousand SKUs and 9 years of order
 ```
 
 The constraint of an ERP with no reservation API is the most limiting and the one that
-appears least in the initial discussions — it defines the design of all of FR-2.
+appears least in the initial discussions: it defines the design of all of FR-2.
 
 ## Capacity Estimates
 
@@ -196,7 +196,7 @@ business risk              high — the queue of 40 items stays stalled
 
 The suite supports availability customization, but its inventory model is single-warehouse.
 Extending it to 1,400 origins would require altering the core, which is the part with the
-tightest contractual restriction on customization — and the vendor quoted the development as a
+tightest contractual restriction on customization, and the vendor quoted the development as a
 project of its own.
 
 ### Option B — Complete rebuild with a big-bang switchover
@@ -246,7 +246,7 @@ defined **before** the evaluation:
 | **Weighted total** | | **5.2** | **4.4** | **7.3** |
 
 The weights deserve an explanation. Time to the new features and reduction in change lead
-time add up to 50% because **they are the project** — the company is not solving a technical
+time add up to 50% because **they are the project**: the company is not solving a technical
 problem, it is solving a product queue. Risk of disruption weighs 20% because the digital
 channel is the only part of the business that is growing.
 
@@ -267,12 +267,12 @@ team capability at 30%                    5.8    4.1    7.0
 
 Option C wins in every scenario tested, which increases confidence in the decision. And the
 analysis reveals something about the other two: Option A gets close when risk dominates, and
-Option B gets close in no scenario — it drops instead, because all of its value sits in the one
+Option B gets close in no scenario. It drops instead, because all of its value sits in the one
 criterion the project prizes most. The check serves precisely for that: showing the evaluation
 was not biased to produce the desired result.
 
 One criterion considered and **discarded** from the matrix: "architectural modernity". It was
-proposed and refused for not corresponding to any verifiable business outcome — and for being
+proposed and refused for not corresponding to any verifiable business outcome, and for being
 exactly the kind of criterion that favors a rebuild without anyone having to defend why.
 
 ## Decision
@@ -290,26 +290,26 @@ payment             low            medium        3
 admin portal        low            high          6 (last)
 ```
 
-The first extraction is the one that **doesn't exist** — omnichannel availability is a new
+The first extraction is the one that **doesn't exist**: omnichannel availability is a new
 capability, with no legacy code to migrate and no regression risk. It delivers FR-1 to FR-3,
 validates the extraction pattern and produces a business result in four months.
 
 Payment comes third despite its low rate of change, because it is the module with the
 greatest license savings when it leaves the contractual scope.
 
-Promotions, which has the highest rate of change, comes fourth for being the most coupled —
+Promotions, which has the highest rate of change, comes fourth for being the most coupled:
 extracting it early would require maintaining a complex bidirectional bridge with the suite's
 cart.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the change lead time requirement didn't exist — if the product queue
+**Option A would win if** the change lead time requirement didn't exist: if the product queue
 were short and the company only needed omnichannel. In that scenario, 8 months of
 customization with low risk is the right answer, and the license savings alone wouldn't
 justify the project.
 
 **Option B would win if** the suite's contract ended in 2026 with no possible renewal, or if
-the suite couldn't handle the volume — cases in which coexistence stops being an option. It
+the suite couldn't handle the volume: cases in which coexistence stops being an option. It
 would also win with a team of 45 people with prior experience in commerce platforms, in which
 30 months would become 16.
 
@@ -356,8 +356,8 @@ The **ERP adapter** deserves emphasis: it exists because the ERP has no reservat
 it concentrates all the translation between Vertena's inventory model and the vendor's. See
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
-The architecture is a **modular monolith** for catalog, promotions, cart and order — the four
-share a domain model and change together — with availability, reservation and payment as
+The architecture is a **modular monolith** for catalog, promotions, cart and order (the four
+share a domain model and change together), with availability, reservation and payment as
 separate services for having distinct load and availability profiles.
 
 Seven deployable units, not twenty. See
@@ -371,7 +371,7 @@ cross access. The decision was made with the
 known, but the commercial team asks unforeseen questions all the time, and the volume is far
 below the threshold at which relational requires work.
 
-The attributes that vary by category (FR-5) use a `jsonb` column with GIN indexes — which
+The attributes that vary by category (FR-5) use a `jsonb` column with GIN indexes. That
 eliminates the need for a second database.
 
 **Inventory model.**
@@ -387,7 +387,7 @@ It is the storefront's source, with a window of up to 3 min. The reservation tab
 strong source: a confirmed reservation is strongly consistent, no exceptions.
 
 That separation is the answer to the conflict between FR-1 (storefront, tolerant) and FR-2
-(reservation, intolerant) — two requirements over the same data with opposite consistency
+(reservation, intolerant): two requirements over the same data with opposite consistency
 needs. See
 [strong vs. eventual consistency](/20-trade-offs/strong-vs-eventual-consistency.md).
 
@@ -416,7 +416,7 @@ reconciliation      daily, comparing the ERP position with the calculated
 ```
 
 The accepted consequence: for up to 90 seconds, the position may be out of date. That is
-absorbed by a **safety margin per SKU** — high-turnover SKUs reserve against a position
+absorbed by a **safety margin per SKU**: high-turnover SKUs reserve against a position
 reduced by one unit, and low-turnover SKUs against the full position.
 
 That margin is the decision that makes the design viable despite the ERP's limitation, and it
@@ -439,7 +439,7 @@ The complete lifecycle of a store reservation, the system's most delicate flow:
 Path 5b required the most product design: a stockout at the store cannot become an order
 cancellation, because the customer has already paid and the goods exist at another origin.
 The automatic rerouting, with a notice and a new lead time, was built together with store
-operations — and it is why the stockout cancellation rate came in at 0.7%, against the 4%
+operations, and it is why the stockout cancellation rate came in at 0.7%, against the 4%
 projected in the initial design that assumed simple cancellation.
 
 **With payment acquirers.** Asynchronous, with synchronous acceptance. The order is accepted
@@ -447,8 +447,8 @@ in under 400 ms and authorization happens in the background, because composed av
 with three external acquirers doesn't reach the 99.95% requirement in synchronous mode. See
 [sync vs. async](/20-trade-offs/sync-vs-async.md).
 
-**Between internal services.** Domain events for state propagation — inventory changed, order
-created, payment authorized — over a managed messaging service. Queries between services are
+**Between internal services.** Domain events for state propagation (inventory changed, order
+created, payment authorized) over a managed messaging service. Queries between services are
 synchronous, over HTTP with a declared contract.
 
 **With the suite, during coexistence.** Bidirectional and explicitly temporary: the suite
@@ -485,8 +485,8 @@ and a daily export to an analytics tool. See
 
 ## Scalability
 
-As the estimates showed, the challenge is not volume — it is **read distribution** and
-**concentrated peaks**.
+As the estimates showed, the challenge is **read distribution** and
+**concentrated peaks**, not volume.
 
 ```text
 catalog and storefront   edge cache with event-based invalidation;
@@ -502,11 +502,11 @@ reservation              a real contention point — reservations of the same SK
 
 The only point that required specific design was the **reservation**: during a campaign, the
 same high-turnover SKU at the same store receives concurrent reservations. The solution is
-row-level contention in the database with a short timeout, and not a distributed lock — the
+row-level contention in the database with a short timeout, and not a distributed lock: the
 volume doesn't justify it.
 
 **Black Friday.** The capacity plan provides for 3× the observed peak, with manual scaling 48
-hours in advance — automatic would be more elegant and less predictable, and operations
+hours in advance. Automatic would be more elegant and less predictable, and operations
 prefers predictability on the most important date of the year.
 
 ## Reliability
@@ -530,7 +530,7 @@ accepted at full price and the discount is applied as a credit afterwards. That 
 with the commercial team and is preferable to refusing the sale.
 
 **Degraded inventory mode.** If the ERP adapter is unavailable for more than 5 minutes, the
-system stops offering store pickup and operates only with the distribution center — a visible
+system stops offering store pickup and operates only with the distribution center: a visible
 degradation, communicated on the storefront, rather than reservations against an unknown
 position.
 
@@ -553,7 +553,7 @@ The last line is an operations design decision: an inventory divergence at a sto
 store's problem, not engineering's. The alert goes to whoever can resolve it.
 
 During coexistence, a single dashboard shows what percentage of traffic is on each side of the
-router, per route — it is the main instrument for tracking the migration.
+router, per route. It is the main instrument for tracking the migration.
 
 ## Deployment
 
@@ -569,13 +569,13 @@ The router is the transition's most critical component and the simplest: it deci
 with dynamic configuration, and it allows reverting an extracted capability in seconds with no
 deployment.
 
-That property — **rollback in seconds, with no deployment** — is what made the leadership
+That property (**rollback in seconds, with no deployment**) is what made the leadership
 comfortable with the incremental approach.
 
 ## Evolution Strategy
 
 **Phase 1 (months 1–4): omnichannel availability.** Availability Service, Reservation Service,
-ERP Adapter and Store Portal. No extraction from the suite — only new capability, integrated
+ERP Adapter and Store Portal. No extraction from the suite: only new capability, integrated
 by API. Delivers FR-1 to FR-3.
 
 Expected result and what actually happened: a 14% increase in conversion, within the estimated
@@ -586,7 +586,7 @@ in-house, the suite consumes from it through a bridge, and search moves to a ded
 
 This phase tested the extraction pattern and produced the project's most expensive lesson: the
 first attempt kept the suite as the catalog's source of truth, with bidirectional
-synchronization. Three months later, recurring divergences forced the inversion — the new
+synchronization. Three months later, recurring divergences forced the inversion: the new
 catalog became the source of truth and the suite became read-only. **Bidirectional
 synchronization between two sources of truth did not work**, and the lesson was recorded in an
 ADR.
@@ -646,7 +646,7 @@ sustaining the investment through the following phases.
 
 ## What this case teaches
 
-**Scale was not the problem.** The capacity estimates — 100 orders/s, 12 thousand reads/s —
+**Scale was not the problem.** The capacity estimates (100 orders/s, 12 thousand reads/s)
 rule out any architecture justified by volume. The project is about speed of change, and
 confusing the two is the most common error in e-commerce decisions.
 
@@ -656,7 +656,7 @@ deliver a result in four months with no regression risk.
 
 **The vendor's limitation shaped the design.** The absence of a reservation API in the ERP
 produced the Reservation Service, the adapter, the safety margin per SKU and the daily
-reconciliation — about 40% of Phase 1's effort, from a constraint that appears in no
+reconciliation: about 40% of Phase 1's effort, from a constraint that appears in no
 high-level diagram.
 
 **Two sources of truth don't coexist.** The Phase 2 lesson is the most transferable: during a
@@ -665,7 +665,7 @@ Bidirectional synchronization defers the decision and charges for it in divergen
 
 ## Related Concepts
 
-- [Strangling](/16-legacy-modernization/strangler-fig.md) — the migration pattern.
+- [Strangling](/16-legacy-modernization/strangler-fig.md): the migration pattern.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 - [Monolith vs. Microservices](/20-trade-offs/monolith-vs-microservices.md).
 - [Strong vs. Eventual Consistency](/20-trade-offs/strong-vs-eventual-consistency.md).
@@ -676,14 +676,14 @@ Redo the decision matrix looking for a set of weights that makes Option B win.
 
 No single-weight variation manages it: the three sensitivity scenarios already show that, and the
 reason is that B scores high on one criterion only. Inverting it requires changing the **scores**,
-not the weights — and then the question stops being "how much does this matter to the business"
+not the weights, and then the question stops being "how much does this matter to the business"
 and becomes "is the evaluation right". Telling the two apart is what sensitivity analysis exists
 to teach.
 
 ## Interview Questions
 
 - Why was the first capability extracted the one that didn't exist in the legacy system?
-- How can two requirements over the same data — storefront and reservation — have opposite
+- How can two requirements over the same data (storefront and reservation) have opposite
   consistency needs?
 - Which vendor constraint shaped 40% of the first phase's effort, and why wouldn't it appear
   in a context diagram?

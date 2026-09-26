@@ -2,7 +2,7 @@
 id: data-replication
 title: Data Replication
 sidebar_position: 16
-description: Copies of the same data in different places — seen from the storage and operations angle.
+description: Copies of the same data in different places, seen from the storage and operations angle.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -23,7 +23,7 @@ last_reviewed: 2026-08-31
 
 Replicating is keeping copies of the same data on different nodes.
 
-The fundamentals — synchronous and asynchronous, leader and followers — are in
+The fundamentals (synchronous and asynchronous, leader and followers) are in
 [replication](/06-distributed-systems/replication.md). This document deals with the operational angle:
 what replication actually protects, what it does not protect, and the decisions that appear when it is
 in production.
@@ -72,8 +72,8 @@ All asynchronous replication has lag, and it is not constant. See
 Three things make the lag spike: a high write load, a long transaction on the primary, and an index
 rebuild on the replica.
 
-Monitoring the lag is mandatory, and the metric has to be in seconds of staleness, not in pending bytes
-— bytes say nothing to the business.
+Monitoring the lag is mandatory, and the metric has to be in seconds of staleness, not in pending bytes.
+Bytes say nothing to the business.
 
 ### Reading from a replica requires deciding what tolerates lag
 
@@ -86,12 +86,12 @@ make grow.
 
 ### What failover inherits from replication
 
-The switchover procedure — triggering, split brain, failing back, and the need to exercise it — is
+The switchover procedure (triggering, split brain, failing back, and the need to exercise it) is
 [failover](/12-reliability/failover.md). What is specific to data replication are two consequences of the
 lag at the moment of promotion:
 
 **Lost writes.** With asynchronous replication, what the primary acknowledged and did not replicate is
-lost when another replica is promoted. The size of the loss is the lag at that instant — which is why
+lost when another replica is promoted. The size of the loss is the lag at that instant. That is why
 choosing the least-lagged replica to promote matters, and why the lag monitored in seconds is also an
 estimate of the loss in case of failover.
 
@@ -105,7 +105,7 @@ A replica configured to stay deliberately one hour behind the primary.
 It does not serve for reading or for taking over. It serves one purpose: when someone executes a
 destructive command, there is an hour to notice and extract the data before the deletion arrives there.
 
-Its cost is that of any replica — a full copy of the storage and a node — with no read load to amortize
+Its cost is that of any replica (a full copy of the storage and a node), with no read load to amortize
 it. What it buys is the case normal replication does not cover, recovered in minutes instead of a full
 restore that discards the day's transactions.
 
@@ -120,7 +120,7 @@ partitioning solves it with no conflicts.
 
 ## Mental Model
 
-**Real-time replication protects against machine failure, not against human error** — it propagates the
+**Real-time replication protects against machine failure, not against human error**: it propagates the
 destructive command with the same fidelity with which it propagates everything else. The exception is the
 delayed replica, which is replication used as a window for regret. Both protections are necessary and they
 do not replace each other.
@@ -152,10 +152,10 @@ do not replace each other.
 
 ## Alternatives
 
-- **Backups with tested restores** — for human error and corruption.
-- **[Partitioning](/07-data-architecture/data-partitioning.md)** — for write scale.
-- **Cache** — to reduce reads without replicating.
-- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a projection with its own model instead of
+- **Backups with tested restores**: for human error and corruption.
+- **[Partitioning](/07-data-architecture/data-partitioning.md)**: for write scale.
+- **Cache**: to reduce reads without replicating.
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)**: a projection with its own model instead of
   an identical copy.
 
 ## Trade-offs
@@ -188,7 +188,7 @@ do not replace each other.
 
 **A restore never tested.** The backup exists and nobody knows whether it works.
 
-The fifth is particularly dangerous: a stopped replica does not error — it answers stale data as if it
+The fifth is particularly dangerous: a stopped replica does not error; it answers stale data as if it
 were current.
 
 ## Common Mistakes
@@ -209,14 +209,14 @@ restore time and the integrity of what comes back, not the file's existence.
 grow, degrading the operational reads that depended on it.
 
 **Reading from a replica without classifying the reads.** Not every read tolerates lagging data. Sending
-everything to the replica makes the user save a change and not see it on reload — which they report as
+everything to the replica makes the user save a change and not see it on reload. They report as
 data loss.
 
 ## Real-World Example
 
 A financial services company had its database replicated across three nodes, with daily backups.
 
-One morning, a defective migration erased a column across 2 million records — not the whole data, only
+One morning, a defective migration erased a column across 2 million records: not the whole data, only
 one field, replaced with null.
 
 Replication propagated it in 4 seconds. The three replicas became identical to the primary, all wrong.
@@ -241,13 +241,13 @@ that the documented procedure was out of date and did not work as written.
 person's approval.
 
 The reading the team takes from it: the protection that worked existed by accident. Nobody had designed
-a defense against human error — the conversation about data resilience had ended at "we have three
+a defense against human error: the conversation about data resilience had ended at "we have three
 replicas".
 
 ## Related Concepts
 
-- [Replication](/06-distributed-systems/replication.md) — the fundamentals.
-- [Data Partitioning](/07-data-architecture/data-partitioning.md) — for write scale.
+- [Replication](/06-distributed-systems/replication.md): the fundamentals.
+- [Data Partitioning](/07-data-architecture/data-partitioning.md): for write scale.
 - [Data Consistency](/07-data-architecture/data-consistency.md).
 - [Eventual Consistency](/06-distributed-systems/eventual-consistency.md).
 
@@ -266,6 +266,6 @@ If the first two are "never", they are the most urgent work in this section.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 5.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 5.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
 - Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4th ed. O'Reilly, 2021.

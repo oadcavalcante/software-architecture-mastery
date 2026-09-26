@@ -2,7 +2,7 @@
 id: managed-vs-self-hosted
 title: Gerenciado vs. Autogerido
 sidebar_position: 13
-description: A conta muda quando o custo de plantão entra — e ele quase nunca entra.
+description: A conta muda quando o custo de plantão entra, e ele quase nunca entra.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [build-vs-buy, cost-vs-reliability, cloud-native-vs-portable]
 canonical_for: [gerenciado contra autogerido, esforço operacional, prêmio de gestão, competência operacional]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -29,12 +29,12 @@ eixo real   o prêmio cobrado pelo serviço gerenciado é maior ou menor
             que o custo real de operar aquilo com a nossa equipe?
 ```
 
-O prêmio é visível — está na fatura. O custo de operar não é: ele está distribuído em
+O prêmio é visível: está na fatura. O custo de operar não é: ele está distribuído em
 plantão, atualizações, incidentes, aprendizado e atenção desviada.
 
 Um número de referência útil: serviços gerenciados costumam cobrar entre 2× e 4× o custo de
 infraestrutura equivalente. A pergunta é se o esforço operacional evitado vale essa
-diferença — e, para equipes pequenas, quase sempre vale.
+diferença. E, para equipes pequenas, quase sempre vale.
 
 ## Problema
 
@@ -58,7 +58,7 @@ aprendizado, e o custo de reaprender quando quem sabia sai
 ```
 
 Convertido em esforço, isso costuma ficar entre 0,2 e 1 pessoa em tempo integral, dependendo
-do componente — o que a preços de mercado supera o prêmio na maioria dos casos.
+do componente. A preços de mercado, isso supera o prêmio na maioria dos casos.
 
 O erro simétrico é adotar gerenciado sem avaliar limites: cotas, ausência de configurações
 necessárias, custo que cresce de forma não linear com o volume, e dificuldade de saída.
@@ -85,7 +85,7 @@ Ver [custo vs. confiabilidade](/20-trade-offs/cost-vs-reliability.md).
 ### O prêmio compra confiabilidade que você não construiria
 
 Serviços gerenciados maduros tornam disponíveis, sem projeto interno, coisas que uma equipe
-pequena não constrói — várias delas exigindo configuração, como o canônico registra:
+pequena não constrói, várias delas exigindo configuração, como o canônico registra:
 
 ```text
 recuperação automática de nó
@@ -122,7 +122,7 @@ autogerido                sem custo de saída, com custo permanente de operaçã
 ```
 
 A distinção do meio é importante e frequentemente ignorada: um serviço gerenciado que fala
-um protocolo padrão tem custo de saída muito menor que um com interface própria — mesmo
+um protocolo padrão tem custo de saída muito menor que um com interface própria, mesmo
 sendo do mesmo fornecedor.
 
 Ver [aprisionamento](/09-cloud-architecture/vendor-lock-in.md) e
@@ -137,7 +137,7 @@ o efeito é invisível e cumulativo
 ```
 
 Uma equipe de 8 pessoas operando cinco componentes de infraestrutura tem uma fração
-significativa da sua capacidade fora do produto — e é uma fração que ninguém orça.
+significativa da sua capacidade fora do produto, e é uma fração que ninguém orça.
 
 Ver [engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
@@ -172,7 +172,7 @@ autogerido → gerenciado   moderado e frequentemente mais fácil
 ```
 
 A simetria aqui é maior que em outros pares, o que reduz o peso da reversibilidade na
-decisão — **exceto** quando o serviço gerenciado é proprietário, caso em que a saída exige
+decisão, **exceto** quando o serviço gerenciado é proprietário, caso em que a saída exige
 reescrita e a assimetria volta.
 
 Isso dá uma regra prática: prefira gerenciados com protocolo padrão quando existirem, e o
@@ -181,7 +181,7 @@ custo de mudar de ideia deixa de ser um fator relevante.
 ## Modelo Mental
 
 **Some o esforço operacional em dinheiro.** O prêmio na fatura é visível; o custo de operar
-é distribuído — e maior do que parece.
+é distribuído, e maior do que parece.
 
 ## Quando Usar
 
@@ -214,11 +214,11 @@ Prefira **autogerido** quando:
 
 ## Alternativas
 
-- **Gerenciado com protocolo padrão** — reduz o custo de saída quase a zero.
-- **Autogerido sobre plataforma interna** — se a plataforma existe, o custo marginal do
+- **Gerenciado com protocolo padrão**: reduz o custo de saída quase a zero.
+- **Autogerido sobre plataforma interna**: se a plataforma existe, o custo marginal do
   próximo componente é menor.
-- **Híbrido** — gerenciado em produção, autogerido em ambientes de desenvolvimento.
-- **Gerenciado por terceiro independente** — nem o provedor de nuvem, nem você.
+- **Híbrido**: gerenciado em produção, autogerido em ambientes de desenvolvimento.
+- **Gerenciado por terceiro independente**: nem o provedor de nuvem, nem você.
 
 A terceira reduz custo de forma significativa sem afetar a confiabilidade onde ela importa.
 
@@ -262,13 +262,13 @@ A terceira reduz custo de forma significativa sem afetar a confiabilidade onde e
 
 **Não verificar se existe versão com protocolo padrão.**
 
-**Não reavaliar quando a escala muda** — o limiar existe nos dois sentidos.
+**Não reavaliar quando a escala muda**: o limiar existe nos dois sentidos.
 
 ## Exemplo Real
 
-Uma empresa de logística com 26 engenheiros — a mesma de
+Uma empresa de logística com 26 engenheiros (a mesma de
 [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md), onde o caso é lido pelo
-eixo da portabilidade — operava internamente cinco componentes de
+eixo da portabilidade) operava internamente cinco componentes de
 infraestrutura: banco relacional, cache, mensageria, mecanismo de busca e agrupamento de
 contêineres.
 
@@ -288,8 +288,8 @@ contêineres             44           9                   12
 total                  121          32                   42
 ```
 
-121 horas por mês equivalem a cerca de 0,75 engenheiro em tempo integral, permanente — a
-base de conversão usada foi 160 horas úteis por mês. Somado ao custo de plantão e ao tempo de
+121 horas por mês equivalem a cerca de 0,75 engenheiro em tempo integral, permanente (a
+base de conversão usada foi 160 horas úteis por mês). Somado ao custo de plantão e ao tempo de
 recuperação pós-incidente, a estimativa ficou em ~1,1 pessoa, a R$ 47 mil/mês por pessoa com
 encargos e benefícios.
 
@@ -302,24 +302,24 @@ custo total autogerido                  ~R$ 90 mil/mês
 custo dos gerenciados equivalentes      ~R$ 118 mil/mês
 ```
 
-O gerenciado ainda era mais caro — mas por 1,3×, e não por 3,1×. E a conta não incluía o
+O gerenciado ainda era mais caro, mas por 1,3×, e não por 3,1×. E a conta não incluía o
 custo dos incidentes nem a atenção desviada.
 
 A decisão foi seletiva, não uniforme:
 
-**Migrados para gerenciado**: mensageria e agrupamento de contêineres — os dois com maior
+**Migrados para gerenciado**: mensageria e agrupamento de contêineres, os dois com maior
 esforço operacional e nenhum requisito que o gerenciado não atendesse. Ambos com protocolo
 padrão, o que manteve o custo de saída baixo.
 
-**Mantidos autogeridos**: banco relacional e busca. O banco por escala — o volume tornava o
-prêmio alto o suficiente para justificar as 22 horas —, e a busca por uma extensão
+**Mantidos autogeridos**: banco relacional e busca. O banco por escala (o volume tornava o
+prêmio alto o suficiente para justificar as 22 horas), e a busca por uma extensão
 específica de idioma que os gerenciados disponíveis não ofereciam. Ambas as decisões
 registradas em ADR com condição de reversão.
 
 **Cache migrado** por ser barato dos dois lados e não valer a atenção.
 
 **Restauração testada trimestralmente** nos dois componentes que ficaram, com procedimento
-executado por alguém que não é o especialista — o que revelou, na primeira execução, que o
+executado por alguém que não é o especialista. Isso revelou, na primeira execução, que o
 procedimento documentado estava desatualizado.
 
 Resultados após 14 meses:
@@ -333,8 +333,8 @@ rotatividade na equipe de plataforma          de 3 saídas/ano para 0
 ```
 
 O piso desses números é dado pelo que ficou: banco e busca sozinhos respondiam por 40 das 121
-horas e por 14 dos 42 plantões, e nada da migração os reduz. O que sobra acima do piso — 8
-horas por mês e dois plantões por ano — é o custo residual dos três gerenciados: acompanhar
+horas e por 14 dos 42 plantões, e nada da migração os reduz. O que sobra acima do piso (8
+horas por mês e dois plantões por ano) é o custo residual dos três gerenciados: acompanhar
 cota, revisar configuração que veio desligada, e conferir fatura que cresce com o volume.
 Gerenciado não é zero; é menos.
 
@@ -343,20 +343,20 @@ voltaram para o produto, e a redução de plantão noturno foi apontada pela equ
 mudança de maior efeito na qualidade de trabalho.
 
 O ponto que a equipe sublinha: a comparação de 2020 não estava errada nos números que usou. Ela
-estava incompleta — comparava fatura com fatura, e o trabalho de operar não aparece em
+estava incompleta: comparava fatura com fatura, e o trabalho de operar não aparece em
 nenhuma das duas.
 
 ## Conceitos Relacionados
 
 - [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
-- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — o mesmo eixo, aplicado a software.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md): o mesmo eixo, aplicado a software.
 - [Nativo vs. Portável](/20-trade-offs/cloud-native-vs-portable.md).
 - [Engenharia de Plataforma](/14-devops-and-platform/platform-engineering.md).
 
 ## Exercício Prático
 
 Registre, por um mês, as horas que sua equipe gasta operando um componente de infraestrutura
-— manutenção, incidentes, atualizações, plantão.
+(manutenção, incidentes, atualizações, plantão).
 
 Converta em custo e some ao preço das máquinas. Compare com o gerenciado equivalente.
 

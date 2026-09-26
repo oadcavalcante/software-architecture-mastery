@@ -2,7 +2,7 @@
 id: value-object
 title: Value Object
 sidebar_position: 12
-description: An object defined by its values, immutable — the tactical block with the best return.
+description: "An object defined by its values, immutable: the tactical block with the best return."
 doc_type: pattern
 level: 2
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [entity]
 related: [entity, aggregate, code-smells]
 canonical_for: [value object]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 A value object is defined by its attributes, not by identity. Two objects with the same
 values are interchangeable.
 
-It is the tactical block with the best effort-to-return ratio — and the most underused.
+It is the tactical block with the best effort-to-return ratio, and the most underused.
 
 ## Problem
 
@@ -37,7 +37,7 @@ void transfer(String source, String destination, BigDecimal amount)
 
 Three problems in that signature.
 
-**Silent swap.** Nothing prevents passing destination in place of source — they are the
+**Silent swap.** Nothing prevents passing destination in place of source: they are the
 same type.
 
 **Scattered validation.** Where do you check that the account is valid? In every caller,
@@ -65,7 +65,7 @@ accident, and no need for defensive copying.
 
 ### Valid by construction
 
-The constructor validates. If a `TaxId` was created by the constructor, it is valid — and
+The constructor validates. If a `TaxId` was created by the constructor, it is valid. And
 the caveat matters, because that is not the only path: ORMs and deserializers reconstitute
 objects by reflection, without going through it. That is how an invalid value gets into the
 domain.
@@ -94,7 +94,7 @@ address, a document, a code, a coordinate, a percentage, a range.
 Practical rule: **any concept the business names and that today is a primitive or a group
 of primitives that travel together.**
 
-The second case — *data clumps* — is the most frequent: `startDate` and `endDate` always
+The second case, *data clumps*, is the most frequent: `startDate` and `endDate` always
 passed together are a `Period`.
 
 ## When to Use
@@ -102,7 +102,7 @@ passed together are a `Period`.
 - A domain concept is represented by a primitive.
 - Several primitives always travel together.
 - There is validation repeated in several places.
-- There is a rule about the concept — rounding, comparison, formatting — scattered around.
+- There is a rule about the concept (rounding, comparison, formatting) scattered around.
 - Swapping two parameters of the same type is a possible error.
 
 ## When Not to Use
@@ -115,22 +115,22 @@ validation.
 
 **In generic or supporting subdomains, when the type has no rule of its own.** The bar is
 higher outside the core: there, a proper name on its own does not pay for the wrapper. With
-validation or behaviour — a `TaxId` that validates itself — it pays off in any subdomain.
+validation or behaviour (a `TaxId` that validates itself), it pays off in any subdomain.
 
 **When the allocation shows up in the profile.** A hot loop that creates one object per
 element, or a collection in the millions of instances, on a platform with no flattened value
-type. The condition is showing up in the profile — not looking like it would.
+type. The condition is showing up in the profile, not looking like it would.
 
 **For transport data.** An API DTO does not need internal value objects.
 
 ## Alternatives
 
-- **A primitive type with centralized validation** — less safe, cheaper.
-- **A lightweight nominal type** — *newtype*, *opaque type*, a unit of measure: it gives
+- **A primitive type with centralized validation**: less safe, cheaper.
+- **A lightweight nominal type** (*newtype*, *opaque type*, a unit of measure): it gives
   type safety with no class. A **transparent** alias does not do the job: TypeScript's
   `type`, Kotlin's `typealias` and C's `typedef` are nicknames for the same type, and they
   let through any value of the right shape.
-- **An immutable record** — when there are grouped values and little behaviour.
+- **An immutable record**: when there are grouped values and little behaviour.
 
 ## Trade-offs
 
@@ -144,7 +144,7 @@ type. The condition is showing up in the profile — not looking like it would.
 | Conversion at the boundary | Direct |
 
 The last row is the real cost: value objects have to be converted when crossing the
-domain's boundary — for persistence, for the API. It is mapping work that primitives do
+domain's boundary (for persistence, for the API). It is mapping work that primitives do
 not require.
 
 ## Failure Modes
@@ -152,7 +152,7 @@ not require.
 **Mutable value object.** It loses the guarantees and reintroduces the sharing risk.
 
 **Equality not implemented.** Comparison by reference makes two equal values look different
-— and breaks collections and caches silently.
+and breaks collections and caches silently.
 
 **Anemic wrapper.** With no validation and no behaviour.
 
@@ -181,13 +181,13 @@ The first: a holiday-pay proration rounded at each instalment, and the sum of th
 instalments differed from the total by cents. Multiplied by 4 thousand employees, it
 produced an accounting discrepancy that took a week to diagnose.
 
-The second: a percentage was passed as `0.05` in one place and `5` in another — both
+The second: a percentage was passed as `0.05` in one place and `5` in another; both
 `double`, no compilation error. The deduction came out 100 times larger for 12 employees.
 
 Introducing `Money` and `Percentage` fixed both.
 
-`Money` has `split(int parts)` which distributes the remainder deterministically — the last
-instalment absorbs the difference — and guarantees the sum of the parts is always the
+`Money` has `split(int parts)` which distributes the remainder deterministically (the last
+instalment absorbs the difference) and guarantees the sum of the parts is always the
 total. The rule ended up in one place, tested.
 
 `Percentage` can only be constructed from a value with an explicit unit:
@@ -199,15 +199,15 @@ three following years, no defect of the same category.
 
 ## Related Concepts
 
-- [Entity](/04-domain-driven-design/entity.md) — the other half of the decision.
-- [Aggregate](/04-domain-driven-design/aggregate.md) — where they are composed.
-- [Code Smells](/02-software-design/code-smells.md) — primitive obsession.
+- [Entity](/04-domain-driven-design/entity.md): the other half of the decision.
+- [Aggregate](/04-domain-driven-design/aggregate.md): where they are composed.
+- [Code Smells](/02-software-design/code-smells.md): primitive obsession.
 - [Encapsulation](/02-software-design/encapsulation.md).
 
 ## Practical Exercise
 
 Look in your domain for parameters of the same primitive type that appear together in a
-signature — two `String`s, two dates, two numbers.
+signature: two `String`s, two dates, two numbers.
 
 Each pair is a possible silent swap, and a value object candidate.
 

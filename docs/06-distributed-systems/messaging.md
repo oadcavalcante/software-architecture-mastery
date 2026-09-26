@@ -2,7 +2,7 @@
 id: messaging
 title: Mensageria
 sidebar_position: 19
-description: Comunicação por mensagens duráveis — os modelos, e o que o canal garante e não garante.
+description: "Comunicação por mensagens duráveis: os modelos, e o que o canal garante e não garante."
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [delivery-guarantees, ordering, event-driven-systems]
 canonical_for: [mensageria, broker, log de eventos]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,7 +28,7 @@ Mensageria é comunicação por mensagens intermediadas por um componente duráv
 vez de chamadas diretas.
 
 Ela desacopla produtor e consumidor no tempo. E introduz um conjunto de garantias
-— e de ausências de garantia — que precisam ser conhecidas antes de adotar, não
+(e de ausências de garantia) que precisam ser conhecidas antes de adotar, não
 descobertas em produção.
 
 ## Problema
@@ -36,7 +36,7 @@ descobertas em produção.
 Chamada direta acopla no tempo: se o destino está fora, a origem está fora.
 
 Mensageria resolve isso, e a escolha de **qual modelo** costuma ser feita pela
-ferramenta disponível em vez de pelo padrão de consumo — o que produz sistemas
+ferramenta disponível em vez de pelo padrão de consumo. Isso produz sistemas
 onde o modelo não corresponde ao uso.
 
 Os dois modelos têm semânticas distintas, e confundi-los gera expectativas que o
@@ -62,8 +62,8 @@ escalar é adicionar consumidores.
 seu ritmo, cada um com sua posição.
 
 A escolha errada aparece assim: usar fila quando vários sistemas precisam do mesmo
-evento — e acabar criando uma fila por consumidor, com o produtor publicando N
-vezes. Ou usar log para distribuir trabalho — e ter que coordenar quem processa o
+evento, e acabar criando uma fila por consumidor, com o produtor publicando N
+vezes. Ou usar log para distribuir trabalho, e ter que coordenar quem processa o
 quê.
 
 ### O canal é uma rede
@@ -72,12 +72,12 @@ Independentemente do modelo, o canal herda os problemas de
 [falha de rede](/06-distributed-systems/network-failure.md), e isso produz três garantias que a aplicação
 precisa tratar:
 
-**[Entrega ao menos uma vez](/06-distributed-systems/delivery-guarantees.md)** — duplicação vai acontecer.
+**[Entrega ao menos uma vez](/06-distributed-systems/delivery-guarantees.md)**: duplicação vai acontecer.
 
-**[Ordem apenas por partição](/06-distributed-systems/ordering.md)** — ordem global
+**[Ordem apenas por partição](/06-distributed-systems/ordering.md)**: ordem global
 exige uma partição só, e o preço é a vazão do tópico limitada a um consumidor.
 
-**Mensagens que sempre falham** — precisam de
+**Mensagens que sempre falham**: precisam de
 [dead-letter queue](/06-distributed-systems/dead-letter-queues.md).
 
 Nenhuma dessas é opcional. Adotar mensageria sem tratá-las é adotar o risco sem o
@@ -90,7 +90,7 @@ mensagem se o processamento falhar.
 
 No modelo de fila, entre a entrega e a confirmação a mensagem fica invisível para
 outros consumidores por um tempo. Se esse tempo for menor que o processamento, a
-mensagem é reentregue enquanto ainda está sendo processada — duplicação
+mensagem é reentregue enquanto ainda está sendo processada: duplicação
 sistemática.
 
 Esse valor precisa ser calibrado a partir do percentil alto do tempo de
@@ -105,21 +105,21 @@ partir da última posição confirmada.
 Publicar uma mensagem e gravar no banco não são atômicos. Pode gravar e não
 publicar, ou publicar e falhar ao gravar.
 
-A solução é o padrão **outbox** — ver
+A solução é o padrão **outbox** (ver
 [garantias de entrega](/06-distributed-systems/delivery-guarantees.md), canônico do
-tema: a publicação deixa de ser uma segunda escrita e passa a depender só da
+tema): a publicação deixa de ser uma segunda escrita e passa a depender só da
 transação do dado.
 
-Ignorar isso produz perda silenciosa de mensagem — não há erro em log nenhum, e o
+Ignorar isso produz perda silenciosa de mensagem: não há erro em log nenhum, e o
 sintoma aparece no consumidor que nunca recebeu.
 
 ### Push e pull
 
-**Push** — o broker envia ao consumidor. Latência baixa, e o consumidor pode ser
+**Push**: o broker envia ao consumidor. Latência baixa, e o consumidor pode ser
 sobrecarregado se não houver controle de fluxo. Ver
 [backpressure](/06-distributed-systems/backpressure.md).
 
-**Pull** — o consumidor busca quando pode. Controle natural de ritmo, ao custo de
+**Pull**: o consumidor busca quando pode. Controle natural de ritmo, ao custo de
 latência de intervalo.
 
 O pull com espera longa combina os dois: o consumidor pede, e a conexão fica aberta
@@ -136,7 +136,7 @@ tarefa para alguém ou um acontecimento para quem interessar.
 - O produtor não precisa da resposta.
 - O consumidor pode processar com atraso.
 - É preciso absorver pico.
-- Vários interessados no mesmo fato — aí, log.
+- Vários interessados no mesmo fato: aí, log.
 - O trabalho é demorado e não cabe numa requisição.
 
 ## Quando Não Usar
@@ -158,11 +158,11 @@ eventual.
 
 ## Alternativas
 
-- **Chamada síncrona** — quando a resposta importa.
-- **Tabela como fila** — para volume baixo, usar o banco existente evita mais um
+- **Chamada síncrona**: quando a resposta importa.
+- **Tabela como fila**: para volume baixo, usar o banco existente evita mais um
   componente a operar.
-- **Chamada direta com retentativa** — quando há um consumidor e ele é confiável.
-- **Processamento agendado** — quando a latência tolerada é alta.
+- **Chamada direta com retentativa**: quando há um consumidor e ele é confiável.
+- **Processamento agendado**: quando a latência tolerada é alta.
 
 ## Trade-offs
 
@@ -192,9 +192,9 @@ lento alcançá-las.
 
 ## Erros Comuns
 
-**Escolher o modelo pela ferramenta disponível.** Fila e log de eventos resolvem problemas diferentes — trabalho a executar uma vez versus fato que muitos leem no próprio ritmo. Usar o que já está instalado para os dois força um dos dois casos a um formato errado.
+**Escolher o modelo pela ferramenta disponível.** Fila e log de eventos resolvem problemas diferentes: trabalho a executar uma vez versus fato que muitos leem no próprio ritmo. Usar o que já está instalado para os dois força um dos dois casos a um formato errado.
 
-**Não calibrar o tempo de visibilidade.** Se ele é menor que o tempo de processamento, a mensagem reaparece para outro consumidor enquanto o primeiro ainda trabalha — e o efeito acontece duas vezes.
+**Não calibrar o tempo de visibilidade.** Se ele é menor que o tempo de processamento, a mensagem reaparece para outro consumidor enquanto o primeiro ainda trabalha, e o efeito acontece duas vezes.
 
 **Não monitorar profundidade e idade da mensagem mais antiga.** As duas medem coisas distintas: profundidade acusa pico de entrada, idade acusa consumidor parado. Uma fila com dez mensagens paradas há duas horas é mais grave que uma com dez mil em escoamento.
 
@@ -217,7 +217,7 @@ serviço de entregas e implantá-lo. Em dois anos, isso aconteceu três vezes.
 
 **Publicação parcial.** Publicar em quatro filas não é atômico. Numa
 indisponibilidade momentânea do broker, mensagens foram para duas filas e não para
-as outras duas — e faturamento processou entregas que atendimento nunca soube que
+as outras duas, e faturamento processou entregas que atendimento nunca soube que
 existiam.
 
 **Reprocessamento impossível.** Quando análise precisou recalcular métricas de seis
@@ -236,16 +236,16 @@ seis meses foi decisão deliberada, paga em armazenamento. Passada essa janela, 
 análise recalculou seis meses em duas horas relendo esse histórico.
 
 O que a equipe aprendeu: a fila não estava errada como tecnologia. Estava errada
-como **modelo** — o caso era distribuição de fatos, não de trabalho, e o sintoma
+como **modelo**: o caso era distribuição de fatos, não de trabalho, e o sintoma
 de ter escolhido errado foi ter que publicar N vezes.
 
 ## Conceitos Relacionados
 
-- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md) — o que o canal promete.
+- [Garantias de Entrega](/06-distributed-systems/delivery-guarantees.md): o que o canal promete.
 - [Ordenação](/06-distributed-systems/ordering.md) e
   [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md).
 - [Dead-Letter Queues](/06-distributed-systems/dead-letter-queues.md).
-- [Filas](/05-system-design/queues.md) — a visão de design de sistemas.
+- [Filas](/05-system-design/queues.md): a visão de design de sistemas.
 
 ## Exercício Prático
 

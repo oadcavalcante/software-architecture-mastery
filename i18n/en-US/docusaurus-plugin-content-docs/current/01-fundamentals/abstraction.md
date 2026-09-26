@@ -2,7 +2,7 @@
 id: abstraction
 title: Abstraction
 sidebar_position: 15
-description: Exposing what matters and hiding the rest — and why a bad abstraction is worse than none.
+description: Exposing what matters and hiding the rest, and why a bad abstraction is worse than none.
 doc_type: concept
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [separation-of-concerns]
 related: [complexity, coupling, modularity]
 canonical_for: [abstraction]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -35,10 +35,10 @@ Abstraction is the most powerful and most misapplied tool in software design,
 because its cost is immediate and its benefit is hypothetical.
 
 The cost is one more indirection: somebody will have to navigate it to understand
-the flow, and during an incident that somebody navigates under pressure — the
+the flow, and during an incident that somebody navigates under pressure. The
 stack trace gains frames, the log names the interface rather than what failed, and
 the error surfaces one level away from where it started. The benefit is the
-possibility of swapping the implementation — which only materializes if the swap
+possibility of swapping the implementation. That only materializes if the swap
 happens.
 
 Teams apply abstraction reflexively, and the result is the recognizable pattern of
@@ -48,7 +48,7 @@ benefit.
 
 And there is a worse case: the wrong abstraction. An abstraction that does not
 match the domain forces whoever uses it to fight it, and is more expensive to
-remove than never creating it would have been — because now there is code
+remove than never creating it would have been, because now there is code
 depending on it.
 
 ## Core Concepts
@@ -60,13 +60,13 @@ what is on the other side.
 
 If the consumer needs to know the repository uses SQL in order to write the query
 correctly, or that the queue is Kafka in order to handle ordering, the abstraction
-is not hiding — it is merely interposing.
+is merely interposing, not hiding.
 
 ### Abstractions leak
 
 Every abstraction leaks to some degree. The question is how much and where.
 
-A repository hides the persistence technology until performance matters — then the
+A repository hides the persistence technology until performance matters. Then the
 difference between one query and five becomes visible and the consumer needs to
 know. A file system abstracts the disk until latency matters.
 
@@ -88,7 +88,7 @@ the wrong abstraction is expensive and sticky.
 
 An abstraction should sit at a consistent level. An interface that mixes
 high-level operations (`processOrder`) with low-level details (`openConnection`)
-forces the consumer to reason at two levels at once — which is the opposite of
+forces the consumer to reason at two levels at once. That is the opposite of
 what abstraction does.
 
 ## Mental Model
@@ -105,7 +105,7 @@ happens is the practical measure of the abstraction's quality.
 - When the hidden detail is genuinely irrelevant to the consumer.
 - When the abstraction corresponds to a domain concept rather than a technical
   convenience.
-- When it is needed for testing — replacing an external dependency is a legitimate
+- When it is needed for testing: replacing an external dependency is a legitimate
   reason and frequently the only one.
 - When the concept has repeated three or more times and its shape has stabilized.
 
@@ -130,12 +130,12 @@ learn anything new, it was not hiding anything.
 
 ## Alternatives
 
-- **Temporary duplication** — cheap, reversible, and informative: the differences
+- **Temporary duplication**: cheap, reversible, and informative. The differences
   between the copies reveal what the real concept is.
-- **A function instead of an interface** — when what varies is simple behaviour,
+- **A function instead of an interface**: when what varies is simple behaviour,
   passing a function is lighter than a hierarchy.
-- **Parameterization** — when the variation is in values, not behaviour.
-- **Deferring** — the most underrated alternative. An abstraction not created costs
+- **Parameterization**: when the variation is in values, not behaviour.
+- **Deferring**: the most underrated alternative. An abstraction not created costs
   nothing and remains available.
 
 ## Trade-offs
@@ -162,7 +162,7 @@ the other side: an `if` that exists because the implementation is this one and n
 another.
 
 **An abstraction of one.** The symptom is the name. `ServiceImpl` for the
-`Service` interface — when there is nothing to distinguish, the implementation has
+`Service` interface: when there is nothing to distinguish, the implementation has
 nothing to call itself.
 
 **The wrong abstraction captured early.** The symptom is the proliferation of
@@ -184,7 +184,7 @@ Three years later, the provider had never been switched. But the cost was greate
 than the extra interface.
 
 The interface exposed `charge(amount, token)`. Stripe supports delayed capture,
-instalments and idempotency keys — none of which fitted that signature. Every
+instalments and idempotency keys, none of which fitted that signature. Every
 feature added over the three years required a decision: widen the interface (which
 tied it to Stripe anyway) or bypass it (which hollowed it out).
 
@@ -192,7 +192,7 @@ The team did both, at different times. In the end, the interface had eleven
 methods, all modelled on Stripe, and two places in the code accessed the Stripe
 client directly because the interface could not accommodate them.
 
-The abstraction would not have allowed a provider switch — it was Stripe under a
+The abstraction would not have allowed a provider switch: it was Stripe under a
 different name.
 
 What would have worked: use the Stripe client directly, and introduce the
@@ -202,9 +202,9 @@ three years.
 
 ## Related Concepts
 
-- [Complexity](/01-fundamentals/complexity.md) — what abstraction is supposed to reduce.
-- [Coupling](/01-fundamentals/coupling.md) — what it redistributes.
-- [Modularity](/01-fundamentals/modularity.md) — where it materializes boundaries.
+- [Complexity](/01-fundamentals/complexity.md): what abstraction is supposed to reduce.
+- [Coupling](/01-fundamentals/coupling.md): what it redistributes.
+- [Modularity](/01-fundamentals/modularity.md): where it materializes boundaries.
 
 ## Practical Exercise
 
@@ -224,8 +224,8 @@ Then pick one and remove it. Observe whether anything actually got worse.
 
 ## Further Exploration
 
-- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018 — the
+- Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018. The
   concept of deep versus shallow modules.
 - Spolsky, Joel. *The Law of Leaky Abstractions*, 2002.
-- Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2nd ed., 2019 — on DRY
+- Hunt, Andrew; Thomas, David. *The Pragmatic Programmer*. 2nd ed., 2019. On DRY
   as duplication of knowledge, not of text.

@@ -2,7 +2,7 @@
 id: queues
 title: Filas
 sidebar_position: 11
-description: Desacoplar no tempo — e as três garantias que a fila obriga a tratar.
+description: Desacoplar no tempo, e as três garantias que a fila obriga a tratar.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [request-response]
 related: [background-processing, rate-limiting, event-driven]
 canonical_for: [fila, message queue]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -26,7 +26,7 @@ processa no seu próprio ritmo.
 
 O que ela compra é **desacoplamento temporal**: o produtor não depende da
 disponibilidade do consumidor. O que ela cobra são três garantias que passam a
-ser responsabilidade da aplicação — e que quase sempre são descobertas em
+ser responsabilidade da aplicação, e que quase sempre são descobertas em
 produção.
 
 ## Problema
@@ -38,7 +38,7 @@ pico no produtor vira pico no consumidor.
 A fila corta isso: o produtor publica e segue; a fila absorve; o consumidor
 processa quando consegue.
 
-O erro comum não é adotar fila — é adotá-la sem reconhecer que **o canal é uma
+O erro comum não está em adotar fila, e sim em adotá-la sem reconhecer que **o canal é uma
 rede**, e que rede traz duplicação, desordem e mensagens que nunca processam.
 
 ## Conceitos Centrais
@@ -51,10 +51,10 @@ rede**, e que rede traz duplicação, desordem e mensagens que nunca processam.
 processa, por um tempo.
 
 **Pico.** A fila cresce em vez de o sistema cair. É a contenção que preserva o
-trabalho: rate limiting e descarte de carga custam menos para operar — nenhum
-componente novo —, mas recusam requisições.
+trabalho: rate limiting e descarte de carga custam menos para operar (nenhum
+componente novo), mas recusam requisições.
 
-Nenhum dos três é infinito — a fila tem limite, e o que acontece ao atingi-lo
+Nenhum dos três é infinito: a fila tem limite, e o que acontece ao atingi-lo
 precisa ser decidido. Ver
 [backpressure](/06-distributed-systems/backpressure.md).
 
@@ -63,11 +63,11 @@ precisa ser decidido. Ver
 **Duplicação.** Praticamente todo sistema de fila entrega
 [ao menos uma vez](/06-distributed-systems/delivery-guarantees.md). Isso significa
 que a mesma
-[mensagem pode chegar duas vezes](/06-distributed-systems/duplicate-messages.md) —
+[mensagem pode chegar duas vezes](/06-distributed-systems/duplicate-messages.md):
 por retentativa, por falha na confirmação, por rebalanceamento de consumidores.
 
 A consequência: **o consumidor precisa ser idempotente sempre que o efeito for
-observável fora do sistema ou irreversível** — cobrança, e-mail, emissão de nota.
+observável fora do sistema ou irreversível** (cobrança, e-mail, emissão de nota).
 Processar duas vezes tem que ter o mesmo efeito de processar uma. Sem isso, uma
 cobrança vira duas. Onde o efeito duplicado é inofensivo e barato, o critério está
 em [idempotência](/06-distributed-systems/idempotency.md).
@@ -77,8 +77,8 @@ em [idempotência](/06-distributed-systems/idempotency.md).
 elas. Se `PedidoCriado` e `PedidoCancelado` caem em partições diferentes, podem
 chegar fora de ordem.
 
-A mitigação usual é particionar pela chave da entidade — todos os eventos de um
-pedido na mesma partição — o que preserva a ordem que importa ao custo de
+A mitigação usual é particionar pela chave da entidade (todos os eventos de um
+pedido na mesma partição), o que preserva a ordem que importa ao custo de
 desequilíbrio se uma chave for muito ativa.
 
 **[Mensagem envenenada](/06-distributed-systems/poison-messages.md).** Uma mensagem
@@ -96,10 +96,10 @@ intervenção manual.
 O consumidor confirma a mensagem **após** processá-la com sucesso. Confirmar antes
 de processar converte ao menos uma vez em no máximo uma vez: se o processamento
 falhar, a mensagem se perde. É escolha deliberada onde perder amostras é aceitável
-— telemetria, métricas agregadas — e acidente em todo o resto. Ver
+(telemetria, métricas agregadas) e acidente em todo o resto. Ver
 [garantias de entrega](/06-distributed-systems/delivery-guarantees.md).
 
-O tempo de visibilidade — quanto a fila espera antes de reentregar — precisa ser
+O tempo de visibilidade (quanto a fila espera antes de reentregar) precisa ser
 maior que o tempo de processamento. Se for menor, a mensagem é reentregue enquanto
 ainda está sendo processada, e o resultado é duplicação garantida.
 
@@ -143,12 +143,12 @@ instrumento.
 
 ## Alternativas
 
-- **Chamada síncrona** — quando a resposta importa.
-- **[Processamento em background](/05-system-design/background-processing.md) no mesmo processo** —
+- **Chamada síncrona**: quando a resposta importa.
+- **[Processamento em background](/05-system-design/background-processing.md) no mesmo processo**:
   para trabalho leve, sem componente adicional.
-- **Tabela como fila** — para volume baixo, usar o banco que já existe evita mais
+- **Tabela como fila**: para volume baixo, usar o banco que já existe evita mais
   uma peça a operar.
-- **Evento publicado** — quando há vários interessados, não um consumidor. Ver
+- **Evento publicado**: quando há vários interessados, não um consumidor. Ver
   [arquitetura orientada a eventos](/03-design-patterns/event-driven.md).
 
 ## Trade-offs
@@ -165,7 +165,7 @@ instrumento.
 
 ## Modos de Falha
 
-**Consumidor não idempotente.** Efeito duplicado — cobrança, e-mail, débito.
+**Consumidor não idempotente.** Efeito duplicado: cobrança, e-mail, débito.
 
 **Sem dead-letter.** Uma mensagem ruim trava a fila.
 
@@ -175,7 +175,7 @@ instrumento.
 
 **Fila crescendo sem alerta.** Descoberto pelo usuário.
 
-**Fila como banco de dados.** Mensagens acumuladas para consulta posterior — não é
+**Fila como banco de dados.** Mensagens acumuladas para consulta posterior. Não é
 o propósito e não tem as garantias.
 
 ## Erros Comuns
@@ -214,7 +214,7 @@ indefinidamente, consumindo todo o consumidor. Nove horas de emissões paradas a
 alguém investigar.
 
 **Acúmulo silencioso.** A prefeitura ficou fora por um fim de semana. A fila
-cresceu para 40 mil mensagens. Ninguém percebeu porque não havia alerta — o
+cresceu para 40 mil mensagens. Ninguém percebeu porque não havia alerta. O
 problema apareceu na segunda-feira, quando o prazo legal de algumas notas estava
 próximo.
 
@@ -230,16 +230,16 @@ Alerta de profundidade acima de mil e de idade da mensagem mais antiga acima de 
 minutos.
 
 A fila estava certa como decisão. O que faltou foi tratar duas das garantias que
-ela herda — duplicação e mensagem envenenada — e instrumentar a profundidade antes
+ela herda (duplicação e mensagem envenenada) e instrumentar a profundidade antes
 de subir; as três coisas estavam na documentação do serviço de fila.
 
 ## Conceitos Relacionados
 
-- [Request/Response](/05-system-design/request-response.md) — o modelo que a fila substitui.
-- [Processamento em Background](/05-system-design/background-processing.md) — o consumidor.
-- [Sistemas Distribuídos](/06-distributed-systems/index.md) — idempotência,
+- [Request/Response](/05-system-design/request-response.md): o modelo que a fila substitui.
+- [Processamento em Background](/05-system-design/background-processing.md): o consumidor.
+- [Sistemas Distribuídos](/06-distributed-systems/index.md): idempotência,
   ordem, dead-letter, backpressure.
-- [Rate Limiting](/05-system-design/rate-limiting.md) — controlar o ritmo de consumo.
+- [Rate Limiting](/05-system-design/rate-limiting.md): controlar o ritmo de consumo.
 
 ## Exercício Prático
 

@@ -2,7 +2,7 @@
 id: incremental-modernization
 title: Incremental Modernization
 sidebar_position: 4
-description: Delivering value in slices that survive interruptions — the discipline that makes modernization finish.
+description: "Delivering value in slices that survive interruptions: the discipline that makes modernization finish."
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, organizational-constraints, transition-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 Incremental modernization is dividing the work into slices that **deliver value on their
 own**, so that stopping at any point leaves the organization better off than before.
 
-It is the discipline that makes modernization programs finish — because most of them are
+It is the discipline that makes modernization programs finish, because most of them are
 interrupted, and the difference between one interrupted with value and one interrupted
 without value is how it was divided.
 
@@ -46,7 +46,7 @@ The typical modernization program is sequenced by **technical dependency**:
 That is the logical order for building, and it concentrates all the value at the end.
 
 A program like that, interrupted at step 3, produced infrastructure and a data layer that
-do nothing — wasted work.
+do nothing: wasted work.
 
 ## Core Concepts
 
@@ -64,7 +64,7 @@ by value, and not by technical convenience.
 See [transition architecture](/15-enterprise-architecture/transition-architecture.md).
 
 And it has an uncomfortable consequence: the order that delivers value early is
-frequently more laborious than the natural build order — because it requires making
+frequently more laborious than the natural build order, because it requires making
 something work partially that would be simpler to do whole.
 
 That additional cost is the insurance premium against interruption, and it pays for
@@ -87,7 +87,7 @@ The price is operational. As long as there are slices on both sides, the organiz
 runs two systems in production: data synchronized between the old model and the new one,
 two deployment pipelines, two on-call rotations, and the routing rule at the interception
 point, which grows with every migrated slice. That cost rises with the number of slices
-coexisting and only drops when the old system loses its last feature — which is why the
+coexisting and only drops when the old system loses its last feature. That is why the
 last slice has to be in the plan from the start. How to manage that period is covered in
 [transition architecture](/15-enterprise-architecture/transition-architecture.md).
 
@@ -119,7 +119,7 @@ structural.
 ### The boy scout rule has a limit
 
 "Leave the code better than you found it" works for small improvements and fails for
-structural changes — which require coordination and do not fit inside an incidental
+structural changes, which require coordination and do not fit inside an incidental
 change.
 
 And there is a risk: unbounded opportunistic refactoring turns a small change into a
@@ -140,19 +140,19 @@ good   "3 of the 8 critical features operating on the new system"
 The first metric is internal and communicates nothing to whoever sponsors it. The others
 are verifiable and sustain support.
 
-And the first has an additional problem: it grows even when value does not — 40% of the
+And the first has an additional problem: it grows even when value does not; 40% of the
 code migrated may be 0% of the value, if it is the wrong part.
 
 ### Slices small enough to fit
 
-A slice that takes eight months is not incremental — it is a small project with the same
+A slice that takes eight months is not incremental: it is a small project with the same
 problems as the big one.
 
 ```text
 practical target   4 to 8 weeks per slice
 ```
 
-That forces finer division, which is work — and it is what keeps the delivery and
+That forces finer division, which is work; and it is what keeps the delivery and
 learning cycle short.
 
 And it fits within the proportion agreed with product. See
@@ -169,7 +169,7 @@ slice 3    2 weeks
 ```
 
 Estimating the first one from the average of the others produces a delay right at the
-start — the worst possible moment, because it erodes confidence before any value has been
+start: the worst possible moment, because it erodes confidence before any value has been
 delivered.
 
 Communicating it in advance changes the reading: "the first slice takes three times as
@@ -198,7 +198,7 @@ insurance against it.
 ## When Not to Use
 
 **A system small enough for a single cutover.** If the whole replacement fits in a few
-weeks, the premium of slicing — interception, synchronization, two systems live — costs
+weeks, the premium of slicing (interception, synchronization, two systems live) costs
 more than the interruption risk it covers.
 
 **A system that will be retired or merely contained.** Slicing presupposes a destination;
@@ -207,7 +207,7 @@ without one, isolating or shutting down is cheaper. See
 
 **A domain with no viable vertical slice.** When a shared database and batch processes
 cut across every feature, no slice goes into production on its own until that core is
-taken apart — and taking it apart is directed structural work, not an increment.
+taken apart. And taking it apart is directed structural work, not an increment.
 
 **Coexistence costlier than interruption.** If keeping both systems synchronized
 requires, for regulatory or consistency reasons, reconciliation that costs more than the
@@ -215,11 +215,11 @@ risk of the program stopping, the coordinated cutover comes out cheaper.
 
 ## Alternatives
 
-- **A dedicated program with milestones** — faster, more vulnerable.
-- **Purely opportunistic modernization** — no program, slower, more resilient.
-- **Freeze and build alongside** — the old one stops evolving. See
+- **A dedicated program with milestones**: faster, more vulnerable.
+- **Purely opportunistic modernization**: no program, slower, more resilient.
+- **Freeze and build alongside**: the old one stops evolving. See
   [rebuilding](/16-legacy-modernization/rebuilding.md).
-- **Containment** — isolate instead of modernizing.
+- **Containment**: isolate instead of modernizing.
 
 ## Trade-offs
 
@@ -258,7 +258,7 @@ no purpose.
 
 **Slicing horizontally.** Migrating one layer at a time forces both architectures to talk to each other across every feature, and none of them is finished until the end.
 
-**Not testing each slice against the defensibility criterion.** If the slice doesn't deliver something that stands on its own, it cannot be interrupted — and interruption is the most likely scenario.
+**Not testing each slice against the defensibility criterion.** If the slice doesn't deliver something that stands on its own, it cannot be interrupted, and interruption is the most likely scenario.
 
 **Communicating progress as a percentage of code.** "40% migrated" says nothing to the business and hides that the remaining 60% contains all the complexity. Progress is communicated in capability delivered.
 
@@ -296,18 +296,18 @@ slice 11 special cases and shutdown            9 weeks
 Each slice crossed every layer for one feature, and went into production via
 [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
-The first slice took the 7 weeks planned — the plan already counted on it building the
+The first slice took the 7 weeks planned: the plan already counted on it building the
 minimum infrastructure along the way. The following ones sped up, reusing it.
 
 Two things happened during the program's 22 months, which include the four of
 interruption:
 
 **An interruption in month 7.** A regulatory priority consumed the team for four months.
-The program stopped with 4 of the 11 slices complete — and all four were in production,
+The program stopped with 4 of the 11 slices complete, and all four were in production,
 delivering value. Nothing was lost.
 
 **A scope change in month 15.** An acquisition brought in a system covering part of what
-slices 8 and 9 would do. They were removed from the plan — and nothing already done had
+slices 8 and 9 would do. They were removed from the plan, and nothing already done had
 to be undone.
 
 Under the original plan, both events would have been fatal: the interruption in month 7
@@ -315,12 +315,12 @@ would have caught the program in phase 2, with nothing delivered; the scope chan
 month 15 would have invalidated work from the earlier phases.
 
 The detail the team highlights: the first slice cost about 60% more than it would have if
-the infrastructure had been built beforehand, in isolation. That was the premium paid —
+the infrastructure had been built beforehand, in isolation. That was the premium paid,
 and it paid off twice, in both events.
 
 ## Related Concepts
 
-- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — the mechanism.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md): the mechanism.
 - [Transition Architecture](/15-enterprise-architecture/transition-architecture.md).
 - [Organizational Constraints](/16-legacy-modernization/organizational-constraints.md).
 - [Migration Strategies](/16-legacy-modernization/migration-strategies.md).

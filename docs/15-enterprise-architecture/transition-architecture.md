@@ -2,7 +2,7 @@
 id: transition-architecture
 title: Arquitetura de Transição
 sidebar_position: 18
-description: Os estados intermediários entre o que existe e o que se quer — o documento que mais falta.
+description: "Os estados intermediários entre o que existe e o que se quer: o documento que mais falta."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [target-architecture]
 related: [target-architecture, current-state-architecture, architecture-roadmaps]
 canonical_for: [arquitetura de transição, coexistência, ponto de não retorno]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 A arquitetura de transição descreve os **estados intermediários** entre o que existe e o
-que se quer — cada um deles um sistema que funciona, não um estado de obra.
+que se quer, cada um deles um sistema que funciona, não um estado de obra.
 
 É a peça que mais frequentemente falta. Organizações têm estado atual e estado-alvo, e
 entre os dois um espaço em branco preenchido com "vamos migrando".
@@ -35,7 +35,7 @@ modernização é passada nos estados intermediários, não no alvo.
 Sem estados intermediários definidos, a migração tem duas formas ruins.
 
 **Salto único.** Constrói-se o novo em paralelo por dois anos e troca-se de uma vez. O
-risco é concentrado, a validação acontece tarde, e o valor só aparece no fim — se
+risco é concentrado, a validação acontece tarde, e o valor só aparece no fim, se
 aparecer.
 
 **Deriva.** Começa-se a migrar sem destino intermediário definido. Meses depois, o
@@ -58,12 +58,12 @@ entrega valor     alguém está melhor por causa dele
 é reversível      ou o custo de voltar é conhecido
 ```
 
-A terceira linha é a mais importante. Programas de modernização são interrompidos —
+A terceira linha é a mais importante. Programas de modernização são interrompidos:
 prioridades mudam, orçamento muda, pessoas mudam. Um estado intermediário que só faz
 sentido como etapa de um plano completo vira dívida quando o plano é abandonado.
 
 E isso muda o sequenciamento: em vez de ordenar por dependência técnica, ordenar por
-valor entregue — de forma que parar em qualquer ponto deixe a organização melhor que
+valor entregue, de forma que parar em qualquer ponto deixe a organização melhor que
 antes.
 
 ### A coexistência é a regra, não a exceção
@@ -115,7 +115,7 @@ descarte do conhecimento — pessoas que saem
 Cada um desses merece decisão explícita, com verificação antes: **o novo está de fato
 funcionando, com volume real, por tempo suficiente?**
 
-O erro característico é desligar o antigo cedo demais, porque manter os dois é caro — e
+O erro característico é desligar o antigo cedo demais, porque manter os dois é caro, e
 descobrir depois um caso de uso que só ele atendia.
 
 ### O custo da transição é maior que a soma das partes
@@ -133,7 +133,7 @@ carga cognitiva de duas realidades
 Isso significa que **transições longas são caras de forma composta**, e que encurtá-las
 tem retorno alto.
 
-E significa que um plano de transição precisa incluir o custo de estar no meio — que
+E significa que um plano de transição precisa incluir o custo de estar no meio, que
 frequentemente é omitido das estimativas, produzindo programas que custam muito mais que
 o previsto.
 
@@ -173,7 +173,7 @@ estados intermediários só adicionam coexistência.
 sistemas e sincronizá-los supera o risco que os estados intermediários distribuiriam.
 
 **Sistema antigo impossível de interceptar ou replicar.** Sem ponto de interceptação e
-sem acesso aos dados para replicação, não há como os dois lados conviverem — os estados
+sem acesso aos dados para replicação, não há como os dois lados conviverem: os estados
 intermediários ficam no papel.
 
 **O antigo atende e mudar não se paga.** Aí a questão não é como transitar, é se
@@ -181,11 +181,11 @@ transitar.
 
 ## Alternativas
 
-- **Salto único** — legítimo para sistemas pequenos, com reversão viável.
-- **Reescrita paralela com troca** — quando o sistema antigo é impossível de
+- **Salto único**: legítimo para sistemas pequenos, com reversão viável.
+- **Reescrita paralela com troca**: quando o sistema antigo é impossível de
   interceptar.
-- **Congelar e construir ao lado** — o antigo para de evoluir, o novo cresce.
-- **Não migrar** — decisão legítima quando o sistema atende e o custo de mudar não se
+- **Congelar e construir ao lado**: o antigo para de evoluir, o novo cresce.
+- **Não migrar**: decisão legítima quando o sistema atende e o custo de mudar não se
   paga.
 
 A última merece consideração séria e raramente é considerada.
@@ -225,7 +225,7 @@ A última merece consideração séria e raramente é considerada.
 
 **Não definir a fonte da verdade.** Durante a coexistência, os dois sistemas têm o mesmo dado. Sem declarar qual manda, cada integração escolhe a sua e a divergência passa a ser questão de tempo.
 
-**Não ter critério de conclusão.** Sem uma condição objetiva de "terminou", a transição vira estado permanente — e a empresa passa a operar e pagar os dois sistemas indefinidamente.
+**Não ter critério de conclusão.** Sem uma condição objetiva de "terminou", a transição vira estado permanente, e a empresa passa a operar e pagar os dois sistemas indefinidamente.
 
 **Ordenar por dependência técnica.** Produz uma sequência em que nada é útil até o fim, e o projeto é cancelado no meio sem ter entregue nada.
 
@@ -235,13 +235,13 @@ A última merece consideração séria e raramente é considerada.
 
 ## Exemplo Real
 
-Um banco iniciou a substituição do sistema de cadastro de clientes — 18 anos, usado por
-23 sistemas.
+Um banco iniciou a substituição do sistema de cadastro de clientes (18 anos, usado por
+23 sistemas).
 
 O plano original: construir o novo em paralelo, migrar os dados, e trocar as 23
 integrações num fim de semana.
 
-Estimativa: 14 meses. Após 20 meses, o novo estava construído e a troca nunca acontecia —
+Estimativa: 14 meses. Após 20 meses, o novo estava construído e a troca nunca acontecia:
 cada tentativa de agendar encontrava um sistema que não estava pronto, e o risco de
 trocar 23 integrações de uma vez paralisava a decisão.
 
@@ -258,11 +258,11 @@ o gargalo conhecido.
 antigo como fonte da verdade. Isso permitiu validar o novo com dados reais, comparando
 os dois lados continuamente.
 
-Três meses de comparação revelaram 14 divergências de regra de negócio — casos que o
+Três meses de comparação revelaram 14 divergências de regra de negócio: casos que o
 sistema antigo tratava de formas não documentadas.
 
 **Estado 3 — inversão da fonte da verdade.** O novo virou fonte, o antigo passou a
-receber por replicação. Os sistemas de escrita migraram em ondas, por criticidade — os
+receber por replicação. Os sistemas de escrita migraram em ondas, por criticidade: os
 menos críticos primeiro.
 
 **Estado 4 — desligamento.** Após 90 dias sem nenhum acesso registrado ao antigo, ele foi
@@ -270,7 +270,7 @@ desligado.
 
 Critério de conclusão de cada estado explícito, com métricas verificáveis.
 
-Tempo total: 16 meses a partir da reformulação, aproveitando o sistema já construído —
+Tempo total: 16 meses a partir da reformulação, aproveitando o sistema já construído;
 36 meses no total contra os 14 estimados, mas com valor entregue a partir do terceiro mês
 da reformulação e sem nenhum fim de semana de troca.
 
@@ -279,13 +279,13 @@ gargalo de capacidade estava resolvido; após o estado 2, as divergências de re
 estavam mapeadas.
 
 A lição registrada: os 20 meses do plano original não produziram valor utilizável por
-si — o sistema construído neles só passou a servir quando os estados intermediários lhe
-deram um uso. O que travava não era técnico — era que o único momento de valor era o
+si. O sistema construído neles só passou a servir quando os estados intermediários lhe
+deram um uso. O que travava não era técnico: era que o único momento de valor era o
 último, e ele era arriscado demais para alguém aprovar.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md) — o destino.
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md): o destino.
 - [Arquitetura do Estado Atual](/15-enterprise-architecture/current-state-architecture.md).
 - [Roteiros de Arquitetura](/15-enterprise-architecture/architecture-roadmaps.md).
 - [Modernização de Legado](/16-legacy-modernization/index.md).
@@ -295,7 +295,7 @@ deram um uso. O que travava não era técnico — era que o único momento de va
 Pegue uma migração em andamento no seu contexto e pergunte: se ela parar hoje, o que foi
 entregue é defensável?
 
-Se a resposta for não, o estado intermediário atual foi mal definido — e o programa está
+Se a resposta for não, o estado intermediário atual foi mal definido, e o programa está
 vulnerável à próxima mudança de prioridade.
 
 ## Perguntas de Entrevista
@@ -308,4 +308,4 @@ vulnerável à próxima mudança de prioridade.
 
 - Fowler, Martin. *StranglerFigApplication*, 2004.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquiteturas de transição.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022. Arquiteturas de transição.

@@ -2,7 +2,7 @@
 id: rebuilding
 title: Reconstrução
 sidebar_position: 7
-description: Escrever de novo — a estratégia mais cara, mais arriscada, e a escolhida por reflexo.
+description: "Escrever de novo: a estratégia mais cara, mais arriscada, e a escolhida por reflexo."
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, legacy-refactoring, strangler-fig]
 canonical_for: [reconstrução, reescrita completa, segundo sistema, alvo em movimento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -35,8 +35,8 @@ o apoio que tinha.
 
 Reescritas falham por razões estruturais, não por incompetência:
 
-**Alvo em movimento.** O sistema antigo continua evoluindo. O novo persegue algo que muda
-— e cada funcionalidade adicionada ao antigo aumenta a distância.
+**Alvo em movimento.** O sistema antigo continua evoluindo. O novo persegue algo que muda,
+e cada funcionalidade adicionada ao antigo aumenta a distância.
 
 **Conhecimento embutido.** O código antigo contém regras que ninguém documentou,
 acumuladas em anos de operação. Ver
@@ -48,7 +48,7 @@ durante 24 meses sem mostrar resultado.
 **Escopo que cresce.** "Já que estamos reescrevendo, vamos aproveitar para..." — e o
 escopo do novo passa o do antigo.
 
-Nenhuma dessas recua com mais esforço dentro da mesma abordagem — construir tudo e trocar
+Nenhuma dessas recua com mais esforço dentro da mesma abordagem: construir tudo e trocar
 de uma vez. Elas recuam quando a abordagem muda: paridade estrita, congelamento do antigo,
 testes de caracterização, estrangulamento. As seções abaixo tratam de cada uma.
 
@@ -92,7 +92,7 @@ Isso é impopular e é o que torna o projeto executável.
 
 ### A paridade é mais difícil do que parece
 
-Reproduzir o comportamento do antigo exige conhecê-lo — e ele não está documentado.
+Reproduzir o comportamento do antigo exige conhecê-lo, e ele não está documentado.
 
 O caminho que funciona:
 
@@ -108,14 +108,14 @@ Ver [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md) e
 A comparação em produção é o controle mais forte: o novo processa o mesmo tráfego, sem
 responder ao usuário, e as divergências apontam onde ele diverge.
 
-Sem isso, a paridade é uma suposição — verificada quando o novo entra em produção e
+Sem isso, a paridade é uma suposição, verificada quando o novo entra em produção e
 alguém reclama.
 
 ### Reconstruir não dispensa strangler fig
 
 Um erro comum: assumir que reconstruir significa construir tudo e trocar de uma vez.
 
-As duas coisas são independentes. É possível — e quase sempre melhor — reconstruir
+As duas coisas são independentes. É possível, e quase sempre melhor, reconstruir
 **incrementalmente**, com o novo assumindo funcionalidades gradualmente. Ver
 [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
@@ -124,7 +124,7 @@ Isso remove a propriedade mais danosa da reescrita: o valor concentrado no fim.
 E introduz um custo que a troca única adia: se o motivo de reconstruir é o modelo de
 domínio errado, os dois sistemas guardam o mesmo dado em modelos diferentes durante a
 convivência. Cada fatia migrada exige traduzir dados do modelo antigo para o novo, e as
-fatias que ainda ficam no antigo precisam ler o que o novo escreveu — compatibilidade nos
+fatias que ainda ficam no antigo precisam ler o que o novo escreveu: compatibilidade nos
 dois sentidos, mantida até o desligamento. Ver
 [migração de dados](/16-legacy-modernization/data-migration.md).
 
@@ -141,7 +141,7 @@ congelar o antigo   funcionalidade nova vai para o novo, ou espera
 não congelar        o novo persegue um alvo que se move
 ```
 
-Congelar tem custo de negócio, e ele precisa ser negociado antes — não descoberto no meio.
+Congelar tem custo de negócio, e ele precisa ser negociado antes, não descoberto no meio.
 
 Onde congelar não é possível, estrangulamento é a resposta: funcionalidade nova é
 construída no sistema novo desde o início.
@@ -155,7 +155,7 @@ organizacional costuma durar. Ver
 A verificação honesta antes de começar: **este projeto sobrevive à saída do patrocinador,
 a uma mudança de prioridade, e a dois ciclos de orçamento?**
 
-Se a resposta for não, a abordagem precisa ser outra — ou o projeto vai ser interrompido
+Se a resposta for não, a abordagem precisa ser outra, ou o projeto vai ser interrompido
 pela metade.
 
 ## Modelo Mental
@@ -187,11 +187,11 @@ por razões que não se resolvem com esforço.
 
 ## Alternativas
 
-- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o modelo está certo.
-- **[Strangler Fig](/16-legacy-modernization/strangler-fig.md)** — reconstruir incrementalmente.
-- **[Replataforma](/16-legacy-modernization/replatforming.md)** — quando o problema é a infraestrutura.
-- **[Substituição](/16-legacy-modernization/replacing.md)** — quando existe produto de mercado.
-- **Reconstruir apenas a parte com modelo errado** — frequentemente a resposta correta.
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)**: quando o modelo está certo.
+- **[Strangler Fig](/16-legacy-modernization/strangler-fig.md)**: reconstruir incrementalmente.
+- **[Replataforma](/16-legacy-modernization/replatforming.md)**: quando o problema é a infraestrutura.
+- **[Substituição](/16-legacy-modernization/replacing.md)**: quando existe produto de mercado.
+- **Reconstruir apenas a parte com modelo errado**: frequentemente a resposta correta.
 
 A última merece destaque: sistemas raramente têm o modelo inteiro errado. Ver
 [estratégias de migração](/16-legacy-modernization/migration-strategies.md).
@@ -247,7 +247,7 @@ gastos reproduzindo partes que estavam certas.
 
 ## Exemplo Real
 
-Uma empresa de serviços financeiros reescreveu o sistema de gestão de investimentos — 12
+Uma empresa de serviços financeiros reescreveu o sistema de gestão de investimentos: 12
 anos, 200 mil linhas.
 
 O projeto foi aprovado com estimativa de 18 meses e escopo de paridade.
@@ -257,7 +257,7 @@ O que aconteceu:
 **Escopo cresceu no mês 3.** A área de produto pediu melhorias que "seriam fáceis já que
 estamos reescrevendo". Vinte e três funcionalidades novas entraram.
 
-**O antigo não foi congelado.** Ele recebeu 14 mudanças regulatórias em dois anos —
+**O antigo não foi congelado.** Ele recebeu 14 mudanças regulatórias em dois anos,
 obrigatórias, não negociáveis. Cada uma precisou ser feita duas vezes.
 
 **Paridade não verificada.** Não havia testes de caracterização. A validação era contra
@@ -267,7 +267,7 @@ sistema fazia.
 **Troca única no mês 31.** O corte foi feito num fim de semana, com reversão prevista.
 
 Na segunda-feira, 40 problemas foram reportados. Vinte e oito eram comportamentos do
-sistema antigo que não estavam na especificação — regras de cálculo de rentabilidade,
+sistema antigo que não estavam na especificação: regras de cálculo de rentabilidade,
 tratamento de eventos corporativos, arredondamentos específicos por tipo de fundo.
 
 A reversão foi acionada no terceiro dia. O sistema antigo voltou, e o projeto ficou
@@ -286,9 +286,9 @@ divergências.
 reversão por funcionalidade.
 
 **Escopo devolvido à paridade.** As 23 melhorias foram adiadas para depois do
-desligamento — e, quando ele veio, 15 delas já não eram desejadas.
+desligamento, e, quando ele veio, 15 delas já não eram desejadas.
 
-O sistema antigo foi desligado no mês 47 — 29 meses além da estimativa original.
+O sistema antigo foi desligado no mês 47, 29 meses além da estimativa original.
 
 O que a equipe registra: a decisão de reconstruir era defensável; o modelo de dados
 realmente não suportava os produtos que o negócio queria lançar. O que custou 29 meses
@@ -297,14 +297,14 @@ paridade não verificada.
 
 ## Conceitos Relacionados
 
-- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md) — as alternativas.
-- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — reconstruir incrementalmente.
-- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md) — o conhecimento embutido.
+- [Estratégias de Migração](/16-legacy-modernization/migration-strategies.md): as alternativas.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md): reconstruir incrementalmente.
+- [Sistemas Legados](/16-legacy-modernization/legacy-systems.md): o conhecimento embutido.
 - [Restrições Organizacionais](/16-legacy-modernization/organizational-constraints.md).
 
 ## Exercício Prático
 
-Se você considera reconstruir um sistema, escreva o que ele faz — completamente.
+Se você considera reconstruir um sistema, escreva o que ele faz, completamente.
 
 Depois compare com testes de caracterização sobre o comportamento real. A diferença entre
 as duas listas é o que uma reescrita perderia.
@@ -317,6 +317,6 @@ as duas listas é o que uma reescrita perderia.
 
 ## Para Aprofundar
 
-- Brooks, Frederick. *The Mythical Man-Month*. Addison-Wesley, 1975 — o segundo sistema.
+- Brooks, Frederick. *The Mythical Man-Month*. Addison-Wesley, 1975. O segundo sistema.
 - Spolsky, Joel. *Things You Should Never Do*, 2000.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.

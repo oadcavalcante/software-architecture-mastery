@@ -2,7 +2,7 @@
 id: build-vs-buy
 title: Build vs. Buy
 sidebar_position: 11
-description: Construir custa o que ninguém orça — e a conta só fecha quando o custo de pessoal entra nela.
+description: Construir custa o que ninguém orça, e a conta só fecha quando o custo de pessoal entra nela.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [saas]
 related: [managed-vs-self-hosted, cost-vs-reliability, centralization-vs-decentralization]
 canonical_for: [construir contra comprar, capacidade diferenciadora, custo total de propriedade, viés de construção]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -28,9 +28,9 @@ eixo real   esta capacidade diferencia o negócio, e o custo total de
             construí-la e mantê-la é menor que o de comprá-la?
 ```
 
-As duas metades erram em direções opostas. A primeira é superestimada — times consideram
-diferenciadoras capacidades que o mercado resolve há anos. A segunda é subestimada — o custo
-de construir omite sistematicamente o item mais caro: **pessoal, para sempre**.
+As duas metades erram em direções opostas. A primeira é superestimada: times consideram
+diferenciadoras capacidades que o mercado resolve há anos. A segunda é subestimada: o custo
+de construir omite sistematicamente o item mais caro, **pessoal, para sempre**.
 
 O resultado agregado é um viés forte a favor de construir, que aparece de forma consistente
 em revisões retrospectivas.
@@ -46,7 +46,7 @@ construir             R$ 4 mil/mês de infraestrutura, "mais algum tempo
 ```
 
 "Algum tempo de engenharia" é onde a decisão se perde. Medido depois, ele costuma ser de
-0,5 a 2 pessoas em tempo integral, permanentemente — o que a preços de mercado supera a
+0,5 a 2 pessoas em tempo integral, permanentemente. A preços de mercado, isso supera a
 licença por uma margem larga.
 
 E há custos que nem entram na conta:
@@ -119,7 +119,7 @@ construir   disponível em meses
 O intervalo tem custo de oportunidade que raramente é somado: o que a organização deixa de
 fazer, e o que custa não ter a capacidade durante o período.
 
-Em mercados com janela — uma exigência regulatória com data, um concorrente avançando —, o
+Em mercados com janela (uma exigência regulatória com data, um concorrente avançando), o
 tempo pode ser o fator dominante e tornar a comparação de custo irrelevante.
 
 ### O viés de construção é previsível
@@ -135,7 +135,7 @@ comprar exige processo de compra, que é chato
 ```
 
 O último é subestimado como causa. Em organizações com processo de compra pesado, times
-constroem para evitar seis meses de negociação — e a decisão técnica é decidida por atrito
+constroem para evitar seis meses de negociação, e a decisão técnica é decidida por atrito
 administrativo.
 
 ### Comprar não é o fim da decisão
@@ -181,14 +181,14 @@ construir → comprar   caro de outro jeito: migração de dados, resistência
 
 A assimetria tem um componente humano relevante: abandonar algo construído internamente
 encontra resistência que abandonar uma licença não encontra. Isso deveria pesar na decisão
-inicial — e não pesa.
+inicial, e não pesa.
 
 Favorece **comprar na dúvida**, com a decisão registrada e a condição de reversão explícita:
 "construiremos se a ferramenta bloquear X".
 
 ## Modelo Mental
 
-**Construa o que diferencia; compre o resto.** E some o custo de pessoal, sempre — é ele que
+**Construa o que diferencia; compre o resto.** E some o custo de pessoal, sempre: é ele que
 inverte a maior parte das conclusões.
 
 ## Quando Usar
@@ -197,7 +197,7 @@ Construa quando:
 
 - A capacidade é razão pela qual clientes escolhem você.
 - Nenhuma solução de mercado atende a um requisito central, verificado.
-- O custo total, com pessoal, é menor — com o número calculado.
+- O custo total, com pessoal, é menor, com o número calculado.
 - O controle sobre a evolução é estratégico.
 
 Compre quando:
@@ -210,11 +210,11 @@ Compre quando:
 
 ## Quando Não Usar
 
-**Sem incluir custo de pessoal** na comparação. Construir consome engenheiros durante anos, não só no primeiro ano — e esse é quase sempre o maior item da conta.
+**Sem incluir custo de pessoal** na comparação. Construir consome engenheiros durante anos, não só no primeiro ano, e esse é quase sempre o maior item da conta.
 
 **Sem testar se a capacidade é mesmo diferenciadora.** O teste é direto: um cliente escolheria a empresa por causa disso? Se não, construir é gastar a capacidade que diferenciaria em algo que não diferencia.
 
-**Construindo para evitar processo de compra.** A decisão passa a ser tomada pela burocracia, não pelo mérito — e o custo do atrito de compra é pago por anos de manutenção.
+**Construindo para evitar processo de compra.** A decisão passa a ser tomada pela burocracia, não pelo mérito, e o custo do atrito de compra é pago por anos de manutenção.
 
 **Comprando o que é o produto.** Terceirizar o núcleo entrega ao fornecedor o ritmo de evolução daquilo que a empresa vende.
 
@@ -222,12 +222,12 @@ Compre quando:
 
 ## Alternativas
 
-- **Comprar e estender** — usar a base do mercado e construir só a parte diferenciadora
+- **Comprar e estender**: usar a base do mercado e construir só a parte diferenciadora
   sobre ela.
-- **Código aberto operado por nós** — meio-termo entre construir e comprar, com custo
+- **Código aberto operado por nós**: meio-termo entre construir e comprar, com custo
   operacional próprio. Ver [gerenciado vs. autogerido](/20-trade-offs/managed-vs-self-hosted.md).
-- **Comprar agora, construir depois** — com a decisão registrada e a condição de reversão.
-- **Construir o mínimo** — a versão de 10% que atende ao caso, sem generalizar.
+- **Comprar agora, construir depois**: com a decisão registrada e a condição de reversão.
+- **Construir o mínimo**: a versão de 10% que atende ao caso, sem generalizar.
 
 A primeira é a resposta certa com mais frequência do que qualquer dos extremos, e a que mais
 exige disciplina para não virar customização sem fim.
@@ -268,7 +268,7 @@ exige disciplina para não virar customização sem fim.
 
 **Não aplicar o teste "um cliente já escolheu por causa disso?".**
 
-**Subestimar manutenção** — use 15% a 25% ao ano.
+**Subestimar manutenção**: use 15% a 25% ao ano.
 
 **Não somar o custo de oportunidade** do tempo até estar pronto.
 
@@ -277,7 +277,7 @@ exige disciplina para não virar customização sem fim.
 ## Exemplo Real
 
 Uma empresa de comércio eletrônico decidiu em 2022 construir sua própria plataforma de
-comunicação com clientes — e-mail transacional, notificação e campanhas.
+comunicação com clientes: e-mail transacional, notificação e campanhas.
 
 A comparação registrada na época:
 
@@ -306,7 +306,7 @@ A taxa de entrega foi o dado que mudou a conversa. Sete pontos percentuais de e-
 entregues, sobre o volume da empresa, foram estimados em cerca de R$ 340 mil por mês de
 receita não realizada.
 
-A migração para a solução de mercado levou cinco meses e encontrou a resistência prevista —
+A migração para a solução de mercado levou cinco meses e encontrou a resistência prevista:
 a equipe que construiu defendeu a plataforma por três ciclos de priorização.
 
 Resultados um ano depois:
@@ -329,7 +329,7 @@ monetário e não em "engenheiros".
 por causa disso?" precisa ser respondida por escrito. Comunicação transacional falhava
 claramente.
 
-**Processo de compra simplificado** para ferramentas abaixo de um limite — a investigação
+**Processo de compra simplificado** para ferramentas abaixo de um limite: a investigação
 tinha revelado que dois dos quatro projetos de construção anteriores existiam para evitar o
 processo de compra.
 
@@ -350,7 +350,7 @@ inicial era construir, e o número mudou a decisão.
 
 O que a equipe aprendeu: a construção de 2022 não foi mal executada. A plataforma funcionava.
 Ela apenas custava seis vezes mais do que a alternativa, numa capacidade em que a empresa
-nunca teria vantagem — e a conta que teria mostrado isso levava vinte minutos para ser
+nunca teria vantagem. E a conta que teria mostrado isso levava vinte minutos para ser
 feita.
 
 ## Conceitos Relacionados
@@ -377,6 +377,6 @@ não incluiu.
 
 ## Para Aprofundar
 
-- Moore, Geoffrey. *Living on the Fault Line*. HarperBusiness, 2000 — núcleo e contexto.
+- Moore, Geoffrey. *Living on the Fault Line*. HarperBusiness, 2000. Núcleo e contexto.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

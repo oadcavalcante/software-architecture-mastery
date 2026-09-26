@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -38,7 +38,7 @@ ficam ativos em um dia típico.
 
 O negócio tem uma característica que o diferencia de comércio eletrônico: **o produto é
 perecível e o prazo é o produto**. Um pedido entregue 40 minutos atrasado não é um pedido
-entregue com atraso — é comida fria, e o cliente não volta. A empresa mede que um atraso acima
+entregue com atraso: é comida fria, e o cliente não volta. A empresa mede que um atraso acima
 de 15 minutos sobre a estimativa reduz a probabilidade de novo pedido em 31%.
 
 Três pressões motivam a revisão da arquitetura:
@@ -53,7 +53,7 @@ restaurante com pedido pronto, e em horário de pico há regiões com pedidos se
 enquanto regiões vizinhas têm entregadores ociosos.
 
 **Custo de infraestrutura.** A plataforma gasta R$ 31 milhões por ano em nuvem, e 44% disso é
-consumido pelo rastreamento de posição dos entregadores — 34 mil dispositivos enviando
+consumido pelo rastreamento de posição dos entregadores: 34 mil dispositivos enviando
 localização a cada 4 segundos.
 
 ## Requisitos Funcionais
@@ -213,11 +213,11 @@ equipe               nenhuma pessoa com experiência na tecnologia
 | Complexidade operacional | 5% | 9 | 7 | 3 |
 | **Total ponderado** | | **4,6** | **8,4** | **6,4** |
 
-O peso de 30% em custo reflete a restrição da diretoria — é uma restrição de negócio
+O peso de 30% em custo reflete a restrição da diretoria: é uma restrição de negócio
 declarada, e ignorá-la produziria uma proposta que não seria aprovada.
 
 **Análise de sensibilidade**, redistribuindo o peso restante proporcionalmente entre os demais critérios. Com custo em 10% e capacidade de previsão em 30%,
-os totais viram 5,0 / 7,6 / 6,8 — a Opção B ainda vence, com a vantagem sobre C caindo de 1,9
+os totais viram 5,0 / 7,6 / 6,8. A Opção B ainda vence, com a vantagem sobre C caindo de 1,9
 para 0,8. Com isolamento em 40%, viram 4,0 / 8,5 / 6,8. A conclusão é estável, e o cenário em
 que C se aproxima é justamente aquele em que a previsão de chegada vira o produto.
 
@@ -228,7 +228,7 @@ assíncrono em armazenamento barato e indexação por célula geográfica.
 
 **Sob que condição cada opção descartada venceria:**
 
-**Opção A venceria se** o número de entregadores ativos fosse uma ordem de grandeza menor —
+**Opção A venceria se** o número de entregadores ativos fosse uma ordem de grandeza menor:
 abaixo de ~3 mil simultâneos, o custo deixa de ser relevante e a simplicidade de um banco só
 domina. É o caso de uma plataforma operando em poucas cidades.
 
@@ -273,7 +273,7 @@ TTL       45 s — um entregador sem posição por 45 s sai da grade
 ```
 
 O TTL é uma decisão importante: em vez de gerenciar explicitamente entregadores que perderam
-conexão, o sistema os deixa expirar. Isso torna a perda de sinal — que é comum — um caso normal
+conexão, o sistema os deixa expirar. Isso torna a perda de sinal (que é comum) um caso normal
 em vez de um erro a tratar.
 
 **Célula geográfica.** O território é dividido em células hexagonais de tamanho fixo. Cada
@@ -285,7 +285,7 @@ grandeza mais barata. O custo é precisão: entregadores na borda de uma célula
 ser ignorados. A mitigação é usar dois anéis de vizinhança em regiões de baixa densidade.
 
 **Histórico de posição.** Gravado de forma assíncrona, comprimido, em armazenamento de objetos
-particionado por dia e região. É consultado apenas para disputas e para análise — cerca de 400
+particionado por dia e região. É consultado apenas para disputas e para análise: cerca de 400
 consultas por dia sobre 420 milhões de registros diários, o que justifica plenamente o
 armazenamento lento e barato.
 
@@ -293,8 +293,8 @@ armazenamento lento e barato.
 e a consistência precisa ser forte: um pedido não pode ser atribuído a dois entregadores.
 
 **Catálogo.** PostgreSQL como fonte de verdade, com índice de busca dedicado alimentado por
-eventos. A disponibilidade de cada item — que muda ao longo do dia, quando ingredientes acabam
-— é propagada com janela de até 2 minutos, o que é o requisito.
+eventos. A disponibilidade de cada item (que muda ao longo do dia, quando ingredientes acabam)
+é propagada com janela de até 2 minutos, o que é o requisito.
 
 ## Integração
 
@@ -303,7 +303,7 @@ posições chegam por conexão persistente, em lotes de até 5 pontos, comprimid
 acumula localmente quando perde sinal e envia o lote quando reconecta, com carimbos de tempo
 originais.
 
-Essa decisão — acumular e enviar em lote — foi o que reduziu o custo de ingestão em 38%, e ela
+Essa decisão (acumular e enviar em lote) foi o que reduziu o custo de ingestão em 38%, e ela
 existe por causa da restrição de conectividade. O sistema trata reconexão com lote atrasado
 como caso normal.
 
@@ -312,7 +312,7 @@ a grade de entregadores das células relevantes, calcula um escore por candidato
 
 O escore combina distância até o restaurante, direção atual do entregador, tempo estimado de
 preparo restante, valor do pedido e histórico de aceitação. Ofertas são enviadas a até 3
-candidatos simultaneamente, e a primeira aceitação vence — o que exige que a aceitação seja
+candidatos simultaneamente, e a primeira aceitação vence, o que exige que a aceitação seja
 uma operação atômica no domínio de pedido.
 
 **Comunicação em tempo real.** Conexões persistentes com três públicos, com estratégias
@@ -321,7 +321,7 @@ acompanhamento está aberta; restaurante recebe notificação de pedido; entrega
 e atualizações de rota.
 
 A restrição de só enviar posição com a tela aberta parece óbvia e não era o comportamento
-anterior — ela sozinha reduziu 22% do tráfego de saída.
+anterior: ela sozinha reduziu 22% do tráfego de saída.
 
 ## Segurança
 
@@ -353,17 +353,17 @@ O sistema escala por **região**, não globalmente. Cada região tem sua própri
 seu motor de atribuição e sua capacidade dimensionada pelo padrão local.
 
 Isso tem três consequências positivas. O custo acompanha a densidade real: uma cidade com 40
-entregadores não paga infraestrutura de capital. Uma falha fica contida numa região. E o pico —
-que é sincronizado dentro de uma cidade mas não entre fusos e hábitos diferentes — é absorvido
+entregadores não paga infraestrutura de capital. Uma falha fica contida numa região. E o pico,
+que é sincronizado dentro de uma cidade mas não entre fusos e hábitos diferentes, é absorvido
 com menos capacidade ociosa agregada.
 
 O pico de sexta e sábado à noite é previsível e concentrado. A capacidade é elevada por
-agendamento, não por reação — escalar reativamente com 20 segundos de requisito de atribuição
+agendamento, não por reação: escalar reativamente com 20 segundos de requisito de atribuição
 é apertado demais.
 
 O ponto de contenção real é a **aceitação de oferta**: quando três entregadores recebem a mesma
 oferta, a aceitação precisa ser atômica. A solução é contenção por linha do pedido, com prazo
-curto — não bloqueio distribuído, porque o volume não justifica.
+curto, e não bloqueio distribuído, porque o volume não justifica.
 
 ## Confiabilidade
 
@@ -374,7 +374,7 @@ raio fixo a partir da última posição conhecida no histórico, com janela ampl
 funciona.
 
 Se o **motor de atribuição** falha, os pedidos entram numa fila e são atribuídos quando ele
-volta. O restaurante é avisado para não iniciar o preparo — o que evita o desperdício que o
+volta. O restaurante é avisado para não iniciar o preparo. Isso evita o desperdício que o
 requisito de 20 segundos existe para prevenir.
 
 Se a **comunicação em tempo real** cai, os aplicativos passam a consultar o estado
@@ -406,7 +406,7 @@ o problema. Quando cai abaixo de um limiar numa região, o sistema aciona incent
 antes que os pedidos comecem a atrasar.
 
 O **custo por pedido** como métrica acompanhada continuamente foi consequência da restrição
-orçamentária. Ele é decomposto por domínio, e cada equipe vê a sua parcela — o que produziu
+orçamentária. Ele é decomposto por domínio, e cada equipe vê a sua parcela. Isso produziu
 otimizações que nenhuma diretriz teria produzido.
 
 ## Implantação
@@ -416,7 +416,7 @@ Uma mudança no motor de atribuição passa 48 horas em pelo menos três cidades
 chegar a São Paulo.
 
 Mudanças no algoritmo de atribuição são avaliadas por experimento controlado, com regiões
-comparáveis divididas entre versões — porque o efeito de uma mudança de atribuição só aparece
+comparáveis divididas entre versões, porque o efeito de uma mudança de atribuição só aparece
 em métricas de negócio agregadas, e não em teste.
 
 Nenhuma mudança estrutural entre quinta e domingo. O pico de fim de semana concentra 41% do
@@ -426,7 +426,7 @@ A janela de implantação por ondas tem um efeito secundário que a equipe passo
 que o próprio controle de risco: ela produz um período em que duas versões do motor de
 atribuição operam em regiões comparáveis, o que dá uma leitura natural do efeito da mudança
 sobre métricas de negócio. Antes das ondas, uma alteração no algoritmo era avaliada por
-comparação com a semana anterior — e o volume de delivery varia tanto por clima, feriado e
+comparação com a semana anterior, e o volume de delivery varia tanto por clima, feriado e
 campanha que essa comparação raramente concluía algo.
 
 ## Estratégia de Evolução
@@ -445,7 +445,7 @@ real observado por restaurante e por horário, a densidade de entregadores na re
 condições de trânsito.
 
 O erro médio caiu de 11 min para 6,2 min. O requisito de 5 min em 80% dos pedidos foi atingido
-para 74% — abaixo do alvo, e o gargalo identificado foi a variabilidade do tempo de preparo,
+para 74%: abaixo do alvo, e o gargalo identificado foi a variabilidade do tempo de preparo,
 que é do restaurante e não da plataforma.
 
 **Fase 4 (meses 14–18): equilíbrio de oferta.** Incentivos dinâmicos por célula, acionados pela
@@ -492,11 +492,11 @@ retenção de clientes em 90 dias         +6,8 p.p.
 ```
 
 O ganho de retenção é o resultado que a empresa considera decisivo, e ele é consequência direta
-da redução de atrasos — que era a tese do projeto.
+da redução de atrasos, que era a tese do projeto.
 
 Vale notar o que a redução de custo permitiu, além da economia em si: os R$ 12 milhões anuais
 liberados financiaram integralmente as Fases 2 a 4, o que tornou o projeto autossustentado a
-partir do quarto mês. Essa foi uma escolha deliberada de sequenciamento — começar pela fase que
+partir do quarto mês. Essa foi uma escolha deliberada de sequenciamento: começar pela fase que
 paga as seguintes, em vez de pela que entrega mais valor de produto. É o mesmo raciocínio de
 ordem de extração do case de [e-commerce](/21-case-studies/ecommerce.md), aplicado a um critério diferente.
 
@@ -511,16 +511,16 @@ transação, replicação síncrona nem retenção quente. Tratá-las como dado 
 R$ 13,6 milhões por ano para garantir uma propriedade que ninguém usava.
 
 **A restrição de conectividade moldou o desenho.** Lote acumulado, carimbo de tempo original,
-TTL em vez de gestão de desconexão — três decisões que só fazem sentido para quem opera com
+TTL em vez de gestão de desconexão: três decisões que só fazem sentido para quem opera com
 aparelhos que perdem sinal, e que reduziram custo e complexidade ao mesmo tempo.
 
 **O limite do sistema não era o sistema.** A Fase 3 atingiu 74% contra um alvo de 80%, e o
 gargalo era a variabilidade do tempo de preparo dos restaurantes. Nenhuma decisão de arquitetura
-resolveria — e reconhecer isso evitou meses de otimização no lugar errado.
+resolveria, e reconhecer isso evitou meses de otimização no lugar errado.
 
 ## Conceitos Relacionados
 
-- [Case: Ride-Sharing](/21-case-studies/ride-sharing.md) — o mesmo problema de coordenação, com outras
+- [Case: Ride-Sharing](/21-case-studies/ride-sharing.md): o mesmo problema de coordenação, com outras
   restrições.
 - [Case: Logística](/21-case-studies/logistics.md).
 - [Pontos Quentes](/11-scalability/hotspots.md).

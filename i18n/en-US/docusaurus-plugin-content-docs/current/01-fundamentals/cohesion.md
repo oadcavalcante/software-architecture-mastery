@@ -2,7 +2,7 @@
 id: cohesion
 title: Cohesion
 sidebar_position: 14
-description: The degree to which what sits together belongs together — the other face of the boundary decision.
+description: "The degree to which what sits together belongs together: the other face of the boundary decision."
 doc_type: concept
 level: 1
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [coupling]
 related: [modularity, separation-of-concerns]
 canonical_for: [cohesion]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -36,7 +36,7 @@ different part of it, and the parts do not talk to each other.
 
 The cost shows up in three ways. Whoever needs to understand one part carries the
 rest along. Whoever changes one part risks the others for no reason. And the
-module becomes everybody's dependency — because everyone needs something in
+module becomes everybody's dependency, because everyone needs something in
 there, even if different things.
 
 Modules called `utils`, `helpers`, `common` or `shared` are the canonical
@@ -81,14 +81,14 @@ junk-drawer module may even raise the dependency count for a consumer that pulle
 several things out of it; what drops is the exposure to irrelevant change.
 
 But the relationship is not automatic. You can have an internally cohesive module
-that depends on ten others — high cohesion and high efferent coupling at once.
+that depends on ten others: high cohesion and high efferent coupling at once.
 The two properties relate to each other; they do not determine each other.
 
 ### Cohesion is contextual
 
 The same grouping can be cohesive or not depending on the system. In a small
 system, "customer operations" is a well-defined task. In a large one, "customer"
-fragments into registration, credit, preferences and purchase history — which
+fragments into registration, credit, preferences and purchase history, which
 change for distinct reasons and do not belong together.
 
 That means cohesion degrades with growth without anyone doing anything wrong. A
@@ -117,7 +117,7 @@ Increasing cohesion is worth it when:
 
 **When the resulting split produces modules that always change together.**
 Increasing cohesion by fragmenting one module into three that never change
-separately trades one problem for a worse one — now there are three places to
+separately trades one problem for a worse one: now there are three places to
 keep in sync.
 
 **When the missing cohesion is apparent rather than real.** A module that seems
@@ -134,11 +134,11 @@ Fixing it has real cost and hypothetical benefit.
 
 ## Alternatives
 
-- **Rename instead of split** — when the cohesion exists and the name does not
+- **Rename instead of split**: when the cohesion exists and the name does not
   reveal it.
-- **Move elements instead of splitting the module** — frequently one or two
+- **Move elements instead of splitting the module**: frequently one or two
   elements are in the wrong place and the rest is fine.
-- **Accept and isolate** — putting the low-cohesion module behind a cohesive
+- **Accept and isolate**: putting the low-cohesion module behind a cohesive
   facade, when reorganizing it is too expensive.
 
 ## Trade-offs
@@ -181,7 +181,7 @@ the concept has not yet been identified.
 one can be coincidental. Size is a consequence.
 
 **Grouping by technical type.** All the validators, all the DTOs, all the
-mappers. Logical cohesion — the second worst level on the scale — and very common
+mappers. Logical cohesion (the second worst level on the scale), and very common
 because it looks organized.
 
 **Ignoring degradation.** Cohesion is not decided once. Modules degrade by
@@ -205,16 +205,16 @@ The module became three: `CustomerRegistration`, `CustomerCredit`,
 already lived.
 
 The instructive detail: the initial temptation was to create five modules, one per
-identified subject. Keeping registration and document validation together —
-despite their seeming separable — was the right call, because both change for the
+identified subject. Keeping registration and document validation together,
+despite their seeming separable, was the right call, because both change for the
 same external reason and separating them would have created a boundary that every
 regulatory change would cross.
 
 ## Related Concepts
 
-- [Coupling](/01-fundamentals/coupling.md) — the other face.
-- [Modularity](/01-fundamentals/modularity.md) — the resulting structure.
-- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md) — the principle that guides
+- [Coupling](/01-fundamentals/coupling.md): the other face.
+- [Modularity](/01-fundamentals/modularity.md): the resulting structure.
+- [Separation of Concerns](/01-fundamentals/separation-of-concerns.md): the principle that guides
   the split.
 
 ## Practical Exercise
@@ -233,7 +233,7 @@ historically occurred together. Those groups are the modules that should exist.
 
 ## Further Exploration
 
-- Yourdon, Edward; Constantine, Larry. *Structured Design*. Prentice Hall, 1979 —
-  the original cohesion taxonomy.
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — component cohesion
+- Yourdon, Edward; Constantine, Larry. *Structured Design*. Prentice Hall, 1979.
+  The original cohesion taxonomy.
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. Component cohesion
   principles.

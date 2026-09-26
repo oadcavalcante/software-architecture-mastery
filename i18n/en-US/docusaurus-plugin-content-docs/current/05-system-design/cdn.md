@@ -2,7 +2,7 @@
 id: cdn
 title: CDN
 sidebar_position: 10
-description: Cache at the edge, close to the user — and what decides whether it serves your content.
+description: Cache at the edge, close to the user, and what decides whether it serves your content.
 doc_type: concept
 level: 3
 difficulty: beginner
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [caching]
 related: [caching, load-balancing, cloud-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -35,7 +35,7 @@ Two different problems, which the CDN solves together.
 **Distance.** Network latency is dominated by physical distance. No code optimization reduces
 that.
 
-**Load.** Every asset served by the origin consumes its bandwidth, connections and CPU — to
+**Load.** Every asset served by the origin consumes its bandwidth, connections and CPU, to
 deliver identical bytes thousands of times.
 
 Serving from a nearby point solves both: the response travels less and the origin is not even
@@ -64,15 +64,15 @@ cache header.
 
 The CDN obeys what the origin sends. The ones that decide:
 
-**`Cache-Control: max-age`** — how long any cache may keep it, the browser and the CDN alike.
+**`Cache-Control: max-age`**: how long any cache may keep it, the browser and the CDN alike.
 
-**`s-maxage`** — overrides `max-age` in shared caches. It lets the CDN keep it for a long time
+**`s-maxage`**: overrides `max-age` in shared caches. It lets the CDN keep it for a long time
 and the browser for a short one.
 
-**`private`** — forbids the CDN from keeping it. It is what protects an authenticated
+**`private`**: forbids the CDN from keeping it. It is what protects an authenticated
 response.
 
-**`stale-while-revalidate`** — the CDN can serve the stale version while fetching the new one.
+**`stale-while-revalidate`**: the CDN can serve the stale version while fetching the new one.
 It takes the expiry penalty off the reader, as long as the request arrives inside the window.
 
 It is the mechanism that buys short-lived freshness without charging the reader for the
@@ -99,7 +99,7 @@ Modern CDNs also terminate TLS at the edge, compress, protect against volumetric
 allow running logic at the edge.
 
 Terminating TLS close to the user reduces the cost of the handshake, which is several network
-round trips — frequently a larger gain than the caching itself.
+round trips. That is frequently a larger gain than the caching itself.
 
 ## Mental Model
 
@@ -121,20 +121,20 @@ one receives a different one, it should not.
 **For authenticated content, with no `private`.** Risk of leaking between users.
 
 **When all users are close to the origin.** An internal system with users in one city gains
-nothing in distance — it may gain in bandwidth.
+nothing in distance; it may gain in bandwidth.
 
 **For write APIs.** There is nothing to cache, and the CDN adds a hop.
 
 **When not even seconds of staleness are acceptable.** If the content changes every minute,
 cannot be versioned and the business will not serve the previous version even for seconds,
-purging is all that is left — and it does not keep up with that rate of change.
+purging is all that is left, and it does not keep up with that rate of change.
 
 ## Alternatives
 
-- **Browser cache** — HTTP headers, with no component at all. It is the cheapest cache and the
+- **Browser cache**: HTTP headers, with no component at all. It is the cheapest cache and the
   first to configure.
-- **[Cache](/05-system-design/caching.md) in the application** — for shared dynamic data.
-- **Read replica per region** — when the content is dynamic but regionalized.
+- **[Cache](/05-system-design/caching.md) in the application**: for shared dynamic data.
+- **Read replica per region**: when the content is dynamic but regionalized.
 
 ## Trade-offs
 
@@ -171,7 +171,7 @@ remembering to purge on every publish, and the forgotten purge leaves the stale 
 until it expires on its own.
 
 **Not configuring `stale-while-revalidate`.** On every expiry, whoever arrives first pays the
-trip to the origin — the latency spike returns at the cadence of `s-maxage`, and it is the
+trip to the origin: the latency spike returns at the cadence of `s-maxage`, and it is the
 reader who absorbs it.
 
 **Caching errors.** Configure it not to cache error responses, or with a minimal deadline.
@@ -188,7 +188,7 @@ Three consequences.
 **The good one:** the origin's bandwidth dropped 94% and the latency for readers outside the
 state dropped from 380 ms to 40 ms.
 
-**The bad one:** the logged-in area — profile, comments, preferences — also went through the
+**The bad one:** the logged-in area (profile, comments, preferences) also went through the
 CDN. A reader reported seeing another person's name in the header. The authenticated response
 had been cached because there was no `private`.
 
@@ -202,7 +202,7 @@ The final configuration separated three profiles.
 
 Assets with versioned URLs: a one-year `max-age`, immutable.
 
-Public content: a 60-second `s-maxage` with a 300-second `stale-while-revalidate` — the CDN
+Public content: a 60-second `s-maxage` with a 300-second `stale-while-revalidate`. The CDN
 serves the previous version while fetching the new one, so the reader does not wait as long as
 requests keep arriving inside the window, and the update propagates in about a minute. That
 holds for whatever is in circulation. On a cold article the ceiling is the sum of the two: up to
@@ -231,7 +231,7 @@ the provider. Stronger, and it requires tracking changes to the ranges.
 **Private tunnel.** The origin has no public address; the CDN connects over a dedicated
 channel. The strongest of all, and the most laborious to establish.
 
-The second is the most common and the most frequently out of date — the ranges change and the
+The second is the most common and the most frequently out of date: the ranges change and the
 list is not reviewed, which causes an outage that is hard to diagnose.
 
 It is also worth considering the inverse: **what needs to bypass the CDN**. Health checks,
@@ -240,14 +240,14 @@ has to be explicit rather than accidental.
 
 ## Related Concepts
 
-- [Caching](/05-system-design/caching.md) — the general concept.
-- [Load Balancing](/05-system-design/load-balancing.md) — distribution at the origin.
-- [Cloud](/09-cloud-architecture/index.md) — regions and networking.
-- [Security](/10-security/index.md) — the risk of leaking through a cache.
+- [Caching](/05-system-design/caching.md): the general concept.
+- [Load Balancing](/05-system-design/load-balancing.md): distribution at the origin.
+- [Cloud](/09-cloud-architecture/index.md): regions and networking.
+- [Security](/10-security/index.md): the risk of leaking through a cache.
 
 ## Practical Exercise
 
-Check the cache headers of your system's responses — especially the authenticated ones.
+Check the cache headers of your system's responses, especially the authenticated ones.
 
 Any response that depends on who is logged in and does not have `private` or `no-store` is a
 leak waiting for a CDN or a proxy along the way.

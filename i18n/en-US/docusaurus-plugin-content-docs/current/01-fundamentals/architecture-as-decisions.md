@@ -2,7 +2,7 @@
 id: architecture-as-decisions
 title: Architecture as a Set of Decisions
 sidebar_position: 21
-description: What an architecture actually is — and why the record of the reasoning is the part that is lost first.
+description: What an architecture actually is, and why the record of the reasoning is the part that is lost first.
 doc_type: foundation
 level: 1
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-principles]
 related: [architecture-evolution, solution-space]
 canonical_for: [architecture as decisions, architectural decision]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -33,8 +33,8 @@ What gets documented about an architecture is almost always the **what**: the
 components, the connections, the technologies. The **why** stays in the head of
 whoever decided, and leaves when that person leaves.
 
-The cost shows up when context changes. Someone finds a decision that looks wrong
-— a separate service that could be a module, a denormalization that complicates
+The cost shows up when context changes. Someone finds a decision that looks wrong:
+a separate service that could be a module, a denormalization that complicates
 things, a technology nobody would pick today.
 
 Without the recorded reason, two bad options remain. Keep it out of fear, without
@@ -51,17 +51,17 @@ never reassessed.
 
 What needs to survive time:
 
-**Context** — what was true when the decision was made. Constraints, scale, team
+**Context**: what was true when the decision was made. Constraints, scale, team
 size, deadlines, what was known and what was not. It is the most important part
 and the most frequently omitted.
 
-**Decision** — what was chosen.
+**Decision**: what was chosen.
 
-**Alternatives** — what else was considered, and **under which change of context
+**Alternatives**: what else was considered, and **under which change of context
 each one would start to win**. That condition is what makes future reassessment
 cheap.
 
-**Consequences** — what the decision closes, what starts to cost, what is
+**Consequences**: what the decision closes, what starts to cost, what is
 accepted.
 
 The third and the first carry almost all the value. A document that records only
@@ -69,7 +69,7 @@ the second and the fourth describes the structure, not the decision.
 
 ### Context is the perishable part
 
-Structure is observable — you read the code. Consequences show up in operations.
+Structure is observable: you read the code. Consequences show up in operations.
 Alternatives can be reconstructed with effort.
 
 Context cannot. Nobody can reconstruct, two years later, that the company had six
@@ -92,7 +92,7 @@ inexplicable.
 The criterion is the one from
 [what architecture is](/01-fundamentals/what-is-software-architecture.md): cost of reversal.
 
-Decisions that are cheap to reverse do not need a record — the code is sufficient
+Decisions that are cheap to reverse do not need a record: the code is sufficient
 documentation. Expensive ones do, because someone will want to reassess them and
 will have no way to.
 
@@ -104,7 +104,7 @@ them or breaks them blindly. With a record, each one can be examined against
 today's context.
 
 **Because it transfers knowledge without transferring people.** Asking whoever
-was there works while that person is still around and remembers — the record is
+was there works while that person is still around and remembers. The record is
 what works after that.
 
 **Because it separates "this is wrong" from "this no longer holds".** They are
@@ -113,7 +113,7 @@ way to tell them apart.
 
 **Because it changes what an architecture review discusses.** Without a record,
 reviewing is opining about structure. With one, it is examining whether the
-premises still hold — which is a conversation with criteria.
+premises still hold. That is a conversation with criteria.
 
 ## Common Mistakes
 
@@ -162,17 +162,17 @@ The team checked. The SLA was still 99.5%; the p99 had got worse.
 The decision was kept, and the verification took twenty minutes.
 
 The counterfactual is what matters: without the record, the team would have made
-the change — it is the more obvious and the more defensible one in the abstract —
+the change (it is the more obvious and the more defensible one in the abstract)
 and discovered the original reason through a catalogue outage caused by the
 unavailability of another department's service.
 
 ## Related Concepts
 
-- [What Architecture Is](/01-fundamentals/what-is-software-architecture.md) — the criterion for
+- [What Architecture Is](/01-fundamentals/what-is-software-architecture.md): the criterion for
   which decisions deserve a record.
-- [Solution Space](/01-fundamentals/solution-space.md) — where the alternatives come from.
-- [ADRs](/18-architecture-decisions/what-is-an-adr.md) — the practical record format.
-- [Architecture Evolution](/01-fundamentals/architecture-evolution.md) — what happens when the
+- [Solution Space](/01-fundamentals/solution-space.md): where the alternatives come from.
+- [ADRs](/18-architecture-decisions/what-is-an-adr.md): the practical record format.
+- [Architecture Evolution](/01-fundamentals/architecture-evolution.md): what happens when the
   context changes.
 
 ## Practical Exercise

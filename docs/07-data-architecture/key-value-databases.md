@@ -2,7 +2,7 @@
 id: key-value-databases
 title: Bancos Chave-Valor
 sidebar_position: 4
-description: O modelo mais simples que existe — acesso por chave, vazão altíssima, e nenhuma consulta.
+description: "O modelo mais simples que existe: acesso por chave, vazão altíssima, e nenhuma consulta."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [document-databases, data-lifecycle, relational-databases]
 canonical_for: [chave-valor, armazenamento chave-valor]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -33,7 +33,7 @@ objetiva: **o acesso é sempre por chave conhecida?**
 
 ## Problema
 
-Muita carga de sistema é exatamente isso — sessão de usuário, resultado de cálculo
+Muita carga de sistema é exatamente isso: sessão de usuário, resultado de cálculo
 caro, contador, item de catálogo por identificador, controle de limite de
 requisições.
 
@@ -50,7 +50,7 @@ com a operação real.
 Sem consulta por conteúdo, o armazenamento pode particionar por chave sem
 coordenação. Sem junção, o modelo não obriga nenhuma operação a cruzar partições.
 
-Operação multi-chave existe — leitura em lote, varredura por prefixo —, e é ela que
+Operação multi-chave existe (leitura em lote, varredura por prefixo), e é ela que
 cobra o preço: vários produtos recusam atomicidade entre chaves de partições
 diferentes, e a saída é forçar chaves relacionadas para a mesma partição ou pagar
 uma consulta a todos os nós. Enquanto o acesso é a uma chave por vez, a escala
@@ -69,7 +69,7 @@ carrinho:{id_usuario}
 ```
 
 Convenção de prefixo, separador consistente e versionamento no prefixo quando o
-formato do valor mudar. Não há renomeação em massa fácil — chaves mal desenhadas
+formato do valor mudar. Não há renomeação em massa fácil: chaves mal desenhadas
 ficam.
 
 ### Expiração nativa elimina trabalho
@@ -87,7 +87,7 @@ Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 Muitos são primariamente em memória, com persistência opcional. Isso muda o que
 você pode guardar ali.
 
-**Se a perda é aceitável** — cache, sessão recuperável — em memória é adequado e
+**Se a perda é aceitável** (cache, sessão recuperável), em memória é adequado e
 rápido.
 
 **Se a perda não é aceitável**, verifique exatamente o que a configuração garante:
@@ -95,7 +95,7 @@ alguns confirmam a escrita antes de persistir, e uma queda perde os últimos
 segundos.
 
 Tratar um armazenamento em memória como fonte da verdade sem verificar isso produz
-um dado que não se recupera, e o prejuízo só aparece na primeira queda — quando já
+um dado que não se recupera, e o prejuízo só aparece na primeira queda, quando já
 não há o que fazer.
 
 ### Operações atômicas cobrem mais do que se espera
@@ -103,7 +103,7 @@ não há o que fazer.
 Incremento, adição a estrutura, definir-se-ausente. Essas primitivas resolvem
 contagem, fila simples, limite de requisição e bloqueio leve sem transação.
 
-Sobre bloqueio distribuído, porém, há uma armadilha conhecida — ver
+Sobre bloqueio distribuído, porém, há uma armadilha conhecida: ver
 [locks distribuídos](/06-distributed-systems/distributed-locks.md).
 
 ### O valor é opaco
@@ -150,11 +150,11 @@ reentrega, ordenação nem
 
 ## Alternativas
 
-- **[Documento](/07-data-architecture/document-databases.md)** — quando há consulta por campo.
-- **[Relacional](/07-data-architecture/relational-databases.md)** — quando há relacionamento.
-- **Cache local no processo** — quando o dado cabe e a consistência entre
+- **[Documento](/07-data-architecture/document-databases.md)**: quando há consulta por campo.
+- **[Relacional](/07-data-architecture/relational-databases.md)**: quando há relacionamento.
+- **Cache local no processo**: quando o dado cabe e a consistência entre
   instâncias não importa; elimina uma ida à rede.
-- **Mensageria** — quando a necessidade é fila.
+- **Mensageria**: quando a necessidade é fila.
 
 ## Trade-offs
 
@@ -178,9 +178,9 @@ reentrega, ordenação nem
 **Perda de dados na queda.** A durabilidade não era o que se supunha.
 
 **Chaves sem expiração acumulando.** A memória enche e o armazenamento passa a
-despejar dados — inclusive os que importam.
+despejar dados, inclusive os que importam.
 
-**Chave quente.** Uma chave muito acessada concentra carga num nó — ver
+**Chave quente.** Uma chave muito acessada concentra carga num nó. Ver
 [pontos quentes](/11-scalability/hotspots.md).
 
 **Formato de valor incompatível.** Uma implantação muda a serialização e os
@@ -199,28 +199,28 @@ expirar por categoria.
 
 **Não versionar o formato do valor.**
 
-**Guardar valores grandes** — mover megabytes por chave desperdiça rede e memória.
+**Guardar valores grandes**: mover megabytes por chave desperdiça rede e memória.
 
 **Usar como fila.**
 
 **Não monitorar a taxa de despejo.** É o sinal de que o armazenamento está
-descartando dados por falta de memória — ver
+descartando dados por falta de memória. Ver
 [cache para escala](/11-scalability/scaling-cache.md).
 
 ## Exemplo Real
 
 Uma plataforma de comércio usava um armazenamento chave-valor em memória para
-sessão, cache e carrinho de compras. Os carrinhos — cerca de 80 mil ativos em
-horário de pico — viviam numa instância separada, de 16 GB, dividida com parte do
+sessão, cache e carrinho de compras. Os carrinhos (cerca de 80 mil ativos em
+horário de pico) viviam numa instância separada, de 16 GB, dividida com parte do
 cache.
 
-Sessão e cache: uso correto — perda aceitável, expiração nativa, acesso por chave.
+Sessão e cache: uso correto (perda aceitável, expiração nativa, acesso por chave).
 
 Carrinho: uso incorreto, e levou catorze meses para aparecer.
 
 Numa reinicialização não planejada dessa instância, **todos os carrinhos ativos
 foram perdidos**. A configuração padrão da frota persistia a cada segundo, mas essa
-instância estava com persistência desativada por uma mudança feita meses antes para reduzir latência —
+instância estava com persistência desativada por uma mudança feita meses antes para reduzir latência,
 sem que ninguém relacionasse a mudança ao carrinho.
 
 A loja continuou no ar; o prejuízo foram os carrinhos que sumiram e não foram
@@ -229,7 +229,7 @@ horária.
 
 Um segundo problema apareceu na investigação: a taxa de despejo estava alta havia
 semanas, na casa de centenas de chaves por segundo no pico. Chaves de cache sem expiração enchiam a memória, e o armazenamento
-descartava as menos usadas — que às vezes eram carrinhos de clientes que
+descartava as menos usadas, que às vezes eram carrinhos de clientes que
 demoravam a fechar a compra.
 
 Ou seja, carrinhos vinham sumindo em silêncio antes do incidente, e a queixa era
@@ -246,16 +246,16 @@ acesso.
 **Alerta de taxa de despejo**, que não existia.
 
 **Convenção de chave** com prefixo por domínio, permitindo inventariar o que
-estava ocupando memória — o que ninguém conseguia responder antes.
+estava ocupando memória. Antes, ninguém conseguia responder isso.
 
 A leitura que a equipe faz: a pergunta "o que acontece se este nó reiniciar agora?"
 nunca tinha sido feita para o carrinho. Ela teria custado cinco minutos.
 
 ## Conceitos Relacionados
 
-- [Bancos de Documentos](/07-data-architecture/document-databases.md) — quando há consulta.
-- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — expiração e retenção.
-- [Particionamento](/06-distributed-systems/partitioning.md) — como a escala
+- [Bancos de Documentos](/07-data-architecture/document-databases.md): quando há consulta.
+- [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md): expiração e retenção.
+- [Particionamento](/06-distributed-systems/partitioning.md): como a escala
   funciona.
 - [Locks Distribuídos](/06-distributed-systems/distributed-locks.md).
 
@@ -264,7 +264,7 @@ nunca tinha sido feita para o carrinho. Ela teria custado cinco minutos.
 Liste o que está no seu armazenamento chave-valor. Para cada categoria, responda:
 o que acontece se esse dado sumir agora?
 
-Onde a resposta for grave, verifique a configuração de durabilidade — não a
+Onde a resposta for grave, verifique a configuração de durabilidade: não a
 documentação do produto, a configuração daquele ambiente.
 
 ## Perguntas de Entrevista

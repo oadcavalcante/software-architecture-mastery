@@ -2,7 +2,7 @@
 id: sync-vs-async
 title: Synchronous vs. Asynchronous
 sidebar_position: 9
-description: Async buys availability with intermediate state — and intermediate state is product work.
+description: Async buys availability with intermediate state, and intermediate state is product work.
 doc_type: tradeoff
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [consistency-vs-availability, monolith-vs-microservices, strong-vs-eventual-consistency]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -30,7 +30,7 @@ real axis   does the caller need the answer to proceed, and what does it cost
 ```
 
 The first half eliminates most cases: if the answer is needed **now** for the user to decide,
-async is not an option. The second decides the rest — and involves a number that is rarely
+async is not an option. The second decides the rest, and involves a number that is rarely
 calculated: the compounded availability of a chain of calls.
 
 ## Problem
@@ -48,7 +48,7 @@ each team looks only at its own number.
 See [availability](/06-distributed-systems/availability.md).
 
 Latency compounds in a similar way, and worse: means add up, but percentiles **don't**. A
-chain's p99 is not the worst link's — the chance of some link falling into its own tail grows
+chain's p99 is not the worst link's: the chance of some link falling into its own tail grows
 with the number of links, and the chain's tail ends up worse than any of them in isolation. See
 [latency](/06-distributed-systems/latency.md).
 
@@ -58,7 +58,7 @@ at p99, with one degraded link                  > 2 s
 ```
 
 The opposite error: making asynchronous what needs an answer. A user who needs to know whether
-the payment was accepted is not served by "processing, we'll let you know" — unless the
+the payment was accepted is not served by "processing, we'll let you know", unless the
 product is redesigned for that, which is real work.
 
 ## Core Concepts
@@ -88,7 +88,7 @@ status lookup                endpoint, screen, support
 timeout                      what happens to an order pending for 3 days?
 ```
 
-None of these is infrastructure code — they are all product. Ignoring them is the most common
+None of these is infrastructure code: they are all product. Ignoring them is the most common
 error in adopting async: the architecture changes, the product does not, and the user is left
 with no answer.
 
@@ -105,7 +105,7 @@ asynchronous  A accepts, records, and B processes when it comes back
               A stays available
 ```
 
-This is decisive when the dependency is external and less reliable than the system — a partner
+This is decisive when the dependency is external and less reliable than the system: a partner
 with 98.7% availability cannot be in the synchronous path of a system with a 99.9%
 requirement.
 
@@ -117,7 +117,7 @@ asynchronous  the queue absorbs it; the consumer processes at its own pace
 ```
 
 This lets you size processing by the average instead of by the peak, with a direct effect on
-cost — and it is frequently the strongest economic argument in favor.
+cost, and it is frequently the strongest economic argument in favor.
 
 See [asynchronous processing](/11-scalability/async-processing.md).
 
@@ -187,11 +187,11 @@ consumer already promises an immediate answer, changing it requires coordinating
 consumes it.
 
 That favors deciding early and explicitly, and recording the chosen mode as part of the
-contract — not as an implementation detail.
+contract, not as an implementation detail.
 
 ## Mental Model
 
-**Is the answer needed now?** If not, async buys availability and scale — at the price of an
+**Is the answer needed now?** If not, async buys availability and scale, at the price of an
 intermediate state that is product work.
 
 ## When to Use
@@ -199,7 +199,7 @@ intermediate state that is product work.
 Prefer **synchronous** when:
 
 - The answer is needed for the caller to proceed.
-- The flow is short — one or two dependencies.
+- The flow is short: one or two dependencies.
 - The dependencies are reliable and fast.
 - The operation is a query.
 - The product does not accommodate intermediate state.
@@ -222,17 +222,17 @@ Prefer **asynchronous** when:
 
 **Synchronous with an external dependency** less reliable than the requirement.
 
-**Async for a simple query** — the complexity does not pay off.
+**Async for a simple query**: the complexity does not pay off.
 
 ## Alternatives
 
-- **Synchronous acceptance with asynchronous processing** — the most common hybrid and
+- **Synchronous acceptance with asynchronous processing**: the most common hybrid and
   frequently the right one.
-- **Short deadline with an async fallback** — answers fast when it can, accepts when it
+- **Short deadline with an async fallback**: answers fast when it can, accepts when it
   cannot.
-- **Cache with asynchronous refresh** — synchronous read over data maintained in the
+- **Cache with asynchronous refresh**: synchronous read over data maintained in the
   background.
-- **Circuit breaker with a degraded response** — keeps it synchronous and handles the failure.
+- **Circuit breaker with a degraded response**: keeps it synchronous and handles the failure.
   See [circuit breakers](/12-reliability/circuit-breakers.md).
 
 The last is the cheapest alternative when the problem is only resilience and not scale.
@@ -269,7 +269,7 @@ The last is the cheapest alternative when the problem is only resilience and not
 
 ## Common Mistakes
 
-**Not computing the compounded availability** of a chain. Five synchronous dependencies at 99.9% deliver 99.5% to the user — and each individual number looked acceptable in isolation.
+**Not computing the compounded availability** of a chain. Five synchronous dependencies at 99.9% deliver 99.5% to the user, and each individual number looked acceptable in isolation.
 
 **Adopting async without changing the product.** The intermediate state has to exist in the interface and in the business vocabulary. Hiding it transfers the ambiguity to support.
 
@@ -281,7 +281,7 @@ The last is the cheapest alternative when the problem is only resilience and not
 
 ## Real-World Example
 
-An insurance company had a fully synchronous policy issuance flow, crossing six services —
+An insurance company had a fully synchronous policy issuance flow, crossing six services:
 registration, risk analysis, external bureau, pricing, issuance and notification.
 
 Numbers over 12 months:
@@ -338,12 +338,12 @@ support tickets asking about state                   peaks in the first 2 months
 ```
 
 The support tickets are the data point the team highlights. In the first two months they
-**rose** — the intermediate state existed and the communication was not clear enough. The fix
+**rose**: the intermediate state existed and the communication was not clear enough. The fix
 was product-side: state names in customer language, an explicit deadline and proactive
 notification.
 
 The later assessment points out: the technical part of the migration took six weeks. The
-product part — screens, copy, deadlines, escalation, refusal messaging — took four months and
+product part (screens, copy, deadlines, escalation, refusal messaging) took four months and
 had not been estimated. It is the real cost of making a flow asynchronous, and it is what the
 decision must anticipate.
 
@@ -351,7 +351,7 @@ decision must anticipate.
 
 - [Messaging](/06-distributed-systems/messaging.md) and
   [Idempotency](/06-distributed-systems/idempotency.md).
-- [Availability](/06-distributed-systems/availability.md) — the composition.
+- [Availability](/06-distributed-systems/availability.md): the composition.
 - [Strong vs. Eventual Consistency](/20-trade-offs/strong-vs-eventual-consistency.md).
 - [Asynchronous Processing](/11-scalability/async-processing.md).
 

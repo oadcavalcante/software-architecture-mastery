@@ -2,7 +2,7 @@
 id: scalability
 title: Scalability
 sidebar_position: 0
-description: Growing without the cost per unit growing with it — and why most problems attributed to scale are not scale problems.
+description: Growing without the cost per unit growing with it, and why most problems attributed to scale are not scale problems.
 doc_type: index
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [distributed-systems, data-architecture, reliability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ staying stable or falling.
 That is different from performance, and the confusion between the two is the origin of most misdirected
 scale projects. A system can be fast and not scale; a slow system can scale perfectly.
 
-The second problem is diagnosis. A large fraction of problems attributed to scale are not scale problems —
+The second problem is diagnosis. A large fraction of problems attributed to scale are not scale problems:
 they are a [missing index](/07-data-architecture/indexing.md), a badly written query, mixed workloads, or
 contention over a single resource.
 
@@ -42,12 +42,12 @@ adding resources, removing the part that does not parallelize.
 
 ## What you will find here
 
-**The two directions.** Vertical and horizontal scaling — with an explicit defense of the vertical one,
+**The two directions.** Vertical and horizontal scaling, with an explicit defense of the vertical one,
 which is underestimated and solves more cases than the literature suggests.
 
 **The prerequisite.** Statelessness, without which scaling horizontally does not work.
 
-**The mechanisms.** Caching, partitioning, replication and balancing seen from the scale angle —
+**The mechanisms.** Caching, partitioning, replication and balancing seen from the scale angle,
 complementing the treatment in [system design](/05-system-design/index.md) and in
 [distributed systems](/06-distributed-systems/index.md).
 
@@ -56,7 +56,7 @@ capacity. Frequently the right answer when intuition asks for more machines.
 
 **Databases.** Most systems' real bottleneck, and the hardest thing to scale.
 
-**Hotspots.** The failure mode that survives any amount of capacity — and that explains why "we have ten
+**Hotspots.** The failure mode that survives any amount of capacity, and that explains why "we have ten
 replicas and it still went down".
 
 **Capacity planning.** How to know when to scale, before the incident.
@@ -71,7 +71,7 @@ techniques with no criterion.
 
 Then **hotspots**, which explains why additional capacity sometimes makes no difference at all.
 
-**Vertical scaling** before **horizontal** — the order is deliberate, because the vertical one is the right
+**Vertical scaling** before **horizontal**: the order is deliberate, because the vertical one is the right
 answer more often than imagined, and the horizontal one charges permanent complexity.
 
 **Database scaling** can be read at any point and is the one with the most immediate return for whoever has
@@ -88,7 +88,7 @@ watching.
 You recognize that asynchronous processing and queues solve peaks that capacity does not, and that a
 hotspot is immune to any amount of machines.
 
-And you can defend the decision **not** to scale horizontally when a bigger machine solves it — which
+And you can defend the decision **not** to scale horizontally when a bigger machine solves it. That
 remains the right answer for most systems.
 
 ## Continues in

@@ -2,7 +2,7 @@
 id: zero-trust
 title: Zero Trust
 sidebar_position: 9
-description: Eliminating the implicit perimeter — always verifying, instead of trusting by network location.
+description: "Eliminating the implicit perimeter: always verifying, instead of trusting by network location."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, network-security, least-privilege]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Zero trust is the principle that **being inside the network confers no trust**. Every request is verified —
-identity, authorization, context — regardless of where it comes from.
+Zero trust is the principle that **being inside the network confers no trust**. Every request is verified
+(identity, authorization, context) regardless of where it comes from.
 
 It replaces the castle model: a strong wall at the perimeter, implicit trust inside.
 
@@ -55,7 +55,7 @@ assume compromise      design to contain, not only to prevent
 ```
 
 The third is what most changes architecture. It shifts the effort from "preventing entry" to "limiting the
-reach and detecting quickly" — which is where architecture actually contributes. See
+reach and detecting quickly". That is where architecture actually contributes. See
 [secure boundaries](/10-security/secure-boundaries.md).
 
 ### Identity becomes the perimeter
@@ -86,11 +86,11 @@ That allows graduated responses: normal access from the corporate device, an add
 an unknown device, denial for a sensitive operation in an anomalous context.
 
 The risk is excessive friction. A policy that asks for constant verification makes people look for
-workarounds — and the workaround is worse than the loose policy.
+workarounds, and the workaround is worse than the loose policy.
 
 ### Microsegmentation limits lateral movement
 
-The mechanism — and the path of recording traffic before blocking — is in
+The mechanism (and the path of recording traffic before blocking) is in
 [network security](/10-security/network-security.md). What zero trust changes is the policy's criterion: the
 rule between segments names service identities, not address ranges. That is why it comes after identity in
 the adoption order: a policy written over addresses, in an environment where services still authenticate
@@ -146,7 +146,7 @@ a login; what remains is strong authentication, which does not need the program.
 
 **When nobody can operate the policy service.** Evaluating policy on every request creates a dependency that
 needs on-call, caching and defined failure behavior. Without a team that owns it, the policy service becomes
-the single point that stops everything — and the containment gain does not pay for it.
+the single point that stops everything, and the containment gain does not pay for it.
 
 **When segmentation and device context cost more than the reach they cut.** With few internal services, no
 third-party access and no sensitive data, the available lateral movement is already small. Stop at the
@@ -158,12 +158,12 @@ before moving to the next one.
 
 ## Alternatives
 
-- **Traditional network segmentation** — part of the benefit, less effort. See
+- **Traditional network segmentation**: part of the benefit, less effort. See
   [network security](/10-security/network-security.md).
-- **Rigorous [least privilege](/10-security/least-privilege.md)** — limits what a compromised identity
+- **Rigorous [least privilege](/10-security/least-privilege.md)**: limits what a compromised identity
   reaches without changing the network.
-- **Strong authentication** — the single item with the best return on effort.
-- **Broker-based access** instead of a private network — it removes the broad network access a private
+- **Strong authentication**: the single item with the best return on effort.
+- **Broker-based access** instead of a private network: it removes the broad network access a private
   connection grants.
 
 ## Trade-offs
@@ -199,14 +199,14 @@ before moving to the next one.
 ## Common Mistakes
 
 **Buying instead of applying.** The platform is installed, but static credentials and permanent
-administrative access remain — and the program's budget runs out before reaching them.
+administrative access remain, and the program's budget runs out before reaching them.
 
 **Starting with segmentation** instead of identity. The policy is derived from traffic still flowing with
 static credentials and written over addresses; when service-to-service authentication arrives, it has to be
 redone.
 
 **Not measuring the friction.** Without approval time and exception rate measured, the workaround shows up
-before the alarm — in the example below, a shared emergency account.
+before the alarm: in the example below, a shared emergency account.
 
 **Segmenting without knowing the traffic.** The first blocking rule takes down a dependency nobody had
 documented.
@@ -246,7 +246,7 @@ existed, from supposedly decommissioned systems.
 Two problems during the program:
 
 **Friction.** The initial elevation policy required a manager's approval, with an average response time of
-40 minutes. During incidents that was unviable, and the team created a shared emergency account — exactly
+40 minutes. During incidents that was unviable, and the team created a shared emergency account: exactly
 what they wanted to eliminate. The policy was adjusted: automatic approval with logging and later review,
 for on-call roles.
 
@@ -254,15 +254,15 @@ for on-call roles.
 Local evaluation with a cached policy and defined failure behavior came to exist.
 
 The point the team underlines: the first attempt failed by treating zero trust as a platform project. The
-second worked because each quarter delivered a verifiable risk reduction — and because the first stage,
+second worked because each quarter delivered a verifiable risk reduction, and because the first stage,
 alone, would already have prevented the incident that motivated everything.
 
 ## Related Concepts
 
-- [Secure Boundaries](/10-security/secure-boundaries.md) — the foundation.
+- [Secure Boundaries](/10-security/secure-boundaries.md): the foundation.
 - [Least Privilege](/10-security/least-privilege.md).
-- [Network Security](/10-security/network-security.md) — the segmentation.
-- [Identity](/10-security/identity.md) — the new perimeter.
+- [Network Security](/10-security/network-security.md): the segmentation.
+- [Identity](/10-security/identity.md): the new perimeter.
 
 ## Practical Exercise
 

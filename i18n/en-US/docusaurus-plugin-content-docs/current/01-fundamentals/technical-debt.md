@@ -2,7 +2,7 @@
 id: technical-debt
 title: Technical Debt
 sidebar_position: 18
-description: Future cost taken on consciously — and why almost everything given that name is not debt.
+description: Future cost taken on consciously, and why almost everything given that name is not debt.
 doc_type: concept
 level: 1
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [architecture-evolution, dependency-management]
 canonical_for: [technical debt]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-30
 ---
 
@@ -26,7 +26,7 @@ instead of the adequate one.
 
 The metaphor is Ward Cunningham's and has a part that is almost always lost: debt
 presupposes a **conscious decision** and an **intention to pay**. Without both, it
-is not debt — it is poor work, which is a different thing and is treated
+is not debt but poor work, which is a different thing and is treated
 differently.
 
 ## Problem
@@ -43,7 +43,7 @@ decision. Calling what was done out of ignorance "debt" turns a capability probl
 into a strategic choice nobody made.
 
 The question that separates the cases: **did someone decide this knowing the
-cost?** If yes, it is debt. If not, it is something else — and what to do with it
+cost?** If yes, it is debt. If not, it is something else, and what to do with it
 depends on why nobody decided. If competence was missing, learning resolves it; if
 what was missing was knowledge only the work could give, refactor with what you
 learned.
@@ -62,9 +62,9 @@ reckless.
 
 For Fowler, all four cells are technical debt: the quadrant classifies kinds, it
 does not separate what counts as debt. This document diverges and keeps
-Cunningham's narrow sense — only the top-left quadrant is debt. The bottom-right
+Cunningham's narrow sense: only the top-left quadrant is debt. The bottom-right
 is a lack of competence. The top-right is recklessness. The bottom-left is
-learning — and it is inevitable and healthy.
+learning, and it is inevitable and healthy.
 
 Treating all four with the same word prevents treating each with the correct
 response.
@@ -72,13 +72,13 @@ response.
 ### Interest
 
 The cost of debt is not the effort of fixing it. It is the **interest**: the extra
-cost it charges while it exists — on every change that goes through it and on every
+cost it charges while it exists, on every change that goes through it and on every
 operation it burdens. A manual step before each deploy, an on-call engineer woken
 by the same alert, a vulnerable dependency that has to be watched: that is interest
 charged without anyone touching the code.
 
 That changes the decision about when to pay. Debt in code nobody touches and that
-costs nothing to operate has zero interest — it is debt with no running cost, and
+costs nothing to operate has zero interest: it is debt with no running cost, and
 paying it is pure expense. Debt in the path of every change has high interest and
 pays back quickly.
 
@@ -87,8 +87,8 @@ per month?"**. An ugly, stable module loses to a mediocre one on the critical pa
 
 ### Architectural debt
 
-Debt at the code level is local and paid off by refactoring. Architectural debt — a
-boundary in the wrong place, an inadequate data model, a structural coupling — is
+Debt at the code level is local and paid off by refactoring. Architectural debt (a
+boundary in the wrong place, an inadequate data model, a structural coupling) is
 not paid off incrementally with the same ease.
 
 Its interest is also higher: it affects every change that crosses the wrong
@@ -127,7 +127,7 @@ Taking on debt deliberately makes sense when:
   obligation, a competitor.
 - **The code will be thrown away, with a date and an owner.** Debt in something
   that actually gets discarded never comes due. With no date and no one
-  responsible, "it will probably be discarded" is a hope — and the prototype that
+  responsible, "it will probably be discarded" is a hope, and the prototype that
   became production is the first failure mode on this page.
 - **The interest is low and known.** A shortcut in a peripheral, stable module.
 
@@ -141,25 +141,25 @@ public contract has interest that grows with the system and is the most expensiv
 to pay. A shortcut there rarely pays off.
 
 **When "later" is structurally unlikely.** If the team has never had room to pay
-earlier debt, taking on more is not financing — it is accumulation.
+earlier debt, taking on more is accumulation, not financing.
 
 **When the correct alternative costs barely more.** If doing it right costs two
 extra days, there is no debt to discuss.
 
 ## Alternatives
 
-- **Reduce the scope** — deliver less, done well. Wins when the window demands
+- **Reduce the scope**: deliver less, done well. Wins when the window demands
   *something* on the date and the scope is divisible: what ships goes in without a
-  shortcut, the rest waits. Loses when the scope is indivisible — half a regulatory
+  shortcut, the rest waits. Loses when the scope is indivisible: half a regulatory
   obligation satisfies nothing.
-- **Discard explicitly** — build knowing it will be thrown away, without pretending
+- **Discard explicitly**: build knowing it will be thrown away, without pretending
   it becomes production. Wins when the goal is to answer a question and the answer
   arrives in weeks. Loses when nobody underwrites the discarding, and then it is
   debt under another name.
-- **Negotiate the deadline** — the alternative engineering exercises least. Wins
+- **Negotiate the deadline**: the alternative engineering exercises least. Wins
   when the date is internal and the cost of the delay is lower than the expected
-  interest. Loses against an external consequence — an event, a contract, a
-  regulator — where the date does not move.
+  interest. Loses against an external consequence (an event, a contract, a
+  regulator) where the date does not move.
 
 ## Trade-offs
 
@@ -186,7 +186,7 @@ afterwards.
 and the workaround becomes debt too. The cost grows at an accelerating rate.
 
 **Invisible debt.** Not recorded, not measured, noticed only as "the system is slow
-to change" — with no identifiable cause.
+to change", with no identifiable cause.
 
 **Refactoring without a criterion.** Paying the wrong debt. Teams spend quarters
 improving low-interest code because it was the most visible or the most
@@ -198,7 +198,7 @@ uncomfortable.
 what was done out of ignorance.
 
 **Prioritizing by what is most annoying.** The ugliest code is rarely the most
-expensive. Prioritize by what appears in the path of frequent changes — the commit
+expensive. Prioritize by what appears in the path of frequent changes: the commit
 history tells you that better than impressions do.
 
 **Asking for "a technical debt sprint".** It treats the symptom. Without
@@ -211,13 +211,13 @@ months.
 
 A team needed to ship recurring billing in six weeks for a commercial window. The
 adequate model required a subscription state machine, retry handling and
-reconciliation — estimated at eleven weeks.
+reconciliation, estimated at eleven weeks.
 
 The debt taken on: a simple status field, no history, with the billing attempt in a
 scheduled job with no structured retry.
 
 **What was done differently from the usual:** they recorded an ADR with what was
-done, what would have been done, and the payment condition — *"when volume passes 5
+done, what would have been done, and the payment condition, *"when volume passes 5
 thousand active subscriptions or when the billing failure rate requires per-attempt
 analysis"*.
 
@@ -234,10 +234,10 @@ record.
 
 ## Related Concepts
 
-- [Complexity](/01-fundamentals/complexity.md) — the form accumulated debt takes.
-- [Architecture Evolution](/01-fundamentals/architecture-evolution.md) — how the system changes over
+- [Complexity](/01-fundamentals/complexity.md): the form accumulated debt takes.
+- [Architecture Evolution](/01-fundamentals/architecture-evolution.md): how the system changes over
   time.
-- [ADRs](/18-architecture-decisions/what-is-an-adr.md) — where deliberate debt is
+- [ADRs](/18-architecture-decisions/what-is-an-adr.md): where deliberate debt is
   recorded.
 
 ## Practical Exercise
@@ -259,8 +259,8 @@ someone pay an extra cost because of it? The zero-interest ones can stay.
 
 ## Further Exploration
 
-- Cunningham, Ward. *The WyCash Portfolio Management System*, OOPSLA 1992 — the
+- Cunningham, Ward. *The WyCash Portfolio Management System*, OOPSLA 1992. The
   original metaphor.
 - Fowler, Martin. *Technical Debt Quadrant*, 2009.
-- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018 — measuring
+- Tornhill, Adam. *Software Design X-Rays*. Pragmatic Bookshelf, 2018. Measuring
   interest from change history.

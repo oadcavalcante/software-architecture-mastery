@@ -2,7 +2,7 @@
 id: boundaries
 title: Fronteiras
 sidebar_position: 7
-description: Onde traçar as linhas que o código não atravessa — e o que torna uma linha real.
+description: Onde traçar as linhas que o código não atravessa, e o que torna uma linha real.
 doc_type: concept
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interfaces]
 related: [layering, modular-design, dependency-direction]
 canonical_for: [fronteira, fronteira arquitetural, boundary]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -45,7 +45,7 @@ sistema com quinze fronteiras onde três bastariam paga esse custo quinze vezes.
 
 **Fronteiras no eixo errado.** Pior que ausência. Uma fronteira que corta
 perpendicularmente ao eixo de mudança faz com que toda alteração de negócio
-precise atravessá-la — e atravessar custa coordenação, tradução e, quando envolve
+precise atravessá-la. E atravessar custa coordenação, tradução e, quando envolve
 times diferentes, negociação.
 
 ## Conceitos Centrais
@@ -85,7 +85,7 @@ por ordens de grandeza:
 | Sistema / organização | Contrato formal | Negociação entre times |
 
 Subir de nível sem necessidade paga o custo da coluna da direita por um isolamento
-que o nível abaixo já entregava — e o erro encarece com a altura: uma fronteira de
+que o nível abaixo já entregava. E o erro encarece com a altura: uma fronteira de
 módulo mal desenhada custa refatoração; a mesma fronteira mal desenhada entre
 serviços custa meses.
 
@@ -98,7 +98,7 @@ Uma fronteira que deixa passar o tipo interno de um lado não é fronteira. Se o
 módulo de pedidos recebe a entidade de persistência do módulo de clientes, os dois
 estão acoplados à mesma decisão de esquema.
 
-O que atravessa deve ser o mínimo, e deve pertencer ao contrato — não à
+O que atravessa deve ser o mínimo, e deve pertencer ao contrato, não à
 implementação de nenhum dos lados. Frequentemente isso significa um tipo próprio
 da fronteira, e a tradução em cada extremo. Parece cerimônia até a primeira vez
 em que um lado muda sozinho.
@@ -108,19 +108,19 @@ em que um lado muda sozinho.
 Uma fronteira que depende de lembrança será atravessada. Ver
 [arquitetura vs. implementação](/01-fundamentals/architecture-vs-implementation.md):
 a lista de mecanismos, de convenção documentada até separação de processo, é uma
-escala de força, e revisão de código está no meio dela — não no topo.
+escala de força, e revisão de código está no meio dela, não no topo.
 
 ## Modelo Mental
 
 **Uma fronteira é uma promessa sobre o que não vai mudar.** Se ela não pode ser
-verificada, não é promessa — é intenção.
+verificada, não é promessa: é intenção.
 
 ## Quando Usar
 
 - Quando duas partes mudam por razões independentes e em ritmos diferentes.
 - Quando pessoas ou times diferentes trabalham nos dois lados.
 - Quando uma parte precisa ser substituída, testada ou implantada isoladamente.
-- Quando uma parte tem requisito de qualidade distinto — precisa escalar ou
+- Quando uma parte tem requisito de qualidade distinto: precisa escalar ou
   falhar separadamente.
 - Quando é preciso conter a propagação de uma falha.
 
@@ -135,7 +135,7 @@ de mecanismo: escolha primeiro o que se desfaz sem migração.
 
 **Num nível mais alto do que o necessário.** A tabela de níveis já dá o preço: cada
 degrau acima cobra em latência, falha parcial e operação o que o degrau abaixo
-cobrava em compilação e disciplina — pelo mesmo isolamento lógico.
+cobrava em compilação e disciplina, pelo mesmo isolamento lógico.
 
 **Quando o custo de tradução excede o benefício.** Se manter a fronteira exige
 converter tipos em cada travessia e as travessias são frequentes, ou a fronteira
@@ -146,11 +146,11 @@ travessia reprova: os commits atravessam todas elas.
 
 ## Alternativas
 
-- **Convenção sem imposição** — mais barata, adequada em times pequenos e
+- **Convenção sem imposição**: mais barata, adequada em times pequenos e
   estáveis; degrada com rotatividade.
-- **Fronteira interna sem separação física** — módulos no mesmo processo, com
+- **Fronteira interna sem separação física**: módulos no mesmo processo, com
   contrato explícito. Resolve a maior parte dos casos pelo menor custo.
-- **Acoplamento aceito e concentrado** — em vez de separar, reunir a dependência
+- **Acoplamento aceito e concentrado**: em vez de separar, reunir a dependência
   num ponto único, para que a mudança futura tenha um lugar só.
 
 ## Trade-offs
@@ -213,27 +213,27 @@ juntos. A indisponibilidade de `Pagamento` tornava `Reserva` inútil.
 
 A fronteira entre os dois estava no eixo errado **e** no nível alto demais. Custo
 pago: dois pipelines, autenticação entre serviços, tratamento de falha parcial,
-tradução de tipos em cada chamada — para separar duas coisas que eram uma.
+tradução de tipos em cada chamada, para separar duas coisas que eram uma.
 
 `Notificacao` era diferente: 4% de alterações conjuntas, e sua indisponibilidade
 degradava o sistema sem derrubá-lo.
 
 A correção foi juntar `Reserva` e `Pagamento` num serviço. A fronteira entre eles
 sobreviveu como módulo, com teste de arquitetura: estava no nível alto demais, não
-no eixo errado — o que estava no eixo errado era tê-la posto entre processos. `Notificacao` continuou
-separada e, um ano depois, virou assíncrona — o que só foi possível porque a
+no eixo errado. O que estava no eixo errado era tê-la posto entre processos. `Notificacao` continuou
+separada e, um ano depois, virou assíncrona. Isso só foi possível porque a
 fronteira ali era real.
 
 Duas fronteiras propostas juntas, com a mesma justificativa. Uma estava certa.
 
 ## Conceitos Relacionados
 
-- [Modularidade](/01-fundamentals/modularity.md) — a estrutura resultante.
-- [Direção de Dependência](/02-software-design/dependency-direction.md) — o lado que a fronteira
+- [Modularidade](/01-fundamentals/modularity.md): a estrutura resultante.
+- [Direção de Dependência](/02-software-design/dependency-direction.md): o lado que a fronteira
   permite conhecer.
-- [Camadas](/02-software-design/layering.md) — um arranjo específico de fronteiras.
-- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md)
-  — como impor.
+- [Camadas](/02-software-design/layering.md): um arranjo específico de fronteiras.
+- [Arquitetura vs. Implementação](/01-fundamentals/architecture-vs-implementation.md):
+  como impor.
 
 ## Exercício Prático
 
@@ -249,14 +249,14 @@ a maioria dos sistemas está.
 ## Perguntas de Entrevista
 
 - Como você decide onde traçar uma fronteira?
-- Como escolhe o nível — módulo, pacote, serviço?
+- Como escolhe o nível: módulo, pacote, serviço?
 - O que torna uma fronteira efetiva em vez de nominal?
 
 ## Para Aprofundar
 
-- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017 — a parte sobre
+- Martin, Robert C. *Clean Architecture*. Prentice Hall, 2017. A parte sobre
   fronteiras e seus custos.
 - Parnas, David. *On the Criteria To Be Used in Decomposing Systems into
   Modules*. CACM, 1972.
-- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003 — bounded context
+- Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. Bounded context
   como fronteira de modelo.

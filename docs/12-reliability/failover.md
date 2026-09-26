@@ -2,7 +2,7 @@
 id: failover
 title: Failover
 sidebar_position: 6
-description: Trocar para a cópia reserva — o momento mais arriscado da vida de um sistema redundante.
+description: "Trocar para a cópia reserva: o momento mais arriscado da vida de um sistema redundante."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [redundancy]
 related: [redundancy, chaos-engineering, disaster-recovery-planning]
 canonical_for: [failover, promoção de réplica, retorno ao primário, acionamento automático]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -43,7 +43,7 @@ longo do ano. Um certificado expirou porque ninguém monitorava o que não era u
 procedimento tem catorze passos e cinco estão desatualizados. A pessoa de sobreaviso
 nunca o executou.
 
-Nada disso é hipotético — é a lista recorrente dos post-mortems dessa categoria.
+Nada disso é hipotético: é a lista recorrente dos post-mortems dessa categoria.
 
 ## Conceitos Centrais
 
@@ -59,15 +59,15 @@ manual      decisão humana, sem acionamento indevido
 A escolha depende do custo relativo dos dois erros: acionar sem necessidade contra
 demorar a acionar.
 
-Para componentes sem estado, automático é claramente melhor — o custo de um
+Para componentes sem estado, automático é claramente melhor: o custo de um
 acionamento indevido é baixo.
 
 Para bancos de dados com replicação assíncrona, o cálculo muda: um failover indevido
 pode perder escritas e criar divergência. Muitos times mantêm manual por isso, e o
 preço é o tempo de resposta humana.
 
-O meio-termo comum: automático com histerese — exigir falha sustentada por um período,
-não um pico instantâneo. Ver
+O meio-termo comum: automático com histerese (exigir falha sustentada por um período,
+não um pico instantâneo). Ver
 [detecção de falhas](/06-distributed-systems/failure-detection.md).
 
 ### Cérebro dividido é o pior resultado
@@ -85,11 +85,11 @@ Os mecanismos que impedem:
 **Maioria.** Só assume quem tem o voto da maioria dos nós. Por isso três, não dois. Ver
 [consenso](/06-distributed-systems/consensus.md).
 
-**Isolamento do antigo.** O primário anterior é impedido de aceitar escrita — por
+**Isolamento do antigo.** O primário anterior é impedido de aceitar escrita: por
 revogação de credencial, por regra de rede, ou por desligamento.
 
 **Fencing.** O armazenamento recusa escrita que chega com número de liderança anterior ao
-da promoção — o mecanismo está descrito em
+da promoção. O mecanismo está descrito em
 [eleição de líder](/06-distributed-systems/leader-election.md). No failover, ele cobre o que
 o isolamento deixa passar: a escrita que o primário antigo já tinha em trânsito.
 
@@ -115,7 +115,7 @@ Depois que o componente original volta, retornar a ele é uma operação de risc
 equivalente.
 
 O erro característico: tratar o retorno como "voltar ao normal" e executá-lo sem o
-mesmo cuidado — durante o horário de pico, sem janela, sem verificar que o antigo
+mesmo cuidado, durante o horário de pico, sem janela, sem verificar que o antigo
 primário está de fato consistente.
 
 Muitos incidentes de failover têm duas partes, e a segunda é o retorno.
@@ -134,7 +134,7 @@ antigo.
 
 O item de DNS merece nota: um tempo de vida de uma hora é o **piso otimista** do que os
 clientes levarão para mudar. Resolvedores intermediários e caches de biblioteca frequentemente
-excedem o valor declarado, e conexão já estabelecida não reconsulta DNS nenhum — ela segue no
+excedem o valor declarado, e conexão já estabelecida não reconsulta DNS nenhum: ela segue no
 endereço antigo até cair.
 
 Inventariar tudo que aponta para o componente é parte do desenho, e é o que costuma
@@ -146,7 +146,7 @@ Ver [engenharia do caos](/12-reliability/chaos-engineering.md). O failover preci
 periodicamente, em produção, em janela controlada.
 
 A primeira execução encontra problemas. A terceira ou quarta, geralmente não. E o tempo
-de execução cai substancialmente com a prática — porque o procedimento fica correto e
+de execução cai substancialmente com a prática, porque o procedimento fica correto e
 as pessoas ficam confortáveis.
 
 Um failover exercitado mensalmente é uma operação de rotina. Um exercitado nunca é um
@@ -180,11 +180,11 @@ regularmente, e falha se for só documentado.
 
 ## Alternativas
 
-- **Ativo-ativo** — sem troca a executar; o caminho de recuperação é o normal. Ver
+- **Ativo-ativo**: sem troca a executar; o caminho de recuperação é o normal. Ver
   [redundância](/12-reliability/redundancy.md).
-- **Recuperação rápida** — reiniciar ou recriar o componente, em vez de trocar.
-- **[Degradação graciosa](/12-reliability/graceful-degradation.md)** — operar sem o componente.
-- **Failover manual com procedimento ensaiado** — mais lento e mais previsível.
+- **Recuperação rápida**: reiniciar ou recriar o componente, em vez de trocar.
+- **[Degradação graciosa](/12-reliability/graceful-degradation.md)**: operar sem o componente.
+- **Failover manual com procedimento ensaiado**: mais lento e mais previsível.
 
 ## Trade-offs
 
@@ -221,13 +221,13 @@ regularmente, e falha se for só documentado.
 
 ## Erros Comuns
 
-**Não exercitar.** É o mecanismo que só roda sob estresse. Um procedimento nunca executado costuma falhar na primeira tentativa — e a primeira tentativa, por definição, acontece durante o incidente.
+**Não exercitar.** É o mecanismo que só roda sob estresse. Um procedimento nunca executado costuma falhar na primeira tentativa, e a primeira tentativa, por definição, acontece durante o incidente.
 
 **Duas cópias em vez de três**, impedindo maioria. Com duas, nenhum lado consegue formar maioria durante uma partição, e a promoção automática vira aposta entre parar tudo ou arriscar cérebro dividido.
 
 **Não isolar o primário antigo.** Se ele volta sem saber que foi substituído, passa a aceitar escritas em paralelo com o novo. É a via clássica de divergência de dados.
 
-**Não monitorar a saúde da reserva.** Uma réplica com replicação parada há dias parece disponível e promove um estado antigo — descobre-se depois de promover.
+**Não monitorar a saúde da reserva.** Uma réplica com replicação parada há dias parece disponível e promove um estado antigo, e descobre-se depois de promover.
 
 **DNS com tempo de vida longo.** O failover acontece em segundos e os clientes continuam indo ao endereço antigo pelo tempo de cache, que pode ser dezenas de minutos.
 
@@ -251,11 +251,11 @@ minutos. Na partida, cada instância tentava primeiro o endereço do primário o
 resposta, caía no da réplica.
 
 **Primário antigo voltou.** No minuto 5 do reinício, a zona se recuperou parcialmente, e o banco original
-voltou a aceitar conexões — ainda se considerando primário. Não havia mecanismo de
+voltou a aceitar conexões, ainda se considerando primário. Não havia mecanismo de
 isolamento.
 
 **Cérebro dividido por 40 minutos.** As instâncias reiniciadas antes do minuto 5 estavam no
-novo primário; as reiniciadas depois — cerca de metade da frota — encontraram o endereço
+novo primário; as reiniciadas depois (cerca de metade da frota) encontraram o endereço
 original respondendo e se conectaram ao antigo. Ambos aceitaram escrita até a equipe notar a
 divergência e desligar o banco original à mão.
 
@@ -265,7 +265,7 @@ longo de três dias. Dezenove não puderam ser resolvidas com certeza.
 A reformulação:
 
 **Três nós, com maioria.** A promoção passou a exigir quórum, o que impede uma **segunda**
-promoção — o antigo primário não consegue ser eleito de novo. Não é isso que o cala: sozinho,
+promoção: o antigo primário não consegue ser eleito de novo. Não é isso que o cala: sozinho,
 o quórum o deixaria continuar se achando primário e aceitando escrita, que foi exatamente a
 falha. Quem fecha essa porta é o item seguinte.
 
@@ -283,19 +283,19 @@ nenhum.
 e a assimetria deixou de existir.
 
 O que a equipe registra, com a distinção que custou 40 minutos para aprender: a **detecção
-e a promoção** funcionaram como projetadas, em 25 segundos. O que faltava não era periferia —
-era o resto do mecanismo de troca: quórum e isolamento, sem os quais promover uma réplica num
+e a promoção** funcionaram como projetadas, em 25 segundos. O que faltava não era periferia,
+e sim o resto do mecanismo de troca: quórum e isolamento, sem os quais promover uma réplica num
 desenho de duas cópias produz dois primários por construção. Em volta disso, três coisas que
 ninguém tinha inventariado: o tempo de vida do DNS, as conexões abertas e as aplicações sem
 reconexão. Nenhuma é defeito do produto de banco de dados; todas são do desenho de failover.
 
 ## Conceitos Relacionados
 
-- [Redundância](/12-reliability/redundancy.md) — o pré-requisito.
-- [Engenharia do Caos](/12-reliability/chaos-engineering.md) — o exercício.
-- [Eleição de Líder](/06-distributed-systems/leader-election.md) — o cérebro
+- [Redundância](/12-reliability/redundancy.md): o pré-requisito.
+- [Engenharia do Caos](/12-reliability/chaos-engineering.md): o exercício.
+- [Eleição de Líder](/06-distributed-systems/leader-election.md): o cérebro
   dividido.
-- [RPO](/12-reliability/rpo.md) — o que se perde.
+- [RPO](/12-reliability/rpo.md): o que se perde.
 
 ## Exercício Prático
 

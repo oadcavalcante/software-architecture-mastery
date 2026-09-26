@@ -2,7 +2,7 @@
 id: zero-trust
 title: Confiança Zero
 sidebar_position: 9
-description: Eliminar o perímetro implícito — verificar sempre, em vez de confiar por localização de rede.
+description: "Eliminar o perímetro implícito: verificar sempre, em vez de confiar por localização de rede."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, network-security, least-privilege]
 canonical_for: [confiança zero, perímetro implícito, verificação contínua]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 Confiança zero é o princípio de que **estar dentro da rede não confere confiança**.
-Toda requisição é verificada — identidade, autorização, contexto — independentemente
+Toda requisição é verificada (identidade, autorização, contexto) independentemente
 da origem.
 
 Ele substitui o modelo do castelo: muro forte no perímetro, confiança implícita
@@ -60,13 +60,13 @@ presumir comprometimento   projetar para conter, não só para impedir
 ```
 
 O terceiro é o que mais muda arquitetura. Ele desloca o esforço de "impedir a
-entrada" para "limitar o alcance e detectar rápido" — que é onde a arquitetura de
+entrada" para "limitar o alcance e detectar rápido". É aí que a arquitetura de
 fato contribui. Ver [fronteiras seguras](/10-security/secure-boundaries.md).
 
 ### A identidade vira o perímetro
 
 Se a localização de rede não confere confiança, o que confere é a identidade
-verificada — de pessoas e de serviços.
+verificada, de pessoas e de serviços.
 
 Consequências práticas:
 
@@ -94,11 +94,11 @@ fator adicional de um dispositivo desconhecido, negação para uma operação se
 num contexto anômalo.
 
 O risco é atrito excessivo. Uma política que pede verificação constante faz as
-pessoas procurarem contornos — e o contorno é pior que a política frouxa.
+pessoas procurarem contornos, e o contorno é pior que a política frouxa.
 
 ### Microssegmentação limita o movimento lateral
 
-O mecanismo — e o caminho de registrar o tráfego antes de bloquear — está em
+O mecanismo (e o caminho de registrar o tráfego antes de bloquear) está em
 [segurança de rede](/10-security/network-security.md). O que confiança zero muda é o
 critério da política: a regra entre segmentos passa a nomear identidades de serviço,
 não faixas de endereço. Por isso ela entra depois da identidade na ordem de adoção:
@@ -162,7 +162,7 @@ que não precisa do programa.
 **Quando não há quem opere o serviço de política.** Avaliação de política em toda
 requisição cria uma dependência que precisa de sobreaviso, cache e comportamento de
 falha definido. Sem uma equipe que assuma isso, o serviço de política vira o ponto
-único que para tudo — e o ganho de contenção não compensa.
+único que para tudo, e o ganho de contenção não compensa.
 
 **Quando a segmentação e o contexto de dispositivo custam mais que o alcance que
 cortam.** Com poucos serviços internos, sem acesso de terceiros e sem dado sensível,
@@ -175,12 +175,12 @@ segurança do que dá; recue a política antes de avançar para a próxima.
 
 ## Alternativas
 
-- **Segmentação de rede tradicional** — parte do benefício, menos esforço. Ver
+- **Segmentação de rede tradicional**: parte do benefício, menos esforço. Ver
   [segurança de rede](/10-security/network-security.md).
-- **[Menor privilégio](/10-security/least-privilege.md) rigoroso** — limita o que uma identidade
+- **[Menor privilégio](/10-security/least-privilege.md) rigoroso**: limita o que uma identidade
   comprometida alcança sem mudar a rede.
-- **Autenticação forte** — o item isolado de melhor retorno por esforço.
-- **Acesso por corretor** em vez de rede privada — remove o acesso amplo à rede que a
+- **Autenticação forte**: o item isolado de melhor retorno por esforço.
+- **Acesso por corretor** em vez de rede privada: remove o acesso amplo à rede que a
   conexão privada concede.
 
 ## Trade-offs
@@ -216,7 +216,7 @@ segurança do que dá; recue a política antes de avançar para a próxima.
 ## Erros Comuns
 
 **Comprar em vez de aplicar.** A plataforma é instalada, mas as credenciais estáticas
-e o acesso administrativo permanente continuam — e o orçamento do programa se esgota
+e o acesso administrativo permanente continuam, e o orçamento do programa se esgota
 antes de chegar a eles.
 
 **Começar pela segmentação** em vez da identidade. A política é derivada de tráfego
@@ -224,7 +224,7 @@ que ainda circula com credencial estática e escrita sobre endereços; quando a
 autenticação entre serviços chega, precisa ser refeita.
 
 **Não medir o atrito.** Sem tempo de aprovação e taxa de exceção medidos, o contorno
-aparece antes do alarme — no exemplo abaixo, uma conta compartilhada de emergência.
+aparece antes do alarme: no exemplo abaixo, uma conta compartilhada de emergência.
 
 **Segmentar sem conhecer o tráfego.** A primeira regra de bloqueio derruba uma
 dependência que ninguém tinha documentado.
@@ -261,14 +261,14 @@ os serviços críticos.
 
 **Ano 2 — segmentação.** Começou com três meses registrando o tráfego real. A política
 derivada foi aplicada em modo de aviso por seis semanas, revelando 40 comunicações
-não documentadas — incluindo duas que ninguém sabia que existiam, de sistemas
+não documentadas, incluindo duas que ninguém sabia que existiam, de sistemas
 supostamente desativados.
 
 Dois problemas durante o programa:
 
 **Atrito.** A política inicial de elevação exigia aprovação de gestor, com tempo médio
 de resposta de 40 minutos. Durante incidentes, isso era inviável, e o time criou uma
-conta compartilhada de emergência — exatamente o que se queria eliminar. A política
+conta compartilhada de emergência, exatamente o que se queria eliminar. A política
 foi ajustada: aprovação automática com registro e revisão posterior, para papéis de
 sobreaviso.
 
@@ -278,15 +278,15 @@ comportamento definido para falha.
 
 O ponto que a equipe sublinha: a primeira tentativa falhou por tratar confiança zero como
 projeto de plataforma. A segunda funcionou porque cada trimestre entregou uma redução
-de risco verificável — e porque a primeira etapa, sozinha, já teria evitado o
+de risco verificável, e porque a primeira etapa, sozinha, já teria evitado o
 incidente que motivou tudo.
 
 ## Conceitos Relacionados
 
-- [Fronteiras Seguras](/10-security/secure-boundaries.md) — o fundamento.
+- [Fronteiras Seguras](/10-security/secure-boundaries.md): o fundamento.
 - [Menor Privilégio](/10-security/least-privilege.md).
-- [Segurança de Rede](/10-security/network-security.md) — a segmentação.
-- [Identidade](/10-security/identity.md) — o novo perímetro.
+- [Segurança de Rede](/10-security/network-security.md): a segmentação.
+- [Identidade](/10-security/identity.md): o novo perímetro.
 
 ## Exercício Prático
 

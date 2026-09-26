@@ -2,7 +2,7 @@
 id: simplicity-vs-flexibility
 title: Simplicidade vs. Flexibilidade
 sidebar_position: 1
-description: Flexibilidade é opcionalidade comprada adiantado — e a maior parte das opções compradas nunca é exercida.
+description: Flexibilidade é opcionalidade comprada adiantado, e a maior parte das opções compradas nunca é exercida.
 doc_type: tradeoff
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [complexity]
 related: [abstraction-vs-complexity, coupling-vs-duplication, speed-vs-quality]
 canonical_for: [simplicidade contra flexibilidade, custo de opcionalidade, flexibilidade não exercida, eixo de comparação]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O par parece opor duas virtudes. Não opõe — ele opõe **certeza presente** a **opcionalidade
+O par parece opor duas virtudes, mas opõe **certeza presente** a **opcionalidade
 futura**.
 
 Flexibilidade é uma opção comprada hoje para ser exercida amanhã. Como qualquer opção, ela
@@ -55,8 +55,8 @@ exercida. O quinto é o segundo mais comum: a opção foi exercida e não serviu
 flexibilidade construída sem conhecer o segundo caso acomoda apenas variações do primeiro.
 
 E o oposto também falha. Um sistema construído com zero opcionalidade em pontos que
-comprovadamente mudam — formatos de dado, regras de negócio voláteis, integrações com
-parceiros — paga em cada mudança um custo que uma costura mínima teria evitado.
+comprovadamente mudam (formatos de dado, regras de negócio voláteis, integrações com
+parceiros) paga em cada mudança um custo que uma costura mínima teria evitado.
 
 ## Conceitos Centrais
 
@@ -76,7 +76,7 @@ Ca   custo de carregar a flexibilidade até lá
 ```
 
 Compra-se a opção quando `p × Cd > Ca`. O problema é que `p` é sistematicamente
-superestimado e `Ca` é subestimado, porque o prêmio é pago em parcelas pequenas — um pouco
+superestimado e `Ca` é subestimado, porque o prêmio é pago em parcelas pequenas: um pouco
 de indireção por vez.
 
 ### Flexibilidade não exercida é custo puro
@@ -105,7 +105,7 @@ três casos           o eixo real fica visível
 Esta é a razão prática da regra de três: a estrutura que acomoda variação é derivável dos
 casos, não antecipável a partir de um.
 
-Construir a partir de um caso produz uma abstração com a forma daquele caso — que é
+Construir a partir de um caso produz uma abstração com a forma daquele caso. Essa forma é
 exatamente o que não serve quando o segundo aparece. E parar no segundo troca a
 adivinhação por uma hipótese com uma amostra: a variação que os dois exibem pode ser a
 que importa, ou pode ser a única que eles têm em comum.
@@ -161,7 +161,7 @@ flexível → simples   remover abstração usada por muitos, com medo de quebra
 ```
 
 A assimetria favorece começar simples. Adicionar flexibilidade depois é feito com
-informação — os casos existem. Remover flexibilidade é feito com incerteza, porque ninguém
+informação: os casos existem. Remover flexibilidade é feito com incerteza, porque ninguém
 sabe quem depende dela.
 
 Este é o argumento decisivo nos empates, e é o item que a intuição mais ignora.
@@ -177,7 +177,7 @@ Prefira **flexibilidade** quando:
 
 - A mudança é conhecida e datada, não hipotética.
 - Adaptar depois exigiria migração de dados ou coordenação entre times.
-- O ponto é uma fronteira publicada — formato, contrato, esquema.
+- O ponto é uma fronteira publicada: formato, contrato, esquema.
 - Já existem dois ou mais casos reais.
 - O custo da opção é pequeno e localizado.
 
@@ -190,24 +190,24 @@ Prefira **simplicidade** quando:
 
 ## Quando Não Usar
 
-**Como dilema, quando é falso.** Muitos pontos aceitam uma costura mínima — uma função, uma
-fronteira nomeada — que custa quase nada e não é abstração.
+**Como dilema, quando é falso.** Muitos pontos aceitam uma costura mínima (uma função, uma
+fronteira nomeada) que custa quase nada e não é abstração.
 
-**Sem estimar o custo de adaptar depois** — sem esse número, a discussão vira preferência.
+**Sem estimar o custo de adaptar depois**: sem esse número, a discussão vira preferência.
 
-**Como argumento genérico** — "seja flexível" e "seja simples" não decidem nada aplicados ao
+**Como argumento genérico**: "seja flexível" e "seja simples" não decidem nada aplicados ao
 sistema inteiro. A decisão é ponto a ponto.
 
-**Para justificar não decidir** — flexibilidade às vezes é adiamento disfarçado de desenho.
+**Para justificar não decidir**: flexibilidade às vezes é adiamento disfarçado de desenho.
 
 ## Alternativas
 
-- **Costura mínima** — nomear a fronteira sem criar abstração; barata e reversível.
-- **Adiar com registro** — construir simples e registrar em
+- **Costura mínima**: nomear a fronteira sem criar abstração; barata e reversível.
+- **Adiar com registro**: construir simples e registrar em
   [ADR](/18-architecture-decisions/what-is-an-adr.md) o que faria a decisão mudar.
-- **Isolar em vez de generalizar** — concentrar o específico num lugar é mais barato que
+- **Isolar em vez de generalizar**: concentrar o específico num lugar é mais barato que
   torná-lo genérico.
-- **Regra de três** — esperar o terceiro caso antes de abstrair.
+- **Regra de três**: esperar o terceiro caso antes de abstrair.
 
 A primeira é a resposta certa com mais frequência do que qualquer dos dois extremos: uma
 função `cobrarPagamento` chamada de um lugar já dá o ponto de costura para o dia em que
@@ -272,7 +272,7 @@ a captura era assíncrona, não síncrona
 conciliação usava um identificador que a interface não expunha
 ```
 
-A abstração acomodava variações do primeiro provedor. O segundo não era uma variação — era
+A abstração acomodava variações do primeiro provedor. O segundo não era uma variação, e sim
 outro fluxo.
 
 E havia um custo carregado por três anos que ninguém tinha somado:
@@ -285,7 +285,7 @@ mudanças que precisaram tocar a abstração
   sem mudar de provedor                      19
 ```
 
-A reconstrução, feita com dois provedores em mãos, levou sete semanas — e produziu uma
+A reconstrução, feita com dois provedores em mãos, levou sete semanas e produziu uma
 abstração diferente, em que a autorização em etapas e a captura assíncrona são o modelo
 base, e o provedor síncrono é o caso simplificado.
 
@@ -296,30 +296,30 @@ de um lugar, sem interface. Quando o segundo caso aparece, a abstração é deri
 
 **Custo de adaptar depois estimado** antes de comprar opcionalidade, e registrado no ADR.
 Nos 14 casos avaliados nos dois anos seguintes, 11 tiveram estimativa abaixo de duas
-semanas — e nenhum desses ganhou abstração antecipada.
+semanas, e nenhum desses ganhou abstração antecipada.
 
 **Auditoria anual de pontos de extensão.** Interfaces com um único implementador há mais de
 18 meses são candidatas a remoção. Na primeira rodada, 9 de 23 foram removidas.
 
 **Exceção declarada para fronteiras publicadas.** Formatos de evento e contratos com
 externos continuam recebendo versionamento e opcionalidade desde o início, mesmo sem
-segundo caso — porque adaptar depois exige coordenar terceiros.
+segundo caso, porque adaptar depois exige coordenar terceiros.
 
-A lição registrada: a decisão de 2021 não foi irracional. O erro foi de método —
+A lição registrada: a decisão de 2021 não foi irracional. O erro foi de método:
 desenhar a variação a partir de um único exemplo. A pergunta que faltou não era "vamos
 precisar de outro provedor?", que estava certa, e sim "o que sabemos sobre como o segundo
 provedor será diferente?", cuja resposta honesta era "nada".
 
 ## Conceitos Relacionados
 
-- [Complexidade](/01-fundamentals/complexity.md) — o que a flexibilidade acrescenta.
-- [YAGNI](/02-software-design/yagni.md) — o princípio correspondente.
+- [Complexidade](/01-fundamentals/complexity.md): o que a flexibilidade acrescenta.
+- [YAGNI](/02-software-design/yagni.md): o princípio correspondente.
 - [Abstração vs. Complexidade](/20-trade-offs/abstraction-vs-complexity.md).
-- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md) — a regra de três.
+- [Acoplamento vs. Duplicação](/20-trade-offs/coupling-vs-duplication.md): a regra de três.
 
 ## Exercício Prático
 
-Liste os pontos de extensão do seu sistema — interfaces, configurações, fábricas — e conte
+Liste os pontos de extensão do seu sistema (interfaces, configurações, fábricas) e conte
 quantos têm mais de uma implementação em uso.
 
 Os que tiverem uma só, há mais de um ano, são opções compradas e não exercidas. Some o

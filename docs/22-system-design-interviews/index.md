@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [case-studies, trade-offs]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -25,7 +25,7 @@ Esta seção não ensina respostas. Ensina a conduzir a conversa.
 
 A entrevista de system design avalia algo específico: como você raciocina sob
 ambiguidade, com informação incompleta e tempo curto. O enunciado é vago de
-propósito — "projete o Twitter" — porque a primeira coisa avaliada é se você
+propósito ("projete o Twitter") porque a primeira coisa avaliada é se você
 percebe que ele é vago.
 
 O erro mais comum não é técnico. É começar a desenhar. Quem desenha primeiro
@@ -38,7 +38,7 @@ enunciado. Funciona até a primeira pergunta de acompanhamento.
 ## O que você vai encontrar aqui
 
 **Estrutura da conversa.** Como distribuir o tempo entre clarificação,
-estimativa, desenho e aprofundamento. Ter estrutura é metade da avaliação —
+estimativa, desenho e aprofundamento. Ter estrutura é metade da avaliação:
 mostra que você já fez isso antes.
 
 **Clarificação.** Que perguntas fazer e em que ordem. Separar requisitos
@@ -46,7 +46,7 @@ funcionais de não-funcionais em voz alta.
 
 **Estimativa.** Cálculos de guardanapo: volume, armazenamento, banda, conexões.
 Não para acertar o número, e sim para que a arquitetura tenha uma escala
-declarada — sem isso, toda decisão fica sem critério.
+declarada. Sem isso, toda decisão fica sem critério.
 
 **Desenho.** Design de API, modelagem de dados e arquitetura de alto nível.
 
@@ -54,7 +54,7 @@ declarada — sem isso, toda decisão fica sem critério.
 onde a entrevista de fato diferencia candidatos.
 
 **Comunicação.** Como enunciar um trade-off em voz alta enquanto desenha. O
-avaliador só pontua o raciocínio que você verbaliza — e é a parte que a
+avaliador só pontua o raciocínio que você verbaliza. Essa é a parte que a
 preparação por leitura não alcança.
 
 **Erros comuns.** Os padrões que fazem entrevistas darem errado, com o que fazer
@@ -70,7 +70,7 @@ Problema → Requisitos → Perguntas a Fazer → Estimativas de Capacidade
 Note que **Perguntas a Fazer** vem antes de qualquer arquitetura. É a ordem da
 entrevista real, e é o hábito que esta seção treina.
 
-Cada documento traz um **Exemplo de Entrevista** — o diálogo com o avaliador, com as
+Cada documento traz um **Exemplo de Entrevista**: o diálogo com o avaliador, com as
 perguntas de acompanhamento que ele faria. Os exercícios longos do percurso ficam nas
 outras seções; aqui o treino é a ordem, não o enunciado.
 
@@ -81,7 +81,7 @@ o mecanismo: essa preparação otimiza o reconhecimento do enunciado, enquanto a
 entrevista mede a condução de um enunciado que você não reconhece.
 
 O que transfere é o método: clarificar, estimar, decompor, identificar gargalo,
-declarar trade-off. Ele não depende de reconhecer o enunciado — depende de tempo
+declarar trade-off. Ele não depende de reconhecer o enunciado, e sim de tempo
 para as fases, e em entrevistas de 30 minutos reduz-se a três, como mostra
 [Estrutura da Entrevista](/22-system-design-interviews/interview-structure.md).
 
@@ -92,7 +92,7 @@ desenhar. Declara premissas em voz alta, o que permite ao avaliador corrigir o
 rumo cedo.
 
 E consegue dizer "eu escolheria X, mas se o requisito de consistência fosse
-outro, escolheria Y" — que é exatamente o que a entrevista procura.
+outro, escolheria Y". É exatamente o que a entrevista procura.
 
 ## Relacionado
 

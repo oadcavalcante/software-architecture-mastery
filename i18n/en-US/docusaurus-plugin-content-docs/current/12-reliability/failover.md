@@ -2,7 +2,7 @@
 id: failover
 title: Failover
 sidebar_position: 6
-description: Switching to the standby copy — the riskiest moment in a redundant system's life.
+description: "Switching to the standby copy: the riskiest moment in a redundant system's life."
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [redundancy]
 related: [redundancy, chaos-engineering, disaster-recovery-planning]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -40,7 +40,7 @@ The quota in the secondary region does not allow bringing up the capacity. The c
 the year. A certificate expired because nobody monitored what was not used. The procedure has fourteen
 steps and five are out of date. The on-call person has never executed it.
 
-None of that is hypothetical — it is the recurring list from this category's post-mortems.
+None of that is hypothetical: it is the recurring list from this category's post-mortems.
 
 ## Core Concepts
 
@@ -56,12 +56,12 @@ manual     a human decision, with no improper triggering
 The choice depends on the relative cost of the two errors: triggering unnecessarily versus taking too long
 to trigger.
 
-For stateless components, automatic is clearly better — the cost of an improper trigger is low.
+For stateless components, automatic is clearly better: the cost of an improper trigger is low.
 
 For databases with asynchronous replication, the calculation changes: an improper failover can lose writes
 and create divergence. Many teams keep it manual for that reason, and the price is the human response time.
 
-The common middle ground: automatic with hysteresis — requiring sustained failure over a period, not an
+The common middle ground: automatic with hysteresis, requiring sustained failure over a period, not an
 instantaneous spike. See [failure detection](/06-distributed-systems/failure-detection.md).
 
 ### Split brain is the worst outcome
@@ -78,11 +78,11 @@ The mechanisms that prevent it:
 **A majority.** Only the one with the majority of the nodes' votes takes over. That is why three, not two.
 See [consensus](/06-distributed-systems/consensus.md).
 
-**Isolating the old one.** The previous primary is prevented from accepting writes — by credential
+**Isolating the old one.** The previous primary is prevented from accepting writes: by credential
 revocation, by a network rule, or by shutdown.
 
-**Fencing.** The store refuses writes that arrive with a leadership number older than the promotion's —
-the mechanism is described in [leader election](/06-distributed-systems/leader-election.md). In failover,
+**Fencing.** The store refuses writes that arrive with a leadership number older than the promotion's.
+The mechanism is described in [leader election](/06-distributed-systems/leader-election.md). In failover,
 it covers what isolation lets through: the writes the old primary already had in flight.
 
 A failover with none of those mechanisms will produce split brain eventually.
@@ -106,7 +106,7 @@ business problem, not only a technical one.
 After the original component comes back, returning to it is an operation of equivalent risk.
 
 The characteristic mistake: treating the return as "going back to normal" and executing it with none of the
-same care — during peak hours, with no window, without verifying that the old primary is actually
+same care, during peak hours, with no window, without verifying that the old primary is actually
 consistent.
 
 Many failover incidents have two parts, and the second is the return.
@@ -123,7 +123,7 @@ schedulers, and external systems pointing at the old address.
 
 The DNS item deserves a note: a one-hour time to live is the **optimistic floor** of what clients will take
 to move. Intermediate resolvers and library caches frequently exceed the declared value, and an already
-established connection queries no DNS at all — it stays on the old address until it drops.
+established connection queries no DNS at all: it stays on the old address until it drops.
 
 Inventorying everything that points at the component is part of the design, and it is what usually is
 missing.
@@ -134,7 +134,7 @@ See [chaos engineering](/12-reliability/chaos-engineering.md). The failover need
 periodically, in production, in a controlled window.
 
 The first execution finds problems. The third or fourth, generally not. And the execution time falls
-substantially with practice — because the procedure becomes correct and the people become comfortable.
+substantially with practice, because the procedure becomes correct and the people become comfortable.
 
 A failover exercised monthly is a routine operation. One never exercised is an incident inside an incident.
 
@@ -166,11 +166,11 @@ is only documented.
 
 ## Alternatives
 
-- **Active-active** — no switch to execute; the recovery path is the normal one. See
+- **Active-active**: no switch to execute; the recovery path is the normal one. See
   [redundancy](/12-reliability/redundancy.md).
-- **Fast recovery** — restarting or recreating the component, instead of switching.
-- **[Graceful degradation](/12-reliability/graceful-degradation.md)** — operating without the component.
-- **Manual failover with a rehearsed procedure** — slower and more predictable.
+- **Fast recovery**: restarting or recreating the component, instead of switching.
+- **[Graceful degradation](/12-reliability/graceful-degradation.md)**: operating without the component.
+- **Manual failover with a rehearsed procedure**: slower and more predictable.
 
 ## Trade-offs
 
@@ -208,7 +208,7 @@ is only documented.
 ## Common Mistakes
 
 **Not exercising it.** It is the mechanism that only runs under stress. A procedure never executed usually
-fails on the first attempt — and the first attempt, by definition, happens during the incident.
+fails on the first attempt, and the first attempt, by definition, happens during the incident.
 
 **Two copies instead of three**, preventing a majority. With two, neither side can form a majority during a
 partition, and automatic promotion becomes a bet between stopping everything and risking split brain.
@@ -217,7 +217,7 @@ partition, and automatic promotion becomes a bet between stopping everything and
 writes in parallel with the new one. That is the classic route to data divergence.
 
 **Not monitoring the standby's health.** A replica whose replication stopped days ago looks available and
-promotes an old state — which is discovered after promoting.
+promotes an old state, which is discovered after promoting.
 
 **DNS with a long time to live.** The failover happens in seconds and the clients keep going to the old
 address for the cache duration, which can be tens of minutes.
@@ -242,10 +242,10 @@ reconnection logic. They had to be restarted manually: 12 minutes. On startup, e
 original primary's address first and, getting no answer, fell back to the replica's.
 
 **The old primary came back.** At minute 5 of the restart, the zone partially recovered, and the original database started accepting
-connections again — still considering itself primary. There was no fencing mechanism.
+connections again, still considering itself primary. There was no fencing mechanism.
 
 **Split brain for 40 minutes.** The instances restarted before minute 5 were on the new primary; those
-restarted after — about half the fleet — found the original address answering and connected to the old
+restarted after (about half the fleet) found the original address answering and connected to the old
 one. Both accepted writes until the team noticed the divergence and shut the original database down by
 hand.
 
@@ -254,8 +254,8 @@ be resolved with certainty.
 
 The reformulation:
 
-**Three nodes, with a majority.** Promotion came to require a quorum, which prevents a **second** promotion
-— the old primary cannot be elected again. That is not what silences it: on its own, the quorum would let
+**Three nodes, with a majority.** Promotion came to require a quorum, which prevents a **second** promotion:
+the old primary cannot be elected again. That is not what silences it: on its own, the quorum would let
 it keep believing itself the primary and accepting writes, which was exactly the failure. What closes that
 door is the next item.
 
@@ -270,7 +270,7 @@ problems; the sixth took 40 seconds and found none.
 asymmetry stopped existing.
 
 What the team records, with the distinction that cost 40 minutes to learn: **detection and promotion**
-worked as designed, in 25 seconds. What was missing was not periphery — it was the rest of the switching
+worked as designed, in 25 seconds. What was missing was not periphery but the rest of the switching
 mechanism: quorum and fencing, without which promoting a replica in a two-copy design produces two
 primaries by construction. Around that, three things nobody had inventoried: the DNS time to live, the open
 connections and the applications with no reconnection. None is a defect of the database product; all are of
@@ -278,16 +278,16 @@ the failover design.
 
 ## Related Concepts
 
-- [Redundancy](/12-reliability/redundancy.md) — the prerequisite.
-- [Chaos Engineering](/12-reliability/chaos-engineering.md) — the exercise.
-- [Leader Election](/06-distributed-systems/leader-election.md) — the split brain.
-- [RPO](/12-reliability/rpo.md) — what is lost.
+- [Redundancy](/12-reliability/redundancy.md): the prerequisite.
+- [Chaos Engineering](/12-reliability/chaos-engineering.md): the exercise.
+- [Leader Election](/06-distributed-systems/leader-election.md): the split brain.
+- [RPO](/12-reliability/rpo.md): what is lost.
 
 ## Practical Exercise
 
 Find out when your most critical component's failover was last exercised.
 
-If the answer is "never", schedule one — and reserve double the time you imagine it will take.
+If the answer is "never", schedule one, and reserve double the time you imagine it will take.
 
 ## Interview Questions
 
@@ -297,6 +297,6 @@ If the answer is "never", schedule one — and reserve double the time you imagi
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 5.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 5.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
 - Nygard, Michael. *Release It!*. 2nd ed. Pragmatic Bookshelf, 2018.

@@ -2,7 +2,7 @@
 id: complexity
 title: Complexidade
 sidebar_position: 17
-description: A essencial vem do problema; a acidental, das nossas escolhas — e só uma delas é removível.
+description: A essencial vem do problema; a acidental, das nossas escolhas, e só uma delas é removível.
 doc_type: concept
 level: 1
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [abstraction]
 related: [technical-debt, modularity]
 canonical_for: [complexidade, complexidade essencial, complexidade acidental]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -37,7 +37,7 @@ localmente defensável: mais uma configuração, mais uma camada, mais um caso
 especial, mais um serviço.
 
 O efeito é composto, não somado. Duas configurações independentes produzem quatro
-combinações possíveis; dez produzem mil. Ninguém decide criar mil caminhos — eles
+combinações possíveis; dez produzem mil. Ninguém decide criar mil caminhos: eles
 aparecem.
 
 O sintoma tardio é característico: mudanças simples levam semanas, ninguém
@@ -69,7 +69,7 @@ complexidade de rede, implantação, observabilidade e falha parcial. Introduzir
 uma fila remove acoplamento temporal e adiciona ordenação, duplicação e
 mensagens mortas.
 
-Nenhuma dessas trocas é errada. O erro é contabilizar só um lado — o que produz
+Nenhuma dessas trocas é errada. O erro é contabilizar só um lado, o que produz
 o padrão de decisões que parecem simplificar e complicam.
 
 ### Onde a complexidade dói
@@ -77,7 +77,7 @@ o padrão de decisões que parecem simplificar e complicam.
 Complexidade num lugar isolado é tolerável. Complexidade espalhada é o que mata.
 
 Ousterhout nomeia três sintomas, e o que ele chama de pior são os **unknown
-unknowns** — não saber o que precisa ser mudado. O que interessa aqui é um dos
+unknowns** (não saber o que precisa ser mudado). O que interessa aqui é um dos
 outros dois, a **carga cognitiva**: entender uma parte exige conhecer muitas outras. Um módulo denso e
 autocontido é preferível a dez módulos simples cuja interação é imprevisível.
 
@@ -103,10 +103,10 @@ positivo dado o contexto? Quem propõe costuma enunciar só o primeiro termo.
 
 Adicionar complexidade se justifica quando:
 
-- Ela reduz complexidade essencial exposta — uma abstração que de fato esconde.
-- É exigida por um requisito de qualidade real e declarado — replicação para
+- Ela reduz complexidade essencial exposta: uma abstração que de fato esconde.
+- É exigida por um requisito de qualidade real e declarado: replicação para
   disponibilidade contratada.
-- Substitui complexidade maior — um framework maduro no lugar de código próprio
+- Substitui complexidade maior: um framework maduro no lugar de código próprio
   equivalente.
 - O custo de não adicionar é maior e já é observável, não hipotético.
 
@@ -122,7 +122,7 @@ adiciona equivalente em outro, o saldo é o custo da transição.
 **Quando o time não consegue operar o resultado.** Uma arquitetura correta que
 exige competência que a equipe não tem cobra um custo que o desenho não mostra: o
 de aprender a operá-la enquanto ela já está em produção. A classificação não muda
-— continua essencial —, mas a conta de adotá-la, sim.
+(continua essencial), mas a conta de adotá-la, sim.
 
 **Quando a alternativa simples ainda não falhou.** A ordem correta é usar a
 opção simples até que ela demonstre insuficiência. Antecipar a falha da opção
@@ -130,11 +130,11 @@ simples é adivinhação com custo.
 
 ## Alternativas
 
-- **Não fazer** — sempre uma opção, com custo e benefício mensuráveis.
-- **Fazer manualmente** — automatizar um processo raro pode custar mais que
+- **Não fazer**: sempre uma opção, com custo e benefício mensuráveis.
+- **Fazer manualmente**: automatizar um processo raro pode custar mais que
   executá-lo à mão.
-- **Adiar** — manter a opção aberta sem pagar por ela agora.
-- **Remover algo** — reduzir escopo em vez de adicionar mecanismo. É a
+- **Adiar**: manter a opção aberta sem pagar por ela agora.
+- **Remover algo**: reduzir escopo em vez de adicionar mecanismo. É a
   alternativa menos considerada e frequentemente a melhor.
 
 ## Trade-offs
@@ -192,10 +192,10 @@ com o argumento de isolar carga.
 
 Contabilizando os dois lados:
 
-*Remove* — a carga de relatórios sai do processo principal, e a implantação de
+*Remove*: a carga de relatórios sai do processo principal, e a implantação de
 relatórios deixa de exigir implantação do resto.
 
-*Adiciona* — mais um pipeline, mais um conjunto de alertas, autenticação entre
+*Adiciona*: mais um pipeline, mais um conjunto de alertas, autenticação entre
 serviços, tratamento de indisponibilidade do serviço de relatórios, uma cópia ou
 um acesso remoto aos dados, e mais uma coisa em plantão.
 
@@ -205,22 +205,22 @@ relatório?
 A medição respondeu 4%, concentrados em duas consultas sem índice.
 
 Corrigidos os índices, a carga caiu para 0,3% e a proposta perdeu a razão de ser.
-O custo do serviço separado — permanente, operacional, distribuído por todo o
-time — teria sido pago para resolver um problema que uma migração resolveu.
+O custo do serviço separado (permanente, operacional, distribuído por todo o
+time) teria sido pago para resolver um problema que uma migração resolveu.
 
 O que vale reter não é que extrair serviço é ruim. É que a decisão foi tomada com
 um lado da conta, e medir custou uma tarde.
 
 ## Conceitos Relacionados
 
-- [Abstração](/01-fundamentals/abstraction.md) — a ferramenta que reduz ou adiciona complexidade.
-- [Dívida Técnica](/01-fundamentals/technical-debt.md) — o que acontece quando a
+- [Abstração](/01-fundamentals/abstraction.md): a ferramenta que reduz ou adiciona complexidade.
+- [Dívida Técnica](/01-fundamentals/technical-debt.md): o que acontece quando a
   complexidade acidental é assumida sabendo do custo.
-- [Trade-offs](/20-trade-offs/index.md) — a contabilidade dos dois lados.
+- [Trade-offs](/20-trade-offs/index.md): a contabilidade dos dois lados.
 
 ## Exercício Prático
 
-Liste cinco mecanismos do seu sistema — uma fila, um cache, uma camada de
+Liste cinco mecanismos do seu sistema: uma fila, um cache, uma camada de
 abstração, uma flag, um serviço separado.
 
 Para cada um: que problema ele resolve? Esse problema é observável hoje ou foi
@@ -238,7 +238,7 @@ complexidade acidental.
 ## Para Aprofundar
 
 - Brooks, Frederick P. *No Silver Bullet: Essence and Accidents of Software Engineering*.
-  IFIP, 1986 — a distinção essencial/acidental.
+  IFIP, 1986. A distinção essencial/acidental.
 - Ousterhout, John. *A Philosophy of Software Design*. Yaknyam Press, 2018.
-- Moseley, Ben; Marks, Peter. *Out of the Tar Pit*, 2006 — complexidade
+- Moseley, Ben; Marks, Peter. *Out of the Tar Pit*, 2006. Complexidade
   originada de estado.

@@ -2,7 +2,7 @@
 id: saas
 title: SaaS
 sidebar_position: 3
-description: Comprar o software pronto — a decisão de "construir ou comprar" e o que ela transfere junto.
+description: "Comprar o software pronto: a decisão de \"construir ou comprar\" e o que ela transfere junto."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [paas]
 related: [paas, vendor-lock-in, managed-services]
 canonical_for: [SaaS, software como serviço, construir ou comprar]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-SaaS — software como serviço — é o software pronto, operado por um fornecedor,
+SaaS (software como serviço) é o software pronto, operado por um fornecedor,
 consumido por assinatura.
 
 Do ponto de vista de arquitetura, adotar um SaaS é a decisão de **comprar em vez de
@@ -39,8 +39,8 @@ Construir cada uma consome capacidade de engenharia que poderia estar no que
 diferencia. E o resultado costuma ser pior que o produto especializado, porque não
 recebe investimento contínuo.
 
-A dificuldade não é reconhecer isso em geral. É decidir, caso a caso, onde está a
-linha — e não construir por reflexo o que já existe pronto.
+Reconhecer isso em geral é fácil; difícil é decidir, caso a caso, onde está a
+linha, e não construir por reflexo o que já existe pronto.
 
 ## Conceitos Centrais
 
@@ -52,12 +52,12 @@ O critério que resolve a maioria dos casos:
 disso, construa. Se não, compre. A conta de custo total, com pessoal e manutenção,
 está em [Build vs. Buy](/20-trade-offs/build-vs-buy.md).
 
-Uma transportadora que constrói o próprio roteirizador pode estar certa — a
+Uma transportadora que constrói o próprio roteirizador pode estar certa: a
 eficiência de rota é o negócio. A mesma empresa construindo um sistema de chamados
 está gastando capacidade no que não a distingue.
 
 O erro mais comum não é comprar o que deveria construir. É construir o que deveria
-comprar, tipicamente porque "o nosso caso é diferente" — e ele quase nunca é
+comprar, tipicamente porque "o nosso caso é diferente" e ele quase nunca é
 diferente o suficiente para justificar.
 
 ### O que você compra junto
@@ -68,7 +68,7 @@ pode nunca ser atendida.
 **Modelo de dados dele.** Seus dados vão para a estrutura que ele define.
 
 **Disponibilidade dele.** Se ele cai, a funcionalidade cai com ele, e sobre o
-sistema dele você não tem ação; a única ação é a preparada antes — degradação, ou
+sistema dele você não tem ação; a única ação é a preparada antes: degradação, ou
 um caminho mínimo independente para o que é crítico. Isso precisa entrar no seu cálculo de disponibilidade. Ver
 [disponibilidade](/06-distributed-systems/availability.md).
 
@@ -94,7 +94,7 @@ subestimado:
 [anti-corruption layer](/08-integration-architecture/integration-anti-corruption.md).
 
 Com muitos SaaS integrados, o custo de manter as integrações passa a ser
-significativo — e é uma despesa que ninguém orça na aquisição.
+significativo, e é uma despesa que ninguém orça na aquisição.
 
 ### Saída de dados é o que decide a reversibilidade
 
@@ -122,12 +122,12 @@ E significa que "está no fornecedor" não é resposta para uma auditoria.
 
 ### Proliferação silenciosa
 
-SaaS é fácil de comprar — cartão de crédito, sem envolver engenharia. O resultado
+SaaS é fácil de comprar: cartão de crédito, sem envolver engenharia. O resultado
 previsível é que times diferentes adotam ferramentas sobrepostas, com dados
 espalhados e sem inventário.
 
-Isso vira problema de segurança — contas sem desprovisionamento, dados em lugares
-desconhecidos — antes de virar problema de custo.
+Isso vira problema de segurança (contas sem desprovisionamento, dados em lugares
+desconhecidos) antes de virar problema de custo.
 
 ## Modelo Mental
 
@@ -151,7 +151,7 @@ formato que você não consegue recarregar em outro sistema no prazo que uma tro
 fornecedor toleraria.
 
 **Quando a disponibilidade dele não cabe no seu requisito.** Ele está no caminho
-síncrono, e a disponibilidade composta em série — a dele multiplicada pela sua —
+síncrono, e a disponibilidade composta em série (a dele multiplicada pela sua)
 fica abaixo do que você promete.
 
 **Quando a conformidade não pode ser terceirizada.** A regulação exige controle
@@ -160,7 +160,7 @@ essa garantia.
 
 **Quando a integração custa mais que construir.** Sincronização nos dois sentidos,
 identidade e anticorrupção, somadas, podem passar do custo de manter a
-funcionalidade — e sem essa conta feita a decisão não está tomada.
+funcionalidade, e sem essa conta feita a decisão não está tomada.
 
 **Quando a função já está coberta por outro SaaS da casa.** Uma ferramenta
 sobreposta, sem inventário nem governança, acrescenta dados espalhados e contas a
@@ -168,10 +168,10 @@ desprovisionar, não capacidade.
 
 ## Alternativas
 
-- **Construir** — quando diferencia.
-- **Código aberto autogerido** — controle dos dados, com o trabalho operacional.
-- **SaaS com opção de instalação própria** — meio-termo, quando existe.
-- **Comprar e envolver** — usar o SaaS atrás de uma camada própria, preservando a
+- **Construir**: quando diferencia.
+- **Código aberto autogerido**: controle dos dados, com o trabalho operacional.
+- **SaaS com opção de instalação própria**: meio-termo, quando existe.
+- **Comprar e envolver**: usar o SaaS atrás de uma camada própria, preservando a
   possibilidade de trocar.
 
 ## Trade-offs
@@ -188,7 +188,7 @@ desprovisionar, não capacidade.
 ## Modos de Falha
 
 **Indisponibilidade do fornecedor.** Nada a fazer sobre o sistema dele; resta só o que
-ficou preparado antes — degradação ou caminho mínimo independente.
+ficou preparado antes: degradação ou caminho mínimo independente.
 
 **Mudança de preço.**
 
@@ -225,8 +225,8 @@ recursos humanos.
 Todos tinham sido construídos anos antes, quando as alternativas eram piores ou
 mais caras.
 
-O levantamento mostrou **4 engenheiros equivalentes** mantendo esses quatro sistemas
-— 13% da capacidade, em nada que a empresa vendia.
+O levantamento mostrou **4 engenheiros equivalentes** mantendo esses quatro sistemas:
+13% da capacidade, em nada que a empresa vendia.
 
 A substituição por SaaS foi feita em três dos quatro:
 
@@ -241,7 +241,7 @@ extensa. Decisão registrada, com o custo de manutenção aceito.
 Três problemas na transição:
 
 **Exportação do sistema de chamados antigo.** Trivial, porque era próprio. A
-verificação da exportação do **novo** foi feita antes de assinar — e um dos
+verificação da exportação do **novo** foi feita antes de assinar, e um dos
 candidatos foi descartado justamente porque só exportava os últimos 12 meses.
 
 **Custo de integração subestimado.** Sincronizar usuários e centros de custo entre
@@ -253,17 +253,17 @@ passou despercebida: o sistema que deveria avisar sobre problemas estava com
 problema, e não havia alternativa. Passou a existir um monitoramento mínimo
 independente, apenas para o caminho crítico.
 
-Na retrospectiva: a decisão de comprar foi positiva pelo critério que a motivou —
-capacidade devolvida ao diferencial —, mesmo com a integração recorrente consumindo
+Na retrospectiva: a decisão de comprar foi positiva pelo critério que a motivou
+(capacidade devolvida ao diferencial), mesmo com a integração recorrente consumindo
 parte do que foi liberado. O que faltou
-foi orçar a integração como projeto — ela foi tratada como detalhe da aquisição e
+foi orçar a integração como projeto: ela foi tratada como detalhe da aquisição e
 consumiu mais tempo que a avaliação dos fornecedores.
 
 ## Conceitos Relacionados
 
-- [PaaS](/09-cloud-architecture/paas.md) e [IaaS](/09-cloud-architecture/iaas.md) — os modelos abaixo.
+- [PaaS](/09-cloud-architecture/paas.md) e [IaaS](/09-cloud-architecture/iaas.md): os modelos abaixo.
 - [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
-- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — custo total e viés de construção.
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md): custo total e viés de construção.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 - [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 
@@ -272,7 +272,7 @@ consumiu mais tempo que a avaliação dos fornecedores.
 Liste o que seu time mantém internamente. Para cada item, pergunte: os clientes
 escolhem a gente por causa disto?
 
-Onde a resposta for não, verifique se existe produto pronto — e quanto tempo o seu
+Onde a resposta for não, verifique se existe produto pronto, e quanto tempo o seu
 time gasta mantendo o que existe.
 
 ## Perguntas de Entrevista
@@ -284,5 +284,5 @@ time gasta mantendo o que existe.
 ## Para Aprofundar
 
 - Fowler, Martin. *Utility vs Strategic Dichotomy*. martinfowler.com, 2010.
-- Moore, Geoffrey. *Dealing with Darwin*. Portfolio, 2005 — core versus context.
+- Moore, Geoffrey. *Dealing with Darwin*. Portfolio, 2005. Core versus context.
 - Cagan, Marty. *Inspired*. 2ª ed. Wiley, 2017.

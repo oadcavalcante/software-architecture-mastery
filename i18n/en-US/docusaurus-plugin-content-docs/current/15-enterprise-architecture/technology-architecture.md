@@ -2,7 +2,7 @@
 id: technology-architecture
 title: Technology Architecture
 sidebar_position: 5
-description: The foundation everything runs on — and the cost of each additional technology to operate.
+description: The foundation everything runs on, and the cost of each additional technology to operate.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [technology-radar, standards, platform-engineering]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Technology architecture describes the foundation applications run on: infrastruc
 platforms, languages, storage, tools.
 
 Its central decision is not which technology is best. It is **how many the organization
-can support well** — because each one added carries a permanent operational cost that
+can support well**, because each one added carries a permanent operational cost that
 rarely enters the decision.
 
 ## Problem
@@ -40,7 +40,7 @@ each platform     upgrades, security, integration
 each tool         license, learning, maintenance
 ```
 
-The cost is not added — it is multiplied by the number of people who need to know each
+The cost is not added; it is multiplied by the number of people who need to know each
 one, and by the number of environments each one has to be operated in.
 
 And it is invisible in the local decision: whoever picks the fourth database does not pay
@@ -98,7 +98,7 @@ managed database        low cost — the variety weighs less
 See [managed services](/09-cloud-architecture/managed-services.md).
 
 This changes the decision: adopting an additional managed store is a much smaller
-decision than adopting it self-managed — and the discussion frequently fails to make that
+decision than adopting it self-managed, and the discussion frequently fails to make that
 distinction.
 
 ### Obsolescence needs a plan
@@ -131,8 +131,8 @@ See [supply chain trust](/10-security/supply-chain-trust.md).
 The temptation, faced with excessive variety, is to standardize everything on one
 technology.
 
-The cost of migrating working systems is high, and the benefit — one fewer technology to
-operate — needs to exceed it.
+The cost of migrating working systems is high, and the benefit (one fewer technology to
+operate) needs to exceed it.
 
 ```text
 consolidating makes sense   technology in decline, with risk
@@ -172,7 +172,7 @@ This incentive asymmetry is the root cause, and it is not corrected with discipl
 works are mechanisms that compensate for it:
 
 **Make the cost visible in the decision to add.** Whoever proposes presents the aggregate
-operational cost — on-call, knowledge, integration.
+operational cost: on-call, knowledge, integration.
 
 **Assign someone the responsibility to reduce**, with legitimacy equivalent to that of
 whoever adds.
@@ -207,17 +207,17 @@ technology that would weigh on on-call may not survive the next pivot. The aggre
 math starts to apply once systems stabilize and begin to accumulate operation.
 
 **Everything on one provider's managed services.** If no storage is self-managed, much of
-the cost this document measures — operation, patching, on-call — sits on the provider's
+the cost this document measures (operation, patching, on-call) sits on the provider's
 side. What remains is knowledge and hiring, which fit in each team's decision without an
 organizational analysis.
 
 ## Alternatives
 
-- **[Technology radar](/15-enterprise-architecture/technology-radar.md)** — guidance with context.
-- **Paved road** — what is supported comes ready.
-- **Exception with assumption of operation** — the team that chooses outside takes the
+- **[Technology radar](/15-enterprise-architecture/technology-radar.md)**: guidance with context.
+- **Paved road**: what is supported comes ready.
+- **Exception with assumption of operation**: the team that chooses outside takes the
   on-call.
-- **Managed services** — they reduce the cost of variety.
+- **Managed services**: they reduce the cost of variety.
 
 The third is the mechanism that balances autonomy and cost: the choice remains possible,
 and whoever makes it pays for it.
@@ -261,9 +261,9 @@ and whoever makes it pays for it.
 
 **Not distinguishing managed from self-managed.** They are decisions with opposite cost and risk profiles; comparing them by price per transaction ignores the difference that matters.
 
-**Consolidating on principle.** Reducing the number of technologies is good until it forces cases that don't fit — and then the cost of the forced fit exceeds that of the diversity.
+**Consolidating on principle.** Reducing the number of technologies is good until it forces cases that don't fit, and then the cost of the forced fit exceeds that of the diversity.
 
-**Governing by list.** A list of approved technologies ages and becomes an obstacle. What holds up is the evaluation criterion, which stays valid when the list doesn't — and it decides what the platform offers ready-made, while the platform is what makes the criterion get followed without anyone consulting a list.
+**Governing by list.** A list of approved technologies ages and becomes an obstacle. What holds up is the evaluation criterion, which stays valid when the list doesn't. And it decides what the platform offers ready-made, while the platform is what makes the criterion get followed without anyone consulting a list.
 
 ## Real-World Example
 
@@ -279,7 +279,7 @@ pipeline tools          4
 
 Nine databases for 120 engineers.
 
-The sustainability assessment — how many people can resolve an incident in each one — was
+The sustainability assessment (how many people can resolve an incident in each one) was
 revealing:
 
 ```text
@@ -304,9 +304,9 @@ The decisions:
 cost made explicit, and broad-reach approval. See
 [architecture levels](/15-enterprise-architecture/architecture-levels.md).
 
-**Migrate what was cheap.** The three low-criticality services — on the second document
-database, the columnar store and the secondary key-value store — migrated to the main
-relational database — in none of them did the original
+**Migrate what was cheap.** The three low-criticality services (on the second document
+database, the columnar store and the secondary key-value store) migrated to the main
+relational database. In none of them did the original
 choice have a justification that survived review.
 
 **Keep what was justified.** Search and time series stayed, with investment in expanding
@@ -323,7 +323,7 @@ or more people capable of handling them, the remaining document database with th
 the graph as the only one below the minimum, recorded and with a deadline.
 
 What was recorded afterwards: none of the nine choices had been wrong at the moment it
-was made. Each one solved a real problem. The error was never adding them up — no one
+was made. Each one solved a real problem. The error was never adding them up: no one
 had, until the inventory, the view that the organization operated nine stores.
 
 ## Related Concepts
@@ -350,4 +350,4 @@ Those with fewer than three are a risk, not a choice.
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
-- Thoughtworks. *Technology Radar* — published twice a year since 2010.
+- Thoughtworks. *Technology Radar*. Published twice a year since 2010.

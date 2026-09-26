@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [adr-context, adr-decision, adr-consequences, adr-status]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,7 +31,7 @@ Decision       what was decided, in the active voice
 Consequences   what becomes true, good and bad
 ```
 
-It fits on one page. That brevity is not thrift — it is what makes the practice
+It fits on one page. That brevity is not thrift: it is what makes the practice
 sustainable and what keeps the document from becoming a specification.
 
 And there is an asymmetry of value between the sections that almost every beginner author
@@ -70,7 +70,7 @@ bad    "Decision 14"                       — informs nothing
 The title is what appears in the index, and it is how someone finds the decision two years
 later. It has to be legible out of context.
 
-Numbering is sequential and permanent — numbers are not reused, even when an ADR is
+Numbering is sequential and permanent: numbers are not reused, even when an ADR is
 deprecated.
 
 ### Status
@@ -103,8 +103,8 @@ The test: can someone who wasn't there understand why the decision was necessary
 under what conditions the answer could have been different? See
 [context](/18-architecture-decisions/adr-context.md).
 
-The characteristic mistake is writing the context as a generic introduction — "we are
-building an orders system" — instead of recording the specific forces.
+The characteristic mistake is writing the context as a generic introduction ("we are
+building an orders system") instead of recording the specific forces.
 
 ### Decision
 
@@ -119,7 +119,7 @@ in the passive or conditional voice is not a decision.
 
 See [decision](/18-architecture-decisions/adr-decision.md).
 
-It is common for this section to be three lines. That is correct — the volume is in the
+It is common for this section to be three lines. That is correct: the volume is in the
 context and the consequences.
 
 ### Consequences
@@ -187,29 +187,29 @@ doesn't fit in two pages, it is probably several decisions.
 
 ## When to Use
 
-- When writing an ADR that warrants its own document — the five sections are the common minimum.
+- When writing an ADR that warrants its own document: the five sections are the common minimum.
 - As a checklist: if a section is empty, something hasn't been thought through.
 - When standardizing the practice across an organization.
 
 ## When Not to Use
 
-**Adding sections for completeness** — every extra section reduces the chance the ADR gets
+**Adding sections for completeness**: every extra section reduces the chance the ADR gets
 written.
 
-**When the only real alternative is the status quo** — with no competing option to
+**When the only real alternative is the status quo**: with no competing option to
 compare, the alternatives and context sections end up empty or restating the decision; a
 Y-Statement records the same thing in one sentence.
 
-**When the decision is local and reversible within hours** — a choice internal to a module,
+**When the decision is local and reversible within hours**: a choice internal to a module,
 with no effect on a contract, persisted data or another team. The right record is a comment
 next to the code; an ADR file costs more than redoing the decision.
 
 ## Alternatives
 
-- **Y-Statement** — one sentence, for smaller decisions.
-- **MADR** — when the comparison criteria have to be explicit.
-- **A format of your own** — legitimate, provided it is uniform and short.
-- **A code comment** — for local decisions, a comment explaining the why is the right
+- **Y-Statement**: one sentence, for smaller decisions.
+- **MADR**: when the comparison criteria have to be explicit.
+- **A format of your own**: legitimate, provided it is uniform and short.
+- **A code comment**: for local decisions, a comment explaining the why is the right
   record.
 
 The last is underused: not every decision deserves a file, and many deserve three lines of
@@ -257,7 +257,7 @@ comment next to the code they explain.
 
 **Omitting the reversal condition** in the alternatives.
 
-**Numbering by date** instead of sequentially — it makes referencing harder.
+**Numbering by date** instead of sequentially: it makes referencing harder.
 
 ## Real-World Example
 
@@ -275,7 +275,7 @@ with no date                                  41
 with a non-descriptive title                  52
 ```
 
-The practical problem was not the variety of formats — it was the systematic absence of the
+The practical problem was not the variety of formats. It was the systematic absence of the
 same two things: alternatives and negative consequences. The teams using pure Nygard format
 simply had no field for alternatives, and the others left it blank.
 
@@ -293,7 +293,7 @@ alternative is sent back in review.
 **At least one negative consequence.** The premise: every architectural decision has a
 cost, and an ADR that doesn't name it hasn't thought about it.
 
-**The Y-Statement authorized** for smaller decisions, exempt from the reversal condition —
+**The Y-Statement authorized** for smaller decisions, exempt from the reversal condition:
 its neglected-alternatives clause counts as an alternative. This raised the volume, because
 many decisions that didn't warrant a document started being recorded in one sentence.
 
@@ -311,7 +311,7 @@ consulted at least once                        38
 ```
 
 Requiring one negative consequence was the rule with the greatest effect. It cost one line
-and changed the nature of the document — from a persuasion piece to a record of an accepted
+and changed the nature of the document: from a persuasion piece to a record of an accepted
 trade-off.
 
 And the Y-Statement solved a problem nobody had named: medium-sized decisions, which didn't
@@ -319,10 +319,10 @@ warrant a document, previously weren't recorded at all.
 
 ## Related Concepts
 
-- [Context](/18-architecture-decisions/adr-context.md) — the section that carries the value.
-- [Decision](/18-architecture-decisions/adr-decision.md) — the shortest.
-- [Alternatives](/18-architecture-decisions/adr-alternatives.md) — the essential addition.
-- [Consequences](/18-architecture-decisions/adr-consequences.md) — where the cost is named.
+- [Context](/18-architecture-decisions/adr-context.md): the section that carries the value.
+- [Decision](/18-architecture-decisions/adr-decision.md): the shortest.
+- [Alternatives](/18-architecture-decisions/adr-alternatives.md): the essential addition.
+- [Consequences](/18-architecture-decisions/adr-consequences.md): where the cost is named.
 
 ## Practical Exercise
 
@@ -343,5 +343,5 @@ record.
 ## Further Reading
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
-- *MADR — Markdown Any Decision Records* — adr.github.io/madr.
+- *MADR. Markdown Any Decision Records* — adr.github.io/madr.
 - Zdun, Uwe et al. *Sustainable Architectural Design Decisions*. IEEE Software, 2013.

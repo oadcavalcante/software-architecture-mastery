@@ -2,18 +2,18 @@
 id: refactoring
 title: Refactoring
 sidebar_position: 17
-description: Changing the structure without changing behaviour — and what separates refactoring from a disguised rewrite.
+description: Changing the structure without changing behaviour, and what separates refactoring from a disguised rewrite.
 doc_type: concept
 level: 2
 difficulty: intermediate
 status: complete
 objective: >
   By the end, the reader carries out refactoring in verifiable steps and knows when
-  to stop — the part that is almost never defined.
+  to stop, the part that is almost never defined.
 prerequisites: [code-smells]
 related: [technical-debt, clean-code, legacy-modernization]
 canonical_for: [refactoring]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ Refactoring is altering the internal structure of code **without altering its
 observable behaviour**.
 
 The clause after "without" is the entire definition. If behaviour changes, it is not
-refactoring — it is a change of functionality, and the two should not happen in the
+refactoring. It is a change of functionality, and the two should not happen in the
 same commit.
 
 ## Problem
@@ -39,7 +39,7 @@ a test fails, nobody knows which of the two caused it.
 
 The second problem is the absence of a stopping criterion. "Let's refactor this"
 rarely defines when it is done, and refactoring with no declared end consumes time
-until someone interrupts it under deadline pressure — frequently midway, leaving
+until someone interrupts it under deadline pressure, frequently midway, leaving
 the code worse than at the start.
 
 ## Core Concepts
@@ -59,7 +59,7 @@ the last one, and undoing costs minutes.
 
 ### Tests are a prerequisite, not a consequence
 
-Refactoring code without tests is not refactoring — it is structural change in the
+Refactoring code without tests is not refactoring: it is structural change in the
 hope that nothing breaks.
 
 When the tests do not exist, the order is: write
@@ -81,8 +81,8 @@ Useless answers: "the code is better", "it's cleaner".
 
 ### Preparatory refactoring
 
-The form that pays back fastest — the return shows up in the very next feature, not
-in diffuse future savings: refactoring **before** implementing, to make the
+The form that pays back fastest (the return shows up in the very next feature, not
+in diffuse future savings): refactoring **before** implementing, to make the
 implementation simple.
 
 Kent Beck (2012): *"for each desired change, make the change easy (warning: this may
@@ -97,7 +97,7 @@ justification and a natural scope. It ends when the feature becomes easy to add.
 better as a continuous practice, tied to real changes.
 
 Refactoring disconnected from need has no stopping or prioritization criterion, and
-it competes with delivery — a competition it loses at the first surprise.
+it competes with delivery, a competition it loses at the first surprise.
 
 ## Mental Model
 
@@ -106,9 +106,9 @@ behaviour. If you do not know which, stop.
 
 ## When to Use
 
-- Before adding a feature to code that resists — preparatory refactoring.
+- Before adding a feature to code that resists: preparatory refactoring.
 - When a smell has high interest: code in the path of many changes.
-- When understanding code for the first time — renaming as you learn is a record of
+- When understanding code for the first time: renaming as you learn is a record of
   knowledge.
 - After delivering, to clean up what was done under pressure, while the context is
   still fresh.
@@ -132,13 +132,13 @@ extracting a method. See
 
 ## Alternatives
 
-- **Rewrite the module** — when the current structure does not admit incremental
+- **Rewrite the module**: when the current structure does not admit incremental
   steps. It is riskier and is sometimes the answer.
-- **[Strangler fig](/16-legacy-modernization/strangler-fig.md)** — incremental
+- **[Strangler fig](/16-legacy-modernization/strangler-fig.md)**: incremental
   replacement from the outside, when the interior does not allow safe change.
-- **Accept and isolate** — encapsulate the problematic code behind a good interface,
+- **Accept and isolate**: encapsulate the problematic code behind a good interface,
   without touching the interior.
-- **Do nothing** — when the interest is low.
+- **Do nothing**: when the interest is low.
 
 ## Trade-offs
 
@@ -186,8 +186,8 @@ A team needed to add a new discount type. The estimated implementation was two d
 but the calculation lived in a 600-line class with seven discount types interwoven
 by nested conditionals.
 
-Two proposals: implement one more branch — the two estimated days, and the class
-goes to 700 lines — or refactor first.
+Two proposals: implement one more branch (the two estimated days, and the class
+goes to 700 lines) or refactor first.
 
 The preparatory refactoring was defined with an explicit stopping criterion: *adding
 a discount type must require one new class and no changes to the existing ones.*
@@ -198,8 +198,8 @@ and finally add the new type.
 
 The new discount took two hours.
 
-What makes the case instructive is not the saving — four days to save two does not
-add up. It is what came afterwards: over the next fourteen months five more types
+What makes the case instructive is not the saving (four days to save two does not
+add up). It is what came afterwards: over the next fourteen months five more types
 were added, each in about two hours. Against the two days per type the old class
 charged, the refactoring paid for itself on the third.
 
@@ -223,8 +223,8 @@ with confidence.
 **Separate moving from altering.** A commit that only moves files is trivial to
 review and to rebase; one that moves and alters is impossible to assess.
 
-**Refactor what you are already touching.** The boy scout rule — leave it better than
-you found it — distributes the refactoring across whoever already has the context,
+**Refactor what you are already touching.** The boy scout rule (leave it better than
+you found it) distributes the refactoring across whoever already has the context,
 and avoids conflict by construction.
 
 The point those four share: refactoring is cheaper when it is continuous and local,
@@ -233,11 +233,11 @@ effort comes from wanting to do it all at once, and it is usually the worse opti
 
 ## Related Concepts
 
-- [Code Smells](/02-software-design/code-smells.md) — what indicates where to
+- [Code Smells](/02-software-design/code-smells.md): what indicates where to
   refactor.
-- [Technical Debt](/01-fundamentals/technical-debt.md) — how to prioritize.
-- [Clean Code](/02-software-design/clean-code.md) — the local target.
-- [Legacy Modernization](/16-legacy-modernization/index.md) — when the problem is
+- [Technical Debt](/01-fundamentals/technical-debt.md): how to prioritize.
+- [Clean Code](/02-software-design/clean-code.md): the local target.
+- [Legacy Modernization](/16-legacy-modernization/index.md): when the problem is
   bigger than refactoring.
 
 ## Practical Exercise
@@ -260,6 +260,6 @@ Compare the total time with your estimate of implementing directly.
 ## Further Exploration
 
 - Fowler, Martin. *Refactoring*. 2nd ed., Addison-Wesley, 2018.
-- Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004 —
-  characterization tests.
-- Beck, Kent. *Tidy First?* O'Reilly, 2023 — refactoring in small steps.
+- Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.
+  Characterization tests.
+- Beck, Kent. *Tidy First?* O'Reilly, 2023. Refactoring in small steps.

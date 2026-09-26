@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [ride-sharing, logistics, ecommerce]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -37,8 +37,8 @@ restaurants and a base of 190 thousand couriers, of whom about 34 thousand are a
 typical day.
 
 The business has a characteristic that sets it apart from e-commerce: **the product is
-perishable and the deadline is the product**. An order delivered 40 minutes late is not an
-order delivered late — it is cold food, and the customer doesn't come back. The company
+perishable and the deadline is the product**. An order delivered 40 minutes late is
+cold food, and the customer doesn't come back. The company
 measures that a delay of more than 15 minutes over the estimate reduces the probability of
 another order by 31%.
 
@@ -54,7 +54,7 @@ peak times there are regions with orders and no couriers while neighboring regio
 couriers.
 
 **Infrastructure cost.** The platform spends $6.2 million a year on cloud, and 44% of that is
-consumed by courier position tracking — 34 thousand devices sending a location every 4 seconds.
+consumed by courier position tracking: 34 thousand devices sending a location every 4 seconds.
 
 ## Functional Requirements
 
@@ -212,11 +212,11 @@ team                 nobody with experience in the technology
 | Operational complexity | 5% | 9 | 7 | 3 |
 | **Weighted total** | | **4.6** | **8.4** | **6.4** |
 
-The 30% weight on cost reflects the leadership constraint — it is a declared business
+The 30% weight on cost reflects the leadership constraint. It is a declared business
 constraint, and ignoring it would produce a proposal that wouldn't be approved.
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With cost at 10% and prediction capability at 30%, the
-totals become 5.0 / 7.6 / 6.8 — Option B still wins, with its lead over C falling from 1.9 to
+totals become 5.0 / 7.6 / 6.8: Option B still wins, with its lead over C falling from 1.9 to
 0.8. With isolation at 40%, they become 4.0 / 8.5 / 6.8. The conclusion is stable, and the
 scenario in which C gets close is precisely the one where arrival prediction becomes the
 product.
@@ -228,7 +228,7 @@ in cheap storage and indexing by geographic cell.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** the number of active couriers were an order of magnitude smaller —
+**Option A would win if** the number of active couriers were an order of magnitude smaller:
 below ~3 thousand simultaneous, the cost stops being relevant and the simplicity of a single
 database dominates. That is the case for a platform operating in a few cities.
 
@@ -273,7 +273,7 @@ TTL       45 s — a courier with no position for 45 s leaves the grid
 ```
 
 The TTL is an important decision: instead of explicitly managing couriers that lost
-connectivity, the system lets them expire. That makes losing signal — which is common — a normal
+connectivity, the system lets them expire. That makes losing signal (which is common) a normal
 case rather than an error to handle.
 
 **Geographic cell.** The territory is divided into fixed-size hexagonal cells. Each position is
@@ -285,14 +285,14 @@ cheaper. The cost is precision: couriers on the edge of a distant cell may be mi
 mitigation is to use two rings of neighbors in low-density regions.
 
 **Position history.** Written asynchronously, compressed, to object storage partitioned by day
-and region. It is queried only for disputes and analysis — about 400 queries a day over 420
+and region. It is queried only for disputes and analysis: about 400 queries a day over 420
 million daily records, which fully justifies slow and cheap storage.
 
 **Order.** PostgreSQL, with the lifecycle as an explicit state machine. The volume is low and
 consistency has to be strong: an order cannot be assigned to two couriers.
 
 **Catalog.** PostgreSQL as the source of truth, with a dedicated search index fed by events.
-Each item's availability — which changes through the day, as ingredients run out — is propagated
+Each item's availability (which changes through the day, as ingredients run out) is propagated
 within a window of up to 2 minutes, which is the requirement.
 
 ## Integration
@@ -302,7 +302,7 @@ Positions arrive over a persistent connection, in batches of up to 5 points, com
 accumulates locally when it loses signal and sends the batch on reconnecting, with the original
 timestamps.
 
-That decision — accumulate and send in batches — is what reduced ingestion cost by 38%, and it
+That decision (accumulate and send in batches) is what reduced ingestion cost by 38%, and it
 exists because of the connectivity constraint. The system treats reconnection with a delayed
 batch as a normal case.
 
@@ -311,7 +311,7 @@ courier grid of the relevant cells, calculates a score per candidate and sends o
 
 The score combines distance to the restaurant, the courier's current heading, the estimated
 remaining preparation time, the order value and acceptance history. Offers are sent to up to 3
-candidates simultaneously, and the first acceptance wins — which requires acceptance to be an
+candidates simultaneously, and the first acceptance wins. That requires acceptance to be an
 atomic operation in the order domain.
 
 **Real-time communication.** Persistent connections with three audiences, with distinct
@@ -320,7 +320,7 @@ screen is open; the restaurant receives order notifications; the courier receive
 route updates.
 
 The restriction of only sending position with the screen open sounds obvious and was not the
-previous behavior — on its own it cut outbound traffic by 22%.
+previous behavior. On its own it cut outbound traffic by 22%.
 
 ## Security
 
@@ -353,16 +353,16 @@ assignment engine and capacity sized by the local pattern.
 
 That has three positive consequences. Cost follows real density: a city with 40 couriers doesn't
 pay for a capital city's infrastructure. A failure stays contained within a region. And the peak
-— which is synchronized within a city but not across different time zones and habits — is
+(which is synchronized within a city but not across different time zones and habits) is
 absorbed with less aggregate idle capacity.
 
 The Friday and Saturday evening peak is predictable and concentrated. Capacity is raised on a
-schedule, not reactively — scaling reactively with a 20-second assignment requirement is too
+schedule, not reactively: scaling reactively with a 20-second assignment requirement is too
 tight.
 
 The real contention point is **offer acceptance**: when three couriers receive the same offer,
 acceptance has to be atomic. The solution is row-level contention on the order, with a short
-timeout — not a distributed lock, because the volume doesn't justify it.
+timeout, not a distributed lock, because the volume doesn't justify it.
 
 ## Reliability
 
@@ -373,7 +373,7 @@ mode from the last known position in the history, with a widened window. It is w
 works.
 
 If the **assignment engine** fails, orders go into a queue and are assigned when it returns. The
-restaurant is told not to start preparing — which avoids the waste the 20-second requirement
+restaurant is told not to start preparing. That avoids the waste the 20-second requirement
 exists to prevent.
 
 If **real-time communication** goes down, the apps switch to polling the state periodically, at a
@@ -405,7 +405,7 @@ problem. When it drops below a threshold in a region, the system triggers a dyna
 before orders start running late.
 
 **Cost per order** as a continuously tracked metric was a consequence of the budget constraint.
-It is broken down by domain, and each team sees its own share — which produced optimizations no
+It is broken down by domain, and each team sees its own share. That produced optimizations no
 directive would have produced.
 
 ## Deployment
@@ -415,7 +415,7 @@ assignment engine spends 48 hours in at least three small cities before reaching
 market.
 
 Changes to the assignment algorithm are evaluated by controlled experiment, with comparable
-regions split between versions — because the effect of an assignment change only shows up in
+regions split between versions, because the effect of an assignment change only shows up in
 aggregate business metrics, and not in testing.
 
 No structural change between Thursday and Sunday. The weekend peak concentrates 41% of weekly
@@ -424,7 +424,7 @@ volume.
 The wave-based deployment window has a secondary effect the team came to value more than the
 risk control itself: it produces a period in which two versions of the assignment engine operate
 in comparable regions, which gives a natural read of the change's effect on business metrics.
-Before the waves, an algorithm change was evaluated by comparison with the previous week — and
+Before the waves, an algorithm change was evaluated by comparison with the previous week, and
 delivery volume varies so much with weather, holidays and campaigns that the comparison rarely
 concluded anything.
 
@@ -444,7 +444,7 @@ preparation time observed per restaurant and per hour, courier density in the re
 conditions.
 
 The average error dropped from 11 min to 6.2 min. The requirement of 5 min in 80% of orders was
-met for 74% — below target, and the bottleneck identified was preparation time variability,
+met for 74%: below target, and the bottleneck identified was preparation time variability,
 which belongs to the restaurant and not to the platform.
 
 **Phase 4 (months 14–18): supply balancing.** Dynamic incentives per cell, triggered by the
@@ -491,11 +491,11 @@ customer retention at 90 days           +6.8 pp
 ```
 
 The retention gain is the result the company considers decisive, and it is a direct consequence
-of reducing delays — which was the project's thesis.
+of reducing delays, which was the project's thesis.
 
 It is worth noting what the cost reduction enabled, beyond the savings themselves: the $2.4
 million a year freed up fully funded Phases 2 to 4, which made the project self-sustaining from
-the fourth month on. That was a deliberate sequencing choice — starting with the phase that pays
+the fourth month on. That was a deliberate sequencing choice: starting with the phase that pays
 for the following ones, rather than with the one that delivers the most product value. It is the
 same extraction-order reasoning as the [e-commerce](/21-case-studies/ecommerce.md) case, applied
 to a different criterion.
@@ -511,12 +511,12 @@ transactions, synchronous replication or hot retention. Treating them as transac
 $2.7 million a year to guarantee a property nobody used.
 
 **The connectivity constraint shaped the design.** Accumulated batches, original timestamps, TTL
-instead of disconnection management — three decisions that only make sense for someone operating
+instead of disconnection management: three decisions that only make sense for someone operating
 with handsets that lose signal, and that reduced cost and complexity at the same time.
 
 **The system's limit was not the system.** Phase 3 reached 74% against a target of 80%, and the
 bottleneck was the variability of restaurants' preparation time. No architectural decision would
-have solved it — and recognizing that avoided months of optimizing in the wrong place.
+have solved it, and recognizing that avoided months of optimizing in the wrong place.
 
 ## Related Concepts
 

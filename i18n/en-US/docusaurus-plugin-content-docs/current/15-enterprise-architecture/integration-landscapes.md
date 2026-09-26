@@ -2,7 +2,7 @@
 id: integration-landscapes
 title: Integration Landscapes
 sidebar_position: 9
-description: The map of connections between systems — where the hidden cost of architecture lives.
+description: The map of connections between systems, where the hidden cost of architecture lives.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [application-portfolios]
 related: [application-portfolios, current-state-architecture, enterprise-data-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -25,7 +25,7 @@ The integration landscape is the map of how systems connect: who calls whom, by 
 means, with what coupling.
 
 It is where the hidden cost of enterprise architecture lives. An individually simple
-system may have forty integrations — and the cost of maintaining those connections
+system may have forty integrations, and the cost of maintaining those connections
 exceeds the cost of maintaining the system.
 
 And it is the part of the current state that diverges most from what people believe.
@@ -45,7 +45,7 @@ expensive change       altering one system requires coordinating with ten
 ```
 
 And the cost is not attributed: it shows up as "changes take forever", "everything is
-coupled", "we can't touch that" — without anyone pointing at the landscape as the cause.
+coupled", "we can't touch that", without anyone pointing at the landscape as the cause.
 
 ## Core Concepts
 
@@ -61,7 +61,7 @@ In practice no organization connects everything to everything, and the trend is 
 the number of integrations grows faster than the number of systems.
 
 This means the decision to add a system carries a cost that is not the cost of the system
-— it is the cost of the connections it will need.
+but the cost of the connections it will need.
 
 And it is why integration patterns matter: forty connections built in thirty different
 ways are far more expensive than forty built in three.
@@ -101,14 +101,14 @@ tracing. See
 [distributed tracing](/13-observability/distributed-tracing.md).
 
 The typical finding is a sizable fraction of the real integrations missing from the
-documentation — in the example below, 122 of 312, or 39% of the total.
+documentation: in the example below, 122 of 312, or 39% of the total.
 
 ### The patterns that produce disproportionate cost
 
 Looking at the landscape, a few patterns jump out:
 
-**A system with many connections.** A system with thirty integrations is a coupling point
-— any change to it is expensive.
+**A system with many connections.** A system with thirty integrations is a coupling point:
+any change to it is expensive.
 
 **Cycles.** A calls B, which calls C, which calls A. Hard to reason about, hard to deploy
 independently.
@@ -138,12 +138,12 @@ investigating a problem requires involving both
 A system with thirty integrations is a system whose team negotiates with many others. See
 [integration contracts](/08-integration-architecture/integration-contracts.md).
 
-This explains why teams with many dependencies deliver slowly — and why reducing
+This explains why teams with many dependencies deliver slowly, and why reducing
 integrations is a speed intervention, not just an architectural one.
 
 ### Reducing is more valuable than organizing
 
-The temptation, faced with a complex landscape, is to introduce a central intermediary —
+The temptation, faced with a complex landscape, is to introduce a central intermediary:
 a bus everything passes through. See [SOA](/03-design-patterns/soa.md).
 
 That reorganizes the diagram and keeps the coupling: the systems still depend on each
@@ -183,7 +183,7 @@ the dependencies fit in the heads of those who operate them; per-system analysis
 the same questions without the cost of a global map.
 
 **No decision on the table.** With no consolidation, retirement, modernization, or
-slowness investigation ahead, the map informs no choice — and it ages until it is needed,
+slowness investigation ahead, the map informs no choice, and it ages until it is needed,
 when it will have to be redone.
 
 **Nothing observable.** Without database access logs or tracing, the map can only come
@@ -193,9 +193,9 @@ is cheaper.
 
 ## Alternatives
 
-- **Derived dependency map** — automatic, real, current wherever instrumented.
-- **Per-system analysis** — what each one consumes and exposes, without the global map.
-- **Contract catalog** — what is published, who consumes it. See
+- **Derived dependency map**: automatic, real, current wherever instrumented.
+- **Per-system analysis**: what each one consumes and exposes, without the global map.
+- **Contract catalog**: what is published, who consumes it. See
   [integration contracts](/08-integration-architecture/integration-contracts.md).
 
 ## Trade-offs
@@ -227,15 +227,15 @@ is cheaper.
 
 ## Common Mistakes
 
-**Mapping by interview.** People remember the integrations they use and forget the old ones — which are precisely the ones that break when someone turns a system off.
+**Mapping by interview.** People remember the integrations they use and forget the old ones, which are precisely the ones that break when someone turns a system off.
 
 **Not including direct access to another system's database.** It is among the most coupled integrations and the one that appears least in maps, because it goes through no API.
 
-**Introducing an intermediary as the solution.** A bus in the middle of poorly designed integrations merely centralizes the problem and creates an organizational bottleneck — the coupling remains, now with one more system to operate.
+**Introducing an intermediary as the solution.** A bus in the middle of poorly designed integrations merely centralizes the problem and creates an organizational bottleneck: the coupling remains, now with one more system to operate.
 
 **Not measuring the maintenance cost of integrations.** It is where a good share of engineering capacity is consumed, and it appears on no budget line.
 
-**Not using the landscape to decide** — only documenting it. The map exists to choose what to consolidate and what to shut down. Without that link, it is a poster.
+**Not using the landscape to decide**, only documenting it. The map exists to choose what to consolidate and what to shut down. Without that link, it is a poster.
 
 ## Real-World Example
 
@@ -250,7 +250,7 @@ documented integrations   190
 real integrations         312
 ```
 
-One hundred and twenty-two undocumented integrations — 39% of the total.
+One hundred and twenty-two undocumented integrations: 39% of the total.
 
 The patterns found:
 
@@ -261,7 +261,7 @@ that reason the schema had not changed in four years.
 **Seven cycles.** Sets of systems calling each other, making independent deployment
 impossible.
 
-**Duplication.** Route data was carried by six different paths between the same systems —
+**Duplication.** Route data was carried by six different paths between the same systems:
 API, file, database replication, queue, and two scheduled jobs.
 
 **A single point.** A geocoding service, maintained by one person, on which 22 systems
@@ -272,7 +272,7 @@ The intervention prioritized reduction, not reorganization:
 **Customer record with declared ownership.** The 19 direct database accesses were replaced
 by an API and by events, over eighteen months. The schema could change again.
 
-**Cycles broken** by dependency inversion — the system that was being called started
+**Cycles broken** by dependency inversion: the system that was being called started
 publishing events.
 
 **Duplication eliminated.** The six route-data paths became one.
@@ -285,7 +285,7 @@ feature crossing systems dropped from 11 weeks to 4.
 
 And one deliberate decision: the proposal to introduce a central bus was refused. The
 analysis showed it would reorganize the diagram without reducing the number of
-dependencies between teams — which was the cause of the slowness.
+dependencies between teams, the cause of the slowness.
 
 The slowness had been attributed to process and tooling. The cause was structural, and it
 became visible only when someone drew the map from what actually happens, rather than

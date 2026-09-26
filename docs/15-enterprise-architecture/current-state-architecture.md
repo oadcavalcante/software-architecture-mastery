@@ -2,7 +2,7 @@
 id: current-state-architecture
 title: Arquitetura do Estado Atual
 sidebar_position: 16
-description: O que existe de fato — e por que o diagrama de dois anos atrás não conta.
+description: O que existe de fato, e por que o diagrama de dois anos atrás não conta.
 doc_type: concept
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, transition-architecture, application-portfolios]
 canonical_for: [estado atual, levantamento de arquitetura, dívida arquitetural visível]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-28
 O estado atual é a descrição do que existe: quais sistemas, o que eles fazem, como se
 integram, quem é dono, e em que estado estão.
 
-Ele é o ponto de partida de qualquer plano — e é, na maioria das organizações, a peça
+Ele é o ponto de partida de qualquer plano e é, na maioria das organizações, a peça
 mais desatualizada.
 
 O problema não é preguiça. É que a descrição feita à mão envelhece mais rápido do que
@@ -36,12 +36,12 @@ em que ela é necessária.
 O padrão recorrente: um levantamento é feito para um projeto, produz diagramas
 detalhados, e é arquivado.
 
-Seis meses depois, ele descreve um sistema que mudou. Um ano depois, ele é enganoso —
+Seis meses depois, ele descreve um sistema que mudou. Um ano depois, ele é enganoso,
 e enganoso é pior que ausente, porque decisões são tomadas sobre ele.
 
 E há um problema anterior: o levantamento tradicional captura a topologia declarada, não
 a real. Integrações informais, acessos diretos ao banco alheio, processos que rodam numa
-máquina esquecida — nada disso aparece num diagrama desenhado em reunião.
+máquina esquecida: nada disso aparece num diagrama desenhado em reunião.
 
 ## Conceitos Centrais
 
@@ -55,14 +55,14 @@ derivado    do catálogo de serviços, do rastreamento, da infraestrutura declar
 desenhado   por alguém, em reunião, a partir do que se lembra
 ```
 
-Ver [rastreamento distribuído](/13-observability/distributed-tracing.md) — o mapa de
+Ver [rastreamento distribuído](/13-observability/distributed-tracing.md): o mapa de
 dependências real vem dali, não de entrevistas.
 
 O que é derivado se mantém sozinho. O que é desenhado envelhece.
 
-Nem tudo pode ser derivado — capacidades de negócio, propriedade, criticidade exigem
-julgamento humano. Mas a parte que muda mais rápido — topologia, dependências, versões,
-custo — pode.
+Nem tudo pode ser derivado: capacidades de negócio, propriedade, criticidade exigem
+julgamento humano. Mas a parte que muda mais rápido (topologia, dependências, versões,
+custo) pode.
 
 ### O detalhe precisa ser justificado pelo uso
 
@@ -111,7 +111,7 @@ negócio       criticidade, capacidade que suporta
 A segunda linha é a que costuma revelar o risco mais imediato: um sistema crítico com um
 único mantenedor é uma exposição que nenhuma métrica técnica captura.
 
-Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md) — o cruzamento com criticidade é
+Ver [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md): o cruzamento com criticidade é
 o que transforma inventário em prioridade.
 
 ### Bom o suficiente, e atualizado
@@ -120,7 +120,7 @@ Um mapa 70% correto e atualizado semanalmente vale mais que um 95% correto e
 desatualizado em dezoito meses.
 
 Isso muda o critério de qualidade: em vez de perseguir completude, perseguir
-**frescor** — e aceitar que partes do mapa serão aproximadas.
+**frescor**, e aceitar que partes do mapa serão aproximadas.
 
 E aceitar lacunas explícitas: marcar "não sabemos" é mais honesto e mais útil que
 preencher com suposição.
@@ -159,24 +159,24 @@ ou impacto na fila, o levantamento amplo produz um retrato que envelhece antes d
 consultado; basta manter o catálogo derivado, que custa quase nada.
 
 **Quando a mudança é local.** Para mexer em um sistema e seus vizinhos imediatos, mapear a
-organização inteira é desproporcional — o levantamento sob demanda da área resolve.
+organização inteira é desproporcional: o levantamento sob demanda da área resolve.
 
 **Quando um único time conhece tudo.** Numa organização com poucos sistemas e um time que
 os opera, o inventário já está no repositório e na cabeça das pessoas; formalizá-lo custa
 mais do que revela.
 
 **Quando não há instrumentação e ela não virá.** Sem registros de acesso, rastreamento ou
-catálogo de nuvem, o mapa só pode ser desenhado — e um mapa desenhado sem plano de
+catálogo de nuvem, o mapa só pode ser desenhado, e um mapa desenhado sem plano de
 manutenção repete o problema que este documento descreve. Nesse caso, o primeiro
 investimento é na instrumentação, não no levantamento.
 
 ## Alternativas
 
-- **Catálogo de serviços derivado** — a versão mínima e a mais sustentável. Ver
+- **Catálogo de serviços derivado**: a versão mínima e a mais sustentável. Ver
   [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
-- **Mapa de dependências por rastreamento** — automático e real.
-- **Inventário de custo por sistema** — derivado da marcação de recursos.
-- **Levantamento sob demanda** — detalhar apenas a área que vai ser mexida.
+- **Mapa de dependências por rastreamento**: automático e real.
+- **Inventário de custo por sistema**: derivado da marcação de recursos.
+- **Levantamento sob demanda**: detalhar apenas a área que vai ser mexida.
 
 A última é a mais econômica: em vez de mapear tudo, mapear profundamente o que está
 prestes a mudar.
@@ -214,7 +214,7 @@ prestes a mudar.
 
 **Desenhar em vez de derivar.** Diagrama feito de memória descreve a arquitetura pretendida. O estado atual sai de inventário de nuvem, repositórios, tráfego real e faturamento.
 
-**Consultar sem observar.** As pessoas descrevem os fluxos principais e esquecem as integrações antigas, os relatórios mensais e os acessos diretos ao banco — que são exatamente o que costuma quebrar numa migração.
+**Consultar sem observar.** As pessoas descrevem os fluxos principais e esquecem as integrações antigas, os relatórios mensais e os acessos diretos ao banco. São exatamente o que costuma quebrar numa migração.
 
 **Documentar tudo no mesmo detalhe.** O esforço se dilui e o que importa não fica mais visível que o resto. O detalhe deve seguir a criticidade e a intenção de mudança.
 
@@ -251,14 +251,14 @@ versão, quem publica.
 **Custo por sistema**, derivado da marcação de recursos. Ver
 [arquitetura de custo](/09-cloud-architecture/cost-architecture.md).
 
-**Saúde e propriedade** — as únicas dimensões preenchidas à mão, revisadas
+**Saúde e propriedade**: as únicas dimensões preenchidas à mão, revisadas
 trimestralmente com os times. Elas exigem julgamento e mudam devagar.
 
-**Lacunas explícitas.** Sistemas sem dono identificado ficaram marcados como tal — e a
+**Lacunas explícitas.** Sistemas sem dono identificado ficaram marcados como tal, e a
 lista deles virou uma tarefa, em vez de um espaço em branco.
 
 Foram 14 sistemas sem dono, dos quais 4 ninguém sabia para que serviam. Dois foram
-desativados após três meses de monitoramento sem acesso — depois de conferir com as áreas
+desativados após três meses de monitoramento sem acesso, depois de conferir com as áreas
 de negócio o calendário de processos anuais e de auditoria, que uma janela de três meses
 não enxerga. Observação só prova uso dentro da janela observada.
 
@@ -266,13 +266,13 @@ não enxerga. Observação só prova uso dentro da janela observada.
 modernização produz o detalhe da área que vai mexer, no momento em que vai mexer.
 
 O que a equipe registra: os quatro meses de entrevistas produziram uma descrição do que
-as pessoas acreditavam existir. A observação produziu o que existia — e a diferença entre
+as pessoas acreditavam existir. A observação produziu o que existia, e a diferença entre
 as duas era exatamente onde os riscos estavam.
 
 ## Conceitos Relacionados
 
-- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md) — o destino.
-- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md) — o caminho.
+- [Arquitetura Alvo](/15-enterprise-architecture/target-architecture.md): o destino.
+- [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md): o caminho.
 - [Portfólio de Aplicações](/15-enterprise-architecture/application-portfolios.md).
 - [Paisagens de Integração](/15-enterprise-architecture/integration-landscapes.md).
 

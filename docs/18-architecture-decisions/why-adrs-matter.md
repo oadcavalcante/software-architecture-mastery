@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [what-is-an-adr, adr-alternatives, superseding-decisions]
 canonical_for: [erosão de contexto, custo de redecidir, decisão contestável]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-O argumento óbvio para ADRs — "para não esquecer por que decidimos" — é verdadeiro e é o
+O argumento óbvio para ADRs, "para não esquecer por que decidimos", é verdadeiro e é o
 menos interessante.
 
 Os efeitos que mais compensam são outros três, e nenhum depende de alguém ler o ADR depois:
@@ -32,7 +32,7 @@ o desacordo ganha um lugar   discordar de um documento é diferente de discordar
 a decisão vira contestável   com alternativas registradas, revisar é barato
 ```
 
-O quarto efeito — não redescobrir a razão anos depois — é real e é bônus.
+O quarto efeito (não redescobrir a razão anos depois) é real e é bônus.
 
 ## O Problema
 
@@ -46,7 +46,7 @@ o time troca                a memória institucional zera a cada rotação compl
 ```
 
 A consequência composta é uma organização que **não consegue revisar suas próprias
-decisões**. Cada uma vira permanente por padrão — não porque esteja certa, mas porque
+decisões**. Cada uma vira permanente por padrão, não porque esteja certa, mas porque
 ninguém sabe o suficiente para questioná-la.
 
 E há o oposto, igualmente caro: decisões revisitadas repetidamente porque nada registra que
@@ -85,7 +85,7 @@ ao tentar justificar        percebe-se que a razão era hábito
 ```
 
 Isso significa que o ADR se paga **antes de ser lido por alguém**. É o argumento mais
-forte para escrever cedo — durante a decisão, não depois dela.
+forte para escrever cedo: durante a decisão, não depois dela.
 
 Ver [alternativas](/18-architecture-decisions/adr-alternatives.md), que é a seção onde esse efeito se concentra.
 
@@ -126,11 +126,11 @@ A revisão deixa de exigir coragem e passa a exigir só observação. Ver
 Quem chega recebe diagramas do que existe e, com ADRs, também o raciocínio.
 
 A diferença prática é entre "este é o sistema, aceite" e "este é o sistema, e estas foram
-as escolhas" — a segunda produz alguém capaz de contribuir com julgamento, não só com
+as escolhas". A segunda produz alguém capaz de contribuir com julgamento, não só com
 execução.
 
 E há um efeito de calibração: dez ADRs bem escritos expõem o raciocínio daquela
-organização — com as restrições reais dela — que nenhum material genérico carrega.
+organização (com as restrições reais dela) que nenhum material genérico carrega.
 
 ### O que ADRs não resolvem
 
@@ -145,7 +145,7 @@ não resolvem falta de tempo    se ninguém tem 30 minutos, o problema é outro
 ```
 
 E há o custo que a prática cria, que não é o tempo de escrita. Um acervo sem poda acumula
-ADRs vencidos que continuam lidos como vigentes — por isso a superação precisa ser
+ADRs vencidos que continuam lidos como vigentes, e por isso a superação precisa ser
 explícita. E o registro pode ser usado como autoridade: "está no ADR-014" encerra a
 discussão que o ADR existia para permitir, se ninguém abrir o documento para ver se a
 razão ainda vale.
@@ -153,19 +153,19 @@ razão ainda vale.
 ## Por Que Isso Importa
 
 **Porque o custo da ausência é invisível e contínuo.** Ele não aparece em nenhum
-orçamento — aparece como lentidão, retrabalho e incidentes cuja causa é "ninguém sabia".
+orçamento, e sim como lentidão, retrabalho e incidentes cuja causa é "ninguém sabia".
 
 **Porque decisões não revisáveis viram dívida.** Uma restrição sem razão conhecida continua
 sendo respeitada indefinidamente. Sistemas acumulam essas restrições até que uma parte
 significativa do desenho seja resposta a condições que já não existem.
 
-**Porque o benefício não depende de leitura.** O efeito de escrever — expor raciocínio
-frágil — acontece mesmo que o documento nunca seja aberto.
+**Porque o benefício não depende de leitura.** O efeito de escrever (expor raciocínio
+frágil) acontece mesmo que o documento nunca seja aberto.
 
 **Porque melhora a qualidade do debate.** Argumentos contra documentos são mais honestos e
 mais acessíveis que argumentos contra pessoas.
 
-**Porque o retorno é assimétrico.** O perfil — custo baixo, retorno raro e alto — está em
+**Porque o retorno é assimétrico.** O perfil (custo baixo, retorno raro e alto) está em
 [o que é um ADR](/18-architecture-decisions/what-is-an-adr.md). O que ele implica aqui é que
 escrever não pode depender de demanda prevista: quem escreve não sabe qual dos ADRs será o
 lido.
@@ -174,10 +174,10 @@ lido.
 
 **Vender como documentação.** Isso leva à expectativa de manutenção e à decepção.
 
-**Prometer que serão lidos.** A maior parte não será, e tudo bem — o argumento não é esse.
+**Prometer que serão lidos.** A maior parte não será, e tudo bem: o argumento não é esse.
 
-**Impor por processo.** Aprovação obrigatória desloca o incentivo — escreve-se para passar
-no comitê, não para pensar —, e foi o que o caso abaixo observou: 6 ADRs genéricos em um ano,
+**Impor por processo.** Aprovação obrigatória desloca o incentivo (escreve-se para passar
+no comitê, não para pensar), e foi o que o caso abaixo observou: 6 ADRs genéricos em um ano,
 contra 127 sem comitê. Onde a decisão já passa por um órgão formal, como em ambiente
 regulado, a obrigatoriedade pode ser o único formato viável; o que não sobrevive é
 obrigatório **e** caro.
@@ -225,7 +225,7 @@ ADR?".
 
 **No repositório do sistema**, revisado como código.
 
-**Índice único** consultável, para responder "isto já foi decidido?" — o que atacava
+**Índice único** consultável, para responder "isto já foi decidido?". Isso atacava
 diretamente o problema medido.
 
 Dezoito meses depois:
@@ -238,7 +238,7 @@ ADRs superados                                   11
 ```
 
 Os 22 encerramentos por referência valeram cerca de 400 horas-pessoa, pela média de 18 horas
-por discussão repetida que o próprio levantamento mediu — contra menos de 127 horas de
+por discussão repetida que o próprio levantamento mediu, contra menos de 127 horas de
 escrita, ao teto de uma hora por ADR. O item se paga sozinho mesmo que aquela média esteja
 superestimada pela metade.
 
@@ -247,14 +247,14 @@ mostravam decisões sendo revistas com base em mudança de contexto documentada,
 por opinião.
 
 A lição registrada: a ausência de comitê foi decisiva. Uma tentativa anterior, com
-aprovação obrigatória, tinha produzido 6 ADRs em um ano — todos genéricos, todos escritos
+aprovação obrigatória, tinha produzido 6 ADRs em um ano, todos genéricos, todos escritos
 depois da implementação.
 
 ## Conceitos Relacionados
 
 - [O Que É um ADR](/18-architecture-decisions/what-is-an-adr.md).
-- [Alternativas](/18-architecture-decisions/adr-alternatives.md) — onde o efeito de escrever se concentra.
-- [Superação](/18-architecture-decisions/superseding-decisions.md) — decisões com validade.
+- [Alternativas](/18-architecture-decisions/adr-alternatives.md): onde o efeito de escrever se concentra.
+- [Superação](/18-architecture-decisions/superseding-decisions.md): decisões com validade.
 - [Arquitetura como Decisões](/01-fundamentals/architecture-as-decisions.md).
 
 ## Exercício Prático

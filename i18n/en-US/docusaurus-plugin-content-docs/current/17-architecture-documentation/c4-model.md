@@ -2,7 +2,7 @@
 id: c4-model
 title: C4 Model
 sidebar_position: 2
-description: Four levels of zoom for diagramming software — and why the first two suffice in most cases.
+description: Four levels of zoom for diagramming software, and why the first two suffice in most cases.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [context-diagrams, container-diagrams, component-diagrams]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -31,8 +31,8 @@ component   the inside of one piece — for whoever will work on it
 code        classes and relations — rarely worth drawing
 ```
 
-The model's contribution is not the notation. It is the discipline of **one level of
-abstraction per diagram** — which is where most architecture diagrams fail.
+The model's contribution is the discipline of **one level of
+abstraction per diagram**, not the notation. That is where most architecture diagrams fail.
 
 ## Problem
 
@@ -49,7 +49,7 @@ another is a business concept
 The result is illegible to everyone: too technical for non-technical readers, and too
 imprecise for technical ones.
 
-And it has no defined reader — it was drawn to "show the architecture", not for someone
+And it has no defined reader: it was drawn to "show the architecture", not for someone
 with a question. See
 [documentation principles](/17-architecture-documentation/documentation-principles.md).
 
@@ -93,7 +93,7 @@ component   worth it for large systems, and it ages fast
 code        almost never worth drawing — the tool generates it if needed
 ```
 
-See [documentation principles](/17-architecture-documentation/documentation-principles.md) — the half-life decreases
+See [documentation principles](/17-architecture-documentation/documentation-principles.md): the half-life decreases
 with the zoom.
 
 The practical recommendation: produce context and container for every relevant system,
@@ -102,7 +102,7 @@ and component only for the parts that justify it.
 ### The model is about structure, not about everything
 
 The four levels describe static structure. The model also defines supplementary
-diagrams — system landscape, dynamic and deployment — that sit outside the zoom hierarchy
+diagrams (system landscape, dynamic and deployment) that sit outside the zoom hierarchy
 and answer other questions; here they are covered in
 [sequence diagrams](/17-architecture-documentation/sequence-diagrams.md) and
 [deployment diagrams](/17-architecture-documentation/deployment-diagrams.md):
@@ -143,7 +143,7 @@ covered in [living documentation](/17-architecture-documentation/living-document
 What is specific to C4: because the model fixes the element type at each level, tools
 such as Structurizr describe the system once, as a model, and derive the context,
 container and component views from it. Renaming a container in the model updates every
-view it appears in, instead of requiring the same edit in three drawings — and one view
+view it appears in, instead of requiring the same edit in three drawings, and one view
 cannot contradict another, because both read the same model.
 
 ## Mental Model
@@ -171,8 +171,8 @@ does not meet it, and C4's freedom becomes a liability. UML or a template such a
 satisfies the requirement.
 
 **When the system is a single small deployable.** With only one container, the container
-level adds nothing to the context level, and what remains — the context and a paragraph
-about the internal organization — fits in a README or a sketch.
+level adds nothing to the context level, and what remains (the context and a paragraph
+about the internal organization) fits in a README or a sketch.
 
 **When the documentation has to cover several views.** If security, deployment,
 development and operations have distinct stakeholders, 4+1 or arc42 organize the whole,
@@ -180,12 +180,12 @@ and C4 comes in as their structural part, not as the whole.
 
 ## Alternatives
 
-- **arc42** — a broader document template, including diagrams and text. See
+- **arc42**: a broader document template, including diagrams and text. See
   [architecture descriptions](/17-architecture-documentation/architecture-descriptions.md).
-- **The 4+1 model** — organizes by views. See
+- **The 4+1 model**: organizes by views. See
   [architecture views](/17-architecture-documentation/architecture-views.md).
-- **UML** — more expressive and heavier; useful when precision matters.
-- **Informal diagrams** — a sketch on a whiteboard resolves a lot of conversation, and
+- **UML**: more expressive and heavier; useful when precision matters.
+- **Informal diagrams**: a sketch on a whiteboard resolves a lot of conversation, and
   doesn't have to become an artifact.
 
 The last deserves a note: not every diagram has to be documented. A disposable drawing
@@ -244,13 +244,13 @@ invented it; each reader assigns the shapes and arrows a meaning of their own, a
 people leave the same diagram with different readings of a dependency.
 
 **Not dating it.** Without a date or version, the reader cannot tell whether they are
-looking at today's structure or the one from two years ago — the situation in the example
-below — and starts treating every diagram as suspect. Generated in the pipeline, the
+looking at today's structure or the one from two years ago (the situation in the example
+below) and starts treating every diagram as suspect. Generated in the pipeline, the
 diagram inherits the commit date; drawn by hand, it has to carry the date on the drawing.
 
 ## Real-World Example
 
-A healthcare company had a single architecture diagram per system — drawn in a graphics
+A healthcare company had a single architecture diagram per system, drawn in a graphics
 tool, with 40 to 60 boxes each.
 
 The boxes included, in the same diagram: external systems, internal services, shared
@@ -267,19 +267,19 @@ Adopting C4 changed four things:
 **Context per system.** One diagram with the system, the people who use it, and the
 systems it talks to. Between 5 and 12 boxes.
 
-That became the organization's most consulted diagram — used in onboarding, in
+That became the organization's most consulted diagram, used in onboarding, in
 conversations with the business, and in impact assessment.
 
 **Container per system.** The executable units and the stores, with the protocols between
 them. Between 6 and 15 boxes.
 
-**Component for only three systems** — the largest ones, where internal navigation
+**Component for only three systems**: the largest ones, where internal navigation
 justified it.
 
 **Diagrams as code**, versioned in each system's repository and generated in the
 pipeline.
 
-Versioned text does not detect drift on its own — a commit that changes the structure
+Versioned text does not detect drift on its own: a commit that changes the structure
 without touching the diagram passes cleanly through the diff. What it did was make
 updating cheap enough to fit in the same commit, which let "does the diagram still match?"
 become an item in code review. That item is what contained the staleness.
@@ -294,13 +294,13 @@ The fix was terminological: the internal glossary started calling the level "exe
 units", with a note that it corresponds to the C4 container.
 
 The point the team underlines: the gain didn't come from the notation. It came from the
-discipline of one level per diagram — which made it possible to say, before drawing, who
+discipline of one level per diagram. That made it possible to say, before drawing, who
 the diagram is for.
 
 ## Related Concepts
 
 - [Context Diagrams](/17-architecture-documentation/context-diagrams.md) and
-  [Container Diagrams](/17-architecture-documentation/container-diagrams.md) — the two most worthwhile.
+  [Container Diagrams](/17-architecture-documentation/container-diagrams.md): the two most worthwhile.
 - [Component Diagrams](/17-architecture-documentation/component-diagrams.md).
 - [Diagram Quality](/17-architecture-documentation/diagram-quality.md).
 - [Living Documentation](/17-architecture-documentation/living-documentation.md).
@@ -310,7 +310,7 @@ the diagram is for.
 Take an architecture diagram from your team and classify each box: is it a system, an
 executable unit, an internal grouping, or a concept?
 
-If there is more than one type, the diagram mixes levels — and that is why it is hard to
+If there is more than one type, the diagram mixes levels, and that is why it is hard to
 read.
 
 ## Interview Questions
@@ -321,6 +321,6 @@ read.
 
 ## Further Reading
 
-- Brown, Simon. *The C4 model for visualising software architecture* — c4model.com.
+- Brown, Simon. *The C4 model for visualising software architecture*. C4model.com.
 - Brown, Simon. *Software Architecture for Developers*. Leanpub, 2015.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.

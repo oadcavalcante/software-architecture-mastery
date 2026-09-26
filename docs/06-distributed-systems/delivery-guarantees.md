@@ -2,7 +2,7 @@
 id: delivery-guarantees
 title: Garantias de Entrega
 sidebar_position: 25
-description: No máximo uma vez, ao menos uma vez, exatamente uma vez — e por que a terceira não é o que parece.
+description: No máximo uma vez, ao menos uma vez, exatamente uma vez. E por que a terceira não é o que parece.
 doc_type: concept
 level: 4
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging, idempotency]
 related: [idempotency, duplicate-messages, ordering]
 canonical_for: [garantias de entrega, ao menos uma vez, exatamente uma vez, outbox]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -23,9 +23,9 @@ last_reviewed: 2026-08-27
 
 Três garantias possíveis quando uma mensagem atravessa a rede:
 
-**No máximo uma vez** — pode se perder, nunca duplica.
-**Ao menos uma vez** — nunca se perde, pode duplicar.
-**Exatamente uma vez** — nem perde nem duplica.
+**No máximo uma vez**: pode se perder, nunca duplica.
+**Ao menos uma vez**: nunca se perde, pode duplicar.
+**Exatamente uma vez**: nem perde nem duplica.
 
 A terceira é a desejada, é anunciada por várias ferramentas, e **não existe como
 propriedade do canal**. Entender por quê é o que evita construir sistemas sobre
@@ -38,14 +38,14 @@ A escolha entre as duas primeiras é direta e vem da natureza da rede.
 Se o produtor não espera confirmação, a mensagem pode se perder: **no máximo uma
 vez**.
 
-Se ele reenvia até ser confirmado, ela nunca se perde — e a confirmação pode se
+Se ele reenvia até ser confirmado, ela nunca se perde. E a confirmação pode se
 perder, causando reenvio de algo já entregue: **ao menos uma vez**.
 
 Não há terceira opção no nível do canal. É consequência direta do
 [terceiro resultado](/06-distributed-systems/distributed-fundamentals.md): quando a confirmação não chega,
 o produtor não sabe se a mensagem chegou.
 
-A tentação é procurar uma ferramenta que resolva. Ela não pode — o problema é do
+A tentação é procurar uma ferramenta que resolva. Ela não pode: o problema é do
 protocolo, não da implementação.
 
 ## Conceitos Centrais
@@ -55,7 +55,7 @@ protocolo, não da implementação.
 Para não duplicar, o produtor precisaria saber se a mensagem chegou. Para saber,
 precisaria da confirmação. Se a confirmação se perde, ele não sabe.
 
-Qualquer decisão que ele tome — reenviar ou não — pode estar errada.
+Qualquer decisão que ele tome (reenviar ou não) pode estar errada.
 
 Isso não é limitação de engenharia. É o mesmo resultado que torna
 [idempotência](/06-distributed-systems/idempotency.md) necessária.
@@ -69,12 +69,12 @@ repetições dentro de uma janela. Isso resolve duplicação **na entrega ao bro
 não no processamento pelo consumidor.
 
 **Processamento transacional.** Ler, processar e confirmar a posição de leitura
-numa única transação — possível quando a leitura e a escrita estão no mesmo
+numa única transação. É possível quando a leitura e a escrita estão no mesmo
 sistema.
 
 A segunda é genuína e limitada: ela vale enquanto o efeito não sai do sistema. No
 momento em que o consumidor chama um serviço externo ou grava em outro banco, a
-garantia acaba — porque aquela chamada não participa da transação.
+garantia acaba, porque aquela chamada não participa da transação.
 
 E é exatamente isso que consumidores reais fazem.
 
@@ -90,7 +90,7 @@ consumidor: idempotente  →  efeito acontece 1 vez
                             efeito exatamente uma vez
 ```
 
-A garantia não está no canal — está na composição. E a parte que a aplicação
+A garantia está na composição, não no canal. E a parte que a aplicação
 controla é a idempotência.
 
 Essa é a razão de idempotência ser o conceito central deste nível.
@@ -101,7 +101,7 @@ Ela é frequentemente descartada e tem lugar: telemetria de alto volume, métric
 agregadas, sinais de presença.
 
 Perder algumas amostras entre milhões não muda nenhuma conclusão, e o custo de
-garantir entrega — confirmação, retentativa, armazenamento durável — é
+garantir entrega (confirmação, retentativa, armazenamento durável) é
 desproporcional.
 
 Escolher **no máximo uma vez** deliberadamente, onde a perda é aceitável, é uma
@@ -118,7 +118,7 @@ sabe.
 
 **Confirmação de leitura antes do processamento.** O consumidor marca a mensagem
 como processada ao recebê-la, e depois falha ao processar. É o comportamento
-padrão de várias bibliotecas, e a perda não produz erro em lugar nenhum — nem no
+padrão de várias bibliotecas, e a perda não produz erro em lugar nenhum: nem no
 produtor, nem no broker, nem no consumidor.
 
 **Buffer em memória.** O produtor acumula mensagens para enviar em lote e o
@@ -131,8 +131,8 @@ esse nó falhou.
 operações sem transação comum: o commit passa e a publicação falha, e o fato
 existe sem a mensagem. É o que o padrão *outbox* resolve: a mensagem é gravada numa
 tabela dentro da mesma transação do dado, e um processo separado a lê dali e publica
-no broker. A publicação pode se repetir — o processo cai entre publicar e marcar a
-linha como enviada —, então o outbox entrega ao menos uma vez, e o consumidor precisa
+no broker. A publicação pode se repetir (o processo cai entre publicar e marcar a
+linha como enviada), então o outbox entrega ao menos uma vez, e o consumidor precisa
 tolerar duplicata.
 
 Nenhuma dessas cinco costuras é corrigida trocando a garantia nominal do canal:
@@ -146,13 +146,13 @@ inofensiva.**
 
 ## Quando Usar
 
-**Ao menos uma vez** — o padrão. Quase todo caso de negócio, com consumidor
+**Ao menos uma vez**: o padrão. Quase todo caso de negócio, com consumidor
 idempotente.
 
-**No máximo uma vez** — quando a perda é aceitável e o volume torna a garantia
+**No máximo uma vez**: quando a perda é aceitável e o volume torna a garantia
 cara: telemetria, métricas, sinais efêmeros.
 
-**Deduplicação no broker** — como camada adicional, reduzindo a frequência de
+**Deduplicação no broker**: como camada adicional, reduzindo a frequência de
 duplicação sem substituir a idempotência.
 
 ## Quando Não Usar
@@ -169,16 +169,16 @@ chama serviço externo saiu do escopo transacional.
 
 ## Alternativas
 
-Não há alternativa às três garantias — o que existe é onde colocar a
+Não há alternativa às três garantias. O que existe é onde colocar a
 responsabilidade:
 
-- **Idempotência no consumidor** — a resposta padrão, e a única que não depende de
+- **Idempotência no consumidor**: a resposta padrão, e a única que não depende de
   promessa do canal; ela deixa de servir onde a repetição é o próprio dado, como
   em medição por chamada ou trilha de auditoria de tentativas.
-- **Deduplicação por chave** — verificar se já processou antes de aplicar.
-- **Operações comutativas** — se a ordem e a repetição não importam, o problema
+- **Deduplicação por chave**: verificar se já processou antes de aplicar.
+- **Operações comutativas**: se a ordem e a repetição não importam, o problema
   desaparece.
-- **Reconciliação** — aceitar divergência e corrigir por processo separado.
+- **Reconciliação**: aceitar divergência e corrigir por processo separado.
 
 ## Trade-offs
 
@@ -212,7 +212,7 @@ vez; o efeito externo duplica mesmo assim.
 
 **Tratar idempotência como opcional.** Ela é o que transforma ao menos uma vez em efeito único, e é a única defesa que não depende de nenhuma promessa de infraestrutura.
 
-**Não considerar no máximo uma vez onde ela caberia.** Telemetria e métricas toleram perda, e aceitar isso explicitamente elimina retentativa, deduplicação e armazenamento de estado — uma economia grande que raramente é avaliada.
+**Não considerar no máximo uma vez onde ela caberia.** Telemetria e métricas toleram perda, e aceitar isso explicitamente elimina retentativa, deduplicação e armazenamento de estado: uma economia grande que raramente é avaliada.
 
 **Confirmar antes de processar.** Confirmar o recebimento e falhar em seguida converte ao menos uma vez em no máximo uma vez sem que ninguém tenha decidido isso, e a mensagem se perde silenciosamente.
 
@@ -220,7 +220,7 @@ vez; o efeito externo duplica mesmo assim.
 
 Uma equipe migrou o processamento de eventos de pagamento para uma plataforma que
 anunciava semântica de exatamente uma vez, e removeu a verificação de idempotência
-do consumidor — "a plataforma garante".
+do consumidor: "a plataforma garante".
 
 Funcionou por quatro meses.
 
@@ -236,7 +236,7 @@ de posição falhou. A mensagem foi reentregue. O consumidor capturou de novo.
 
 217 pagamentos capturados em duplicidade num dia.
 
-A leitura atenta da documentação — feita depois do incidente — deixava claro o
+A leitura atenta da documentação, feita depois do incidente, deixava claro o
 escopo: a garantia vale para o fluxo interno da plataforma, e sistemas externos
 exigem idempotência do lado da aplicação.
 
@@ -250,9 +250,9 @@ que causou o incidente.
 
 ## Conceitos Relacionados
 
-- [Idempotência](/06-distributed-systems/idempotency.md) — o que torna ao menos uma vez seguro.
-- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md) — o tratamento prático.
-- [Mensageria](/06-distributed-systems/messaging.md) — o canal.
+- [Idempotência](/06-distributed-systems/idempotency.md): o que torna ao menos uma vez seguro.
+- [Mensagens Duplicadas](/06-distributed-systems/duplicate-messages.md): o tratamento prático.
+- [Mensageria](/06-distributed-systems/messaging.md): o canal.
 - [Falha Parcial](/06-distributed-systems/partial-failure.md).
 
 ## Exercício Prático
@@ -260,7 +260,7 @@ que causou o incidente.
 Para cada consumidor de mensagem do seu sistema, responda: o que acontece se a
 mesma mensagem for processada duas vezes?
 
-Se algum efeito sair do sistema — chamada externa, gravação em outro banco — a
+Se algum efeito sair do sistema (chamada externa, gravação em outro banco), a
 garantia da ferramenta não cobre, independentemente do que ela anuncie.
 
 ## Perguntas de Entrevista

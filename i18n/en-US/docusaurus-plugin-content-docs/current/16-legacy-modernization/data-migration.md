@@ -2,7 +2,7 @@
 id: data-migration
 title: Data Migration
 sidebar_position: 10
-description: The riskiest and most underestimated part — where mistakes are irreversible.
+description: The riskiest and most underestimated part, where mistakes are irreversible.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [strangler-fig, migration-strategies, modernization-risk]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -28,7 +28,7 @@ The reason is asymmetric: defective code is fixed and redeployed; corrupted or l
 frequently cannot be recovered.
 
 And it exposes something no other part of the project exposes: **the real quality of the
-existing data** — which is usually worse than anyone in the organization believes.
+existing data**, which is usually worse than anyone in the organization believes.
 
 ## Problem
 
@@ -45,7 +45,7 @@ fields used for purposes other than the documented one
 history nobody knows whether still matters
 ```
 
-Each of those becomes a business decision in the middle of a technical window — and that
+Each of those becomes a business decision in the middle of a technical window. And that
 is how weekend migrations become three-month projects.
 
 ## Core Concepts
@@ -64,7 +64,7 @@ orphan records
 impossible dates, negative values where they shouldn't be
 ```
 
-That survey — profiling — is usually done after the migration fails. Done beforehand, it
+That survey (profiling) is usually done after the migration fails. Done beforehand, it
 turns surprises into planned decisions.
 
 In a system with years of operation, its result is uncomfortable: old systems accumulate
@@ -83,7 +83,7 @@ migrate as is the new model accommodates the case, with a flag
 ```
 
 None of those is a technical decision. Discarding 4,000 inconsistent records is a
-business decision, with implications — and it has to be made by whoever answers for the
+business decision, with implications, and it has to be made by whoever answers for the
 data, in advance.
 
 See [data ownership](/07-data-architecture/data-ownership.md).
@@ -101,10 +101,10 @@ sampling   individual records compared field by field
 
 All three are necessary and insufficient in isolation:
 
-**Count** does not detect a wrong transformation — the records are there, with wrong
+**Count** does not detect a wrong transformation: the records are there, with wrong
 values.
 
-**Sum** detects an aggregate error and does not detect compensation — two errors that
+**Sum** detects an aggregate error and does not detect compensation: two errors that
 cancel each other.
 
 **Sampling** detects a transformation error and does not cover rare cases, which are
@@ -127,7 +127,7 @@ incremental   migrates only what changed since the last run
 See [idempotency](/06-distributed-systems/idempotency.md).
 
 Repeatability makes rehearsal possible: run the complete migration in a test environment,
-verify, fix, repeat — until the real execution is routine, not an event.
+verify, fix, repeat, until the real execution is routine, not an event.
 
 Each rehearsal measures the duration at real volume and exposes transformation defects
 that verification catches. In the example below, the first rehearsal took 41 hours against
@@ -144,14 +144,14 @@ the cutover          the source changes
 after                the old one stays consistent for a period, for rollback
 ```
 
-Keeping the old one updated after the cutover — by reverse replication — is what makes
+Keeping the old one updated after the cutover, by reverse replication, is what makes
 going back possible. Without that, the cutover is irreversible from the first new write.
 
 Reverse replication has a cost of its own. It requires an inverse transformation, from the
 new model to the old one, which loses information when the new model is richer: the
 structured address goes back as free text, the field extracted from the notes has nowhere
 to go. And it is a second pipeline, with its own monitoring and reconciliation for the
-whole rollback period — divergence between the two sides becomes a failure mode to watch.
+whole rollback period: divergence between the two sides becomes a failure mode to watch.
 When the inverse transformation loses more than the business accepts, the way out is to
 shrink what has to go back, cutting over by slice so rollback covers only the affected
 slice, or to declare the cutover irreversible and compensate before it, with more
@@ -171,7 +171,7 @@ discard             with a check against retention requirements
 
 See [data lifecycle](/07-data-architecture/data-lifecycle.md).
 
-Keeping the old system as a read-only archive is frequently the cheapest option — and it
+Keeping the old system as a read-only archive is frequently the cheapest option, and it
 collides with the goal of shutting the old one down, which has to be acknowledged.
 
 ### The migration reveals the real quality
@@ -180,7 +180,7 @@ A recurring observation: the migration is the first time anyone looks at the dat
 whole.
 
 It finds problems that existed for years and had not been detected because no process
-exercised them — duplicate customers, orphan records, impossible values.
+exercised them: duplicate customers, orphan records, impossible values.
 
 That has two consequences: the estimate has to include time to deal with them, and the
 discovery has value of its own, independently of the migration.
@@ -202,7 +202,7 @@ whenever:
 
 ## When Not to Use
 
-The full apparatus — profiling, timed rehearsals, multi-level verification, reverse replication — is disproportionate when:
+The full apparatus (profiling, timed rehearsals, multi-level verification, reverse replication) is disproportionate when:
 
 **The volume fits a manual check.** A few hundred records can be checked by one person in hours; rehearsing and building automated verification costs more than the error it would prevent.
 
@@ -216,11 +216,11 @@ The full apparatus — profiling, timed rehearsals, multi-level verification, re
 
 ## Alternatives
 
-- **Coexistence without migration** — the new one starts empty, and the old one remains
+- **Coexistence without migration**: the new one starts empty, and the old one remains
   the source of history. See [strangler fig](/16-legacy-modernization/strangler-fig.md).
-- **On-demand migration** — the record is migrated when it is first accessed.
-- **Keep the old one as an archive** — read-only, without migrating history.
-- **Incremental migration by slice** — by customer, by region, by period.
+- **On-demand migration**: the record is migrated when it is first accessed.
+- **Keep the old one as an archive**: read-only, without migrating history.
+- **Incremental migration by slice**: by customer, by region, by period.
 
 The second is elegant and appropriate when access is sparse: most old data is never
 accessed, and migrating it is wasted work.
@@ -257,21 +257,21 @@ accessed, and migrating it is wasted work.
 
 ## Common Mistakes
 
-**Not profiling beforehand.** In systems with years of operation, real data has values the new model doesn't accept — nulls where a field is mandatory, duplicates where there is uniqueness, free-form formats. Discovering that in the cutover window is what blows the deadline.
+**Not profiling beforehand.** In systems with years of operation, real data has values the new model doesn't accept: nulls where a field is mandatory, duplicates where there is uniqueness, free-form formats. Discovering that in the cutover window is what blows the deadline.
 
 **Underestimating the data that doesn't fit.** The exceptional case is usually 2% of the volume and 60% of the effort, and every decision about it is a business one, not a technical one.
 
-**Not rehearsing the complete migration.** With no rehearsal at real volume, nobody knows how long it takes — and the window agreed with the business is a guess.
+**Not rehearsing the complete migration.** With no rehearsal at real volume, nobody knows how long it takes, and the window agreed with the business is a guess.
 
 **Verifying only the count.** A matching count with swapped content passes the check. You have to sum values, compare samples and reconcile totals by segment.
 
 **Not keeping the old one updated after the cutover.** Without that, rollback ceases to exist: going back would mean losing everything done after the cutover.
 
-**Not deciding about history.** Migrating ten years or two doesn't change only the volume: old history spans more rule versions and concentrates more out-of-domain data, so the effort grows faster than the number of years. It is a business decision — usually made by omission by engineering.
+**Not deciding about history.** Migrating ten years or two doesn't change only the volume: old history spans more rule versions and concentrates more out-of-domain data, so the effort grows faster than the number of years. It is a business decision, usually made by omission by engineering.
 
 ## Real-World Example
 
-A health insurer migrated its member records — 4.2 million records, 19 years — to a new
+A health insurer migrated its member records (4.2 million records, 19 years) to a new
 system.
 
 The original plan: migration over a weekend, with a 36-hour window.
@@ -297,13 +297,13 @@ The decisions, made with the business over two months:
 reviewed manually.
 
 **No valid national ID number.** Migrated with a flag, with an update campaign directed at
-the members. Not discarded — many were active members.
+the members. Not discarded: many were active members.
 
 **Orphan dependents.** Investigated: 5,900 belonged to policyholders cancelled years
 earlier; migrated as inactive. The other 500 were data errors and were corrected.
 
 **The notes field.** An analyst discovered it contained, in about 40,000 cases,
-information about waiting periods and contractual restrictions — data with legal
+information about waiting periods and contractual restrictions, data with legal
 significance. An extractor was written to structure it.
 
 **Addresses.** A normalization service, with the 3% that didn't normalize going to manual
@@ -311,7 +311,7 @@ review.
 
 Execution:
 
-**Seven complete rehearsals** in a test environment, timed. The first took 41 hours —
+**Seven complete rehearsals** in a test environment, timed. The first took 41 hours,
 beyond the window. The parallelization adjustments brought the seventh down to 9 hours.
 
 **Verification at four levels**, including running the premium calculation on both systems,
@@ -319,21 +319,21 @@ with record-by-record comparison.
 
 **Reverse replication** for 60 days after the cutover, keeping the old one consistent.
 
-**Month-end close** exercised in the test environment, with the migrated data — which
+**Month-end close** exercised in the test environment, with the migrated data. It
 found two transformation problems no previous verification had caught.
 
 The real migration took 8 hours and 40 minutes. No records lost, and rollback was never
 needed.
 
 The recorded conclusion: the three months of profiling and preparation were the project.
-The execution was the easy part — and it would have been a disaster without them.
+The execution was the easy part, and it would have been a disaster without them.
 
 The notes field with legally significant information, on its own, would have produced a
 significant liability had it been discarded as free text.
 
 ## Related Concepts
 
-- [Strangler Fig](/16-legacy-modernization/strangler-fig.md) — the coexistence.
+- [Strangler Fig](/16-legacy-modernization/strangler-fig.md): the coexistence.
 - [Migration Strategies](/16-legacy-modernization/migration-strategies.md).
 - [Modernization Risk](/16-legacy-modernization/modernization-risk.md).
 - [Data Consistency](/07-data-architecture/data-consistency.md).
@@ -343,7 +343,7 @@ significant liability had it been discarded as free text.
 Pick a central entity in your system and do a simple profiling: how many records violate
 the rules the system supposedly enforces?
 
-The number is usually larger than any estimate — and it is the work a future migration
+The number is usually larger than any estimate, and it is the work a future migration
 will face.
 
 ## Interview Questions

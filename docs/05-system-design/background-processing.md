@@ -2,7 +2,7 @@
 id: background-processing
 title: Processamento em Background
 sidebar_position: 12
-description: Trabalho que acontece fora da requisição — e como o usuário sabe que terminou.
+description: Trabalho que acontece fora da requisição e como o usuário sabe que terminou.
 doc_type: concept
 level: 3
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [queues]
 related: [queues, request-response, observability]
 canonical_for: [processamento em background, trabalho assíncrono, agendamento]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -36,7 +36,7 @@ Trabalho longo dentro da requisição produz três falhas conhecidas: timeout no
 meio, sem saber se completou; conexões esgotadas por espera; e nenhuma forma de
 retomar o que parou.
 
-Mover para background resolve os três — e cria um problema novo: o trabalho agora
+Mover para background resolve os três e cria um problema novo: o trabalho agora
 acontece num lugar que ninguém está olhando.
 
 ## Conceitos Centrais
@@ -64,17 +64,17 @@ termina do ponto de vista do usuário.
 
 Consulta repetida funciona e desperdiça. Alternativas, conforme o caso:
 
-**Webhook** — o sistema avisa quando termina. Exige que o consumidor tenha um
+**Webhook**: o sistema avisa quando termina. Exige que o consumidor tenha um
 endpoint.
 
-**Conexão persistente** — WebSocket ou eventos do servidor. Bom para interface,
+**Conexão persistente**: WebSocket ou eventos do servidor. Bom para interface,
 e cria estado de conexão. Ver
 [sem estado vs. com estado](/05-system-design/stateless-vs-stateful.md).
 
-**Notificação assíncrona** — e-mail ou mensagem. Adequado para trabalho longo,
+**Notificação assíncrona**: e-mail ou mensagem. Adequado para trabalho longo,
 de minutos ou horas.
 
-**Consulta com intervalo crescente** — o mais simples e frequentemente suficiente.
+**Consulta com intervalo crescente**: o mais simples e frequentemente suficiente.
 
 ### Os três disparadores
 
@@ -82,7 +82,7 @@ de minutos ou horas.
 alinhado com [filas](/05-system-design/queues.md).
 
 **Agendado.** Executa em horários definidos. O erro clássico aqui é implementar o
-agendamento em memória do serviço — com várias instâncias, cada uma dispara.
+agendamento em memória do serviço: com várias instâncias, cada uma dispara.
 
 **Contínuo.** Um consumidor que fica lendo uma fila.
 
@@ -92,13 +92,13 @@ de um serviço com quatro instâncias executa quatro vezes.
 
 ### Idempotência e retomada
 
-Todo trabalho em background pode ser executado duas vezes — por retentativa, por
+Todo trabalho em background pode ser executado duas vezes: por retentativa, por
 duplicação na fila, por reinício no meio. O requisito que daí decorre é
 [idempotência](/06-distributed-systems/idempotency.md), definida lá com a chave
 explícita que a torna confiável.
 
 Para trabalho longo, retomada importa: processar 100 mil registros e falhar no
-80 mil não deveria recomeçar do zero. Marcar progresso permite retomar — e exige
+80 mil não deveria recomeçar do zero. Marcar progresso permite retomar, e exige
 que o trabalho seja divisível.
 
 ### Observabilidade é obrigatória
@@ -112,13 +112,13 @@ esperado.
 
 O último é o mais esquecido: um trabalho agendado que **para de rodar** não gera
 erro nenhum. O silêncio é o sintoma, e o alerta de ausência é o único caminho que
-o detecta antes do efeito — sem ele, a descoberta chega quando alguém sente falta
+o detecta antes do efeito. Sem ele, a descoberta chega quando alguém sente falta
 do resultado.
 
 ## Modelo Mental
 
 **Trabalho em background é uma promessa.** Quem faz a promessa precisa dar ao
-usuário uma forma de saber se ela foi cumprida — e ao operador, uma forma de saber
+usuário uma forma de saber se ela foi cumprida, e ao operador, uma forma de saber
 se não foi.
 
 ## Quando Usar
@@ -126,7 +126,7 @@ se não foi.
 - O trabalho leva mais que alguns segundos.
 - O usuário não precisa do resultado imediatamente.
 - O trabalho pode falhar e ser repetido.
-- É preciso limitar o ritmo — processar mil itens sem sobrecarregar um serviço
+- É preciso limitar o ritmo: processar mil itens sem sobrecarregar um serviço
   externo.
 - O trabalho é agendado.
 
@@ -149,11 +149,11 @@ concorrentes sobre o mesmo dado produzem resultado imprevisível.
 
 ## Alternativas
 
-- **Síncrono** — para trabalho curto.
-- **Resposta em fluxo** — devolver resultados parciais enquanto processa, quando o
+- **Síncrono**: para trabalho curto.
+- **Resposta em fluxo**: devolver resultados parciais enquanto processa, quando o
   protocolo permite.
-- **Pré-cálculo** — se o resultado é previsível, calcular antes de ser pedido.
-- **Reduzir o trabalho** — a alternativa menos considerada: um relatório que
+- **Pré-cálculo**: se o resultado é previsível, calcular antes de ser pedido.
+- **Reduzir o trabalho**, a alternativa menos considerada: um relatório que
   demora dez minutos frequentemente está processando dados que ninguém olha.
 
 ## Trade-offs
@@ -184,11 +184,11 @@ trabalhador indefinidamente.
 
 ## Erros Comuns
 
-**Agendamento em memória do serviço.** Some a cada reinício e executa N vezes quando há N instâncias — os dois problemas aparecem justamente quando o sistema cresce ou é implantado com mais frequência.
+**Agendamento em memória do serviço.** Some a cada reinício e executa N vezes quando há N instâncias. Os dois problemas aparecem justamente quando o sistema cresce ou é implantado com mais frequência.
 
 **Não expor estado consultável.** Sem um lugar onde perguntar "esse trabalho rodou?", a única forma de responder é procurar no log, e o suporte passa a depender de quem tem acesso a ele.
 
-**Não alertar sobre ausência de execução.** Monitoramento costuma vigiar erro; um trabalho que simplesmente parou de ser disparado não gera erro nenhum, e a descoberta vem pelo efeito — o relatório que ninguém recebeu.
+**Não alertar sobre ausência de execução.** Monitoramento costuma vigiar erro; um trabalho que simplesmente parou de ser disparado não gera erro nenhum, e a descoberta vem pelo efeito: o relatório que ninguém recebeu.
 
 **Não definir timeout do trabalho.** Uma execução travada segura recursos indefinidamente e bloqueia as seguintes, transformando uma falha isolada em fila parada.
 
@@ -210,13 +210,13 @@ o serviço tinha três instâncias. Todo dia primeiro, três relatórios eram ge
 simultaneamente, saturando o banco.
 
 **Falhas eram invisíveis.** Em três meses, o relatório de fevereiro não foi gerado
-— um erro de dado o fez falhar — e ninguém percebeu até a contabilidade cobrar em
+(um erro de dado o fez falhar) e ninguém percebeu até a contabilidade cobrar em
 abril.
 
 As correções.
 
 A resposta virou `202` com identificador. A tela passa a consultar o estado e
-mostra progresso, e o botão fica desabilitado enquanto há um em andamento — o que
+mostra progresso, e o botão fica desabilitado enquanto há um em andamento. Isso
 resolveu a duplicação por clique.
 
 O agendamento saiu do serviço para um agendador externo, que publica uma mensagem
@@ -231,10 +231,10 @@ background sem alerta de ausência troca uma falha ruidosa por uma silenciosa.
 
 ## Conceitos Relacionados
 
-- [Filas](/05-system-design/queues.md) — o mecanismo de entrega.
-- [Request/Response](/05-system-design/request-response.md) — o modelo que se abandona.
-- [Observabilidade](/13-observability/index.md) — como saber o que aconteceu.
-- [Confiabilidade](/12-reliability/index.md) — retentativa e retomada.
+- [Filas](/05-system-design/queues.md): o mecanismo de entrega.
+- [Request/Response](/05-system-design/request-response.md): o modelo que se abandona.
+- [Observabilidade](/13-observability/index.md): como saber o que aconteceu.
+- [Confiabilidade](/12-reliability/index.md): retentativa e retomada.
 
 ## Exercício Prático
 
@@ -254,5 +254,5 @@ falha.
 ## Para Aprofundar
 
 - Nygard, Michael. *Release It!* 2ª ed., 2018.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — alertas de
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Alertas de
   ausência.

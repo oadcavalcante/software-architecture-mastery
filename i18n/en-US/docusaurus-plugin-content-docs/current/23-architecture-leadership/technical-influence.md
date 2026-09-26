@@ -2,7 +2,7 @@
 id: technical-influence
 title: Technical Influence
 sidebar_position: 9
-description: Making a decision happen without being able to order it — the capital that accumulates and gets spent.
+description: "Making a decision happen without being able to order it: the capital that accumulates and gets spent."
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, stakeholder-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-An architect who has to fall back on authority to make something happen has already lost — because
+An architect who has to fall back on authority to make something happen has already lost, because
 formal authority works once, and what it produces is compliance without conviction.
 
 What works is influence, and it has an economy of its own:
@@ -44,7 +44,7 @@ Within a few months, the teams learn to filter them out: the opinions become noi
 that mattered is lost in the volume.
 
 **Persuading by technical authority.** "Trust me, I've seen this go wrong." It works with people
-who already trust them and fails with those who don't know the track record — which is most of the
+who already trust them and fails with those who don't know the track record, which is most of the
 organization as it grows.
 
 **Persuading by argument alone.** A correct and complete argument, presented once, changes few
@@ -64,7 +64,7 @@ personal history   "I've seen this go wrong"
 authority          "this is how it's going to be"; the weakest
 ```
 
-The order is a heuristic from practice, not a published measurement, and it surprises anyone expecting argument to be the main instrument. It isn't — it persuades
+The order is a heuristic from practice, not a published measurement, and it surprises anyone expecting argument to be the main instrument. It isn't: it persuades
 those already inclined, and it rarely reverses a formed position.
 
 Demonstration and evidence work because they move the discussion off the terrain of opinion. A
@@ -79,8 +79,8 @@ persuading one willing team  one adoption, one result, one precedent
 ```
 
 This is the most efficient pattern and the least practiced. Looking for the team that already has
-the problem, that is open, and helping them solve it — with real involvement, not with a
-recommendation — produces a concrete case worth more than any proposal.
+the problem, that is open, and helping them solve it (with real involvement, not with a
+recommendation) produces a concrete case worth more than any proposal.
 
 And the second team is far easier than the first. The fifth is almost automatic.
 
@@ -112,7 +112,7 @@ See [platform engineering](/14-devops-and-platform/platform-engineering.md) and
 [governance basics](/19-architecture-governance/governance-basics.md).
 
 An architect who notices they are repeating the same argument should stop arguing and start
-building — the paved road is the argument that doesn't have to be made.
+building: the paved road is the argument that doesn't have to be made.
 
 ### Choose battles by consequence
 
@@ -126,7 +126,7 @@ aesthetic preference            not worth it — no gain pays for the capital
 
 And there is a category of its own: decisions that are wrong and will be corrected by reality
 within a few months. Letting them happen, with the objection recorded, is frequently better than
-spending capital — the evidence persuades definitively, and the capital stays available.
+spending capital: the evidence persuades definitively, and the capital stays available.
 
 That requires tolerating watching something wrong happen, which is the hard part of the role.
 
@@ -137,8 +137,8 @@ That requires tolerating watching something wrong happen, which is the hard part
  The decision is yours, and I will help make X work."
 ```
 
-An architect who supports the execution of a decision they disagreed with — and who doesn't say "I
-told you so" when it goes wrong — builds more credit than if they had won the argument.
+An architect who supports the execution of a decision they disagreed with, and who doesn't say "I
+told you so" when it goes wrong, builds more credit than if they had won the argument.
 
 The reverse destroys it: passively sabotaging, or collecting the evidence for the moment of
 failure, is noticed, and it ends the relationship.
@@ -146,7 +146,7 @@ failure, is noticed, and it ends the relationship.
 ### Presence before need
 
 An architect who shows up only when there is a decision to influence is an obstacle. One who takes
-part in everyday discussions — reviews, incidents, questions — is a resource.
+part in everyday discussions (reviews, incidents, questions) is a resource.
 
 The difference is not one of method, it is one of accumulation: when the important decision
 arrives, the second already has context and credit, and the first has to build both under pressure.
@@ -165,7 +165,7 @@ arguing, start with whoever wants it, and leave the credit with whoever executed
 ## When Not to Use
 
 **When the deadline leaves no room for persuasion.** A regulatory or security risk with a fixed
-date — exposed personal data, an audit weeks away — cannot wait for the accumulation influence
+date (exposed personal data, an audit weeks away) cannot wait for the accumulation influence
 requires. The instrument is the governance gate or escalation; insisting on persuasion burns the
 deadline, and the risk materializes while the conversation goes on.
 
@@ -177,16 +177,16 @@ later: credit runs short on the expensive decision.
 change position because of the mechanism, but because of the messenger. Insisting in person confirms
 the filter; the way forward is to delegate to someone who has the credit.
 
-**When the decision is yours.** If the role gives the architect the decision — a platform standard,
-a gate they maintain —, treating it as voluntary adoption produces months of consultation where
+**When the decision is yours.** If the role gives the architect the decision (a platform standard,
+a gate they maintain), treating it as voluntary adoption produces months of consultation where
 deciding and recording why would have been enough.
 
 ## Alternatives
 
-- **Build instead of persuade** — a template, a tool, a platform.
-- **Delegate the influence** — when someone else has more credit with that audience.
-- **Record it and let it happen** — when the evidence will persuade better than you.
-- **Escalate** — legitimate, rare, and expensive; use it when the risk is high and persuasion has
+- **Build instead of persuade**: a template, a tool, a platform.
+- **Delegate the influence**: when someone else has more credit with that audience.
+- **Record it and let it happen**: when the evidence will persuade better than you.
+- **Escalate**: legitimate, rare, and expensive; use it when the risk is high and persuasion has
   failed.
 
 The third is the hardest to practice and one of the most effective.
@@ -263,7 +263,7 @@ recommendations on high-consequence
 adopted among those                             9 (47%)
 ```
 
-Forty-seven percent on the ones that mattered — because the credit was diluted across the other 95.
+Forty-seven percent on the ones that mattered, because the credit was diluted across the other 95.
 
 The changes, over a year:
 
@@ -274,8 +274,8 @@ reducing participation.
 **Fewer battles.** Recommendations about local and reversible decisions became explicitly
 discardable observations.
 
-**Demonstration instead of argument.** A recurring discussion about a resilience pattern — repeated
-for two years in reviews — was ended in three weeks: they built the library with timeouts, circuit
+**Demonstration instead of argument.** A recurring discussion about a resilience pattern, repeated
+for two years in reviews, was ended in three weeks: they built the library with timeouts, circuit
 breakers and retries already configured, and put it in the service template.
 
 **Starting with one team.** A structured observability proposal, which had been presented to
@@ -298,11 +298,11 @@ adoption of the template with resilience        91% of new services
 ```
 
 The 91% template adoption is the number they highlight. It came from building once, and it replaced
-two years of arguing — and they recorded it as the central lesson: **when you notice you are
+two years of arguing, and they recorded it as the central lesson: **when you notice you are
 repeating an argument, the argument is not the right instrument**.
 
-The increase in spontaneous consultations they attribute to presence outside decisions — their
-reading, not a measurement: the six changes came together, and the numbers do not isolate any one
+The increase in spontaneous consultations they attribute to presence outside decisions (their
+reading, not a measurement): the six changes came together, and the numbers do not isolate any one
 of them. What was observed is that, after taking part in incident analyses with no agenda of their
 own, teams started approaching them before deciding, rather than after.
 
@@ -311,7 +311,7 @@ own, teams started approaching them before deciding, rather than after.
 - [Leadership Basics](/23-architecture-leadership/architecture-leadership-basics.md).
 - [Communication](/23-architecture-leadership/communication.md).
 - [Cross-Team Architecture](/23-architecture-leadership/cross-team-architecture.md).
-- [Governance Basics](/19-architecture-governance/governance-basics.md) — the intervention point.
+- [Governance Basics](/19-architecture-governance/governance-basics.md): the intervention point.
 
 ## Practical Exercise
 
@@ -319,7 +319,7 @@ List the recommendations you made last quarter and classify each one as blocking
 observation.
 
 Then count how many were adopted in each category. If the blocking ones' rate isn't much higher,
-you are not signaling the difference — and the credit is diluted.
+you are not signaling the difference, and the credit is diluted.
 
 ## Interview Questions
 

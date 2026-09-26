@@ -2,7 +2,7 @@
 id: replacing
 title: Replacing
 sidebar_position: 8
-description: Swapping for an off-the-shelf product — and the vendor's boundary that comes with it.
+description: Swapping for an off-the-shelf product, and the vendor's boundary that comes with it.
 doc_type: concept
 level: 6
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -27,13 +27,13 @@ The deciding criterion is the same as build or buy: **does this differentiate us
 [SaaS](/09-cloud-architecture/saas.md) and
 [business capabilities](/15-enterprise-architecture/business-capabilities.md).
 
-And the characteristic risk is not the decision — it is the execution: the customization
+And the characteristic risk lies in the execution, not the decision: the customization
 that accumulates until the product costs more than the system it replaced.
 
 ## Problem
 
 A product built for many organizations does not exactly reproduce a system built to
-measure for one — and, after years of adjustment, the current system is built to measure.
+measure for one. And after years of adjustment, the current system is built to measure.
 
 ```text
 does more       features the organization already has somewhere else
@@ -46,7 +46,7 @@ product to the process.
 
 The second looks reasonable case by case, and accumulated it produces a customized
 product that cannot be upgraded, with a maintenance cost equivalent to a system of your
-own — without the control.
+own, without the control.
 
 ## Core Concepts
 
@@ -59,14 +59,14 @@ the process adapts to the product, except when the process is the differentiator
 ```
 
 A mature product incorporates practices from many organizations. Frequently the current
-process is not better — it is merely what exists, the result of limitations of the old
+process is not better. It is merely what exists, the result of limitations of the old
 system.
 
 And the cost of customizing is permanent: every customization has to be maintained
 through every upgrade, and the vendor does not consider it in their own changes.
 
 The legitimate exception: where the process is a source of advantage. There the
-customization is investment, not debt — and it is worth considering whether that part
+customization is investment, not debt, and it is worth considering whether that part
 should be replaced at all.
 
 ### The gap assessment precedes the decision
@@ -85,7 +85,7 @@ The specific rules item is what most frequently makes it unviable: old systems a
 exceptions no generic product anticipates. See
 [legacy systems](/16-legacy-modernization/legacy-systems.md).
 
-And the assessment has to happen with real data, not with a demo — which is run over the
+And the assessment has to happen with real data, not with a demo: a demo is run over the
 script and the dataset the vendor picked.
 
 ### The vendor's boundary enters the organization
@@ -140,7 +140,7 @@ As in any migration, coexistence tends to persist. See
 [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
 The specific case with replacement: the old system frequently stays on "for historical
-lookup", indefinitely — with license, infrastructure and security costs.
+lookup", indefinitely, with license, infrastructure and security costs.
 
 The decision about history has to be explicit: migrate it, archive it in an accessible
 format, or keep the old one with a shutdown date. See
@@ -175,16 +175,16 @@ total comes close to what maintaining the current system costs, buying trades co
 nothing.
 
 **When the data does not come out.** If the vendor does not guarantee complete export in a
-usable format before signing, exit stops being an option — and so does the next
+usable format before signing, exit stops being an option, and so does the next
 negotiation.
 
 ## Alternatives
 
-- **[Rebuilding](/16-legacy-modernization/rebuilding.md)** — when the capability differentiates.
-- **A product with extensions** — a product that offers supported extension points,
+- **[Rebuilding](/16-legacy-modernization/rebuilding.md)**: when the capability differentiates.
+- **A product with extensions**: a product that offers supported extension points,
   instead of customization.
-- **Partial replacement** — buy the common part, keep the differentiator.
-- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)** — when the system serves and the problem is
+- **Partial replacement**: buy the common part, keep the differentiator.
+- **[Refactoring](/16-legacy-modernization/legacy-refactoring.md)**: when the system serves and the problem is
   internal.
 
 The third is frequently the best: buy what is common and build what distinguishes, with a
@@ -235,11 +235,11 @@ clear boundary between the two.
 
 **Not isolating with a translation layer.** Without it, the vendor's model spreads through the domain, and swapping it later stops being a commercial decision.
 
-**Not deciding about the history.** Migrating the past into the new product can be the bulk of the effort when the volume is large, the data is dirty, or the old model differs sharply from the product's — and deciding what to migrate, archive, or discard is a business decision.
+**Not deciding about the history.** Migrating the past into the new product can be the bulk of the effort when the volume is large, the data is dirty, or the old model differs sharply from the product's. And deciding what to migrate, archive, or discard is a business decision.
 
 ## Real-World Example
 
-A services company replaced its own ticket management system — 9 years old — with an
+A services company replaced its own ticket management system (9 years old) with an
 off-the-shelf product.
 
 The capability did not differentiate: customers chose the company for the service
@@ -250,14 +250,14 @@ into the product's test environment, with the real flows exercised.
 
 That revealed three gaps before the decision:
 
-**Two-stage approval** for tickets above a certain value — the product supported one
+**Two-stage approval** for tickets above a certain value: the product supported one
 stage. Adapted: the process moved to a single stage with an automatic escalation rule the
 product offered.
 
-**Integration with the billing system** — there was no connector. Built, with 3 weeks of
+**Integration with the billing system**: there was no connector. Built, with 3 weeks of
 work.
 
-**A regulatory report** in a specific format — the product did not generate it. Solved by
+**A regulatory report** in a specific format: the product did not generate it. Solved by
 export and external transformation, without customizing the product.
 
 And one important decision: a proposal to customize the product to reproduce the old
@@ -271,7 +271,7 @@ Two years later:
 **Total cost** about 45% of what maintaining their own system consumed.
 
 **One recurring frustration.** The product doesn't allow a type of report the operation
-would like to have. The recorded decision was to live with it — the cost of customizing
+would like to have. The recorded decision was to live with it: the cost of customizing
 was not justified.
 
 **Old system shut down** in month 14, with the history migrated into the product and the
@@ -279,13 +279,13 @@ data prior to 2019 archived in an open format.
 
 The point the team underlines: the decision not to customize was challenged three times in
 the first year, always with a reasonable case. Keeping the discipline is what preserved
-the ability to upgrade — and, on the third challenge, the requested feature arrived in a
+the ability to upgrade. And on the third challenge, the requested feature arrived in a
 new version of the product.
 
 ## Related Concepts
 
 - [Migration Strategies](/16-legacy-modernization/migration-strategies.md).
-- [SaaS](/09-cloud-architecture/saas.md) — build or buy.
+- [SaaS](/09-cloud-architecture/saas.md): build or buy.
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 - [Data Migration](/16-legacy-modernization/data-migration.md).
 
@@ -294,7 +294,7 @@ new version of the product.
 For a system that is a replacement candidate, list the features it has that exist because
 of a system limitation, not because of a business need.
 
-Those are the ones that don't have to be reproduced — and there are usually more of them
+Those are the ones that don't have to be reproduced, and there are usually more of them
 than expected.
 
 ## Interview Questions

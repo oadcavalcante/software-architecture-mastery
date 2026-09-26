@@ -2,7 +2,7 @@
 id: containers-in-delivery
 title: Containers in Delivery
 sidebar_position: 3
-description: The immutable artifact that crosses the environments — built once, promoted, never rebuilt.
+description: "The immutable artifact that crosses the environments: built once, promoted, never rebuilt."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, environment-management, supply-chain-security]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ their role in delivery: **the immutable artifact that crosses the environments**
 
 The rule that organizes everything: **build once, promote the same artifact**.
 
-If the binary that goes to production is rebuilt from the code, it is not what was tested — it is another
+If the binary that goes to production is rebuilt from the code, it is not what was tested. It is another
 binary, built at another moment, with dependencies that may have changed.
 
 ## Problem
@@ -43,7 +43,7 @@ a pipeline environment variable changed
 ```
 
 The artifact that goes to production is different from the tested one, in ways nobody can enumerate. And
-when it breaks, the hypothesis "but it passed in testing" is technically wrong — what passed was something
+when it breaks, the hypothesis "but it passed in testing" is technically wrong: what passed was something
 else.
 
 ## Core Concepts
@@ -60,7 +60,7 @@ else.
 The promotion is a reference change, not a rebuild. See
 [environment management](/14-devops-and-platform/environment-management.md).
 
-That requires the image to contain nothing environment-specific — which leads to the next point.
+That requires the image to contain nothing environment-specific, which leads to the next point.
 
 ### Configuration comes from outside
 
@@ -71,7 +71,7 @@ in the image   code, dependencies, runtime
 from outside   addresses, credentials, limits, flags, log level
 ```
 
-See [PaaS](/09-cloud-architecture/paas.md) — the twelve rules, whose configuration item exists exactly for
+See [PaaS](/09-cloud-architecture/paas.md): the twelve rules, whose configuration item exists exactly for
 that.
 
 The characteristic mistake: separate images per environment. Besides breaking the promotion, it multiplies
@@ -86,7 +86,7 @@ a digest   service@sha256:abc... — immutable, it is that content
 
 A tag is a pointer. Two deployments of the same tag can run different code.
 
-In production, the reference needs to be by digest — it is what makes the deployment reproducible and what
+In production, the reference needs to be by digest: it is what makes the deployment reproducible and what
 allows stating that what runs is what was approved.
 
 See [containers](/09-cloud-architecture/containers.md).
@@ -111,7 +111,7 @@ And the third prevents a class of attack: overwriting an already-verified tag wi
 
 ### A reproducible build is the ideal, and pinning is the minimum
 
-A reproducible build — the same input, the same artifact byte for byte — allows independently verifying
+A reproducible build (the same input, the same artifact byte for byte) allows independently verifying
 that the binary corresponds to the code.
 
 It is hard to achieve completely. The practicable minimum:
@@ -125,7 +125,7 @@ no network access in the final build stage
 
 The last is the most effective of the four and the least common. An unpinned dependency breaks
 reproducibility: the same commit produces a different artifact. A dependency pinned by hash but downloaded
-from the network is still reproducible, just not hermetic — the build comes to depend on an external server
+from the network is still reproducible, just not hermetic: the build comes to depend on an external server
 being up at that moment. Cutting the network in the final stage secures both properties: everything that goes
 in was resolved and verified beforehand.
 
@@ -140,12 +140,12 @@ The gain is in size, in attack surface and in deployment time. See
 [containers](/09-cloud-architecture/containers.md).
 
 And there is a frequently forgotten delivery gain: smaller images are downloaded faster, which reduces
-deployment and scaling time — which matters in
+deployment and scaling time. That matters in
 [rolling deployments](/14-devops-and-platform/rolling-deployments.md).
 
 ### Layers and caching decide the build time
 
-The mechanics — instructions that rarely change before the ones that always change — are in
+The mechanics (instructions that rarely change before the ones that always change) are in
 [containers](/09-cloud-architecture/containers.md). What they decide in delivery is the pipeline's time: with
 the code copied before installing dependencies, every change reinstalls everything, and fixing the order
 usually reduces the build time by an order of magnitude. That time is what decides whether people integrate
@@ -172,7 +172,7 @@ That matters at three moments:
 [rolling deployments](/14-devops-and-platform/rolling-deployments.md).
 
 And there is an aggravating factor: new nodes frequently do not have the image in their local cache, so the
-worst case — a complete download — happens exactly when there is pressure.
+worst case (a complete download) happens exactly when there is pressure.
 
 Reducing the image is therefore a reliability decision as much as a cost one.
 
@@ -191,7 +191,7 @@ tested.
 ## When Not to Use
 
 **A single environment, with no testing between build and production.** If what leaves the pipeline goes
-straight to production — an internal tool, a prototype — there is no "tested" artifact to preserve across
+straight to production (an internal tool, a prototype), there is no "tested" artifact to preserve across
 environments. A promotion pipeline buys nothing; the value that remains, the digest for rolling back, any
 registry already provides.
 
@@ -201,7 +201,7 @@ discipline starts when the artifact leaves the machine for the pipeline.
 
 **Ephemeral preview environments.** One environment per pull request, destroyed on merge, receives builds that
 will never be promoted. Retaining those images and making them immutable costs registry space without
-protecting anything — there, retention measured in days and disposable tags are the right choice, as long as
+protecting anything. There, retention measured in days and disposable tags are the right choice, as long as
 nothing from those builds reaches production.
 
 **Libraries consumed as dependencies.** The producer's artifact is a versioned package, and whoever
@@ -210,12 +210,12 @@ application; for the library, what matters is publishing immutable versions.
 
 ## Alternatives
 
-- **Versioned packages** — for languages and contexts where containers do not apply.
-- **Machine images** — the same principle, at the virtual machine level.
-- **A promoted application artifact** — the binary, with no container, with the environment provisioned
+- **Versioned packages**: for languages and contexts where containers do not apply.
+- **Machine images**: the same principle, at the virtual machine level.
+- **A promoted application artifact**: the binary, with no container, with the environment provisioned
   separately.
 
-The principle — build once, promote — holds for all of them; a container is the most common way of applying
+The principle (build once, promote) holds for all of them; a container is the most common way of applying
 it.
 
 ## Trade-offs
@@ -260,7 +260,7 @@ Two instances of the same service come to run different code.
 problem: the production image was never the tested image.
 
 **Not pinning the base image by digest.** The base's tag changes under your feet, and two builds of the
-same commit produce different images — which eliminates reproducibility.
+same commit produce different images. That eliminates reproducibility.
 
 **A retention policy that prevents rollback.** Deleting old images for cost eliminates the rollback target.
 You discover it during the incident.
@@ -277,7 +277,7 @@ An incident exposed the problem. A production deployment failed to start, with a
 previous environment.
 
 The cause: a transitive dependency with an open version range had published a new version between the
-staging build and the production one — around 40 minutes apart.
+staging build and the production one, around 40 minutes apart.
 
 The new version had an incompatible change. The code was the same; the artifact was not.
 
@@ -302,14 +302,14 @@ And an optimization that came along: the layer order was corrected, and the buil
 to 90 seconds. That reduced the pipeline's total time and had a direct effect on the integration frequency.
 See [continuous integration](/14-devops-and-platform/ci-cd.md).
 
-The detail the team highlights: the multiple builds existed because the images contained configuration —
-the root cause was that, and it had been treated as a convenience for years.
+The detail the team highlights: the multiple builds existed because the images contained configuration.
+The root cause was that, and it had been treated as a convenience for years.
 
 ## Related Concepts
 
-- [Containers](/09-cloud-architecture/containers.md) — the fundamentals.
+- [Containers](/09-cloud-architecture/containers.md): the fundamentals.
 - [Continuous Integration](/14-devops-and-platform/ci-cd.md).
-- [Environment Management](/14-devops-and-platform/environment-management.md) — the promotion.
+- [Environment Management](/14-devops-and-platform/environment-management.md): the promotion.
 - [Pipeline Security](/14-devops-and-platform/supply-chain-security.md).
 
 ## Practical Exercise

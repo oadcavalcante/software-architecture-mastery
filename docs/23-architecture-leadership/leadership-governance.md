@@ -2,7 +2,7 @@
 id: leadership-governance
 title: Governança sob a Ótica de Quem Estabelece
 sidebar_position: 11
-description: Desenhar mecanismos com dono, custo declarado e data de validade — e ter processo para removê-los.
+description: Desenhar mecanismos com dono, custo declarado e data de validade, e ter processo para removê-los.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [leadership-principles, leadership-standards, fitness-functions]
 canonical_for: [desenho de mecanismo de governança, validade de mecanismo, meta de remoção]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -22,7 +22,7 @@ last_reviewed: 2026-08-29
 ## Visão Geral
 
 O [nível anterior](/19-architecture-governance/index.md) descreve como a governança opera. Este
-documento trata de quem a **cria** — e a diferença é grande, porque o criador tem uma
+documento trata de quem a **cria**, e a diferença é grande, porque o criador tem uma
 responsabilidade que o operador não tem:
 
 ```text
@@ -31,7 +31,7 @@ criar    decidir se ele deve existir, e por quanto tempo
 ```
 
 Toda organização tem processo para adicionar mecanismos: um incidente acontece, cria-se um
-controle. Quase nenhuma tem processo para removê-los — e, entre as causas de acumulação de burocracia,
+controle. Quase nenhuma tem processo para removê-los. E, entre as causas de acumulação de burocracia,
 essa assimetria é a única que está nas mãos de quem desenha o mecanismo; regulação e crescimento de
 escopo não estão. A assimetria em si está descrita em
 [patologias de governança](/19-architecture-governance/governance-pathologies.md).
@@ -53,7 +53,7 @@ A resposta original era proporcional ao incidente. Ela deixou de ser proporciona
 organização construiu verificação automática de segurança e ninguém revisitou o mecanismo manual.
 
 E há um segundo padrão: o mecanismo criado sem medida. Ele não pode ser avaliado, porque nunca se
-definiu o que ele deveria produzir — e sem isso, a discussão sobre mantê-lo é sobre opinião.
+definiu o que ele deveria produzir, e, sem isso, a discussão sobre mantê-lo é sobre opinião.
 
 ## Conceitos Centrais
 
@@ -104,7 +104,7 @@ Isso dá dono ao ato de remover, que era o que faltava. E força a revisão do c
 escolher qual remover exige olhar todos.
 
 Uma organização que nunca removeu um mecanismo tem, com alta probabilidade, mais mecanismos do
-que precisa — e o diagnóstico independe de qual deles se examine primeiro.
+que precisa, e o diagnóstico independe de qual deles se examine primeiro.
 
 ### Suspender é melhor que discutir
 
@@ -114,7 +114,7 @@ suspendê-lo por um trimestre            evidência em três meses
 ```
 
 Para decidir se um mecanismo existente deve continuar, a suspensão temporária é o instrumento que
-produz evidência mais rápido — e o mais difícil de conseguir autorização para usar. Ela é aplicável
+produz evidência mais rápido, e o mais difícil de conseguir autorização para usar. Ela é aplicável
 a tudo exceto controles regulatórios e de segurança crítica. Um programa de redução que a usou
 está em [patologias de governança](/19-architecture-governance/governance-pathologies.md); aqui
 importa o desenho: quem cria o mecanismo deveria prever, já na criação, que ele pode ser suspenso.
@@ -146,7 +146,7 @@ para ajustá-lo.
 A prática também corrige uma assimetria comum: mecanismos costumam ser propostos por quem responde
 por um risco e operados por quem responde por entrega, o que separa quem decide o custo de quem
 paga. Juntar os dois papéis por alguns meses é a intervenção mais barata contra propostas
-desproporcionais, e ela não exige processo nenhum — apenas a regra.
+desproporcionais, e ela não exige processo nenhum, apenas a regra.
 
 ### Governança boa é invisível
 
@@ -155,7 +155,7 @@ mecanismo visível     alguém precisa fazer algo a mais
 mecanismo invisível   o caminho fácil já é o correto
 ```
 
-O objetivo de quem estabelece governança deveria ser tornar os mecanismos desnecessários — movendo
+O objetivo de quem estabelece governança deveria ser tornar os mecanismos desnecessários, movendo
 o que eles verificam para dentro da plataforma, do gabarito e da esteira.
 
 Uma área de governança cujo sucesso é medido por número de mecanismos operados tem o incentivo
@@ -180,7 +180,7 @@ prazo e o conteúdo do controle, uma validade interna de 24 meses é teatro: a r
 decidir nada. O desenho ainda vale para dono e medida, mas a validade é a do regulador.
 
 **Conjuntos pequenos demais para uma meta anual.** Numa organização com três ou quatro mecanismos,
-todos com efeito medido, "remover ao menos um por ano" força remover o que funciona — ou convida a
+todos com efeito medido, "remover ao menos um por ano" força remover o que funciona, ou convida a
 cumprir a meta com um mecanismo irrelevante. A meta pressupõe acumulação; sem ela, a revisão de
 validade basta.
 
@@ -193,11 +193,11 @@ legítimo; as duas semanas de desenho vêm depois, antes de o provisório virar 
 
 ## Alternativas
 
-- **Plataforma** — mover a propriedade para o caminho pavimentado, eliminando o mecanismo.
-- **Função de aptidão** — verificação automática em vez de humana. Ver
+- **Plataforma**: mover a propriedade para o caminho pavimentado, eliminando o mecanismo.
+- **Função de aptidão**: verificação automática em vez de humana. Ver
   [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
-- **Registro sem aprovação** — para riscos baixos, visibilidade basta.
-- **Nada** — aceitar o risco formalmente é uma resposta legítima. Ver
+- **Registro sem aprovação**: para riscos baixos, visibilidade basta.
+- **Nada**: aceitar o risco formalmente é uma resposta legítima. Ver
   [gestão de risco](/23-architecture-leadership/risk-management.md).
 
 ## Trade-offs
@@ -230,7 +230,7 @@ legítimo; as duas semanas de desenho vêm depois, antes de o provisório virar 
 ## Erros Comuns
 
 **Renovação como carimbo.** Aos 24 meses, o dono renova sem apresentar a medida, porque ninguém
-pediu. A validade passa a existir só no papel, e o mecanismo volta a ser permanente por omissão —
+pediu. A validade passa a existir só no papel, e o mecanismo volta a ser permanente por omissão,
 agora com a aparência de ter sido revisado.
 
 **Cumprir a meta de remoção com o mecanismo irrelevante.** Remove-se o formulário que ninguém
@@ -253,7 +253,7 @@ Uma empresa de logística com 160 engenheiros sofreu um vazamento de credencial:
 acesso a um armazenamento de objetos foi comitada num repositório público por engano, e ficou
 exposta por nove dias.
 
-A resposta institucional imediata foi a esperada — criar um comitê de revisão de segurança para
+A resposta institucional imediata foi a esperada: criar um comitê de revisão de segurança para
 toda entrega. A liderança de arquitetura pediu duas semanas antes de instituí-lo, para desenhar
 o mecanismo com os cinco campos.
 
@@ -272,7 +272,7 @@ ponto de intervenção mais cedo viável: no cliente de versionamento,
 ```
 
 O comitê nunca foi criado. Em vez dele: verificação local no momento do envio, verificação na
-esteira como rede de segurança, e rotação automática de credenciais com prazo curto — de modo que
+esteira como rede de segurança, e rotação automática de credenciais com prazo curto, de modo que
 uma chave exposta expire antes de ser útil.
 
 O mecanismo humano que restou foi pequeno e específico: revisão de segurança obrigatória apenas
@@ -291,19 +291,19 @@ revisões humanas de segurança realizadas     29 (24 previstas, a 12/ano,
                                              mais 5 exceções)
 ```
 
-Na renovação, aos 24 meses, o dono apresentou os números e o mecanismo foi mantido — com o escopo
+Na renovação, aos 24 meses, o dono apresentou os números e o mecanismo foi mantido, com o escopo
 das revisões humanas ampliado para incluir integrações com parceiros externos, que tinham
 aparecido como lacuna.
 
 O aprendizado que ficou: a pergunta "qual é o ponto de intervenção mais cedo viável?" transformou
 uma proposta de cerca de mil dias de atraso acumulado por ano num mecanismo sem atraso adicionado
 à entrega. E ela custou duas
-semanas de espera — que foi a parte politicamente difícil, porque logo após um incidente a
+semanas de espera. Essa foi a parte politicamente difícil, porque logo após um incidente a
 pressão é por agir, não por desenhar.
 
 ## Conceitos Relacionados
 
-- [Governança](/19-architecture-governance/index.md) — a operação.
+- [Governança](/19-architecture-governance/index.md): a operação.
 - [Princípios](/23-architecture-leadership/leadership-principles.md).
 - [Padrões](/23-architecture-leadership/leadership-standards.md).
 - [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md).

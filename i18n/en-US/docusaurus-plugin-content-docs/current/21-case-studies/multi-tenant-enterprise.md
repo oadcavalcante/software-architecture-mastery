@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [saas-platform, healthcare, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -33,7 +33,7 @@ support, not the magnitudes.
 ## Business Context
 
 **Alcance** sells a contract management and compliance platform to large corporations. It has 40
-customers — banks, insurers, mining companies, energy utilities — with annual contracts between
+customers (banks, insurers, mining companies, energy utilities) with annual contracts between
 $160 thousand and $1.8 million. Recurring revenue of $23.6 million.
 
 The profile is the opposite of the [SaaS](/21-case-studies/saas-platform.md) case: few customers,
@@ -65,15 +65,15 @@ repeated 594 times over nine years it produced a system nobody can change.
 That is the erosion mechanism described in
 [speed vs. quality](/20-trade-offs/speed-vs-quality.md), with a variation: here the shortcut was
 not technical, it was commercial. Every conditional had a signed contract behind it, which made
-the decision to take it even harder to refuse — and the decision to remove it, years later, even
+the decision to take it even harder to refuse, and the decision to remove it, years later, even
 more expensive.
 
 ## Functional Requirements
 
 For the **corporate customer**: model their own contract approval flow, with stages, authority
 levels and deadlines; define additional fields in the forms; configure compliance rules specific
-to their sector; integrate with their internal systems — ERP, corporate directory, digital
-signature; and extract reports using their own taxonomy.
+to their sector; integrate with their internal systems (ERP, corporate directory, digital
+signature); and extract reports using their own taxonomy.
 
 For **Alcance**: deliver new functionality to every customer at the same time; fix a defect once;
 and onboard a new customer in weeks, not months.
@@ -138,8 +138,8 @@ peak                              ~1,900/s
 approvals processed/day           ~94,000
 ```
 
-The volume is small. As in almost every case in this set, the architecture is not decided by scale
-— and here that is even more evident: 1,900 requests per second is served by a conventional
+The volume is small. As in almost every case in this set, the architecture is not decided by scale,
+and here that is even more evident: 1,900 requests per second is served by a conventional
 application in any topology.
 
 What sizes this system is **variability**:
@@ -157,8 +157,8 @@ capacity resolves it; the question is where that variability lives.
 
 An analysis of the 163 flows revealed something that changed the strategy: they were not 163
 different processes. Grouped by structure, they reduced to 9 patterns, with variations in
-authority level, deadline and terminology. A single pattern — sequential approval with a
-value-based authority level and deadline escalation — covered 71 of the 163.
+authority level, deadline and terminology. A single pattern (sequential approval with a
+value-based authority level and deadline escalation) covered 71 of the 163.
 
 That discovery is what made Option B viable. If the 163 had genuinely been distinct, no
 declarative model would express them; being 9 parameterized patterns, a flow engine with a
@@ -210,8 +210,8 @@ support            "the problem is your extension" is a bad conversation
 
 ### Option D — Declarative configuration with limited extension
 
-Configuration for most of it, and restricted, well-defined extension points — integrations and
-calculations — for what configuration does not cover.
+Configuration for most of it, and restricted, well-defined extension points (integrations and
+calculations) for what configuration does not cover.
 
 ```text
 flexibility        high
@@ -236,7 +236,7 @@ pure Option B has a hard limit, and when a $1.8-million customer asks for someth
 configuration cannot express, the answer "no" is commercially expensive.
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With ability to meet requests at 35%, the totals become
-4.6 / 8.2 / 7.3 / 8.2 — B and D tie. With risk at 30%, they become 3.7 / 8.8 / 6.0 / 7.9 —
+4.6 / 8.2 / 7.3 / 8.2: B and D tie. With risk at 30%, they become 3.7 / 8.8 / 6.0 / 7.9:
 Option B wins.
 
 **The matrix points at B, and the decision is D.** D only overtakes B once the weight on ability
@@ -270,12 +270,12 @@ never customizable
 ```
 
 The third list is the most important and was the hardest to negotiate. It exists because
-customization in those areas is what produced the 214 conditionals — and because they are
+customization in those areas is what produced the 214 conditionals, and because they are
 precisely the areas where an error affects correctness, security or isolation.
 
 **Under what condition each discarded option would win:**
 
-**Option A would win if** there were very few customers — two or three — and no expectation of
+**Option A would win if** there were very few customers (two or three) and no expectation of
 growth. With few variants, conditionals are manageable, and total flexibility has value.
 
 **Pure Option B would win if** the customers were smaller and with less bargaining power, as in
@@ -283,7 +283,7 @@ the [SaaS](/21-case-studies/saas-platform.md) case. There, "the configuration do
 an acceptable answer; here, it costs a contract.
 
 **Option C would win if** Alcance operated as a developer platform, with an ecosystem of partners
-building extensions — a different model, with its own support and governance.
+building extensions: a different model, with its own support and governance.
 
 ## Components
 
@@ -307,7 +307,7 @@ building extensions — a different model, with its own support and governance.
 **Audit Trail.** Immutable, not customizable.
 
 The **Configuration Service** being versioned is an important decision: a customer's configuration
-is treated as code — it has a version, a history, review and rollback. A customer who changes
+is treated as code. It has a version, a history, review and rollback. A customer who changes
 their approval flow and breaks a process can go back in minutes.
 
 ## Data
@@ -329,8 +329,8 @@ That selectivity matters: 4,100 fields indexed indiscriminately would make write
 practice, customers declare an average of 6 searchable fields each.
 
 Making the customer declare which fields need searching is a design decision that hands a
-technical choice to whoever has the information. The alternative — indexing everything as a
-precaution, or trying to infer from usage — was considered and discarded: the first is expensive,
+technical choice to whoever has the information. The alternative (indexing everything as a
+precaution, or trying to infer from usage) was considered and discarded: the first is expensive,
 and the second produces unpredictable behavior, with a search that works today and gets slow
 tomorrow because the usage pattern changed.
 
@@ -348,11 +348,11 @@ automatic actions
 ```
 
 A contract in progress keeps executing the flow version it started with. Altering the definition
-does not affect contracts in flight — a decision that avoided an entire class of problems in which
+does not affect contracts in flight: a decision that avoided an entire class of problems in which
 a configuration change altered the process of approvals already under way.
 
 **Isolation.** One schema per customer, with a credential per customer. With 40 tenants, the cost
-is low and the isolation is strong — the decision the [SaaS](/21-case-studies/saas-platform.md) case
+is low and the isolation is strong. The decision the [SaaS](/21-case-studies/saas-platform.md) case
 had to grade is simple here because there are few.
 
 ## Integration
@@ -373,12 +373,12 @@ extension environment limits
 Restricting data access to the input is the decision that makes the environment safe: an extension
 doesn't query the database, doesn't see other contracts and cannot access another customer by
 construction. That eliminates the class of risk that makes third-party extensions dangerous, and
-the cost is that extensions needing more context are not possible — which, in practice, proved
+the cost is that extensions needing more context are not possible. In practice, those proved
 rare.
 
 **Adapter failure.** An adapter that times out or fails does not bring the operation down: the
 integration is marked pending and retried, and the user is informed. That resolves the difficult
-support conversation — the product keeps working, and the pending item points clearly at the
+support conversation. The product keeps working, and the pending item points clearly at the
 extension.
 
 **Corporate directory.** Each customer uses their own, with identity federation. The product keeps
@@ -404,17 +404,17 @@ segregation of
 
 The **trail being non-customizable** was contested by three customers who wanted their own fields
 in it. The recorded answer: an audit trail with a structure that varies per customer loses the
-property that makes it useful — being comparable, verifiable and independent of the configuration
-it audits.
+property that makes it useful (being comparable, verifiable and independent of the configuration
+it audits).
 
 The real need behind the request was different, and it was met differently: the customers wanted
 to correlate trail events with identifiers from their own systems. The solution was an optional
-correlation field, with fixed semantics — an external identifier — instead of free fields with
+correlation field, with fixed semantics (an external identifier) instead of free fields with
 per-customer semantics.
 
 That distinction between meeting the request and meeting the need appeared repeatedly during the
 project. Of the 594 customization requests reviewed, 118 had a need that a generic capability met
-better than the requested customization — and turning those into product capability is what most
+better than the requested customization, and turning those into product capability is what most
 reduced the list.
 
 ## Scalability
@@ -435,8 +435,8 @@ extension executions/min           maximum 600
 ```
 
 Those limits did not exist before, and their absence allowed a customer to configure something
-that degraded the system. Introducing them required negotiation — three customers were above some
-limit — and produced a positive side effect: the conversation about limits revealed flows with
+that degraded the system. Introducing them required negotiation (three customers were above some
+limit) and produced a positive side effect: the conversation about limits revealed flows with
 stages nobody had used in years.
 
 ## Reliability
@@ -447,7 +447,7 @@ If the **Extension Environment** becomes unavailable, integrations go pending an
 continues. It was designed so that a third-party code failure is never a product failure.
 
 If the **Configuration Service** becomes unavailable, the system operates with the cached
-configuration — which rarely changes. Configuration changes are blocked.
+configuration, which rarely changes. Configuration changes are blocked.
 
 If the **Audit Trail** fails, operations requiring a record are blocked. Failing closed is the
 correct choice: an approval with no trail is a compliance problem.
@@ -470,7 +470,7 @@ each customer's distance from their configured limits
 The **distance from limits** metric is used commercially: a customer near their field or rule limit
 is an upgrade candidate, and the conversation happens before they hit it.
 
-And tracking **contracts stuck past their deadline** is the product metric customers value most —
+And tracking **contracts stuck past their deadline** is the product metric customers value most:
 it is the reason they bought the platform, and it only exists because the flow is declarative and
 the system knows what the expected deadline was.
 
@@ -485,7 +485,7 @@ and the possibility of rollback.
 Separating code deployment from configuration deployment is what changes the relationship with the
 customer: 71% of changes came to be made by the customer, with no queue and with Alcance out of
 the way. That reduced demand on the team and, more importantly, reduced the time between the
-customer's need and the change — which was the origin of the pressure for customization in code.
+customer's need and the change. That gap was the origin of the pressure for customization in code.
 
 Extensions have their own cycle: the customer or the consultancy publishes, Alcance validates
 against the extension environment's contract, and the publication is recorded.
@@ -497,7 +497,7 @@ one criterion: **how many customers a configuration capability unlocks**.
 
 **Phase 1 (months 1–7): declarative flow engine.** The capability that on its own absorbs 61% of
 the existing conditionals. The 40 customers' flows were modeled as configuration and compared, in
-parallel, with the code's behavior — for three months, over real traffic.
+parallel, with the code's behavior, for three months, over real traffic.
 
 The comparison found 27 divergences, of which 19 were undocumented behaviors of the old code and 8
 were configuration modeling errors. The 19 were taken to the customers, and in 11 cases the
@@ -508,7 +508,7 @@ conditionals.
 
 **Phase 3 (months 11–17): rules engine.** Declarative compliance, a further 9%.
 
-**Phase 4 (months 15–22): extension environment.** For what remained — integrations and specific
+**Phase 4 (months 15–22): extension environment.** For what remained: integrations and specific
 calculations, about 8% of the conditionals.
 
 **Phase 5 (months 20–28): version unification.** With the customizations out of the code, the 17
@@ -516,7 +516,7 @@ customers on old versions are upgraded. It is the phase that delivers the projec
 
 **The remaining 4%.** Twenty-four customizations fit in no mechanism. Each was negotiated
 individually: 14 were abandoned by the customer on discovering nobody used them, 7 were met by a
-new product capability — available to everyone — and 3 remain as conditionals, with a recorded
+new product capability (available to everyone) and 3 remain as conditionals, with a recorded
 removal deadline and annual review.
 
 **Conditions that would change the plan:**
@@ -564,12 +564,12 @@ unlocked growth.
 It is also worth recording what did not improve. The declared satisfaction of the three largest
 customers dropped in the project's first year, and the cause was identified: they lost the ability
 to ask for anything and receive it. They started hearing "that isn't configurable, and we will
-evaluate it as a product capability for next quarter" — which is a better answer for Alcance and a
+evaluate it as a product capability for next quarter". It is a better answer for Alcance and a
 worse one for them.
 
 Recovery came in the second year, when the time between a request and delivery of a new capability
 dropped from months to weeks, and the perception changed from "we lost privilege" to "we get it
-faster". The intermediate period was uncomfortable and was foreseeable — and having foreseen it in
+faster". The intermediate period was uncomfortable and was foreseeable. Having foreseen it in
 the plan, with dedicated commercial attention to the three, is what avoided losing any of them.
 
 ## What this case teaches
@@ -604,7 +604,7 @@ List your product's per-customer customizations and classify each one as: expres
 configuration, expressible by an isolated extension, or requiring a change to the core.
 
 The third list is what defines the negotiable boundary. If it is large, the product has no
-variability model — it has 40 products.
+variability model: it has 40 products.
 
 ## Interview Questions
 

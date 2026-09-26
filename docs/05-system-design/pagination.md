@@ -2,7 +2,7 @@
 id: pagination
 title: Paginação
 sidebar_position: 14
-description: Entregar resultado em partes — e por que offset quebra em escala.
+description: Entregar resultado em partes, e por que offset quebra em escala.
 doc_type: concept
 level: 3
 difficulty: iniciante
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [apis]
 related: [apis, search, database-scaling]
 canonical_for: [paginação, cursor, offset]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -40,7 +40,7 @@ página, e a última página é a mais cara.
 
 **O conjunto se move.** Se um registro é inserido entre a leitura da página 1 e da
 página 2, tudo desloca. O usuário vê um item repetido, ou nunca vê um item que
-existia — e isso é silencioso.
+existia. E isso é silencioso.
 
 Para uma tela de listagem com poucas páginas, nada disso importa. Para exportação,
 sincronização ou conjuntos grandes, importa muito.
@@ -73,7 +73,7 @@ na página 5000.
 ### A ordenação precisa ser estável e total
 
 Cursor exige que a ordenação seja **determinística**. Ordenar só por `criado_em`
-falha se dois registros têm o mesmo instante — a posição fica ambígua e itens são
+falha se dois registros têm o mesmo instante: a posição fica ambígua e itens são
 pulados ou repetidos.
 
 A correção é incluir um desempate único sempre que a coluna de ordenação admitir
@@ -84,7 +84,7 @@ vezes" que ninguém consegue reproduzir.
 
 ### O cursor é opaco
 
-O cursor devolvido ao cliente deve ser tratado como opaco — tipicamente uma
+O cursor devolvido ao cliente deve ser tratado como opaco, tipicamente uma
 codificação da chave. Isso permite mudar a estratégia interna sem quebrar
 consumidores, e evita que alguém construa cursores à mão.
 
@@ -94,7 +94,7 @@ consumidores, e evita que alguém construa cursores à mão.
 que a página em si.
 
 Três saídas: não devolver total; devolver estimativa; ou devolver apenas se há
-próxima página — buscando N+1 itens e devolvendo N.
+próxima página, buscando N+1 itens e devolvendo N.
 
 A terceira resolve a maior parte das interfaces, porque o que elas precisam é
 habilitar ou desabilitar o botão "próxima".
@@ -107,7 +107,7 @@ depois disto".** A segunda é a pergunta que sistemas grandes de fato fazem.
 ## Quando Usar
 
 **Deslocamento** quando:
-- O conjunto é pequeno — algumas centenas.
+- O conjunto é pequeno (algumas centenas).
 - O usuário precisa pular para uma página específica.
 - O conjunto é estável durante a navegação.
 - Simplicidade importa mais que escala.
@@ -115,7 +115,7 @@ depois disto".** A segunda é a pergunta que sistemas grandes de fato fazem.
 **Cursor** quando:
 - O conjunto é grande.
 - Há inserção concorrente.
-- O consumo é sequencial — exportação, sincronização, rolagem infinita.
+- O consumo é sequencial: exportação, sincronização, rolagem infinita.
 - Consistência entre páginas importa.
 
 ## Quando Não Usar
@@ -132,13 +132,13 @@ salto arbitrário; forçar isso produz gambiarra.
 
 ## Alternativas
 
-- **Rolagem infinita com cursor** — o padrão em interfaces modernas.
-- **Filtro em vez de paginação** — se o usuário está paginando até a página 40 para
+- **Rolagem infinita com cursor**: o padrão em interfaces modernas.
+- **Filtro em vez de paginação**: se o usuário está paginando até a página 40 para
   achar algo, o que falta é busca.
-- **Exportação assíncrona** — para conjuntos muito grandes, gerar um arquivo em
+- **Exportação assíncrona**: para conjuntos muito grandes, gerar um arquivo em
   background é melhor que paginar. Ver
   [processamento em background](/05-system-design/background-processing.md).
-- **Fluxo** — devolver resultados continuamente, quando o protocolo permite.
+- **Fluxo**: devolver resultados continuamente, quando o protocolo permite.
 
 ## Trade-offs
 
@@ -146,7 +146,7 @@ A tabela de [Deslocamento versus cursor](#deslocamento-versus-cursor) já põe o
 lado a lado. O que ela não decide é o eixo: a escolha se faz pelo padrão de acesso,
 não pelo tamanho do conjunto.
 
-Acesso aleatório — pular para a página N, mostrar quantas páginas existem — só o
+Acesso aleatório (pular para a página N, mostrar quantas páginas existem) só o
 deslocamento entrega, e o preço é degradar com a profundidade e repetir itens sob
 escrita concorrente. Acesso sequencial o cursor entrega com custo constante e
 estável, e o preço é abrir mão do salto arbitrário e da ordenação trivial.
@@ -197,15 +197,15 @@ criados no mesmo segundo tinham ordem indefinida entre consultas.
 
 As correções, separadas por caso de uso.
 
-A tela manteve deslocamento — são poucas páginas e o usuário quer pular. Ganhou
+A tela manteve deslocamento: são poucas páginas e o usuário quer pular. Ganhou
 desempate por `id` na ordenação, o que eliminou a repetição. E o `COUNT` virou
 estimativa, com o número exato só quando o filtro reduz muito o conjunto.
 
 A sincronização ganhou um endpoint próprio, com cursor. A sincronização diária
 caiu de onze horas para 4 minutos, com custo constante por página.
 
-A leitura que a equipe faz: os dois casos de uso pareciam a mesma coisa — "listar
-pedidos" — e tinham requisitos incompatíveis. Tentar servir aos dois com um
+A leitura que a equipe faz: os dois casos de uso pareciam a mesma coisa ("listar
+pedidos") e tinham requisitos incompatíveis. Tentar servir aos dois com um
 endpoint foi o erro original.
 
 ## Detalhes de implementação do cursor
@@ -214,7 +214,7 @@ Cursor parece simples e tem três detalhes que decidem se funciona.
 
 **A ordenação precisa bater com o índice.** `ORDER BY criado_em, id` só é eficiente
 se existir [índice composto](/07-data-architecture/indexing.md) nessa ordem
-exata. Sem ele, o banco ordena o conjunto inteiro a cada página — que é o
+exata. Sem ele, o banco ordena o conjunto inteiro a cada página. E esse é o
 problema que o cursor deveria evitar.
 
 **A comparação precisa ser de tupla.** Comparar campo a campo com `OR` produz
@@ -227,21 +227,21 @@ resultado correto e plano de execução ruim:
 
 A segunda forma permite ao banco usar o índice composto diretamente. Nem todos os
 bancos suportam comparação de tupla, e onde não suportam a primeira forma é
-inevitável — vale conferir o plano.
+inevitável. Vale conferir o plano.
 
 **O cursor precisa ser versionado.** Se a ordenação mudar, cursores emitidos antes
 deixam de fazer sentido. Codificar uma versão junto permite detectar e rejeitar
 com erro claro, em vez de devolver resultado silenciosamente errado.
 
 Um quarto detalhe, para ordenação decrescente: a comparação inverte para `<`, e
-esquecer isso produz uma paginação que devolve sempre a mesma página — um defeito
+esquecer isso produz uma paginação que devolve sempre a mesma página. É um defeito
 que passa em teste com poucos registros.
 
 ## Conceitos Relacionados
 
-- [APIs](/05-system-design/apis.md) — paginação é parte do contrato.
-- [Busca](/05-system-design/search.md) — quando paginar não é a resposta.
-- [Processamento em Background](/05-system-design/background-processing.md) — para exportação
+- [APIs](/05-system-design/apis.md): paginação é parte do contrato.
+- [Busca](/05-system-design/search.md): quando paginar não é a resposta.
+- [Processamento em Background](/05-system-design/background-processing.md): para exportação
   grande.
 - [Escalabilidade](/11-scalability/index.md).
 
@@ -262,5 +262,5 @@ você tem deslocamento onde deveria ter cursor.
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Documentação de paginação por cursor de APIs públicas maduras — as de Stripe e
+- Documentação de paginação por cursor de APIs públicas maduras: as de Stripe e
   GitHub são referências úteis.

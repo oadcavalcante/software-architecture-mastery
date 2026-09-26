@@ -2,7 +2,7 @@
 id: cloud-identity
 title: Identidade em Nuvem
 sidebar_position: 11
-description: Quem pode fazer o quê na sua infraestrutura — a camada onde os incidentes mais graves acontecem.
+description: "Quem pode fazer o quê na sua infraestrutura: a camada onde os incidentes mais graves acontecem."
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [cloud-networking, vendor-lock-in, managed-services, identity, least-privilege, auditability]
 canonical_for: [identidade em nuvem, credencial de curta duração, papel de serviço]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -21,13 +21,13 @@ last_reviewed: 2026-08-27
 
 ## Visão Geral
 
-Identidade e permissões definem quem — pessoa ou serviço — pode fazer o quê na sua
+Identidade e permissões definem quem (pessoa ou serviço) pode fazer o quê na sua
 infraestrutura.
 
 Na nuvem, essa camada tem alcance total: uma permissão excessiva não expõe um
 recurso, expõe a capacidade de criar, ler, alterar e apagar tudo.
 
-É a camada onde os incidentes mais graves acontecem, e a que menos recebe projeto —
+É a camada onde os incidentes mais graves acontecem, e a que menos recebe projeto,
 tipicamente configurada por tentativa e erro, ampliando permissões até parar de dar
 erro.
 
@@ -41,7 +41,7 @@ Isso se acumula. Depois de dois anos, o ambiente tem dezenas de identidades com
 permissões muito além do necessário, e ninguém sabe quais são usadas de fato.
 
 O custo aparece de uma vez: uma credencial vazada, um serviço comprometido, um
-script com defeito — e o alcance do dano é o alcance da permissão.
+script com defeito. E o alcance do dano é o alcance da permissão.
 
 ## Conceitos Centrais
 
@@ -71,15 +71,15 @@ permanecer.
 O erro estrutural mais comum: criar um usuário, gerar uma chave de acesso, e colocar
 essa chave na aplicação.
 
-Chaves de longa duração vazam — em repositórios, em imagens de contêiner, em
-registros de aplicação, em variáveis de ambiente expostas. E não expiram.
+Chaves de longa duração vazam (em repositórios, em imagens de contêiner, em
+registros de aplicação, em variáveis de ambiente expostas) e não expiram.
 
 A alternativa moderna: a aplicação assume um **papel** e recebe credenciais
 temporárias, rotacionadas automaticamente. Nada a guardar, nada a vazar
 permanentemente.
 
 Isso vale para computação dentro da nuvem, e cada vez mais para sistemas externos,
-por federação de identidade — o que elimina chaves estáticas até em esteiras de
+por federação de identidade. A federação elimina chaves estáticas até em esteiras de
 integração contínua.
 
 **Eliminar credenciais de longa duração é a mudança de maior impacto desta seção.**
@@ -101,8 +101,8 @@ Permissões dentro de uma conta são configuração; contas separadas são front
 
 Separar produção de desenvolvimento em contas distintas faz com que o padrão seja
 nenhum acesso entre elas: um erro em desenvolvimento só alcança produção por um
-caminho concedido explicitamente — papel de confiança entre contas, rede
-interconectada, esteira com permissão nas duas. Cada um desses caminhos é uma
+caminho concedido explicitamente (papel de confiança entre contas, rede
+interconectada, esteira com permissão nas duas). Cada um desses caminhos é uma
 política, e precisa do mesmo rigor; a diferença é que eles são poucos, nomeados e
 auditáveis.
 
@@ -130,7 +130,7 @@ mais frouxo.
 
 As propriedades do registro inviolável estão em
 [auditabilidade](/10-security/auditability.md). A decisão de nuvem é onde ele mora:
-numa conta dedicada, para a qual as demais só escrevem — assim, comprometer a conta
+numa conta dedicada, para a qual as demais só escrevem. Assim, comprometer a conta
 auditada não dá acesso ao registro dela.
 
 ## Modelo Mental
@@ -159,7 +159,7 @@ alguém pode esquecer.
 
 **Credencial temporária para integração que não a suporta.** Serviço de terceiro que só
 aceita chave estática não vira papel por decisão sua. Aí a chave fica, com o alcance
-mínimo, em gerenciador de segredos e com rotação — tentar forçar um intermediário de
+mínimo, em gerenciador de segredos e com rotação. Tentar forçar um intermediário de
 troca de credencial acrescenta uma peça que falha sem reduzir o risco da chave.
 
 **Granularidade por recurso além do limite do provedor.** Políticas têm tamanho máximo.
@@ -175,13 +175,13 @@ protótipo sem dado real paga esse custo antes de ter o que isolar.
 
 Para reduzir risco sem reescrever a política:
 
-- **Papéis assumidos temporariamente** — em vez de permissão permanente.
-- **Aprovação para acesso elevado** — permissão concedida por tempo limitado,
+- **Papéis assumidos temporariamente**: em vez de permissão permanente.
+- **Aprovação para acesso elevado**: permissão concedida por tempo limitado,
   mediante justificativa.
 - **Contas separadas por ambiente e por domínio.**
-- **Análise automatizada de permissões** — ferramentas dos provedores que comparam
+- **Análise automatizada de permissões**: ferramentas dos provedores que comparam
   o concedido com o usado.
-- **Gerenciador de segredos** — quando a credencial de longa duração é inevitável,
+- **Gerenciador de segredos**: quando a credencial de longa duração é inevitável,
   ao menos com rotação e auditoria.
 
 ## Trade-offs
@@ -233,7 +233,7 @@ o necessário.
 **Não federar identidade.** Usuários locais no provedor não somem quando a pessoa sai da empresa, porque a desativação acontece no diretório corporativo e não chega até lá.
 
 **Não separar ambientes em contas.** Sem fronteira de conta, um erro de permissão em desenvolvimento alcança produção. A separação é o limite mais forte que o provedor oferece e não tem custo de licença;
-o custo é operacional — rede, linha de base e acesso por conta —, e é menor que o de
+o custo é operacional (rede, linha de base e acesso por conta) e é menor que o de
 descobrir o problema em produção.
 
 **Não revisar permissões não utilizadas.** Permissões só crescem por acúmulo. Os provedores relatam o que não é exercido há meses, e essa lista é a de remoção mais segura que existe.
@@ -249,7 +249,7 @@ repositório interno, exposta quando o repositório foi tornado público por eng
 durante uma migração.
 
 **O escalonamento:** a chave pertencia a uma identidade criada anos antes para um
-script de relatório. Ela tinha permissão de administrador — concedida na criação
+script de relatório. Ela tinha permissão de administrador, concedida na criação
 porque "era mais rápido", e nunca revista.
 
 **O alcance:** com essa permissão, o atacante criou novas identidades, desativou
@@ -273,7 +273,7 @@ A reconstrução do modelo de acesso levou cinco meses:
 
 **32 das 34 chaves de longa duração eliminadas.** Aplicações passaram a usar papéis;
 a esteira passou a usar federação. Restaram duas chaves, para integrações externas
-que não suportavam outra coisa — ambas com rotação automática e alcance mínimo.
+que não suportavam outra coisa, ambas com rotação automática e alcance mínimo.
 
 **Federação de identidade** para pessoas. O desprovisionamento passou a ser
 automático.
@@ -285,16 +285,16 @@ automático.
 **Revisão trimestral** com base em uso real. A primeira reduziu as permissões
 concedidas em cerca de 80% sem quebrar nada.
 
-A conclusão registrada: o tamanho do dano foi definido por uma única identidade — um
+A conclusão registrada: o tamanho do dano foi definido por uma única identidade (um
 script de relatório, que precisava ler, com permissão de administrador concedida por
-conveniência. E a primeira revisão mostrou que o padrão sobrevive até a um modelo
+conveniência). E a primeira revisão mostrou que o padrão sobrevive até a um modelo
 reconstruído com cuidado: quatro quintos do que ele concedia ainda não era exercido.
 
 ## Conceitos Relacionados
 
-- [Rede em Nuvem](/09-cloud-architecture/cloud-networking.md) — a outra camada de fronteira.
-- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md) — cópias isoladas.
-- [Segurança](/10-security/index.md) — o tratamento completo.
+- [Rede em Nuvem](/09-cloud-architecture/cloud-networking.md): a outra camada de fronteira.
+- [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md): cópias isoladas.
+- [Segurança](/10-security/index.md): o tratamento completo.
 - [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 
 ## Exercício Prático
@@ -315,5 +315,5 @@ com o que ela de fato fez nos últimos 90 dias.
 
 - Rose, S. et al. *Zero Trust Architecture*. NIST SP 800-207, 2020.
 - Grassi, P. et al. *Digital Identity Guidelines*. NIST SP 800-63-3, 2017.
-- Jones, M. et al. *OAuth 2.0 Token Exchange*. RFC 8693, 2020 — a base da troca de
+- Jones, M. et al. *OAuth 2.0 Token Exchange*. RFC 8693, 2020. A base da troca de
   token que permite federar esteiras sem chave estática.

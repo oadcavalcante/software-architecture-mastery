@@ -2,7 +2,7 @@
 id: regions
 title: Regiões
 sidebar_position: 8
-description: A unidade geográfica da nuvem — o que ela isola, o que ela custa e por que quase tudo é regional.
+description: "A unidade geográfica da nuvem: o que ela isola, o que ela custa e por que quase tudo é regional."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [availability-zones, multi-region, cloud-networking]
 canonical_for: [região de nuvem, serviço regional, serviço global]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -28,13 +28,13 @@ Ela é a **unidade de isolamento de falha e de jurisdição**: uma falha regiona
 deveria atravessar para outra região, e um dado gravado numa região fica sob a lei
 daquele país.
 
-A maior parte dos serviços de nuvem é regional. Entender o que isso implica — e
-quais são as exceções globais — é a base de toda decisão de disponibilidade e de
+A maior parte dos serviços de nuvem é regional. Entender o que isso implica (e
+quais são as exceções globais) é a base de toda decisão de disponibilidade e de
 conformidade.
 
 ## Problema
 
-A escolha de região costuma ser feita uma vez, no início, sem critério explícito —
+A escolha de região costuma ser feita uma vez, no início, sem critério explícito:
 tipicamente "a mais perto" ou "a padrão do console".
 
 Ela é difícil de reverter: migrar dados e infraestrutura entre regiões é projeto,
@@ -51,7 +51,7 @@ Uma região é projetada para falhar sozinha. Energia, rede, refrigeração e os
 de controle dos serviços regionais são separados.
 
 Isso é o que torna [multi-região](/09-cloud-architecture/multi-region.md) uma estratégia de continuidade:
-se uma região inteira cai — o que acontece — a outra continua.
+se uma região inteira cai (o que acontece), a outra continua.
 
 O que **não** é isolado: o plano de controle global do provedor, a autenticação, e
 os serviços globais listados adiante. Uma falha nesses atravessa regiões, e é
@@ -68,7 +68,7 @@ globais       DNS, rede de distribuição de conteúdo, identidade e
 ```
 
 Os serviços globais são o ponto de acoplamento entre regiões. Eles têm alta
-disponibilidade e não são infalíveis — vários incidentes de grande alcance foram
+disponibilidade e não são infalíveis: vários incidentes de grande alcance foram
 falhas de serviço global, não de região.
 
 Uma arquitetura multi-região que depende de um serviço global para funcionar tem
@@ -89,7 +89,7 @@ só a parcela de roteamento, e o que sobra para otimizar é o número de idas e
 voltas.
 
 A consequência de projeto: uma operação que faz cinco chamadas entre regiões paga
-cinco vezes esse valor. Ver [PACELC](/06-distributed-systems/pacelc.md) —
+cinco vezes esse valor. Ver [PACELC](/06-distributed-systems/pacelc.md):
 consistência forte entre regiões distantes é cara por física, não por
 implementação.
 
@@ -128,20 +128,20 @@ Limites de recursos são aplicados por região, e as cotas iniciais costumam ser
 modestas.
 
 Numa expansão para uma região nova, ou num plano de recuperação que promete subir
-capacidade em outra região, a cota é o que impede — e ela só aparece na hora em
+capacidade em outra região, a cota é o que impede, e ela só aparece na hora em
 que se tenta.
 
 ## Modelo Mental
 
-**A região é a unidade de falha e de lei.** Tudo o mais — latência, custo,
-disponibilidade de serviço — decorre de escolhê-la.
+**A região é a unidade de falha e de lei.** Tudo o mais (latência, custo,
+disponibilidade de serviço) decorre de escolhê-la.
 
 ## Quando Usar
 
 A escolha de região deve ser deliberada quando:
 
 - Há requisito de residência de dados.
-- Os usuários estão em outro continente em relação à região candidata — ida e
+- Os usuários estão em outro continente em relação à região candidata: ida e
   volta acima de 100 ms, multiplicada pelas chamadas sequenciais de cada tela.
 - O desenho prevê tráfego contínuo entre regiões, não só cópia ocasional.
 - Um serviço específico é necessário.
@@ -149,11 +149,11 @@ A escolha de região deve ser deliberada quando:
 
 ## Quando Não Usar
 
-**Múltiplas regiões sem necessidade.** Ver [multi-região](/09-cloud-architecture/multi-region.md) — o
+**Múltiplas regiões sem necessidade.** Ver [multi-região](/09-cloud-architecture/multi-region.md). O
 custo é alto e a maioria dos sistemas não precisa.
 
-**Escolher pela padrão do console** quando nenhum dos quatro determinantes —
-latência, jurisdição, custo, serviços — foi comparado entre as candidatas. A
+**Escolher pela padrão do console** quando nenhum dos quatro determinantes
+(latência, jurisdição, custo, serviços) foi comparado entre as candidatas. A
 padrão serve a quem a definiu, não aos seus usuários.
 
 **Fechar a região antes de conferir o caminho crítico.** Se algum serviço de que o
@@ -161,7 +161,7 @@ fluxo principal depende não consta na lista da região, a escolha está errada 
 desenho está.
 
 **Contar com serviço global como se fosse redundante** quando a recuperação do
-sistema passa por ele — trocar DNS ou credenciais durante o incidente depende do
+sistema passa por ele: trocar DNS ou credenciais durante o incidente depende do
 mesmo plano global que pode estar fora.
 
 **Chamadas síncronas entre regiões** no caminho crítico, quando a operação faz
@@ -171,13 +171,13 @@ mais de uma: cada ida e volta intercontinental custa de 100 a 250 ms.
 
 ## Alternativas
 
-- **Uma região com várias [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)** — a
+- **Uma região com várias [zonas de disponibilidade](/09-cloud-architecture/availability-zones.md)**: a
   configuração adequada para a maioria dos sistemas.
-- **Rede de distribuição de conteúdo** — resolve latência de leitura sem
+- **Rede de distribuição de conteúdo**: resolve latência de leitura sem
   multi-região.
-- **Réplica de leitura em outra região** — proximidade de leitura com escrita
+- **Réplica de leitura em outra região**: proximidade de leitura com escrita
   centralizada.
-- **[Recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) em outra região** — capacidade
+- **[Recuperação de desastre](/09-cloud-architecture/disaster-recovery.md) em outra região**: capacidade
   reduzida, ativada sob demanda.
 
 ## Trade-offs
@@ -214,7 +214,7 @@ que ninguém tenha notado.
 
 **Não verificar onde ficam as cópias de segurança.** Backup na mesma região não protege contra perda regional, e backup em outra região pode violar requisito de residência de dados. As duas verificações são obrigatórias e frequentemente nenhuma é feita.
 
-**Assumir que multi-região elimina ponto único.** Serviços globais do provedor — DNS, identidade, plano de controle — permanecem compartilhados entre regiões.
+**Assumir que multi-região elimina ponto único.** Serviços globais do provedor (DNS, identidade, plano de controle) permanecem compartilhados entre regiões.
 
 **Não solicitar aumento de cota na região secundária** antes de precisar. Cotas são por região e a aprovação leva dias. Pedir durante o desastre é tarde.
 
@@ -234,7 +234,7 @@ servidor pareciam ótimas.
 
 **Custo de transferência.** Após uma migração parcial para uma região brasileira,
 os dois lados passaram a conversar. A transferência entre regiões, não prevista,
-adicionou uma despesa mensal significativa — e ela cresceu com o tráfego, sem que
+adicionou uma despesa mensal significativa, e ela cresceu com o tráfego, sem que
 ninguém a estivesse observando.
 
 **Jurisdição.** Uma revisão de conformidade constatou que dados de saúde de
@@ -247,7 +247,7 @@ A migração revelou dois obstáculos que a equipe não tinha previsto:
 alternativa; o outro exigiu implementação própria, com três meses de trabalho.
 
 **Cotas.** A região nova tinha limites baixos por ser conta nova ali. O aumento
-levou onze dias úteis entre solicitação e aprovação — no meio do cronograma de
+levou onze dias úteis entre solicitação e aprovação, no meio do cronograma de
 migração.
 
 E um detalhe que quase passou: as **cópias de segurança** estavam configuradas para
@@ -256,15 +256,15 @@ replicar para uma região americana, por uma escolha feita anos antes para
 
 O que a equipe aprendeu: a escolha original custou uma migração de oito meses.
 Ela foi feita em uma tarde, sem que ninguém tivesse listado latência, jurisdição,
-custo e disponibilidade de serviço como critérios — porque na época o sistema
+custo e disponibilidade de serviço como critérios, porque na época o sistema
 tinha três usuários internos e a região parecia irrelevante.
 
 ## Conceitos Relacionados
 
-- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — a subdivisão.
-- [Multi-Região](/09-cloud-architecture/multi-region.md) — quando usar mais de uma.
+- [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md): a subdivisão.
+- [Multi-Região](/09-cloud-architecture/multi-region.md): quando usar mais de uma.
 - [Recuperação de Desastre](/09-cloud-architecture/disaster-recovery.md).
-- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md) — transferência.
+- [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md): transferência.
 
 ## Exercício Prático
 

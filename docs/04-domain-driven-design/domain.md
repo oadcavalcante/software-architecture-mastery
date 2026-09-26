@@ -13,7 +13,7 @@ objective: >
 prerequisites: [domain-driven-design]
 related: [subdomain, ubiquitous-language, bounded-context]
 canonical_for: [domínio, domain, modelo de domínio]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -32,7 +32,7 @@ ninguém programou.
 ## O Problema
 
 > Pré-requisito: [Domain-Driven Design](/04-domain-driven-design/index.md)
-> estabelece a cadeia de tradução — especialista, analista, desenvolvedor — e por
+> estabelece a cadeia de tradução (especialista, analista, desenvolvedor) e por
 > que nuance se perde a cada conversão. Aqui o foco é o que resta quando ninguém
 > errou em etapa alguma.
 
@@ -44,7 +44,7 @@ entendimento de ninguém. Uma conversa típica:
 > — Não está, ele faz exatamente o que foi especificado.
 > — Mas não é isso que carência significa.
 
-Ninguém errou em nenhuma etapa. O significado se degradou ao longo da cadeia — e é
+Ninguém errou em nenhuma etapa. O significado se degradou ao longo da cadeia, e é
 por isso que DDD elimina as conversões em vez de tentar torná-las mais fiéis.
 
 ## Conceitos Centrais
@@ -59,7 +59,7 @@ problema.
 
 Um modelo de "cliente" para cobrança guarda dados fiscais e histórico de
 pagamento. Para logística, guarda endereços e restrições de entrega. Nenhum é
-mais correto — cada um serve a um problema.
+mais correto: cada um serve a um problema.
 
 Essa observação leva diretamente a
 [bounded context](/04-domain-driven-design/bounded-context.md): modelos diferentes, com fronteiras
@@ -71,7 +71,7 @@ A mudança de postura que DDD exige: o especialista não é alguém que "pede
 funcionalidades". É a fonte do conhecimento que o modelo precisa capturar.
 
 Isso significa conversas frequentes e diretas entre quem escreve o código e quem
-entende o negócio — não requisitos intermediados. É desconfortável em
+entende o negócio, não requisitos intermediados. É desconfortável em
 organizações estruturadas por camadas de comunicação, e é o pré-requisito de
 tudo o mais.
 
@@ -79,8 +79,8 @@ tudo o mais.
 
 DDD é uma resposta à complexidade **do domínio**, não à técnica.
 
-Um sistema com regras de negócio triviais e desafios técnicos enormes — um
-processador de vídeo, um serviço de cache — não se beneficia de DDD. A
+Um sistema com regras de negócio triviais e desafios técnicos enormes (um
+processador de vídeo, um serviço de cache) não se beneficia de DDD. A
 complexidade está em outro lugar.
 
 Ver [complexidade](/01-fundamentals/complexity.md). Aplicar DDD onde a
@@ -88,8 +88,8 @@ complexidade não é de domínio adiciona indireção sem endereçar o problema 
 
 ### O modelo vive no código
 
-Um modelo que existe em documentos e diagramas, e não no código, não é um modelo
-— é documentação. Quando os dois divergem, o código vence, porque é ele que
+Um modelo que existe em documentos e diagramas, e não no código, não é um modelo,
+e sim documentação. Quando os dois divergem, o código vence, porque é ele que
 executa.
 
 Isso significa que o modelo é refinado continuamente, em código, conforme o
@@ -98,9 +98,9 @@ entendimento do domínio melhora. Não há fase de modelagem que termina.
 ## Por Que Isso Importa
 
 **Porque a tradução é onde o significado se perde.** Eliminar as conversões é o
-mecanismo central de DDD, e tudo o mais — [ubiquitous
+mecanismo central de DDD, e tudo o mais ([ubiquitous
 language](/04-domain-driven-design/ubiquitous-language.md), [bounded context](/04-domain-driven-design/bounded-context.md), os
-blocos táticos — serve a isso.
+blocos táticos) serve a isso.
 
 **Porque distingue onde DDD se aplica.** Se a complexidade do sistema não é de
 domínio, DDD não é a ferramenta. Reconhecer isso evita aplicar um método caro ao
@@ -131,14 +131,14 @@ sistema; o modelo precisa acompanhar.
 ## Exemplo Real
 
 Uma equipe construía o sistema de uma corretora de resseguros. Depois de seis
-meses, o modelo tinha `Contrato`, `Cliente`, `Valor` e `Status` — vocabulário
+meses, o modelo tinha `Contrato`, `Cliente`, `Valor` e `Status`: vocabulário
 genérico de software.
 
 Um especialista, ao revisar uma tela, comentou que estava faltando distinguir
 "cessão" de "retrocessão", e que "prêmio" na tela não era prêmio, era comissão.
 
-Ninguém da equipe sabia que eram coisas diferentes. Os quatro termos — cessão,
-retrocessão, prêmio, comissão — eram usados diariamente pelo negócio e nenhum
+Ninguém da equipe sabia que eram coisas diferentes. Os quatro termos (cessão,
+retrocessão, prêmio, comissão) eram usados diariamente pelo negócio e nenhum
 existia no código.
 
 A reescrita do modelo com o vocabulário do domínio levou dois meses. O que mudou
@@ -152,11 +152,11 @@ domínio faz.
 
 ## Conceitos Relacionados
 
-- [Subdomínio](/04-domain-driven-design/subdomain.md) — a divisão do domínio.
-- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md) — o mecanismo que elimina a
+- [Subdomínio](/04-domain-driven-design/subdomain.md): a divisão do domínio.
+- [Ubiquitous Language](/04-domain-driven-design/ubiquitous-language.md): o mecanismo que elimina a
   tradução.
-- [Bounded Context](/04-domain-driven-design/bounded-context.md) — por que não há um modelo único.
-- [Espaço do Problema](/01-fundamentals/problem-space.md) — o conceito
+- [Bounded Context](/04-domain-driven-design/bounded-context.md): por que não há um modelo único.
+- [Espaço do Problema](/01-fundamentals/problem-space.md): o conceito
   correspondente no Nível 01.
 
 ## Exercício Prático
@@ -165,7 +165,7 @@ Liste dez termos que os especialistas do seu negócio usam diariamente.
 
 Verifique quantos existem no código com o mesmo nome e o mesmo significado.
 
-Os que não existem são distinções que o domínio faz e o modelo não — e cada uma
+Os que não existem são distinções que o domínio faz e o modelo não. E cada uma
 é uma fonte provável de defeito ou de caso especial espalhado.
 
 ## Perguntas de Entrevista

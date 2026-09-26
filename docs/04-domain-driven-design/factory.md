@@ -2,7 +2,7 @@
 id: factory
 title: Factory
 sidebar_position: 18
-description: Encapsular a criação de agregados complexos — e por que ela pertence ao domínio.
+description: Encapsular a criação de agregados complexos, e por que ela pertence ao domínio.
 doc_type: pattern
 level: 2
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [aggregate]
 related: [aggregate, repository, factory-method]
 canonical_for: [factory de domínio, fábrica de domínio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -40,7 +40,7 @@ de uma fonte.
 Colocar isso no construtor produz um construtor com lógica, que é difícil de
 testar e que mistura a decisão de "como nasce" com a estrutura do objeto.
 
-Colocar no serviço de aplicação espalha a regra de criação — e ela é regra de
+Colocar no serviço de aplicação espalha a regra de criação, e ela é regra de
 domínio.
 
 ## Conceitos Centrais
@@ -60,7 +60,7 @@ monta.
 A regra que determina o estado inicial de um agregado é regra de negócio.
 
 "Uma apólice nasce com carência de 30 dias, exceto para portabilidade" é decisão
-do domínio, e a fábrica é onde ela mora — não o serviço de aplicação.
+do domínio, e a fábrica é onde ela mora, não o serviço de aplicação.
 
 ### Onde a fábrica vive
 
@@ -89,7 +89,7 @@ criação se aplica, o identificador vem do armazenamento, nenhum evento é
 registrado.
 
 O repositório reconstitui. Se ele passar pela fábrica, um pedido carregado do
-banco disparará as regras de criação — e provavelmente um evento
+banco disparará as regras de criação, e provavelmente um evento
 `PedidoCriado` a cada leitura.
 
 ## Quando Usar
@@ -112,17 +112,17 @@ resolve. A fábrica adiciona indireção.
 camada anêmica.
 
 **Quando o problema é legibilidade de parâmetros.** Ali um
-[Builder](/03-design-patterns/builder.md) serve melhor — ele resolve
+[Builder](/03-design-patterns/builder.md) serve melhor: ele resolve
 verbosidade, não regra de criação.
 
 ## Alternativas
 
-- **Construtor com validação** — o caso mais comum.
-- **Método de fábrica nomeado no agregado** — `Assinatura.anual(plano)`,
+- **Construtor com validação**: o caso mais comum.
+- **Método de fábrica nomeado no agregado**: `Assinatura.anual(plano)`,
   `Assinatura.mensal(plano)`. Expressa as variantes sem classe separada.
-- **[Builder](/03-design-patterns/builder.md)** — para muitos parâmetros
+- **[Builder](/03-design-patterns/builder.md)**: para muitos parâmetros
   opcionais.
-- **Criação no agregado pai** — quando ele tem a informação.
+- **Criação no agregado pai**: quando ele tem a informação.
 
 ## Trade-offs
 
@@ -176,14 +176,14 @@ se tipo == PORTABILIDADE:
 
 Três problemas.
 
-O objeto existia em estado inválido entre as chamadas — um `Plano` sem tipo, sem
+O objeto existia em estado inválido entre as chamadas: um `Plano` sem tipo, sem
 carência e sem taxa era construível.
 
 As regras de carência e de estado inicial estavam no serviço de aplicação, não no
 domínio. Quando a regra de carência do PGBL mudou de 60 para 90 dias, foi preciso
 procurá-la fora do domínio.
 
-E havia três serviços de aplicação criando planos — portal, atendimento e
+E havia três serviços de aplicação criando planos: portal, atendimento e
 importação em lote. Os três repetiam a sequência, e o de importação ainda usava 60
 dias.
 
@@ -197,11 +197,11 @@ Plano.porPortabilidade(origem)        → variante com regras próprias
 Duas operações nomeadas, no vocabulário do negócio, dentro do domínio.
 
 O construtor passou a ser privado: não existe mais **caminho de aplicação** que crie um
-`Plano` inválido. O mapeador continua sendo a porta aberta — ver a ressalva sobre
-reconstituição, adiante —, e foi por isso que o teste de carga do repositório passou a
+`Plano` inválido. O mapeador continua sendo a porta aberta (ver a ressalva sobre
+reconstituição, adiante), e foi por isso que o teste de carga do repositório passou a
 validar o agregado depois de reconstituí-lo.
 
-Quando a carência mudou de novo, seis meses depois, a alteração foi de uma linha —
+Quando a carência mudou de novo, seis meses depois, a alteração foi de uma linha,
 e valeu para os três canais simultaneamente.
 
 ## Fábrica e reconstituição no mesmo agregado
@@ -217,7 +217,7 @@ Pedido.reconstituir(id, estado)       ← usado pelo repositório: nenhuma regra
                                         nenhum evento
 ```
 
-O segundo caminho normalmente não é público — é acessível apenas à camada de
+O segundo caminho normalmente não é público: é acessível apenas à camada de
 persistência, por visibilidade de pacote, por construtor interno, ou por um
 mecanismo do mapeador.
 
@@ -240,11 +240,11 @@ publicados a cada leitura do banco.
 
 ## Conceitos Relacionados
 
-- [Aggregate](/04-domain-driven-design/aggregate.md) — o que a fábrica cria.
-- [Repository](/04-domain-driven-design/repository.md) — a reconstituição, em contraste.
-- [Factory Method](/03-design-patterns/factory-method.md) — o padrão do GoF,
+- [Aggregate](/04-domain-driven-design/aggregate.md): o que a fábrica cria.
+- [Repository](/04-domain-driven-design/repository.md): a reconstituição, em contraste.
+- [Factory Method](/03-design-patterns/factory-method.md): o padrão do GoF,
   que resolve outro problema.
-- [Builder](/03-design-patterns/builder.md) — quando o problema é verbosidade.
+- [Builder](/03-design-patterns/builder.md): quando o problema é verbosidade.
 
 ## Exercício Prático
 

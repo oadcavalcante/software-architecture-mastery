@@ -2,7 +2,7 @@
 id: strangler-fig
 title: Strangler Fig
 sidebar_position: 3
-description: Substituir gradualmente com o antigo em operação — o padrão que torna a modernização viável.
+description: "Substituir gradualmente com o antigo em operação: o padrão que torna a modernização viável."
 doc_type: pattern
 level: 6
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [incremental-modernization, migration-strategies, transition-architecture]
 canonical_for: [strangler fig, ponto de interceptação, fachada de migração, desligamento gradual]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -22,8 +22,8 @@ last_reviewed: 2026-08-28
 ## Visão Geral
 
 O padrão strangler fig substitui um sistema **gradualmente**: uma camada intercepta as
-chamadas e as roteia — inicialmente todas para o sistema antigo, progressivamente mais
-para o novo — até que o antigo possa ser desligado.
+chamadas e as roteia (inicialmente todas para o sistema antigo, progressivamente mais
+para o novo) até que o antigo possa ser desligado.
 
 O nome vem de uma planta que cresce em torno de uma árvore hospedeira até substituí-la.
 
@@ -61,14 +61,14 @@ interface de usuário     telas migradas uma a uma
 ```
 
 Base compartilhada não entra nesta lista: ela não desvia chamada nenhuma, é arranjo de
-fonte de dados durante a coexistência — tratado adiante, em "os dados são a parte
+fonte de dados durante a coexistência, tratado adiante, em "os dados são a parte
 difícil".
 
-A escolha depende de onde é possível interceptar **sem modificar o sistema antigo** — que
+A escolha depende de onde é possível interceptar **sem modificar o sistema antigo**. Essa
 é frequentemente a restrição real, porque modificá-lo pode ser exatamente o que não se
 consegue fazer.
 
-Quando não há ponto de interceptação natural, criar um é o primeiro trabalho do projeto —
+Quando não há ponto de interceptação natural, criar um é o primeiro trabalho do projeto,
 e ele frequentemente é subestimado.
 
 ### Escolher o que migrar primeiro
@@ -84,7 +84,7 @@ independência    a que tem menos dependências com o resto
 A escolha usual e boa: **começar por algo pequeno e independente, para validar o
 caminho**, e ir para o valor logo depois.
 
-O erro comum é começar pelo mais fácil e permanecer nele — migrando o periférico por
+O erro comum é começar pelo mais fácil e permanecer nele, migrando o periférico por
 meses, sem tocar no que motivou o projeto. Isso produz progresso visível e valor nenhum.
 
 E o erro oposto: começar pelo mais crítico, sem ter validado o mecanismo de
@@ -116,7 +116,7 @@ A propriedade que torna o padrão seguro:
 migrou uma funcionalidade → deu problema → roteia de volta
 ```
 
-Isso exige que o sistema antigo permaneça **funcional** durante toda a transição — não
+Isso exige que o sistema antigo permaneça **funcional** durante toda a transição: não
 apenas ligado, mas capaz de assumir.
 
 E exige que os dados sejam compatíveis nos dois sentidos, o que é a restrição que mais
@@ -147,7 +147,7 @@ Ver [arquitetura de transição](/15-enterprise-architecture/transition-architec
 
 ### A camada de interceptação é temporária, e frequentemente não é
 
-Ela é construída para a migração e tende a permanecer — virando uma peça permanente com
+Ela é construída para a migração e tende a permanecer, virando uma peça permanente com
 lógica de roteamento que ninguém entende depois.
 
 Removê-la ao fim da migração precisa estar no plano, ou ela vira o legado seguinte.
@@ -180,19 +180,19 @@ sistema que se quer substituir.
 
 **Quando o que motivou o projeto não cabe nas primeiras fatias.** Se a razão de
 modernizar está no núcleo e ele só pode ser tocado no fim, o padrão entrega dois anos de
-risco antes do primeiro benefício — e é assim que a migração perde o patrocínio no meio.
+risco antes do primeiro benefício, e é assim que a migração perde o patrocínio no meio.
 
 **Quando o antigo será descontinuado por outra razão** antes de a migração terminar.
 
 ## Alternativas
 
-- **[Reconstrução](/16-legacy-modernization/rebuilding.md)** — quando o sistema é pequeno ou o comportamento
+- **[Reconstrução](/16-legacy-modernization/rebuilding.md)**: quando o sistema é pequeno ou o comportamento
   precisa mudar radicalmente.
-- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)** — quando o problema é interno, não de
+- **[Refatoração](/16-legacy-modernization/legacy-refactoring.md)**: quando o problema é interno, não de
   substituição.
-- **[Replataforma](/16-legacy-modernization/replatforming.md)** — quando o problema é a infraestrutura, não o
+- **[Replataforma](/16-legacy-modernization/replatforming.md)**: quando o problema é a infraestrutura, não o
   código.
-- **Coexistência permanente** — decisão legítima quando os casos restantes não justificam
+- **Coexistência permanente**: decisão legítima quando os casos restantes não justificam
   migrar, desde que registrada.
 
 ## Trade-offs
@@ -217,7 +217,7 @@ risco antes do primeiro benefício — e é assim que a migração perde o patro
 **Sem ponto de interceptação.** O projeto não começa.
 
 **A camada de roteamento cai.** Ela fica no caminho de 100% do tráfego durante toda a
-transição, e passa a exigir a disponibilidade da soma dos dois sistemas — mais um salto de
+transição, e passa a exigir a disponibilidade da soma dos dois sistemas, mais um salto de
 rede em cada chamada. É [ponto único de falha por
 construção](/08-integration-architecture/api-gateways.md), e a migração costuma tratá-la
 como detalhe de infraestrutura até o primeiro incidente.
@@ -234,22 +234,22 @@ como detalhe de infraestrutura até o primeiro incidente.
 
 ## Erros Comuns
 
-**Não planejar o desligamento.** Sem critério e data para desligar o antigo, a empresa opera e paga os dois sistemas indefinidamente — e a estratégia entrega custo em vez de economia.
+**Não planejar o desligamento.** Sem critério e data para desligar o antigo, a empresa opera e paga os dois sistemas indefinidamente, e a estratégia entrega custo em vez de economia.
 
 **Começar pelo fácil e permanecer nele.** As partes simples saem rápido e dão sensação de progresso; o que sobra é todo o difícil, e o apoio já foi gasto.
 
-**Não mapear os casos difíceis cedo.** Descobrir no décimo mês que uma funcionalidade não é extraível muda a viabilidade da estratégia inteira — e é informação que se obtém no primeiro.
+**Não mapear os casos difíceis cedo.** Descobrir no décimo mês que uma funcionalidade não é extraível muda a viabilidade da estratégia inteira, e é informação que se obtém no primeiro.
 
 **Não manter compatibilidade de dados nos dois sentidos.** Durante a convivência, a fonte da verdade muda de lado. Compatibilidade só de ida impede reverter a fatia.
 
-**Não monitorar o que ainda usa o antigo.** Sem medir o tráfego residual, ninguém sabe se restou um consumidor esquecido — e o desligamento vira aposta.
+**Não monitorar o que ainda usa o antigo.** Sem medir o tráfego residual, ninguém sabe se restou um consumidor esquecido, e o desligamento vira aposta.
 
 **Não remover a camada de interceptação ao fim.** Ela era andaime; mantida depois do desligamento, vira indireção permanente que ninguém entende mais por que existe.
 
 ## Exemplo Real
 
-Um banco substituiu o sistema de originação de crédito — 16 anos, monolítico, com release
-trimestral — por estrangulamento.
+Um banco substituiu o sistema de originação de crédito (16 anos, monolítico, com release
+trimestral) por estrangulamento.
 
 O ponto de interceptação: um gateway HTTP na frente, roteando por endpoint.
 
@@ -267,10 +267,10 @@ principal já capturado.
 **Fatia 9 — os casos difíceis.** Convênios com empresas parceiras, com regras específicas
 por convênio, algumas negociadas individualmente.
 
-Essa última fatia foi mapeada no mês 4, não no fim — e a decisão sobre ela mudou o
+Essa última fatia foi mapeada no mês 4, não no fim, e a decisão sobre ela mudou o
 plano: dos 340 convênios, 290 seguiam três padrões, e 50 eram únicos.
 
-Os 290 foram migrados. Os 50 foram **negociados** — os clientes migraram para um dos três
+Os 290 foram migrados. Os 50 foram **negociados**: os clientes migraram para um dos três
 padrões, com incentivo comercial. Foi mais barato que implementar 50 exceções no sistema
 novo.
 
@@ -282,13 +282,13 @@ negociar.
 Dois problemas durante a execução:
 
 **Escrita dupla divergindo.** Durante quatro meses, propostas eram gravadas nos dois
-sistemas. Divergências apareceram em cerca de 0,4% dos casos — regras de arredondamento
+sistemas. Divergências apareceram em cerca de 0,4% dos casos: regras de arredondamento
 diferentes. A reconciliação diária detectou, e a correção foi rápida porque a divergência
 era visível. Ver
 [consistência de dados](/07-data-architecture/data-consistency.md).
 
 **Gateway virando permanente.** Ao fim da migração, o gateway tinha 200 regras de
-roteamento. A remoção dele foi tratada como tarefa própria, no mês 24 — e foi
+roteamento. A remoção dele foi tratada como tarefa própria, no mês 24, e foi
 necessário insistir, porque "está funcionando".
 
 O que a equipe registra: mapear os casos difíceis no mês 4 foi a decisão que mais afetou
@@ -297,8 +297,8 @@ negociação comercial com dezoito meses de antecedência.
 
 ## Conceitos Relacionados
 
-- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md) — a disciplina.
-- [Migração de Dados](/16-legacy-modernization/data-migration.md) — a parte difícil.
+- [Modernização Incremental](/16-legacy-modernization/incremental-modernization.md): a disciplina.
+- [Migração de Dados](/16-legacy-modernization/data-migration.md): a parte difícil.
 - [Arquitetura de Transição](/15-enterprise-architecture/transition-architecture.md).
 - [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md).
 
@@ -307,7 +307,7 @@ negociação comercial com dezoito meses de antecedência.
 Para um sistema que você consideraria substituir, identifique onde seria possível
 interceptar as chamadas sem modificá-lo.
 
-Se não houver ponto viável, criar um é o primeiro trabalho — e ele precisa estar na
+Se não houver ponto viável, criar um é o primeiro trabalho, e ele precisa estar na
 estimativa.
 
 ## Perguntas de Entrevista
@@ -318,7 +318,7 @@ estimativa.
 
 ## Para Aprofundar
 
-- Fowler, Martin. *StranglerApplication*, 2004 — renomeado depois para
+- Fowler, Martin. *StranglerApplication*, 2004. Renomeado depois para
   *StranglerFigApplication*, e é por esse título que a entrada é encontrada hoje.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.

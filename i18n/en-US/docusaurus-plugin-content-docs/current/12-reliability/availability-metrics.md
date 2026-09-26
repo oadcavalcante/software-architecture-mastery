@@ -2,7 +2,7 @@
 id: availability-metrics
 title: Availability Metrics
 sidebar_position: 1
-description: What the numbers mean — and what the percentage hides.
+description: What the numbers mean, and what the percentage hides.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [sli, slo, reliability-basics]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -88,7 +88,7 @@ A mean time to recover of 15 minutes can be ten incidents of 4.5 minutes and one
 
 The 2-hour incident is the one the customer remembers, and the average does not represent it.
 
-The better practice: track the distribution — median, 90th percentile, and the period's worst case. And,
+The better practice: track the distribution (median, 90th percentile, and the period's worst case). And,
 for incidents, the absolute number usually says more than any average, because the sample is small.
 
 ### Availability by time and by request differ
@@ -109,24 +109,24 @@ Knowing which is being used changes the number's interpretation.
 
 ### Measuring partial availability requires a latency threshold
 
-That the binary model hides the common case — one feature down, a fraction of users affected — is covered
+That the binary model hides the common case (one feature down, a fraction of users affected) is covered
 in [Availability](/06-distributed-systems/availability.md), and how the system behaves in that state, in
 [graceful degradation](/12-reliability/graceful-degradation.md).
 
 What the successful-request rate misses is slowness: a correct response in 30 seconds counts as a success
 and, for the user, is a failure. The way out is measuring per journey, with a latency threshold per
-journey — which turns "it is up" into "it is usable". The threshold is not universal: two seconds to open
+journey, which turns "it is up" into "it is usable". The threshold is not universal: two seconds to open
 the cart and twenty to generate a report may each be the point where the user gives up.
 
 ### The number needs context to be compared
 
-The three complements any percentage requires — window, measurement point and what counts as
-unavailable — are defined in [Availability](/06-distributed-systems/availability.md). For metrics, the
+The three complements any percentage requires (window, measurement point and what counts as
+unavailable) are defined in [Availability](/06-distributed-systems/availability.md). For metrics, the
 consequence is comparability: two reports can only be set side by side if they declare all three the same.
 
 A 99.95% measured at the server, not counting slowness, is not better than a 99.9% measured at the client
-with a latency threshold — it is a different quantity. Without all three declared, the percentage is
-neither comparable nor verifiable — and that is how it appears in most reports.
+with a latency threshold: it is a different quantity. Without all three declared, the percentage is
+neither comparable nor verifiable, and that is how it appears in most reports.
 
 ### The most useful number is not availability
 
@@ -139,7 +139,7 @@ user-minutes affected = users affected × duration in minutes
 It distinguishes what the percentage does not: ten minutes affecting 2% of users overnight, and ten minutes
 affecting everybody at peak.
 
-And it is directly translatable into impact — the number of people who could not do what they needed, and
+And it is directly translatable into impact: the number of people who could not do what they needed, and
 for how long.
 
 The cost is that it requires knowing how many users were affected, which is not always simple in partial
@@ -175,11 +175,11 @@ With it, the argument over an incident's severity reduces to a comparison of ord
 
 ## Alternatives
 
-- **[SLI](/12-reliability/sli.md) per journey** — it measures the experience, not uptime.
-- **A count of user-minutes affected** — it combines reach and duration into a measure the business
+- **[SLI](/12-reliability/sli.md) per journey**: it measures the experience, not uptime.
+- **A count of user-minutes affected**: it combines reach and duration into a measure the business
   understands.
-- **A count of incidents by severity** — more readable than an average on small samples.
-- **A duration distribution** — instead of an average.
+- **A count of incidents by severity**: more readable than an average on small samples.
+- **A duration distribution**: instead of an average.
 
 ## Trade-offs
 
@@ -212,7 +212,7 @@ With it, the argument over an incident's severity reduces to a comparison of ord
 ## Common Mistakes
 
 **Using only the percentage.** 99.9% per month can be one 43-minute outage or forty-three one-minute
-outages — very different impacts with the same number.
+outages: very different impacts with the same number.
 
 **Not separating detection from recovery.** They are distinct problems with distinct solutions: one is
 attacked with monitoring, the other with automation. The total time does not say which to invest in.
@@ -222,12 +222,12 @@ one's duration require different work. Without separating the metrics, the inves
 side.
 
 **Not measuring partial degradation.** Binary availability counts as a success the system that responds in
-30 seconds — which, for the user, is down.
+30 seconds, which, for the user, is down.
 
 **Comparing numbers from different definitions.** "Available" measured at the edge, at the balancer or by
 the end user gives distinct results. Comparing without equalizing the definition means nothing.
 
-**Not tracking the worst case.** The average across customers hides the customer who had six hours down —
+**Not tracking the worst case.** The average across customers hides the customer who had six hours down,
 and that is the one who cancels the contract.
 
 ## Real-World Example
@@ -248,12 +248,12 @@ mean time to recover        0.7 minutes
 The number was excellent and the experience was bad: fourteen interruptions per month, almost one every two
 days.
 
-And the analysis by time of day showed concentration: eleven of the fourteen happened between 8 and 10 a.m.
-— the customers' heaviest usage hours.
+And the analysis by time of day showed concentration: eleven of the fourteen happened between 8 and 10 a.m.,
+the customers' heaviest usage hours.
 
 Two changes in the measurement:
 
-**Availability by request**, instead of by time. The number fell to 99.4% — because the interruptions
+**Availability by request**, instead of by time. The number fell to 99.4%, because the interruptions
 happened when there was traffic.
 
 **User-minutes affected** as the main metric, communicated to the business. It made visible what the
@@ -269,15 +269,15 @@ Two fixes resolved thirteen of the fourteen:
 
 **Deployment outside peak hours**, and later gradual deployment with no downtime.
 
-The recorded conclusion: they had invested months trying to reduce the incidents' duration — which was
+The recorded conclusion: they had invested months trying to reduce the incidents' duration, which was
 already 2.5 minutes. The problem was the **frequency**, and the decomposition took an afternoon to reveal
 it.
 
 ## Related Concepts
 
-- [SLI](/12-reliability/sli.md) — the form that measures experience.
-- [SLO](/12-reliability/slo.md) — the target.
-- [Availability](/06-distributed-systems/availability.md) — the composition.
+- [SLI](/12-reliability/sli.md): the form that measures experience.
+- [SLO](/12-reliability/slo.md): the target.
+- [Availability](/06-distributed-systems/availability.md): the composition.
 - [Reliability Fundamentals](/12-reliability/reliability-basics.md).
 
 ## Practical Exercise
@@ -286,7 +286,7 @@ Take last quarter's incidents and separate, for each one: time to detect, time t
 of users affected, and user-minutes affected.
 
 Compare the sum of the detection column with the sum of the recovery column: the larger one says whether the
-investment goes to observability or to recovery. Then sort the incidents by user-minutes affected — the top
+investment goes to observability or to recovery. Then sort the incidents by user-minutes affected: the top
 of the list is where to start.
 
 ## Interview Questions
@@ -297,6 +297,6 @@ of the list is where to start.
 
 ## Further Reading
 
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapters 3 and 4.
-- Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018 — recovery time as an indicator.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016. Chapters 3 and 4.
+- Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018. Recovery time as an indicator.
 - Allspaw, John. *MTTR is more important than MTBF*, 2010.

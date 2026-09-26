@@ -2,7 +2,7 @@
 id: space-based-architecture
 title: Space-Based Architecture
 sidebar_position: 30
-description: Removing the database from the critical path using replicated memory — extreme scale at a high price.
+description: "Removing the database from the critical path using replicated memory: extreme scale at a high price."
 doc_type: pattern
 level: 2
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [microservices]
 related: [event-driven, cqrs, scalability]
 canonical_for: [space-based architecture]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -33,7 +33,7 @@ catalogue, and it exists for a specific bottleneck.
 Systems with highly variable, concurrent load run into the same limit: the central
 relational database.
 
-Adding application servers does not help — they all converge on the same database. Read
+Adding application servers does not help: they all converge on the same database. Read
 replicas help with queries and not with writes. Partitioning helps until an operation
 needs to cross partitions.
 
@@ -44,15 +44,15 @@ the path.**
 
 ### The components
 
-**Processing unit** — holds the logic and an in-memory data grid with the portion of the
+**Processing unit**: holds the logic and an in-memory data grid with the portion of the
 data it needs.
 
-**Replicated data grid** — the units synchronize among themselves; a write in one
+**Replicated data grid**: the units synchronize among themselves; a write in one
 propagates to the others.
 
-**Asynchronous persistence engine** — writes to the database outside the request path.
+**Asynchronous persistence engine**: writes to the database outside the request path.
 
-**Virtualization middleware** — distributes requests and manages units joining and
+**Virtualization middleware**: distributes requests and manages units joining and
 leaving.
 
 ```mermaid
@@ -65,7 +65,7 @@ graph TB
 
 ### Scaling is nearly linear
 
-Since there is no central resource in the path, adding units adds capacity — up to the
+Since there is no central resource in the path, adding units adds capacity, up to the
 limit of replication, which grows with the number of units.
 
 That is the gain, and it is real: loads no central database sustains become viable.
@@ -113,12 +113,12 @@ whole catalogue in terms of operations.
 
 Practically all of them should be exhausted first:
 
-- **Optimizing queries and indexes** — solves most cases.
-- **A distributed cache** — captures much of the benefit at far lower cost.
-- **Read replicas** — for read load.
-- **[CQRS](/03-design-patterns/cqrs.md)** — separating the models.
-- **Partitioning** — when the operations do not cross partitions.
-- **A modern distributed database** — several offer horizontal scale without the
+- **Optimizing queries and indexes**: solves most cases.
+- **A distributed cache**: captures much of the benefit at far lower cost.
+- **Read replicas**: for read load.
+- **[CQRS](/03-design-patterns/cqrs.md)**: separating the models.
+- **Partitioning**: when the operations do not cross partitions.
+- **A modern distributed database**: several offer horizontal scale without the
   application changing style.
 
 The last alternative is what most reduced this style's practical relevance: databases that
@@ -165,7 +165,7 @@ writes acknowledged to the user. That interval is a business decision, not a con
 detail.
 
 **Underestimating the operations.** A distributed data grid requires understanding
-partitioning, rebalancing and behaviour under network partition — a skill most teams do
+partitioning, rebalancing and behaviour under network partition: a skill most teams do
 not have and will not hire for a single system.
 
 ## Where it appears in practice
@@ -181,7 +181,7 @@ within minutes.
 **Betting platforms.** Volume concentrated in short windows.
 
 The common denominator is revealing: **extreme, short peaks, with tolerance for momentary
-inconsistency**. Outside that profile, the style is cost with no return — and that is why
+inconsistency**. Outside that profile, the style is cost with no return, and that is why
 it appears in niches and not in ordinary business systems.
 
 ## Real-World Example
@@ -192,13 +192,13 @@ the waiting queue grew until it timed out.
 
 Before considering this style, the team exhausted the rest: indexes, read caching,
 replicas, an admission queue. Each bought something, and the bottleneck stayed in the
-writes — reserving a seat is a concurrent write over the same set of rows.
+writes: reserving a seat is a concurrent write over the same set of rows.
 
 The solution adopted was space-based **for the reservation module only**, during the
 opening window. The event's seat inventory lives in replicated memory; reservations happen
 there; persistence is asynchronous.
 
-The rest of the system — registration, payment, ticket issuance — stayed on the central
+The rest of the system (registration, payment, ticket issuance) stayed on the central
 database.
 
 Two consequences the team accepted explicitly. The first is a window of up to two seconds in
@@ -208,7 +208,7 @@ refund.
 The rate of that is not negligible, and the arithmetic is worth doing: at peak, 400 thousand
 arrivals in two minutes, concentrated on the best seats, put thousands of attempts inside the
 same window over an inventory of tens of thousands of seats. At the first opening, double
-reservation ran at around 2% of confirmations — far too high to treat as noise. That is why
+reservation ran at around 2% of confirmations, far too high to treat as noise. That is why
 the inventory came to be **partitioned by section**, with each unit owning a range of seats
 instead of a copy of everything: the collision dropped to what crosses ranges, on the order
 of 0.05%, and only then did it become a cost of business.
@@ -221,11 +221,11 @@ business rather than discovered afterwards.
 
 ## Related Concepts
 
-- [Microservices](/03-design-patterns/microservices.md) — the style can be applied to one
+- [Microservices](/03-design-patterns/microservices.md): the style can be applied to one
   service.
-- [CQRS](/03-design-patterns/cqrs.md) — a cheaper alternative for separating load.
-- [Scalability](/11-scalability/index.md) — the strategies that come first.
-- [Distributed Systems](/06-distributed-systems/index.md) — replication and consistency.
+- [CQRS](/03-design-patterns/cqrs.md): a cheaper alternative for separating load.
+- [Scalability](/11-scalability/index.md): the strategies that come first.
+- [Distributed Systems](/06-distributed-systems/index.md): replication and consistency.
 
 ## Practical Exercise
 
@@ -243,7 +243,7 @@ Only the last answer, if yes, points in this style's direction.
 
 ## Further Exploration
 
-- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020 —
-  the chapter on the style.
-- Gelernter, David. *Generative Communication in Linda*. TOPLAS, 1985 — the origin of the
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+  The chapter on the style.
+- Gelernter, David. *Generative Communication in Linda*. TOPLAS, 1985. The origin of the
   tuple space concept.

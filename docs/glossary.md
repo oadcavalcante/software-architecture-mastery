@@ -13,13 +13,13 @@ objective: >
 prerequisites: []
 related: [i18n-terminology]
 canonical_for: []
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
 # Glossário
 
-Definições operacionais — o que o termo significa quando alguém precisa decidir
+Definições operacionais: o que o termo significa quando alguém precisa decidir
 com ele, não a definição de dicionário.
 
 Onde dois termos são confundidos com frequência, a distinção é declarada.
@@ -61,7 +61,7 @@ não derrube as demais. O nome vem dos compartimentos estanques de um navio.
 
 **CAP** — Resultado que afirma que, durante uma partição de rede, um sistema
 distribuído não pode ser simultaneamente consistente e disponível. Diz respeito
-apenas ao comportamento **durante** a partição — é frequentemente citado como se
+apenas ao comportamento **durante** a partição. É frequentemente citado como se
 fosse uma escolha permanente entre as três letras, o que não é.
 
 **Circuit breaker** (disjuntor) — Componente que interrompe chamadas a um serviço
@@ -80,12 +80,12 @@ as réplicas convergem para o mesmo valor. Não diz **quando**, e é essa ausên
 que precisa ser tratada na aplicação.
 
 **Consistência forte** — Garantia de que toda leitura observa a escrita mais
-recente. Custa latência mesmo sem partição de rede — ver PACELC.
+recente. Custa latência mesmo sem partição de rede (ver PACELC).
 
 **CQRS** — Separação entre o modelo usado para escrever e o usado para ler.
 Resolve o caso em que os dois têm requisitos incompatíveis. O custo de
-sincronização aparece quando escrita e leitura vão para armazenamentos separados —
-não antes disso.
+sincronização aparece quando escrita e leitura vão para armazenamentos separados,
+e não antes disso.
 
 ## D
 
@@ -94,7 +94,7 @@ domínio de negócio e da linguagem de quem o entende.
 
 **Disponibilidade** (availability) — Fração do tempo em que o sistema responde
 dentro do critério declarado. Expressa como porcentagem sobre uma janela; sem a
-janela e sem o critério, o número não significa nada — e é por isso que um sistema
+janela e sem o critério, o número não significa nada, e é por isso que um sistema
 pode contar como disponível devolvendo resultado errado.
 
 **Dívida técnica** — Custo futuro assumido por uma decisão que privilegia
@@ -124,14 +124,14 @@ conjunto. Otimizar qualquer outro ponto não aumenta a capacidade total.
 
 **Idempotência** — Propriedade de uma operação cujo efeito é o mesmo se executada
 uma ou várias vezes. É o que torna seguro repetir uma chamada cujo resultado você
-não conhece — e por isso é a base de quase toda recuperação em sistema
+não conhece, e por isso é a base de quase toda recuperação em sistema
 distribuído.
 
 ## L
 
 **Latência** — Tempo entre requisição e resposta. Requisito de experiência se
 declara em percentil, porque a média esconde a cauda que os usuários percebem; a
-média serve para dimensionar — é dela que a lei de Little precisa.
+média serve para dimensionar: é dela que a lei de Little precisa.
 
 ## M
 
@@ -181,7 +181,7 @@ concentra num hotspot.
 **SLA** — Service Level Agreement. Compromisso contratual sobre nível de serviço,
 com consequência comercial. É decisão de negócio.
 
-**SLI** — Service Level Indicator. A métrica em si — por exemplo, a fração de
+**SLI** — Service Level Indicator. A métrica em si: por exemplo, a fração de
 requisições respondidas abaixo de 300 ms.
 
 **SLO** — Service Level Objective. A meta interna sobre um SLI. É decisão de

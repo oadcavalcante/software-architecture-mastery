@@ -2,7 +2,7 @@
 id: scaling-replication
 title: Replicação para Escala
 sidebar_position: 6
-description: Multiplicar cópias para escalar leitura — o que ela resolve, e o limite que ela não resolve.
+description: "Multiplicar cópias para escalar leitura: o que ela resolve, e o limite que ela não resolve."
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, scaling-partitioning, scaling-cache]
 canonical_for: [réplica para escala de leitura, amplificação de escrita, classificação de leitura]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -41,7 +41,7 @@ torna a replicação a resposta natural: adicionar réplicas multiplica a capaci
 leitura sem tocar no modelo.
 
 O que a torna insuficiente sozinha é a assimetria: cada réplica adicionada aumenta a
-capacidade de leitura e **não muda em nada** a de escrita — porque toda escrita
+capacidade de leitura e **não muda em nada** a de escrita, porque toda escrita
 continua indo para todas as cópias.
 
 Existe um ponto em que a escrita satura, e nenhuma quantidade de réplicas ajuda.
@@ -61,7 +61,7 @@ linearmente com o número de cópias, enquanto a capacidade de escrita **por nó
 permanece a mesma.
 
 A consequência prática: cada réplica gasta aplicando replicação a fração taxa de escrita ÷
-capacidade de escrita do nó — a mesma com 2 ou com 20 réplicas. Adicionar réplica não
+capacidade de escrita do nó, a mesma com 2 ou com 20 réplicas. Adicionar réplica não
 reduz essa fração; o que cresce com o número de cópias é o custo e o envio de log pelo
 primário. Quando a taxa de escrita sobe, a fração sobe em todas ao mesmo tempo, e sobra
 pouco para servir leitura.
@@ -70,7 +70,7 @@ Isso define o teto: replicação escala leitura até o ponto em que a escrita, a
 toda parte, consome os nós.
 
 Quando esse ponto chega, a resposta é
-[particionamento](/11-scalability/scaling-partitioning.md) — que divide a escrita em vez de
+[particionamento](/11-scalability/scaling-partitioning.md), que divide a escrita em vez de
 multiplicá-la.
 
 ### Classificar as leituras é o trabalho
@@ -87,8 +87,8 @@ relatório           réplica dedicada
 A segunda linha é a que elimina a maior parte das queixas de "salvei e não aparece". Ver
 [consistência eventual](/06-distributed-systems/eventual-consistency.md).
 
-Sem essa classificação, duas coisas ruins acontecem: ou tudo vai para o primário — e a
-replicação não escala nada — ou tudo vai para réplica, e operações críticas decidem
+Sem essa classificação, duas coisas ruins acontecem: ou tudo vai para o primário (e a
+replicação não escala nada) ou tudo vai para réplica, e operações críticas decidem
 sobre dado velho.
 
 ### Relatório em réplica compartilhada envenena a leitura geral
@@ -114,7 +114,7 @@ congelados. Ver
 ### Réplica não é apenas para escala
 
 Vale lembrar, porque muda o dimensionamento: as réplicas também servem para
-disponibilidade — assumir se o primário cair.
+disponibilidade (assumir se o primário cair).
 
 Se todas as réplicas estão dimensionadas no limite servindo leitura, a promoção de uma
 delas acontece num nó já saturado, no pior momento possível.
@@ -127,7 +127,7 @@ O dimensionamento precisa reservar folga para esse cenário. Ver
 Uma leitura servida por cache não chega a nenhuma réplica.
 
 Para dados lidos repetidamente, cache é mais barato e mais rápido que adicionar
-réplicas — e não sofre amplificação de escrita.
+réplicas, e não sofre amplificação de escrita.
 
 A ordem prática: cache primeiro, réplica para o que o cache não cobre. Ver
 [cache para escala](/11-scalability/scaling-cache.md) e a escada em
@@ -162,11 +162,11 @@ ponto em que a escrita, aplicada em toda parte, consome os nós.
 
 ## Alternativas
 
-- **[Cache](/11-scalability/scaling-cache.md)** — mais barato para leitura repetida.
-- **[Particionamento](/11-scalability/scaling-partitioning.md)** — quando o limite é escrita.
-- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
+- **[Cache](/11-scalability/scaling-cache.md)**: mais barato para leitura repetida.
+- **[Particionamento](/11-scalability/scaling-partitioning.md)**: quando o limite é escrita.
+- **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)**: modelo de leitura
   próprio, otimizado.
-- **Visão materializada** — pré-cálculo no próprio banco.
+- **Visão materializada**: pré-cálculo no próprio banco.
 
 ## Trade-offs
 
@@ -203,13 +203,13 @@ ponto em que a escrita, aplicada em toda parte, consome os nós.
 
 **Adicionar réplicas para resolver escrita.** Réplica escala leitura; toda escrita continua indo para o primário, e cada réplica adicional ainda aumenta o trabalho de replicação dele.
 
-**Não classificar as leituras.** Nem toda leitura tolera atraso. Mandar tudo para réplica faz o usuário não ver a própria alteração ao recarregar — o relato de bug mais comum desse arranjo.
+**Não classificar as leituras.** Nem toda leitura tolera atraso. Mandar tudo para réplica faz o usuário não ver a própria alteração ao recarregar: o relato de bug mais comum desse arranjo.
 
 **Não implementar "leia seus próprios escritos".** É a garantia mínima que torna leitura de réplica aceitável para o usuário. Sem ela, a inconsistência aparece exatamente para quem acabou de agir.
 
 **Não monitorar atraso por réplica.** O atraso varia entre réplicas e com a carga. A média esconde a réplica que está minutos atrás e continua recebendo leituras.
 
-**Não reservar folga para promoção.** Se as réplicas operam no limite, promover uma a primário a coloca sob carga de escrita que ela não tem capacidade de absorver — e o failover derruba o sucessor.
+**Não reservar folga para promoção.** Se as réplicas operam no limite, promover uma a primário a coloca sob carga de escrita que ela não tem capacidade de absorver, e o failover derruba o sucessor.
 
 **Não usar cache antes.** Réplica adicional custa uma instância de banco por mês; cache costuma resolver a mesma carga de leitura por uma fração, e deveria ser avaliado primeiro.
 
@@ -220,19 +220,19 @@ dois anos, conforme o tráfego crescia.
 
 Com 12 réplicas, dois problemas apareceram:
 
-**A escrita saturou.** Cada anúncio publicado gerava 13 escritas — o primário e as 12
+**A escrita saturou.** Cada anúncio publicado gerava 13 escritas: o primário e as 12
 réplicas. A taxa de publicação tinha crescido junto com o tráfego, as réplicas passavam
 a maior parte do tempo aplicando replicação, e a capacidade de leitura por réplica tinha
 caído. Adicionar a 13ª não aliviou nenhuma: ela aplicaria as mesmas escritas que as outras.
 
 **Atraso irregular.** Duas réplicas serviam relatórios internos e tinham atraso de
 minutos, enquanto as outras tinham segundos. O roteamento não distinguia, e usuários
-ocasionalmente viam anúncios desatualizados — sem padrão aparente, o que dificultou o
+ocasionalmente viam anúncios desatualizados, sem padrão aparente, o que dificultou o
 diagnóstico por meses.
 
 As correções:
 
-**Cache antes de réplica.** As buscas mais comuns — que respondiam por 70% da leitura —
+**Cache antes de réplica.** As buscas mais comuns, que respondiam por 70% da leitura,
 foram para cache com invalidação por evento. Isso permitiu **reduzir** de 12 para 6
 réplicas, o que baixou de 13 para 7 escritas por operação; o atraso de todas melhorou
 porque, sem 70% da leitura, sobrou capacidade em cada réplica para aplicar a replicação.
@@ -246,23 +246,23 @@ leituras sensíveis; acima de 30 segundos, saem completamente.
 a ler do primário por 30 segundos. A queixa de "editei e não mudou" desapareceu.
 
 **Particionamento planejado** para quando a escrita voltar a saturar, com gatilho
-definido — o que a equipe estima em cerca de três anos no ritmo atual.
+definido (o que a equipe estima em cerca de três anos no ritmo atual).
 
-A avaliação posterior aponta: a resposta para dois anos de crescimento tinha sido sempre a
-mesma — adicionar uma réplica. Ninguém tinha calculado quanto de cada réplica a escrita
+A avaliação posterior aponta que a resposta para dois anos de crescimento tinha sido sempre a
+mesma: adicionar uma réplica. Ninguém tinha calculado quanto de cada réplica a escrita
 já consumia, e a 12ª réplica acrescentava pouca leitura pelo preço de uma instância inteira.
 
 ## Conceitos Relacionados
 
-- [Escala de Banco de Dados](/11-scalability/database-scaling.md) — a escada.
-- [Particionamento para Escala](/11-scalability/scaling-partitioning.md) — quando a escrita satura.
-- [Cache para Escala](/11-scalability/scaling-cache.md) — antes da réplica.
-- [Replicação](/06-distributed-systems/replication.md) — os fundamentos.
+- [Escala de Banco de Dados](/11-scalability/database-scaling.md): a escada.
+- [Particionamento para Escala](/11-scalability/scaling-partitioning.md): quando a escrita satura.
+- [Cache para Escala](/11-scalability/scaling-cache.md): antes da réplica.
+- [Replicação](/06-distributed-systems/replication.md): os fundamentos.
 
 ## Exercício Prático
 
 Divida a taxa de escrita no pico pela capacidade de escrita de um nó. A razão diz quanto
-da capacidade de cada réplica está sendo consumida antes de servir qualquer leitura — e
+da capacidade de cada réplica está sendo consumida antes de servir qualquer leitura, e
 ela não muda com o número de réplicas. É ela que mostra o quão perto está o teto.
 
 Depois multiplique a taxa de escrita pelo número de cópias. Esse é o trabalho de escrita
@@ -276,7 +276,7 @@ total do conjunto: não revela o teto, mas diz quanto você paga pela amplifica�
 
 ## Para Aprofundar
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017,
   capítulo 5.
 - Botros, Silvia; Tinley, Jeremy. *High Performance MySQL*. 4ª ed. O'Reilly, 2021.
 - Gunther, Neil. *Guerrilla Capacity Planning*. Springer, 2007.

@@ -2,7 +2,7 @@
 id: batch-integration
 title: Batch Integration
 sidebar_position: 7
-description: Processing many records at once — the style that underpins closing, reconciliation, and analytical loads between corporate systems.
+description: "Processing many records at once: the style that underpins closing, reconciliation, and analytical loads between corporate systems."
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [file-integration, messaging-integration, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -27,7 +27,7 @@ It is the least discussed style, and it remains dominant wherever the result dep
 payroll, bank reconciliation, billing, analytical loads, regulatory files.
 
 It is frequently treated as legacy to be replaced. For a large class of problems, it is simply the right
-answer — and replacing it with continuous processing makes everything worse.
+answer, and replacing it with continuous processing makes everything worse.
 
 ## Problem
 
@@ -36,7 +36,7 @@ Not all processing benefits from happening immediately.
 Closing the month's billing requires the month to have ended. Reconciling with the bank depends on the file
 the bank sends once a day. Calculating commissions needs the complete set of the period's sales.
 
-In those cases, processing record by record buys no latency — the result only exists when the set is
+In those cases, processing record by record buys no latency: the result only exists when the set is
 complete. And processing in batch is orders of magnitude more efficient: one query that brings back a
 million records costs far less than a million queries.
 
@@ -58,7 +58,7 @@ integration stay in batch even where a continuous alternative exists.
 
 The requirement that separates a sustainable batch from a fragile one.
 
-A run will fail halfway through. When it fails, the correct answer is to rerun it — and the rerun needs to
+A run will fail halfway through. When it fails, the correct answer is to rerun it, and the rerun needs to
 produce the same result, not double it.
 
 ```text
@@ -69,7 +69,7 @@ reprocessable  DELETE the day's partition, then INSERT
 The second form is [idempotent](/06-distributed-systems/idempotency.md) and turns "it failed halfway" from
 an incident into another attempt.
 
-Without it, each failure requires manual analysis of where it stopped — and that is where the silent
+Without it, each failure requires manual analysis of where it stopped. And that is where the silent
 duplications described in [data warehouses](/07-data-architecture/data-warehouses.md) come from.
 
 ### Incremental requires a reliable marker
@@ -82,12 +82,12 @@ the marker has already passed. See [clock and time](/06-distributed-systems/cloc
 
 **A sequence number.** More reliable, and it requires the source to maintain it.
 
-**The database's change log.** The most reliable; it is the most invasive in database operations —
-replication privileges, log retention, dependence on the internal format — and the one that touches the
+**The database's change log.** The most reliable; it is the most invasive in database operations
+(replication privileges, log retention, dependence on the internal format) and the one that touches the
 application least.
 
 The first one's failure mode is subtle and common: a transaction started before the cutoff and committed
-after it is never captured. A deliberate overlap of the window — reprocessing an extra stretch — covers
+after it is never captured. A deliberate overlap of the window (reprocessing an extra stretch) covers
 that, and is only safe if the process is idempotent. It only recovers transactions that last less than the
 overlap: the size comes from measuring the longest transaction duration at the source, and anything longer
 is still lost.
@@ -97,7 +97,7 @@ is still lost.
 A run that takes 5 hours in a 6-hour window is a bomb with a date on it: the volume grows, and one day it
 does not finish before business hours start.
 
-The metric to monitor is not "did it finish?" — it is **how much of the window was consumed**. That
+The metric to monitor is not "did it finish?"; it is **how much of the window was consumed**. That
 metric's trend gives months of advance warning.
 
 ### Partial failure needs a policy
@@ -110,7 +110,7 @@ Both are defensible, and the choice belongs to the business:
 
 **Continue and report** for loads where the records are independent.
 
-What is not defensible is not deciding — and discovering the policy from the tool's default behavior,
+What is not defensible is not deciding, and discovering the policy from the tool's default behavior,
 during an incident.
 
 And, having chosen the second, the rejected records need a destination: a file, a table, an alert. Rejects
@@ -121,7 +121,7 @@ with no destination vanish.
 The choice is not global. A system can process payments continuously and reconcile in a daily batch.
 
 Replacing batch with continuous where there is no latency requirement trades operational simplicity for
-complexity with no benefit — and it is a modernization that appears frequently in architecture roadmaps
+complexity with no benefit, and it is a modernization that appears frequently in architecture roadmaps
 with no concrete justification.
 
 ## Mental Model
@@ -131,7 +131,7 @@ favorable trade.
 
 ## When to Use
 
-- The result only makes sense with the complete set — closings, reconciliations.
+- The result only makes sense with the complete set: closings, reconciliations.
 - High volume with tolerant latency.
 - The source only makes data available periodically.
 - Processing efficiency matters.
@@ -155,12 +155,12 @@ implementation gaps, covered in Common Mistakes, and continuous processing deman
 
 ## Alternatives
 
-- **[Messaging](/08-integration-architecture/messaging-integration.md)** — when each record needs
+- **[Messaging](/08-integration-architecture/messaging-integration.md)**: when each record needs
   individual and fast handling.
-- **Micro-batch** — windows of minutes instead of hours; a middle ground that solves many "almost real
+- **Micro-batch**: windows of minutes instead of hours; a middle ground that solves many "almost real
   time" cases.
-- **Database change capture** — continuous without touching the source application.
-- **[File integration](/08-integration-architecture/file-integration.md)** — the most common transport for
+- **Database change capture**: continuous without touching the source application.
+- **[File integration](/08-integration-architecture/file-integration.md)**: the most common transport for
   batch between organizations.
 
 ## Trade-offs
@@ -216,7 +216,7 @@ the source's longest transaction duration, and relying on idempotency, solves it
 everything, ignore the three, or set them aside for review? With no prior decision, each run resolves it a
 different way.
 
-**Loading everything into memory.** It works at the current volume and fails on the day the source grows —
+**Loading everything into memory.** It works at the current volume and fails on the day the source grows,
 with no advance warning and with nothing in the code having changed.
 
 **Not alerting on a missing run.** Monitoring watches for errors; a scheduler that stopped firing produces
@@ -229,7 +229,7 @@ identifying divergences, generating entries.
 
 The process ran at 2 a.m. and originally took 40 minutes.
 
-Over four years, the volume quadrupled and the run reached 5 hours 20 — in a window that ended at 8 a.m.
+Over four years, the volume quadrupled and the run reached 5 hours 20, in a window that ended at 8 a.m.
 
 Four incidents:
 
@@ -241,8 +241,8 @@ been visible for two years, and nobody tracked the metric.
 inserted entries without deleting the day's, and around 18,000 entries were duplicated. The correction took
 three days and involved accounting.
 
-**A lost change.** The incremental load used the change marker. Long-running transactions — committed after
-the cutoff — were left out permanently, because the next window started from the new cutoff. Around 300
+**A lost change.** The incremental load used the change marker. Long-running transactions (committed after
+the cutoff) were left out permanently, because the next window started from the new cutoff. Around 300
 transactions a month vanished from the reconciliation.
 
 **A missing run.** A scheduling failure made the process simply not run on a Monday. There was no error,
@@ -250,26 +250,26 @@ because there was no run. The absence was only noticed on Wednesday.
 
 The fixes:
 
-**Reprocessing by partition** — delete the day and reload. The rerun stopped being a risky operation.
+**Reprocessing by partition**: delete the day and reload. The rerun stopped being a risky operation.
 
 **A 30-minute overlap** on the incremental window, feasible because the process became idempotent, and sized
 by measurement: the source's longest transaction lasted 12 minutes. The lost transactions went to zero, and an
 alert started firing if any transaction exceeds the overlap.
 
 **Streaming processing**, in chunks, instead of loading everything. The run fell from 5 hours 20 to 1 hour
-10 — most of the time was memory pressure, not useful work.
+10: most of the time was memory pressure, not useful work.
 
 **An absence alert.** If the batch does not start by 2:15 a.m., alert. And monitoring of the ratio between
 duration and window, with an alert above 60%.
 
 The recorded lesson: the proposal on the table was to migrate to continuous processing, estimated at eight
-months. The four fixes took five weeks, solved every incident, and the reconciliation remains — correctly —
+months. The four fixes took five weeks, solved every incident, and the reconciliation remains, correctly,
 a daily process, because the bank's file arrives once a day.
 
 ## Related Concepts
 
-- [File Integration](/08-integration-architecture/file-integration.md) — the typical transport.
-- [Messaging Integration](/08-integration-architecture/messaging-integration.md) — the continuous
+- [File Integration](/08-integration-architecture/file-integration.md): the typical transport.
+- [Messaging Integration](/08-integration-architecture/messaging-integration.md): the continuous
   alternative.
 - [Idempotency](/06-distributed-systems/idempotency.md).
 - [Data Partitioning](/07-data-architecture/data-partitioning.md).
@@ -278,7 +278,7 @@ a daily process, because the bank's file arrives once a day.
 
 Take the most important batch in your system and answer: if it fails halfway, what is the procedure?
 
-If the answer involves somebody analyzing where it stopped, it is not reprocessable — and that is the
+If the answer involves somebody analyzing where it stopped, it is not reprocessable. And that is the
 highest-return fix available.
 
 ## Interview Questions
@@ -289,6 +289,6 @@ highest-return fix available.
 
 ## Further Reading
 
-- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 10.
+- Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017. Chapter 10.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*, 2003.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.

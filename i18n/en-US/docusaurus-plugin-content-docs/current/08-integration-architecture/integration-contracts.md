@@ -2,7 +2,7 @@
 id: integration-contracts
 title: Integration Contracts
 sidebar_position: 13
-description: What one side promises the other — and why integrations die from the contract, not the protocol.
+description: What one side promises the other, and why integrations die from the contract, not the protocol.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [schema-evolution, integration-anti-corruption, rest]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -24,7 +24,7 @@ last_reviewed: 2026-08-31
 An integration contract is what one side promises the other: which fields exist, what they mean, what is
 required, which errors can happen, and how the promise changes over time.
 
-It exists in every integration. The question is whether it is **declared** or implicit — discovered by
+It exists in every integration. The question is whether it is **declared** or implicit, discovered by
 whoever consumes it, reading real responses and guessing.
 
 Integrations die from a broken contract. Rarely from a protocol choice.
@@ -38,8 +38,8 @@ The consumer observes the behavior and comes to depend on things nobody promised
 items, a field that always came filled in, the format of an identifier, the fact that a certain error
 never happens.
 
-On the provider's side, nobody knows that. A change that looks internal — reordering, making a field
-optional, changing an id's format — breaks consumers it does not know exist.
+On the provider's side, nobody knows that. A change that looks internal (reordering, making a field
+optional, changing an id's format) breaks consumers it does not know exist.
 
 The defect appears in production, on the wrong side, and the discussion becomes about who was right.
 
@@ -74,7 +74,7 @@ facto contract, because breaking it breaks someone.
 
 ### Robustness has a wrong side
 
-The classic principle — be liberal in what you accept, conservative in what you send — has a well-known
+The classic principle (be liberal in what you accept, conservative in what you send) has a well-known
 side effect.
 
 A liberal provider accepts malformed input, and the consumers come to depend on being accepted that way.
@@ -87,7 +87,7 @@ reject invalid input from day one; as a consumer, ignore unknown fields in the r
 
 The inversion that solves the "I don't know who depends on what" problem.
 
-Instead of the provider publishing a contract and hoping, each consumer declares what it uses — in
+Instead of the provider publishing a contract and hoping, each consumer declares what it uses, in
 executable form. The provider runs those declarations in its own continuous integration.
 
 The effect: the provider knows, before deploying, exactly which consumer breaks. And it can safely remove
@@ -99,7 +99,7 @@ public API.
 
 And it costs something to operate. The published contracts need a shared place the provider fetches them
 from; continuous integration starts crossing repositories; the provider's deployment gets blocked by a red
-test that may be the consumer's fault — a stale expectation, a field it declared and no longer uses.
+test that may be the consumer's fault (a stale expectation, a field it declared and no longer uses).
 Without an owner for each contract and a deadline for the consumer to fix its own test, the gate becomes a
 roadblock, and the provider team learns to switch it off.
 
@@ -119,7 +119,7 @@ A public API with unknown consumers does not allow removal. What you can do is a
 notice, and coexist.
 
 That changes the design: public fields and endpoints are a nearly permanent commitment. Exposing less is
-the decision that preserves freedom — and it is exactly the opposite of the instinct to "expose
+the decision that preserves freedom, and it is exactly the opposite of the instinct to "expose
 everything, the consumer uses what it wants".
 
 ## Mental Model
@@ -140,7 +140,7 @@ An explicit contract pays off whenever:
 ## When Not to Use
 
 **Formalizing a contract between modules of the same process, with a single team.** Overhead with no
-benefit — there the compiler is already the contract.
+benefit: there the compiler is already the contract.
 
 **A contract with no change process.** It becomes outdated documentation, which is worse than nothing: it
 gives false confidence.
@@ -155,12 +155,12 @@ to be verifiable.
 
 ## Alternatives
 
-- **An executable schema** — a definition from which server and client derive code, eliminating
+- **An executable schema**: a definition from which server and client derive code, eliminating
   divergence between the document and the implementation.
-- **A [schema registry](/08-integration-architecture/schema-evolution.md)** — when the integration is
+- **A [schema registry](/08-integration-architecture/schema-evolution.md)**: when the integration is
   event-driven and the consumers do not run tests in the provider's pipeline.
-- **Consumer-driven contract testing** — within the organization.
-- **Explicit versioning** — when coexisting is unavoidable. See
+- **Consumer-driven contract testing**: within the organization.
+- **Explicit versioning**: when coexisting is unavoidable. See
   [schema evolution](/08-integration-architecture/schema-evolution.md).
 
 ## Trade-offs
@@ -197,7 +197,7 @@ to be verifiable.
 
 **Treating the schema as the complete contract.** The schema describes the shape, not the meaning: what
 happens on an error, whether the operation is idempotent, what order is guaranteed and what is genuinely
-optional are left out — and they are where the integration breaks.
+optional are left out, and they are where the integration breaks.
 
 **Not declaring what is not guaranteed.** Everything not explicitly denied becomes someone's assumption.
 Ordering, uniqueness and delivery deadlines have to be written down, including when the answer is "we do
@@ -226,7 +226,7 @@ Four incidents over eighteen months, all with the same root.
 
 **The list's order.** The response returned the transactions ordered by date, because the query used an
 index that produced that order. The contract promised nothing. An optimization changed the execution plan
-and the order changed. One consumer displayed the first transaction as "the most recent" — it came to
+and the order changed. One consumer displayed the first transaction as "the most recent". It came to
 display any of them.
 
 **The identifier's format.** The ids started with `tx_`. A partner validated that prefix. The migration to
@@ -234,7 +234,7 @@ random identifiers broke their integration, in production, on a Saturday.
 
 **A field made optional.** A description field always came filled in, although the document did not
 declare it required. It became optional for a new
-transaction type. Three consumers broke — none handled its absence.
+transaction type. Three consumers broke: none handled its absence.
 
 **A new error.** An error code came into existence for a transaction under review. Consumers that only
 handled the documented errors classified it as a permanent failure and gave up on transactions that would
@@ -245,7 +245,7 @@ The fixes, in order of return:
 **An executable contract** derived from the code, published on each deployment. The static document ceased
 to exist.
 
-**Explicit declaration of what is not guaranteed** — ordering, id format, presence of optional fields.
+**Explicit declaration of what is not guaranteed**: ordering, id format, presence of optional fields.
 That was discussed with each known consumer, and two undue dependencies were discovered in the
 conversation, before they broke.
 
@@ -254,25 +254,25 @@ continuous integration, who broke. Over the following eight months, four changes
 
 **An error catalog** with a retryable-or-not classification, per code.
 
-The two external partners remained without contract tests — there is no way to execute them on their side.
+The two external partners remained without contract tests: there is no way to execute them on their side.
 For them, the process became a ninety-day notice and version coexistence.
 
 The point the team underlines: the four incidents were, technically, valid changes. The contract promised
-nothing that was broken. And that helped nobody — what is not declared as "not guaranteed" is assumed to
+nothing that was broken. And that helped nobody: what is not declared as "not guaranteed" is assumed to
 be guaranteed.
 
 ## Related Concepts
 
-- [Schema Evolution](/08-integration-architecture/schema-evolution.md) — how the contract changes.
-- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md) — protection
+- [Schema Evolution](/08-integration-architecture/schema-evolution.md): how the contract changes.
+- [Anti-Corruption Layer](/08-integration-architecture/integration-anti-corruption.md): protection
   against someone else's contract.
 - [REST](/08-integration-architecture/rest.md), [GraphQL](/08-integration-architecture/graphql.md),
-  [gRPC](/08-integration-architecture/grpc.md) — where the contract lives.
+  [gRPC](/08-integration-architecture/grpc.md): where the contract lives.
 - [Data Ownership](/07-data-architecture/data-ownership.md).
 
 ## Practical Exercise
 
-Take an API your team exposes. List what it does **not** guarantee — ordering, identifier format,
+Take an API your team exposes. List what it does **not** guarantee: ordering, identifier format,
 presence of optional fields, error stability.
 
 Then ask a consumer which of those things it assumes. The difference between the two lists is your next
@@ -288,5 +288,5 @@ break.
 
 - Robinson, Ian. *Consumer-Driven Contracts: A Service Evolution Pattern*.
   martinfowler.com, 2006.
-- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021 — chapter 5.
+- Newman, Sam. *Building Microservices*. 2nd ed. O'Reilly, 2021. Chapter 5.
 - Hohpe, Gregor; Woolf, Bobby. *Enterprise Integration Patterns*. Addison-Wesley, 2003.

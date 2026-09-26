@@ -2,7 +2,7 @@
 id: queue-based-scaling
 title: Queue-Based Scaling
 sidebar_position: 9
-description: Decoupling the arrival rate from the processing rate — and scaling on the indicator that reacts first.
+description: Decoupling the arrival rate from the processing rate, and scaling on the indicator that reacts first.
 doc_type: pattern
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [async-processing]
 related: [async-processing, horizontal-scaling, scaling-capacity-planning]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,7 @@ A queue between the producer and the consumer decouples the **arrival rate** fro
 That resolves the problem capacity does not resolve well: short, intense peaks that last less than the time
 to provision machines.
 
-And it offers an indicator that reacts before any resource metric — the **queue
+And it offers an indicator that reacts before any resource metric: the **queue
 depth**.
 
 ## Problem
@@ -34,7 +34,7 @@ depth**.
 Auto scaling on CPU is reactive and slow: the metric rises, the alarm fires, the capacity comes up, the
 application starts. See [cloud compute](/09-cloud-architecture/cloud-compute.md).
 
-The interval is minutes. Many peaks last less than that — and when the capacity arrives, the peak is over.
+The interval is minutes. Many peaks last less than that, and when the capacity arrives, the peak is over.
 
 With no queue, the excess becomes an error: refused requests, timeouts, retries that amplify the load.
 
@@ -56,7 +56,7 @@ arrival 500/s, processing 300/s, sustained
 ```
 
 See [asynchronous processing](/11-scalability/async-processing.md). The queue resolves a peak, not
-sustained overload — and using it for the second turns an immediate error into a growing delay nobody
+sustained overload, and using it for the second turns an immediate error into a growing delay nobody
 notices.
 
 The check: the **average processing capacity needs to exceed the average arrival rate**. If it does not, no
@@ -70,7 +70,7 @@ latency        the same
 queue depth    reacts at the instant arrival exceeds processing
 ```
 
-Scaling on depth — or, better, on the **age of the oldest message** — gives minutes of lead time relative
+Scaling on depth (or, better, on the **age of the oldest message**) gives minutes of lead time relative
 to resource metrics.
 
 Age is preferable to count because it translates directly into experience: "the oldest message is 4 minutes
@@ -81,7 +81,7 @@ capacity.
 
 ### A ceiling and shedding are not optional
 
-A queue with no limit accumulates until the storage runs out — and recovering a queue with millions of
+A queue with no limit accumulates until the storage runs out, and recovering a queue with millions of
 messages is slow.
 
 Three controls:
@@ -102,7 +102,7 @@ work consumes capacity the new work needs.
 A single queue processes in arrival order. In a recovery after an incident, that means new work waits
 behind hours of backlog.
 
-Separate queues by priority, with dedicated consumers or with a defined consumption ratio, resolve it — and
+Separate queues by priority, with dedicated consumers or with a defined consumption ratio, resolve it, and
 the decision of which operations are priorities needs to come from the business.
 
 The common mistake is creating priority without reserving capacity for the low-priority queue: it is never
@@ -119,7 +119,7 @@ The parallelism is limited by the number of keys. See [ordering](/06-distributed
 
 **A shared resource.** Twenty consumers against the same database only move the bottleneck.
 
-**The number of partitions.** In partitioned systems, the maximum parallelism is the number of partitions —
+**The number of partitions.** In partitioned systems, the maximum parallelism is the number of partitions:
 adding consumers beyond that does nothing.
 
 The third is the most frequent and the most surprising: doubling the consumers without increasing the
@@ -127,7 +127,7 @@ partitions changes nothing.
 
 ### Scaling to zero is possible and has a cost
 
-When the queue is empty, the consumers can be turned off — which saves money on sporadic workloads.
+When the queue is empty, the consumers can be turned off, which saves money on sporadic workloads.
 
 The cost is the resumption latency: the first message after an idle period waits for the provisioning time.
 See [serverless](/09-cloud-architecture/serverless.md).
@@ -137,7 +137,7 @@ always-active consumers is necessary.
 
 ## Mental Model
 
-**The queue converts excess into delay.** It buys time for the capacity to arrive — and it does not replace
+**The queue converts excess into delay.** It buys time for the capacity to arrive, and it does not replace
 capacity.
 
 ## When to Use
@@ -165,12 +165,12 @@ capacity.
 
 ## Alternatives
 
-- **Capacity provisioned before the peak** — when it is predictable, scheduled scaling is better than any
+- **Capacity provisioned before the peak**: when it is predictable, scheduled scaling is better than any
   reaction. See [cloud compute](/09-cloud-architecture/cloud-compute.md).
-- **Rate limiting** — refusal at the edge, instead of accumulating. See
+- **Rate limiting**: refusal at the edge, instead of accumulating. See
   [rate limiting](/05-system-design/rate-limiting.md).
-- **Load shedding** — rejecting the less important to preserve the essential.
-- **Batch processing** — grouping reduces the cost per item.
+- **Load shedding**: rejecting the less important to preserve the essential.
+- **Batch processing**: grouping reduces the cost per item.
 
 ## Trade-offs
 
@@ -210,7 +210,7 @@ capacity.
 only turns immediate unavailability into a growing delay.
 
 **Not defining a ceiling.** Auto scaling on depth with no limit responds to a defective producer by
-bringing up consumers until the quota — or the invoice — blows up.
+bringing up consumers until the quota, or the invoice, blows up.
 
 **Not shedding expired work.** Processing a message whose window of usefulness has passed consumes capacity
 the still-useful work needs, and it prolongs the recovery.
@@ -219,14 +219,14 @@ the still-useful work needs, and it prolongs the recovery.
 growing. Queue depth is the direct signal; CPU is a poor substitute.
 
 **Not reserving capacity for low priority.** With no reservation, a high-priority peak leaves the secondary
-queue stalled for hours — and it usually contains what becomes a complaint later.
+queue stalled for hours, and it usually contains what becomes a complaint later.
 
 **Adding consumers without increasing partitions.** In a partitioned log, the parallelism is limited by the
 number of partitions. Consumers beyond that sit idle and the cost rises with no gain.
 
 ## Real-World Example
 
-A food delivery platform had predictable peaks — lunch and dinner — with a volume eight times the average.
+A food delivery platform had predictable peaks (lunch and dinner) with a volume eight times the average.
 
 Auto scaling on CPU did not keep up: the lunch peak ramped up in around 90 seconds, and the capacity took 4
 minutes. In the first minutes, orders were refused.
@@ -246,13 +246,13 @@ the protection for the unforeseen, not the main mechanism.
 reports and indexing at low. With 20% of the consumption reserved for the low one, so that it would not
 stall.
 
-**Shedding by deadline.** Status notifications more than 10 minutes old came to be discarded — the
+**Shedding by deadline.** Status notifications more than 10 minutes old came to be discarded: the
 information was no longer useful, and processing them consumed capacity needed for the current ones.
 
 Two problems appeared:
 
-**Insufficient partitions.** The scaling went up to 40 consumers, and the throughput stopped growing at 12
-— the topic's number of partitions. Discovered by comparing the number of consumers with the throughput.
+**Insufficient partitions.** The scaling went up to 40 consumers, and the throughput stopped growing at 12:
+the topic's number of partitions. Discovered by comparing the number of consumers with the throughput.
 The partitions were increased to 48.
 
 **Slow recovery.** During a 40-minute outage of the payment service, the queue accumulated 180,000 orders.
@@ -260,19 +260,19 @@ Draining took 2 hours, during which the new orders went behind. Prioritization b
 added: orders with a closer delivery time are processed first, regardless of arrival order.
 
 The learning that stuck: scheduled scaling resolved more than the queue for the known peaks. The queue is
-still essential — for the unforeseen and for recovery — and the initial expectation, that it alone would
+still essential (for the unforeseen and for recovery), and the initial expectation, that it alone would
 resolve the daily peaks, was wrong.
 
 ## Related Concepts
 
 - [Asynchronous Processing](/11-scalability/async-processing.md).
-- [Backpressure](/06-distributed-systems/backpressure.md) — the ceiling.
-- [Horizontal Scaling](/11-scalability/horizontal-scaling.md) — the consumer.
-- [Queues](/05-system-design/queues.md) — the fundamentals.
+- [Backpressure](/06-distributed-systems/backpressure.md): the ceiling.
+- [Horizontal Scaling](/11-scalability/horizontal-scaling.md): the consumer.
+- [Queues](/05-system-design/queues.md): the fundamentals.
 
 ## Practical Exercise
 
-If you have queues, check whether the scaling uses depth or CPU — and whether an alert exists on the age of
+If you have queues, check whether the scaling uses depth or CPU, and whether an alert exists on the age of
 the oldest message.
 
 Then compare the number of consumers with the number of partitions. If the consumers can exceed the

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, ecommerce, healthcare]
 canonical_for: []
-translated_from_version: 6
+translated_from_version: 7
 last_reviewed: 2026-08-31
 ---
 
@@ -122,7 +122,7 @@ companies. An isolation model that treats each company as an island perfectly me
 requirement and destroys the experience of whoever uses the product most.
 
 Ignoring that requirement when choosing the isolation model is the error that produces a
-technically correct and commercially unviable architecture — and it is easy to make, because the
+technically correct and commercially unviable architecture, and it is easy to make, because the
 accountant is not the paying customer and rarely appears in the stakeholder list.
 
 ## Capacity Estimates
@@ -148,11 +148,11 @@ from an Enterprise customer, peak              ~120
 ```
 
 An Enterprise customer running a close generates three thousand times the load of an Essential
-customer. That ratio is the problem — not the total.
+customer. That ratio is the problem, not the total.
 
 It is worth making explicit why the ratio matters more than the sum. If the system were sized by
 total load, it would have capacity to spare: 860 requests per second on average is trivial. What
-breaks it is the concentration — 120 requests per second from a single tenant, against an instance
+breaks it is the concentration: 120 requests per second from a single tenant, against an instance
 sized for its neighbors' average, saturates shared resources that have no way to tell whose load
 it is.
 
@@ -241,7 +241,7 @@ migration             the mechanism for migrating between models becomes
 | **Weighted total** | | **5.0** | **6.3** | **6.9** | **8.2** |
 
 **Sensitivity analysis**, redistributing the remaining weight proportionally across the other criteria. With cost at 40%, the totals become
-6.2 / 6.9 / 5.6 / 8.1 — Option D keeps its advantage. With isolation at 45%, they become
+6.2 / 6.9 / 5.6 / 8.1. Option D keeps its advantage. With isolation at 45%, they become
 4.4 / 6.5 / 7.7 / 8.4. No scenario tested inverts it, which is expected of an option built to apply each model where it fits.
 
 ## Decision
@@ -262,7 +262,7 @@ customer uses**. It obtains a connection from the tenant routing service, and th
 whether that connection points at a shared schema or at a dedicated database.
 
 That turns migration between models into an infrastructure operation, rather than an application
-change — which is what makes it possible to offer isolation as a contract item.
+change. That is what makes it possible to offer isolation as a contract item.
 
 **Under what condition each discarded option would win:**
 
@@ -271,7 +271,7 @@ customer is of similar size, a single schema is simpler and cheaper, and the noi
 
 **Option B would win if** there were neither customers with a contractual isolation requirement
 nor customers with load capable of saturating an instance. It is the correct model for the small
-and mid-size tier — and it is exactly what Option D uses for them.
+and mid-size tier, and it is exactly what Option D uses for them.
 
 **Option C would win if** the average price per customer were high enough to absorb the cost of a
 dedicated database. Above roughly $400 per month per customer, the math works, and the simplicity
@@ -300,8 +300,8 @@ resources.
 
 The **Accountant Service** is what resolves the tension between isolation and consolidated
 queries. It does not query the tenants' databases directly: it consumes an aggregate published by
-each tenant, containing only what the accountant needs to see — pending items, deadlines, tax
-status.
+each tenant, containing only what the accountant needs to see (pending items, deadlines, tax
+status).
 
 That keeps isolation intact and meets the requirement, at the cost of a staleness window of a few
 minutes, which the product team validated as acceptable.
@@ -313,7 +313,7 @@ already been resolved, loses confidence in the whole dashboard.
 
 The solution was to display the time of the last consolidation next to the aggregate. It is one
 line of interface that cost minutes and resolved the objection that would have brought the design
-down — and it is a reminder that eventual consistency is acceptable when it is communicated, and
+down, and it is a reminder that eventual consistency is acceptable when it is communicated, and
 irritating when it is hidden.
 
 ## Data
@@ -325,19 +325,19 @@ tenant  (id, name, plan, isolation_model, cluster, schema_or_database,
          state, created_at)
 ```
 
-That table is the source of truth for the topology, and it is queried with aggressive caching — a
+That table is the source of truth for the topology, and it is queried with aggressive caching: a
 tenant's topology rarely changes, and a change invalidates the entry.
 
 **Per-tenant structure.** Identical in every model. It is the property that allows migrating
 between them: a shared schema and a dedicated database have exactly the same tables.
 
-Maintaining that identity requires discipline — the temptation to optimize the structure for large
+Maintaining that identity requires discipline: the temptation to optimize the structure for large
 customers appears, and giving in to it would break migration. The rule is that optimizations for
 large volumes are indexes and partitioning, never schema differences.
 
 **Per-tenant partitioning in Enterprise customers.** Inside the dedicated database, the entry
-tables are partitioned by period, which turns the annual close — the operation that saturated the
-shared instance — into a partition scan.
+tables are partitioned by period, which turns the annual close, the operation that saturated the
+shared instance, into a partition scan.
 
 **Tax documents.** Object storage, with a key prefixed by the tenant and an access policy that
 prevents cross reads at the storage level, not only at the application level.
@@ -347,8 +347,8 @@ used for one tenant cannot read another's objects.
 
 ## Integration
 
-**Routing.** On every authenticated request, the Router resolves the tenant from the context —
-subdomain, token or explicit selection by the accountant — and obtains the appropriate connection
+**Routing.** On every authenticated request, the Router resolves the tenant from the context
+(subdomain, token or explicit selection by the accountant) and obtains the appropriate connection
 from a pool per destination.
 
 The connection pool is the operational point of attention: with a schema per tenant, one
@@ -367,7 +367,7 @@ unviable.
 4. only after 100% does the code start depending on the change
 ```
 
-That three-step discipline — compatible, apply, depend — is what allows migrating with no window.
+That three-step discipline (compatible, apply, depend) is what allows migrating with no window.
 It is verified automatically: a migration that drops or renames a column in the same code version
 is rejected by the pipeline.
 
@@ -378,7 +378,7 @@ with the tenant in read-only mode, verification and switching the routing.
 The measured cutover is 4 to 11 minutes, within the 15-minute requirement.
 
 **Tax issuance.** Shared, with a queue per tenant to prevent a customer issuing in bulk from
-delaying the others — the same noise problem, solved at the queue level rather than at the
+delaying the others: the same noise problem, solved at the queue level rather than at the
 database level.
 
 ## Security
@@ -418,7 +418,7 @@ dedicated databases                           208
 ```
 
 New customers are allocated to the instance with the most headroom, measured by real consumption
-and not by count. A customer who grows and starts consuming disproportionately is moved — the
+and not by count. A customer who grows and starts consuming disproportionately is moved: the
 Consumption Meter triggers the recommendation, and the migration is the same procedure used for a
 plan change.
 
@@ -449,7 +449,7 @@ consolidated view.
 
 **RPO per customer < 5 min** is met by continuous backup with point-in-time recovery, per instance
 and per dedicated database. Restoring a single tenant from a shared instance is the hard case, and
-the procedure — restore to a temporary instance and extract the schema — is rehearsed quarterly.
+the procedure (restore to a temporary instance and extract the schema) is rehearsed quarterly.
 
 ## Observability
 
@@ -474,8 +474,8 @@ introduce a consumption-based plan, which did not exist because the information 
 
 ## Deployment
 
-One version of the application serves every tenant, always. There is no per-customer version —
-that was an explicit decision, defended against commercial requests, because maintaining divergent
+One version of the application serves every tenant, always. There is no per-customer version.
+That was an explicit decision, defended against commercial requests, because maintaining divergent
 versions would multiply the maintenance cost by the number of variants.
 
 Personalization is done by configuration and by per-tenant feature flags, never by code.
@@ -483,7 +483,7 @@ Personalization is done by configuration and by per-tenant feature flags, never 
 That rule was tested four times in two years, always by a commercial request from a large
 Enterprise customer. In all of them, the answer was the same and the argument was recorded too: a
 divergent version for one customer means every fix, every security update and every schema
-migration comes to have two variants — and the second is always the one that falls behind.
+migration comes to have two variants, and the second is always the one that falls behind.
 
 In two of the four cases, the need was met by a feature flag. In the other two, the request was
 for behavior incompatible with the product, and the answer was no. One of the two customers left;
@@ -497,7 +497,7 @@ hours, and the rest follow. Enterprise customers' dedicated databases receive it
 **Phase 1 (months 1–4): schema per tenant.** Migration from the tenant-column model to a schema
 per tenant, customer by customer, with no downtime.
 
-This phase is what reduces leakage risk, and it was prioritized for that — not for performance.
+This phase is what reduces leakage risk, and it was prioritized for that, not for performance.
 
 **Phase 2 (months 3–7): router and provisioning.** The Tenant Router, automatic provisioning and
 the structure that makes the isolation model an attribute of the customer.
@@ -555,30 +555,30 @@ audit requirement at all. A capability built to serve 8 customers became a produ
 
 That outcome was not foreseen and the mechanism is worth recording: once isolation became a
 configurable attribute of the customer, offering it stopped having a project cost and came to have
-only an infrastructure cost. The commercial team could price it, and the demand existed — it had
+only an infrastructure cost. The commercial team could price it, and the demand existed. It had
 simply never been asked about, because the previous answer would have been "it isn't possible".
 
 ## What this case teaches
 
-**The variance between tenants decides the model.** It is not the number of customers nor the
-total volume — it is the ratio between the largest and the smallest. Three thousand times of
+**The variance between tenants decides the model.** It is the ratio between the largest and the smallest, not the number of
+customers nor the total volume. Three thousand times of
 difference makes any uniform model wrong.
 
 **Isolation should be an attribute of the customer.** When the application doesn't know which model
-the customer uses, migrating between models becomes an infrastructure operation — and isolation
+the customer uses, migrating between models becomes an infrastructure operation, and isolation
 becomes a contract item, with a price.
 
 **Verifying isolation automatically is the highest-value control.** A test that tries to leak data
 and fails the pipeline when it succeeds found two leaks before production. No code review would
 have the same detection rate.
 
-**Three-step schema migration is what allows operating with no window.** Compatible, apply, depend
-— in that order, verified in the pipeline. With 14 thousand tenants, any other approach requires
+**Three-step schema migration is what allows operating with no window.** Compatible, apply, depend,
+in that order, verified in the pipeline. With 14 thousand tenants, any other approach requires
 downtime.
 
 ## Related Concepts
 
-- [Case: Multi-Tenant Enterprise](/21-case-studies/multi-tenant-enterprise.md) — the same problem
+- [Case: Multi-Tenant Enterprise](/21-case-studies/multi-tenant-enterprise.md): the same problem
   at another scale.
 - [Fitness Functions](/19-architecture-governance/fitness-functions-governance.md).
 - [SQL vs. NoSQL](/20-trade-offs/sql-vs-nosql.md).
