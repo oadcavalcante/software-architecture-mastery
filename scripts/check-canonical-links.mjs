@@ -24,53 +24,7 @@
  * herdam a estrutura de link do documento de origem.
  */
 
-import {loadCanonical, Report, stripCode} from './lib/docs.mjs';
-
-/** Casamento por forma, não por grafia: caixa, acento e pontuação não decidem. */
-function normalize(text) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[.,;:()[\]]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-/**
- * Formas singulares plausíveis de um termo, para casar "sagas" com "saga".
- *
- * O casamento era por forma exata, e o plural passava batido — foi assim que
- * `[sagas](/06-distributed-systems/index.md)` e
- * `[circuit breakers](/12-reliability/index.md)` sobreviveram a uma passagem do
- * validador. Devolve variantes candidatas em vez de uma forma canônica: a
- * despluralização do português é ambígua, e testar várias só amplia a detecção
- * sem inventar um termo que não existe — o achado só vale se alguma variante
- * for `canonical_for` de um documento da própria seção.
- */
-function singularForms(term) {
-  const formas = new Set([term]);
-  const ultima = term.split(' ').pop();
-  if (!ultima || !ultima.endsWith('s')) return formas;
-
-  const trocar = (sufixo, por) => {
-    if (!ultima.endsWith(sufixo) || ultima.length <= sufixo.length) return;
-    const raiz = term.slice(0, term.length - sufixo.length);
-    formas.add(raiz + por);
-  };
-
-  trocar('s', '');
-  trocar('es', '');
-  trocar('oes', 'ao');   // padroes → padrao (o acento já caiu em normalize)
-  trocar('aes', 'ao');   // paes → pao
-  trocar('ais', 'al');   // sinais → sinal
-  trocar('eis', 'el');   // niveis → nivel
-  trocar('ois', 'ol');
-  trocar('uis', 'ul');
-  trocar('ns', 'm');     // armazens → armazem
-  trocar('ses', 's');    // ingleses → ingles
-  return formas;
-}
+import {loadCanonical, Report, stripCode, normalize, singularForms} from './lib/docs.mjs';
 
 const LINK_TO_SECTION_INDEX = /\[([^\]]+)\]\((\/[0-9]{2}-[a-z0-9-]+)\/index\.md\)/g;
 

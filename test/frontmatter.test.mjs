@@ -106,6 +106,36 @@ describe('check-frontmatter', () => {
     );
   });
 
+  // O caso real que escapou: um documento reivindicava "requisito funcional" e
+  // outro "requisitos funcionais". A comparação era por string exata, e a
+  // despluralização que existia só olhava a última palavra.
+  test('rejeita canonical_for que só difere no plural de qualquer palavra', () => {
+    fails(
+      check('check-frontmatter.mjs', {
+        'docs/a.md': frontmatter({id: 'a', canonical_for: ['requisitos funcionais']}) + '\n# A\n',
+        'docs/b.md': frontmatter({id: 'b', canonical_for: ['requisito funcional']}) + '\n# B\n',
+      }),
+      /canonical_for "requisito funcional" já reivindicado/,
+    );
+  });
+
+  test('rejeita canonical_for que só difere em hífen e acento', () => {
+    fails(
+      check('check-frontmatter.mjs', {
+        'docs/a.md': frontmatter({id: 'a', canonical_for: ['requisitos não-funcionais']}) + '\n# A\n',
+        'docs/b.md': frontmatter({id: 'b', canonical_for: ['requisito nao funcional']}) + '\n# B\n',
+      }),
+      /canonical_for "requisito nao funcional" já reivindicado/,
+    );
+  });
+
+  test('aceita canonical_for distintos que compartilham palavras', () => {
+    ok(check('check-frontmatter.mjs', {
+      'docs/a.md': frontmatter({id: 'a', canonical_for: ['garantias de entrega']}) + '\n# A\n',
+      'docs/b.md': frontmatter({id: 'b', canonical_for: ['garantia de ordem']}) + '\n# B\n',
+    }));
+  });
+
   test('rejeita referência a id inexistente', () => {
     fails(
       check('check-frontmatter.mjs', {

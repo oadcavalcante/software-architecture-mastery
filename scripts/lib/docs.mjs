@@ -179,3 +179,70 @@ export function wordCount(body) {
     .split(/\s+/)
     .filter(Boolean).length;
 }
+
+/** Casamento por forma, não por grafia: caixa, acento e pontuação não decidem. */
+export function normalize(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[.,;:()[\]]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Formas singulares plausíveis de uma palavra, para casar "sagas" com "saga".
+ *
+ * Devolve variantes candidatas em vez de uma forma canônica: a despluralização
+ * do português é ambígua, e testar várias só amplia a detecção sem inventar um
+ * termo que não existe — quem chama decide o que conta como casamento.
+ */
+function singularWord(word) {
+  const formas = new Set([word]);
+  if (!word.endsWith('s')) return formas;
+  const trocar = (sufixo, por) => {
+    if (word.endsWith(sufixo) && word.length > sufixo.length) {
+      formas.add(word.slice(0, word.length - sufixo.length) + por);
+    }
+  };
+  trocar('s', '');
+  trocar('es', '');
+  trocar('oes', 'ao');   // padroes → padrao (o acento já caiu em normalize)
+  trocar('aes', 'ao');   // paes → pao
+  trocar('ais', 'al');   // sinais → sinal
+  trocar('eis', 'el');   // niveis → nivel
+  trocar('ois', 'ol');
+  trocar('uis', 'ul');
+  trocar('ns', 'm');     // armazens → armazem
+  trocar('ses', 's');    // ingleses → ingles
+  return formas;
+}
+
+/** Formas singulares de um termo, despluralizando só a última palavra. */
+export function singularForms(term) {
+  const palavras = term.split(' ');
+  const ultima = palavras.pop();
+  if (!ultima) return new Set([term]);
+  const prefixo = palavras.length ? palavras.join(' ') + ' ' : '';
+  return new Set([...singularWord(ultima)].map((f) => prefixo + f));
+}
+
+/**
+ * Chaves de identidade de um termo `canonical_for`: normalizado, hífen como
+ * espaço, e cada palavra em todas as suas formas singulares.
+ *
+ * Dois termos são o mesmo conceito se compartilham alguma chave. Existe porque
+ * a comparação por string exata deixou "requisito funcional" e "requisitos
+ * funcionais" serem reivindicados por documentos diferentes — e a
+ * despluralização de `singularForms` só olha a última palavra.
+ */
+export function termKeys(term) {
+  const palavras = normalize(String(term)).replace(/-/g, ' ').split(' ').filter(Boolean);
+  let chaves = [''];
+  for (const palavra of palavras) {
+    const formas = [...singularWord(palavra)];
+    chaves = chaves.flatMap((c) => formas.map((f) => (c ? c + ' ' : '') + f));
+  }
+  return new Set(chaves);
+}

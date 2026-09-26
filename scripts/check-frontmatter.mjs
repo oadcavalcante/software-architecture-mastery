@@ -8,7 +8,7 @@
 
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {loadCanonical, loadAll, Report, CANONICAL_LOCALE} from './lib/docs.mjs';
+import {loadCanonical, loadAll, Report, CANONICAL_LOCALE, termKeys} from './lib/docs.mjs';
 
 /**
  * Tópicos previstos no currículo, escritos ou não.
@@ -132,15 +132,17 @@ function checkGraph(canonical, report) {
     byId.set(id, doc);
   }
 
-  // canonical_for: um conceito, um documento (SPEC.md §7.4).
+  // canonical_for: um conceito, um documento (SPEC.md §7.4). A identidade do
+  // termo vem de termKeys — plural, acento e hífen não fazem dois conceitos.
   const claims = new Map();
   for (const doc of canonical) {
     for (const term of doc.frontmatter.canonical_for ?? []) {
-      const key = String(term).toLowerCase().trim();
-      if (claims.has(key)) {
-        report.error(doc.repoPath, `canonical_for "${term}" já reivindicado por ${claims.get(key)}`);
+      const keys = [...termKeys(term)];
+      const dono = keys.map((k) => claims.get(k)).find((d) => d && d !== doc.repoPath);
+      if (dono) {
+        report.error(doc.repoPath, `canonical_for "${term}" já reivindicado por ${dono}`);
       } else {
-        claims.set(key, doc.repoPath);
+        for (const k of keys) claims.set(k, doc.repoPath);
       }
     }
   }
