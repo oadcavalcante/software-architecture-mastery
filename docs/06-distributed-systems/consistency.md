@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [eventual-consistency, strong-consistency, cap]
 canonical_for: [consistência, modelo de consistência]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -261,6 +261,6 @@ incidente.
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulos 5 e 9.
-- Bailis, Peter et al. *Highly Available Transactions*, 2013.
+- Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.
 - Viotti, Paolo; Vukolić, Marko. *Consistency in Non-Transactional Distributed
   Storage Systems*. ACM Computing Surveys, 2016 — o mapa completo do espectro.

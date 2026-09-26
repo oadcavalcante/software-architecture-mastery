@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [data-consistency, oltp, indexing]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -281,4 +281,4 @@ Each one is a lost update case waiting for sufficient concurrency.
 
 - Berenson, Hal et al. *A Critique of ANSI SQL Isolation Levels*. SIGMOD, 1995.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 7.
-- Bailis, Peter et al. *Highly Available Transactions*. VLDB, 2014.
+- Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.

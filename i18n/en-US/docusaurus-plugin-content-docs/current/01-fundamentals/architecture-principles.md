@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-characteristics]
 related: [architecture-as-decisions, architecture-governance]
 canonical_for: [architecture principles]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -255,7 +255,7 @@ characteristic they tie to. Rewrite the ones that do not.
 
 ## Further Exploration
 
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019 — on
   autonomy and alignment across teams.

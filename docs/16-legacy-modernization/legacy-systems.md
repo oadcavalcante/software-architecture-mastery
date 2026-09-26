@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-drivers, legacy-refactoring, organizational-constraints]
 canonical_for: [sistema legado, conhecimento perdido, código sem testes, valor preso]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -216,5 +216,5 @@ Cada causa tem um tratamento diferente, e a maioria é mais barata que substitui
 ## Para Aprofundar
 
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.
-- Böckeler, Birgitta et al. *Legacy Modernization*. Thoughtworks, 2023.
+- Cartwright, Ian; Horn, Rob; Lewis, James. *Patterns of Legacy Displacement*. martinfowler.com, 2024.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.

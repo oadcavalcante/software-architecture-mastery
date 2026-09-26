@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -369,6 +369,6 @@ are not principles — they are declarations.
 
 ## Further Reading
 
-- Open Group. *TOGAF Standard* — architecture principles.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — architecture principles.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

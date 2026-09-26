@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: [roteiro de arquitetura, horizonte de roteiro, entrega intermediária]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -312,4 +312,4 @@ Os itens que falham no teste precisam ser reordenados ou redivididos.
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
 - Highsmith, Jim. *Agile Project Management*. 2ª ed. Addison-Wesley, 2009.
-- Open Group. *TOGAF Standard* — planejamento de migração.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — planejamento de migração.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, application-portfolios, business-architecture]
 canonical_for: [mapeamento de capacidades, decomposição de capacidade, heat map de capacidades]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -307,5 +307,5 @@ As que caem em duas revelam sobreposição; as que não caem em nenhuma, lacuna.
 ## Para Aprofundar
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- Open Group. *TOGAF Standard* — arquitetura de negócio.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de negócio.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [atributos de qualidade, quality attributes]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-26
 ---
 
@@ -208,5 +208,5 @@ Os que não têm resposta são atributos aspiracionais.
 
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4ª ed., Addison-Wesley, 2021 — a referência sobre cenários de atributo.
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — características arquiteturais e sua priorização.

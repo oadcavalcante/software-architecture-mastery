@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: [princípio corporativo, princípio acionável, implicação de princípio]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -369,6 +369,6 @@ são declarações.
 
 ## Para Aprofundar
 
-- Open Group. *TOGAF Standard* — princípios de arquitetura.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — princípios de arquitetura.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

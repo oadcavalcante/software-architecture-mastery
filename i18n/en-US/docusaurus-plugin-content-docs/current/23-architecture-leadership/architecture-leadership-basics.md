@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -352,5 +352,5 @@ it will not fix it.
 ## Further Reading
 
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Larson, Will. *Staff Engineer*. Self-published, 2021.

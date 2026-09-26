@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, communicating-tradeoffs, interview-common-mistakes]
 canonical_for: [estrutura de entrevista, orçamento de tempo da entrevista, condução da conversa]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -355,5 +355,5 @@ parte das vezes é clarificação ou modelo de dados.
 ## Para Aprofundar
 
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

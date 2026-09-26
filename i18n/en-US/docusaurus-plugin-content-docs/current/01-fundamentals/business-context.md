@@ -14,7 +14,7 @@ objective: >
 prerequisites: [what-is-software-architecture]
 related: [problem-space, constraints]
 canonical_for: [business context]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -217,5 +217,5 @@ answer — and, on most teams, they are the majority.
 
 - Vernon, Vaughn. *Implementing Domain-Driven Design*. Addison-Wesley, 2013 — the
   chapters on aligning domain and business.
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — the chapter on architectural drivers.

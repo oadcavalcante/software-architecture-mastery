@@ -13,7 +13,7 @@ objective: >
 prerequisites: [partial-failure]
 related: [eventual-consistency, strong-consistency, cap]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -247,6 +247,6 @@ intersection of "does not tolerate delay" with "reads from a replica" is the nex
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapters 5 and 9.
-- Bailis, Peter et al. *Highly Available Transactions*, 2013.
+- Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.
 - Viotti, Paolo; Vukolić, Marko. *Consistency in Non-Transactional Distributed Storage Systems*.
   ACM Computing Surveys, 2016 — the full map of the spectrum.

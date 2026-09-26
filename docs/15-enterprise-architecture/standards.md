@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-principles]
 related: [enterprise-principles, technology-radar, enterprise-governance]
 canonical_for: [padrão corporativo, operacionalização de padrão, escopo de padrão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -358,6 +358,6 @@ casos, o documento não está funcionando.
 
 ## Para Aprofundar
 
-- Open Group. *TOGAF Standard* — governança de arquitetura.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — governança de arquitetura.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

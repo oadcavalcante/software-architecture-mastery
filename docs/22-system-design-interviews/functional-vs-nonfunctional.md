@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
 canonical_for: [requisito implícito de entrevista]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -355,6 +355,6 @@ provavelmente são adjetivos disfarçados.
 
 ## Para Aprofundar
 
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Bass, Len et al. *Software Architecture in Practice*. 4ª ed. Addison-Wesley, 2021.
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.

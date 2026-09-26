@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, current-state-architecture, integration-landscapes]
 canonical_for: [portfólio de aplicações, avaliação de aplicação, aposentadoria de sistema]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -343,4 +343,4 @@ risco.
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Gartner. *TIME model* — tolerar, investir, migrar, eliminar.
-- Open Group. *TOGAF Standard* — arquitetura de aplicação.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de aplicação.

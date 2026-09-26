@@ -13,7 +13,7 @@ objective: >
 prerequisites: [problem-space]
 related: [constraints, architecture-as-decisions]
 canonical_for: [solution space]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-30
 ---
 
@@ -190,7 +190,7 @@ Then ask: has any of those conditions come to hold since?
 
 ## Further Exploration
 
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — the chapter on trade-off analysis.
 - Nygard, Michael. *Documenting Architecture Decisions*, 2011 — the format that
   makes the solution space recordable.

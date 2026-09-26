@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [negotiating-tradeoffs, risk-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -345,4 +345,4 @@ The ones with no answer to the second question can be decided today.
 
 - Bezos, Jeff. *2015 letter to shareholders* — one-way and two-way door decisions.
 - Kahneman, Daniel. *Thinking, Fast and Slow*. Farrar, Straus and Giroux, 2011.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.

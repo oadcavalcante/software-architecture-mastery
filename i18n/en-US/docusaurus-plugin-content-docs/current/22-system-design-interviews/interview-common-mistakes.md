@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-structure]
 related: [interview-structure, communicating-tradeoffs, requirement-clarification]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -374,5 +374,5 @@ silence; and whether the flow was closed. Those four numbers diagnose most of th
 ## Further Reading
 
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

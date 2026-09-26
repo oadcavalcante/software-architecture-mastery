@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [business-capabilities, capability-mapping, technical-strategy]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -306,5 +306,5 @@ frequently is not.
 ## Further Reading
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- Open Group. *TOGAF Standard* — business architecture.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — business architecture.
 - Rother, Mike; Shook, John. *Learning to See*. LEI, 1999 — value stream mapping.

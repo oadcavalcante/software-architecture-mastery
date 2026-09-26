@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [architecture-principles, architecture-as-decisions]
 canonical_for: [características arquiteturais, architecture characteristics]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -185,7 +185,7 @@ descobertas são valiosas.
 
 ## Para Aprofundar
 
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — a formulação e a prática de seleção.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4ª ed., 2021 — cenários de atributo de qualidade.

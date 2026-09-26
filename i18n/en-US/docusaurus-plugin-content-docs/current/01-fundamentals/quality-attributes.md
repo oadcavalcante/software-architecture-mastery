@@ -13,7 +13,7 @@ objective: >
 prerequisites: [non-functional-requirements]
 related: [constraints, architecture-characteristics]
 canonical_for: [quality attributes]
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-30
 ---
 
@@ -208,5 +208,5 @@ today? The ones with no answer are aspirational attributes.
 
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4th ed., Addison-Wesley, 2021 — the reference on attribute scenarios.
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — architecture characteristics and their prioritization.

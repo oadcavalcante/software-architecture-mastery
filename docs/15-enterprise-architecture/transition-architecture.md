@@ -13,7 +13,7 @@ objective: >
 prerequisites: [target-architecture]
 related: [target-architecture, current-state-architecture, architecture-roadmaps]
 canonical_for: [arquitetura de transição, coexistência, ponto de não retorno]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -308,4 +308,4 @@ vulnerável à próxima mudança de prioridade.
 
 - Fowler, Martin. *StranglerFigApplication*, 2004.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- Open Group. *TOGAF Standard* — arquiteturas de transição.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquiteturas de transição.

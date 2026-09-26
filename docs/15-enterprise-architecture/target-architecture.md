@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: [arquitetura alvo, horizonte de planejamento, propriedade desejada]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -326,5 +326,5 @@ Os elementos sem problema associado são preferência, não alvo.
 ## Para Aprofundar
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
-- Open Group. *TOGAF Standard* — arquitetura alvo e análise de lacuna.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura alvo e análise de lacuna.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

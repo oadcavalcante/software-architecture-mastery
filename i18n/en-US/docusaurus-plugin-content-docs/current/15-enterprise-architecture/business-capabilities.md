@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -311,5 +311,5 @@ is duplication; if one registers and the other bills, they are complementary par
 ## Further Reading
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- Open Group. *TOGAF Standard* — business architecture.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — business architecture.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

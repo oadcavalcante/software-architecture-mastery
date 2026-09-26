@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: [teste do inverso, conflito entre princípios, princípio como critério, hierarquia de princípios]
-content_version: 4
+content_version: 5
 last_reviewed: 2026-08-29
 ---
 
@@ -370,6 +370,6 @@ não estão operando.
 
 ## Para Aprofundar
 
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
-- *TOGAF Standard* — Architecture Principles. The Open Group.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — Architecture Principles. The Open Group.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [architecture-principles, architecture-as-decisions]
 canonical_for: [architecture characteristics]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -186,7 +186,7 @@ findings are valuable.
 
 ## Further Exploration
 
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — the formulation and the selection practice.
 - Bass, Len; Clements, Paul; Kazman, Rick. *Software Architecture in Practice*.
   4th ed., 2021 — quality attribute scenarios.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: [liderança em arquitetura, autoridade sem cargo, papel do arquiteto sênior, crédito técnico]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -350,5 +350,5 @@ mais nela não vai resolver.
 ## Para Aprofundar
 
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Larson, Will. *Staff Engineer*. Publicação do autor, 2021.

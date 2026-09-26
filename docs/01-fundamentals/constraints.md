@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [business-context, solution-space]
 canonical_for: [restrições, constraints]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-26
 ---
 
@@ -201,7 +201,7 @@ com dono desconhecido merecem verificação. Os antigos merecem reexame.
 
 ## Para Aprofundar
 
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — restrições como driver arquitetural.
 - Ford, Neal; Parsons, Rebecca; Kua, Patrick. *Building Evolutionary
   Architectures*. O'Reilly, 2017 — restrições que mudam com o tempo.

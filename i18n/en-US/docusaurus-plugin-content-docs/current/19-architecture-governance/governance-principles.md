@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -371,6 +371,6 @@ tests are not operating.
 
 ## Further Reading
 
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
-- *TOGAF Standard* — Architecture Principles. The Open Group.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — architecture principles.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

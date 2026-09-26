@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-pathologies, exceptions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -344,4 +344,4 @@ moment it happens, not about who takes part.
 
 - Ford, Neal et al. *Building Evolutionary Architectures*. 2nd ed. O'Reilly, 2022.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
-- Woods, Eoin. *Democratising Software Architecture*. IEEE Software, 2016.
+- Woods, Eoin. *Democratising Software Architecture*. Keynote, ICSA 2019.

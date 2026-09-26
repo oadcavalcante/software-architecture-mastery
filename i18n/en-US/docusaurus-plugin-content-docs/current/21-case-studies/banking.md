@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -655,5 +655,5 @@ the application and not in the database, it is not a guarantee.
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Fowler, Martin. *Accounting Patterns*. martinfowler.com, 1996.
+- Fowler, Martin. *Accounting Patterns*. martinfowler.com — supplement to *Analysis Patterns*, Addison-Wesley, 1996.
 - Central bank instant payment scheme rulebooks — settlement system regulation.

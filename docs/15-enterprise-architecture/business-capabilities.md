@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
 canonical_for: [capacidade de negócio, modelo de capacidades de negócio, estabilidade de capacidade]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -324,5 +324,5 @@ mesmo cadastro, é duplicação; se um cadastra e o outro cobra, são partes com
 ## Para Aprofundar
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- Open Group. *TOGAF Standard* — arquitetura de negócio.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de negócio.
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.

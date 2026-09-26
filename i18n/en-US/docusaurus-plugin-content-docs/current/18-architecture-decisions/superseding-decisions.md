@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -322,4 +322,4 @@ Ask: what is the tension none of the ADRs names? Long chains almost always have 
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.
-- Woods, Eoin. *Harnessing Architecture Decision Records*. IEEE Software, 2022.
+- Keeling, Michael. *Love Unrequited: The Story of Architecture, Agile, and How Architecture Decision Records Brought Them Together*. IEEE Software 39(4), 2022.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [functional-vs-nonfunctional, interview-structure, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -323,5 +323,5 @@ in an interview; the crossed-out ones are what consumes your time.
 ## Further Reading
 
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-drivers, legacy-refactoring, organizational-constraints]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -216,5 +216,5 @@ Each cause has a different treatment, and most are cheaper than replacing.
 ## Further Reading
 
 - Feathers, Michael. *Working Effectively with Legacy Code*. Prentice Hall, 2004.
-- Böckeler, Birgitta et al. *Legacy Modernization*. Thoughtworks, 2023.
+- Cartwright, Ian; Horn, Rob; Lewis, James. *Patterns of Legacy Displacement*. martinfowler.com, 2024.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, current-state-architecture, integration-landscapes]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -343,4 +343,4 @@ quadrant.
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Gartner. *TIME model* — tolerate, invest, migrate, eliminate.
-- Open Group. *TOGAF Standard* — application architecture.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — application architecture.

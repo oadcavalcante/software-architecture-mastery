@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-principles]
 related: [enterprise-principles, technology-radar, enterprise-governance]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -359,6 +359,6 @@ both cases, the document is not working.
 
 ## Further Reading
 
-- Open Group. *TOGAF Standard* — architecture governance.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — architecture governance.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
 - Forsgren, Nicole et al. *Accelerate*. IT Revolution, 2018.

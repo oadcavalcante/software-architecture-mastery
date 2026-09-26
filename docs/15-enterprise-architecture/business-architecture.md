@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [business-capabilities, capability-mapping, technical-strategy]
 canonical_for: [arquitetura de negócio, fluxo de valor, ator de negócio, objetivo de negócio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -315,5 +315,5 @@ estar — e frequentemente não está.
 ## Para Aprofundar
 
 - Ulrich, William; Rosen, Michael. *The Business Capability Map*. Cutter Consortium, 2011.
-- Open Group. *TOGAF Standard* — arquitetura de negócio.
+- The Open Group. *TOGAF Standard*, 10ª ed., 2022 — arquitetura de negócio.
 - Rother, Mike; Shook, John. *Learning to See*. LEI, 1999 — mapeamento de fluxo de valor.

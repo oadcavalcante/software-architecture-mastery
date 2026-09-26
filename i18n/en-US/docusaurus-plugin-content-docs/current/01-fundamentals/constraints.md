@@ -13,7 +13,7 @@ objective: >
 prerequisites: [quality-attributes]
 related: [business-context, solution-space]
 canonical_for: [constraints]
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-30
 ---
 
@@ -200,7 +200,7 @@ unknown owner deserve verification. The old ones deserve re-examination.
 
 ## Further Exploration
 
-- Ford, Neal; Richards, Mark. *Fundamentals of Software Architecture*. O'Reilly,
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly,
   2020 — constraints as an architectural driver.
 - Ford, Neal; Parsons, Rebecca; Kua, Patrick. *Building Evolutionary
   Architectures*. O'Reilly, 2017 — constraints that change over time.

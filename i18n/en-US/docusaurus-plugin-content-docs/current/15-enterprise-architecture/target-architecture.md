@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -327,5 +327,5 @@ The elements with no associated problem are preference, not target.
 ## Further Reading
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
-- Open Group. *TOGAF Standard* — target architecture and gap analysis.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — target architecture and gap analysis.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

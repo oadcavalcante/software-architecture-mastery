@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [payments, healthcare, high-volume-events]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -652,5 +652,5 @@ estiver na aplicação e não no banco, ela não é garantia.
 ## Para Aprofundar
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
-- Fowler, Martin. *Accounting Patterns*. martinfowler.com, 1996.
+- Fowler, Martin. *Accounting Patterns*. martinfowler.com — suplemento de *Analysis Patterns*, Addison-Wesley, 1996.
 - Bacen. *Manual de Regras do Pix* — regulamentação do SPI.

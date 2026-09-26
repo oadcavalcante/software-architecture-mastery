@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [technology-radar, standards, platform-engineering]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -350,4 +350,4 @@ Those with fewer than three are a risk, not a choice.
 
 - Ross, Jeanne et al. *Enterprise Architecture as Strategy*. HBS Press, 2006.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
-- Thoughtworks. *Technology Radar*.
+- Thoughtworks. *Technology Radar* — published twice a year since 2010.

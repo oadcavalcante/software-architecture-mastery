@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [negotiating-tradeoffs, risk-management, cross-team-architecture]
 canonical_for: [decisão sob incerteza, custo de adiar, decisão de mão única, informação que decidiria]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -342,4 +342,4 @@ As que não tiverem resposta para a segunda pergunta podem ser decididas hoje.
 
 - Bezos, Jeff. *Carta aos acionistas de 2015* — decisões de mão única e de mão dupla.
 - Kahneman, Daniel. *Thinking, Fast and Slow*. Farrar, Straus and Giroux, 2011.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.

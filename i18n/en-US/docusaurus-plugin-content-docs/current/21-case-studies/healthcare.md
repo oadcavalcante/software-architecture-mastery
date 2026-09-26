@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-translated_from_version: 5
+translated_from_version: 6
 last_reviewed: 2026-08-31
 ---
 
@@ -586,4 +586,4 @@ conflict does the system resolve on its own and which needs a human?
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
 - HL7 International. *FHIR — Fast Healthcare Interoperability Resources*.
-- National medical council. *Resolution on electronic health records*.
+- Brazilian Federal Council of Medicine (CFM). *Resolution No. 1,821/2007* — standards for digitizing and computerizing medical records.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-pathologies, exceptions]
 canonical_for: [revisão antecipada, aconselhamento contra portão, pauta de revisão, produto da revisão]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -343,4 +343,4 @@ momento em que ela acontece, não sobre quem participa.
 
 - Ford, Neal et al. *Building Evolutionary Architectures*. 2ª ed. O'Reilly, 2022.
 - Skelton, Matthew; Pais, Manuel. *Team Topologies*. IT Revolution, 2019.
-- Woods, Eoin. *Democratising Software Architecture*. IEEE Software, 2016.
+- Woods, Eoin. *Democratising Software Architecture*. Palestra de abertura, ICSA 2019.

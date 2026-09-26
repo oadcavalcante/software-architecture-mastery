@@ -13,7 +13,7 @@ objective: >
 prerequisites: [target-architecture]
 related: [target-architecture, current-state-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -305,4 +305,4 @@ is vulnerable to the next shift in priority.
 
 - Fowler, Martin. *StranglerFigApplication*, 2004.
 - Newman, Sam. *Monolith to Microservices*. O'Reilly, 2019.
-- Open Group. *TOGAF Standard* — transition architectures.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — transition architectures.

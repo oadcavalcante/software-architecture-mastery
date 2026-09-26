@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-structure, failure-handling, interview-common-mistakes]
 canonical_for: [comunicação de trade-off, pensar em voz alta, condição que inverte a escolha]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -338,6 +338,6 @@ que é a mesma lacuna que uma entrevista expõe.
 
 ## Para Aprofundar
 
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [functional-vs-nonfunctional, interview-structure, interview-common-mistakes]
 canonical_for: [clarificação de requisitos, pergunta de escopo, premissa declarada, enunciado vago]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -320,5 +320,5 @@ faria numa entrevista; as riscadas são as que consomem o seu tempo.
 ## Para Aprofundar
 
 - Xu, Alex. *System Design Interview*. Byte Code, 2020.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.

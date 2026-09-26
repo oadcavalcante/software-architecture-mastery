@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: [superação de decisão, cadeia de decisões, mudança de contexto registrada]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -318,4 +318,4 @@ Pergunte: qual é a tensão que nenhum dos ADRs nomeia? Cadeias longas quase sem
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.
-- Woods, Eoin. *Harnessing Architecture Decision Records*. IEEE Software, 2022.
+- Keeling, Michael. *Love Unrequited: The Story of Architecture, Agile, and How Architecture Decision Records Brought Them Together*. IEEE Software 39(4), 2022.

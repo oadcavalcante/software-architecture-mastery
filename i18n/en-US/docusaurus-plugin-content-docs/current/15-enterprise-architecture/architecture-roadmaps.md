@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -314,4 +314,4 @@ The items that fail the test need to be reordered or re-divided.
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
 - Highsmith, Jim. *Agile Project Management*. 2nd ed. Addison-Wesley, 2009.
-- Open Group. *TOGAF Standard* — migration planning.
+- The Open Group. *TOGAF Standard*, 10th ed., 2022 — migration planning.

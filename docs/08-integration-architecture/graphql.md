@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, api-gateways, integration-contracts]
 canonical_for: [GraphQL, resolver, sobrebusca, subbusca]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -290,4 +290,3 @@ provocar hoje.
 
 - Byron, Lee. *GraphQL: A data query language*. Facebook Engineering, 2015.
 - Especificação GraphQL — [spec.graphql.org](https://spec.graphql.org).
-- Stemmler, Khalil. *Advanced GraphQL Patterns*, 2022.

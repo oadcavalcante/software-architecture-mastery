@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [data-consistency, oltp, indexing]
 canonical_for: [transação, ACID, nível de isolamento, leitura suja, leitura não repetível, leitura fantasma]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -293,4 +293,4 @@ Cada um é um caso de atualização perdida esperando concorrência suficiente.
 - Berenson, Hal et al. *A Critique of ANSI SQL Isolation Levels*. SIGMOD, 1995.
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 7.
-- Bailis, Peter et al. *Highly Available Transactions*. VLDB, 2014.
+- Bailis, Peter et al. *Highly Available Transactions: Virtues and Limitations*. PVLDB 7(3), 2013.

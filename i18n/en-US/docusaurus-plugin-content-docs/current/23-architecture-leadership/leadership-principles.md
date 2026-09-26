@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: []
-translated_from_version: 4
+translated_from_version: 5
 last_reviewed: 2026-08-31
 ---
 
@@ -325,5 +325,5 @@ between what the organization says and what it uses.
 ## Further Reading
 
 - Rumelt, Richard. *Good Strategy Bad Strategy*. Crown Business, 2011.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.
 - Hohpe, Gregor. *The Software Architect Elevator*. O'Reilly, 2020.

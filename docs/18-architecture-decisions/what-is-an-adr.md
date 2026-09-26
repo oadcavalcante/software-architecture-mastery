@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [why-adrs-matter, adr-structure, adr-status]
 canonical_for: [ADR, registro de decisão de arquitetura, decisão significativa]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -254,4 +254,4 @@ Pergunte a três pessoas por que é assim. Se as respostas divergirem — ou se 
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
 - Keeling, Michael. *Design It!*. Pragmatic Bookshelf, 2017.
-- Ford, Neal et al. *Fundamentals of Software Architecture*. O'Reilly, 2020.
+- Richards, Mark; Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020.

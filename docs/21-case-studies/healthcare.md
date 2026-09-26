@@ -13,7 +13,7 @@ objective: >
 prerequisites: [trade-offs]
 related: [multi-tenant-enterprise, banking, legacy-modernization-case]
 canonical_for: []
-content_version: 5
+content_version: 6
 last_reviewed: 2026-08-29
 ---
 
@@ -594,4 +594,4 @@ unidade? Qual conflito o sistema resolve sozinho e qual precisa de um humano?
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017.
 - HL7 International. *FHIR — Fast Healthcare Interoperability Resources*.
-- Conselho Federal de Medicina. *Resolução CFM sobre prontuário eletrônico*.
+- Conselho Federal de Medicina. *Resolução CFM nº 1.821/2007* — normas para digitalização e uso de sistemas informatizados no prontuário.

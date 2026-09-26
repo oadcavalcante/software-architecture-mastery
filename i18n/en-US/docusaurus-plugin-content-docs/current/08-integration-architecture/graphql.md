@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, api-gateways, integration-contracts]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -270,4 +270,3 @@ The time it takes is what a malicious — or distracted — client can trigger t
 
 - Byron, Lee. *GraphQL: A data query language*. Facebook Engineering, 2015.
 - GraphQL specification — [spec.graphql.org](https://spec.graphql.org).
-- Stemmler, Khalil. *Advanced GraphQL Patterns*, 2022.
