@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, traces, correlation-ids]
 canonical_for: [log estruturado, nível de log, amostragem de log, evento canônico]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -81,7 +81,8 @@ O volume cai por uma ordem de grandeza, e a capacidade de investigação **aumen
 porque cada linha responde sozinha à pergunta "o que aconteceu nesta requisição?", sem
 precisar reunir fragmentos.
 
-É a mudança de maior impacto que um time pode fazer nos seus logs.
+Em sistemas que emitem dezenas de linhas por requisição, é a mudança que mais reduz
+volume e a única que, ao mesmo tempo, melhora a investigação.
 
 ### Contexto suficiente para investigar sem o código
 
@@ -159,8 +160,8 @@ fração das bem-sucedidas rápidas. Preserva o que interessa.
 **Cardinalidade sob controle.** Um campo com milhões de valores distintos encarece a
 indexação.
 
-A amostragem uniforme — registrar 10% de tudo — é a pior escolha: ela remove
-proporcionalmente os erros, que são raros e é o que se quer investigar.
+Para quem investiga falhas, a amostragem uniforme — registrar 10% de tudo — é a pior
+escolha: ela remove proporcionalmente os erros, que são raros e é o que se quer investigar.
 
 ## Modelo Mental
 
@@ -182,15 +183,14 @@ impreciso.
 
 **Para medir latência agregada.** Métricas fazem isso melhor.
 
-**Texto não estruturado.**
+**Como fonte de alerta.** Alertar sobre o padrão de uma mensagem quebra no dia em que
+alguém reformula o texto ou a amostragem descarta a linha. Se a condição merece alerta,
+ela merece uma métrica emitida junto com o log.
 
-**Registrando entrada e saída de toda função.**
-
-**Com dado sensível.**
-
-**Debug ligado por padrão em produção.**
-
-**Amostragem uniforme.**
+**Para eventos abaixo da unidade de trabalho em alta vazão.** Uma linha por mensagem de
+fila consumida a centenas de milhares por segundo, ou por item de um lote, custa mais para
+coletar e indexar do que o processamento que ela descreve. Nessa escala, contador e
+histograma por lote; log só para o item que falhou.
 
 ## Alternativas
 
@@ -198,8 +198,9 @@ impreciso.
 - **[Traces](/13-observability/traces.md)** — para entender o caminho e o tempo de uma requisição.
 - **Evento de auditoria** — quando o requisito é prova, não diagnóstico. Ver
   [auditabilidade](/10-security/auditability.md).
-- **Amostragem por cauda** — decidir manter depois de saber o resultado, preservando os
-  casos interessantes.
+- **[Amostragem por cauda](/13-observability/distributed-tracing.md)** — em log, sai quase
+  de graça quando o registro é um evento canônico: a linha só é emitida no fim, já com o
+  resultado, sem o buffer de spans que a técnica exige em traces.
 
 ## Trade-offs
 
@@ -269,8 +270,10 @@ O volume caiu **92%**. E as consultas de investigação ficaram mais simples, po
 linha respondia sozinha.
 
 **Amostragem por resultado.** 100% dos erros, 100% das requisições acima do percentil
-99 de latência, 5% das bem-sucedidas rápidas. Isso removeu mais 70% do que restava, sem
-perder nenhum caso interessante.
+99 de latência, 5% das bem-sucedidas rápidas. Com taxa de erro em torno de 2%, a política
+retinha cerca de 8% das linhas — mais 90% removidos, sem perder os casos que ela
+classifica como interessantes: erros e cauda de latência. Abriu mão da requisição rápida e
+bem-sucedida que depois se revela errada, recuperável só pelas métricas e pelos traces.
 
 **Debug por requisição.** Um cabeçalho na requisição ativa registro detalhado apenas
 para ela. Permite investigar um caso específico sem ligar debug globalmente.
@@ -281,7 +284,8 @@ passou a acontecer na biblioteca, com lista de campos permitidos em vez de bloqu
 
 **Retenção escalonada.** 14 dias consultáveis, 1 ano em armazenamento frio.
 
-Resultado: custo de logs reduzido em cerca de 85%, e tempo médio de consulta durante
+Resultado: custo de logs reduzido em cerca de 85% — menos que o volume, porque agentes de
+coleta, pipeline e um ano de armazenamento frio não encolhem com as linhas —, e tempo médio de consulta durante
 investigação de 4 minutos para 15 segundos.
 
 Na retrospectiva: a expectativa era ter que escolher entre custo e capacidade de
@@ -305,7 +309,7 @@ consegue entender o que aconteceu?
 ## Perguntas de Entrevista
 
 - Por que o evento canônico reduz volume e aumenta capacidade de investigação?
-- Por que amostragem uniforme é a pior escolha?
+- Por que amostragem uniforme é a pior escolha para investigar falhas?
 - Por que a filtragem de dado sensível precisa acontecer na origem?
 
 ## Para Aprofundar

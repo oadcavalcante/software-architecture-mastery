@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [slo, alerting, resilience]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -112,7 +112,7 @@ actions with an owner and a deadline  without that, nothing changes
 published                 the learning belongs to the organization
 ```
 
-The second line is the test: an analysis concluding "the engineer made a mistake" explains nothing. Every
+The first line is the test: an analysis concluding "the engineer made a mistake" explains nothing. Every
 mistake seemed reasonable to whoever made it, with the information they had — and understanding why is what
 allows changing the system.
 
@@ -157,17 +157,21 @@ require context you may not have.
 
 ## When Not to Use
 
-**Renaming the team without changing the practices.**
+**Renaming the team without changing the practices.** The name promises engineering over work
+that stays manual, and the frustration lands on the renamed team.
 
-**A separate SRE team** in a small organization.
+**A separate SRE team** in a small organization — at around thirty engineers, it recreates the
+division between those who build and those who operate.
 
-**Adopting every practice** regardless of the context.
+**Adopting every practice** regardless of the context. The ones that depend on scale become
+ceremony: process cost without the volume of repetition that would pay for it.
 
 **Incident analysis looking for a culprit.** Worse than not doing it.
 
 **With no autonomy to act.** A team that cannot prioritize fixes cannot sustain an error budget.
 
-**On-call with neither compensation nor a limit.**
+**On-call with neither compensation nor a limit.** The excess of alerts is absorbed by the people
+instead of showing up as a problem, until it turns into turnover.
 
 ## Alternatives
 
@@ -206,17 +210,22 @@ require context you may not have.
 
 ## Common Mistakes
 
-**Adopting the vocabulary without the decisions.**
+**Adopting the vocabulary without the decisions.** The team starts talking about error budgets,
+but nothing changes when one runs out — and the vocabulary loses credibility for the next attempt.
 
-**Creating a separate team prematurely.**
+**Creating a separate team prematurely.** Below the volume that justifies specialization, the team
+becomes a deployment bottleneck and the product teams stop caring about operations.
 
-**Not measuring the toil fraction.**
+**Not measuring the toil fraction.** Without the number, its growth stays invisible until it
+consumes the capacity to eliminate it.
 
 **Not allocating time to fix** what caused the pages.
 
-**Incident analysis with no tracked actions.**
+**Incident analysis with no tracked actions.** The learning gets written down and the same incident
+comes back, because no fix had an owner.
 
-**Not limiting interruptions per shift.**
+**Not limiting interruptions per shift.** The excess of alerts never triggers a review; it is paid
+for in the sleep of whoever is on call.
 
 ## Real-World Example
 
@@ -235,7 +244,7 @@ operations. There was no capacity left to automate.
 
 **Turnover.** Three of the five people left during the period.
 
-The reformulation abandoned the structure and kept the practices:
+The reformulation abandoned the structure and started applying the practices it had blocked:
 
 **Each team operates what it builds**, with its own on-call.
 
@@ -254,8 +263,9 @@ of that service's alerts.
 In the following twelve months, nighttime pages fell 70%, and the platform team's toil fraction went from
 80% to around 30%.
 
-The point the team underlines: the practices were correct from the start; the structure was wrong for the
-company's size. And the last change — allocated time to fix — was the one that most reduced pages, because
+The point the team underlines: the practices were never the problem; the structure, wrong for the
+company's size, kept them from being applied. And the team attributes most of the drop in pages to the last
+change — allocated time to fix —, because
 it closed the loop between being woken and eliminating the cause.
 
 ## Related Concepts

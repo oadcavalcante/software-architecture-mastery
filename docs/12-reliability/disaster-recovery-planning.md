@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rto]
 related: [rto, rpo, failover]
 canonical_for: [recuperação de desastre, plano de continuidade, exercício de recuperação, autoridade de acionamento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -21,13 +21,10 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Planejamento de recuperação é o conjunto de decisões e procedimentos para voltar a
-operar depois de um evento que a redundância normal não cobre: perda de região,
-corrupção de dados, apagamento acidental, ataque com criptografia.
-
-As estratégias técnicas estão em
-[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md). Aqui interessa
-o **plano**: o que ele precisa cobrir além dos dados, quem decide, e por que ele só
+O que é recuperação de desastre, e as estratégias técnicas que a sustentam, estão em
+[recuperação de desastre](/09-cloud-architecture/disaster-recovery.md). Planejamento
+de recuperação é a parte que não se compra do provedor: o **plano** que aciona essas
+estratégias — o que ele precisa cobrir além dos dados, quem decide, e por que ele só
 existe se for exercitado.
 
 A frase que resume: um plano nunca executado é documentação, não capacidade.
@@ -156,17 +153,25 @@ Cópia offline, atualizada, com acesso definido. É trivial e frequentemente aus
 
 ## Quando Não Usar
 
-**Plano documentado sem exercício.**
+**Sistema sem estado próprio.** Se todo dado do sistema é derivado — um índice de
+busca, um cache, uma projeção reconstruível a partir da fonte —, a recuperação é
+reimplantar e reprocessar. O plano dele é uma linha no plano do sistema que guarda a
+fonte, não um plano separado com autoridade e exercícios.
 
-**Plano genérico** para cenários que exigem respostas diferentes.
+**Parada tolerável medida em dias.** Quando a operação aguenta dias em processo
+manual e o sistema pode ser reconstruído a partir de fonte externa — parceiros,
+registros fiscais, o próprio cliente —, um procedimento de restauração testado basta.
+Autoridade nomeada e plano por cenário custam mais do que encurtam.
 
-**Sem autoridade de acionamento definida.**
+**Ciclo de exercícios mais caro que a parada.** Se as horas anuais de exercício de
+mesa, parcial e completo, somadas, custam mais que o prejuízo esperado da parada —
+custo por hora vezes duração vezes frequência —, o aparato completo não se paga, e
+restauração testada com um exercício de mesa por ano é o teto útil.
 
-**Cobrindo só dados.**
-
-**Armazenado apenas no ambiente que pode cair.**
-
-**Sem priorização** do que volta primeiro.
+**Equipe pequena demais para manter procedimento por cenário.** Com duas ou três
+pessoas, cinco procedimentos distintos envelhecem mais rápido do que alguém os revisa.
+Um exercício de mesa trimestral, cobrindo um cenário por vez, entrega mais que
+documentos que ninguém atualiza.
 
 ## Alternativas
 
@@ -181,9 +186,9 @@ Cópia offline, atualizada, com acesso definido. É trivial e frequentemente aus
 
 | Plano detalhado | Enxuto |
 |---|---|
-| Menos decisão sob pressão | Mais flexibilidade |
-| Envelhece mais rápido | Menos manutenção |
-| Exige revisão frequente | Menos |
+| Pouca decisão sob pressão: o procedimento decide | Muita: cada passo é julgado no incidente |
+| Envelhece mais rápido | Envelhece menos, mas depende de quem está de plantão |
+| Exige revisão frequente | Não sobrevive à saída de quem o escreveu |
 
 | Exercício completo | Parcial |
 |---|---|
@@ -209,17 +214,28 @@ Cópia offline, atualizada, com acesso definido. É trivial e frequentemente aus
 
 ## Erros Comuns
 
-**Não exercitar.**
+**Não exercitar.** O procedimento continua citando a ferramenta substituída, e a
+restauração é descoberta durante o incidente, com o relógio do RTO correndo.
 
-**Cobrir só a restauração de dados.**
+**Usar um plano genérico** para cenários que exigem respostas diferentes. O
+procedimento de perda de região restaura para a mesma infraestrutura — que, num
+comprometimento, é exatamente o que não se pode fazer.
 
-**Não nomear quem aciona.**
+**Cobrir só a restauração de dados.** O banco volta e o sistema não sobe: os segredos
+ficaram no ambiente que caiu, e a recuperação para esperando por eles.
 
-**Não priorizar o que volta primeiro.**
+**Não nomear quem aciona.** A primeira hora se perde subindo a decisão na hierarquia,
+e ela sai do RTO de qualquer forma.
 
-**Não guardar cópia offline.**
+**Não priorizar o que volta primeiro.** O essencial volta junto com o resto — no
+exemplo abaixo, 5 horas em vez de 40 minutos.
 
-**Escrever para a auditoria**, e não para o dia do incidente.
+**Guardar o plano só no ambiente que pode cair.** No dia do incidente, o
+procedimento, a lista de contatos e as credenciais de emergência estão fora do ar
+junto com o sistema.
+
+**Escrever para a auditoria**, e não para o dia do incidente. O documento passa na
+verificação anual e nunca é confrontado com a operação real.
 
 ## Exemplo Real
 
@@ -263,8 +279,10 @@ restauração seletiva.
 
 **Credenciais de emergência** em cofre físico e em conta separada.
 
-**Réplica atrasada de 1 hora**, que teria resolvido esse incidente específico em
-minutos.
+**Réplica atrasada de 6 horas**, com a parada da replicação entre as ações que a
+autoridade nomeada pode tomar sem consulta. Ela só protege se o apagamento for
+detectado e a replicação interrompida dentro da janela de atraso; com a hora perdida
+em decisão, uma janela de 1 hora já teria aplicado o apagamento.
 
 **Cópia offline do plano**, atualizada a cada revisão.
 
@@ -300,6 +318,6 @@ As perguntas sem resposta na sala são as lacunas do seu plano.
 
 ## Para Aprofundar
 
-- ISO 22301 — gestão de continuidade de negócios.
-- NIST SP 800-34 — planejamento de contingência.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 17.
+- ISO. *ISO 22301:2019 — Security and resilience — Business continuity management systems — Requirements*. 2019.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems*. NIST, 2010.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — capítulo 17, "Testing for Reliability".

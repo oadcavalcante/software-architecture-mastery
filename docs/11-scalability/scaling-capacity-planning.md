@@ -13,7 +13,7 @@ objective: >
 prerequisites: [performance-vs-scalability]
 related: [performance-vs-scalability, horizontal-scaling, hotspots]
 canonical_for: [modelo de capacidade, folga operacional, teste de carga, alerta de tendência]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -71,10 +71,14 @@ crescimento.
 ```text
 utilização alvo   o que ela permite
       50%         perder metade da capacidade e continuar
-      60%         perder uma zona de três. Ver zonas de disponibilidade
+      60%         perder uma zona de três
       70%         absorver picos moderados
       85%         nada
 ```
+
+A linha de 60% supõe carga repartida igualmente entre três
+[zonas de disponibilidade](/09-cloud-architecture/availability-zones.md): perdida uma,
+as duas restantes passam a 90%.
 
 A folga é decidida a partir de três coisas: quanto varia a carga, quanto tempo leva
 para adicionar capacidade, e o que precisa ser absorvido — a perda de uma zona, um pico
@@ -118,7 +122,7 @@ milhões.
 O teste que vale é o que replica o padrão de acesso de produção, com volume de dados
 comparável.
 
-### Encontre o ponto de saturação
+### Encontre o joelho da curva de carga
 
 Mais útil que "aguenta 1.000 req/s" é conhecer a curva:
 
@@ -135,7 +139,10 @@ O joelho — onde a latência começa a subir desproporcionalmente — é o limi
 real. Acima dele, o sistema ainda funciona e a experiência já degradou.
 
 E o ponto onde a vazão **cai** com mais carga é o que o descarte de carga precisa
-impedir que seja atingido.
+impedir que seja atingido. É o
+[ponto de saturação](/11-scalability/horizontal-scaling.md) visto de outro eixo: lá, o
+número de nós a partir do qual mais nós entregam menos; aqui, a carga a partir da qual
+uma configuração fixa entrega menos.
 
 ### Limites de terceiros entram no modelo
 
@@ -169,27 +176,34 @@ semanas, o alerta precisa vir com oito.
 
 ## Quando Não Usar
 
-**Modelo elaborado para sistema pequeno e estável.**
+**Capacidade chega antes da degradação doer.** Se o autoescalonamento provisiona em
+dois ou três minutos, o crescimento fica abaixo de uns 5% ao mês e nenhum componente
+exige mudança de semanas, escalonamento reativo com alerta de valor cobre o risco. O
+modelo projetaria uma data que ninguém precisa conhecer.
 
-**Teste de carga irreal.** Produz confiança falsa, que é pior que nenhuma.
+**O teto elástico está uma ordem de grandeza acima do pico.** Serviço gerenciado ou
+serverless com cota dez vezes maior que o pico medido não tem limite próximo a projetar.
+O trabalho se reduz ao inventário de cotas — revisado quando o pico crescer, não todo
+mês.
 
-**Alerta só de valor absoluto.**
+**Sobredimensionar custa menos que manter o modelo.** Se dobrar a capacidade custa, por
+mês, menos que as horas de engenharia para medir razões, rodar teste realista e revisar
+a planilha, comprar folga é a decisão racional. O modelo se paga quando a conta de
+infraestrutura é material.
 
-**Planejar sem revisar o modelo.** As razões mudam com o produto.
-
-**Dimensionar pela média.** Ver
-[computação em nuvem](/09-cloud-architecture/cloud-compute.md).
-
-**Ignorar limites de terceiros.**
+**A carga não tem histórico que a projete.** Um produto recém-lançado ou tráfego movido
+por eventos virais não oferece tendência para extrapolar. Ali o investimento rende mais
+em descarte de carga e degradação graciosa do que num modelo sem dados.
 
 ## Alternativas
 
-- **Elasticidade automática** — para variação previsível, com as ressalvas de tempo de
-  provisionamento.
+- **Elasticidade automática** — para variação sem hora marcada, com a ressalva de que o
+  tempo de provisionamento precisa ser menor que a subida da carga.
 - **Descarte de carga** — proteger o essencial quando a capacidade acaba. Ver
   [backpressure](/06-distributed-systems/backpressure.md).
 - **Degradação graciosa** — operar com menos em vez de parar.
-- **Escalonamento programado** — para picos conhecidos, melhor que qualquer reação.
+- **Escalonamento programado** — para picos com hora marcada; evita o atraso de
+  provisionamento que qualquer esquema reativo paga.
 
 ## Trade-offs
 
@@ -234,6 +248,10 @@ pedido.
 
 **Testar com distribuição uniforme.** Carga real é concentrada: poucos clientes, poucas chaves, poucos horários. Teste uniforme não encontra o ponto quente que vai saturar primeiro.
 
+**Dimensionar pela média.** A média esconde o pico que derruba o sistema; o
+dimensionamento parte do percentil alto da carga. Ver
+[computação em nuvem](/09-cloud-architecture/cloud-compute.md).
+
 **Não inventariar limites de terceiros.** Cota de provedor, limite de taxa de API e teto de conexão do banco costumam ser atingidos antes do limite da sua própria infraestrutura — e não são elásticos.
 
 ## Exemplo Real
@@ -263,8 +281,9 @@ abertura.
 minuto; a vazão começava a cair em 5.100. O alvo operacional foi definido em 3.000, com
 descarte de carga acima de 4.000.
 
-**Limites de terceiros inventariados.** O gateway de pagamento tinha limite contratado
-de 800 transações por segundo. O pico projetado pedia 1.100. A renegociação levou cinco
+**Limites de terceiros inventariados.** Cada ingresso vendido é uma transação no
+gateway de pagamento, que tinha limite contratado de 50 transações por segundo. O
+descarte em 4.000 ingressos por minuto deixava passar até 67 por segundo. A renegociação levou cinco
 semanas — e teria sido descoberta durante a abertura se o inventário não existisse.
 
 **Alerta de tendência.** Projeção semanal de quando cada componente atinge 70%, com

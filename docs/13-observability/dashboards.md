@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, metrics, alerting]
 canonical_for: [painel, painel de investigação, painel de acompanhamento, painel de serviço]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -145,7 +145,7 @@ Isso impõe restrições que os demais não têm:
 temporal com variação exige interpretação.
 
 **Sem alarme falso.** Um painel que fica vermelho por variação normal treina as pessoas
-a ignorá-lo — o mesmo mecanismo da fadiga de alerta.
+a ignorá-lo — o mesmo mecanismo da [fadiga de alerta](/13-observability/alerting.md).
 
 **Sem dado sensível.** Ele é visível a visitantes, a quem passa, e a fotos de
 escritório. Valores de receita e nomes de clientes não pertencem ali.
@@ -169,17 +169,19 @@ o painel é uma coleção de gráficos.
 
 ## Quando Não Usar
 
-**Como substituto de alerta.**
+**Como substituto de alerta.** Um painel só detecta o que alguém está olhando. Fora do
+horário comercial, ou quando a degradação é gradual e cabe na variação visível do
+gráfico, quem percebe primeiro é o usuário. O que exige reação em minutos precisa de
+[alerta](/13-observability/alerting.md); o painel entra depois que ele disparou.
 
-**Misturando acompanhamento e investigação.**
+**Como única forma de investigar.** Quando o incidente combina dimensões que nenhum
+gráfico antecipou — um cliente, uma versão, uma região —, o painel não tem o recorte, e o
+time que depende dele fica sem caminho. Ver
+[depurabilidade](/13-observability/debuggability.md).
 
-**Sem limiar nem comparação.** Números sem referência.
-
-**Artesanal por serviço**, quando a padronização é possível.
-
-**Sem revisão.**
-
-**Como única forma de investigar.**
+**Para dado que ninguém consulta em tempo real.** Tendência trimestral de capacidade ou
+custo por serviço cabem num relatório periódico; mantê-los num painel vivo é custo de
+manutenção sem leitor.
 
 ## Alternativas
 
@@ -192,7 +194,7 @@ o painel é uma coleção de gráficos.
 
 | Poucos gráficos | Muitos |
 |---|---|
-| Legível sob pressão | Completo |
+| Cobre poucas perguntas, lidas em segundos | Cobre mais perguntas, lidas em minutos |
 | Pode faltar contexto | Ninguém acha nada |
 | Fácil de manter | Envelhece |
 

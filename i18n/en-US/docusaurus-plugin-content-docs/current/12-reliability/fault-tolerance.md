@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability-basics]
 related: [redundancy, resilience, circuit-breakers]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -205,8 +205,8 @@ The decision belongs to the domain, not to the infrastructure. See
 | Deep detection | Shallow |
 |---|---|
 | Finds silent failures | Only crashes |
-| A verification cost | Low |
-| A false positive risk | Lower |
+| High verification cost | Low |
+| Higher false positive risk | Lower |
 
 ## Failure Modes
 
@@ -224,17 +224,23 @@ The decision belongs to the domain, not to the infrastructure. See
 
 ## Common Mistakes
 
-**Investing in isolation with no detection.**
+**Investing in isolation with no detection** — the failure stays contained and silent; the damage
+accumulates without producing a signal.
 
-**A health check that only tests whether the process responds.**
+**A health check that only tests whether the process responds** — the instance returning wrong
+data stays marked healthy and keeps receiving traffic.
 
-**Not monitoring absence** — a stopped consumer, a task that did not run.
+**Not monitoring absence** — a stopped consumer and a task that did not run raise no error; the
+effect vanishes and the discovery comes from the customer.
 
-**Not instrumenting the tolerance mechanisms.**
+**Not instrumenting the tolerance mechanisms** — retries and circuit openings grow unrecorded, and
+the deterioration only shows when it beats the protection.
 
-**Tolerating instead of fixing the cause.**
+**Tolerating instead of fixing the cause** — the dependency that fails 5% of the time becomes a
+permanent condition, paid in retry latency on every call.
 
-**Not exercising it.** See [chaos engineering](/12-reliability/chaos-engineering.md).
+**Not exercising it** — the failover that was never triggered discovers its broken configuration
+during the incident. See [chaos engineering](/12-reliability/chaos-engineering.md).
 
 ## Real-World Example
 
@@ -250,7 +256,7 @@ dead-letter queue, which nobody monitored.
 The effect: 2% of the payments confirmed by the gateway were never marked as paid. Customers received
 charges for invoices already paid.
 
-No alert fired in eleven months. The system was available, fast and correct in 98% of the cases — and the
+No alert fired in eleven months. The system was available and fast, and that gateway's confirmation flow was correct in 98% of the cases — and the
 tolerance worked exactly as designed: it isolated the failure and moved on.
 
 The detection came from the support team, on noticing a pattern in the complaints.

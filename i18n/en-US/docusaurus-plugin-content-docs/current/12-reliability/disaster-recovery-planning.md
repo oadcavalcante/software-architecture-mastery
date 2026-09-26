@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rto]
 related: [rto, rpo, failover]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,13 +21,10 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Recovery planning is the set of decisions and procedures for getting back to operating after an event
-normal redundancy does not cover: the loss of a region, data corruption, accidental deletion, an encryption
-attack.
-
-The technical strategies are in [disaster recovery](/09-cloud-architecture/disaster-recovery.md). Here what
-matters is the **plan**: what it needs to cover beyond the data, who decides, and why it only exists if it
-is exercised.
+What disaster recovery is, and the technical strategies behind it, are in
+[disaster recovery](/09-cloud-architecture/disaster-recovery.md). Recovery planning is the part you cannot buy
+from the provider: the **plan** that triggers those strategies — what it needs to cover beyond the data, who
+decides, and why it only exists if it is exercised.
 
 The sentence that summarizes it: a plan never executed is documentation, not capability.
 
@@ -152,17 +149,22 @@ An offline copy, up to date, with defined access. It is trivial and frequently a
 
 ## When Not to Use
 
-**A documented plan with no exercise.**
+**A system with no state of its own.** If all of the system's data is derived — a search index, a cache, a
+projection rebuildable from the source — recovery means redeploying and reprocessing. Its plan is one line in
+the plan of the system that holds the source, not a separate plan with authority and exercises.
 
-**A generic plan** for scenarios requiring different responses.
+**Tolerable downtime measured in days.** When the operation can run for days on a manual process and the
+system can be rebuilt from an external source — partners, tax records, the customers themselves — a tested
+restore procedure is enough. Named authority and a plan per scenario cost more than they shorten.
 
-**With no defined triggering authority.**
+**An exercise cycle more expensive than the outage.** If the yearly hours of tabletop, partial and full
+exercises, added up, cost more than the expected loss from downtime — cost per hour times duration times
+frequency — the full apparatus does not pay for itself, and a tested restore with one tabletop exercise a year
+is the useful ceiling.
 
-**Covering only the data.**
-
-**Stored only in the environment that can go down.**
-
-**With no prioritization** of what comes back first.
+**A team too small to maintain a procedure per scenario.** With two or three people, five distinct procedures
+age faster than anyone reviews them. A quarterly tabletop exercise, covering one scenario at a time, delivers
+more than documents nobody updates.
 
 ## Alternatives
 
@@ -176,9 +178,9 @@ An offline copy, up to date, with defined access. It is trivial and frequently a
 
 | A detailed plan | A lean one |
 |---|---|
-| Less decision under pressure | More flexibility |
-| Ages faster | Less maintenance |
-| Requires frequent review | Less |
+| Little decision under pressure: the procedure decides | A lot: each step is judged during the incident |
+| Ages faster | Ages less, but depends on who is on call |
+| Requires frequent review | Does not survive the departure of whoever wrote it |
 
 | A full exercise | A partial one |
 |---|---|
@@ -204,17 +206,26 @@ An offline copy, up to date, with defined access. It is trivial and frequently a
 
 ## Common Mistakes
 
-**Not exercising it.**
+**Not exercising it.** The procedure keeps citing the replaced tool, and the restore is figured out during the
+incident, with the RTO clock running.
 
-**Covering only data restoration.**
+**Using a generic plan** for scenarios requiring different responses. The region-loss procedure restores to
+the same infrastructure — which, in a compromise, is exactly what you cannot do.
 
-**Not naming who triggers it.**
+**Covering only data restoration.** The database comes back and the system does not start: the secrets stayed
+in the environment that went down, and the recovery stalls waiting for them.
 
-**Not prioritizing what comes back first.**
+**Not naming who triggers it.** The first hour is lost sending the decision up the hierarchy, and it comes out
+of the RTO regardless.
 
-**Not keeping an offline copy.**
+**Not prioritizing what comes back first.** The essential comes back along with everything else — in the
+example below, 5 hours instead of 40 minutes.
 
-**Writing for the audit**, and not for the day of the incident.
+**Keeping the plan only in the environment that can go down.** On the day of the incident, the procedure, the
+contact list and the emergency credentials are down together with the system.
+
+**Writing for the audit**, and not for the day of the incident. The document passes the annual check and is
+never confronted with real operations.
 
 ## Real-World Example
 
@@ -252,7 +263,9 @@ and a compromise.
 
 **Emergency credentials** in a physical safe and in a separate account.
 
-**A 1-hour delayed replica**, which would have resolved that specific incident in minutes.
+**A 6-hour delayed replica**, with stopping replication among the actions the named authority can take
+without consultation. It only protects if the deletion is detected and replication stopped within the delay
+window; with the hour lost deciding, a 1-hour window would already have applied the deletion.
 
 **An offline copy of the plan**, updated at each review.
 
@@ -286,6 +299,6 @@ The questions with no answer in the room are your plan's gaps.
 
 ## Further Reading
 
-- ISO 22301 — business continuity management.
-- NIST SP 800-34 — contingency planning.
-- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 17.
+- ISO. *ISO 22301:2019 — Security and resilience — Business continuity management systems — Requirements*. 2019.
+- Swanson, Marianne et al. *NIST SP 800-34 Rev. 1 — Contingency Planning Guide for Federal Information Systems*. NIST, 2010.
+- Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016 — chapter 17, "Testing for Reliability".

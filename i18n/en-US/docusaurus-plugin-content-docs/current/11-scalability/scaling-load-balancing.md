@@ -13,7 +13,7 @@ objective: >
 prerequisites: [horizontal-scaling]
 related: [horizontal-scaling, statelessness, hotspots]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -59,7 +59,9 @@ The last deserves emphasis: picking two at random and sending to the less loaded
 result of knowing every load, at a fraction of the cost — and without the herd effect that "always the
 least loaded" produces, when several balancers converge on the same instance.
 
-For most cases, **least connections** or **two random choices** beat round robin comfortably.
+With homogeneous requests, the algorithms tie in practice. When duration varies by orders of magnitude —
+the millisecond search next to the multi-second report —, **least connections** or **two random choices**
+beat round robin comfortably, because they see the queue that round robin ignores.
 
 ### Persistent connections break the balancing
 
@@ -78,7 +80,10 @@ If one client sends ten times more than the others, its instance saturates. And,
 during a peak receive no traffic at all, because no new connections are being opened.
 
 See [gRPC](/08-integration-architecture/grpc.md). The ways out are layer 7 balancing, client-side
-balancing, or a [service mesh](/08-integration-architecture/service-mesh.md).
+balancing, a [service mesh](/08-integration-architecture/service-mesh.md), or recycling connections on the
+server — in gRPC, a maximum connection age with a grace period, which forces clients to reconnect and
+redistributes without replacing the balancer. Recycling corrects in windows, not request by request: between
+one reconnection and the next, the imbalance builds up again.
 
 ### A shallow health check keeps a sick instance in the rotation
 
@@ -88,11 +93,12 @@ dependency down, with a full disk.
 See [failure detection](/06-distributed-systems/failure-detection.md). Mature balancing considers error
 rate and latency, not only presence.
 
-And there is the inverse effect, which is worse: a **too deep** check — one that queries the database —
-makes every instance leave the rotation when the database gets slow, turning degradation into total
-unavailability.
-
-The balance: the check verifies its own process; the balancing observes latency and errors to decide.
+The inverse effect — a deep check that fails every instance at once when a dependency gets slow — is in
+[load balancing](/05-system-design/load-balancing.md). The scaling angle is different: with the check
+restricted to the process itself, the balancer **reduces the weight** of the instance whose latency or error
+rate stands out from the others, instead of removing it. Removal is binary and hands its whole share to the
+neighbors at once; reducing weight relieves the degraded instance without pushing the others into
+saturation.
 
 ### Shedding load is better than queuing
 
@@ -144,15 +150,17 @@ equivalent.
 
 ## When Not to Use
 
-**Round robin when the requests vary a lot in cost.**
+**Round robin when request duration varies by orders of magnitude.** Each instance receives the same
+number of requests, and the one that drew the expensive ones builds a queue. With similar durations, round
+robin is enough and is the most predictable.
 
-**Layer 4 with persistent connections.**
+**Layer 4 when a few clients concentrate the volume on long connections.** With thousands of clients of
+similar volume, the connection distribution approximates the request distribution; with dozens, a single
+heavy client saturates the instance that received it.
 
-**A health check that queries dependencies.**
-
-**Unlimited queuing under saturation.**
-
-**Removing an instance without draining.**
+**Binary removal from the rotation as the only reaction to degradation.** When spare capacity is small,
+pulling a slow instance dumps its share on the neighbors — the trigger of the come-up-and-go-down cycle.
+Reduce weight before removing.
 
 **Session affinity as a permanent solution.** See [statelessness](/11-scalability/statelessness.md).
 
@@ -204,8 +212,9 @@ expensive, an equal distribution of requests produces an unequal distribution of
 **Layer 4 with HTTP/2 or gRPC.** Those protocols multiplex over long-lived connections, so balancing per
 connection pins each client to one instance and the new ones receive no traffic.
 
-**A health check querying the database.** A database slowdown fails every instance at the same time, and
-the balancer removes the whole service — converting degradation into a total outage.
+**Treating scaling as just adding instances.** Without gradual entry, per-request balancing and draining,
+the new instance gets no traffic, gets everything at once, or drops requests on its way out — and expanding
+at the peak has no effect.
 
 **Not limiting the queue.** Accepting everything under overload increases everybody's latency until nobody
 is served in time. Refusing the excess fast preserves what still fits.
@@ -256,8 +265,8 @@ Result: the difference between the most and the least loaded instance fell from 
 expanding during peaks came to have an effect.
 
 The team's reading: the migration to gRPC had been assessed on performance and on the contract, and the
-balancing behavior was not on the list. It is the protocol's most significant operational change, and it
-appears in no performance comparison.
+balancing behavior was not on the list. For them, it was the migration's highest-impact operational change —
+and it appeared in none of the performance comparisons they had used to decide.
 
 ## Related Concepts
 

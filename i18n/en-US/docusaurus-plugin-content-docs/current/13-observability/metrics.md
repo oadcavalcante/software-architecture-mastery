@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, golden-signals, dashboards]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -64,8 +64,9 @@ The typical mistake is using a gauge for what should be a counter. A gauge sampl
 the spikes between samples; a counter misses nothing, because it records everything and the rate is
 derived.
 
-And a histogram for latency, never a gauge: an individual request's latency has no aggregate meaning, the
-distribution does.
+And a histogram for request latency under continuous traffic: an individual request's latency has no
+aggregate meaning, the distribution does. A gauge only fits when there is one measurement per period — the
+duration of a batch job's last run, for example.
 
 ### Percentiles do not sum
 
@@ -154,17 +155,17 @@ queried nor alerted on in twelve months — usually allows removing a significan
 
 ## When Not to Use
 
-**With high-cardinality labels.**
+**When the dimension you care about has unbounded values.** If the product of the labels exceeds a few tens
+of thousands of series per metric, each new value is a new series and the cost stops being constant — the
+case of a customer, order or session identifier. The dimension belongs in a log field or a trace attribute.
 
-**To investigate individual cases.**
+**When the question is about a specific case.** Aggregation happens at collection; the detail discarded there
+does not come back at query time. "Why did this order fail" has no answer in a metric, however good the
+instrumentation.
 
-**A gauge for what is a counter.**
-
-**An average instead of a percentile**, for latency.
-
-**Aggregating percentiles from different sources.**
-
-**Without reviewing** the ones that stopped being used.
+**When the question is not yet known.** A metric answers only what was instrumented before the incident. To
+explore slices nobody anticipated, rich events aggregated at query time serve better, at the cost of more
+storage.
 
 ## Alternatives
 
@@ -175,7 +176,8 @@ queried nor alerted on in twelve months — usually allows removing a significan
 - **Exemplars** — metrics that carry pointers to representative traces, linking the aggregate to the
   individual.
 
-The last deserves a note: it partially resolves aggregation's information loss, and it is underused.
+The last deserves a note: it is not an alternative to metrics but a feature of the metrics system itself — it
+partially resolves aggregation's information loss without giving up the constant cost.
 
 ## Trade-offs
 
@@ -196,9 +198,11 @@ The last deserves a note: it partially resolves aggregation's information loss, 
 
 **A cardinality explosion.** The metrics system goes down or the cost skyrockets.
 
-**Percentiles aggregated incorrectly.**
+**Percentiles aggregated incorrectly.** The service dashboard's p99 sits well below the p99 of the
+slowest instance, and the latency alert does not fire while the users it serves complain about slowness.
 
-**A gauge missing spikes.**
+**A gauge missing spikes.** The dashboard shows memory stable well below the limit while the service is
+killed for running out of memory, or shows an empty queue while consumers report delays.
 
 **A metric with no context.** You know it went up, you do not know what.
 

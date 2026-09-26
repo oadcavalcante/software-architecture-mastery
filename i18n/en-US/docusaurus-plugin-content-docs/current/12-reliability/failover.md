@@ -13,7 +13,7 @@ objective: >
 prerequisites: [redundancy]
 related: [redundancy, chaos-engineering, disaster-recovery-planning]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -67,7 +67,9 @@ instantaneous spike. See [failure detection](/06-distributed-systems/failure-det
 ### Split brain is the worst outcome
 
 Two copies consider themselves primary. Both accept writes. The data diverges, and the reconciliation is
-manual and imperfect.
+manual and imperfect. The phenomenon and its general defenses are covered in
+[leader election](/06-distributed-systems/leader-election.md); what matters here is how they
+enter a failover design.
 
 That is worse than unavailability: unavailability gets resolved; data divergence may not.
 
@@ -76,10 +78,12 @@ The mechanisms that prevent it:
 **A majority.** Only the one with the majority of the nodes' votes takes over. That is why three, not two.
 See [consensus](/06-distributed-systems/consensus.md).
 
-**Fencing the old one.** The previous primary is prevented from accepting writes — by credential
+**Isolating the old one.** The previous primary is prevented from accepting writes — by credential
 revocation, by a network rule, or by shutdown.
 
-**A generation stamp.** Writes carry a generation number; the store refuses those from an old generation.
+**Fencing.** The store refuses writes that arrive with a leadership number older than the promotion's —
+the mechanism is described in [leader election](/06-distributed-systems/leader-election.md). In failover,
+it covers what isolation lets through: the writes the old primary already had in flight.
 
 A failover with none of those mechanisms will produce split brain eventually.
 
@@ -124,7 +128,7 @@ established connection queries no DNS at all — it stays on the old address unt
 Inventorying everything that points at the component is part of the design, and it is what usually is
 missing.
 
-### Exercising is the only verification that counts
+### Only exercising verifies the procedure end to end
 
 See [chaos engineering](/12-reliability/chaos-engineering.md). The failover needs to be executed
 periodically, in production, in a controlled window.
@@ -234,13 +238,16 @@ The sequence:
 **A successful promotion.** The replica took over in 25 seconds.
 
 **Applications did not reconnect.** The instances held connections to the old address and had no
-reconnection logic. They had to be restarted manually: 12 minutes.
+reconnection logic. They had to be restarted manually: 12 minutes. On startup, each instance tried the
+original primary's address first and, getting no answer, fell back to the replica's.
 
-**The old primary came back.** The zone partially recovered, and the original database started accepting
+**The old primary came back.** At minute 5 of the restart, the zone partially recovered, and the original database started accepting
 connections again — still considering itself primary. There was no fencing mechanism.
 
-**Split brain for 40 minutes.** Some applications, restarted earlier, pointed at the new primary; others,
-at the old one. Both accepted writes.
+**Split brain for 40 minutes.** The instances restarted before minute 5 were on the new primary; those
+restarted after — about half the fleet — found the original address answering and connected to the old
+one. Both accepted writes until the team noticed the divergence and shut the original database down by
+hand.
 
 **Data divergence.** 1,400 transactions had to be reconciled manually over three days. Nineteen could not
 be resolved with certainty.

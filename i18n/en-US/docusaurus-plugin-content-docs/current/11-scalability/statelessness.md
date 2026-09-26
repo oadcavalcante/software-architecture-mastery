@@ -13,7 +13,7 @@ objective: >
 prerequisites: [horizontal-scaling]
 related: [horizontal-scaling, scaling-load-balancing, scaling-cache]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -103,11 +103,10 @@ scales differently. Treating them together limits both.
 
 Being stateless is not enough if the instance dies in the middle of a request.
 
-The necessary behavior: stop accepting new requests, leave the load balancing, finish the ones in flight,
-and only then terminate.
-
-Without that, every scaling event — which should be routine — loses requests. See
-[cloud compute](/09-cloud-architecture/cloud-compute.md).
+The instance has to leave the load balancing and finish what is in flight before terminating — the
+sequence is in [drain before removing](/11-scalability/scaling-load-balancing.md#drain-before-removing).
+The point specific to this page: work in progress is state while it lasts, and without draining every
+scaling event — which should be routine — loses it.
 
 ### The cost is real
 
@@ -142,7 +141,9 @@ regardless of what the documentation says.
 **Intrinsically stateful components** — databases, caches, coordination systems. They have their own
 strategies.
 
-**Session affinity as a permanent solution.**
+**During the migration, with a deadline.** While the session has not yet been externalized, removing
+session affinity logs users out on every request; keeping it is the right choice until the shared store is
+ready. Without a removal date, it becomes the debt described above.
 
 **Externalizing a local cache that is only a copy.** That is a legitimate optimization.
 
@@ -169,10 +170,14 @@ local cache, not keeping the state.
 | External access latency | Local memory |
 | Additional storage to operate | None |
 
+The choice between a session on the client and on the server, with all the options, is in
+[state management](/05-system-design/state-management.md#comparing-the-session-options); the summary from
+the scaling angle:
+
 | State on the client | On the server |
 |---|---|
 | Nothing to store | Storage to operate |
-| Limited size | Unlimited |
+| Limited size | No practical limit, paid for in shared-store memory |
 | Visible to the client | Opaque |
 | Difficult revocation | Immediate |
 
@@ -209,8 +214,9 @@ the system grows — exactly when nobody is looking at the scheduler.
 **Treating the local cache as authoritative.** Instances diverge, and the user sees different responses on
 each reload with nothing wrong in the source data.
 
-**Not implementing graceful shutdown.** Without draining connections, every scale-down and every deployment
-discards in-flight requests — which appear as intermittent errors with no apparent cause.
+**Not implementing graceful shutdown.** The instance leaves the load balancing with work in flight, and
+every scale-down turns into lost requests — the operational consequence is in
+[cloud compute](/09-cloud-architecture/cloud-compute.md).
 
 ## Real-World Example
 
@@ -251,8 +257,10 @@ lost on every deployment, with no alert in existence.
 
 **Graceful shutdown**, with the node leaving the load balancing before terminating.
 
-The test of turning off an instance took twenty minutes and found five problems, two of them in production
-for years. It had never been done because "the application is stateless".
+The shutdown itself took twenty minutes and exposed three visible failures — session, upload and
+connection. The two silent findings, scheduling and the counter, came from the investigation it triggered,
+listing what else lived in the process. None of it had been done before because "the application is
+stateless".
 
 ## Related Concepts
 
@@ -265,8 +273,10 @@ for years. It had never been done because "the application is stateless".
 
 Turn off a production instance in the middle of traffic, in a controlled window, and observe what breaks.
 
-If nothing breaks, your application is stateless. If something breaks, you have found the state the
-documentation does not mention.
+If something breaks, you have found the state the documentation does not mention. If nothing breaks, the
+test does not prove statelessness: silent state does not break within the observed window. Also inspect
+timers in the process, counters and accumulators, files on local disk and local caches that hold the only
+copy of a value.
 
 ## Interview Questions
 

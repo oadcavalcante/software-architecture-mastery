@@ -13,7 +13,7 @@ objective: >
 prerequisites: [sli]
 related: [sli, sla, availability-metrics]
 canonical_for: [SLO, objetivo de nível de serviço, orçamento de erro, taxa de consumo]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -39,7 +39,7 @@ Sem alvo definido, duas dinâmicas ruins aparecem.
 roteiro do que pode esperar. O time reage a tudo, e o roteiro nunca avança.
 
 **Ou nada é.** Sem número, a confiabilidade compete com funcionalidades sem argumento
-próprio, e perde sempre.
+próprio, e perde toda disputa com uma funcionalidade que tem prazo e cliente pedindo.
 
 O SLO resolve as duas ao dar um limite: acima dele, o sistema está bom o suficiente e o
 trabalho vai para produto; abaixo, a confiabilidade tem prioridade — e isso foi
@@ -86,8 +86,12 @@ A conversa correta não é "queremos o máximo". É: "de 99,9% para 99,99% custa
 a indisponibilidade evitada vale Y?".
 
 E há um teto que a engenharia não controla: **um sistema não pode ser mais disponível
-que suas dependências síncronas**. Prometer 99,99% dependendo de um serviço externo com
-99,9% é impossível.
+que uma dependência síncrona da qual não tem como prescindir**. Prometer 99,99% dependendo
+de um serviço externo com 99,9%, sem alternativa, é impossível. O teto só se desloca com
+o que desfaz a dependência no momento da falha: retentativa, quando as falhas são
+transitórias e independentes; cache servindo o último valor bom; ou degradação que
+entrega a jornada sem aquela resposta. Cada um tem custo, e é esse custo que entra na
+conversa do alvo.
 
 ### Cem por cento é o alvo errado
 
@@ -190,11 +194,17 @@ decorativo.
 | Congelamentos frequentes | Raros |
 | Pouca margem para risco | Muita |
 
-| Janela curta | Longa |
-|---|---|
-| Reage rápido | Absorve variação |
-| Oscila | Estável |
-| Um incidente estoura | Esconde degradação |
+| | Janela curta | Longa |
+|---|---|---|
+| Tempo até a degradação aparecer | Horas | Semanas |
+| Comportamento do orçamento | Oscila a cada pico | Estável |
+| Efeito de um incidente isolado | Estoura o orçamento | Diluído — e dilui junto a degradação recente |
+
+Adotar SLO também tem custo contínuo, independente do alvo escolhido: o SLI precisa de
+pipeline de medição confiável, o alerta de taxa de consumo precisa de duas janelas
+mantidas e calibradas por jornada, e o alvo precisa ser revisto a cada mudança relevante
+de negócio. Cada SLO adicional multiplica esse trabalho — por isso poucos alvos
+acompanhados valem mais que muitos ignorados.
 
 ## Modos de Falha
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, slo, sre-concepts]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -72,7 +72,9 @@ a symptom   "the checkout error rate is above the limit"
 Alerting on causes produces two problems: it fires when there is no impact — high CPU can be normal — and
 it does not fire when there is impact from a cause nobody anticipated.
 
-Alerting on a symptom covers every cause, including the unknown ones, and it only fires when it matters.
+Alerting on a symptom covers every cause that shows up in the measured signal, including the ones nobody
+foresaw, at the price of not saying which one it is. Whatever does not show up in the chosen symptom stays
+uncovered, and a transient spike below real impact can still fire.
 
 The causes are still measured — they appear on the dashboard and are used for diagnosis. They simply do not
 wake anybody up.
@@ -94,7 +96,8 @@ burn          "at the current pace, the month's budget runs out in 20 hours"
 The second is proportional to the real impact and it allows graduating the response: fast burn wakes
 somebody; moderate and prolonged burn becomes a prioritized task.
 
-It is the change that most reduces alert volume with no reduction in coverage.
+When the SLO exists and reflects the user journey, this switch cuts volume without losing coverage: the
+irrelevant spikes stop firing, and the slow degradation starts firing.
 
 ### Not everything needs to wake somebody up
 
@@ -109,8 +112,10 @@ a dashboard     context information, with no action
 The question that classifies it: **if this fires at 3 a.m., does somebody need to get up?** If the answer
 is no, it is not an on-call alert.
 
-Downgrading alerts to tickets is the fastest intervention for reducing fatigue, and it loses nothing — the
-work still gets done, at a reasonable hour.
+Downgrading to a ticket whatever answers "no" to that question is the fastest intervention for reducing
+fatigue — the work still gets done, at a reasonable hour. What is lost is timely detection of a condition
+that worsens outside business hours; so the downgrade holds only when the condition does not tend to become
+a symptom before the next morning.
 
 ### Every alert needs context
 
@@ -155,22 +160,21 @@ nobody prioritized.
 - A symptom affecting users, with an action available.
 - Accelerated error budget consumption.
 - A predictable condition with a deadline — a certificate, a quota, a disk.
-- A protection mechanism failing.
+- A protection mechanism failing — a lost replica, disabled failover. There is no impact yet, but the next
+  failure is no longer absorbed; it is the predictable-cause exception where the deadline is the time until
+  the next failure.
 - The absence of something that should happen — a task not executed, traffic ceased.
 
 ## When Not to Use
 
-**On causes** with no direct impact.
+**On causes** with no direct impact — they fire under normal conditions and train the team to ignore them.
 
-**With no possible action.**
+**With no possible action** — waking somebody up to watch does not change the outcome.
 
-**For what can wait for business hours.**
+**For what can wait for business hours** — the cost of the interruption buys nothing a ticket would not
+deliver.
 
 **With an arbitrary threshold**, when an error budget is available.
-
-**With no context in the notification.**
-
-**With no periodic review.**
 
 ## Alternatives
 
@@ -186,7 +190,7 @@ nobody prioritized.
 |---|---|
 | Each one is taken seriously | Ignored |
 | A gap risk | Broad coverage |
-| Review necessary | Accumulation |
+| Needs active review to stay small | Grows on its own with every incident |
 
 | A symptom | A cause |
 |---|---|
@@ -294,7 +298,7 @@ The third category is usually the largest — and removing it is the highest-ret
 
 ## Interview Questions
 
-- What are the three tests an on-call alert needs to pass?
+- An alert fires every week and always gets the same manual action. What destination should it have, and why?
 - Why alert on a symptom and not on a cause?
 - What does an alert that fires every week mean?
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [failover, fault-tolerance, availability-metrics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -82,9 +82,10 @@ N+M              tolerates M simultaneous failures
 In a passive configuration, the standby may have been broken for months with nobody knowing.
 
 That is the practical reason to prefer active-active when possible — not resource utilization, but the fact
-that the recovery path is the normal path.
+that the recovery path is the normal path. Cost, idle capacity and coordination of the two topologies are
+covered in [multi-region](/09-cloud-architecture/multi-region.md).
 
-### N+1 requires absorption capacity
+### N+1 redundancy requires absorption capacity
 
 Having one extra copy is not enough if the remaining ones cannot take the load.
 
@@ -121,7 +122,7 @@ The first three are practicable, at increasing cost. See
 ### Gradual deployment is redundancy in time
 
 Against a code defect, spatial redundancy does not help. What helps is not deploying to everything at the
-same time:
+same time — in phases or by [canary](/14-devops-and-platform/canary.md):
 
 ```text
 phased deployment   a fraction receives the new version; observe; advance
@@ -171,7 +172,9 @@ not resolve.
 
 **Against a code defect.** There the answer is gradual deployment.
 
-**When the cost exceeds that of the unavailability.**
+**When the extra copy costs more per year than the unavailability it prevents** — expected minutes of
+downtime per year times the cost of one minute down. The typical case: doubling the infrastructure to cut
+unavailability that already fits within the error budget.
 
 **With no tested switching mechanism.**
 
@@ -197,9 +200,7 @@ not resolve.
 | Active-active | Active-passive |
 |---|---|
 | The standby is exercised | It may be broken |
-| All capacity in use | Idle |
 | No switch to execute | A failover to test |
-| Coordination necessary | Simpler |
 
 ## Failure Modes
 
@@ -263,8 +264,11 @@ certificate came to degrade one zone, not the system.
 **Phased configuration.** Configuration changes came to be applied zone by zone, with observation between
 them — the same treatment given to code deployment.
 
-**Canary deployment.** 5% of the traffic on the new version for 30 minutes, with metrics compared
-automatically. The next memory leak was detected with 5% impact, not 100%.
+**[Canary](/14-devops-and-platform/canary.md) deployment.** 5% of the traffic on the new version for an
+hour, compared against the current version not only on errors and latency but on the slope of memory
+consumption per request served — with little traffic the leak does not get to degrade the instance within
+the window, but the slope diverges in the first minutes. The next memory leak was detected that way, with
+5% impact, not 100%.
 
 **An inventory of shared dependencies.** An explicit survey of what the three zones have in common. It
 found four more items: a shared external API quota, a configuration bucket, an internal name resolution

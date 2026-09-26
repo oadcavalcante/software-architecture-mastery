@@ -13,7 +13,7 @@ objective: >
 prerequisites: [traces]
 related: [traces, correlation-ids, telemetry]
 canonical_for: [rastreamento distribuído, amostragem de trace, amostragem por cauda]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -58,7 +58,8 @@ A terceira parte é essencial e frequentemente esquecida: a decisão precisa ser
 traces fragmentados — alguns spans coletados, outros não, e a árvore incompleta.
 
 O formato padronizado de propagação — um cabeçalho com estrutura definida — resolveu a
-interoperabilidade entre bibliotecas e fornecedores. Usá-lo é a escolha certa.
+interoperabilidade entre bibliotecas e fornecedores. Usá-lo é a escolha padrão; um formato
+proprietário anterior só se justifica na integração com sistema que não entende outro.
 
 ### Os saltos que quebram
 
@@ -101,15 +102,17 @@ comum, mais uma regra que força a coleta de erros e de requisições marcadas.
 
 ### Força a coleta quando importa
 
-Independentemente da estratégia, três casos deveriam sempre ser coletados:
+Independentemente da estratégia, três casos têm prioridade sobre o tráfego comum — com
+um teto de taxa, porque no incidente em que os erros disparam, coletar 100% deles satura
+o coletor justamente quando ele é necessário:
 
 ```text
-erros                    sempre
-latência acima do limite sempre
+erros                    sempre, até o teto
+latência acima do limite sempre, até o teto
 requisição marcada       um cabeçalho que força a coleta
 ```
 
-O terceiro é a ferramenta de investigação mais útil: permite ao suporte, ou a um teste,
+O terceiro é o que mais encurta o caminho até o trace de um caso específico: permite ao suporte, ou a um teste,
 gerar uma requisição rastreada integralmente, sem depender de sorte.
 
 ### O custo precisa ser dimensionado
@@ -154,17 +157,24 @@ a coleta de erros não é opcional.
 
 ## Quando Não Usar
 
-**Sem propagar a decisão de amostragem.**
+**Em sistema de componente único.** Sem fronteira de processo não há contexto a
+propagar; [traces](/13-observability/traces.md) locais ou profiling mostram o mesmo
+caminho sem coletor, cabeçalho nem amostragem coordenada.
 
-**Amostragem aleatória sem forçar erros.**
+**Com poucos saltos, todos síncronos.** Dois ou três serviços chamados em linha, sem fila
+no caminho: [identificadores de correlação](/13-observability/correlation-ids.md) nos
+logs, com a duração de cada etapa, reconstroem a requisição, e um coletor com estado não
+se paga.
 
-**Com cobertura parcial**, sem plano de completá-la.
+**Quando a cadeia passa sobretudo por componentes que você não controla** — APIs de
+terceiros, clientes sem instrumentação. O trace para na primeira fronteira alheia e
+produz exatamente a árvore truncada descrita acima; métricas de latência por dependência
+externa dão o sinal sem fingir completude.
 
-**Em sistema de componente único.**
-
-**Sem dimensionar o custo.**
-
-**Sem instrumentar os saltos por fila**, quando eles existem.
+**Quando o orçamento de telemetria não comporta nem a coleta integral que a amostragem
+por cauda exige nem uma taxa por cabeça alta o bastante para capturar o raro.** Uma taxa
+baixa às cegas reproduz o Exemplo Real abaixo: paga-se a instrumentação e o trace da
+requisição que falhou não existe.
 
 ## Alternativas
 
@@ -190,7 +200,8 @@ limitação de não enxergar dentro dos serviços.
 
 | Taxa alta | Baixa |
 |---|---|
-| Mais cobertura | Menos custo |
+| Cobertura ampla | Cobertura estreita |
+| Custo proporcional ao volume | Custo contido |
 | Encontra o raro | Perde o raro |
 
 ## Modos de Falha
@@ -225,6 +236,8 @@ limitação de não enxergar dentro dos serviços.
 
 **Não monitorar spans descartados** pelo coletor.
 
+**Não dimensionar o custo** antes de ligar a coleta.
+
 ## Exemplo Real
 
 Uma plataforma de mobilidade instrumentou rastreamento distribuído em 22 serviços, com
@@ -239,8 +252,10 @@ A reformulação:
 **Amostragem por cauda**, com regras explícitas: 100% dos erros, 100% acima do percentil
 99 de latência, 100% de rotas raras, e 2% do restante.
 
-O custo total ficou próximo do anterior, e a utilidade mudou completamente — os traces
-que existiam passaram a ser os que alguém queria ver.
+O custo não ficou igual: o armazenamento cresceu cerca de três vezes — de 1% para algo
+entre 3% e 5% dos traces — e a coleta passou a ser integral até a decisão. A conta fechou
+encurtando a retenção dos traces normais. A utilidade mudou completamente — os traces que
+existiam passaram a ser os que alguém queria ver.
 
 **Cabeçalho de forçar coleta**, usado pelo suporte e pelos testes de integração. Um
 cliente que reporta um problema pode ter a próxima tentativa rastreada integralmente.
@@ -257,7 +272,8 @@ Dois achados imediatos após a mudança:
 condições chamava o de precificação. Existia havia dois anos e explicava picos de
 latência que ninguém tinha diagnosticado.
 
-**Relógios divergentes.** Spans de um serviço apareciam com início antes do fim do pai.
+**Relógios divergentes.** Spans de um serviço apareciam com início antes do início do pai — o
+filho "começava" antes de ser chamado.
 A investigação encontrou deriva de até 800 ms em duas instâncias. Ver
 [relógio e tempo](/06-distributed-systems/clock-and-time.md).
 

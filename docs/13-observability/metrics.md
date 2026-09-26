@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, golden-signals, dashboards]
 canonical_for: [métrica, contador, medidor, histograma, cardinalidade de métrica]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -66,8 +66,10 @@ O erro típico é usar medidor para o que deveria ser contador. Um medidor amost
 cada 15 segundos perde os picos entre as amostras; um contador não perde nada, porque
 registra tudo e a taxa é derivada.
 
-E histograma para latência, nunca medidor: a latência de uma requisição individual não
-tem significado agregado, a distribuição tem.
+E histograma para latência de requisições sob tráfego contínuo: a latência de uma
+requisição individual não tem significado agregado, a distribuição tem. Medidor só
+serve quando há uma medição por período — a duração da última execução de um job em
+lote, por exemplo.
 
 ### Percentis não somam
 
@@ -163,17 +165,18 @@ que separa as duas.
 
 ## Quando Não Usar
 
-**Com rótulos de alta cardinalidade.**
+**Quando a dimensão que interessa tem valores ilimitados.** Se o produto dos rótulos
+passa de algumas dezenas de milhares de séries por métrica, cada valor novo é uma série
+nova e o custo deixa de ser constante — é o caso do identificador de cliente, de pedido
+ou de sessão. A dimensão vai para um campo de log ou atributo de trace.
 
-**Para investigar casos individuais.**
+**Quando a pergunta é sobre um caso específico.** A agregação acontece na coleta; o
+detalhe descartado ali não volta na consulta. "Por que este pedido falhou" não tem
+resposta em métrica, por melhor que seja a instrumentação.
 
-**Medidor para o que é contador.**
-
-**Média em vez de percentil**, para latência.
-
-**Agregando percentis de fontes diferentes.**
-
-**Sem revisar** as que deixaram de ser usadas.
+**Quando a pergunta ainda não é conhecida.** Métrica responde só ao que foi instrumentado
+antes do incidente. Para explorar recortes que ninguém previu, eventos ricos agregados na
+consulta servem melhor, ao custo de armazenamento maior.
 
 ## Alternativas
 
@@ -185,8 +188,9 @@ que separa as duas.
 - **Exemplares** — métricas que carregam ponteiros para traces representativos,
   ligando o agregado ao individual.
 
-A última merece nota: ela resolve parcialmente a perda de informação da agregação, e é
-subutilizada.
+A última merece nota: não é alternativa às métricas, é recurso do próprio sistema de
+métricas — resolve parcialmente a perda de informação da agregação sem abrir mão do
+custo constante.
 
 ## Trade-offs
 
@@ -207,9 +211,13 @@ subutilizada.
 
 **Explosão de cardinalidade.** O sistema de métricas cai ou o custo dispara.
 
-**Percentis agregados incorretamente.**
+**Percentis agregados incorretamente.** O p99 do painel do serviço fica bem abaixo do p99 da
+instância mais lenta, e o alerta de latência não dispara enquanto os usuários servidos
+por ela reclamam de lentidão.
 
-**Medidor perdendo picos.**
+**Medidor perdendo picos.** O painel mostra memória estável bem abaixo do limite enquanto
+o serviço é morto por falta de memória, ou mostra fila vazia enquanto consumidores relatam
+atraso.
 
 **Métrica sem contexto.** Sabe-se que subiu, não se sabe o quê.
 

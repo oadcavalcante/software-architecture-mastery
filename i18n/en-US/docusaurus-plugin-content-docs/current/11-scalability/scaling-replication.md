@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, scaling-partitioning, scaling-cache]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -56,8 +56,10 @@ There is a point at which writes saturate, and no number of replicas helps.
 Each replica needs to apply every write. The total write work grows linearly with the number of copies,
 while the write capacity **per node** stays the same.
 
-The practical consequence: above a certain number of replicas, they come to spend most of their capacity
-applying replication, and little is left to serve reads.
+The practical consequence: each replica spends applying replication the fraction write rate ÷ the node's
+write capacity — the same with 2 replicas or with 20. Adding a replica does not reduce that fraction; what
+grows with the number of copies is the cost and the log shipping done by the primary. When the write rate
+rises, the fraction rises on all of them at once, and little is left to serve reads.
 
 That defines the ceiling: replication scales reads up to the point at which writes, applied everywhere,
 consume the nodes.
@@ -175,7 +177,7 @@ applied everywhere, consume the nodes.
 
 ## Failure Modes
 
-**Writes saturating with many replicas.**
+**Writes saturating every replica at once.**
 
 **A lagging replica serving stale data.**
 
@@ -215,8 +217,9 @@ A classifieds platform scaled from 2 to 12 read replicas over two years, as the 
 With 12 replicas, two problems appeared:
 
 **Writes saturated.** Each listing published generated 13 writes — the primary and the 12 replicas. The
-replicas spent most of their time applying replication, and the read capacity per replica had fallen.
-Adding the 13th made every replica's lag worse.
+publishing rate had grown along with the traffic, the replicas spent most of their time applying
+replication, and the read capacity per replica had fallen. Adding the 13th relieved none of them: it would
+apply the same writes as the others.
 
 **Irregular lag.** Two replicas served internal reports and had lag of minutes, while the others had
 seconds. The routing did not distinguish, and users occasionally saw out-of-date listings — with no
@@ -225,8 +228,9 @@ apparent pattern, which made the diagnosis take months.
 The fixes:
 
 **Cache before replicas.** The most common searches — which accounted for 70% of the reads — went to a
-cache with event-based invalidation. That allowed **reducing** from 12 to 6 replicas, which halved the
-write amplification and improved every replica's lag.
+cache with event-based invalidation. That allowed **reducing** from 12 to 6 replicas, which cut
+the writes per operation from 13 to 7; every replica's lag improved because, without 70% of the reads,
+each replica had capacity left to apply replication.
 
 **Replicas dedicated to reporting**, out of the user traffic rotation.
 
@@ -240,7 +244,8 @@ for 30 seconds. The "I edited it and it did not change" complaint disappeared.
 at around three years at the current pace.
 
 The later assessment points out: the answer to two years of growth had always been the same — add a
-replica. Nobody had calculated the write amplification, and the 12th replica was making the system worse.
+replica. Nobody had calculated how much of each replica the writes already consumed, and the 12th replica added
+little read capacity for the price of a whole instance.
 
 ## Related Concepts
 
@@ -251,15 +256,17 @@ replica. Nobody had calculated the write amplification, and the 12th replica was
 
 ## Practical Exercise
 
-Count how many replicas you have and multiply by the write rate. That is your set's total write work.
+Divide the peak write rate by one node's write capacity. The ratio says how much of each replica's
+capacity is being consumed before serving any read at all — and it does not change with the number of
+replicas. It is what shows how close the ceiling is.
 
-Compare with one node's write capacity. The ratio says how much of each replica's capacity is being
-consumed before serving any read at all.
+Then multiply the write rate by the number of copies. That is your set's total write work: it does not
+reveal the ceiling, but it says how much you pay for the amplification.
 
 ## Interview Questions
 
 - Why does replication not scale writes?
-- What is write amplification and how does it define the ceiling?
+- What is write amplification, and why is it not the number of replicas that defines the ceiling?
 - Why should a cache come before a replica?
 
 ## Further Reading

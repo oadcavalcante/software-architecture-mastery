@@ -12,8 +12,8 @@ objective: >
   pela quantidade delas.
 prerequisites: [reliability]
 related: [failover, fault-tolerance, availability-metrics]
-canonical_for: [redundância, correlação de falhas, N+1, redundância ativa]
-content_version: 1
+canonical_for: [redundância, correlação de falhas, redundância N+1, redundância ativa]
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -88,9 +88,11 @@ exercitada o tempo todo. Numa configuração passiva, a reserva pode estar quebr
 meses sem que ninguém saiba.
 
 Essa é a razão prática para preferir ativo-ativo quando possível — não a utilização de
-recursos, mas o fato de que o caminho de recuperação é o caminho normal.
+recursos, mas o fato de que o caminho de recuperação é o caminho normal. Custo,
+ociosidade e coordenação das duas topologias estão em
+[multi-região](/09-cloud-architecture/multi-region.md).
 
-### N+1 exige capacidade de absorção
+### Redundância N+1 exige capacidade de absorção
 
 Ter uma cópia extra não basta se as restantes não aguentam a carga.
 
@@ -128,7 +130,7 @@ As três primeiras são praticáveis, com custo crescente. Ver
 ### Implantação gradual é redundância no tempo
 
 Contra defeito de código, a redundância espacial não ajuda. O que ajuda é não implantar
-em tudo ao mesmo tempo:
+em tudo ao mesmo tempo — em fases ou por [canary](/14-devops-and-platform/canary.md):
 
 ```text
 implantação em fases   uma fração recebe a versão nova; observa; avança
@@ -179,7 +181,9 @@ a lista do que ela não resolve.
 
 **Contra defeito de código.** Ali a resposta é implantação gradual.
 
-**Quando o custo supera o da indisponibilidade.**
+**Quando a cópia extra custa mais por ano que a indisponibilidade que evita** — minutos
+esperados de queda por ano vezes o custo de um minuto parado. O caso típico: dobrar a
+infraestrutura para cortar uma indisponibilidade que já cabe no orçamento de erro.
 
 **Sem mecanismo de troca testado.**
 
@@ -205,9 +209,7 @@ a lista do que ela não resolve.
 | Ativo-ativo | Ativo-passivo |
 |---|---|
 | Reserva exercitada | Pode estar quebrada |
-| Toda capacidade em uso | Ociosa |
 | Sem troca a executar | Failover a testar |
-| Coordenação necessária | Mais simples |
 
 ## Modos de Falha
 
@@ -266,9 +268,11 @@ de proximidade. Um certificado expirando passou a degradar uma zona, não o sist
 **Configuração em fases.** Mudanças de configuração passaram a ser aplicadas zona a
 zona, com observação entre elas — o mesmo tratamento dado a implantação de código.
 
-**Implantação canary.** 5% do tráfego na versão nova por 30 minutos, com métricas
-comparadas automaticamente. O vazamento de memória seguinte foi detectado com 5% de
-impacto, não 100%.
+**Implantação [canary](/14-devops-and-platform/canary.md).** 5% do tráfego na versão nova
+por uma hora, comparando com a versão atual não só erro e latência, mas a inclinação do
+consumo de memória por requisição servida — com pouco tráfego, o vazamento não chega a
+degradar a instância na janela, mas a inclinação diverge nos primeiros minutos. O
+vazamento seguinte foi detectado assim, com 5% de impacto, não 100%.
 
 **Inventário de dependências compartilhadas.** Um levantamento explícito do que as três
 zonas têm em comum. Ele encontrou mais quatro itens: uma cota de API externa

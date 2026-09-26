@@ -13,18 +13,22 @@ objective: >
 prerequisites: [scaling-replication]
 related: [scaling-replication, hotspots, database-scaling]
 canonical_for: [partição para escala, rebalanceamento, consulta entre partições]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
 # Particionamento para Escala
+
+> Pré-requisito: [Particionamento](/06-distributed-systems/partitioning.md).
+> Aqui o foco é a escrita que saturou, não a mecânica das estratégias.
 
 ## Visão Geral
 
 Particionar é dividir os dados entre nós, de forma que cada um seja responsável por
 uma parte.
 
-É a única técnica que **escala escrita**: em vez de replicar toda escrita para todos os
+É a única técnica que **escala a escrita de um mesmo conjunto de dados além do teto de
+um nó**: em vez de replicar toda escrita para todos os
 nós, cada escrita vai para um nó só. Ver
 [replicação para escala](/11-scalability/scaling-replication.md).
 
@@ -66,20 +70,18 @@ distribuída.
 Atender aos quatro é raro, e a escolha é um compromisso. O que não é aceitável é
 escolher sem analisá-los — porque mudar a chave depois exige reescrever todos os dados.
 
-### As estratégias
+### As estratégias, vistas pela escrita
 
-**Por intervalo.** Valores próximos ficam juntos. Permite consulta por intervalo, e
-concentra escrita quando a chave é crescente — o problema mais comum.
+A mecânica de cada estratégia está em
+[particionamento](/06-distributed-systems/partitioning.md). Aqui a pergunta é uma só: ela
+espalha a escrita que saturou?
 
-**Por resumo criptográfico.** Distribuição uniforme, e elimina consulta por intervalo.
-
-**Por lista.** Valores discretos — região, tipo de cliente. Simples, e o desequilíbrio
-é o que a distribuição natural determinar.
-
-**Composta.** Combina duas dimensões — cliente e período. Costuma ser a resposta quando
-nenhuma isolada serve.
-
-Ver [particionamento](/06-distributed-systems/partitioning.md) para os fundamentos.
+**Por intervalo**, com chave crescente — data, sequência —, não espalha: toda escrita nova
+cai na partição do período atual, e o gargalo que motivou a divisão reaparece num nó só.
+**Por resumo criptográfico** espalha, ao preço da consulta por intervalo. **Por lista** —
+região, tipo de cliente — espalha na proporção da distribuição natural, que raramente é
+uniforme. **Composta** — cliente e período — espalha entre clientes e preserva o
+intervalo dentro de cada um.
 
 ### Consulta entre partições é o custo escondido
 
@@ -105,12 +107,20 @@ Adicionar nós exige mover dados. A estratégia importa:
 produção.
 
 **Partições fixas em número maior que os nós.** Cada nó detém várias partições; adicionar
-um nó move partições inteiras, não registros. É a abordagem que funciona.
+um nó move partições inteiras, não registros. Exige fixar o número no início: poucas
+partições limitam quantos nós o sistema chega a ter.
+
+**Hash consistente.** Chaves e nós num anel; adicionar um nó move cerca de `1/N` das
+chaves — ver [particionamento](/06-distributed-systems/partitioning.md). Não há número a
+estimar, e sem nós virtuais a carga entre nós fica desigual.
 
 **Divisão dinâmica.** Partições que crescem demais se dividem automaticamente.
 
 A primeira parece a mais simples e é a que impede crescer depois. Escolhê-la é um erro
-que só aparece quando é caro corrigir.
+que só aparece quando é caro corrigir. Entre partições fixas e hash consistente, as fixas
+vencem quando a operação precisa mover unidades nomeadas — levar uma partição quente
+inteira para um nó ocioso; o hash consistente vence quando o número de nós varia muito e
+não há como estimar o teto.
 
 ### O que se perde
 
@@ -215,17 +225,23 @@ em tudo.
 
 ## Erros Comuns
 
-**Particionar cedo demais.**
+**Particionar cedo demais.** O custo permanente — consulta sem a chave, transação
+distribuída, operação por partição — é pago antes de existir a escrita que o justificaria.
 
-**Escolher a chave sem analisar o padrão de consulta.**
+**Escolher a chave sem analisar o padrão de consulta.** As consultas frequentes que não a
+usam passam a ir a todas as partições, e corrigir exige reescrever os dados.
 
-**Chave sequencial.**
+**Chave sequencial.** Toda escrita nova cai na partição do período atual; a saturação
+que motivou dividir volta, agora num nó só.
 
-**Não planejar rebalanceamento.**
+**Não planejar rebalanceamento.** O primeiro nó adicionado remapeia quase todos os dados
+— no exemplo abaixo, quatro meses de migração.
 
-**Não considerar dividir por domínio.**
+**Não considerar dividir por domínio.** Paga-se o custo do particionamento horizontal
+onde uma fronteira de negócio, com consultas cruzadas já raras, resolveria.
 
-**Não verificar as restrições de unicidade** antes de decidir a chave.
+**Não verificar as restrições de unicidade** antes de decidir a chave. A restrição que
+não inclui a chave deixa de ser imposta pelo banco e vira tabela à parte ou código.
 
 ## Exemplo Real
 
@@ -279,7 +295,8 @@ que não couberem numa partição são o custo da decisão.
 
 ## Perguntas de Entrevista
 
-- Por que particionamento é a única técnica que escala escrita?
+- Por que particionamento é a única técnica que escala a escrita de um mesmo conjunto de
+  dados além do teto de um nó?
 - Por que a estratégia de rebalanceamento precisa ser decidida no início?
 - O que se perde ao particionar, além do custo de implementação?
 

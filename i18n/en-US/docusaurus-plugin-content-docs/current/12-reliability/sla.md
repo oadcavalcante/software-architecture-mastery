@@ -13,7 +13,7 @@ objective: >
 prerequisites: [slo]
 related: [slo, sli, availability-metrics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -85,13 +85,13 @@ The market standard is the **service credit**: a discount on the subscription, p
 
 ```text
 availability      credit
-99.0% to 99.9%    10% of the subscription
-95.0% to 99.0%    25%
+≥ 99.0% and < 99.9%  10% of the subscription
+≥ 95.0% and < 99.0%  25%
 below 95.0%       50%
 ```
 
-That is disproportionate to the customer's loss: a 4-hour outage can cost them far more than 25% of a
-subscription.
+That is disproportionate to the customer's loss: a 4-hour outage in a month (99.44%, the
+10% tier) can cost them far more than 10% of a subscription.
 
 Two consequences, one for each side:
 
@@ -231,7 +231,7 @@ The number was defined in the commercial negotiation, because the competitor off
 Nobody checked three things:
 
 **The composition.** The system depended on a payment gateway with a 99.9% SLA and an identity provider
-with 99.95%, both synchronous in the main flow. The theoretical maximum availability was around 99.8% —
+with 99.95%, both synchronous in the main flow. The theoretical maximum availability was around 99.85% —
 below the promise, even with their own system perfect.
 
 **The history.** The previous twelve months averaged 99.7%, with two months below 99%.

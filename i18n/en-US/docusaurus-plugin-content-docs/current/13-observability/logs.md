@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, traces, correlation-ids]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -79,7 +79,8 @@ canonical   1 line with: correlation, user, route, outcome, total duration,
 The volume falls by an order of magnitude, and the investigation capability **increases** — because each
 line answers "what happened in this request?" on its own, with no need to gather fragments.
 
-It is the highest-impact change a team can make to its logs.
+In systems that emit dozens of lines per request, it is the change that cuts the most volume and
+the only one that improves investigation at the same time.
 
 ### Enough context to investigate without the code
 
@@ -150,8 +151,8 @@ ones. It preserves what matters.
 
 **Cardinality under control.** A field with millions of distinct values makes indexing expensive.
 
-Uniform sampling — recording 10% of everything — is the worst choice: it removes errors proportionally, and
-they are rare and are what you want to investigate.
+For whoever investigates failures, uniform sampling — recording 10% of everything — is the worst choice: it
+removes errors proportionally, and they are rare and are what you want to investigate.
 
 ## Mental Model
 
@@ -173,15 +174,13 @@ imprecise.
 
 **To measure aggregate latency.** Metrics do it better.
 
-**Unstructured text.**
+**As an alerting source.** Alerting on a message pattern breaks the day somebody rewords the text or
+sampling discards the line. If the condition deserves an alert, it deserves a metric emitted alongside the
+log.
 
-**Recording every function's entry and exit.**
-
-**With sensitive data.**
-
-**Debug on by default in production.**
-
-**Uniform sampling.**
+**For sub-unit-of-work events at high throughput.** One line per queue message consumed at hundreds of
+thousands per second, or per item in a batch, costs more to collect and index than the processing it
+describes. At that scale, a counter and a histogram per batch; a log only for the item that failed.
 
 ## Alternatives
 
@@ -189,7 +188,9 @@ imprecise.
 - **[Traces](/13-observability/traces.md)** — to understand a request's path and timing.
 - **An audit event** — when the requirement is proof, not diagnosis. See
   [auditability](/10-security/auditability.md).
-- **Tail-based sampling** — deciding to keep after knowing the outcome, preserving the interesting cases.
+- **[Tail-based sampling](/13-observability/distributed-tracing.md)** — for logs it comes almost free when
+  the record is a canonical event: the line is only emitted at the end, already carrying the outcome,
+  without the span buffer the technique requires for traces.
 
 ## Trade-offs
 
@@ -261,7 +262,9 @@ outcome, reason, total duration and duration per dependency, version, instance, 
 The volume fell **92%**. And investigation queries got simpler, because each line answered on its own.
 
 **Sampling by outcome.** 100% of errors, 100% of requests above the 99th latency percentile, 5% of the fast
-successful ones. That removed another 70% of what remained, with no interesting case lost.
+successful ones. With an error rate around 2%, the policy kept about 8% of the lines — another 90% removed,
+with none of the cases it classifies as interesting lost: errors and the latency tail. It gave up the fast,
+successful request that later turns out to be wrong, recoverable only through metrics and traces.
 
 **Debug per request.** A header on the request activates detailed logging for it alone. It allows
 investigating a specific case without turning debug on globally.
@@ -272,7 +275,8 @@ allowed-field list instead of a blocked one.
 
 **Tiered retention.** 14 days queryable, 1 year in cold storage.
 
-Result: the log cost reduced by around 85%, and the average query time during investigation went from 4
+Result: the log cost reduced by around 85% — less than the volume, because collection agents, the pipeline
+and a year of cold storage do not shrink with the lines — and the average query time during investigation went from 4
 minutes to 15 seconds.
 
 In retrospect: the expectation was having to choose between cost and investigation capability. The
@@ -296,7 +300,7 @@ happened?
 ## Interview Questions
 
 - Why does the canonical event reduce volume and increase investigation capability?
-- Why is uniform sampling the worst choice?
+- Why is uniform sampling the worst choice for investigating failures?
 - Why does sensitive data filtering need to happen at the source?
 
 ## Further Reading

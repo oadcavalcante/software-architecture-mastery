@@ -13,7 +13,7 @@ objective: >
 prerequisites: [sli]
 related: [sli, sla, availability-metrics]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,7 @@ With no defined target, two bad dynamics appear.
 from what can wait. The team reacts to everything, and the roadmap never advances.
 
 **Or nothing is.** With no number, reliability competes with features without an argument of its own, and
-always loses.
+loses every contest against a feature that has a deadline and a customer asking for it.
 
 The SLO resolves both by giving a limit: above it, the system is good enough and the work goes to product;
 below it, reliability has priority — and that was agreed beforehand, not negotiated during the crisis.
@@ -82,8 +82,12 @@ Each additional nine costs disproportionately more:
 The correct conversation is not "we want the maximum". It is: "going from 99.9% to 99.99% costs X per year;
 is the unavailability avoided worth Y?".
 
-And there is a ceiling engineering does not control: **a system cannot be more available than its
-synchronous dependencies**. Promising 99.99% while depending on an external service at 99.9% is impossible.
+And there is a ceiling engineering does not control: **a system cannot be more available than a
+synchronous dependency it has no way to do without**. Promising 99.99% while depending on an external
+service at 99.9%, with no alternative, is impossible. The ceiling only moves with whatever removes the
+dependency at the moment of failure: retries, when failures are transient and independent; a cache
+serving the last good value; or degradation that completes the journey without that response. Each
+has a cost, and that cost belongs in the conversation about the target.
 
 ### One hundred percent is the wrong target
 
@@ -184,11 +188,16 @@ balance.** It exists to be spent, not to be preserved.
 | Frequent freezes | Rare |
 | Little margin for risk | Plenty |
 
-| A short window | A long one |
-|---|---|
-| Reacts fast | Absorbs variation |
-| Oscillates | Stable |
-| One incident blows it | Hides degradation |
+| | A short window | A long one |
+|---|---|---|
+| Time until degradation shows | Hours | Weeks |
+| Budget behavior | Swings with every spike | Stable |
+| Effect of a single incident | Blows the budget | Diluted — and recent degradation is diluted with it |
+
+Adopting SLOs also carries an ongoing cost, whatever the target: the SLI needs a reliable
+measurement pipeline, the burn-rate alert needs two windows maintained and calibrated per journey,
+and the target needs revisiting at every relevant business change. Each additional SLO multiplies
+that work — which is why a few tracked targets are worth more than many ignored ones.
 
 ## Failure Modes
 

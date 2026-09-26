@@ -13,7 +13,7 @@ objective: >
 prerequisites: [slo]
 related: [slo, sli, availability-metrics]
 canonical_for: [SLA, acordo de nível de serviço, crédito de serviço, exclusão contratual]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -88,13 +88,13 @@ proporcional à falta.
 
 ```text
 disponibilidade    crédito
-99,0% a 99,9%      10% da mensalidade
-95,0% a 99,0%      25%
+≥ 99,0% e < 99,9%  10% da mensalidade
+≥ 95,0% e < 99,0%  25%
 abaixo de 95,0%    50%
 ```
 
-Isso é desproporcional ao prejuízo do cliente: uma indisponibilidade de 4 horas pode
-custar-lhe muito mais do que 25% de uma mensalidade.
+Isso é desproporcional ao prejuízo do cliente: uma indisponibilidade de 4 horas num mês
+(99,44%, faixa de 10%) pode custar-lhe muito mais do que 10% de uma mensalidade.
 
 Duas consequências, uma para cada lado:
 
@@ -237,7 +237,7 @@ Ninguém verificou três coisas:
 
 **A composição.** O sistema dependia de um gateway de pagamento com SLA de 99,9% e de
 um provedor de identidade com 99,95%, ambos síncronos no fluxo principal. A
-disponibilidade máxima teórica era cerca de 99,8% — abaixo do prometido, mesmo com o
+disponibilidade máxima teórica era cerca de 99,85% — abaixo do prometido, mesmo com o
 sistema próprio perfeito.
 
 **O histórico.** Os doze meses anteriores tinham média de 99,7%, com dois meses abaixo

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, graceful-degradation]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -55,8 +55,9 @@ Nine calls to the deepest service for one user request. A mild degradation in C 
 
 The rule that avoids compound multiplication.
 
-Each layer that retries multiplies by its factor. In a chain of four services with three attempts each, one
-request can generate 81 calls to the deepest one.
+Each layer that retries multiplies by its factor. In a chain of four services where the first three retry three
+times, one request can generate 27 calls to the deepest one — 3 × 3 × 3, one layer more than in the example
+above.
 
 The decision needs to be explicit: **which layer retries?** Typically the one closest to the user, or the
 one that has the context to decide whether it is worth it.
@@ -95,8 +96,9 @@ with no jitter   a mass failure → all retry at 1s, 2s, 4s → three synchroniz
 with jitter      the attempts spread out over time
 ```
 
-See [backoff](/06-distributed-systems/backoff.md). Growing waits with no jitter are worse than no wait at
-all, because they create the illusion of protection while maintaining the synchronization.
+See [backoff](/06-distributed-systems/backoff.md). Growing waits with no jitter reduce the volume but do not
+desynchronize: the spikes remain, only further apart. And in that they are worse than no wait at all — they
+give the impression of protection, and the synchronization stops being investigated.
 
 ### Do not retry what is not retryable
 
@@ -159,15 +161,21 @@ Retrying is appropriate when:
 
 ## When Not to Use
 
-**In several layers.**
+**In more than one layer of the same chain.** From the second one on, the factors multiply; if the layer
+with context is not the one retrying, turn retries off there rather than keeping them in two.
 
-**With no budget.**
+**With no budget.** With only a count, the extra load rises with the error rate — the destination receives
+triple exactly when it is degraded.
 
-**With no jitter.**
+**With no jitter.** The attempts of clients that failed together arrive in synchronized spikes, and each
+spike can knock down again the destination that was coming back.
 
-**For permanent errors.**
+**For permanent errors.** A malformed, unauthorized or nonexistent request answers the same way the second
+time; retrying only consumes the destination's capacity.
 
-**With no idempotency.**
+**With no idempotency.** If the timeout happened after the server applied the effect, the retry charges
+twice or decrements inventory twice. With no idempotency key possible, retry only when you know the request
+did not arrive — connection refused, DNS failure — and hand the rest back to the caller.
 
 **As a response to overload.** If the destination is saturated, retrying makes it worse. See
 [circuit breaker](/12-reliability/circuit-breakers.md).
@@ -298,7 +306,7 @@ degradation.
 
 - Why does a proportion budget work better than an attempt limit?
 - What is a metastable state and why does scaling not resolve it?
-- Why are growing waits with no jitter worse than no wait?
+- In what sense are growing waits with no jitter worse than no wait, if they reduce the volume?
 
 ## Further Reading
 

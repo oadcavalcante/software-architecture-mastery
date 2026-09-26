@@ -13,7 +13,7 @@ objective: >
 prerequisites: [horizontal-scaling]
 related: [horizontal-scaling, statelessness, hotspots]
 canonical_for: [algoritmo de balanceamento, distribuição de conexões, drenagem de instância]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -63,8 +63,10 @@ entrega quase o resultado de conhecer todas as cargas, com uma fração do custo
 o efeito de manada que "sempre a menos carregada" produz, quando vários balanceadores
 convergem para a mesma instância.
 
-Para a maioria dos casos, **menos conexões** ou **duas escolhas aleatórias** superam o
-rodízio com folga.
+Com requisições homogêneas, os algoritmos empatam na prática. Quando a duração varia
+por ordens de grandeza — a busca de milissegundos ao lado do relatório de segundos —,
+**menos conexões** ou **duas escolhas aleatórias** superam o rodízio com folga, porque
+enxergam a fila que o rodízio ignora.
 
 ### Conexões persistentes quebram o balanceamento
 
@@ -85,8 +87,12 @@ pior: instâncias novas adicionadas durante um pico não recebem tráfego nenhum
 não há conexões novas sendo abertas.
 
 Ver [gRPC](/08-integration-architecture/grpc.md). As saídas são balanceamento de
-camada 7, balanceamento no cliente, ou
-[malha de serviço](/08-integration-architecture/service-mesh.md).
+camada 7, balanceamento no cliente,
+[malha de serviço](/08-integration-architecture/service-mesh.md), ou reciclar conexões
+no servidor — em gRPC, idade máxima de conexão com período de tolerância, que força os
+clientes a reconectar e redistribui sem trocar o balanceador. A reciclagem corrige em
+janelas, não requisição a requisição: entre uma reconexão e outra, o desequilíbrio
+volta a se acumular.
 
 ### Verificação de saúde rasa mantém instância doente na rotação
 
@@ -96,12 +102,13 @@ degradada — lenta, com dependência fora, com disco cheio.
 Ver [detecção de falhas](/06-distributed-systems/failure-detection.md). O
 balanceamento maduro considera taxa de erro e latência, não apenas presença.
 
-E há o efeito inverso, que é pior: uma verificação **profunda demais** — que consulta o
-banco — faz todas as instâncias saírem da rotação quando o banco fica lento,
-transformando degradação em indisponibilidade total.
-
-O equilíbrio: a verificação verifica o próprio processo; o balanceamento observa
-latência e erro para decidir.
+O efeito inverso — verificação profunda que reprova todas as instâncias juntas quando
+uma dependência fica lenta — está em
+[balanceamento de carga](/05-system-design/load-balancing.md). O ângulo de escala é
+outro: com a verificação restrita ao próprio processo, o balanceador **reduz o peso**
+da instância cuja latência ou taxa de erro destoa das demais, em vez de removê-la. A
+remoção é binária e devolve de uma vez a fatia inteira às vizinhas; a redução de peso
+alivia a instância degradada sem empurrar as outras para a saturação.
 
 ### Descartar carga é melhor que enfileirar
 
@@ -158,15 +165,17 @@ não são equivalentes.
 
 ## Quando Não Usar
 
-**Rodízio quando as requisições variam muito de custo.**
+**Rodízio quando a duração das requisições varia por ordens de grandeza.** Cada
+instância recebe o mesmo número de requisições, e a que sorteou as caras acumula fila.
+Com durações parecidas, o rodízio basta e é o mais previsível.
 
-**Camada 4 com conexões persistentes.**
+**Camada 4 quando poucos clientes concentram o volume em conexões longas.** Com
+milhares de clientes de volume parecido, a distribuição de conexões aproxima a de
+requisições; com dezenas, um único cliente pesado satura a instância que o recebeu.
 
-**Verificação de saúde que consulta dependências.**
-
-**Enfileiramento ilimitado sob saturação.**
-
-**Remover instância sem drenar.**
+**Remoção binária da rotação como única reação à degradação.** Quando a capacidade
+sobrante é pequena, tirar uma instância lenta despeja a fatia dela nas vizinhas — o
+gatilho do ciclo de subida e queda. Reduzir peso antes de remover.
 
 **Afinidade de sessão como solução permanente.** Ver
 [ausência de estado](/11-scalability/statelessness.md).
@@ -218,7 +227,7 @@ não são equivalentes.
 
 **Camada 4 com HTTP/2 ou gRPC.** Esses protocolos multiplexam sobre conexões duradouras, então balancear por conexão fixa cada cliente numa instância e as novas não recebem tráfego.
 
-**Verificação de saúde consultando o banco.** Uma lentidão do banco reprova todas as instâncias ao mesmo tempo, e o balanceador remove o serviço inteiro — convertendo degradação em queda total.
+**Tratar escala como só adicionar instâncias.** Sem entrada gradual, sem balanceamento por requisição e sem drenagem, a instância nova não recebe tráfego, recebe tudo de uma vez, ou derruba requisições ao sair — e a expansão no pico não tem efeito.
 
 **Não limitar a fila.** Aceitar tudo sob sobrecarga aumenta a latência de todos até ninguém ser atendido a tempo. Recusar o excedente rápido preserva o que ainda cabe.
 
@@ -272,9 +281,9 @@ Resultado: a diferença entre a instância mais e a menos carregada caiu de 4 ve
 1,3 vezes, e a expansão durante picos passou a ter efeito.
 
 A leitura que a equipe faz: a migração para gRPC tinha sido avaliada por desempenho e por
-contrato, e o comportamento de balanceamento não estava na lista. Ele é a mudança
-operacional mais significativa do protocolo, e não aparece em nenhuma comparação de
-desempenho.
+contrato, e o comportamento de balanceamento não estava na lista. Para eles, foi a
+mudança operacional de maior efeito da migração — e não constava de nenhuma das
+comparações de desempenho que haviam usado para decidir.
 
 ## Conceitos Relacionados
 

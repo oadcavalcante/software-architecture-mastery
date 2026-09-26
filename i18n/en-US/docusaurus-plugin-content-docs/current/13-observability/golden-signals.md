@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, alerting, dashboards]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -57,8 +57,9 @@ timeout errors     pull it up — they hide that the successes are fine
 
 The correct practice: latency of successful requests and of requests with errors, separately.
 
-And always in **percentiles**, never as an average. The average of a service with 99% at 50 ms and 1% at 10
-seconds is 149 ms — a number that describes nobody's experience. See
+To describe the user's experience and to alert, use **percentiles**; the average only serves when what you
+want is aggregate work, such as cost per request. The average of a service with 99% at 50 ms and 1% at 10
+seconds is about 150 ms — a number that describes nobody's experience. See
 [latency](/06-distributed-systems/latency.md).
 
 ### Traffic: the denominator for everything
@@ -159,15 +160,17 @@ to start investigating.
 
 **As complete instrumentation.** They are the floor, not the ceiling.
 
-**Only at the edge.**
+**With volume too low for statistics.** An internal service with ten requests per hour sustains neither a
+99th percentile nor an error rate: a single error becomes 10%, and the p99 is the slowest request. There,
+periodic synthetic checks and alerts on individual failures say more than the four signals.
 
-**Latency aggregating success and error.**
+**On a component with no request model.** A control process, a scheduler or an embedded library has no
+traffic or latency with useful meaning; what matters is whether it ran and whether it produced the expected
+effect.
 
-**Latency as an average.**
-
-**Saturation measured only by CPU.**
-
-**Without adapting** to the component type.
+**As a per-service frame in a single-process system.** A monolith on one machine has one edge and no chain
+to localize; the four signals at the edge, plus the USE method on resources, cover what a per-service split
+would.
 
 ## Alternatives
 
@@ -208,8 +211,8 @@ service — the network, the client, an uninstrumented dependency.
 **Not separating success and error latency.** Errors usually respond fast, so a rise in the failure rate
 *improves* the aggregate latency — and the dashboard improves while the system gets worse.
 
-**Using an average.** It hides the tail, which is where the affected users are. A system with a 200 ms
-average can have 5% above 3 seconds.
+**Using an average as the latency signal.** An alert on the average does not fire while the tail degrades —
+see [latency](/06-distributed-systems/latency.md).
 
 **Measuring CPU as saturation.** Saturation is the most constrained resource, which is frequently the
 connection pool, threads or queue depth. CPU is usually low when the system already accepts no more work.

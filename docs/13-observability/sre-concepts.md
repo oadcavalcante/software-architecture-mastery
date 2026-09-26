@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [slo, alerting, resilience]
 canonical_for: [SRE, trabalho manual, análise de incidente, sobreaviso sustentável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Engenharia de confiabilidade de sistemas é uma abordagem para operação que trata
+Engenharia de confiabilidade de site (site reliability engineering, SRE) é uma abordagem para operação que trata
 confiabilidade como problema de engenharia de software, não de administração de
 sistemas.
 
@@ -114,7 +114,7 @@ ações com dono e prazo  sem isso, nada muda
 publicada               o aprendizado é da organização
 ```
 
-A segunda linha é o teste: uma análise que conclui "o engenheiro errou" não explica
+A primeira linha é o teste: uma análise que conclui "o engenheiro errou" não explica
 nada. Todo erro pareceu razoável para quem o cometeu, com a informação que ele tinha —
 e entender por quê é o que permite mudar o sistema.
 
@@ -161,18 +161,22 @@ outras exigem contexto que talvez você não tenha.
 
 ## Quando Não Usar
 
-**Renomeando o time sem mudar as práticas.**
+**Renomeando o time sem mudar as práticas.** O nome promete engenharia sobre um trabalho
+que continua manual, e a frustração cai sobre o time renomeado.
 
-**Time de SRE separado** em organização pequena.
+**Time de SRE separado** em organização pequena — na faixa dos trinta engenheiros, ele
+recria a divisão entre quem constrói e quem opera.
 
-**Adotando todas as práticas** independentemente do contexto.
+**Adotando todas as práticas** independentemente do contexto. As que dependem de escala
+viram cerimônia: custo de processo sem o volume de repetição que o pagaria.
 
 **Análise de incidente com busca de culpado.** Pior que não fazer.
 
 **Sem autonomia para agir.** Um time que não pode priorizar correções não pode
 sustentar orçamento de erro.
 
-**Sobreaviso sem compensação nem limite.**
+**Sobreaviso sem compensação nem limite.** O excesso de alertas é absorvido pelas pessoas
+em vez de aparecer como problema, até virar rotatividade.
 
 ## Alternativas
 
@@ -213,17 +217,22 @@ sustentar orçamento de erro.
 
 ## Erros Comuns
 
-**Adotar o vocabulário sem as decisões.**
+**Adotar o vocabulário sem as decisões.** O time passa a falar em orçamento de erro, mas
+nada muda quando ele esgota — e o vocabulário perde crédito para a próxima tentativa.
 
-**Criar time separado prematuramente.**
+**Criar time separado prematuramente.** Abaixo do volume que justifica especialização, o
+time vira gargalo de implantação e os times de produto deixam de se ocupar da operação.
 
-**Não medir a fração de trabalho manual.**
+**Não medir a fração de trabalho manual.** Sem o número, o crescimento fica invisível até
+consumir a capacidade de eliminá-lo.
 
 **Não alocar tempo para corrigir** o que causou acionamentos.
 
-**Análise de incidente sem ações rastreadas.**
+**Análise de incidente sem ações rastreadas.** O aprendizado fica registrado e o mesmo
+incidente volta, porque nenhuma correção tinha dono.
 
-**Não limitar interrupções por turno.**
+**Não limitar interrupções por turno.** O excesso de alertas nunca dispara revisão; é pago
+em sono de quem está de sobreaviso.
 
 ## Exemplo Real
 
@@ -243,7 +252,7 @@ time era operação repetitiva. Não sobrava capacidade para automatizar.
 
 **Rotatividade.** Três das cinco pessoas saíram no período.
 
-A reformulação abandonou a estrutura e manteve as práticas:
+A reformulação abandonou a estrutura e passou a aplicar as práticas que ela impedia:
 
 **Cada time opera o que constrói**, com sobreaviso próprio.
 
@@ -264,9 +273,9 @@ seguinte para corrigir o que o acordou.
 Nos doze meses seguintes, os acionamentos noturnos caíram 70%, e a fração de trabalho
 manual do time de plataforma foi de 80% para cerca de 30%.
 
-O ponto que a equipe sublinha: as práticas eram corretas desde o início; a estrutura estava
-errada para o tamanho da empresa. E a última mudança — tempo alocado para corrigir — foi
-a que mais reduziu acionamentos, porque fechou o ciclo entre ser acordado e eliminar a
+O ponto que a equipe sublinha: as práticas nunca foram o problema; a estrutura, errada para
+o tamanho da empresa, impedia que fossem aplicadas. E a equipe atribui a maior parte da
+queda de acionamentos à última mudança — tempo alocado para corrigir —, porque fechou o ciclo entre ser acordado e eliminar a
 causa.
 
 ## Conceitos Relacionados

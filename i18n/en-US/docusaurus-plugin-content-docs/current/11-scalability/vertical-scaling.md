@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [horizontal-scaling, database-scaling, performance-vs-scalability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -85,12 +85,14 @@ Vertical scaling stops for specific reasons, and recognizing them is what indica
 **Availability.** One machine is a single point. This is the most legitimate reason, and it is frequently
 resolved with two machines — a primary and a replica — with no partitioning.
 
-**Non-linear cost.** The larger instances cost disproportionately more. There is a point at which two
-medium ones come out cheaper than one large one.
+**Non-linear cost at the top.** Within an instance family the price grows in line with size; the
+disproportion appears when the next step leaves the standard catalog — extended-memory types, dedicated
+instances, owned hardware. From there on, two medium ones come out cheaper than one large one.
 
 **A physical limit reached.** When the largest available type is not enough.
 
-**A restart.** Changing size requires downtime. With one machine, that is unavailability.
+**A restart.** Changing the instance type usually requires downtime. With one machine, that is
+unavailability.
 
 **Internal contention.** Above a certain number of cores, the software itself may not scale — internal
 locks, shared structures. Doubling the cores does not double the throughput.
@@ -149,7 +151,7 @@ ceiling — it is usually further than the discussion presupposes.
 
 **Without measuring.** Growing without knowing what saturates.
 
-**For peaks lasting minutes.** Resizing requires a restart.
+**For peaks lasting minutes.** Resizing usually requires a restart, and the peak ends before the swap.
 
 ## Alternatives
 
@@ -191,8 +193,9 @@ ceiling — it is usually further than the discussion presupposes.
 
 ## Common Mistakes
 
-**Discarding it by reputation.** "It does not scale" became a reflex, but a machine today holds hundreds of
-gigabytes of memory and dozens of cores — more than most business systems will ever need.
+**Discarding it by reputation.** "It does not scale" became a reflex, but a common instance today already holds
+hundreds of gigabytes of memory and dozens of cores, and the top of the catalog reaches hundreds of cores
+and terabytes — more than most business systems will ever need.
 
 **Not measuring how much of the capacity is in use.** Teams decide to distribute with the machine at 30%
 utilization, because nobody looked at the number before designing the next architecture.
@@ -239,7 +242,8 @@ data.
 
 **Fixing two queries** that did full scans on large tables — which alone reduced peak CPU from 34% to 21%.
 
-Three years later, with the projected volume reached, the database operates at 48% utilization. The
+Three years later, with the projected volume reached and the features delivered in the period adding work
+to every transaction, the database operates at 48% utilization. The
 partitioning is still not necessary.
 
 And what the team considers most relevant: in those three years, the team delivered features that were in
@@ -251,7 +255,7 @@ Two complementary decisions were made at the time:
 **A plan for the ceiling.** What would be done when utilization sustainably passed 70% was documented —
 including the partitioning design, ready to be executed when necessary.
 
-**A trend alert**, not only an absolute value one: if utilization grows at a rate that reaches 70% in less
+**A [trend alert](/11-scalability/scaling-capacity-planning.md#a-trend-alert-not-only-a-value-one)**, not only an absolute value one: if utilization grows at a rate that reaches 70% in less
 than six months, the alert fires.
 
 The recorded lesson: the decision to distribute had been made from a growth projection, with no measurement

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [sli, slo, reliability-basics]
 canonical_for: [tempo médio entre falhas, tempo médio de recuperação, tempo médio de detecção, duração de indisponibilidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -113,31 +113,29 @@ verificar.
 
 Saber qual está sendo usada muda a interpretação do número.
 
-### Disponibilidade parcial é o caso comum
+### Medir a disponibilidade parcial exige limiar de latência
 
-O modelo binário — disponível ou não — não descreve o que acontece na prática.
+Que o modelo binário esconde o caso comum — uma funcionalidade fora, uma fração dos
+usuários afetada — está em [Disponibilidade](/06-distributed-systems/availability.md), e
+o comportamento do sistema nesse estado, em [degradação graciosa](/12-reliability/graceful-degradation.md).
 
-O comum é: uma funcionalidade fora, o resto funcionando; lentidão que torna o uso
-inviável sem gerar erro; um subconjunto de usuários afetado.
+O que falta à taxa de requisições bem-sucedidas é a lentidão: a resposta correta em 30
+segundos conta como sucesso e, para o usuário, é falha. A saída é medir por jornada, com
+um limiar de latência por jornada — o que transforma "está no ar" em "está utilizável".
+O limiar não é universal: dois segundos para abrir o carrinho e vinte para gerar um
+relatório podem ser, cada um, o ponto em que o usuário desiste.
 
-Ver [degradação graciosa](/12-reliability/graceful-degradation.md). Medir apenas indisponibilidade
-total esconde a maior parte do impacto real.
+### O número precisa de contexto para ser comparado
 
-A saída é medir por jornada, com limiar de latência — o que transforma "está no ar" em
-"está utilizável".
+Os três complementos que qualquer porcentagem exige — janela, ponto de medição e o que
+conta como indisponível — estão definidos em
+[Disponibilidade](/06-distributed-systems/availability.md). Para métricas, a consequência
+é a comparabilidade: dois relatórios só podem ser postos lado a lado se declararem os
+três iguais.
 
-### O número precisa de contexto para significar algo
-
-Três informações que precisam acompanhar qualquer porcentagem:
-
-**A janela.** 99,9% ao mês e ao ano são compromissos muito diferentes.
-
-**O ponto de medição.** Servidor, borda ou cliente. Ver [SLI](/12-reliability/sli.md).
-
-**O que conta como indisponível.** Erro total, lentidão, degradação parcial.
-
-Sem as três, a porcentagem não é comparável nem verificável — e é assim que ela aparece
-na maioria dos relatórios.
+Um 99,95% medido no servidor, sem contar lentidão, não é melhor que um 99,9% medido no
+cliente com limiar de latência — é outra grandeza. Sem os três declarados, a porcentagem
+não é comparável nem verificável — e é assim que ela aparece na maioria dos relatórios.
 
 ### O número mais útil não é a disponibilidade
 
@@ -157,8 +155,8 @@ O custo é que ela exige saber quantos usuários foram afetados, o que nem sempr
 simples em degradações parciais. A estimativa costuma bastar: a ordem de grandeza já
 separa os incidentes que importam dos que não importam.
 
-Times que adotam essa medida param de discutir se um incidente foi grave — o número
-responde.
+Com ela, a discussão sobre a gravidade de um incidente se reduz a uma comparação de
+ordem de grandeza.
 
 ## Modelo Mental
 
@@ -196,14 +194,11 @@ incomparáveis.
   pequenas.
 - **Distribuição de duração** — em vez de média.
 
-A segunda merece destaque: minutos de usuário afetados captura as três dimensões e é
-diretamente traduzível em impacto.
-
 ## Trade-offs
 
 | Por tempo | Por requisição |
 |---|---|
-| Simples de verificar | Reflete o impacto |
+| Verificável por sondagem externa | Exige instrumentação por requisição |
 | Ignora volume | Pondera pelo uso |
 | Comum em contratos | Comum em SLO |
 
@@ -270,9 +265,10 @@ porque as interrupções aconteciam quando havia tráfego.
 **Minutos de usuário afetados** como métrica principal, comunicada ao negócio. Ela
 tornou visível o que a porcentagem escondia.
 
-E a investigação da causa das quatorze interrupções encontrou uma raiz única: o
-processo de implantação reiniciava instâncias sem desligamento gracioso, e as
-implantações aconteciam de manhã.
+E a investigação da causa das quatorze interrupções encontrou uma raiz comum a treze
+delas: o processo de implantação reiniciava instâncias sem desligamento gracioso, e as
+implantações aconteciam de manhã. A décima quarta foi uma falha isolada de um provedor
+externo.
 
 Duas correções resolveram treze dos quatorze:
 
@@ -294,9 +290,11 @@ decomposição levou uma tarde para revelar isso.
 ## Exercício Prático
 
 Pegue os incidentes do último trimestre e separe, para cada um: tempo até detectar,
-tempo até recuperar, e fração de usuários afetados.
+tempo até recuperar, fração de usuários afetados e minutos de usuário afetados.
 
-A soma das colunas diz onde investir — e a coluna de detecção costuma ser a maior.
+Compare a soma da coluna de detecção com a da coluna de recuperação: a maior diz se o
+investimento vai para observabilidade ou para recuperação. Depois ordene os incidentes
+por minutos de usuário afetados — o topo da lista é por onde começar.
 
 ## Perguntas de Entrevista
 

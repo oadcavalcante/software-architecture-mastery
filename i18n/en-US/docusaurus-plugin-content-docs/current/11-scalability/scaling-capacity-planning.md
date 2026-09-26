@@ -13,7 +13,7 @@ objective: >
 prerequisites: [performance-vs-scalability]
 related: [performance-vs-scalability, horizontal-scaling, hotspots]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -67,10 +67,14 @@ Operating at 90% utilization is efficient and leaves no margin for variation, fa
 ```text
 target utilization   what it allows
         50%          losing half the capacity and continuing
-        60%          losing one zone of three. See availability zones
+        60%          losing one zone of three
         70%          absorbing moderate peaks
         85%          nothing
 ```
+
+The 60% row assumes load split evenly across three
+[availability zones](/09-cloud-architecture/availability-zones.md): with one lost, the
+remaining two run at 90%.
 
 The headroom is decided from three things: how much the load varies, how long it takes to add capacity, and
 what needs to be absorbed — the loss of a zone, a seasonal peak.
@@ -110,7 +114,7 @@ more accessed. A uniform test does not find [hotspots](/11-scalability/hotspots.
 The test that is worth doing is the one that replicates production's access pattern, with a comparable data
 volume.
 
-### Find the saturation point
+### Find the knee of the load curve
 
 More useful than "it takes 1,000 req/s" is knowing the curve:
 
@@ -126,7 +130,10 @@ load     p95 latency    throughput
 The knee — where the latency starts rising disproportionately — is the real operational limit. Above it,
 the system still works and the experience has already degraded.
 
-And the point where throughput **falls** with more load is what load shedding needs to prevent reaching.
+And the point where throughput **falls** with more load is what load shedding needs to prevent reaching. It is the
+[saturation point](/11-scalability/horizontal-scaling.md) seen along another axis: there, the
+number of nodes beyond which more nodes deliver less; here, the load beyond which a fixed
+configuration delivers less.
 
 ### Third-party limits enter the model
 
@@ -159,25 +166,33 @@ come with eight.
 
 ## When Not to Use
 
-**An elaborate model for a small and stable system.**
+**Capacity arrives before degradation hurts.** If autoscaling provisions in two or three
+minutes, growth stays below roughly 5% a month and no component requires a weeks-long change,
+reactive scaling with a value alert covers the risk. The model would project a date nobody needs
+to know.
 
-**An unrealistic load test.** It produces false confidence, which is worse than none.
+**The elastic ceiling is an order of magnitude above the peak.** A managed or serverless service
+with a quota ten times the measured peak has no nearby limit to project. The work shrinks to an
+inventory of quotas — reviewed when the peak grows, not every month.
 
-**An absolute-value alert only.**
+**Over-provisioning costs less than maintaining the model.** If doubling capacity costs less per
+month than the engineering hours to measure ratios, run a realistic test and review the
+spreadsheet, buying headroom is the rational decision. The model pays for itself when the
+infrastructure bill is material.
 
-**Planning without reviewing the model.** The ratios change with the product.
-
-**Sizing by the average.** See [cloud compute](/09-cloud-architecture/cloud-compute.md).
-
-**Ignoring third-party limits.**
+**The load has no history to project from.** A newly launched product or traffic driven by viral
+events offers no trend to extrapolate. There, the investment yields more in load shedding and
+graceful degradation than in a model without data.
 
 ## Alternatives
 
-- **Automatic elasticity** — for predictable variation, with the caveats about provisioning time.
+- **Automatic elasticity** — for variation with no set time, with the caveat that provisioning
+  time needs to be shorter than the load's rise.
 - **Load shedding** — protecting the essential when the capacity runs out. See
   [backpressure](/06-distributed-systems/backpressure.md).
 - **Graceful degradation** — operating with less instead of stopping.
-- **Scheduled scaling** — for known peaks, better than any reaction.
+- **Scheduled scaling** — for peaks with a set time; it avoids the provisioning
+  delay that any reactive scheme pays.
 
 ## Trade-offs
 
@@ -227,6 +242,9 @@ fail with ten million. The test's volume needs to be on the order of production'
 **Testing with a uniform distribution.** Real load is concentrated: few customers, few keys, few hours. A
 uniform test does not find the hotspot that will saturate first.
 
+**Sizing by the average.** The average hides the peak that brings the system down; sizing starts
+from a high percentile of the load. See [cloud compute](/09-cloud-architecture/cloud-compute.md).
+
 **Not inventorying third-party limits.** A provider quota, an API rate limit and a database connection
 ceiling are usually reached before your own infrastructure's limit — and they are not elastic.
 
@@ -253,8 +271,9 @@ event concentrates practically all the traffic in an opening.
 **A saturation curve.** Measured, not estimated. The knee was at 4,200 tickets per minute; the throughput
 started falling at 5,100. The operational target was set at 3,000, with load shedding above 4,000.
 
-**Third-party limits inventoried.** The payment gateway had a contracted limit of 800 transactions per
-second. The projected peak asked for 1,100. The renegotiation took five weeks — and it would have been
+**Third-party limits inventoried.** Each ticket sold is one transaction at the payment gateway, which had a
+contracted limit of 50 transactions per second. Shedding at 4,000 tickets per minute let up to 67 per
+second through. The renegotiation took five weeks — and it would have been
 discovered during the opening if the inventory had not existed.
 
 **A trend alert.** A weekly projection of when each component reaches 70%, with an alert eight weeks in

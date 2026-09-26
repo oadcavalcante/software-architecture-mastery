@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fault-tolerance]
 related: [fault-tolerance, chaos-engineering, graceful-degradation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -85,7 +85,8 @@ rollback in 2 hours     each decision is final under pressure
 That guides the investment: reversible deployment, per-feature switches, configuration changes with no
 deployment, migrations with a way back.
 
-It is the property that most reduces incident severity, and it appears in no architecture diagram.
+In incidents triggered by a change, it is what sets the lower bound on duration — and it appears in no
+component diagram, because it is a property of the delivery process, not of the topology.
 
 ### People are part of the system
 
@@ -102,7 +103,7 @@ rehearsed procedures     they reduce the cognitive load at the wrong moment
 clear authority          who decides what, with no escalation
 ```
 
-See [observability](/13-observability/index.md). The difference between monitoring and observability is
+See [observability](/13-observability/index.md) and, for on-call, [SRE concepts](/13-observability/sre-concepts.md). The difference between monitoring and observability is
 exactly that: the first answers anticipated questions, the second allows formulating new ones — which is
 what the unknown scenario requires.
 
@@ -110,15 +111,10 @@ what the unknown scenario requires.
 
 An incident that generates no learning will be repeated.
 
-What turns an incident into capability:
-
-**Analysis with no search for a culprit.** If people fear consequences, the information does not appear —
-and with no honest information there is no learning.
-
-**A focus on conditions, not on individual error.** "Why did that action seem reasonable at the moment?"
-teaches more than "who made the mistake".
-
-**Actions with an owner and a deadline.** Analyses that end in observations change nothing.
+The mechanics of the analysis — blameless, focused on conditions, actions with an owner and a deadline —
+are in [SRE concepts](/13-observability/sre-concepts.md#blameless-incident-analysis). What is specific to
+resilience is the cumulative effect: each analysis that turns into a change widens the set of what was
+anticipated, and the next incident needs a more improbable combination to happen.
 
 **Near misses too.** What almost went wrong carries the same information, with none of the cost.
 
@@ -151,13 +147,15 @@ Investing in resilience is justified when:
 **As a substitute for tolerance.** The anticipated scenarios should be handled by a mechanism, not by
 improvisation.
 
-**With no observability.** You do not respond to what you cannot see.
+**When downtime costs less than headroom.** An internal tool whose afternoon outage delays work, with no
+lost revenue or data, does not pay for permanent idle capacity or monthly tabletop exercises.
 
-**With no margin.** A system at the limit has no options.
+**In batch processing with a wide recovery window.** If the job can run again the next night with no
+consequence, rerunning is the response to the unforeseen — and it already exists.
 
-**Incident analysis looking for a culprit.** It destroys the information.
-
-**Investing only in mechanisms**, ignoring procedures and people.
+**In a system with no continuous operation.** With nobody on call and no user waiting in real time, the
+ability to respond during the incident has no moment to be exercised; the investment goes to tolerance and
+recovery.
 
 ## Alternatives
 
@@ -167,7 +165,8 @@ There is no alternative to resilience — there are different emphases:
 - **Simplifying** — fewer interactions, fewer unexpected combinations. Frequently the most effective
   intervention.
 - **Reducing the reach** — smaller, isolated systems fail together less.
-- **Reversibility** — the best isolated return.
+- **Reversibility** — the best isolated return when incidents come from changes: it shortens all of them
+  without requiring any to have been anticipated.
 
 ## Trade-offs
 
@@ -230,8 +229,8 @@ The sequence: a configuration change increased a connection pool's size; that in
 per instance; auto scaling, on adding instances during a peak, exhausted the subnet's address quota; the
 new instances came up and failed; the balancer removed them and added others, in a cycle.
 
-No tolerance mechanism applied — there was no component failing, there was an interaction between three
-reasonable decisions.
+No tolerance mechanism applied — there was no isolated component failure that redundancy or a circuit
+breaker could absorb; the instances failed because of an interaction between three reasonable decisions.
 
 What prolonged the incident:
 
@@ -263,7 +262,9 @@ nobody had noticed.
 **Knowledge rotation**, with the network documentation reviewed by somebody who did not write it.
 
 What the team records: the tolerance mechanisms are still correct and would not have helped. What would
-have reduced the 4 hours to minutes was the fast rollback of the configuration — which cost two days to
+have reduced the 4 hours to minutes was the fast rollback of the configuration: with rollback in seconds,
+undoing the most recent change would have been the first attempt, before any diagnosis; at 35 minutes per
+attempt, the team diagnosed first, and the diagnosis took 2 hours. The fast rollback cost two days to
 implement.
 
 ## Related Concepts
@@ -283,7 +284,7 @@ That number is the lower bound on the duration of any incident caused by a chang
 
 - What is the difference between fault tolerance and resilience?
 - Why is reversibility worth more than being right in the unknown scenario?
-- Why is blameless incident analysis a requirement, not a courtesy?
+- Why would one more tolerance mechanism not have prevented the incident in the example?
 
 ## Further Reading
 

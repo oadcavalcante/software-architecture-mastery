@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [circuit-breakers, bulkheads, graceful-degradation]
 canonical_for: [tempestade de retentativa, amplificação de retentativa, orçamento de retentativa, recuperação metaestável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -57,8 +57,9 @@ leve em C vira sobrecarga total.
 
 A regra que evita a multiplicação composta.
 
-Cada camada que repete multiplica pelo fator dela. Numa cadeia de quatro serviços com
-três tentativas cada, uma requisição pode gerar 81 chamadas ao mais profundo.
+Cada camada que repete multiplica pelo fator dela. Numa cadeia de quatro serviços em que
+os três primeiros repetem três vezes, uma requisição pode gerar 27 chamadas ao mais
+profundo — 3 × 3 × 3, uma camada a mais que no exemplo acima.
 
 A decisão precisa ser explícita: **qual camada repete?** Tipicamente a mais próxima do
 usuário, ou a que tem o contexto para decidir se vale a pena.
@@ -98,9 +99,10 @@ sem variação   falha em massa → todos repetem em 1s, 2s, 4s → três picos 
 com variação   as tentativas se espalham no tempo
 ```
 
-Ver [backoff](/06-distributed-systems/backoff.md). Espera crescente sem variação é
-pior que não ter espera nenhuma, porque cria a ilusão de proteção enquanto mantém a
-sincronização.
+Ver [backoff](/06-distributed-systems/backoff.md). Espera crescente sem variação
+reduz o volume, mas não dessincroniza: os picos continuam, só mais espaçados. E nisso
+é pior que não ter espera nenhuma — dá a impressão de proteção, e a sincronização deixa
+de ser investigada.
 
 ### Não repita o que não é retentável
 
@@ -166,15 +168,23 @@ Retentativa é adequada quando:
 
 ## Quando Não Usar
 
-**Em várias camadas.**
+**Em mais de uma camada da mesma cadeia.** A partir da segunda, os fatores se
+multiplicam; se a camada com contexto não é a que repete, desligue a retentativa nela
+em vez de mantê-la em duas.
 
-**Sem orçamento.**
+**Sem orçamento.** Com só a contagem, a carga extra sobe junto com a taxa de erro — o
+destino recebe o triplo exatamente quando está degradado.
 
-**Sem variação.**
+**Sem variação.** As tentativas de clientes que falharam juntos chegam em picos
+sincronizados, e cada pico pode derrubar de novo o destino que estava voltando.
 
-**Para erros permanentes.**
+**Para erros permanentes.** Requisição malformada, não autorizada ou inexistente
+responde igual na segunda vez; repetir só consome capacidade do destino.
 
-**Sem idempotência.**
+**Sem idempotência.** Se o timeout ocorreu depois de o servidor aplicar o efeito, a
+repetição cobra duas vezes ou baixa o estoque em dobro. Sem chave de idempotência
+possível, repita só quando se sabe que a requisição não chegou — conexão recusada,
+falha de DNS — e devolva o resto ao chamador.
 
 **Como resposta a sobrecarga.** Se o destino está saturado, repetir piora. Ver
 [circuit breaker](/12-reliability/circuit-breakers.md).
@@ -304,7 +314,7 @@ serviço mais profundo durante uma degradação.
 
 - Por que orçamento de proporção funciona melhor que limite de tentativas?
 - O que é estado metaestável e por que escalar não resolve?
-- Por que espera crescente sem variação é pior que nenhuma espera?
+- Em que sentido espera crescente sem variação é pior que nenhuma espera, se ela reduz o volume?
 
 ## Para Aprofundar
 

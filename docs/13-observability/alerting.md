@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, slo, sre-concepts]
 canonical_for: [alerta acionável, fadiga de alerta, sintoma versus causa, alerta baseado em SLO]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -75,8 +75,9 @@ sintoma    "a taxa de erro do checkout está acima do limite"
 Alertar em causas produz dois problemas: dispara quando não há impacto — CPU alta pode
 ser normal — e não dispara quando há impacto por uma causa que ninguém previu.
 
-Alertar em sintoma cobre todas as causas, inclusive as desconhecidas, e só dispara
-quando importa.
+Alertar em sintoma cobre toda causa que se manifesta no sinal medido, inclusive as que
+ninguém previu, ao preço de não dizer qual é. O que não aparece no sintoma escolhido
+continua descoberto, e um pico transitório abaixo do impacto ainda pode disparar.
 
 As causas continuam sendo medidas — elas aparecem no painel e são usadas para
 diagnóstico. Elas simplesmente não acordam ninguém.
@@ -98,7 +99,8 @@ consumo    "no ritmo atual, o orçamento do mês acaba em 20 horas"
 O segundo é proporcional ao impacto real e permite graduar a resposta: consumo rápido
 acorda alguém; consumo moderado e prolongado vira tarefa priorizada.
 
-É a mudança que mais reduz volume de alertas sem reduzir cobertura.
+Quando o SLO existe e reflete a jornada do usuário, essa troca corta volume sem perder
+cobertura: os picos irrelevantes deixam de disparar, e a degradação lenta passa a disparar.
 
 ### Nem tudo precisa acordar alguém
 
@@ -113,8 +115,10 @@ painel          informação de contexto, sem ação
 A pergunta que classifica: **se isso disparar às 3h, alguém precisa levantar?** Se a
 resposta for não, não é alerta de sobreaviso.
 
-Rebaixar alertas para ticket é a intervenção mais rápida para reduzir fadiga, e ela não
-perde nada — o trabalho continua sendo feito, em horário razoável.
+Rebaixar para ticket o que responde "não" a essa pergunta é a intervenção mais rápida para
+reduzir fadiga — o trabalho continua sendo feito, em horário razoável. O que se perde é a
+detecção a tempo de uma condição que piora fora do horário; por isso o rebaixamento vale
+só quando a condição não tende a virar sintoma antes da manhã seguinte.
 
 ### Todo alerta precisa de contexto
 
@@ -161,22 +165,21 @@ coisa.
 - Sintoma afetando usuários, com ação disponível.
 - Consumo acelerado de orçamento de erro.
 - Condição previsível com prazo — certificado, cota, disco.
-- Falha de mecanismo de proteção.
+- Falha de mecanismo de proteção — réplica perdida, failover desativado. Não há impacto
+  ainda, mas a próxima falha deixa de ser absorvida; é a exceção de causa previsível em que
+  o prazo é o tempo até a próxima falha.
 - Ausência de algo que deveria acontecer — tarefa não executada, tráfego cessado.
 
 ## Quando Não Usar
 
-**Em causas** sem impacto direto.
+**Em causas** sem impacto direto — disparam em condição normal e treinam o time a ignorar.
 
-**Sem ação possível.**
+**Sem ação possível** — acordar alguém para observar não muda o desfecho.
 
-**Para o que pode esperar o horário comercial.**
+**Para o que pode esperar o horário comercial** — o custo da interrupção não compra nada
+que um ticket não entregue.
 
 **Com limiar arbitrário**, quando orçamento de erro está disponível.
-
-**Sem contexto na notificação.**
-
-**Sem revisão periódica.**
 
 ## Alternativas
 
@@ -192,7 +195,7 @@ coisa.
 |---|---|
 | Cada um é levado a sério | Ignorados |
 | Risco de lacuna | Cobertura ampla |
-| Revisão necessária | Acumulação |
+| Exige revisão ativa para continuar pequeno | Cresce sozinho a cada incidente |
 
 | Sintoma | Causa |
 |---|---|
@@ -297,7 +300,7 @@ disponível.
 
 ## Perguntas de Entrevista
 
-- Quais os três testes que um alerta de sobreaviso precisa passar?
+- Um alerta dispara toda semana e sempre recebe a mesma ação manual. Que destino ele deve ter, e por quê?
 - Por que alertar em sintoma e não em causa?
 - O que significa um alerta que dispara toda semana?
 

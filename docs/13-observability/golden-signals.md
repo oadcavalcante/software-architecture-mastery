@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [metrics, alerting, dashboards]
 canonical_for: [sinais dourados, taxa de tráfego, saturação de recurso, sinal de erro]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -60,8 +60,10 @@ erros por timeout  puxam para cima — escondem que os sucessos estão bem
 A prática correta: latência de requisições bem-sucedidas e de requisições com erro,
 separadas.
 
-E sempre em **percentis**, nunca em média. A média de um serviço com 99% em 50 ms e 1%
-em 10 segundos é 149 ms — um número que não descreve a experiência de ninguém. Ver
+Para descrever a experiência do usuário e para alertar, use **percentis**; a média só
+serve quando o que se quer é trabalho agregado, como custo por requisição. A média de um
+serviço com 99% em 50 ms e 1% em 10 segundos é cerca de 150 ms — um número que não
+descreve a experiência de ninguém. Ver
 [latência](/06-distributed-systems/latency.md).
 
 ### Tráfego: o denominador de tudo
@@ -168,15 +170,18 @@ o suficiente para começar a investigar.
 
 **Como instrumentação completa.** Eles são a base, não o teto.
 
-**Só na borda.**
+**Com volume baixo demais para estatística.** Um serviço interno com dez requisições por
+hora não sustenta percentil 99 nem taxa de erro: um único erro vira 10%, e o p99 é a
+requisição mais lenta. Ali, verificação sintética periódica e alerta sobre falha
+individual dizem mais que os quatro sinais.
 
-**Latência agregando sucesso e erro.**
+**Em componente sem modelo de requisição.** Um processo de controle, um agendador ou
+uma biblioteca embarcada não têm tráfego nem latência com significado útil; o que
+importa é se executou e se produziu o efeito esperado.
 
-**Latência em média.**
-
-**Saturação medida só por CPU.**
-
-**Sem adaptar** ao tipo de componente.
+**Como enquadramento por serviço num sistema de processo único.** Um monólito numa só
+máquina tem uma borda e nenhuma cadeia a localizar; os quatro sinais da borda, somados
+ao método USE nos recursos, cobrem o que a divisão por serviço cobriria.
 
 ## Alternativas
 
@@ -217,7 +222,7 @@ está fora do serviço — rede, cliente, dependência não instrumentada.
 
 **Não separar latência de sucesso e de erro.** Erros costumam responder rápido, então uma alta na taxa de falha *melhora* a latência agregada — e o painel melhora enquanto o sistema piora.
 
-**Usar média.** Ela esconde a cauda, que é onde estão os usuários afetados. Um sistema com média de 200 ms pode ter 5% acima de 3 segundos.
+**Usar média como sinal de latência.** Um alerta sobre média não dispara enquanto a cauda degrada — ver [latência](/06-distributed-systems/latency.md).
 
 **Medir CPU como saturação.** Saturação é o recurso mais restrito, que frequentemente é pool de conexões, threads ou profundidade de fila. CPU costuma estar baixa quando o sistema já não aceita mais trabalho.
 

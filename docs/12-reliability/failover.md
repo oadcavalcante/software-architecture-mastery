@@ -13,7 +13,7 @@ objective: >
 prerequisites: [redundancy]
 related: [redundancy, chaos-engineering, disaster-recovery-planning]
 canonical_for: [failover, promoção de réplica, retorno ao primário, acionamento automático]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -73,7 +73,9 @@ não um pico instantâneo. Ver
 ### Cérebro dividido é o pior resultado
 
 Duas cópias se consideram principais. Ambas aceitam escrita. Os dados divergem, e a
-reconciliação é manual e imperfeita.
+reconciliação é manual e imperfeita. O fenômeno e suas defesas gerais estão em
+[eleição de líder](/06-distributed-systems/leader-election.md); aqui interessa como elas
+entram no desenho de failover.
 
 Isso é pior que indisponibilidade: indisponibilidade se resolve; divergência de dados
 pode não se resolver.
@@ -86,8 +88,10 @@ Os mecanismos que impedem:
 **Isolamento do antigo.** O primário anterior é impedido de aceitar escrita — por
 revogação de credencial, por regra de rede, ou por desligamento.
 
-**Marca de geração.** Escritas carregam um número de geração; o armazenamento recusa as
-de geração antiga.
+**Fencing.** O armazenamento recusa escrita que chega com número de liderança anterior ao
+da promoção — o mecanismo está descrito em
+[eleição de líder](/06-distributed-systems/leader-election.md). No failover, ele cobre o que
+o isolamento deixa passar: a escrita que o primário antigo já tinha em trânsito.
 
 Um failover sem nenhum desses mecanismos vai produzir cérebro dividido eventualmente.
 
@@ -136,7 +140,7 @@ endereço antigo até cair.
 Inventariar tudo que aponta para o componente é parte do desenho, e é o que costuma
 faltar.
 
-### Exercitar é a única verificação que vale
+### Só o exercício verifica o procedimento de ponta a ponta
 
 Ver [engenharia do caos](/12-reliability/chaos-engineering.md). O failover precisa ser executado
 periodicamente, em produção, em janela controlada.
@@ -243,14 +247,17 @@ A sequência:
 
 **Aplicações não reconectaram.** As instâncias mantinham conexões para o endereço
 antigo e não tinham lógica de reconexão. Foi preciso reiniciá-las manualmente: 12
-minutos.
+minutos. Na partida, cada instância tentava primeiro o endereço do primário original e, sem
+resposta, caía no da réplica.
 
-**Primário antigo voltou.** A zona se recuperou parcialmente, e o banco original
+**Primário antigo voltou.** No minuto 5 do reinício, a zona se recuperou parcialmente, e o banco original
 voltou a aceitar conexões — ainda se considerando primário. Não havia mecanismo de
 isolamento.
 
-**Cérebro dividido por 40 minutos.** Parte das aplicações, reiniciadas antes, apontava
-para o novo primário; parte, para o antigo. Ambos aceitaram escrita.
+**Cérebro dividido por 40 minutos.** As instâncias reiniciadas antes do minuto 5 estavam no
+novo primário; as reiniciadas depois — cerca de metade da frota — encontraram o endereço
+original respondendo e se conectaram ao antigo. Ambos aceitaram escrita até a equipe notar a
+divergência e desligar o banco original à mão.
 
 **Divergência de dados.** 1.400 transações precisaram ser reconciliadas manualmente ao
 longo de três dias. Dezenove não puderam ser resolvidas com certeza.

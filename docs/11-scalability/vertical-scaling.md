@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [horizontal-scaling, database-scaling, performance-vs-scalability]
 canonical_for: [escala vertical, limite da máquina única]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -93,12 +93,15 @@ momento de mudar:
 frequentemente é resolvido com duas máquinas — primária e réplica — sem
 particionamento.
 
-**Custo não linear.** As instâncias maiores custam desproporcionalmente mais. Existe
-um ponto em que duas médias saem mais baratas que uma grande.
+**Custo não linear no topo.** Dentro de uma família de instâncias o preço cresce em
+linha com o tamanho; a desproporção aparece quando o próximo passo sai do catálogo
+padrão — tipos de memória estendida, instâncias dedicadas, hardware próprio. A partir
+daí, duas médias saem mais baratas que uma grande.
 
 **Limite físico atingido.** Quando o maior tipo disponível não basta.
 
-**Reinício.** Mudar de tamanho exige parada. Com uma máquina, isso é indisponibilidade.
+**Reinício.** Trocar o tipo de instância costuma exigir parada. Com uma máquina,
+isso é indisponibilidade.
 
 **Contenção interna.** Acima de certo número de núcleos, o próprio software pode não
 escalar — bloqueios internos, estruturas compartilhadas. Dobrar os núcleos não dobra a
@@ -160,7 +163,8 @@ quão longe você está do teto — costuma ser mais longe do que a discussão p
 
 **Sem medir.** Crescer sem saber o que satura.
 
-**Para picos que duram minutos.** Redimensionar exige reinício.
+**Para picos que duram minutos.** Redimensionar costuma exigir reinício, e o pico
+acaba antes da troca.
 
 ## Alternativas
 
@@ -203,7 +207,7 @@ distribuída.
 
 ## Erros Comuns
 
-**Descartar por reputação.** "Não escala" virou reflexo, mas uma máquina de hoje comporta centenas de gigabytes de memória e dezenas de núcleos — mais do que a maioria dos sistemas de negócio precisará.
+**Descartar por reputação.** "Não escala" virou reflexo, mas uma instância comum de hoje já comporta centenas de gigabytes de memória e dezenas de núcleos, e o topo do catálogo vai a centenas de núcleos e terabytes — mais do que a maioria dos sistemas de negócio precisará.
 
 **Não medir quanto da capacidade está em uso.** Times decidem distribuir com a máquina a 30% de utilização, porque ninguém olhou o número antes de projetar a arquitetura seguinte.
 
@@ -247,7 +251,8 @@ precisavam de dados do instante.
 **Correção de duas consultas** que faziam varredura completa em tabelas grandes — o
 que sozinho reduziu a CPU no pico de 34% para 21%.
 
-Três anos depois, com o volume projetado atingido, o banco opera a 48% de utilização.
+Três anos depois, com o volume projetado atingido e as funcionalidades entregues no
+período somando trabalho a cada transação, o banco opera a 48% de utilização.
 O particionamento continua não sendo necessário.
 
 E o que a equipe considera mais relevante: nesses três anos, o time entregou
@@ -260,8 +265,9 @@ Duas decisões complementares foram tomadas na época:
 de 70% de forma sustentada — incluindo o desenho de particionamento, pronto para ser
 executado quando necessário.
 
-**Alerta de tendência**, não só de valor absoluto: se a utilização crescer a um ritmo
-que atinja 70% em menos de seis meses, o alerta dispara.
+**[Alerta de tendência](/11-scalability/scaling-capacity-planning.md#alerta-de-tendência-não-só-de-valor)**,
+não só de valor absoluto: se a utilização crescer a um ritmo que atinja 70% em menos de
+seis meses, o alerta dispara.
 
 A lição registrada: a decisão de distribuir tinha sido tomada a partir de uma
 projeção de crescimento, sem nenhuma medição do que a infraestrutura atual comportava.

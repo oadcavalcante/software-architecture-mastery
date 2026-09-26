@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, scaling-partitioning, scaling-cache]
 canonical_for: [réplica para escala de leitura, amplificação de escrita, classificação de leitura]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -60,8 +60,11 @@ Cada réplica precisa aplicar todas as escritas. O trabalho total de escrita cre
 linearmente com o número de cópias, enquanto a capacidade de escrita **por nó**
 permanece a mesma.
 
-A consequência prática: acima de certo número de réplicas, elas passam a gastar a maior
-parte da capacidade aplicando replicação, e sobra pouco para servir leitura.
+A consequência prática: cada réplica gasta aplicando replicação a fração taxa de escrita ÷
+capacidade de escrita do nó — a mesma com 2 ou com 20 réplicas. Adicionar réplica não
+reduz essa fração; o que cresce com o número de cópias é o custo e o envio de log pelo
+primário. Quando a taxa de escrita sobe, a fração sobe em todas ao mesmo tempo, e sobra
+pouco para servir leitura.
 
 Isso define o teto: replicação escala leitura até o ponto em que a escrita, aplicada em
 toda parte, consome os nós.
@@ -184,7 +187,7 @@ ponto em que a escrita, aplicada em toda parte, consome os nós.
 
 ## Modos de Falha
 
-**Escrita saturando com muitas réplicas.**
+**Escrita saturando todas as réplicas ao mesmo tempo.**
 
 **Réplica atrasada servindo dado velho.**
 
@@ -218,8 +221,9 @@ dois anos, conforme o tráfego crescia.
 Com 12 réplicas, dois problemas apareceram:
 
 **A escrita saturou.** Cada anúncio publicado gerava 13 escritas — o primário e as 12
-réplicas. As réplicas passavam a maior parte do tempo aplicando replicação, e a
-capacidade de leitura por réplica tinha caído. Adicionar a 13ª piorou o atraso de todas.
+réplicas. A taxa de publicação tinha crescido junto com o tráfego, as réplicas passavam
+a maior parte do tempo aplicando replicação, e a capacidade de leitura por réplica tinha
+caído. Adicionar a 13ª não aliviou nenhuma: ela aplicaria as mesmas escritas que as outras.
 
 **Atraso irregular.** Duas réplicas serviam relatórios internos e tinham atraso de
 minutos, enquanto as outras tinham segundos. O roteamento não distinguia, e usuários
@@ -230,8 +234,8 @@ As correções:
 
 **Cache antes de réplica.** As buscas mais comuns — que respondiam por 70% da leitura —
 foram para cache com invalidação por evento. Isso permitiu **reduzir** de 12 para 6
-réplicas, o que diminuiu a amplificação de escrita pela metade e melhorou o atraso de
-todas.
+réplicas, o que baixou de 13 para 7 escritas por operação; o atraso de todas melhorou
+porque, sem 70% da leitura, sobrou capacidade em cada réplica para aplicar a replicação.
 
 **Réplicas dedicadas a relatório**, fora da rotação de tráfego de usuário.
 
@@ -245,8 +249,8 @@ a ler do primário por 30 segundos. A queixa de "editei e não mudou" desaparece
 definido — o que a equipe estima em cerca de três anos no ritmo atual.
 
 A avaliação posterior aponta: a resposta para dois anos de crescimento tinha sido sempre a
-mesma — adicionar uma réplica. Ninguém tinha calculado a amplificação de escrita, e a
-12ª réplica estava tornando o sistema pior.
+mesma — adicionar uma réplica. Ninguém tinha calculado quanto de cada réplica a escrita
+já consumia, e a 12ª réplica acrescentava pouca leitura pelo preço de uma instância inteira.
 
 ## Conceitos Relacionados
 
@@ -257,16 +261,17 @@ mesma — adicionar uma réplica. Ninguém tinha calculado a amplificação de e
 
 ## Exercício Prático
 
-Conte quantas réplicas você tem e multiplique pela taxa de escrita. Esse é o trabalho de
-escrita total do seu conjunto.
+Divida a taxa de escrita no pico pela capacidade de escrita de um nó. A razão diz quanto
+da capacidade de cada réplica está sendo consumida antes de servir qualquer leitura — e
+ela não muda com o número de réplicas. É ela que mostra o quão perto está o teto.
 
-Compare com a capacidade de escrita de um nó. A razão diz quanto da capacidade de cada
-réplica está sendo consumida antes de servir qualquer leitura.
+Depois multiplique a taxa de escrita pelo número de cópias. Esse é o trabalho de escrita
+total do conjunto: não revela o teto, mas diz quanto você paga pela amplificação.
 
 ## Perguntas de Entrevista
 
 - Por que replicação não escala escrita?
-- O que é amplificação de escrita e como ela define o teto?
+- O que é amplificação de escrita, e por que não é o número de réplicas que define o teto?
 - Por que cache deve vir antes de réplica?
 
 ## Para Aprofundar

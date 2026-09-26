@@ -12,8 +12,8 @@ objective: >
   os mede no ponto certo.
 prerequisites: [reliability]
 related: [slo, sla, availability-metrics]
-canonical_for: [SLI, indicador de nível de serviço, evento bom, janela de medição]
-content_version: 1
+canonical_for: [SLI, indicador de nível de serviço, evento bom]
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -137,7 +137,7 @@ serviço.
 **Contagem absoluta.** "150 erros por hora" não diz se isso é muito — depende do
 volume.
 
-**Média.** Ela esconde a cauda. Um serviço com média de 100 ms pode ter 5% dos usuários
+**Média.** Ela esconde a cauda. Um serviço com média de 100 ms pode ter 1% dos usuários
 esperando 4 segundos.
 
 **Tempo de atividade do processo.** O processo pode estar de pé e não atender.
@@ -151,24 +151,29 @@ usuário sofre, ele não é um SLI.
 
 - Antes de definir qualquer SLO.
 - Para jornadas críticas do produto.
-- Onde a experiência do usuário precisa ser acompanhada.
+- Quando há volume suficiente para que um evento isolado não mova a proporção de forma
+  perceptível na janela.
 - Quando há compromisso contratual a sustentar.
-- Para orientar decisões de investimento em confiabilidade.
+- Quando existe um ponto de instrumentação mais próximo do usuário que o servidor —
+  balanceador, cliente ou sondagem externa.
 
 ## Quando Não Usar
 
-**Métricas de recurso como SLI.**
+**Volume baixo demais para a proporção.** Com poucas dezenas de eventos na janela, uma
+única falha move o número em pontos percentuais. Ali, sondagem sintética com contagem de
+falhas diz mais que uma proporção que oscila sem significado.
 
-**Um SLI por endpoint.** Dezenas de indicadores que ninguém olha.
+**Nenhum ponto de medição que veja o usuário.** Se só o servidor pode ser instrumentado e
+as falhas relevantes acontecem antes dele, o "SLI" é métrica de servidor com outro nome.
+Melhor declarar a lacuna e cobri-la com sondagem externa do que dar ao número uma
+autoridade que ele não tem.
 
-**Média.**
+**Componente sem consumidor cuja experiência mude.** Um job noturno ou uma réplica de
+relatório que ninguém consulta em tempo real não tem usuário a proteger; precisa de
+alerta de falha, não de indicador de nível de serviço.
 
-**Medido apenas no servidor**, quando é possível medir mais perto do usuário.
-
-**Excluindo eventos até o número ficar bom.** A definição de "válido" precisa ser
-defensável.
-
-**Sem definir o limite.** "Latência boa" não é mensurável; "abaixo de 300 ms" é.
+**Ninguém vai agir sobre o número.** Sem SLO e sem dono que responda por ele, o SLI vira
+mais um gráfico no painel, e o custo de definir "bom" e "válido" não se paga.
 
 ## Alternativas
 
@@ -244,8 +249,8 @@ sucesso eram contadas como boas. O usuário desistia antes.
 
 A reformulação:
 
-**Quatro SLIs por jornada:** buscar cotação, contratar apólice, consultar apólice,
-acionar sinistro. Cada um com disponibilidade e latência.
+**Quatro jornadas com SLI próprio:** buscar cotação, contratar apólice, consultar apólice,
+acionar sinistro. Cada uma com disponibilidade e latência — oito indicadores no total.
 
 **Limite de latência definido com dados**, não por intuição: a análise de abandono
 mostrou que acima de 4 segundos a taxa de desistência dobrava. O limite virou 4

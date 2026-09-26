@@ -13,7 +13,7 @@ objective: >
 prerequisites: [golden-signals]
 related: [golden-signals, metrics, alerting]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -136,7 +136,7 @@ That imposes constraints the others do not have:
 requires interpretation.
 
 **No false alarms.** A dashboard that goes red on normal variation trains people to ignore it — the same
-mechanism as alert fatigue.
+mechanism as [alert fatigue](/13-observability/alerting.md).
 
 **No sensitive data.** It is visible to visitors, to passers-by, and in office photos. Revenue figures and
 customer names do not belong there.
@@ -160,17 +160,19 @@ collection of graphs.
 
 ## When Not to Use
 
-**As a substitute for alerts.**
+**As a substitute for alerts.** A dashboard only detects what someone is looking at.
+Outside business hours, or when degradation is gradual and fits within the graph's
+visible variation, the first to notice is the user. Whatever needs a reaction within
+minutes needs an [alert](/13-observability/alerting.md); the dashboard comes in after it
+has fired.
 
-**Mixing tracking and investigation.**
+**As the only way to investigate.** When the incident combines dimensions no graph
+anticipated — one customer, one version, one region — the dashboard lacks the slice, and
+a team that depends on it has no path forward. See
+[debuggability](/13-observability/debuggability.md).
 
-**With no threshold or comparison.** Numbers with no reference.
-
-**Handcrafted per service**, when standardization is possible.
-
-**With no review.**
-
-**As the only way to investigate.**
+**For data nobody reads in real time.** Quarterly capacity trends or cost per service fit
+a periodic report; keeping them on a live dashboard is maintenance cost with no reader.
 
 ## Alternatives
 
@@ -183,7 +185,7 @@ collection of graphs.
 
 | Few graphs | Many |
 |---|---|
-| Readable under pressure | Complete |
+| Covers few questions, read in seconds | Covers more questions, read in minutes |
 | Context may be missing | Nobody finds anything |
 | Easy to maintain | It ages |
 

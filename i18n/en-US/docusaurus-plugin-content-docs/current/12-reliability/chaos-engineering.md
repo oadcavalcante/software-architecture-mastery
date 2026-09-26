@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [graceful-degradation, failover, redundancy]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,7 +34,7 @@ work. And the moment to discover that is not during the incident.
 
 Every system has protection mechanisms: circuit breakers, degradation, failover, retries, redundancy.
 
-They are written once, tested on the happy path, and never actually executed — because the condition that
+Many are written once, tested on the happy path, and never actually executed — because the condition that
 triggers them is rare.
 
 When the condition arrives, you discover that the fallback behavior has the wrong shape, that the failover
@@ -186,14 +186,15 @@ is to exercise it. Chaos engineering is the verification that the protection mec
 
 ## Alternatives
 
-- **Tabletop exercises** — discussing scenarios with no injection. Cheap, and it finds procedure gaps.
+- **Tabletop exercises** — discussing scenarios with no injection. See
+  [recovery exercise](/12-reliability/disaster-recovery-planning.md).
 - **Incident simulations** — rehearsing the response, with a simulated failure.
 - **Scheduled recovery tests** — exercising failover and restore periodically. See
   [failover](/12-reliability/failover.md).
 - **Load tests with failure** — combining overload and unavailability.
 
-The first is the right starting point for whoever has never done it: it costs one meeting and usually finds
-more than expected.
+The first is the right starting point for whoever has never done it, for the reason given in "It is not
+only a tool": it finds gaps before any fault is injected.
 
 ## Trade-offs
 
@@ -238,8 +239,10 @@ is just breaking things — there is no way to distinguish expected behavior fro
 **Not limiting the blast radius.** An experiment with no defined damage radius and no stop button is
 indistinguishable from a real failure, including for whoever is on call.
 
-**Not injecting latency**, only unavailability. A slow dependency causes more damage than a down one,
-because it triggers no error handling — and it is the least exercised scenario.
+**Not injecting latency**, only unavailability. Against a circuit breaker that counts only errors, a slow
+dependency causes more damage than a down one: a slow, successful response is not an error, the breaker
+does not open, and the timeout — when there is one — is the only defense. And it is the least exercised
+scenario.
 
 **Not turning findings into tasks.** An experiment that reveals fragility and does not generate a
 prioritized fix only documents the risk, which is worse than not having looked.
@@ -293,8 +296,8 @@ two weeks, take a zone down monthly, database failover quarterly.
 In the following ten months, two real incidents occurred under the exercised conditions. Both were absorbed
 with no unavailability.
 
-What the team learned: the two years invested in reliability had produced mechanisms that, for the most
-part, did not work. Not through incompetence — through never having been executed.
+What the team learned: the two years invested in reliability had produced mechanisms of which half did
+not work — and the other half worked while hiding a defect next to it. Not through incompetence — through never having been executed.
 
 ## Related Concepts
 
@@ -313,7 +316,7 @@ first finding.
 ## Interview Questions
 
 - Why are a hypothesis and a steady state what separate the method from random breakage?
-- Why is injecting latency more revealing than injecting unavailability?
+- Under what condition does injecting latency reveal more than injecting unavailability?
 - Which prerequisites precede the first experiment?
 
 ## Further Reading

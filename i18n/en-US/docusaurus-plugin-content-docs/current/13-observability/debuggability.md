@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, traces, correlation-ids]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -60,8 +60,10 @@ low cardinality    route, status, region, version — few values
 high cardinality   user, order, session, device, amount — many
 ```
 
-[Metrics](/13-observability/metrics.md) do not support high cardinality — that is what makes them cheap.
-See the cardinality cost there.
+[Metrics](/13-observability/metrics.md) pay per time series, and each distinct label value creates a
+series: with high cardinality, the cost grows without bound until the system stops responding. The
+constant cost that makes them cheap comes precisely from refusing those fields. See the cardinality cost
+there.
 
 That means debuggability comes from [logs](/13-observability/logs.md) and
 [traces](/13-observability/traces.md), not from metrics. A system with excellent metrics and poor logs
@@ -87,6 +89,13 @@ decisions      which code path, which rules applied
 
 See [logs](/13-observability/logs.md) — the canonical event. Thirty or forty fields per event looks
 excessive until the first investigation where the right question depends on the field nobody collected.
+
+That context has a price, and it scales with traffic, not with the number of questions: a 40-field event
+takes on the order of 1 to 2 KB, and at a thousand requests per second that is close to 130 GB per day
+before any index. The order of cuts matters: first outcome-based sampling — keep every error and slow
+execution, sample the successes —, then tiered retention; cutting fields or shortening hot retention
+comes last, because those are exactly the failure modes below. See
+[telemetry](/13-observability/telemetry.md) — the cost of observability and its levers.
 
 The criterion is not "will this be useful?" — it is "could this distinguish this execution from another?".
 
@@ -155,29 +164,35 @@ diagnostic endpoints        protected, with sanitized data
 
 ## Mental Model
 
-**Debuggability is the ability to ask new things.** It depends on the system emitting enough context — the
-tool only queries what exists.
+**Events are a table; each new question is a group-by on a column.** You can only group by a column that
+existed when the row was written. Metrics are that table already aggregated, with the columns chosen before
+the question. The tool is the query engine; the table's schema is decided by whoever writes the code.
 
 ## When to Use
 
 - Distributed systems with many interactions.
-- Where unanticipated incidents are expected — that is, always.
+- Where recent incidents required questions no existing dashboard answered — the sign that the
+  unanticipated ones are already the majority.
 - Where investigation time has a cost.
 - Systems with many customers and heterogeneous behaviors.
 
 ## When Not to Use
 
-**Relying on metrics** to investigate the individual.
+**A small system with few paths.** An internal tool with a few dozen users is investigated by reading the
+whole log or reproducing locally; maintaining an event schema and queryable storage costs more than the
+few investigations it speeds up.
 
-**With poor events.** Few fields limit the possible questions.
+**A deterministic, re-runnable batch.** If the input is preserved and the run repeats its result, running
+it again under a debugger answers the question — a rich event per item pays storage for an answer the
+re-run already gives.
 
-**With no ad hoc querying.** Only pre-configured dashboards.
+**A hot path at extreme volume.** Where the operation costs microseconds and happens millions of times per
+second, one event per operation costs more than the operation; metrics and aggressive sampling belong
+there, and the rich context stays at the edge that calls it.
 
-**With no context propagation.**
-
-**With no ability to investigate in production.**
-
-**Emitting sensitive data** to gain context. See [data protection](/10-security/data-protection.md).
+**When the field that distinguishes executions is sensitive data.** If it can be neither emitted nor
+pseudonymized, the event does not carry it, and investigating that axis goes through controlled access to
+the source data. See [data protection](/10-security/data-protection.md).
 
 ## Alternatives
 
@@ -223,9 +238,12 @@ There is no alternative — there are degrees:
 
 **Depending on metrics** to investigate individual cases.
 
-**Events with few fields.**
+**Events with few fields.** Recording only the identifier and the error message to contain logging cost:
+in the first investigation by segment there is no field to group by, and every hypothesis becomes manual
+reading of cases — the three months of the example below.
 
-**Not recording version and configuration.**
+**Not recording version and configuration.** Counting on the deployment time to infer the version: with a
+gradual rollout, two versions coexist for hours, and the time no longer separates one from the other.
 
 **Not recording the decisions made.**
 
@@ -246,7 +264,7 @@ pattern, give up.
 
 The change that resolved it was not about tooling:
 
-**A canonical event** for the renewal, with 31 fields: plan, amount, payment method, country, currency,
+**A canonical event** for the renewal, with 31 fields, among them: plan, amount, payment method, country, currency,
 days since the last renewal, attempt number, payment provider used, active experiment variant, code
 version, region.
 

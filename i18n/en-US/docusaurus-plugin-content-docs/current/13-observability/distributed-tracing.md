@@ -13,7 +13,7 @@ objective: >
 prerequisites: [traces]
 related: [traces, correlation-ids, telemetry]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -56,7 +56,8 @@ If each service decides independently, the result is fragmented traces — some 
 and the tree incomplete.
 
 The standardized propagation format — a header with a defined structure — resolved interoperability between
-libraries and vendors. Using it is the right choice.
+libraries and vendors. Using it is the default choice; an older proprietary format is only justified when
+integrating with a system that understands nothing else.
 
 ### The hops that break
 
@@ -99,15 +100,16 @@ that forces the collection of errors and of marked requests.
 
 ### Force the collection when it matters
 
-Regardless of the strategy, three cases should always be collected:
+Regardless of the strategy, three cases take priority over ordinary traffic — with a rate cap, because in
+the incident where errors spike, collecting 100% of them saturates the collector exactly when it is needed:
 
 ```text
-errors                    always
-latency above the limit   always
+errors                    always, up to the cap
+latency above the limit   always, up to the cap
 a marked request          a header that forces collection
 ```
 
-The third is the most useful investigation tool: it allows support, or a test, to generate a fully traced
+The third is what most shortens the path to the trace of a specific case: it allows support, or a test, to generate a fully traced
 request, with no dependence on luck.
 
 ### The cost needs to be sized
@@ -151,17 +153,21 @@ errors is not optional.
 
 ## When Not to Use
 
-**Without propagating the sampling decision.**
+**In a single-component system.** With no process boundary there is no context to propagate; local
+[traces](/13-observability/traces.md) or profiling show the same path with no collector, header or
+coordinated sampling.
 
-**Random sampling without forcing errors.**
+**With few hops, all synchronous.** Two or three services called inline, with no queue in the path:
+[correlation identifiers](/13-observability/correlation-ids.md) in the logs, with each stage's duration,
+reconstruct the request, and a stateful collector does not pay for itself.
 
-**With partial coverage**, with no plan to complete it.
+**When the chain runs mostly through components you do not control** — third-party APIs, uninstrumented
+clients. The trace stops at the first foreign boundary and produces exactly the truncated tree described
+above; latency metrics per external dependency give the signal without pretending to be complete.
 
-**In a single-component system.**
-
-**Without sizing the cost.**
-
-**Without instrumenting the queue hops**, when they exist.
+**When the telemetry budget fits neither the full collection tail-based sampling requires nor a head-based
+rate high enough to catch the rare.** A low blind rate reproduces the Real-World Example below: the
+instrumentation is paid for and the trace of the request that failed does not exist.
 
 ## Alternatives
 
@@ -186,7 +192,8 @@ services.
 
 | A high rate | Low |
 |---|---|
-| More coverage | Less cost |
+| Broad coverage | Narrow coverage |
+| Cost proportional to volume | Contained cost |
 | Finds the rare | Misses the rare |
 
 ## Failure Modes
@@ -220,6 +227,8 @@ services.
 
 **Not monitoring spans dropped** by the collector.
 
+**Not sizing the cost** before turning collection on.
+
 ## Real-World Example
 
 A mobility platform instrumented distributed tracing across 22 services, with random sampling at 1%.
@@ -233,8 +242,10 @@ The reformulation:
 **Tail-based sampling**, with explicit rules: 100% of errors, 100% above the 99th latency percentile, 100%
 of rare routes, and 2% of the rest.
 
-The total cost stayed close to the previous one, and the usefulness changed completely — the traces that
-existed became the ones somebody wanted to see.
+The cost did not stay the same: storage grew about threefold — from 1% to somewhere between 3% and 5% of
+traces — and collection became full up to the decision. The numbers closed by shortening the retention of
+normal traces. The usefulness changed completely — the traces that existed became the ones somebody wanted
+to see.
 
 **A force-collection header**, used by support and by the integration tests. A customer reporting a problem
 can have the next attempt fully traced.
@@ -250,7 +261,8 @@ Two immediate findings after the change:
 **A circular dependency.** The pricing service called the routing one, which under certain conditions
 called pricing. It had existed for two years and explained latency spikes nobody had diagnosed.
 
-**Divergent clocks.** Spans from one service appeared to start before their parent ended. The investigation
+**Divergent clocks.** Spans from one service appeared to start before their parent started — the child
+"began" before it was called. The investigation
 found drift of up to 800 ms on two instances. See [clock and time](/06-distributed-systems/clock-and-time.md).
 
 The recorded lesson: the tool had been installed and correct for six months. The sampling choice — made

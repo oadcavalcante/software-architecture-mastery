@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [graceful-degradation, failover, redundancy]
 canonical_for: [engenharia do caos, experimento de falha, hipótese de estado estável, raio de alcance]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -37,7 +37,7 @@ incidente.
 Todo sistema tem mecanismos de proteção: circuit breaker, degradação, failover,
 retentativa, redundância.
 
-Eles são escritos uma vez, testados no caminho feliz, e nunca executados de verdade —
+Muitos são escritos uma vez, testados no caminho feliz, e nunca executados de verdade —
 porque a condição que os aciona é rara.
 
 Quando a condição chega, descobre-se que o comportamento de reserva tem formato errado,
@@ -196,15 +196,15 @@ mais.
 
 ## Alternativas
 
-- **Exercícios de mesa** — discutir cenários sem provocar. Barato, e encontra lacunas
-  de procedimento.
+- **Exercícios de mesa** — discutir cenários sem provocar. Ver
+  [exercício de recuperação](/12-reliability/disaster-recovery-planning.md).
 - **Simulações de incidente** — ensaiar a resposta, com falha simulada.
 - **Testes de recuperação agendados** — exercitar failover e restauração
   periodicamente. Ver [failover](/12-reliability/failover.md).
 - **Testes de carga com falha** — combinar sobrecarga e indisponibilidade.
 
-A primeira é o ponto de partida certo para quem nunca fez: ela custa uma reunião e
-costuma encontrar mais do que o esperado.
+A primeira é o ponto de partida certo para quem nunca fez, pelo motivo descrito em
+"Não é só ferramenta": encontra lacunas antes de qualquer injeção de falha.
 
 ## Trade-offs
 
@@ -246,7 +246,7 @@ para conseguir, num ambiente onde pedir de novo exige explicar o incidente antes
 
 **Não limitar o alcance.** Experimento sem raio de dano definido e sem botão de parada é indistinguível de uma falha real, inclusive para quem está de plantão.
 
-**Não injetar latência**, só indisponibilidade. A dependência lenta causa mais dano que a dependência caída, porque não dispara nenhum tratamento de erro — e é o cenário menos exercitado.
+**Não injetar latência**, só indisponibilidade. Contra um disjuntor que conta apenas erro, a dependência lenta causa mais dano que a caída: a resposta lenta e bem-sucedida não é erro, o disjuntor não abre, e o timeout — quando existe — é a única defesa. E é o cenário menos exercitado.
 
 **Não transformar achados em tarefas.** Experimento que revela fragilidade e não gera correção priorizada apenas documenta o risco, o que é pior do que não ter olhado.
 
@@ -305,7 +305,8 @@ Nos dez meses seguintes, dois incidentes reais ocorreram nas condições exercit
 Ambos foram absorvidos sem indisponibilidade.
 
 O que a equipe aprendeu: os dois anos de investimento em confiabilidade tinham
-produzido mecanismos que, na maioria, não funcionavam. Não por incompetência — por
+produzido mecanismos que, pela metade, não funcionavam — e a outra metade funcionava
+escondendo um defeito ao lado. Não por incompetência — por
 nunca terem sido executados.
 
 ## Conceitos Relacionados
@@ -326,7 +327,7 @@ executar — e provavelmente o primeiro achado.
 ## Perguntas de Entrevista
 
 - Por que hipótese e estado estável são o que separa o método de quebra aleatória?
-- Por que injetar latência é mais revelador que injetar indisponibilidade?
+- Em que condição injetar latência revela mais que injetar indisponibilidade?
 - Quais pré-requisitos precedem o primeiro experimento?
 
 ## Para Aprofundar

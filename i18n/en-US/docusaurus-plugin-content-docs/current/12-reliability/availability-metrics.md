@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [sli, slo, reliability-basics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -107,31 +107,26 @@ verify.
 
 Knowing which is being used changes the number's interpretation.
 
-### Partial availability is the common case
+### Measuring partial availability requires a latency threshold
 
-The binary model — available or not — does not describe what happens in practice.
+That the binary model hides the common case — one feature down, a fraction of users affected — is covered
+in [Availability](/06-distributed-systems/availability.md), and how the system behaves in that state, in
+[graceful degradation](/12-reliability/graceful-degradation.md).
 
-The common case is: one feature down, the rest working; slowness that makes use unviable without generating
-an error; a subset of users affected.
+What the successful-request rate misses is slowness: a correct response in 30 seconds counts as a success
+and, for the user, is a failure. The way out is measuring per journey, with a latency threshold per
+journey — which turns "it is up" into "it is usable". The threshold is not universal: two seconds to open
+the cart and twenty to generate a report may each be the point where the user gives up.
 
-See [graceful degradation](/12-reliability/graceful-degradation.md). Measuring only total unavailability
-hides most of the real impact.
+### The number needs context to be compared
 
-The way out is measuring per journey, with a latency threshold — which turns "it is up" into "it is
-usable".
+The three complements any percentage requires — window, measurement point and what counts as
+unavailable — are defined in [Availability](/06-distributed-systems/availability.md). For metrics, the
+consequence is comparability: two reports can only be set side by side if they declare all three the same.
 
-### The number needs context to mean anything
-
-Three pieces of information that need to accompany any percentage:
-
-**The window.** 99.9% per month and per year are very different commitments.
-
-**The measurement point.** Server, edge or client. See [SLI](/12-reliability/sli.md).
-
-**What counts as unavailable.** A total error, slowness, partial degradation.
-
-Without all three, the percentage is neither comparable nor verifiable — and that is how it appears in most
-reports.
+A 99.95% measured at the server, not counting slowness, is not better than a 99.9% measured at the client
+with a latency threshold — it is a different quantity. Without all three declared, the percentage is
+neither comparable nor verifiable — and that is how it appears in most reports.
 
 ### The most useful number is not availability
 
@@ -151,7 +146,7 @@ The cost is that it requires knowing how many users were affected, which is not 
 degradations. An estimate is usually enough: the order of magnitude already separates the incidents that
 matter from the ones that do not.
 
-Teams that adopt that measure stop arguing about whether an incident was serious — the number answers.
+With it, the argument over an incident's severity reduces to a comparison of orders of magnitude.
 
 ## Mental Model
 
@@ -186,14 +181,11 @@ Teams that adopt that measure stop arguing about whether an incident was serious
 - **A count of incidents by severity** — more readable than an average on small samples.
 - **A duration distribution** — instead of an average.
 
-The second deserves emphasis: user-minutes affected captures the three dimensions and is directly
-translatable into impact.
-
 ## Trade-offs
 
 | By time | By request |
 |---|---|
-| Simple to verify | Reflects the impact |
+| Verifiable by external probing | Requires per-request instrumentation |
 | Ignores volume | Weights by usage |
 | Common in contracts | Common in SLOs |
 
@@ -267,8 +259,9 @@ happened when there was traffic.
 **User-minutes affected** as the main metric, communicated to the business. It made visible what the
 percentage hid.
 
-And the investigation into the cause of the fourteen interruptions found a single root: the deployment
-process restarted instances with no graceful shutdown, and the deployments happened in the morning.
+And the investigation into the cause of the fourteen interruptions found a root common to thirteen of
+them: the deployment process restarted instances with no graceful shutdown, and the deployments happened in
+the morning. The fourteenth was an isolated failure at an external provider.
 
 Two fixes resolved thirteen of the fourteen:
 
@@ -289,10 +282,12 @@ it.
 
 ## Practical Exercise
 
-Take last quarter's incidents and separate, for each one: time to detect, time to recover, and the fraction
-of users affected.
+Take last quarter's incidents and separate, for each one: time to detect, time to recover, the fraction
+of users affected, and user-minutes affected.
 
-The sum of the columns says where to invest — and the detection column is usually the largest.
+Compare the sum of the detection column with the sum of the recovery column: the larger one says whether the
+investment goes to observability or to recovery. Then sort the incidents by user-minutes affected — the top
+of the list is where to start.
 
 ## Interview Questions
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, traces, correlation-ids]
 canonical_for: [depurabilidade, pergunta não antecipada, alta cardinalidade, contexto de execução]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -62,7 +62,9 @@ baixa cardinalidade   rota, status, região, versão — poucos valores
 alta cardinalidade    usuário, pedido, sessão, dispositivo, valor — muitos
 ```
 
-[Métricas](/13-observability/metrics.md) não suportam alta cardinalidade — é o que as torna baratas. Ver
+[Métricas](/13-observability/metrics.md) pagam por série temporal, e cada valor distinto de rótulo
+cria uma série: com alta cardinalidade, o custo cresce sem limite até o sistema deixar de
+responder. O custo constante que as torna baratas vem justamente de recusar esses campos. Ver
 o custo de cardinalidade lá.
 
 Isso significa que a depurabilidade vem de [logs](/13-observability/logs.md) e [traces](/13-observability/traces.md), não de
@@ -91,6 +93,14 @@ decisões           qual caminho de código, quais regras aplicaram
 Ver [logs](/13-observability/logs.md) — o evento canônico. Trinta ou quarenta campos por evento parece
 excessivo até a primeira investigação em que a pergunta certa depende do campo que
 ninguém coletou.
+
+Esse contexto tem preço, e ele escala com o tráfego, não com o número de perguntas: um
+evento de 40 campos ocupa na ordem de 1 a 2 KB, e a mil requisições por segundo isso é
+perto de 130 GB por dia antes de qualquer índice. A ordem de corte importa: primeiro
+amostragem por resultado — preservar todos os erros e execuções lentas, amostrar os sucessos
+—, depois retenção escalonada; cortar campos ou encurtar a retenção quente vem por último,
+porque são exatamente os modos de falha abaixo. Ver
+[telemetria](/13-observability/telemetry.md) — o custo de observabilidade e suas alavancas.
 
 O critério não é "isto será útil?" — é "isto poderia distinguir esta execução de
 outra?".
@@ -165,30 +175,36 @@ endpoints de diagnóstico    protegidos, com dados sanitizados
 
 ## Modelo Mental
 
-**Depurabilidade é a capacidade de perguntar coisas novas.** Ela depende de o sistema
-emitir contexto suficiente — a ferramenta só consulta o que existe.
+**Os eventos são uma tabela; cada pergunta nova é um agrupamento por coluna.** Só se agrupa
+por uma coluna que existia quando a linha foi escrita. Métricas são essa tabela já agregada,
+com as colunas escolhidas antes da pergunta. A ferramenta é o motor de consulta; o esquema
+da tabela é decisão de quem escreve o código.
 
 ## Quando Usar
 
 - Sistemas distribuídos com muitas interações.
-- Onde incidentes não antecipados são esperados — ou seja, sempre.
+- Onde os últimos incidentes exigiram perguntas que nenhum painel existente respondia — o
+  sinal de que os não antecipados já são a maioria.
 - Onde o tempo de investigação tem custo.
 - Sistemas com muitos clientes e comportamentos heterogêneos.
 
 ## Quando Não Usar
 
-**Confiando em métricas** para investigar o individual.
+**Sistema pequeno, com poucos caminhos.** Uma ferramenta interna com dezenas de usuários
+se investiga lendo o log inteiro ou reproduzindo localmente; manter esquema de evento e
+armazenamento consultável custa mais que as poucas investigações que ele acelera.
 
-**Com eventos pobres.** Poucos campos limitam as perguntas possíveis.
+**Lote determinístico e reexecutável.** Se a entrada fica preservada e a execução repete o
+resultado, rodar de novo com um depurador responde a pergunta — evento rico por item paga
+armazenamento por uma resposta que a reexecução já dá.
 
-**Sem consulta ad hoc.** Só painéis pré-configurados.
+**Caminho quente de volume extremo.** Onde a operação custa microssegundos e ocorre milhões
+de vezes por segundo, um evento por operação custa mais que a operação; ali cabem métricas e
+amostragem agressiva, e o contexto rico fica na borda que a chama.
 
-**Sem propagação de contexto.**
-
-**Sem poder investigar em produção.**
-
-**Emitindo dado sensível** para ganhar contexto. Ver
-[proteção de dados](/10-security/data-protection.md).
+**Quando o campo que distingue execuções é dado sensível.** Se não pode ser emitido nem
+pseudonimizado, o evento não o carrega, e a investigação daquele eixo passa por acesso
+controlado ao dado de origem. Ver [proteção de dados](/10-security/data-protection.md).
 
 ## Alternativas
 
@@ -234,9 +250,13 @@ Não há alternativa — há graus:
 
 **Depender de métricas** para investigar casos individuais.
 
-**Eventos com poucos campos.**
+**Eventos com poucos campos.** Registrar só identificador e mensagem de erro para conter o
+custo de log: na primeira investigação por segmento não há campo por onde agrupar, e cada
+hipótese vira leitura manual de casos — os três meses do exemplo abaixo.
 
-**Não registrar versão e configuração.**
+**Não registrar versão e configuração.** Contar com o horário da implantação para deduzir a
+versão: com implantação gradual, duas versões convivem por horas, e o horário deixa de separar
+uma da outra.
 
 **Não registrar decisões tomadas.**
 
@@ -257,7 +277,7 @@ dados manualmente, não encontrar padrão, desistir.
 
 A mudança que resolveu não foi de ferramenta:
 
-**Evento canônico** para a renovação, com 31 campos: plano, valor, método de pagamento,
+**Evento canônico** para a renovação, com 31 campos, entre eles: plano, valor, método de pagamento,
 país, moeda, dias desde a última renovação, tentativa número, provedor de pagamento
 usado, variante de experimento ativa, versão do código, região.
 

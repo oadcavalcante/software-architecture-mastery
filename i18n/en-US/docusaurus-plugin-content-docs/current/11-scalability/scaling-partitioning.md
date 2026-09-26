@@ -13,17 +13,20 @@ objective: >
 prerequisites: [scaling-replication]
 related: [scaling-replication, hotspots, database-scaling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
 # Partitioning for Scale
 
+> Prerequisite: [Partitioning](/06-distributed-systems/partitioning.md).
+> The focus here is the write load that saturated, not the mechanics of the strategies.
+
 ## Overview
 
 Partitioning is dividing the data among nodes, so that each one is responsible for a part.
 
-It is the only technique that **scales writes**: instead of replicating every write to every node, each
+It is the only technique that **scales writes to a single dataset beyond one node's ceiling**: instead of replicating every write to every node, each
 write goes to a single node. See [replication for scale](/11-scalability/scaling-replication.md).
 
 And it is the most expensive and the hardest to reverse. It is the last rung of the ladder in
@@ -60,20 +63,16 @@ The partition key choice determines the performance of every future query. The c
 Meeting all four is rare, and the choice is a compromise. What is not acceptable is choosing without
 analyzing them — because changing the key later requires rewriting all the data.
 
-### The strategies
+### The strategies, seen through writes
 
-**By range.** Nearby values stay together. It allows range queries, and it concentrates writes when the key
-is increasing — the most common problem.
+The mechanics of each strategy are in [partitioning](/06-distributed-systems/partitioning.md). Here there is
+only one question: does it spread the write load that saturated?
 
-**By cryptographic hash.** Uniform distribution, and it eliminates range queries.
-
-**By list.** Discrete values — a region, a customer type. Simple, and the imbalance is whatever the natural
-distribution determines.
-
-**Composite.** Combining two dimensions — customer and period. It is usually the answer when no single one
-serves.
-
-See [partitioning](/06-distributed-systems/partitioning.md) for the fundamentals.
+**By range**, with an increasing key — a date, a sequence — it does not: every new write lands in the current
+period's partition, and the bottleneck that motivated the split reappears on a single node. **By
+cryptographic hash** spreads it, at the price of range queries. **By list** — a region, a customer type —
+spreads it in proportion to the natural distribution, which is rarely uniform. **Composite** — customer and
+period — spreads it across customers and preserves ranges within each one.
 
 ### Cross-partition queries are the hidden cost
 
@@ -99,12 +98,19 @@ Adding nodes requires moving data. The strategy matters:
 production.
 
 **Fixed partitions in a number larger than the nodes.** Each node holds several partitions; adding a node
-moves whole partitions, not records. It is the approach that works.
+moves whole partitions, not records. It requires fixing the number up front: too few partitions cap how many
+nodes the system can ever have.
+
+**Consistent hashing.** Keys and nodes on a ring; adding a node moves about `1/N` of the keys — see
+[partitioning](/06-distributed-systems/partitioning.md). There is no number to estimate, and without virtual
+nodes the load across nodes is uneven.
 
 **Dynamic splitting.** Partitions that grow too large split automatically.
 
 The first looks the simplest and it is the one that prevents growing later. Choosing it is a mistake that
-only appears when it is expensive to fix.
+only appears when it is expensive to fix. Between fixed partitions and consistent hashing, fixed partitions win
+when operations need to move named units — taking a hot partition whole to an idle node; consistent hashing
+wins when the node count varies widely and there is no way to estimate the ceiling.
 
 ### What is lost
 
@@ -206,17 +212,23 @@ everything.
 
 ## Common Mistakes
 
-**Partitioning too early.**
+**Partitioning too early.** The permanent cost — queries without the key, distributed transactions,
+per-partition operations — is paid before the write load that would justify it exists.
 
-**Choosing the key without analyzing the query pattern.**
+**Choosing the key without analyzing the query pattern.** The frequent queries that do not use it go to every
+partition, and fixing it requires rewriting the data.
 
-**A sequential key.**
+**A sequential key.** Every new write lands in the current period's partition; the saturation that motivated
+the split comes back, now on a single node.
 
-**Not planning rebalancing.**
+**Not planning rebalancing.** The first node added remaps almost all the data — in the example below, four
+months of migration.
 
-**Not considering splitting by domain.**
+**Not considering splitting by domain.** You pay the cost of horizontal partitioning where a business
+boundary, with cross queries already rare, would have resolved it.
 
-**Not checking the uniqueness constraints** before deciding the key.
+**Not checking the uniqueness constraints** before deciding the key. A constraint that does not include the
+key stops being enforced by the database and becomes a separate table or code.
 
 ## Real-World Example
 
@@ -268,7 +280,7 @@ one partition are the decision's cost.
 
 ## Interview Questions
 
-- Why is partitioning the only technique that scales writes?
+- Why is partitioning the only technique that scales writes to a single dataset beyond one node's ceiling?
 - Why does the rebalancing strategy need to be decided at the start?
 - What is lost by partitioning, beyond the implementation cost?
 

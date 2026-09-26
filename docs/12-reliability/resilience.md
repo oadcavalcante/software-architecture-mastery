@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fault-tolerance]
 related: [fault-tolerance, chaos-engineering, graceful-degradation]
 canonical_for: [resiliência, capacidade adaptativa, margem de manobra, aprendizado com incidentes]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -88,8 +88,9 @@ reversão em 2 horas      cada decisão é definitiva sob pressão
 Isso orienta investimento: implantação reversível, interruptores por funcionalidade,
 mudanças de configuração sem implantação, migrações com caminho de volta.
 
-É a propriedade que mais reduz a gravidade de incidentes, e ela não aparece em nenhum
-diagrama de arquitetura.
+Em incidentes disparados por mudança, é ela que fixa o limite inferior da duração — e
+ela não aparece em diagrama de componentes, porque é propriedade do processo de entrega,
+não da topologia.
 
 ### As pessoas fazem parte do sistema
 
@@ -106,7 +107,8 @@ procedimentos ensaiados   reduzem a carga cognitiva no momento errado
 autoridade clara          quem decide o quê, sem escalada
 ```
 
-Ver [observabilidade](/13-observability/index.md). A diferença entre monitoramento e
+Ver [observabilidade](/13-observability/index.md) e, para o sobreaviso, [conceitos de
+SRE](/13-observability/sre-concepts.md). A diferença entre monitoramento e
 observabilidade é exatamente essa: o primeiro responde perguntas previstas, a segunda
 permite formular perguntas novas — que é o que o cenário desconhecido exige.
 
@@ -114,15 +116,11 @@ permite formular perguntas novas — que é o que o cenário desconhecido exige.
 
 Um incidente que não gera aprendizado será repetido.
 
-O que transforma incidente em capacidade:
-
-**Análise sem busca de culpado.** Se as pessoas temem consequência, a informação não
-aparece — e sem informação honesta não há aprendizado.
-
-**Foco em condições, não em erro individual.** "Por que essa ação pareceu razoável no
-momento?" ensina mais que "quem errou".
-
-**Ações com dono e prazo.** Análises que terminam em observações não mudam nada.
+A mecânica da análise — sem busca de culpado, foco em condições, ações com dono e
+prazo — está em [conceitos de SRE](/13-observability/sre-concepts.md#análise-de-incidente-sem-busca-de-culpado).
+O que ela tem de específico para resiliência é o efeito cumulativo: cada análise que
+vira mudança amplia o conjunto do que foi antecipado, e o próximo incidente precisa de
+uma combinação mais improvável para acontecer.
 
 **Quase-incidentes também.** O que quase deu errado carrega a mesma informação, sem o
 custo.
@@ -157,13 +155,17 @@ Investir em resiliência se justifica quando:
 **Como substituto de tolerância.** Os cenários previstos devem ser tratados por
 mecanismo, não por improviso.
 
-**Sem observabilidade.** Não se responde ao que não se enxerga.
+**Quando a indisponibilidade custa menos que a folga.** Uma ferramenta interna cuja
+parada de uma tarde atrasa trabalho, sem perder receita nem dado, não paga capacidade
+ociosa permanente nem exercícios de mesa mensais.
 
-**Sem margem.** Um sistema no limite não tem opções.
+**Em processamento em lote com janela de recuperação larga.** Se o trabalho pode rodar
+de novo na noite seguinte sem consequência, reexecutar é a resposta ao imprevisto — e
+ela já existe.
 
-**Análise de incidente buscando culpado.** Destrói a informação.
-
-**Investindo só em mecanismo**, ignorando procedimento e pessoas.
+**Em sistema sem operação contínua.** Sem ninguém de sobreaviso nem usuário esperando em
+tempo real, a capacidade de responder durante o incidente não tem quando ser exercida;
+o investimento vai para tolerância e para recuperação.
 
 ## Alternativas
 
@@ -174,7 +176,8 @@ Não há alternativa a resiliência — há ênfases diferentes:
 - **Simplificar** — menos interações, menos combinações inesperadas. Frequentemente a
   intervenção mais eficaz.
 - **Reduzir o alcance** — sistemas menores e isolados falham menos junto.
-- **Reversibilidade** — a de melhor retorno isolado.
+- **Reversibilidade** — a de melhor retorno isolado quando os incidentes vêm de
+  mudanças: encurta todos eles sem exigir que nenhum tenha sido previsto.
 
 ## Trade-offs
 
@@ -232,8 +235,9 @@ adicionar instâncias durante um pico, esgotou a cota de endereços da sub-rede;
 instâncias novas subiam e falhavam; o balanceador as removia e adicionava outras, num
 ciclo.
 
-Nenhum mecanismo de tolerância se aplicava — não havia componente falhando, havia uma
-interação entre três decisões razoáveis.
+Nenhum mecanismo de tolerância se aplicava — não havia falha isolada de componente que
+a redundância ou o disjuntor pudessem absorver; as instâncias falhavam por uma interação
+entre três decisões razoáveis.
 
 O que prolongou o incidente:
 
@@ -268,7 +272,10 @@ escreveu.
 
 O que a equipe registra: os mecanismos de tolerância continuam corretos e não teriam
 ajudado. O que teria reduzido as 4 horas para minutos era a reversão rápida da
-configuração — que custou dois dias para implementar.
+configuração: com reversão em segundos, desfazer a mudança mais recente seria a primeira
+tentativa, antes de qualquer diagnóstico; com 35 minutos por tentativa, a equipe
+diagnosticou primeiro, e o diagnóstico levou 2 horas. A reversão rápida custou dois dias
+para implementar.
 
 ## Conceitos Relacionados
 
@@ -289,7 +296,7 @@ mudança.
 
 - Qual a diferença entre tolerância a falhas e resiliência?
 - Por que reversibilidade vale mais que acerto no cenário desconhecido?
-- Por que análise de incidente sem busca de culpado é requisito, não gentileza?
+- Por que mais um mecanismo de tolerância não teria evitado o incidente do exemplo?
 
 ## Para Aprofundar
 

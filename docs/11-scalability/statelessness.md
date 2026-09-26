@@ -13,7 +13,7 @@ objective: >
 prerequisites: [horizontal-scaling]
 related: [horizontal-scaling, scaling-load-balancing, scaling-cache]
 canonical_for: [ausência de estado, afinidade de sessão, estado externalizado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -109,11 +109,11 @@ cada uma escala de forma diferente. Tratá-las juntas limita as duas.
 
 Sem estado não basta se a instância morre no meio de uma requisição.
 
-O comportamento necessário: parar de aceitar novas requisições, sair do balanceamento,
-terminar as em andamento, e só então encerrar.
-
-Sem isso, todo evento de escalonamento — que deveria ser rotina — perde requisições.
-Ver [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
+A instância precisa sair do balanceamento e terminar o que está em curso antes de
+encerrar — a sequência está em
+[drenar antes de remover](/11-scalability/scaling-load-balancing.md#drenar-antes-de-remover).
+O ponto próprio daqui: trabalho em andamento é estado enquanto dura, e sem drenagem
+todo evento de escalonamento — que deveria ser rotina — o perde.
 
 ### O custo é real
 
@@ -149,7 +149,10 @@ há estado — independentemente do que a documentação diz.
 **Componentes intrinsecamente com estado** — bancos, caches, sistemas de coordenação.
 Eles têm suas próprias estratégias.
 
-**Afinidade de sessão como solução permanente.**
+**Durante a migração, com prazo.** Enquanto a sessão ainda não foi externalizada,
+remover a afinidade de sessão derruba usuários a cada requisição; mantê-la é a escolha
+certa até o armazenamento compartilhado estar pronto. Sem data de remoção, vira a
+dívida descrita acima.
 
 **Externalizar cache local que é só cópia.** Isso é otimização legítima.
 
@@ -176,10 +179,14 @@ local não autoritativo, não manter o estado.
 | Latência de acesso externo | Memória local |
 | Armazenamento adicional a operar | Nenhum |
 
+A escolha entre sessão no cliente e no servidor, com todas as opções, está em
+[gestão de estado](/05-system-design/state-management.md#comparando-as-opções-de-sessão);
+o resumo do ângulo de escala:
+
 | Estado no cliente | No servidor |
 |---|---|
 | Nada a armazenar | Armazenamento a operar |
-| Tamanho limitado | Ilimitado |
+| Tamanho limitado | Sem limite prático, pago em memória do armazenamento compartilhado |
 | Visível ao cliente | Opaco |
 | Revogação difícil | Imediata |
 
@@ -212,7 +219,7 @@ origem.
 
 **Tratar cache local como autoritativo.** Instâncias divergem, e o usuário vê respostas diferentes a cada recarga sem que nada esteja errado no dado de origem.
 
-**Não implementar desligamento gracioso.** Sem drenar conexões, toda redução de escala e toda implantação descartam requisições em andamento — que aparecem como erro intermitente sem causa aparente.
+**Não implementar desligamento gracioso.** A instância sai do balanceamento com trabalho em curso, e cada redução de escala vira perda de requisições — a consequência operacional está em [computação em nuvem](/09-cloud-architecture/cloud-compute.md).
 
 ## Exemplo Real
 
@@ -260,9 +267,10 @@ anos de lembretes perdidos em cada implantação, sem que nenhum alerta existiss
 
 **Desligamento gracioso**, com o nó saindo do balanceamento antes de encerrar.
 
-O teste de desligar uma instância levou vinte minutos e
-encontrou cinco problemas, dois deles em produção havia anos. Ele nunca tinha sido
-feito porque "a aplicação é sem estado".
+O desligamento em si levou vinte minutos e expôs três falhas visíveis — sessão, upload
+e conexão. Os dois achados silenciosos, agendamento e contador, vieram da investigação
+que ele disparou, ao listar o que mais vivia no processo. Nada disso tinha sido feito
+antes porque "a aplicação é sem estado".
 
 ## Conceitos Relacionados
 
@@ -277,8 +285,10 @@ feito porque "a aplicação é sem estado".
 Desligue uma instância de produção no meio do tráfego, em janela controlada, e observe
 o que quebra.
 
-Se nada quebrar, sua aplicação é sem estado. Se algo quebrar, você encontrou o estado
-que a documentação não menciona.
+Se algo quebrar, você encontrou o estado que a documentação não menciona. Se nada
+quebrar, o teste não prova ausência de estado: o estado silencioso não quebra na janela
+observada. Inspecione ainda temporizadores no processo, contadores e acumuladores,
+arquivos em disco local e caches locais que sejam a única cópia do valor.
 
 ## Perguntas de Entrevista
 

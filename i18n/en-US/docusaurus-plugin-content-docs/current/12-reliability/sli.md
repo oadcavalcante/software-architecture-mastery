@@ -13,7 +13,7 @@ objective: >
 prerequisites: [reliability]
 related: [slo, sla, availability-metrics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -130,7 +130,7 @@ It is worth being explicit, because the confusion is common:
 
 **An absolute count.** "150 errors per hour" does not say whether that is a lot — it depends on the volume.
 
-**An average.** It hides the tail. A service with a 100 ms average can have 5% of users waiting 4 seconds.
+**An average.** It hides the tail. A service with a 100 ms average can have 1% of users waiting 4 seconds.
 
 **Process uptime.** The process can be up and not serving.
 
@@ -143,23 +143,27 @@ suffers, it is not an SLI.
 
 - Before defining any SLO.
 - For the product's critical journeys.
-- Where the user's experience needs to be tracked.
+- When there is enough volume that a single event does not noticeably move the proportion within the
+  window.
 - When there is a contractual commitment to sustain.
-- To guide reliability investment decisions.
+- When there is an instrumentation point closer to the user than the server — the balancer, the client
+  or external probing.
 
 ## When Not to Use
 
-**Resource metrics as an SLI.**
+**Volume too low for a proportion.** With a few dozen events in the window, a single failure moves the
+number by percentage points. There, synthetic probing with a failure count says more than a proportion that
+oscillates without meaning.
 
-**One SLI per endpoint.** Dozens of indicators nobody looks at.
+**No measurement point that sees the user.** If only the server can be instrumented and the relevant
+failures happen before it, the "SLI" is a server metric under another name. Better to declare the gap and
+cover it with external probing than to give the number an authority it does not have.
 
-**An average.**
+**A component with no consumer whose experience changes.** A nightly job or a reporting replica nobody
+queries in real time has no user to protect; it needs a failure alert, not a service level indicator.
 
-**Measured only at the server**, when measuring closer to the user is possible.
-
-**Excluding events until the number looks good.** The definition of "valid" needs to be defensible.
-
-**With no defined limit.** "Good latency" is not measurable; "under 300 ms" is.
+**Nobody will act on the number.** With no SLO and no owner answerable for it, the SLI becomes one more
+chart on the dashboard, and the cost of defining "good" and "valid" does not pay off.
 
 ## Alternatives
 
@@ -239,8 +243,8 @@ The user gave up beforehand.
 
 The reformulation:
 
-**Four SLIs per journey:** get a quote, buy a policy, view a policy, file a claim. Each one with
-availability and latency.
+**Four journeys with their own SLI:** get a quote, buy a policy, view a policy, file a claim. Each one
+with availability and latency — eight indicators in total.
 
 **A latency limit defined with data**, not by intuition: the abandonment analysis showed that above 4
 seconds the drop-off rate doubled. The limit became 4 seconds — not a round number chosen in a meeting.
