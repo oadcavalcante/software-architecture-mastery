@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, stakeholder-management, cross-team-architecture]
 canonical_for: [influência técnica, capital técnico, adoção voluntária, demonstração como argumento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -63,7 +63,7 @@ histórico pessoal   "eu já vi isso dar errado"
 autoridade          "é assim que vai ser"; o mais fraco
 ```
 
-A ordem surpreende quem espera que o argumento seja o instrumento principal. Ele não é — ele
+A ordem é uma heurística da prática, não uma medida publicada, e surpreende quem espera que o argumento seja o instrumento principal. Ele não é — ele
 convence quem já está inclinado, e raramente reverte uma posição formada.
 
 Demonstração e evidência funcionam porque removem a discussão do terreno da opinião. Um protótipo
@@ -120,7 +120,7 @@ caro de reverter               vale insistir
 afeta muitos times             vale
 regulatório ou de segurança    vale
 local e reversível             não vale
-preferência estética           nunca vale
+preferência estética           não vale — nenhum ganho paga o capital
 ```
 
 E há uma categoria própria: as decisões que estão erradas e serão corrigidas pela realidade em
@@ -157,21 +157,28 @@ comece por quem quer, e deixe o crédito com quem executou.
 
 ## Quando Usar
 
-- Sempre que a decisão não for sua e você quiser influenciá-la.
+- Quando a decisão não é sua e a consequência justifica gastar capital para influenciá-la.
 - Escolhendo o mecanismo pela ordem de eficácia, não pela conveniência.
 - Preservando capital para as decisões de alta consequência.
 
 ## Quando Não Usar
 
-**Insistindo em tudo.**
+**Quando o prazo não comporta convencimento.** Risco regulatório ou de segurança com data marcada
+— dado pessoal exposto, auditoria em semanas — não espera o acúmulo que a influência exige. O
+instrumento é o portão de governança ou a escalada; insistir em persuadir consome o prazo, e o risco
+se materializa enquanto a conversa continua.
 
-**Recorrendo à autoridade** como primeiro instrumento.
+**Quando a decisão é do time e é reversível.** Influenciar uma escolha local e barata de desfazer
+gasta capital num resultado que o próprio time corrigiria. O custo aparece depois: falta crédito na
+decisão cara.
 
-**Argumentando** o que poderia ser demonstrado.
+**Quando você não tem crédito com aquele público.** Um time que aprendeu a filtrá-lo não muda de
+posição pelo mecanismo, e sim pelo mensageiro. Insistir pessoalmente confirma o filtro; o caminho é
+delegar a quem tem o crédito.
 
-**Repetindo o mesmo argumento** em vez de construir o caminho fácil.
-
-**Coletando evidência** para dizer "eu avisei".
+**Quando a decisão é sua.** Se o papel dá ao arquiteto a decisão — um padrão de plataforma, um
+portão que ele mantém —, tratá-la como adoção voluntária produz meses de consulta onde bastava
+decidir e registrar o porquê.
 
 ## Alternativas
 
@@ -184,16 +191,18 @@ A terceira é a mais difícil de praticar e uma das mais eficazes.
 
 ## Trade-offs
 
-| Insistir | Registrar e recuar |
-|---|---|
-| Pode evitar o erro | Preserva capital |
-| Gasta crédito | O erro acontece |
-| Necessário em risco alto | A evidência convence melhor |
+| Eixo | Insistir | Registrar e recuar |
+|---|---|---|
+| Resultado técnico | Pode evitar o erro | O erro acontece |
+| Capital | Gasta crédito | Preserva crédito |
+| Quando cabe | Risco alto ou irreversível | Erro reversível que a realidade corrige em meses |
+| O que convence | O argumento, antes do fato | A evidência, depois do fato |
 
-| Demonstrar | Argumentar |
-|---|---|
-| Encerra a discussão | Rápido |
-| Custa tempo de construção | Convence poucos |
+| Eixo | Demonstrar | Argumentar |
+|---|---|---|
+| Custo de produzir | Semanas de construção | Horas |
+| Alcance | Encerra a discussão, inclusive com céticos | Convence quem já estava inclinado |
+| Tempo até o efeito | Só depois que o protótipo roda | Imediato, quando convence |
 
 ## Modos de Falha
 
@@ -211,15 +220,24 @@ A terceira é a mais difícil de praticar e uma das mais eficazes.
 
 ## Erros Comuns
 
-**Não escolher batalhas.**
+**Não escolher batalhas.** Dar à sugestão de nomenclatura o mesmo peso da objeção a um modelo de
+dados compartilhado. O sinal observável: a taxa de adoção das recomendações que importam fica perto
+da taxa geral.
 
-**Apresentar em vez de demonstrar.**
+**Apresentar em vez de demonstrar.** Levar à revisão doze slides sobre um padrão quando uma
+biblioteca pequena mostraria o comportamento. A discussão volta na revisão seguinte, com os mesmos
+argumentos dos dois lados.
 
-**Tentar convencer todos** em vez de começar por um.
+**Tentar convencer todos** em vez de começar por um. Levar a proposta ao fórum de todos os times de
+uma vez: nenhum tem o problema com urgência, e ela termina aprovada em princípio e implementada por
+ninguém.
 
-**Assumir o crédito** do resultado.
+**Assumir o crédito** do resultado. Apresentar à diretoria o ganho que um time construiu. O time
+que executou deixa de chamar o arquiteto para o trabalho seguinte.
 
-**Aparecer só quando há decisão.**
+**Aparecer só quando há decisão.** Chegar à revisão de desenho sem ter acompanhado os incidentes
+que motivaram a escolha. A recomendação ignora restrições que o time conhece, e os times deixam de
+convidá-lo para as revisões.
 
 ## Exemplo Real
 
@@ -281,8 +299,9 @@ A adoção de 91% do gabarito é o número que ele destaca. Ela veio de construi
 substituiu dois anos de argumentação — e ele registrou isso como o aprendizado central: **quando
 você percebe que está repetindo um argumento, o argumento não é o instrumento certo**.
 
-E o aumento de consultas espontâneas foi o efeito da presença fora das decisões: participar de
-análises de incidente sem agenda própria fez com que os times passassem a procurá-lo antes de
+O aumento de consultas espontâneas ele atribui à presença fora das decisões — leitura dele, não
+medida: as seis mudanças vieram juntas, e os números não isolam uma delas. O que se observou foi que,
+depois das análises de incidente sem agenda própria, os times passaram a procurá-lo antes de
 decidir, em vez de depois.
 
 ## Conceitos Relacionados

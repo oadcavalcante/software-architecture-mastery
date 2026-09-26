@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [leadership-principles, leadership-standards, fitness-functions]
 canonical_for: [desenho de mecanismo de governança, validade de mecanismo, meta de remoção]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -31,14 +31,10 @@ criar    decidir se ele deve existir, e por quanto tempo
 ```
 
 Toda organização tem processo para adicionar mecanismos: um incidente acontece, cria-se um
-controle. Quase nenhuma tem processo para removê-los — e essa assimetria é a causa de toda
-acumulação de burocracia.
-
-```text
-adicionar   tem dono, urgência e um incidente para justificar
-remover     não tem dono, é politicamente arriscado, e o
-            benefício é difuso
-```
+controle. Quase nenhuma tem processo para removê-los — e, entre as causas de acumulação de burocracia,
+essa assimetria é a única que está nas mãos de quem desenha o mecanismo; regulação e crescimento de
+escopo não estão. A assimetria em si está descrita em
+[patologias de governança](/19-architecture-governance/governance-pathologies.md).
 
 Quem estabelece governança precisa desenhar a segunda metade também.
 
@@ -61,7 +57,7 @@ definiu o que ele deveria produzir — e sem isso, a discussão sobre mantê-lo 
 
 ## Conceitos Centrais
 
-### Todo mecanismo nasce com quatro campos
+### Todo mecanismo nasce com cinco campos
 
 ```text
 o risco que ele endereça       específico, não categoria
@@ -93,7 +89,7 @@ em revisão      alguém percebe
 em comitê       alguém percebe semanas depois
 ```
 
-Um mecanismo humano criado quando um automático era viável custa para sempre. Ver
+Um mecanismo humano criado quando um automático era viável custa atrito a cada entrega, enquanto existir. Ver
 [fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
 ### Meta de remoção anual
@@ -117,11 +113,13 @@ discutir se um mecanismo é necessário   argumentos indefinidos
 suspendê-lo por um trimestre            evidência em três meses
 ```
 
-A suspensão temporária é o instrumento mais eficaz e o mais difícil de conseguir autorização para
-usar. Ela produz evidência que nenhuma análise produz, e é aplicável a tudo exceto controles
-regulatórios e de segurança crítica.
+Para decidir se um mecanismo existente deve continuar, a suspensão temporária é o instrumento que
+produz evidência mais rápido — e o mais difícil de conseguir autorização para usar. Ela é aplicável
+a tudo exceto controles regulatórios e de segurança crítica. Um programa de redução que a usou
+está em [patologias de governança](/19-architecture-governance/governance-pathologies.md); aqui
+importa o desenho: quem cria o mecanismo deveria prever, já na criação, que ele pode ser suspenso.
 
-### Proporcionalidade ao risco, sempre
+### Proporcionalidade ao risco
 
 ```text
 sistema crítico regulado     mecanismo pesado se justifica
@@ -129,8 +127,10 @@ ferramenta interna de uso
   ocasional                  o mesmo mecanismo é desperdício
 ```
 
-Aplicar governança uniforme é o erro que consome a paciência da organização em casos irrelevantes
-— e a paciência acaba justamente quando um caso importante aparece.
+Por que a governança uniforme se paga mal está em
+[fundamentos de governança](/19-architecture-governance/governance-basics.md). Do lado de quem cria,
+a consequência prática é que o campo "risco" precisa nomear a classe de sistema a que o mecanismo
+se aplica, e não só o risco.
 
 Escalonar por criticidade exige uma classificação que já deveria existir por outros motivos:
 recuperação de desastre, resposta a incidente, controle de acesso.
@@ -164,7 +164,7 @@ invertido. Ver
 
 ## Modelo Mental
 
-**Todo mecanismo nasce com dono, medida e validade.** E a organização precisa de uma meta de
+**Todo mecanismo nasce com risco, medida, custo, dono e validade.** E a organização precisa de uma meta de
 remoção, porque adicionar tem dono e remover não tem.
 
 ## Quando Usar
@@ -175,15 +175,21 @@ remoção, porque adicionar tem dono e remover não tem.
 
 ## Quando Não Usar
 
-**Sem dono, medida e validade.**
+**Controles cuja validade é fixada por terceiros.** Quando um regulador ou um contrato define o
+prazo e o conteúdo do controle, uma validade interna de 24 meses é teatro: a renovação não pode
+decidir nada. O desenho ainda vale para dono e medida, mas a validade é a do regulador.
 
-**Quando o ponto de intervenção automático era viável.**
+**Conjuntos pequenos demais para uma meta anual.** Numa organização com três ou quatro mecanismos,
+todos com efeito medido, "remover ao menos um por ano" força remover o que funciona — ou convida a
+cumprir a meta com um mecanismo irrelevante. A meta pressupõe acumulação; sem ela, a revisão de
+validade basta.
 
-**Uniformemente**, sem escalonar por criticidade.
+**Controles de segurança crítica, para a suspensão.** Suspender por um trimestre produz evidência
+ao preço de expor o risco por um trimestre. Quando o dano de um único evento é irreversível, esse
+preço não se paga, e a avaliação precisa vir de medida indireta, não de experimento.
 
-**Sem processo de remoção.**
-
-**Criando mecanismo** como resposta reflexa a incidente.
+**Resposta a incidente em curso.** Durante a contenção, um controle provisório sem desenho é
+legítimo; as duas semanas de desenho vêm depois, antes de o provisório virar permanente.
 
 ## Alternativas
 
@@ -223,6 +229,14 @@ remoção, porque adicionar tem dono e remover não tem.
 
 ## Erros Comuns
 
+**Renovação como carimbo.** Aos 24 meses, o dono renova sem apresentar a medida, porque ninguém
+pediu. A validade passa a existir só no papel, e o mecanismo volta a ser permanente por omissão —
+agora com a aparência de ter sido revisado.
+
+**Cumprir a meta de remoção com o mecanismo irrelevante.** Remove-se o formulário que ninguém
+preenchia, e o comitê que atrasa toda entrega fica. A meta é cumprida e a acumulação continua; o
+sinal é que o custo total do conjunto não cai de um ano para outro.
+
 **Responder a incidente** com controle sem avaliar o ponto de intervenção.
 
 **Não definir** como o efeito será medido.
@@ -241,7 +255,7 @@ exposta por nove dias.
 
 A resposta institucional imediata foi a esperada — criar um comitê de revisão de segurança para
 toda entrega. A liderança de arquitetura pediu duas semanas antes de instituí-lo, para desenhar
-o mecanismo com os quatro campos.
+o mecanismo com os cinco campos.
 
 O exercício mudou a resposta:
 
@@ -251,7 +265,7 @@ risco endereçado    credencial exposta em repositório
 efeito medido como  credenciais detectadas antes de chegarem ao
                     repositório remoto
 custo estimado      comitê: ~3 dias de atraso × 340 entregas/ano
-                    ≈ 4 anos-pessoa de calendário
+                    ≈ 1.000 dias de atraso acumulado por ano
                     verificação automática: ~0
 ponto de intervenção mais cedo viável: no cliente de versionamento,
                     antes do envio
@@ -273,8 +287,8 @@ Nos 24 meses seguintes:
 credenciais bloqueadas antes do envio        41
 credenciais que chegaram ao repositório       0
 atraso adicionado ao processo de entrega      0
-revisões humanas de segurança realizadas     23 (das 12/ano previstas
-                                             mais exceções)
+revisões humanas de segurança realizadas     29 (24 previstas, a 12/ano,
+                                             mais 5 exceções)
 ```
 
 Na renovação, aos 24 meses, o dono apresentou os números e o mecanismo foi mantido — com o escopo
@@ -282,7 +296,8 @@ das revisões humanas ampliado para incluir integrações com parceiros externos
 aparecido como lacuna.
 
 O aprendizado que ficou: a pergunta "qual é o ponto de intervenção mais cedo viável?" transformou
-uma proposta de quatro anos-pessoa de atraso anual num mecanismo de custo zero. E ela custou duas
+uma proposta de cerca de mil dias de atraso acumulado por ano num mecanismo sem atraso adicionado
+à entrega. E ela custou duas
 semanas de espera — que foi a parte politicamente difícil, porque logo após um incidente a
 pressão é por agir, não por desenhar.
 
@@ -295,10 +310,11 @@ pressão é por agir, não por desenhar.
 
 ## Exercício Prático
 
-Pergunte, na sua organização: qual foi o último mecanismo de governança removido, e quando?
-
-Se ninguém souber responder, o conjunto só cresceu — e o diagnóstico independe de qual mecanismo
-você examine primeiro.
+Escolha o último controle criado na sua organização em resposta a um incidente e preencha os
+cinco campos: o risco específico, como o efeito seria medido, o custo em atraso × volume, o dono
+como papel e a data de validade. Depois responda: qual é o ponto de intervenção mais cedo viável
+para esse risco, e o controle está nele? Se algum campo ficar em branco, é ele que decide se o
+mecanismo deveria existir.
 
 ## Perguntas de Entrevista
 

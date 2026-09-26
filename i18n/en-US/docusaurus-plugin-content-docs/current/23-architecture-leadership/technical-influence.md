@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, stakeholder-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -64,7 +64,7 @@ personal history   "I've seen this go wrong"
 authority          "this is how it's going to be"; the weakest
 ```
 
-The order surprises anyone expecting argument to be the main instrument. It isn't — it persuades
+The order is a heuristic from practice, not a published measurement, and it surprises anyone expecting argument to be the main instrument. It isn't — it persuades
 those already inclined, and it rarely reverses a formed position.
 
 Demonstration and evidence work because they move the discussion off the terrain of opinion. A
@@ -121,7 +121,7 @@ expensive to reverse            worth insisting
 affects many teams              worth it
 regulatory or security-related  worth it
 local and reversible            not worth it
-aesthetic preference            never worth it
+aesthetic preference            not worth it — no gain pays for the capital
 ```
 
 And there is a category of its own: decisions that are wrong and will be corrected by reality
@@ -158,21 +158,28 @@ arguing, start with whoever wants it, and leave the credit with whoever executed
 
 ## When to Use
 
-- Whenever the decision is not yours and you want to influence it.
+- When the decision is not yours and the consequence justifies spending capital to influence it.
 - Choosing the mechanism by order of effectiveness, not by convenience.
 - Preserving capital for the high-consequence decisions.
 
 ## When Not to Use
 
-**Insisting on everything.**
+**When the deadline leaves no room for persuasion.** A regulatory or security risk with a fixed
+date — exposed personal data, an audit weeks away — cannot wait for the accumulation influence
+requires. The instrument is the governance gate or escalation; insisting on persuasion burns the
+deadline, and the risk materializes while the conversation goes on.
 
-**Falling back on authority** as the first instrument.
+**When the decision belongs to the team and is reversible.** Influencing a local choice that is
+cheap to undo spends capital on an outcome the team would correct on its own. The cost shows up
+later: credit runs short on the expensive decision.
 
-**Arguing** what could be demonstrated.
+**When you have no credit with that audience.** A team that has learned to filter you out does not
+change position because of the mechanism, but because of the messenger. Insisting in person confirms
+the filter; the way forward is to delegate to someone who has the credit.
 
-**Repeating the same argument** instead of building the easy path.
-
-**Collecting evidence** to say "I told you so".
+**When the decision is yours.** If the role gives the architect the decision — a platform standard,
+a gate they maintain —, treating it as voluntary adoption produces months of consultation where
+deciding and recording why would have been enough.
 
 ## Alternatives
 
@@ -186,16 +193,18 @@ The third is the hardest to practice and one of the most effective.
 
 ## Trade-offs
 
-| Insisting | Recording and stepping back |
-|---|---|
-| May prevent the error | Preserves capital |
-| Spends credit | The error happens |
-| Necessary at high risk | The evidence persuades better |
+| Axis | Insisting | Recording and stepping back |
+|---|---|---|
+| Technical outcome | May prevent the error | The error happens |
+| Capital | Spends credit | Preserves credit |
+| When it fits | High or irreversible risk | A reversible error reality corrects within months |
+| What persuades | The argument, before the fact | The evidence, after the fact |
 
-| Demonstrating | Arguing |
-|---|---|
-| Ends the discussion | Fast |
-| Costs build time | Persuades few |
+| Axis | Demonstrating | Arguing |
+|---|---|---|
+| Cost to produce | Weeks of building | Hours |
+| Reach | Ends the discussion, skeptics included | Persuades those already inclined |
+| Time to effect | Only once the prototype runs | Immediate, when it persuades |
 
 ## Failure Modes
 
@@ -213,15 +222,24 @@ The third is the hardest to practice and one of the most effective.
 
 ## Common Mistakes
 
-**Not choosing battles.**
+**Not choosing battles.** Giving a naming suggestion the same weight as an objection to a shared
+data model. The observable signal: the adoption rate of the recommendations that matter sits close
+to the overall rate.
 
-**Presenting instead of demonstrating.**
+**Presenting instead of demonstrating.** Bringing twelve slides about a pattern to the review when a
+small library would show the behavior. The discussion comes back at the next review, with the same
+arguments on both sides.
 
-**Trying to persuade everyone** instead of starting with one.
+**Trying to persuade everyone** instead of starting with one. Taking the proposal to the all-teams
+forum at once: none of them has the problem urgently, and it ends up approved in principle and
+implemented by no one.
 
-**Taking the credit** for the result.
+**Taking the credit** for the result. Presenting to leadership the gain a team built. The team that
+executed stops calling the architect in for the next piece of work.
 
-**Showing up only when there is a decision.**
+**Showing up only when there is a decision.** Arriving at the design review without having followed
+the incidents that motivated the choice. The recommendation ignores constraints the team knows, and
+teams stop inviting them to reviews.
 
 ## Real-World Example
 
@@ -283,9 +301,10 @@ The 91% template adoption is the number they highlight. It came from building on
 two years of arguing — and they recorded it as the central lesson: **when you notice you are
 repeating an argument, the argument is not the right instrument**.
 
-And the increase in spontaneous consultations was the effect of presence outside decisions: taking
-part in incident analyses with no agenda of their own led teams to approach them before deciding,
-rather than after.
+The increase in spontaneous consultations they attribute to presence outside decisions — their
+reading, not a measurement: the six changes came together, and the numbers do not isolate any one
+of them. What was observed is that, after taking part in incident analyses with no agenda of their
+own, teams started approaching them before deciding, rather than after.
 
 ## Related Concepts
 

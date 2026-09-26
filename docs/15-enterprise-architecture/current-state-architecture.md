@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, transition-architecture, application-portfolios]
 canonical_for: [estado atual, levantamento de arquitetura, dívida arquitetural visível]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -67,7 +67,7 @@ custo — pode.
 ### O detalhe precisa ser justificado pelo uso
 
 ```text
-inventário          o que existe, quem é dono, criticidade — sempre útil
+inventário          o que existe, quem é dono, criticidade — base de todas as outras
 dependências        quem chama quem — útil para avaliar impacto
 fluxos de dado      onde a informação nasce e circula — útil para propriedade
 diagrama detalhado  de cada sistema — útil apenas para quem vai mexer nele
@@ -154,17 +154,21 @@ decidir, não para documentar.
 
 ## Quando Não Usar
 
-**Desenhado à mão** o que pode ser derivado.
+**Quando nenhuma decisão está pendente.** Sem uma pergunta de investimento, aposentadoria
+ou impacto na fila, o levantamento amplo produz um retrato que envelhece antes de ser
+consultado; basta manter o catálogo derivado, que custa quase nada.
 
-**Com detalhe uniforme** em todos os sistemas.
+**Quando a mudança é local.** Para mexer em um sistema e seus vizinhos imediatos, mapear a
+organização inteira é desproporcional — o levantamento sob demanda da área resolve.
 
-**Sem incluir saúde e criticidade.**
+**Quando um único time conhece tudo.** Numa organização com poucos sistemas e um time que
+os opera, o inventário já está no repositório e na cabeça das pessoas; formalizá-lo custa
+mais do que revela.
 
-**Consultando apenas os times**, sem observar a realidade.
-
-**Como entregável de projeto**, sem uso contínuo.
-
-**Perseguindo completude** em vez de frescor.
+**Quando não há instrumentação e ela não virá.** Sem registros de acesso, rastreamento ou
+catálogo de nuvem, o mapa só pode ser desenhado — e um mapa desenhado sem plano de
+manutenção repete o problema que este documento descreve. Nesse caso, o primeiro
+investimento é na instrumentação, não no levantamento.
 
 ## Alternativas
 
@@ -181,7 +185,7 @@ prestes a mudar.
 
 | Derivado | Desenhado |
 |---|---|
-| Sempre atual | Envelhece |
+| Tão atual quanto a coleta | Envelhece |
 | Limitado ao instrumentado | Captura julgamento |
 | Baixo custo de manutenção | Alto |
 | Topologia real | Topologia declarada |
@@ -254,7 +258,9 @@ trimestralmente com os times. Elas exigem julgamento e mudam devagar.
 lista deles virou uma tarefa, em vez de um espaço em branco.
 
 Foram 14 sistemas sem dono, dos quais 4 ninguém sabia para que serviam. Dois foram
-desativados após três meses de monitoramento sem acesso.
+desativados após três meses de monitoramento sem acesso — depois de conferir com as áreas
+de negócio o calendário de processos anuais e de auditoria, que uma janela de três meses
+não enxerga. Observação só prova uso dentro da janela observada.
 
 **Detalhe sob demanda.** Os 68 diagramas foram descartados. Cada iniciativa de
 modernização produz o detalhe da área que vai mexer, no momento em que vai mexer.

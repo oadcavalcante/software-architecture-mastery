@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, technical-influence, negotiating-tradeoffs]
 canonical_for: [gestão de interessados, mapa de interessados, moeda do interessado, resistência legítima]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -81,7 +81,7 @@ times de engenharia    autonomia, carga, qualidade de vida
 ```
 
 Descobrir a moeda de alguém não é manipulação — é a condição para a conversa ser útil. Apresentar
-a mesma proposta a todos na moeda de engenharia produz seis conversas em que cinco pessoas não
+a mesma proposta a todos na moeda de engenharia produz sete conversas em que seis pessoas não
 conseguem avaliar nada.
 
 Ver [comunicação](/23-architecture-leadership/communication.md).
@@ -141,12 +141,12 @@ Decisões em grupo raramente mudam posições; elas confirmam posições formada
 que o trabalho de convencimento acontece nas conversas individuais, e a reunião é onde o resultado
 é registrado.
 
-Um arquiteto que descobre a posição de cada participante antes da reunião nunca é surpreendido, e
-consegue endereçar objeções quando ainda há tempo.
+Um arquiteto que descobre a posição de cada participante antes da reunião raramente é surpreendido por
+uma objeção que já existia, e consegue endereçar objeções quando ainda há tempo.
 
 ### O interessado esquecido é quase sempre o mesmo
 
-Em levantamentos internos, os mais frequentemente esquecidos são:
+Os mais frequentemente esquecidos costumam ser:
 
 ```text
 operação        vai carregar o resultado no plantão
@@ -172,15 +172,18 @@ informação.** Envolver cedo custa menos que convencer tarde.
 
 ## Quando Não Usar
 
-**Envolvendo todos em tudo** — dilui responsabilidade e trava.
+**A decisão se reverte a custo baixo.** Trocar uma biblioteca interna ou um formato de log que
+só o próprio time consome: se der errado, desfazer custa menos que a rodada de conversas que
+evitaria o erro. O mapa existe para proteger contra objeção tardia cara, e aqui ela não é cara.
 
-**Buscando consenso universal.**
+**O efeito não sai do time que decide.** Sem ninguém de fora pagando plantão, custo, risco ou
+obrigação, não há moeda alheia a descobrir. Mapear vira cerimônia — e ensina aos interessados
+reais que o convite não significa nada.
 
-**Tratando resistência como obstáculo.**
-
-**Deixando ambíguo** quem decide.
-
-**Descobrindo posições na reunião** em vez de antes.
+**A urgência não comporta a rodada de consultas.** Num incidente ou diante de um prazo regulatório
+fixo, esperar a conversa com cada interessado custa mais que decidir com quem está presente. O
+envolvimento vem depois: informar o que foi feito e registrar a decisão para ser revista, em vez
+de consultar antes.
 
 ## Alternativas
 
@@ -275,8 +278,8 @@ objeções estruturais que teriam aparecido depois de meses de trabalho — e ab
 semana custou quase nada.
 
 A conversa de cinco minutos com jurídico, que teria evitado o incidente
-original, é o item de maior retorno da lista. Ela custa cinco minutos e evita, ocasionalmente,
-quatro meses.
+original, é o item de maior retorno da lista. Os cinco minutos levantam a pergunta; a verificação
+dos contratos que ela dispara custa alguns dias — e evita, ocasionalmente, quatro meses.
 
 ## Conceitos Relacionados
 

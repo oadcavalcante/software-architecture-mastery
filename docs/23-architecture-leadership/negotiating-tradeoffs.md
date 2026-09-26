@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, stakeholder-management, cross-team-architecture]
 canonical_for: [negociação de trade-off, posição contra interesse, opção intermediária, critério objetivo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -131,8 +131,9 @@ forte    "vamos medir: qual das duas atende ao requisito de
          semanas"
 ```
 
-Quando existe uma medição possível, ela encerra a discussão de forma que nenhum argumento encerra.
-E quando não existe, o acordo sobre critérios é o substituto — porque ele desloca a discussão de
+Quando existe uma medição possível e os dois lados acordaram antes o que medir, com que carga e
+qual limiar decide, ela encerra a discussão de forma que nenhum argumento encerra; combinada depois
+do resultado, a medição só abre uma nova discussão sobre a métrica. E quando não existe, o acordo sobre critérios é o substituto — porque ele desloca a discussão de
 "quem está certo" para "o que atende melhor ao que combinamos".
 
 ### Nem toda discordância se resolve
@@ -164,7 +165,9 @@ escalar" —, e a previsão é testável, decidir temporariamente com medição 
 opinião em um experimento.
 
 Isso só funciona quando a reversão é genuinamente barata. Prometer reversibilidade que não existe
-é pior que decidir de vez.
+é pior que decidir de vez. Como classificar a decisão pelo custo de reversão está em
+[Tomada de Decisão](/23-architecture-leadership/decision-making.md#reversibilidade-decide-o-rigor);
+o que cabe aqui é o uso negociador: a previsão contestada vira o critério de reversão.
 
 ### Escalar é legítimo e caro
 
@@ -191,17 +194,20 @@ discordância técnica raramente é sobre a tecnologia.
 
 ## Quando Não Usar
 
-**Discutindo posições** sem investigar interesses.
+**Quando o critério já está dado.** Restrição regulatória, contratual ou de segurança não entra
+em negociação de pesos; negociar abre a porta para trocá-la por velocidade. Negocia-se só o como
+atendê-la.
 
-**Definindo critérios depois** das opções.
+**Durante um incidente em curso.** Quem decide é quem comanda a resposta, em minutos. A
+negociação vem depois, na análise do incidente, se a decisão tomada sob pressão tiver de virar
+permanente.
 
-**Escalando cedo.**
+**Quando a decisão é reversível em dias.** Uma hora de conversa com dois times custa mais que
+errar e corrigir; decida e reverta se preciso, conforme
+[Tomada de Decisão](/23-architecture-leadership/decision-making.md#reversibilidade-decide-o-rigor).
 
-**Buscando consenso** quando a decisão precisa sair.
-
-**Prometendo reversibilidade** que não existe.
-
-**Sem registrar** a divergência quando ela persiste.
+**Quando a consequência recai quase toda sobre um lado.** Não há dois interesses a conciliar,
+há um dono; delegue a decisão a ele em vez de negociar (ver Alternativas).
 
 ## Alternativas
 
@@ -217,14 +223,14 @@ majoritariamente de um dos lados, a decisão provavelmente é dele.
 
 | Buscar acordo | Decidir com divergência |
 |---|---|
-| Adoção convicta | Rápido |
-| Pode não chegar | Exige registrar a objeção |
-| Constrói relação | Risco de descumprimento |
+| Lento, pode não convergir | Rápido, sai na data |
+| Adoção convicta | Risco de descumprimento, mitigado por registrar a objeção |
+| Constrói relação | Desgasta quem perdeu |
 
 | Medir | Decidir por análise |
 |---|---|
-| Conclusivo | Rápido |
-| Custa semanas | Inconclusivo se as posições forem firmes |
+| Custa semanas | Rápido |
+| Conclusivo, se o limiar foi acordado antes | Contestável, inconclusivo se as posições forem firmes |
 
 ## Modos de Falha
 
@@ -242,15 +248,21 @@ majoritariamente de um dos lados, a decisão provavelmente é dele.
 
 ## Erros Comuns
 
-**Não perguntar por quê.**
+**Não perguntar por quê.** A discussão fica restrita às duas posições, e a saída passa a ser
+vitória de um lado ou meio-termo ruim.
 
-**Propor a terceira opção antes** de conhecer os interesses.
+**Propor a terceira opção antes** de conhecer os interesses. Ela é lida como a posição do
+arquiteto, e o impasse ganha uma terceira trincheira em vez de uma saída — além de a opção
+provavelmente não atender à restrição que ninguém revelou ainda.
 
-**Usar experiência como argumento** onde há medição possível.
+**Usar experiência como argumento** onde há medição possível. O lado vencido cede à autoridade,
+não ao dado, e reabre a discussão no primeiro sinal de problema.
 
-**Não registrar** a objeção de quem perdeu.
+**Não registrar** a objeção de quem perdeu. O argumento se perde, e quem discordou deixa de
+discordar em voz alta e passa a não adotar.
 
-**Escalar** antes de tentar estruturar a conversa.
+**Escalar** antes de tentar estruturar a conversa. O gestor decide sem os interesses na mesa, e
+os times aprendem que a próxima discordância também vai para cima.
 
 ## Exemplo Real
 
@@ -304,7 +316,18 @@ D  índice operado pelo catálogo, usando o mesmo mecanismo
 C e D não tinham sido consideradas em quatro meses de discussão, porque cada lado estava
 defendendo a própria posição.
 
-A avaliação com os critérios acordados deu C como vencedora, com margem clara: ela reduzia o
+A avaliação com os critérios acordados, em notas de 1 a 5:
+
+```text
+                     tempo  carga  consist.  custo   total
+pesos                 35%    30%     20%      15%
+A                      4      1       1        3     2,35
+B                      1      5       5        4     3,45
+C                      5      4       5        3     4,40
+D                      4      4       4        2     3,70
+```
+
+C venceu com quase um ponto sobre B e 0,7 sobre D: ela reduzia o
 tempo de mudança para horas — melhor até que a opção A — e não acrescentava modelo operacional
 novo à plataforma.
 
@@ -323,7 +346,7 @@ outros times que adotaram o
 Os quatro times que adotaram depois são o resultado que ninguém previu: a solução construída para
 resolver uma discordância virou capacidade de plataforma.
 
-O que a área de arquitetura registra: as duas opções vencedoras eram óbvias em retrospecto e
+O que a área de arquitetura registra: as duas opções novas, C e D, eram óbvias em retrospecto e
 invisíveis durante quatro meses. Elas só apareceram depois que a conversa mudou de "quem tem
 razão" para "o que cada um precisa" — e a pergunta que produziu essa mudança levou trinta
 segundos.

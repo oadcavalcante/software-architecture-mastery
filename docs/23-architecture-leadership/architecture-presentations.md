@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [communication, stakeholder-management, negotiating-tradeoffs]
 canonical_for: [apresentação de arquitetura, pedido explícito, estrutura de apresentação técnica]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -142,15 +142,15 @@ decisão. Ver
 
 ### Documento antes de slides, para decisões relevantes
 
-```text
-slides       toleram lacunas de raciocínio
-documento    expõe o argumento fraco antes da reunião
-```
+Por que escrever antes de apresentar força clareza está em
+[comunicação](/23-architecture-leadership/communication.md#escrever-antes-de-apresentar). O que
+muda na apresentação é o papel da reunião: com um documento de duas a quatro páginas circulado
+antes, ela deixa de expor e passa a discutir — as pessoas chegam com perguntas em vez de com
+dúvidas.
 
-Um documento de duas a quatro páginas, lido antes, produz reuniões muito melhores: as pessoas
-chegam com perguntas em vez de com dúvidas, e o tempo é gasto no que importa.
-
-Ele também é o que resta depois — os slides, sem narração, não comunicam nada.
+O documento circulado não garante leitura. Por isso o formato costuma vir com minutos de leitura
+silenciosa no início da reunião, e os slides, quando existem, encolhem para o pedido e os
+diagramas que sustentam a discussão.
 
 ### Termine com o que foi decidido
 
@@ -175,17 +175,22 @@ decidido.** O detalhe vai para anexo.
 
 ## Quando Não Usar
 
-**Sem pedido explícito** — uma apresentação informativa deveria ser um documento.
+**Quando não há pedido** — uma apresentação informativa deveria ser um documento.
 
-**Com exposição ocupando todo o tempo.**
+**Quando a decisão é reversível e barata.** Um comentário assíncrono resolve, e montar pedido,
+conversas prévias e reunião custa mais que errar e desfazer.
 
-**Com diagramas densos.**
+**Quando o decisor é uma pessoa só.** A conversa individual com ela já é o fórum; a reunião
+coletiva só acrescenta plateia.
 
-**Sem ter conversado antes** com quem pode bloquear.
+**Quando a governança exige o fórum formal como lugar da decisão.** Um comitê de arquitetura com
+ata e voto não admite que a decisão chegue fechada; conversas prévias que decidem de fato viram
+decisão paralela, e o fórum passa a só carimbar.
 
-**Sem registrar** o que foi decidido.
-
-**Quando um documento resolveria** — para muitos casos, ele resolve melhor.
+As próprias práticas têm custo. Conversas prévias levam dias e podem esvaziar a reunião, e quem
+não foi consultado chega sabendo que os outros já conversaram — e se sente excluído. A pré-leitura
+só funciona se o público de fato lê; num grupo que não lê, os minutos de silêncio viram a
+apresentação inteira.
 
 ## Alternativas
 
@@ -195,15 +200,17 @@ decidido.** O detalhe vai para anexo.
 - **Demonstração** — quando existe algo funcionando, mostrar vale mais que apresentar.
 - **Nada** — nem toda decisão precisa de reunião; muitas se resolvem de forma assíncrona.
 
-A primeira é o padrão em organizações que a adotaram, e a mudança costuma ser percebida como uma
-das mais eficazes que uma área técnica pode fazer.
+O documento lido antes supera a apresentação quando duas condições valem juntas: a decisão é
+complexa o bastante para que o argumento precise ser lido, não ouvido, e o público tem tempo e
+hábito de ler antes. Sem a segunda, ele é só uma apresentação atrasada.
 
 ## Trade-offs
 
 | Apresentação | Documento |
 |---|---|
 | Interativo, ajusta ao vivo | Força clareza, persiste |
-| Tolera lacunas | Exige que leiam |
+| Lacunas de raciocínio aparecem durante a reunião | Lacunas aparecem antes, na escrita |
+| Não exige preparo do público | Exige que o público leia antes |
 | Melhor para alinhar | Melhor para decidir |
 
 | Detalhe no corpo | Detalhe em anexo |
@@ -227,15 +234,21 @@ das mais eficazes que uma área técnica pode fazer.
 
 ## Erros Comuns
 
-**Construir na ordem de engenharia.**
+**Construir na ordem de engenharia.** O pedido aparece no último slide, quando o tempo acabou, e
+quem decide passou a apresentação tentando adivinhar aonde ela ia.
 
-**Colocar o detalhe técnico no corpo.**
+**Colocar o detalhe técnico no corpo.** A discussão se desvia para o detalhe que está na tela, e
+a pergunta que decide — vale o custo? — fica sem tempo.
 
-**Não reservar tempo de discussão.**
+**Não reservar tempo de discussão.** As objeções não são feitas na sala; aparecem depois, por
+mensagem, quando já não há quem as responda para todos.
 
-**Apresentar a públicos mistos** com a mesma versão.
+**Apresentar a públicos mistos** com a mesma versão. O executivo se perde no detalhe, o engenheiro
+acha o resumo raso, e a discussão se divide em duas conversas que não se encontram. A saída é uma
+versão por altitude, ou o corpo na altitude de quem decide e o detalhe em anexo para quem constrói.
 
-**Não enviar** o registro do que foi decidido.
+**Não enviar** o registro do que foi decidido. Cada participante sai com a sua versão, e a
+divergência aparece na execução, quando alguém faz o que achou que foi combinado.
 
 ## Exemplo Real
 
@@ -305,8 +318,8 @@ conseguia.
 Pegue a última apresentação de arquitetura que você fez e responda: qual era o pedido, e em que
 minuto ele foi feito?
 
-Se não houver pedido, ou se ele veio depois do minuto trinta, você encontrou a razão de a decisão
-não ter saído.
+Se não houver pedido, ou se ele veio depois do minuto trinta, você encontrou uma razão provável de a
+decisão não ter saído.
 
 ## Perguntas de Entrevista
 

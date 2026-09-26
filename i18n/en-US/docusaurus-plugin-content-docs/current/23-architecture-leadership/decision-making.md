@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [negotiating-tradeoffs, risk-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -80,8 +80,9 @@ what is the market window, if any?
 does the cost of reversal grow with time?
 ```
 
-The last question is the most important. Architectural boundary decisions get exponentially more
-expensive to make as code is built on top of their absence.
+The last question is the most important. Architectural boundary decisions get more expensive with
+every system built on top of their absence: each one is one more migration on the day the boundary
+is finally decided.
 
 ```text
 deciding the boundary now        one discussion
@@ -166,21 +167,26 @@ have, declare the premises and record the condition that would change the decisi
 
 ## When to Use
 
-- Whenever there is a pending decision with people blocked.
+- When a decision is pending with people blocked, or with code being built on top of its
+  absence.
 - Classifying by reversibility first.
 - With the deciding information declared, when deferral is justified.
 
 ## When Not to Use
 
-**With the same rigor for everything.**
+**When the decision date is imposed from outside.** A regulatory deadline or an audit requirement
+fixes when and, often, how to decide. Weighing the cost of deferring against the risk of being
+wrong changes nothing: deferring is not an option, and the effort goes into following the
+prescribed process.
 
-**Deferring with no criterion** — "when we have clarity" is not a plan.
+**When the cost of deferring really is close to zero.** Nobody is blocked, nothing is being built on
+top of the decision's absence, and the cost of reversal does not grow with time — a tool choice for
+a project that only starts next semester, for example. There the criterion always answers "wait",
+and forcing the decision only trades free future information for present risk.
 
-**Deciding what someone else should decide.**
-
-**With no review condition.**
-
-**Ignoring that not deciding produces an outcome.**
+**When the deciding information has a firm, near date.** If the load test result comes out on Friday
+and it decides between the options, the calculation is trivial and a review condition is redundant:
+wait for Friday. The method is for open-ended deferrals, not for waits of days with a known end.
 
 ## Alternatives
 
@@ -188,18 +194,19 @@ have, declare the premises and record the condition that would change the decisi
   uncertainty is genuine and the cost of reversal is low.
 - **A pilot** — deciding with evidence instead of with analysis.
 - **Delegating** — when whoever has the context can decide.
-- **The least-regret decision** — the one that produces the least bad worst outcome, under high
-  uncertainty.
+- **The least-regret decision** — the one that minimizes the maximum regret, that is, the largest
+  gap, across scenarios, between the outcome obtained and the best outcome possible in that
+  scenario.
 
 The last is useful when the scenarios are very different and none is clearly likely.
 
 ## Trade-offs
 
-| Deciding early | Waiting for information |
-|---|---|
-| Unblocks | Less risk of error |
-| Risk of being wrong | Invisible cost of delay |
-| Reversible if small | Divergence accumulates |
+| Axis | Deciding early | Waiting for information |
+|---|---|---|
+| Risk of error | Higher, deciding with less data | Lower, if the information arrives and changes something |
+| Cost of delay | None — teams unblocked | People idle and divergence accumulating |
+| Cost of reversal | Low if the decision is small | Grows with every system built while waiting |
 
 | High rigor | Proportional rigor |
 |---|---|
@@ -222,15 +229,25 @@ The last is useful when the scenarios are very different and none is clearly lik
 
 ## Common Mistakes
 
-**Not calculating the cost of deferring.**
+**Not calculating the cost of deferring.** The architect asks for one more benchmark; within two
+months, two teams choose on their own, and the cost of converging now includes a migration. The
+signal is a pending decision where nobody can say how many people it is blocking.
 
-**Not asking whether the missing information would change the decision.**
+**Not asking whether the missing information would change the decision.** The analysis is redone
+with new data, and the recommendation comes out the same as before. When two rounds in a row point
+to the same option, information was not what was missing.
 
-**Applying a heavy process** to reversible decisions.
+**Applying a heavy process** to reversible decisions. Choosing an internal library goes through a
+committee and waits three weeks for a meeting. The team learns to route around the process, and it
+loses force precisely on the irreversible decisions that needed it.
 
-**Deciding alone** what crosses teams.
+**Deciding alone** what crosses teams. The decision comes out fast and is ignored by those who bear
+the consequence; the result is the same divergence the decision meant to prevent, now with an
+official standard nobody follows.
 
-**Not recording** premises and the review condition.
+**Not recording** premises and the review condition. A year later the decision is challenged and
+nobody knows whether the context changed; the discussion restarts from scratch instead of checking
+a condition.
 
 ## Real-World Example
 
@@ -247,8 +264,9 @@ distinct technologies in production                     3
 integration adapters built                              7
 ```
 
-The decision that would have been about one technology in January became a migration of four
-systems in August.
+One of the four systems already used the option that would end up being chosen. The decision that
+would have been about one technology in January became, in August, the migration of the other
+three.
 
 What unblocked it was a question asked in a quarterly review: **"what information do we still not
 have that would change the choice?"**

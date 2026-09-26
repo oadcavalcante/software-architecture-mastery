@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [fitness-functions, measuring-architecture-outcomes, technical-roadmaps]
 canonical_for: [mudança guiada, dimensão protegida, arquitetura que absorve mudança]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -116,7 +116,7 @@ inteiro.
 
 Isso muda o que se otimiza: em vez de acertar mais, errar mais barato.
 
-### Mudança incremental, sempre
+### Mudança incremental por padrão
 
 ```text
 grande e rara     risco concentrado, difícil de reverter,
@@ -130,6 +130,9 @@ Isso vale para arquitetura tanto quanto para código. Uma migração feita em fa
 reversível, é mais lenta em soma e muito mais segura — e permite que o plano sobreviva a
 interrupções. Ver
 [roadmaps técnicos](/23-architecture-leadership/technical-roadmaps.md).
+
+A exceção é o sistema que chegou ao fim da vida útil: quando a decisão é substituí-lo, a troca em
+bloco planejada (ver Alternativas) pode custar menos que fatiar a evolução de algo que vai sair.
 
 ### Deixe caminhos abertos onde a incerteza é alta
 
@@ -152,12 +155,14 @@ Não é possível guiar o que não se observa:
 acoplamento entre módulos, medido
 tempo de construção e de implantação
 frequência de mudança por área
-áreas que mudam sempre juntas
+áreas que mudam juntas com frequência
 tempo entre decisão e produção
 ```
 
-A quarta linha é a mais reveladora: componentes que sempre mudam juntos indicam uma fronteira
-errada, e essa informação está no histórico do repositório sem que ninguém a extraia.
+A quarta linha é a mais reveladora: componentes que mudam juntos com frequência são indício de
+fronteira errada, e essa informação está no histórico do repositório sem que ninguém a extraia.
+Indício, não veredito — cada par precisa ser avaliado, e o exemplo abaixo tem um que era
+coincidência.
 
 Ver [medição de resultados](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
@@ -186,15 +191,15 @@ meio entre deriva e congelamento.
 
 ## Quando Não Usar
 
-**Protegendo tudo** — sem escolha, nenhuma dimensão é protegida de fato.
+**Vida útil esperada curta** — protótipos, campanhas, sistemas com horizonte abaixo de 12 a 18
+meses. As verificações na esteira e a medição contínua custam desde o primeiro mês, e o retorno
+só aparece quando a mudança se acumula.
 
-**Como desculpa para não decidir** — "vamos evoluir" não substitui escolher.
+**Domínio com mudança lenta e previsível** — quando as premissas quase não se movem, revisão
+periódica de uma arquitetura estável entrega o mesmo resultado por menos.
 
-**Em sistemas descartáveis** — o investimento não se paga.
-
-**Sem medir** o estado atual.
-
-**Tornando tudo maleável**, inclusive contratos publicados.
+**Sistema já marcado para substituição** — investir em torná-lo barato de mudar é gastar num
+ativo que vai sair; congelar e isolar costuma custar menos.
 
 ## Alternativas
 
@@ -211,14 +216,20 @@ isso é uma decisão econômica válida.
 
 | Evolutiva | Estável |
 |---|---|
-| Absorve mudança | Menos investimento |
-| Custo contínuo de manter capacidade | Distância cresce |
+| Absorve mudança | Acumula distância do problema |
+| Custo contínuo de manter capacidade | Investimento baixo, até a reescrita |
 | Exige medição | Simples |
 
 | Muitas dimensões protegidas | Poucas |
 |---|---|
 | Mais garantias | Verificação sustentável |
-| Custo de manter | Escolha explícita do que se degrada |
+| Custo de manter alto | Custo de manter baixo, com degradação aceita fora da lista |
+
+O custo contínuo da coluna evolutiva é operacional e tem nome. Cada
+[função de aptidão](/23-architecture-leadership/fitness-functions.md) bloqueante pode parar a
+esteira por um falso positivo; os limiares precisam de revisão quando o sistema cresce, ou viram
+ruído ou viram obstáculo; e cada verificação precisa de um dono, porque a que ninguém mantém é
+desligada na primeira sexta-feira de entrega apertada.
 
 ## Modos de Falha
 
@@ -236,15 +247,22 @@ isso é uma decisão econômica válida.
 
 ## Erros Comuns
 
-**Não escolher** as dimensões a proteger.
+**Não escolher** as dimensões a proteger. As verificações proliferam, os avisos se acumulam, e o
+time passa a ignorá-los — inclusive os que importavam.
 
-**Não medir** acoplamento e frequência de mudança.
+**Não medir** acoplamento e frequência de mudança. A deriva só é percebida quando já custa uma
+reescrita, porque nada a mostrou enquanto era barata de corrigir.
 
-**Confundir evolutiva com flexível** — flexibilidade antecipada é o oposto.
+**Confundir evolutiva com flexível** — flexibilidade antecipada é o oposto. O resultado são
+abstrações pagas para mudanças que não vêm, que tornam mais cara a mudança que vem.
 
-**Não usar o histórico do repositório** como fonte de evidência.
+**Não usar o histórico do repositório** como fonte de evidência. As fronteiras são redesenhadas
+por intuição, e os módulos continuam mudando juntos do outro lado da fronteira nova.
 
-**Tratar "vamos evoluir"** como decisão.
+**Tratar "vamos evoluir"** como decisão. Sem dimensões nem mecanismo, é deriva com outro nome.
+
+**Tornar tudo maleável**, inclusive contratos publicados. O custo de acompanhar cada mudança passa
+para quem consome, e os consumidores externos começam a travar versões.
 
 ## Exemplo Real
 
@@ -258,12 +276,12 @@ tempo médio entre início e produção de uma mudança    18 dias
 arquivos tocados por mudança, mediana                 34
 módulos tocados por mudança, mediana                  5
 pares de módulos que mudam juntos em > 60%
-  das vezes                                           11
+  dos commits que tocam um dos dois                   11
 tempo de construção                                   47 minutos
 ```
 
-Os 11 pares que sempre mudavam juntos eram fronteiras erradas — módulos separados que na prática
-eram um só. E o tempo de construção de 47 minutos era o que tornava qualquer mudança cara,
+Os 11 pares que mudavam juntos eram candidatos a fronteira errada — módulos separados que, na
+prática, talvez fossem um só. E o tempo de construção de 47 minutos era o que tornava qualquer mudança cara,
 independentemente do tamanho.
 
 O trabalho foi organizado como evolução guiada, não como reescrita:
@@ -298,7 +316,7 @@ Resultados após 16 meses:
 tempo entre início e produção        de 18 dias para 4
 arquivos tocados por mudança         de 34 para 11
 módulos por mudança                  de 5 para 2
-pares que mudam sempre juntos        1
+pares que mudam juntos em > 60%      1
 tempo de construção                  7 minutos
 dimensões protegidas violadas        0 desde o bloqueio
 ```
@@ -308,7 +326,7 @@ de alterá-lo.
 
 O detalhe que a equipe destaca: a medição sobre o histórico do repositório foi o instrumento mais barato
 e mais informativo do projeto. Ela custou dois dias de trabalho, existia desde sempre, e ninguém
-a tinha extraído — e os 11 pares que mudavam juntos apontaram para as fronteiras erradas com uma
+a tinha extraído — e 10 dos 11 pares que mudavam juntos apontaram para fronteiras erradas, uma
 precisão que nenhuma análise de desenho tinha alcançado.
 
 ## Conceitos Relacionados
@@ -321,7 +339,8 @@ precisão que nenhuma análise de desenho tinha alcançado.
 ## Exercício Prático
 
 Extraia do histórico do seu repositório os pares de módulos que mudam juntos em mais de 60% das
-vezes.
+vezes — commits que tocam os dois, divididos pelos commits que tocam qualquer um dos dois —,
+considerando só pares com pelo menos 20 commits no período.
 
 Cada par é uma fronteira candidata a estar errada — e essa informação existe há anos sem que
 alguém a tenha olhado.

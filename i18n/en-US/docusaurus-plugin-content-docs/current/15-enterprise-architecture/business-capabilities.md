@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -77,32 +77,30 @@ level 1   large areas — 8 to 15 in total
           "customer management", "product management", "operations"
 level 2   decomposition — 40 to 80
           "customer registration", "credit analysis", "collections"
-level 3   detail — where mapping to systems becomes useful
+level 3   detail — only where mapping to systems demands it
           "document verification", "limit calculation"
 ```
 
-Three levels are enough for most organizations. Going down to a fourth produces a model nobody maintains —
-and the model's value depends on it being up to date.
+How to decompose, and why the third level is not uniform, is covered in
+[capability mapping](/15-enterprise-architecture/capability-mapping.md). What matters here is the
+ceiling: to serve investment and portfolio decisions, two complete levels and a selective third are
+enough. Going down to a fourth produces a model nobody maintains — and the model's value depends on it
+being up to date.
 
 The sign that you went too far down: the last level's capabilities start looking like system features.
 
 ### The value is in the mapping
 
-The model alone is a diagram. What produces decisions is overlaying information on it:
+The model alone is a diagram. What produces decisions is overlaying information on it — systems, cost,
+criticality, differentiation, health — and the resulting heat map is described in
+[capability mapping](/15-enterprise-architecture/capability-mapping.md). Each question calls for a
+different combination.
 
-```text
-systems           which ones serve each capability → reveals duplication and gaps
-cost              how much is spent per capability → reveals misalignment
-criticality       what stops in the business if it fails
-differentiation   what distinguishes the organization
-health            the technical state of the systems supporting it
-```
+To decide between building and buying, the overlay is **differentiation** with **cost**: a capability
+that does not differentiate and consumes a large slice of the investment is a candidate for buying instead
+of building. See [SaaS](/09-cloud-architecture/saas.md).
 
-The overlay of **differentiation** and **cost** is the one that generates the most useful discussion: a
-capability that does not differentiate and consumes a large slice of the investment is a candidate for
-buying instead of building. See [SaaS](/09-cloud-architecture/saas.md).
-
-And **criticality** with **health** reveals the concrete risk: a critical capability supported by a system
+To prioritize risk, **criticality** with **health** reveals the concrete risk: a critical capability supported by a system
 in bad shape is the priority nobody had named.
 
 ### Duplication appears on its own
@@ -178,17 +176,19 @@ makes the map useful over time.
 
 ## When Not to Use
 
-**Modeling the org chart.**
+**An organization with few systems and a single product.** With a dozen systems, everyone in the room
+already knows which one serves what; the map costs weeks and reveals no duplication a conversation
+would not.
 
-**With more than three levels.**
+**A business still discovering what it does.** In a company that pivots every quarter, the stability
+test fails by construction: today's capabilities will not exist next year, and the model ages faster than
+the systems.
 
-**With no information overlaid.** The model alone decides nothing.
+**No forum to consume it.** If no budget, portfolio or prioritization discussion will use the map, it
+gets built and filed away — the cost without the return.
 
-**With no owner and no review.**
-
-**As a substitute for technical architecture.** It guides investment, not system design.
-
-**Built by a consultancy and filed away.**
+**As a substitute for technical architecture.** It guides investment, not system design; software
+boundaries come from domains.
 
 ## Alternatives
 
@@ -230,17 +230,23 @@ domains organize the software's boundaries.
 
 ## Common Mistakes
 
-**Modeling the org chart.**
+**Modeling the org chart.** The first reorganization invalidates the map, and the business learns it
+cannot be trusted.
 
-**Going down to four or five levels.**
+**Going down to four or five levels.** The last level turns into a feature list, maintenance costs more
+than use, and the model is out of date within months.
 
-**Not mapping systems.**
+**Not mapping systems.** Without the mapping, duplication stays invisible — which was the reason for
+building the model.
 
-**Not classifying by differentiation.**
+**Not classifying by differentiation.** The build-or-buy decision goes back to being made system by
+system, by whoever defends each one.
 
-**Having no owner for the model.**
+**Having no owner for the model.** Nobody adds the new system or the retired capability, and decisions
+start resting on a map that no longer matches the organization.
 
-**Building for a project** instead of for continuous use.
+**Building for a project** instead of for continuous use. The map answers that project's question and is
+not consulted for the next one.
 
 ## Real-World Example
 
@@ -292,13 +298,15 @@ any technical analysis of the previous years — because the business could fina
 List your organization's ten most important business capabilities, without mentioning any system or
 department.
 
-Then map which systems serve each one. The capabilities with three or more systems are your duplications.
+Then map which systems serve each one. Every capability with more than one system is a duplication
+candidate; confirm by looking at what each system does with it. If two maintain the same registry, that
+is duplication; if one registers and the other bills, they are complementary parts.
 
 ## Interview Questions
 
 - What distinguishes a capability from a process or a system?
 - Why is stability the central property?
-- Which data overlay generates the most decisions?
+- Which data overlay answers build-or-buy, and which one answers risk?
 
 ## Further Reading
 

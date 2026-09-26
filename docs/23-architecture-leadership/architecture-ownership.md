@@ -13,7 +13,7 @@ objective: >
 prerequisites: [team-topologies]
 related: [team-topologies, organizational-architecture, leadership-governance]
 canonical_for: [propriedade de arquitetura, componente órfão, dono como papel, propriedade verificável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -115,6 +115,13 @@ um componente cujo dono deixa de existir gera alerta
 O terceiro item é o que impede a criação de órfãos novos. O quarto é o que detecta os que surgem
 por mudança organizacional — que é a origem mais comum.
 
+A regra tem efeitos colaterais que precisam de desenho próprio. O bloqueio na esteira atinge
+justamente o órfão que quebrou: sem uma rota de exceção — implantação de correção autorizada pelo
+plantão, registrada, com prazo para designar dono —, a regra impede o conserto no meio do
+incidente. O alerta dispara em lote a cada reorganização, e se ninguém o agrupa por área ele vira
+ruído que o gestor aprende a ignorar. E a verificação só é tão boa quanto o cadastro de times:
+manter a integração é custo permanente, e um cadastro defasado produz falso alarme ou falso verde.
+
 ### Componentes compartilhados precisam de modelo
 
 ```text
@@ -172,15 +179,20 @@ propriedade desatualiza e os órfãos ficam invisíveis.
 
 ## Quando Não Usar
 
-**Declarada apenas em documento** — desatualiza sem sinal.
+O mecanismo completo — arquivo no repositório, verificação diária, bloqueio na esteira — cobra
+integração com o cadastro de times, triagem de alertas e rota de exceção. Ele não se paga quando:
 
-**Como "todos são donos".**
+**O repositório é experimental ou protótipo com data de expiração.** Exigir dono verificado de algo
+que será apagado em semanas custa mais que o órfão que evitaria; basta a data de expiração
+aplicada automaticamente.
 
-**Sem capacidade correspondente** — propriedade nominal é pior que ausência declarada.
+**A organização é pequena o bastante para que todos conheçam todos os componentes.** Com um ou dois
+times e poucas dezenas de componentes, a pergunta "de quem é isto?" se responde numa conversa, e a
+integração com um cadastro de times que muda pouco é peso morto — até a organização crescer.
 
-**Sem modelo para componentes compartilhados.**
-
-**Sem autoridade para descomissionar** — dono que não pode remover não é dono.
+**O componente está congelado com data de desligamento.** Basta o dono de operação e segurança até
+a data; exigir as quatro dimensões de propriedade de algo que não vai evoluir cria trabalho de
+papel sem efeito.
 
 ## Alternativas
 
@@ -199,12 +211,13 @@ revela.
 |---|---|
 | Responsabilidade clara | Distribui a carga |
 | Vira gargalo | Diluição da responsabilidade |
-| Decisão rápida | Mais contexto |
+| Decisão rápida | Decisão lenta, exige consenso entre times |
+| Contexto de um time | Contexto de vários consumidores |
 
 | Propriedade verificada | Declarada |
 |---|---|
-| Órfãos detectáveis | Sem custo de construir |
-| Exige integração com cadastro | Desatualiza |
+| Órfãos detectáveis | Órfãos invisíveis até o incidente |
+| Exige integração com cadastro | Sem custo de construir |
 
 ## Modos de Falha
 
@@ -222,15 +235,20 @@ revela.
 
 ## Erros Comuns
 
-**Não verificar** se o dono declarado ainda existe.
+**Não verificar** se o dono declarado ainda existe: a reorganização extingue o time, o arquivo
+continua apontando para ele, e o órfão só aparece no incidente.
 
-**Atribuir dono a time**, sem papel nomeado.
+**Atribuir dono a time**, sem papel nomeado: o acionamento em incidente cai numa lista de
+distribuição, e cada membro assume que outro vai responder.
 
-**Não contar propriedade** na carga cognitiva.
+**Não contar propriedade** na carga cognitiva: o time aceita o décimo quinto componente, deixa de
+atualizar os mais antigos, e a propriedade vira nominal sem que nenhum registro mude.
 
-**Não ter modelo** para bibliotecas internas.
+**Não ter modelo** para bibliotecas internas: contribuições ficam sem revisor, cada consumidor mantém
+um fork, e uma vulnerabilidade precisa ser corrigida em várias cópias divergentes.
 
-**Não datar** a decisão de descomissionar.
+**Não datar** a decisão de descomissionar: o componente fica meses marcado para remoção, continua
+recebendo patches e acaba nunca sendo removido.
 
 ## Exemplo Real
 
@@ -275,13 +293,19 @@ observabilidade não captava — esses três foram religados, com dono designado
 transferidos a um time com capacidade      41
 descomissionados                           28
 absorvidos pela plataforma                 12
-mantidos em modo congelado, com dono
-  nominal e sem evolução prevista           8
+mantidos em modo congelado, com dono que
+  responde só por operação e segurança      8
 ```
 
 Os 8 congelados são a categoria honesta: componentes que ninguém quer manter, que ainda são
 usados, e cuja substituição está no roteiro. Declará-los assim é melhor que fingir propriedade
 ativa.
+
+**Os 89 com propriedade apenas nominal** — 57 apontando para time inexistente, 32 com dono que não
+reconhecia o componente — foram revalidados time a time. A verificação diária encontra os
+primeiros; os segundos ela não enxerga, porque o time existe, e só apareceram quando cada gestor
+teve de confirmar a lista de componentes do seu time. Cada um terminou com dono que assinou o
+arquivo de propriedade ou entrou nas mesmas saídas dos órfãos.
 
 **Carga de propriedade contada.** Cada time passou a ter o número de componentes que mantém
 visível, e três times que estavam acima de 12 tiveram componentes transferidos.

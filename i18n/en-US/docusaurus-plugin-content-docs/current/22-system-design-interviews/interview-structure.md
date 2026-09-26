@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, communicating-tradeoffs, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -73,8 +73,8 @@ For a 45-minute interview, with about 40 of content:
 6. closing                          2 to 3 min
 ```
 
-For 60 minutes, each phase grows proportionally, with the deep dive absorbing most of the
-increase.
+For 60 minutes, the extra fifteen minutes are not split evenly: clarification rises to 8 to 10
+min, phases 2 to 4 gain a minute or two each, and the deep dive takes the rest — 18 to 20 min.
 
 The budget is not rigid — it is an instrument of perception. Knowing that phase 3 should end around
 minute 20 lets you notice, at minute 25, that it is time to speed up.
@@ -197,21 +197,24 @@ into leading.
 
 ## When to Use
 
-- In every system design interview.
+- When the format leaves the leading to the candidate — the common case in 45- to 60-minute
+  interviews.
 - Announced at the start, in thirty seconds.
 - With transitions marked and time managed out loud.
 
 ## When Not to Use
 
+**When the interviewer leads actively** — they bring their own sequence of questions, and imposing
+the six phases on top of it contests control instead of demonstrating it.
+
+**In 30-minute interviews** — six phases do not fit; each one's budget becomes too short to produce
+anything, and the reduced version (see Alternatives) serves better.
+
+**When the prompt is about a specific problem** — "how do you guarantee ordering?" does not ask for
+estimation or an API; walking through the phases before answering spends the time the question
+wanted.
+
 **Rigidly**, when the prompt calls for another order.
-
-**Without announcing it** — internal structure nobody sees is not evaluated.
-
-**Ignoring the interviewer** when they redirect.
-
-**Without a closing** — the final two minutes are worth more than one more detail.
-
-**As an excuse** not to go deeper when asked.
 
 ## Alternatives
 
@@ -224,7 +227,7 @@ into leading.
 
 | Announced structure | Implicit structure |
 |---|---|
-| Signals experience | Less formal |
+| Signals experience from the outset | Experience only shows if the evaluator infers it from the leading |
 | Allows aligning early | Risk of looking diffuse |
 | Costs 30 seconds | No cost |
 
@@ -247,15 +250,20 @@ into leading.
 
 ## Common Mistakes
 
-**Not announcing the structure.**
+**Not announcing the structure** — the interviewer only redirects after time has already been spent
+in the wrong phase.
 
-**Not marking transitions.**
+**Not marking transitions** — a well-run interview looks diffuse, because the evaluator does not
+know which phase you are in.
 
-**Not talking about time** when it gets tight.
+**Not talking about time** when it gets tight — you prioritize blind, when the interviewer could
+tell you which part they want to see.
 
-**Going deep before closing the main flow.**
+**Going deep before closing the main flow** — the detail eats the time and the evaluator never sees
+the complete design.
 
-**Ending with no summary** and without saying what was left out.
+**Ending with no summary** and without saying what was left out — the gap the evaluator notices
+alone reads as forgetfulness, not prioritization.
 
 ## Interview Example
 

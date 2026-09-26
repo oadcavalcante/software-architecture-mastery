@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [functional-vs-nonfunctional, interview-structure, interview-common-mistakes]
 canonical_for: [clarificação de requisitos, pergunta de escopo, premissa declarada, enunciado vago]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -118,20 +118,15 @@ Premissas declaradas fazem duas coisas. Elas permitem ao entrevistador corrigir 
 "na verdade, personalização é importante" — em vez de tarde, quando a arquitetura já foi
 desenhada sobre elas. E elas registram que a decisão foi consciente, e não omissão.
 
-Uma premissa não declarada e errada derruba a resposta. A mesma premissa declarada e errada é
-corrigida em dez segundos.
+Uma premissa não declarada e errada aparece tarde, quando a arquitetura já depende dela e
+corrigi-la custa o redesenho. A mesma premissa declarada e errada é corrigida em dez segundos.
 
 ### Requisitos implícitos existem e valem pontos
 
-Alguns requisitos nunca são ditos e são esperados:
-
-```text
-o sistema precisa estar disponível
-os dados não podem se perder
-não pode haver acesso não autorizado
-o custo importa
-alguém vai operar isso
-```
+Alguns requisitos nunca são ditos e são esperados — disponibilidade, durabilidade, segurança,
+custo, operação. A lista e o peso de cada um estão em
+[os implícitos que valem mencionar](/22-system-design-interviews/functional-vs-nonfunctional.md#os-implícitos-que-valem-mencionar);
+aqui interessa o momento de citá-los, que é a clarificação.
 
 Mencioná-los brevemente — "vou assumir que disponibilidade importa mais que consistência forte
 neste caso, porque um link temporariamente indisponível é pior que um contador de cliques
@@ -159,26 +154,30 @@ você aceitou o enunciado como está.
 ## Modelo Mental
 
 **O enunciado é o convite, não o problema.** Pergunte o que muda decisão, proponha em vez de
-perguntar em aberto, e declare toda premissa.
+perguntar em aberto, e declare toda premissa que muda decisão.
 
 ## Quando Usar
 
 - No início de toda entrevista de system design.
-- Sempre que o entrevistador introduzir uma variação no meio.
+- Quando o entrevistador introduz, no meio, uma variação que muda escopo ou escala.
 - Ao perceber que uma decisão depende de algo não dito.
 
 ## Quando Não Usar
 
-**Perguntando o que o entrevistador quer que você decida** — escolha de tecnologia, topologia,
-banco. Perguntar isso transfere a decisão e desperdiça a oportunidade de mostrar critério.
+**Quando o enunciado já vem delimitado.** Se o entrevistador entrega escopo, escala e restrições
+— "encurtador público, 100 M de links por mês, sem personalização" —, refazer as perguntas gasta o
+orçamento confirmando o que foi dito. Repita os números em uma frase, pergunte só o que ficou de
+fora e siga.
 
-**Perguntando sem orçamento de tempo.**
+**Quando a variação do meio é hipotética e o tempo não comporta nova rodada.** "E se o tráfego
+decuplicasse?" aos 35 minutos pede o que muda no desenho, não cinco minutos de perguntas. Declare
+a premissa da variação e responda sobre ela.
 
-**Perguntando por rigor**, com questões cuja resposta não muda nada.
+**Quando a resposta não mudaria nenhuma caixa já desenhada.** Depois que o desenho existe, uma
+pergunta de escopo só vale se puder deslocar um componente; se não pode, é rigor de fachada.
 
-**Aceitando o enunciado como está** e começando a desenhar.
-
-**Sem anotar** — requisitos que não estão no quadro somem.
+**Quando a decisão é sua** — escolha de tecnologia, topologia, banco. Perguntar isso transfere a
+decisão e desperdiça a oportunidade de mostrar critério.
 
 ## Alternativas
 
@@ -220,11 +219,14 @@ banco. Perguntar isso transfere a decisão e desperdiça a oportunidade de mostr
 
 **Perguntar qual tecnologia usar.**
 
-**Fazer uma pergunta de cada vez**, com longas pausas.
+**Fazer uma pergunta de cada vez**, com longas pausas. Pergunta a pergunta, a clarificação estoura
+os 5 a 8 minutos e o entrevistador perde a visão de conjunto do que foi fixado.
 
 **Não perguntar o que está fora do escopo.**
 
-**Tratar clarificação como formalidade** e voltar ao roteiro decorado depois.
+**Tratar clarificação como formalidade** e voltar ao roteiro decorado depois. O desenho sai
+igual ao que sairia sem as respostas, e o entrevistador conclui que as perguntas não serviram
+para nada — que é pior do que não tê-las feito.
 
 ## Exemplo de Entrevista
 
@@ -268,9 +270,11 @@ personalização de link fora de escopo nesta versão
 ```text
 se os links expirassem        → política de limpeza, e o modelo
                                 de dados ganha vigência
+se não houvesse análise       → o volume de escrita cai de 10 bi/mês
+                                para 100 M/mês; some o fluxo de eventos
 se a análise fosse em tempo
-  real                        → o volume de escrita passa de 100 M/mês
-                                para 10 bi/mês; muda tudo
+  real                        → o mesmo volume, mas agregado em fluxo
+                                contínuo, sem margem para lote
 se houvesse personalização    → unicidade deixa de ser garantida por
                                 geração e vira verificação com contenção
 se fosse interno              → escala cai em ordens de grandeza, e a

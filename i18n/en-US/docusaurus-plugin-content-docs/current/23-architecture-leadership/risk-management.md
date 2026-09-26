@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, cost-management, measuring-architecture-outcomes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -129,7 +129,7 @@ Without it, every risk decision is negotiated from scratch.
 
 ```text
 "we accept up to 4 hours of annual unavailability in support
- systems; zero in payment systems"
+ systems; 15 minutes in payment systems"
 "we accept single-supplier dependency where the exit cost
  is under six months"
 "we accept no system with fewer than three people
@@ -179,15 +179,20 @@ legitimate response, better than leaving it open.
 
 ## When Not to Use
 
-**As an abstract category.**
+**In a small team with few systems.** With eight people and three services, the risks fit in one
+conversation, and a quarterly pre-mortem finds the same ones the register would. Maintaining owner,
+number and review cadence costs more than the list adds.
 
-**With no owner who can act.**
+**In a discovery-stage product with a short lifespan.** A prototype that may be thrown away in six
+months doesn't last long enough for knowledge or supplier risks to materialize; the register goes
+stale before its first review.
 
-**With no quantification**, however rough.
+**For security risks.** Threat modeling has its own method for enumerating them, and copying them
+into the register creates two lists that drift apart. Bring only the aggregate consequence to the
+register, when it competes for ranking with the other risks.
 
-**As a compliance spreadsheet** nobody reads.
-
-**With no option of formally accepting.**
+**As a compliance spreadsheet** nobody reads — the maintenance cost is paid and no decision comes
+out of it.
 
 **Registering everything** — a register with 60 risks prioritizes nothing.
 
@@ -198,7 +203,7 @@ legitimate response, better than leaving it open.
 - **A pre-mortem analysis** — imagining the project failed and listing the causes; cheap and
   effective for discovering risks formal analysis doesn't find.
 - **An error budget** — for availability risk, more operational and more actionable. See
-  [reliability](/12-reliability/reliability-basics.md).
+  [SLOs and error budgets](/12-reliability/slo.md).
 - **Failure exercises** — discovering risks by running, not by listing.
 
 The second is underrated: a one-hour pre-mortem with the team usually produces more real risks than a
@@ -213,8 +218,8 @@ quarter of formal registering.
 
 | Mitigate | Formally accept |
 |---|---|
-| Reduces exposure | Zero cost, explicit decision |
-| Consumes capacity | The risk stays |
+| Reduces the expected loss | Keeps the expected loss |
+| Consumes capacity now | Costs little now, plus the periodic review |
 
 ## Failure Modes
 
@@ -290,7 +295,9 @@ risks with an active owner                19
 restores tested                           100% of critical ones, quarterly
 systems with fewer than 3 operators       from 11 to 2
 risks formally accepted                   5, all reviewed on schedule
-high-exposure incidents                   1 (against 4 in the previous period)
+high-exposure incidents                   1 (against 4 in the previous
+                                           18 months, reclassified
+                                           under the new criterion)
 ```
 
 The two systems that still have fewer than three operators are registered with a training plan under
@@ -300,8 +307,8 @@ The lesson that stuck: the item that changed behavior most was the declared appe
 discussion about investing in resilience was negotiated in isolation; afterwards, it became a check
 against an already-agreed number — and the discussions went from negotiation to observation.
 
-And the exercise of rewriting the risks with a consequence and a number revealed that 51 of the
-original 74 described nothing verifiable. They gave the impression of coverage and informed no
+And the exercise of rewriting the risks with a consequence and a number revealed that most of the 51
+items that left described nothing verifiable. They gave the impression of coverage and informed no
 decision at all.
 
 ## Related Concepts

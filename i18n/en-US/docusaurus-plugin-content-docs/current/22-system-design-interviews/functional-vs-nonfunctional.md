@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -118,7 +118,8 @@ cost            is there a budget? is there an efficiency constraint?
 ```
 
 Going through the six takes less than a minute and avoids the most common gap: forgetting to ask
-about consistency, which is precisely the one that most changes the architecture.
+about consistency, whose answer decides replication and the write path — the decisions most
+expensive to reverse once the design is on the board.
 
 The omission of consistency has an identifiable cause: it is the only one of the six with no
 obvious number attached. Scale has volume, latency has milliseconds, availability has nines, cost
@@ -198,11 +199,17 @@ non-functional requirement with no number is an adjective.
 
 ## When Not to Use
 
-**Without numbers.**
+**When the problem is about behavior, not scale.** In "design the algorithm for a rate limiter" or
+"model the rules of a shopping cart", the functional requirement is the challenge itself: the
+sliding-window or discount logic decides the design, and forcing six categories of non-functional
+requirements eats the time the modeling needed.
 
-**Applying a single requirement to the whole system.**
+**When the functional requirement carries the non-functional one.** "Show the driver's location
+live" already embeds latency and update frequency; splitting it into two columns duplicates the
+requirement instead of clarifying it. In that case, just pull the number out of the sentence itself.
 
-**Listing only functional ones.**
+**When the interviewer already handed over the numbers.** If the prompt states volume, latency and
+availability, redoing the list is theater; confirm it in one sentence and move on to the design.
 
 **As a long list** — five functional and six non-functional are enough; more than that consumes the
 design's time.
@@ -228,7 +235,7 @@ design's time.
 | Per operation | Per system |
 |---|---|
 | Proportional architecture | Simpler to state |
-| Demonstrates maturity | More expensive in practice |
+| Costs questions and interview time | More expensive in practice |
 | Enables degradation | Everything at the highest target |
 
 ## Failure Modes
@@ -241,7 +248,7 @@ design's time.
 
 **No priority.** The trade-off conversation has no basis.
 
-**Forgetting consistency.** It is the category that decides most and is omitted most.
+**Forgetting consistency.** It is the most omitted, and the one that decides replication and the write path.
 
 ## Common Mistakes
 
@@ -298,7 +305,8 @@ cost             reads dominate; the architecture should optimize
 
 ```text
 "between read latency and feed freshness, I choose latency:
-30 seconds of delay is imperceptible, 2 seconds of waiting is not."
+in a feed, 30 seconds of delay goes unnoticed; 2 seconds of
+waiting does not."
 ```
 
 **What each non-functional requirement decides:**

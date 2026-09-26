@@ -13,7 +13,7 @@ objective: >
 prerequisites: [team-topologies]
 related: [team-topologies, organizational-architecture, leadership-governance]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -113,6 +113,13 @@ a component whose owner ceases to exist raises an alert
 The third item is what prevents new orphans from being created. The fourth is what detects the ones
 that appear through organizational change — which is the most common origin.
 
+The rule has side effects that need their own design. The pipeline block hits precisely the orphan
+that broke: without an exception route — a fix deployment authorized by on-call, recorded, with a
+deadline to assign an owner — the rule prevents the repair in the middle of the incident. The alert
+fires in bulk at every reorganization, and if nobody groups it by area it becomes noise the manager
+learns to ignore. And the check is only as good as the team directory: maintaining the integration
+is a permanent cost, and a stale directory produces false alarms or false greens.
+
 ### Shared components need a model
 
 ```text
@@ -169,15 +176,20 @@ ownership goes stale and the orphans stay invisible.
 
 ## When Not to Use
 
-**Declared only in a document** — it goes stale with no signal.
+The full mechanism — a file in the repository, a daily check, a pipeline block — costs integration
+with the team directory, alert triage and an exception route. It does not pay off when:
 
-**As "everyone is an owner".**
+**The repository is experimental or a prototype with an expiry date.** Requiring a verified owner for
+something that will be deleted in weeks costs more than the orphan it would prevent; an expiry date
+applied automatically is enough.
 
-**With no matching capacity** — nominal ownership is worse than declared absence.
+**The organization is small enough that everyone knows every component.** With one or two teams and
+a few dozen components, "whose is this?" is answered in a conversation, and integrating with a team
+directory that rarely changes is dead weight — until the organization grows.
 
-**With no model for shared components.**
-
-**With no authority to decommission** — an owner who cannot remove is not an owner.
+**The component is frozen with a shutdown date.** An owner for operations and security until that
+date is enough; demanding all four ownership dimensions for something that will not evolve creates
+paperwork with no effect.
 
 ## Alternatives
 
@@ -196,12 +208,13 @@ inventory reveals.
 |---|---|
 | Clear accountability | Distributes the load |
 | Becomes a bottleneck | Dilutes accountability |
-| Fast decisions | More context |
+| Fast decisions | Slow decisions, require consensus across teams |
+| One team's context | Context from several consumers |
 
 | Verified ownership | Declared |
 |---|---|
-| Orphans detectable | No cost to build |
-| Requires integration with the directory | Goes stale |
+| Orphans detectable | Orphans invisible until the incident |
+| Requires integration with the directory | No cost to build |
 
 ## Failure Modes
 
@@ -219,15 +232,20 @@ inventory reveals.
 
 ## Common Mistakes
 
-**Not verifying** whether the declared owner still exists.
+**Not verifying** whether the declared owner still exists: a reorganization dissolves the team, the
+file keeps pointing at it, and the orphan only shows up in the incident.
 
-**Assigning an owner as a team**, with no named role.
+**Assigning an owner as a team**, with no named role: the incident page lands on a distribution list,
+and each member assumes someone else will answer.
 
-**Not counting ownership** in cognitive load.
+**Not counting ownership** in cognitive load: the team accepts its fifteenth component, stops updating
+the older ones, and ownership becomes nominal without any record changing.
 
-**Having no model** for internal libraries.
+**Having no model** for internal libraries: contributions go unreviewed, each consumer keeps a fork,
+and a vulnerability has to be fixed in several diverging copies.
 
-**Not dating** the decision to decommission.
+**Not dating** the decision to decommission: the component stays marked for removal for months, keeps
+receiving patches, and ends up never being removed.
 
 ## Real-World Example
 
@@ -272,13 +290,19 @@ those three were switched back on, with a designated owner.
 transferred to a team with capacity        41
 decommissioned                             28
 absorbed by the platform                   12
-kept in frozen mode, with a nominal
-  owner and no evolution planned            8
+kept in frozen mode, with an owner
+  for operations and security only          8
 ```
 
 The 8 frozen ones are the honest category: components nobody wants to maintain, that are still used,
 and whose replacement is on the roadmap. Declaring them as such is better than pretending active
 ownership.
+
+**The 89 with merely nominal ownership** — 57 pointing at a team that no longer existed, 32 with an
+owner who didn't acknowledge the component — were revalidated team by team. The daily check finds
+the former; it can't see the latter, because the team exists, and they only surfaced when each
+manager had to confirm their team's component list. Each one ended with an owner who signed the
+ownership file or went through the same exits as the orphans.
 
 **Ownership load counted.** Each team came to have the number of components it maintains visible, and
 three teams that were above 12 had components transferred.

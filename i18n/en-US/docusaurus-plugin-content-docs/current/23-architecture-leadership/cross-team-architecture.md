@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [conways-law, technical-influence, negotiating-tradeoffs]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -122,8 +122,8 @@ Not every disagreement gets resolved. When it isn't:
 
 That does three things. It preserves the argument of whoever disagreed, which matters if the risk
 materializes. It makes the decision revisable on evidence rather than on a new argument. And it gives
-the dissenting team the acknowledgment that their position was considered — which significantly
-reduces silent non-compliance.
+the dissenting team the acknowledgment that their position was considered — which removes the most
+common reason for silent non-compliance: not having been heard.
 
 See [the decision in an ADR](/18-architecture-decisions/adr-decision.md).
 
@@ -155,7 +155,9 @@ That sentence, with no answer as to who pays for the effort, is aspiration. Team
 priorities, and migrating for compliance competes with delivering value — and loses.
 
 The ways out: fund the migration centrally, include it in each team's negotiated roadmap, or provide
-tooling that makes it cheap. Without one of those, convergence doesn't happen.
+tooling that makes it cheap. Without one of those, adoption
+reaches the new systems and convergence stalls on the old ones, which only leave the stage when someone
+decommissions them for some other reason.
 
 ### Coordination has a cost, and it should be visible
 
@@ -185,21 +187,26 @@ decision isn't made, it is adopted.
 
 ## When Not to Use
 
-**For local decisions.**
+**When the consequence stays contained within one team**, even if another team consumes the result.
+If the consumer only sees the contract and the contract doesn't change, coordinating the internal
+decision costs meetings and the teams' goodwill while protecting nothing.
 
-**Proposing before involving.**
+**When moving the boundary costs less than coordinating over and over.** Coordination is a cost paid
+on every decision; moving the boundary is paid once. If the same two teams coordinate every quarter,
+the signal is to redraw the boundary, not to perfect the meeting.
 
-**Arguing about another team's implementation.**
+**When the contract is already verified automatically** and internal divergence doesn't leak. A
+contract test that breaks the build says more, and sooner, than a round of alignment — and it consumes
+nobody's attention.
 
-**Without tracking adoption.**
-
-**Without answering who pays for the migration.**
-
-**Escalating** as a first resort — escalation teaches the teams to escalate.
+**When the decision is cheap to reverse for whoever is on the other side.** If getting it wrong means
+swapping an optional field in a compatible version, letting the team decide and fix it later is
+cheaper than weeks of up-front convergence.
 
 ## Alternatives
 
-- **Reducing the need for coordination** by moving the boundary — the best solution when viable.
+- **Reducing the need for coordination** by moving the boundary — preferable when
+  coordination between the same teams is recurring and the cost of moving the boundary is paid once.
 - **Autonomy with a verified contract** — each team decides within its scope, and compatibility is
   checked automatically.
 - **One team absorbs the scope** — when two teams coordinate constantly, merging them may be the
@@ -235,15 +242,26 @@ decision isn't made, it is adopted.
 
 ## Common Mistakes
 
-**Proposing before involving.**
+**Proposing before involving.** The proposal comes out technically sound and gets ignored — as in the
+first two attempts of the Real-World Example, which stayed below 20% adoption.
 
-**Arguing about implementation** instead of the contract.
+**Arguing about implementation** instead of the contract. The team on the other side resists the
+interference, the conversation drags on, and the contract that mattered ends up the same as it would
+have without it.
 
-**Not measuring adoption.**
+**Not measuring adoption.** The decision seems to hold because nobody complains, and the divergence
+only shows up as an integration incident months later.
 
-**Treating low adoption** as indiscipline instead of as information.
+**Treating low adoption** as indiscipline instead of as information. Pressure goes up, compliance
+becomes a formality, and the real constraint blocking adoption — like the four in the Real-World
+Example — stays unanswered.
 
-**Over-coordinating**, spending the teams' willingness.
+**Over-coordinating**, spending the teams' willingness. By the time a decision that truly crosses
+boundaries arrives, the representatives already treat the meeting as bureaucracy and send someone who
+can't decide.
+
+**Escalating as a first resort.** The manager decides without technical context, and the teams learn
+that disagreeing is a way to outsource the decision.
 
 ## Real-World Example
 

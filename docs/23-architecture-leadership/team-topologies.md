@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, organizational-architecture, architecture-ownership]
 canonical_for: [topologias de time, modo de interação, time habilitador, time de fluxo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -92,7 +92,7 @@ time de plataforma       oferece capacidade de autoatendimento,
 
 O modo de interação de uma plataforma é **serviço**: o time de fluxo consome quando quer, sem
 pedir. Se ele precisa abrir um chamado e esperar, o modo real é colaboração assimétrica — e o
-gargalo é inevitável.
+gargalo aparece assim que o volume de pedidos passa do que o time de plataforma consegue atender.
 
 Ver [centralização vs. descentralização](/20-trade-offs/centralization-vs-decentralization.md).
 
@@ -132,7 +132,8 @@ a competência deveria ser distribuída, possivelmente com um time habilitador t
 intrínseca    a dificuldade essencial do domínio
 extrínseca    o que a ferramenta e o processo acrescentam
               — é o que a plataforma deve eliminar
-irrelevante   o que não deveria estar lá
+pertinente    o aprendizado do domínio que gera valor (germane)
+              — é o espaço que a plataforma libera
 ```
 
 O tamanho do escopo de um time é limitado pela carga cognitiva que ele suporta, não pela
@@ -192,7 +193,13 @@ interação é uma escolha que deve mudar quando a fronteira amadurece.
 **Como reorganização completa** por adoção de modelo — o custo de reorganizar é alto e o modelo é
 melhor como diagnóstico.
 
-**Classificando todo time** — a taxonomia serve onde esclarece.
+**Em organização com poucos times** — com três ou quatro times que cabem numa mesma conversa, as
+dependências já são visíveis a todos, e classificar tipos e modos não revela nada que a conversa
+semanal não mostre.
+
+**Reorganizando times sem mudar a arquitetura** — se os serviços continuam acoplados como antes, a
+Lei de Conway puxa a comunicação de volta ao desenho antigo, e os novos rótulos passam a descrever
+uma estrutura que não existe.
 
 **Criando times de plataforma** sem produto, documentação e capacidade de autoatendimento.
 
@@ -238,15 +245,22 @@ resolver com um time habilitador.
 
 ## Erros Comuns
 
-**Renomear times sem mudar o modo de interação.**
+**Renomear times sem mudar o modo de interação.** O time de infraestrutura que vira "plataforma"
+mantém a fila de chamados, e a promessa de autoatendimento vira frustração dos times de fluxo.
 
-**Criar time de plataforma** sem tratá-lo como produto.
+**Criar time de plataforma** sem tratá-lo como produto. Sem pessoa de produto nem documentação,
+ele constrói o que acha útil, a adoção fica baixa, e os times de fluxo mantêm suas soluções
+paralelas.
 
-**Não datar** o engajamento de um time habilitador.
+**Não datar** o engajamento de um time habilitador. Sem data de saída, ninguém cobra a
+transferência, e o habilitador passa a executar o trabalho que deveria ensinar.
 
-**Medir carga por número de pessoas** em vez de por contexto.
+**Medir carga por número de pessoas** em vez de por contexto. A resposta à lentidão vira
+contratar, e o time maior continua responsável pelos mesmos doze domínios — agora com mais
+coordenação interna.
 
-**Adotar a taxonomia** como fim em si.
+**Adotar a taxonomia** como fim em si. Todo time ganha um rótulo, o organograma muda, e os
+pares em colaboração não declarada continuam os mesmos.
 
 ## Exemplo Real
 
@@ -304,17 +318,17 @@ times de fluxo entregando de ponta a ponta           14 (de 6)
 pares em colaboração de fato                         11 (de 31)
 tempo médio de entrega                               -46%
 uso de plataforma sem abrir chamado                  de 12% para 84%
-carga cognitiva percebida (pesquisa interna)         de 3,1 para 4,2
-                                                     em escala de 5
+carga cognitiva administrável (pesquisa interna,    de 3,1 para 4,2
+  5 = o time domina plenamente o próprio escopo)
 engenheiros                                          190 (inalterado)
 ```
 
-O último número é o que a liderança destaca: a capacidade de entrega quase dobrou sem contratar
+O último número é o que a liderança destaca: o tempo de entrega caiu quase à metade sem contratar
 ninguém. O gargalo nunca tinha sido capacidade — era coordenação.
 
 O detalhe que a equipe destaca: a medição de "colaborações de fato, não declaradas" foi o instrumento
 decisivo. Ela é simples de obter — contar dependências recorrentes entre times ao longo de um
-trimestre — e nenhuma organização a media.
+trimestre — e a empresa nunca a tinha medido.
 
 ## Conceitos Relacionados
 

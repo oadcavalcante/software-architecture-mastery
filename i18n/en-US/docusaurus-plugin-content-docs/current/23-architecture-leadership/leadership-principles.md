@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -77,25 +77,20 @@ See [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 When the decision archive doesn't exist, building it comes before writing principles.
 
-### Apply the inverse test
+### Apply the inverse test to the extracted criteria
 
-```text
-formulate the opposite
-if it is absurd, it's a slogan
-if it is a defensible position, it's a principle
-```
-
-```text
-"we seek simplicity"                        absurd inverse
-"we prefer buying to building, except
- where the capability differentiates the
- business"                                  defensible inverse
-```
-
-Every real principle gives up something good. If nothing is being given up, there is no choice. See
-[enterprise principles](/15-enterprise-architecture/enterprise-principles.md).
+The [inverse test](/19-architecture-governance/governance-principles.md#the-opposite-test) — would
+anyone defend the opposite? — is defined at the previous level. For the writer, what changes is
+where it is applied: to the criteria that came out of the ADRs, before they become statements. A
+criterion that shows up in real decisions usually passes, because it was used to reject an option;
+when it fails, it was justification rhetoric repeated across the records, not the criterion that
+decided — and that difference only shows when you reread the options the ADR discarded.
 
 ### Implications, not just the statement
+
+What an implication is lives in
+[enterprise principles](/15-enterprise-architecture/enterprise-principles.md#implications-are-what-makes-it-actionable).
+For the writer, the question is whom it binds:
 
 ```text
 principle      "what the platform offers, teams don't rebuild"
@@ -113,22 +108,15 @@ rightly so.
 
 ### Precedence between conflicting principles
 
-```text
-"teams decide their own technology"
-"we minimize the number of technologies in operation"
-```
+The forms the rule can take — by domain, by risk — are in
+[Principles in Operation](/19-architecture-governance/governance-principles.md#principles-conflict-and-precedence-has-to-exist).
+Choosing which one applies, and declaring it in the same document as the principles, is the
+writer's responsibility — and it is the part the workshop normally does not do, because it requires
+choosing, and the workshop seeks consensus.
 
-Both defensible, and opposed. With no rule, each decision becomes a power struggle.
-
-```text
-by domain    autonomy wins for internal choices;
-             standardization wins on the shared surface
-by risk      the greater the shared risk, the more weight
-             to coherence
-```
-
-Defining the precedence is the writer's responsibility, and it is the part the workshop normally does
-not do — because it requires choosing, and the workshop seeks consensus.
+When deriving from precedents, the conflict is already in the archive: it is the ADRs that cited
+both criteria and went in different directions. Those records show where the boundary fell in
+practice, and the declared rule should reproduce it or say why it changes.
 
 ### Five to eight, at most
 
@@ -144,7 +132,10 @@ a principle cited in ADRs and reviews    it's operating
 never cited                              it isn't
 ```
 
-That measurement is cheap — a search of the decision archive — and it is the only honest test. A
+That measurement is cheap — a search of the decision archive — and it is the one least dependent
+on opinion. It has two limits: it only sees decisions that became an ADR or a review, and it counts
+a ritual citation the same as one that eliminated an option; reading a sample of the citations
+separates the two. A
 well-written principle nobody cites in a year is not working, regardless of the quality of the
 writing.
 
@@ -185,17 +176,19 @@ with implications and precedence.
 
 ## When Not to Use
 
-**Formulated in a workshop** out of aspiration.
+**A decision archive too small.** With fewer than about thirty recorded decisions, a criterion
+that appears three times can't be told apart from coincidence, and the derivation method has no
+recurrence to draw on. The right work is to build the archive first.
 
-**Without passing the inverse test.**
+**An organization where the criteria travel unrecorded.** With a few teams under the same technical
+leadership, decisions pass through the same people and the criteria are already shared. A principle
+written there is born as consensus — and consensus is exactly what this document says to retire.
 
-**Without implications.**
+**A recurring decision with a verifiable outcome.** If the right answer is always the same and can
+be checked automatically, the instrument is a standard, not a principle.
 
-**Without precedence** among those that conflict.
-
-**In numbers above eight.**
-
-**Without measuring citation** in real decisions.
+**Leadership that won't bind itself.** Without the willingness to declare precedence and accept
+implications that commit the writers, the published list becomes aspiration under another name.
 
 ## Alternatives
 
@@ -210,7 +203,7 @@ with implications and precedence.
 
 | Derived from precedents | Formulated from aspiration |
 |---|---|
-| Recognized and used | Describes the desired |
+| Recognized immediately | Has to be sold |
 | Requires a decision archive | Fast to produce |
 | Describes what is already done | May describe nothing |
 
@@ -252,9 +245,10 @@ wanted to create some. The initial proposal was the usual one: a two-day worksho
 architects and tech leads.
 
 The architecture group proposed a different method, with a simple argument: the organization had
-already been deciding somehow, for four years, and those decisions were on record.
+already been deciding somehow, for four years, and since the second year it had recorded those
+decisions in ADRs.
 
-**Reading the ADRs.** The 96 decision records from the last three years were read, and the criteria
+**Reading the ADRs.** The 96 decision records from those three years were read, and the criteria
 cited in each one were tabulated.
 
 ```text
@@ -279,11 +273,14 @@ build has to name the differentiator in writing.
 writers. For the on-call principle, the obligation fell on leadership: no team takes on on-call
 responsibility without the platform that makes it sustainable.
 
-**Precedence declared** between the two that conflicted — team autonomy and buy over build — resolved
-by domain.
+**Precedence declared** between the two that conflicted — debugging at 3am and buying where we
+aren't differentiated, because a bought product is usually a black box to whoever is on call —,
+resolved by domain: on the clinical care path, debuggability wins; in administrative systems, buying
+wins.
 
-The result was a one-page document, with five statements, published in three weeks rather than a
-two-day workshop.
+The result was a one-page document, with five statements, published in three weeks — longer than
+the workshop's two days, because it included the implication and precedence choices the workshop
+would not have made.
 
 Twelve months later:
 
@@ -299,8 +296,10 @@ The recorded conclusion: the five principles were news to nobody. They described
 organization already used, stated memorably — and that is why they were recognized immediately,
 instead of having to be sold.
 
-And the two-day workshop, which would have produced aspirations, would have cost eight people for two
-days. Reading the ADRs cost one person for three days.
+The comparable cost is that of the survey: the workshop, which would have produced aspirations,
+would have cost eight people for two days; reading the ADRs cost one person for three. The rest of
+the three weeks — the discussion of the fifth principle, the implications, the precedence — involved
+more people and was not measured, and it doesn't enter that comparison.
 
 ## Related Concepts
 

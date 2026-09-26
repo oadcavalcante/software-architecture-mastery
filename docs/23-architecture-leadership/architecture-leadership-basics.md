@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: [liderança em arquitetura, autoridade sem cargo, papel do arquiteto sênior, crédito técnico]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -117,8 +117,9 @@ faria a decisão mudar, e seguir. Ver
 
 ### A organização é uma restrição de arquitetura
 
-Uma arquitetura que contraria a estrutura de comunicação da organização não sobrevive. Isso não é
-uma observação sociológica — é uma restrição de projeto tão dura quanto latência ou custo.
+Uma arquitetura que contraria a estrutura de comunicação da organização é erodida até espelhá-la,
+a menos que a estrutura mude junto. Isso não é uma observação sociológica — é uma restrição de
+projeto tão dura quanto latência ou custo.
 
 Reconhecê-la muda o que se propõe: em vez de desenhar a arquitetura ideal e lamentar que a
 organização não a suporte, o arquiteto sênior propõe a mudança organizacional junto com a
@@ -193,13 +194,15 @@ Este conjunto de posturas se aplica quando:
 **Onde a decisão é local e reversível** — nesses casos, o time decide e o arquiteto não deveria
 estar na sala.
 
-**Usando autoridade formal como primeiro recurso** — ela funciona uma vez e custa o resto.
+**Em organização pequena, com um único time decidindo a arquitetura** — não há o que atravessar;
+o papel transversal não se paga, e a mesma pessoa decide como membro do time.
 
-**Abandonando a competência técnica** para virar apenas comunicador.
+**Em incidente ativo ou exigência regulatória com prazo** — o custo de convencer excede o de
+errar; decide quem tem autoridade, e o convencimento fica para a revisão posterior.
 
-**Intervindo em tudo** — cada intervenção consome capital.
-
-**Sem construir capacidade** — se nada funciona sem você, o trabalho não foi feito.
+**Onde a organização concede autoridade formal legítima sobre o tema** — segurança e conformidade,
+por exemplo. A decisão pode ser determinada; influência ainda serve para a adoção, não para a
+decisão.
 
 ## Alternativas
 
@@ -208,8 +211,9 @@ estar na sala.
   [governança federada](/19-architecture-governance/federated-governance.md).
 - **Arquiteto embarcado** — dentro do time, sem escopo transversal; mais profundidade, menos
   alcance.
-- **Autoridade formal real** — organizações que a concedem obtêm decisão mais rápida e perdem
-  qualidade, porque a decisão fica longe do contexto.
+- **Autoridade formal real** — vence em domínio regulado, em decisões de segurança e onde o
+  arquiteto com autoridade está perto dos times. Perde qualidade quando ele está longe do contexto
+  de quem executa: a decisão sai mais rápida e pior.
 
 A primeira é a alternativa mais séria e a que mais cresce. O papel de arquiteto dedicado é uma
 resposta a um problema de escala, não uma necessidade universal.
@@ -240,7 +244,7 @@ resposta a um problema de escala, não uma necessidade universal.
 
 **Criar dependência.** Nada anda sem o arquiteto.
 
-**Ignorar a organização.** A arquitetura proposta não sobrevive ao contato com a estrutura real.
+**Ignorar a organização.** A arquitetura proposta é erodida até espelhar a estrutura real.
 
 ## Erros Comuns
 
@@ -303,7 +307,7 @@ de cada lado.
 desenho dos times, cedo, como consultores sem veto — o que resolveu o "chegou tarde demais" e,
 como efeito colateral, recuperou a proximidade técnica.
 
-Dois anos depois:
+Dois anos depois, uma nova avaliação com a mesma janela de dezoito meses:
 
 ```text
 propostas apresentadas                         24 (menos, e melhores)
@@ -319,8 +323,8 @@ O último número foi o que mudou a autoavaliação da área. Ela passou a se co
 quando os times decidiam bem sozinhos — e não quando ela decidia.
 
 O ponto que a equipe sublinha: a redução de 31 para 24 propostas foi deliberada. A área passou a
-selecionar batalhas, e as sete propostas que deixou de fazer eram todas de baixa consequência —
-preferências de padronização que não afetavam risco, custo nem velocidade.
+selecionar batalhas e, pela própria estimativa, o que deixou de levar a comitê eram sobretudo
+preferências de padronização de baixa consequência, que não afetavam risco, custo nem velocidade.
 
 ## Conceitos Relacionados
 

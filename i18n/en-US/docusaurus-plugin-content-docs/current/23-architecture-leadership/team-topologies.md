@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, organizational-architecture, architecture-ownership]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -93,7 +93,8 @@ platform team         offers self-service capability,
 
 A platform's interaction mode is **X-as-a-service**: the stream-aligned team consumes it whenever
 it wants, without asking. If it has to open a ticket and wait, the real mode is asymmetric
-collaboration — and the bottleneck is inevitable.
+collaboration — and the bottleneck appears as soon as request volume exceeds what the platform
+team can handle.
 
 See [centralization vs. decentralization](/20-trade-offs/centralization-vs-decentralization.md).
 
@@ -133,7 +134,8 @@ unviable?** If not, the competence should be distributed, possibly with a tempor
 intrinsic     the domain's essential difficulty
 extraneous    what the tooling and the process add
               — it is what the platform should eliminate
-germane       what shouldn't be there at all
+germane       the domain learning that creates value
+              — it is the room the platform frees up
 ```
 
 The size of a team's scope is limited by the cognitive load it can bear, not by its execution
@@ -193,7 +195,13 @@ mode is a choice that should change when the boundary matures.
 **As a complete reorganization** by adopting a model — the cost of reorganizing is high and the
 model is better as a diagnosis.
 
-**Classifying every team** — the taxonomy serves where it clarifies.
+**In an organization with few teams** — with three or four teams that fit in a single
+conversation, dependencies are already visible to everyone, and classifying types and modes reveals
+nothing the weekly conversation doesn't already show.
+
+**Reorganizing teams without changing the architecture** — if the services stay coupled as before,
+Conway's Law pulls communication back to the old design, and the new labels end up describing a
+structure that doesn't exist.
 
 **Creating platform teams** with no product, documentation and self-service capability.
 
@@ -239,15 +247,23 @@ to solve with an enabling team.
 
 ## Common Mistakes
 
-**Renaming teams without changing the interaction mode.**
+**Renaming teams without changing the interaction mode.** The infrastructure team that becomes
+"platform" keeps its ticket queue, and the promise of self-service turns into frustration for the
+stream-aligned teams.
 
-**Creating a platform team** without treating it as a product.
+**Creating a platform team** without treating it as a product. With no product person and no
+documentation, it builds what it thinks is useful, adoption stays low, and stream-aligned teams keep
+their parallel solutions.
 
-**Not dating** an enabling team's engagement.
+**Not dating** an enabling team's engagement. With no exit date, nobody pushes for the transfer,
+and the enabling team ends up doing the work it was supposed to teach.
 
-**Measuring load by headcount** instead of by context.
+**Measuring load by headcount** instead of by context. The answer to slowness becomes hiring, and
+the bigger team stays responsible for the same twelve domains — now with more internal
+coordination.
 
-**Adopting the taxonomy** as an end in itself.
+**Adopting the taxonomy** as an end in itself. Every team gets a label, the org chart changes, and
+the undeclared collaborating pairs stay exactly the same.
 
 ## Real-World Example
 
@@ -305,17 +321,17 @@ stream-aligned teams delivering end to end            14 (from 6)
 pairs collaborating in fact                           11 (from 31)
 average delivery time                                 -46%
 platform use without opening a ticket                 from 12% to 84%
-perceived cognitive load (internal survey)            from 3.1 to 4.2
-                                                      on a scale of 5
+manageable cognitive load (internal survey,          from 3.1 to 4.2
+  5 = the team fully masters its own scope)
 engineers                                             190 (unchanged)
 ```
 
-The last number is what leadership highlights: delivery capacity almost doubled with no hiring. The
+The last number is what leadership highlights: delivery time fell almost by half with no hiring. The
 bottleneck had never been capacity — it was coordination.
 
 The detail the team highlights: measuring "collaborations in fact, undeclared" was the decisive
 instrument. It is simple to obtain — counting recurring dependencies between teams over a quarter —
-and no organization measured it.
+and the company had never measured it.
 
 ## Related Concepts
 

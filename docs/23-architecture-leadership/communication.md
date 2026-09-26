@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [architecture-presentations, stakeholder-management, technical-influence]
 canonical_for: [comunicação de arquitetura, altitude da mensagem, tradução para o público]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -100,6 +100,12 @@ A razão prática: quem escuta tem tempo limitado e vai decidir se quer ouvir ma
 conclusão primeiro permite que a conversa vá direto ao que interessa a quem decide, em vez de
 seguir o roteiro de quem apresenta.
 
+A estrutura completa de uma apresentação nessa ordem está em
+[apresentações](/23-architecture-leadership/architecture-presentations.md). Fora da sala, a
+inversão vale na mesma medida e é mais esquecida: numa mensagem escrita, o pedido vai na primeira
+linha, porque é a única que todos leem; numa conversa de corredor, vai na primeira frase, porque
+o interlocutor decide nos primeiros segundos se aquilo é assunto dele.
+
 ### Números em vez de adjetivos
 
 ```text
@@ -129,19 +135,11 @@ compete com a alternativa de não fazer — que é a comparação real.
 
 ### Fale a moeda de quem escuta
 
-```text
-diretoria de negócio   receita, risco, prazo de mercado
-finanças               custo, previsibilidade, contrato
-operação               plantão, incidentes, carga
-produto                capacidade, prazo, o que fica de fora
-jurídico e compliance  exposição, obrigação, prazo regulatório
-engenharia             desenho, trade-off, consequência técnica
-```
-
-Cada público tem uma unidade em que pensa. Traduzir para ela não é manipulação — é a condição
-para a informação ser utilizável por quem a recebe.
-
-Ver [gestão de interessados](/23-architecture-leadership/stakeholder-management.md).
+Qual é a moeda de cada interessado — receita, custo, plantão, exposição — está mapeado em
+[gestão de interessados](/23-architecture-leadership/stakeholder-management.md). O que esta página
+acrescenta é que a moeda escolhe a altitude: receita e exposição pedem altitude alta; plantão e
+capacidade pedem a média; e é na altitude média que a tradução mais falha, porque o arquiteto
+tende a descer ao mecanismo quando o operador só precisa saber o que muda às três da manhã.
 
 ### Escrever antes de apresentar
 
@@ -174,23 +172,26 @@ nada for feito.
 
 ## Quando Usar
 
-- Em qualquer comunicação de decisão arquitetural fora do time.
+- Na comunicação de decisão arquitetural a quem está fora do time e não vai avaliar o mecanismo.
 - Especialmente quando há investimento a aprovar.
-- Sempre com o eixo escolhido a partir de quem escuta.
+- Quando o público é conhecido o suficiente para escolher o eixo a partir de quem escuta.
 
 ## Quando Não Usar
 
-**Simplificando** em vez de traduzir.
+**Público misto numa só sala.** Diretoria e engenharia juntas: uma altitude única deixa metade
+da sala sem base para decidir. Faça a versão alta na reunião e a baixa em documento anexo, ou
+separe as conversas.
 
-**Começando pelo contexto** com públicos executivos.
+**Durante um incidente.** O eixo é o que fazer agora, não risco nem custo. Comunique estado,
+próxima ação e horário da próxima atualização; a tradução para investimento fica para a análise
+pós-incidente.
 
-**Com adjetivos** onde há números disponíveis.
+**Público que vai auditar o mecanismo.** Um comitê técnico ou um auditor de segurança precisa da
+altitude baixa; entregar a alta soa como evasão. Comece pelo desenho.
 
-**Sem dizer o que acontece se nada for feito.**
-
-**Sem documento escrito** para decisões relevantes.
-
-**Omitindo sem sinalizar.**
+**Número frágil demais para ancorar a mensagem.** Uma estimativa de perda sem fonte, posta na
+primeira frase, vira o alvo da reunião e derruba a proposta com ela. Abra pela consequência
+qualitativa, declare que o número é estimativa e diga como será medido.
 
 ## Alternativas
 
@@ -198,7 +199,8 @@ nada for feito.
   rende mais que slides.
 - **Conversa individual antes** — alinhar com cada interessado separadamente costuma ser mais
   eficaz que convencer um grupo.
-- **Demonstração** — quando aplicável, mostrar funcionando vale mais que qualquer argumento.
+- **Demonstração** — quando o risco em discussão é de viabilidade, mostrar funcionando costuma
+  resolver o que argumento não resolve.
 
 A segunda é a mais subestimada: reuniões de decisão raramente mudam posições; elas confirmam
 posições formadas antes.
@@ -212,8 +214,9 @@ posições formadas antes.
 
 | Documento | Apresentação |
 |---|---|
-| Força clareza, persiste | Interativo, ajusta ao vivo |
-| Exige que leiam | Tolera lacunas |
+| Persiste depois da reunião | Some com a reunião |
+| Expõe lacuna de raciocínio antes | Lacuna aparece durante, ou não aparece |
+| Depende de o público ler antes | Funciona com quem não leu |
 
 ## Modos de Falha
 
@@ -231,15 +234,20 @@ posições formadas antes.
 
 ## Erros Comuns
 
-**Apresentar o diagrama** a quem decide orçamento.
+**Apresentar o diagrama** a quem decide orçamento: a reunião termina sem perguntas, e o silêncio
+é lido como concordância quando é falta de base para decidir.
 
-**Construir o argumento em ordem de engenharia** para públicos executivos.
+**Construir o argumento em ordem de engenharia** para públicos executivos: o tempo acaba no
+contexto, e o pedido é feito nos últimos minutos, quando a decisão já foi adiada.
 
-**Não quantificar** o problema atual.
+**Não quantificar** o problema atual: a proposta é comparada às outras pela confiança no
+proponente, e perde para a que tem número, mesmo que o número seja pior.
 
-**Não fazer as conversas individuais** antes da reunião.
+**Não fazer as conversas individuais** antes da reunião: a primeira objeção de um interessado
+aparece em público, e os outros se alinham a ela.
 
-**Achar que a organização não valoriza arquitetura**, quando o problema é de tradução.
+**Achar que a organização não valoriza arquitetura**, quando o problema é de tradução: a proposta
+seguinte é preparada no mesmo eixo, e é negada pela mesma razão.
 
 ## Exemplo Real
 

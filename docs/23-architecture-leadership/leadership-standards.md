@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leadership-principles]
 related: [leadership-principles, leadership-governance, cross-team-architecture]
 canonical_for: [publicação de padrão, patrocínio de padrão, adoção como sinal, estágio de recomendação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -70,9 +70,10 @@ leitura correta  "o padrão não é adotável, ou não vale a pena
                  para quem deveria adotá-lo"
 ```
 
-Essa inversão de leitura é a mudança de postura mais importante deste tema. Times não deixam de
-adotar padrões por indisciplina — eles deixam quando o custo de adotar excede o benefício
-percebido, ou quando não há caminho.
+Essa inversão de leitura é a mudança de postura mais importante deste tema. Indisciplina explica
+um time que não adota; não explica dezenas de times, com gestores e prioridades diferentes, deixando
+de adotar o mesmo padrão. Quando a baixa adoção é espalhada, a causa comum está no que eles têm em
+comum — o padrão: o custo de adotar excede o benefício percebido, ou não há caminho.
 
 Investigar por quê, em vez de cobrar, resolve o problema; cobrar apenas move o descumprimento
 para o silêncio.
@@ -140,14 +141,10 @@ sabe se ela era esperada.
 
 ### Regra de troca
 
-```text
-para adicionar um padrão, remova outro
-```
-
-Salvo risco regulatório. A regra existe porque a atenção da organização é finita: o sexagésimo
-padrão não aumenta a coerência, ele dilui os cinquenta e nove anteriores.
-
-Ela também força priorização real em quem publica — o que é raro quando publicar não tem custo.
+A [regra de troca](/19-architecture-governance/governance-standards.md) — para adicionar um
+padrão, remova outro, salvo risco regulatório — é definida em padrões em operação. Para quem
+publica, o efeito que interessa é outro: ela dá custo ao ato de publicar, e obriga quem propõe o
+padrão novo a dizer qual existente vale menos que ele — o que é raro quando publicar não tem custo.
 
 ### Escrito por quem aplica
 
@@ -168,11 +165,11 @@ sem data     o padrão sobrevive ao contexto que o produziu
 com data     alguém precisa reafirmá-lo, o que é um filtro
 ```
 
-Um padrão que referencia tecnologia descontinuada e continua sendo citado em revisões é o
-resultado previsível de publicar sem prazo.
-
-Vinte e quatro meses é um limite razoável. Ver
-[governança](/23-architecture-leadership/leadership-governance.md).
+O prazo e o ciclo de aposentadoria estão em
+[padrões em operação](/19-architecture-governance/governance-standards.md). O que cabe a quem
+publica é fixar a data no ato da publicação e vincular o padrão ao ADR que o originou: sem o ADR, a
+revisão encontra uma regra sem contexto e não tem como saber se as premissas que a justificaram
+ainda valem. Ver [governança](/23-architecture-leadership/leadership-governance.md).
 
 ## Modelo Mental
 
@@ -181,23 +178,28 @@ informação sobre o padrão.
 
 ## Quando Usar
 
-- Para decisões recorrentes cujo resultado já é conhecido.
-- Onde a divergência tem custo mensurável.
-- Com caminho, financiamento e data de revisão definidos antes de publicar.
+- Quando quem publica consegue entregar o caminho junto — gabarito, ferramenta ou exemplo
+  funcional — e não apenas o texto.
+- Quando existe resposta para a migração: verba nomeada, ou a decisão explícita de valer só para
+  sistemas novos.
+- Quando a área que publica tem patrocínio para sustentar o estágio de recomendação e ler a adoção
+  como resultado, em vez de ser pressionada a declarar obrigatoriedade no primeiro dia.
 
 ## Quando Não Usar
 
-**Sem caminho de adoção.**
+**Quando a decisão ainda não se repetiu o bastante** para ter resultado conhecido — publicar
+congela uma escolha que os times ainda estão aprendendo a fazer; o estágio certo é recomendação ou
+nada.
 
-**Sem responder quem paga a migração.**
+**Quando os times afetados usam pilhas diferentes demais** para um gabarito único — o padrão vai
+ser escrito para uma delas e errado para as outras, como no exemplo abaixo; isso é princípio.
 
-**Sem data de revisão.**
+**Quando não há verba para migrar e o risco está nos sistemas existentes** — a saída "só sistemas
+novos" não resolve, e o padrão vira cobrança sem caminho; o que cabe é um projeto financiado, não
+um padrão.
 
-**Onde o contexto varia** — isso é princípio.
-
-**Adicionando sem remover.**
-
-**Cobrando adoção** em vez de investigar a causa.
+**Quando quem publica não tem como medir adoção** — sem a medida, o estágio de recomendação não
+produz informação, e a baixa adoção só aparece como sintoma, anos depois.
 
 ## Alternativas
 
@@ -214,7 +216,7 @@ do gabarito não precisa ser lembrado nem verificado.
 
 | Padrão obrigatório | Recomendação |
 |---|---|
-| Coerência garantida | Adoção por convencimento |
+| Coerência exigida, não garantida: sem caminho, vira contorno silencioso | Divergência visível e mensurável |
 | Exige exceção e verificação | Divergência possível |
 | Pode estar errado e ser imposto | A adoção é o teste |
 
@@ -247,14 +249,14 @@ do gabarito não precisa ser lembrado nem verificado.
 
 **Não considerar** aplicar só a sistemas novos.
 
-**Não vincular ao ADR** que originou o padrão.
+**Não vincular ao ADR** que originou o padrão — a revisão perde o contexto que diria se ele ainda vale.
 
 ## Exemplo Real
 
 Uma empresa de serviços financeiros publicou, ao longo de dois anos, quatro padrões
 arquiteturais. Todos foram anunciados como obrigatórios desde o primeiro dia.
 
-A adoção, medida 18 meses depois:
+A adoção de cada um, medida 18 meses depois da própria publicação:
 
 ```text
 padrão de observabilidade          89%
@@ -263,8 +265,8 @@ padrão de tratamento de erro       34%
 padrão de estrutura de projeto      9%
 ```
 
-Os dois primeiros tinham gabarito pronto na publicação; os dois últimos, não. A correlação era
-perfeita e ninguém a tinha notado, porque a leitura institucional de baixa adoção era de
+Os dois primeiros tinham gabarito pronto na publicação; os dois últimos, não. Os dois com
+gabarito eram os dois com adoção alta, e ninguém tinha notado, porque a leitura institucional de baixa adoção era de
 indisciplina — e a resposta em curso era um plano de cobrança por área.
 
 A liderança de arquitetura propôs inverter a leitura antes de cobrar qualquer coisa: entrevistar
@@ -315,7 +317,9 @@ descumprimento silencioso, e a organização teria concluído que padrões não 
 Escolha três padrões da sua organização e verifique se cada um tem caminho de adoção, dono, data
 de revisão e resposta a quem paga a migração.
 
-Os que não tiverem os quatro não são padrões — são documentos, e a adoção deles é acidente.
+Para cada lacuna, anote qual das três causas de baixa adoção ela prevê. Onde falta algum dos
+quatro e a adoção mesmo assim é alta, descubra de onde ela veio — um gabarito informal, um dono
+dedicado — antes de contar com isso no próximo padrão.
 
 ## Perguntas de Entrevista
 

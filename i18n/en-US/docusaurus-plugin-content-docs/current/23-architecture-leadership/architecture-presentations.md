@@ -13,7 +13,7 @@ objective: >
 prerequisites: [communication]
 related: [communication, stakeholder-management, negotiating-tradeoffs]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -143,15 +143,15 @@ the decision. See
 
 ### A document before slides, for relevant decisions
 
-```text
-slides      tolerate gaps in reasoning
-a document  exposes the weak argument before the meeting
-```
+Why writing before presenting forces clarity is covered in
+[communication](/23-architecture-leadership/communication.md#write-before-presenting). What changes
+for the presentation is the role of the meeting: with a two- to four-page document circulated
+beforehand, it stops presenting and starts discussing — people arrive with questions instead of
+with confusion.
 
-A two- to four-page document, read beforehand, produces far better meetings: people arrive with
-questions instead of with confusion, and the time is spent on what matters.
-
-It is also what remains afterwards — slides, with no narration, communicate nothing.
+A circulated document doesn't guarantee it gets read. That is why the format usually comes with a
+few minutes of silent reading at the start of the meeting, and the slides, when there are any,
+shrink to the ask and the diagrams that support the discussion.
 
 ### End with what was decided
 
@@ -176,17 +176,23 @@ decided.** The detail goes into an appendix.
 
 ## When Not to Use
 
-**With no explicit ask** — an informational presentation should be a document.
+**When there is no ask** — an informational presentation should be a document.
 
-**With presenting taking all the time.**
+**When the decision is reversible and cheap.** An asynchronous comment settles it, and assembling
+an ask, prior conversations and a meeting costs more than getting it wrong and undoing it.
 
-**With dense diagrams.**
+**When the decider is a single person.** The individual conversation with them is already the
+forum; a group meeting only adds an audience.
 
-**Without having talked beforehand** to whoever can block it.
+**When governance requires the formal forum to be where the decision is made.** An architecture
+board with minutes and a vote doesn't accept a decision that arrives already settled; prior
+conversations that actually decide become a parallel decision, and the forum is reduced to
+rubber-stamping.
 
-**Without recording** what was decided.
-
-**When a document would do** — for many cases, it does it better.
+The practices themselves have a cost. Prior conversations take days and can hollow out the meeting,
+and whoever wasn't consulted arrives knowing the others have already talked — and feels left out.
+Pre-reading only works if the audience actually reads; in a group that doesn't, the minutes of
+silence become the whole presentation.
 
 ## Alternatives
 
@@ -196,15 +202,17 @@ decided.** The detail goes into an appendix.
 - **A demonstration** — when there is something working, showing it is worth more than presenting.
 - **Nothing** — not every decision needs a meeting; many are resolved asynchronously.
 
-The first is the standard in organizations that have adopted it, and the change is usually
-perceived as one of the most effective a technical group can make.
+A document read beforehand beats the presentation when two conditions hold together: the decision
+is complex enough that the argument needs to be read, not heard, and the audience has the time and
+the habit of reading ahead. Without the second, it is just a delayed presentation.
 
 ## Trade-offs
 
 | Presentation | Document |
 |---|---|
 | Interactive, adjusts live | Forces clarity, persists |
-| Tolerates gaps | Requires that they read it |
+| Reasoning gaps show up during the meeting | Gaps show up earlier, in the writing |
+| Requires no preparation from the audience | Requires the audience to read beforehand |
 | Better for aligning | Better for deciding |
 
 | Detail in the body | Detail in an appendix |
@@ -228,15 +236,22 @@ perceived as one of the most effective a technical group can make.
 
 ## Common Mistakes
 
-**Building it in engineering order.**
+**Building it in engineering order.** The ask shows up on the last slide, when time has run out,
+and whoever decides spent the presentation trying to guess where it was going.
 
-**Putting the technical detail in the body.**
+**Putting the technical detail in the body.** The discussion drifts toward the detail on the
+screen, and the question that decides — is it worth the cost? — runs out of time.
 
-**Not reserving discussion time.**
+**Not reserving discussion time.** The objections aren't raised in the room; they show up later, by
+message, when there is no longer anyone to answer them for everyone.
 
-**Presenting to mixed audiences** with the same version.
+**Presenting to mixed audiences** with the same version. The executive gets lost in the detail, the
+engineer finds the summary shallow, and the discussion splits into two conversations that never
+meet. The way out is one version per altitude, or the body at the altitude of whoever decides and
+the detail in an appendix for whoever builds.
 
-**Not sending** the record of what was decided.
+**Not sending** the record of what was decided. Each participant leaves with their own version, and
+the divergence shows up in execution, when someone does what they thought was agreed.
 
 ## Real-World Example
 
@@ -306,8 +321,8 @@ achieved.
 Take the last architecture presentation you gave and answer: what was the ask, and in what minute
 was it made?
 
-If there was no ask, or if it came after minute thirty, you have found the reason the decision
-didn't come.
+If there was no ask, or if it came after minute thirty, you have found a likely reason the
+decision didn't come.
 
 ## Interview Questions
 

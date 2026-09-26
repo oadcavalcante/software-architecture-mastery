@@ -13,7 +13,7 @@ objective: >
 prerequisites: [evolutionary-architecture]
 related: [evolutionary-architecture, measuring-architecture-outcomes, leadership-governance]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -90,8 +90,9 @@ Step 1 is what guarantees sponsorship: a check tied to a known incident does not
 Step 3 is what avoids rejection — turning on blocking over a base that violates it in forty places
 interrupts everybody's work on the same day.
 
-And step 3 has a documented effect: making it visible resolves a substantial share of the violations
-before any blocking, with no chasing at all.
+And step 3 tends to have an effect the [Real-World Example](#real-world-example) shows in numbers:
+making it visible resolves a substantial share of the violations before any blocking, with no chasing
+at all.
 
 ### The message is part of the design
 
@@ -109,9 +110,13 @@ part of the work, and it is read far more often than any architecture document.
 ### False positives are the health metric
 
 ```text
-below ~2%    the check is respected
-above that   it is worked around by reflex, and then removed
+rare false positives       the check is respected
+frequent false positives   it is worked around by reflex, and then removed
 ```
+
+The threshold between the two is not universal; it is a heuristic to calibrate by volume. A check
+that runs a thousand times a day at 2% interrupts twenty legitimate changes — the point that matters
+is the one where the team starts presuming the failure is the check's, not the code's.
 
 Monitoring each check's false-positive rate, and adjusting or downgrading the ones that pass the
 limit, is what keeps the set trustworthy. A check with a high false-positive rate contaminates the
@@ -167,34 +172,40 @@ caused damage, warn before blocking, and monitor false positives.
 
 ## When Not to Use
 
-**For judgment** — fit, boundaries, trade-offs.
+**For judgment** — fit, boundaries, trade-offs. There is no measure to compare against; the limit is
+detailed in [fitness functions as governance](/19-architecture-governance/fitness-functions-governance.md#when-not-to-use).
 
-**Blocking from day one.**
+**When the rule is still disputed within leadership.** Encoding a decision that has not been made
+moves the dispute into the pipeline: the team that disagrees works around the check instead of
+arguing, and the architect loses the signal of the disagreement.
 
-**With no actionable message.**
+**When nobody has the capacity to operate the set.** If the architecture group cannot respond to a
+false positive within days, the check degrades and takes with it the credibility of the rules it
+protected.
 
-**With a high false-positive rate.**
+**When the architect really does see every relevant change.** The central argument — they cannot
+review everything — stops holding, and the cost of building and maintaining does not pay off.
 
-**With no owner.**
-
-**In quantity** — many mediocre checks are worth less than a few trustworthy ones.
+**In quantity** — many mediocre checks are worth less than a few trustworthy ones, because the
+attention cost of each false positive falls on all of them.
 
 ## Alternatives
 
 - **A preventive control** — preventing instead of detecting; better when the environment allows it.
 - **Human review** — for what requires judgment.
 - **A trend report** — when the property is gradual and not binary.
-- **A template** — the property built into the starting point, with no check needed.
+- **A template** — the property built into the starting point.
 
-The last is always preferable where applicable: a configuration that already comes out correct does
-not have to be checked.
+The last is preferable for the initial state: a configuration that is born correct does not have to
+be fixed. But a template does not prevent drift — where the configuration can be changed after it is
+created, the check is still needed.
 
 ## Trade-offs
 
 | Automated | Human review |
 |---|---|
-| Always runs | Covers judgment |
-| Only the measurable | Depends on attention |
+| Always runs | Depends on attention |
+| Only the measurable | Covers judgment |
 | Upfront investment | Recurring cost |
 
 | Blocking | Warning |
@@ -246,7 +257,7 @@ a secret in an environment variable with no vault      4
 ```
 
 None of the four required judgment — all were verifiable. And none had been caught in a review,
-because the review only saw 12% of the changes.
+because the architecture group only took part in 12% of the design reviews.
 
 Adoption followed the order of the damage, with the first being the most frequent one:
 
@@ -277,8 +288,9 @@ Results after 14 months:
 
 ```text
 high-severity incidents from a violated rule        from 21 to 2
+  (last 12 months, against the diagnosis's 12)
 coverage of the checks                              100% of changes
-                                                    (against 12% in review)
+  (the group took part in 12% of design reviews)
 average false positives                             1.9%
 active exceptions with a deadline                   14
 architecture group's time in rule review            -80%

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [leadership-principles, leadership-standards, fitness-functions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -31,14 +31,10 @@ creating    deciding whether it should exist, and for how long
 ```
 
 Every organization has a process for adding mechanisms: an incident happens, a control is created.
-Almost none has a process for removing them — and that asymmetry is the cause of all bureaucratic
-accumulation.
-
-```text
-adding     has an owner, urgency and an incident to justify it
-removing   has no owner, is politically risky, and the
-           benefit is diffuse
-```
+Almost none has a process for removing them — and, among the causes of bureaucratic accumulation,
+that asymmetry is the only one in the hands of whoever designs the mechanism; regulation and scope
+growth are not. The asymmetry itself is described in
+[governance pathologies](/19-architecture-governance/governance-pathologies.md).
 
 Whoever establishes governance has to design the second half too.
 
@@ -62,7 +58,7 @@ discussion about opinion.
 
 ## Core Concepts
 
-### Every mechanism is born with four fields
+### Every mechanism is born with five fields
 
 ```text
 the risk it addresses          specific, not a category
@@ -94,7 +90,7 @@ in a review          someone notices
 in a committee       someone notices weeks later
 ```
 
-A human mechanism created when an automated one was viable costs forever. See
+A human mechanism created when an automated one was viable costs friction on every release, for as long as it exists. See
 [governance basics](/19-architecture-governance/governance-basics.md).
 
 ### An annual removal target
@@ -118,11 +114,13 @@ arguing about whether a mechanism is necessary   indefinite arguments
 suspending it for a quarter                      evidence in three months
 ```
 
-Temporary suspension is the most effective instrument and the hardest to get authorization to use. It
-produces evidence no analysis produces, and it is applicable to everything except regulatory and
-critical-security controls.
+For deciding whether an existing mechanism should continue, temporary suspension is the instrument
+that produces evidence fastest — and the hardest to get authorization to use. It is applicable to
+everything except regulatory and critical-security controls. A reduction programme that used it is
+in [governance pathologies](/19-architecture-governance/governance-pathologies.md); what matters here
+is the design: whoever creates the mechanism should anticipate, at creation, that it can be suspended.
 
-### Proportionality to risk, always
+### Proportionality to risk
 
 ```text
 a regulated critical system    a heavy mechanism is justified
@@ -130,8 +128,10 @@ an internal tool used
   occasionally                 the same mechanism is waste
 ```
 
-Applying governance uniformly is the error that consumes the organization's patience on irrelevant
-cases — and the patience runs out precisely when an important case comes along.
+Why uniform governance pays off badly is in
+[governance basics](/19-architecture-governance/governance-basics.md). On the creator's side, the
+practical consequence is that the "risk" field has to name the class of system the mechanism applies
+to, not only the risk.
 
 Scaling by criticality requires a classification that should already exist for other reasons:
 disaster recovery, incident response, access control.
@@ -166,7 +166,7 @@ inverted. See
 
 ## Mental Model
 
-**Every mechanism is born with an owner, a measure and an expiry.** And the organization needs a
+**Every mechanism is born with a risk, a measure, a cost, an owner and an expiry.** And the organization needs a
 removal target, because adding has an owner and removing doesn't.
 
 ## When to Use
@@ -177,15 +177,21 @@ removal target, because adding has an owner and removing doesn't.
 
 ## When Not to Use
 
-**With no owner, measure and expiry.**
+**Controls whose expiry is set by third parties.** When a regulator or a contract defines the
+control's deadline and content, an internal 24-month expiry is theatre: the renewal cannot decide
+anything. The design still applies to owner and measure, but the expiry is the regulator's.
 
-**When the automated point of intervention was viable.**
+**Sets too small for an annual target.** In an organization with three or four mechanisms, all with
+a measured effect, "remove at least one a year" forces removing what works — or invites meeting the
+target with an irrelevant mechanism. The target presupposes accumulation; without it, the expiry
+review is enough.
 
-**Uniformly**, without scaling by criticality.
+**Critical-security controls, for suspension.** Suspending for a quarter produces evidence at the
+price of exposing the risk for a quarter. When the damage from a single event is irreversible, that
+price doesn't pay off, and the assessment has to come from indirect measurement, not from experiment.
 
-**With no removal process.**
-
-**Creating a mechanism** as a reflex response to an incident.
+**Responding to an incident in progress.** During containment, a provisional control with no design
+is legitimate; the two weeks of design come afterwards, before the provisional one becomes permanent.
 
 ## Alternatives
 
@@ -225,6 +231,14 @@ removal target, because adding has an owner and removing doesn't.
 
 ## Common Mistakes
 
+**Renewal as a rubber stamp.** At 24 months, the owner renews without presenting the measure,
+because nobody asked. The expiry then exists only on paper, and the mechanism becomes permanent by
+omission again — now with the appearance of having been reviewed.
+
+**Meeting the removal target with the irrelevant mechanism.** The form nobody filled in is removed,
+and the committee that delays every release stays. The target is met and accumulation continues; the
+sign is that the total cost of the set doesn't fall from one year to the next.
+
 **Responding to an incident** with a control without assessing the point of intervention.
 
 **Not defining** how the effect will be measured.
@@ -242,7 +256,7 @@ was committed to a public repository by mistake, and stayed exposed for nine day
 
 The immediate institutional response was the expected one — create a security review committee for
 every release. Architecture leadership asked for two weeks before instituting it, to design the
-mechanism with the four fields.
+mechanism with the five fields.
 
 The exercise changed the response:
 
@@ -252,7 +266,7 @@ risk addressed      a credential exposed in a repository
 effect measured as  credentials detected before reaching the
                     remote repository
 estimated cost      committee: ~3 days of delay × 340 releases/year
-                    ≈ 4 person-years of calendar time
+                    ≈ 1,000 days of accumulated delay per year
                     automated checking: ~0
 earliest viable point of intervention: in the version control client,
                     before the push
@@ -274,8 +288,8 @@ Over the following 24 months:
 credentials blocked before the push          41
 credentials that reached the repository       0
 delay added to the release process            0
-human security reviews performed             23 (from the forecast 12/year
-                                             plus exceptions)
+human security reviews performed             29 (24 forecast, at 12/year,
+                                             plus 5 exceptions)
 ```
 
 At renewal, at 24 months, the owner presented the numbers and the mechanism was kept — with the scope
@@ -283,7 +297,8 @@ of the human reviews widened to include integrations with external partners, whi
 gap.
 
 The lesson that stuck: the question "what is the earliest viable point of intervention?" turned a
-proposal costing four person-years of annual delay into a zero-cost mechanism. And it cost two weeks
+proposal costing about a thousand days of accumulated delay per year into a mechanism that adds no
+delay to releases. And it cost two weeks
 of waiting — which was the politically hard part, because right after an incident the pressure is to
 act, not to design.
 
@@ -296,10 +311,11 @@ act, not to design.
 
 ## Practical Exercise
 
-Ask, in your organization: what was the last governance mechanism removed, and when?
-
-If nobody can answer, the set has only grown — and the diagnosis holds regardless of which mechanism
-you examine first.
+Pick the last control your organization created in response to an incident and fill in the five
+fields: the specific risk, how the effect would be measured, the cost as delay × volume, the owner as
+a role, and the expiry date. Then answer: what is the earliest viable point of intervention for that
+risk, and is the control at it? If any field stays blank, that is the field that decides whether the
+mechanism should exist.
 
 ## Interview Questions
 

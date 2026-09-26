@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [technical-strategy-leadership, technical-roadmaps, communication]
 canonical_for: [visão de arquitetura, destino arquitetural, visão lembrável, orientação sem prescrição]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -183,22 +183,17 @@ orientar decisão nenhuma.
 ## Quando Usar
 
 - Quando decisões independentes precisam convergir.
-- Em organizações grandes o bastante para que a conversa não resolva.
+- Quando quem decide arquitetura não cabe mais numa mesma reunião, e o critério deixa de circular
+  pela conversa.
 - Antes de um roadmap, porque ele deriva dela.
 
 ## Quando Não Usar
 
-**Como declaração de adjetivos.** "Moderna, escalável e segura" não elimina nenhuma opção e não orienta nenhuma decisão.
+**Quando todos os que decidem cabem numa reunião.** Com três ou quatro times e um punhado de pessoas decidindo arquitetura, o critério circula na conversa semanal e se corrige no mesmo dia. Uma visão escrita duplica o que todos já ouviram, e ainda cobra dono e revisão.
 
-**Como diagrama detalhado do estado futuro.** Detalhe demais envelhece em meses e transforma a visão em plano — que é outra coisa, com outro ciclo de revisão.
+**Quando as premissas mudam mais rápido que o ciclo de revisão.** Numa organização em pivô, com produto ou modelo de negócio redefinido a cada trimestre, uma visão revista anualmente orienta com premissas já descartadas — e com a autoridade de documento oficial. Enquanto o contexto não estabiliza, decisões reversíveis registradas em ADRs curtos servem melhor.
 
-**Sem o porquê.** Uma visão sem o problema que ela resolve não sobrevive à primeira pergunta difícil, e não pode ser reavaliada quando o contexto mudar.
-
-**Sem dizer o que não é.** Sem fronteira declarada, cada time lê a visão como autorização para o que já queria fazer.
-
-**Sem dono e sem revisão.** Visão sem responsável não é atualizada, e uma visão desatualizada orienta na direção errada com a mesma autoridade.
-
-**Enunciada uma vez** e nunca repetida. Ela precisa ser dita muitas vezes para virar critério compartilhado; enunciada num documento único, permanece desconhecida de quem decide no dia a dia.
+**Quando ainda não há decisões de onde derivá-la.** A visão que funciona descreve critérios que a organização já usa (ver o Exemplo Real). Com meia dúzia de ADRs não existe critério recorrente para enunciar, e o que sair será aspiração — a declaração de adjetivos da seção Problema, com outra roupa.
 
 ## Alternativas
 
@@ -225,29 +220,42 @@ orientar decisão nenhuma.
 
 ## Modos de Falha
 
-**Adjetivos.** Não elimina opção.
+**Adjetivos.** "Moderna, escalável e segura" não elimina nenhuma opção e não orienta nenhuma decisão.
 
-**Detalhada demais.** Envelhece e não delega.
+**Detalhada demais.** Envelhece em meses, não delega, e vira plano — que é outra coisa, com outro ciclo
+de revisão.
 
-**Sem porquê.** Vira regra arbitrária e é contornada.
+**Sem porquê.** Vira regra arbitrária e é contornada; sem o problema que resolve, não pode ser
+reavaliada quando o contexto mudar.
+
+**Sem fronteira.** Sem dizer o que não é, cada time lê a visão como autorização para o que já queria
+fazer.
 
 **Não lembrável.** Não orienta as decisões que importam.
 
-**Sem revisão.** Orienta com premissas obsoletas.
+**Sem dono e sem revisão.** Ninguém a atualiza, e a visão desatualizada orienta na direção errada com
+a mesma autoridade.
 
-**Comunicada uma vez.** Não existe.
+**Comunicada uma vez.** Fica desconhecida de quem decide no dia a dia — na prática, não existe.
 
 ## Erros Comuns
 
-**Confundir visão com roadmap** ou com diagrama alvo.
+**Confundir visão com roadmap** ou com diagrama alvo. A visão ganha datas, passa a ser revista a
+cada trimestre junto com o plano e deixa de ser referência estável: quem decide hoje não sabe se o
+critério ainda vale no mês que vem.
 
-**Escrever em linguagem de apresentação corporativa.**
+**Escrever em linguagem de apresentação corporativa.** Frases feitas para passar em comitê não
+distinguem entre duas opções concretas, então nenhuma revisão de desenho consegue citá-las para
+decidir — e a visão deixa de ser citada.
 
-**Não testar** contra decisões reais recentes.
+**Não testar** contra decisões reais recentes. A visão pode passar anos sem orientar nada sem que
+ninguém perceba; o documento do Exemplo Real passou dois.
 
-**Não dizer o que fica de fora.**
+**Não dizer o que fica de fora.** A visão passa a justificar padronizações que nunca pretendeu, e
+times que a leem de boa-fé perdem autonomia em decisões que ela deixava livres.
 
-**Não citar a visão** quando uma decisão a contraria.
+**Não citar a visão** quando uma decisão a contraria. A exceção vira precedente silencioso: a próxima
+pessoa vê a decisão, não vê a razão, e conclui que a visão não tem consequência.
 
 ## Exemplo Real
 
@@ -307,8 +315,9 @@ implementações duplicadas de capacidade de
   plataforma                                          0 novas
 ```
 
-E na revisão anual, um item foi removido: o quarto, sobre gabarito, tinha virado consenso e não
-eliminava mais nenhuma opção em discussão. Ele foi promovido a padrão verificado
+E na revisão anual, um item foi removido: o quarto, sobre gabarito, tinha virado consenso. As nove
+exceções se concentraram nos primeiros cinco meses; no segundo semestre nenhum serviço novo cogitou
+nascer fora do gabarito, e o item já não eliminava opção nenhuma em discussão. Ele foi promovido a padrão verificado
 automaticamente — o que é a evolução correta de um item de visão que já não gera decisão.
 
 A avaliação posterior aponta: derivar a visão do acervo de ADRs, em vez de escrevê-la do zero, foi a

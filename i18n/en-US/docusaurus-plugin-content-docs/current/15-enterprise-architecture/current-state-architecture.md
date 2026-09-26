@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, transition-architecture, application-portfolios]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -68,7 +68,7 @@ cost — can be.
 ### The detail has to be justified by its use
 
 ```text
-inventory          what exists, who owns it, criticality — always useful
+inventory          what exists, who owns it, criticality — the base for all the others
 dependencies       who calls whom — useful for assessing impact
 data flows         where information is born and circulates — useful for ownership
 detailed diagram   of each system — useful only to whoever is going to touch it
@@ -154,17 +154,21 @@ decide, not to document.
 
 ## When Not to Use
 
-**Drawing by hand** what can be derived.
+**When no decision is pending.** With no investment, retirement or impact question in
+the queue, a broad survey produces a snapshot that ages before anyone consults it; keeping
+the derived catalog, which costs almost nothing, is enough.
 
-**With uniform detail** across all systems.
+**When the change is local.** To touch one system and its immediate neighbors, mapping the
+whole organization is disproportionate — an on-demand survey of the area does the job.
 
-**Without including health and criticality.**
+**When a single team knows everything.** In an organization with few systems and one team
+operating them, the inventory already lives in the repository and in people's heads;
+formalizing it costs more than it reveals.
 
-**Consulting only the teams**, without observing reality.
-
-**As a project deliverable**, with no continuous use.
-
-**Pursuing completeness** instead of freshness.
+**When there is no instrumentation and none is coming.** Without access logs, tracing or a
+cloud catalog, the map can only be drawn — and a drawn map with no maintenance plan repeats
+the problem this document describes. In that case, the first investment is in
+instrumentation, not in the survey.
 
 ## Alternatives
 
@@ -181,7 +185,7 @@ about to change.
 
 | Derived | Drawn |
 |---|---|
-| Always current | Ages |
+| As current as the collection | Ages |
 | Limited to what is instrumented | Captures judgment |
 | Low maintenance cost | High |
 | Real topology | Declared topology |
@@ -253,7 +257,9 @@ the teams. They require judgment and change slowly.
 them became a task, rather than a blank space.
 
 There were 14 ownerless systems, of which 4 nobody knew what they were for. Two were
-decommissioned after three months of monitoring with no access.
+decommissioned after three months of monitoring with no access — after checking with the
+business areas the calendar of annual and audit processes, which a three-month window does
+not see. Observation only proves use within the observed window.
 
 **Detail on demand.** The 68 diagrams were discarded. Each modernization initiative
 produces the detail for the area it will touch, at the moment it will touch it.

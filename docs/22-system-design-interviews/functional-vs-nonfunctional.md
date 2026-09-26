@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
 canonical_for: [requisito implícito de entrevista]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -118,7 +118,8 @@ custo           existe orçamento? há restrição de eficiência?
 ```
 
 Percorrer as seis leva menos de um minuto e evita a lacuna mais comum: esquecer de perguntar
-sobre consistência, que é justamente a que mais muda a arquitetura.
+sobre consistência, cuja resposta decide replicação e caminho de escrita — as decisões mais caras
+de reverter depois que o desenho está no quadro.
 
 A omissão de consistência tem uma causa identificável: ela é a única das seis que não tem um
 número óbvio associado. Escala tem volume, latência tem milissegundos, disponibilidade tem nonos,
@@ -200,11 +201,17 @@ funcione, mas que ela seja defensável diante de quem paga a conta.
 
 ## Quando Não Usar
 
-**Sem números.**
+**Quando o problema é de comportamento, não de escala.** Em "projete o algoritmo de um rate
+limiter" ou "modele as regras de um carrinho de compras", o funcional é o próprio desafio: a
+lógica de janela deslizante ou de desconto decide o desenho, e forçar seis categorias de não
+funcionais consome o tempo que a modelagem pedia.
 
-**Aplicando um requisito único ao sistema inteiro.**
+**Quando o funcional carrega o não funcional.** "Mostrar a localização do motorista ao vivo" já
+embute latência e frequência de atualização; separar em duas colunas duplica o requisito em vez de
+esclarecê-lo. Nesse caso, basta extrair o número da própria frase.
 
-**Listando apenas funcionais.**
+**Quando o entrevistador já entregou os números.** Se o enunciado traz volume, latência e
+disponibilidade, refazer a lista é teatro; confirme em uma frase e siga para o desenho.
 
 **Como lista longa** — cinco funcionais e seis não funcionais bastam; mais que isso consome o
 tempo do desenho.
@@ -230,7 +237,7 @@ tempo do desenho.
 | Por operação | Pelo sistema |
 |---|---|
 | Arquitetura proporcional | Mais simples de enunciar |
-| Demonstra maturidade | Mais caro na prática |
+| Custa perguntas e tempo de entrevista | Mais caro na prática |
 | Permite degradação | Tudo no alvo mais alto |
 
 ## Modos de Falha
@@ -243,7 +250,7 @@ tempo do desenho.
 
 **Sem prioridade.** A conversa de trade-off fica sem base.
 
-**Esquecer consistência.** É a categoria que mais decide e a mais omitida.
+**Esquecer consistência.** É a mais omitida, e a que decide replicação e caminho de escrita.
 
 ## Erros Comuns
 
@@ -300,7 +307,8 @@ custo            leitura domina; a arquitetura deve otimizar
 
 ```text
 "entre latência de leitura e frescor do feed, escolho latência:
-30 segundos de atraso é imperceptível, 2 segundos de espera não."
+num feed, 30 segundos de atraso passam despercebidos; 2 segundos
+de espera, não."
 ```
 
 **O que cada não funcional decide:**

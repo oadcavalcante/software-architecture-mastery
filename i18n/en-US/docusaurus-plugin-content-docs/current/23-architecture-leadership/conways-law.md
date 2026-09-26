@@ -2,7 +2,7 @@
 id: conways-law
 title: Conway's Law
 sidebar_position: 18
-description: Architecture reproduces the organization's communication structure — and that is the strongest constraint there is on it.
+description: Architecture reproduces the organization's communication structure — and, when the two diverge, it is the architecture that tends to give way.
 doc_type: concept
 level: 7
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [team-topologies, organizational-architecture, cross-team-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -26,8 +26,10 @@ Melvin Conway, in 1968:
 > Organizations which design systems are constrained to produce designs which are copies of the
 > communication structures of these organizations.
 
-The formulation is sixty years old and remains the most predictive observation about software
-architecture there is. It doesn't describe a tendency — it describes a constraint:
+The formulation is sixty years old and remains one of the most consistently observed regularities
+in software architecture: MacCormack et al. (2011), comparing equivalent products built by tightly
+and loosely coupled organizations, found the same correspondence between the coupling of the
+organization and the coupling of the code. It doesn't describe a tendency — it describes a constraint:
 
 ```text
 two teams that don't talk            produce two systems with poor
@@ -39,7 +41,8 @@ one team that does everything        produces a system with no internal
 ```
 
 And the consequence for whoever leads architecture is direct: **designing teams is designing
-architecture**. Ignoring that is designing against the current, and the current always wins.
+architecture**. Ignoring that is designing against the current: without continuous effort to hold
+the boundaries, the current wins.
 
 ## Problem
 
@@ -100,8 +103,9 @@ you want a reusable platform
     on-demand infrastructure team
 ```
 
-That is known as the inverse Conway maneuver, and it is the most powerful tool a senior architect
-has — and the one they can most rarely invoke alone, because it requires engineering leadership.
+That is known as the inverse Conway maneuver. It is the widest-reaching lever a senior architect
+has over the shape of the system, because it changes the structure that produces the decisions
+instead of correcting one decision at a time — and it is the one they can most rarely invoke alone, because it requires engineering leadership.
 
 That is why the architectural proposal and the organizational proposal have to travel together. See
 [organizational architecture](/23-architecture-leadership/organizational-architecture.md).
@@ -187,8 +191,9 @@ a team boundary.
 
 ## Mental Model
 
-**The architecture will look like the communication structure, always.** The choice is between
-designing that correspondence or discovering it later.
+**The architecture tends to look like the communication structure, and going against that
+tendency costs continuous effort.** The choice is between designing that correspondence, paying to
+sustain the divergence, or discovering it later.
 
 ## When to Use
 
@@ -206,10 +211,20 @@ maintain boundaries against the current, at the cost of continuous effort.
 
 **Reorganizing teams by architectural fashion**, without understanding the domain.
 
-**Ignoring the cost of reorganizing** — a team change costs productivity for months.
+**Ignoring the cost of reorganizing** — a team change costs productivity for months; in the
+example below, 30% of delivery speed for four months.
 
 **Alone** — the inverse maneuver requires engineering leadership; proposing it without that
 alignment wastes capital.
+
+The inverse maneuver, in particular, doesn't pay off under three conditions:
+
+- **A single team** — there is no communication structure between teams to redesign; the internal
+  boundary depends on module discipline, not on the org chart.
+- **An unstable domain** — the product is still discovering its own shape, and teams by domain
+  would fix boundaries that the next change of direction undoes.
+- **A short horizon** — the target architecture will last less than the time needed to pay back the
+  reorganization's productivity drop.
 
 ## Alternatives
 
@@ -226,16 +241,16 @@ structure can be altered without touching hierarchy.
 
 ## Trade-offs
 
-| Align teams to the architecture | Adapt architecture to the teams |
-|---|---|
-| Sustainable boundaries | No reorganization cost |
-| Cost of reorganizing | Architecture limited by the structure |
-| Requires sponsorship | The architect's autonomy |
+| Axis | Align teams to the architecture | Adapt architecture to the teams |
+|---|---|---|
+| Upfront cost | High: reorganization and months of lower productivity | None |
+| Reachable architecture | The desired one | The one the current structure supports |
+| Who decides | Requires leadership sponsorship | Within the architect's reach |
 
-| Divergence with discipline | Convergence |
-|---|---|
-| No reorganization | Less continuous effort |
-| Permanent vigilance cost | One-off change cost |
+| Axis | Divergence with discipline | Convergence |
+|---|---|---|
+| Upfront cost | None: no reorganization | One-off: the team change |
+| Ongoing cost | Permanent: vigilance and boundary verification | Low: boundaries follow communication |
 
 ## Failure Modes
 
@@ -253,19 +268,26 @@ structure can be altered without touching hierarchy.
 
 ## Common Mistakes
 
-**Treating the law as a historical curiosity.**
+**Treating the law as a historical curiosity.** It shows up in the retrospective, not in the
+proposal, and the layer coupling is discovered eighteen months later, as in the example below.
 
-**Proposing architecture without looking at the org chart.**
+**Proposing architecture without looking at the org chart.** The proposal designs five services
+for three teams, and the service with no single owner piles up the changes of whoever is nearest.
 
-**Reorganizing teams with no architectural convergence plan.**
+**Reorganizing teams with no architectural convergence plan.** The teams change, the services
+don't, and the new structure starts crossing boundaries the old one respected — the divergence
+just moves.
 
-**Ignoring time zone** as a communication boundary.
+**Ignoring time zone** as a communication boundary. The boundary appears along the geographic
+split, not the designed one: a change that crosses both sides waits up to a day for review, and
+people start avoiding the code on the other side.
 
-**Not using the law predictively** in design reviews.
+**Not using the law predictively** in design reviews. The review approves three services for a
+team of six, and the coupling between them only shows up when undoing it already costs a migration.
 
 ## Real-World Example
 
-An e-commerce company with 140 engineers decided to migrate from a monolith to microservices by
+An e-commerce company with 103 engineers and 37 product people decided to migrate from a monolith to microservices by
 domain: catalog, cart, order, payment, delivery.
 
 The organization, at the time, was by layer:
@@ -297,13 +319,17 @@ were by layer. Every domain change crossed three teams with independent prioriti
 The reorganization took nine months and was led by engineering leadership together with the
 architecture group:
 
-**Five teams by domain**, each with front end, back end and data inside. Between 9 and 14 people
-each.
+**Five teams by domain**, each with front end, back end and data inside: 18 engineers per domain,
+90 in total. Eighteen people exceeds the limit of informal communication, so the split was designed
+rather than left to emerge — each domain in two groups of up to 9 by subdomain (order into checkout
+and post-sale, for example), with one internal module per group and a single team owning the
+service. The product people were distributed across the domains.
 
-**A platform team** with its own product — pipeline, observability, provisioning — instead of an
+**A platform team** of eight people, drawn from the former infrastructure team — the other six went
+to the domains —, with its own product — pipeline, observability, provisioning — instead of an
 infrastructure team fielding requests.
 
-**An enabling team** for data, temporary, to transfer modeling and quality competence to the domain
+**An enabling team** for data, five people and temporary, to transfer modeling and quality competence to the domain
 teams instead of executing for them.
 
 **Complete ownership** declared: each service has an owning team, with its own on-call rotation.
@@ -321,9 +347,13 @@ independent deployments per service/month          18
 incidents per change                               -44%
 ```
 
-In the retrospective: the five services were the same before and after. Not one architectural
-boundary line changed. What changed was who talked to whom — and that, on its own, turned an
-architecture that didn't work into one that did.
+In the retrospective: the five services were the same before and after, and no service boundary
+was redrawn. The drop in changes touching three or more services came from what the layer teams had
+left inside those boundaries: the back-end team implemented each rule in whichever service it was
+already working on, and the data team maintained tables read by several services. With one owner
+per service, the rule went back to the domain it belonged to, and the shared table gained an owner
+and an interface. The platform and the per-team on-call explain part of the gain in delivery time
+and incidents; what made the services independent was the change in who talked to whom.
 
 And the lesson that stuck for the decision process: architecture proposals came to require a
 section on organizational structure. The standardized question was "which teams maintain each

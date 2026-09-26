@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [architecture-presentations, stakeholder-management, technical-influence]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -100,6 +100,12 @@ The practical reason: whoever is listening has limited time and will decide whet
 Delivering the conclusion first lets the conversation go straight to what matters to whoever
 decides, rather than following the presenter's script.
 
+The full structure of a presentation in that order is in
+[presentations](/23-architecture-leadership/architecture-presentations.md). Outside the room, the
+inversion holds just as much and is forgotten more often: in a written message, the ask goes in the
+first line, because it is the only one everyone reads; in a hallway conversation, it goes in the
+first sentence, because the other person decides in the first few seconds whether it concerns them.
+
 ### Numbers instead of adjectives
 
 ```text
@@ -129,19 +135,12 @@ competes with the alternative of doing nothing — which is the real comparison.
 
 ### Speak in the currency of whoever is listening
 
-```text
-business leadership   revenue, risk, time to market
-finance               cost, predictability, contract
-operations            on-call, incidents, load
-product               capability, timeline, what gets left out
-legal and compliance  exposure, obligation, regulatory deadline
-engineering           design, trade-off, technical consequence
-```
-
-Each audience has a unit it thinks in. Translating into it is not manipulation — it is the
-condition for the information to be usable by whoever receives it.
-
-See [stakeholder management](/23-architecture-leadership/stakeholder-management.md).
+Which currency each stakeholder uses — revenue, cost, on-call, exposure — is mapped in
+[stakeholder management](/23-architecture-leadership/stakeholder-management.md). What this page
+adds is that the currency picks the altitude: revenue and exposure call for high altitude; on-call
+and capability call for mid altitude; and mid altitude is where translation fails most, because the
+architect tends to drop to the mechanism when the operator only needs to know what changes at three
+in the morning.
 
 ### Write before presenting
 
@@ -174,23 +173,27 @@ happens if nothing is done.
 
 ## When to Use
 
-- In any communication of an architectural decision outside the team.
+- When communicating an architectural decision to people outside the team who will not assess the
+  mechanism.
 - Especially when there is an investment to approve.
-- Always with the axis chosen from who is listening.
+- When the audience is known well enough to choose the axis from who is listening.
 
 ## When Not to Use
 
-**Simplifying** instead of translating.
+**A mixed audience in one room.** Leadership and engineering together: a single altitude leaves
+half the room with no basis to decide. Give the high version in the meeting and the low one in an
+attached document, or split the conversations.
 
-**Starting with the context** with executive audiences.
+**During an incident.** The axis is what to do now, not risk or cost. Communicate status, next
+action and the time of the next update; translating into investment waits for the post-incident
+review.
 
-**With adjectives** where numbers are available.
+**An audience that will audit the mechanism.** A technical committee or a security auditor needs
+low altitude; handing them the high one reads as evasion. Start with the design.
 
-**Without saying what happens if nothing is done.**
-
-**With no written document** for relevant decisions.
-
-**Omitting without signaling.**
+**A number too fragile to anchor the message.** A loss estimate with no source, placed in the first
+sentence, becomes the meeting's target and takes the proposal down with it. Open with the
+qualitative consequence, state that the number is an estimate, and say how it will be measured.
 
 ## Alternatives
 
@@ -198,7 +201,8 @@ happens if nothing is done.
   yields more than slides.
 - **An individual conversation beforehand** — aligning with each stakeholder separately is usually
   more effective than persuading a group.
-- **A demonstration** — where applicable, showing it working is worth more than any argument.
+- **A demonstration** — when the risk under discussion is feasibility, showing it working usually
+  settles what argument does not.
 
 The second is the most underrated: decision meetings rarely change positions; they confirm
 positions formed beforehand.
@@ -212,8 +216,9 @@ positions formed beforehand.
 
 | Document | Presentation |
 |---|---|
-| Forces clarity, persists | Interactive, adjusts live |
-| Requires that they read it | Tolerates gaps |
+| Persists after the meeting | Disappears with the meeting |
+| Exposes gaps in reasoning beforehand | The gap appears during it, or not at all |
+| Depends on the audience reading beforehand | Works with people who haven't read |
 
 ## Failure Modes
 
@@ -231,15 +236,20 @@ positions formed beforehand.
 
 ## Common Mistakes
 
-**Presenting the diagram** to whoever decides the budget.
+**Presenting the diagram** to whoever decides the budget: the meeting ends with no questions, and
+the silence is read as agreement when it is a lack of basis to decide.
 
-**Building the argument in engineering order** for executive audiences.
+**Building the argument in engineering order** for executive audiences: time runs out on the
+context, and the ask comes in the last minutes, when the decision has already been deferred.
 
-**Not quantifying** the current problem.
+**Not quantifying** the current problem: the proposal is compared with the others on confidence in
+the proposer, and loses to the one with a number, even if that number is worse.
 
-**Not having the individual conversations** before the meeting.
+**Not having the individual conversations** before the meeting: a stakeholder's first objection
+surfaces in public, and the others line up behind it.
 
-**Believing the organization doesn't value architecture**, when the problem is translation.
+**Believing the organization doesn't value architecture**, when the problem is translation: the
+next proposal is prepared on the same axis, and is rejected for the same reason.
 
 ## Real-World Example
 

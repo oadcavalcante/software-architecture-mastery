@@ -13,7 +13,7 @@ objective: >
 prerequisites: [leadership-principles]
 related: [leadership-principles, leadership-governance, cross-team-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -70,9 +70,11 @@ correct reading    "the standard isn't adoptable, or isn't worth it
                    for whoever should adopt it"
 ```
 
-That inversion of reading is the most important change of posture in this topic. Teams don't fail to
-adopt standards out of indiscipline — they fail when the cost of adopting exceeds the perceived
-benefit, or when there is no path.
+That inversion of reading is the most important change of posture in this topic. Indiscipline
+explains one team that doesn't adopt; it doesn't explain dozens of teams, with different managers and
+priorities, failing to adopt the same standard. When low adoption is widespread, the common cause lies
+in what they have in common — the standard: the cost of adopting exceeds the perceived benefit, or
+there is no path.
 
 Investigating why, instead of chasing compliance, solves the problem; chasing compliance only moves
 the non-compliance into silence.
@@ -138,14 +140,11 @@ nobody knows whether it was expected.
 
 ### A swap rule
 
-```text
-to add a standard, remove another
-```
-
-Except for regulatory risk. The rule exists because the organization's attention is finite: the
-sixtieth standard doesn't increase coherence, it dilutes the previous fifty-nine.
-
-It also forces real prioritization on whoever publishes — which is rare when publishing has no cost.
+The [swap rule](/19-architecture-governance/governance-standards.md) — to add a standard, remove
+another, except for regulatory risk — is defined in standards in operation. For the publisher, the
+effect that matters is a different one: it gives the act of publishing a cost, and it forces whoever
+proposes the new standard to say which existing one is worth less than it — which is rare when
+publishing has no cost.
 
 ### Written by whoever applies it
 
@@ -166,10 +165,11 @@ no date     the standard outlives the context that produced it
 with date   somebody has to reaffirm it, which is a filter
 ```
 
-A standard that references a discontinued technology and goes on being cited in reviews is the
-predictable result of publishing with no expiry.
-
-Twenty-four months is a reasonable limit. See
+The deadline and the retirement cycle are in
+[standards in operation](/19-architecture-governance/governance-standards.md). What falls to the
+publisher is setting the date at the moment of publication and linking the standard to the ADR that
+originated it: without the ADR, the review finds a rule with no context and has no way of knowing
+whether the premises that justified it still hold. See
 [governance](/23-architecture-leadership/leadership-governance.md).
 
 ## Mental Model
@@ -179,23 +179,27 @@ adoption is information about the standard.
 
 ## When to Use
 
-- For recurring decisions whose outcome is already known.
-- Where divergence has a measurable cost.
-- With a path, funding and review date defined before publishing.
+- When the publisher can deliver the path along with it — a template, tooling or a working
+  example — and not just the text.
+- When there is an answer for the migration: named funding, or the explicit decision that it applies
+  only to new systems.
+- When the publishing group has the sponsorship to sustain the recommendation stage and read adoption
+  as a result, instead of being pressured to declare it mandatory on day one.
 
 ## When Not to Use
 
-**With no adoption path.**
+**When the decision hasn't recurred enough** to have a known outcome — publishing freezes a choice
+the teams are still learning to make; the right stage is a recommendation, or nothing.
 
-**Without answering who pays for the migration.**
+**When the affected teams use stacks too different** for a single template — the standard will be
+written for one of them and wrong for the others, as in the example below; that's a principle.
 
-**With no review date.**
+**When there is no budget to migrate and the risk lies in the existing systems** — the "new systems
+only" way out doesn't solve it, and the standard becomes compliance-chasing with no path; what fits
+is a funded project, not a standard.
 
-**Where the context varies** — that's a principle.
-
-**Adding without removing.**
-
-**Chasing adoption** instead of investigating the cause.
+**When the publisher has no way to measure adoption** — without the measurement, the recommendation
+stage produces no information, and low adoption only shows up as a symptom, years later.
 
 ## Alternatives
 
@@ -212,7 +216,7 @@ default configuration doesn't have to be remembered or verified.
 
 | A mandatory standard | A recommendation |
 |---|---|
-| Coherence guaranteed | Adoption by persuasion |
+| Coherence required, not guaranteed: with no path, it becomes silent circumvention | Divergence visible and measurable |
 | Requires exceptions and verification | Divergence possible |
 | Can be wrong and imposed | Adoption is the test |
 
@@ -245,14 +249,14 @@ default configuration doesn't have to be remembered or verified.
 
 **Not considering** applying it only to new systems.
 
-**Not linking it to the ADR** that originated the standard.
+**Not linking it to the ADR** that originated the standard — the review loses the context that would say whether it still holds.
 
 ## Real-World Example
 
 A financial services company published, over two years, four architectural standards. All were
 announced as mandatory from day one.
 
-Adoption, measured 18 months later:
+Adoption of each, measured 18 months after its own publication:
 
 ```text
 observability standard             89%
@@ -261,8 +265,8 @@ error handling standard            34%
 project structure standard          9%
 ```
 
-The first two had a ready template at publication; the last two did not. The correlation was perfect
-and nobody had noticed it, because the institutional reading of low adoption was indiscipline — and
+The first two had a ready template at publication; the last two did not. The two with a template were
+the two with high adoption, and nobody had noticed it, because the institutional reading of low adoption was indiscipline — and
 the response under way was a compliance-chasing plan per area.
 
 Architecture leadership proposed inverting the reading before chasing anything: interview the teams
@@ -313,8 +317,9 @@ non-compliance, and the organization would have concluded that standards don't w
 Pick three standards from your organization and check whether each has an adoption path, an owner, a
 review date and an answer as to who pays for the migration.
 
-Those that don't have all four are not standards — they are documents, and their adoption is an
-accident.
+For each gap, note which of the three causes of low adoption it predicts. Where one of the four is
+missing and adoption is high anyway, find out where it came from — an informal template, a dedicated
+owner — before counting on it for the next standard.
 
 ## Interview Questions
 

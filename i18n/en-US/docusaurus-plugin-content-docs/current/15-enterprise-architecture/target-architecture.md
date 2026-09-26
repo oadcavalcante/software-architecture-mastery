@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -59,7 +59,9 @@ properties   "every piece of data has a single owner"
              "no critical system depends on a single person"
 ```
 
-Properties survive changes in context. A drawing does not.
+Properties survive the changes in context that invalidate a drawing: an acquisition
+changes which systems exist, not the fact that every piece of data should have an owner.
+When a property does not survive, it is corrected on its own — the drawing has to be redone.
 
 And they guide today's decision: a team that has to choose how to integrate two systems
 can derive the answer from "integration through an explicit contract". It cannot derive
@@ -181,17 +183,21 @@ three-year drawing is fiction.
 
 ## When Not to Use
 
-**As a detailed long-term drawing.**
+**Before the current state has been surveyed.** With no known problems, there is nothing
+to derive properties from, and the target comes out as aesthetic preference. See
+[current state architecture](/15-enterprise-architecture/current-state-architecture.md).
 
-**Without derivation from current problems.**
+**When a few people already make every decision.** With three or four teams deciding
+together, direction travels through conversation; a formal target costs more than it
+coordinates. Principles or a short roadmap are enough.
 
-**Single for the whole organization.**
+**When not even 12 months are predictable** — an acquisition being integrated, a strategy
+pivot under way. The target's premises would change before its first review; a short-term
+roadmap, continuously reviewed, guides better until the context settles.
 
-**As a criterion for refusal.**
-
-**Without a transition architecture.**
-
-**Reviewed only annually**, in a context that changes fast.
+**When there is no budget or sponsorship for the transition.** The target becomes
+aspiration, and the abandoned program costs the next proposal its credibility — as in the
+example below.
 
 ## Alternatives
 
@@ -214,7 +220,7 @@ three-year drawing is fiction.
 |---|---|
 | Underlying direction | Actionable |
 | Low precision | High |
-| Frequent review needed | Less |
+| Revised when a premise changes | Revised every cycle |
 
 ## Failure Modes
 
@@ -232,17 +238,22 @@ three-year drawing is fiction.
 
 ## Common Mistakes
 
-**Drawing the end state.**
+**Drawing the end state.** The drawing ages at the first acquisition, and a team facing a
+concrete choice cannot derive the answer from it.
 
-**Starting from the solution** — "we want microservices" — instead of the problem.
+**Starting from the solution** — "we want microservices" — instead of the problem. When
+someone asks why, there is no cost of inaction to show.
 
-**A horizon that is too long.**
+**A horizon that is too long.** The annual review rewrites more than half of the target.
 
-**One target for everything.**
+**One target for everything.** Support systems receive investment that only the
+differentiating capabilities justified.
 
-**Not recording the departures.**
+**Not recording the departures.** The signal that the target is wrong is lost: the
+exceptions exist, but nobody sees them pile up.
 
-**Having no transition.**
+**Having no transition.** The target never turns into work, and after a year nobody cites
+it.
 
 ## Real-World Example
 

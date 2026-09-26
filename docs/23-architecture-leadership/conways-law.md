@@ -2,7 +2,7 @@
 id: conways-law
 title: Lei de Conway
 sidebar_position: 18
-description: A arquitetura reproduz a estrutura de comunicação da organização — e essa é a restrição mais forte que existe sobre ela.
+description: A arquitetura reproduz a estrutura de comunicação da organização — e, quando as duas divergem, é a arquitetura que tende a ceder.
 doc_type: concept
 level: 7
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [team-topologies, organizational-architecture, cross-team-architecture]
 canonical_for: [lei de Conway, manobra inversa de Conway, estrutura de comunicação, homomorfismo organizacional]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -26,8 +26,10 @@ Melvin Conway, em 1968:
 > Organizações que desenham sistemas estão restritas a produzir desenhos que são cópias das
 > estruturas de comunicação dessas organizações.
 
-A formulação é de sessenta anos e continua sendo a observação mais previsiva sobre arquitetura de
-software que existe. Ela não descreve uma tendência — descreve uma restrição:
+A formulação é de sessenta anos e continua sendo uma das regularidades mais consistentemente
+observadas em arquitetura de software: MacCormack et al. (2011), comparando produtos equivalentes
+feitos por organizações fortemente e fracamente acopladas, encontraram a mesma correspondência
+entre acoplamento da organização e acoplamento do código. Ela não descreve uma tendência — descreve uma restrição:
 
 ```text
 duas equipes que não conversam        produzem dois sistemas com
@@ -39,7 +41,8 @@ uma equipe que faz tudo               produz um sistema sem fronteiras
 ```
 
 E a consequência para quem lidera arquitetura é direta: **desenhar times é desenhar arquitetura**.
-Ignorar isso é projetar contra a corrente, e a corrente sempre ganha.
+Ignorar isso é projetar contra a corrente: sem esforço contínuo para sustentar as fronteiras, a
+corrente vence.
 
 ## Problema
 
@@ -100,8 +103,9 @@ quer uma plataforma reusável
     time de infraestrutura sob demanda
 ```
 
-Isso é conhecido como manobra inversa de Conway, e é a ferramenta mais poderosa que um arquiteto
-sênior tem — e a que ele mais raramente pode acionar sozinho, porque exige a liderança de
+Isso é conhecido como manobra inversa de Conway. Ela é a alavanca de maior alcance que um
+arquiteto sênior tem sobre a forma do sistema, porque muda a estrutura que produz as decisões em
+vez de corrigir uma decisão de cada vez — e é a que ele mais raramente pode acionar sozinho, porque exige a liderança de
 engenharia.
 
 Por isso a proposta arquitetural e a proposta organizacional precisam andar juntas. Ver
@@ -188,8 +192,9 @@ claramente quanto a fronteira de time.
 
 ## Modelo Mental
 
-**A arquitetura vai se parecer com a estrutura de comunicação, sempre.** A escolha é entre
-desenhar essa correspondência ou descobri-la depois.
+**A arquitetura tende a se parecer com a estrutura de comunicação, e contrariar essa tendência
+custa esforço contínuo.** A escolha é entre desenhar essa correspondência, pagar para sustentar a
+divergência ou descobri-la depois.
 
 ## Quando Usar
 
@@ -207,10 +212,20 @@ disciplinadas mantêm fronteiras contra a corrente, a custo de esforço contínu
 
 **Reorganizando times por moda arquitetural**, sem entender o domínio.
 
-**Ignorando o custo de reorganizar** — mudança de time custa produtividade por meses.
+**Ignorando o custo de reorganizar** — mudança de time custa produtividade por meses; no exemplo
+abaixo, 30% de velocidade de entrega durante quatro meses.
 
 **Sozinho** — a manobra inversa exige a liderança de engenharia; propô-la sem esse alinhamento é
 desperdício de capital.
+
+A manobra inversa, em particular, não compensa em três condições:
+
+- **Um único time** — não há estrutura de comunicação entre times para redesenhar; a fronteira
+  interna depende de disciplina de módulo, não de organograma.
+- **Domínio instável** — o produto ainda está descobrindo o próprio recorte, e times por domínio
+  fixariam fronteiras que a próxima mudança de rumo desfaz.
+- **Horizonte curto** — a arquitetura alvo vai durar menos que o tempo necessário para pagar a
+  queda de produtividade da reorganização.
 
 ## Alternativas
 
@@ -227,16 +242,16 @@ comunicação pode ser alterada sem mexer em hierarquia.
 
 ## Trade-offs
 
-| Alinhar times à arquitetura | Adaptar arquitetura aos times |
-|---|---|
-| Fronteiras sustentáveis | Sem custo de reorganização |
-| Custo de reorganizar | Arquitetura limitada pela estrutura |
-| Exige patrocínio | Autonomia do arquiteto |
+| Eixo | Alinhar times à arquitetura | Adaptar arquitetura aos times |
+|---|---|---|
+| Custo inicial | Alto: reorganização e meses de produtividade menor | Nenhum |
+| Arquitetura alcançável | A desejada | A que a estrutura atual suporta |
+| Quem decide | Exige patrocínio da liderança | Ao alcance do arquiteto |
 
-| Divergência com disciplina | Convergência |
-|---|---|
-| Sem reorganização | Menos esforço contínuo |
-| Custo permanente de vigilância | Custo pontual de mudança |
+| Eixo | Divergência com disciplina | Convergência |
+|---|---|---|
+| Custo inicial | Nenhum: sem reorganização | Pontual: a mudança de times |
+| Custo contínuo | Permanente: vigilância e verificação de fronteiras | Baixo: fronteiras seguem a comunicação |
 
 ## Modos de Falha
 
@@ -254,19 +269,26 @@ comunicação pode ser alterada sem mexer em hierarquia.
 
 ## Erros Comuns
 
-**Tratar a lei como curiosidade histórica.**
+**Tratar a lei como curiosidade histórica.** Ela aparece na retrospectiva, não na proposta, e o
+acoplamento por camada é descoberto dezoito meses depois, como no exemplo abaixo.
 
-**Propor arquitetura sem olhar o organograma.**
+**Propor arquitetura sem olhar o organograma.** A proposta desenha cinco serviços para três
+times, e o serviço sem dono único acumula as mudanças de quem estiver mais perto dele.
 
-**Reorganizar times sem plano de convergência arquitetural.**
+**Reorganizar times sem plano de convergência arquitetural.** Os times mudam, os serviços não, e
+a nova estrutura passa a atravessar fronteiras que a antiga respeitava — a divergência só troca de
+lugar.
 
-**Ignorar fuso horário** como fronteira de comunicação.
+**Ignorar fuso horário** como fronteira de comunicação. A fronteira surge na divisão geográfica,
+não na desenhada: uma alteração que cruza os dois lados espera até um dia por revisão, e as
+pessoas passam a evitar o código do outro lado.
 
-**Não usar a lei preditivamente** em revisões de desenho.
+**Não usar a lei preditivamente** em revisões de desenho. A revisão aprova três serviços para um
+time de seis, e o acoplamento entre eles só aparece quando desfazê-lo já custa uma migração.
 
 ## Exemplo Real
 
-Uma empresa de comércio eletrônico com 140 engenheiros decidiu migrar de um monólito para
+Uma empresa de comércio eletrônico com 103 engenheiros e 37 pessoas de produto decidiu migrar de um monólito para
 microsserviços por domínio: catálogo, carrinho, pedido, pagamento, entrega.
 
 A organização, na época, era por camada:
@@ -299,13 +321,17 @@ priorização independentes.
 A reorganização levou nove meses e foi conduzida pela liderança de engenharia com a área de
 arquitetura:
 
-**Cinco times por domínio**, cada um com front-end, back-end e dados dentro. Entre 9 e 14 pessoas
-cada.
+**Cinco times por domínio**, cada um com front-end, back-end e dados dentro: 18 engenheiros por
+domínio, 90 ao todo. Dezoito pessoas passam do limite de comunicação informal, então a divisão foi
+desenhada em vez de deixada emergir — cada domínio em dois grupos de até 9 por subdomínio (pedido em
+checkout e pós-venda, por exemplo), com um módulo interno por grupo e um único time dono do serviço.
+As pessoas de produto foram distribuídas entre os domínios.
 
-**Um time de plataforma** com produto próprio — esteira, observabilidade, provisionamento — em
+**Um time de plataforma** de oito pessoas, vindas do antigo time de infraestrutura — as outras seis
+foram para os domínios —, com produto próprio — esteira, observabilidade, provisionamento — em
 vez de um time de infraestrutura atendendo pedidos.
 
-**Um time habilitador** de dados, temporário, para transferir competência de modelagem e
+**Um time habilitador** de dados, com cinco pessoas e temporário, para transferir competência de modelagem e
 qualidade aos times de domínio em vez de executar para eles.
 
 **Propriedade completa** declarada: cada serviço tem um time dono, com plantão próprio.
@@ -323,9 +349,13 @@ implantações independentes por serviço/mês         18
 incidentes por mudança                             -44%
 ```
 
-Na retrospectiva: os cinco serviços eram os mesmos antes e depois. Nenhuma linha de
-fronteira arquitetural mudou. O que mudou foi quem conversava com quem — e isso, sozinho,
-transformou uma arquitetura que não funcionava numa que funcionava.
+Na retrospectiva: os cinco serviços eram os mesmos antes e depois, e nenhuma fronteira de serviço
+foi redesenhada. A queda nas mudanças que tocavam três ou mais serviços veio do que os times por
+camada tinham deixado dentro dessas fronteiras: o time de back-end implementava cada regra no
+serviço em que já estava mexendo, e o time de dados mantinha tabelas lidas por vários serviços.
+Com um dono por serviço, a regra voltou para o domínio a que pertencia, e a tabela compartilhada
+ganhou dono e interface. Plataforma e plantão próprio explicam parte do ganho em tempo de entrega
+e incidentes; o que tornou os serviços independentes foi a mudança de quem conversava com quem.
 
 E a lição que ficou para o processo de decisão: propostas de arquitetura passaram a exigir uma
 seção sobre estrutura organizacional. A pergunta padronizada foi "quais times mantêm cada

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, technical-roadmaps, cost-management]
 canonical_for: [estratégia técnica na liderança, renúncia estratégica, ligação com aposta de negócio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -30,12 +30,11 @@ direção       o que vamos fazer a respeito
 renúncia      o que vamos deixar de fazer para conseguir
 ```
 
-A terceira parte é o que separa estratégia de lista de desejos, e é a que quase nenhuma estratégia
-técnica tem. Um documento que diz o que a organização vai melhorar, sem dizer o que vai piorar ou
-ficar para trás, não é uma escolha — é uma declaração de que tudo é prioritário.
-
-Ver [estratégia técnica](/15-enterprise-architecture/technical-strategy.md) para a formulação
-corporativa; aqui o foco é o que a liderança arquitetural faz com ela.
+Por que o diagnóstico precisa ser específico e a renúncia precisa ser nomeada está definido em
+[estratégia técnica](/15-enterprise-architecture/technical-strategy.md). Este documento parte
+dessa formulação e trata do que cabe à liderança arquitetural para que ela sobreviva ao ano: a
+conversa com quem perde na renúncia, a ligação com uma aposta de negócio, a medição da alocação
+real e a revisão anual.
 
 ## Problema
 
@@ -61,8 +60,8 @@ permanente, e perde — corretamente, do ponto de vista de quem decide.
 
 ```text
 fraco   "temos dívida técnica"
-forte   "73% da capacidade de engenharia está em manutenção.
-        A causa medida é que 17 dos 26 clientes rodam versões
+forte   "69% da capacidade de engenharia está em manutenção.
+        A causa medida é que 11 dos 26 clientes rodam versões
         diferentes do produto, por customizações em código."
 ```
 
@@ -75,8 +74,9 @@ Ver [medição de resultados](/23-architecture-leadership/measuring-architecture
 
 ```text
 uma a três frentes    a organização consegue executar
-quatro ou mais        nenhuma avança o suficiente para gerar
-                      resultado antes do próximo ciclo
+quatro ou mais        a atenção se divide, e a maioria não
+                      conclui antes do próximo ciclo (no
+                      Exemplo Real, 1,3 de 6 avançavam)
 ```
 
 O limite não é de capacidade — é de atenção. Uma organização executa múltiplas iniciativas
@@ -93,8 +93,8 @@ Escolher uma frente e concluí-la produz mais que iniciar cinco.
  crescer cerca de 12%."
 ```
 
-Nomear o que fica para trás faz duas coisas. Torna a escolha real, porque ela passa a ter custo
-visível. E protege a estratégia: quando alguém propuser a migração multirregional em março, a
+Nomear torna a escolha real, porque ela passa a ter custo visível. Para a liderança, o efeito que
+importa é o segundo: protege a estratégia. quando alguém propuser a migração multirregional em março, a
 resposta já existe e não precisa ser negociada de novo.
 
 Uma estratégia sem renúncias declaradas é renegociada a cada reunião.
@@ -163,17 +163,17 @@ negócio.** Sem renúncia, não é estratégia.
 
 ## Quando Não Usar
 
-**Como lista de melhorias.**
+**Quando toda a engenharia cabe num único backlog priorizado por uma pessoa.** A renúncia já
+acontece na própria priorização, à vista de todos; um documento de estratégia acrescenta
+cerimônia sem acrescentar escolha. Use o roadmap direto.
 
-**Sem renúncias.**
+**Quando o negócio troca de aposta em ciclo menor que o horizonte da estratégia** — uma startup
+antes de encontrar product-market fit, por exemplo. Uma estratégia de dois a três anos seria
+reescrita antes de produzir resultado. Use visão de arquitetura e roadmap trimestral.
 
-**Sem ligação com o negócio**, exceto quando o risco justifica sozinho.
-
-**Com mais de três frentes.**
-
-**Sem medir a alocação real** de capacidade.
-
-**Em organizações pequenas**, onde a conversa resolve.
+**Quando não há patrocinador capaz de sustentar as renúncias.** As áreas que perdem recorrem a
+quem está acima, e a renúncia cai na primeira pressão; o documento vira lista de desejos com
+outro nome. Obtenha o patrocínio primeiro, ou restrinja a escolha ao escopo que você controla.
 
 ## Alternativas
 
@@ -188,7 +188,7 @@ negócio.** Sem renúncia, não é estratégia.
 | Poucas frentes | Muitas |
 |---|---|
 | Executa e conclui | Cobre mais |
-| Deixa problemas sem atenção | Nenhuma avança |
+| Deixa problemas sem atenção | Poucas concluem |
 
 | Ligada ao negócio | Autônoma |
 |---|---|
@@ -211,15 +211,21 @@ negócio.** Sem renúncia, não é estratégia.
 
 ## Erros Comuns
 
-**Diagnosticar sintoma** em vez de causa.
+**Diagnosticar sintoma** em vez de causa. A direção ataca o sintoma — mais gente em manutenção,
+em vez de eliminar as customizações — e o percentual em manutenção não cai.
 
-**Não declarar o que fica para trás.**
+**Não declarar o que fica para trás.** Cada proposta nova é avaliada do zero, e a capacidade
+reservada para a frente é drenada por elas ao longo do ano.
 
-**Não fazer a conversa** com quem perde na renúncia.
+**Não fazer a conversa** com quem perde na renúncia. A objeção aparece depois da publicação, na
+primeira pressão, e a renúncia é desfeita sem que ninguém decida desfazê-la.
 
-**Não medir** a capacidade efetivamente alocada.
+**Não medir** a capacidade efetivamente alocada. A estratégia é avaliada pelo plano, e a
+distância entre o declarado e o real — 9% contra 30% no Exemplo Real — só aparece quando os
+resultados não vêm.
 
-**Escrever estratégia** onde um roadmap resolveria.
+**Escrever estratégia** onde um roadmap resolveria. O ciclo de diagnóstico, renúncias e
+conversas consome semanas que uma equipe pequena gastaria entregando o que o backlog já dizia.
 
 ## Exemplo Real
 
@@ -237,7 +243,7 @@ Quatro frentes repetidas todo ano é o sintoma: elas nunca eram concluídas, e r
 
 A reformulação do quarto ciclo:
 
-**Diagnóstico único, com número.** Em vez de seis problemas, um: 73% da capacidade estava em
+**Diagnóstico único, com número.** Em vez de seis problemas, um: 69% da capacidade estava em
 manutenção, e a causa medida era a divergência de versões entre clientes, produzida por
 customizações em código.
 
@@ -267,9 +273,9 @@ Resultados ao fim do ciclo:
 
 ```text
 capacidade efetivamente alocada          23% (declarado: 25%)
-customizações em código                  de 594 para 88
-clientes na versão corrente              de 57% para 84%
-capacidade em manutenção                 de 73% para 51%
+customizações em código                  de 412 para 61
+clientes na versão corrente              de 58% para 85%
+capacidade em manutenção                 de 69% para 51%
 onboarding de cliente novo               de ~7 meses para 9 semanas
 custo de infraestrutura                  +16% (previsto: +14%)
 ```
@@ -282,9 +288,10 @@ produziu o resultado. As conversas de renúncia consumiram seis semanas antes da
 são o que impediu que as renúncias fossem desfeitas em março — que era o padrão dos ciclos
 anteriores.
 
-E o desvio de custo — 16% contra os 14% previstos — foi tratado como previsão cumprida, não como
-falha. Ter declarado o número de antemão transformou um crescimento de custo em consequência
-esperada de uma escolha, em vez de em problema.
+E o desvio de custo — 16% contra o teto de 14% — acionou a reabertura combinada. Ela coube numa
+reunião: o excesso vinha da carga dos clientes novos que o onboarding mais curto trouxe, e a
+decisão foi aceitar os dois pontos e manter a renúncia até o ciclo seguinte. Ter declarado o teto
+de antemão transformou o estouro numa decisão com dono e data, em vez de numa crise.
 
 ## Conceitos Relacionados
 

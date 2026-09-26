@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [conways-law, technical-influence, negotiating-tradeoffs]
 canonical_for: [decisão que atravessa times, coordenação arquitetural, interface entre times]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -123,8 +123,8 @@ Nem toda discordância se resolve. Quando não se resolve:
 
 Isso faz três coisas. Preserva o argumento de quem discordou, que importa se o risco se
 materializar. Torna a decisão revisável com base em evidência em vez de em nova discussão. E dá
-ao time discordante o reconhecimento de que sua posição foi considerada — o que reduz
-significativamente o descumprimento silencioso.
+ao time discordante o reconhecimento de que sua posição foi considerada — o que remove
+o motivo mais comum de descumprimento silencioso: não ter sido ouvido.
 
 Ver [decisão em ADR](/18-architecture-decisions/adr-decision.md).
 
@@ -156,7 +156,9 @@ Essa frase, sem responder quem paga o esforço, é aspiração. Times têm prior
 migrar por conformidade compete com entregar valor — e perde.
 
 As saídas: financiar a migração centralmente, incluí-la no roteiro negociado de cada time, ou
-fornecer ferramenta que a torne barata. Sem uma delas, a convergência não acontece.
+fornecer ferramenta que a torne barata. Sem uma delas, a adoção
+chega aos sistemas novos e a convergência estagna nos antigos, que só saem de cena quando alguém os
+descontinua por outro motivo.
 
 ### Coordenação tem custo, e ele deve ser visível
 
@@ -186,21 +188,26 @@ transversal não é tomada, é adotada.
 
 ## Quando Não Usar
 
-**Para decisões locais.**
+**Quando a consequência fica contida num time**, mesmo que outro consuma o resultado. Se o
+consumidor só enxerga o contrato e o contrato não muda, coordenar a decisão interna custa reuniões e
+disposição dos times sem proteger nada.
 
-**Propondo antes de envolver.**
+**Quando mover a fronteira custa menos que coordenar de forma recorrente.** Coordenação é custo pago
+a cada decisão; mover a fronteira é pago uma vez. Se os mesmos dois times coordenam todo trimestre, o
+sinal é redesenhar a fronteira, não aperfeiçoar a reunião.
 
-**Discutindo implementação** de outro time.
+**Quando o contrato já é verificado automaticamente** e a divergência interna não vaza. Um teste de
+contrato que quebra o build diz mais, e mais cedo, que uma rodada de alinhamento — e não consome a
+atenção de ninguém.
 
-**Sem acompanhar a adoção.**
-
-**Sem responder quem paga a migração.**
-
-**Escalando** como primeiro recurso — a escalada ensina os times a escalar.
+**Quando a decisão é reversível a custo baixo para quem está do outro lado.** Se errar significa
+trocar um campo opcional numa versão compatível, deixar o time decidir e corrigir depois sai mais
+barato que semanas de convergência prévia.
 
 ## Alternativas
 
-- **Reduzir a necessidade de coordenação** movendo a fronteira — a melhor solução quando viável.
+- **Reduzir a necessidade de coordenação** movendo a fronteira — preferível quando a
+  coordenação entre os mesmos times é recorrente e o custo de mover a fronteira é pago uma vez.
 - **Autonomia com contrato verificado** — cada time decide dentro do escopo, e a compatibilidade
   é verificada automaticamente.
 - **Um time absorve o escopo** — quando dois times coordenam constantemente, fundi-los pode ser a
@@ -236,15 +243,24 @@ transversal não é tomada, é adotada.
 
 ## Erros Comuns
 
-**Propor antes de envolver.**
+**Propor antes de envolver.** A proposta sai tecnicamente boa e é ignorada — como nas duas primeiras
+tentativas do Exemplo Real, que ficaram abaixo de 20% de adoção.
 
-**Discutir implementação** em vez de contrato.
+**Discutir implementação** em vez de contrato. O time do outro lado resiste à interferência, a
+conversa se alonga, e o contrato que importava sai igual ao que sairia sem ela.
 
-**Não medir adoção.**
+**Não medir adoção.** A decisão parece valer porque ninguém reclama, e a divergência só aparece como
+incidente de integração meses depois.
 
-**Tratar baixa adoção** como indisciplina em vez de informação.
+**Tratar baixa adoção** como indisciplina em vez de informação. A cobrança aumenta, a adesão vira
+formal, e a restrição real que impedia a adoção — como as quatro do Exemplo Real — continua sem
+resposta.
 
-**Coordenar demais**, gastando a disposição dos times.
+**Coordenar demais**, gastando a disposição dos times. Quando chega a decisão que de fato atravessa
+fronteiras, os representantes já tratam a reunião como burocracia e mandam quem não decide.
+
+**Escalar como primeiro recurso.** O gestor decide sem contexto técnico, e os times aprendem que
+discordar é uma forma de terceirizar a decisão.
 
 ## Exemplo Real
 

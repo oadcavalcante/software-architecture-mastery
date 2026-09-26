@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, team-topologies, architecture-ownership]
 canonical_for: [arquitetura organizacional, desenho de fronteira organizacional, custo de reorganização]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -107,8 +107,8 @@ autoridade   o time pode decidir dentro do seu escopo
 ```
 
 Dar escopo sem capacidade produz um time que depende de outros e não pode dizer isso. Dar escopo e
-capacidade sem autoridade produz um time que sabe o que fazer e precisa pedir permissão — que é a
-frustração mais citada em pesquisas internas de engenharia.
+capacidade sem autoridade produz um time que sabe o que fazer e precisa pedir permissão — e a
+fila dessa permissão passa a ditar o ritmo de entrega, como no exemplo ao fim deste documento.
 
 E a plataforma é o que torna as três viáveis sem duplicar tudo. Ver
 [topologias de time](/23-architecture-leadership/team-topologies.md).
@@ -165,8 +165,9 @@ quantidade de pessoas que precisam concordar. Ver
 ```text
 mesma cidade                fronteiras podem ser fluidas
 fusos com sobreposição      fronteiras precisam de contrato
-fusos sem sobreposição      fronteiras precisam de contrato rígido,
-                            e a colaboração é inviável
+fusos sem sobreposição      fronteiras precisam de contrato rígido;
+                            a colaboração síncrona é inviável e cada
+                            troca assíncrona custa um dia
 ```
 
 Colocar um domínio sob responsabilidade de duas equipes em fusos sem sobreposição é uma decisão
@@ -187,15 +188,21 @@ trabalho é muito mais barato que mudar a formal.
 
 ## Quando Não Usar
 
-**Como primeira resposta** a qualquer problema.
+**Quando o mapa de decisão aponta o gargalo.** Se a lentidão está numa fila de aprovação ou num
+comitê, mover pessoas preserva a fila — o caso do exemplo abaixo.
 
-**Sem declarar o custo** da transição.
+**Quando houve reorganização nos últimos 12 a 18 meses.** A anterior ainda não foi absorvida, e a
+nova cai na faixa de custo de repetição em que as pessoas param de investir em contexto.
 
-**Sem alta confiança na fronteira** — reorganizações repetidas custam mais que a primeira.
+**Quando a fronteira proposta não foi validada** contra os
+[contextos delimitados](/04-domain-driven-design/bounded-context.md) — reorganizações repetidas
+custam mais que a primeira, e uma fronteira errada garante a repetição.
 
-**Mexendo na estrutura formal** quando a de trabalho resolveria.
+**Quando a estrutura de trabalho resolveria** — um ritual conjunto, uma alocação temporária ou a
+transferência de propriedade de um componente, sem mexer na formal.
 
-**Sem patrocínio da liderança** de engenharia — propor sozinho é desperdiçar capital.
+**Quando não há patrocínio da liderança** de engenharia — a proposta morre na aprovação e consome
+o capital político do arquiteto para a próxima.
 
 ## Alternativas
 
@@ -238,15 +245,21 @@ são.
 
 ## Erros Comuns
 
-**Tratar a organização como dado.**
+**Tratar a organização como dado.** A proposta separa serviços que continuam com o mesmo time, e o
+acoplamento volta pelo canal de comunicação que ninguém mudou.
 
-**Propor reorganização formal** quando a de trabalho bastaria.
+**Propor reorganização formal** quando a de trabalho bastaria. Paga-se de 3 a 6 meses de queda de
+produtividade por um resultado que um ritual ou uma alocação temporária entregaria em semanas.
 
-**Não mapear o fluxo de decisão** antes de mexer em times.
+**Não mapear o fluxo de decisão** antes de mexer em times. Os times mudam, os aprovadores ficam, e
+a lentidão sobrevive à reorganização.
 
-**Não declarar a queda de produtividade.**
+**Não declarar a queda de produtividade.** Quando ela chega, é lida como fracasso da proposta, e a
+pressão é por reverter antes de o novo desenho estabilizar.
 
-**Reorganizar por modelo** em vez de por diagnóstico.
+**Reorganizar por modelo** em vez de por diagnóstico. Copiar um desenho pronto — por produto, por
+camada, por domínio — sem saber onde está o gargalo produz a sequência de 2022 a 2024 do exemplo:
+três reorganizações, cada uma motivada por um sintoma, nenhuma tocando a causa.
 
 ## Exemplo Real
 

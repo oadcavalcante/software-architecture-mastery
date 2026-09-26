@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-strategy-leadership]
 related: [technical-strategy-leadership, architecture-vision, risk-management]
 canonical_for: [roadmap técnico, sequenciamento por valor, fase que termina estável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -31,12 +31,13 @@ a ordem certa    cada fase entrega algo, e o plano sobrevive
                  a mudanças de prioridade
 ```
 
-E há uma restrição que quase nenhum roadmap técnico respeita e que decide se ele sobrevive:
+E há uma restrição que o formato típico, descrito abaixo, não respeita e que decide se o roadmap sobrevive:
 **cada fase precisa terminar em um estado em que o trabalho pode parar sem deixar nada pela
 metade.**
 
-Projetos técnicos longos não são cancelados por falta de mérito. São cancelados por mudança de
-prioridade, troca de liderança ou contingenciamento — e o que resta é o que estava concluído.
+Num horizonte de 12 a 24 meses, o risco que costuma encerrar um projeto técnico não é falta de
+mérito: é mudança de prioridade, troca de liderança ou contingenciamento — e, quando ele se
+realiza, o que resta é o que estava concluído.
 
 ## Problema
 
@@ -75,6 +76,8 @@ que não existia.
 
 ### Cada fase termina estável
 
+É o teste de [entrega intermediária](/15-enterprise-architecture/architecture-roadmaps.md) aplicado à fase de um roadmap técnico:
+
 ```text
 "ao fim da fase 2, se o projeto parar, o que fica?"
 ```
@@ -107,10 +110,9 @@ robusto  "migração concluída quando os três sistemas críticos
          estiverem no novo, com equivalência comprovada"
 ```
 
-Marcos definidos por condição sobrevivem a atrasos; datas precisas em horizonte longo são ficção
-que corrói credibilidade quando não se cumprem.
-
-Datas são úteis no horizonte curto — o próximo trimestre — e enganosas além dele.
+Quando usar datas e como a precisão decresce com o horizonte está em
+[roteiros de arquitetura](/15-enterprise-architecture/architecture-roadmaps.md). O que é próprio do roadmap técnico é o marco por condição:
+ele sobrevive a atraso e pode ser verificado por quem não participou do plano.
 
 ### Declare o que cada fase não faz
 
@@ -119,9 +121,8 @@ Datas são úteis no horizonte curto — o próximo trimestre — e enganosas al
  nada do sistema antigo"
 ```
 
-Isso evita a expectativa que produz decepção, e permite que a fase seja avaliada pelo que ela
-prometeu. Ver
-[comunicação](/23-architecture-leadership/communication.md).
+É a regra de [mostrar o que não está no roteiro](/15-enterprise-architecture/architecture-roadmaps.md) aplicada à fase: permite que ela seja
+avaliada pelo que prometeu. Ver [comunicação](/23-architecture-leadership/communication.md).
 
 ### Roadmap técnico compete com produto
 
@@ -152,8 +153,8 @@ recorrente e desgasta o patrocínio.
 
 ## Modelo Mental
 
-**Ordene por valor entregue cedo, e faça cada fase terminar estável.** O plano vai ser
-interrompido; a questão é o que sobra.
+**Ordene por valor entregue cedo, e faça cada fase terminar estável.** Em 12 a 24 meses, trate a
+interrupção como o caso a planejar, não como exceção; a questão é o que sobra quando ela vier.
 
 ## Quando Usar
 
@@ -163,17 +164,21 @@ interrompido; a questão é o que sobra.
 
 ## Quando Não Usar
 
-**Sequenciando por lógica técnica** apenas.
+**Dívida difusa, sem alvo arquitetural único.** Quando o trabalho é uma soma de melhorias locais —
+dependências desatualizadas, testes frágeis, módulos confusos —, não há sequência a otimizar; um
+percentual fixo de capacidade resolve com menos cerimônia.
 
-**Com fases que não terminam estáveis.**
+**Trabalho que cabe em um trimestre.** O faseamento existe para sobreviver a mudanças de
+prioridade ao longo de muitos meses; num horizonte em que a prioridade dificilmente muda, fases
+com critério de parada são custo de planejamento sem retorno, e o backlog basta.
 
-**Com datas precisas** em horizonte longo.
+**Organização que já opera fila única com produto.** Se itens técnicos e de produto já são
+priorizados juntos, um roadmap técnico separado recria a divisão de orçamento que a fila única
+eliminou.
 
-**Apresentado isoladamente** do roadmap de produto.
-
-**Sem declarar** o que cada fase não faz.
-
-**Sem revisão por evidência** ao fim de cada fase.
+**Destino ainda em disputa.** O roadmap ordena o que a estratégia escolheu; sequenciar antes da
+escolha é antecipar a decisão pela ordem das fases. Primeiro a
+[estratégia técnica](/23-architecture-leadership/technical-strategy-leadership.md).
 
 ## Alternativas
 
@@ -212,15 +217,23 @@ orçamentos de capacidade.
 
 ## Erros Comuns
 
-**Sequenciar por dependência técnica** sem considerar valor.
+**Sequenciar por dependência técnica** sem considerar valor. O plano é escrito por quem conhece a
+arquitetura, e para essa pessoa o grafo de dependências parece a ordem natural; a consequência é
+uma fase 1 sem entrega visível quando chega o primeiro corte orçamentário.
 
-**Não perguntar** o que sobra se o plano parar.
+**Não perguntar** o que sobra se o plano parar. A pergunta soa pessimista numa apresentação que
+busca aprovação e fica de fora; o custo só aparece na interrupção, quando já não dá para
+reorganizar a fase.
 
-**Prometer datas** que dependem de decisões futuras.
+**Prometer datas** que dependem de decisões futuras. O patrocinador pede uma data e é ela que
+destrava a aprovação; quando escorrega, a conversa passa a ser o atraso, não o que foi entregue.
 
-**Não conversar** a competição com o roadmap de produto.
+**Não conversar** a competição com o roadmap de produto. Apresentado isolado, o plano é aprovado
+mais rápido e com alocação maior no papel; a alocação real erode sem decisão explícita quando a
+pressão de entrega chega.
 
-**Não declarar** o escopo negativo de cada fase.
+**Não declarar** o escopo negativo de cada fase. Quem escreve sabe o que ficou de fora e supõe que
+todos sabem; a fase entregue passa a ser julgada pelo que ninguém prometeu.
 
 ## Exemplo Real
 
@@ -258,9 +271,10 @@ fase 2 (5 meses)   três sistemas, plataforma ampliada com o
                    que eles exigiram
                    se parar aqui: quatro sistemas migrados
 
-fase 3 (6 meses)   os nove restantes, com a plataforma já
-                   madura pelo uso real
-                   se parar aqui: doze de quinze
+fase 3 (6 meses)   os onze restantes, um de cada vez, com a
+                   plataforma já madura pelo uso real
+                   se parar aqui: quinze de quinze, com o
+                   antigo ainda ligado
 
 fase 4 (4 meses)   desligamento e migração de histórico
 ```
@@ -281,7 +295,8 @@ fase 1 concluída no mês 4        benefício medido: -34% no tempo
 alocação real ao longo do plano  21% (acordado: 22%)
 plano interrompido?              sim — no mês 11, por 3 meses,
                                  por uma prioridade comercial
-o que restou na interrupção      quatro sistemas migrados,
+o que restou na interrupção      seis sistemas migrados (quatro
+                                 das fases 1 e 2, dois da fase 3),
                                  funcionando, com benefício
 plano retomado                   sim, no mês 14
 conclusão                        mês 22 (previsto: 19)
@@ -290,7 +305,8 @@ retrabalho de plataforma         ~6 semanas, previsto e aceito
 
 A interrupção de três meses aconteceu — como nos dois roadmaps anteriores. A diferença é que
 desta vez ela não cancelou nada: o trabalho parou num estado aproveitável, e retomar foi
-possível.
+possível. Ela caiu no meio da fase 3, e a regra valeu também dentro da fase: cada sistema era
+migrado como unidade que termina estável, e no mês 11 nenhum estava pela metade.
 
 A leitura que a equipe faz: as seis semanas de retrabalho por construir a plataforma sob demanda
 foram o preço da sobrevivência do plano, e ele foi barato. Os dois roadmaps anteriores tinham
@@ -309,7 +325,7 @@ Pegue um plano técnico em andamento e responda, para cada fase: o que sobra se 
 ao fim dela?
 
 As fases cuja resposta for "nada aproveitável" são as que vão custar tudo se a prioridade mudar —
-e a prioridade muda.
+e, num plano de mais de um ano, a mudança de prioridade é o caso a planejar, não a exceção.
 
 ## Perguntas de Entrevista
 

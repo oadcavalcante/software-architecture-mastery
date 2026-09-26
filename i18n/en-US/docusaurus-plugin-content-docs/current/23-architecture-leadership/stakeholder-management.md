@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [communication, technical-influence, negotiating-tradeoffs]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -83,8 +83,8 @@ engineering teams     autonomy, load, quality of life
 ```
 
 Discovering someone's currency is not manipulation — it is the condition for the conversation to be
-useful. Presenting the same proposal to everyone in engineering's currency produces six
-conversations in which five people can't assess anything.
+useful. Presenting the same proposal to everyone in engineering's currency produces seven
+conversations in which six people can't assess anything.
 
 See [communication](/23-architecture-leadership/communication.md).
 
@@ -144,12 +144,13 @@ Group decisions rarely change positions; they confirm positions formed beforehan
 persuasion work happens in the individual conversations, and the meeting is where the result is
 recorded.
 
-An architect who learns each participant's position before the meeting is never surprised, and can
+An architect who learns each participant's position before the meeting is rarely surprised by an
+objection that already existed, and can
 address objections while there is still time.
 
 ### The forgotten stakeholder is almost always the same
 
-In internal surveys, the most frequently forgotten are:
+The most frequently forgotten tend to be:
 
 ```text
 operations      will carry the result on call
@@ -175,15 +176,19 @@ Involving early costs less than persuading late.
 
 ## When Not to Use
 
-**Involving everyone in everything** — it dilutes accountability and blocks.
+**The decision is cheap to reverse.** Swapping an internal library or a log format only your own
+team consumes: if it goes wrong, undoing it costs less than the round of conversations that would
+have prevented the mistake. The map exists to protect against an expensive late objection, and
+here it isn't expensive.
 
-**Seeking universal consensus.**
+**The effect stays inside the deciding team.** With no one outside paying in on-call load, cost,
+risk or obligation, there is no one else's currency to discover. Mapping becomes ceremony — and
+teaches the real stakeholders that the invitation means nothing.
 
-**Treating resistance as an obstacle.**
-
-**Leaving ambiguous** who decides.
-
-**Discovering positions in the meeting** instead of beforehand.
+**The urgency doesn't allow a round of consultation.** In an incident or against a fixed regulatory
+deadline, waiting for a conversation with each stakeholder costs more than deciding with whoever is
+present. Involvement comes afterwards: inform people of what was done and record the decision for
+review, instead of consulting beforehand.
 
 ## Alternatives
 
@@ -277,7 +282,8 @@ objections that would have surfaced after months of work — and abandoning them
 cost almost nothing.
 
 The five-minute conversation with legal, which would have prevented the original incident, is the
-highest-return item on the list. It costs five minutes and occasionally saves four months.
+highest-return item on the list. The five minutes raise the question; the contract review it
+triggers costs a few days — and occasionally saves four months.
 
 ## Related Concepts
 

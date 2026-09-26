@@ -13,7 +13,7 @@ objective: >
 prerequisites: [conways-law]
 related: [conways-law, team-topologies, architecture-ownership]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -107,7 +107,8 @@ authority    the team can decide within its scope
 
 Giving scope with no capability produces a team that depends on others and cannot say so. Giving scope
 and capability with no authority produces a team that knows what to do and has to ask permission —
-which is the most cited frustration in internal engineering surveys.
+and the queue for that permission starts setting the delivery pace, as in the example at the end of
+this document.
 
 And the platform is what makes all three viable without duplicating everything. See
 [team topologies](/23-architecture-leadership/team-topologies.md).
@@ -164,8 +165,9 @@ is about the number of people who have to agree. See
 ```text
 the same city                boundaries can be fluid
 time zones with overlap      boundaries need a contract
-time zones with no overlap   boundaries need a rigid contract,
-                             and collaboration is unworkable
+time zones with no overlap   boundaries need a rigid contract;
+                             synchronous collaboration is unworkable
+                             and each asynchronous exchange costs a day
 ```
 
 Putting one domain under the responsibility of two teams in non-overlapping time zones is an
@@ -186,15 +188,22 @@ work structure is far cheaper than changing the formal one.
 
 ## When Not to Use
 
-**As the first response** to any problem.
+**When the decision map points at the bottleneck.** If the slowness sits in an approval queue or a
+committee, moving people preserves the queue — the case in the example below.
 
-**Without declaring the cost** of the transition.
+**When there was a reorganization in the last 12 to 18 months.** The previous one hasn't been
+absorbed yet, and the new one lands in the repetition-cost range where people stop investing in
+context.
 
-**With no high confidence in the boundary** — repeated reorganizations cost more than the first.
+**When the proposed boundary hasn't been validated** against the
+[bounded contexts](/04-domain-driven-design/bounded-context.md) — repeated reorganizations cost more
+than the first, and a wrong boundary guarantees the repetition.
 
-**Touching the formal structure** when the work structure would resolve it.
+**When the work structure would resolve it** — a joint ritual, a temporary assignment or the transfer
+of a component's ownership, without touching the formal one.
 
-**With no sponsorship from engineering leadership** — proposing it alone is wasting capital.
+**When there is no sponsorship from engineering leadership** — the proposal dies at approval and
+spends the architect's political capital for the next one.
 
 ## Alternatives
 
@@ -236,15 +245,21 @@ The first two should always be considered before a formal reorganization, and ra
 
 ## Common Mistakes
 
-**Treating the organization as a given.**
+**Treating the organization as a given.** The proposal splits services that stay with the same team,
+and the coupling comes back through the communication channel nobody changed.
 
-**Proposing a formal reorganization** when the work structure would suffice.
+**Proposing a formal reorganization** when the work structure would suffice. It pays 3 to 6 months of
+reduced productivity for a result a ritual or a temporary assignment would deliver in weeks.
 
-**Not mapping the decision flow** before touching teams.
+**Not mapping the decision flow** before touching teams. The teams change, the approvers stay, and the
+slowness survives the reorganization.
 
-**Not declaring the productivity drop.**
+**Not declaring the productivity drop.** When it arrives, it reads as the proposal's failure, and the
+pressure is to revert before the new design stabilizes.
 
-**Reorganizing by model** instead of by diagnosis.
+**Reorganizing by model** instead of by diagnosis. Copying a ready-made design — by product, by layer,
+by domain — without knowing where the bottleneck is produces the 2022 to 2024 sequence in the example:
+three reorganizations, each driven by a symptom, none touching the cause.
 
 ## Real-World Example
 

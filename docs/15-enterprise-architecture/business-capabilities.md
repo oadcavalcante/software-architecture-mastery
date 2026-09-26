@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
 canonical_for: [capacidade de negócio, modelo de capacidades de negócio, estabilidade de capacidade]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -78,34 +78,32 @@ nível 1   grandes áreas — 8 a 15 no total
           "gestão de clientes", "gestão de produtos", "operações"
 nível 2   decomposição — 40 a 80
           "cadastro de clientes", "análise de crédito", "cobrança"
-nível 3   detalhe — onde o mapeamento a sistemas fica útil
+nível 3   detalhe — só onde o mapeamento a sistemas o exige
           "verificação de documentos", "cálculo de limite"
 ```
 
-Três níveis bastam para a maioria das organizações. Descer ao quarto produz um modelo
-que ninguém mantém — e o valor do modelo depende de ele estar atualizado.
+Como decompor, e por que o terceiro nível não é uniforme, está em
+[mapeamento de capacidades](/15-enterprise-architecture/capability-mapping.md). O que
+importa aqui é o teto: para servir a decisões de investimento e portfólio, dois níveis
+completos e um terceiro pontual bastam. Descer ao quarto produz um modelo que ninguém
+mantém — e o valor do modelo depende de ele estar atualizado.
 
 O sinal de que se desceu demais: as capacidades do último nível começam a parecer
 funcionalidades de sistema.
 
 ### O valor está no mapeamento
 
-O modelo sozinho é um diagrama. O que produz decisão é sobrepor informação a ele:
+O modelo sozinho é um diagrama. O que produz decisão é sobrepor informação a ele —
+sistemas, custo, criticidade, diferenciação, saúde —, e o mapa de calor que resulta é
+descrito em [mapeamento de capacidades](/15-enterprise-architecture/capability-mapping.md).
+Cada pergunta pede uma combinação diferente.
 
-```text
-sistemas          quais atendem cada capacidade → revela duplicação e lacuna
-custo             quanto se gasta por capacidade → revela desalinhamento
-criticidade       o que para o negócio se falhar
-diferenciação     o que distingue a organização
-saúde             estado técnico dos sistemas que a suportam
-```
-
-A sobreposição de **diferenciação** e **custo** é a que mais gera discussão útil: uma
-capacidade que não diferencia e consome uma fatia grande do investimento é candidata a
-compra em vez de construção. Ver
+Para decidir entre construir e comprar, a sobreposição é de **diferenciação** com
+**custo**: uma capacidade que não diferencia e consome uma fatia grande do investimento é
+candidata a compra em vez de construção. Ver
 [SaaS](/09-cloud-architecture/saas.md).
 
-E a de **criticidade** com **saúde** revela o risco concreto: uma capacidade crítica
+Para priorizar risco, a de **criticidade** com **saúde** revela o risco concreto: uma capacidade crítica
 suportada por um sistema em estado ruim é a prioridade que ninguém tinha nomeado.
 
 ### Duplicação aparece sozinha
@@ -183,18 +181,19 @@ apodrece em meses.
 
 ## Quando Não Usar
 
-**Modelando o organograma.**
+**Organização com poucos sistemas e um só produto.** Com uma dúzia de sistemas, todo
+mundo na sala já sabe qual atende o quê; o mapa custa semanas e não revela duplicação que
+uma conversa não revelasse.
 
-**Com mais de três níveis.**
+**Negócio que ainda está descobrindo o que faz.** Numa empresa que pivota a cada
+trimestre, o teste de estabilidade falha por construção: as capacidades de hoje não
+existirão no ano que vem, e o modelo envelhece mais rápido que os sistemas.
 
-**Sem sobrepor informação.** O modelo sozinho não decide nada.
-
-**Sem dono nem revisão.**
+**Sem fórum que o consuma.** Se não há discussão de orçamento, portfólio ou priorização
+que vá usar o mapa, ele é construído e arquivado — o custo sem o retorno.
 
 **Como substituto de arquitetura técnica.** Ele orienta investimento, não desenho de
-sistema.
-
-**Construído por consultoria e arquivado.**
+sistema; fronteiras de software vêm de domínios.
 
 ## Alternativas
 
@@ -237,17 +236,23 @@ negócio; domínios organizam as fronteiras do software.
 
 ## Erros Comuns
 
-**Modelar o organograma.**
+**Modelar o organograma.** A primeira reorganização invalida o mapa, e o negócio
+aprende que ele não merece confiança.
 
-**Descer a quatro ou cinco níveis.**
+**Descer a quatro ou cinco níveis.** O último nível vira lista de funcionalidades, a
+manutenção passa a custar mais que o uso, e o modelo fica desatualizado em meses.
 
-**Não mapear sistemas.**
+**Não mapear sistemas.** Sem o mapeamento, a duplicação continua invisível — que era o
+motivo de construir o modelo.
 
-**Não classificar por diferenciação.**
+**Não classificar por diferenciação.** A decisão de construir ou comprar volta a ser
+tomada sistema a sistema, por quem defende cada um.
 
-**Não ter dono do modelo.**
+**Não ter dono do modelo.** Ninguém incorpora o sistema novo nem a capacidade aposentada,
+e as decisões passam a se basear num mapa que já não corresponde à organização.
 
-**Construir para um projeto** em vez de para uso contínuo.
+**Construir para um projeto** em vez de para uso contínuo. O mapa responde à pergunta
+daquele projeto e não é consultado na seguinte.
 
 ## Exemplo Real
 
@@ -306,14 +311,15 @@ negócio finalmente conseguia participar dela.
 Liste as dez capacidades de negócio mais importantes da sua organização, sem mencionar
 nenhum sistema nem departamento.
 
-Depois mapeie quais sistemas atendem cada uma. As capacidades com três ou mais sistemas
-são as suas duplicações.
+Depois mapeie quais sistemas atendem cada uma. Toda capacidade com mais de um sistema é
+candidata a duplicação; confirme olhando o que cada sistema faz dela. Se dois mantêm o
+mesmo cadastro, é duplicação; se um cadastra e o outro cobra, são partes complementares.
 
 ## Perguntas de Entrevista
 
 - O que distingue uma capacidade de um processo ou de um sistema?
 - Por que a estabilidade é a propriedade central?
-- Que sobreposição de dados gera mais decisão?
+- Que sobreposição de dados responde a construir-ou-comprar, e qual responde a risco?
 
 ## Para Aprofundar
 

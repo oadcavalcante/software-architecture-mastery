@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [fitness-functions, measuring-architecture-outcomes, technical-roadmaps]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -117,7 +117,7 @@ the whole cycle.
 
 That changes what you optimize for: instead of being right more often, being wrong more cheaply.
 
-### Incremental change, always
+### Incremental change by default
 
 ```text
 large and rare       concentrated risk, hard to reverse,
@@ -130,6 +130,10 @@ small and
 That holds for architecture as much as for code. A migration done in slices, each reversible, is
 slower in total and far safer — and it lets the plan survive interruptions. See
 [technical roadmaps](/23-architecture-leadership/technical-roadmaps.md).
+
+The exception is a system that has reached the end of its useful life: once the decision is to
+replace it, a planned all-at-once swap (see Alternatives) can cost less than slicing the evolution
+of something on its way out.
 
 ### Leave paths open where uncertainty is high
 
@@ -153,12 +157,14 @@ You cannot guide what you don't observe:
 coupling between modules, measured
 build and deployment time
 change frequency per area
-areas that always change together
+areas that frequently change together
 time between decision and production
 ```
 
-The fourth line is the most revealing: components that always change together indicate a wrong
-boundary, and that information is in the repository history without anyone extracting it.
+The fourth line is the most revealing: components that frequently change together are evidence of
+a wrong boundary, and that information is in the repository history without anyone extracting it.
+Evidence, not a verdict — each pair has to be assessed, and the example below has one that was a
+coincidence.
 
 See [measuring outcomes](/23-architecture-leadership/measuring-architecture-outcomes.md).
 
@@ -187,15 +193,15 @@ evolution is the middle ground between drift and freezing.
 
 ## When Not to Use
 
-**Protecting everything** — with no choice, no dimension is actually protected.
+**Short expected lifespan** — prototypes, campaigns, systems with a horizon under 12 to 18
+months. Pipeline checks and continuous measurement cost from the first month, and the return only
+shows up as change accumulates.
 
-**As an excuse not to decide** — "we'll evolve" is no substitute for choosing.
+**A domain with slow, predictable change** — when the premises barely move, periodic review of a
+stable architecture delivers the same result for less.
 
-**In disposable systems** — the investment doesn't pay off.
-
-**Without measuring** the current state.
-
-**Making everything malleable**, published contracts included.
+**A system already slated for replacement** — investing in making it cheap to change is spending
+on an asset that is leaving; freezing and isolating it usually costs less.
 
 ## Alternatives
 
@@ -212,14 +218,20 @@ that is a valid economic decision.
 
 | Evolutionary | Stable |
 |---|---|
-| Absorbs change | Less investment |
-| Continuous cost of maintaining the capacity | The distance grows |
+| Absorbs change | Accumulates distance from the problem |
+| Continuous cost of maintaining the capacity | Low investment, until the rewrite |
 | Requires measurement | Simple |
 
 | Many protected dimensions | Few |
 |---|---|
 | More guarantees | Sustainable verification |
-| Cost of maintaining them | An explicit choice of what degrades |
+| High maintenance cost | Low maintenance cost, with accepted degradation outside the list |
+
+The continuous cost in the evolutionary column is operational, and it can be named. Each blocking
+[fitness function](/23-architecture-leadership/fitness-functions.md) can stop the pipeline on a
+false positive; thresholds need revisiting as the system grows, or they turn into noise or into an
+obstacle; and each check needs an owner, because the one nobody maintains gets switched off on the
+first Friday of a tight release.
 
 ## Failure Modes
 
@@ -237,15 +249,23 @@ that is a valid economic decision.
 
 ## Common Mistakes
 
-**Not choosing** the dimensions to protect.
+**Not choosing** the dimensions to protect. Checks proliferate, warnings pile up, and the team
+starts ignoring them — including the ones that mattered.
 
-**Not measuring** coupling and change frequency.
+**Not measuring** coupling and change frequency. Drift is only noticed once it costs a rewrite,
+because nothing showed it while it was cheap to fix.
 
-**Confusing evolutionary with flexible** — anticipated flexibility is the opposite.
+**Confusing evolutionary with flexible** — anticipated flexibility is the opposite. The result is
+abstractions paid for changes that never come, which make the change that does come more expensive.
 
-**Not using the repository history** as a source of evidence.
+**Not using the repository history** as a source of evidence. Boundaries get redrawn by intuition,
+and the modules keep changing together across the new boundary.
 
-**Treating "we'll evolve"** as a decision.
+**Treating "we'll evolve"** as a decision. Without dimensions or a mechanism, it is drift by another
+name.
+
+**Making everything malleable**, published contracts included. The cost of keeping up with each
+change shifts to consumers, and external consumers start pinning versions.
 
 ## Real-World Example
 
@@ -259,12 +279,12 @@ average time from start to production for a change    18 days
 files touched per change, median                      34
 modules touched per change, median                     5
 pairs of modules that change together in > 60%
-  of cases                                            11
+  of commits touching either one                      11
 build time                                            47 minutes
 ```
 
-The 11 pairs that always changed together were wrong boundaries — separate modules that in practice
-were one. And the 47-minute build time was what made any change expensive, regardless of size.
+The 11 pairs that changed together were candidate wrong boundaries — separate modules that, in
+practice, might be one. And the 47-minute build time was what made any change expensive, regardless of size.
 
 The work was organized as guided evolution, not as a rewrite:
 
@@ -298,7 +318,7 @@ Results after 16 months:
 time from start to production        from 18 days to 4
 files touched per change             from 34 to 11
 modules per change                   from 5 to 2
-pairs that always change together     1
+pairs that change together in > 60%   1
 build time                            7 minutes
 protected dimensions violated         0 since blocking
 ```
@@ -308,7 +328,7 @@ altering it.
 
 The detail the team highlights: the measurement over the repository history was the project's cheapest
 and most informative instrument. It cost two days of work, had existed all along, and nobody had
-extracted it — and the 11 pairs that changed together pointed at the wrong boundaries with a precision
+extracted it — and 10 of the 11 pairs that changed together pointed at wrong boundaries, a precision
 no design analysis had achieved.
 
 ## Related Concepts
@@ -321,7 +341,8 @@ no design analysis had achieved.
 ## Practical Exercise
 
 Extract from your repository history the pairs of modules that change together more than 60% of the
-time.
+time — commits touching both, divided by commits touching either one —, counting only pairs with at
+least 20 commits in the period.
 
 Each pair is a boundary that may well be wrong — and that information has existed for years without
 anyone looking at it.

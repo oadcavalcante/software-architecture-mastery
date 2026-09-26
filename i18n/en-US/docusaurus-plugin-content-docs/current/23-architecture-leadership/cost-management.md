@@ -13,7 +13,7 @@ objective: >
 prerequisites: [risk-management]
 related: [risk-management, technical-strategy-leadership, measuring-architecture-outcomes]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ well and cost more than the revenue they generate.
 architectural decision       effect on cost
 a cache                      cuts database reads, adds memory
 a multi-region replica       multiplies infrastructure
-data retention               grows linearly and forever
+data retention               with no window, grows forever; with one, plateaus
 service granularity          each service has a fixed operating cost
 data format                  volume × cost per byte, across the whole chain
 ```
@@ -120,15 +120,16 @@ Bringing personnel cost onto the same table as the invoice changes conclusions f
 ### Cost has a curve, and it is rarely linear
 
 ```text
-storage           grows and does not shrink; retention is perpetual debt
+storage           with no retention window, only grows; the window sets the plateau
 transfer          grows with use, and costs more between regions
 per-unit
   licensing       grows with success
 idle capacity     costs the same, used or not
 ```
 
-The first item deserves emphasis: a retention decision made today generates cost every month,
-forever, and nobody revisits it. Retention is the cost line that grows most silently.
+The first item deserves emphasis: a retention decision with no window generates cost every month
+for as long as it stands, and it usually has no review date. Of the lines in the table, it is the
+only one that grows with no new decision at all — just with time passing.
 
 ### Optimizing cost is like optimizing performance
 
@@ -168,15 +169,19 @@ With no attribution, nobody acts.
 
 ## When Not to Use
 
-**As someone else's concern.**
+**When the bill is small relative to what attribution costs.** Tagging, maintaining dashboards and
+reviewing monthly consume engineering hours every month. With the 20% to 40% of recoverable waste
+described above, a $6k/month bill returns between $1.2k and $2.4k/month — less than the cost of half
+an engineer dedicated to the task. Below that level, a yearly review of the largest line items
+recovers nearly the same for a fraction of the effort.
 
-**As an aggregate total**, with no attribution.
+**When a single team owns everything.** Attribution per team exists to take the number to whoever
+decides; with one team, the aggregate invoice already reaches it. Attribution per service still
+helps break the cost down, but it doesn't produce the visibility effect.
 
-**Without including personnel cost.**
-
-**Optimizing without measuring** the distribution.
-
-**Reducing indiscriminately**, including what buys reliability.
+**For a reversible decision with a small effect.** Requiring a cost estimate on every proposal turns
+the criterion into bureaucracy; the example below sets a monthly-effect threshold and leaves the rest
+without an estimate.
 
 ## Alternatives
 
@@ -184,10 +189,8 @@ With no attribution, nobody acts.
 - **Cost as a fitness function** — an automated check that alerts when cost per unit exceeds a
   limit. See [fitness functions](/23-architecture-leadership/fitness-functions.md).
 - **A periodic review of the largest line items** — attacking the 20% that account for 80%.
-- **Not managing it** — legitimate as long as the cost is irrelevant against revenue.
-
-The last deserves a note: managing cost has a cost of its own, and in organizations where the bill is
-small against the margin, the attribution effort doesn't pay off.
+- **Not managing it** — legitimate under the conditions in When Not to Use: managing cost has a
+  cost of its own.
 
 ## Trade-offs
 
@@ -237,7 +240,7 @@ nobody knew how much each system consumed.
 
 **Consistent tagging** of every resource, by service and by team, implemented in seven weeks. The
 result was immediate and unforeseen: the tagging revealed that **19% of the resources belonged to no
-known system** — leftovers from experiments, forgotten environments, replicas from completed
+known system** — 12% of the invoice, $1.1 million/year — leftovers from experiments, forgotten environments, replicas from completed
 migrations.
 
 Those 19% were shut down in two waves, with a week of observation. Two complaints came in; the rest
@@ -245,13 +248,14 @@ was pure waste.
 
 **Dashboards per team**, with the month's cost and the trend, with no target attached. Just visible.
 
-Over the following three months, with no directive at all, the teams cut an additional 16% — sizing
+Over the following three months, with no directive at all, the teams cut 16% of what remained — sizing
 instances correctly, adjusting log retention, shutting down test environments outside working hours.
 
 **An economic unit defined**: cost per transaction processed. It came to be tracked monthly and broken
 down by component.
 
-The breakdown revealed the expected uneven distribution:
+The breakdown, done on the already reduced invoice (about $6.5 million/year), revealed the expected
+uneven distribution:
 
 ```text
 application log storage                    31% of the cost
@@ -265,7 +269,8 @@ defined in 2019 out of caution and never revisited. The review, done with securi
 established 30 days hot and 400 cold.
 
 ```text
-savings from that single change    $2.0 million/year
+line cost before                   $2.0 million/year
+savings from that single change    $1.5 million/year
 effort                             3 weeks
 ```
 
@@ -278,19 +283,22 @@ Results after 14 months:
 
 ```text
 total cost                      from $8.8M to $5.8M (-34%)
-cost per transaction            -47%
+cost per transaction            -46%
 transaction volume              +22%
 resources with no owner          0
 architectural proposals with
   a cost estimate               100% above the threshold
 ```
 
+The three reductions added up to about $3.8 million/year (1.1 + 1.2 + 1.5); volume growth gave
+back close to $0.8 million, and the invoice closed at $5.8 million.
+
 The detail the team highlights: the highest-return intervention was no technical optimization at all —
 it was making cost visible per team. The 16% the teams cut on their own, with no target and no
 directive, came purely from showing the number to whoever could act on it.
 
 And the application log line is the example of the pattern that repeats: a retention decision made
-once, out of caution, costing almost $2 million a year five years later, without anyone having
+once, out of caution, costing about $2 million a year five years later, without anyone having
 revisited it.
 
 ## Related Concepts
@@ -312,7 +320,7 @@ never improves.
 
 - Why does an economic unit tell you more than total cost?
 - Why does attributing cost per team reduce cost with no directive at all?
-- Why are retention decisions the line that grows most silently?
+- Why do retention decisions with no window grow without anyone noticing?
 
 ## Further Reading
 

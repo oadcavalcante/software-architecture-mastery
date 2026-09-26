@@ -13,7 +13,7 @@ objective: >
 prerequisites: [evolutionary-architecture]
 related: [evolutionary-architecture, measuring-architecture-outcomes, leadership-governance]
 canonical_for: [aptidão como contrato, verificação de característica arquitetural, aptidão holística]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -90,8 +90,8 @@ O passo 1 é o que garante patrocínio: uma verificação ligada a um incidente 
 ser justificada. O passo 3 é o que evita rejeição — ligar bloqueio sobre uma base que viola em
 quarenta lugares interrompe o trabalho de todos no mesmo dia.
 
-E o passo 3 tem um efeito documentado: tornar visível resolve uma parte substancial das violações
-antes de qualquer bloqueio, sem nenhuma cobrança.
+E o passo 3 costuma ter um efeito que o [Exemplo Real](#exemplo-real) mostra em números: tornar
+visível resolve uma parte substancial das violações antes de qualquer bloqueio, sem nenhuma cobrança.
 
 ### A mensagem é parte do desenho
 
@@ -109,9 +109,13 @@ do trabalho, e ela é lida muito mais vezes que qualquer documento de arquitetur
 ### Falso positivo é a métrica de saúde
 
 ```text
-abaixo de ~2%   a verificação é respeitada
-acima disso     ela é contornada por reflexo, e depois removida
+falso positivo raro        a verificação é respeitada
+falso positivo frequente   ela é contornada por reflexo, e depois removida
 ```
+
+O limiar entre os dois não é universal; é heurística a calibrar pelo volume. Uma verificação que
+roda mil vezes por dia a 2% interrompe vinte mudanças legítimas — o ponto que importa é aquele em
+que o time passa a presumir que a falha é da verificação, não do código.
 
 Monitorar a taxa de falso positivo de cada verificação, e ajustar ou rebaixar as que passam do
 limite, é o que mantém o conjunto confiável. Uma verificação com falso positivo alto contamina a
@@ -167,34 +171,40 @@ avise antes de bloquear, e monitore falso positivo.
 
 ## Quando Não Usar
 
-**Para julgamento** — adequação, fronteira, trade-off.
+**Para julgamento** — adequação, fronteira, trade-off. Não há medida contra a qual comparar; o
+limite está detalhado em [funções de aptidão como governança](/19-architecture-governance/fitness-functions-governance.md#quando-não-usar).
 
-**Bloqueando desde o primeiro dia.**
+**Quando a regra ainda está em disputa na liderança.** Codificar uma decisão não tomada transfere
+a disputa para a esteira: o time que discorda contorna a verificação em vez de argumentar, e o
+arquiteto perde o sinal do desacordo.
 
-**Sem mensagem acionável.**
+**Quando ninguém tem capacidade para operar o conjunto.** Se a área de arquitetura não consegue
+responder a um falso positivo em dias, a verificação degrada e leva junto a credibilidade das
+regras que protegia.
 
-**Com falso positivo alto.**
+**Quando o arquiteto de fato vê toda mudança relevante.** O argumento central — ele não pode
+revisar tudo — deixa de valer, e o custo de construir e manter não se paga.
 
-**Sem dono.**
-
-**Em quantidade** — muitas verificações medianas valem menos que poucas confiáveis.
+**Em quantidade** — muitas verificações medianas valem menos que poucas confiáveis, porque o custo
+de atenção de cada falso positivo recai sobre todas.
 
 ## Alternativas
 
 - **Controle preventivo** — impedir em vez de detectar; melhor quando o ambiente permite.
 - **Revisão humana** — para o que exige julgamento.
 - **Relatório de tendência** — quando a propriedade é gradual e não binária.
-- **Gabarito** — a propriedade embutida no ponto de partida, sem verificação necessária.
+- **Gabarito** — a propriedade embutida no ponto de partida.
 
-A última é sempre preferível quando aplicável: uma configuração que já vem correta não precisa ser
-verificada.
+A última é preferível para o estado inicial: uma configuração que já nasce correta não precisa ser
+corrigida. Mas o gabarito não impede a deriva — onde a configuração pode ser alterada depois de
+criada, a verificação continua necessária.
 
 ## Trade-offs
 
 | Automatizado | Revisão humana |
 |---|---|
-| Sempre executa | Cobre julgamento |
-| Só o mensurável | Depende de atenção |
+| Sempre executa | Depende de atenção |
+| Só o mensurável | Cobre julgamento |
 | Investimento inicial | Custo recorrente |
 
 | Bloquear | Avisar |
@@ -246,7 +256,7 @@ segredo em variável de ambiente sem cofre         4
 ```
 
 Nenhuma das quatro exigia julgamento — todas eram verificáveis. E nenhuma tinha sido pega em
-revisão, porque a revisão só via 12% das mudanças.
+revisão, porque a área de arquitetura só participava de 12% das revisões de desenho.
 
 A adoção seguiu a ordem do dano, com a primeira sendo a de maior frequência:
 
@@ -277,8 +287,9 @@ Resultados após 14 meses:
 
 ```text
 incidentes de severidade alta por regra violada     de 21 para 2
+  (últimos 12 meses, contra os 12 do diagnóstico)
 cobertura das verificações                          100% das mudanças
-                                                    (contra 12% em revisão)
+  (a área participava de 12% das revisões de desenho)
 falso positivo médio                                1,9%
 exceções ativas com prazo                           14
 tempo da área de arquitetura em revisão de regras   -80%

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [negotiating-tradeoffs, risk-management, cross-team-architecture]
 canonical_for: [decisão sob incerteza, custo de adiar, decisão de mão única, informação que decidiria]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -79,8 +79,9 @@ qual a janela de mercado, se houver?
 o custo de reverter cresce com o tempo?
 ```
 
-A última pergunta é a mais importante. Decisões de fronteira arquitetural ficam
-exponencialmente mais caras de tomar à medida que código é construído sobre a ausência delas.
+A última pergunta é a mais importante. Decisões de fronteira arquitetural ficam mais
+caras a cada sistema construído sobre a ausência delas: cada um é uma migração a mais no dia em que
+a fronteira for finalmente decidida.
 
 ```text
 decidir a fronteira agora        uma discussão
@@ -165,21 +166,27 @@ premissas e registre a condição que mudaria a decisão.
 
 ## Quando Usar
 
-- Sempre que houver decisão pendente com pessoas bloqueadas.
+- Quando há decisão pendente com pessoas bloqueadas, ou com código sendo construído sobre a
+  ausência dela.
 - Classificando primeiro por reversibilidade.
 - Com a informação que decidiria declarada, quando o adiamento se justificar.
 
 ## Quando Não Usar
 
-**Com o mesmo rigor para tudo.**
+**Quando a data da decisão é imposta de fora.** Um prazo regulatório ou uma exigência de
+auditoria fixa quando e, muitas vezes, como decidir. Pesar custo de adiar contra risco de errar
+não muda nada: adiar não é opção, e o esforço vai para cumprir o processo prescrito.
 
-**Adiando sem critério** — "quando tivermos clareza" não é plano.
+**Quando o custo de adiar é de fato próximo de zero.** Ninguém está bloqueado, nada está sendo
+construído sobre a ausência da decisão, e o custo de reverter não cresce com o tempo — uma
+escolha de ferramenta para um projeto que só começa no próximo semestre, por exemplo. Aí o
+critério sempre responde "espere", e forçar a decisão só troca informação futura gratuita por
+risco presente.
 
-**Decidindo o que outro deveria decidir.**
-
-**Sem condição de revisão.**
-
-**Ignorando que não decidir produz um resultado.**
+**Quando a informação decisiva tem data certa e curta.** Se o resultado do teste de carga sai na
+sexta e ele decide entre as opções, o cálculo é trivial e a condição de revisão é redundante:
+espere a sexta. O método serve para adiamentos abertos, não para esperas de dias com fim
+conhecido.
 
 ## Alternativas
 
@@ -187,18 +194,18 @@ premissas e registre a condição que mudaria a decisão.
   genuína e o custo de reverter é baixo.
 - **Piloto** — decidir com evidência em vez de com análise.
 - **Delegar** — quando quem tem o contexto pode decidir.
-- **Decisão de menor arrependimento** — a que produz o pior resultado menos ruim, sob incerteza
-  alta.
+- **Decisão de menor arrependimento** — a que minimiza o maior arrependimento, isto é, a maior
+  distância, entre os cenários, entre o resultado obtido e o melhor possível naquele cenário.
 
 A última é útil quando os cenários são muito diferentes e nenhum é claramente provável.
 
 ## Trade-offs
 
-| Decidir cedo | Esperar informação |
-|---|---|
-| Desbloqueia | Menos risco de erro |
-| Risco de errar | Custo invisível de atraso |
-| Reversível se pequena | Divergência acumula |
+| Eixo | Decidir cedo | Esperar informação |
+|---|---|---|
+| Risco de erro | Maior, decide-se com menos dados | Menor, se a informação chegar e mudar algo |
+| Custo de atraso | Nenhum — times desbloqueados | Pessoas paradas e divergência acumulando |
+| Custo de reverter | Baixo se a decisão for pequena | Cresce com cada sistema construído na espera |
 
 | Rigor alto | Rigor proporcional |
 |---|---|
@@ -221,15 +228,24 @@ A última é útil quando os cenários são muito diferentes e nenhum é clarame
 
 ## Erros Comuns
 
-**Não calcular o custo de adiar.**
+**Não calcular o custo de adiar.** O arquiteto pede mais um benchmark; em dois meses, dois times
+escolhem sozinhos, e o custo de convergir passa a incluir migração. O sinal é uma decisão pendente
+sem ninguém capaz de dizer quantas pessoas ela está travando.
 
-**Não perguntar se a informação faltante mudaria a decisão.**
+**Não perguntar se a informação faltante mudaria a decisão.** A análise é refeita com dados novos,
+e a recomendação sai igual à anterior. Quando duas rodadas seguidas apontam a mesma opção, a
+informação não era o que faltava.
 
-**Aplicar processo pesado** a decisões reversíveis.
+**Aplicar processo pesado** a decisões reversíveis. A escolha de uma biblioteca interna passa por
+comitê e espera três semanas por uma reunião. O time aprende a contornar o processo, e ele perde
+força justamente nas decisões irreversíveis que precisavam dele.
 
-**Decidir sozinho** o que atravessa times.
+**Decidir sozinho** o que atravessa times. A decisão sai rápida e é ignorada por quem arca com a
+consequência; o resultado é a mesma divergência que a decisão queria evitar, agora com um padrão
+oficial que ninguém segue.
 
-**Não registrar** premissas e condição de revisão.
+**Não registrar** premissas e condição de revisão. Um ano depois, a decisão é contestada e ninguém
+sabe se o contexto mudou; a discussão recomeça do zero, em vez de verificar uma condição.
 
 ## Exemplo Real
 
@@ -246,7 +262,8 @@ tecnologias distintas em produção                       3
 adaptadores de integração construídos                   7
 ```
 
-A decisão que seria de uma tecnologia em janeiro virou uma migração de quatro sistemas em agosto.
+Um dos quatro sistemas usava a opção que acabaria escolhida. A decisão que seria de uma tecnologia
+em janeiro virou, em agosto, a migração dos outros três.
 
 O que destravou foi uma pergunta feita numa revisão trimestral: **"qual informação nós ainda não
 temos que mudaria a escolha?"**

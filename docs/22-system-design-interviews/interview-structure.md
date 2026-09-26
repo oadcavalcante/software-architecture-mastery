@@ -13,7 +13,7 @@ objective: >
 prerequisites: [requirement-clarification]
 related: [requirement-clarification, communicating-tradeoffs, interview-common-mistakes]
 canonical_for: [estrutura de entrevista, orçamento de tempo da entrevista, condução da conversa]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -72,8 +72,9 @@ Para uma entrevista de 45 minutos, com cerca de 40 de conteúdo:
 6. fechamento                      2 a 3 min
 ```
 
-Para 60 minutos, cada fase cresce proporcionalmente, com o aprofundamento absorvendo a maior
-parte do acréscimo.
+Para 60 minutos, os quinze minutos a mais não se repartem por igual: a clarificação sobe para 8 a
+10 min, as fases 2 a 4 ganham um ou dois minutos cada, e o aprofundamento fica com o resto — 18 a
+20 min.
 
 O orçamento não é rígido — ele é um instrumento de percepção. Saber que a fase 3 deveria terminar
 por volta do minuto 20 permite perceber, no minuto 25, que é hora de acelerar.
@@ -196,21 +197,23 @@ isoladas em condução.
 
 ## Quando Usar
 
-- Em toda entrevista de system design.
+- Quando o formato deixa a condução com o candidato — o caso comum em entrevistas de 45 a 60
+  minutos.
 - Anunciada no início, em trinta segundos.
 - Com transições marcadas e tempo gerenciado em voz alta.
 
 ## Quando Não Usar
 
+**Quando o entrevistador conduz ativamente** — ele traz a sequência de perguntas pronta, e impor
+as seis fases por cima dela disputa o controle em vez de demonstrá-lo.
+
+**Em entrevistas de 30 minutos** — seis fases não cabem; o orçamento de cada uma fica curto demais
+para produzir algo, e a versão reduzida (ver Alternativas) serve melhor.
+
+**Quando o enunciado é sobre um problema específico** — "como você garante ordem?" não pede
+estimativa nem API; percorrer as fases antes de responder gasta o tempo que a pergunta queria.
+
 **Rigidamente**, quando o enunciado pede outra ordem.
-
-**Sem anunciar** — a estrutura interna que ninguém vê não é avaliada.
-
-**Ignorando o entrevistador** quando ele redireciona.
-
-**Sem fechamento** — os dois minutos finais valem mais que um detalhe a mais.
-
-**Como desculpa** para não aprofundar quando perguntado.
 
 ## Alternativas
 
@@ -224,7 +227,7 @@ isoladas em condução.
 
 | Estrutura anunciada | Estrutura implícita |
 |---|---|
-| Sinaliza experiência | Menos formal |
+| Sinaliza experiência logo de saída | A experiência só aparece se o avaliador a inferir da condução |
 | Permite alinhar cedo | Risco de parecer difuso |
 | Custa 30 segundos | Nenhum custo |
 
@@ -247,15 +250,20 @@ isoladas em condução.
 
 ## Erros Comuns
 
-**Não anunciar a estrutura.**
+**Não anunciar a estrutura** — o entrevistador só redireciona depois que o tempo já foi gasto na
+fase errada.
 
-**Não marcar transições.**
+**Não marcar transições** — a entrevista bem conduzida parece difusa, porque o avaliador não
+sabe em que fase você está.
 
-**Não falar do tempo** quando ele aperta.
+**Não falar do tempo** quando ele aperta — a priorização fica com você às cegas, quando o
+entrevistador poderia dizer qual parte quer ver.
 
-**Aprofundar antes de fechar o fluxo principal.**
+**Aprofundar antes de fechar o fluxo principal** — o detalhe consome o tempo e o avaliador fica
+sem ver o desenho completo.
 
-**Terminar sem resumo** e sem dizer o que ficou de fora.
+**Terminar sem resumo** e sem dizer o que ficou de fora — a lacuna que o avaliador percebe sozinho
+vira esquecimento, não priorização.
 
 ## Exemplo de Entrevista
 

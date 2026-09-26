@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, technical-roadmaps, cost-management]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -30,12 +30,11 @@ direction    what we are going to do about it
 sacrifice    what we will stop doing in order to manage it
 ```
 
-The third part is what separates a strategy from a wish list, and it is the one almost no technical
-strategy has. A document that says what the organization will improve, without saying what will get
-worse or be left behind, is not a choice — it is a declaration that everything is a priority.
-
-See [technical strategy](/15-enterprise-architecture/technical-strategy.md) for the corporate
-formulation; here the focus is on what architectural leadership does with it.
+Why the diagnosis must be specific and the sacrifice must be named is defined in
+[technical strategy](/15-enterprise-architecture/technical-strategy.md). This document starts
+from that formulation and covers what architectural leadership has to do for it to survive the
+year: the conversation with whoever loses in the sacrifice, the tie to a business bet, measuring
+actual allocation, and the annual review.
 
 ## Problem
 
@@ -61,8 +60,8 @@ and loses — correctly, from the point of view of whoever decides.
 
 ```text
 weak     "we have technical debt"
-strong   "73% of engineering capacity is in maintenance.
-         The measured cause is that 17 of the 26 clients run
+strong   "69% of engineering capacity is in maintenance.
+         The measured cause is that 11 of the 26 clients run
          different versions of the product, due to code-level
          customizations."
 ```
@@ -76,8 +75,9 @@ See [measuring outcomes](/23-architecture-leadership/measuring-architecture-outc
 
 ```text
 one to three fronts   the organization can execute
-four or more          none advances enough to produce
-                      a result before the next cycle
+four or more          attention splits, and most do not
+                      finish before the next cycle (in the
+                      Real-World Example, 1.3 of 6 advanced)
 ```
 
 The limit is not capacity — it is attention. An organization executes multiple simultaneous
@@ -94,8 +94,8 @@ Choosing one front and finishing it produces more than starting five.
  by around 12%."
 ```
 
-Naming what is left behind does two things. It makes the choice real, because it now has a visible
-cost. And it protects the strategy: when someone proposes the multi-region migration in March, the
+Naming makes the choice real, because it now has a visible cost. For leadership, the effect that
+matters is the second one: it protects the strategy. when someone proposes the multi-region migration in March, the
 answer already exists and doesn't have to be negotiated again.
 
 A strategy with no declared sacrifices is renegotiated at every meeting.
@@ -164,17 +164,17 @@ Without sacrifice, it isn't strategy.
 
 ## When Not to Use
 
-**As a list of improvements.**
+**When all of engineering fits in a single backlog prioritized by one person.** The sacrifice
+already happens in the prioritization itself, in plain sight; a strategy document adds ceremony
+without adding choice. Use a roadmap directly.
 
-**With no sacrifices.**
+**When the business changes bets on a cycle shorter than the strategy's horizon** — a startup
+before product-market fit, for example. A two-to-three-year strategy would be rewritten before it
+produced results. Use an architecture vision and a quarterly roadmap.
 
-**With no tie to the business**, except when the risk justifies it on its own.
-
-**With more than three fronts.**
-
-**Without measuring actual allocation** of capacity.
-
-**In small organizations**, where conversation resolves it.
+**When there is no sponsor able to sustain the sacrifices.** The areas that lose escalate, and the
+sacrifice falls at the first pressure; the document becomes a wish list under another name. Get
+the sponsorship first, or restrict the choice to the scope you control.
 
 ## Alternatives
 
@@ -190,7 +190,7 @@ Without sacrifice, it isn't strategy.
 | Few fronts | Many |
 |---|---|
 | Executes and finishes | Covers more |
-| Leaves problems unattended | None advances |
+| Leaves problems unattended | Few finish |
 
 | Tied to the business | Autonomous |
 |---|---|
@@ -213,15 +213,22 @@ Without sacrifice, it isn't strategy.
 
 ## Common Mistakes
 
-**Diagnosing the symptom** instead of the cause.
+**Diagnosing the symptom** instead of the cause. The direction attacks the symptom — more people
+on maintenance, instead of eliminating the customizations — and the maintenance share does not
+drop.
 
-**Not declaring what is left behind.**
+**Not declaring what is left behind.** Every new proposal is evaluated from scratch, and the
+capacity reserved for the front is drained by them over the year.
 
-**Not having the conversation** with whoever loses in the sacrifice.
+**Not having the conversation** with whoever loses in the sacrifice. The objection shows up after
+publication, at the first pressure, and the sacrifice is undone without anyone deciding to undo it.
 
-**Not measuring** the capacity actually allocated.
+**Not measuring** the capacity actually allocated. The strategy is judged by the plan, and the gap
+between declared and actual — 9% against 30% in the Real-World Example — only shows up when the
+results don't.
 
-**Writing a strategy** where a roadmap would do.
+**Writing a strategy** where a roadmap would do. The cycle of diagnosis, sacrifices and
+conversations takes weeks that a small team would spend delivering what the backlog already said.
 
 ## Real-World Example
 
@@ -239,7 +246,7 @@ Four fronts repeated every year is the symptom: they were never finished, and th
 
 The fourth cycle's rework:
 
-**A single diagnosis, with a number.** Instead of six problems, one: 73% of capacity was in
+**A single diagnosis, with a number.** Instead of six problems, one: 69% of capacity was in
 maintenance, and the measured cause was version divergence between clients, produced by code-level
 customizations.
 
@@ -269,9 +276,9 @@ Results at the end of the cycle:
 
 ```text
 capacity actually allocated              23% (declared: 25%)
-code-level customizations                from 594 to 88
-clients on the current version           from 57% to 84%
-capacity in maintenance                  from 73% to 51%
+code-level customizations                from 412 to 61
+clients on the current version           from 58% to 85%
+capacity in maintenance                  from 69% to 51%
 new client onboarding                    from ~7 months to 9 weeks
 infrastructure cost                      +16% (forecast: +14%)
 ```
@@ -284,9 +291,11 @@ and the one that produced the result. The sacrifice conversations consumed six w
 publication, and they are what prevented the sacrifices from being undone in March — which was the
 pattern of the previous cycles.
 
-And the cost deviation — 16% against the forecast 14% — was treated as a forecast met, not as a
-failure. Having declared the number in advance turned a cost increase into an expected consequence
-of a choice, rather than into a problem.
+And the cost deviation — 16% against the 14% ceiling — triggered the agreed reopening. It took
+one meeting: the excess came from the load of the new clients that shorter onboarding brought in,
+and the decision was to accept the two points and keep the sacrifice until the next cycle. Having
+declared the ceiling in advance turned the overrun into a decision with an owner and a date,
+rather than into a crisis.
 
 ## Related Concepts
 

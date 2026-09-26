@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, stakeholder-management, cross-team-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -131,8 +131,9 @@ strong   "let's measure: which of the two meets the latency
          weeks"
 ```
 
-When a measurement is possible, it ends the discussion in a way no argument does. And when there is
-none, agreement on criteria is the substitute — because it shifts the discussion from "who is
+When a measurement is possible and both sides agreed beforehand on what to measure, under what load
+and which threshold decides, it ends the discussion in a way no argument does; agreed after the
+result, the measurement only opens a new discussion about the metric. And when there is none, agreement on criteria is the substitute — because it shifts the discussion from "who is
 right" to "what better meets what we agreed on".
 
 ### Not every disagreement gets resolved
@@ -164,7 +165,9 @@ scale" — and the prediction is testable, deciding temporarily with measurement
 debate into an experiment.
 
 That only works when reversal is genuinely cheap. Promising reversibility that doesn't exist is
-worse than deciding for good.
+worse than deciding for good. How to classify a decision by its cost of reversal is in
+[Decision-Making](/23-architecture-leadership/decision-making.md#reversibility-decides-the-rigor);
+what belongs here is the negotiating use: the contested prediction becomes the reversal criterion.
 
 ### Escalating is legitimate and expensive
 
@@ -192,17 +195,21 @@ disagreement is rarely about the technology.
 
 ## When Not to Use
 
-**Debating positions** without investigating interests.
+**When the criterion is already given.** A regulatory, contractual or security constraint does
+not go into a negotiation of weights; negotiating opens the door to trading it for speed. Only how
+to meet it is negotiated.
 
-**Defining criteria after** the options.
+**During an ongoing incident.** Whoever commands the response decides, in minutes. Negotiation
+comes afterwards, in the incident analysis, if the decision made under pressure has to become
+permanent.
 
-**Escalating early.**
+**When the decision is reversible in days.** An hour of conversation with two teams costs more than
+getting it wrong and correcting it; decide and revert if needed, as in
+[Decision-Making](/23-architecture-leadership/decision-making.md#reversibility-decides-the-rigor).
 
-**Seeking consensus** when a decision has to come out.
-
-**Promising reversibility** that doesn't exist.
-
-**Without recording** the divergence when it persists.
+**When the consequence falls almost entirely on one side.** There are not two interests to
+reconcile, there is an owner; delegate the decision to them instead of negotiating (see
+Alternatives).
 
 ## Alternatives
 
@@ -219,14 +226,14 @@ on one side, the decision is probably theirs.
 
 | Seeking agreement | Deciding with divergence |
 |---|---|
-| Convinced adoption | Fast |
-| May not get there | Requires recording the objection |
-| Builds the relationship | Risk of non-compliance |
+| Slow, may not converge | Fast, comes out on the date |
+| Convinced adoption | Risk of non-compliance, mitigated by recording the objection |
+| Builds the relationship | Wears down whoever lost |
 
 | Measure | Decide by analysis |
 |---|---|
-| Conclusive | Fast |
-| Costs weeks | Inconclusive if the positions are firm |
+| Costs weeks | Fast |
+| Conclusive, if the threshold was agreed beforehand | Contestable, inconclusive if the positions are firm |
 
 ## Failure Modes
 
@@ -244,15 +251,21 @@ on one side, the decision is probably theirs.
 
 ## Common Mistakes
 
-**Not asking why.**
+**Not asking why.** The discussion stays confined to the two positions, and the outcome becomes
+one side's victory or a bad compromise.
 
-**Proposing the third option before** knowing the interests.
+**Proposing the third option before** knowing the interests. It is read as the architect's
+position, and the deadlock gains a third trench instead of a way out — besides the option probably
+not meeting the constraint nobody has revealed yet.
 
-**Using experience as an argument** where a measurement is possible.
+**Using experience as an argument** where a measurement is possible. The losing side yields to
+authority, not to data, and reopens the discussion at the first sign of trouble.
 
-**Not recording** the objection of whoever lost.
+**Not recording** the objection of whoever lost. The argument is lost, and whoever disagreed stops
+disagreeing out loud and simply doesn't adopt.
 
-**Escalating** before trying to structure the conversation.
+**Escalating** before trying to structure the conversation. The manager decides without the
+interests on the table, and the teams learn that the next disagreement also goes upstairs.
 
 ## Real-World Example
 
@@ -306,7 +319,18 @@ D  index operated by catalog, using the same engine
 C and D had not been considered in four months of discussion, because each side was defending its
 own position.
 
-Evaluating against the agreed criteria made C the winner, by a clear margin: it reduced change time
+Evaluating against the agreed criteria, scored 1 to 5:
+
+```text
+                     time   load   consist.  cost    total
+weights               35%    30%     20%      15%
+A                      4      1       1        3     2.35
+B                      1      5       5        4     3.45
+C                      5      4       5        3     4.40
+D                      4      4       4        2     3.70
+```
+
+C won by almost a point over B and 0.7 over D: it reduced change time
 to hours — better even than option A — and added no new operating model to the platform.
 
 The cost: the platform had to build the schema self-service, about six weeks. The funding came from
@@ -324,7 +348,7 @@ other teams that adopted the
 The four teams that adopted it afterwards are the result nobody predicted: a solution built to
 resolve a disagreement became a platform capability.
 
-What the architecture group records: the two winning options were obvious in hindsight and
+What the architecture group records: the two new options, C and D, were obvious in hindsight and
 invisible for four months. They only appeared once the conversation shifted from "who is right" to
 "what does each of you need" — and the question that produced that shift took thirty seconds.
 

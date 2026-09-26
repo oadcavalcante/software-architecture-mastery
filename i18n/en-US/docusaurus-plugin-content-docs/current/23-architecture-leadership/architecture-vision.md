@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-leadership-basics]
 related: [technical-strategy-leadership, technical-roadmaps, communication]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -182,22 +182,17 @@ it won't guide any decision.
 ## When to Use
 
 - When independent decisions need to converge.
-- In organizations large enough that conversation doesn't resolve it.
+- When the people who decide architecture no longer fit in one meeting, and the criteria stop
+  circulating through conversation.
 - Before a roadmap, because it derives from the vision.
 
 ## When Not to Use
 
-**As a statement of adjectives.** "Modern, scalable and secure" eliminates no option and guides no decision.
+**When everyone who decides fits in one meeting.** With three or four teams and a handful of people deciding architecture, the criteria circulate in the weekly conversation and get corrected the same day. A written vision duplicates what everyone has already heard, and still demands an owner and a review.
 
-**As a detailed diagram of the future state.** Too much detail ages in months and turns the vision into a plan — which is a different thing, with a different review cycle.
+**When the premises change faster than the review cycle.** In an organization mid-pivot, with product or business model redefined every quarter, a vision reviewed annually guides with premises already discarded — and with the authority of an official document. Until the context stabilizes, reversible decisions recorded in short ADRs serve better.
 
-**With no why.** A vision with no problem it solves does not survive the first hard question, and cannot be reassessed when the context changes.
-
-**Without saying what it is not.** With no declared boundary, each team reads the vision as authorization for what they already wanted to do.
-
-**With no owner and no review.** A vision with no owner is not updated, and an out-of-date vision guides in the wrong direction with the same authority.
-
-**Stated once** and never repeated. It has to be said many times to become a shared criterion; stated in a single document, it stays unknown to whoever decides day to day.
+**When there are no decisions yet to derive it from.** A vision that works describes criteria the organization already uses (see the Real-World Example). With half a dozen ADRs there is no recurring criterion to state, and what comes out will be aspiration — the statement of adjectives from the Problem section, in different clothes.
 
 ## Alternatives
 
@@ -224,29 +219,43 @@ it won't guide any decision.
 
 ## Failure Modes
 
-**Adjectives.** They eliminate no option.
+**Adjectives.** "Modern, scalable and secure" eliminates no option and guides no decision.
 
-**Too detailed.** It ages and doesn't delegate.
+**Too detailed.** It ages in months, doesn't delegate, and turns into a plan — which is a different
+thing, with a different review cycle.
 
-**No why.** It becomes an arbitrary rule and gets worked around.
+**No why.** It becomes an arbitrary rule and gets worked around; without the problem it solves, it
+cannot be reassessed when the context changes.
+
+**No boundary.** Without saying what it is not, each team reads the vision as authorization for what
+they already wanted to do.
 
 **Not memorable.** It doesn't guide the decisions that matter.
 
-**No review.** It guides with obsolete premises.
+**No owner and no review.** Nobody updates it, and the out-of-date vision guides in the wrong
+direction with the same authority.
 
-**Communicated once.** It doesn't exist.
+**Communicated once.** It stays unknown to whoever decides day to day — in practice, it doesn't
+exist.
 
 ## Common Mistakes
 
-**Confusing the vision with a roadmap** or with a target diagram.
+**Confusing the vision with a roadmap** or with a target diagram. The vision acquires dates, gets
+revised every quarter along with the plan, and stops being a stable reference: whoever decides today
+doesn't know whether the criterion will still hold next month.
 
-**Writing it in corporate presentation language.**
+**Writing it in corporate presentation language.** Phrases written to get through a committee don't
+distinguish between two concrete options, so no design review can cite them to decide — and the
+vision stops being cited.
 
-**Not testing it** against real recent decisions.
+**Not testing it** against real recent decisions. The vision can go years without guiding anything
+and nobody notices; the document in the Real-World Example went two.
 
-**Not saying what is left out.**
+**Not saying what is left out.** The vision comes to justify standardizations it never intended, and
+teams reading it in good faith lose autonomy over decisions it left open.
 
-**Not citing the vision** when a decision contradicts it.
+**Not citing the vision** when a decision contradicts it. The exception becomes a silent precedent:
+the next person sees the decision, not the reason, and concludes the vision has no consequence.
 
 ## Real-World Example
 
@@ -306,8 +315,10 @@ duplicate implementations of a platform
   capability                                          0 new ones
 ```
 
-And in the annual review, one item was removed: the fourth, about the template, had become consensus
-and no longer eliminated any option under discussion. It was promoted to a standard verified
+And in the annual review, one item was removed: the fourth, about the template, had become consensus.
+The nine exceptions were concentrated in the first five months; in the second half of the year no new
+service considered starting outside the template, and the item no longer eliminated any option under
+discussion. It was promoted to a standard verified
 automatically — which is the correct evolution of a vision item that no longer generates decisions.
 
 The subsequent assessment points out: deriving the vision from the ADR archive, rather than writing

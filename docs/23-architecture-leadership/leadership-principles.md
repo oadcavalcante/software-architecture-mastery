@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-vision]
 related: [architecture-vision, leadership-standards, leadership-governance]
 canonical_for: [formulação de princípio, princípio derivado de precedente, aposentadoria de princípio]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -76,24 +76,20 @@ Ver [ADRs](/18-architecture-decisions/what-is-an-adr.md).
 
 Quando o acervo de decisões não existe, construí-lo vem antes de escrever princípios.
 
-### Aplique o teste do inverso
+### Aplique o teste do inverso aos critérios extraídos
 
-```text
-formule o oposto
-se for absurdo, é slogan
-se for uma posição defensável, é princípio
-```
-
-```text
-"buscamos simplicidade"                     inverso absurdo
-"preferimos comprar a construir, exceto
- onde a capacidade diferencia o negócio"    inverso defensável
-```
-
-Todo princípio real abdica de algo bom. Se nada está sendo abdicado, não há escolha. Ver
-[princípios corporativos](/15-enterprise-architecture/enterprise-principles.md).
+O [teste do inverso](/19-architecture-governance/governance-principles.md#o-teste-do-inverso) —
+alguém defenderia o oposto? — é definido no nível anterior. Para quem escreve, o que muda é onde
+ele é aplicado: aos critérios que saíram dos ADRs, antes de virarem enunciado. Um critério que
+aparece em decisões reais costuma passar, porque foi usado para rejeitar uma opção; quando falha,
+ele era retórica de justificativa repetida nos registros, não o critério que decidiu — e essa
+diferença só aparece relendo as opções que o ADR descartou.
 
 ### Implicações, não apenas o enunciado
+
+O que é uma implicação está em
+[princípios corporativos](/15-enterprise-architecture/enterprise-principles.md#implicações-são-o-que-torna-acionável). Para quem
+escreve, a pergunta é quem ela obriga:
 
 ```text
 princípio    "o que a plataforma oferece, os times não reconstroem"
@@ -110,22 +106,15 @@ princípio que só restringe os times e não compromete a plataforma será conto
 
 ### Precedência entre princípios conflitantes
 
-```text
-"times decidem sua própria tecnologia"
-"minimizamos o número de tecnologias em operação"
-```
+As formas de regra — por domínio, por risco — estão em
+[Princípios em Operação](/19-architecture-governance/governance-principles.md#princípios-conflitam-e-a-precedência-precisa-existir).
+Escolher qual delas vale, e declará-la no mesmo documento que os princípios, é responsabilidade de
+quem escreve — e é a parte que a oficina normalmente não faz, porque exige escolher, e a oficina
+busca consenso.
 
-Ambos defensáveis, e opostos. Sem regra, cada decisão vira disputa de poder.
-
-```text
-por domínio     autonomia vence em escolha interna;
-                padronização vence em superfície compartilhada
-por risco       quanto maior o risco compartilhado, mais peso
-                à coerência
-```
-
-Definir a precedência é responsabilidade de quem escreve, e é a parte que a oficina normalmente
-não faz — porque ela exige escolher, e a oficina busca consenso.
+Derivando de precedentes, o conflito já está no acervo: são os ADRs que citaram os dois critérios
+e seguiram direções diferentes. Esses registros mostram onde a fronteira caiu na prática, e a regra
+declarada deveria reproduzi-la ou dizer por que muda.
 
 ### Cinco a oito, no máximo
 
@@ -141,7 +130,9 @@ princípio citado em ADRs e revisões    está operando
 nunca citado                           não está
 ```
 
-Essa medição é barata — uma busca no acervo de decisões — e é o único teste honesto. Um princípio
+Essa medição é barata — uma busca no acervo de decisões — e é a que menos depende de opinião.
+Tem dois limites: só enxerga decisões que viraram ADR ou revisão, e conta igual a citação ritual e
+a que eliminou uma opção; ler uma amostra das citações separa as duas. Um princípio
 bem escrito que ninguém cita em um ano não está funcionando, independentemente da qualidade da
 redação.
 
@@ -182,17 +173,19 @@ implicações e precedência.
 
 ## Quando Não Usar
 
-**Formulados em oficina** a partir de aspiração.
+**Acervo de decisões pequeno demais.** Com menos de umas trinta decisões registradas, um critério
+que aparece três vezes não se distingue de coincidência, e o método de derivação não tem de onde
+tirar recorrência. O trabalho certo é construir o acervo primeiro.
 
-**Sem passar no teste do inverso.**
+**Organização em que o critério circula sem registro.** Com poucos times sob a mesma liderança
+técnica, as decisões passam pelas mesmas pessoas e o critério já é compartilhado. Um princípio
+escrito ali nasce consenso — e consenso é exatamente o que este documento manda aposentar.
 
-**Sem implicações.**
+**Decisão recorrente com resultado verificável.** Se a resposta certa é sempre a mesma e dá para
+checar automaticamente, o instrumento é um padrão, não um princípio.
 
-**Sem precedência** entre os que conflitam.
-
-**Em número acima de oito.**
-
-**Sem medir citação** em decisões reais.
+**Liderança que não aceita se obrigar.** Sem disposição para declarar precedência e assumir
+implicações que comprometem quem escreve, a lista publicada vira aspiração com outro nome.
 
 ## Alternativas
 
@@ -207,7 +200,7 @@ implicações e precedência.
 
 | Derivado de precedentes | Formulado por aspiração |
 |---|---|
-| Reconhecido e usado | Descreve o desejado |
+| Reconhecido de imediato | Precisa ser vendido |
 | Exige acervo de decisões | Rápido de produzir |
 | Descreve o que já se faz | Pode não descrever nada |
 
@@ -249,9 +242,9 @@ engenharia queria criar. A proposta inicial era a usual: uma oficina de dois dia
 arquitetos e líderes técnicos.
 
 A área de arquitetura propôs um método diferente, com um argumento simples: a organização já
-decidia de alguma forma, havia quatro anos, e essas decisões estavam registradas.
+decidia de alguma forma, havia quatro anos, e desde o segundo ano registrava essas decisões em ADRs.
 
-**Leitura dos ADRs.** Os 96 registros de decisão dos últimos três anos foram lidos, e os critérios
+**Leitura dos ADRs.** Os 96 registros de decisão desses três anos foram lidos, e os critérios
 citados em cada um foram tabulados.
 
 ```text
@@ -275,11 +268,14 @@ adicional: toda proposta de construir precisa nomear o diferencial por escrito.
 Para o princípio de plantão, a obrigação foi da liderança: nenhum time recebe responsabilidade de
 plantão sem a plataforma que a torna sustentável.
 
-**Precedência declarada** entre os dois que conflitavam — autonomia de time e comprar em vez de
-construir — resolvida por domínio.
+**Precedência declarada** entre os dois que conflitavam — depurar às 3h e comprar onde não somos
+diferentes, porque produto comprado costuma ser caixa-preta para quem está de plantão —, resolvida
+por domínio: no caminho do atendimento clínico, depurabilidade vence; em sistemas administrativos,
+comprar vence.
 
-O resultado foi um documento de uma página, com cinco afirmações, publicado em três semanas em
-vez de uma oficina de dois dias.
+O resultado foi um documento de uma página, com cinco afirmações, publicado em três semanas — mais
+que os dois dias da oficina, porque incluía as escolhas de implicação e precedência que a oficina
+não teria feito.
 
 Doze meses depois:
 
@@ -295,8 +291,10 @@ A conclusão registrada: os cinco princípios não eram novidade para ninguém. 
 critério que a organização já usava, enunciado de forma lembrável — e é por isso que foram
 reconhecidos de imediato, em vez de precisarem ser vendidos.
 
-E a oficina de dois dias, que teria produzido aspirações, custaria oito pessoas por dois dias.
-A leitura dos ADRs custou uma pessoa por três dias.
+O custo comparável é o do levantamento: a oficina, que teria produzido aspirações, custaria oito
+pessoas por dois dias; a leitura dos ADRs custou uma pessoa por três. O restante das três semanas —
+a discussão do quinto princípio, as implicações, a precedência — envolveu mais gente e não foi
+medido, e não entra nessa conta.
 
 ## Conceitos Relacionados
 

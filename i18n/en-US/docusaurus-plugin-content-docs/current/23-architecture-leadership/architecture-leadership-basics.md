@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-governance]
 related: [technical-influence, communication, decision-making]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -118,8 +118,9 @@ would change the decision, and move on. See
 
 ### The organization is an architectural constraint
 
-An architecture that goes against the organization's communication structure does not survive.
-That is not a sociological observation — it is a design constraint as hard as latency or cost.
+An architecture that goes against the organization's communication structure gets eroded until it
+mirrors that structure, unless the structure changes along with it. That is not a sociological
+observation — it is a design constraint as hard as latency or cost.
 
 Recognizing it changes what you propose: instead of designing the ideal architecture and lamenting
 that the organization doesn't support it, the senior architect proposes the organizational change
@@ -196,13 +197,17 @@ This set of stances applies when:
 **Where the decision is local and reversible** — in those cases, the team decides and the architect
 shouldn't be in the room.
 
-**Using formal authority as the first resort** — it works once and costs the rest.
+**In a small organization, with a single team deciding the architecture** — there is nothing to
+cross; the cross-cutting role doesn't pay for itself, and the same person decides as a member of
+the team.
 
-**Abandoning technical competence** to become only a communicator.
+**During an active incident or a regulatory requirement with a deadline** — the cost of convincing
+exceeds the cost of being wrong; whoever holds authority decides, and the convincing is left for
+the review afterwards.
 
-**Intervening in everything** — every intervention consumes capital.
-
-**Without building capability** — if nothing works without you, the job wasn't done.
+**Where the organization grants legitimate formal authority over the topic** — security and
+compliance, for example. The decision can be mandated; influence still serves adoption, not the
+decision itself.
 
 ## Alternatives
 
@@ -210,8 +215,9 @@ shouldn't be in the room.
   and a coordination forum. It works well in organizations with a strong technical culture. See
   [federated governance](/19-architecture-governance/federated-governance.md).
 - **An embedded architect** — inside the team, with no cross-cutting scope; more depth, less reach.
-- **Real formal authority** — organizations that grant it get faster decisions and lose quality,
-  because the decision sits far from the context.
+- **Real formal authority** — wins in regulated domains, in security decisions and where the
+  architect holding authority is close to the teams. It loses quality when that architect is far
+  from the context of those who execute: the decision comes out faster and worse.
 
 The first is the most serious alternative and the one growing fastest. The dedicated architect role
 is a response to a scale problem, not a universal necessity.
@@ -242,7 +248,7 @@ is a response to a scale problem, not a universal necessity.
 
 **Creating dependency.** Nothing moves without the architect.
 
-**Ignoring the organization.** The proposed architecture doesn't survive contact with the real
+**Ignoring the organization.** The proposed architecture gets eroded until it mirrors the real
 structure.
 
 ## Common Mistakes
@@ -303,7 +309,7 @@ with engineering leadership beforehand, and not after.
 discussions, early, as consultants with no veto — which resolved the "it arrived too late" and, as
 a side effect, restored their technical proximity.
 
-Two years later:
+Two years later, a new assessment over the same eighteen-month window:
 
 ```text
 proposals presented                            24 (fewer, and better)
@@ -319,8 +325,8 @@ The last number is what changed the group's self-assessment. It came to consider
 when the teams decided well on their own — and not when it decided.
 
 The point the team underlines: the reduction from 31 to 24 proposals was deliberate. The group
-started selecting battles, and the seven proposals it stopped making were all low-consequence —
-standardization preferences that affected neither risk, cost nor speed.
+started selecting battles and, by its own estimate, what it stopped taking to committee was mostly
+low-consequence standardization preferences that affected neither risk, cost nor speed.
 
 ## Related Concepts
 

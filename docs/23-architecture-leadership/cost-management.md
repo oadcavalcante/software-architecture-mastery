@@ -13,7 +13,7 @@ objective: >
 prerequisites: [risk-management]
 related: [risk-management, technical-strategy-leadership, measuring-architecture-outcomes]
 canonical_for: [custo como atributo arquitetural, unidade econômica, atribuição de custo, visibilidade de custo por time]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -29,7 +29,7 @@ que funcionam bem e custam mais do que a receita que geram.
 decisão arquitetural         efeito no custo
 cache                        reduz leitura no banco, adiciona memória
 réplica multirregional       multiplica infraestrutura
-retenção de dados            cresce linearmente e para sempre
+retenção de dados            sem prazo, cresce para sempre; com prazo, fixa um patamar
 granularidade de serviço     cada serviço tem custo fixo de operação
 formato de dado              volume × custo por byte, em toda a cadeia
 ```
@@ -120,15 +120,16 @@ Trazer o custo de pessoal para a mesma tabela da fatura muda conclusões com fre
 ### Custo tem curva, e ela raramente é linear
 
 ```text
-armazenamento     cresce e não decresce; retenção é dívida perpétua
+armazenamento     sem prazo de retenção, só cresce; o prazo fixa o patamar
 transferência     cresce com uso, e entre regiões custa mais
 licença por
   unidade         cresce com o sucesso
 capacidade ociosa custa igual, usada ou não
 ```
 
-O primeiro item merece destaque: uma decisão de retenção tomada hoje gera custo todos os meses,
-para sempre, e ninguém a revisita. Retenção é a linha de custo que mais cresce silenciosamente.
+O primeiro item merece destaque: uma decisão de retenção sem prazo gera custo todos os meses
+enquanto vigorar, e costuma não ter data de revisão. Entre as linhas da tabela, é a única que
+cresce sem nenhuma decisão nova — só com o tempo passando.
 
 ### Otimizar custo é como otimizar desempenho
 
@@ -168,15 +169,19 @@ atribuição, ninguém age.
 
 ## Quando Não Usar
 
-**Como preocupação de outra área.**
+**Quando a conta é pequena frente ao que a atribuição custa.** Etiquetar, manter painéis e
+revisar mensalmente consome horas de engenharia todo mês. Com os 20% a 40% de desperdício
+recuperável descritos acima, uma fatura de R$ 30 mil/mês devolve entre R$ 6 mil e R$ 12 mil/mês —
+menos que o custo de meio engenheiro dedicado à tarefa. Abaixo desse patamar, uma revisão anual das
+maiores linhas recupera quase o mesmo por uma fração do esforço.
 
-**Em total agregado**, sem atribuição.
+**Quando um único time é dono de tudo.** Atribuição por time existe para levar o número a quem
+decide; com um time só, a fatura agregada já chega a ele. A atribuição por serviço ainda serve para
+decompor o custo, mas não produz o efeito de visibilidade.
 
-**Sem incluir custo de pessoal.**
-
-**Otimizando sem medir** a distribuição.
-
-**Reduzindo indiscriminadamente**, incluindo o que compra confiabilidade.
+**Em decisão reversível e de efeito pequeno.** Exigir estimativa de custo em toda proposta
+transforma o critério em burocracia; o exemplo abaixo fixa um limite de efeito mensal e deixa o
+resto sem estimativa.
 
 ## Alternativas
 
@@ -184,10 +189,8 @@ atribuição, ninguém age.
 - **Custo como função de aptidão** — verificação automática que alerta quando o custo por unidade
   ultrapassa um limite. Ver [funções de aptidão](/23-architecture-leadership/fitness-functions.md).
 - **Revisão periódica de maiores linhas** — atacar os 20% que respondem por 80%.
-- **Não gerir** — legítimo enquanto o custo for irrelevante frente à receita.
-
-A última merece nota: gerir custo tem custo próprio, e em organizações onde a conta é pequena
-frente à margem, o esforço de atribuição não se paga.
+- **Não gerir** — legítimo nas condições descritas em Quando Não Usar: gerir custo tem custo
+  próprio.
 
 ## Trade-offs
 
@@ -238,7 +241,7 @@ quanto cada sistema consumia.
 
 **Etiquetagem consistente** de todos os recursos, por serviço e por time, implementada em sete
 semanas. O resultado foi imediato e não previsto: a etiquetagem revelou que **19% dos recursos não
-pertenciam a nenhum sistema conhecido** — remanescentes de experimentos, ambientes esquecidos,
+pertenciam a nenhum sistema conhecido** — 12% da fatura, R$ 5,3 milhões/ano — remanescentes de experimentos, ambientes esquecidos,
 réplicas de migrações concluídas.
 
 Esses 19% foram desligados em duas ondas, com uma semana de observação. Duas reclamações
@@ -247,14 +250,15 @@ apareceram; o resto era desperdício puro.
 **Painéis por time**, com o custo do mês e a tendência, sem nenhuma meta associada. Apenas
 visível.
 
-Nos três meses seguintes, sem nenhuma diretriz, os times reduziram 16% adicionais — dimensionando
+Nos três meses seguintes, sem nenhuma diretriz, os times reduziram 16% do que restava — dimensionando
 instâncias corretamente, ajustando retenção de registros, desligando ambientes de teste fora de
 horário.
 
 **Unidade econômica definida**: custo por transação processada. Ela passou a ser acompanhada
 mensalmente e decomposta por componente.
 
-A decomposição revelou a distribuição desigual esperada:
+A decomposição, feita sobre a fatura já reduzida (cerca de R$ 32,5 milhões/ano), revelou a
+distribuição desigual esperada:
 
 ```text
 armazenamento de registros de aplicação    31% do custo
@@ -268,7 +272,8 @@ armazenamento rápido, definida em 2019 por precaução e nunca revista. A revis
 segurança e compliance, estabeleceu 30 dias em rápido e 400 em frio.
 
 ```text
-economia dessa única mudança    R$ 9,8 milhões/ano
+custo da linha antes            R$ 10,1 milhões/ano
+economia dessa única mudança    R$ 7,5 milhões/ano
 esforço                         3 semanas
 ```
 
@@ -282,19 +287,22 @@ Resultados após 14 meses:
 
 ```text
 custo total                     de R$ 44 mi para R$ 29 mi (-34%)
-custo por transação             -47%
+custo por transação             -46%
 volume de transações            +22%
 recursos sem dono               0
 propostas arquiteturais com
   estimativa de custo           100% acima do limite
 ```
 
+As três reduções somaram cerca de R$ 19 milhões/ano (5,3 + 6,2 + 7,5); o crescimento de volume
+devolveu perto de R$ 4 milhões, e a fatura fechou em R$ 29 milhões.
+
 O detalhe que a equipe destaca: a intervenção de maior retorno não foi nenhuma otimização técnica —
 foi tornar o custo visível por time. Os 16% que os times reduziram sozinhos, sem meta e sem
 diretriz, foram obtidos apenas por mostrar o número a quem podia agir sobre ele.
 
 E a linha dos registros de aplicação é o exemplo do padrão que se repete: uma decisão de retenção
-tomada uma vez, por precaução, custando quase R$ 10 milhões por ano cinco anos depois, sem que
+tomada uma vez, por precaução, custando cerca de R$ 10 milhões por ano cinco anos depois, sem que
 ninguém a tivesse revisitado.
 
 ## Conceitos Relacionados
@@ -315,7 +323,7 @@ por que ele nunca melhora.
 
 - Por que unidade econômica informa mais que custo total?
 - Por que atribuir custo por time reduz custo sem nenhuma diretriz?
-- Por que decisões de retenção são a linha que mais cresce silenciosamente?
+- Por que decisões de retenção sem prazo crescem sem que ninguém perceba?
 
 ## Para Aprofundar
 

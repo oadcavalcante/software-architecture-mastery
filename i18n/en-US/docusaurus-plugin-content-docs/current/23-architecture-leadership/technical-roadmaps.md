@@ -13,7 +13,7 @@ objective: >
 prerequisites: [technical-strategy-leadership]
 related: [technical-strategy-leadership, architecture-vision, risk-management]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -31,12 +31,13 @@ the right order   each phase delivers something, and the plan survives
                   changes of priority
 ```
 
-And there is a constraint that almost no technical roadmap respects and that decides whether it
-survives: **each phase has to end in a state where the work can stop without leaving anything
+And there is a constraint that the typical format, described below, does not respect and that
+decides whether the roadmap survives: **each phase has to end in a state where the work can stop without leaving anything
 half-done.**
 
-Long technical projects are not cancelled for lack of merit. They are cancelled by a change of
-priority, a change of leadership or a budget freeze — and what remains is whatever was finished.
+Over a 12-to-24-month horizon, the risk that usually ends a technical project is not lack of merit:
+it is a change of priority, a change of leadership or a budget freeze — and, when it materializes,
+what remains is whatever was finished.
 
 ## Problem
 
@@ -74,6 +75,8 @@ that did not exist.
 
 ### Each phase ends stable
 
+It is the [intermediate delivery](/15-enterprise-architecture/architecture-roadmaps.md) test applied to the phase of a technical roadmap:
+
 ```text
 "at the end of phase 2, if the project stops, what's left?"
 ```
@@ -106,10 +109,9 @@ robust    "migration completed when the three critical systems
           are on the new one, with equivalence proven"
 ```
 
-Milestones defined by condition survive delays; precise dates over a long horizon are fiction that
-erodes credibility when they are not met.
-
-Dates are useful over a short horizon — the next quarter — and misleading beyond it.
+When to use dates and how precision decreases with the horizon is covered in
+[architecture roadmaps](/15-enterprise-architecture/architecture-roadmaps.md). What belongs to the technical roadmap is the milestone by
+condition: it survives delay and can be verified by someone who did not take part in the plan.
 
 ### Declare what each phase does not do
 
@@ -118,9 +120,8 @@ Dates are useful over a short horizon — the next quarter — and misleading be
  decommission anything in the old system"
 ```
 
-That prevents the expectation that produces disappointment, and lets the phase be assessed by what
-it promised. See
-[communication](/23-architecture-leadership/communication.md).
+It is the rule of [showing what is not on the roadmap](/15-enterprise-architecture/architecture-roadmaps.md) applied to the phase: it lets the
+phase be assessed by what it promised. See [communication](/23-architecture-leadership/communication.md).
 
 ### A technical roadmap competes with product
 
@@ -151,8 +152,8 @@ replanning and wears sponsorship down.
 
 ## Mental Model
 
-**Order by value delivered early, and make each phase end stable.** The plan will be interrupted;
-the question is what is left over.
+**Order by value delivered early, and make each phase end stable.** Over 12 to 24 months, treat the
+interruption as the case to plan for, not as the exception; the question is what is left when it comes.
 
 ## When to Use
 
@@ -162,17 +163,21 @@ the question is what is left over.
 
 ## When Not to Use
 
-**Sequencing by technical logic** alone.
+**Diffuse debt, with no single architectural target.** When the work is a sum of local improvements —
+outdated dependencies, flaky tests, confusing modules — there is no sequence to optimize; a fixed
+percentage of capacity solves it with less ceremony.
 
-**With phases that don't end stable.**
+**Work that fits in a quarter.** Phasing exists to survive changes of priority across many months;
+over a horizon in which priority is unlikely to change, phases with stopping criteria are planning
+cost with no return, and the backlog is enough.
 
-**With precise dates** over a long horizon.
+**An organization that already runs a single queue with product.** If technical and product items
+are already prioritized together, a separate technical roadmap recreates the budget split the single
+queue eliminated.
 
-**Presented in isolation** from the product roadmap.
-
-**Without declaring** what each phase does not do.
-
-**Without review by evidence** at the end of each phase.
+**A destination still in dispute.** The roadmap orders what the strategy chose; sequencing before the
+choice is made anticipates the decision through the order of the phases. The
+[technical strategy](/23-architecture-leadership/technical-strategy-leadership.md) comes first.
 
 ## Alternatives
 
@@ -211,15 +216,23 @@ capacity budgets.
 
 ## Common Mistakes
 
-**Sequencing by technical dependency** without considering value.
+**Sequencing by technical dependency** without considering value. The plan is written by whoever
+knows the architecture, and to that person the dependency graph looks like the natural order; the
+consequence is a phase 1 with no visible delivery when the first budget cut arrives.
 
-**Not asking** what is left if the plan stops.
+**Not asking** what is left if the plan stops. The question sounds pessimistic in a presentation
+seeking approval and gets left out; the cost only shows up at the interruption, when the phase can no
+longer be reorganized.
 
-**Promising dates** that depend on future decisions.
+**Promising dates** that depend on future decisions. The sponsor asks for a date and it is the date
+that unlocks approval; when it slips, the conversation becomes the delay, not what was delivered.
 
-**Not discussing** the competition with the product roadmap.
+**Not discussing** the competition with the product roadmap. Presented in isolation, the plan is
+approved faster and with a larger allocation on paper; the real allocation erodes without an explicit
+decision when delivery pressure arrives.
 
-**Not declaring** each phase's negative scope.
+**Not declaring** each phase's negative scope. Whoever writes it knows what was left out and assumes
+everyone knows; the delivered phase ends up judged by what nobody promised.
 
 ## Real-World Example
 
@@ -257,9 +270,10 @@ phase 2 (5 months)   three systems, the platform extended with
                      what they required
                      if it stops here: four systems migrated
 
-phase 3 (6 months)   the remaining nine, with the platform already
-                     matured by real use
-                     if it stops here: twelve of fifteen
+phase 3 (6 months)   the remaining eleven, one at a time, with the
+                     platform already matured by real use
+                     if it stops here: fifteen of fifteen, with
+                     the old one still running
 
 phase 4 (4 months)   decommissioning and history migration
 ```
@@ -280,15 +294,18 @@ phase 1 completed in month 4     measured benefit: -34% in that
 actual allocation across the plan  21% (agreed: 22%)
 plan interrupted?                yes — in month 11, for 3 months,
                                  by a commercial priority
-what was left at the interruption  four systems migrated,
-                                 working, with a benefit
+what was left at the interruption  six systems migrated (four
+                                 from phases 1 and 2, two from
+                                 phase 3), working, with a benefit
 plan resumed                     yes, in month 14
 completion                       month 22 (forecast: 19)
 platform rework                  ~6 weeks, forecast and accepted
 ```
 
 The three-month interruption happened — as in the two previous roadmaps. The difference is that this
-time it cancelled nothing: the work stopped in a usable state, and resuming was possible.
+time it cancelled nothing: the work stopped in a usable state, and resuming was possible. It fell in
+the middle of phase 3, and the rule held inside the phase too: each system was migrated as a unit
+that ends stable, and in month 11 none was half-done.
 
 The team's reading: the six weeks of rework from building the platform on demand were the price of
 the plan's survival, and it was cheap. The two previous roadmaps had avoided rework and lost
@@ -307,7 +324,7 @@ Take a technical plan in progress and answer, for each phase: what is left if th
 end of it?
 
 The phases whose answer is "nothing usable" are the ones that will cost everything if the priority
-changes — and the priority changes.
+changes — and, in a plan longer than a year, a change of priority is the case to plan for, not the exception.
 
 ## Interview Questions
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [current-state-architecture]
 related: [current-state-architecture, transition-architecture, architecture-roadmaps]
 canonical_for: [arquitetura alvo, horizonte de planejamento, propriedade desejada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -60,7 +60,9 @@ propriedades  "cada dado tem um dono único"
               "nenhum sistema crítico depende de uma única pessoa"
 ```
 
-Propriedades sobrevivem a mudanças de contexto. Um desenho, não.
+Propriedades sobrevivem às mudanças de contexto que invalidam um desenho: uma aquisição
+muda quais sistemas existem, não o fato de que cada dado deve ter um dono. Quando uma
+propriedade não sobrevive, ela é corrigida isoladamente — o desenho precisa ser refeito.
 
 E elas orientam a decisão de hoje: um time que precisa escolher como integrar dois
 sistemas consegue derivar a resposta de "integração por contrato explícito". Não consegue
@@ -181,17 +183,20 @@ detalhado de três anos é ficção.
 
 ## Quando Não Usar
 
-**Como desenho detalhado de longo prazo.**
+**Antes de levantar o estado atual.** Sem problemas conhecidos, não há de onde derivar
+propriedades, e o alvo sai como preferência estética. Ver
+[arquitetura do estado atual](/15-enterprise-architecture/current-state-architecture.md).
 
-**Sem derivação de problemas atuais.**
+**Quando poucas pessoas já tomam todas as decisões.** Com três ou quatro times que
+decidem juntos, a direção circula na conversa; um alvo formal custa mais do que coordena.
+Princípios ou um roteiro curto bastam.
 
-**Único para toda a organização.**
+**Quando nem 12 meses são previsíveis** — uma aquisição em integração, um pivô de
+estratégia em curso. As premissas do alvo mudariam antes da primeira revisão; um roteiro
+de curto prazo, revisado continuamente, orienta melhor até o contexto assentar.
 
-**Como critério de recusa.**
-
-**Sem arquitetura de transição.**
-
-**Revisado apenas anualmente**, em contexto que muda rápido.
+**Quando não há orçamento nem patrocínio para a transição.** O alvo vira aspiração, e o
+programa abandonado custa credibilidade à proposta seguinte — como no exemplo abaixo.
 
 ## Alternativas
 
@@ -215,7 +220,7 @@ detalhado de três anos é ficção.
 |---|---|
 | Direção de fundo | Acionável |
 | Baixa precisão | Alta |
-| Revisão frequente necessária | Menos |
+| Revisado quando uma premissa muda | Revisado a cada ciclo |
 
 ## Modos de Falha
 
@@ -233,17 +238,21 @@ detalhado de três anos é ficção.
 
 ## Erros Comuns
 
-**Desenhar o estado final.**
+**Desenhar o estado final.** O desenho envelhece na primeira aquisição, e o time diante
+de uma escolha concreta não consegue derivar dele a resposta.
 
-**Começar pela solução** — "queremos microsserviços" — em vez do problema.
+**Começar pela solução** — "queremos microsserviços" — em vez do problema. Quando alguém
+pergunta por que, não há custo de não fazer para mostrar.
 
-**Horizonte longo demais.**
+**Horizonte longo demais.** A revisão anual reescreve mais da metade do alvo.
 
-**Um alvo para tudo.**
+**Um alvo para tudo.** Sistemas de apoio recebem o investimento que só as capacidades
+diferenciadoras justificavam.
 
-**Não registrar os afastamentos.**
+**Não registrar os afastamentos.** Perde-se o sinal de que o alvo está errado: as exceções
+existem, mas ninguém as vê acumular.
 
-**Não ter transição.**
+**Não ter transição.** O alvo não vira trabalho, e depois de um ano ninguém o cita.
 
 ## Exemplo Real
 

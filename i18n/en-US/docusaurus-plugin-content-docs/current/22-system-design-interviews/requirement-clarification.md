@@ -13,7 +13,7 @@ objective: >
 prerequisites: [system-design]
 related: [functional-vs-nonfunctional, interview-structure, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -119,20 +119,15 @@ Declared assumptions do two things. They let the interviewer correct course earl
 customization is important" — instead of late, when the architecture has already been drawn on top
 of them. And they record that the decision was conscious, not an omission.
 
-An undeclared and wrong assumption sinks the answer. The same assumption declared and wrong is
-corrected in ten seconds.
+An undeclared and wrong assumption surfaces late, when the architecture already depends on it and
+fixing it costs a redesign. The same assumption declared and wrong is corrected in ten seconds.
 
 ### Implicit requirements exist and are worth points
 
-Some requirements are never stated and are expected:
-
-```text
-the system needs to be available
-the data cannot be lost
-there must be no unauthorized access
-cost matters
-someone is going to operate this
-```
+Some requirements are never stated and are expected — availability, durability, security, cost,
+operations. The list and the weight of each are in
+[the implicit ones worth mentioning](/22-system-design-interviews/functional-vs-nonfunctional.md#the-implicit-ones-worth-mentioning);
+what matters here is when to bring them up, which is during clarification.
 
 Mentioning them briefly — "I'll assume availability matters more than strong consistency here,
 because a temporarily unavailable link is worse than a slightly stale click counter" —
@@ -161,26 +156,30 @@ that you accepted the prompt as stated.
 ## Mental Model
 
 **The prompt is the invitation, not the problem.** Ask what changes a decision, propose instead of
-asking open-ended, and declare every assumption.
+asking open-ended, and declare every assumption that changes a decision.
 
 ## When to Use
 
 - At the start of every system design interview.
-- Whenever the interviewer introduces a variation midway.
+- When the interviewer introduces, midway, a variation that changes scope or scale.
 - When you notice that a decision depends on something unstated.
 
 ## When Not to Use
 
-**Asking what the interviewer wants you to decide** — technology choice, topology, database. Asking
-that transfers the decision and wastes the opportunity to show judgment.
+**When the prompt already comes delimited.** If the interviewer hands over scope, scale and
+constraints — "a public shortener, 100 M links per month, no customization" — redoing the questions
+spends the budget confirming what was said. Repeat the numbers in one sentence, ask only about what
+was left out, and move on.
 
-**Asking with no time budget.**
+**When the midway variation is hypothetical and the time left does not fit another round.** "What
+if traffic grew tenfold?" at minute 35 calls for what changes in the design, not five minutes of
+questions. Declare the variation's assumption and answer on top of it.
 
-**Asking for rigor's sake**, with questions whose answer changes nothing.
+**When the answer would not change any box already drawn.** Once the design exists, a scope
+question is only worth asking if it could move a component; if it cannot, it is rigor for show.
 
-**Accepting the prompt as stated** and starting to draw.
-
-**Without noting it down** — requirements that are not on the board disappear.
+**When the decision is yours** — technology choice, topology, database. Asking that transfers the
+decision and wastes the opportunity to show judgment.
 
 ## Alternatives
 
@@ -222,11 +221,14 @@ that transfers the decision and wastes the opportunity to show judgment.
 
 **Asking which technology to use.**
 
-**Asking one question at a time**, with long pauses.
+**Asking one question at a time**, with long pauses. Question by question, clarification blows
+past the 5 to 8 minutes and the interviewer loses the overall picture of what was settled.
 
 **Not asking what is out of scope.**
 
-**Treating clarification as a formality** and going back to the memorized script afterwards.
+**Treating clarification as a formality** and going back to the memorized script afterwards. The
+design comes out the same as it would without the answers, and the interviewer concludes the
+questions served no purpose — which is worse than not having asked them.
 
 ## Interview Example
 
@@ -270,9 +272,11 @@ link customization out of scope in this version
 ```text
 if links expired            → a cleanup policy, and the data model
                               gains a validity period
+if there were no analytics  → the write volume drops from 10 bn/month
+                              to 100 M/month; the event stream goes away
 if analytics were
-  real-time                 → the write volume goes from 100 M/month
-                              to 10 bn/month; everything changes
+  real-time                 → the same volume, but aggregated as a
+                              continuous stream, no room for batching
 if there were customization → uniqueness stops being guaranteed by
                               generation and becomes a lookup with contention
 if it were internal         → scale drops by orders of magnitude, and the

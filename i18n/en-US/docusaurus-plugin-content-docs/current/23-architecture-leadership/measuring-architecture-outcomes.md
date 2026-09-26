@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fitness-functions]
 related: [fitness-functions, evolutionary-architecture, cost-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -82,9 +82,13 @@ capability        onboarding time for a new person
 Those four cover most of what architecture affects, and none of them grows with the architecture
 group's effort — which is exactly the desired property.
 
-The first four speed and stability metrics are the software delivery ones consolidated by the
-organizational performance research. See
-[continuous delivery](/14-devops-and-platform/ci-cd.md).
+Four of these metrics are the software delivery ones consolidated by Forsgren, Humble and Kim
+(2018): deployment frequency, lead time for changes (from commit to production), change failure
+rate and time to recovery. "Time from decision to production" is a deliberate extension of the
+second: it starts at the decision, not at the commit, and so it also captures the wait before the
+code exists — prioritization queue, approval, dependency on another team. Build time is not a
+metric from that research; it is here because it is the most direct symptom of coupling in the
+[pipeline](/14-devops-and-platform/ci-cd.md).
 
 ### Tie each initiative to a number, beforehand
 
@@ -98,8 +102,9 @@ Declaring the number **beforehand** does two things. It makes the initiative ass
 uncomfortable and honest. And it forces the useful question at the proposal stage: if there is no
 number that improves, why do it?
 
-Initiatives with no declared number are assessed afterwards by narrative, and the narrative always
-concludes it was a success.
+Initiatives with no declared number are assessed afterwards by narrative, and when the assessor is
+the proposer, the narrative concludes it was a success — there is no prior criterion it could lose
+against.
 
 ### Measure before starting
 
@@ -108,8 +113,11 @@ no baseline     impossible to demonstrate improvement
 with a baseline the comparison is arithmetic
 ```
 
-This is the most common and the most irreversible error: a 12-month initiative that did not measure
-the initial state has no way to demonstrate a result, even having produced one.
+Of the errors in this document, it is the only one that cannot be fixed later: a wrong metric can be
+swapped and an average segmented at any time, but the initial state can only be measured while it is
+still the current state. A 12-month initiative that did not measure it has no way to demonstrate a
+result, even having produced one — unless the source keeps history, as the repository and the
+pipeline do, and the baseline can be reconstructed.
 
 And measuring beforehand has a second benefit: the initial number frequently contradicts the
 perception that motivated the initiative, and the proposal changes before it costs money.
@@ -198,15 +206,18 @@ what the architecture treats differently.
 
 ## When Not to Use
 
-**Measuring activity.**
+**When the organization is too small to segment.** With three teams and forty deployments per
+quarter, the difference between domains sits within the normal month-to-month variation, and
+segmentation produces a ranking of noise. At that scale, talking directly to the teams diagnoses
+faster.
 
-**With no baseline.**
+**When the expected effect is below the metric's noise.** An initiative expected to cut lead time by
+5%, on an indicator that swings 20% between quarters, cannot be demonstrated within the assessed
+horizon; declaring a number for it produces a false conclusion, in either direction.
 
-**As an aggregate average.**
-
-**With no counterweight metric.**
-
-**Quantifying what requires judgment.**
+**When reconstructing the baseline costs more than the decision.** Without reliable history in the
+pipeline or the incident system, building the initial measurement can take months; for a cheap,
+reversible decision, it is more rational to decide by judgment and measure from then on.
 
 **As a report** that changes no decision — if no prioritization changed because of the numbers in a
 year, the report is pure cost and should be reduced or eliminated.
@@ -251,15 +262,21 @@ The mitigation is publishing each team's trend against itself, not against the o
 
 ## Common Mistakes
 
-**Reporting ADRs written** and reviews held.
+**Reporting ADRs written** and reviews held. The report grows while the organization gets worse,
+and the first question about outcomes finds the group with no answer.
 
-**Not measuring before** starting.
+**Not measuring before** starting. At the end of the initiative, the result becomes opinion, and the
+dispute over it is settled by authority.
 
-**Publishing speed** without stability.
+**Publishing speed** without stability. Teams deliver faster by cutting tests and review, and the
+failure rate rises with nobody watching it.
 
-**Comparing teams against each other.**
+**Comparing teams against each other.** Teams with domains of different complexity become positions
+in a ranking; the one at the bottom starts reclassifying incidents and slicing deployments to move
+the number, and the metric loses its value for everyone.
 
-**Not using** what the pipeline and the repository already produce.
+**Not using** what the pipeline and the repository already produce. Measurement becomes an
+instrumentation project, and the baseline is delayed by months the initiative itself won't wait.
 
 ## Real-World Example
 
@@ -296,7 +313,7 @@ cost per transaction               +23% (worse)
 capacity in maintenance            from 58% to 66% (worse)
 ```
 
-The organization was deploying more and getting worse in four of the six dimensions. The earlier
+The organization was deploying more and getting worse in four of the six metrics. The earlier
 narrative — of constant progress — did not survive the numbers.
 
 **Segmentation** revealed where:
@@ -325,7 +342,7 @@ others.
 Eighteen months later:
 
 ```text
-time from decision to production   from 19 to 7 days
+time from decision to production   from 19 to 8 days
   billing                          from 41 to 11
   contracts                        from 38 to 9
 change failure rate                from 14% to 6%

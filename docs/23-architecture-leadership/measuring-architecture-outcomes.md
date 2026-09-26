@@ -13,7 +13,7 @@ objective: >
 prerequisites: [fitness-functions]
 related: [fitness-functions, evolutionary-architecture, cost-management]
 canonical_for: [medição de resultado arquitetural, indicador de arquitetura, evidência de melhoria, atividade contra efeito]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -82,9 +82,13 @@ capacidade              tempo de onboarding de pessoa nova
 Essas quatro cobrem a maior parte do que arquitetura afeta, e nenhuma delas cresce com o esforço
 da área de arquitetura — o que é exatamente a propriedade desejada.
 
-As quatro primeiras métricas de velocidade e estabilidade são as de entrega de software
-consolidadas pela pesquisa de desempenho organizacional. Ver
-[entrega contínua](/14-devops-and-platform/ci-cd.md).
+Quatro dessas métricas são as de entrega de software consolidadas por Forsgren, Humble e Kim
+(2018): frequência de implantação, tempo de mudança (do commit à produção), taxa de falha em
+mudanças e tempo de recuperação. "Tempo entre decisão e produção" é uma extensão deliberada da
+segunda: começa na decisão, não no commit, e por isso captura também a espera antes de o código
+existir — fila de priorização, aprovação, dependência de outro time. Tempo de construção não é
+métrica dessa pesquisa; entra aqui porque é o sintoma mais direto de acoplamento na
+[esteira](/14-devops-and-platform/ci-cd.md).
 
 ### Ligue cada iniciativa a um número, antes
 
@@ -98,8 +102,9 @@ Declarar o número **antes** faz duas coisas. Torna a iniciativa avaliável, o q
 e honesto. E força a pergunta útil na fase de proposta: se não há número que melhore, por que
 fazer?
 
-Iniciativas sem número declarado são avaliadas depois por narrativa, e a narrativa sempre conclui
-que foi um sucesso.
+Iniciativas sem número declarado são avaliadas depois por narrativa, e quando quem avalia é quem
+propôs, a narrativa conclui que foi um sucesso — não há critério anterior contra o qual ela possa
+perder.
 
 ### Meça antes de começar
 
@@ -108,8 +113,11 @@ sem linha de base    impossível demonstrar melhoria
 com linha de base    a comparação é aritmética
 ```
 
-Este é o erro mais comum e o mais irreversível: uma iniciativa de 12 meses que não mediu o estado
-inicial não tem como demonstrar resultado, mesmo tendo produzido um.
+Dos erros deste documento, é o único que não se corrige depois: métrica errada se troca e média se
+segmenta a qualquer momento, mas o estado inicial só pode ser medido enquanto ainda é o estado atual.
+Uma iniciativa de 12 meses que não o mediu não tem como demonstrar resultado, mesmo tendo produzido
+um — salvo quando a fonte guarda histórico, como o repositório e a esteira, e a linha de base pode
+ser reconstruída.
 
 E medir antes tem um segundo benefício: frequentemente o número inicial contradiz a percepção que
 motivou a iniciativa, e a proposta muda antes de custar dinheiro.
@@ -198,15 +206,18 @@ a arquitetura trata de forma diferente.
 
 ## Quando Não Usar
 
-**Medindo atividade.**
+**Quando a organização é pequena demais para segmentar.** Com três times e quarenta implantações
+por trimestre, a diferença entre domínios fica dentro da variação normal de um mês para o outro, e a
+segmentação produz ranking de ruído. Nessa escala, a conversa direta com os times diagnostica mais
+rápido.
 
-**Sem linha de base.**
+**Quando o efeito esperado fica abaixo do ruído da métrica.** Uma iniciativa que deve reduzir o
+tempo de mudança em 5%, num indicador que oscila 20% entre trimestres, não é demonstrável no
+horizonte avaliado; declarar número para ela produz uma falsa conclusão, para qualquer lado.
 
-**Em média agregada.**
-
-**Sem métrica contrabalançadora.**
-
-**Quantificando o que exige julgamento.**
+**Quando reconstruir a linha de base custa mais que a decisão.** Sem histórico confiável na esteira
+ou no sistema de incidentes, montar a medição inicial pode levar meses; para uma decisão reversível
+e barata, é mais racional decidir por julgamento e medir dali em diante.
 
 **Como relatório** que não muda nenhuma decisão — se nenhuma priorização mudou por causa dos
 números em um ano, o relatório é custo puro e deveria ser reduzido ou eliminado.
@@ -254,15 +265,21 @@ mitigação é publicar tendência de cada time contra si mesmo, não contra os 
 
 ## Erros Comuns
 
-**Relatar ADRs escritos** e revisões realizadas.
+**Relatar ADRs escritos** e revisões realizadas. O relatório cresce enquanto a organização piora,
+e a primeira pergunta sobre resultado encontra a área sem resposta.
 
-**Não medir antes** de começar.
+**Não medir antes** de começar. Ao fim da iniciativa, o resultado vira opinião, e a disputa sobre
+ele é decidida por autoridade.
 
-**Publicar velocidade** sem estabilidade.
+**Publicar velocidade** sem estabilidade. Os times entregam mais rápido cortando teste e revisão, e
+a taxa de falha sobe sem que ninguém esteja olhando para ela.
 
-**Comparar times entre si.**
+**Comparar times entre si.** Times com domínios de complexidade diferente viram posições num
+ranking; o de pior posição passa a reclassificar incidentes e a fatiar implantações para mover o
+número, e a métrica perde o valor para todos.
 
-**Não usar** o que a esteira e o repositório já produzem.
+**Não usar** o que a esteira e o repositório já produzem. A medição vira projeto de instrumentação,
+e a linha de base atrasa meses que a própria iniciativa não espera.
 
 ## Exemplo Real
 
@@ -300,7 +317,7 @@ custo por transação                +23% (piorou)
 capacidade em manutenção           de 58% para 66% (piorou)
 ```
 
-A organização estava implantando mais e piorando em quatro das seis dimensões. A narrativa
+A organização estava implantando mais e piorando em quatro das seis métricas. A narrativa
 anterior — de progresso constante — não sobrevivia aos números.
 
 **Segmentação** revelou onde:
@@ -329,7 +346,7 @@ outros.
 Dezoito meses depois:
 
 ```text
-tempo entre decisão e produção     de 19 para 7 dias
+tempo entre decisão e produção     de 19 para 8 dias
   faturamento                      de 41 para 11
   contratos                        de 38 para 9
 taxa de falha em mudanças          de 14% para 6%

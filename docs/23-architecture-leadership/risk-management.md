@@ -13,7 +13,7 @@ objective: >
 prerequisites: [decision-making]
 related: [decision-making, cost-management, measuring-architecture-outcomes]
 canonical_for: [risco arquitetural, registro de risco, apetite a risco, risco aceito formalmente]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -132,7 +132,7 @@ Sem ele, cada decisão de risco é negociada do zero.
 
 ```text
 "aceitamos até 4 horas de indisponibilidade anual em sistemas
- de suporte; zero em sistemas de pagamento"
+ de suporte; 15 minutos em sistemas de pagamento"
 "aceitamos dependência de fornecedor único onde o custo de
  saída for menor que seis meses"
 "não aceitamos nenhum sistema com menos de três pessoas
@@ -182,15 +182,20 @@ resposta legítima, melhor que deixar aberto.
 
 ## Quando Não Usar
 
-**Como categoria abstrata.**
+**Em time pequeno, com poucos sistemas.** Com oito pessoas e três serviços, os riscos cabem numa
+conversa, e uma pré-mortem por trimestre encontra os mesmos que o registro encontraria. Manter
+dono, número e cadência de revisão custa mais que o que a lista acrescenta.
 
-**Sem dono que possa agir.**
+**Em produto de descoberta, com vida útil curta.** Um protótipo que pode ser descartado em seis
+meses não dura o bastante para que riscos de conhecimento ou de fornecedor se materializem; o
+registro envelhece antes da primeira revisão.
 
-**Sem quantificação**, ainda que grosseira.
+**Para riscos de segurança.** A modelagem de ameaças tem método próprio para enumerá-los, e
+copiá-los no registro cria duas listas que divergem. Leve ao registro só a consequência agregada,
+quando ela disputa ordenação com os demais riscos.
 
-**Como planilha de conformidade** que ninguém lê.
-
-**Sem a opção de aceitar formalmente.**
+**Como planilha de conformidade** que ninguém lê — o custo de manutenção é pago e nenhuma decisão
+sai dela.
 
 **Registrando tudo** — um registro com 60 riscos não prioriza nada.
 
@@ -201,7 +206,7 @@ resposta legítima, melhor que deixar aberto.
 - **Análise pré-mortem** — imaginar que o projeto falhou e listar as causas; barata e eficaz para
   descobrir riscos que a análise formal não encontra.
 - **Orçamento de erro** — para risco de disponibilidade, mais operacional e mais acionável. Ver
-  [confiabilidade](/12-reliability/reliability-basics.md).
+  [SLO e orçamento de erro](/12-reliability/slo.md).
 - **Exercícios de falha** — descobrir riscos executando, não listando.
 
 A segunda é subestimada: uma pré-mortem de uma hora com o time costuma produzir mais riscos reais
@@ -216,8 +221,8 @@ que um trimestre de registro formal.
 
 | Mitigar | Aceitar formalmente |
 |---|---|
-| Reduz exposição | Custo zero, decisão explícita |
-| Consome capacidade | O risco permanece |
+| Reduz a perda esperada | Mantém a perda esperada |
+| Consome capacidade agora | Custa pouco agora, mais a revisão periódica |
 
 ## Modos de Falha
 
@@ -294,7 +299,9 @@ riscos com dono ativo                     19
 restaurações testadas                     100% dos críticos, trimestral
 sistemas com menos de 3 operadores        de 11 para 2
 riscos aceitos formalmente                5, todos revisados no prazo
-incidentes de exposição alta              1 (contra 4 no período anterior)
+incidentes de exposição alta              1 (contra 4 nos 18 meses
+                                          anteriores, reclassificados
+                                          pelo critério novo)
 ```
 
 Os dois sistemas que continuam com menos de três operadores estão registrados com plano de
@@ -305,8 +312,8 @@ cada discussão sobre investimento em resiliência era negociada isoladamente; d
 uma verificação contra um número já acordado — e as discussões passaram de negociação a
 constatação.
 
-E o exercício de reescrever os riscos com consequência e número revelou que 51 dos 74 originais
-não descreviam nada verificável. Eles davam a impressão de cobertura e não informavam decisão
+E o exercício de reescrever os riscos com consequência e número revelou que a maioria dos 51 itens que
+saíram não descrevia nada verificável. Eles davam a impressão de cobertura e não informavam decisão
 nenhuma.
 
 ## Conceitos Relacionados
