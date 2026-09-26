@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, network-security, data-protection]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -120,9 +120,19 @@ That resolves the conflict between immutability and the right to erasure in
 
 It needs to be designed from the start; retrofitting requires rewriting the history.
 
+### In use, and why it stays at the margin
+
+Encryption in use protects data while it is being processed: hardware enclaves isolate the process's
+memory even from the operating system and the provider. The access it blocks is that of the platform
+operator and of another tenant on the same host.
+
+The cost is specific hardware, lower performance and hard debugging — and it does not change the likely
+scenario: the application inside the enclave still decrypts for whoever it authorizes. It is justified
+when the provider itself is in the threat model; outside that, this document deals with the other two.
+
 ### Do not implement it
 
-The most important rule and the most violated under pressure:
+The rule whose mistakes do not show up in testing — and that is why it is the first to give way under a deadline:
 
 **Use mature libraries and standardized algorithms.** Do not invent a scheme, do not combine primitives on
 your own, do not use modes of operation without understanding their requirements.
@@ -140,7 +150,9 @@ protecting.
 
 ## When to Use
 
-- **In transit:** always, including internally.
+- **In transit:** on every connection that crosses a shared network — including the internal one, which
+  other services and operators also reach. The legitimate exception is the helper process on the same host
+  that terminates TLS on the service's behalf.
 - **At rest:** whenever available — it is cheap.
 - **On the field:** for sensitive data, when database access is a real threat.
 - **Per subject:** when there is a deletion requirement in immutable storage.
@@ -168,9 +180,10 @@ adopted as if it did.
 To protect data without encrypting:
 
 - **Not collecting it.** See [data protection](/10-security/data-protection.md).
-- **Tokenization** — replacing the data with a reference, keeping the original in a separate vault. Common
-  for card data.
-- **Pseudonymization** — removing direct identifiers.
+- **[Tokenization](/10-security/data-protection.md#tokenization-takes-the-data-out-of-the-system)** and
+  **[pseudonymization](/10-security/data-protection.md#pseudonymization-and-anonymization-are-not-the-same-thing)**
+  — instead of encrypting the data in place, they take it out of the system or unlink it from the subject;
+  there is no key to protect because there is nothing to decrypt.
 - **Proper authorization** — frequently the control that was actually missing.
 
 ## Trade-offs
@@ -180,7 +193,7 @@ To protect data without encrypting:
 | Protects against database access | Only against medium access |
 | Queries and sorting break | Transparent |
 | The key managed by the application | By the platform |
-| Processing cost | Negligible |
+| Encrypts and decrypts in the application on every read | Done by the storage, negligible cost |
 | Applied selectively | Everything at once |
 
 | Authenticated encryption | Confidentiality only |
@@ -250,13 +263,13 @@ a curious database administrator    field encryption + auditing
 a deletion request                  per-subject encryption
 ```
 
-The last two lines had no control at all.
+The last three lines had no control at all — including the one for the incident's vector.
 
 What was implemented:
 
 **Field-level encryption** for the document number, the diagnosis and the test result, with keys managed
-outside the database. Searching by document number came to use a separate hash index, instead of a direct
-query.
+outside the database. Searching by document number came to use a separate keyed-hash index (HMAC, key outside the
+database) — a plain hash would be enumerable offline, because the space of document numbers is small.
 
 **Per-subject encryption** for the health data, allowing deletion by discarding a key — which resolved a
 regulatory requirement that had been pending for two years.
@@ -269,8 +282,9 @@ regulatory requirement that had been pending for two years.
 **Log filtering** to avoid recording credentials.
 
 The point the team underlines: the regulatory requirement said "the data must be encrypted", and they met
-it literally. The question nobody asked — "against whom?" — would have changed the entire answer, with the
-same budget.
+it literally. The question nobody asked — "against whom?" — would have changed the entire answer. Naming the threat, narrowing the
+credential's scope and filtering logs were cheap at any point; field-level and per-subject encryption cost
+a lot because they came later — migrating queries and rewriting the history.
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, authz-models, cloud-identity]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -144,17 +144,22 @@ Always. Special priority when:
 
 ## When Not to Use
 
-**A broad permission to unblock quickly.** It stays.
+Granting the minimum always applies. What has a limit is the effort of tightening what was already
+granted:
 
-**Without measuring real usage** before reducing. Reducing by intuition breaks things and discredits the
-practice.
+**No usable usage log.** If the system does not record which permissions were exercised, or keeps less than
+a full operating cycle, the reduction would be by intuition — it breaks things and discredits the practice.
+The first step is to turn the log on and wait out the cycle, not to cut.
+
+**A short-lived environment.** A disposable environment that lasts days, with no real data and no
+credential that outlives it, does not pay for the time spent discovering the exact scope. Isolating it in
+its own account contains the damage more cheaply than tuning policy.
+
+**An incident in progress.** With production down, temporary broad access is the right choice. The
+obligation is reverting it with a deadline and a record, not denying it.
 
 **Extreme rigor in a development environment**, to the point that people work around it. The workaround is
 worse than the permission.
-
-**Permission to change policies** on an application identity.
-
-**A review by person** instead of by role.
 
 ## Alternatives
 
@@ -201,15 +206,20 @@ Ways to reduce reach without rewriting the whole policy:
 
 ## Common Mistakes
 
-**Broadening until the error goes away.**
+**Broadening until the error goes away.** The broad permission granted to unblock is never revisited; every
+urgency leaves a residue that adds reach for the next compromise.
 
-**Not using usage logs to reduce.**
+**Not using usage logs to reduce.** The reduction becomes a bet, the first production breakage discredits
+the practice, and it is abandoned.
 
-**Reviewing by person.**
+**Reviewing by person.** The review confirms what the person already has instead of asking what the role
+needs, and accumulation from role changes passes through the review intact.
 
-**Treating service identities with less rigor.**
+**Treating service identities with less rigor.** The credential sits within reach of the code, and whoever
+compromises the service inherits a scope nobody would give a person.
 
-**Not separating the escalation permissions.**
+**Not separating the escalation permissions.** An application that can change policies effectively has
+permission for everything: whoever compromises it grants itself the rest.
 
 **Not measuring the friction.** A practice people work around is not working.
 
@@ -235,8 +245,9 @@ pipeline change could grant themselves any permission.
 The reduction was done in three phases, with data:
 
 **Phase 1 — cut by usage.** Permissions not exercised in 90 days were removed, with a two-week period in
-warning mode: instead of denying, record what would be denied. That revealed 11 permissions that were used
-rarely — quarterly — and would have broken. They were kept.
+warning mode: instead of denying, record what would be denied. The two weeks were placed over the quarter
+close, when the quarterly routines run. That revealed 11 permissions used only by those routines, which
+would have broken. They were kept.
 
 **Phase 2 — temporary elevation.** Permanent administrative access was removed from the 14 people and
 replaced by 4-hour elevation with a justification. Over the following six months, the average was 3
@@ -245,8 +256,9 @@ elevations a week across the entire team — the permanent access was being kept
 **Phase 3 — scope per service.** Each service identity received its own policy, derived from the access
 logs. Two broke, both from undocumented dependencies the analysis did not catch.
 
-Result after a year: the granted permissions fell by around 80%, and there were three "missing permission"
-incidents — all resolved in under an hour through the elevation process.
+Result after a year: the granted permissions fell by around 80%. Besides the two service breakages from
+phase 3, fixed by adjusting policy, there were three "missing permission" incidents in human access — all
+resolved in under an hour through the elevation process.
 
 What was recorded afterward: phase 1 in warning mode is what made everything viable. The original proposal
 was to cut directly, and the operations team had vetoed it — rightly. Two weeks recording what would be

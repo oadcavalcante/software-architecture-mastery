@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain]
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -55,12 +55,14 @@ That has to be said out loud, because it runs against professional instinct. An 
 delivers a simple solution in a supporting domain did the right work, and without the stated
 criterion it may look like they did less.
 
-### Do not apply tactical DDD here
+### Do not apply the tactical ceremony here
 
-Aggregates, value objects, repositories, domain events — the tactical ceremony costs and
-only pays off where the rules are genuinely complex and change frequently.
+Aggregates, repositories, domain events — the tactical ceremony costs and only pays off
+where the rules are genuinely complex and change frequently.
 
-In a supporting domain, a direct service with data access is usually the correct answer. See
+Value objects and entities with behavior stay out of that calculation: they are cheap and
+keep paying off wherever there is validation or a rule of their own. Beyond them, in a
+supporting domain, a direct service with data access is usually the correct answer. See
 [tactical DDD](/04-domain-driven-design/tactical-ddd.md).
 
 ### Candidates to become generic
@@ -94,7 +96,7 @@ domain is a month available where it matters.
 
 ## Common Mistakes
 
-**Applying tactical DDD.** The most common mistake and the most expensive in volume:
+**Applying the tactical ceremony.** The most common mistake and the most expensive in volume:
 aggregates and repositories multiply the code of a subdomain nobody will evolve, and every
 trivial adjustment starts to require a round of modeling.
 
@@ -176,7 +178,7 @@ one are flexibility that was never exercised.
 ## Interview Questions
 
 - What characterizes a supporting domain?
-- Why not apply tactical DDD here?
+- Why not apply the tactical ceremony here, and what from tactical DDD still applies?
 - How do you recognize that a supporting domain became generic?
 
 ## Further Exploration

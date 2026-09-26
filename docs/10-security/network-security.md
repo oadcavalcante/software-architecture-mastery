@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [zero-trust, secure-boundaries, cloud-networking]
 canonical_for: [segmentação de rede, microssegmentação, movimento lateral, filtragem de saída]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -56,7 +56,7 @@ microssegmentada cada serviço alcança apenas os que precisa
 A microssegmentação é a mais eficaz e a mais trabalhosa, porque exige saber quem fala
 com quem — informação que raramente existe documentada.
 
-O caminho viável é sempre o mesmo: registrar o tráfego real, derivar a política,
+O caminho que não derruba produção: registrar o tráfego real, derivar a política,
 aplicar em modo de aviso, depois bloquear. Aplicar direto derruba produção.
 
 ### Filtragem de saída é a metade esquecida
@@ -84,8 +84,8 @@ painel administrativo  nunca acessível da internet
 serviços internos    nunca acessíveis da internet
 ```
 
-Toda auditoria encontra pelo menos um desses exposto, quase sempre por uma regra
-criada "temporariamente".
+Quando um desses aparece exposto, a origem mais comum é uma regra criada
+"temporariamente" que ninguém removeu.
 
 Acesso administrativo merece nota: em vez de porta aberta com restrição de origem, um
 serviço gerenciado de sessão elimina a necessidade de qualquer porta exposta — e
@@ -156,18 +156,27 @@ que a identidade falha.
 
 ## Quando Não Usar
 
-**Como autenticação.**
+**Microssegmentação onde ela reproduz a segmentação por camada.** Depois de observar o
+tráfego, monte a matriz de quem fala com quem dentro de cada segmento. Se ela sai quase
+cheia — todo serviço do segmento conversa com quase todos os outros, como costuma
+acontecer com poucos serviços mantidos por uma única equipe —, a política por serviço
+remove pouco alcance além do que a divisão por camada já removeu, e cobra a manutenção
+inteira. No exemplo abaixo, só derivar a política levou três meses.
 
-**Segmentação sem conhecer o tráfego real.**
+**Microssegmentação onde a topologia muda mais rápido que a política.** Se serviços
+entram e saem a cada semana e a política é derivada por observação, ela está sempre
+defasada: ou bloqueia o que acabou de nascer, ou vira lista permissiva que ninguém
+revisa. Nesse caso, a política entre serviços pertence à camada de aplicação — ver
+Alternativas.
 
-**Regras temporárias sem expiração.**
+**Lista de destinos permitidos na saída de um sistema cujo destino é o próprio dado.**
+Um coletor de páginas ou um serviço que entrega webhooks para URLs informadas pelo
+cliente alcança, por definição, destinos que não se conhecem de antemão. A lista
+bloqueia a função, não o atacante; o que cabe ali é isolar esse sistema num segmento sem
+alcance interno e passar a saída por um intermediário que registra.
 
 **Porta administrativa exposta**, mesmo com restrição de origem, quando há
 alternativa gerenciada.
-
-**Microssegmentação em ambiente pequeno.** O custo supera o risco.
-
-**Esperando que resolva negação de serviço.**
 
 ## Alternativas
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -108,6 +108,13 @@ to display the last digits — work with the token, and the compliance scope shr
 
 It is the standard technique for card data, and underused for document numbers and other identifiers.
 
+The cost is operational. The vault sits on the path of every flow that needs the original value — issuing
+an invoice, reporting to a regulator, verifying with the data subject: if it goes down, those flows go down
+with it, and each detokenization adds a network call to the latency. The risk that was spread out
+concentrates in a single target, which then demands the strictest access control and auditing in the
+system. And the data already persisted has to be migrated — sweeping databases, replicas and extracts,
+swapping values for tokens without breaking relationships —, a project in its own right.
+
 ### Production data in other environments
 
 One of the most common and most avoidable exposures.
@@ -160,18 +167,25 @@ them.
 
 ## When Not to Use
 
-**Protecting without classifying.** Uniformly is wrong in both directions.
+**A tokenization vault for low-sensitivity or low-volume data.** The vault is an availability dependency
+and a target to protect. For an internal identifier with no value outside the system, or for a few hundred
+records where minimization settles it, running the vault costs more than the scope it removes — encrypting
+the field or not keeping it is cheaper.
 
-**Calling anonymous what is pseudonymized.**
+**Formal classification in a single-sensitivity system.** If all the system's data sits at one level — an
+internal service with no personal data, or one that only holds health data —, four levels with per-level
+controls is bureaucracy with no decision to make. A uniform control suited to that level is enough;
+classification starts paying off when the second level appears.
 
-**Copying production to test.**
+**Anonymizing when the analysis needs the individual.** Anonymization that withstands cross-referencing
+generalizes and suppresses until the granularity is gone — following a customer's journey, detecting fraud
+by individual pattern. When that is the use that justifies keeping the data, pseudonymize with restricted
+access to the mapping, and accept that the data is still personal.
 
-**Encryption as the answer to everything.** See [encryption](/10-security/encryption.md) — often the
-missing control was authorization, or not collecting.
-
-**Collecting out of caution.**
-
-**Classifying without defining controls per level.** A label with no consequence.
+**Synthetic data when the test depends on the anomalies of the real thing.** Legacy data migration,
+debugging a defect that only occurs with the real dataset: the generator does not reproduce the distortions
+the test exists to catch. There the path is a masked subset in an environment with production controls,
+not the raw copy.
 
 ## Alternatives
 
@@ -217,13 +231,16 @@ missing control was authorization, or not collecting.
 
 **Starting with encryption instead of minimization.** Data that was not collected does not leak, needs no
 key and does not enter a deletion request. Encrypting is the second-best answer; not having it is the
-first.
+first. And often the missing control was authorization — see [encryption](/10-security/encryption.md).
 
 **Not classifying.** Without knowing which fields are personal or sensitive, the same control is applied to
 everything — too expensive for what does not need it and too loose for what does.
 
 **Copying production.** A staging database with real data multiplies the places where personal data exists,
-with controls always weaker than production's.
+with controls that, in practice, rarely match production's.
+
+**Classifying without defining controls per level.** A label with no consequence does not change where
+the data may be or who accesses it — it is inventory, not protection.
 
 **Logging the request body.** It is the most common route of internal leakage: personal data and
 credentials end up in the logging system, which has long retention and broader access.
@@ -285,8 +302,8 @@ and "may not leave for a non-production environment".
 **Revised contracts** with the third parties, restricting what is sent.
 
 What the team learned: the deletion request that started everything came to be servable in two days. And
-most of the gain came from the first stage — the eleven fields that stopped being collected eliminated more
-risk than any technical control would have.
+most of the gain came from the first stage — the eleven fields no process used stopped existing, and with them
+every control they would have required in each of the ten places.
 
 ## Related Concepts
 
@@ -304,7 +321,7 @@ Then ask, for each one: does it need to be here?
 
 ## Interview Questions
 
-- Why does minimization have a greater return than any technical control?
+- For data no process uses, why does minimizing pay off more than protecting?
 - What is the difference between pseudonymizing and anonymizing?
 - Why is copying production to test one of the most common exposures?
 

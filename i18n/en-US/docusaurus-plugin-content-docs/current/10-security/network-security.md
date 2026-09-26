@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [zero-trust, secure-boundaries, cloud-networking]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -52,7 +52,7 @@ microsegmented   each service reaches only those it needs
 Microsegmentation is the most effective and the most laborious, because it requires knowing who talks to
 whom — information that rarely exists documented.
 
-The viable path is always the same: record the real traffic, derive the policy, apply it in warning mode,
+The path that does not take production down: record the real traffic, derive the policy, apply it in warning mode,
 then block. Applying it directly takes production down.
 
 ### Egress filtering is the forgotten half
@@ -78,7 +78,7 @@ an administrative panel  never reachable from the internet
 internal services      never reachable from the internet
 ```
 
-Every audit finds at least one of those exposed, almost always by a rule created "temporarily".
+When one of these turns up exposed, the most common origin is a rule created "temporarily" that nobody removed.
 
 Administrative access deserves a note: instead of an open port with a source restriction, a managed session
 service eliminates the need for any exposed port — and records everything.
@@ -145,17 +145,27 @@ and it frequently includes partners whose contract has already ended.
 
 ## When Not to Use
 
-**As authentication.**
+**Microsegmentation where it reproduces per-tier segmentation.** After observing the
+traffic, build the matrix of who talks to whom inside each segment. If it comes out
+nearly full — every service in the segment talks to almost every other, as tends to
+happen with a few services maintained by a single team — per-service policy removes
+little reach beyond what the tier split already removed, and charges the full
+maintenance cost. In the example below, just deriving the policy took three months.
 
-**Segmentation without knowing the real traffic.**
+**Microsegmentation where the topology changes faster than the policy.** If services
+come and go every week and the policy is derived by observation, it is always stale:
+either it blocks what was just born, or it becomes a permissive list nobody reviews. In
+that case, service-to-service policy belongs in the application layer — see
+Alternatives.
 
-**Temporary rules with no expiration.**
+**An egress allowlist for a system whose destination is the data itself.** A web
+crawler or a service delivering webhooks to customer-supplied URLs reaches, by
+definition, destinations nobody knows in advance. The list blocks the function, not the
+attacker; what fits there is isolating that system in a segment with no internal reach
+and routing its egress through an intermediary that logs.
 
-**An administrative port exposed**, even with a source restriction, when a managed alternative exists.
-
-**Microsegmentation in a small environment.** The cost exceeds the risk.
-
-**Expecting it to solve denial of service.**
+**An administrative port exposed**, even with a source restriction, when a managed
+alternative exists.
 
 ## Alternatives
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -65,11 +65,14 @@ touching the data.
 
 Rotating the key that encrypts terabytes is unviable if it requires re-encrypting everything.
 
-With enveloping, the old data stays encrypted with its data keys, and only the envelope changes. New data
-uses the new master key.
+With enveloping, the old data stays encrypted with its data keys, and only the envelope changes — in one of
+two ways. Re-encrypting every envelope under the new master costs one pass over the data keys, which are
+small, and frees the old master for disposal. Using the new master only for new data costs no pass at all,
+but the old master must exist as long as any envelope is encrypted under it.
 
 That requires **the key version to be stored alongside the data** — to know what to decrypt with. It is a
-small detail whose absence makes rotation impossible later.
+small detail whose absence costs dearly later: without it, decrypting means trying every known key
+against every object.
 
 ### The old keys cannot be discarded
 
@@ -135,7 +138,9 @@ keys — so that the rotation does not invalidate everything at once. See
 
 ## When to Use
 
-Explicit management is necessary whenever there is encryption. Priority when:
+Where the key belongs to the system rather than the platform, explicit management is unavoidable; where
+encryption is delegated to the platform, what remains is choosing the delegation and knowing its limits.
+Priority when:
 
 - There is field-level encryption.
 - There is a regulatory requirement about custody.
@@ -145,19 +150,19 @@ Explicit management is necessary whenever there is encryption. Priority when:
 
 ## When Not to Use
 
-**A key alongside the encrypted data.**
+**Your own management when the platform's transparent encryption suffices.** If the threat model is access
+to the medium — a discarded disk, a stolen copy of the storage — the platform already encrypts and holds the
+key; a hierarchy of your own adds operations without adding protection against that threat.
 
-**A key in code or in a repository.**
+**A hardware module with no requirement that justifies it.** High cost and operations, and the managed
+service already delivers the property that matters in most cases: the master never leaves the module.
 
-**Rotation without storing the key version** alongside the data.
+**A managed service when regulation demands your own custody.** If the rule requires that the key never be
+under the provider's control, a key hosted there does not comply — the path is your own module or an
+external key the provider only references.
 
-**Discarding an old key** before re-encrypting.
-
-**With no separation between administering and using.**
-
-**With no plan for loss.** Optimism is not a strategy.
-
-**A hardware module with no requirement that justifies it.** High cost and operations.
+**Enveloping when the volume under the key is small.** If re-encrypting everything fits in a maintenance
+window, rotation is already cheap, and the hierarchy only adds one more piece to operate and to lose.
 
 ## Alternatives
 
@@ -188,7 +193,8 @@ Explicit management is necessary whenever there is encryption. Priority when:
 
 **An old key discarded.** Old data unreadable.
 
-**A version not recorded.** Impossible to know what to decrypt with.
+**A version not recorded.** Decrypting means trying every known key against every object — a cost
+proportional to keys times objects.
 
 **A key alongside the data.**
 
@@ -200,8 +206,8 @@ Explicit management is necessary whenever there is encryption. Priority when:
 
 ## Common Mistakes
 
-**Not storing the key version with the data.** After the first rotation, there is no way to know which key
-decrypts which record, and rotation comes to require re-encrypting everything at once.
+**Not storing the key version with the data.** After the first rotation, finding which key decrypts which
+record means testing them one by one, and rotation comes to require re-encrypting everything at once.
 
 **Not planning rotation before encrypting.** Rotating is easy when anticipated and almost impossible when
 not: with no versioning and no key coexistence, the swap becomes an unavailability window over the whole
@@ -219,6 +225,9 @@ cryptographic material.
 
 **Treating a signing key as an ordinary key.** Compromising an encryption key exposes data; compromising a
 signing key allows forging identity and authorization — damage of a different and greater nature.
+
+**Having no plan for loss.** A backup of the data does not replace one of the key, and the key's backup
+exists only if someone designed it — with the same protection as the original.
 
 ## Real-World Example
 
@@ -245,7 +254,10 @@ the project's justification.
 The reformulation:
 
 **Enveloping.** Each document came to have its own key, encrypted by a master key in a managed service.
-Rotating the master became an operation of minutes.
+The migration paid the three-week pass over the 14 million documents once — acceptable because it was a
+one-off and coincided with the classification the archive already required. After it, rotating the master
+became an operation of minutes; under a single key, that same pass would have been the price of every
+rotation.
 
 **The key version** written into each object's metadata. The migration required attempting decryption with
 each known key to classify the archive — and that is how the 200,000 documents were identified.

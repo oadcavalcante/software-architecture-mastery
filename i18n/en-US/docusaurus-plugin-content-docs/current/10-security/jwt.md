@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, oidc, secrets]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -106,6 +106,11 @@ nbf         not used before its time
 Verifying the signature and forgetting expiration is common, and it turns a one-hour token into a permanent
 one.
 
+`exp` and `nbf` compare clocks on different machines. With several services, a verifier whose clock runs
+ahead rejects freshly issued tokens as expired or not yet valid — the symptom is intermittent rejections
+concentrated in one service. Verification allows a skew tolerance of seconds, not minutes, and the clocks
+stay synchronized.
+
 ### Size has a cost
 
 The token travels on every request, typically in a header.
@@ -123,12 +128,15 @@ Whoever has the token is the bearer. There is no binding to a device or a sessio
 
 That means the transport and the storage matter as much as the signature:
 
-**Always over TLS.**
+**The transport requires TLS.** Outside it, the token is readable by anyone watching the network.
 
 **In a web client**, an HTTP-only cookie is preferable to local storage, which is accessible to any
-injected script.
+injected script. The price: the browser sends the cookie on its own, which opens cross-site request
+forgery — and requires a same-site attribute or an anti-forgery token. The trade pays off when that control
+is in place, because it closes one class of attack, while local storage leaves any script injection open.
 
-**Never in the URL.** It ends up in server logs, in the history and in the referrer header.
+**In the URL, the token leaks** into server logs, the history and the referrer header. A header or a cookie
+is where it belongs.
 
 There are mechanisms that bind the token to a client key, making it useless if stolen — little adopted, and
 the right answer for high-value scenarios.
@@ -150,16 +158,16 @@ a price without receiving the benefit.
 
 **When immediate revocation is a requirement**, with no mitigation.
 
-**To store sensitive data.**
+**When the content needs to be confidential** and JWE is not available — a signed JWT is readable by
+whoever holds it.
 
-**With a long expiration.**
+**When the client cannot renew** and the token would need to last hours. Beyond a few minutes with no
+revocation mechanism, the validity becomes the access window for whoever steals it.
 
 **As a web application session** when a session cookie solves it — which is the case for most single-server
 applications.
 
-**Without verifying every claim.**
-
-**With permissions inside**, if they change.
+**To carry permissions that change** more often than the token's validity.
 
 ## Alternatives
 
@@ -215,7 +223,7 @@ require the expected algorithm.
 organization is accepted here — and the intended scope evaporates.
 
 **Storing it in the browser's local storage.** It becomes accessible to any script on the page, which turns
-a cross-site scripting flaw into session theft. An HTTP-only cookie does not have that problem.
+a cross-site scripting flaw into session theft. An HTTP-only cookie does not have that problem — and trades it for request forgery, covered above.
 
 **Using JWT where a session would work better.** In an application with a single backend, a server-side
 session is revocable on the spot and simpler. The self-contained token pays the price of difficult

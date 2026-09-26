@@ -13,7 +13,7 @@ objective: >
 prerequisites: [subdomain]
 related: [core-domain, generic-domain, tactical-ddd]
 canonical_for: [supporting domain, subdomínio de apoio]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-26
 ---
 
@@ -55,14 +55,15 @@ Isso precisa ser dito em voz alta, porque contraria o instinto profissional. Um
 engenheiro que entrega uma solução simples num supporting domain fez o trabalho
 certo, e sem o critério declarado pode parecer que fez menos.
 
-### Não aplique DDD tático aqui
+### Não aplique a cerimônia tática aqui
 
-Agregados, objetos de valor, repositórios, eventos de domínio — a cerimônia
-tática custa e só se paga onde a regra é genuinamente complexa e muda com
-frequência.
+Agregados, repositórios, eventos de domínio — a cerimônia tática custa e só se
+paga onde a regra é genuinamente complexa e muda com frequência.
 
-Num supporting domain, um serviço direto com acesso a dados costuma ser a resposta
-correta. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
+Objetos de valor e entidades com comportamento ficam de fora dessa conta: são
+baratos e continuam se pagando onde houver validação ou regra própria. Fora
+deles, num supporting domain, um serviço direto com acesso a dados costuma ser a
+resposta correta. Ver [DDD tático](/04-domain-driven-design/tactical-ddd.md).
 
 ### Candidatos a se tornarem generic
 
@@ -96,7 +97,7 @@ supporting domain é um mês disponível onde importa.
 
 ## Erros Comuns
 
-**Aplicar DDD tático.** O erro mais comum e o mais caro em volume: agregados e
+**Aplicar a cerimônia tática.** O erro mais comum e o mais caro em volume: agregados e
 repositórios multiplicam o código de um subdomínio que ninguém vai evoluir, e cada
 ajuste trivial passa a exigir uma rodada de modelagem.
 
@@ -186,7 +187,7 @@ Os que só têm um são flexibilidade que nunca foi exercida.
 ## Perguntas de Entrevista
 
 - O que caracteriza um supporting domain?
-- Por que não aplicar DDD tático aqui?
+- Por que não aplicar a cerimônia tática aqui, e o que do DDD tático ainda vale?
 - Como reconhecer que um supporting domain virou generic?
 
 ## Para Aprofundar

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, network-security, data-protection]
 canonical_for: [criptografia em trânsito, criptografia em repouso, cifra simétrica, cifra assimétrica]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -124,9 +124,21 @@ armazenamentos de arquivos imutáveis. Ver
 
 Precisa ser projetado desde o início; retroagir exige reescrever o histórico.
 
+### Em uso, e por que fica à margem
+
+Cifragem em uso protege o dado enquanto ele é processado: enclaves de hardware
+isolam a memória do processo até do sistema operacional e do provedor. O acesso
+que ela barra é o do operador da plataforma e o de outro inquilino no mesmo
+hospedeiro.
+
+O custo é hardware específico, desempenho menor e depuração difícil — e ela não
+muda o cenário provável: a aplicação dentro do enclave continua decifrando para
+quem ela autoriza. Justifica-se quando o próprio provedor está no modelo de ameaça;
+fora disso, este documento trata das outras duas.
+
 ### Não implemente
 
-A regra mais importante e a mais violada sob pressão:
+A regra cujo erro não aparece em teste — e por isso é a que cede primeiro sob prazo:
 
 **Use bibliotecas maduras e algoritmos padronizados.** Não invente esquema, não
 combine primitivas por conta, não use modos de operação sem entender suas exigências.
@@ -145,7 +157,9 @@ o que está protegendo.
 
 ## Quando Usar
 
-- **Em trânsito:** sempre, inclusive interno.
+- **Em trânsito:** em toda conexão que atravessa rede compartilhada — inclusive a
+  interna, que outros serviços e operadores também alcançam. A exceção legítima é o
+  processo auxiliar no mesmo hospedeiro que termina o TLS pelo serviço.
 - **Em repouso:** sempre que disponível — é barato.
 - **No campo:** para dados sensíveis, quando o acesso ao banco é ameaça real.
 - **Por titular:** quando há requisito de apagamento em armazenamento imutável.
@@ -173,9 +187,10 @@ e é frequentemente adotada como se fosse.
 Para proteger dados sem cifrar:
 
 - **Não coletar.** Ver [proteção de dados](/10-security/data-protection.md).
-- **Tokenização** — substituir o dado por uma referência, guardando o original em
-  um cofre separado. Comum para dados de cartão.
-- **Pseudonimização** — remover identificadores diretos.
+- **[Tokenização](/10-security/data-protection.md#tokenização-tira-o-dado-do-sistema)**
+  e **[pseudonimização](/10-security/data-protection.md#pseudonimização-e-anonimização-não-são-a-mesma-coisa)**
+  — em vez de cifrar o dado no lugar, tiram-no do sistema ou do vínculo com o titular;
+  não há chave a proteger porque não há o que decifrar.
 - **Autorização adequada** — frequentemente o controle que de fato faltava.
 
 ## Trade-offs
@@ -185,7 +200,7 @@ Para proteger dados sem cifrar:
 | Protege contra acesso ao banco | Só contra acesso ao meio |
 | Consulta e ordenação quebram | Transparente |
 | Chave gerenciada pela aplicação | Pela plataforma |
-| Custo de processamento | Desprezível |
+| Cifra e decifra na aplicação a cada leitura | Feito pelo armazenamento, custo desprezível |
 | Aplicada seletivamente | Tudo de uma vez |
 
 | Cifragem autenticada | Só confidencialidade |
@@ -249,13 +264,14 @@ administrador de banco curioso      cifragem no campo + auditoria
 solicitação de apagamento           cifragem por titular
 ```
 
-As duas últimas linhas não tinham nenhum controle.
+As três últimas linhas não tinham nenhum controle — inclusive a do vetor do incidente.
 
 O que foi implementado:
 
 **Cifragem no nível do campo** para documento, diagnóstico e resultado de exame, com
 chaves gerenciadas fora do banco. A busca por documento passou a usar um índice
-separado com resumo, em vez de consulta direta.
+separado com resumo com chave (HMAC, chave fora do banco) — um resumo simples seria
+enumerável offline, porque o espaço de números de documento é pequeno.
 
 **Cifragem por titular** para os dados de saúde, permitindo apagamento por descarte
 de chave — o que resolveu um requisito regulatório que estava pendente havia dois
@@ -270,7 +286,9 @@ necessárias. Ver [menor privilégio](/10-security/least-privilege.md).
 
 O ponto que a equipe sublinha: o requisito regulatório dizia "os dados devem ser
 criptografados", e eles atenderam literalmente. A pergunta que ninguém fez — "contra
-quem?" — teria mudado a resposta inteira, com o mesmo orçamento.
+quem?" — teria mudado a resposta inteira. Nomear a ameaça, reduzir o escopo da credencial e
+filtrar registros custavam pouco em qualquer momento; a cifragem no campo e por
+titular custou caro porque veio depois — migrar consultas e reescrever o histórico.
 
 ## Conceitos Relacionados
 

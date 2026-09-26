@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, authz-models, cloud-identity]
 canonical_for: [menor privilégio, escalonamento de privilégio, acumulação de privilégio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -152,17 +152,23 @@ Sempre. Prioridade especial quando:
 
 ## Quando Não Usar
 
-**Permissão ampla para destravar rápido.** Ela permanece.
+Conceder o mínimo vale sempre. O que tem limite é o esforço de apertar o que já
+foi concedido:
 
-**Sem medir o uso real** antes de reduzir. A redução por intuição quebra coisas e
-desmoraliza a prática.
+**Sem registro de uso utilizável.** Se o sistema não registra quais permissões
+foram exercidas, ou guarda menos que um ciclo completo de operação, a redução seria
+por intuição — quebra coisas e desmoraliza a prática. O primeiro passo é ligar o
+registro e esperar o ciclo, não cortar.
+
+**Ambiente de vida curta.** Um ambiente descartável que dura dias, sem dados reais
+e sem credencial que sobreviva a ele, não paga o tempo de descobrir o escopo exato.
+Isolá-lo em conta própria contém o dano mais barato que ajustar política.
+
+**Incidente em andamento.** Com produção parada, acesso amplo temporário é a
+escolha certa. A obrigação é a reversão com prazo e registro, não a negação.
 
 **Rigor extremo em ambiente de desenvolvimento**, ao ponto de as pessoas
 contornarem. O contorno é pior que a permissão.
-
-**Permissão de alterar políticas** em identidade de aplicação.
-
-**Revisão por pessoa** em vez de por função.
 
 ## Alternativas
 
@@ -209,15 +215,23 @@ Formas de reduzir alcance sem reescrever toda a política:
 
 ## Erros Comuns
 
-**Ampliar até o erro sumir.**
+**Ampliar até o erro sumir.** A permissão ampla concedida para destravar nunca é
+revista; cada urgência deixa um resíduo que soma alcance para o próximo
+comprometimento.
 
-**Não usar registros de uso para reduzir.**
+**Não usar registros de uso para reduzir.** A redução vira aposta, a primeira
+quebra em produção desmoraliza a prática e ela é abandonada.
 
-**Revisar por pessoa.**
+**Revisar por pessoa.** A revisão confirma o que a pessoa já tem em vez de
+perguntar o que o papel precisa, e a acumulação por mudança de função atravessa a
+revisão intacta.
 
-**Tratar identidade de serviço com menos rigor.**
+**Tratar identidade de serviço com menos rigor.** A credencial fica ao alcance do
+código, e quem compromete o serviço herda um escopo que ninguém daria a uma pessoa.
 
-**Não separar as permissões de escalonamento.**
+**Não separar as permissões de escalonamento.** Uma aplicação que pode alterar
+políticas tem, na prática, permissão para tudo: quem a compromete se concede o
+resto.
 
 **Não medir o atrito.** Uma prática que as pessoas contornam não está funcionando.
 
@@ -246,8 +260,9 @@ A redução foi feita em três fases, com dados:
 
 **Fase 1 — corte por uso.** Permissões não exercidas em 90 dias foram removidas,
 com um período de duas semanas em modo de aviso: em vez de negar, registrar o que
-seria negado. Isso revelou 11 permissões que eram usadas raramente — trimestralmente
-— e teriam quebrado. Elas foram mantidas.
+seria negado. As duas semanas foram posicionadas sobre o fechamento do trimestre,
+quando rodam as rotinas de cadência trimestral. Isso revelou 11 permissões usadas
+só nessas rotinas, que teriam quebrado. Elas foram mantidas.
 
 **Fase 2 — elevação temporária.** O acesso administrativo permanente foi removido
 das 14 pessoas e substituído por elevação de 4 horas mediante justificativa. Nos
@@ -258,9 +273,10 @@ acesso permanente estava sendo mantido para um uso ocasional.
 derivada dos registros de acesso. Duas quebraram, ambas por dependências não
 documentadas que a análise não pegou.
 
-Resultado após um ano: as permissões concedidas caíram cerca de 80%, e houve três
-incidentes de "faltou permissão" — todos resolvidos em menos de uma hora pelo
-processo de elevação.
+Resultado após um ano: as permissões concedidas caíram cerca de 80%. Além das duas
+quebras de serviço da fase 3, corrigidas com ajuste de política, houve três
+incidentes de "faltou permissão" em acesso humano — todos resolvidos em menos de
+uma hora pelo processo de elevação.
 
 O que se registrou depois: a fase 1 em modo de aviso foi o que tornou tudo viável. A
 proposta original era cortar direto, e o time de operações tinha vetado — com razão.

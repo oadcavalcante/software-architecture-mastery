@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, containers, cost-architecture]
 canonical_for: [serverless, função como serviço, partida a frio, escala a zero]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -46,11 +46,12 @@ Serverless remove a decisão: não há capacidade a dimensionar.
 ### Escala a zero é o que define
 
 Sem requisições, nada roda e nada é cobrado. Com mil requisições simultâneas, mil
-execuções acontecem.
+execuções acontecem — até a cota de concorrência da conta, e com o ritmo de
+crescimento por rajada que o provedor impõe.
 
 Isso é qualitativamente diferente de escalonamento automático, que ajusta um número
-de instâncias com atraso de minutos. Aqui a resposta é imediata e a granularidade é
-a requisição.
+de instâncias com atraso de minutos. Aqui, dentro dessa cota, a resposta é imediata e a
+granularidade é a requisição.
 
 O efeito econômico é grande em cargas esporádicas: um processo que roda uma vez por
 hora por 200 milissegundos custa quase nada.
@@ -73,7 +74,9 @@ tamanho de payload. Uma operação que ultrapassa qualquer um simplesmente não 
 **Conexões de banco.** Cada execução concorrente pode abrir uma conexão. Mil
 execuções simultâneas contra um banco relacional esgotam o limite de conexões — e
 esse é o modo de falha mais comum de serverless com banco tradicional. A solução é
-um intermediário de conexões, que é infraestrutura de volta.
+um intermediário de conexões
+([escala de banco de dados](/11-scalability/database-scaling.md)), que é
+infraestrutura de volta.
 
 Os quatro são estruturais, não defeitos a corrigir.
 
@@ -82,9 +85,14 @@ Os quatro são estruturais, não defeitos a corrigir.
 Serverless é barato em carga baixa e irregular, e caro em carga alta e constante.
 
 ```text
-carga esporádica    serverless custa uma fração
-carga constante     serverless custa várias vezes mais
+custo serverless   invocações/mês × (preço por invocação + duração × memória × preço por GB-s)
+custo instância    preço mensal da capacidade reservada que atende o pico
+inversão           o volume mensal em que as duas linhas se cruzam
 ```
+
+A primeira cresce linearmente com o volume; a segunda é plana até exigir outra
+instância. Quanto maior a fração do mês em que a instância ficaria ocupada, mais
+cedo as linhas se cruzam.
 
 A razão: você paga um prêmio por não gerenciar capacidade. Com utilização alta e
 previsível, uma instância reservada é muito mais barata por unidade de trabalho.
@@ -209,13 +217,13 @@ até alguém perceber.
 
 **Adotar como padrão do sistema.** Ele brilha em carga intermitente e picos imprevisíveis. Em serviço de tráfego constante, custa mais que uma instância reservada e adiciona limites que a instância não tem.
 
-**Não calcular o ponto de inversão de custo.** Existe um volume acima do qual pagar por invocação sai mais caro que manter capacidade ligada. Esse número é calculável em uma tarde, e raramente é calculado.
+**Não calcular o ponto de inversão de custo.** Existe um volume acima do qual pagar por invocação sai mais caro que manter capacidade ligada. Esse número é calculável em uma tarde com as entradas da seção sobre o ponto de inversão — volume, duração e memória medidos contra o preço da instância —, e raramente é calculado.
 
-**Conectar direto ao banco relacional.** Cada invocação concorrente tenta a própria conexão, e mil invocações esgotam o limite do banco. É preciso um agrupador de conexões entre os dois.
+**Conectar direto ao banco relacional.** Cada invocação concorrente tenta a própria conexão, e mil invocações esgotam o limite do banco. É preciso um intermediário de conexões entre os dois.
 
 **Ignorar a partida a frio nos requisitos de latência.** A primeira invocação após ociosidade paga a inicialização inteira. Em percentis altos isso aparece como cauda longa, e o requisito de p99 é onde ela dói.
 
-**Não definir teto de concorrência nem alerta de custo.** A escala é praticamente ilimitada, o que significa que um laço acidental escala junto — e o limite passa a ser o cartão de crédito.
+**Não definir teto de concorrência nem alerta de custo.** A cota padrão da conta é alta demais para servir de proteção, o que significa que um laço acidental escala junto — e o limite passa a ser o cartão de crédito.
 
 **Assumir estado entre invocações.** O ambiente às vezes é reaproveitado, o que faz variável global parecer funcionar em teste. Em produção, sob concorrência, ela vaza dado de uma requisição para outra.
 
@@ -231,8 +239,8 @@ O sucesso motivou migrar também a API principal. Aí os quatro custos aparecera
 todos:
 
 **Partida a frio.** A API tinha requisito de 200 ms no percentil 95. Com partidas a
-frio de 1,2 a 2,8 segundos afetando entre 3% e 8% das requisições em horários de
-baixa, o percentil estourava. Capacidade provisionada resolveu — e ela custa por
+frio de 1,2 a 2,8 segundos afetando entre 6% e 9% das requisições em horários de
+baixa — mais que os 5% de cauda que o percentil 95 descarta —, o percentil estourava. Capacidade provisionada resolveu — e ela custa por
 tempo ligado, ou seja, elimina a economia que motivou a migração.
 
 **Conexões de banco.** Num pico de 2.000 execuções concorrentes, o banco atingiu o

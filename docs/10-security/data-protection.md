@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [encryption, auditability, data-lifecycle]
 canonical_for: [minimização de dados, classificação de dados, pseudonimização, tokenização]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -116,6 +116,14 @@ token, e o escopo de conformidade encolhe drasticamente.
 É a técnica padrão para dados de cartão, e subutilizada para documentos e outros
 identificadores.
 
+O custo é operacional. O cofre entra no caminho de todo fluxo que precisa do valor
+original — emissão de nota, envio a órgão regulador, conferência com o titular: se ele
+cai, esses fluxos caem junto, e cada detokenização soma uma chamada de rede à
+latência. O risco que estava espalhado se concentra num alvo só, que passa a exigir o
+controle de acesso e a auditoria mais rígidos do sistema. E o acervo já persistido
+precisa ser migrado — varrer bancos, réplicas e extrações, trocar valor por token sem
+quebrar relacionamentos —, um projeto em si.
+
 ### Dados de produção em outros ambientes
 
 Uma das exposições mais comuns e mais evitáveis.
@@ -169,18 +177,28 @@ que ele é.
 
 ## Quando Não Usar
 
-**Proteger sem classificar.** Uniformemente é errado nos dois sentidos.
+**Cofre de tokenização para dado pouco sensível ou de pouco volume.** O cofre é uma
+dependência de disponibilidade e um alvo a proteger. Para um identificador interno sem
+valor fora do sistema, ou para poucas centenas de registros em que a minimização
+resolve, operar o cofre custa mais que o escopo que ele reduz — cifrar o campo ou não
+guardá-lo sai mais barato.
 
-**Chamar de anônimo o que é pseudonimizado.**
+**Classificação formal num sistema de sensibilidade única.** Se todo dado do sistema
+está num só nível — um serviço interno sem dado pessoal, ou um que só guarda dado de
+saúde —, quatro níveis com controles por nível é burocracia sem decisão a tomar. Um
+controle uniforme adequado àquele nível basta; a classificação passa a valer quando
+surge o segundo nível.
 
-**Copiar produção para teste.**
+**Anonimizar quando a análise precisa do indivíduo.** Anonimização que resiste a
+cruzamento generaliza e suprime até destruir a granularidade — acompanhar a jornada de
+um cliente, detectar fraude por padrão individual. Quando é esse o uso que justifica
+guardar o dado, pseudonimize com acesso restrito ao mapeamento, e assuma que o dado
+continua pessoal.
 
-**Cifrar como resposta a tudo.** Ver [criptografia](/10-security/encryption.md) — muitas vezes o
-controle que faltava era autorização, ou não coletar.
-
-**Coletar por precaução.**
-
-**Classificar sem definir controles por nível.** Rótulo sem consequência.
+**Dados sintéticos quando o teste depende das anomalias do real.** Migração de dados
+legados, depuração de defeito que só ocorre com o acervo real: o gerador não reproduz as
+distorções que o teste existe para pegar. Aí o caminho é o subconjunto mascarado em
+ambiente com controles de produção, não a cópia crua.
 
 ## Alternativas
 
@@ -225,11 +243,13 @@ controle que faltava era autorização, ou não coletar.
 
 ## Erros Comuns
 
-**Começar por criptografia em vez de minimização.** O dado que não foi coletado não vaza, não precisa de chave e não entra em pedido de exclusão. Cifrar é a segunda melhor resposta; não ter é a primeira.
+**Começar por criptografia em vez de minimização.** O dado que não foi coletado não vaza, não precisa de chave e não entra em pedido de exclusão. Cifrar é a segunda melhor resposta; não ter é a primeira. E muitas vezes o controle que faltava era autorização — ver [criptografia](/10-security/encryption.md).
 
 **Não classificar.** Sem saber quais campos são pessoais ou sensíveis, aplica-se o mesmo controle a tudo — caro demais para o que não precisa e frouxo demais para o que precisa.
 
-**Copiar produção.** A base de homologação com dados reais multiplica os lugares onde há dado pessoal, com controles sempre mais fracos que os de produção.
+**Copiar produção.** A base de homologação com dados reais multiplica os lugares onde há dado pessoal, com controles que, na prática, raramente igualam os de produção.
+
+**Classificar sem definir controles por nível.** O rótulo sem consequência não muda onde o dado pode estar nem quem o acessa — é inventário, não proteção.
 
 **Registrar corpo de requisição.** É a via mais comum de vazamento interno: dado pessoal e credencial acabam no sistema de logs, que tem retenção longa e acesso mais amplo.
 
@@ -290,8 +310,8 @@ do warehouse.
 
 O que a equipe aprendeu: a solicitação de exclusão que iniciou tudo passou a ser
 atendível em dois dias. E a maior parte do ganho veio da primeira etapa — os onze
-campos que deixaram de ser coletados eliminaram mais risco que qualquer controle
-técnico teria eliminado.
+campos que nenhum processo usava deixaram de existir, e com eles todo o controle que
+teriam exigido em cada um dos dez lugares.
 
 ## Conceitos Relacionados
 
@@ -310,7 +330,7 @@ Depois pergunte, para cada um: ele precisa estar aqui?
 
 ## Perguntas de Entrevista
 
-- Por que minimização tem retorno maior que qualquer controle técnico?
+- Para dado que nenhum processo usa, por que minimizar rende mais que proteger?
 - Qual a diferença entre pseudonimizar e anonimizar?
 - Por que copiar produção para teste é uma das exposições mais comuns?
 

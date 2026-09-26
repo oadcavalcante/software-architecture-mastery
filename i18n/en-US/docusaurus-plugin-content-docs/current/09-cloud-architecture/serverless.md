@@ -13,7 +13,7 @@ objective: >
 prerequisites: [managed-services]
 related: [managed-services, containers, cost-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -45,10 +45,10 @@ Serverless removes the decision: there is no capacity to size.
 ### Scaling to zero is what defines it
 
 With no requests, nothing runs and nothing is charged. With a thousand simultaneous requests, a thousand
-executions happen.
+executions happen — up to the account's concurrency quota, and at the burst growth rate the provider imposes.
 
 That is qualitatively different from auto scaling, which adjusts a number of instances with a delay of
-minutes. Here the response is immediate and the granularity is the request.
+minutes. Here, within that quota, the response is immediate and the granularity is the request.
 
 The economic effect is large in sporadic workloads: a process that runs once an hour for 200 milliseconds
 costs almost nothing.
@@ -68,8 +68,8 @@ exceeds any one of them simply does not run.
 
 **Database connections.** Each concurrent execution can open a connection. A thousand simultaneous
 executions against a relational database exhaust the connection limit — and that is the most common failure
-mode of serverless with a traditional database. The solution is a connection pooler, which is
-infrastructure back again.
+mode of serverless with a traditional database. The solution is a connection pooler
+([database scaling](/11-scalability/database-scaling.md)), which is infrastructure back again.
 
 All four are structural, not defects to be fixed.
 
@@ -78,9 +78,13 @@ All four are structural, not defects to be fixed.
 Serverless is cheap at low and irregular load, and expensive at high and constant load.
 
 ```text
-sporadic load    serverless costs a fraction
-constant load    serverless costs several times more
+serverless cost   invocations/month × (price per invocation + duration × memory × price per GB-s)
+instance cost     monthly price of the reserved capacity that serves the peak
+inversion         the monthly volume at which the two lines cross
 ```
+
+The first grows linearly with volume; the second is flat until it needs another instance. The larger the
+fraction of the month the instance would be busy, the sooner the lines cross.
 
 The reason: you pay a premium for not managing capacity. With high and predictable utilization, a reserved
 instance is far cheaper per unit of work.
@@ -204,7 +208,7 @@ constant-traffic service, it costs more than a reserved instance and adds limits
 have.
 
 **Not calculating the cost inversion point.** There is a volume above which paying per invocation is more
-expensive than keeping capacity on. That number is calculable in an afternoon, and it is rarely calculated.
+expensive than keeping capacity on. That number is calculable in an afternoon with the inputs from the section on the inversion point — volume, duration and memory measured against the instance price — and it is rarely calculated.
 
 **Connecting directly to the relational database.** Each concurrent invocation attempts its own connection,
 and a thousand invocations exhaust the database's limit. A connection pooler between the two is required.
@@ -212,7 +216,7 @@ and a thousand invocations exhaust the database's limit. A connection pooler bet
 **Ignoring the cold start in the latency requirements.** The first invocation after idleness pays the whole
 initialization. At high percentiles that appears as a long tail, and the p99 requirement is where it hurts.
 
-**Not defining a concurrency ceiling or a cost alert.** The scale is practically unlimited, which means an
+**Not defining a concurrency ceiling or a cost alert.** The account's default quota is too high to serve as protection, which means an
 accidental loop scales along with it — and the limit becomes the credit card.
 
 **Assuming state between invocations.** The environment is sometimes reused, which makes a global variable
@@ -229,8 +233,8 @@ dedicated machines idle most of the time.
 The success motivated migrating the main API too. There all four costs appeared:
 
 **Cold starts.** The API had a 200 ms requirement at the 95th percentile. With cold starts of 1.2 to 2.8
-seconds affecting between 3% and 8% of requests during low-traffic hours, the percentile blew past the
-limit. Provisioned capacity solved it — and it is charged by time kept on, that is, it eliminates the
+seconds affecting between 6% and 9% of requests during low-traffic hours — more than the 5% tail the 95th
+percentile discards — the percentile blew past the limit. Provisioned capacity solved it — and it is charged by time kept on, that is, it eliminates the
 saving that motivated the migration.
 
 **Database connections.** At a peak of 2,000 concurrent executions, the database hit the connection limit

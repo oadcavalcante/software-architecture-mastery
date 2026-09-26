@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: [gestão de chaves, chave mestra, cifragem envelopada, rotação de chave]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -69,10 +69,14 @@ apenas o que ela cifrou.
 Rotacionar a chave que cifra terabytes é inviável se exigir recifrar tudo.
 
 Com envelopamento, os dados antigos permanecem cifrados com suas chaves de dados, e
-apenas o envelope muda. Os dados novos usam a chave mestra nova.
+apenas o envelope muda — de uma de duas formas. Recifrar todos os envelopes com a mestra
+nova custa uma passagem sobre as chaves de dados, pequenas, e libera a mestra antiga
+para descarte. Usar a mestra nova só para dados novos não custa passagem nenhuma, mas
+a mestra antiga precisa existir enquanto houver envelope cifrado por ela.
 
 Isso exige que **a versão da chave seja guardada junto do dado** — para saber com o
-quê decifrar. É um detalhe pequeno cuja ausência torna a rotação impossível depois.
+quê decifrar. É um detalhe pequeno cuja ausência cobra caro depois: sem ele, decifrar
+exige tentar cada chave conhecida contra cada objeto.
 
 ### As chaves antigas não podem ser descartadas
 
@@ -142,7 +146,9 @@ implementação.
 
 ## Quando Usar
 
-Gestão explícita é necessária sempre que houver cifragem. Prioridade quando:
+Onde a chave é do sistema, e não da plataforma, a gestão explícita é inevitável; onde
+a cifragem é delegada à plataforma, o que resta é escolher a delegação e conhecer seus
+limites. Prioridade quando:
 
 - Há cifragem no nível do campo.
 - Existe requisito regulatório sobre custódia.
@@ -152,19 +158,22 @@ Gestão explícita é necessária sempre que houver cifragem. Prioridade quando:
 
 ## Quando Não Usar
 
-**Chave junto do dado cifrado.**
+**Gestão própria quando a cifragem transparente da plataforma basta.** Se o modelo de
+ameaça é acesso ao meio — disco descartado, cópia roubada do armazenamento —, a
+plataforma já cifra e custodia a chave; uma hierarquia própria acrescenta operação sem
+acrescentar proteção contra essa ameaça.
 
-**Chave em código ou em repositório.**
+**Módulo de hardware sem exigência que o justifique.** Custo e operação altos, e o
+serviço gerenciado já entrega a propriedade que importa na maioria dos casos: a mestra
+não sai do módulo.
 
-**Rotação sem guardar a versão da chave** junto do dado.
+**Serviço gerenciado quando a regulação exige custódia própria.** Se a norma exige que
+a chave nunca esteja sob controle do provedor, a chave hospedada nele não atende —
+o caminho é módulo próprio ou chave externa que o provedor só referencia.
 
-**Descartar chave antiga** antes de recifrar.
-
-**Sem separação entre administrar e usar.**
-
-**Sem plano para perda.** Otimismo não é estratégia.
-
-**Módulo de hardware sem exigência que o justifique.** Custo e operação altos.
+**Envelopamento quando o volume sob a chave é pequeno.** Se recifrar tudo cabe numa
+janela de manutenção, a rotação já é barata, e a hierarquia só acrescenta uma peça a
+operar e a perder.
 
 ## Alternativas
 
@@ -195,7 +204,8 @@ Gestão explícita é necessária sempre que houver cifragem. Prioridade quando:
 
 **Chave antiga descartada.** Dados antigos ilegíveis.
 
-**Versão não registrada.** Impossível saber com o que decifrar.
+**Versão não registrada.** Decifrar exige tentar cada chave conhecida contra cada
+objeto — custo proporcional a chaves vezes objetos.
 
 **Chave junto do dado.**
 
@@ -208,7 +218,7 @@ ser avaliado.
 
 ## Erros Comuns
 
-**Não guardar a versão da chave com o dado.** Depois da primeira rotação, não há como saber qual chave decifra qual registro, e a rotação passa a exigir recifrar tudo de uma vez.
+**Não guardar a versão da chave com o dado.** Depois da primeira rotação, saber qual chave decifra qual registro exige testá-las uma a uma, e a rotação passa a exigir recifrar tudo de uma vez.
 
 **Não planejar rotação antes de cifrar.** Rotacionar é fácil quando previsto e quase impossível quando não: sem versionamento e sem convivência de chaves, a troca vira uma janela de indisponibilidade sobre a base inteira.
 
@@ -219,6 +229,8 @@ ser avaliado.
 **Não separar administração de uso.** Quem usa a chave para decifrar não precisa poder exportá-la nem apagá-la. Sem essa separação, o comprometimento da aplicação vira comprometimento do material criptográfico.
 
 **Tratar chave de assinatura como chave comum.** O comprometimento de uma chave de cifra expõe dados; o de uma chave de assinatura permite forjar identidade e autorização — dano de natureza diferente e maior.
+
+**Não ter plano para perda.** A cópia de segurança dos dados não substitui a da chave, e a da chave só existe se alguém a projetou — com a mesma proteção da original.
 
 ## Exemplo Real
 
@@ -246,8 +258,10 @@ justamente a ameaça citada na justificativa do projeto.
 A reformulação:
 
 **Envelopamento.** Cada documento passou a ter chave própria, cifrada por uma chave
-mestra em serviço gerenciado. Rotacionar a mestra passou a ser uma operação de
-minutos.
+mestra em serviço gerenciado. A migração pagou uma vez a passagem de três semanas
+sobre os 14 milhões de documentos — aceitável porque era única e coincidia com a
+classificação que o acervo já exigia. Depois dela, rotacionar a mestra passou a ser
+uma operação de minutos; sob chave única, a mesma passagem seria o preço de cada rotação.
 
 **Versão da chave** gravada nos metadados de cada objeto. A migração exigiu tentar
 decifrar com cada chave conhecida para classificar o acervo — e foi assim que os 200

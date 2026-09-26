@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, oidc, secrets]
 canonical_for: [JWT, token autocontido, revogação de token, token de portador]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -110,6 +110,12 @@ nbf          não usado antes do previsto
 Verificar assinatura e esquecer expiração é comum, e transforma um token de uma hora
 em permanente.
 
+`exp` e `nbf` comparam relógios de máquinas diferentes. Com vários serviços, um
+verificador com relógio adiantado rejeita tokens recém-emitidos como expirados ou
+ainda não válidos — o sintoma são rejeições intermitentes concentradas num serviço.
+A verificação aceita uma tolerância de desvio de segundos, não de minutos, e os
+relógios ficam sincronizados.
+
 ### Tamanho tem custo
 
 O token viaja em cada requisição, tipicamente num cabeçalho.
@@ -128,13 +134,17 @@ Quem tem o token, é o portador. Não há vínculo com dispositivo ou sessão.
 Isso significa que o transporte e o armazenamento importam tanto quanto a
 assinatura:
 
-**Sempre sobre TLS.**
+**O transporte exige TLS.** Fora dele, o token é legível por quem observa a rede.
 
 **No cliente web**, cookie com marcação de acesso restrito a HTTP é preferível ao
-armazenamento local, que é acessível a qualquer script injetado.
+armazenamento local, que é acessível a qualquer script injetado. O preço: o navegador
+envia o cookie sozinho, o que abre requisição forjada entre sites — e exige marcação
+de mesmo sítio ou token antifalsificação. A troca compensa quando esse controle
+existe, porque ele fecha uma classe de ataque, e o armazenamento local deixa aberta
+qualquer injeção de script.
 
-**Nunca na URL.** Fica em registros de servidor, no histórico e no cabeçalho de
-origem.
+**Na URL, o token vaza** para registros de servidor, histórico e cabeçalho de origem.
+Cabeçalho ou cookie são os lugares dele.
 
 Existem mecanismos que vinculam o token a uma chave do cliente, tornando-o inútil se
 roubado — pouco adotados, e a resposta certa para cenários de alto valor.
@@ -156,16 +166,17 @@ rápido, está pagando um preço sem receber o benefício.
 
 **Quando revogação imediata é requisito**, sem mitigação.
 
-**Para guardar dados sensíveis.**
+**Quando o conteúdo precisa ser confidencial** e JWE não está disponível — o JWT
+assinado é legível por quem o tem.
 
-**Com expiração longa.**
+**Quando o cliente não consegue renovar** e o token precisaria valer horas. Acima de
+alguns minutos sem mecanismo de revogação, a validade vira a janela de acesso de quem
+o roubar.
 
 **Como sessão de aplicação web** quando um cookie de sessão resolve — o que é o caso
 da maioria das aplicações de servidor único.
 
-**Sem verificar todas as afirmações.**
-
-**Com permissões dentro**, se elas mudam.
+**Para carregar permissões que mudam** com frequência maior que a validade do token.
 
 ## Alternativas
 
@@ -216,7 +227,7 @@ motivo de a chave merecer o tratamento de
 
 **Não verificar `aud`.** Sem verificar o destinatário, um token emitido para outro serviço da mesma organização é aceito aqui — e o escopo pretendido evapora.
 
-**Guardar no armazenamento local do navegador.** Fica acessível a qualquer script da página, o que transforma uma falha de script entre sites em roubo de sessão. Cookie com marcação de acesso restrito não tem esse problema.
+**Guardar no armazenamento local do navegador.** Fica acessível a qualquer script da página, o que transforma uma falha de script entre sites em roubo de sessão. Cookie com marcação de acesso restrito não tem esse problema — e troca-o pelo de requisição forjada, tratado acima.
 
 **Usar JWT onde sessão resolveria melhor.** Numa aplicação com um back-end só, sessão do lado do servidor é revogável na hora e mais simples. O token autocontido paga o preço da revogação difícil para resolver um problema de distribuição que ali não existe.
 

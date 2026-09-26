@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [oauth2, oidc, authz-models]
 canonical_for: [identidade digital, provedor de identidade, federação, ciclo de vida de identidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -87,8 +87,10 @@ quando alguém sai da organização, o acesso a tudo termina junto, porque não 
 contas locais espalhadas.
 
 Sem federação, cada aplicação tem sua própria lista de usuários, e o
-desprovisionamento depende de alguém lembrar de cada uma. Contas de ex-funcionários
-ativas aparecem em toda auditoria de empresa que não federou.
+desprovisionamento depende de alguém lembrar de cada uma. Basta a lista de sistemas
+do processo de saída estar desatualizada em um deles para que contas de
+ex-funcionários continuem ativas até a próxima auditoria — como no exemplo real
+abaixo.
 
 ### O ciclo de vida é a parte que ninguém projeta
 
@@ -125,8 +127,12 @@ custo de latência e uma dependência crítica.
 premissa perigosa de que ninguém alcança os serviços sem passar por ele. Ver
 [fronteiras seguras](/10-security/secure-boundaries.md).
 
-A escolha mais comum e sólida é propagação com verificação em cada serviço — o
-serviço não confia em quem chama, confia na assinatura.
+Quando os serviços precisam operar sem depender de uma chamada síncrona e a
+validade do token é um prazo de revogação aceitável, propagação com verificação em
+cada serviço é a escolha — o serviço não confia em quem chama, confia na assinatura.
+Quando a revogação precisa ser imediata — conta comprometida, desligamento —, a
+consulta central cobre o que a propagação não cobre, ao preço da latência e da
+dependência.
 
 ### Identificar não é autorizar
 
@@ -155,18 +161,21 @@ Decisões explícitas de identidade se pagam quando:
 
 ## Quando Não Usar
 
-**Identificador que carrega significado.**
+As decisões explícitas acima — camada de identidade separada, federação, ciclo de
+vida projetado — são custo sem retorno quando:
 
-**E-mail como chave primária de identidade.**
+- **Há um único mecanismo de autenticação e nenhum serviço chamando serviço.** Uma
+  ferramenta interna de uma equipe, com login do provedor já existente, não tem
+  segundo caminho de autenticação que a separação protegeria.
+- **Não há organização a provisionar.** Um produto de consumo com cadastro aberto
+  não tem desligamento corporativo; federação corporativa ali é infraestrutura sem
+  problema a resolver, e login social ou um provedor gerenciado cobre a entrada.
+- **O sistema é de vida curta.** Protótipo ou campanha que será desligada em meses
+  não chega a exercitar alteração, suspensão ou exclusão.
 
-**Mesmo mecanismo para pessoa e serviço.**
-
-**Recuperação mais fraca que o login.**
-
-**Permissão derivada do método de autenticação.**
-
-**Contas locais por aplicação** numa organização com provedor de identidade
-disponível.
+O identificador opaco é a exceção nos três casos: custa uma coluna no início e uma
+migração com reconciliação de duplicatas depois, então vale mesmo quando o resto
+não vale.
 
 ## Alternativas
 
@@ -211,17 +220,30 @@ ao incidente.
 
 ## Erros Comuns
 
-**Usar e-mail como identificador interno.**
+**Usar e-mail como identificador interno.** Quando o e-mail muda, a pessoa vira
+usuário novo e perde histórico; quando o endereço antigo é reatribuído, outra pessoa
+herda o acesso.
 
-**Não federar.**
+**Usar o mesmo mecanismo para pessoa e serviço.** Pessoas acabam com chaves de longa
+duração sem segundo fator, e serviços com credencial interativa armazenada — as duas
+origens de credencial vazada descritas acima.
 
-**Não projetar o ciclo de vida além da criação.**
+**Não federar** numa organização com provedor de identidade disponível. O
+desligamento passa a depender de uma lista mantida à mão, e cada lista desatualizada
+é uma conta ativa de ex-funcionário.
 
-**Recuperação fraca.**
+**Não projetar o ciclo de vida além da criação.** Suspensão, exclusão e recuperação
+acabam implementadas sob incidente, cada uma por um caminho diferente.
 
-**Construir autenticação própria** sem razão específica.
+**Recuperação mais fraca que o login.** Ela passa a ser a autenticação real, e o
+segundo fator do login vira decoração.
+
+**Construir autenticação própria** sem razão específica. A equipe assume
+armazenamento de senha, segundo fator e detecção de abuso, trabalho que não
+diferencia o produto.
 
 **Não ter caminho de acesso de emergência** quando o provedor de identidade cai.
+Ninguém entra — inclusive quem precisa responder ao incidente.
 
 ## Exemplo Real
 
@@ -262,7 +284,8 @@ o caso de o provedor ficar indisponível — porque a federação criou uma depe
 crítica que não existia antes.
 
 O que a equipe registra: a última decisão só apareceu porque alguém perguntou "e se
-o provedor cair?". A federação resolveu cinco problemas e criou um ponto único que
+o provedor cair?". A federação resolveu dois dos três problemas — o desprovisionamento
+e, com a recuperação no provedor, a recuperação fraca — e criou um ponto único que
 ninguém tinha considerado.
 
 ## Conceitos Relacionados

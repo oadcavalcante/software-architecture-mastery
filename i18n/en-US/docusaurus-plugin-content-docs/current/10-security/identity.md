@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [oauth2, oidc, authz-models]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -83,8 +83,8 @@ leaves the organization, access to everything ends with it, because there are no
 around.
 
 Without federation, each application has its own user list, and deprovisioning depends on somebody
-remembering each one. Active former employees' accounts appear in every audit at a company that has not
-federated.
+remembering each one. It takes only one system out of date on the offboarding checklist for former
+employees' accounts to stay active until the next audit — as in the real-world example below.
 
 ### The lifecycle is the part nobody designs
 
@@ -119,8 +119,11 @@ a critical dependency.
 dangerous premise that nobody reaches the services without passing through it. See
 [secure boundaries](/10-security/secure-boundaries.md).
 
-The most common and solid choice is propagation with verification in each service — the service does not
-trust who calls, it trusts the signature.
+When services need to operate without depending on a synchronous call and the token's lifetime is an
+acceptable revocation window, propagation with verification in each service is the choice — the service does
+not trust who calls, it trusts the signature. When revocation has to be immediate — a compromised account, a
+termination — the central query covers what propagation does not, at the price of latency and the
+dependency.
 
 ### Identifying is not authorizing
 
@@ -148,17 +151,20 @@ Explicit identity decisions pay off when:
 
 ## When Not to Use
 
-**An identifier that carries meaning.**
+The explicit decisions above — a separate identity layer, federation, a designed lifecycle — are cost with no
+return when:
 
-**Email as the primary identity key.**
+- **There is a single authentication mechanism and no service calling a service.** An internal tool for one
+  team, signing in through an existing provider, has no second authentication path the separation would
+  protect.
+- **There is no organization to provision.** A consumer product with open sign-up has no corporate offboarding;
+  corporate federation there is infrastructure with no problem to solve, and social login or a managed
+  provider covers sign-in.
+- **The system is short-lived.** A prototype or a campaign that will be shut down in months never gets to
+  exercise change, suspension or deletion.
 
-**The same mechanism for a person and a service.**
-
-**Recovery weaker than the login.**
-
-**Permission derived from the authentication method.**
-
-**Local accounts per application** in an organization with an identity provider available.
+The opaque identifier is the exception in all three cases: it costs one column up front and a migration with
+duplicate reconciliation later, so it is worth it even when the rest is not.
 
 ## Alternatives
 
@@ -201,17 +207,27 @@ Explicit identity decisions pay off when:
 
 ## Common Mistakes
 
-**Using email as the internal identifier.**
+**Using email as the internal identifier.** When the email changes, the person becomes a new user and loses
+their history; when the old address is reassigned, somebody else inherits the access.
 
-**Not federating.**
+**Using the same mechanism for a person and a service.** People end up with long-lived keys and no second
+factor, and services with a stored interactive credential — the two sources of leaked credentials described
+above.
 
-**Not designing the lifecycle beyond creation.**
+**Not federating** in an organization with an identity provider available. Offboarding comes to depend on a
+hand-maintained list, and every out-of-date list is an active former employee's account.
 
-**Weak recovery.**
+**Not designing the lifecycle beyond creation.** Suspension, deletion and recovery end up implemented during an
+incident, each through a different path.
 
-**Building your own authentication** with no specific reason.
+**Recovery weaker than the login.** It becomes the real authentication, and the login's second factor becomes
+decoration.
 
-**Having no emergency access path** when the identity provider goes down.
+**Building your own authentication** with no specific reason. The team takes on password storage, second
+factor and abuse detection — work that does not differentiate the product.
+
+**Having no emergency access path** when the identity provider goes down. Nobody signs in — including whoever
+has to respond to the incident.
 
 ## Real-World Example
 
@@ -248,7 +264,8 @@ eliminated.
 unavailable — because the federation created a critical dependency that did not exist before.
 
 What the team records: the last decision only came up because somebody asked "and if the provider goes
-down?". The federation solved five problems and created a single point nobody had considered.
+down?". The federation solved two of the three problems — deprovisioning and, with recovery moved to the
+provider, weak recovery — and created a single point nobody had considered.
 
 ## Related Concepts
 
