@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor separa os dois tipos em voz alta e reconhece que os não funcionais são
   os que produzem as decisões arquiteturais.
 prerequisites: [requirement-clarification]
-related: [requirement-clarification, capacity-estimation, communicating-tradeoffs]
-canonical_for: [requisito funcional, requisito não funcional, requisito implícito de entrevista]
-content_version: 1
+related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
+canonical_for: [requisito implícito de entrevista]
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -31,6 +31,10 @@ não funcional    como ele precisa ser ao fazer isso
 
 A distinção é elementar e a consequência não é: **os requisitos funcionais raramente decidem a
 arquitetura; os não funcionais quase sempre decidem.**
+
+A definição de cada tipo está em [requisitos funcionais](/01-fundamentals/functional-requirements.md)
+e [requisitos não-funcionais](/01-fundamentals/non-functional-requirements.md). Aqui interessa o
+uso da distinção numa entrevista, com o relógio correndo.
 
 Encurtar uma URL para mil usuários e para um bilhão são o mesmo requisito funcional e sistemas
 completamente diferentes. É por isso que candidatos que listam apenas funcionalidades produzem

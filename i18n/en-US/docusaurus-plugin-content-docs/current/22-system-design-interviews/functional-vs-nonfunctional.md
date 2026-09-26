@@ -11,9 +11,9 @@ objective: >
   By the end, the reader separates the two types out loud and recognizes that the non-functional
   ones are what produce architectural decisions.
 prerequisites: [requirement-clarification]
-related: [requirement-clarification, capacity-estimation, communicating-tradeoffs]
+related: [requirement-clarification, capacity-estimation, communicating-tradeoffs, functional-requirements, non-functional-requirements]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -31,6 +31,10 @@ non-functional   how it has to be while doing that
 
 The distinction is elementary and the consequence is not: **functional requirements rarely decide
 the architecture; non-functional ones almost always do.**
+
+The definition of each type is in [functional requirements](/01-fundamentals/functional-requirements.md)
+and [non-functional requirements](/01-fundamentals/non-functional-requirements.md). What matters here
+is using the distinction in an interview, with the clock running.
 
 Shortening a URL for a thousand users and for a billion are the same functional requirement and
 completely different systems. That is why candidates who list only features produce generic

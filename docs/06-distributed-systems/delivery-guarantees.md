@@ -12,8 +12,8 @@ objective: >
   a ponta e não recurso de ferramenta.
 prerequisites: [messaging, idempotency]
 related: [idempotency, duplicate-messages, ordering]
-canonical_for: [garantias de entrega, ao menos uma vez, exatamente uma vez]
-content_version: 2
+canonical_for: [garantias de entrega, ao menos uma vez, exatamente uma vez, outbox]
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -129,9 +129,11 @@ esse nó falhou.
 
 **Escrita dupla no produtor.** Gravar no banco e publicar no broker são duas
 operações sem transação comum: o commit passa e a publicação falha, e o fato
-existe sem a mensagem. É o que o padrão *outbox* resolve, gravando a mensagem numa
-tabela dentro da mesma transação do dado — ver
-[mensageria](/06-distributed-systems/messaging.md).
+existe sem a mensagem. É o que o padrão *outbox* resolve: a mensagem é gravada numa
+tabela dentro da mesma transação do dado, e um processo separado a lê dali e publica
+no broker. A publicação pode se repetir — o processo cai entre publicar e marcar a
+linha como enviada —, então o outbox entrega ao menos uma vez, e o consumidor precisa
+tolerar duplicata.
 
 Nenhuma dessas cinco costuras é corrigida trocando a garantia nominal do canal:
 todas estão fora do trecho que o intermediário cobre. Auditá-las é o trabalho que

@@ -12,7 +12,7 @@ objective: >
   knows when inverting one is worth the cost of the indirection.
 prerequisites: [coupling]
 related: [abstraction, architecture-vs-implementation, technical-debt]
-canonical_for: [dependency management, dependency direction]
+canonical_for: [dependency management]
 translated_from_version: 3
 last_reviewed: 2026-08-30
 ---

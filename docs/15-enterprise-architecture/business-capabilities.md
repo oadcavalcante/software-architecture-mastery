@@ -12,8 +12,8 @@ objective: >
   lacuna e risco.
 prerequisites: [enterprise-architecture]
 related: [capability-mapping, application-portfolios, business-architecture]
-canonical_for: [capacidade de negócio, modelo de capacidades, estabilidade de capacidade]
-content_version: 1
+canonical_for: [capacidade de negócio, modelo de capacidades de negócio, estabilidade de capacidade]
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging, idempotency]
 related: [idempotency, duplicate-messages, ordering]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -123,9 +123,10 @@ failed.
 
 **A dual write in the producer.** Writing to the database and publishing to the broker are two
 operations with no shared transaction: the commit goes through and the publish fails, and the fact
-exists without the message. That is what the *outbox* pattern resolves, writing the message to a
-table inside the same transaction as the data — see
-[messaging](/06-distributed-systems/messaging.md).
+exists without the message. That is what the *outbox* pattern resolves: the message is written to a
+table inside the same transaction as the data, and a separate process reads it from there and
+publishes it to the broker. Publishing can repeat — the process dies between publishing and marking
+the row as sent — so the outbox delivers at least once, and the consumer has to tolerate duplicates.
 
 None of those five seams is fixed by changing the nominal guarantee of the channel: all of them sit
 outside the leg the broker covers. Auditing them is the work that remains.

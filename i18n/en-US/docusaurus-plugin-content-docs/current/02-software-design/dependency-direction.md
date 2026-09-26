@@ -12,7 +12,7 @@ objective: >
   direction of each dependency from stability and abstractness.
 prerequisites: [dependency-inversion]
 related: [package-design, boundaries, component-design]
-canonical_for: [acyclic dependencies principle, acyclic dependencies]
+canonical_for: [dependency direction, acyclic dependencies principle, acyclic dependencies]
 translated_from_version: 2
 last_reviewed: 2026-08-30
 ---
