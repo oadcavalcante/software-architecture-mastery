@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-systems]
 related: [legacy-systems, incremental-modernization, rebuilding]
 canonical_for: [teste de caracterização, costura, refatoração de legado, código sem cobertura]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -132,8 +132,12 @@ proteção.
 
 ### Mudanças mecânicas primeiro
 
-Refatorações que a ferramenta faz — renomear, extrair método, mover — são seguras mesmo
-sem testes, porque a ferramenta garante equivalência.
+Refatorações que a ferramenta faz — renomear, extrair método, mover — são de risco baixo
+mesmo sem testes, numa linguagem estaticamente tipada: a ferramenta preserva as referências
+que o compilador enxerga. Ela não enxerga o nome usado por reflexão, em string (SQL,
+serialização, configuração, injeção por nome) ou do outro lado de uma fronteira externa —
+e no legado esse acoplamento por nome é comum. Antes de renomear ou mover, procure o nome
+como texto.
 
 Usá-las para tornar o código compreensível **antes** de qualquer mudança de
 comportamento é um caminho barato:
@@ -144,7 +148,7 @@ nomear a variável que era 'tmp2'
 extrair a condição complexa para um método com nome
 ```
 
-Cada uma torna o código mais legível sem risco, e o entendimento resultante é o que
+Cada uma torna o código mais legível com risco baixo, e o entendimento resultante é o que
 permite decidir o que fazer.
 
 ### Quando parar
@@ -181,13 +185,16 @@ depois.
 deveria existir daquela forma. Ver
 [reconstrução](/16-legacy-modernization/rebuilding.md).
 
-**Sem testes de caracterização**, em código sem cobertura.
+**Quando o módulo não vai mudar.** A refatoração se paga nas mudanças seguintes; num
+módulo sem mudança prevista, o custo da caracterização não tem onde ser recuperado.
 
-**Refatorando o sistema inteiro** em vez do que se vai tocar.
+**Quando o sistema será descontinuado antes de o investimento se pagar.** Se a
+caracterização custa uma semana e o módulo recebe duas mudanças até ser desligado, o
+atalho arriscado sai mais barato que a rede.
 
-**Perseguindo o ideal** numa sessão de trabalho.
-
-**Quando o sistema será descontinuado** em breve.
+**Quando o comportamento não é observável de forma determinística.** Saída que depende de
+concorrência, de ordem de chegada ou de estado externo que não se consegue fixar não se
+congela num teste de caracterização — sem rede viável, contenção costuma ser a saída.
 
 ## Alternativas
 
@@ -204,7 +211,7 @@ deveria existir daquela forma. Ver
 | Preserva conhecimento embutido | Perde |
 | Incremental, valor contínuo | Valor no fim |
 | Modelo mantido | Novo |
-| Risco baixo | Alto |
+| Risco baixo, com caracterização | Alto |
 | Não resolve modelo errado | Resolve |
 
 | Caracterizar primeiro | Mudar direto |
@@ -230,17 +237,24 @@ mudança legítima.
 
 ## Erros Comuns
 
-**Mudar antes de caracterizar.**
+**Mudar antes de caracterizar.** A alteração acidental de comportamento só aparece em
+produção, e sem teste não há como saber qual mudança a causou.
 
-**Tentar entender tudo antes de começar.**
+**Tentar entender tudo antes de começar.** A mudança fica adiada por semanas, e o
+entendimento envelhece antes de ser usado — o código continua mudando enquanto é estudado.
 
-**Refatorar o sistema inteiro.**
+**Refatorar o sistema inteiro.** O esforço vira projeto, compete por orçamento com o
+produto e costuma ser interrompido no meio, deixando duas estruturas convivendo.
 
-**Não usar refatorações mecânicas** para tornar o código legível primeiro.
+**Não usar refatorações mecânicas** para tornar o código legível primeiro. A mudança de
+comportamento é feita sobre um código que ainda não se entende, e o defeito entra
+justamente no trecho mal lido.
 
-**Não limitar o escopo da sessão.**
+**Não limitar o escopo da sessão.** A revisão fica impossível e a mudança que motivou o
+trabalho atrasa.
 
-**Caracterizar detalhe de implementação** em vez de comportamento observável.
+**Caracterizar detalhe de implementação** em vez de comportamento observável. Os testes
+quebram a cada refatoração legítima, e o time passa a desligá-los.
 
 ## Exemplo Real
 

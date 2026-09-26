@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-risk, modernization-drivers, incremental-modernization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -110,8 +110,10 @@ instead of losing relevance.
 
 ### The team has to keep delivering
 
-Modernization competes with product. And, in long programs, the competition is resolved
-in favor of product — always.
+Modernization competes with product. In long programs, when the modernization has not yet
+delivered anything the business can notice and has no agreed share of capacity, the
+contest is resolved in favor of product at every prioritization cycle — because product
+has customers complaining and modernization does not.
 
 ```text
 model that fails    "we'll stop delivering features for a year"
@@ -148,7 +150,9 @@ execution failure.
 A modernization that changes system boundaries without changing team boundaries produces
 a structure that does not hold up.
 
-See [application architecture](/15-enterprise-architecture/application-architecture.md).
+This is [Conway's law](/23-architecture-leadership/conways-law.md) at work: communication
+between teams pulls the architecture back toward the old boundaries. See also
+[application architecture](/15-enterprise-architecture/application-architecture.md).
 
 And the inverse: keeping a team dedicated to the modernization, separate from the product
 teams, produces a new system nobody wants to receive — because it was not built by
@@ -173,17 +177,26 @@ This analysis should precede any modernization program, especially when:
 
 ## When Not to Use
 
-**Treating organizational constraints as out of scope.**
+The formal analysis — mapping sponsors, knowledge holders and losers — costs weeks of
+conversation and political exposure. It does not pay off when:
 
-**With a single sponsor.**
+**The modernization is short and done by those who operate it.** A change of a few months
+run by the very team that maintains the system does not cross a budget cycle, does not
+depend on a sponsor and transfers knowledge to no one. The constraints this document
+describes need time and boundaries between groups to show up.
 
-**Without knowledge transfer before starting.**
+**Knowledge is already distributed and the system has no competing owner.** If several
+people understand the legacy system's behavior and no area loses control with the change,
+two of the four central questions are already answered; formalizing them only documents
+the obvious.
 
-**Stopping product during the modernization.**
+**The modernization is opportunistic.** Whoever modernizes what they touch, within product
+work, has no program, no dedicated budget and no support to lose. There is nothing to
+evaporate.
 
-**Estimating it like construction**, with a fixed scope and deadline.
-
-**With a dedicated team separate** from whoever will operate it.
+**The decision is already to defer or contain.** If the legacy system will be isolated
+rather than replaced, the organizational cost is small and local; the full analysis
+belongs to the moment replacement comes back to the table.
 
 ## Alternatives
 
@@ -250,7 +263,8 @@ maintained by four people.
 The project was well designed technically: strangling, defined slices, data migration
 planned.
 
-It was cancelled in month 15, about 40% complete.
+It was cancelled in month 15 of a planned 24, about 40% complete — the delay of someone who
+estimated discovery as construction.
 
 The subsequent analysis identified four causes, none technical:
 
@@ -288,7 +302,7 @@ quarterly.
 
 **Estimates as ranges**, per slice, re-estimated at each delivery.
 
-The second attempt took 26 months — more than the 18 originally planned in the first —
+The second attempt took 26 months — more than the 24 originally planned in the first —
 and it was completed.
 
 In the retrospective: the first attempt's technical design was better than the second's.

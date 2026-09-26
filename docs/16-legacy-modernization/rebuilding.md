@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, legacy-refactoring, strangler-fig]
 canonical_for: [reconstrução, reescrita completa, segundo sistema, alvo em movimento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -48,7 +48,9 @@ durante 24 meses sem mostrar resultado.
 **Escopo que cresce.** "Já que estamos reescrevendo, vamos aproveitar para..." — e o
 escopo do novo passa o do antigo.
 
-Nenhuma dessas é evitável por esforço. Elas são propriedades da abordagem.
+Nenhuma dessas recua com mais esforço dentro da mesma abordagem — construir tudo e trocar
+de uma vez. Elas recuam quando a abordagem muda: paridade estrita, congelamento do antigo,
+testes de caracterização, estrangulamento. As seções abaixo tratam de cada uma.
 
 ## Conceitos Centrais
 
@@ -119,13 +121,20 @@ As duas coisas são independentes. É possível — e quase sempre melhor — re
 
 Isso remove a propriedade mais danosa da reescrita: o valor concentrado no fim.
 
-A reescrita com troca única se justifica apenas quando não há ponto de interceptação
-possível.
+E introduz um custo que a troca única adia: se o motivo de reconstruir é o modelo de
+domínio errado, os dois sistemas guardam o mesmo dado em modelos diferentes durante a
+convivência. Cada fatia migrada exige traduzir dados do modelo antigo para o novo, e as
+fatias que ainda ficam no antigo precisam ler o que o novo escreveu — compatibilidade nos
+dois sentidos, mantida até o desligamento. Ver
+[migração de dados](/16-legacy-modernization/data-migration.md).
+
+Em sistema grande, a reescrita com troca única se justifica apenas quando não há ponto de
+interceptação possível.
 
 ### O sistema antigo precisa ser congelado
 
-Se o antigo continua recebendo funcionalidades durante a reconstrução, o novo nunca
-alcança.
+Se o antigo continua recebendo funcionalidades durante a reconstrução, cada mudança é paga
+duas vezes, e o novo só alcança se a equipe dele entrega mais rápido do que o antigo muda.
 
 ```text
 congelar o antigo   funcionalidade nova vai para o novo, ou espera
@@ -194,7 +203,7 @@ A última merece destaque: sistemas raramente têm o modelo inteiro errado. Ver
 | Modelo novo | Mantido |
 | Conhecimento embutido perdido | Preservado |
 | Valor no fim | Contínuo |
-| Custo alto | Incremental |
+| Custo concentrado antes do retorno | Custo diluído, com retorno a cada passo |
 | Tecnologia nova | Mantida |
 
 | Com strangler fig | Troca única |
@@ -219,17 +228,22 @@ A última merece destaque: sistemas raramente têm o modelo inteiro errado. Ver
 
 ## Erros Comuns
 
-**Não avaliar as alternativas.**
+**Não avaliar as alternativas.** A estratégia mais cara é escolhida para um problema que
+refatorar ou replataformar resolveria.
 
-**Não impor paridade estrita.**
+**Não impor paridade estrita.** Cada melhoria aceita adia o corte; no exemplo abaixo, 23
+delas entraram no mês 3.
 
-**Não congelar o antigo.**
+**Não congelar o antigo.** Toda mudança no antigo é feita de novo no novo.
 
-**Não escrever testes de caracterização.**
+**Não escrever testes de caracterização.** A paridade é verificada pelo usuário, depois do
+corte.
 
-**Reconstruir com troca única** em sistema grande.
+**Reconstruir com troca única** em sistema grande. Uma divergência qualquer derruba o
+corte inteiro, e a reversão devolve tudo ao antigo.
 
-**Reconstruir o sistema inteiro** quando o modelo errado é de uma parte.
+**Reconstruir o sistema inteiro** quando o modelo errado é de uma parte. Anos de trabalho
+gastos reproduzindo partes que estavam certas.
 
 ## Exemplo Real
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [context-diagrams, container-diagrams, component-diagrams]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -101,19 +101,28 @@ and component only for the parts that justify it.
 
 ### The model is about structure, not about everything
 
-C4 describes static structure. It does not describe:
+The four levels describe static structure. The model also defines supplementary
+diagrams — system landscape, dynamic and deployment — that sit outside the zoom hierarchy
+and answer other questions; here they are covered in
+[sequence diagrams](/17-architecture-documentation/sequence-diagrams.md) and
+[deployment diagrams](/17-architecture-documentation/deployment-diagrams.md):
 
 ```text
-behavior in sequence   see sequence diagrams
-data flow              see data flow
-physical deployment    see deployment diagrams
-decisions and reasons  see architecture decisions
+behavior in sequence   dynamic diagram — see sequence diagrams
+physical deployment    deployment diagram — see deployment diagrams
+data flow              outside C4 — see data flow
+decisions and reasons  outside C4 — see architecture decisions
 ```
 
 Trying to express sequence or process in a structural diagram produces a diagram with
 numbered arrows that is neither of the two things done well.
 
-The complementary diagrams exist and are used when the question requires them.
+In practice, a useful set combines the first two levels with two or three sequence
+diagrams of the flows that cross the most pieces. It is that combination that answers
+both "what exists" and "what happens", and it costs little more than the structure alone.
+
+Treating the four levels as complete documentation is a scoping error: they are
+deliberately partial, and that partiality is what keeps them usable.
 
 ### The notation is free, the semantics are not
 
@@ -129,32 +138,13 @@ different things.
 
 ### Diagrams as code
 
-Describe the diagram in text, versioned alongside the code, and generate the image:
-
-```text
-versioned      it changes in the same commit as the change
-reviewable     it appears in the diff
-generated      the image is not edited by hand
-consistent     the same notation across all of them
-```
-
-See [living documentation](/17-architecture-documentation/living-documentation.md).
-
-That solves the most common problem with diagrams: they are drawn once, in a graphics
-tool, and nobody updates them because updating requires opening the tool.
-
-### It does not replace the conversation about behavior
-
-C4 describes static structure. Behavior — order, concurrency, failure handling — is left
-out by construction, and that gap has to be filled by another artifact.
-
-In practice, a useful set combines the first two C4 levels with two or three
-[sequence diagrams](/17-architecture-documentation/sequence-diagrams.md) of the flows that cross the most pieces. It
-is that combination that answers both "what exists" and "what happens", and it costs
-little more than the structure alone.
-
-Treating C4 as complete documentation is the most common scoping error among those who
-adopt it: the model is deliberately partial, and that partiality is what keeps it usable.
+A diagram described in text, versioned with the system and with the image generated, is
+covered in [living documentation](/17-architecture-documentation/living-documentation.md).
+What is specific to C4: because the model fixes the element type at each level, tools
+such as Structurizr describe the system once, as a model, and derive the context,
+container and component views from it. Renaming a container in the model updates every
+view it appears in, instead of requiring the same edit in three drawings — and one view
+cannot contradict another, because both read the same model.
 
 ## Mental Model
 
@@ -171,17 +161,22 @@ resolve most of it.
 
 ## When Not to Use
 
-**Mixing levels.**
+**When the question is about behavior.** If what needs documenting is the order of a
+flow, concurrency or failure handling, the four levels have nowhere to put it. A sequence
+diagram answers directly; forcing C4 produces the numbered arrows described above.
 
-**The code level** — the tool generates it better.
+**When a contract or standard requires standardized notation.** If the artifact must
+follow UML, SysML or an ISO 42010-conformant description, free notation with a legend
+does not meet it, and C4's freedom becomes a liability. UML or a template such as arc42
+satisfies the requirement.
 
-**To express sequence or process.**
+**When the system is a single small deployable.** With only one container, the container
+level adds nothing to the context level, and what remains — the context and a paragraph
+about the internal organization — fits in a README or a sketch.
 
-**Component for every system** — it ages fast.
-
-**Drawn in a graphics tool**, without versioning.
-
-**With no legend**, assuming the notation is obvious.
+**When the documentation has to cover several views.** If security, deployment,
+development and operations have distinct stakeholders, 4+1 or arc42 organize the whole,
+and C4 comes in as their structural part, not as the whole.
 
 ## Alternatives
 
@@ -200,7 +195,8 @@ that clarifies a conversation has done its job.
 
 | C4 | UML |
 |---|---|
-| Simple to learn | Expressive and complex |
+| Simple to learn | Long learning curve |
+| Few notation elements | Large, expressive vocabulary |
 | Free notation | Standardized |
 | Four levels | Many diagram types |
 | Focus on communication | On precision |
@@ -226,17 +222,31 @@ that clarifies a conversation has done its job.
 
 ## Common Mistakes
 
-**Mixing abstractions.**
+**Mixing abstractions.** The decision is to make one diagram "with everything", and
+system, service, library and table end up side by side. The diagram loses its reader:
+every audience now needs someone to explain it.
 
-**Producing all four levels for every system.**
+**Producing all four levels for every system.** It looks like completeness. The cost
+arrives months later, when the component and code diagrams drift from the code and the
+team starts distrusting even the levels that were still correct.
 
-**Drawing in a graphics tool.**
+**Keeping in a graphics tool a diagram that has to evolve with the code.** The whiteboard
+sketch is fine where it is; the mistake is making a file outside the repository, which
+few people know how to edit, the reference. The first structural change without an update
+makes it false, and nothing warns anyone.
 
-**Numbering arrows** to express sequence in a structural diagram.
+**Numbering arrows** to express sequence in a structural diagram. It saves one diagram
+and produces one where the reader follows numbers around the drawing to rebuild what a
+sequence diagram would show top to bottom.
 
-**Omitting the legend.**
+**Omitting the legend.** Whoever draws it finds the notation obvious because they
+invented it; each reader assigns the shapes and arrows a meaning of their own, and two
+people leave the same diagram with different readings of a dependency.
 
-**Not dating it.**
+**Not dating it.** Without a date or version, the reader cannot tell whether they are
+looking at today's structure or the one from two years ago — the situation in the example
+below — and starts treating every diagram as suspect. Generated in the pipeline, the
+diagram inherits the commit date; drawn by hand, it has to carry the date on the drawing.
 
 ## Real-World Example
 
@@ -252,7 +262,7 @@ Two consequences:
 
 **Out of date.** Half of them had last been updated more than two years earlier.
 
-Adopting C4 changed three things:
+Adopting C4 changed four things:
 
 **Context per system.** One diagram with the system, the people who use it, and the
 systems it talks to. Between 5 and 12 boxes.
@@ -269,8 +279,10 @@ justified it.
 **Diagrams as code**, versioned in each system's repository and generated in the
 pipeline.
 
-That solved the staleness: a diagram that doesn't match the structure shows up in the
-review of the commit that changed it.
+Versioned text does not detect drift on its own — a commit that changes the structure
+without touching the diagram passes cleanly through the diff. What it did was make
+updating cheap enough to fit in the same commit, which let "does the diagram still match?"
+become an item in code review. That item is what contained the staleness.
 
 One problem during adoption:
 

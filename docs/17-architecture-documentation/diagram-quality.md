@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [c4-model, documentation-principles, living-documentation]
 canonical_for: [qualidade de diagrama, legenda, notação consistente, ruído visual]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -83,7 +83,7 @@ semântica.
 Um conjunto pequeno de convenções, documentado uma vez e reusado, é o que torna diagramas
 comparáveis.
 
-### Rótulos em setas, sempre
+### Rótulos em setas
 
 Uma seta sem rótulo comunica que existe uma relação e nada sobre ela.
 
@@ -193,20 +193,22 @@ quando:
 
 ## Quando Não Usar
 
-**Sem legenda**, quando há mais de uma forma ou cor.
+**Esboço descartável.** O rascunho de quadro branco apagado na mesma sessão tem o autor
+presente para narrar, e ninguém o lerá depois. Cabeçalho, legenda e data custam minutos
+que não voltam, porque o leitor ausente — a razão de existirem — nunca aparece. O critério
+é o destino: se a foto do quadro vai parar numa página, ele deixou de ser descartável.
 
-**Com notação diferente** a cada documento.
+**Notação já fixada pela ferramenta.** Um diagrama gerado cuja notação vem da ferramenta,
+com legenda própria, não precisa de legenda manual; a cópia duplica a informação e diverge
+dela na primeira atualização da ferramenta.
 
-**Com setas sem rótulo.**
+**Uma forma e um tipo de seta.** Num diagrama de sequência sem distinção visual alguma, a
+legenda não tem o que explicar. A regra é sobre distinções: sem distinção, não há o que
+declarar.
 
-**Sem data.**
-
-**Com mais de vinte caixas.**
-
-**Com detalhe que envelhece rápido.**
-
-E há uma exceção legítima: um esboço descartável, feito para uma conversa, não precisa de
-nada disso. Ele cumpre a função e é apagado.
+O custo das práticas passa do ganho quando o diagrama não sobrevive à conversa que o
+motivou. Enquanto ele for lido por alguém que não estava lá, o custo é pequeno perto das
+perguntas que evita.
 
 ## Alternativas
 
@@ -230,7 +232,7 @@ trinta setas.
 | Desenhado à mão | Gerado |
 |---|---|
 | Layout controlado | Automático |
-| Envelhece | Sempre atual |
+| Envelhece | Atual até a última geração |
 | Expressa ênfase | Uniforme |
 
 ## Modos de Falha
@@ -257,7 +259,7 @@ trinta setas.
 
 **Setas sem rótulo.** "A aponta para B" não diz se é chamada síncrona, evento ou leitura de banco, que é justamente o que muda o entendimento.
 
-**Espremer o sistema inteiro num diagrama.** Acima de uma dúzia de elementos, ninguém acompanha. Vários diagramas em níveis diferentes comunicam mais que um abrangente.
+**Espremer o sistema inteiro num diagrama.** Acima de uma dúzia de elementos a leitura fica difícil, e acima de vinte o leitor já não segura o conjunto. Vários diagramas em níveis diferentes comunicam mais que um abrangente.
 
 **Não datar.** Sem data, o leitor não sabe se está vendo o sistema de hoje ou de três anos atrás — e supõe que é de hoje.
 
@@ -269,7 +271,7 @@ Uma empresa de tecnologia fez um exercício simples: pegou os doze diagramas de
 arquitetura mais usados e pediu a pessoas de outros times que os lessem, sem explicação,
 anotando as dúvidas.
 
-O resultado, agregado:
+O resultado, agregado nas cinco categorias mais frequentes:
 
 ```text
 "o que essa cor significa?"              9 dos 12 diagramas
@@ -295,20 +297,24 @@ espessuras de linha, cada uma com significado fixo.
 
 **Rótulos em todas as setas**, com o propósito antes do protocolo.
 
-**Diagramas gerados a partir de texto**, versionados no repositório — o que resolveu a
-data e a existência: um diagrama de sistema desativado desaparece quando o repositório é
-arquivado. Ver
-[documentação viva](/17-architecture-documentation/living-documentation.md).
+**Diagramas como código**, versionados no repositório — o que atacou a data e a
+existência pelo processo, não pela garantia: o diagrama é revisado junto com a mudança que
+o afeta, a data de alteração está no histórico, e o diagrama de um sistema desativado
+desaparece quando o repositório é arquivado. O texto ainda é escrito à mão e ainda pode
+divergir. Ver
+[diagrama como código](/17-architecture-documentation/living-documentation.md#diagrama-como-código).
 
 **Teste de leitura** incorporado à revisão: um diagrama novo é lido por alguém de fora
 antes de ser publicado.
 
 Seis meses depois, o mesmo exercício foi repetido com diagramas novos. A média de dúvidas
-por diagrama caiu de 4,3 para 0,6.
+por diagrama, contando também as categorias menos frequentes que a tabela omite, caiu de
+4,3 para 0,6.
 
-O que a equipe registra: a mudança de maior impacto foi a mais simples — exigir legenda.
-Ela resolveu sozinha a maior parte das dúvidas, e custou uma linha na lista de verificação
-de revisão.
+O que a equipe registra: atribui a maior parte da queda à mudança mais simples — exigir
+legenda, que responde às dúvidas de cor, de forma e de tipo de seta, e custou uma linha na
+lista de verificação de revisão. As seis correções entraram juntas, então o exercício não
+isola o efeito de cada uma; a atribuição é leitura da equipe, não medida.
 
 ## Conceitos Relacionados
 

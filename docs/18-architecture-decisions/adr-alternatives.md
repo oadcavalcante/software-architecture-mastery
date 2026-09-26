@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-decision, superseding-decisions]
 canonical_for: [alternativa descartada, condição de reversão, critério de comparação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -191,17 +191,19 @@ serve.
 
 ## Quando Não Usar
 
-**Como justificativa retroativa.** É o uso mais comum e o menos útil.
+**Decisão barata de reverter.** Quando refazer a escolha custa menos que escrever sobre
+ela — trocar uma biblioteca escondida atrás de uma interface própria, mudar um parâmetro de
+configuração —, levantar a condição de reversão de cada alternativa custa mais que errar e
+voltar. Uma linha nomeando as opções basta.
 
-**Listando alternativas nunca consideradas** para parecer rigoroso.
+**Uma única opção viável por restrição externa.** Quando regulação, contrato ou padrão
+corporativo elimina as demais antes de qualquer análise, comparar critérios é encenação.
+Registre a restrição no [Contexto](/18-architecture-decisions/adr-context.md): é ela, e não
+o descarte, que carrega a condição de reversão.
 
-**Sem a condição de reversão.**
-
-**Sem o status quo** entre as opções.
-
-**Omitindo razões não técnicas.**
-
-**Com critérios escolhidos depois da resposta.**
+**Decisão abaixo do limiar de [decisão significativa](/18-architecture-decisions/what-is-an-adr.md).**
+Se a decisão não justifica um ADR, justifica menos ainda a seção detalhada; o Y-Statement,
+listado abaixo, cobre esse caso.
 
 ## Alternativas
 
@@ -216,7 +218,8 @@ serve.
 
 | Alternativas detalhadas | Resumidas |
 |---|---|
-| Revisáveis | Rápidas de escrever |
+| Caras de escrever | Rápidas de escrever |
+| Revisáveis por quem chega depois | Dependem de quem estava na sala |
 | Evitam redecidir | Podem não bastar |
 | Expõem o que se perdeu | Parecem mais firmes |
 
@@ -273,8 +276,8 @@ custo do serviço próprio, estimado      ~4 mil/mês de infraestrutura
 O "algum tempo de engenharia" nunca tinha sido quantificado. Medido em 2025, era de dois
 engenheiros em tempo integral — cerca de 60 mil por mês em custo de pessoal.
 
-E o volume tinha triplicado, o que teria elevado o custo do serviço gerenciado para cerca
-de 30 mil — ainda metade do custo real do serviço próprio.
+E o volume tinha triplicado, o que, com o desconto por faixa de volume do provedor, teria
+elevado o custo do serviço gerenciado para cerca de 30 mil — ainda metade do custo real do serviço próprio.
 
 A alternativa vencedora, em 2023, tinha vencido por um critério que ninguém aplicou por
 inteiro.
@@ -290,7 +293,8 @@ suficiente e muda a conclusão com frequência.
 **Condição de reversão obrigatória** por alternativa. O modelo adotado: "esta opção
 venceria se ___".
 
-**Tabela de critérios** obrigatória quando houver três ou mais opções, com os critérios
+**Tabela de critérios** obrigatória já a partir de três opções — limiar mais rígido que o
+geral, de mais de três —, com os critérios
 definidos e pesados **antes** da avaliação.
 
 Numa revisão dos 40 ADRs seguintes, escritos sob as regras novas:

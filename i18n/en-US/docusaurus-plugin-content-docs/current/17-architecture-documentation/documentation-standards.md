@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, architecture-descriptions, living-documentation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -81,11 +81,10 @@ addition.
 "team X, role Z"        works, survives departures
 ```
 
-The third form is the one that holds: the owner is a role inside a team, and the role is
-filled by someone named at any given moment.
-
-A document with no owner is a document that rots. See
-[ownership and accountability](/19-architecture-governance/index.md).
+For a document, the third form is the one that holds: when whoever fills the role leaves,
+the document still has someone to fix it. A document with no owner is a document that rots.
+The distinction between role and person lives in
+[architecture ownership](/23-architecture-leadership/architecture-ownership.md).
 
 ### Triggers, not cadence
 
@@ -149,7 +148,9 @@ does the diagram reference containers that still exist?
 do the mandatory sections have content beyond the template?
 ```
 
-Not everything is verifiable, and what is should be. The last item is the most valuable and
+Not everything is verifiable, and what can be verified cheaply pays for the check — with
+one caveat: recency rewards the cosmetic touch, the same defect as calendar-based review,
+and works as an alert, not as a compliance criterion. The last item is the most valuable and
 the least implemented: detecting unreplaced template text catches most of the filling-in
 out of duty.
 
@@ -187,18 +188,24 @@ for itself.
 
 ## When Not to Use
 
-**As a long mandatory template.**
+**Without a criticality classification, or a way to create one** — tiering depends on it.
+Without it, either everything lands in the high tier and the requirements become uniform
+again, or every team declares itself low-criticality to escape the load.
 
-**Verifying existence instead of content.**
+**Without a pipeline to hang the verification on** — third-party packages, low-code
+platforms and systems with no repository of their own have nowhere to run the check. The
+policy becomes a declaration nobody checks, with the cost of writing one and the outcome of
+not having one.
 
-**With no named owner.**
-
-**With a fixed cadence as the main mechanism.**
+**For a system with a scheduled shutdown** — requiring the five artifacts for something
+that goes away in a few months spends effort on a reader who will never exist; an owner and
+a runbook are enough until the end.
 
 **Uniform across systems of different criticality** — an occasionally used internal system
 and a critical system do not deserve the same requirements.
 
-**In a small team with one system** — the policy is a conversation.
+**In a small team with one or two systems** — everyone knows where everything is and who
+answers for it; a written policy costs upkeep and conveys nothing a conversation doesn't.
 
 ## Alternatives
 
@@ -244,13 +251,18 @@ faster than twelve pages of rules.
 
 **Starting from the template** instead of from the questions that hurt.
 
-**Confusing policy with an approval process.**
+**Confusing policy with an approval process** — documentation starts being written for
+the approver, the day before approval, and stops being updated after it.
 
-**Not allowing "not applicable".**
+**Not allowing "not applicable"** — the team fills the inapplicable section with generic
+text, and content verification can no longer tell the filled from the empty.
 
-**Putting everything on a wiki.**
+**Putting everything on a wiki** — the document sits outside code review: the change that
+invalidates it gets merged without anyone seeing it, and the divergence only shows up when
+someone acts on the wrong text.
 
-**Verifying nothing automatically.**
+**Verifying nothing automatically** — compliance is measured once, when the policy
+launches, and decays unnoticed until the next manual survey.
 
 **Not measuring use** — without that, you don't know what to cut.
 
@@ -291,7 +303,9 @@ resolve, and the template text was replaced. Failing any of them blocks no deliv
 of them appear on a per-team dashboard.
 
 **Requirements tiered by criticality**: critical systems add a consolidated description
-and a derived deployment diagram; low-criticality systems stay at the five.
+and a derived deployment diagram; low-criticality systems stay at the five. The floor is
+higher than the table above on purpose: with 52 systems and 40 teams, maintaining two
+minimum lists cost more than requiring five artifacts from small systems.
 
 Nine months later:
 
@@ -303,8 +317,8 @@ with divergence across places                    0 (there is only one place)
 ```
 
 What the team learned: the most unpopular decision — shutting down the wiki — was the most
-effective. As long as two valid places existed, divergence was inevitable, and no quality
-policy was going to fix that.
+effective. As long as two independently editable places existed, divergence was inevitable, and no
+quality policy was going to fix that.
 
 And one that didn't work: the first version of the policy had nine mandatory artifacts. The
 four that were cut were the ones nobody consulted, and removing them raised the compliance
@@ -329,7 +343,8 @@ for the ones that stay.
 
 - Why do event triggers work better than a fixed cadence?
 - Why does allowing "not applicable" increase documentation quality?
-- What problem do two valid documentation locations inevitably create?
+- What problem do two independently editable documentation locations create, and why does
+  generating one from the other avoid it?
 
 ## Further Reading
 

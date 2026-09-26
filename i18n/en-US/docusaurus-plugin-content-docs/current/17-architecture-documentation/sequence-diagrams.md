@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, data-flow-diagrams, diagram-quality]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -27,8 +27,8 @@ order**.
 That is the essential difference, and it defines the use: a sequence diagram documents a
 **scenario** — a specific path through the system, from start to finish.
 
-It is the best artifact available for explaining distributed behavior, and the worst for
-describing an entire system.
+Among architecture diagrams, it is the most direct way to show the order and synchrony of a
+distributed flow — and the wrong one for describing an entire system.
 
 ## Problem
 
@@ -199,9 +199,9 @@ behavior, and it frequently contradicts the drawn one.
 
 | Drawn | Real trace |
 |---|---|
-| Shows the intent | Shows what occurs |
+| Shows the intent | Shows what occurred in the sampled traces |
 | Legible and curated | Noisy |
-| Can be wrong | Cannot be |
+| Can be wrong | Can be incomplete: sampling, uninstrumented services, context lost across the queue |
 
 ## Failure Modes
 

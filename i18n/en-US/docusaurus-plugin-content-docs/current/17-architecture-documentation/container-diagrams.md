@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, context-diagrams, deployment-diagrams]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -82,7 +82,7 @@ And the protocols on the relationships:
 
 ```text
 Portal → Orders API: "queries and creates orders, HTTPS/JSON"
-API → Database: "reads and writes, TCP"
+API → Database: "reads and writes, SQL/JDBC"
 API → Queue: "publishes order created, AMQP"
 ```
 
@@ -150,10 +150,12 @@ flow diagram. See
 A large container diagram is rarely a drawing problem. It is a portrait of how many
 separate things have to exist, be deployed, be monitored and be maintained.
 
+The bands below are a heuristic from people who have drawn these diagrams, not a measurement:
+
 ```text
 up to 6 containers   a system one team can hold
 7 to 12              requires coordination, still tractable
-above 15             the operational cost is already the dominant characteristic
+13 or more           the operational cost is already the dominant characteristic
 ```
 
 The question the diagram provokes — "why so many pieces?" — is usually more valuable than
@@ -181,16 +183,17 @@ becomes permanent structure.
 
 ## When Not to Use
 
-**With libraries or modules** as boxes.
+**For a single-piece system** — there is no internal communication to show, and the
+technology fits in one line of the context diagram.
 
-**Expanding external systems.**
+**For systems of two or three pieces** — one sentence in the README ("Java API, PostgreSQL,
+RabbitMQ queue") delivers the same thing and needs no separate maintenance.
 
-**Without technology or protocol** — the level is technical, and omitting them reduces the
-usefulness.
+**When the topology changes every week** — during exploration, the diagram is stale before
+anyone reads it; wait for the pieces to settle.
 
-**For a single-piece system** — the context suffices.
-
-**Descending into internal components.**
+**When the audience only needs the context** — management, partners and auditors ask what
+the system does and whom it talks to, not where to make changes.
 
 ## Alternatives
 
@@ -261,12 +264,15 @@ admin panel used none of them — it read directly.
 
 The decisions that came out of it:
 
-**Direct access eliminated** over nine months. The three consumers moved to the API, with
-new endpoints where they were missing. See
+**Direct access eliminated** over nine months for two of the three consumers: billing and
+the admin panel moved to the API, with new endpoints where they were missing. See
 [data ownership](/07-data-architecture/data-ownership.md).
 
-**Boundary revisited.** The reconciliation process, which only read, was moved to a
-dedicated read replica — with an explicit contract about the schema.
+**Boundary revisited.** The reconciliation process, which only read, kept reading the
+schema, now from a dedicated read replica and under an explicit contract covering the tables
+it uses. The coupling was accepted because reconciliation scans a whole day's volume, which
+the API could not serve without expensive pagination, and because the contract turned a
+schema change into an announced change rather than a breakage discovered in production.
 
 And a side effect of the exercise: the diagrams became the development environment
 documentation. The question "what do I have to start up to work on the orders system?"

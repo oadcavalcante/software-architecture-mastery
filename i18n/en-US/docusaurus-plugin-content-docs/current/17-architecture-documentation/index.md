@@ -48,8 +48,8 @@ the machine doesn't know: **why** things are the way they are.
 detail, and where it lives.
 
 **The C4 model.** Four levels of zoom, and the discipline of one level of abstraction
-per diagram — which is its contribution, more than the notation. With the four
-levels of zoom — and the guidance that the first two suffice in most cases.
+per diagram — which is its contribution, more than the notation. With the guidance
+that the first two suffice in most cases.
 
 **The diagrams.** Context, container, component, deployment, sequence and data flow —
 each with what it answers and when it isn't worth it.

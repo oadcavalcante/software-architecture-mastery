@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [c4-model, container-diagrams, living-documentation]
 canonical_for: [diagrama de componente, agrupamento lógico, custo de manutenção de diagrama]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -110,7 +110,8 @@ resolve o problema de meia-vida:
 
 ```text
 ferramenta lê o código, extrai a estrutura, produz o diagrama
-o diagrama nunca está errado
+o diagrama reflete a estrutura estática do código no momento em que é gerado
+não desatualiza por esquecimento, mas não mostra ligações resolvidas em execução
 o layout é automático e às vezes ruim
 só mostra o que existe, não o que se pretende
 ```
@@ -131,8 +132,10 @@ nomes que digam o que a coisa faz
 um README curto por contêiner com o mapa em texto
 ```
 
-Uma estrutura de pastas bem nomeada responde "onde mexo" sem nenhum diagrama, e nunca
-desatualiza, porque é o próprio código.
+Uma estrutura de pastas bem nomeada responde "onde mexo" sem nenhum diagrama, e
+desatualiza muito mais devagar, porque renomear faz parte da própria refatoração. O
+README não tem essa garantia: é texto, e só fica certo se for revisado junto com cada
+mudança estrutural.
 
 Ver [desenho modular](/02-software-design/modular-design.md).
 
@@ -176,17 +179,19 @@ gere quando precisar de permanência, e prefira código bem organizado a ambos.
 
 **Mantido à mão, em código que muda toda semana.**
 
-**Quando a estrutura de pastas já responde.**
+**Quando a estrutura de pastas já responde** — isto é, quando uma pessoa nova acha o
+componente certo pelo nome do diretório, sem perguntar a ninguém.
 
 **Com classes como caixas** — o nível seria o quarto, e raramente vale.
 
-**Sem alguém responsável por atualizá-lo.**
+**Sem alguém responsável por atualizá-lo** — se a pergunta "quem mexe neste diagrama
+quando o código mudar?" não tem um nome como resposta, ele não será mexido.
 
 ## Alternativas
 
 - **Estrutura de diretórios bem nomeada** — resposta sem custo de manutenção.
 - **README por contêiner** — o mapa em texto, mais fácil de manter.
-- **Diagrama gerado** — sempre atual.
+- **Diagrama gerado** — atual enquanto a geração rodar no build ou na CI.
 - **Nada** — para contêineres pequenos, ler o código é mais rápido.
 
 A última é legítima com mais frequência do que se admite: um contêiner de 15 arquivos não
@@ -197,8 +202,8 @@ precisa de diagrama.
 | Desenhado | Gerado |
 |---|---|
 | Expressa intenção | Mostra o que existe |
-| Desatualiza | Sempre atual |
-| Layout bom | Automático |
+| Desatualiza | Atual enquanto regenerado no pipeline |
+| Layout curado | Layout às vezes ruim |
 | Custo contínuo | Custo inicial |
 
 | Diagrama | Estrutura de pastas |
@@ -250,7 +255,7 @@ comportamento estava em outro componente — movido numa refatoração meses ant
 
 A revisão da política:
 
-**Nível de componente removido por padrão.** Os 22 diagramas foram arquivados.
+**Nível de componente removido por padrão.** Os 22 diagramas desenhados à mão foram arquivados.
 
 **Quatro exceções mantidas**, todas em contêineres grandes com onboarding frequente — e
 todas convertidas para geração automática a partir do código.
@@ -261,8 +266,8 @@ mantido no repositório do próprio contêiner, revisado junto com mudanças est
 **Diagramas de decisão** passaram a viver nas ADRs, datados e explicitamente não mantidos
 — com uma frase no cabeçalho: "retrato da estrutura em 2026-03; não atualizado".
 
-O resultado, medido no ano seguinte: a documentação estrutural encolheu de 50 para 32
-artefatos, a taxa de itens corretos subiu de 58% para 91%, e nenhum incidente foi agravado
+O resultado, medido no ano seguinte: o acervo de diagramas estruturais encolheu de 50
+para 32 (mais os READMEs, um por contêiner, que entraram no lugar dos outros 18), a taxa de itens corretos subiu de 58% para 91%, e nenhum incidente foi agravado
 por documentação errada.
 
 Um efeito não previsto: ao escrever os READMEs, três times descobriram que não conseguiam

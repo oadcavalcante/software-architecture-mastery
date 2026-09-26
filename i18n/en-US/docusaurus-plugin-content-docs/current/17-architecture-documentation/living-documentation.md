@@ -2,7 +2,7 @@
 id: living-documentation
 title: Living Documentation
 sidebar_position: 12
-description: Deriving from what is already true — the only form of documentation that doesn't go stale.
+description: Deriving from what is already true, so documentation doesn't silently diverge from the system.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, documentation-standards, component-diagrams]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,11 +21,13 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-All hand-written documentation goes stale. The problem is not discipline — it is that the
-information exists in two places and nothing forces the two to agree.
+Hand-written documentation goes stale when nothing ties it to the system. The problem is not
+discipline — it is that the information exists in two places and nothing forces the two to
+agree.
 
 Living documentation attacks the cause: **derive the documentation from the artifact that
-is already true**, so that diverging is impossible, and not merely undesirable.
+is already true**, so that diverging from the source is impossible while the extraction
+runs, and not merely undesirable.
 
 And this topic's central decision is not which tool to use. It is **what can be derived
 and what cannot** — because most architectural value lies precisely in what the machine
@@ -71,7 +73,9 @@ The pattern is clear: **structure is derivable**. What exists, how it connects, 
 where — all of it is declared somewhere executable.
 
 See [distributed tracing](/13-observability/distributed-tracing.md) for the last category,
-which is the most reliable of all: it shows what happens, not what was declared.
+the most reliable one for what runs frequently: it shows what happens, not what was
+declared. And it is blind to what the window and the sampling miss — the quarterly job, the
+fallback path —, which verification against the declared inventory covers.
 
 ### What cannot be derived
 
@@ -154,7 +158,7 @@ Derivation is not free:
 building the extraction     weeks
 maintaining the tool        continuous
 handling irregular cases    constant
-sometimes ugly output       always
+layout short of curated     recurring
 ```
 
 The calculation: derivation pays off where the information **changes frequently** and is
@@ -181,9 +185,12 @@ machine documents.
 
 **For rationale and decisions** — not derivable.
 
-**Where the information changes little** — the cost doesn't pay off.
+**Where the information changes or is consulted little** — if the artifact changes less
+often than the manual review cadence, or hardly anyone opens it, the cost doesn't pay off.
 
-**When layout matters a lot** and the generated version is illegible.
+**When the generated diagram exceeds about twelve nodes** and the source has no grouping
+key — domain, team, context — to split it: the result is the 180-node diagram of the
+Real-World Example.
 
 **With nobody responsible for the tool** — the tool becomes the new debt.
 
@@ -204,7 +211,7 @@ has correct diagrams and no explanation of why the system is the way it is.
 
 | Generated | Written |
 |---|---|
-| Cannot diverge | Can |
+| Doesn't diverge from the source while the extraction runs | Can diverge silently |
 | Shows what exists | Shows the intent |
 | Automatic layout | Curated |
 | High up-front cost | Continuous cost |
@@ -214,7 +221,7 @@ has correct diagrams and no explanation of why the system is the way it is.
 | Eliminates divergence | Detects it |
 | Loses curation | Preserves it |
 | Expensive to build | Cheap |
-| Always current | Current or red |
+| Current as of the last successful extraction | Current or red |
 
 ## Failure Modes
 
@@ -240,7 +247,7 @@ has correct diagrams and no explanation of why the system is the way it is.
 
 **Not measuring whether the output is read.** Generated documentation has a maintenance cost like any other. If nobody opens it, the right move is to turn the generation off.
 
-**Ignoring verification as the cheaper option.** For many properties, a test that fails when the rule is violated is worth more than a document that describes it — and it never goes stale.
+**Ignoring verification as the cheaper option.** For many properties, a test that fails when the rule is violated is worth more than a document that describes it — and it fails when it goes stale.
 
 ## Real-World Example
 
@@ -282,7 +289,7 @@ The numbers, a year later:
 accuracy rate of the written diagrams      34% → 89%
 divergences detected per month             an average of 11, fixed within days
 undocumented services found                7 (three of which shouldn't exist)
-portal usage                               2.4× the previous level
+portal usage                               2.4× the level before the first attempt
 ```
 
 The seven services found by the verification were an unforeseen result: three were leftover

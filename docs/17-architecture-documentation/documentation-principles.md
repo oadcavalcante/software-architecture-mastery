@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [living-documentation, architecture-views, diagram-quality]
 canonical_for: [leitor da documentação, meia-vida da documentação, documentação sob demanda]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -164,7 +164,7 @@ e custo de manutenção, que é invisível e recorrente.
 
 ```text
 escrever      horas, uma vez
-manter        minutos, muitas vezes, para sempre
+manter        minutos, muitas vezes, enquanto o documento existir
 não manter    custo transferido para quem lê e erra
 ```
 
@@ -189,9 +189,9 @@ só a escrita humana captura.
 
 ## Quando Não Usar
 
-**Quando não há quem assuma a manutenção do detalhe que se pretende escrever.** Todo nível
-de detalhe cria uma obrigação recorrente, e detalhe sem dono é o que envelhece primeiro — e
-mais rápido, porque é o que mais muda.
+**Quando o detalhe que se pretende escrever muda mais rápido que o ciclo de revisão.** Todo
+nível de detalhe cria uma obrigação recorrente, e o detalhe fino é o que envelhece primeiro —
+porque é o que mais muda. Aí o caminho é derivá-lo, não escrevê-lo.
 
 **Quando o conhecimento ainda não foi descoberto.** Documentação sob demanda tem um limite:
 ela só registra o que alguém já perguntou. Para o que se descobre tarde — a razão de uma
@@ -223,7 +223,7 @@ acompanhamento que por documento.
 |---|---|
 | Cobre mais casos | Só o essencial |
 | Custo de manutenção alto | Baixo |
-| Envelhece por inteiro | Sustentável |
+| Envelhece por inteiro | Envelhece por partes, que dá para revisar |
 | Difícil de encontrar o relevante | Direto |
 
 | Preventiva | Sob demanda |
@@ -300,7 +300,7 @@ partir da infraestrutura declarada. Ver
 **Documentação sob demanda** como regra: perguntas recorrentes viram documento; perguntas
 únicas viram resposta.
 
-Dezoito meses depois:
+Dezoito meses depois, com os acessos medidos no portal publicado a partir dos repositórios:
 
 ```text
 documentos mantidos                       78 (40 sobreviventes, 38 escritos na reformulação)

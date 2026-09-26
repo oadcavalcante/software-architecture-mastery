@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [strangler-fig, migration-strategies, modernization-risk]
 canonical_for: [migração de dados, conciliação de migração, dado que não encaixa, corte de migração]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -68,8 +68,9 @@ datas impossíveis, valores negativos onde não deveriam
 Esse levantamento — perfilagem — costuma ser feito depois que a migração falha. Feito
 antes, ele transforma surpresas em decisões planejadas.
 
-E o resultado dele é sempre desconfortável: sistemas antigos acumulam dados que violam as
-regras que o sistema supostamente impunha, porque as regras foram adicionadas depois.
+Num sistema com anos de operação, o resultado dele é desconfortável: sistemas antigos
+acumulam dados que violam as regras que o sistema supostamente impunha, porque as regras
+foram adicionadas depois e nunca aplicadas ao que já existia.
 
 ### Os dados que não encaixam precisam de decisão de negócio
 
@@ -128,8 +129,9 @@ Ver [idempotência](/06-distributed-systems/idempotency.md).
 A repetibilidade permite ensaiar: rodar a migração completa em ambiente de teste,
 verificar, corrigir, repetir — até que a execução real seja rotina, não evento.
 
-Times que ensaiam a migração cinco vezes antes da real têm uma taxa de sucesso
-qualitativamente diferente dos que a executam uma vez.
+Cada ensaio mede a duração com volume real e expõe defeitos de transformação que a
+verificação pega. No exemplo abaixo, o primeiro ensaio levou 41 horas contra uma janela
+de 36; só depois dos ajustes que os ensaios seguintes validaram a execução coube nela.
 
 ### O corte precisa ser reversível
 
@@ -143,6 +145,16 @@ depois           o antigo permanece consistente por um período, para reversão
 
 Manter o antigo atualizado depois do corte — por replicação reversa — é o que torna a
 volta possível. Sem isso, o corte é irreversível a partir da primeira escrita nova.
+
+A replicação reversa tem custo próprio. Ela exige uma transformação inversa, do modelo
+novo para o antigo, que perde informação quando o novo é mais rico: o endereço
+estruturado volta como texto livre, o campo extraído da observação não tem para onde
+voltar. E é um segundo pipeline, com monitoramento e conciliação próprios durante todo o
+período de reversão — divergência entre os dois lados passa a ser um modo de falha a
+vigiar. Quando a transformação inversa perde mais do que o negócio aceita, a saída é
+reduzir o que precisa voltar, cortando por fatia para que a reversão cubra só a fatia
+afetada, ou declarar o corte irreversível e compensar antes dele, com mais ensaios e um
+período mais longo de validação em paralelo.
 
 E o período de reversibilidade precisa ser suficiente para que problemas apareçam:
 alguns só se manifestam no fechamento do mês.
@@ -189,17 +201,17 @@ necessárias sempre que:
 
 ## Quando Não Usar
 
-**Sem perfilagem prévia.** Os dados que não encaixam aparecem na janela de corte, quando não há tempo de decidir o que fazer com eles.
+O aparato completo — perfilagem, ensaios cronometrados, verificação em níveis, replicação reversa — é desproporcional quando:
 
-**Decidindo o destino dos dados inconsistentes durante a janela.** São decisões de negócio tomadas às três da manhã por quem não tem autoridade para tomá-las.
+**O volume cabe em conferência manual.** Algumas centenas de registros são conferidos por uma pessoa em horas; ensaiar e montar verificação automatizada custa mais que o erro que evitaria.
 
-**Sem ensaiar.** A duração real só é conhecida por medição com volume real; sem ela, a janela combinada é um chute.
+**O dado é reconstruível a partir da origem.** Cache, índice de busca, projeção de leitura, tabela derivada: se a carga sair errada, regenera-se do sistema de registro. Reversão e verificação em níveis protegem dado que não tem outra cópia.
 
-**Com verificação apenas por contagem.** Conteúdo trocado com contagem igual passa despercebido, e o erro é descoberto pelo cliente.
+**O esquema de destino é igual ao de origem.** Na troca de versão de banco com replicação nativa, não há transformação nem dado que deixe de encaixar; contagem e soma, insuficientes quando há transformação, cobrem o risco que resta.
 
-**Sem plano de reversão.** Sem manter o sistema antigo consistente, o corte é irreversível — e a decisão de seguir em frente passa a ser tomada sob pressão, sem alternativa.
+**Não há corte.** Na coexistência sem migração e na migração sob demanda (ver Alternativas), o novo nunca assume o acervo inteiro num momento: não há janela para ensaiar nem corte para reverter. O que sobra deste documento é a perfilagem e a decisão sobre os dados que não encaixam, aplicadas registro a registro.
 
-**Sem decisão explícita sobre histórico.** Migrar tudo custa uma ordem de grandeza a mais e frequentemente não era necessário.
+**O dado não sustenta operação nem obrigação.** Logs de depuração, rascunhos, massa de teste: começar vazio é legítimo, e a decisão de negócio que isso exige é tomada em minutos.
 
 ## Alternativas
 
@@ -222,7 +234,7 @@ antigos nunca é acessada, e migrá-los é trabalho desperdiçado.
 
 | Corte único | Incremental |
 |---|---|
-| Simples de raciocinar | Coexistência prolongada |
+| Um único estado de transição | Dois sistemas coexistindo por meses, com roteamento por fatia |
 | Janela de risco concentrada | Distribuída |
 | Reversão de tudo | Por fatia |
 
@@ -244,7 +256,7 @@ antigos nunca é acessada, e migrá-los é trabalho desperdiçado.
 
 ## Erros Comuns
 
-**Não perfilar antes.** Os dados reais sempre têm valores que o modelo novo não aceita — nulos onde há obrigatoriedade, duplicatas onde há unicidade, formatos livres. Descobrir na janela de corte é o que estoura o prazo.
+**Não perfilar antes.** Em sistemas com anos de operação, os dados reais têm valores que o modelo novo não aceita — nulos onde há obrigatoriedade, duplicatas onde há unicidade, formatos livres. Descobrir na janela de corte é o que estoura o prazo.
 
 **Subestimar os dados que não encaixam.** O caso excepcional costuma ser 2% do volume e 60% do esforço, e cada decisão sobre ele é de negócio, não técnica.
 
@@ -254,7 +266,7 @@ antigos nunca é acessada, e migrá-los é trabalho desperdiçado.
 
 **Não manter o antigo atualizado após o corte.** Sem isso a reversão deixa de existir: voltar significaria perder tudo que foi feito depois do corte.
 
-**Não decidir sobre histórico.** Migrar dez anos ou dois muda o esforço em uma ordem de grandeza, e é decisão de negócio — que costuma ser tomada por omissão pela engenharia.
+**Não decidir sobre histórico.** Migrar dez anos ou dois não muda só o volume: o histórico antigo atravessa mais versões de regra e concentra mais dado fora do domínio, e o esforço cresce mais que a proporção de anos. É decisão de negócio — que costuma ser tomada por omissão pela engenharia.
 
 ## Exemplo Real
 

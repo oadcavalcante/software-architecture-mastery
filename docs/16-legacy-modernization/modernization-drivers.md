@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [legacy-systems, migration-strategies, modernization-risk]
 canonical_for: [motivador de modernização, custo de não fazer, modernização por desconforto]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -105,9 +105,11 @@ O segundo é difuso e contínuo, e por isso invisível. Torná-lo explícito é 
 a comparação.
 
 ```text
-exemplo: 8 mudanças por ano, cada uma 6 semanas mais lenta que deveria
-         → 48 semanas de engenharia por ano
-         → o custo de não fazer, só nessa dimensão, é quase um ano de time
+exemplo: 8 mudanças por ano, cada uma consumindo 6 pessoa-semanas a mais
+         que deveria
+         → 48 pessoa-semanas por ano, quase uma pessoa-ano de engenharia
+         → o atraso de calendário de cada mudança é custo de oportunidade
+           à parte, e se soma a esse
 ```
 
 ### Não modernizar é uma decisão legítima
@@ -207,15 +209,11 @@ de conviver com ela.
 
 ## Quando Não Usar
 
-**Propondo a partir do sintoma técnico.** "O código está ruim" não é motivo de investimento para quem aprova orçamento; a consequência de negócio é.
+**Prazo externo inegociável.** Quando o fornecedor anuncia fim de suporte com data fixa, ou o regulador impõe um prazo, a pergunta "o que ganhamos?" já foi respondida de fora: a alternativa é operar sem suporte ou fora de conformidade. Calcular o custo de não fazer atrasa uma decisão que não depende dele; o esforço de análise vai para o escopo mínimo que cumpre a data.
 
-**Sem calcular o custo de não fazer.** A comparação relevante não é com o ideal, é com continuar como está — e esse custo costuma ser o argumento mais forte.
+**Vulnerabilidade explorável sem correção disponível.** O risco não se reduz honestamente a um valor anual — a probabilidade de exploração não é estimável com a precisão que o cálculo pediria, e o dano pode ser da ordem da própria empresa. Exigir o número produz um número inventado, e a discussão passa a ser sobre ele em vez de sobre a exposição.
 
-**Assumindo que o sistema inteiro precisa mudar.** O motivo normalmente aponta para uma parte específica, e modernizar só ela é uma fração do custo.
-
-**Sem verificar se o motivo justifica a prioridade.** Motivo real não é o mesmo que motivo urgente; competir por orçamento exige mostrar por que agora.
-
-**Omitindo motivos legítimos** por parecerem frívolos. Dificuldade de contratar para uma tecnologia obsoleta é risco de continuidade concreto, e costuma ser silenciado por parecer menos sério que os técnicos.
+**Mudança pequena.** Upgrade de versão dentro da janela de suporte, troca de biblioteca, migração que cabe em dias: montar a análise de motivador custa mais que a própria mudança. O rigor deste documento é proporcional ao investimento — ele serve a propostas que disputam orçamento, não à manutenção corrente que o time já absorve.
 
 ## Alternativas
 
@@ -259,17 +257,17 @@ sem limitar a evolução em volta.
 
 ## Erros Comuns
 
-**Argumentar por obsolescência.**
+**Argumentar por obsolescência.** A proposta é rejeitada em ciclos seguidos, e a modernização acaba aprovada só quando a crise chega, com prazo imposto de fora — no Exemplo Real, foram três rejeições antes da reformulação.
 
-**Não traduzir para limitação de negócio.**
+**Não traduzir para limitação de negócio.** Quem aprova orçamento não tem como comparar a proposta com iniciativas de produto que têm retorno articulado, e escolhe estas.
 
-**Não apresentar o custo de conviver.**
+**Não apresentar o custo de conviver.** Conviver parece custar zero, e qualquer estimativa de projeto perde para zero.
 
-**Propor substituição completa por reflexo.**
+**Propor substituição completa por reflexo.** O orçamento pedido cresce com o escopo, não com o motivo — no Exemplo Real, R$ 4,2 milhões pedidos contra R$ 1,8 milhão executados quando o escopo foi reduzido ao motor de otimização.
 
-**Não registrar a decisão de não fazer.**
+**Não registrar a decisão de não fazer.** Sem registro nem data de revisão, a mesma proposta volta todo ano do zero, e ninguém reavalia quando as condições mudam.
 
-**Esconder o motivo de retenção** atrás de argumento técnico.
+**Esconder o motivo de retenção** atrás de argumento técnico. O argumento técnico é contestado no mérito e cai, levando junto o motivo real, que nunca chegou a ser discutido — e o custo de rotatividade continua sem número.
 
 ## Exemplo Real
 
@@ -299,7 +297,7 @@ custo de não modernizar    R$ 14 milhões por ano em receita não capturada,
                            mais o risco de perder a capacidade inteira
 ```
 
-Aprovada no ciclo seguinte, sem discussão.
+Aprovada nesse mesmo quarto ciclo, sem discussão.
 
 E a análise do escopo revelou que não era necessário substituir o sistema inteiro:
 

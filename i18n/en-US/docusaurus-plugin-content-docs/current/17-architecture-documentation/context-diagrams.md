@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, container-diagrams, diagram-quality]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -88,7 +88,7 @@ See [application architecture](/15-enterprise-architecture/application-architect
 
 ```text
 bad     System A → System B
-good    System A → System B: "checks credit limit, HTTPS"
+good    System A → System B: "checks credit limit"
 better  System A → System B: "checks credit limit before approving an order"
 ```
 
@@ -96,7 +96,8 @@ The relationship's label is where the information is. An unlabeled arrow says a
 dependency exists and doesn't say what is lost if it fails.
 
 And a label in terms of **purpose** — not mechanism — is what makes it comprehensible to
-non-technical readers.
+non-technical readers. The mechanism — protocol, format — belongs in the container
+diagram.
 
 ### The boundary is a decision
 
@@ -110,7 +111,7 @@ That is a valuable discovery, and it surfaces within minutes of drawing. See
 
 ### It serves conversations with the business
 
-The context is the only architecture diagram non-technical people can read completely.
+Among the C4 levels, the context is the only one non-technical people can read completely.
 
 That makes it the tool for:
 
@@ -131,14 +132,15 @@ breaks the purpose.
 It changes when: a new integration appears, a system is decommissioned, or the boundary
 changes.
 
-That is rare — a few times a year in most systems — which makes it cheap to maintain.
+That is rare — on the order of once a year in most systems — which makes it cheap to maintain.
 
 What is not cheap is maintaining it when it contains detail that doesn't belong at this
 level. That is the most common reason contexts go out of date.
 
-### It is the one diagram everyone reads
+### It is the system diagram everyone reads
 
-Among all the artifacts on this path, the context diagram has the widest reach: people in
+Among the diagrams that describe a software system, the context diagram has the widest
+reach: people in
 business, product, operations, security and engineering can read it without preparation.
 
 That changes the quality criterion. A bad container diagram inconveniences engineers; a
@@ -154,7 +156,8 @@ stays inside the boundary.
 
 ## When to Use
 
-- For every relevant system — it is the minimum documentation.
+- For every system whose integrations no longer fit in one sentence — it is the minimum
+  documentation.
 - When onboarding new people.
 - In conversations with the business.
 - To assess the impact of downtime.
@@ -162,15 +165,17 @@ stays inside the boundary.
 
 ## When Not to Use
 
-**With internal components.**
+**A system with one or two integrations.** A paragraph in the README says the same
+without a drawing tool; the diagram starts to pay for its effort when the integrations no
+longer fit in one sentence.
 
-**With systems that don't talk to it directly.**
+**A system scheduled for decommissioning in the coming months.** The question left is who
+needs to migrate, and it is answered by the consumer list checked against traffic, not by
+a drawing that will die along with the system.
 
-**With technical jargon** in the labels.
-
-**With unlabeled arrows.**
-
-**With more than a dozen boxes** — revisit the boundary.
+**When the question is only "who calls whom".** For an inventory or a dependency audit, the
+map derived from traffic is more complete and doesn't go stale; the context is only
+justified when someone needs the purpose of each relationship.
 
 ## Alternatives
 
@@ -195,8 +200,11 @@ stays inside the boundary.
 | Omits real integrations | Becomes an illegible web |
 
 The second is the hard decision at this level: an honest context usually has more boxes
-than you would like, and reducing them for aesthetics hides exactly the dependencies the
-diagram exists to reveal.
+than you would like. The tie-breaker: grouping external systems of the same type and
+purpose into one box — three payment banks become "banks" — is legitimate; omitting a
+direct dependency to hit the target is not, because it hides exactly what the diagram
+exists to reveal. If, after grouping, it still exceeds 12, the problem is the boundary, not
+aesthetics.
 
 ## Failure Modes
 
@@ -266,7 +274,8 @@ Maintenance: the diagrams are described in text in each system's repository, gen
 the pipeline, and reviewed when an integration changes. Over eighteen months, the average
 was 1.4 changes per system.
 
-The recorded lesson: the 11 unknown consumers were the highest-value discovery, and it
+The recorded lesson: the unknown consumers in 11 of the 40 systems were the highest-value
+discovery, and it
 came from an exercise the organization had considered too simple to prioritize for years.
 
 ## Related Concepts

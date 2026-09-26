@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, legacy-refactoring, strangler-fig]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -48,7 +48,9 @@ consumes support for 24 months with no result to show.
 **Scope that grows.** "Since we're rewriting it, let's take the opportunity to..." — and
 the new one's scope exceeds the old one's.
 
-None of those is avoidable through effort. They are properties of the approach.
+None of those recedes with more effort within the same approach — build everything and
+switch all at once. They recede when the approach changes: strict parity, freezing the old
+one, characterization tests, strangling. The sections below address each.
 
 ## Core Concepts
 
@@ -120,12 +122,20 @@ The two are independent. It is possible — and almost always better — to rebu
 
 That removes the most damaging property of a rewrite: value concentrated at the end.
 
-A rewrite with a single switchover is justified only when there is no possible
-interception point.
+And it introduces a cost the single switchover defers: if the reason to rebuild is a wrong
+domain model, both systems hold the same data in different models while they coexist. Each
+migrated slice requires translating data from the old model to the new, and the slices
+still in the old one have to read what the new one wrote — compatibility in both
+directions, maintained until decommissioning. See
+[data migration](/16-legacy-modernization/data-migration.md).
+
+In a large system, a rewrite with a single switchover is justified only when there is no
+possible interception point.
 
 ### The old system has to be frozen
 
-If the old one keeps receiving features during the rebuild, the new one never catches up.
+If the old one keeps receiving features during the rebuild, every change is paid for twice,
+and the new one only catches up if its team delivers faster than the old one changes.
 
 ```text
 freeze the old one   new features go to the new one, or wait
@@ -195,7 +205,7 @@ The last one deserves emphasis: systems rarely have the entire model wrong. See
 | New model | Kept |
 | Embedded knowledge lost | Preserved |
 | Value at the end | Continuous |
-| High cost | Incremental |
+| Cost concentrated before any return | Cost spread out, with a return at each step |
 | New technology | Kept |
 
 | With strangler fig | Single switchover |
@@ -221,17 +231,21 @@ expensive.
 
 ## Common Mistakes
 
-**Not assessing the alternatives.**
+**Not assessing the alternatives.** The most expensive strategy is chosen for a problem that
+refactoring or replatforming would solve.
 
-**Not imposing strict parity.**
+**Not imposing strict parity.** Each accepted improvement delays the cutover; in the example
+below, 23 of them came in during month 3.
 
-**Not freezing the old one.**
+**Not freezing the old one.** Every change to the old one is done again in the new one.
 
-**Not writing characterization tests.**
+**Not writing characterization tests.** Parity is verified by the user, after the cutover.
 
-**Rebuilding with a single switchover** in a large system.
+**Rebuilding with a single switchover** in a large system. Any single divergence brings down
+the whole cutover, and rolling back returns everything to the old one.
 
-**Rebuilding the whole system** when the wrong model is in one part.
+**Rebuilding the whole system** when the wrong model is in one part. Years of work spent
+reproducing parts that were right.
 
 ## Real-World Example
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [sequence-diagrams, container-diagrams, c4-model]
 canonical_for: [diagrama de fluxo de dados, ponto de repouso, travessia de fronteira de confiança]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -65,7 +65,7 @@ fluxos                      o movimento, rotulado com o que trafega
 fronteiras de confiança     onde o dado muda de domínio de controle
 ```
 
-A última é a que distingue este diagrama dos demais: a **fronteira de confiança** é uma
+A última é a que distingue este diagrama dos demais: a **[fronteira de confiança](/10-security/secure-boundaries.md)** é uma
 linha atravessando o desenho, e cada fluxo que a cruza é um ponto de atenção.
 
 ### Pontos de repouso importam mais que o trânsito
@@ -166,7 +166,8 @@ ninguém escolheu deliberadamente. Ver
 
 ## Quando Usar
 
-- Para dados pessoais ou regulados, sempre.
+- Para dados pessoais ou regulados que repousam em mais de um lugar, atravessam fronteira
+  de confiança ou estão sujeitos a pedido de exclusão.
 - Como entrada para modelagem de ameaças.
 - Ao definir propriedade de dado entre times.
 - Antes de responder a requisitos de privacidade.
@@ -174,15 +175,21 @@ ninguém escolheu deliberadamente. Ver
 
 ## Quando Não Usar
 
-**Para todos os dados.** Escolha os que importam.
+**Para dado sem classificação sensível e sem disputa de dono.** Telemetria de
+desempenho ou catálogo de produtos público não geram pergunta de privacidade nem de
+propriedade; o custo de levantar e manter o mapa não compra decisão nenhuma.
 
-**Como substituto de diagrama estrutural** — ele não descreve o sistema.
+**Para dado que nasce, repousa e morre num único sistema** sem cruzar fronteira de
+confiança. O diagrama de contêiner daquele sistema já responde onde ele está, e o mapa
+repete o que o estrutural mostra.
 
-**Sem marcar fronteiras de confiança** — perde o principal.
+**Quando um catálogo com linhagem já cobre os pontos de repouso.** Se a linhagem
+automatizada enumera as cópias, desenhar à mão duplica um inventário que desatualiza mais
+rápido que o original; o que falta é marcar sensibilidade e fronteira no catálogo, não um
+segundo artefato.
 
-**Sem os pontos de repouso secundários** — registros, backups, homologação.
-
-**Uma vez só.** Um mapeamento de 2023 não descreve 2026.
+**Como substituto de diagrama estrutural.** Quando a pergunta é o impacto de uma mudança
+num componente, o eixo pelo dado espalha a resposta por vários desenhos.
 
 ## Alternativas
 
@@ -226,13 +233,17 @@ distingue o que é sensível.
 
 ## Erros Comuns
 
-**Mapear só o caminho principal.**
+**Mapear só o caminho principal.** Os ramos secundários — reprocessamento, exportação,
+suporte — são onde o dado escapa, e ficam fora da lista de exclusão.
 
-**Ignorar cópias analíticas.**
+**Ignorar cópias analíticas.** O pedido de exclusão é atendido no banco operacional e o
+dado continua no armazém analítico e nos agregados derivados dele.
 
-**Não registrar retenção** em cada ponto de repouso.
+**Não registrar retenção** em cada ponto de repouso. O mapa diz onde o dado está, mas não
+por quanto tempo, e a decisão de exclusão volta a ser adivinhação.
 
-**Confundir com diagrama de sequência.**
+**Confundir com diagrama de sequência.** O resultado mostra a ordem das chamadas e omite
+os armazenamentos, e não responde à única pergunta que motivou o desenho: onde o dado está.
 
 **Não usar o resultado** — o mapeamento vira artefato de auditoria em vez de insumo de
 decisão.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, container-diagrams, diagram-quality]
 canonical_for: [diagrama de contexto, fronteira do sistema, ator externo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -87,7 +87,7 @@ Ver [arquitetura de aplicação](/15-enterprise-architecture/application-archite
 
 ```text
 ruim   Sistema A → Sistema B
-bom    Sistema A → Sistema B: "consulta limite de crédito, HTTPS"
+bom    Sistema A → Sistema B: "consulta limite de crédito"
 melhor Sistema A → Sistema B: "consulta limite de crédito antes de aprovar pedido"
 ```
 
@@ -95,7 +95,8 @@ O rótulo da relação é onde está a informação. Uma seta sem rótulo diz qu
 dependência e não diz o que se perde se ela falhar.
 
 E o rótulo em termos de **propósito** — não de mecanismo — é o que o torna compreensível
-para quem não é técnico.
+para quem não é técnico. O mecanismo — protocolo, formato — pertence ao diagrama de
+contêiner.
 
 ### A fronteira é uma decisão
 
@@ -109,7 +110,7 @@ Essa é uma descoberta valiosa, e ela aparece em minutos ao desenhar. Ver
 
 ### Ele serve a conversas com o negócio
 
-O contexto é o único diagrama de arquitetura que pessoas não técnicas conseguem ler
+Entre os níveis do C4, o contexto é o único que pessoas não técnicas conseguem ler
 completamente.
 
 Isso o torna a ferramenta para:
@@ -131,15 +132,16 @@ propósito.
 Ele muda quando: uma integração nova aparece, um sistema é desativado, ou a fronteira
 muda.
 
-Isso é raro — algumas vezes por ano na maioria dos sistemas —, o que o torna barato de
+Isso é raro — da ordem de uma vez por ano na maioria dos sistemas —, o que o torna barato de
 manter.
 
 O que não é barato é mantê-lo quando ele contém detalhe que não pertence ao nível. Essa
 é a razão mais comum de contextos desatualizados.
 
-### Ele é o único diagrama que todos leem
+### Ele é o diagrama de sistema que todos leem
 
-Entre todos os artefatos deste percurso, o de contexto é o de maior alcance: pessoas de
+Entre os diagramas que descrevem um sistema de software, o de contexto é o de maior
+alcance: pessoas de
 negócio, produto, operação, segurança e engenharia conseguem lê-lo sem preparação.
 
 Isso muda o critério de qualidade. Um diagrama de contêiner ruim atrapalha engenheiros; um
@@ -155,7 +157,8 @@ dentro da fronteira.
 
 ## Quando Usar
 
-- Para todo sistema relevante — é o mínimo de documentação.
+- Para todo sistema cujas integrações já não cabem numa frase — é o mínimo de
+  documentação.
 - Ao integrar pessoas novas.
 - Em conversas com o negócio.
 - Para avaliar impacto de indisponibilidade.
@@ -163,15 +166,17 @@ dentro da fronteira.
 
 ## Quando Não Usar
 
-**Com componentes internos.**
+**Sistema com uma ou duas integrações.** Um parágrafo no README diz o mesmo sem
+ferramenta de desenho; o diagrama passa a pagar o esforço quando as integrações deixam de
+caber numa frase.
 
-**Com sistemas que não conversam diretamente.**
+**Sistema com desativação marcada para os próximos meses.** A pergunta que resta é quem
+precisa migrar, e ela se responde com a lista de consumidores verificada no tráfego, não
+com um desenho que vai morrer junto com o sistema.
 
-**Com jargão técnico** nos rótulos.
-
-**Com setas sem rótulo.**
-
-**Com mais de uma dúzia de caixas** — revise a fronteira.
+**Quando a pergunta é só "quem chama quem".** Para um inventário ou uma auditoria de
+dependências, o mapa derivado do tráfego é mais completo e não desatualiza; o contexto só
+se justifica quando alguém precisa do propósito de cada relação.
 
 ## Alternativas
 
@@ -196,8 +201,11 @@ dentro da fronteira.
 | Omite integrações reais | Vira teia ilegível |
 
 O segundo é a decisão difícil deste nível: um contexto honesto costuma ter mais caixas do
-que se gostaria, e reduzi-las por estética esconde exatamente as dependências que o
-diagrama existe para revelar.
+que se gostaria. O critério de desempate: agrupar sistemas externos do mesmo tipo e
+propósito numa caixa — três bancos pagadores viram "bancos" — é legítimo; omitir uma
+dependência direta para caber no alvo não é, porque esconde exatamente o que o diagrama
+existe para revelar. Se, depois de agrupar, ainda passa de 12, o problema é de fronteira,
+não de estética.
 
 ## Modos de Falha
 
@@ -267,8 +275,8 @@ Manutenção: os diagramas são descritos em texto no repositório de cada siste
 esteira, e revisados quando uma integração muda. Em dezoito meses, a média foi de 1,4
 alteração por sistema.
 
-A lição registrada: os 11 consumidores desconhecidos foram a descoberta de maior
-valor, e ela veio de um exercício que a organização tinha considerado simples demais para
+A lição registrada: os consumidores desconhecidos em 11 dos 40 sistemas foram a
+descoberta de maior valor, e ela veio de um exercício que a organização tinha considerado simples demais para
 priorizar durante anos.
 
 ## Conceitos Relacionados

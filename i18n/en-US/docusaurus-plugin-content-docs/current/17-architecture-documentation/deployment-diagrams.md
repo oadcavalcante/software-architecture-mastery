@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, c4-model, living-documentation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -130,12 +130,15 @@ The topology changes frequently, and there is a particularity: in modern environ
 topology is **already declared** in infrastructure code.
 
 That changes the maintenance equation. A hand-drawn diagram will diverge from what the
-infrastructure code declares; a diagram derived from it cannot diverge.
+infrastructure code declares; a diagram derived from it does not diverge from what was
+declared. But it inherits drift: if someone changed something in the console, the code —
+and the diagram generated from it — shows a topology that no longer exists. Only a diagram
+generated from the real state shows what exists.
 
 See [infrastructure as code](/14-devops-and-platform/infrastructure-as-code.md) and
 [living documentation](/17-architecture-documentation/living-documentation.md).
 
-### Cost appears here and nowhere else
+### It is the diagram where cost and topology appear together
 
 The deployment diagram is the only one that exposes multiplicity: six instances, three
 replicas, two mirrored environments. And multiplicity is what the invoice measures.
@@ -171,22 +174,29 @@ during an incident.
 
 ## When Not to Use
 
-**Mixing environments** in a single diagram.
+**For non-production environments.** Staging and development change shape without notice,
+and rarely does anyone ask about their blast radius; maintenance costs more than the
+questions the diagram would answer.
 
 **For single-instance systems** with no availability requirement.
 
-**With volatile detail** — instance names, addresses, versions change every week.
+**On a managed platform with no control over zones or instances** — serverless functions,
+a PaaS that chooses where things run. The topology is the provider's decision; the diagram
+has nothing to show beyond a single box.
 
-**Maintained by hand** when the infrastructure is declared in code.
+**When a tool already generates the topology from the real state** and the team consults
+it. Drawing another one on top creates a second source, which diverges from the first.
 
 **As a substitute** for the container diagram: it answers "where it runs", not "what it
 does".
 
 ## Alternatives
 
-- **Infrastructure code** — it is the source of truth; the diagram is the visualization.
+- **Infrastructure code** — it is the source of truth for what was declared; manual changes
+  in the console pull it away from what exists.
 - **The provider's console** — always current, and with no intent or grouping.
-- **A diagram generated from the real state** — the most reliable option.
+- **A diagram generated from the real state** — the only one that shows what exists,
+  including drift from the code.
 - **The container diagram** — when the question is logical.
 
 ## Trade-offs
@@ -201,8 +211,8 @@ does".
 | Drawn | Derived from state |
 |---|---|
 | Shows the intent | Shows the real thing |
-| Diverges | Cannot diverge |
-| Legible grouping | Automatic |
+| Diverges | Does not diverge from the source it is generated from |
+| Grouping by intent | Grouping by what the tool infers |
 
 ## Failure Modes
 
@@ -218,15 +228,19 @@ does".
 
 ## Common Mistakes
 
-**Not showing the instance count.**
+**Not showing the instance count** — without the count, three instances in the same zone
+become one box, and the illusory redundancy disappears from the drawing.
 
 **Omitting zones and regions** — which is precisely what answers the blast radius.
 
-**Not marking network boundaries.**
+**Not marking network boundaries** — the diagram stops serving as input for threat
+modeling, which needs to know what is exposed.
 
-**Drawing by hand what the infrastructure already declares.**
+**Drawing by hand what the infrastructure already declares** — the first change to the code
+creates two versions of the topology, and no one knows which one holds.
 
-**Not dating it.**
+**Not dating it** — whoever opens the diagram during an incident cannot tell whether it
+predates the last migration.
 
 ## Real-World Example
 
@@ -269,8 +283,10 @@ a single subnet in a critical system fails the check. See
 **An annual review** of the correspondence between the availability requirement and the
 real topology.
 
-Both systems were fixed within three months. And eight months later there was a real zone
-failure, lasting four hours: all twelve systems kept operating.
+Both systems were fixed within three months; the others with a cross-zone gap — no real
+redundancy, a replica in the primary's zone, or the cache as a single point of failure —
+over the following six months. Two months later there was a real zone failure, lasting four
+hours: all twelve systems kept operating.
 
 The lesson that stuck: the missing information was neither hard nor expensive. It was
 available in the provider's console the whole time. What was missing was someone looking

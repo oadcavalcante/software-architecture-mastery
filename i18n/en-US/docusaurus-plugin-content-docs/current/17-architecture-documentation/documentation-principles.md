@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-documentation]
 related: [living-documentation, architecture-views, diagram-quality]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -164,7 +164,7 @@ visible and one-off, and a maintenance cost, which is invisible and recurring.
 
 ```text
 write          hours, once
-maintain       minutes, many times, forever
+maintain       minutes, many times, for as long as the document exists
 don't maintain cost transferred to whoever reads it and gets it wrong
 ```
 
@@ -189,9 +189,9 @@ what only human writing captures.
 
 ## When Not to Use
 
-**When nobody will own the maintenance of the detail you are about to write.** Every level
-of detail creates a recurring obligation, and detail with no owner is what goes stale first —
-and fastest, because it is what changes most.
+**When the detail you are about to write changes faster than the review cycle.** Every level
+of detail creates a recurring obligation, and fine detail is what goes stale first — because
+it is what changes most. There the path is to derive it, not write it.
 
 **When the knowledge has not been discovered yet.** On-demand documentation has a limit: it
 only records what someone has already asked. For what is discovered late — the reason behind
@@ -224,7 +224,7 @@ document.
 |---|---|
 | Covers more cases | Only the essential |
 | High maintenance cost | Low |
-| Ages as a whole | Sustainable |
+| Ages as a whole | Ages in parts that can be reviewed |
 | Hard to find the relevant part | Direct |
 
 | Preventive | On demand |
@@ -301,7 +301,7 @@ infrastructure. See
 **Documentation on demand** as the rule: recurring questions become documents; one-off
 questions become answers.
 
-Eighteen months later:
+Eighteen months later, with access measured on the portal published from the repositories:
 
 ```text
 documents maintained                          78 (40 survivors, 38 written in the overhaul)

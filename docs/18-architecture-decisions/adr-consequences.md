@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, superseding-decisions]
 canonical_for: [consequência de decisão, custo aceito, sinal de alerta de decisão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -109,7 +109,8 @@ premissa de reuso não se confirmou."
 ```
 
 Isso transforma a decisão em algo com **teste**. Sem esse sinal, uma decisão errada
-permanece indefinidamente, porque ninguém definiu o que contaria como evidência contrária.
+tende a permanecer até que um incidente force a revisão — tarde, e sem critério, porque
+ninguém definiu antes o que contaria como evidência contrária.
 
 E o sinal costuma ser diretamente instrumentável. Ver
 [observabilidade](/13-observability/index.md).
@@ -149,12 +150,14 @@ vier depois sobre o custo real de mudar de ideia. Ver
 
 Alguns times acrescentam, meses depois, uma subseção com o que efetivamente aconteceu.
 
-Isso tensiona a imutabilidade do ADR e, feito com cuidado, é o registro mais valioso do
-conjunto: a comparação entre o previsto e o observado é o que calibra o julgamento da
-equipe.
+Isso parece tensionar a [imutabilidade do registro](/18-architecture-decisions/adr-status.md)
+e, feito com cuidado, é o registro mais valioso do conjunto: a comparação entre o previsto e
+o observado é o que calibra o julgamento da equipe.
 
-A forma que preserva a imutabilidade: um bloco datado e claramente marcado como
-posterior, sem alterar o texto original.
+A forma que respeita a regra: um bloco datado e claramente marcado como posterior, que
+**acrescenta** observação sem alterar uma linha do texto original nem o raciocínio da
+decisão. Se o observado muda o que se decidiria, isso não cabe no bloco — é decisão nova,
+com ADR próprio.
 
 ### Consequências para quem não está na sala
 
@@ -186,15 +189,20 @@ fora da equipe que decidia.
 
 ## Quando Não Usar
 
-**Só com positivas.**
+**Sinal de alerta numérico quando a premissa não é mensurável.** "O time vai preferir
+este modelo" não tem limiar honesto; inventar um ("se a satisfação cair 10%") produz um
+alarme que ninguém sabe ler. Nesses casos, registre a premissa em prosa e a data em que
+ela será reavaliada.
 
-**Com adjetivos** em vez de números.
+**Sinal com horizonte maior que a vida útil do sistema.** Um critério que só se verifica
+em três anos, num sistema com desativação prevista em dezoito meses, nunca dispara.
 
-**Genéricas** — "aumenta a complexidade" serve a qualquer decisão.
+**Bloco de revisão a 12 meses em decisão barata de reverter.** Se desfazer a decisão custa
+um dia, a revisão formal custa mais que o erro; o próprio uso já dá o sinal.
 
-**Sem horizonte de tempo**, quando custo e benefício ocorrem em momentos diferentes.
-
-**Sem o que fica mais difícil de mudar**, em decisões custosas de reverter.
+**Repetir negativas já registradas em ADR anterior.** Quando a decisão aplica a um caso
+novo uma escolha já tomada — mais um consumidor da mesma fila —, os custos estruturais
+estão no ADR original; registre só os que este caso acrescenta e linke o resto.
 
 ## Alternativas
 
@@ -274,9 +282,15 @@ esquemas de evento viraram contratos públicos, difíceis de alterar
 custo de infraestrutura 4× a estimativa inicial
 ```
 
-O problema não foi a decisão — o barramento resolveu problemas reais. Foi que **nada tinha
-sido registrado como custo aceito**, então cada custo apareceu como falha, gerando pressão
-para reverter uma decisão que continuava correta.
+Dois problemas diferentes se misturaram. O primeiro: parte do que apareceu era custo
+inerente à escolha — a equipe de três, o ferramental, os esquemas como contrato público — e,
+como **nada tinha sido registrado como custo aceito**, cada custo apareceu como falha,
+gerando pressão para reverter inclusive o que funcionava, como a escalabilidade.
+
+O segundo: reuso, resiliência e evolução independente eram benefícios previstos que não se
+realizaram. Registrar custo não resolveria isso; um sinal de alerta — "se em 12 meses menos
+de cinco tipos de evento forem reusados" — teria exposto a premissa falha um ano antes do
+pico de incidentes.
 
 O que mudou na prática de ADRs:
 
@@ -300,8 +314,10 @@ custos previstos que se confirmaram            91%
 custos não previstos que apareceram            1,8 por ADR em média
 ```
 
-A equipe passou a usar esses números como calibração: benefícios previstos são otimistas,
-custos previstos são conservadores, e sempre há custos não previstos.
+A equipe passou a usar esses números como calibração: um terço dos benefícios previstos
+não se confirma; os custos previstos quase sempre aparecem, mas a taxa não diz nada sobre a
+magnitude — o barramento custou 4× a estimativa —; e cada ADR deve contar, em média, com
+quase dois custos que ninguém nomeou.
 
 Na retrospectiva: os blocos de revisão a 12 meses foram o artefato mais lido do
 conjunto — mais que os próprios ADRs. Eles ensinam algo que nenhum ADR isolado ensina.

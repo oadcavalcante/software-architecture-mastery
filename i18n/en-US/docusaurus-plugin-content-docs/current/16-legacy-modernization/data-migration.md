@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [strangler-fig, migration-strategies, modernization-risk]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -67,8 +67,9 @@ impossible dates, negative values where they shouldn't be
 That survey — profiling — is usually done after the migration fails. Done beforehand, it
 turns surprises into planned decisions.
 
-And its result is always uncomfortable: old systems accumulate data that violates the
-rules the system supposedly enforced, because the rules were added later.
+In a system with years of operation, its result is uncomfortable: old systems accumulate
+data that violates the rules the system supposedly enforced, because the rules were added
+later and never applied to what already existed.
 
 ### The data that doesn't fit needs a business decision
 
@@ -128,8 +129,10 @@ See [idempotency](/06-distributed-systems/idempotency.md).
 Repeatability makes rehearsal possible: run the complete migration in a test environment,
 verify, fix, repeat — until the real execution is routine, not an event.
 
-Teams that rehearse the migration five times before the real one have a qualitatively
-different success rate from those who run it once.
+Each rehearsal measures the duration at real volume and exposes transformation defects
+that verification catches. In the example below, the first rehearsal took 41 hours against
+a 36-hour window; only after the adjustments the later rehearsals validated did the run
+fit in it.
 
 ### The cutover has to be reversible
 
@@ -143,6 +146,16 @@ after                the old one stays consistent for a period, for rollback
 
 Keeping the old one updated after the cutover — by reverse replication — is what makes
 going back possible. Without that, the cutover is irreversible from the first new write.
+
+Reverse replication has a cost of its own. It requires an inverse transformation, from the
+new model to the old one, which loses information when the new model is richer: the
+structured address goes back as free text, the field extracted from the notes has nowhere
+to go. And it is a second pipeline, with its own monitoring and reconciliation for the
+whole rollback period — divergence between the two sides becomes a failure mode to watch.
+When the inverse transformation loses more than the business accepts, the way out is to
+shrink what has to go back, cutting over by slice so rollback covers only the affected
+slice, or to declare the cutover irreversible and compensate before it, with more
+rehearsals and a longer period of parallel validation.
 
 And the reversibility period has to be long enough for problems to appear: some only
 manifest at month-end close.
@@ -189,17 +202,17 @@ whenever:
 
 ## When Not to Use
 
-**Without prior profiling.** The data that doesn't fit shows up in the cutover window, when there is no time to decide what to do with it.
+The full apparatus — profiling, timed rehearsals, multi-level verification, reverse replication — is disproportionate when:
 
-**Deciding the fate of inconsistent data during the window.** Those are business decisions made at three in the morning by people with no authority to make them.
+**The volume fits a manual check.** A few hundred records can be checked by one person in hours; rehearsing and building automated verification costs more than the error it would prevent.
 
-**Without rehearsing.** The real duration is only known by measuring with real volume; without that, the agreed window is a guess.
+**The data can be rebuilt from its source.** Cache, search index, read projection, derived table: if the load comes out wrong, it is regenerated from the system of record. Rollback and multi-level verification protect data that has no other copy.
 
-**With verification by count only.** Swapped content with a matching count goes unnoticed, and the error is discovered by the customer.
+**The target schema is the same as the source.** In a database version upgrade with native replication, there is no transformation and no data that stops fitting; count and sum, insufficient when there is transformation, cover the remaining risk.
 
-**Without a rollback plan.** Without keeping the old system consistent, the cutover is irreversible — and the decision to press on gets made under pressure, with no alternative.
+**There is no cutover.** In coexistence without migration and in on-demand migration (see Alternatives), the new system never takes over the whole dataset at one moment: there is no window to rehearse and no cutover to roll back. What remains of this document is profiling and the decision about the data that doesn't fit, applied record by record.
 
-**Without an explicit decision about history.** Migrating everything costs an order of magnitude more and frequently wasn't necessary.
+**The data sustains neither operations nor an obligation.** Debug logs, drafts, test data: starting empty is legitimate, and the business decision it requires takes minutes.
 
 ## Alternatives
 
@@ -222,7 +235,7 @@ accessed, and migrating it is wasted work.
 
 | Single cutover | Incremental |
 |---|---|
-| Simple to reason about | Prolonged coexistence |
+| A single transition state | Two systems coexisting for months, with routing by slice |
 | Concentrated risk window | Distributed |
 | Rollback of everything | Per slice |
 
@@ -244,7 +257,7 @@ accessed, and migrating it is wasted work.
 
 ## Common Mistakes
 
-**Not profiling beforehand.** Real data always has values the new model doesn't accept — nulls where a field is mandatory, duplicates where there is uniqueness, free-form formats. Discovering that in the cutover window is what blows the deadline.
+**Not profiling beforehand.** In systems with years of operation, real data has values the new model doesn't accept — nulls where a field is mandatory, duplicates where there is uniqueness, free-form formats. Discovering that in the cutover window is what blows the deadline.
 
 **Underestimating the data that doesn't fit.** The exceptional case is usually 2% of the volume and 60% of the effort, and every decision about it is a business one, not a technical one.
 
@@ -254,7 +267,7 @@ accessed, and migrating it is wasted work.
 
 **Not keeping the old one updated after the cutover.** Without that, rollback ceases to exist: going back would mean losing everything done after the cutover.
 
-**Not deciding about history.** Migrating ten years or two changes the effort by an order of magnitude, and it is a business decision — usually made by omission by engineering.
+**Not deciding about history.** Migrating ten years or two doesn't change only the volume: old history spans more rule versions and concentrates more out-of-domain data, so the effort grows faster than the number of years. It is a business decision — usually made by omission by engineering.
 
 ## Real-World Example
 

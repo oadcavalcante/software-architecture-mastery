@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-systems]
 related: [legacy-systems, incremental-modernization, rebuilding]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -132,8 +132,11 @@ protection.
 
 ### Mechanical changes first
 
-Refactorings the tool performs — rename, extract method, move — are safe even without
-tests, because the tool guarantees equivalence.
+Refactorings the tool performs — rename, extract method, move — are low risk even without
+tests, in a statically typed language: the tool preserves the references the compiler can
+see. It does not see a name used through reflection, inside a string (SQL, serialization,
+configuration, injection by name) or across an external boundary — and in legacy code that
+coupling by name is common. Before renaming or moving, search for the name as text.
 
 Using them to make the code comprehensible **before** any behavior change is a cheap
 path:
@@ -144,7 +147,7 @@ name the variable that was 'tmp2'
 extract the complex condition into a named method
 ```
 
-Each one makes the code more readable with no risk, and the resulting understanding is
+Each one makes the code more readable at low risk, and the resulting understanding is
 what makes it possible to decide what to do.
 
 ### When to stop
@@ -181,13 +184,16 @@ after.
 not exist in that form. See
 [rebuilding](/16-legacy-modernization/rebuilding.md).
 
-**Without characterization tests**, in code with no coverage.
+**When the module will not change.** Refactoring pays off in the changes that follow; in
+a module with no change ahead, the cost of characterization has nowhere to be recovered.
 
-**Refactoring the whole system** instead of what you are about to touch.
+**When the system will be discontinued before the investment pays off.** If
+characterization costs a week and the module gets two changes before it is shut down, the
+risky shortcut is cheaper than the net.
 
-**Chasing the ideal** in a working session.
-
-**When the system will be discontinued** soon.
+**When the behavior is not deterministically observable.** Output that depends on
+concurrency, arrival order or external state that cannot be pinned down cannot be frozen in
+a characterization test — with no viable net, containment is usually the way out.
 
 ## Alternatives
 
@@ -205,7 +211,7 @@ not exist in that form. See
 | Preserves embedded knowledge | Loses it |
 | Incremental, continuous value | Value at the end |
 | Model kept | New |
-| Low risk | High |
+| Low risk, with characterization | High |
 | Doesn't fix a wrong model | Fixes it |
 
 | Characterize first | Change directly |
@@ -231,17 +237,25 @@ legitimate change.
 
 ## Common Mistakes
 
-**Changing before characterizing.**
+**Changing before characterizing.** The accidental behavior change only shows up in
+production, and without tests there is no way to tell which change caused it.
 
-**Trying to understand everything before starting.**
+**Trying to understand everything before starting.** The change is postponed for weeks, and
+the understanding goes stale before it is used — the code keeps changing while it is being
+studied.
 
-**Refactoring the whole system.**
+**Refactoring the whole system.** The effort becomes a project, competes with product work
+for budget and is often interrupted halfway, leaving two structures side by side.
 
-**Not using mechanical refactorings** to make the code readable first.
+**Not using mechanical refactorings** to make the code readable first. The behavior change
+is made on code that is not yet understood, and the defect lands precisely in the misread
+section.
 
-**Not limiting the session's scope.**
+**Not limiting the session's scope.** Review becomes impossible and the change that
+motivated the work is delayed.
 
-**Characterizing implementation detail** instead of observable behavior.
+**Characterizing implementation detail** instead of observable behavior. The tests break on
+every legitimate refactoring, and the team starts switching them off.
 
 ## Real-World Example
 

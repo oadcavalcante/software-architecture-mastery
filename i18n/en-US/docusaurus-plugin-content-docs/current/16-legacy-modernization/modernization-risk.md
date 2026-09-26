@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [organizational-constraints, data-migration, incremental-modernization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -63,8 +63,9 @@ a business rule lost             → characterization tests
 a regulatory obligation breached → explicit requirement mapping
 ```
 
-See [data migration](/16-legacy-modernization/data-migration.md) and
-[legacy systems](/16-legacy-modernization/legacy-systems.md).
+See [data migration](/16-legacy-modernization/data-migration.md),
+[legacy systems](/16-legacy-modernization/legacy-systems.md) and, for characterization
+tests, [legacy refactoring](/16-legacy-modernization/legacy-refactoring.md).
 
 ### The characteristic technical risks
 
@@ -92,7 +93,8 @@ permanent coexistence    completion criterion and shutdown date
 estimate as a promise    a range, not a point; re-estimate per slice
 ```
 
-The first is the most predictable: every modernization receives improvement requests, and
+The first is the most predictable: while the system stays in use during the
+modernization, its users see the rewrite as the chance to ask for improvements, and
 accepting them is the path of least resistance.
 
 ### The organizational risks
@@ -123,8 +125,9 @@ rehearsal                  the cutover operation is repeated beforehand
 suspension period          off, recoverable, before discarding
 ```
 
-The first is the most valuable and the least used: making the new one process real
-traffic, with no effect, and comparing. See
+The first is the only one that produces evidence with real traffic, and it is often
+skipped because it requires suppressing the new one's external effects: making it process
+real traffic, with no effect, and comparing. See
 [deployment strategies](/14-devops-and-platform/deployment-strategies.md).
 
 It turns "we believe it is equivalent" into evidence.
@@ -202,17 +205,25 @@ back, and deserves disproportionate control.
 
 ## When Not to Use
 
-**A generic register**, with no associated control.
+A risk register applies to any modernization; the mistake is applying the heavy set of
+controls where it buys no risk reduction.
 
-**Without separating reversible from irreversible.**
+**A fully reversible slice with no migrated data.** If going back means switching a route
+and no data has moved, a long parallel run and a suspension period cost more than the risk
+they cover — reversal is the control.
 
-**Without recording the risk of not doing it.**
+**A system with no periodic process longer than the parallel run.** If the inventory shows
+the longest cycle is weekly, keeping the old one for a year exercises nothing that two
+months had not already exercised.
 
-**Shutting the old one down before a complete cycle.**
+**Operations with external effects that cannot be suppressed.** Comparison in production
+assumes the new one processes with no effect; if it sends payments, notifications or
+messages to third parties with no simulation mode, the parallel run duplicates the effect,
+and verification shifts to replaying history rather than live traffic.
 
-**Relying on sample verification** for critical data.
-
-**Ignoring the organizational risks** for being "outside the technical scope".
+**A low-impact system with little remaining life.** When both the old and the new will be
+replaced within a few months, disproportionate control for a small irreversible risk is
+ceremony.
 
 ## Alternatives
 
@@ -300,8 +311,8 @@ exercised every cycle — monthly, quarterly, annual.
 For the following program, that meant keeping the old one for 14 months instead of 2. The
 cost was accepted.
 
-**An inventory of periodic processes.** An explicit survey of everything that runs at a
-frequency longer than monthly, with a date and an owner.
+**An inventory of periodic processes.** An explicit survey of everything that runs on a
+cycle longer than monthly — quarterly, annual —, with a date and an owner.
 
 That survey, done retroactively, found four more annual processes in other systems that
 nobody had mapped.
@@ -335,7 +346,7 @@ gamble.
 ## Interview Questions
 
 - How do you separate reversible from irreversible risk?
-- Why is comparison in production the most valuable control?
+- What evidence does comparison in production produce that pre-production tests do not?
 - Why does the complete cycle have to be exercised before shutting down?
 
 ## Further Reading

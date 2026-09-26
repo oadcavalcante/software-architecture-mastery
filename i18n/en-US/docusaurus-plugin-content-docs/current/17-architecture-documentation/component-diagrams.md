@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [c4-model, container-diagrams, living-documentation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -111,7 +111,8 @@ code solves the half-life problem:
 
 ```text
 a tool reads the code, extracts the structure, produces the diagram
-the diagram is never wrong
+the diagram reflects the static structure of the code at the moment it is generated
+it does not go stale through neglect, but it does not show bindings resolved at runtime
 the layout is automatic and sometimes bad
 it only shows what exists, not what is intended
 ```
@@ -133,8 +134,10 @@ names that say what the thing does
 a short README per container with the map in text
 ```
 
-A well-named folder structure answers "where do I touch" with no diagram at all, and never
-goes out of date, because it is the code itself.
+A well-named folder structure answers "where do I touch" with no diagram at all, and goes
+out of date far more slowly, because renaming is part of the refactoring itself. The README
+has no such guarantee: it is text, and it stays right only if it is reviewed alongside every
+structural change.
 
 See [modular design](/02-software-design/modular-design.md).
 
@@ -178,17 +181,19 @@ generate it when you need permanence, and prefer well-organized code to both.
 
 **Maintained by hand, in code that changes every week.**
 
-**When the folder structure already answers it.**
+**When the folder structure already answers it** — that is, when a newcomer finds the
+right component by the directory name, without asking anyone.
 
 **With classes as boxes** — that would be the fourth level, and it is rarely worth it.
 
-**With nobody responsible for updating it.**
+**With nobody responsible for updating it** — if the question "who touches this diagram
+when the code changes?" has no name as its answer, it will not be touched.
 
 ## Alternatives
 
 - **A well-named directory structure** — an answer with no maintenance cost.
 - **A README per container** — the map in text, easier to maintain.
-- **A generated diagram** — always current.
+- **A generated diagram** — current as long as generation runs in the build or CI.
 - **Nothing** — for small containers, reading the code is faster.
 
 The last is legitimate more often than people admit: a container of 15 files doesn't need
@@ -199,8 +204,8 @@ a diagram.
 | Drawn | Generated |
 |---|---|
 | Expresses intent | Shows what exists |
-| Goes out of date | Always current |
-| Good layout | Automatic |
+| Goes out of date | Current while regenerated in the pipeline |
+| Curated layout | Layout sometimes bad |
 | Continuous cost | Up-front cost |
 
 | Diagram | Folder structure |
@@ -252,7 +257,7 @@ the behavior was in another component — moved in a refactoring months earlier.
 
 The policy revision:
 
-**Component level removed by default.** The 22 diagrams were archived.
+**Component level removed by default.** The 22 hand-drawn diagrams were archived.
 
 **Four exceptions kept**, all in large containers with frequent onboarding — and all
 converted to automatic generation from the code.
@@ -263,8 +268,8 @@ container's own repository, reviewed alongside structural changes.
 **Decision diagrams** moved into the ADRs, dated and explicitly not maintained — with a
 line in the header: "snapshot of the structure as of 2026-03; not updated".
 
-The result, measured over the following year: structural documentation shrank from 50 to
-32 artifacts, the share of correct items rose from 58% to 91%, and no incident was made
+The result, measured over the following year: the set of structural diagrams shrank from 50
+to 32 (plus the READMEs, one per container, that took the place of the other 18), the share of correct items rose from 58% to 91%, and no incident was made
 worse by wrong documentation.
 
 An unforeseen effect: while writing the READMEs, three teams discovered they could not

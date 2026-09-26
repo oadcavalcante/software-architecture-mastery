@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-decision, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -110,7 +110,8 @@ reuse premise was not confirmed."
 ```
 
 That turns the decision into something with a **test**. Without that signal, a wrong
-decision stays indefinitely, because nobody defined what would count as contrary evidence.
+decision tends to stay until an incident forces a review — late, and without criteria,
+because nobody defined in advance what would count as contrary evidence.
 
 And the signal is usually directly instrumentable. See
 [observability](/13-observability/index.md).
@@ -149,12 +150,14 @@ whoever comes later the real cost of changing their mind. See
 
 Some teams add, months later, a subsection with what actually happened.
 
-That puts pressure on the ADR's immutability and, done carefully, is the most valuable
-record in the set: comparing what was predicted with what was observed is what calibrates
-the team's judgment.
+That seems to put pressure on the [record's immutability](/18-architecture-decisions/adr-status.md)
+and, done carefully, is the most valuable record in the set: comparing what was predicted
+with what was observed is what calibrates the team's judgment.
 
-The form that preserves immutability: a dated block, clearly marked as later, without
-altering the original text.
+The form that respects the rule: a dated block, clearly marked as later, that **adds**
+observation without altering a line of the original text or the decision's reasoning. If
+what was observed changes what one would decide, it does not belong in the block — it is a
+new decision, with its own ADR.
 
 ### Consequences for people who aren't in the room
 
@@ -186,15 +189,22 @@ marketing.
 
 ## When Not to Use
 
-**With positives only.**
+**A numeric warning signal when the premise is not measurable.** "The team will prefer
+this model" has no honest threshold; inventing one ("if satisfaction drops 10%") produces
+an alarm nobody knows how to read. In those cases, record the premise in prose and the
+date on which it will be reassessed.
 
-**With adjectives** instead of numbers.
+**A signal with a horizon longer than the system's lifetime.** A criterion that can only be
+checked in three years, on a system scheduled for decommissioning in eighteen months,
+never fires.
 
-**Generic** — "increases complexity" serves any decision.
+**A 12-month review block for a decision that is cheap to reverse.** If undoing the
+decision costs a day, the formal review costs more than the mistake; usage itself gives
+the signal.
 
-**With no time horizon**, when cost and benefit occur at different moments.
-
-**Without what becomes harder to change**, in decisions that are expensive to reverse.
+**Repeating negatives already recorded in an earlier ADR.** When the decision applies an
+existing choice to a new case — one more consumer of the same queue —, the structural costs
+are in the original ADR; record only the ones this case adds and link the rest.
 
 ## Alternatives
 
@@ -274,9 +284,15 @@ event schemas became public contracts, hard to change
 infrastructure cost 4× the initial estimate
 ```
 
-The problem was not the decision — the bus solved real problems. It was that **nothing had
-been recorded as accepted cost**, so every cost appeared as a failure, generating pressure
-to reverse a decision that remained correct.
+Two different problems got mixed up. The first: part of what showed up was cost inherent
+to the choice — the team of three, the tooling, the schemas as public contracts — and,
+since **nothing had been recorded as accepted cost**, every cost appeared as a failure,
+generating pressure to reverse even what worked, such as scalability.
+
+The second: reuse, resilience and independent evolution were predicted benefits that did
+not materialize. Recording cost would not have solved that; a warning signal — "if in 12
+months fewer than five event types are reused" — would have exposed the failed premise a
+year before the incident peak.
 
 What changed in the ADR practice:
 
@@ -299,8 +315,10 @@ predicted costs that were confirmed           91%
 unpredicted costs that appeared               1.8 per ADR on average
 ```
 
-The team started using those numbers as calibration: predicted benefits are optimistic,
-predicted costs are conservative, and there are always unpredicted costs.
+The team started using those numbers as calibration: a third of predicted benefits are
+not confirmed; predicted costs almost always show up, but the rate says nothing about
+magnitude — the bus cost 4× the estimate —; and each ADR should expect, on average, almost
+two costs nobody named.
 
 In the retrospective: the 12-month review blocks were the most read artifact in the set —
 more than the ADRs themselves. They teach something no individual ADR teaches.

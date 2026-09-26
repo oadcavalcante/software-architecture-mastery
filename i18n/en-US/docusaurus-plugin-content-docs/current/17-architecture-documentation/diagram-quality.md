@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [c4-model, documentation-principles, living-documentation]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -84,7 +84,7 @@ consistency.
 
 A small set of conventions, documented once and reused, is what makes diagrams comparable.
 
-### Labels on arrows, always
+### Labels on arrows
 
 An unlabeled arrow communicates that a relationship exists and nothing about it.
 
@@ -192,20 +192,23 @@ These practices apply to any diagram meant to be read later. Priority when:
 
 ## When Not to Use
 
-**With no legend**, when there is more than one shape or color.
+**A disposable sketch.** A whiteboard draft erased in the same session has its author
+present to narrate, and nobody will read it later. Header, legend and date cost minutes
+that never pay back, because the absent reader — the reason they exist — never shows up.
+The criterion is where it ends up: if a photo of the whiteboard lands on a page, it has
+stopped being disposable.
 
-**With different notation** in every document.
+**Notation already fixed by the tool.** A generated diagram whose notation comes from the
+tool, with its own legend, needs no hand-made legend; the copy duplicates the information
+and drifts from it at the tool's first update.
 
-**With unlabeled arrows.**
+**One shape and one kind of arrow.** In a sequence diagram with no visual distinction at
+all, the legend has nothing to explain. The rule is about distinctions: with none, there is
+nothing to declare.
 
-**With no date.**
-
-**With more than twenty boxes.**
-
-**With detail that ages fast.**
-
-And there is a legitimate exception: a disposable sketch, made for a conversation, needs
-none of this. It does its job and is erased.
+The cost of these practices exceeds the gain when the diagram does not outlive the
+conversation that prompted it. As long as someone who wasn't there will read it, the cost
+is small next to the questions it prevents.
 
 ## Alternatives
 
@@ -229,7 +232,7 @@ thirty arrows.
 | Hand-drawn | Generated |
 |---|---|
 | Controlled layout | Automatic |
-| Ages | Always current |
+| Ages | Current as of the last generation |
 | Expresses emphasis | Uniform |
 
 ## Failure Modes
@@ -256,7 +259,7 @@ thirty arrows.
 
 **Unlabeled arrows.** "A points at B" doesn't say whether it is a synchronous call, an event or a database read, which is exactly what changes the understanding.
 
-**Squeezing the entire system into one diagram.** Past a dozen elements, nobody follows. Several diagrams at different levels communicate more than one comprehensive one.
+**Squeezing the entire system into one diagram.** Past a dozen elements reading gets hard, and past twenty the reader can no longer hold the whole. Several diagrams at different levels communicate more than one comprehensive one.
 
 **Not dating it.** With no date, the reader doesn't know whether they are seeing today's system or one from three years ago — and assumes it is today's.
 
@@ -268,7 +271,7 @@ A technology company ran a simple exercise: it took the twelve most used archite
 diagrams and asked people from other teams to read them, with no explanation, noting their
 questions.
 
-The aggregate result:
+The aggregate result, across the five most frequent categories:
 
 ```text
 "what does that color mean?"          9 of the 12 diagrams
@@ -294,19 +297,24 @@ line thicknesses, each with a fixed meaning.
 
 **Labels on every arrow**, with the purpose before the protocol.
 
-**Diagrams generated from text**, versioned in the repository — which solved the date and
-the existence problem: a diagram of a decommissioned system disappears when the repository
-is archived. See
-[living documentation](/17-architecture-documentation/living-documentation.md).
+**Diagrams as code**, versioned in the repository — which tackled the date and the
+existence problem through process, not guarantee: the diagram is reviewed together with the
+change that affects it, the date it changed is in the history, and a diagram of a
+decommissioned system disappears when the repository is archived. The text is still
+written by hand and can still drift. See
+[diagrams as code](/17-architecture-documentation/living-documentation.md#diagrams-as-code).
 
 **A reading test** built into the review: a new diagram is read by an outsider before
 being published.
 
 Six months later, the same exercise was repeated with new diagrams. The average number of
-questions per diagram dropped from 4.3 to 0.6.
+questions per diagram, counting also the less frequent categories the table leaves out,
+dropped from 4.3 to 0.6.
 
-What the team records: the highest-impact change was the simplest — requiring a legend. On
-its own it resolved most of the questions, and it cost one line on the review checklist.
+What the team records: it attributes most of the drop to the simplest change — requiring a
+legend, which answers the questions about color, shape and kind of arrow, and cost one line
+on the review checklist. The six fixes went in together, so the exercise does not isolate
+the effect of each; the attribution is the team's reading, not a measurement.
 
 ## Related Concepts
 

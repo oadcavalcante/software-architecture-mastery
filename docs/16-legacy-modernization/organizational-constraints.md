@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [modernization-risk, modernization-drivers, incremental-modernization]
 canonical_for: [restrição organizacional, apoio que evapora, incentivo desalinhado, conhecimento concentrado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -110,8 +110,10 @@ em vez de perder relevância.
 
 ### O time precisa continuar entregando
 
-Modernização compete com produto. E, em programas longos, a competição é resolvida a
-favor do produto — sempre.
+Modernização compete com produto. Em programas longos, quando a modernização ainda não
+entregou nada que o negócio perceba e não tem uma fatia de capacidade acordada, a disputa
+é resolvida a favor do produto a cada ciclo de priorização — porque o produto tem cliente
+reclamando e a modernização não.
 
 ```text
 modelo que falha    "vamos parar de entregar funcionalidades por um ano"
@@ -147,7 +149,9 @@ descobertas vão mudar o plano, ou cada mudança será lida como falha de execu�
 Uma modernização que muda fronteiras de sistema sem mudar fronteiras de time produz uma
 estrutura que não se sustenta.
 
-Ver [arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
+É a [lei de Conway](/23-architecture-leadership/conways-law.md) agindo: a comunicação
+entre times puxa a arquitetura de volta para as fronteiras antigas. Ver também
+[arquitetura de aplicação](/15-enterprise-architecture/application-architecture.md).
 
 E o inverso: manter um time dedicado à modernização, separado dos times de produto,
 produz um sistema novo que ninguém quer receber — porque não foi construído por quem vai
@@ -172,17 +176,24 @@ Esta análise deveria preceder qualquer programa de modernização, especialment
 
 ## Quando Não Usar
 
-**Tratando restrições organizacionais como fora do escopo.**
+A análise formal — mapear patrocinadores, detentores de conhecimento e perdedores — custa
+semanas de conversa e exposição política. Ela não se paga quando:
 
-**Com um único patrocinador.**
+**A modernização é curta e feita por quem opera.** Uma troca de alguns meses conduzida
+pelo próprio time que mantém o sistema não atravessa ciclo de orçamento, não depende de
+patrocinador e não transfere conhecimento para ninguém. As restrições que este documento
+descreve precisam de tempo e de fronteiras entre grupos para aparecer.
 
-**Sem transferência de conhecimento antes de começar.**
+**O conhecimento já é distribuído e o sistema não tem dono concorrente.** Se várias pessoas
+entendem o comportamento do legado e nenhuma área perde controle com a mudança, duas das
+quatro perguntas centrais já estão respondidas; formalizá-las só documenta o óbvio.
 
-**Parando o produto durante a modernização.**
+**A modernização é oportunista.** Quem moderniza o que toca, dentro do trabalho de produto,
+não tem programa, orçamento dedicado nem apoio a perder. Não há o que evaporar.
 
-**Estimando como construção**, com escopo e prazo fixos.
-
-**Com time dedicado separado** de quem vai operar.
+**A decisão já é adiar ou conter.** Se o legado vai ser isolado em vez de substituído, o
+custo organizacional é pequeno e local; a análise completa pertence ao momento em que a
+substituição voltar à mesa.
 
 ## Alternativas
 
@@ -248,7 +259,8 @@ crítico, mantido por quatro pessoas.
 O projeto foi bem desenhado tecnicamente: estrangulamento, fatias definidas, migração de
 dados planejada.
 
-Ele foi cancelado no mês 15, com cerca de 40% concluído.
+Ele foi cancelado no mês 15 de 24 previstos, com cerca de 40% concluído — o atraso de
+quem estimou descoberta como construção.
 
 A análise posterior identificou quatro causas, nenhuma técnica:
 
@@ -287,7 +299,7 @@ trimestralmente.
 
 **Estimativa em faixa**, por fatia, reestimada a cada entrega.
 
-A segunda tentativa levou 26 meses — mais que os 18 originalmente previstos na primeira —
+A segunda tentativa levou 26 meses — mais que os 24 originalmente previstos na primeira —
 e foi concluída.
 
 Na retrospectiva: o desenho técnico da primeira tentativa era melhor que o da

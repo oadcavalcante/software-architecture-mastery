@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, organizational-constraints, transition-architecture]
 canonical_for: [modernização incremental, fatia defensável, modernização oportunista]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -81,6 +81,14 @@ A fatia vertical entrega algo utilizável. A horizontal, não.
 
 E há um ganho secundário: a fatia vertical exercita o caminho completo cedo, revelando
 problemas de integração, de dados e de implantação no início, quando corrigir é barato.
+
+O preço é operacional. Enquanto houver fatias nos dois lados, a organização mantém dois
+sistemas em produção: dados sincronizados entre o modelo antigo e o novo, duas esteiras
+de implantação, dois plantões e a regra de roteamento na interceptação, que cresce a cada
+fatia migrada. Esse custo sobe com o número de fatias em convivência e só cai quando o
+antigo perde a última funcionalidade — por isso a última fatia precisa estar no plano
+desde o início. Como gerir esse período está em
+[arquitetura de transição](/15-enterprise-architecture/transition-architecture.md).
 
 ### Modernização oportunista
 
@@ -186,17 +194,21 @@ contra ela.
 
 ## Quando Não Usar
 
-**Sequenciando por dependência técnica.** Nada é útil até o fim, e projetos assim são interrompidos antes de entregar.
+**Sistema pequeno o bastante para um corte único.** Se a substituição inteira cabe em
+poucas semanas, o prêmio de fatiar — interceptação, sincronização, dois sistemas no ar —
+custa mais que o risco de interrupção que ele cobre.
 
-**Com fatias horizontais.** Obrigam as duas arquiteturas a conviver em todas as funcionalidades ao mesmo tempo.
+**Sistema que será aposentado ou apenas contido.** Fatiar pressupõe um destino; sem ele,
+isolar ou desligar é mais barato. Ver
+[estratégias de migração](/16-legacy-modernization/migration-strategies.md).
 
-**Com fatias longas demais.** A fatia vira um projeto grande e recupera todos os riscos que o incremento evitava.
+**Domínio sem fatia vertical viável.** Quando um banco compartilhado e processos em lote
+atravessam todas as funcionalidades, nenhuma fatia entra em produção sozinha até esse
+núcleo ser desmontado — e desmontá-lo é trabalho estrutural dirigido, não incremento.
 
-**Medindo progresso por percentual de código.** Esconde que a complexidade está concentrada no que falta, e o número dá falsa segurança.
-
-**Oportunista para mudanças estruturais.** Melhorar o que se toca nunca alcança fronteira errada nem modelo de dados inadequado.
-
-**Sem limite na refatoração incidental.** Sem teto, a correção de uma linha vira uma semana e o time perde a previsibilidade que sustentava a estratégia.
+**Coexistência mais cara que a interrupção.** Se manter os dois sistemas sincronizados
+exige, por regulação ou consistência, reconciliação que custa mais que o risco de o
+programa parar, o corte coordenado sai mais barato.
 
 ## Alternativas
 
@@ -225,7 +237,8 @@ contra ela.
 
 **Fatia sem valor.** Interrompida, nada foi entregue.
 
-**Sequência por dependência técnica.**
+**Sequência por dependência técnica.** Interrompido no meio, deixa camadas que não servem
+a nada.
 
 **Fatias longas.** Os mesmos problemas do programa grande.
 
@@ -280,12 +293,13 @@ fatia 11 casos especiais e desligamento                9 semanas
 Cada fatia atravessava todas as camadas para uma funcionalidade, e entrava em produção
 por [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
-A primeira fatia levou 7 semanas — mais que o previsto, porque construiu a infraestrutura
-mínima junto. As seguintes aceleraram, reaproveitando.
+A primeira fatia levou as 7 semanas previstas — o plano já contava que ela construiria a
+infraestrutura mínima junto. As seguintes aceleraram, reaproveitando.
 
-Duas coisas aconteceram durante os 22 meses:
+Duas coisas aconteceram durante os 22 meses do programa, que incluem os quatro de
+interrupção:
 
-**Interrupção no mês 9.** Uma prioridade regulatória consumiu o time por quatro meses. O
+**Interrupção no mês 7.** Uma prioridade regulatória consumiu o time por quatro meses. O
 programa parou com 4 das 11 fatias concluídas — e as quatro estavam em produção,
 entregando valor. Nada foi perdido.
 
@@ -293,7 +307,7 @@ entregando valor. Nada foi perdido.
 as fatias 8 e 9 fariam. Elas foram removidas do plano — e nada do que já tinha sido feito
 precisou ser desfeito.
 
-No plano original, ambos os eventos teriam sido fatais: a interrupção no mês 9 pegaria o
+No plano original, ambos os eventos teriam sido fatais: a interrupção no mês 7 pegaria o
 programa na fase 2, sem nada entregue; a mudança de escopo no mês 15 invalidaria trabalho
 das fases anteriores.
 

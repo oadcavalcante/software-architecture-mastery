@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-decision, superseding-decisions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -192,17 +192,19 @@ it, it serves.
 
 ## When Not to Use
 
-**As retroactive justification.** It is the most common use and the least useful.
+**A decision that is cheap to reverse.** When redoing the choice costs less than writing
+about it — swapping a library hidden behind your own interface, changing a configuration
+parameter — working out the reversal condition for each alternative costs more than getting
+it wrong and going back. One line naming the options is enough.
 
-**Listing alternatives never considered** to look rigorous.
+**Only one viable option because of an external constraint.** When regulation, a contract
+or a corporate standard eliminates the others before any analysis, comparing criteria is
+theater. Record the constraint in the [Context](/18-architecture-decisions/adr-context.md):
+it, not the discard, is what carries the reversal condition.
 
-**Without the reversal condition.**
-
-**Without the status quo** among the options.
-
-**Omitting non-technical reasons.**
-
-**With criteria chosen after the answer.**
+**A decision below the [significant decision](/18-architecture-decisions/what-is-an-adr.md) threshold.**
+If the decision doesn't justify an ADR, it justifies the detailed section even less; the
+Y-Statement, listed below, covers that case.
 
 ## Alternatives
 
@@ -218,7 +220,8 @@ it, it serves.
 
 | Detailed alternatives | Summarized |
 |---|---|
-| Revisitable | Fast to write |
+| Expensive to write | Fast to write |
+| Revisitable by newcomers | Depend on who was in the room |
 | Prevent re-deciding | May not suffice |
 | Expose what was lost | Look firmer |
 
@@ -274,8 +277,8 @@ cost of the in-house service, estimated ~$800/month of infrastructure
 The "some engineering time" had never been quantified. Measured in 2025, it was two
 full-time engineers — about $12,000 a month in personnel cost.
 
-And the volume had tripled, which would have raised the managed service cost to about
-$6,000 — still half the real cost of the in-house service.
+And the volume had tripled, which, with the provider's volume-tier discount, would have raised
+the managed service cost to about $6,000 — still half the real cost of the in-house service.
 
 The winning alternative, in 2023, had won on a criterion nobody applied in full.
 
@@ -290,7 +293,8 @@ enough and it frequently changes the conclusion.
 **A mandatory reversal condition** per alternative. The template adopted: "this option
 would win if ___".
 
-**A criteria table** required when there are three or more options, with the criteria
+**A criteria table** required from three options up — a stricter threshold than the general
+one of more than three — with the criteria
 defined and weighted **before** the evaluation.
 
 In a review of the following 40 ADRs, written under the new rules:

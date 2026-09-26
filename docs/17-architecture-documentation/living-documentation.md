@@ -2,7 +2,7 @@
 id: living-documentation
 title: Documentação Viva
 sidebar_position: 12
-description: Derivar do que já é verdade — a única forma de documentação que não desatualiza.
+description: Derivar do que já é verdade, para que a documentação não divirja do sistema em silêncio.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, documentation-standards, component-diagrams]
 canonical_for: [documentação viva, documentação derivada, fonte única de verdade documental, diagrama como código]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -21,11 +21,12 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Toda documentação escrita à mão desatualiza. O problema não é disciplina — é que a
-informação existe em dois lugares e nada obriga os dois a concordarem.
+Documentação escrita à mão desatualiza quando nada a amarra ao sistema. O problema não é
+disciplina — é que a informação existe em dois lugares e nada obriga os dois a concordarem.
 
 Documentação viva ataca a causa: **derivar a documentação do artefato que já é verdade**,
-de modo que divergir seja impossível, e não apenas indesejável.
+de modo que divergir da fonte seja impossível enquanto a extração roda, e não apenas
+indesejável.
 
 E a decisão central deste tema não é qual ferramenta usar. É **o que pode ser derivado e o
 que não pode** — porque a maior parte do valor arquitetural está justamente no que a
@@ -70,8 +71,9 @@ O padrão é claro: **estrutura é derivável**. O que existe, como se conecta, 
 onde — tudo isso está declarado em algum lugar executável.
 
 Ver [rastreamento distribuído](/13-observability/distributed-tracing.md) para a última
-categoria, que é a mais confiável de todas: ela mostra o que acontece, não o que se
-declarou.
+categoria, a mais confiável para o que roda com frequência: ela mostra o que acontece, não o
+que se declarou. E é cega para o que a janela e a amostragem não pegam — o job trimestral, o
+caminho de contingência —, que a verificação contra o inventário declarado cobre.
 
 ### O que não pode ser derivado
 
@@ -153,7 +155,7 @@ Derivação não é grátis:
 construir a extração        semanas
 manter a ferramenta         contínuo
 lidar com casos irregulares constante
-resultado às vezes feio     sempre
+layout aquém do curado      recorrente
 ```
 
 O cálculo: derivação se paga onde a informação **muda com frequência** e é **consultada
@@ -180,9 +182,11 @@ máquina documenta.
 
 **Para justificativa e decisões** — não é derivável.
 
-**Onde a informação muda pouco** — o custo não se paga.
+**Onde a informação muda ou é consultada pouco** — se o artefato muda menos que a cadência
+de revisão manual, ou quase ninguém o abre, o custo não se paga.
 
-**Quando o layout importa muito** e o gerado é ilegível.
+**Quando o gerado passa de uns doze nós** e a fonte não tem chave de agrupamento — domínio,
+time, contexto — para reparti-lo: o resultado é o diagrama de 180 nós do Exemplo Real.
 
 **Sem alguém responsável pela ferramenta** — a ferramenta vira a nova dívida.
 
@@ -203,7 +207,7 @@ corretos e nenhuma explicação de por que o sistema é assim.
 
 | Gerado | Escrito |
 |---|---|
-| Não pode divergir | Pode |
+| Não diverge da fonte enquanto a extração roda | Pode divergir em silêncio |
 | Mostra o que existe | Mostra a intenção |
 | Layout automático | Curado |
 | Custo inicial alto | Custo contínuo |
@@ -213,7 +217,7 @@ corretos e nenhuma explicação de por que o sistema é assim.
 | Elimina a divergência | Detecta |
 | Perde curadoria | Preserva |
 | Caro de construir | Barato |
-| Sempre atual | Atual ou vermelho |
+| Atual até a última extração bem-sucedida | Atual ou vermelho |
 
 ## Modos de Falha
 
@@ -239,7 +243,7 @@ corretos e nenhuma explicação de por que o sistema é assim.
 
 **Não medir se o resultado é lido.** Documentação gerada tem custo de manutenção como qualquer outra. Se ninguém abre, o certo é desligar a geração.
 
-**Ignorar verificação como opção mais barata.** Para muitas propriedades, um teste que falha quando a regra é violada vale mais que um documento que a descreve — e nunca desatualiza.
+**Ignorar verificação como opção mais barata.** Para muitas propriedades, um teste que falha quando a regra é violada vale mais que um documento que a descreve — e falha quando desatualiza.
 
 ## Exemplo Real
 
@@ -282,7 +286,7 @@ Os números, um ano depois:
 taxa de acerto dos diagramas escritos      34% → 89%
 divergências detectadas por mês            média de 11, corrigidas em dias
 serviços não documentados encontrados      7 (três deles não deveriam existir)
-uso do portal                              2,4× o anterior
+uso do portal                              2,4× o de antes da primeira tentativa
 ```
 
 Os sete serviços encontrados pela verificação foram um resultado não previsto: três eram

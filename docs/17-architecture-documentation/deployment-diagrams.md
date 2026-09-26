@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, c4-model, living-documentation]
 canonical_for: [diagrama de implantação, nó de infraestrutura, mapeamento lógico-físico]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -130,12 +130,15 @@ A topologia muda com frequência, e há uma particularidade: em ambientes modern
 topologia **já está declarada** em código de infraestrutura.
 
 Isso muda a equação de manutenção. Um diagrama desenhado à mão vai divergir do que o
-código de infraestrutura declara; um diagrama derivado dele não pode divergir.
+código de infraestrutura declara; um diagrama derivado dele não diverge do declarado. Mas
+herda o drift: se alguém mudou algo no console, o código — e o diagrama gerado dele —
+mostra uma topologia que não existe mais. Só o diagrama gerado do estado real mostra o que
+existe.
 
 Ver [infraestrutura como código](/14-devops-and-platform/infrastructure-as-code.md) e
 [documentação viva](/17-architecture-documentation/living-documentation.md).
 
-### Custo aparece aqui e em nenhum outro lugar
+### É o diagrama em que custo e topologia aparecem juntos
 
 O diagrama de implantação é o único que expõe multiplicidade: seis instâncias, três
 réplicas, dois ambientes espelhados. E multiplicidade é o que a fatura mede.
@@ -171,21 +174,28 @@ incidente.
 
 ## Quando Não Usar
 
-**Misturando ambientes** num diagrama só.
+**Para ambientes fora de produção.** Homologação e desenvolvimento mudam de forma sem aviso
+e raramente alguém pergunta pelo raio de impacto deles; a manutenção custa mais que as
+perguntas que o diagrama responderia.
 
 **Para sistemas de uma instância** sem requisito de disponibilidade.
 
-**Com detalhe volátil** — nomes de instância, endereços, versões mudam toda semana.
+**Em plataforma gerenciada sem controle de zona nem de instância** — funções serverless,
+PaaS que escolhe onde roda. A topologia é decisão do provedor; o diagrama não tem o que
+mostrar além de uma caixa.
 
-**Mantido à mão** quando a infraestrutura é declarada em código.
+**Quando uma ferramenta já gera a topologia a partir do estado real** e o time a consulta.
+Desenhar outro por cima é criar uma segunda fonte, que diverge da primeira.
 
 **Como substituto** do diagrama de contêiner: ele responde "onde roda", não "o que faz".
 
 ## Alternativas
 
-- **Código de infraestrutura** — é a fonte de verdade; o diagrama é a visualização.
+- **Código de infraestrutura** — é a fonte de verdade do que foi declarado; mudança manual
+  no console o afasta do que existe.
 - **Painel do provedor** — sempre atual, e sem intenção nem agrupamento.
-- **Diagrama gerado a partir do estado real** — a opção mais confiável.
+- **Diagrama gerado a partir do estado real** — o único que mostra o que existe, inclusive
+  o drift em relação ao código.
 - **Diagrama de contêiner** — quando a pergunta é lógica.
 
 ## Trade-offs
@@ -200,8 +210,8 @@ incidente.
 | Desenhado | Derivado do estado |
 |---|---|
 | Mostra a intenção | Mostra o real |
-| Diverge | Não pode divergir |
-| Agrupamento legível | Automático |
+| Diverge | Não diverge da fonte de que é gerado |
+| Agrupamento por intenção | Agrupamento pelo que a ferramenta infere |
 
 ## Modos de Falha
 
@@ -217,15 +227,19 @@ incidente.
 
 ## Erros Comuns
 
-**Não mostrar quantidade de instâncias.**
+**Não mostrar quantidade de instâncias** — sem a contagem, três instâncias na mesma zona
+viram uma caixa, e a redundância ilusória some do desenho.
 
 **Omitir zonas e regiões** — que é justamente o que responde ao raio de impacto.
 
-**Não marcar fronteiras de rede.**
+**Não marcar fronteiras de rede** — o diagrama deixa de servir de entrada para a modelagem
+de ameaças, que precisa saber o que está exposto.
 
-**Desenhar à mão o que a infraestrutura já declara.**
+**Desenhar à mão o que a infraestrutura já declara** — a primeira mudança no código cria
+duas versões da topologia, e ninguém sabe qual vale.
 
-**Não datar.**
+**Não datar** — quem abre o diagrama num incidente não sabe se ele é anterior à última
+migração.
 
 ## Exemplo Real
 
@@ -268,8 +282,10 @@ escala com sub-rede única em sistema crítico falha a verificação. Ver
 
 **Revisão anual** de correspondência entre requisito de disponibilidade e topologia real.
 
-Os dois sistemas foram corrigidos em três meses. E oito meses depois houve uma falha de
-zona real, de quatro horas: os doze sistemas seguiram operando.
+Os dois sistemas foram corrigidos em três meses; os demais com lacuna entre zonas — sem
+redundância real, com réplica na zona do primário ou com cache como ponto único — ao longo
+dos seis meses seguintes. Dois meses depois houve uma falha de zona real, de quatro horas:
+os doze sistemas seguiram operando.
 
 O aprendizado que ficou: a informação que faltava não era difícil nem cara. Ela estava
 disponível no console do provedor o tempo todo. Faltava alguém olhar para ela **junto**,

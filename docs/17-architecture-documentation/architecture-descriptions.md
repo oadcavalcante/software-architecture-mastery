@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-views]
 related: [architecture-views, documentation-standards, documentation-principles]
 canonical_for: [descrição de arquitetura, arc42, documento de arquitetura, ISO 42010]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -160,7 +160,9 @@ descartadas, é publicidade.
 
 **Para satisfazer um processo**, sem leitor identificado.
 
-**Em sistemas pequenos** — um README bem feito é a descrição.
+**Quando um time só constrói, opera e consome o sistema**, sem interessado externo, sem
+exigência regulatória e numa única unidade de implantação — aí um README com contexto,
+restrições, decisões (ou links para ADRs) e riscos conhecidos é a descrição.
 
 **Duplicando o que já existe** em ADRs e diagramas, em vez de apontar.
 
@@ -189,7 +191,8 @@ repositório de texto duplicado.
 | Gabarito formal | Formato livre |
 |---|---|
 | Força seções esquecidas | Ajustado |
-| Comparável entre sistemas | Mais curto |
+| Comparável entre sistemas | Cada descrição com estrutura própria |
+| Mais longo | Mais curto |
 | Convida a preencher por dever | Convida a omitir |
 
 ## Modos de Falha
@@ -215,7 +218,8 @@ repositório de texto duplicado.
 
 **Escrever no início e nunca revisar.**
 
-**Não datar seções individualmente.**
+**Não datar seções individualmente.** Depois de uma revisão parcial, o leitor não sabe
+qual parte foi conferida e qual é de três anos atrás — e trata tudo como atual.
 
 **Consolidar por cópia** em vez de por referência.
 
@@ -262,11 +266,12 @@ Ver [atributos de qualidade](/01-fundamentals/quality-attributes.md).
 **Verificação por amostragem**: a cada trimestre, três descrições são comparadas com o
 sistema real por alguém de fora do time.
 
-Dezoito meses depois: 54 descrições atualizadas nos últimos 12 meses, 49 com riscos reais
-registrados, e a taxa de consulta subiu para 41 sistemas.
+Dezoito meses depois, das mesmas 61 descrições: 54 atualizadas nos últimos 12 meses (antes,
+9 em 24), 49 com riscos reais registrados, e a taxa de consulta subiu para 41 sistemas.
 
-A conclusão registrada: a mudança de maior efeito não foi o formato. Foi permitir declarar
-seções vazias. Enquanto preencher tudo era obrigatório, texto genérico era a resposta
+A conclusão registrada pelo time — uma hipótese, já que as seis mudanças entraram juntas e
+nenhuma foi medida isoladamente: a mudança de maior efeito não foi o formato. Foi permitir
+declarar seções vazias. Enquanto preencher tudo era obrigatório, texto genérico era a resposta
 racional.
 
 ## Conceitos Relacionados

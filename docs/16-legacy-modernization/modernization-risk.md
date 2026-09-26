@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [organizational-constraints, data-migration, incremental-modernization]
 canonical_for: [risco de modernização, risco irreversível, controle de risco]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -63,8 +63,9 @@ regra de negócio perdida          → testes de caracterização
 obrigação regulatória descumprida → mapeamento explícito de requisitos
 ```
 
-Ver [migração de dados](/16-legacy-modernization/data-migration.md) e
-[sistemas legados](/16-legacy-modernization/legacy-systems.md).
+Ver [migração de dados](/16-legacy-modernization/data-migration.md),
+[sistemas legados](/16-legacy-modernization/legacy-systems.md) e, para testes de
+caracterização, [refatoração de legado](/16-legacy-modernization/legacy-refactoring.md).
 
 ### Os riscos técnicos característicos
 
@@ -92,8 +93,9 @@ coexistência permanente  critério de conclusão e data de desligamento
 estimativa como promessa faixa, não ponto; reestimar por fatia
 ```
 
-O primeiro é o mais previsível: toda modernização recebe pedidos de melhoria, e aceitá-los
-é o caminho de menor resistência.
+O primeiro é o mais previsível: enquanto o sistema segue em uso durante a modernização,
+quem o usa vê na reescrita a chance de pedir melhorias, e aceitá-las é o caminho de menor
+resistência.
 
 ### Os riscos organizacionais
 
@@ -123,7 +125,8 @@ ensaio                       a operação de corte é repetida antes
 período de suspensão        desligado, recuperável, antes de descartar
 ```
 
-A primeira é a de maior valor e a menos usada: fazer o novo processar o tráfego real, sem
+A primeira é a única que produz evidência com o tráfego real, e é frequentemente omitida
+porque exige suprimir os efeitos externos do novo: fazê-lo processar o tráfego real, sem
 efeito, e comparar. Ver
 [estratégias de implantação](/14-devops-and-platform/deployment-strategies.md).
 
@@ -203,17 +206,25 @@ merece controle desproporcional.
 
 ## Quando Não Usar
 
-**Registro genérico**, sem controle associado.
+O registro de riscos vale em qualquer modernização; o erro é aplicar o conjunto pesado de
+controles onde ele não compra redução de risco.
 
-**Sem separar reversível de irreversível.**
+**Fatia totalmente reversível e sem dado migrado.** Se voltar é trocar uma rota e nenhum
+dado mudou de lugar, o paralelo longo e a suspensão custam mais que o risco que cobrem —
+a reversão é o controle.
 
-**Sem registrar o risco de não fazer.**
+**Sistema sem processo periódico mais longo que o paralelo.** Se o inventário mostra que o
+ciclo mais longo é semanal, manter o antigo por um ano não exercita nada que dois meses já
+não tenham exercitado.
 
-**Desligando o antigo antes de um ciclo completo.**
+**Operações com efeito externo que não dá para suprimir.** Comparação em produção pressupõe
+que o novo processe sem efeito; se ele envia pagamento, notificação ou mensagem a terceiro
+sem modo de simulação, o paralelo duplica o efeito, e a verificação passa a ser por
+reprocessamento de histórico, não por tráfego ao vivo.
 
-**Confiando em verificação por amostragem** para dados críticos.
-
-**Ignorando os riscos organizacionais** por serem "fora do escopo técnico".
+**Sistema de baixo impacto e curta vida restante.** Quando o antigo e o novo serão
+substituídos em poucos meses, controle desproporcional para risco irreversível pequeno é
+cerimônia.
 
 ## Alternativas
 
@@ -301,8 +312,8 @@ exercitado todos os ciclos — mensal, trimestral, anual.
 Isso significou, para o programa seguinte, manter o antigo por 14 meses em vez de 2. O
 custo foi aceito.
 
-**Inventário de processos periódicos.** Levantamento explícito de tudo que roda em
-frequência maior que mensal, com data e responsável.
+**Inventário de processos periódicos.** Levantamento explícito de tudo que roda com
+periodicidade mais longa que mensal — trimestral, anual —, com data e responsável.
 
 Esse levantamento, feito retroativamente, encontrou mais quatro processos anuais em
 outros sistemas que ninguém tinha mapeado.
@@ -336,7 +347,7 @@ uma aposta.
 ## Perguntas de Entrevista
 
 - Como se separa risco reversível de irreversível?
-- Por que comparação em produção é o controle de maior valor?
+- Que evidência a comparação em produção produz que testes pré-produção não produzem?
 - Por que o ciclo completo precisa ser exercitado antes de desligar?
 
 ## Para Aprofundar

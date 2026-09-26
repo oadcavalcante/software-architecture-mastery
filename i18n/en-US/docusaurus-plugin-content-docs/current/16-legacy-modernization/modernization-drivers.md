@@ -13,7 +13,7 @@ objective: >
 prerequisites: [legacy-modernization]
 related: [legacy-systems, migration-strategies, modernization-risk]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -106,10 +106,11 @@ The second is diffuse and continuous, and therefore invisible. Making it explici
 balances the comparison.
 
 ```text
-example: 8 changes a year, each one 6 weeks slower than it should be
-         → 48 weeks of engineering a year
-         → the cost of not doing it, on that dimension alone, is almost a year of
-           a team
+example: 8 changes a year, each one consuming 6 person-weeks more
+         than it should
+         → 48 person-weeks a year, almost one person-year of engineering
+         → the calendar delay of each change is a separate opportunity
+           cost, on top of that
 ```
 
 ### Not modernizing is a legitimate decision
@@ -209,15 +210,11 @@ the cost of living with it.
 
 ## When Not to Use
 
-**Proposing from the technical symptom.** "The code is bad" is not an investment motive for whoever approves budgets; the business consequence is.
+**Non-negotiable external deadline.** When the vendor announces end of support on a fixed date, or the regulator imposes a deadline, the question "what do we gain?" has already been answered from outside: the alternative is running without support or out of compliance. Calculating the cost of not doing it delays a decision that does not depend on it; the analysis effort goes into the minimum scope that meets the date.
 
-**Without calculating the cost of not doing it.** The relevant comparison is not with the ideal, it is with carrying on as is — and that cost is usually the strongest argument.
+**Exploitable vulnerability with no fix available.** The risk does not reduce honestly to an annual figure — the probability of exploitation cannot be estimated with the precision the calculation would require, and the damage may be on the scale of the company itself. Demanding the number produces a made-up number, and the discussion becomes about it instead of about the exposure.
 
-**Assuming the whole system has to change.** The motive normally points at a specific part, and modernizing only that is a fraction of the cost.
-
-**Without checking whether the motive justifies the priority.** A real motive is not the same as an urgent one; competing for budget requires showing why now.
-
-**Omitting legitimate motives** for seeming frivolous. Difficulty hiring for an obsolete technology is concrete continuity risk, and it tends to be silenced for seeming less serious than technical ones.
+**Small change.** A version upgrade within the support window, a library swap, a migration that fits in days: building the driver analysis costs more than the change itself. The rigor of this document is proportional to the investment — it serves proposals that compete for budget, not the routine maintenance the team already absorbs.
 
 ## Alternatives
 
@@ -262,17 +259,17 @@ reason.
 
 ## Common Mistakes
 
-**Arguing from obsolescence.**
+**Arguing from obsolescence.** The proposal is rejected cycle after cycle, and modernization ends up approved only when the crisis arrives, with a deadline imposed from outside — in the Real-World Example, three rejections before the reframing.
 
-**Not translating into a business limitation.**
+**Not translating into a business limitation.** Whoever approves the budget has no way to compare the proposal with product initiatives that have an articulated return, and picks those.
 
-**Not presenting the cost of living with it.**
+**Not presenting the cost of living with it.** Living with it looks free, and any project estimate loses to zero.
 
-**Proposing complete replacement by reflex.**
+**Proposing complete replacement by reflex.** The budget requested grows with the scope, not with the motive — in the Real-World Example, $840,000 requested against $360,000 spent once the scope was reduced to the optimization engine.
 
-**Not recording the decision not to do it.**
+**Not recording the decision not to do it.** With no record and no review date, the same proposal comes back every year from scratch, and nobody reassesses when conditions change.
 
-**Hiding the retention motive** behind a technical argument.
+**Hiding the retention motive** behind a technical argument. The technical argument is contested on its merits and falls, taking the real motive with it, never having been discussed — and the cost of turnover stays without a number.
 
 ## Real-World Example
 
@@ -302,7 +299,7 @@ cost of not modernizing    $2.8 million a year in revenue not captured,
                            plus the risk of losing the capability entirely
 ```
 
-Approved in the following cycle, with no discussion.
+Approved in that same fourth cycle, with no discussion.
 
 And the scope analysis revealed that replacing the whole system was not necessary:
 

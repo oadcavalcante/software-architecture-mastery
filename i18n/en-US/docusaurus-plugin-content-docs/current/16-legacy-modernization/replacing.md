@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,8 @@ that accumulates until the product costs more than the system it replaced.
 
 ## Problem
 
-An off-the-shelf product never does exactly what the current system does.
+A product built for many organizations does not exactly reproduce a system built to
+measure for one — and, after years of adjustment, the current system is built to measure.
 
 ```text
 does more       features the organization already has somewhere else
@@ -160,17 +161,22 @@ Accumulated customization cancels the benefit of buying.
 
 ## When Not to Use
 
-**For a differentiating capability.**
+**When the capability is differentiating.** If the test "do customers choose the
+organization because of this?" answers yes, the product hands the advantage to every
+competitor that buys it.
 
-**With extensive customization.** It cancels the benefit.
+**When the gap sits in the main flow.** If the assessment with real data shows that the
+rules the product cannot express lie on the path most transactions take, rather than in
+edge exceptions, each one becomes permanent customization.
 
-**Without assessing the gap with real data.**
+**When customization plus integration approaches the cost of your own system.** Added up
+over the same horizon, including maintaining the customization on every version, if the
+total comes close to what maintaining the current system costs, buying trades control for
+nothing.
 
-**Without checking how the data comes out.**
-
-**Without deciding about the history.**
-
-**Without a translation layer**, letting the vendor's model in.
+**When the data does not come out.** If the vendor does not guarantee complete export in a
+usable format before signing, exit stops being an option — and so does the next
+negotiation.
 
 ## Alternatives
 
@@ -193,7 +199,7 @@ clear boundary between the two.
 | Vendor's boundary | Your own |
 | Functionality beyond what's needed | Exact |
 | No differentiation | Possible |
-| Predictable cost | Engineering cost |
+| Predictable cost (subscription) | Variable cost (engineering capacity) |
 
 | Adapt the process | Customize the product |
 |---|---|
@@ -229,7 +235,7 @@ clear boundary between the two.
 
 **Not isolating with a translation layer.** Without it, the vendor's model spreads through the domain, and swapping it later stops being a commercial decision.
 
-**Not deciding about the history.** Migrating the past into the new product is usually the bulk of the effort, and the decision is a business one.
+**Not deciding about the history.** Migrating the past into the new product can be the bulk of the effort when the volume is large, the data is dirty, or the old model differs sharply from the product's — and deciding what to migrate, archive, or discard is a business decision.
 
 ## Real-World Example
 

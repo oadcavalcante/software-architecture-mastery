@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, incremental-modernization, cloud-native]
 canonical_for: [replataforma, destravamento operacional, adaptação mínima]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -24,8 +24,9 @@ last_reviewed: 2026-08-28
 Replataformar é mover a aplicação para infraestrutura nova, com alterações mínimas ao
 código.
 
-É a estratégia mais barata, mais rápida e de menor risco — e a mais subestimada, porque
-não resolve problemas de código e por isso parece insuficiente.
+Comparada a refatorar, reconstruir ou substituir, é a estratégia mais barata, mais rápida e
+de menor risco — e a mais subestimada, porque não resolve problemas de código e por isso
+parece insuficiente.
 
 O que ela entrega é **destravamento**: esteira automatizada, ambientes reproduzíveis,
 observabilidade, implantação frequente. E isso reduz o custo de todo o trabalho posterior
@@ -96,7 +97,8 @@ Uma aplicação movida para nuvem sem adquirir as propriedades que a nuvem press
 ausência de estado, descartabilidade, configuração externa — roda lá e não aproveita
 nada, com custo frequentemente maior.
 
-O plano precisa incluir a segunda fase, com prazo. Sem isso, ela não acontece.
+O plano precisa incluir a segunda fase, com prazo. Sem isso, a pressão que moveu a
+primeira — o fim do contrato, o custo — acaba junto com ela, e nada mais força a segunda.
 
 ### As adaptações mínimas que valem a pena
 
@@ -184,17 +186,22 @@ seguintes.
 
 ## Quando Não Usar
 
-**Esperando que resolva problemas de código.**
+**Quando o gargalo de entrega está no código, não na implantação.** Se cada mudança leva
+semanas porque o acoplamento obriga a mexer em dez lugares, a esteira encurta os minutos da
+implantação e deixa as semanas intactas. O esforço rende mais em
+[refatoração](/16-legacy-modernization/legacy-refactoring.md).
 
-**Como destino final**, sem plano de continuação.
+**Quando o sistema será substituído antes de a migração se pagar.** Ela custa o trabalho de
+migrar mais o período em paralelo com dois ambientes pagos. Se a substituição chega antes de
+a economia e o destravamento devolverem esse custo, o investimento vai para a substituição.
 
-**Sem as adaptações mínimas.**
+**Quando há dependência presa ao ambiente atual.** Hardware específico, licença atrelada à
+máquina física, integração por um meio que o destino não oferece. Aí a adaptação deixa de
+ser mínima, e o trabalho é outra estratégia com o nome errado.
 
-**Sem revisar o dimensionamento.**
-
-**Sem período de operação em paralelo.**
-
-**Quando o sistema será substituído em breve** por outro motivo.
+**Quando a infraestrutura atual atende e não há prazo.** Sem restrição operacional a
+remover, a replataforma paga o risco da mudança — dependências ocultas, desempenho diferente
+— sem destravar nada.
 
 ## Alternativas
 
@@ -251,7 +258,8 @@ seguintes.
 Uma empresa de seguros precisava sair do datacenter em 14 meses, por fim de contrato.
 Sessenta aplicações, várias com mais de dez anos.
 
-A decisão foi replataformar como está — a única viável no prazo.
+A decisão foi replataformar, com adaptações mínimas só onde havia estado — refatorar ou
+reconstruir não cabia no prazo.
 
 A execução, em ondas de complexidade crescente:
 

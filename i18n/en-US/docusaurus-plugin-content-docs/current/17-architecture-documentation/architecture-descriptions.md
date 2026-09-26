@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-views]
 related: [architecture-views, documentation-standards, documentation-principles]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -160,7 +160,9 @@ decisions, it is marketing.
 
 **To satisfy a process**, with no identified reader.
 
-**In small systems** — a well-made README is the description.
+**When a single team builds, runs and consumes the system**, with no external stakeholder,
+no regulatory requirement and a single deployment unit — then a README covering context,
+constraints, decisions (or links to ADRs) and known risks is the description.
 
 **Duplicating what already exists** in ADRs and diagrams, instead of pointing at them.
 
@@ -189,7 +191,8 @@ repository of duplicated text.
 | Formal template | Free format |
 |---|---|
 | Forces forgotten sections | Fitted |
-| Comparable across systems | Shorter |
+| Comparable across systems | Each description with its own structure |
+| Longer | Shorter |
 | Invites filling in out of duty | Invites omission |
 
 ## Failure Modes
@@ -215,7 +218,8 @@ instead of declaring them empty.
 
 **Writing it at the start and never revising it.**
 
-**Not dating sections individually.**
+**Not dating sections individually.** After a partial review, the reader can't tell which
+part was checked and which is three years old — and treats all of it as current.
 
 **Consolidating by copying** instead of by reference.
 
@@ -262,11 +266,12 @@ back — the premise being that every system has some.
 **Sample verification**: every quarter, three descriptions are compared with the real
 system by someone outside the team.
 
-Eighteen months later: 54 descriptions updated in the last 12 months, 49 with real risks
-recorded, and the consultation rate rose to 41 systems.
+Eighteen months later, out of the same 61 descriptions: 54 updated in the last 12 months
+(before, 9 in 24), 49 with real risks recorded, and the consultation rate rose to 41 systems.
 
-The recorded conclusion: the change with the greatest effect was not the format. It was
-allowing sections to be declared empty. As long as filling in everything was mandatory,
+The team's recorded conclusion — a hypothesis, since the six changes went in together and
+none was measured in isolation: the change with the greatest effect was not the format. It
+was allowing sections to be declared empty. As long as filling in everything was mandatory,
 generic text was the rational answer.
 
 ## Related Concepts

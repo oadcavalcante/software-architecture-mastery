@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, context-diagrams, deployment-diagrams]
 canonical_for: [diagrama de contêiner, unidade executável, protocolo de comunicação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -81,7 +81,7 @@ E os protocolos nas relações:
 
 ```text
 Portal → API de Pedidos: "consulta e cria pedidos, HTTPS/JSON"
-API → Banco: "lê e grava, TCP"
+API → Banco: "lê e grava, SQL/JDBC"
 API → Fila: "publica pedido criado, AMQP"
 ```
 
@@ -149,10 +149,12 @@ de fluxo de dados. Ver
 Um diagrama de contêiner grande raramente é um problema de desenho. Ele é um retrato de
 quantas coisas separadas precisam existir, ser implantadas, monitoradas e mantidas.
 
+As faixas abaixo são heurística de quem já desenhou esses diagramas, não medição:
+
 ```text
 até 6 contêineres    sistema que uma equipe segura
 7 a 12               exige coordenação, ainda tratável
-acima de 15          o custo operacional já é a característica dominante
+13 ou mais           o custo operacional já é a característica dominante
 ```
 
 A pergunta que o diagrama provoca — "por que tantas peças?" — costuma ser mais valiosa que
@@ -180,15 +182,17 @@ permanente.
 
 ## Quando Não Usar
 
-**Com bibliotecas ou módulos** como caixas.
+**Para sistema de uma peça só** — não há comunicação interna a mostrar, e a tecnologia cabe
+numa linha do diagrama de contexto.
 
-**Expandindo sistemas externos.**
+**Para sistemas de duas ou três peças** — uma frase no README ("API em Java, PostgreSQL,
+fila no RabbitMQ") entrega o mesmo e não precisa de manutenção separada.
 
-**Sem tecnologia nem protocolo** — o nível é técnico, e omiti-los reduz a utilidade.
+**Quando a topologia muda toda semana** — em fase de exploração, o diagrama fica defasado
+antes de ser lido; espere as peças estabilizarem.
 
-**Para sistema de uma peça só** — o contexto basta.
-
-**Descendo a componentes internos.**
+**Quando o público só precisa do contexto** — gestão, parceiros e auditoria perguntam o que
+o sistema faz e com quem fala, não onde mexer.
 
 ## Alternativas
 
@@ -260,12 +264,15 @@ administrativo não usava nenhum — ele lia direto.
 
 As decisões que saíram:
 
-**Acesso direto eliminado** ao longo de nove meses. Os três consumidores passaram a usar
-a API, com endpoints novos onde faltava. Ver
+**Acesso direto eliminado** ao longo de nove meses para dois dos três consumidores: o
+faturamento e o painel passaram a usar a API, com endpoints novos onde faltava. Ver
 [propriedade do dado](/07-data-architecture/data-ownership.md).
 
-**Fronteira revista.** O processo de conciliação, que só lia, foi movido para uma réplica
-de leitura dedicada — com contrato explícito sobre o esquema.
+**Fronteira revista.** O processo de conciliação, que só lia, continuou lendo o esquema,
+agora numa réplica de leitura dedicada e com contrato explícito sobre as tabelas que usa. O
+acoplamento foi aceito porque a conciliação varre o volume do dia inteiro, o que a API não
+servia sem paginação cara, e porque o contrato transformou mudança de esquema em mudança
+anunciada, e não em quebra descoberta em produção.
 
 E um efeito colateral do exercício: os diagramas viraram a documentação de ambiente de
 desenvolvimento. A pergunta "o que preciso subir para trabalhar no sistema de pedidos?"

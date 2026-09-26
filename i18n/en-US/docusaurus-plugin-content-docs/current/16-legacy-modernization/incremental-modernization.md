@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [strangler-fig, organizational-constraints, transition-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -82,6 +82,14 @@ The vertical slice delivers something usable. The horizontal one does not.
 And there is a secondary gain: the vertical slice exercises the complete path early,
 revealing integration, data and deployment problems at the start, when fixing them is
 cheap.
+
+The price is operational. As long as there are slices on both sides, the organization
+runs two systems in production: data synchronized between the old model and the new one,
+two deployment pipelines, two on-call rotations, and the routing rule at the interception
+point, which grows with every migrated slice. That cost rises with the number of slices
+coexisting and only drops when the old system loses its last feature — which is why the
+last slice has to be in the plan from the start. How to manage that period is covered in
+[transition architecture](/15-enterprise-architecture/transition-architecture.md).
 
 ### Opportunistic modernization
 
@@ -189,17 +197,21 @@ insurance against it.
 
 ## When Not to Use
 
-**Sequencing by technical dependency.** Nothing is useful until the end, and projects like that get interrupted before delivering.
+**A system small enough for a single cutover.** If the whole replacement fits in a few
+weeks, the premium of slicing — interception, synchronization, two systems live — costs
+more than the interruption risk it covers.
 
-**With horizontal slices.** They force both architectures to coexist across every feature at the same time.
+**A system that will be retired or merely contained.** Slicing presupposes a destination;
+without one, isolating or shutting down is cheaper. See
+[migration strategies](/16-legacy-modernization/migration-strategies.md).
 
-**With slices that are too long.** The slice becomes a big project and recovers every risk the increment was avoiding.
+**A domain with no viable vertical slice.** When a shared database and batch processes
+cut across every feature, no slice goes into production on its own until that core is
+taken apart — and taking it apart is directed structural work, not an increment.
 
-**Measuring progress by percentage of code.** It hides that the complexity is concentrated in what's left, and the number gives false confidence.
-
-**Opportunistic for structural changes.** Improving what you touch never reaches a wrong boundary or an inadequate data model.
-
-**With no limit on incidental refactoring.** With no ceiling, a one-line fix becomes a week and the team loses the predictability that sustained the strategy.
+**Coexistence costlier than interruption.** If keeping both systems synchronized
+requires, for regulatory or consistency reasons, reconciliation that costs more than the
+risk of the program stopping, the coordinated cutover comes out cheaper.
 
 ## Alternatives
 
@@ -228,7 +240,8 @@ insurance against it.
 
 **A slice with no value.** Interrupted, nothing was delivered.
 
-**Sequencing by technical dependency.**
+**Sequencing by technical dependency.** Interrupted midway, it leaves layers that serve
+no purpose.
 
 **Long slices.** The same problems as the big program.
 
@@ -283,12 +296,13 @@ slice 11 special cases and shutdown            9 weeks
 Each slice crossed every layer for one feature, and went into production via
 [strangler fig](/16-legacy-modernization/strangler-fig.md).
 
-The first slice took 7 weeks — more than planned, because it built the minimum
-infrastructure along the way. The following ones sped up, reusing it.
+The first slice took the 7 weeks planned — the plan already counted on it building the
+minimum infrastructure along the way. The following ones sped up, reusing it.
 
-Two things happened during the 22 months:
+Two things happened during the program's 22 months, which include the four of
+interruption:
 
-**An interruption in month 9.** A regulatory priority consumed the team for four months.
+**An interruption in month 7.** A regulatory priority consumed the team for four months.
 The program stopped with 4 of the 11 slices complete — and all four were in production,
 delivering value. Nothing was lost.
 
@@ -296,7 +310,7 @@ delivering value. Nothing was lost.
 slices 8 and 9 would do. They were removed from the plan — and nothing already done had
 to be undone.
 
-Under the original plan, both events would have been fatal: the interruption in month 9
+Under the original plan, both events would have been fatal: the interruption in month 7
 would have caught the program in phase 2, with nothing delivered; the scope change in
 month 15 would have invalidated work from the earlier phases.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, rebuilding, saas]
 canonical_for: [substituição por produto, lacuna funcional, customização excessiva]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -32,7 +32,8 @@ até o produto custar mais que o sistema que ele substituiu.
 
 ## Problema
 
-O produto de mercado nunca faz exatamente o que o sistema atual faz.
+Um produto feito para muitas organizações não reproduz exatamente um sistema construído
+sob medida para uma só — e, depois de anos de ajuste, o sistema atual é sob medida.
 
 ```text
 faz mais    funcionalidades que a organização já tem em outro lugar
@@ -159,17 +160,20 @@ acumulada anula o benefício de comprar.
 
 ## Quando Não Usar
 
-**Para capacidade diferenciadora.**
+**Quando a capacidade é diferenciadora.** Se o teste "os clientes escolhem a organização
+por causa disto?" responde sim, o produto entrega a vantagem ao concorrente que o compra.
 
-**Com customização extensa.** Ela anula o benefício.
+**Quando a lacuna está no fluxo principal.** Se a análise com dados reais mostra que as
+regras que o produto não expressa estão no caminho que a maioria das transações percorre,
+e não nas exceções da borda, cada uma vira customização permanente.
 
-**Sem avaliar a lacuna com dados reais.**
+**Quando customização mais integração se aproxima do custo do sistema próprio.** Somados
+no mesmo horizonte, e com a manutenção da customização a cada versão, se o total chega
+perto do que custa manter o sistema atual, comprar troca controle por nada.
 
-**Sem verificar como os dados saem.**
-
-**Sem decidir sobre o histórico.**
-
-**Sem camada de tradução**, deixando o modelo do fornecedor entrar.
+**Quando os dados não saem.** Se o fornecedor não garante exportação completa em formato
+utilizável antes da assinatura, a saída deixa de ser opção — e a negociação seguinte
+também.
 
 ## Alternativas
 
@@ -192,7 +196,7 @@ com fronteira clara entre os dois.
 | Fronteira do fornecedor | Própria |
 | Funcionalidade além do necessário | Exata |
 | Sem diferenciação | Possível |
-| Custo previsível | De engenharia |
+| Custo previsível (assinatura) | Custo variável (capacidade de engenharia) |
 
 | Adaptar processo | Customizar produto |
 |---|---|
@@ -228,7 +232,7 @@ com fronteira clara entre os dois.
 
 **Não isolar com camada de tradução.** Sem ela, o modelo do fornecedor se espalha pelo domínio, e trocá-lo depois deixa de ser decisão comercial.
 
-**Não decidir sobre o histórico.** Migrar o passado para o produto novo costuma ser a maior parte do esforço, e a decisão é de negócio.
+**Não decidir sobre o histórico.** Migrar o passado para o produto novo pode ser a maior parte do esforço quando o volume é grande, os dados são sujos ou o modelo antigo difere muito do produto — e decidir o que migrar, arquivar ou descartar é decisão de negócio.
 
 ## Exemplo Real
 

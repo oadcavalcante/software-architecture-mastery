@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [documentation-principles, architecture-descriptions, living-documentation]
 canonical_for: [padrão de documentação, gatilho de documentação, dono do documento, gabarito]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -80,11 +80,10 @@ acréscimo.
 "o time X, papel Z"        funciona, sobrevive a saídas
 ```
 
-A terceira forma é a que resiste: o dono é um papel dentro de um time, e o papel é ocupado
-por alguém nomeado a cada momento.
-
-Documento sem dono é documento que apodrece. Ver
-[propriedade e responsabilidade](/19-architecture-governance/index.md).
+Para documento, a terceira forma é a que resiste: quando quem ocupa o papel sai, o
+documento continua tendo quem o corrija. Documento sem dono é documento que apodrece. A
+distinção entre papel e pessoa está em
+[propriedade de arquitetura](/23-architecture-leadership/architecture-ownership.md).
 
 ### Gatilho, não cadência
 
@@ -147,7 +146,9 @@ o diagrama referencia contêineres que ainda existem?
 as seções obrigatórias têm conteúdo além do gabarito?
 ```
 
-Nem tudo é verificável, e o que é deve ser. O último item é o mais valioso e o menos
+Nem tudo é verificável, e o que é verificável a custo baixo paga a verificação — com uma
+ressalva: a recência premia o toque cosmético, o mesmo defeito da revisão por calendário, e
+serve como alerta, não como critério de conformidade. O último item é o mais valioso e o menos
 implementado: detectar texto de gabarito não substituído pega a maior parte do
 preenchimento por dever.
 
@@ -185,18 +186,23 @@ recuperação de desastre, resposta a incidente, controle de acesso.
 
 ## Quando Não Usar
 
-**Como gabarito longo obrigatório.**
+**Sem classificação de criticidade, nem como criá-la** — o escalonamento depende dela.
+Sem ela, ou tudo cai na faixa alta e a exigência volta a ser uniforme, ou cada time se
+declara de baixa criticidade para fugir da carga.
 
-**Verificando existência em vez de conteúdo.**
+**Sem esteira onde pendurar a verificação** — pacotes de terceiros, plataformas low-code
+e sistemas sem repositório próprio não têm onde rodar a checagem. A política vira
+declaração que ninguém confere, com o custo de escrevê-la e o resultado de não ter uma.
 
-**Sem dono nomeado.**
-
-**Com cadência fixa como mecanismo principal.**
+**Para sistema com desligamento marcado** — exigir os cinco artefatos de algo que sai em
+poucos meses gasta esforço num leitor que não vai existir; dono e runbook bastam até o fim.
 
 **Uniforme para sistemas de criticidade diferente** — um sistema interno de uso ocasional e
 um sistema crítico não merecem a mesma exigência.
 
-**Em uma equipe pequena com um sistema** — a política é conversa.
+**Em uma equipe pequena com um ou dois sistemas** — todos sabem onde está cada coisa e
+quem responde por ela; a política escrita custa manutenção e não transmite nada que a
+conversa não transmita.
 
 ## Alternativas
 
@@ -242,13 +248,18 @@ rápido que doze páginas de norma.
 
 **Começar pelo gabarito** em vez de pelas perguntas que doem.
 
-**Confundir política com processo de aprovação.**
+**Confundir política com processo de aprovação** — a documentação passa a ser escrita
+para o aprovador, na véspera da aprovação, e deixa de ser atualizada depois dela.
 
-**Não permitir "não se aplica".**
+**Não permitir "não se aplica"** — o time preenche a seção inaplicável com texto genérico,
+e a verificação de conteúdo deixa de separar o preenchido do vazio.
 
-**Colocar tudo em wiki.**
+**Colocar tudo em wiki** — o documento fica fora da revisão de código: a mudança que o
+invalida entra sem que ninguém o veja, e a divergência só aparece quando alguém age sobre
+o texto errado.
 
-**Não verificar nada automaticamente.**
+**Não verificar nada automaticamente** — a conformidade é medida uma vez, no lançamento da
+política, e decai sem que ninguém perceba até o próximo levantamento manual.
 
 **Não medir uso** — sem isso, não se sabe o que cortar.
 
@@ -291,7 +302,8 @@ um painel por time.
 
 **Exigência escalonada por criticidade**: sistemas críticos acrescentam descrição
 consolidada e diagrama de implantação derivado; sistemas de baixa criticidade ficam nos
-cinco.
+cinco. O piso é mais alto que o da tabela acima de propósito: com 52 sistemas e 40 times,
+manter duas listas mínimas custava mais que exigir cinco artefatos de sistemas pequenos.
 
 Nove meses depois:
 
@@ -303,8 +315,8 @@ com divergência entre lugares                 0 (só existe um lugar)
 ```
 
 O que a equipe aprendeu: a decisão mais impopular — desligar o wiki — foi a mais efetiva.
-Enquanto existiam dois lugares válidos, a divergência era inevitável, e nenhuma política
-de qualidade resolvia isso.
+Enquanto existiam dois lugares editáveis de forma independente, a divergência era
+inevitável, e nenhuma política de qualidade resolvia isso.
 
 E uma que não funcionou: a primeira versão da política tinha nove artefatos obrigatórios.
 Os quatro cortados eram os que ninguém consultava, e sua remoção elevou a taxa de
@@ -329,7 +341,8 @@ que ficam.
 
 - Por que gatilho por evento funciona melhor que cadência fixa?
 - Por que permitir "não se aplica" aumenta a qualidade da documentação?
-- Que problema dois lugares válidos de documentação criam inevitavelmente?
+- Que problema dois lugares de documentação editáveis de forma independente criam, e por
+  que gerar um a partir do outro o evita?
 
 ## Para Aprofundar
 

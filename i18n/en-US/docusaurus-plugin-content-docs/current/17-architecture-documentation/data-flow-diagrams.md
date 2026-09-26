@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [sequence-diagrams, container-diagrams, c4-model]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -65,7 +65,7 @@ flows                        the movement, labeled with what travels
 trust boundaries             where the data changes control domain
 ```
 
-The last is what distinguishes this diagram from the others: the **trust boundary** is a
+The last is what distinguishes this diagram from the others: the **[trust boundary](/10-security/secure-boundaries.md)** is a
 line crossing the drawing, and every flow that crosses it is a point of attention.
 
 ### Points of rest matter more than transit
@@ -166,7 +166,8 @@ deliberately. See
 
 ## When to Use
 
-- For personal or regulated data, always.
+- For personal or regulated data that rests in more than one place, crosses a trust
+  boundary or is subject to deletion requests.
 - As input for threat modeling.
 - When defining data ownership across teams.
 - Before answering privacy requirements.
@@ -174,15 +175,21 @@ deliberately. See
 
 ## When Not to Use
 
-**For all the data.** Choose the ones that matter.
+**For data with no sensitive classification and no ownership dispute.** Performance
+telemetry or a public product catalog raise no privacy or ownership question; the cost of
+building and maintaining the map buys no decision.
 
-**As a substitute for a structural diagram** — it doesn't describe the system.
+**For data that is born, rests and dies in a single system** without crossing a trust
+boundary. That system's container diagram already answers where it is, and the map repeats
+what the structural view shows.
 
-**Without marking trust boundaries** — it loses the main point.
+**When a catalog with lineage already covers the points of rest.** If automated lineage
+enumerates the copies, drawing by hand duplicates an inventory that goes stale faster than
+the original; what is missing is marking sensitivity and boundaries in the catalog, not a
+second artifact.
 
-**Without the secondary points of rest** — logs, backups, staging.
-
-**Only once.** A 2023 mapping does not describe 2026.
+**As a substitute for a structural diagram.** When the question is the impact of a change
+to a component, the data axis scatters the answer across several drawings.
 
 ## Alternatives
 
@@ -226,13 +233,17 @@ distinguish what is sensitive.
 
 ## Common Mistakes
 
-**Mapping only the main path.**
+**Mapping only the main path.** The secondary branches — reprocessing, exports, support —
+are where the data escapes, and they stay off the deletion list.
 
-**Ignoring analytical copies.**
+**Ignoring analytical copies.** The deletion request is honored in the operational
+database and the data lives on in the analytical warehouse and its derived aggregates.
 
-**Not recording retention** at each point of rest.
+**Not recording retention** at each point of rest. The map says where the data is but not
+for how long, and the deletion decision goes back to guesswork.
 
-**Confusing it with a sequence diagram.**
+**Confusing it with a sequence diagram.** The result shows the order of calls and omits the
+stores, and it fails to answer the one question that motivated the drawing: where the data is.
 
 **Not using the result** — the mapping becomes an audit artifact instead of decision
 input.

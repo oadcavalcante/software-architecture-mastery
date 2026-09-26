@@ -13,7 +13,7 @@ objective: >
 prerequisites: [migration-strategies]
 related: [migration-strategies, incremental-modernization, cloud-native]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,9 @@ last_reviewed: 2026-08-31
 Replatforming is moving the application to new infrastructure, with minimal changes to
 the code.
 
-It is the cheapest, fastest and lowest-risk strategy — and the most underestimated,
-because it doesn't solve code problems and therefore looks insufficient.
+Compared with refactoring, rebuilding or replacing, it is the cheapest, fastest and
+lowest-risk strategy — and the most underestimated, because it doesn't solve code problems
+and therefore looks insufficient.
 
 What it delivers is **unblocking**: an automated pipeline, reproducible environments,
 observability, frequent deployment. And that reduces the cost of all the work that
@@ -97,8 +98,9 @@ An application moved to the cloud without acquiring the properties the cloud pre
 statelessness, disposability, external configuration — runs there and takes advantage of
 nothing, frequently at a higher cost.
 
-The plan has to include the second phase, with a deadline. Without that, it doesn't
-happen.
+The plan has to include the second phase, with a deadline. Without that, the pressure that
+drove the first one — the contract ending, the cost — ends with it, and nothing else forces
+the second.
 
 ### The minimal adaptations that are worth it
 
@@ -187,17 +189,24 @@ following ones cheaper.
 
 ## When Not to Use
 
-**Expecting it to solve code problems.**
+**When the delivery bottleneck is in the code, not in deployment.** If every change takes
+weeks because coupling forces edits in ten places, the pipeline shortens the minutes of
+deployment and leaves the weeks untouched. The effort pays off more in
+[refactoring](/16-legacy-modernization/legacy-refactoring.md).
 
-**As a final destination**, with no plan to continue.
+**When the system will be replaced before the migration pays for itself.** It costs the
+migration work plus the parallel period with two environments being paid for. If the
+replacement arrives before the savings and the unblocking return that cost, the investment
+goes to the replacement.
 
-**Without the minimal adaptations.**
+**When there is a dependency locked to the current environment.** Specific hardware, a
+license tied to the physical machine, an integration through a channel the target doesn't
+offer. Then the adaptation stops being minimal, and the work is another strategy under the
+wrong name.
 
-**Without revisiting the sizing.**
-
-**Without a parallel operation period.**
-
-**When the system will be replaced soon** for another reason.
+**When the current infrastructure is adequate and there is no deadline.** With no operational
+constraint to remove, replatforming pays the risk of the move — hidden dependencies,
+different performance — without unblocking anything.
 
 ## Alternatives
 
@@ -254,7 +263,8 @@ following ones cheaper.
 An insurance company had to leave its datacenter in 14 months, because a contract was
 ending. Sixty applications, several more than ten years old.
 
-The decision was to replatform as is — the only option viable within the deadline.
+The decision was to replatform, with minimal adaptations only where there was state —
+refactoring or rebuilding did not fit the deadline.
 
 Execution, in waves of increasing complexity:
 

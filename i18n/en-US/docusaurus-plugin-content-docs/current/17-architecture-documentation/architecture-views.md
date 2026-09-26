@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, architecture-descriptions, documentation-principles]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -167,7 +167,12 @@ method.
 
 **Producing a complete set by convention**, with no identified stakeholders.
 
-**In small systems** — two or three representations suffice.
+**When the people who read it are the ones who maintain and run it.** A single team,
+with no operations, audit or external integration audience: there is no one else's
+concern to answer, and one or two representations suffice.
+
+**When the expected lifespan is short** — a system that will be replaced before the cost
+of keeping several views consistent pays off.
 
 **Without checking consistency** across the views.
 
@@ -179,7 +184,7 @@ organizations.
 ## Alternatives
 
 - **[C4 model](/17-architecture-documentation/c4-model.md)** — when the concern is only structural.
-- **arc42** — when you want a ready-made structure that goes beyond diagrams.
+- **[arc42](/17-architecture-documentation/architecture-descriptions.md)** — when you want a ready-made structure that goes beyond diagrams.
 - **A single short document** — for small systems, one page with four sections.
 - **Documentation by question** — organize by frequent question instead of by view.
 
@@ -242,7 +247,8 @@ integration view     in 19
 evolution view       in 0
 ```
 
-Three of the seven views answered concerns nobody had. And the maintenance cost was the
+One view was never consulted, and two were used in fewer than 5 systems. And the
+maintenance cost was the
 same for all of them.
 
 Worse: a consistency audit found divergence between the structural and the deployment view

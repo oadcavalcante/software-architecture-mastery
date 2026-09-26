@@ -13,7 +13,7 @@ objective: >
 prerequisites: [container-diagrams]
 related: [container-diagrams, data-flow-diagrams, diagram-quality]
 canonical_for: [diagrama de sequência, linha de vida, ordem temporal, cenário documentado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -27,8 +27,8 @@ acontece, em que ordem**.
 Essa é a diferença essencial, e ela define o uso: um diagrama de sequência documenta um
 **cenário** — um caminho específico através do sistema, do início ao fim.
 
-Ele é o melhor artefato disponível para explicar comportamento distribuído, e o pior para
-descrever um sistema inteiro.
+Entre os diagramas de arquitetura, é o que mostra ordem e sincronia de um fluxo distribuído
+de forma mais direta — e o inadequado para descrever um sistema inteiro.
 
 ## Problema
 
@@ -201,9 +201,9 @@ partir do comportamento real, e frequentemente contradiz o desenhado.
 
 | Desenhado | Rastreamento real |
 |---|---|
-| Mostra a intenção | Mostra o que ocorre |
+| Mostra a intenção | Mostra o que ocorreu nas amostras coletadas |
 | Legível e curado | Ruidoso |
-| Pode estar errado | Não pode |
+| Pode estar errado | Pode estar incompleto: amostragem, serviço sem instrumentação, contexto perdido na fila |
 
 ## Modos de Falha
 

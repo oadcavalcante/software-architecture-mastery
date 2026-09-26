@@ -13,7 +13,7 @@ objective: >
 prerequisites: [documentation-principles]
 related: [context-diagrams, container-diagrams, component-diagrams]
 canonical_for: [modelo C4, nível de abstração, zoom de diagrama]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -101,19 +101,28 @@ componente apenas para as partes que justificam.
 
 ### O modelo é sobre estrutura, não sobre tudo
 
-C4 descreve estrutura estática. Ele não descreve:
+Os quatro níveis descrevem estrutura estática. O modelo define também diagramas
+suplementares — paisagem de sistemas, dinâmico e de implantação — que ficam fora da
+hierarquia de zoom e respondem a outras perguntas; aqui eles são tratados em
+[diagramas de sequência](/17-architecture-documentation/sequence-diagrams.md) e
+[diagramas de implantação](/17-architecture-documentation/deployment-diagrams.md):
 
 ```text
-comportamento em sequência   ver diagramas de sequência
-fluxo de dados               ver fluxo de dados
-implantação física           ver diagramas de implantação
-decisões e razões            ver decisões de arquitetura
+comportamento em sequência   diagrama dinâmico — ver diagramas de sequência
+implantação física           diagrama de implantação — ver diagramas de implantação
+fluxo de dados               fora do C4 — ver fluxo de dados
+decisões e razões            fora do C4 — ver decisões de arquitetura
 ```
 
 Tentar expressar sequência ou processo num diagrama estrutural produz um diagrama com
 setas numeradas que não é nenhuma das duas coisas bem.
 
-Os diagramas complementares existem e são usados quando a pergunta exige.
+Na prática, um conjunto útil combina os dois primeiros níveis com dois ou três diagramas
+de sequência dos fluxos que atravessam mais peças. É essa combinação que responde tanto a
+"o que existe" quanto a "o que acontece", e ela custa pouco mais que a estrutura sozinha.
+
+Tratar os quatro níveis como documentação completa é um erro de escopo: eles são
+deliberadamente parciais, e essa parcialidade é o que os mantém utilizáveis.
 
 ### A notação é livre, a semântica não
 
@@ -129,32 +138,13 @@ diferentes.
 
 ### Diagramas como código
 
-Descrever o diagrama em texto, versionado junto ao código, e gerar a imagem:
-
-```text
-versionado          muda no mesmo commit que a mudança
-revisável           aparece no diff
-gerado              a imagem não é editada à mão
-consistente         a mesma notação em todos
-```
-
-Ver [documentação viva](/17-architecture-documentation/living-documentation.md).
-
-Isso resolve o problema mais comum de diagramas: eles são desenhados uma vez, numa
-ferramenta gráfica, e ninguém os atualiza porque atualizar exige abrir a ferramenta.
-
-### Ele não substitui a conversa sobre comportamento
-
-O C4 descreve estrutura estática. Comportamento — ordem, concorrência, tratamento de falha
-— fica de fora por construção, e essa lacuna precisa ser preenchida por outro artefato.
-
-Na prática, um conjunto útil combina os dois primeiros níveis do C4 com dois ou três
-[diagramas de sequência](/17-architecture-documentation/sequence-diagrams.md) dos fluxos que atravessam mais peças. É
-essa combinação que responde tanto a "o que existe" quanto a "o que acontece", e ela custa
-pouco mais que a estrutura sozinha.
-
-Tratar o C4 como documentação completa é o erro de escopo mais comum de quem o adota: o
-modelo é deliberadamente parcial, e essa parcialidade é o que o mantém utilizável.
+O diagrama descrito em texto, versionado com o sistema e com a imagem gerada, é tratado
+em [documentação viva](/17-architecture-documentation/living-documentation.md). O que é
+específico do C4: como o modelo fixa o tipo de elemento em cada nível, ferramentas como o
+Structurizr descrevem o sistema uma vez, como modelo, e derivam dele as vistas de
+contexto, contêiner e componente. Renomear um contêiner no modelo atualiza todas as vistas
+em que ele aparece, em vez de exigir a mesma edição em três desenhos — e uma vista não
+consegue contradizer a outra, porque as duas leem o mesmo modelo.
 
 ## Modelo Mental
 
@@ -171,17 +161,22 @@ resolvem a maior parte.
 
 ## Quando Não Usar
 
-**Misturando níveis.**
+**Quando a pergunta é de comportamento.** Se o que precisa ser documentado é a ordem de
+um fluxo, a concorrência ou o tratamento de falha, os quatro níveis não têm onde pôr isso.
+Um diagrama de sequência responde direto; forçar o C4 produz as setas numeradas descritas
+acima.
 
-**Nível de código** — a ferramenta gera melhor.
+**Quando contrato ou norma exige notação padronizada.** Se o artefato precisa seguir UML,
+SysML ou uma descrição conforme a ISO 42010, notação livre com legenda não atende, e a
+liberdade do C4 vira passivo. UML ou um gabarito como o arc42 cumpre a exigência.
 
-**Para expressar sequência ou processo.**
+**Quando o sistema é um único implantável pequeno.** Com um contêiner só, o nível de
+contêiner não acrescenta nada ao de contexto, e o que resta — o contexto e um parágrafo
+sobre a organização interna — cabe num README ou num esboço.
 
-**Componente para todo sistema** — ele envelhece rápido.
-
-**Desenhado em ferramenta gráfica**, sem versionamento.
-
-**Sem legenda**, assumindo que a notação é óbvia.
+**Quando a documentação precisa cobrir várias visões.** Se segurança, implantação,
+desenvolvimento e operação têm interessados distintos, o 4+1 ou o arc42 organizam o
+conjunto, e o C4 entra como a parte estrutural deles, não como o todo.
 
 ## Alternativas
 
@@ -200,7 +195,8 @@ que esclarece uma conversa cumpriu a função dele.
 
 | C4 | UML |
 |---|---|
-| Simples de aprender | Expressiva e complexa |
+| Simples de aprender | Curva de aprendizado longa |
+| Poucos elementos de notação | Vocabulário grande e expressivo |
 | Notação livre | Padronizada |
 | Quatro níveis | Muitos tipos de diagrama |
 | Foco em comunicação | Em precisão |
@@ -226,17 +222,31 @@ que esclarece uma conversa cumpriu a função dele.
 
 ## Erros Comuns
 
-**Misturar abstrações.**
+**Misturar abstrações.** A decisão é fazer um diagrama só "com tudo", e sistema, serviço,
+biblioteca e tabela acabam lado a lado. O diagrama perde o leitor: cada público passa a
+precisar de alguém que o explique.
 
-**Produzir os quatro níveis para todo sistema.**
+**Produzir os quatro níveis para todo sistema.** Parece completude. O custo chega meses
+depois, quando os diagramas de componente e de código divergem do código e a equipe passa
+a desconfiar também dos níveis que continuavam corretos.
 
-**Desenhar em ferramenta gráfica.**
+**Manter em ferramenta gráfica um diagrama que precisa evoluir com o código.** O esboço de
+quadro está bem onde está; o erro é tornar referência um arquivo fora do repositório que
+poucos sabem editar. A primeira mudança estrutural sem atualização o torna falso, e nada
+avisa.
 
-**Numerar setas** para expressar sequência num diagrama estrutural.
+**Numerar setas** para expressar sequência num diagrama estrutural. Economiza um diagrama
+e produz um em que o leitor segue números pelo desenho para reconstruir o que um diagrama
+de sequência mostraria de cima para baixo.
 
-**Omitir a legenda.**
+**Omitir a legenda.** Quem desenha acha a notação óbvia porque a inventou; cada leitor
+atribui às formas e às setas um significado próprio, e duas pessoas saem do mesmo
+diagrama com leituras diferentes de uma dependência.
 
-**Não datar.**
+**Não datar.** Sem data ou versão, o leitor não sabe se vê a estrutura de hoje ou a de
+dois anos atrás — a situação do exemplo abaixo — e passa a tratar todos os diagramas como
+suspeitos. Gerado na esteira, o diagrama herda a data do commit; desenhado à mão, precisa
+trazê-la no próprio desenho.
 
 ## Exemplo Real
 
@@ -253,7 +263,7 @@ trabalho.
 
 **Desatualizados.** A última atualização de metade deles tinha mais de dois anos.
 
-A adoção de C4 mudou três coisas:
+A adoção de C4 mudou quatro coisas:
 
 **Contexto por sistema.** Um diagrama com o sistema, as pessoas que o usam, e os sistemas
 com que ele conversa. Entre 5 e 12 caixas.
@@ -270,8 +280,10 @@ justificava.
 **Diagramas como código**, versionados no repositório de cada sistema e gerados na
 esteira.
 
-Isso resolveu a desatualização: um diagrama que não corresponde à estrutura aparece na
-revisão do commit que a mudou.
+O texto versionado não detecta divergência sozinho — um commit que muda a estrutura sem
+tocar o diagrama passa limpo pelo diff. O que ele fez foi baratear a atualização a ponto
+de caber no mesmo commit, e isso permitiu que "o diagrama ainda corresponde?" virasse item
+da revisão de código. Foi esse item que conteve a desatualização.
 
 Um problema durante a adoção:
 

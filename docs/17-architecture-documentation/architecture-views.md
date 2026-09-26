@@ -13,7 +13,7 @@ objective: >
 prerequisites: [c4-model]
 related: [c4-model, architecture-descriptions, documentation-principles]
 canonical_for: [visão arquitetural, ponto de vista arquitetural, preocupação de interessado, modelo 4+1]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -169,7 +169,12 @@ método.
 
 **Produzindo um conjunto completo por convenção**, sem interessados identificados.
 
-**Em sistemas pequenos** — duas ou três representações bastam.
+**Quando quem lê é quem mantém e opera.** Uma equipe só, sem público de operação,
+auditoria ou integração de fora: não há preocupação alheia a responder, e uma ou duas
+representações bastam.
+
+**Quando a vida útil prevista é curta** — um sistema que será substituído antes que o
+custo de manter várias visões consistentes se pague.
 
 **Sem checar consistência** entre as visões.
 
@@ -181,7 +186,7 @@ grandes.
 ## Alternativas
 
 - **[Modelo C4](/17-architecture-documentation/c4-model.md)** — quando a preocupação é só estrutural.
-- **arc42** — quando se quer uma estrutura pronta que vai além de diagramas.
+- **[arc42](/17-architecture-documentation/architecture-descriptions.md)** — quando se quer uma estrutura pronta que vai além de diagramas.
 - **Documento único curto** — para sistemas pequenos, uma página com quatro seções.
 - **Documentação por pergunta** — organizar por questão frequente em vez de por visão.
 
@@ -244,7 +249,7 @@ visão de integração      em 19
 visão de evolução        em 0
 ```
 
-Três das sete visões respondiam a preocupações que ninguém tinha. E o custo de manutenção
+Uma visão nunca foi consultada, e duas eram usadas em menos de 5 sistemas. E o custo de manutenção
 era igual para todas.
 
 Pior: uma auditoria de consistência encontrou divergência entre a visão estrutural e a de
