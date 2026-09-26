@@ -287,7 +287,8 @@ total                     121           32                   42
 
 121 hours per month is about 0.75 full-time engineer, permanently — the conversion base used was
 160 working hours per month. Added to the on-call cost and
-the post-incident recovery time, the estimate landed at ~1.1 people.
+the post-incident recovery time, the estimate landed at ~1.1 people, at $9,400 a month per person
+including taxes and benefits.
 
 And the comparison redone:
 

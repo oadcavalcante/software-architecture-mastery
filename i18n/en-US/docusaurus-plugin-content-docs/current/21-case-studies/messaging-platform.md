@@ -232,7 +232,7 @@ scenario in which the product becomes heavily multi-platform, with desktop, web 
 mobile devices per user; it does not decide on its own, but it shows where the decision gets
 fragile.
 
-With cost at 40%, they become 6.9 / 8.4 / 4.6 — Option B widens its advantage.
+With cost at 40%, they become 6.2 / 8.2 / 6.1 — Option B widens its advantage.
 
 ## Decision
 
