@@ -572,7 +572,7 @@ leia o 🟩 como "cada parágrafo dos 446 documentos foi lido por um revisor".
 | Seis validadores de conteúdo em CI | 🟩 |
 | Convenções de acervo decididas e registradas na spec | 🟩 |
 | Revisão de profundidade (§13.3) — instrumento | 🟩 [`revisor-de-profundidade`](.claude/agents/revisor-de-profundidade.md) |
-| Revisão de profundidade — **399 de 446 documentos (89%)** | 🟨 oito tipos fechados; `concept` em 228 de 275 |
+| Revisão de profundidade — **411 de 446 documentos (92%)** | 🟨 oito tipos fechados; `concept` em 240 de 275 |
 | Varredura por classe de defeito — referências e código | 🟩 100% do acervo |
 | Verificação visual da interface | 🟩 120 combinações de página × largura × tema |
 
