@@ -13,7 +13,7 @@ objective: >
 prerequisites: [target-architecture]
 related: [target-architecture, current-state-architecture, architecture-roadmaps]
 canonical_for: [arquitetura de transição, coexistência, ponto de não retorno]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -95,8 +95,8 @@ sombra             o novo processa em paralelo sem responder, para comparar
 divisão por fatia  um segmento de usuários, uma região, um tipo de operação
 ```
 
-Ver [modernização de legado](/16-legacy-modernization/index.md) para o tratamento
-completo.
+Ver [strangler fig](/16-legacy-modernization/strangler-fig.md) para o padrão e
+[modernização de legado](/16-legacy-modernization/index.md) para o tratamento completo.
 
 A escolha depende do risco e da reversibilidade: sombra é a mais segura e a mais cara;
 divisão por fatia é a que entrega valor mais cedo.
@@ -165,17 +165,19 @@ desperdício, o estado foi mal definido.
 
 ## Quando Não Usar
 
-**Salto único** em sistemas críticos.
+**Sistema pequeno, com poucas integrações e reversão rápida.** Se voltar da troca única
+leva minutos e afeta poucos consumidores, o risco concentrado do salto é barato, e
+estados intermediários só adicionam coexistência.
 
-**Sem definir a fonte da verdade** durante a coexistência.
+**Migração curta.** Quando a troca inteira cabe em semanas, o custo de operar os dois
+sistemas e sincronizá-los supera o risco que os estados intermediários distribuiriam.
 
-**Sem critério de conclusão** de cada estado.
+**Sistema antigo impossível de interceptar ou replicar.** Sem ponto de interceptação e
+sem acesso aos dados para replicação, não há como os dois lados conviverem — os estados
+intermediários ficam no papel.
 
-**Sem plano de desligamento** do antigo.
-
-**Ordenando por dependência técnica** em vez de por valor.
-
-**Sem contabilizar o custo da coexistência.**
+**O antigo atende e mudar não se paga.** Aí a questão não é como transitar, é se
+transitar.
 
 ## Alternativas
 
@@ -192,8 +194,9 @@ A última merece consideração séria e raramente é considerada.
 
 | Muitos estados | Poucos |
 |---|---|
-| Valor cedo, risco distribuído | Menos coexistência |
-| Coexistência prolongada | Salto maior |
+| Valor cedo | Valor tardio |
+| Risco distribuído em saltos pequenos | Salto maior |
+| Coexistência prolongada | Menos coexistência |
 | Reversível em vários pontos | Menos pontos de volta |
 
 | Estrangulamento | Reescrita paralela |
@@ -220,9 +223,9 @@ A última merece consideração séria e raramente é considerada.
 
 **Não definir estados intermediários.** Sem eles a migração é um salto único, que não entrega valor até o fim e não pode ser interrompida sem perda total.
 
-**Não definir a fonte da verdade.** Durante a coexistência, os dois sistemas têm o mesmo dado. Sem declarar qual manda, cada integração escolhe a sua e a divergência é inevitável.
+**Não definir a fonte da verdade.** Durante a coexistência, os dois sistemas têm o mesmo dado. Sem declarar qual manda, cada integração escolhe a sua e a divergência passa a ser questão de tempo.
 
-**Não ter critério de conclusão.** Sem uma condição objetiva de "terminou", a transição vira estado permanente — e a empresa passa a operar e pagar os dois sistemas para sempre.
+**Não ter critério de conclusão.** Sem uma condição objetiva de "terminou", a transição vira estado permanente — e a empresa passa a operar e pagar os dois sistemas indefinidamente.
 
 **Ordenar por dependência técnica.** Produz uma sequência em que nada é útil até o fim, e o projeto é cancelado no meio sem ter entregue nada.
 
@@ -267,15 +270,17 @@ desligado.
 
 Critério de conclusão de cada estado explícito, com métricas verificáveis.
 
-Tempo total: 16 meses a partir da reformulação — mais que os 14 originais, e com valor
-entregue a partir do terceiro mês, e sem nenhum fim de semana de troca.
+Tempo total: 16 meses a partir da reformulação, aproveitando o sistema já construído —
+36 meses no total contra os 14 estimados, mas com valor entregue a partir do terceiro mês
+da reformulação e sem nenhum fim de semana de troca.
 
 E dois estados intermediários teriam sido defensáveis como parada: após o estado 1, o
 gargalo de capacidade estava resolvido; após o estado 2, as divergências de regra
 estavam mapeadas.
 
-A lição registrada: os 20 meses do plano original não produziram nenhum valor
-utilizável. O que travava não era técnico — era que o único momento de valor era o
+A lição registrada: os 20 meses do plano original não produziram valor utilizável por
+si — o sistema construído neles só passou a servir quando os estados intermediários lhe
+deram um uso. O que travava não era técnico — era que o único momento de valor era o
 último, e ele era arriscado demais para alguém aprovar.
 
 ## Conceitos Relacionados

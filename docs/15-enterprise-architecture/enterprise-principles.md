@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: [princípio corporativo, princípio acionável, implicação de princípio]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -45,7 +45,10 @@ Nenhum desses ajuda a decidir. Diante de duas alternativas, ambas podem ser defe
 como simples, seguras e boas para o usuário.
 
 O teste que expõe isso: **existe alguém na organização que defenderia o contrário?** Se
-não existir, o princípio não separa opções — ele apenas declara uma virtude.
+não existir, o princípio não separa opções — ele apenas declara uma virtude. É o teste do
+inverso, definido em
+[princípios de governança](/19-architecture-governance/governance-principles.md); aqui
+interessa o que vem depois dele: implicações e o teste contra decisões reais.
 
 ## Conceitos Centrais
 
@@ -120,8 +123,10 @@ com decisão de quem tem alcance para tomá-la
 e prazo de revisão
 ```
 
-O registro das exceções é informação valiosa: se um princípio acumula exceções, ele está
-errado — não as exceções.
+O registro das exceções é informação valiosa: se um princípio acumula exceções, esse é o
+sinal mais forte de que ele precisa ser revisto — porque está errado, porque o escopo ficou
+largo demais, ou porque é sistematicamente vencido por outro sem que a precedência esteja
+escrita.
 
 Essa é uma das formas mais confiáveis de descobrir que um princípio precisa mudar.
 
@@ -168,11 +173,13 @@ acontecer.
 O que não funciona é ordenar os princípios por prioridade fixa: uma hierarquia rígida
 transforma o segundo princípio em decoração, porque o primeiro sempre vence.
 
-O que funciona é registrar, quando a tensão aparece, qual venceu e por quê. Ver
+O que funciona é dizer **onde** cada princípio governa — por domínio ou por risco —, como
+detalha [princípios de governança](/19-architecture-governance/governance-principles.md),
+e registrar, quando a tensão aparece, qual venceu e por quê. Ver
 [decisões de arquitetura](/18-architecture-decisions/index.md).
 
-Depois de alguns registros, o padrão emerge — e ele é mais informativo que qualquer
-regra de precedência definida antecipadamente.
+Os registros não substituem a regra de precedência: eles a calibram. Depois de alguns, o
+padrão emerge e mostra onde a fronteira entre os dois princípios foi mal traçada.
 
 ### O princípio precisa ser testável contra a decisão de amanhã
 
@@ -210,25 +217,25 @@ foram escritas — e o princípio está produzindo divergência em vez de coerê
 
 ## Quando Não Usar
 
-**Como declaração de virtude.** Se ninguém discordaria, o princípio não separa
-alternativas — ele apenas afirma algo com que todos concordam.
+**Com um time só, ou poucos times que decidem juntos.** Princípio existe para coordenar
+quem não conversa; onde todos estão na mesma revisão semanal, a conversa direta custa menos
+que escrever, publicar e manter o conjunto — e é mais precisa que ele.
 
-**Em número grande.** Acima de oito ou dez, ninguém lembra, e princípios que não são
-lembrados não orientam nada.
+**Onde um acervo de decisões registradas já orienta.** Se os times consultam ADRs passados
+antes de decidir, o precedente carrega o contexto que o princípio abstrai. Escrever
+princípios por cima só se paga quando o acervo ficou grande demais para ser consultado.
 
-**Sem implicações.** A frase sozinha admite interpretações divergentes, e a coerência
-que ela deveria produzir não acontece.
-
-**Sem caminho de exceção.** Produz contorno silencioso, ou paralisia — e o registro das
-exceções é justamente o mecanismo que revela quando o princípio precisa mudar.
+**Sem alguém com alcance para decidir exceções.** Princípio sem árbitro vira contorno
+silencioso ou paralisia; se a organização ainda não tem quem pondere um princípio contra
+outro, o conjunto publicado não será aplicado.
 
 **No lugar de padrão** ou de verificação automatizada. Princípios orientam julgamento;
 onde a escolha específica importa e pode ser verificada, um princípio é o instrumento
 errado.
 
-**Sem revisão periódica.** Um princípio que fazia sentido com 30 engenheiros pode estar
-errado com 300, e restrições que sobrevivem ao contexto que as justificava produzem
-atrito sem propósito.
+**Como instrumento de veto.** Se o contexto é de desconfiança entre áreas, princípios
+tendem a ser citados apenas para recusar propostas — e o conjunto passa a ser lido como
+lista de proibições, não como critério.
 
 ## Alternativas
 
@@ -303,7 +310,7 @@ simplicidade", "somos orientados a dados".
 E, dos 23, apenas 4 tinham sido citados em alguma discussão nos três anos — sempre para
 justificar uma recusa, nunca para orientar uma escolha.
 
-A reformulação produziu 6 princípios, cada um com lado perdedor explícito e implicações:
+A reformulação produziu 5 princípios, cada um com lado perdedor explícito e implicações:
 
 ```text
 1. Preferimos comprar a construir, exceto no que nos diferencia.
@@ -312,6 +319,7 @@ A reformulação produziu 6 princípios, cada um com lado perdedor explícito e 
 
 2. Dados pertencem a um único sistema; os demais consomem.
    → nenhum sistema escreve na base de outro
+   → integração é por contrato explícito — API ou evento
    → todo conjunto de dados tem dono declarado
 
 3. Preferimos consistência entre times a otimização local.
@@ -320,11 +328,13 @@ A reformulação produziu 6 princípios, cada um com lado perdedor explícito e 
 4. Preferimos reversibilidade a acerto na primeira tentativa.
    → decisões de porta dupla são tomadas rápido, pelo time, e revisadas depois
 
-5. Integração é por contrato explícito, nunca por acesso ao banco alheio.
-
-6. O time que constrói opera o que constrói.
+5. O time que constrói opera o que constrói.
    → nenhuma entrega é considerada pronta sem telemetria e alertas
 ```
+
+Um sexto candidato — "integração é por contrato explícito, nunca por acesso ao banco
+alheio" — foi rebaixado a implicação do princípio 2: não descartava nada que o 2 já não
+descartasse.
 
 Cada um com implicações listadas, exceção possível com registro, e revisão anual.
 

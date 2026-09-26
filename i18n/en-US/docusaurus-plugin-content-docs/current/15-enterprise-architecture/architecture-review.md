@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, enterprise-governance, enterprise-principles]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -177,22 +177,26 @@ questions.
 
 - Decisions with reach beyond the team.
 - Decisions that are hard to reverse.
-- When the team asks — voluntary consultation is the best signal.
+- When the team asks — of all the triggers, it is the only one that signals the review
+  arrives while the design is still open.
 - New patterns, which may become precedent.
 
 ## When Not to Use
 
-**At the end of the process**, as authorization.
+**When the decision fits within one team's boundary and can be undone in less than one
+delivery cycle.** Getting it wrong costs less than the review; after-the-fact review of
+patterns covers the risk.
 
-**For local, reversible decisions.**
+**When a principle or paved road already answers the question.** Reviewing again reopens
+what was already decided; if the existing answer does not fit, what gets reviewed is the
+principle, not the team's decision.
 
-**As a veto with no alternative.**
+**When the cost of waiting exceeds the cost of reversing.** If waiting a week for the
+reviewer costs more than undoing the decision should it prove wrong, decide, record it,
+and review later.
 
-**Without criteria**, leaving room for personal preference.
-
-**Without a record.**
-
-**With participants who lack the context** to contribute.
+**When no one available has context the team lacks.** A review without that asymmetry
+produces generic questions and only consumes the team's calendar.
 
 ## Alternatives
 
@@ -218,6 +222,15 @@ have a built-in default answer.
 | Responsibility with the team | With the reviewer |
 | No incentive to hide | Optimized for the yes |
 | Less control | More |
+
+Voluntary consultation has a blind spot: it reaches those who know they need it, and
+misses the team that does not know what it does not know. Coherence across teams comes to
+depend on who sought out whom, and demand on architects turns into a queue once
+consultation works. The mitigations are structural: mandatory triggers by reach and
+reversibility, which do not depend on the team's initiative; the public record, which
+shows which teams decide a lot and never consult; and reserved reviewer capacity —
+architect hours per week, maintaining the record, the quarterly pattern session —
+budgeted as a standing cost, not as a favor.
 
 ## Failure Modes
 
@@ -264,7 +277,8 @@ average wait          19 days
 design changes           11  (6% of proposals)
 ```
 
-In 97% of cases, the committee was waiting. In 6%, it improved something.
+In 91% of cases (168 of 184), the committee was only waiting: it approved without
+changing anything. In 6%, it changed the design; the remaining 3% were rejected.
 
 And the interviews revealed the induced behavior: teams presented the minimum, avoided
 mentioning uncertainties, and treated the session as a defense.
@@ -289,8 +303,10 @@ teams.
 **Quarterly review of patterns.** The questions that came up repeatedly became three
 principles and two paved roads — removing the need to review them individually.
 
-Result in one year: average wait from 19 days to 2, and the number of design changes
-prompted by review rose from 11 to 47 — because the conversation started happening while
+Result in one year: average wait from 19 days to 2, and design changes
+prompted by review went from 11 in 184 proposals (6%) to 47 in roughly 200 recorded
+interactions across consultations, peer reviews, and approvals (close to a quarter) —
+because the conversation started happening while
 changing was still cheap.
 
 The recorded conclusion: the committee was not useless, it was expensive for what it

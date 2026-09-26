@@ -13,7 +13,7 @@ objective: >
 prerequisites: [infrastructure-as-code]
 related: [infrastructure-as-code, containers-in-delivery, ci-cd]
 canonical_for: [paridade de ambiente, ambiente efêmero, promoção entre ambientes, dados de teste]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -83,9 +83,10 @@ capacidade reduzida e por destruição automática ao fim.
 Onde ambientes efêmeros completos são caros, uma variação funciona: o ambiente novo é só
 o serviço alterado, apontando para os demais compartilhados.
 
-### Dados de teste: nunca cópia de produção
+### Dados de teste: não cópia integral de produção
 
-Copiar produção é a prática mais comum e a pior:
+Copiar produção inteira, sem mascarar, é a prática mais comum — e a que leva dados reais
+para um ambiente com controles mais fracos que os de produção:
 
 ```text
 exposição      dados pessoais num ambiente com controles mais fracos
@@ -168,23 +169,35 @@ falsa; com disputa, ele produz atraso.
 
 ## Quando Usar
 
-- Ambientes efêmeros: sempre que a infraestrutura permitir.
-- Ambiente de paridade alta: para verificação final.
-- Dados sintéticos: sempre.
+- **Ambientes efêmeros** quando mais de um time disputa o mesmo ambiente e a medição
+  mostra fila — e a infraestrutura pode ser criada do zero em minutos, não em horas.
+- **Ambiente de paridade alta** quando os defeitos que escapam para produção são de
+  concorrência, volume ou conectividade — as dimensões que um ambiente reduzido não
+  reproduz.
+- **Dados sintéticos** quando o ambiente não tem os controles de produção e o
+  comportamento testado depende de distribuição e cardinalidade, não de valores reais.
 
 ## Quando Não Usar
 
-**Cópia de produção como dado de teste.**
+**Efêmero completo quando criar o sistema inteiro leva mais que a própria verificação.**
+Com dezenas de serviços e bancos, um ambiente que demora uma hora para subir troca a fila
+por espera de criação, e o custo dos simultâneos cresce com o número de propostas
+abertas. Aí a variação parcial — só o serviço alterado — entrega o isolamento sem esse
+custo.
 
-**Ambiente compartilhado disputado**, quando efêmeros são viáveis.
+**Eliminar disputa onde não há disputa.** Um time com um ambiente compartilhado e sem
+fila medida não recupera, em tempo de espera, o investimento de declarar o último trecho
+manual da infraestrutura; se esse trabalho se justifica, é por reprodutibilidade, não
+por efêmeros.
 
-**Muitos ambientes intermediários.**
+**Paridade de volume quando a lógica não depende de volume.** Um serviço de
+configuração com mil registros em produção não ganha nada com um ambiente que replique
+a escala dos outros; paridade custa por dimensão, e só se paga nas que produzem defeito.
 
-**Ambiente que difere de produção** em dimensão relevante, tratado como garantia.
-
-**Reconstruindo o artefato** entre ambientes.
-
-**Sem destruição automática** dos efêmeros — o custo acumula.
+**Dados sintéticos quando o defeito mora na sujeira dos dados reais.** Migração de base
+legada, parsing de campos livres, registros que violam invariantes que o sistema já não
+aplica: um gerador só produz o que alguém soube modelar. Nesses casos, subconjunto
+mascarado.
 
 ## Alternativas
 
@@ -229,7 +242,7 @@ A segunda é a que mais reduz a dependência de ambientes integrados, e é subut
 
 ## Erros Comuns
 
-**Copiar produção.**
+**Copiar produção sem mascarar** para ambiente com controles mais fracos.
 
 **Manter ambientes intermediários demais.**
 
@@ -277,8 +290,11 @@ integrado.
 
 **Canary em produção** para a verificação final.
 
-Resultado: tempo de 9 dias para 4 horas, e uma redução de 60% nos incidentes causados
-por implantação — atribuída principalmente à paridade de topologia e volume.
+Resultado: tempo de 9 dias para 4 horas. Os 6 dias de fila sumiram com os efêmeros; os
+outros 3 eram a rodada de verificação integrada em homologação, agendada por lote, que
+os testes de contrato no pipeline e o canary substituíram. E uma redução de 60% nos
+incidentes causados por implantação — atribuída principalmente à paridade de topologia e
+volume.
 
 A conclusão registrada: os quatro ambientes existiam porque cada um tinha sido criado
 para resolver um problema de fila do anterior. Nenhum resolvia paridade, e juntos
@@ -302,7 +318,7 @@ Depois liste as diferenças entre homologação e produção. As que estiverem n
 
 - Quais dimensões de paridade importam mais?
 - Por que ambientes efêmeros forçam boa infraestrutura como código?
-- Por que copiar produção para teste é a pior escolha de dados?
+- Por que copiar produção sem mascarar para teste é a escolha de dados mais arriscada, e quando um subconjunto mascarado supera dados sintéticos?
 
 ## Para Aprofundar
 

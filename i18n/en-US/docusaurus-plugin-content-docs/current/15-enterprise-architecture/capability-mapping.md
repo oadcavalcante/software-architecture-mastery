@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, application-portfolios, business-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -117,8 +117,11 @@ number of systems        where there is duplication
 
 See [application portfolios](/15-enterprise-architecture/application-portfolios.md).
 
-And the most productive combination: **criticality against health**. It produces a short list of priorities
-nobody argues with — critical capabilities supported by bad systems.
+Each question calls for a combination. To prioritize risk and modernization, **criticality against
+health**: it produces a short list of priorities that is hard to contest, because it crosses two facts
+business and IT already recognize — critical capabilities supported by bad systems. To decide between
+building and buying, **differentiation against cost**, as described in
+[business capabilities](/15-enterprise-architecture/business-capabilities.md).
 
 ### How long, and when to stop
 
@@ -144,6 +147,12 @@ used in build-or-buy decisions
 reviewed when the business changes
 ```
 
+Maintaining it has a concrete shape: a named owner for the map — usually business architecture, not a
+project that ends —, a structural review tied to the budget cycle, and the systems layer updated along with
+the [application portfolio](/15-enterprise-architecture/application-portfolios.md), each time a system comes
+in or is retired. The capability structure changes little; the heat map ages within months if the systems
+layer does not follow the portfolio.
+
 If it enters no recurring decision, it is not worth the cost of maintaining — and the honest conclusion is
 that it should not have been built.
 
@@ -162,18 +171,18 @@ alive.
 
 ## When Not to Use
 
-**Run only by technology.**
+**A small organization, with few systems.** When a one-page inventory already shows what supports what,
+the map adds weeks of workshops without revealing duplication the list would not show.
 
-**Decomposing bottom up.**
+**No recurring decision the map can enter.** With no budget cycle, modernization program or build-or-buy
+decision in sight, the map is filed away at the end of the exercise — the most expensive failure mode,
+because the whole cost has already been paid.
 
-**Seeking excessive precision.**
+**The dominant problem is software boundaries.** If the question is where to split services or who owns
+which data, domain mapping answers at the right level of detail; the capability map sits above that.
 
-**With no information overlaid.**
-
-**Entering no decision process.**
-
-**Copying an industry reference model** with no adaptation — it describes the industry, not the
-organization.
+**The problem is flow, not the portfolio.** If what hurts is the time between request and delivery, the
+value stream map shows the waiting; the capability map only shows that the capability exists.
 
 ## Alternatives
 
@@ -217,8 +226,9 @@ The last accelerates the start and produces a generic model if it is not adapted
 name, and the business does not recognize itself in it — which makes it useless for the conversation it
 existed to have.
 
-**Decomposing bottom up.** Starting from the existing systems reproduces the current architecture and hides
-the capability no system serves — which is precisely the most valuable information.
+**Decomposing bottom up.** Listing every activity and grouping afterward produces artificial categories,
+defined by how similar the tasks look rather than by what the business needs to know how to do — and the
+same activities end up grouped in two places, which is the overlap the exclusivity test later has to undo.
 
 **Not applying the stability tests.** If an item on the map disappears when the company changes tool or
 structure, it was not a capability; it was a process or a system with a capability's name.

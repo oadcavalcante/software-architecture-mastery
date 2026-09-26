@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -45,8 +45,9 @@ things learned during execution change the design
 people come and go
 ```
 
-A roadmap that has to be executed in full to deliver anything is a roadmap that will be
-interrupted midway, leaving invested work with no return.
+A roadmap that has to be executed in full to deliver anything is betting that none of
+these changes will interrupt it before the end — and if one does, it leaves invested work
+with no return.
 
 ## Core Concepts
 
@@ -153,7 +154,7 @@ conversation to happen.
 ## Mental Model
 
 **Each item delivers value on its own.** A roadmap that only delivers at the end does not
-survive the first shift in priority.
+survive the first shift in priority that arrives before that end.
 
 ## When to Use
 
@@ -164,17 +165,21 @@ survive the first shift in priority.
 
 ## When Not to Use
 
-**With value only at the end.**
+**Single-team work, with no cross-team dependency.** If no one outside the team has to
+wait or coordinate, the ordering fits in a prioritized queue. Maintaining and reviewing a
+roadmap costs a quarterly ceremony with no dependency to unblock.
 
-**With uniform precision** across the whole horizon.
+**Change that fits in less than a quarter.** The whole horizon sits in the concrete-items
+band; there is no growing uncertainty to show, and the quarter's plan already is the
+roadmap.
 
-**With dates where uncertainty is high.**
+**No audience that consumes the direction.** A roadmap's main use is communication. If no
+other team and no one in the business decides anything based on it, it becomes a document
+only its author reads.
 
-**Without showing what is not planned.**
-
-**Without a quarterly review.**
-
-**In technical vocabulary**, when the audience is the business.
+**Before strategy and transition exist.** Without something to prioritize and without
+defined intermediate states, the roadmap orders items that have no value criterion yet —
+and turns into a schedule of technical work.
 
 ## Alternatives
 
@@ -204,7 +209,7 @@ And the horizon has the same trade-off between usefulness and honesty:
 | Long horizon | Short |
 |---|---|
 | Direction visible to whoever depends on it | Actionable now |
-| Low precision, frequent review | High |
+| Low precision, frequent review | High precision, less disruptive review |
 | Allows planning dependencies | Reacts better to change |
 | Risk of becoming a commitment | Without that risk |
 
@@ -224,7 +229,7 @@ And the horizon has the same trade-off between usefulness and honesty:
 
 ## Common Mistakes
 
-**Ordering by technical dependency.** It produces a roadmap in which nothing delivers value until the end — and projects like that get cancelled midway, having delivered nothing.
+**Ordering by technical dependency.** It produces a roadmap in which nothing delivers value until the end — and a project like that, if cancelled midway, leaves nothing delivered.
 
 **Uniform detail.** The next quarter can be detailed; the third year cannot be known. Detailing everything equally gives false precision to what is speculation.
 

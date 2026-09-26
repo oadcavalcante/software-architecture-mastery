@@ -12,8 +12,8 @@ objective: >
   decisão está no lugar errado.
 prerequisites: [enterprise-architecture]
 related: [enterprise-governance, architecture-review, enterprise-principles]
-canonical_for: [níveis de arquitetura, arquitetura de solução, alcance de decisão, decisão reversível]
-content_version: 1
+canonical_for: [níveis de arquitetura, arquitetura de solução, alcance de decisão]
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -70,7 +70,8 @@ alcance local + reversão barata   → do time, sem cerimônia
 ```
 
 O quadrante inferior direito contém a **maioria** das decisões, e é onde a centralização
-costuma se intrometer — com custo alto e benefício nulo.
+costuma se intrometer — com custo alto e benefício próximo de zero, porque o erro que o
+comitê evitaria o time desfaz em dias.
 
 E o quadrante superior direito merece atenção: uma decisão de alcance amplo mas
 facilmente reversível não precisa de regra. Ela precisa de visibilidade e de um caminho
@@ -103,25 +104,21 @@ A primeira linha do nível corporativo — propriedade do dado — é a decisão
 alcance e a menos tomada explicitamente. Ver
 [propriedade do dado](/07-data-architecture/data-ownership.md).
 
-### Decisões de mão única e de mão dupla
+### Reversibilidade como eixo de alocação
 
-A distinção que calibra o rigor, na formulação de
-[decisão sob incerteza](/23-architecture-leadership/decision-making.md):
+A distinção entre decisões de mão única e de mão dupla, e o rigor que cada uma merece,
+estão em [decisão sob incerteza](/23-architecture-leadership/decision-making.md). O que
+ela faz aqui é servir de segundo eixo do quadrante: dentro do mesmo alcance, o custo de
+reverter separa o que passa por revisão do que segue sem cerimônia.
 
-```text
-mão única  difícil ou impossível de reverter
-           escolha de banco com anos de dados, contrato público, fronteira de serviço
-mão dupla  reversível com custo baixo
-           biblioteca, estrutura de código, ferramenta interna
-```
+O sintoma de que a alocação ignora esse eixo: o tempo médio de decisão é o mesmo para
+escolher uma biblioteca e para escolher um modelo de dados corporativo.
 
-Aplicar o mesmo processo às duas é o erro. Decisões de mão dupla devem ser tomadas
-rápido, por quem está mais próximo, e revistas se der errado.
-
-Decisões de mão única merecem tempo, alternativas escritas e mais de uma cabeça.
-
-O sintoma de que o processo está calibrado errado: o tempo médio de decisão é o mesmo
-para escolher uma biblioteca e para escolher um modelo de dados corporativo.
+E a reversibilidade não é propriedade fixa da decisão — ela cai com o uso. Uma
+biblioteca adotada por um serviço é de mão dupla; a mesma biblioteca espalhada por
+quarenta serviços, com os tipos dela nos contratos entre eles, virou de mão única sem
+que ninguém a tenha decidido de novo. A classificação feita quando a decisão nasce
+precisa ser refeita quando o alcance cresce.
 
 ### O nível de solução é o que costuma faltar
 
@@ -147,10 +144,12 @@ desce  em todo o resto
 E o mecanismo que permite descer sem perder coerência não é aprovação — é **caminho
 pavimentado**: o padrão embutido no que o time já usa, de forma que a escolha certa seja
 a mais fácil. Ver
-[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
-Uma regra que precisa ser verificada por um comitê é uma regra que não foi
-operacionalizada.
+Quando a regra é técnica — formato de log, versão mínima de biblioteca, configuração de
+rede —, precisar de um comitê para verificá-la é sinal de que ela não foi
+operacionalizada. Regras regulatórias e de propriedade de dado são a exceção: dependem de
+julgamento e continuam no nível corporativo.
 
 ### Quem decide não é quem sabe mais
 
@@ -178,15 +177,23 @@ tendência organizacional é puxá-las para cima.
 
 ## Quando Não Usar
 
-**Aplicando o mesmo rigor a todas as decisões.**
+**Organização com um ou dois times.** Os níveis corporativo e de solução coincidem com o
+de sistema: quem decide a fronteira é quem a implementa. Formalizar a alocação cria papéis
+sem ninguém diferente para ocupá-los; a conversa entre os dois times resolve.
 
-**Centralizando decisões de mão dupla.**
+**Setor regulado, quando a norma exige aprovação prévia.** Se o regulador exige aprovação
+documentada para mudança em sistema que trata dado de pagamento ou de saúde, a decisão
+sobe mesmo sendo reversível. O quadrante continua valendo para o que a norma não cobre,
+mas não anula a exigência — tratá-la como decisão local é risco de conformidade.
 
-**Sem nível de solução**, em iniciativas que atravessam sistemas.
+**Durante incidente grave ou migração com prazo fixo.** Centralizar por algumas semanas,
+com um responsável decidindo rápido, é deliberado: o custo de coordenar decisões
+distribuídas supera o do gargalo enquanto o evento dura. O erro é não desfazer a
+centralização quando ele acaba.
 
-**Alocando por senioridade** em vez de por contexto.
-
-**Criando regra** onde um caminho pavimentado resolveria.
+**Antes de existir o caminho pavimentado.** Descer decisões pressupõe que o padrão esteja
+embutido em algo que o time usa. Sem isso, descer tudo de uma vez produz a divergência
+que a centralização continha — a ordem é construir o caminho e depois descer.
 
 ## Alternativas
 
@@ -210,6 +217,7 @@ tendência organizacional é puxá-las para cima.
 |---|---|
 | Simples de operar | Exige julgamento |
 | Lento para o trivial | Rápido onde pode |
+| Sem classificação a auditar | Quem propõe tende a declarar local e reversível |
 
 ## Modos de Falha
 
@@ -227,17 +235,28 @@ tendência organizacional é puxá-las para cima.
 
 ## Erros Comuns
 
-**Subir decisões reversíveis.**
+**Subir decisões reversíveis.** Exigir aprovação para toda biblioteca nova: a pauta do
+comitê incha, a espera chega a semanas, e o time contorna com dependência transitiva não
+declarada — que ninguém revisa.
 
-**Não distinguir mão única de mão dupla.**
+**Não distinguir mão única de mão dupla.** Um fluxo único de aprovação para tudo: se ele
+é leve, a escolha do banco corporativo passa sem alternativas escritas; se é pesado, a
+escolha de ferramenta interna espera um mês.
 
-**Não ter responsável pela coerência de iniciativas grandes.**
+**Não ter responsável pela coerência de iniciativas grandes.** Numa iniciativa de cinco
+sistemas, cada par de times negocia seu contrato: o mesmo evento aparece em três formatos,
+e a reconciliação vira projeto próprio depois do lançamento.
 
-**Criar regra em vez de caminho pavimentado.**
+**Criar regra em vez de caminho pavimentado.** Publicar "todo serviço expõe métricas no
+padrão X" sem biblioteca que o faça: parte dos serviços segue, a outra descobre a regra na
+revisão, e o cumprimento passa a depender de alguém verificar.
 
-**Decidir por senioridade.**
+**Decidir por senioridade.** O arquiteto corporativo escolhe o armazenamento de um sistema
+que não opera: a escolha ignora o padrão de acesso real, e o time paga a reescrita depois.
 
-**Não revisar a alocação** quando a organização muda de tamanho.
+**Não revisar a alocação** quando a organização muda de tamanho. O comitê desenhado para
+40 engenheiros mantém o mesmo escopo com 200: a fila cresce com o número de times, e o
+tempo de decisão acompanha.
 
 ## Exemplo Real
 
@@ -262,7 +281,7 @@ alcance amplo, reversão barata    7%   → visibilidade, não aprovação
 alcance amplo, reversão cara      4%   → corretamente ali
 ```
 
-Setenta e um por cento do tempo do comitê era gasto em decisões que o time poderia ter
+Setenta e um por cento dos itens do comitê eram decisões que o time poderia ter
 tomado — escolha de biblioteca, estrutura de código, ferramenta interna.
 
 E o comitê aprovava quase tudo: a taxa de rejeição era de 3%. Ele funcionava como
@@ -273,10 +292,15 @@ A reformulação:
 **Classificação na abertura.** Quem propõe declara alcance e reversibilidade. Decisões
 de mão dupla e alcance local não passam pelo comitê — são registradas e seguem.
 
+Como quem propõe tem incentivo para se declarar local e reversível, a classificação é
+auditada: a revisão trimestral sorteia uma amostra das decisões registradas e as
+reclassifica, e uma decisão cujo alcance cresceu desde o registro — a biblioteca que três
+times adotaram depois — sobe para o comitê nesse momento.
+
 **Caminho pavimentado** substituindo a lista de tecnologias. A plataforma passou a
 oferecer as opções suportadas prontas; usar outra coisa é possível e o time assume a
 operação. Ver
-[plataformas internas](/14-devops-and-platform/internal-developer-platforms.md).
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
 **Nível de solução criado.** Iniciativas com mais de dois sistemas passaram a ter um
 responsável pela decomposição e pelos contratos, com tempo alocado — sem cargo novo, por
@@ -285,7 +309,8 @@ rotação entre engenheiros seniores.
 **Revisão após o fato** para decisões reversíveis, trimestral, olhando padrões em vez de
 casos.
 
-**Comitê reduzido** a decisões de alcance amplo e reversão cara — cerca de uma por mês.
+**Comitê reduzido** a decisões de alcance amplo e reversão cara — duas a três por mês,
+o mesmo volume que já estava corretamente ali.
 
 Resultado em nove meses: tempo entre propor e construir de quatro semanas para dois
 dias, e o comitê passou a discutir substância.

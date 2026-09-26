@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [application-portfolios, integration-landscapes, enterprise-data-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -79,8 +79,9 @@ most touch 1 system      good boundaries
 most touch 3 or more     wrong boundaries
 ```
 
-That test is more reliable than any technical coupling analysis, because it measures what matters: the
-ability to change.
+That test measures directly what technical coupling analysis only infers: the ability to change. It has
+two limits — ten changes is a small sample, and the change nobody attempted because it would cross three
+systems never shows up in the history.
 
 And it is easy to apply — the information is in the change history.
 
@@ -97,8 +98,8 @@ two systems writing to the same entity
 See [enterprise data architecture](/15-enterprise-architecture/enterprise-data-architecture.md) and
 [data ownership](/07-data-architecture/data-ownership.md).
 
-The converse also holds: if two systems never share data and never need to talk, the separation is
-correct.
+The converse does not hold: two systems that never share data or talk pass this criterion, but can still
+be an unnecessary separation if the same team looks after both.
 
 ### Not everything needs to be separated
 
@@ -150,13 +151,14 @@ layer is what prevents the vendor's boundary from entering the domain.
 
 ### System boundaries and team boundaries influence each other
 
-An observation worth making explicit, because it constrains the options in practice: communication inside a
-team is cheap and frequent; between teams, expensive and episodic.
+This is [Conway's Law](/23-architecture-leadership/conways-law.md) applied to the system boundary, and it
+constrains the options in practice: communication inside a team is cheap and frequent; between teams,
+expensive and episodic.
 
 That means a system maintained by two teams tends to develop an internal boundary mirroring the division —
 and that two systems maintained by the same team tend to couple, because nothing prevents it.
 
-See [Team Topologies](/14-devops-and-platform/platform-engineering.md) for the organizational treatment.
+See [Team Topologies](/23-architecture-leadership/team-topologies.md) for the organizational treatment.
 
 The practical consequence is that redesigning system boundaries without adjusting team boundaries produces
 a structure that does not hold: the communication finds the path, and the coupling reappears where it is
@@ -182,20 +184,23 @@ opposite.
 
 ## When Not to Use
 
-**Separating by technical layer.** Every business change crosses every layer, and what was decomposition
-becomes mandatory coordination.
+**Few systems, one team.** When the same team maintains every system, the boundary between them decides
+no one's autonomy; redrawing it costs a migration and buys no independence.
 
-**Separating by org chart.** The structure changes faster than the domain, and the boundaries need to be
-redrawn at each reorganization.
+**A system scheduled for decommissioning.** If the system leaves operation before the reorganization pays
+for itself, moving its boundary is investing in what is about to be switched off. Isolate it behind a
+translation layer and leave the boundary where it is.
 
-**Decomposing beyond what is necessary.** Each additional boundary is a contract to maintain and a
-coordination to pay for; below a certain size, it costs more than it isolates.
+**The change test already passes.** If most recent changes touch a single system, the boundaries follow the
+axis along which the business varies; redrawing them trades a certain cost for a gain the history does not
+show.
 
-**Without declaring each system's responsibility.** Without that, the same capability ends up implemented
-in several places and none is authoritative.
+**Two parts owned by one team that change together.** When the same team maintains both and the history
+shows most changes touch both, separating them adds a contract to maintain without buying autonomy — the
+boundary costs more than it isolates.
 
-**Letting the vendor's boundary enter** the domain. When the market product's model becomes the company's
-model, switching vendors comes to require redesigning business processes.
+**Reorganizing costs more than living with it.** A wrong boundary in a domain that barely changes charges
+little; the work pays off where the business changes often and the change crosses systems.
 
 ## Alternatives
 
@@ -212,7 +217,7 @@ model, switching vendors comes to require redesigning business processes.
 |---|---|
 | Less integration | More |
 | The change fits inside | It crosses |
-| Larger teams | Autonomy |
+| Coordination within the team | Autonomy across teams |
 | Uniform scaling | Independent |
 
 | A boundary by domain | By org chart |

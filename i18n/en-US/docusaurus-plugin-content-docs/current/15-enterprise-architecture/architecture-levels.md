@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [enterprise-governance, architecture-review, enterprise-principles]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -67,7 +67,8 @@ local reach + cheap rollback       → the team's, with no ceremony
 ```
 
 The bottom-right quadrant contains **most** of the decisions, and it is where centralization usually
-intrudes — at a high cost and with zero benefit.
+intrudes — at a high cost and with close to zero benefit, because the mistake the committee
+would prevent the team undoes in days.
 
 And the top-right quadrant deserves attention: a wide-reaching but easily reversible decision does not need
 a rule. It needs visibility and a paved road. See
@@ -98,25 +99,20 @@ component    code structure, patterns, libraries
 The enterprise level's first line — data ownership — is the widest-reaching decision and the least
 explicitly made. See [data ownership](/07-data-architecture/data-ownership.md).
 
-### One-way and two-way door decisions
+### Reversibility as an allocation axis
 
-The distinction that calibrates the rigor, in the formulation of
-[deciding under uncertainty](/23-architecture-leadership/decision-making.md):
+The distinction between one-way and two-way door decisions, and the rigor each deserves, lives in
+[deciding under uncertainty](/23-architecture-leadership/decision-making.md). What it does here is serve as
+the quadrant's second axis: within the same reach, the cost of reverting separates what goes through review
+from what proceeds with no ceremony.
 
-```text
-one-way door   hard or impossible to reverse
-               a database choice with years of data, a public contract, a service boundary
-two-way door   reversible at a low cost
-               a library, code structure, an internal tool
-```
+The symptom that the allocation ignores this axis: the average decision time is the same for choosing a
+library and for choosing an enterprise data model.
 
-Applying the same process to both is the mistake. Two-way door decisions should be made fast, by whoever is
-closest, and revisited if they go wrong.
-
-One-way door decisions deserve time, written alternatives and more than one head.
-
-The symptom that the process is miscalibrated: the average decision time is the same for choosing a library
-and for choosing an enterprise data model.
+And reversibility is not a fixed property of the decision — it drops with use. A library adopted by one
+service is a two-way door; the same library spread across forty services, with its types in the contracts
+between them, has become a one-way door without anyone deciding it again. The classification made when the
+decision is born needs to be redone when the reach grows.
 
 ### The solution level is what usually is missing
 
@@ -140,9 +136,11 @@ down    in everything else
 
 And the mechanism that allows going down without losing coherence is not approval — it is a **paved road**:
 the standard built into what the team already uses, so that the right choice is the easiest one. See
-[internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
+[platform engineering](/14-devops-and-platform/platform-engineering.md).
 
-A rule that needs to be verified by a committee is a rule that was not operationalized.
+When the rule is technical — log format, minimum library version, network configuration — needing a
+committee to verify it is a sign it was not operationalized. Regulatory rules and data-ownership rules are
+the exception: they depend on judgment and stay at the enterprise level.
 
 ### Whoever decides is not whoever knows most
 
@@ -170,15 +168,22 @@ organizational tendency is to pull them upward.
 
 ## When Not to Use
 
-**Applying the same rigor to every decision.**
+**An organization with one or two teams.** The enterprise and solution levels coincide with the system
+level: whoever decides the boundary is whoever implements it. Formalizing the allocation creates roles with
+nobody different to fill them; a conversation between the two teams settles it.
 
-**Centralizing two-way door decisions.**
+**A regulated sector, when the rule requires prior approval.** If the regulator requires documented
+approval for changes to a system handling payment or health data, the decision goes up even if it is
+reversible. The quadrant still applies to what the rule does not cover, but it does not cancel the
+requirement — treating it as a local decision is a compliance risk.
 
-**With no solution level**, on initiatives that cross systems.
+**During a major incident or a migration with a fixed deadline.** Centralizing for a few weeks, with one
+person deciding fast, is deliberate: the cost of coordinating distributed decisions exceeds that of the
+bottleneck while the event lasts. The mistake is not undoing the centralization when it ends.
 
-**Allocating by seniority** instead of by context.
-
-**Creating a rule** where a paved road would resolve it.
+**Before the paved road exists.** Pushing decisions down presupposes that the standard is built into
+something the team uses. Without it, pushing everything down at once produces the divergence centralization
+was containing — the order is to build the road, then push down.
 
 ## Alternatives
 
@@ -202,6 +207,7 @@ organizational tendency is to pull them upward.
 |---|---|
 | Simple to operate | Requires judgment |
 | Slow for the trivial | Fast where it can be |
+| No classification to audit | Proposers tend to declare local and reversible |
 
 ## Failure Modes
 
@@ -219,17 +225,27 @@ organizational tendency is to pull them upward.
 
 ## Common Mistakes
 
-**Escalating reversible decisions.**
+**Escalating reversible decisions.** Requiring approval for every new library: the committee's agenda
+swells, the wait reaches weeks, and the team works around it with an undeclared transitive dependency —
+which nobody reviews.
 
-**Not distinguishing one-way from two-way doors.**
+**Not distinguishing one-way from two-way doors.** A single approval flow for everything: if it is light, the
+enterprise database choice passes with no written alternatives; if it is heavy, an internal tool choice waits
+a month.
 
-**Having nobody responsible for large initiatives' coherence.**
+**Having nobody responsible for large initiatives' coherence.** In a five-system initiative, each pair of
+teams negotiates its own contract: the same event shows up in three formats, and reconciling them becomes a
+project of its own after launch.
 
-**Creating a rule instead of a paved road.**
+**Creating a rule instead of a paved road.** Publishing "every service exposes metrics in standard X" with no
+library that does it: some services comply, the rest discover the rule at review, and compliance comes to
+depend on somebody checking.
 
-**Deciding by seniority.**
+**Deciding by seniority.** The enterprise architect picks the storage for a system they do not operate: the
+choice ignores the real access pattern, and the team pays for the rewrite later.
 
-**Not reviewing the allocation** when the organization changes size.
+**Not reviewing the allocation** when the organization changes size. The committee designed for 40 engineers
+keeps the same scope at 200: the queue grows with the number of teams, and decision time follows.
 
 ## Real-World Example
 
@@ -254,7 +270,7 @@ wide reach, cheap rollback       7%   → visibility, not approval
 wide reach, expensive rollback   4%   → correctly there
 ```
 
-Seventy-one percent of the committee's time was spent on decisions the team could have made — a library
+Seventy-one percent of the committee's items were decisions the team could have made — a library
 choice, code structure, an internal tool.
 
 And the committee approved almost everything: the rejection rate was 3%. It functioned as a rubber stamp
@@ -265,9 +281,14 @@ The reformulation:
 **Classification at opening.** Whoever proposes declares reach and reversibility. Two-way door, local-reach
 decisions do not go through the committee — they are recorded and proceed.
 
+Since whoever proposes has an incentive to declare the decision local and reversible, the classification is
+audited: the quarterly review samples the recorded decisions and reclassifies them, and a decision whose
+reach has grown since it was recorded — the library three teams adopted afterward — goes up to the committee
+at that point.
+
 **A paved road** replacing the technology list. The platform came to offer the supported options ready;
 using something else is possible and the team takes on the operation. See
-[internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md).
+[platform engineering](/14-devops-and-platform/platform-engineering.md).
 
 **A solution level created.** Initiatives with more than two systems came to have somebody responsible for
 the decomposition and the contracts, with allocated time — with no new job title, by rotation among senior
@@ -275,7 +296,8 @@ engineers.
 
 **Review after the fact** for reversible decisions, quarterly, looking at patterns instead of cases.
 
-**The committee reduced** to wide-reach, expensive-rollback decisions — around one a month.
+**The committee reduced** to wide-reach, expensive-rollback decisions — two to three a month, the same
+volume that was already correctly there.
 
 Result in nine months: time between proposing and building from four weeks to two days, and the committee
 came to discuss substance.

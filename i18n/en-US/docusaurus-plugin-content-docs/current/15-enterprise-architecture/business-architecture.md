@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [business-capabilities, capability-mapping, technical-strategy]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -71,7 +71,7 @@ A value stream traces the path from start to finish, from the point of view of w
 ```text
 customer requests a policy
   → quote            2 h
-  → risk analysis    3 days      ← 78% of the total time
+  → risk analysis    3 days      ← 79% of the total time, in 8-hour business days
   → approval         4 h
   → issuance         20 min
 ```
@@ -150,23 +150,24 @@ technical justification does not compete for budget.
 
 ## When Not to Use
 
-**Maintained only by technology.** It describes the business; with no participation from whoever operates
-it, it ages and comes to be seen as an IT artifact.
+**When no decision is in dispute.** The artifact pays for itself by arbitrating budget or priority between
+initiatives that compete for the same resource. If the technical investment is already approved, or there
+is no queue of competing initiatives, it has no decision to inform.
 
-**In technical vocabulary.** If the business does not recognize the names, the main purpose — enabling the
-conversation — is not served.
+**When the stream is already measured.** If the stages of the dominant value stream and their times already
+show up on an operational dashboard the business consults, mapping it again reproduces what exists; citing
+that measurement in the technical justification is enough.
 
-**With process detail.** Processes change constantly; business architecture works at the level that stays
-stable.
-
-**With no metrics in the objectives.** Vague objectives do not allow connecting a technical decision to a
-verifiable result.
+**When objectives with metrics already exist.** If the organization uses objectives and key results,
+anchoring the technical decision in an existing key result replaces building objectives of its own — see
+Alternatives.
 
 **As a documentation exercise** with no use in a decision. An artifact that does not enter the budget or
 prioritization discussion does not justify the cost of maintaining it.
 
-**When the organization is small.** With one product and one business area, the conversation happens
-directly, and formalizing adds ceremony with no benefit.
+**When the organization is small.** With one product, one business area, and whoever decides the budget
+talking directly to whoever builds, with no prioritization layer between them, formalizing adds ceremony
+with no benefit.
 
 ## Alternatives
 
@@ -209,17 +210,24 @@ the architecture in it avoids creating a parallel structure.
 
 ## Common Mistakes
 
-**Building it alone.**
+**Building it alone.** The artifact comes out with IT's vocabulary and blind spots, and the business does
+not recognize it as a description of itself.
 
-**Modeling processes in detail.**
+**Modeling processes in detail.** The effort goes into branches that change within months, and the artifact
+ages before it is used in a decision.
 
-**Not measuring time per stage** in the value streams.
+**Not measuring time per stage** in the value streams. Without the times, investment goes to the most
+visible stage, not the bottleneck — in the example below, that would be the 20-minute issuance, not the
+2.2-day underwriting queue.
 
-**Not connecting to objectives with a metric.**
+**Not connecting to objectives with a metric.** The decision gets approved, but no one can say afterward
+whether it worked.
 
-**Using system vocabulary.**
+**Using system vocabulary.** The justification goes back to the conversation in the Problem section: correct,
+and with nothing the business decides on.
 
-**Not validating with the people who do the work.**
+**Not validating with the people who do the work.** The times come from the system, not the operation, and
+waits outside it — customer documents, manual queues — drop off the map.
 
 ## Real-World Example
 
@@ -242,7 +250,7 @@ And the decomposition of the underwriting:
 ```text
 waiting for customer documents    1.2 days
 automatic analysis                15 min
-queue for human analysis          1.8 days   ← the bottleneck inside the bottleneck
+queue for human analysis          2.2 days   ← the bottleneck inside the bottleneck
 decision                          30 min
 ```
 
@@ -257,15 +265,19 @@ decided on:
 
 ```text
 "modernizing underwriting allows automating 70% instead of 30%,
- reducing issuance time from 4.3 to around 1.5 days,
+ reducing average issuance time from 4.3 to around 2.7 days,
  and freeing 5 of the 8 analysts for complex cases"
 ```
 
-The objective, with a metric: reduce issuance time to under 2 days in 18 months.
+The projection does not go below 2.7 because automation only removes the human queue: waiting for
+documents and the quote, approval, and issuance stages remain, and even an automated case takes about 2
+days.
+
+The objective, with a metric: reduce average issuance time to under 3 days in 18 months.
 
 The initiative was approved in the following cycle.
 
-Two years later, issuance time was 1.3 days, and automation was at 74%.
+Two years later, average issuance time was 2.6 days, and automation was at 74%.
 
 The later assessment points out: the technical justification was correct from the start. It failed because
 it described the **cause** — obsolete technology — with no connection to the **effect** the business

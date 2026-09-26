@@ -13,7 +13,7 @@ objective: >
 prerequisites: [infrastructure-as-code]
 related: [infrastructure-as-code, containers-in-delivery, ci-cd]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -81,9 +81,10 @@ and by automatic destruction at the end.
 Where complete ephemeral environments are expensive, a variation works: the new environment is only the
 changed service, pointing at the shared others.
 
-### Test data: never a copy of production
+### Test data: not a full copy of production
 
-Copying production is the most common practice and the worst:
+Copying all of production, unmasked, is the most common practice — and the one that brings real
+data into an environment with weaker controls than production's:
 
 ```text
 exposure       personal data in an environment with weaker controls
@@ -165,23 +166,31 @@ contention, it produces delay.
 
 ## When to Use
 
-- Ephemeral environments: whenever the infrastructure allows.
-- A high-parity environment: for final verification.
-- Synthetic data: always.
+- **Ephemeral environments** when more than one team contends for the same environment and
+  measurement shows a queue — and the infrastructure can be created from scratch in minutes, not hours.
+- **A high-parity environment** when the defects escaping to production are about concurrency, volume
+  or connectivity — the dimensions a reduced environment does not reproduce.
+- **Synthetic data** when the environment lacks production's controls and the behavior under test
+  depends on distribution and cardinality, not on real values.
 
 ## When Not to Use
 
-**A copy of production as test data.**
+**A complete ephemeral environment when creating the whole system takes longer than the verification
+itself.** With dozens of services and databases, an environment that takes an hour to come up trades the
+queue for creation wait, and the cost of simultaneous ones grows with the number of open proposals. There
+the partial variation — only the changed service — delivers the isolation without that cost.
 
-**A contended shared environment**, when ephemeral ones are viable.
+**Eliminating contention where there is none.** One team with one shared environment and no measured
+queue does not recover, in waiting time, the investment of declaring the last manual stretch of
+infrastructure; if that work is justified, it is for reproducibility, not for ephemeral environments.
 
-**Many intermediate environments.**
+**Volume parity when the logic does not depend on volume.** A configuration service with a thousand
+records in production gains nothing from an environment that replicates the others' scale; parity costs
+per dimension, and only pays off in the ones that produce defects.
 
-**An environment that differs from production** in a relevant dimension, treated as a guarantee.
-
-**Rebuilding the artifact** between environments.
-
-**With no automatic destruction** of the ephemeral ones — the cost accumulates.
+**Synthetic data when the defect lives in the dirt of real data.** Legacy database migration, parsing of
+free-text fields, records that violate invariants the system no longer enforces: a generator only produces
+what someone knew how to model. In those cases, a masked subset.
 
 ## Alternatives
 
@@ -226,7 +235,7 @@ The second is what most reduces the dependence on integrated environments, and i
 
 ## Common Mistakes
 
-**Copying production.**
+**Copying production unmasked** into an environment with weaker controls.
 
 **Keeping too many intermediate environments.**
 
@@ -270,7 +279,9 @@ That resolved, as a bonus, a compliance problem that had been open for two years
 
 **A canary in production** for the final verification.
 
-Result: time from 9 days to 4 hours, and a 60% reduction in incidents caused by deployment — attributed
+Result: time from 9 days to 4 hours. The 6 days of queue vanished with the ephemeral environments; the
+other 3 were the integrated verification round in staging, scheduled in batches, which contract tests in
+the pipeline and the canary replaced. And a 60% reduction in incidents caused by deployment — attributed
 mainly to topology and volume parity.
 
 The recorded conclusion: the four environments existed because each one had been created to resolve a
@@ -296,7 +307,7 @@ problems that slip through.
 
 - Which parity dimensions matter most?
 - Why do ephemeral environments force good infrastructure as code?
-- Why is copying production for testing the worst data choice?
+- Why is copying production unmasked for testing the riskiest data choice, and when does a masked subset beat synthetic data?
 
 ## Further Reading
 

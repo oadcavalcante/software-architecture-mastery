@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [deployment-strategies, feature-flags, environment-management]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -119,8 +119,9 @@ it does not          regulated software with mandatory approval
                      where rollback is expensive or impossible
 ```
 
-Continuous delivery is the universal goal: always being ready. Deploying automatically is a choice about
-what to do with that readiness.
+Continuous delivery still holds in the first two cases on that list: always being ready does not oblige
+you to ship, and regulatory approval decides when, not whether the code is fit. Deploying automatically is
+a choice about what to do with that readiness.
 
 Teams that chase continuous deployment without having continuous delivery are automating a path they do not
 trust.
@@ -159,23 +160,28 @@ with a trustworthy main branch.
 
 ## When to Use
 
-- Practically always, for the first two.
+- Continuous integration and delivery whenever more than one person changes the same code and it goes to
+  production repeatedly — the exceptions are in the next section.
 - Continuous deployment where rollback is fast and the verification is trustworthy.
 - High priority when there are several teams in the same code.
 
 ## When Not to Use
 
-**Calling a long-lived branch with a pipeline** continuous integration.
+**Continuous deployment under per-change regulatory approval.** When each release requires a record and
+a sign-off from an accountable person, going to production automatically breaks the process. Continuous
+delivery still holds; deployment gets a cadence.
 
-**Continuous deployment** with no tested rollback.
+**Continuous deployment of firmware with no remote update.** If a version only reaches the device in the
+field through a recall or a technician visit, there is no production to feed on every change, and no
+rollback in minutes.
 
-**A slow pipeline.** It discourages the practice it was supposed to enable.
+**Continuous deployment of an irreversible change.** A migration that deletes or transforms data with no
+way back, or a message already sent to third parties, calls for a human decision before it ships — even in
+a team that deploys everything else automatically.
 
-**Living with flaky tests.**
-
-**With no compatible migrations.** Deployment becomes a coordinated event.
-
-**With manual approval on every change**, which is the real bottleneck in most cases.
+**Daily trunk integration with external contributors.** In the fork-and-pull-request model of open source
+projects, contributors have no write access, and maintainer review sets the pace. Automated verification
+on every pull request still holds; daily integration by everyone does not.
 
 ## Alternatives
 
@@ -196,7 +202,8 @@ with a trustworthy main branch.
 
 | Continuous deployment | With a human decision |
 |---|---|
-| The shortest time to production | Control |
+| Minutes to production | Hours to days to production |
+| Control only through automated verification | Control through human approval |
 | Requires trustworthy verification | Tolerates gaps |
 | Rollback needs to be fast | More margin |
 
@@ -257,7 +264,7 @@ time between integration and production    11 days
 **Semantic conflicts.** Two features that assumed different states of the same module, integrated two weeks
 apart. The textual conflict was resolved; the behavioral one went to production.
 
-**Difficult diagnosis.** One deployment carried 11 days of changes from five people. When something broke,
+**Difficult diagnosis.** One deployment carried two weeks of changes from five people. When something broke,
 isolating the cause took hours.
 
 **Reverting everything.** Reverting meant undoing everybody's work.
@@ -280,7 +287,7 @@ lifetime fell from 17 days to 1.4.
 **Compatible migrations** made mandatory, verified in review.
 
 Result in nine months: time between integration and production from 11 days to 4 hours, deployments from 2
-per week to 31, and incidents caused by deployment cut in half.
+per month to 31 per week, and incidents caused by deployment cut in half.
 
 The recorded conclusion: the tooling was correct from the start. What was missing was the practice — and
 the change that unblocked the most was reducing the pipeline's time, which was seen as an infrastructure

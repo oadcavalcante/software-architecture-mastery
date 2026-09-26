@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-principles]
 related: [enterprise-principles, technology-radar, enterprise-governance]
 canonical_for: [padrão corporativo, operacionalização de padrão, escopo de padrão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -183,7 +183,8 @@ quem é responsável pela migração    nomeado
 
 Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md) —
 quando a plataforma conhece o padrão de cada serviço, essa rastreabilidade é derivada e
-não exige manutenção.
+não depende de atualização manual por cada time — o custo passa a ser manter a
+integração entre plataforma e catálogo.
 
 E há um caso comum que merece decisão explícita: sistemas que não vão migrar. Um sistema
 em processo de desativação não deveria consumir esforço para atender um padrão novo — e a
@@ -225,15 +226,13 @@ automatize, ou aceite que ele é decorativo.
 
 **Para preferências sem consequência.** Gasta autoridade em algo que não afeta ninguém além do time, e essa autoridade falta depois.
 
-**Apenas documentado**, sem operacionalização. Sem modelo, biblioteca ou verificação, o padrão é seguido só por quem já o seguiria.
+**Em área tecnológica ainda em exploração.** Enquanto os times ainda descobrem qual abordagem serve — um tipo novo de armazenamento, um framework recém-chegado —, fixar a escolha congela a opção que por acaso chegou primeiro. Ali cabe o [radar](/15-enterprise-architecture/technology-radar.md) em avaliação, não um padrão.
 
-**Em número grande.** Um catálogo extenso não é lido, e a existência dele convence a organização de que existe orientação onde não existe.
+**Quando a divergência se resolve por conversa.** Com três ou quatro times que se falam toda semana, escrever, operacionalizar e manter um padrão custa mais que combinar diretamente; o padrão passa a compensar quando o número de times impede esse acordo.
 
-**Escrito por quem não usa.** Erra nos casos reais e chega como imposição, o que garante contorno silencioso.
+**Quando só uma pessoa pode verificar e a divergência é barata.** Se o padrão não pode ser embutido no modelo nem checado na esteira, a revisão manual é custo recorrente; se ela custa mais que a divergência que evita, não padronize.
 
-**Sem caminho de exceção.** Quem não cabe no padrão o ignora, e a violação deixa de ser visível — pior que não ter padrão.
-
-**Sem revisão e depreciação.** Padrões antigos continuam citados como norma muito depois de deixarem de fazer sentido.
+**Além do que a organização consegue operacionalizar.** Passada a faixa de 5 a 15 padrões operacionalizados, cada padrão novo disputa atenção e manutenção da plataforma com os existentes — o próximo candidato precisa substituir um antigo, não se somar a ele.
 
 ## Alternativas
 
@@ -312,7 +311,8 @@ A reformulação:
 **Classificação por custo da divergência.** Cada padrão foi avaliado: a divergência tem
 custo operacional, de segurança ou de interoperabilidade real?
 
-Vinte e um passaram no teste. Os outros 26 foram removidos — eram preferências.
+Vinte e um passaram no teste. Os outros 26 foram removidos: 22 eram preferências, e 4 prescreviam tecnologia
+abandonada.
 
 **Operacionalização dos 21:**
 
@@ -333,8 +333,8 @@ o de formato de mensagem — que foi revisado e ampliado.
 Resultado: 47 padrões viraram 21, e a aderência média subiu de 42% para 96% — não por
 mais controle, mas porque seguir passou a ser o caminho de menor esforço.
 
-O que se registrou depois: os 26 padrões removidos não causaram nenhum problema. Eles
-existiam porque alguém, em algum momento, teve uma preferência e escreveu.
+O que se registrou depois: os 22 padrões de preferência removidos não causaram nenhum
+problema. Eles existiam porque alguém, em algum momento, teve uma preferência e escreveu.
 
 ## Conceitos Relacionados
 

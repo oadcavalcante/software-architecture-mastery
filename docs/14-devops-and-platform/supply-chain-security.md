@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, containers-in-delivery, supply-chain-trust]
 canonical_for: [segurança da esteira, isolamento de execução, verificação na implantação, credencial efêmera de esteira]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -66,7 +66,8 @@ segredos de produção indisponíveis em execuções de ramo
 ambientes protegidos, com aprovação para implantar
 ```
 
-A primeira linha é a defesa mais importante contra o vetor mais explorado.
+A primeira linha é a que fecha o caminho descrito na Visão Geral: o arquivo enviado por
+quem está fora do projeto deixa de ser o que executa com as credenciais.
 
 ### Isolar execuções
 
@@ -118,6 +119,12 @@ a implantação recusa o que não tem assinatura e proveniência válidas
 Isso impede o vetor de publicar direto no registro: um artefato que não passou pela
 esteira não tem proveniência, e a implantação o recusa.
 
+O custo aparece no dia em que a verificação falha por motivo alheio a ataque — serviço de
+assinatura fora, chave rotacionada sem propagar — durante um incidente que exige
+implantar. Sem saída de emergência, a correção espera. A saída precisa existir antes:
+um caminho de exceção com aprovação de duas pessoas, registro próprio e alerta a cada
+uso, porque um desvio silencioso é exatamente o caminho que a verificação fecha.
+
 Ver [contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md).
 
 ### Dependências da construção também são código
@@ -133,6 +140,12 @@ espelhar internamente as críticas
 Uma ação de terceiro referenciada por etiqueta pode ser reapontada pelo mantenedor — ou
 por quem comprometer a conta dele — e passa a executar código novo em todas as esteiras
 que a usam.
+
+Fixar por digest transfere o trabalho: a atualização deixa de chegar sozinha e alguém
+precisa propor, revisar e aplicar cada nova versão. Sem automação que abra essas
+propostas, os digests congelam e a esteira acumula vulnerabilidades conhecidas — o
+oposto do objetivo. O espelho interno tem o mesmo custo multiplicado: é mais um serviço
+para manter disponível, sincronizar e varrer.
 
 ### Separar construir de implantar
 
@@ -162,6 +175,10 @@ que torna a investigação impossível.
 
 ### O registro de artefatos é fronteira de confiança
 
+Os requisitos operacionais do registro — retenção, imutabilidade, limpeza — estão em
+[contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md). Aqui
+interessa o registro como alvo.
+
 Um componente que costuma ficar fora da análise: o registro onde as imagens e os pacotes
 ficam.
 
@@ -172,17 +189,14 @@ código.
 ```text
 quem publica          apenas a esteira, com credencial própria
 quem consome          apenas os ambientes de destino
-imutabilidade         etiqueta publicada não é sobrescrita
-retenção              versões antigas disponíveis para reverter
 varredura             vulnerabilidades detectadas no que já está publicado
 registro de acesso    quem baixou o quê, quando
 ```
 
-A primeira linha é a mais importante e a mais frequentemente violada: credenciais de
-publicação distribuídas a pessoas, ou compartilhadas entre esteiras, tornam o registro
-um caminho aberto.
+Sem a primeira linha, as outras protegem pouco: credenciais de publicação distribuídas a
+pessoas, ou compartilhadas entre esteiras, tornam o registro um caminho aberto.
 
-E a quinta merece nota: uma imagem publicada há seis meses pode ter adquirido
+E a terceira merece nota: uma imagem publicada há seis meses pode ter adquirido
 vulnerabilidades conhecidas desde então. Varrer apenas na construção deixa de ver isso —
 o que importa é a varredura contínua do que está publicado e em uso.
 
@@ -202,17 +216,21 @@ Sempre. Prioridade alta quando:
 
 ## Quando Não Usar
 
-**Com configuração de esteira alterável sem aprovação.** Quem altera o arquivo altera o que executa com as credenciais dela.
+O núcleo — configuração protegida, credencial efêmera, verificação na implantação — vale
+para qualquer esteira que alcance produção. O limite está nos controles mais caros:
 
-**Com segredos de produção em execuções de ramo.** Um ramo é código não revisado; dar a ele acesso a produção anula a revisão.
+**Esteira separada para contribuições externas, num repositório que não as aceita.** Sem
+contribuidor de fora, o vetor que ela fecha não existe; aprovação de mantenedor no
+arquivo da esteira cobre o caso interno.
 
-**Com credenciais estáticas de longa duração.** Elas vazam em log de construção e não expiram sozinhas. Credencial temporária por execução elimina a classe inteira.
+**Aprovação humana em esteira que só publica para ambiente de teste**, sem dados reais e
+sem credencial compartilhada com produção. A aprovação cobra latência em cada execução
+para proteger um ambiente cujo comprometimento não alcança nada.
 
-**Assinando sem verificar.** A assinatura só vale onde alguém recusa o que não confere; sem verificação, é registro decorativo.
-
-**Com dependências de construção por etiqueta móvel.** O conteúdo muda sem que nada no seu repositório mude, e a construção deixa de ser reproduzível.
-
-**Sem registro de execuções.** Sem histórico de o que foi construído, por quem e a partir de qual commit, não há como investigar um artefato suspeito.
+**Espelho interno e varredura contínua numa equipe sem quem os opere.** Um espelho que
+ninguém sincroniza congela dependências vulneráveis e fica pior que a fonte pública que
+substituiu. Fixar por digest, com atualização automatizada, cobre boa parte do risco sem
+esse serviço a mais.
 
 ## Alternativas
 
@@ -234,11 +252,11 @@ ambiente recusa.
 | Dano contido | Acesso amplo |
 | Atrito para casos novos | Fluidez |
 | Aprovações necessárias | Automático |
-| Auditoria completa | Menos overhead |
+| Auditoria completa, com custo de retenção | Auditoria parcial, menos overhead |
 
 | Construir e implantar separados | Juntos |
 |---|---|
-| Privilégios menores em cada | Um lugar |
+| Privilégio restrito por etapa | Privilégios somados num lugar |
 | Mais peças | Simples |
 
 ## Modos de Falha
@@ -263,7 +281,7 @@ ambiente recusa.
 
 **Executar configuração de ramo com segredos de produção.** Se o arquivo da esteira pode ser alterado no mesmo commit que ela executa, qualquer contribuidor consegue exfiltrar os segredos.
 
-**Credenciais estáticas amplas.** Uma chave de longa duração com permissão de administrador na esteira é o alvo de maior valor da organização, e ela vaza em log de construção com facilidade.
+**Credenciais estáticas amplas.** Uma chave de longa duração com permissão de administrador na esteira dá, sozinha, tudo que a esteira alcança em produção, e ela vaza em log de construção com facilidade.
 
 **Não verificar assinatura na implantação.** Assinar sem verificar no momento de implantar é cerimônia — o controle só existe onde alguém recusa o que não confere.
 
@@ -278,17 +296,9 @@ Uma empresa de tecnologia sofreu o comprometimento descrito em
 contribuição externa alterou a configuração da esteira e extraiu credenciais de
 produção.
 
-As correções específicas da esteira:
-
-**Configuração do ramo principal** para execuções de contribuições externas. O arquivo
-enviado pelo contribuidor deixou de ser o que roda.
-
-**Esteiras separadas.** Contribuições externas rodam numa esteira sem segredos, sem
-acesso a nada produtivo, com rede restrita.
-
-**Credenciais efêmeras por federação**, com escopo por serviço. A esteira perdeu a
-permissão de alterar políticas de acesso — que era o que permitiria escalar o
-comprometimento.
+A proteção da configuração, a separação de esteiras e as credenciais efêmeras estão
+descritas lá. As correções específicas da entrega, aplicadas às esteiras dos onze
+serviços:
 
 **Construção separada de implantação.** A construção produz o artefato assinado; um
 processo distinto, com credenciais próprias e aprovação para produção, implanta.
@@ -296,7 +306,10 @@ processo distinto, com credenciais próprias e aprovação para produção, impl
 **Verificação na admissão.** O ambiente de destino recusa artefatos sem assinatura e
 proveniência válidas — proteção independente da esteira.
 
-**Dependências fixadas por digest**, com as críticas espelhadas internamente.
+**Dependências fixadas por digest**, com as críticas espelhadas internamente. A troca de
+etiquetas por digest foi a parte lenta: cada serviço referenciava de oito a quinze ações e
+imagens, e a atualização passou a chegar como proposta automatizada, revisada como
+qualquer outra alteração.
 
 **Rede de saída restrita** nas execuções, com registro do que foi bloqueado. Nos
 primeiros meses, isso revelou três ações de terceiros que enviavam telemetria para

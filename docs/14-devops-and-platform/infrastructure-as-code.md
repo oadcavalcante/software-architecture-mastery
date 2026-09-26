@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [environment-management, ci-cd, blue-green]
 canonical_for: [infraestrutura como código, desvio de configuração, estado declarado, ambiente reprodutível]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -56,8 +56,8 @@ imperativo   "crie uma instância, depois configure a rede, depois..."
 declarativo  "o ambiente deve ter isto; convirja para lá"
 ```
 
-A diferença prática: o declarativo é **idempotente** — aplicar duas vezes produz o mesmo
-resultado — e permite calcular a diferença entre o desejado e o real antes de agir.
+A diferença prática: o declarativo é [idempotente](/06-distributed-systems/idempotency.md) —
+reaplicar a mesma declaração a um ambiente já convergido não gera mudança — e permite calcular a diferença entre o desejado e o real antes de agir.
 
 Ver [Kubernetes](/09-cloud-architecture/kubernetes.md), que aplica o mesmo princípio a
 contêineres.
@@ -161,7 +161,8 @@ duas, e ela precisa ser medida.
 
 ## Quando Usar
 
-- Praticamente sempre, para infraestrutura de nuvem.
+- Quando mais de uma pessoa altera a mesma conta de nuvem, e a pergunta "quem mudou
+  isto, e por quê?" precisa ter resposta.
 - Onde ambientes precisam ser equivalentes.
 - Onde a recriação precisa ser possível.
 - Onde há auditoria sobre mudanças de infraestrutura.
@@ -170,19 +171,21 @@ duas, e ela precisa ser medida.
 
 ## Quando Não Usar
 
-**Misturando dados ou segredos na declaração.**
+**Para um único servidor** que ninguém vai recriar. Escrever, revisar e manter a
+declaração custa mais que as poucas mudanças que ele vai sofrer; o custo só se paga quando
+há recriação, um segundo ambiente a manter igual, ou mais de uma pessoa mexendo.
 
-**Sem detecção de desvio.**
+**Para um ambiente de exploração descartado em horas.** Quem está testando um serviço
+novo de nuvem para ver se ele serve não sabe ainda o que declarar; a declaração vem
+depois, quando o recurso entra num ambiente que vai durar.
 
-**Com módulos genéricos** que escondem o que é criado.
+**Para recursos que o orquestrador já cria e destrói.** Contêineres, réplicas e volumes
+temporários são estado do orquestrador; declará-los também põe duas ferramentas
+convergindo o mesmo objeto, e cada uma desfaz a outra.
 
-**Sem versionar módulos compartilhados.**
-
-**Aplicando em todas as zonas de uma vez.**
-
-**Sem proteção contra exclusão** em recursos com estado.
-
-**Para um único servidor** que ninguém vai recriar — o custo não se paga.
+**Para serviço de terceiro sem interface programável.** Se o fornecedor só se configura
+pelo painel, a declaração vira documentação que nenhuma ferramenta aplica — e documentação
+desvia sem que ninguém detecte.
 
 ## Alternativas
 
@@ -209,7 +212,7 @@ infraestrutura.
 
 | Módulos | Declaração direta |
 |---|---|
-| Sem repetição | Explícita |
+| Sem repetição | Repetida entre ambientes |
 | Abstração a entender | Direto |
 | Mudança propaga | Isolada |
 
@@ -240,6 +243,12 @@ infraestrutura.
 **Não proteger recursos com estado contra exclusão.**
 
 **Módulos genéricos demais.**
+
+**Módulos compartilhados sem versão.**
+
+**Dados ou segredos na declaração.**
+
+**Aplicar em todas as zonas de uma vez.**
 
 **Tornar a declaração mais lenta que o console**, o que garante o desvio.
 
@@ -308,4 +317,5 @@ surpresa esperando a próxima aplicação.
 
 - Morris, Kief. *Infrastructure as Code*. 2ª ed. O'Reilly, 2020.
 - Humble, Jez; Farley, David. *Continuous Delivery*. Addison-Wesley, 2010.
-- Burgess, Mark. *Promise Theory* — a base do modelo declarativo.
+- Bergstra, Jan; Burgess, Mark. *Promise Theory: Principles and Applications*. XtAxis
+  Press, 2014 — a teoria da convergência que as ferramentas de configuração aplicam.

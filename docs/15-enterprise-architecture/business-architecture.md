@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [business-capabilities, capability-mapping, technical-strategy]
 canonical_for: [arquitetura de negócio, fluxo de valor, ator de negócio, objetivo de negócio]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -73,7 +73,7 @@ valor:
 ```text
 cliente solicita apólice
   → cotação          2 h
-  → análise de risco 3 dias      ← 78% do tempo total
+  → análise de risco 3 dias      ← 79% do tempo total, em dias úteis de 8 h
   → aprovação        4 h
   → emissão          20 min
 ```
@@ -156,23 +156,25 @@ ela, a justificativa técnica não compete por orçamento.
 
 ## Quando Não Usar
 
-**Mantida apenas pela tecnologia.** Ela descreve o negócio; sem participação de quem o
-opera, envelhece e passa a ser vista como artefato de TI.
+**Quando não há decisão em disputa.** O artefato se paga ao arbitrar orçamento ou
+prioridade entre iniciativas que competem pelo mesmo recurso. Se o investimento técnico já
+está aprovado, ou não há fila de iniciativas concorrentes, ele não tem decisão para
+informar.
 
-**Em vocabulário técnico.** Se o negócio não reconhece os nomes, o propósito principal —
-permitir a conversa — não é atendido.
+**Quando o fluxo já é medido.** Se as etapas do fluxo de valor dominante e seus tempos já
+aparecem num painel operacional que o negócio consulta, mapear de novo reproduz o que
+existe; basta citar essa medição na justificativa técnica.
 
-**Com detalhe de processo.** Processos mudam constantemente; a arquitetura de negócio
-trabalha no nível que permanece estável.
-
-**Sem métricas nos objetivos.** Objetivos vagos não permitem conectar decisão técnica a
-resultado verificável.
+**Quando objetivos com métrica já existem.** Se a organização adota objetivos e
+resultados-chave, ancorar a decisão técnica num resultado-chave existente substitui a
+construção de objetivos próprios — ver Alternativas.
 
 **Como exercício documental** sem uso em decisão. Um artefato que não entra na discussão
 de orçamento ou de priorização não justifica o custo de manter.
 
-**Quando a organização é pequena.** Com um produto e uma área de negócio, a conversa
-acontece diretamente, e a formalização adiciona cerimônia sem benefício.
+**Quando a organização é pequena.** Com um produto, uma área de negócio e quem decide o
+orçamento conversando diretamente com quem constrói, sem camada de priorização entre eles,
+a formalização adiciona cerimônia sem benefício.
 
 ## Alternativas
 
@@ -215,17 +217,24 @@ objetivos, ancorar a arquitetura nele evita criar uma estrutura paralela.
 
 ## Erros Comuns
 
-**Construir sozinho.**
+**Construir sozinho.** O artefato sai com o vocabulário e as lacunas da TI, e o negócio
+não o reconhece como descrição de si mesmo.
 
-**Modelar processos em detalhe.**
+**Modelar processos em detalhe.** O esforço vai para ramificações que mudam em meses, e o
+artefato envelhece antes de ser usado numa decisão.
 
-**Não medir tempo por etapa** nos fluxos de valor.
+**Não medir tempo por etapa** nos fluxos de valor. Sem o tempo, o investimento vai para a
+etapa mais visível, não para o gargalo — no exemplo abaixo, seria a emissão de 20 min, e
+não a fila de subscrição de 2,2 dias.
 
-**Não conectar a objetivos com métrica.**
+**Não conectar a objetivos com métrica.** A decisão é aprovada, mas ninguém consegue dizer
+depois se funcionou.
 
-**Usar vocabulário de sistema.**
+**Usar vocabulário de sistema.** A justificativa volta a ser a da conversa do Problema:
+correta, e sem nada que o negócio decida.
 
-**Não validar com quem executa o trabalho.**
+**Não validar com quem executa o trabalho.** Os tempos saem do sistema, não da operação, e
+esperas fora dele — documentos do cliente, filas manuais — somem do mapa.
 
 ## Exemplo Real
 
@@ -248,7 +257,7 @@ E a decomposição da subscrição:
 ```text
 espera por documentos do cliente    1,2 dia
 análise automática                  15 min
-fila para análise humana            1,8 dia   ← o gargalo dentro do gargalo
+fila para análise humana            2,2 dias  ← o gargalo dentro do gargalo
 decisão                             30 min
 ```
 
@@ -264,15 +273,19 @@ que o negócio decidia:
 
 ```text
 "modernizar a subscrição permite automatizar 70% em vez de 30%,
- reduzindo o tempo de emissão de 4,3 para cerca de 1,5 dia,
+ reduzindo o tempo médio de emissão de 4,3 para cerca de 2,7 dias,
  e liberando 5 dos 8 analistas para casos complexos"
 ```
 
-O objetivo, com métrica: reduzir o tempo de emissão para menos de 2 dias em 18 meses.
+A projeção não passa de 2,7 porque a automação só remove a fila humana: a espera por
+documentos e as etapas de cotação, aprovação e emissão continuam, e mesmo o caso
+automatizado leva cerca de 2 dias.
+
+O objetivo, com métrica: reduzir o tempo médio de emissão para menos de 3 dias em 18 meses.
 
 A iniciativa foi aprovada no ciclo seguinte.
 
-Dois anos depois, o tempo de emissão estava em 1,3 dia, e a automação em 74%.
+Dois anos depois, o tempo médio de emissão estava em 2,6 dias, e a automação em 74%.
 
 A avaliação posterior aponta: a justificativa técnica estava correta desde o início. Ela
 falhava porque descrevia a **causa** — tecnologia obsoleta — sem conectar ao **efeito**

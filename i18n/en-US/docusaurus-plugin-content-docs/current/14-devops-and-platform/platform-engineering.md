@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [internal-developer-platforms, sre-concepts, ci-cd]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -84,6 +84,14 @@ mandate hides the signal.
 
 ### Reducing cognitive load is the goal
 
+Cognitive load, in the sense Skelton and Pais (2019) borrow from educational psychology,
+is the amount of context a team has to keep in its head to deliver and operate what it
+owns. It has an intrinsic part, which comes from the domain, and an extraneous one, which
+comes from tools and processes — the full taxonomy is in
+[team topologies](/23-architecture-leadership/team-topologies.md). The platform can only
+attack the extraneous part; a team overloaded by its own domain is not relieved by a
+better pipeline.
+
 The criterion for deciding what the platform does:
 
 ```text
@@ -106,6 +114,10 @@ up to 3 or 4 teams   conventions and an examples repository are enough
 5 to 15 teams        one or two dedicated people, part time
 15+ teams            a dedicated platform team
 ```
+
+The scale assumes minimal scope: pipelines, service templates, secrets. Each capability the
+platform starts to **operate** — ephemeral environments, centralized telemetry — adds
+on-call and ongoing maintenance, and pulls the dedicated-team threshold down.
 
 Creating a platform team too early produces a platform for a problem that does not exist yet — and it needs
 to be maintained, evolved and migrated when the real problem appears.
@@ -154,17 +166,24 @@ is no, the mandate is hiding the problem.
 
 ## When Not to Use
 
-**With few teams.** Conventions are enough.
+**With up to three or four teams.** Below that threshold, the duplication the platform
+would eliminate costs less than maintaining the platform; conventions and an examples
+repository are enough.
 
-**As a mandate** with no quality that sustains the choice.
+**With a single team, or a single stack already standardized.** There is no divergence to
+reduce — the paved road is already the only road.
 
-**Operating the other teams' services.**
+**With operations outsourced.** If a PaaS or a managed provider already delivers
+deployment, telemetry and environments, building an internal layer on top duplicates what
+you pay not to have.
 
-**Abstracting to the point where nobody can diagnose.**
+**With an imminent reorganization.** The platform is designed around the boundaries of the
+teams that consume it; if those boundaries will change within months, the scope built now
+is born wrong.
 
-**With no voluntary adoption metric.**
-
-**Building what is domain-specific.**
+**With no capacity to treat it as a product.** If nobody researches needs, provides support
+and maintains documentation, the result is the mandatory platform nobody would choose — see
+Common Mistakes.
 
 ## Alternatives
 
@@ -172,7 +191,8 @@ is no, the mandate is hiding the problem.
   organizations.
 - **Shared libraries** — with no platform, with standards in code.
 - **A commercial platform** — buying instead of building. See [SaaS](/09-cloud-architecture/saas.md).
-- **An enabling team** — helping the teams resolve it, instead of resolving it for them.
+- **An [enabling team](/23-architecture-leadership/team-topologies.md)** — helping the teams
+  resolve it, instead of resolving it for them.
 
 The last is frequently better at the start: it transfers capability instead of creating dependency.
 
@@ -197,6 +217,12 @@ The last is frequently better at the start: it transfers capability instead of c
 **A platform nobody wants to use.**
 
 **A bottleneck.** Every change depends on the platform team.
+
+**A shared operational dependency.** The platform becomes a single point of failure for
+every team: if the pipeline, the telemetry or environment provisioning goes down, all
+consuming teams stop together, and the incident belongs to everyone. An incompatible change
+on the paved road propagates a migration to every consumer. That is why the platform needs
+its own reliability target and on-call, and versions with a deprecation deadline.
 
 **An opaque abstraction.** It broke, and nobody knows why.
 
@@ -270,7 +296,9 @@ Eighteen months later: 13 of the 14 teams on the paved road, by choice. The team
 latency requirement the platform does not meet — and that is considered acceptable.
 
 And the platform team went from six to four people, because part of the initial work was maintaining the
-proprietary abstraction that was abandoned.
+proprietary abstraction that was abandoned. Four people for 14 teams is above the size scale — and it is
+justified by scope, not by team count: the platform came to operate ephemeral environments and telemetry,
+with on-call, not just to supply templates.
 
 What was recorded afterward: eight months were spent building the solution to the wrong problem. The survey
 that redirected everything took two weeks and could have been done first.

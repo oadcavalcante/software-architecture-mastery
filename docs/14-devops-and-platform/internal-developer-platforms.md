@@ -13,7 +13,7 @@ objective: >
 prerequisites: [platform-engineering]
 related: [platform-engineering, environment-management, ci-cd]
 canonical_for: [plataforma interna de desenvolvimento, autosserviço, portal do desenvolvedor, catálogo de serviços]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -99,8 +99,11 @@ infraestrutura  o que aquele serviço usa
 Ele responde perguntas que, sem ele, exigem perguntar às pessoas: quem é dono disto?
 quem depende deste serviço? o que quebra se eu mudar isto?
 
-E ele só se mantém atualizado se for **derivado**, não preenchido à mão. Um catálogo que
-depende de alguém atualizar está desatualizado em três meses.
+Para isso ele precisa ser **derivado** — da esteira, da declaração de infraestrutura, do
+tráfego observado —, não preenchido à mão. Atualizar um catálogo manual não está no caminho
+de nenhuma entrega, então ele diverge na velocidade em que serviços nascem, mudam de dono e
+morrem; e um catálogo que responde errado é pior que nenhum, porque quem consulta para de
+perguntar às pessoas.
 
 Ver [propriedade do dado](/07-data-architecture/data-ownership.md) — é o mesmo
 princípio aplicado a serviços.
@@ -171,15 +174,18 @@ controle precisa estar no código, não numa pessoa.
 
 **Sem autosserviço.** Chamado não é plataforma.
 
-**Com poucos times.**
+**Com poucos times consumidores.** A plataforma tem custo fixo — um time dedicado,
+mantendo modelo, provisionamento e catálogo — e o que ela elimina é duplicação entre
+times. Com três ou quatro times, a duplicação é menor que esse custo; a conta está em
+[engenharia de plataforma](/14-devops-and-platform/platform-engineering.md).
 
-**Absorvendo toda exceção.**
+**Com um único perfil de serviço.** Se todos os serviços usam a mesma linguagem, o mesmo
+banco e a mesma forma de implantação, um repositório modelo já codifica o caminho inteiro;
+a plataforma acrescentaria provisionamento para uma variação que não existe.
 
-**Apenas com portal**, sem interface programável.
-
-**Com catálogo mantido à mão.**
-
-**Sem plano de depreciação.**
+**Quando serviços novos são raros.** O ganho medido no Exemplo Real está em criar serviço;
+numa organização que cria dois por ano, reduzir três semanas a minutos economiza pouco, e
+o atrito que sobra está em operar o que já existe.
 
 ## Alternativas
 
@@ -205,8 +211,8 @@ custo.
 
 | Declaração no repositório | Portal |
 |---|---|
-| Versionado e revisável | Ações pontuais |
-| Integrado ao fluxo | Descobrível |
+| Mudança versionada e revisável | Mudança sem rastro de revisão |
+| Descoberta exige saber o que procurar | Descoberta por navegação |
 | Curva de aprendizado | Imediato |
 
 ## Modos de Falha
@@ -225,17 +231,27 @@ custo.
 
 **Padrões inseguros no modelo.** O erro se multiplica por todos os serviços criados.
 
+**Plataforma indisponível.** Ao centralizar criação, provisionamento, segredos e
+implantação, ela entra no caminho crítico de toda entrega: fora do ar, nenhum time
+implanta e provisionamentos ficam pendurados. Mitiga-se com um caminho manual documentado
+e com a implantação de produção capaz de rodar sem o portal e o catálogo.
+
 ## Erros Comuns
 
-**Não oferecer autosserviço real.**
+**Não oferecer autosserviço real** — a fila de chamados continua, e os times seguem
+evitando criar serviços.
 
-**Catálogo preenchido à mão.**
+**Catálogo preenchido à mão** — ele diverge, deixa de responder quem é dono do quê, e a
+resposta volta a ser perguntar às pessoas.
 
-**Não ter interface programável.**
+**Não ter interface programável** — os times automatizam por fora, com chamadas diretas à
+API, e a plataforma perde o controle que deveria ter.
 
-**Aceitar todo caso especial.**
+**Aceitar todo caso especial** — cada exceção vira um parâmetro, e a plataforma chega aos
+20 parâmetros impossíveis de manter do Exemplo Real.
 
-**Não planejar depreciação.**
+**Não planejar depreciação** — a remoção quebra times sem aviso, e a confiança perdida
+demora mais a voltar que a capacidade removida.
 
 **Não revisar os padrões do modelo** — eles se propagam a tudo que é criado.
 
@@ -260,17 +276,19 @@ eram enfiadas em serviços existentes, que cresceram além do que deveriam.
 
 A plataforma foi construída em fases, priorizadas pelo tempo que cada etapa consumia:
 
-**Fase 1 — criação de serviço.** Um modelo que gera repositório, esteira, implantação e
-telemetria configurados. De 8 dias para 4 minutos.
+**Fase 1 — criação de serviço.** Um modelo que gera repositório, esteira, implantação,
+telemetria e alertas configurados. De 8 dias para 4 minutos.
 
 **Fase 2 — infraestrutura por declaração.** O time declara num arquivo o que precisa —
 banco, fila, cache — e a plataforma provisiona, com limites e marcação aplicados
 automaticamente. De 5 dias para 10 minutos.
 
-**Fase 3 — segredos por autosserviço**, com permissões derivadas do serviço.
+**Fase 3 — segredos por autosserviço**, com permissões derivadas do serviço. De 3 dias
+para cerca de 1 minuto.
 
 **Fase 4 — padrões de segurança no modelo.** A revisão de 5 dias virou verificação
-automatizada, porque o modelo já produzia o que a revisão exigia. Revisão humana passou a
+automatizada, porque o modelo já produzia o que a revisão exigia; ela roda na esteira em cerca de 25
+minutos. Revisão humana passou a
 ser exceção, para serviços que lidam com dado sensível.
 
 **Catálogo derivado** da declaração e da esteira, sem preenchimento manual.

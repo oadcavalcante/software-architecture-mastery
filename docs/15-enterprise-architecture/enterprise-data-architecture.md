@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [integration-landscapes, application-architecture, data-ownership]
 canonical_for: [dados mestres, fragmentação de dados, fluxo de dados corporativo, sistema de registro]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -91,16 +91,16 @@ estrutura organizacional
 Eles são os que mais fragmentam, porque todo sistema precisa deles e nenhum quer depender
 de outro.
 
-As abordagens, em ordem de custo:
+As abordagens, em ordem de custo de implantação e operação:
 
 **Registro por consenso.** Um sistema existente é declarado a fonte; os demais migram
 para consumir. Barato, e depende de o sistema escolhido conseguir servir.
 
-**Serviço dedicado.** Um sistema cuja única função é ser a fonte. Custa um time, e
-resolve bem.
-
 **Consolidação virtual.** Um índice que aponta para os registros nos sistemas de origem,
 sem mover dados. Menos invasivo, e não resolve a divergência.
+
+**Serviço dedicado.** Um sistema cuja única função é ser a fonte. Custa um time, e
+resolve bem.
 
 **Hub com sincronização.** Um sistema central que reconcilia e distribui. Complexo, e a
 reconciliação nunca é perfeita.
@@ -181,16 +181,21 @@ custo permanente que precisa ser medido.
 
 ## Quando Não Usar
 
-**Buscando banco único.** Autoridade única não é armazenamento único.
+**Entidade de um sistema só, ou de sistemas do mesmo time.** Não há fronteira
+organizacional a atravessar; a propriedade se resolve dentro do time, sem decisão
+corporativa.
 
-**Criando hub central** sem resolver propriedade.
+**Divergência medida baixa e sem exposição regulatória.** Se a reconciliação custa uma
+fração de pessoa e nenhum relatório obrigatório depende do dado, o projeto de
+consolidação custa mais do que evita.
 
-**Sem medir o custo da fragmentação.**
+**Nenhum candidato a fonte consegue servir.** Se o sistema com melhor dado não aguenta a
+leitura síncrona dos consumidores nem pode ser reforçado, declará-lo fonte transfere a
+divergência para indisponibilidade. Resolva a capacidade antes, ou aceite a fragmentação
+por enquanto.
 
-**Sem dono por conjunto de dados.**
-
-**Consolidando tudo.** Nem todo dado precisa de fonte única — dados locais de um sistema
-são dele.
+**Dado local de um sistema.** Nem todo dado precisa de fonte única — o que só um sistema
+usa é dele.
 
 ## Alternativas
 
@@ -218,6 +223,13 @@ sempre se paga.
 | Custa um time | Barato |
 | Desenhado para servir | Pode não servir bem |
 
+A dependência da primeira tabela é operacional. A fonte vira dependência de
+disponibilidade de todo consumidor que escreve ou lê o dado, e precisa de SLO à altura
+do mais exigente deles. Cada consumidor precisa decidir o que faz quando ela cai —
+recusar a operação, ou seguir com a cópia e aceitar dado velho —, e as cópias derivadas
+precisam de política de invalidação: expiração por tempo, ou evento de mudança publicado
+pela fonte.
+
 ## Modos de Falha
 
 **Sem fonte definida.** Divergência permanente.
@@ -234,17 +246,24 @@ sempre se paga.
 
 ## Erros Comuns
 
-**Não declarar sistema de registro.**
+**Não declarar sistema de registro.** Cada sistema continua se considerando a fonte, e a
+reconciliação vira atividade permanente, com gente dedicada a ela.
 
-**Confundir autoridade única com banco único.**
+**Confundir autoridade única com banco único.** O projeto passa a exigir migrar todos os
+sistemas para um armazenamento só, o custo explode, e a iniciativa morre antes de
+declarar qualquer fonte.
 
-**Criar hub como solução.**
+**Criar hub como solução.** Sem decidir quem é dono de cada campo, o hub vira mais um
+cadastro divergente — a reconciliação passa a ter dez lados em vez de nove.
 
-**Não medir o custo da fragmentação.**
+**Não medir o custo da fragmentação.** Sem número, a decisão de propriedade perde toda
+disputa de prioridade para funcionalidade nova.
 
-**Não atribuir dono de qualidade.**
+**Não atribuir dono de qualidade.** A fonte existe, mas o dado errado nela é propagado
+com autoridade para todos os consumidores.
 
-**Consolidar tudo** em vez de escolher o que importa.
+**Consolidar tudo** em vez de escolher o que importa. O esforço se espalha por dados que
+só um sistema usa, e os dados mestres que causam a divergência ficam para depois.
 
 ## Exemplo Real
 
@@ -272,8 +291,10 @@ a qualidade é maior.
 
 A execução, em fases:
 
-**Fase 1.** Os nove sistemas passaram a consultar a fonte para leitura, mantendo os
-cadastros próprios para escrita. Isso já reduziu divergências visíveis ao paciente.
+**Fase 1.** Os outros oito sistemas passaram a ler da fonte, mantendo os cadastros
+próprios para escrita — e cada escrita local passou a ser enviada também à fonte. Em
+conflito, prevalecia o valor da fonte, e o caso ia para uma fila de revisão. Isso já
+reduziu divergências visíveis ao paciente.
 
 **Fase 2.** A escrita foi centralizada. Cada sistema, um por vez, deixou de aceitar
 cadastro e passou a redirecionar para a fonte.
@@ -281,7 +302,8 @@ cadastro e passou a redirecionar para a fonte.
 **Fase 3.** Os cadastros locais foram removidos, restando cópias em cache, explicitamente
 derivadas.
 
-Tempo total: 26 meses.
+Tempo total de execução: 26 meses, sem contar os quatro meses de negociação que a
+precederam.
 
 Resultado: as 6 pessoas de reconciliação foram realocadas, as divergências caíram para
 menos de 0,2%, e a pergunta de quantos pacientes únicos passou a ter resposta.

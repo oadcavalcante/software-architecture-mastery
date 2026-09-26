@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, metrics, distributed-tracing]
 canonical_for: [telemetria, instrumentação, coletor de telemetria, custo de observabilidade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -59,8 +59,11 @@ destino          onde é armazenado e consultado
 Com instrumentação padronizada, trocar o destino é configuração no coletor — não
 alteração de código.
 
-O padrão aberto de telemetria existe exatamente para isso, e adotá-lo é a decisão que
-mais preserva liberdade nesta área, a custo próximo de zero no início do projeto.
+O padrão aberto de telemetria existe exatamente para isso. Adotá-lo no início custa pouco
+em código — a instrumentação precisa ser escrita de qualquer forma —, mas não é grátis: a
+maturidade do SDK varia por linguagem, recursos avançados do fornecedor podem faltar, e o
+coletor é um componente a operar. É o preço de manter a troca de destino como
+configuração, não como reescrita.
 
 Times que instrumentam diretamente com a biblioteca do fornecedor pagam essa decisão
 depois, quando o custo ou a insatisfação motivarem a troca. Ver
@@ -214,17 +217,29 @@ decida no coletor, e revise o que é coletado.
 
 ## Erros Comuns
 
-**Instrumentar com a biblioteca do fornecedor.**
+**Instrumentar com a biblioteca do fornecedor "só por enquanto".** A escolha é feita no
+primeiro serviço, quando a troca parece hipotética; o sintoma aparece anos depois, quando a
+proposta de migração volta com estimativa em meses de trabalho de todos os times.
 
-**Emitir de forma síncrona.**
+**Emitir de forma síncrona porque o destino "é rápido".** Funciona enquanto o destino
+responde; o sintoma é um incidente em que a latência do produto sobe junto com a do
+fornecedor de observabilidade, sem nenhuma mudança no código do produto.
 
-**Não monitorar o próprio sistema de telemetria.**
+**Não monitorar o próprio sistema de telemetria.** Coletor saturado, descarte e atraso de
+ingestão não geram alerta; o time descobre a lacuna no meio da investigação, quando o
+intervalo que interessa está vazio.
 
-**Não auditar o que é consultado.**
+**Não auditar o que é consultado.** Sem saber o que é lido, toda proposta de remoção esbarra
+em "alguém pode usar", e a conta sobe mais rápido que o tráfego sem que ninguém consiga
+dizer por quê.
 
-**Cortar retenção como primeira medida de custo.**
+**Cortar retenção como primeira medida de custo.** A economia é imediata e pequena; o custo
+aparece semanas depois, quando investigações que precisam comparar com o mês anterior, ou
+achar quando um defeito começou, não fecham — como no exemplo abaixo.
 
-**Não ter coletor**, deixando cada serviço enviar direto.
+**Não ter coletor**, deixando cada serviço enviar direto. Filtragem, amostragem e remoção de
+dado sensível viram mudança de código em cada serviço, e a política efetiva passa a ser a do
+serviço menos cuidadoso.
 
 ## Exemplo Real
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [internal-developer-platforms, sre-concepts, ci-cd]
 canonical_for: [engenharia de plataforma, plataforma como produto, caminho pavimentado, carga cognitiva]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -88,6 +88,14 @@ falhando, e a obrigatoriedade esconde o sinal.
 
 ### Reduzir carga cognitiva é o objetivo
 
+Carga cognitiva, no sentido que Skelton e Pais (2019) trazem da psicologia
+educacional, é a quantidade de contexto que um time precisa manter na cabeça para
+entregar e operar o que é dele. Ela tem uma parte intrínseca, que vem do domínio, e
+uma extrínseca, que vem de ferramentas e processos — a taxonomia completa está em
+[topologias de time](/23-architecture-leadership/team-topologies.md). A plataforma só
+consegue atacar a extrínseca; um time sobrecarregado pelo próprio domínio não se alivia
+com esteira melhor.
+
 O critério para decidir o que a plataforma faz:
 
 ```text
@@ -110,6 +118,10 @@ até 3 ou 4 times     convenções e um repositório de exemplos bastam
 5 a 15 times         uma ou duas pessoas dedicadas, tempo parcial
 15+ times            time de plataforma dedicado
 ```
+
+A régua supõe escopo mínimo: esteira, modelos de serviço, segredos. Cada capacidade que a
+plataforma passa a **operar** — ambientes efêmeros, telemetria centralizada — acrescenta
+plantão e manutenção contínua, e puxa o limiar do time dedicado para baixo.
 
 Criar um time de plataforma cedo demais produz uma plataforma para um problema que ainda
 não existe — e ela precisa ser mantida, evoluída e migrada quando o problema real
@@ -160,17 +172,24 @@ Se a resposta for não, a obrigatoriedade está escondendo o problema.
 
 ## Quando Não Usar
 
-**Com poucos times.** Convenções bastam.
+**Com até três ou quatro times.** Abaixo desse limiar, a duplicação que a plataforma
+eliminaria custa menos que manter a plataforma; convenções e um repositório de exemplos
+bastam.
 
-**Como obrigatoriedade** sem qualidade que sustente a escolha.
+**Com um time só, ou com uma stack única já padronizada.** Não há divergência a
+reduzir — o caminho pavimentado já é o único caminho.
 
-**Operando os serviços dos outros times.**
+**Com a operação terceirizada.** Se um PaaS ou um fornecedor gerenciado já entrega
+implantação, telemetria e ambientes, construir uma camada interna por cima duplica o que
+se paga para não ter.
 
-**Abstraindo a ponto de ninguém conseguir diagnosticar.**
+**Com uma reorganização iminente.** A plataforma é desenhada em torno da fronteira dos
+times que a consomem; se essa fronteira vai mudar em meses, o escopo construído agora
+nasce errado.
 
-**Sem métrica de adoção voluntária.**
-
-**Construindo o que é específico de domínio.**
+**Sem capacidade de tratá-la como produto.** Se não há quem pesquise necessidade, dê
+suporte e mantenha documentação, o resultado é a plataforma obrigatória que ninguém
+escolheria — ver Erros Comuns.
 
 ## Alternativas
 
@@ -179,7 +198,8 @@ Se a resposta for não, a obrigatoriedade está escondendo o problema.
 - **Bibliotecas compartilhadas** — sem plataforma, com padrões em código.
 - **Plataforma comercial** — comprar em vez de construir. Ver
   [SaaS](/09-cloud-architecture/saas.md).
-- **Time de habilitação** — ajuda os times a resolverem, em vez de resolver por eles.
+- **[Time habilitador](/23-architecture-leadership/team-topologies.md)** — ajuda os times a
+  resolverem, em vez de resolver por eles.
 
 A última é frequentemente melhor no início: ela transfere capacidade em vez de criar
 dependência.
@@ -205,6 +225,12 @@ dependência.
 **Plataforma que ninguém quer usar.**
 
 **Gargalo.** Toda mudança depende do time de plataforma.
+
+**Dependência operacional compartilhada.** A plataforma vira ponto único de falha de
+todos os times: se a esteira, a telemetria ou o provisionamento de ambientes cai, todos os
+times consumidores param juntos, e o incidente é de todos. Uma mudança incompatível no caminho
+pavimentado propaga migração para cada consumidor. Por isso a plataforma precisa de alvo
+de confiabilidade e plantão próprios, e de versões com prazo de depreciação.
 
 **Abstração opaca.** Quebrou, e ninguém sabe por quê.
 
@@ -275,7 +301,10 @@ ficou fora tem um requisito de latência que a plataforma não atende — e isso
 considerado aceitável.
 
 E o time de plataforma reduziu de seis para quatro pessoas, porque parte do trabalho
-inicial era manter a abstração própria que foi abandonada.
+inicial era manter a abstração própria que foi abandonada. Quatro pessoas para 14 times
+está acima da régua de tamanho — e se justifica pelo escopo, não pelo número de times: a
+plataforma passou a operar ambientes efêmeros e telemetria, com plantão, não só a
+fornecer modelos.
 
 O que se registrou depois: oito meses foram gastos construindo a solução para o problema
 errado. A pesquisa que redirecionou tudo levou duas semanas e poderia ter sido feita

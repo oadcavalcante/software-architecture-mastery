@@ -13,7 +13,7 @@ objective: >
 prerequisites: [application-portfolios]
 related: [application-portfolios, current-state-architecture, enterprise-data-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -38,7 +38,7 @@ fastest way available at the time.
 The aggregate, after a few years:
 
 ```text
-quadratic growth       N systems can have up to N² connections
+quadratic growth       N systems can have up to N(N−1)/2 connected pairs
 divergent forms        API, file, shared database, queue, all at once
 invisible coupling     no one knows who depends on whom
 expensive change       altering one system requires coordinating with ten
@@ -100,7 +100,8 @@ The way to find them is to observe: database access logs, network traffic, distr
 tracing. See
 [distributed tracing](/13-observability/distributed-tracing.md).
 
-The typical finding: between 30% and 50% more integrations than documented.
+The typical finding is a sizable fraction of the real integrations missing from the
+documentation — in the example below, 122 of 312, or 39% of the total.
 
 ### The patterns that produce disproportionate cost
 
@@ -143,7 +144,7 @@ integrations is a speed intervention, not just an architectural one.
 ### Reducing is more valuable than organizing
 
 The temptation, faced with a complex landscape, is to introduce a central intermediary —
-a bus everything passes through.
+a bus everything passes through. See [SOA](/03-design-patterns/soa.md).
 
 That reorganizes the diagram and keeps the coupling: the systems still depend on each
 other, now with one additional central point.
@@ -177,19 +178,22 @@ more than organizing them.
 
 ## When Not to Use
 
-**Mapped by interview alone.**
+**A small landscape under a single team.** With few systems maintained by the same people,
+the dependencies fit in the heads of those who operate them; per-system analysis answers
+the same questions without the cost of a global map.
 
-**Introducing a central intermediary** without reducing coupling.
+**No decision on the table.** With no consolidation, retirement, modernization, or
+slowness investigation ahead, the map informs no choice — and it ages until it is needed,
+when it will have to be redone.
 
-**As a static diagram** that is out of date.
-
-**Without including informal integrations.**
-
-**Documenting without deciding** what to do with what you find.
+**Nothing observable.** Without database access logs or tracing, the map can only come
+from interviews, which omit precisely the informal integrations. If instrumenting costs
+more than the decision the map would support, an analysis focused on the systems at stake
+is cheaper.
 
 ## Alternatives
 
-- **Derived dependency map** — automatic, real, always current.
+- **Derived dependency map** — automatic, real, current wherever instrumented.
 - **Per-system analysis** — what each one consumes and exposes, without the global map.
 - **Contract catalog** — what is published, who consumes it. See
   [integration contracts](/08-integration-architecture/integration-contracts.md).
@@ -225,7 +229,7 @@ more than organizing them.
 
 **Mapping by interview.** People remember the integrations they use and forget the old ones — which are precisely the ones that break when someone turns a system off.
 
-**Not including direct access to another system's database.** It is the most coupled integration there is and the one that appears least in maps, because it goes through no API.
+**Not including direct access to another system's database.** It is among the most coupled integrations and the one that appears least in maps, because it goes through no API.
 
 **Introducing an intermediary as the solution.** A bus in the middle of poorly designed integrations merely centralizes the problem and creates an organizational bottleneck — the coupling remains, now with one more system to operate.
 

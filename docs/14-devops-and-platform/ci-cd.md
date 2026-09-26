@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [deployment-strategies, feature-flags, environment-management]
 canonical_for: [integração contínua, entrega contínua, implantação contínua, esteira, lote pequeno]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -121,8 +121,9 @@ não faz sentido   software regulado com aprovação obrigatória
                   onde a reversão é cara ou impossível
 ```
 
-Entrega contínua é o objetivo universal: estar sempre pronto. Implantar automaticamente
-é uma escolha sobre o que fazer com essa prontidão.
+Entrega contínua continua valendo nos dois primeiros casos da lista: estar sempre pronto
+não obriga a ir, e a aprovação regulatória decide quando, não se o código está em
+condição. Implantar automaticamente é uma escolha sobre o que fazer com essa prontidão.
 
 Times que perseguem implantação contínua sem ter entrega contínua estão automatizando um
 caminho em que não confiam.
@@ -161,23 +162,29 @@ reexecução — ou ela cresce sem que ninguém perceba.
 
 ## Quando Usar
 
-- Praticamente sempre, para os dois primeiros.
+- Integração e entrega contínuas sempre que mais de uma pessoa altera o mesmo código e ele
+  vai a produção repetidamente — as exceções estão na seção seguinte.
 - Implantação contínua onde a reversão é rápida e a verificação é confiável.
 - Prioridade alta quando há vários times no mesmo código.
 
 ## Quando Não Usar
 
-**Chamando de integração contínua** um ramo de longa duração com esteira.
+**Implantação contínua sob aprovação regulatória por mudança.** Quando cada liberação
+exige registro e assinatura de um responsável, ir a produção automaticamente viola o
+processo. Entrega contínua continua valendo; a implantação passa a ter cadência.
 
-**Implantação contínua** sem reversão testada.
+**Implantação contínua em firmware sem atualização remota.** Se a versão só chega ao
+dispositivo em campo por recolhimento ou visita técnica, não há produção a alimentar a cada
+mudança, nem reversão em minutos.
 
-**Esteira lenta.** Ela desencoraja a prática que deveria habilitar.
+**Implantação contínua de mudança irreversível.** Migração que apaga ou transforma dados sem
+caminho de volta, ou mensagem já enviada a terceiros, pede uma decisão humana antes de ir —
+mesmo num time que implanta o resto automaticamente.
 
-**Convivendo com testes instáveis.**
-
-**Sem migrações compatíveis.** A implantação vira evento coordenado.
-
-**Com aprovação manual em cada mudança**, que é o gargalo real na maioria dos casos.
+**Integração diária no tronco com contribuidores externos.** No modelo de fork e pull request
+de projetos open source, quem contribui não tem acesso de escrita, e a revisão por
+mantenedores define o ritmo. A verificação automatizada em cada pull request continua valendo;
+a integração diária de todos não.
 
 ## Alternativas
 
@@ -199,7 +206,8 @@ reexecução — ou ela cresce sem que ninguém perceba.
 
 | Implantação contínua | Com decisão humana |
 |---|---|
-| Menor tempo até produção | Controle |
+| Minutos até produção | Horas a dias até produção |
+| Controle só pela verificação automatizada | Controle por aprovação humana |
 | Exige verificação confiável | Tolera lacunas |
 | Reversão precisa ser rápida | Mais margem |
 
@@ -255,7 +263,7 @@ Ramos de 17 dias não são integração contínua. E as consequências apareciam
 módulo, integradas com duas semanas de diferença. O conflito textual foi resolvido; o
 comportamental foi para produção.
 
-**Diagnóstico difícil.** Uma implantação levava 11 dias de mudanças de cinco pessoas.
+**Diagnóstico difícil.** Uma implantação levava duas semanas de mudanças de cinco pessoas.
 Quando algo quebrava, isolar a causa levava horas.
 
 **Reversão de tudo.** Reverter significava desfazer o trabalho de todos.
@@ -280,7 +288,7 @@ ramos caiu de 17 dias para 1,4.
 **Migrações compatíveis** obrigatórias, verificadas em revisão.
 
 Resultado em nove meses: tempo entre integração e produção de 11 dias para 4 horas,
-implantações de 2 por semana para 31, e incidentes causados por implantação reduzidos
+implantações de 2 por mês para 31 por semana, e incidentes causados por implantação reduzidos
 pela metade.
 
 A conclusão registrada: a ferramenta estava correta desde o início. O que faltava era a

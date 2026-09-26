@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, application-portfolios, business-architecture]
 canonical_for: [mapeamento de capacidades, decomposição de capacidade, heat map de capacidades]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -122,8 +122,11 @@ número de sistemas     onde há duplicação
 
 Ver [portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md).
 
-E a combinação mais produtiva: **criticidade contra saúde**. Ela produz uma lista curta
-de prioridades que ninguém discute — capacidades críticas suportadas por sistemas ruins.
+Cada pergunta pede uma combinação. Para priorizar risco e modernização, **criticidade
+contra saúde**: ela produz uma lista curta de prioridades difícil de contestar, porque
+cruza dois fatos que o negócio e a TI já reconhecem — capacidades críticas suportadas por
+sistemas ruins. Para decidir entre construir e comprar, **diferenciação contra custo**, como
+descrito em [capacidades de negócio](/15-enterprise-architecture/business-capabilities.md).
 
 ### Quanto tempo, e quando parar
 
@@ -149,6 +152,13 @@ usado em decisões de construir ou comprar
 revisado quando o negócio muda
 ```
 
+Manter tem forma concreta: um responsável nomeado pelo mapa — em geral a arquitetura de
+negócio, não um projeto que termina —, revisão da estrutura atrelada ao ciclo de orçamento,
+e a camada de sistemas atualizada junto com o
+[portfólio de aplicações](/15-enterprise-architecture/application-portfolios.md), a cada
+sistema que entra ou é desativado. A estrutura de capacidades muda pouco; o mapa de calor
+envelhece em meses se a camada de sistemas não acompanha o portfólio.
+
 Se ele não entra em nenhuma decisão recorrente, não vale o custo de manter — e a
 constatação honesta é que ele não deveria ter sido construído.
 
@@ -167,18 +177,20 @@ o mantém vivo.
 
 ## Quando Não Usar
 
-**Conduzido apenas por tecnologia.**
+**Organização pequena, com poucos sistemas.** Quando um inventário de uma página já mostra
+o que suporta o quê, o mapa acrescenta semanas de oficina sem revelar duplicação que a lista
+não mostrasse.
 
-**Decompondo de baixo para cima.**
+**Nenhuma decisão recorrente onde o mapa possa entrar.** Sem ciclo de orçamento, programa de
+modernização ou decisão de construir ou comprar à vista, o mapa é arquivado ao fim do
+exercício — o modo de falha mais caro, porque todo o custo já foi pago.
 
-**Buscando precisão excessiva.**
+**O problema dominante é fronteira de software.** Se a pergunta é onde dividir serviços ou
+quem é dono de qual dado, o mapeamento de domínios responde com o nível de detalhe certo; o
+mapa de capacidades fica acima disso.
 
-**Sem sobreposição de informação.**
-
-**Sem entrar em nenhum processo de decisão.**
-
-**Copiando modelo de referência do setor** sem adaptar — ele descreve o setor, não a
-organização.
+**O problema é o fluxo, não o portfólio.** Se o que dói é o tempo entre pedido e entrega, o
+mapa de fluxo de valor mostra a espera; o de capacidades mostra só que a capacidade existe.
 
 ## Alternativas
 
@@ -222,7 +234,7 @@ O último acelera o início e produz um modelo genérico se não for adaptado co
 
 **Conduzir sem o negócio.** Um mapa desenhado só pela área técnica descreve sistemas com outro nome, e o negócio não se reconhece nele — o que o torna inútil para a conversa que ele existia para ter.
 
-**Decompor de baixo para cima.** Partir dos sistemas existentes reproduz a arquitetura atual e esconde a capacidade que não é atendida por nenhum sistema — que é justamente a informação mais valiosa.
+**Decompor de baixo para cima.** Listar todas as atividades e agrupar depois produz categorias artificiais, definidas pela semelhança entre as tarefas e não pelo que o negócio precisa saber fazer — e as mesmas atividades acabam agrupadas em dois lugares, que é a sobreposição que o teste de exclusividade depois precisa desfazer.
 
 **Não aplicar os testes de estabilidade.** Se um item do mapa desaparece quando a empresa troca de ferramenta ou de estrutura, ele não era capacidade; era processo ou sistema com nome de capacidade.
 

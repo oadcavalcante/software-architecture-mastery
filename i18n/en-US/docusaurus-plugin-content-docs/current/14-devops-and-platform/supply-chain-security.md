@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, containers-in-delivery, supply-chain-trust]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -64,7 +64,8 @@ production secrets unavailable in branch runs
 protected environments, with approval to deploy
 ```
 
-The first line is the most important defense against the most exploited vector.
+The first line is the one that closes the path described in the Overview: the file submitted by someone
+outside the project stops being what executes with the credentials.
 
 ### Isolate the runs
 
@@ -114,6 +115,11 @@ the deployment refuses what has no valid signature and provenance
 That prevents the vector of publishing directly to the registry: an artifact that did not go through the
 pipeline has no provenance, and the deployment refuses it.
 
+The cost shows up the day verification fails for reasons unrelated to an attack — the signing service down,
+a key rotated without propagating — during an incident that demands a deployment. With no emergency exit,
+the fix waits. The exit has to exist beforehand: an exception path with two-person approval, its own log
+and an alert on every use, because a silent bypass is exactly the path verification closes.
+
 See [containers in delivery](/14-devops-and-platform/containers-in-delivery.md).
 
 ### Build dependencies are also code
@@ -128,6 +134,11 @@ mirror the critical ones internally
 
 A third-party action referenced by tag can be repointed by the maintainer — or by whoever compromises their
 account — and comes to execute new code in every pipeline using it.
+
+Pinning by digest shifts the work: updates stop arriving on their own, and somebody has to propose, review
+and apply each new version. With no automation opening those proposals, the digests freeze and the pipeline
+accumulates known vulnerabilities — the opposite of the goal. The internal mirror carries the same cost,
+multiplied: one more service to keep available, synchronized and scanned.
 
 ### Separate building from deploying
 
@@ -157,6 +168,10 @@ the investigation impossible.
 
 ### The artifact registry is a trust boundary
 
+The registry's operational requirements — retention, immutability, cleanup — are in
+[containers in delivery](/14-devops-and-platform/containers-in-delivery.md). What matters here is the
+registry as a target.
+
 A component that usually stays out of the analysis: the registry where the images and packages live.
 
 It is the last stop before production, and compromising it is equivalent to compromising the pipeline —
@@ -165,16 +180,14 @@ with the advantage, for the attacker, of leaving no trace in the code repository
 ```text
 who publishes     only the pipeline, with its own credential
 who consumes      only the destination environments
-immutability      a published tag is not overwritten
-retention         old versions available for rollback
 scanning          vulnerabilities detected in what is already published
 an access log     who downloaded what, when
 ```
 
-The first line is the most important and the most frequently violated: publishing credentials distributed
-to people, or shared between pipelines, turn the registry into an open path.
+Without the first line, the others protect little: publishing credentials distributed to people, or shared
+between pipelines, turn the registry into an open path.
 
-And the fifth deserves a note: an image published six months ago may have acquired known vulnerabilities
+And the third deserves a note: an image published six months ago may have acquired known vulnerabilities
 since then. Scanning only at build time stops seeing that — what matters is continuous scanning of what is
 published and in use.
 
@@ -194,23 +207,20 @@ Always. High priority when:
 
 ## When Not to Use
 
-**With a pipeline configuration alterable with no approval.** Whoever alters the file alters what executes
-with its credentials.
+The core — protected configuration, ephemeral credentials, verification at deployment — applies to any
+pipeline that reaches production. The limit lies in the more expensive controls:
 
-**With production secrets in branch runs.** A branch is unreviewed code; giving it access to production
-nullifies the review.
+**A separate pipeline for external contributions, in a repository that does not accept them.** With no
+outside contributor, the vector it closes does not exist; maintainer approval on the pipeline file covers
+the internal case.
 
-**With static, long-lived credentials.** They leak in build logs and do not expire on their own. A
-temporary credential per run eliminates the whole class.
+**Human approval on a pipeline that only publishes to a test environment**, with no real data and no
+credential shared with production. The approval charges latency on every run to protect an environment
+whose compromise reaches nothing.
 
-**Signing without verifying.** The signature only counts where somebody refuses what does not check out;
-with no verification, it is a decorative record.
-
-**With build dependencies by moving tag.** The content changes with nothing in your repository changing,
-and the build stops being reproducible.
-
-**With no run log.** With no history of what was built, by whom and from which commit, there is no way to
-investigate a suspicious artifact.
+**An internal mirror and continuous scanning on a team with nobody to operate them.** A mirror nobody
+synchronizes freezes vulnerable dependencies and ends up worse than the public source it replaced. Pinning
+by digest, with automated updates, covers much of the risk without that extra service.
 
 ## Alternatives
 
@@ -229,11 +239,11 @@ The last is valuable for being independent: even if the pipeline is compromised,
 | Contained damage | Broad access |
 | Friction for new cases | Fluidity |
 | Approvals necessary | Automatic |
-| Complete auditing | Less overhead |
+| Complete auditing, with a retention cost | Partial auditing, less overhead |
 
 | Building and deploying separated | Together |
 |---|---|
-| Smaller privileges in each | One place |
+| Privilege restricted per stage | Privileges summed in one place |
 | More parts | Simple |
 
 ## Failure Modes
@@ -260,8 +270,8 @@ that runs there. It is critical infrastructure, and it deserves the same control
 **Executing branch configuration with production secrets.** If the pipeline's file can be altered in the
 same commit it executes, any contributor can exfiltrate the secrets.
 
-**Broad static credentials.** A long-lived key with administrator permission in the pipeline is the
-organization's highest-value target, and it leaks in build logs easily.
+**Broad static credentials.** A long-lived key with administrator permission in the pipeline grants, on its
+own, everything the pipeline reaches in production, and it leaks in build logs easily.
 
 **Not verifying the signature at deployment.** Signing without verifying at deployment time is ceremony —
 the control only exists where somebody refuses what does not check out.
@@ -279,16 +289,8 @@ A technology company suffered the compromise described in
 [supply chain trust](/10-security/supply-chain-trust.md): an external contribution altered the pipeline's
 configuration and extracted production credentials.
 
-The pipeline-specific fixes:
-
-**Main branch configuration** for external contribution runs. The file submitted by the contributor stopped
-being what runs.
-
-**Separated pipelines.** External contributions run in a pipeline with no secrets, with no access to
-anything in production, with a restricted network.
-
-**Ephemeral credentials through federation**, with scope per service. The pipeline lost the permission to
-change access policies — which was what would have allowed escalating the compromise.
+Protecting the configuration, separating pipelines and ephemeral credentials are described there. The
+delivery-specific fixes, applied to the pipelines of the eleven services:
 
 **Building separated from deploying.** The build produces the signed artifact; a distinct process, with its
 own credentials and approval for production, deploys.
@@ -296,7 +298,9 @@ own credentials and approval for production, deploys.
 **Verification at admission.** The destination environment refuses artifacts with no valid signature and
 provenance — protection independent of the pipeline.
 
-**Dependencies pinned by digest**, with the critical ones mirrored internally.
+**Dependencies pinned by digest**, with the critical ones mirrored internally. Swapping tags for digests
+was the slow part: each service referenced eight to fifteen actions and images, and updates came to arrive
+as automated proposals, reviewed like any other change.
 
 **Restricted egress network** on the runs, with a log of what was blocked. In the first months, that
 revealed three third-party actions sending telemetry to undocumented destinations.

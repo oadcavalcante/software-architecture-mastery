@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [standards, enterprise-governance, architecture-levels]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -46,7 +46,9 @@ simple, secure and good for the user.
 
 The test that exposes this: **is there anyone in the organization who would argue the
 opposite?** If not, the principle does not separate options — it merely declares a
-virtue.
+virtue. This is the inversion test, defined in
+[governance principles](/19-architecture-governance/governance-principles.md); what matters
+here is what comes after it: implications and the test against real decisions.
 
 ## Core Concepts
 
@@ -122,8 +124,10 @@ with a decision by someone with the reach to make it
 and a review deadline
 ```
 
-The exception log is valuable information: if a principle accumulates exceptions, the
-principle is wrong — not the exceptions.
+The exception log is valuable information: if a principle accumulates exceptions, that
+is the strongest signal it needs review — because it is wrong, because its scope grew too
+broad, or because it systematically loses to another one without the precedence being
+written down.
 
 That is one of the most reliable ways to discover that a principle needs to change.
 
@@ -170,11 +174,13 @@ where it should happen.
 What does not work is ordering the principles by fixed priority: a rigid hierarchy turns
 the second principle into decoration, because the first always wins.
 
-What works is recording, when the tension appears, which one won and why. See
+What works is stating **where** each principle governs — by domain or by risk —, as
+[governance principles](/19-architecture-governance/governance-principles.md) details,
+and recording, when the tension appears, which one won and why. See
 [architecture decisions](/18-architecture-decisions/index.md).
 
-After a few records, the pattern emerges — and it is more informative than any precedence
-rule defined in advance.
+The records do not replace the precedence rule: they calibrate it. After a few, the
+pattern emerges and shows where the boundary between the two principles was badly drawn.
 
 ### The principle has to be testable against tomorrow's decision
 
@@ -211,24 +217,25 @@ never written — and the principle is producing divergence instead of coherence
 
 ## When Not to Use
 
-**As a declaration of virtue.** If nobody would disagree, the principle does not separate
-alternatives — it merely asserts something everyone agrees with.
+**With a single team, or a few teams that decide together.** Principles exist to
+coordinate people who do not talk; where everyone sits in the same weekly review, direct
+conversation costs less than writing, publishing and maintaining the set — and is more
+precise than it.
 
-**In large numbers.** Above eight or ten, nobody remembers them, and principles that are
-not remembered guide nothing.
+**Where a body of recorded decisions already guides.** If teams consult past ADRs before
+deciding, precedent carries the context the principle abstracts away. Writing principles
+on top of it only pays off once the body has grown too large to be consulted.
 
-**Without implications.** The sentence alone admits divergent interpretations, and the
-coherence it was supposed to produce never happens.
-
-**Without an exception path.** It produces silent circumvention, or paralysis — and the
-exception log is precisely the mechanism that reveals when the principle needs to change.
+**Without someone with the reach to decide exceptions.** A principle without an arbiter
+becomes silent circumvention or paralysis; if the organization does not yet have someone to
+weigh one principle against another, the published set will not be applied.
 
 **In place of a standard** or an automated check. Principles guide judgment; where the
 specific choice matters and can be verified, a principle is the wrong instrument.
 
-**Without periodic review.** A principle that made sense at 30 engineers may be wrong at
-300, and constraints that outlive the context that justified them produce friction with
-no purpose.
+**As a veto instrument.** Where the context is one of distrust between areas, principles
+tend to be cited only to refuse proposals — and the set comes to be read as a list of
+prohibitions, not as a criterion.
 
 ## Alternatives
 
@@ -303,7 +310,7 @@ are data-driven".
 And of the 23, only 4 had been cited in any discussion in three years — always to justify
 a refusal, never to guide a choice.
 
-The rework produced 6 principles, each with an explicit losing side and implications:
+The rework produced 5 principles, each with an explicit losing side and implications:
 
 ```text
 1. We prefer buying over building, except in what differentiates us.
@@ -312,6 +319,7 @@ The rework produced 6 principles, each with an explicit losing side and implicat
 
 2. Data belongs to a single system; the rest consume it.
    → no system writes into another's database
+   → integration is by explicit contract — API or event
    → every data set has a declared owner
 
 3. We prefer consistency across teams over local optimization.
@@ -320,11 +328,13 @@ The rework produced 6 principles, each with an explicit losing side and implicat
 4. We prefer reversibility over getting it right the first time.
    → two-way door decisions are made fast, by the team, and reviewed later
 
-5. Integration is by explicit contract, never by access to another's database.
-
-6. The team that builds operates what it builds.
+5. The team that builds operates what it builds.
    → no delivery is considered done without telemetry and alerts
 ```
+
+A sixth candidate — "integration is by explicit contract, never by access to another's
+database" — was demoted to an implication of principle 2: it ruled out nothing that 2 did
+not already rule out.
 
 Each with listed implications, an exception possible with a record, and annual review.
 

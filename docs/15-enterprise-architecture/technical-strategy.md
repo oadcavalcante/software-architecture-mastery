@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, architecture-roadmaps, business-capabilities]
 canonical_for: [estratégia técnica, diagnóstico, renúncia explícita, aposta técnica]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -210,17 +210,13 @@ escolhido.
 
 ## Quando Não Usar
 
-**Como lista de aspirações.** "Ser mais ágil e mais seguro" não elimina nenhuma opção, então não orienta escolha nenhuma.
+**Sem estratégia de negócio a que servir.** Se a direção do negócio ainda não foi decidida, ou muda em ciclos mais curtos que os 12 a 24 meses do horizonte, o diagnóstico não tem âncora: cada renúncia fica obsoleta antes de produzir efeito. O trabalho útil nesse caso é forçar a pergunta de negócio, não responder a ela por conta própria.
 
-**Sem diagnóstico específico.** Estratégia começa por nomear o obstáculo real. Sem isso, as ações são atividades que não se ligam a nada.
+**Sem disputa por capacidade.** Uma equipe só, sem iniciativas concorrendo pelas mesmas pessoas, já faz a escolha de onde investir ao ordenar a própria fila de trabalho. Um documento de estratégia ali acrescenta cerimônia sem acrescentar decisão.
 
-**Sem renúncias nomeadas.** Estratégia que não diz o que não será feito é lista de desejos, e cada área continua supondo que a sua prioridade está incluída.
+**Para uma decisão isolada.** Escolher um banco de dados ou um padrão de integração é uma decisão com contexto, opções e consequências — cabe num [registro de decisão](/18-architecture-decisions/index.md). Chamá-la de estratégia não acrescenta diagnóstico nem renúncia.
 
-**Derivada só de preferências de engenharia.** Sem ancoragem no que a empresa precisa, ela otimiza pureza técnica — que raramente é o risco dominante.
-
-**Com ações incoerentes entre si.** Ações que se anulam consomem capacidade e não movem nada. Coerência entre elas é o que distingue estratégia de portfólio de iniciativas.
-
-**Sem revisão com evidência.** Sem indicadores que digam se o diagnóstico ainda vale, a estratégia sobrevive ao contexto que a justificava.
+**Em crise operacional.** Quando o sistema cai toda semana, a prioridade não está em disputa; o que falta é execução. Formular estratégia nesse momento adia a correção que todos já sabem qual é.
 
 ## Alternativas
 
@@ -244,8 +240,9 @@ roteiro, quando.
 
 | Horizonte de 2 anos | De 6 meses |
 |---|---|
-| Permite mudanças estruturais | Acionável |
-| Mais incerteza | Menos ambição |
+| Permite mudanças estruturais | Só mudanças incrementais |
+| Pouco acionável no curto prazo | Acionável já |
+| Mais incerteza na previsão | Menos incerteza |
 
 ## Modos de Falha
 
@@ -263,17 +260,17 @@ roteiro, quando.
 
 ## Erros Comuns
 
-**Começar pelas ações.**
+**Começar pelas ações.** "Vamos adotar microsserviços" vira o programa; ao fim, ninguém sabe dizer se o problema de negócio melhorou, porque ele nunca foi nomeado.
 
-**Não nomear o que fica de fora.**
+**Não nomear o que fica de fora.** Cada área lê a estratégia supondo que sua prioridade está incluída, e o orçamento é disputado de novo a cada trimestre.
 
-**Agregar pedidos de cada área** em vez de escolher.
+**Agregar pedidos de cada área** em vez de escolher. O documento sai sem oposição, e o investimento se espalha por frentes que nenhuma chega ao fim.
 
-**Não conectar a objetivos de negócio.**
+**Não conectar a objetivos de negócio.** A estratégia chega à discussão de orçamento sem dizer que capacidade destrava, e perde para quem diz.
 
-**Não formular como aposta verificável.**
+**Não formular como aposta verificável.** Sem o prazo e o sinal que confirmariam a hipótese, o resultado ruim é lido como "ainda não deu tempo", e a estratégia nunca é refutada.
 
-**Não revisar.**
+**Não revisar.** O diagnóstico envelhece com o contexto, e as equipes continuam executando renúncias que já não fazem sentido.
 
 ## Exemplo Real
 
@@ -284,7 +281,7 @@ O orçamento de engenharia foi distribuído entre as nove. Ao fim de dois anos:
 
 ```text
 frentes concluídas        0
-frentes com progresso     9  — todas parciais
+frentes com progresso     6  — todas parciais
 frentes abandonadas       3  — o progresso foi perdido
 ```
 
@@ -329,7 +326,7 @@ se estivermos certos, o tempo de lançamento cai para menos de 6 semanas
 saberemos em 12 meses, observando o tempo dos próximos lançamentos
 ```
 
-Após 14 meses, o tempo de lançamento estava em 5 semanas. A aposta se confirmou.
+Aos 12 meses, os dois lançamentos feitos no novo modelo tinham levado 7 e 6 semanas — perto do alvo, sem atingi-lo. A revisão manteve a aposta, e o terceiro lançamento, no mês 14, saiu em 5 semanas. A aposta se confirmou.
 
 E as renúncias tiveram custo: dois sistemas de apoio degradaram, e um incidente de custo
 de infraestrutura consumiu atenção. Ambos foram tratados como consequência aceita, não

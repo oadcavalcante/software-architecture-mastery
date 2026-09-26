@@ -13,7 +13,7 @@ objective: >
 prerequisites: [platform-engineering]
 related: [platform-engineering, environment-management, ci-cd]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -96,8 +96,10 @@ infrastructure   what that service uses
 It answers questions that, without it, require asking people: who owns this? who depends on this service?
 what breaks if I change this?
 
-And it only stays up to date if it is **derived**, not filled in by hand. A catalog that depends on
-somebody updating it is out of date in three months.
+To do that it needs to be **derived** — from the pipeline, the infrastructure declaration, the observed
+traffic — not filled in by hand. Updating a manual catalog is on the path of no delivery, so it drifts as
+fast as services are born, change owners and die; and a catalog that answers wrong is worse than none,
+because whoever consults it stops asking people.
 
 See [data ownership](/07-data-architecture/data-ownership.md) — it is the same principle applied to
 services.
@@ -165,15 +167,18 @@ in the code, not in a person.
 
 **With no self-service.** A ticket is not a platform.
 
-**With few teams.**
+**With few consuming teams.** The platform has a fixed cost — a dedicated team maintaining the template,
+the provisioning and the catalog — and what it eliminates is duplication across teams. With three or four
+teams, the duplication is smaller than that cost; the math is in
+[platform engineering](/14-devops-and-platform/platform-engineering.md).
 
-**Absorbing every exception.**
+**With a single service profile.** If every service uses the same language, the same database and the same
+deployment shape, a template repository already encodes the whole path; the platform would add provisioning
+for a variation that does not exist.
 
-**With a portal only**, with no programmable interface.
-
-**With a hand-maintained catalog.**
-
-**With no deprecation plan.**
+**When new services are rare.** The gain measured in the Real-World Example is in creating services; in an
+organization that creates two a year, cutting three weeks to minutes saves little, and the remaining friction
+is in operating what already exists.
 
 ## Alternatives
 
@@ -197,8 +202,8 @@ deployment ready, delivers a good part of a platform's value at a fraction of th
 
 | A declaration in the repository | A portal |
 |---|---|
-| Versioned and reviewable | One-off actions |
-| Integrated into the flow | Discoverable |
+| A versioned, reviewable change | A change with no review trail |
+| Discovery requires knowing what to look for | Discovery by browsing |
 | A learning curve | Immediate |
 
 ## Failure Modes
@@ -217,17 +222,25 @@ deployment ready, delivers a good part of a platform's value at a fraction of th
 
 **Unsafe defaults in the template.** The mistake multiplies across every service created.
 
+**The platform down.** By centralizing creation, provisioning, secrets and deployment, it sits on the
+critical path of every delivery: when it is down, no team deploys and provisioning hangs. The mitigation is a
+documented manual path and a production deployment able to run without the portal and the catalog.
+
 ## Common Mistakes
 
-**Not offering real self-service.**
+**Not offering real self-service** — the ticket queue stays, and teams keep avoiding creating services.
 
-**A hand-filled catalog.**
+**A hand-filled catalog** — it drifts, stops answering who owns what, and the answer goes back to asking
+people.
 
-**Having no programmable interface.**
+**Having no programmable interface** — teams automate around it, with direct API calls, and the platform
+loses the control it should have.
 
-**Accepting every special case.**
+**Accepting every special case** — each exception becomes a parameter, and the platform reaches the
+Real-World Example's 20 unmaintainable parameters.
 
-**Not planning deprecation.**
+**Not planning deprecation** — the removal breaks teams with no notice, and the lost trust takes longer to
+come back than the removed capability.
 
 **Not reviewing the template's defaults** — they propagate to everything that is created.
 
@@ -252,17 +265,18 @@ services, which grew beyond what they should.
 
 The platform was built in phases, prioritized by the time each stage consumed:
 
-**Phase 1 — service creation.** A template generating the repository, pipeline, deployment and telemetry
-configured. From 8 days to 4 minutes.
+**Phase 1 — service creation.** A template generating the repository, pipeline, deployment, telemetry and
+alerts configured. From 8 days to 4 minutes.
 
 **Phase 2 — infrastructure by declaration.** The team declares in a file what it needs — a database, a
 queue, a cache — and the platform provisions it, with limits and tagging applied automatically. From 5 days
 to 10 minutes.
 
-**Phase 3 — self-service secrets**, with permissions derived from the service.
+**Phase 3 — self-service secrets**, with permissions derived from the service. From 3 days to about 1
+minute.
 
 **Phase 4 — security standards in the template.** The 5-day review became an automated check, because the
-template already produced what the review required. Human review came to be the exception, for services
+template already produced what the review required; it runs in the pipeline in about 25 minutes. Human review came to be the exception, for services
 handling sensitive data.
 
 **A catalog derived** from the declaration and the pipeline, with no manual filling.

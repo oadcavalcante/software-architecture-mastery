@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, feature-flags, deployment-strategies]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -109,8 +109,9 @@ generated on each deployment
 what is user-visible, separated from the internal
 ```
 
-The last distinction matters: a customer does not want to read a hundred refactoring entries. The external
-note is curated; the internal one is complete.
+The last distinction matters: a customer does not want to read a hundred refactoring entries. Both notes
+start from the same derived list; the internal one is the full list, and in the external one human writing
+is limited to selecting and rewording, from that list, what the customer sees.
 
 ### Version when somebody depends
 
@@ -121,7 +122,8 @@ an internal application  frequently unnecessary — the deployment identifier is
 a mobile app          mandatory versioning, with old versions in circulation
 ```
 
-The third line contradicts habit: a continuously deployed service does not benefit from version numbers.
+The third line contradicts habit: a continuously deployed internal service, with no consumer pinning a
+version, rarely benefits from version numbers.
 What matters is the artifact's identifier and the deployment history.
 
 The last case is the most restrictive: old mobile app versions stay in use for months, and the server needs
@@ -182,24 +184,29 @@ coordination is small and specific.
 
 ## When Not to Use
 
-**As a default process for every change.**
+**As a default process for every change.** A text fix waiting for the same committee as a migration turns
+the wait into the dominant cost of delivery.
 
-**A long freeze.**
+**A freeze that outlasts the event it protects.** The threshold is volume: once the backlog exceeds what the
+team can review at the unfreeze, the freeze creates the risk it was meant to avoid.
 
-**Hand-written release notes.**
+**A change log maintained by hand.** It drifts from what was deployed; human writing belongs in selecting
+the external note, not in the list.
 
-**Versioning internal applications** with no external consumer.
+**Versioning internal applications** with no consumer pinning a version — the number becomes ceremony with
+nobody to read it.
 
-**A rollback plan per release** instead of a mechanism.
+**A rollback plan per release** instead of a mechanism: each plan is a rollback never tested.
 
-**Chained approval** for low-risk changes.
+**Chained approval** for a change reversible by flag or canary, where the approval only adds waiting to a
+risk the automation already contains.
 
 ## Alternatives
 
 - **[Feature flags](/14-devops-and-platform/feature-flags.md)** — they separate release from deployment,
   removing most of the coordination.
 - **[Canary](/14-devops-and-platform/canary.md)** — it reduces the risk with no human coordination.
-- **Progressive release by segment** — internal, beta, general.
+- **[Progressive release](/14-devops-and-platform/feature-flags.md) by segment** — internal, beta, general.
 - **Approval by risk class** — only the risky goes through approval.
 
 ## Trade-offs
@@ -216,6 +223,8 @@ coordination is small and specific.
 | No changes | Careful changes |
 | An accumulated batch | Continuous flow |
 | A risky unfreeze | No event |
+| Nothing to review in the critical period | On-call reviewing extended canaries and two-person approvals |
+| Zero change risk during the event | A small change can still fail at the peak |
 
 ## Failure Modes
 
@@ -245,12 +254,19 @@ and riskiest of the year — the opposite of what the freeze intended.
 **Not separating deploying from releasing.** When the two are the same thing, every code delivery is
 exposure to the user, and the only way of controlling risk becomes not delivering.
 
-**Writing release notes by hand.** They go stale in the first week. Generated from the commits and the
-changes, they stay true with no effort.
+**Maintaining the change log by hand.** It drifts from what was deployed as soon as somebody forgets to
+update it. Derived from the merged changes, it stays faithful to what went to production — provided change
+titles and labels follow a consistently applied convention, because the derived note is only as good as
+they are.
 
 **Not classifying changes by risk.** With no classification, either everything goes through the strictest
 process, or nothing does. The distinction is what allows being fast on the trivial and careful on the
 dangerous.
+
+**Relying only on self-declared risk.** If the author picks the class and the low class skips approval,
+the incentive is to under-classify — and a migration declared "low" goes to production automatically. The
+declaration needs a counterweight: objective criteria per class, automatic promotion when the change touches
+sensitive paths, and sample audits of changes classified as low.
 
 **Keeping approvals nobody actually assesses.** A rubber-stamped approval gives the impression of control
 and provides none, besides diluting responsibility among those who signed without looking.
@@ -285,7 +301,9 @@ medium  a behavior change → mandatory canary, no approval
 high    a migration, an external contract, regulatory → approval
 ```
 
-The committee came to see around 8% of the changes, and the discussion in it became substantive.
+The declaration was not the last word: a change touching migrations, contracts or regulatory modules was
+promoted to high by the pipeline, and an incident caused by a "low" change triggered a review of the
+criterion. The committee came to see around 8% of the changes, and the discussion in it became substantive.
 
 **Feature flags** to separate release from deployment. The changes came to go to production disabled, and
 the release became a product decision — with no committee involved.

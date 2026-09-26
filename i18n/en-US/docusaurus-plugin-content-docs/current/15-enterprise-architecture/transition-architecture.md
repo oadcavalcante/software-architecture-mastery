@@ -13,7 +13,7 @@ objective: >
 prerequisites: [target-architecture]
 related: [target-architecture, current-state-architecture, architecture-roadmaps]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -95,7 +95,8 @@ shadow           the new one processes in parallel without responding, to compar
 slice split      one segment of users, one region, one type of operation
 ```
 
-See [legacy modernization](/16-legacy-modernization/index.md) for the full treatment.
+See [strangler fig](/16-legacy-modernization/strangler-fig.md) for the pattern and
+[legacy modernization](/16-legacy-modernization/index.md) for the full treatment.
 
 The choice depends on risk and reversibility: shadow is the safest and the most expensive;
 slice split is the one that delivers value earliest.
@@ -163,17 +164,19 @@ is waste, the state was poorly defined.
 
 ## When Not to Use
 
-**A single leap** in critical systems.
+**A small system, with few integrations and fast rollback.** If backing out of a single
+switch takes minutes and affects few consumers, the concentrated risk of the leap is
+cheap, and intermediate states only add coexistence.
 
-**Without defining the source of truth** during coexistence.
+**A short migration.** When the whole switch fits in weeks, the cost of running both
+systems and keeping them in sync outweighs the risk the intermediate states would spread.
 
-**Without a completion criterion** for each state.
+**An old system impossible to intercept or replicate.** With no interception point and
+no access to the data for replication, the two sides cannot coexist — the intermediate
+states stay on paper.
 
-**Without a shutdown plan** for the old one.
-
-**Ordering by technical dependency** instead of by value.
-
-**Without accounting for the cost of coexistence.**
+**The old one serves and changing does not pay off.** Then the question is not how to
+transition, but whether to.
 
 ## Alternatives
 
@@ -189,8 +192,9 @@ The last one deserves serious consideration and is rarely considered.
 
 | Many states | Few |
 |---|---|
-| Early value, distributed risk | Less coexistence |
-| Prolonged coexistence | Bigger leap |
+| Early value | Late value |
+| Risk spread across small leaps | Bigger leap |
+| Prolonged coexistence | Less coexistence |
 | Reversible at several points | Fewer points of return |
 
 | Strangling | Parallel rewrite |
@@ -217,9 +221,9 @@ The last one deserves serious consideration and is rarely considered.
 
 **Not defining intermediate states.** Without them the migration is a single leap, which delivers no value until the end and cannot be interrupted without total loss.
 
-**Not defining the source of truth.** During coexistence, both systems hold the same data. Without declaring which one rules, each integration picks its own and divergence is inevitable.
+**Not defining the source of truth.** During coexistence, both systems hold the same data. Without declaring which one rules, each integration picks its own and divergence becomes a matter of time.
 
-**Having no completion criterion.** Without an objective condition for "done", the transition becomes a permanent state — and the company ends up operating and paying for both systems forever.
+**Having no completion criterion.** Without an objective condition for "done", the transition becomes a permanent state — and the company ends up operating and paying for both systems indefinitely.
 
 **Ordering by technical dependency.** It produces a sequence in which nothing is useful until the end, and the project is cancelled midway having delivered nothing.
 
@@ -263,13 +267,16 @@ down.
 
 The completion criterion for each state was explicit, with verifiable metrics.
 
-Total time: 16 months from the rework — more than the original 14, and with value
-delivered from the third month on, and with no switchover weekend at all.
+Total time: 16 months from the rework, reusing the system already built — 36 months in
+all against the 14 estimated, but with value delivered from the third month of the rework
+on, and with no switchover weekend at all.
 
 And two intermediate states would have been defensible as a stopping point: after state 1,
 the capacity bottleneck was resolved; after state 2, the rule divergences were mapped.
 
-The recorded lesson: the 20 months of the original plan produced no usable value. What
+The recorded lesson: the 20 months of the original plan produced no usable value on
+their own — the system built in them only became useful once the intermediate states gave
+it a use. What
 was blocking it was not technical — it was that the only moment of value was the last
 one, and it was too risky for anyone to approve.
 

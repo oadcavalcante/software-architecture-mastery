@@ -13,7 +13,7 @@ objective: >
 prerequisites: [transition-architecture]
 related: [transition-architecture, technical-strategy, target-architecture]
 canonical_for: [roteiro de arquitetura, horizonte de roteiro, entrega intermediária]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -44,8 +44,9 @@ aprendizados durante a execução mudam o desenho
 pessoas entram e saem
 ```
 
-Um roteiro que precisa ser executado inteiro para entregar algo é um roteiro que será
-interrompido no meio, deixando trabalho investido sem retorno.
+Um roteiro que precisa ser executado inteiro para entregar algo aposta que nenhuma dessas
+mudanças o interromperá antes do fim — e, se interromper, deixa trabalho investido sem
+retorno.
 
 ## Conceitos Centrais
 
@@ -152,7 +153,7 @@ permite a conversa acontecer.
 ## Modelo Mental
 
 **Cada item entrega valor por si.** Um roteiro que só entrega no fim não sobrevive à
-primeira mudança de prioridade.
+primeira mudança de prioridade que chegue antes dele.
 
 ## Quando Usar
 
@@ -163,17 +164,19 @@ primeira mudança de prioridade.
 
 ## Quando Não Usar
 
-**Com valor apenas no fim.**
+**Trabalho de um só time, sem dependência cruzada.** Se ninguém fora do time precisa
+esperar nem coordenar, a ordem cabe numa fila priorizada. Manter e revisar um roteiro
+custa uma cerimônia trimestral que não tem dependência para destravar.
 
-**Com precisão uniforme** em todo o horizonte.
+**Mudança que cabe em menos de um trimestre.** O horizonte inteiro está na faixa de itens
+concretos; não há incerteza crescente para mostrar, e o plano do trimestre já é o roteiro.
 
-**Com datas onde a incerteza é alta.**
+**Sem público que consuma a direção.** O uso principal do roteiro é comunicar. Se nenhum
+outro time nem o negócio decide nada com base nele, ele vira documento que só o autor lê.
 
-**Sem mostrar o que não está previsto.**
-
-**Sem revisão trimestral.**
-
-**Em vocabulário técnico**, quando o público é o negócio.
+**Antes de haver estratégia e transição.** Sem o que priorizar e sem estados
+intermediários definidos, o roteiro ordena itens que ainda não têm critério de valor — e
+vira cronograma de trabalho técnico.
 
 ## Alternativas
 
@@ -203,7 +206,7 @@ E o horizonte tem o mesmo trade-off entre utilidade e honestidade:
 | Horizonte longo | Curto |
 |---|---|
 | Direção visível para quem depende | Acionável agora |
-| Precisão baixa, revisão frequente | Alta |
+| Precisão baixa, revisão frequente | Precisão alta, revisão menos disruptiva |
 | Permite planejar dependências | Reage melhor a mudança |
 | Risco de virar compromisso | Sem esse risco |
 
@@ -223,7 +226,7 @@ E o horizonte tem o mesmo trade-off entre utilidade e honestidade:
 
 ## Erros Comuns
 
-**Ordenar por dependência técnica.** Produz um roadmap em que nada entrega valor até o fim — e projetos assim são cancelados no meio, sem ter entregue nada.
+**Ordenar por dependência técnica.** Produz um roadmap em que nada entrega valor até o fim — e um projeto assim, se cancelado no meio, não deixa nada entregue.
 
 **Detalhe uniforme.** O próximo trimestre pode ser detalhado; o terceiro ano não pode ser conhecido. Detalhar tudo igual dá falsa precisão ao que é especulação.
 

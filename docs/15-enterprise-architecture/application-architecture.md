@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [application-portfolios, integration-landscapes, enterprise-data-architecture]
 canonical_for: [arquitetura de aplicação, fronteira de sistema, responsabilidade de sistema]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -82,8 +82,9 @@ maioria toca 1 sistema      fronteiras boas
 maioria toca 3 ou mais      fronteiras erradas
 ```
 
-Esse teste é mais confiável que qualquer análise de acoplamento técnico, porque mede o
-que importa: a capacidade de mudar.
+Esse teste mede diretamente o que a análise de acoplamento técnico só infere: a
+capacidade de mudar. Ele tem dois limites — dez mudanças é uma amostra pequena, e a
+mudança que ninguém tentou porque atravessaria três sistemas não aparece no histórico.
 
 E ele é fácil de aplicar — a informação está no histórico de mudanças.
 
@@ -100,8 +101,9 @@ dois sistemas que escrevem na mesma entidade
 Ver [arquitetura de dados corporativa](/15-enterprise-architecture/enterprise-data-architecture.md) e
 [propriedade do dado](/07-data-architecture/data-ownership.md).
 
-A recíproca também vale: se dois sistemas nunca compartilham dados e nunca precisam
-conversar, a separação está correta.
+A recíproca não vale: dois sistemas que nunca compartilham dados nem conversam passam
+neste critério, mas ainda podem ser separação desnecessária se o mesmo time cuida dos
+dois.
 
 ### Nem tudo precisa ser separado
 
@@ -156,14 +158,15 @@ a camada de tradução é o que impede a fronteira do fornecedor de entrar no do
 
 ### Fronteira de sistema e fronteira de time se influenciam
 
-Uma observação que vale explicitar, porque ela restringe as opções na prática: a
-comunicação dentro de um time é barata e frequente; entre times, cara e episódica.
+É a [Lei de Conway](/23-architecture-leadership/conways-law.md) aplicada à fronteira de
+sistema, e ela restringe as opções na prática: a comunicação dentro de um time é barata e
+frequente; entre times, cara e episódica.
 
 Isso significa que um sistema mantido por dois times tende a desenvolver uma fronteira
 interna que espelha a divisão — e que dois sistemas mantidos pelo mesmo time tendem a
 acoplar, porque nada impede.
 
-Ver [Team Topologies](/14-devops-and-platform/platform-engineering.md) para o
+Ver [Team Topologies](/23-architecture-leadership/team-topologies.md) para o
 tratamento organizacional.
 
 A consequência prática é que redesenhar fronteiras de sistema sem ajustar as fronteiras
@@ -191,15 +194,15 @@ está no lugar errado.
 
 ## Quando Não Usar
 
-**Separando por camada técnica.** Toda mudança de negócio atravessa todas as camadas, e o que era decomposição vira coordenação obrigatória.
+**Poucos sistemas, um time só.** Quando o mesmo time mantém todos os sistemas, a fronteira entre eles não decide a autonomia de ninguém; redesenhá-la custa migração e não compra independência.
 
-**Separando por organograma.** A estrutura muda mais rápido que o domínio, e as fronteiras precisam ser refeitas a cada reorganização.
+**Sistema em desativação programada.** Se o sistema sai de operação antes que a reorganização se pague, mover a fronteira dele é investir no que vai ser desligado. Isole-o com uma camada de tradução e deixe a fronteira como está.
 
-**Decompondo além do necessário.** Cada fronteira adicional é um contrato a manter e uma coordenação a pagar; abaixo de certo tamanho, ela custa mais do que isola.
+**O teste da mudança já passa.** Se a maioria das mudanças recentes toca um sistema só, as fronteiras acompanham o eixo em que o negócio varia; redesenhá-las troca um custo certo por um ganho que o histórico não mostra.
 
-**Sem declarar responsabilidade de cada sistema.** Sem isso, a mesma capacidade acaba implementada em vários lugares e nenhum é autoritativo.
+**Duas partes do mesmo time que mudam juntas.** Quando o mesmo time mantém as duas e o histórico mostra que a maioria das mudanças toca ambas, separá-las acrescenta um contrato a manter sem comprar autonomia — a fronteira custa mais do que isola.
 
-**Deixando a fronteira do fornecedor entrar** no domínio. Quando o modelo do produto de mercado vira o modelo da empresa, trocar de fornecedor passa a exigir redesenhar processos de negócio.
+**Custo de reorganizar maior que o de conviver.** Uma fronteira errada num domínio que quase não muda cobra pouco; o trabalho compensa onde o negócio muda com frequência e a mudança atravessa sistemas.
 
 ## Alternativas
 
@@ -216,7 +219,7 @@ está no lugar errado.
 |---|---|
 | Menos integração | Mais |
 | Mudança cabe dentro | Atravessa |
-| Times maiores | Autonomia |
+| Coordenação dentro do time | Autonomia entre times |
 | Escala uniforme | Independente |
 
 | Fronteira por domínio | Por organograma |

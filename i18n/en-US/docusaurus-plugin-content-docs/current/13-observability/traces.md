@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, metrics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -95,7 +95,9 @@ The second line is the most informative: a gap between the children's sum and th
 indicates time spent on something that was not instrumented — frequently waiting for a resource, garbage
 collection, or serialization.
 
-The third reveals the N+1 problem visually, in a way no metric reveals. See
+The third reveals the N+1 problem visually, without anyone having to foresee the question.
+The per-dependency latency metric does not show it — each call is fast —; a metric of
+downstream calls per request would, if someone had created it beforehand. See
 [GraphQL](/08-integration-architecture/graphql.md) and
 [document databases](/07-data-architecture/document-databases.md).
 
@@ -151,17 +153,23 @@ visible at the top of the tree.
 
 ## When Not to Use
 
-**A span per function.** Cost and noise.
+**In a single-process system.** If the request never leaves the process except to reach
+the database, a local profiler shows where the time goes at higher resolution and without
+the collection, propagation and storage infrastructure a trace requires.
 
-**With no attributes.** A span with no context answers little.
+**With no budget for the volume.** Spans per request times requests per second give the
+order of magnitude: 20 spans at 2,000 req/s are 40 thousand spans per second, over 3 billion
+a day before sampling. If there is no sampling and retention decision that fits the budget,
+full collection becomes the largest observability bill — see
+[telemetry](/13-observability/telemetry.md) for the cost levers and
+[distributed tracing](/13-observability/distributed-tracing.md) for sampling.
 
-**As a substitute for metrics** for trends.
+**On a very high-frequency hot path.** In an inner loop that runs millions of times per
+second, creating and exporting a span costs on the same order as the useful work; there the
+right instrument is an aggregated counter or continuous profiling.
 
-**As a substitute for logs** for detailed context.
-
-**Without marking errors.**
-
-**In a single-component system**, where a local profiler resolves it better.
+**As a substitute for metrics** for trends and alerting: with sampling, the trace does not
+count every event, and rates and percentiles computed over the sample are distorted.
 
 ## Alternatives
 
@@ -207,17 +215,25 @@ visible at the top of the tree.
 
 ## Common Mistakes
 
-**Instrumenting trivial internal functions.**
+**Instrumenting trivial internal functions.** A span per function multiplies volume and
+cost, and the tree becomes unreadable: the span that matters is lost among hundreds of 1 ms
+ones.
 
-**Not adding domain attributes.**
+**Not adding domain attributes.** Without customer type, batch size or resource
+identifier, you cannot separate the slow execution from the fast one within the same route
+— the trace says it took long, not what sets it apart.
 
-**Not marking the error status.**
+**Not marking the error status.** There is no query for "traces that failed"; finding the
+failure becomes manual inspection, trace by trace.
 
-**Not connecting traces to logs.**
+**Not connecting traces to logs.** The trace identifier does not appear in the log, and the
+investigation goes back to matching two tools by timestamp.
 
-**Depending only on automatic instrumentation.**
+**Depending only on automatic instrumentation.** Spans end up with technical names — "GET",
+"SELECT" — and the expensive business operation that crosses no boundary stays invisible.
 
-**Not instrumenting waits** — locks, internal queues, acquiring a connection.
+**Not instrumenting waits** — locks, internal queues, acquiring a connection. The time shows
+up as a gap in the parent, and whoever reads the trace has to guess what fills it.
 
 ## Real-World Example
 
@@ -235,10 +251,11 @@ query_tests          45 ms
   fetch_laboratory   22 ms   ×  146 times  = 3,212 ms
 ```
 
-No metric would reveal that: the laboratories service's latency was 22 ms, excellent. The problem was the
-number of calls.
+The metrics the team had would not reveal that: the laboratories service's latency was 22 ms, excellent.
+The problem was the number of calls, and nobody measured downstream calls per request.
 
-The fix was a batch query: from 147 spans to 3, and from 4 seconds to 180 ms.
+The fix was a batch query: from 147 spans to 3, and from 4 seconds to about 800 ms. The ~740 ms outside
+the N+1 loop remained — and part of it was the wait described just below.
 
 The instrumentation revealed three more things in the same week:
 
@@ -250,7 +267,10 @@ history.
 **Waiting for a lock.** A 400 ms gap in a span with no children corresponded to acquiring a database
 connection — the pool was undersized. See [database scaling](/11-scalability/database-scaling.md).
 
-None of the three appeared in metrics or logs. All three were visible on the first day of tracing.
+None of the three appeared in the metrics and logs the team had. The third would have shown up in a
+connection-pool saturation metric — one of the [golden signals](/13-observability/golden-signals.md) —, but
+it did not exist; all three were visible on the first day of tracing, without anyone needing to know what
+to look for.
 
 What the team records: they had mature metrics and logs, and they spent months investigating the slowness
 by elimination. The trace answered in minutes because it showed the structure, which was exactly the
@@ -281,4 +301,4 @@ nobody is looking.
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
   Infrastructure*. Google, 2010.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
-- OpenTelemetry — the traces specification.
+- OpenTelemetry Authors. *OpenTelemetry Specification — Tracing API*, v1.0. CNCF, 2021.

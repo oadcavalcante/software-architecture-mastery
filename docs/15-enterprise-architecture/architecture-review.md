@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, enterprise-governance, enterprise-principles]
 canonical_for: [revisão de arquitetura, revisão por pares, consulta arquitetural]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -95,7 +95,7 @@ alcance              afeta outros times? eles sabem?
 A segunda linha é a mais produtiva: a maioria das decisões ruins vem de premissas não
 verificadas, não de raciocínio ruim.
 
-E a quarta calibra o rigor: uma decisão reversível não merece a mesma escrutínio de uma
+E a quarta calibra o rigor: uma decisão reversível não merece o mesmo escrutínio de uma
 que fixa o modelo de dados por dez anos.
 
 ### Perguntas, não opiniões
@@ -174,22 +174,26 @@ que estão construindo — mantém a revisão ancorada na realidade.
 
 - Decisões de alcance além do time.
 - Decisões difíceis de reverter.
-- Quando o time pede — a consulta voluntária é o melhor sinal.
+- Quando o time pede — dentre os gatilhos, é o único que indica que a revisão chega
+  enquanto o desenho ainda está aberto.
 - Padrões novos, que podem virar precedente.
 
 ## Quando Não Usar
 
-**No fim do processo**, como autorização.
+**Quando a decisão cabe na fronteira de um time e se desfaz em menos de um ciclo de
+entrega.** Errar custa menos que a revisão; a revisão após o fato, por padrões, cobre o
+risco.
 
-**Para decisões locais e reversíveis.**
+**Quando um princípio ou caminho pavimentado já responde à questão.** Revisar de novo é
+reabrir o que já foi decidido; se a resposta existente não serve, o que se revisa é o
+princípio, não a decisão do time.
 
-**Como veto sem alternativa.**
+**Quando o custo da espera passa o custo de reverter.** Se esperar uma semana pelo
+revisor custa mais que desfazer a decisão caso esteja errada, decida, registre e revise
+depois.
 
-**Sem critério**, deixando espaço para preferência pessoal.
-
-**Sem registro.**
-
-**Com participantes que não têm contexto** para contribuir.
+**Quando ninguém disponível tem contexto que o time não tenha.** Uma revisão sem essa
+assimetria produz perguntas genéricas e só consome a agenda do time.
 
 ## Alternativas
 
@@ -215,6 +219,15 @@ uma resposta padrão embutida.
 | Responsabilidade no time | No revisor |
 | Sem incentivo a esconder | Otimizado para o sim |
 | Menos controle | Mais |
+
+A consulta voluntária tem um ponto cego: ela alcança quem sabe que precisa dela, e não
+alcança o time que não sabe o que não sabe. A coerência entre times passa a depender de
+quem procurou quem, e a demanda sobre os arquitetos vira fila quando a consulta dá certo.
+As mitigações são estruturais: gatilhos obrigatórios por alcance e reversibilidade, que
+não dependem da iniciativa do time; o registro público, que mostra quais times decidem
+muito e nunca consultam; e capacidade reservada de revisor — horas de arquiteto por
+semana, manutenção do registro, a sessão trimestral de padrões — orçada como custo
+permanente, não como favor.
 
 ## Modos de Falha
 
@@ -261,7 +274,8 @@ espera média              19 dias
 mudanças de desenho        11  (6% das propostas)
 ```
 
-Em 97% dos casos, o comitê era espera. Em 6%, ele melhorou algo.
+Em 91% dos casos (168 de 184), o comitê foi só espera: aprovou sem mudar nada. Em 6%,
+mudou o desenho; os 3% restantes foram rejeitados.
 
 E as entrevistas revelaram o comportamento induzido: os times apresentavam o mínimo,
 evitavam mencionar incertezas, e tratavam a sessão como defesa.
@@ -288,8 +302,10 @@ iniciadas pelos times.
 princípios e dois caminhos pavimentados — removendo a necessidade de revisá-las
 individualmente.
 
-Resultado em um ano: espera média de 19 dias para 2, e o número de mudanças de desenho
-provocadas por revisão subiu de 11 para 47 — porque a conversa passou a acontecer quando
+Resultado em um ano: espera média de 19 dias para 2, e as mudanças de desenho
+provocadas por revisão passaram de 11 em 184 propostas (6%) para 47 em cerca de 200
+interações registradas entre consultas, revisões por pares e aprovações (perto de um
+quarto) — porque a conversa passou a acontecer quando
 mudar ainda era barato.
 
 A conclusão registrada: o comitê não era inútil, era caro pelo que entregava. E o

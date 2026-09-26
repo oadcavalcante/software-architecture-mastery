@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, current-state-architecture, integration-landscapes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -154,6 +154,11 @@ maintains itself; what requires judgment is reviewed periodically, and changes s
 
 A portfolio filled in entirely by hand goes stale within months.
 
+And derivation fails silently too: a broken integration, a cloud account outside the
+collection, or a server without an agent stops feeding the inventory without raising an
+error. The collection has to be monitored like any other system — age of the latest data
+per source is the minimum indicator.
+
 ### The assessment has to happen periodically
 
 A portfolio assessed once describes a moment. The two dimensions change at different
@@ -190,17 +195,18 @@ nobody named.
 
 ## When Not to Use
 
-**Assessing value without the business.**
+**A few dozen applications.** When the team can list the whole set from memory and
+knows who maintains each thing, a formal inventory costs more than it reveals; on-demand
+assessment, below, delivers the same decisions.
 
-**Considering infrastructure cost only.**
+**Nobody with authority to carry out the decisions.** If no one can order a retirement or
+redirect budget, the assessment produces a list of recommendations nobody follows — and
+the inventory becomes a dead document by the second review.
 
-**Filled in entirely by hand.**
-
-**Without a people dimension** in the health assessment.
-
-**As a one-off exercise**, with no review.
-
-**Shutting down without a suspension period.**
+**The set changing faster than the assessment cycle.** During an ongoing merger or a mass
+migration, today's classification describes an estate that will not exist next quarter.
+There the right instrument is the consolidation plan; the portfolio comes in once the set
+stabilizes.
 
 ## Alternatives
 
@@ -223,7 +229,7 @@ maintain, and most decisions involve few of them at a time.
 
 | Derived | Judged |
 |---|---|
-| Always current | Ages |
+| Current while the collection works | Ages |
 | Limited to the measurable | Captures value and risk |
 
 ## Failure Modes
@@ -248,9 +254,14 @@ maintain, and most decisions involve few of them at a time.
 
 **Assessing alone.** Business value cannot be judged by the technical side. A system that looks obsolete may sustain the most critical process in the operation.
 
-**Not observing real usage before retiring.** "Nobody uses it anymore" is usually false: there is always a monthly report or a quarterly close that only shows up in the measurement.
+**Not observing real usage before retiring.** "Nobody uses it anymore" is usually false: there is often a monthly report or a quarterly close that only shows up in the measurement.
 
 **Having no suspension period.** Shutting down outright removes the chance to discover forgotten dependencies cheaply. Suspending and waiting for the complaints costs far less than restoring.
+
+**Accepting self-declared value.** Ask each area to rate its own systems and nearly all
+come out as high value, and the axis stops separating anything. Value needs an anchor:
+the mapping to business capabilities, usage data, or a forced distribution — at most a
+third of the set at the top level.
 
 **Filling everything in by hand.** A manual inventory is out of date the following month. What holds up is what is derived from sources that already exist — cloud, repositories, billing.
 
@@ -303,8 +314,8 @@ fewer integrations to maintain.
 And the risk quadrant became the two-year modernization plan, with knowledge transfer as
 the first stage for the eight with a single maintainer.
 
-The subsequent assessment points out: the 31 applications in the risk quadrant were each
-individually known to several people. None had ever come up in a prioritization
+The subsequent assessment points out: each of the 31 applications in the risk quadrant was
+known to someone, but nobody had the list. None had ever come up in a prioritization
 discussion, because none was breaking.
 
 ## Related Concepts

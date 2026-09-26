@@ -13,7 +13,7 @@ objective: >
 prerequisites: [application-portfolios]
 related: [application-portfolios, current-state-architecture, enterprise-data-architecture]
 canonical_for: [paisagem de integração, integração ponto a ponto, acoplamento organizacional]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -38,7 +38,7 @@ da forma mais rápida no momento.
 O agregado, depois de alguns anos:
 
 ```text
-crescimento quadrático     N sistemas podem ter até N² conexões
+crescimento quadrático     N sistemas podem ter até N(N−1)/2 pares conectados
 formas divergentes         API, arquivo, banco compartilhado, fila, tudo junto
 acoplamento invisível      ninguém sabe quem depende de quem
 mudança cara               alterar um sistema exige coordenar com dez
@@ -100,7 +100,8 @@ A forma de encontrar é observar: registros de acesso ao banco, tráfego de rede
 rastreamento distribuído. Ver
 [rastreamento distribuído](/13-observability/distributed-tracing.md).
 
-O achado típico: entre 30% e 50% mais integrações que as documentadas.
+O achado típico é uma fração considerável das integrações reais fora da documentação — no
+exemplo abaixo, 122 de 312, ou 39% do total.
 
 ### Os padrões que produzem custo desproporcional
 
@@ -144,7 +145,7 @@ integrações é uma intervenção de velocidade, não apenas de arquitetura.
 ### Reduzir é mais valioso que organizar
 
 A tentação, diante de uma paisagem complexa, é introduzir um intermediário central — um
-barramento por onde tudo passa.
+barramento por onde tudo passa. Ver [SOA](/03-design-patterns/soa.md).
 
 Isso reorganiza o diagrama e mantém o acoplamento: os sistemas continuam dependendo uns
 dos outros, agora com um ponto central adicional.
@@ -178,19 +179,21 @@ organizá-las.
 
 ## Quando Não Usar
 
-**Mapeado só por entrevista.**
+**Paisagem pequena, sob um só time.** Com poucos sistemas mantidos pelas mesmas pessoas,
+as dependências cabem na cabeça de quem as opera; a análise por sistema responde às mesmas
+perguntas sem o custo de um mapa global.
 
-**Introduzindo intermediário central** sem reduzir o acoplamento.
+**Nenhuma decisão em pauta.** Sem consolidação, aposentadoria, modernização ou investigação
+de lentidão à frente, o mapa não informa escolha alguma — e envelhece até ser necessário,
+quando terá de ser refeito.
 
-**Como diagrama estático** desatualizado.
-
-**Sem incluir integrações informais.**
-
-**Documentando sem decidir** o que fazer com o que se encontra.
+**Nada observável.** Sem registros de acesso ao banco nem rastreamento, o mapa só pode vir
+de entrevista, que omite justamente as integrações informais. Se instrumentar custa mais
+que a decisão que o mapa apoiaria, uma análise focada nos sistemas em jogo sai mais barata.
 
 ## Alternativas
 
-- **Mapa de dependências derivado** — automático, real, sempre atual.
+- **Mapa de dependências derivado** — automático, real, atual no que está instrumentado.
 - **Análise por sistema** — o que cada um consome e expõe, sem o mapa global.
 - **Catálogo de contratos** — o que é publicado, quem consome. Ver
   [contratos de integração](/08-integration-architecture/integration-contracts.md).
@@ -226,7 +229,7 @@ organizá-las.
 
 **Mapear por entrevista.** As pessoas lembram das integrações que usam e esquecem as antigas — que são justamente as que quebram quando alguém desliga um sistema.
 
-**Não incluir acesso direto a banco alheio.** É a integração mais acoplada que existe e a que menos aparece nos mapas, porque não passa por nenhuma API.
+**Não incluir acesso direto a banco alheio.** É das integrações mais acopladas e a que menos aparece nos mapas, porque não passa por nenhuma API.
 
 **Introduzir intermediário como solução.** Um barramento no meio de integrações mal desenhadas apenas centraliza o problema e cria um gargalo organizacional — o acoplamento continua, agora com mais um sistema para operar.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [target-architecture, architecture-roadmaps, business-capabilities]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -211,17 +211,13 @@ was chosen.
 
 ## When Not to Use
 
-**As a list of aspirations.** "Be more agile and more secure" eliminates no option, so it guides no choice at all.
+**With no business strategy to serve.** If the business direction hasn't been decided yet, or changes in cycles shorter than the 12-to-24-month horizon, the diagnosis has no anchor: every trade-off given up goes stale before it takes effect. The useful work in that case is forcing the business question, not answering it on the business's behalf.
 
-**Without a specific diagnosis.** Strategy starts by naming the real obstacle. Without that, the actions are activities that connect to nothing.
+**With no contention for capacity.** A single team, with no initiatives competing for the same people, already chooses where to invest when it orders its own work queue. A strategy document there adds ceremony without adding a decision.
 
-**Without named trade-offs given up.** A strategy that doesn't say what will not be done is a wish list, and each area keeps assuming its priority is included.
+**For an isolated decision.** Choosing a database or an integration pattern is a decision with context, options and consequences — it belongs in a [decision record](/18-architecture-decisions/index.md). Calling it strategy adds neither diagnosis nor anything given up.
 
-**Derived only from engineering preferences.** Without an anchor in what the company needs, it optimizes for technical purity — which is rarely the dominant risk.
-
-**With actions that are incoherent with each other.** Actions that cancel each other consume capacity and move nothing. Coherence among them is what distinguishes a strategy from a portfolio of initiatives.
-
-**Without review against evidence.** With no indicators saying whether the diagnosis still holds, the strategy outlives the context that justified it.
+**In an operational crisis.** When the system goes down every week, the priority isn't in dispute; what is missing is execution. Formulating strategy at that moment delays the fix everyone already knows is needed.
 
 ## Alternatives
 
@@ -245,8 +241,9 @@ the roadmap, when.
 
 | Two-year horizon | Six-month |
 |---|---|
-| Allows structural changes | Actionable |
-| More uncertainty | Less ambition |
+| Allows structural changes | Only incremental changes |
+| Hard to act on in the short term | Actionable now |
+| More uncertainty in the forecast | Less uncertainty |
 
 ## Failure Modes
 
@@ -264,17 +261,17 @@ the roadmap, when.
 
 ## Common Mistakes
 
-**Starting from the actions.**
+**Starting from the actions.** "We will adopt microservices" becomes the program; at the end, nobody can say whether the business problem improved, because it was never named.
 
-**Not naming what is left out.**
+**Not naming what is left out.** Each area reads the strategy assuming its priority is included, and the budget is fought over again every quarter.
 
-**Aggregating each area's requests** instead of choosing.
+**Aggregating each area's requests** instead of choosing. The document meets no opposition, and investment spreads across workstreams none of which reaches the end.
 
-**Not connecting to business objectives.**
+**Not connecting to business objectives.** The strategy arrives at the budget discussion without saying which capability it unlocks, and loses to whoever does.
 
-**Not framing it as a verifiable bet.**
+**Not framing it as a verifiable bet.** Without the deadline and the signal that would confirm the hypothesis, a bad result is read as "not enough time yet", and the strategy is never refuted.
 
-**Not reviewing.**
+**Not reviewing.** The diagnosis ages with the context, and teams keep carrying out trade-offs that no longer make sense.
 
 ## Real-World Example
 
@@ -284,7 +281,7 @@ The engineering budget was distributed across the nine. At the end of two years:
 
 ```text
 completed workstreams        0
-workstreams with progress    9  — all partial
+workstreams with progress    6  — all partial
 abandoned workstreams        3  — the progress was lost
 ```
 
@@ -329,7 +326,7 @@ if we are right, launch time drops to under 6 weeks
 we will know in 12 months, by observing the time of the next launches
 ```
 
-After 14 months, launch time was at 5 weeks. The bet was confirmed.
+At 12 months, the two launches made under the new model had taken 7 and 6 weeks — close to the target, without reaching it. The review kept the bet, and the third launch, in month 14, shipped in 5 weeks. The bet was confirmed.
 
 And what was given up had a cost: two supporting systems degraded, and an infrastructure
 cost incident consumed attention. Both were treated as an accepted consequence, not as a

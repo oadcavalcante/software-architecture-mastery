@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [technology-radar, standards, platform-engineering]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -152,7 +152,8 @@ that offers the supported ones ready to use makes the right choice the easiest o
 See [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md) and
 [standards](/15-enterprise-architecture/standards.md).
 
-It is the difference between governing by document and governing by paved road.
+It is the difference between governing by document and governing by
+[paved road](/14-devops-and-platform/platform-engineering.md).
 
 ### Variety grows by accretion and never by decision
 
@@ -197,17 +198,18 @@ whether it is good, it is whether the organization can operate it well.
 
 ## When Not to Use
 
-**Evaluating license cost only.**
+**A small organization with a single technology set.** With a dozen engineers, one
+database, one language and one cloud provider, everyone already knows what is in use;
+a formal inventory and approval process cost more than the variety they would control.
 
-**Standardizing on a single technology.**
+**A product in discovery.** When the product may change direction within months, the
+technology that would weigh on on-call may not survive the next pivot. The aggregate-cost
+math starts to apply once systems stabilize and begin to accumulate operation.
 
-**Consolidating stable systems** without a clear benefit.
-
-**Without an obsolescence plan.**
-
-**Governing by document** instead of by platform.
-
-**Without distinguishing managed from self-managed** in the variety math.
+**Everything on one provider's managed services.** If no storage is self-managed, much of
+the cost this document measures — operation, patching, on-call — sits on the provider's
+side. What remains is knowledge and hiring, which fit in each team's decision without an
+organizational analysis.
 
 ## Alternatives
 
@@ -261,7 +263,7 @@ and whoever makes it pays for it.
 
 **Consolidating on principle.** Reducing the number of technologies is good until it forces cases that don't fit — and then the cost of the forced fit exceeds that of the diversity.
 
-**Governing by list.** A list of approved technologies ages and becomes an obstacle. What holds up is the evaluation criterion, which stays valid when the list doesn't.
+**Governing by list.** A list of approved technologies ages and becomes an obstacle. What holds up is the evaluation criterion, which stays valid when the list doesn't — and it decides what the platform offers ready-made, while the platform is what makes the criterion get followed without anyone consulting a list.
 
 ## Real-World Example
 
@@ -291,7 +293,7 @@ columnar                     2
 secondary key-value          1
 ```
 
-Four technologies with one or two people capable of handling an incident.
+Five technologies with one or two people capable of handling an incident.
 
 And the usage analysis showed that three of them each supported a single service, of low
 criticality.
@@ -302,8 +304,9 @@ The decisions:
 cost made explicit, and broad-reach approval. See
 [architecture levels](/15-enterprise-architecture/architecture-levels.md).
 
-**Migrate what was cheap.** The three low-criticality services on single-expert
-technologies migrated to the main relational database — in none of them did the original
+**Migrate what was cheap.** The three low-criticality services — on the second document
+database, the columnar store and the secondary key-value store — migrated to the main
+relational database — in none of them did the original
 choice have a justification that survived review.
 
 **Keep what was justified.** Search and time series stayed, with investment in expanding
@@ -315,8 +318,9 @@ migrated, reducing operational cost without reducing variety.
 **The graph stayed**, with one person. It was recorded as an accepted risk, with a
 knowledge transfer plan over twelve months.
 
-Result: from nine databases to six, and none with fewer than five people capable of
-handling it.
+Result: from nine databases to six. Relational, cache, search and time series with five
+or more people capable of handling them, the remaining document database with three, and
+the graph as the only one below the minimum, recorded and with a deadline.
 
 What was recorded afterwards: none of the nine choices had been wrong at the moment it
 was made. Each one solved a real problem. The error was never adding them up — no one

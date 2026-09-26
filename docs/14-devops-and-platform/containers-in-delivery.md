@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, environment-management, supply-chain-security]
 canonical_for: [promoção de artefato, construção única, artefato imutável, registro de artefatos]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -130,8 +130,11 @@ ferramentas de construção com versão declarada
 sem acesso à rede na etapa de construção final
 ```
 
-A última é a mais eficaz e a menos comum: uma construção que baixa coisas da internet não
-é reproduzível por definição.
+A última é a mais eficaz das quatro e a menos comum. Dependência sem versão fixa quebra a
+reprodutibilidade: o mesmo commit produz outro artefato. Dependência fixada por hash mas
+baixada da rede continua reprodutível, só não é hermética — a construção passa a depender
+de um servidor externo estar no ar naquele momento. Cortar a rede na etapa final garante as
+duas propriedades: tudo o que entra foi resolvido e verificado antes.
 
 ### Múltiplos estágios reduzem o que vai a produção
 
@@ -149,17 +152,11 @@ rápido, o que reduz o tempo de implantação e de escalonamento — o que impor
 
 ### Camadas e cache decidem o tempo de construção
 
-A ordem das instruções decide se a reconstrução aproveita cache:
-
-```text
-ruim   copiar o código, depois instalar dependências
-       → toda alteração de código reinstala tudo
-bom    copiar o manifesto, instalar dependências, depois copiar o código
-       → alteração de código reaproveita a camada de dependências
-```
-
-Essa inversão costuma reduzir o tempo de construção em uma ordem de grandeza — e o tempo
-da esteira é o que decide se as pessoas integram com frequência. Ver
+A mecânica — instruções que mudam raramente antes das que mudam sempre — está em
+[contêineres](/09-cloud-architecture/containers.md). O que ela decide na entrega é o tempo
+da esteira: com o código copiado antes de instalar dependências, toda alteração reinstala
+tudo, e corrigir a ordem costuma reduzir o tempo de construção em uma ordem de grandeza. É
+esse tempo que decide se as pessoas integram com frequência. Ver
 [integração contínua](/14-devops-and-platform/ci-cd.md).
 
 ### O tempo de download entra na conta de disponibilidade
@@ -201,17 +198,13 @@ reconstruído, ele não é o que foi testado.
 
 ## Quando Não Usar
 
-**Reconstruindo por ambiente.** O artefato que chega a produção não é o que foi testado, e a promoção entre ambientes deixa de significar alguma coisa.
+**Um único ambiente, sem teste entre construção e produção.** Se o que sai da esteira vai direto para produção — uma ferramenta interna, um protótipo —, não há um "testado" a preservar entre ambientes. A esteira de promoção não compra nada; o que resta de valor, o digest para reverter, qualquer registro já dá.
 
-**Com configuração embutida na imagem.** Força reconstrução a cada ambiente e recria o problema anterior.
+**O laço interno de desenvolvimento.** Na máquina do desenvolvedor, reconstruir a cada alteração é o objetivo. Registrar e promover cada construção local só acrescenta latência a um ciclo que precisa durar segundos; a disciplina começa quando o artefato sai da máquina para a esteira.
 
-**Referenciando por etiqueta móvel em produção.** A versão em execução passa a depender de quando o pod reiniciou.
+**Ambientes efêmeros de pré-visualização.** Um ambiente por pull request, destruído no merge, recebe construções que nunca serão promovidas. Reter essas imagens e torná-las imutáveis custa registro sem proteger nada — ali, retenção de dias e etiquetas descartáveis são a escolha certa, desde que nada dessas construções chegue a produção.
 
-**Com retenção que impede reverter.** A imagem anterior precisa existir para a reversão ser possível; a política de limpeza tem que respeitar isso.
-
-**Permitindo sobrescrita de etiquetas publicadas.** Se a mesma etiqueta pode apontar para outro conteúdo, nenhum registro de implantação é confiável depois do fato.
-
-**Sem fixar versões de dependências.** Duas construções do mesmo commit produzem artefatos diferentes, e reproduzir um defeito de produção vira impossível.
+**Bibliotecas consumidas como dependência.** O artefato do produtor é um pacote versionado, e quem o incorpora constrói o próprio artefato. A promoção entre ambientes acontece na aplicação consumidora; para a biblioteca, o que vale é publicar versões imutáveis.
 
 ## Alternativas
 

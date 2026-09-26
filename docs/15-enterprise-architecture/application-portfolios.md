@@ -13,7 +13,7 @@ objective: >
 prerequisites: [business-capabilities]
 related: [business-capabilities, current-state-architecture, integration-landscapes]
 canonical_for: [portfólio de aplicações, avaliação de aplicação, aposentadoria de sistema]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -154,6 +154,11 @@ mantém; o que exige julgamento é revisado periodicamente, e muda devagar.
 
 Um portfólio inteiramente preenchido à mão desatualiza em meses.
 
+E a derivação também falha em silêncio: uma integração quebrada, uma conta de nuvem fora
+da coleta ou um servidor sem agente param de alimentar o inventário sem gerar erro. A
+coleta precisa ser monitorada como qualquer outro sistema — idade do último dado por
+fonte é o indicador mínimo.
+
 ### A avaliação precisa acontecer periodicamente
 
 Um portfólio avaliado uma vez descreve um momento. As duas dimensões mudam em ritmos
@@ -190,17 +195,18 @@ risco que ninguém nomeou.
 
 ## Quando Não Usar
 
-**Avaliando valor sem o negócio.**
+**Poucas dezenas de aplicações.** Quando o time consegue listar o conjunto de memória
+e sabe quem mantém cada coisa, o inventário formal custa mais do que revela; a avaliação
+sob demanda, abaixo, entrega as mesmas decisões.
 
-**Considerando só custo de infraestrutura.**
+**Ninguém com autoridade para executar as decisões.** Se não há quem possa mandar
+aposentar ou redirecionar orçamento, a avaliação produz uma lista de recomendações que
+ninguém cumpre — e o inventário vira documento morto na segunda revisão.
 
-**Preenchido inteiramente à mão.**
-
-**Sem dimensão de pessoas** na avaliação de saúde.
-
-**Como exercício único**, sem revisão.
-
-**Desligando sem período de suspensão.**
+**Conjunto mudando mais rápido que o ciclo de avaliação.** Durante uma fusão em curso ou
+uma migração em massa, a classificação de hoje descreve um parque que não existirá no
+trimestre seguinte. Ali o instrumento certo é o plano de consolidação; o portfólio entra
+quando o conjunto estabiliza.
 
 ## Alternativas
 
@@ -223,7 +229,7 @@ a maior parte das decisões envolve poucas delas por vez.
 
 | Derivado | Julgado |
 |---|---|
-| Sempre atual | Envelhece |
+| Atual enquanto a coleta funciona | Envelhece |
 | Limitado ao mensurável | Captura valor e risco |
 
 ## Modos de Falha
@@ -248,9 +254,14 @@ a maior parte das decisões envolve poucas delas por vez.
 
 **Avaliar sozinho.** Valor de negócio não é julgável pela área técnica. Um sistema que parece obsoleto pode sustentar o processo mais crítico da operação.
 
-**Não observar o uso real antes de aposentar.** "Ninguém usa mais" costuma ser falso: há sempre um relatório mensal ou um fechamento trimestral que só aparece na medição.
+**Não observar o uso real antes de aposentar.** "Ninguém usa mais" costuma ser falso: com frequência há um relatório mensal ou um fechamento trimestral que só aparece na medição.
 
 **Não ter período de suspensão.** Desligar direto elimina a chance de descobrir dependências esquecidas de forma barata. Suspender e esperar as reclamações custa muito menos que restaurar.
+
+**Aceitar o valor autodeclarado.** Pedida a cada área que classifique os próprios
+sistemas, quase todos saem como alto valor, e o eixo deixa de separar o que quer que seja.
+O valor precisa de âncora: o mapeamento a capacidades de negócio, dados de uso, ou uma
+distribuição forçada — no máximo um terço do conjunto no nível mais alto.
 
 **Preencher tudo à mão.** O inventário manual está desatualizado no mês seguinte. O que se sustenta é o que é derivado de fontes que já existem — nuvem, repositórios, faturamento.
 
@@ -303,8 +314,8 @@ integrações a menos para manter.
 E o quadrante de risco virou o plano de modernização de dois anos, com transferência de
 conhecimento como primeira etapa nas oito de mantenedor único.
 
-A avaliação posterior aponta: as 31 aplicações do quadrante de risco eram conhecidas
-individualmente por várias pessoas. Nenhuma tinha aparecido numa discussão de prioridade,
+A avaliação posterior aponta: cada uma das 31 aplicações do quadrante de risco era
+conhecida por alguém, mas ninguém tinha a lista. Nenhuma tinha aparecido numa discussão de prioridade,
 porque nenhuma estava quebrando.
 
 ## Conceitos Relacionados

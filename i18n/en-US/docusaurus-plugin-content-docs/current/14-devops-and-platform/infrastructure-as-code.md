@@ -13,7 +13,7 @@ objective: >
 prerequisites: [devops-and-platform]
 related: [environment-management, ci-cd, blue-green]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -55,8 +55,8 @@ imperative    "create an instance, then configure the network, then..."
 declarative   "the environment should have this; converge toward it"
 ```
 
-The practical difference: the declarative one is **idempotent** — applying it twice produces the same
-result — and it allows calculating the difference between the desired and the real before acting.
+The practical difference: the declarative one is [idempotent](/06-distributed-systems/idempotency.md) —
+reapplying the same declaration to an already converged environment changes nothing — and it allows calculating the difference between the desired and the real before acting.
 
 See [Kubernetes](/09-cloud-architecture/kubernetes.md), which applies the same principle to containers.
 
@@ -158,7 +158,8 @@ two, and it needs to be measured.
 
 ## When to Use
 
-- Practically always, for cloud infrastructure.
+- When more than one person changes the same cloud account, and the question "who
+  changed this, and why?" needs an answer.
 - Where environments need to be equivalent.
 - Where recreation needs to be possible.
 - Where there is auditing of infrastructure changes.
@@ -167,19 +168,22 @@ two, and it needs to be measured.
 
 ## When Not to Use
 
-**Mixing data or secrets into the declaration.**
+**For a single server** nobody is going to recreate. Writing, reviewing and maintaining the
+declaration costs more than the few changes it will ever see; the cost only pays off when
+there is recreation, a second environment to keep identical, or more than one person
+touching it.
 
-**With no drift detection.**
+**For an exploration environment thrown away within hours.** Someone trying out a new
+cloud service to see whether it fits does not yet know what to declare; the declaration
+comes later, when the resource enters an environment that will last.
 
-**With generic modules** that hide what is created.
+**For resources the orchestrator already creates and destroys.** Containers, replicas and
+temporary volumes are orchestrator state; declaring them as well puts two tools
+converging the same object, each undoing the other.
 
-**Without versioning shared modules.**
-
-**Applying to every zone at once.**
-
-**With no deletion protection** on stateful resources.
-
-**For a single server** nobody is going to recreate — the cost does not pay off.
+**For a third-party service with no programmable interface.** If the vendor can only be
+configured through its dashboard, the declaration becomes documentation no tool applies —
+and documentation drifts without anyone detecting it.
 
 ## Alternatives
 
@@ -203,7 +207,7 @@ The last is the natural evolution in large organizations: not every team needs t
 
 | Modules | Direct declaration |
 |---|---|
-| No repetition | Explicit |
+| No repetition | Repeated across environments |
 | An abstraction to understand | Direct |
 | A change propagates | Isolated |
 
@@ -234,6 +238,12 @@ The last is the natural evolution in large organizations: not every team needs t
 **Not protecting stateful resources against deletion.**
 
 **Modules that are too generic.**
+
+**Shared modules without versions.**
+
+**Data or secrets in the declaration.**
+
+**Applying to every zone at once.**
 
 **Making the declaration slower than the console**, which guarantees the drift.
 
@@ -300,4 +310,5 @@ the next apply.
 
 - Morris, Kief. *Infrastructure as Code*. 2nd ed. O'Reilly, 2020.
 - Humble, Jez; Farley, David. *Continuous Delivery*. Addison-Wesley, 2010.
-- Burgess, Mark. *Promise Theory* — the basis of the declarative model.
+- Bergstra, Jan; Burgess, Mark. *Promise Theory: Principles and Applications*. XtAxis
+  Press, 2014 — the theory of convergence that configuration tools apply.

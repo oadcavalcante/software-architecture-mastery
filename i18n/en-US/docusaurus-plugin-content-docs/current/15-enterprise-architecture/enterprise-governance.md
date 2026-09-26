@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, architecture-review, enterprise-principles]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -135,8 +135,11 @@ how much does it cost in aggregate time?
 could it be automated?
 ```
 
-The third question is usually revealing: controls that have caught nothing in years are
-pure cost.
+The third question is usually revealing: a control that has caught nothing in years is a
+candidate for removal — provided the second question confirms the incident is no longer
+possible, because a control that deters also records no catches. See
+[measuring governance](/19-architecture-governance/measuring-governance.md) on avoided
+risk.
 
 ### Governance of content, not of process
 
@@ -147,34 +150,26 @@ of process   checks whether the steps were followed — form filled in, meeting 
 of content   checks whether the decision is good — alternatives, premises, consequences
 ```
 
-The first is easy to operate and improves nothing. The second requires judgment and is
-the one that justifies the cost.
+The first is easy to operate and does not improve the decision — at most it produces the
+evidence trail a regulatory audit demands. The second requires judgment and is the one
+that justifies the cost.
 
 A process that checks whether the form was filled in, without reading the content, is
 ceremony.
 
 ### Governance needs an owner who reduces it
 
-An organizational characteristic of controls: they have people who create them and nobody
-who removes them.
+Controls have people who create them and nobody who removes them: each one is born from an
+incident, with a clear champion, and removing it requires someone willing to take on the
+risk of the incident returning. The asymmetry and the structural way out — expiry dates
+and periodic review — are covered in
+[governance pathologies](/19-architecture-governance/governance-pathologies.md).
 
-Each control is born from an incident, with a clear champion. Removing it requires
-someone willing to take on the risk of the incident returning — and nobody has that
-incentive.
+What falls to enterprise governance is giving someone, with the same legitimacy as whoever
+creates controls, the responsibility to **reduce** the process — and the friction metrics
+above are that person's instrument.
 
-What corrects it is explicitly assigning the responsibility to **reduce** the process,
-with the same legitimacy as whoever creates it:
-
-```text
-mandatory periodic review, with effectiveness data
-an expiry date on new controls — they lapse if not renewed
-a friction metric tracked like any other
-```
-
-The second is the most effective and the least used: a control created with a twelve-month
-term has to be justified to continue, which inverts the burden.
-
-Without that, governance only grows — and the organization attributes the slowness to
+Without that owner, governance grows with every incident — and the organization attributes the slowness to
 diffuse causes, rather than to the sum of individually reasonable decisions.
 
 ## Mental Model
@@ -191,17 +186,20 @@ problem, and measure the friction.
 
 ## When Not to Use
 
-**With uniform rigor.**
+**A few teams in direct communication.** With three or four teams that talk every week,
+divergence shows up and gets resolved in conversation; a formal mechanism costs more than
+the informal coordination it replaces.
 
-**Verifying what is already the standard.**
+**Reversible, local decisions.** The reversibility table already exempts them: undoing the
+mistake costs less than preventing it, and the control only consumes the attention that
+the irreversible is short of.
 
-**Without measuring friction.**
+**Where divergence has no cost.** If two teams pick different tools with no integration,
+data or people shared between them, standardizing buys a coherence nobody consumes.
 
-**Without reviewing controls.**
-
-**Of process instead of content.**
-
-**As a power structure** instead of a decision flow.
+**Before the standard becomes a road.** Governing by exception a standard that is embedded
+in nothing forces you to check everything; at that stage, the investment goes into the
+paved road, not into the control.
 
 ## Alternatives
 
@@ -242,7 +240,7 @@ problem, and measure the friction.
 
 **Creating a control for every incident.** Each response looks reasonable in isolation; the accumulation produces a process nobody can follow in full, and non-compliance becomes the norm.
 
-**Not removing controls.** Controls only come in. Without a review that withdraws the ones that stopped making sense, the cost grows indefinitely on everyone.
+**Not removing controls.** Without a review that withdraws the ones that stopped making sense, controls only come in, and the cost grows with every incident, on everyone.
 
 **Uniform rigor.** Demanding the same of a text change and a data migration wastes rigor where it isn't needed and discredits the process where it is.
 
@@ -316,7 +314,9 @@ later, and the control remained — like almost all of them.
 List your organization's governance controls and, for each one, answer: how many times
 did it catch something in the last twelve months, and how much did it cost in hours?
 
-The ones that caught nothing are pure cost.
+The ones that caught nothing are candidates for removal, not pure cost: before cutting,
+ask whether the incident that motivated each one is still possible — zero catches is also
+what a control that deters produces.
 
 ## Interview Questions
 

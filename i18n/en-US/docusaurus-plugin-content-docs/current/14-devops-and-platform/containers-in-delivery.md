@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, environment-management, supply-chain-security]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -123,8 +123,11 @@ build tools with a declared version
 no network access in the final build stage
 ```
 
-The last is the most effective and the least common: a build that downloads things from the internet is not
-reproducible by definition.
+The last is the most effective of the four and the least common. An unpinned dependency breaks
+reproducibility: the same commit produces a different artifact. A dependency pinned by hash but downloaded
+from the network is still reproducible, just not hermetic — the build comes to depend on an external server
+being up at that moment. Cutting the network in the final stage secures both properties: everything that goes
+in was resolved and verified beforehand.
 
 ### Multiple stages reduce what goes to production
 
@@ -142,17 +145,11 @@ deployment and scaling time — which matters in
 
 ### Layers and caching decide the build time
 
-The order of the instructions decides whether the rebuild uses the cache:
-
-```text
-bad    copy the code, then install dependencies
-       → every code change reinstalls everything
-good   copy the manifest, install dependencies, then copy the code
-       → a code change reuses the dependency layer
-```
-
-That inversion usually reduces the build time by an order of magnitude — and the pipeline's time is what
-decides whether people integrate frequently. See
+The mechanics — instructions that rarely change before the ones that always change — are in
+[containers](/09-cloud-architecture/containers.md). What they decide in delivery is the pipeline's time: with
+the code copied before installing dependencies, every change reinstalls everything, and fixing the order
+usually reduces the build time by an order of magnitude. That time is what decides whether people integrate
+frequently. See
 [continuous integration](/14-devops-and-platform/ci-cd.md).
 
 ### The download time enters the availability calculation
@@ -193,23 +190,23 @@ tested.
 
 ## When Not to Use
 
-**Rebuilding per environment.** The artifact that reaches production is not the one that was tested, and
-promotion between environments stops meaning anything.
+**A single environment, with no testing between build and production.** If what leaves the pipeline goes
+straight to production — an internal tool, a prototype — there is no "tested" artifact to preserve across
+environments. A promotion pipeline buys nothing; the value that remains, the digest for rolling back, any
+registry already provides.
 
-**With configuration baked into the image.** It forces a rebuild per environment and recreates the previous
-problem.
+**The inner development loop.** On the developer's machine, rebuilding on every change is the point.
+Registering and promoting each local build only adds latency to a cycle that needs to last seconds; the
+discipline starts when the artifact leaves the machine for the pipeline.
 
-**Referencing by a moving tag in production.** The running version comes to depend on when the pod
-restarted.
+**Ephemeral preview environments.** One environment per pull request, destroyed on merge, receives builds that
+will never be promoted. Retaining those images and making them immutable costs registry space without
+protecting anything — there, retention measured in days and disposable tags are the right choice, as long as
+nothing from those builds reaches production.
 
-**With retention that prevents reverting.** The previous image needs to exist for the rollback to be
-possible; the cleanup policy has to respect that.
-
-**Allowing published tags to be overwritten.** If the same tag can point at other content, no deployment
-record is trustworthy after the fact.
-
-**Without pinning dependency versions.** Two builds of the same commit produce different artifacts, and
-reproducing a production defect becomes impossible.
+**Libraries consumed as dependencies.** The producer's artifact is a versioned package, and whoever
+incorporates it builds their own artifact. Promotion between environments happens in the consuming
+application; for the library, what matters is publishing immutable versions.
 
 ## Alternatives
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-principles]
 related: [enterprise-principles, technology-radar, enterprise-governance]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -183,7 +183,8 @@ who is responsible for the migration named
 
 See [internal developer platforms](/14-devops-and-platform/internal-developer-platforms.md) —
 when the platform knows each service's standard, that traceability is derived and
-requires no maintenance.
+no longer depends on each team updating it by hand — the cost moves to maintaining the
+integration between platform and catalog.
 
 And there is a common case that deserves an explicit decision: systems that will not
 migrate. A system being decommissioned should not consume effort to meet a new standard —
@@ -225,15 +226,13 @@ automate it, or accept that it is decorative.
 
 **For preferences with no consequence.** It spends authority on something that affects nobody outside the team, and that authority is missing later.
 
-**Documented only**, without operationalization. With no template, library or check, the standard is followed only by those who would have followed it anyway.
+**In a technology area still being explored.** While teams are still finding out which approach fits — a new kind of storage, a newly arrived framework — fixing the choice freezes whichever option happened to arrive first. That is a job for the [radar](/15-enterprise-architecture/technology-radar.md) in its assess ring, not for a standard.
 
-**In large numbers.** An extensive catalog is not read, and its existence convinces the organization that guidance exists where it does not.
+**When divergence is settled by conversation.** With three or four teams that talk every week, writing, operationalizing and maintaining a standard costs more than agreeing directly; the standard starts to pay off when the number of teams makes that agreement impossible.
 
-**Written by people who don't use it.** It gets the real cases wrong and arrives as an imposition, which guarantees silent circumvention.
+**When only a person can check it and divergence is cheap.** If the standard cannot be built into the template or checked in the pipeline, manual review is a recurring cost; if it costs more than the divergence it prevents, don't standardize.
 
-**Without an exception path.** Those who don't fit the standard ignore it, and the violation stops being visible — worse than having no standard.
-
-**Without review and deprecation.** Old standards keep being cited as the norm long after they stopped making sense.
+**Beyond what the organization can operationalize.** Past the range of 5 to 15 operationalized standards, each new one competes with the existing ones for attention and platform maintenance — the next candidate has to replace an old one, not be added to it.
 
 ## Alternatives
 
@@ -312,7 +311,8 @@ The rework:
 **Classification by the cost of divergence.** Each standard was assessed: does divergence
 have a real operational, security or interoperability cost?
 
-Twenty-one passed the test. The other 26 were removed — they were preferences.
+Twenty-one passed the test. The other 26 were removed: 22 were preferences, and 4 prescribed abandoned
+technology.
 
 **Operationalizing the 21:**
 
@@ -333,8 +333,8 @@ communication, and the services still using them entered a migration queue.
 Result: 47 standards became 21, and average adherence rose from 42% to 96% — not from
 more control, but because following became the path of least effort.
 
-What was recorded afterwards: the 26 removed standards caused no problems at all. They
-existed because someone, at some point, had a preference and wrote it down.
+What was recorded afterwards: the 22 removed preference standards caused no problems at
+all. They existed because someone, at some point, had a preference and wrote it down.
 
 ## Related Concepts
 

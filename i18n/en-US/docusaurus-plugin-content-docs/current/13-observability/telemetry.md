@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [logs, metrics, distributed-tracing]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -59,8 +59,10 @@ destination       where it is stored and queried
 With standardized instrumentation, switching the destination is configuration in the collector — not a code
 change.
 
-The open telemetry standard exists exactly for that, and adopting it is the decision that most preserves
-freedom in this area, at close to zero cost at the project's start.
+The open telemetry standard exists exactly for that. Adopting it early costs little in code — the
+instrumentation has to be written either way — but it is not free: SDK maturity varies by language, advanced
+vendor features may be missing, and the collector is one more component to operate. That is the price of keeping
+a destination switch a matter of configuration rather than a rewrite.
 
 Teams that instrument directly with the vendor's library pay for that decision later, when the cost or the
 dissatisfaction motivates the switch. See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
@@ -214,17 +216,26 @@ your perimeter — and frequently the country.
 
 ## Common Mistakes
 
-**Instrumenting with the vendor's library.**
+**Instrumenting with the vendor's library "just for now".** The choice is made in the first service, when
+switching seems hypothetical; the symptom shows up years later, when the migration proposal comes back with an
+estimate of months of work for every team.
 
-**Emitting synchronously.**
+**Emitting synchronously because the destination "is fast".** It works while the destination responds; the
+symptom is an incident in which product latency rises along with the observability vendor's, with no change to
+the product's code.
 
-**Not monitoring the telemetry system itself.**
+**Not monitoring the telemetry system itself.** A saturated collector, drops and ingestion lag raise no alert;
+the team discovers the gap mid-investigation, when the interval that matters is empty.
 
-**Not auditing what is queried.**
+**Not auditing what is queried.** Without knowing what is read, every removal proposal runs into "someone might
+use it", and the bill grows faster than traffic without anyone being able to say why.
 
-**Cutting retention as the first cost measure.**
+**Cutting retention as the first cost measure.** The savings are immediate and small; the cost appears weeks
+later, when investigations that need to compare with the previous month, or find when a defect started, cannot
+be closed — as in the example below.
 
-**Having no collector**, letting each service send directly.
+**Having no collector**, letting each service send directly. Filtering, sampling and removal of sensitive data
+become code changes in every service, and the effective policy becomes that of the least careful service.
 
 ## Real-World Example
 

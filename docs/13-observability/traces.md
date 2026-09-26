@@ -13,7 +13,7 @@ objective: >
 prerequisites: [observability]
 related: [distributed-tracing, logs, metrics]
 canonical_for: [trace, span, atributo de span, evento de span]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -99,7 +99,9 @@ A segunda linha é a mais informativa: uma lacuna entre a soma dos filhos e a du
 pai indica tempo gasto em algo que não foi instrumentado — frequentemente espera por
 recurso, coleta de lixo, ou serialização.
 
-A terceira revela o problema N+1 visualmente, de forma que nenhuma métrica revela. Ver
+A terceira revela o problema N+1 visualmente, sem que ninguém precise ter previsto a
+pergunta. A métrica de latência por dependência não o mostra — cada chamada é rápida —; uma
+métrica de chamadas a jusante por requisição mostraria, se alguém a tivesse criado antes. Ver
 [GraphQL](/08-integration-architecture/graphql.md) e
 [bancos de documentos](/07-data-architecture/document-databases.md).
 
@@ -159,17 +161,23 @@ diz onde.
 
 ## Quando Não Usar
 
-**Span por função.** Custo e ruído.
+**Em sistema de processo único.** Se a requisição não sai do processo exceto para o
+banco, um perfilador local mostra onde o tempo vai com mais resolução e sem a
+infraestrutura de coleta, propagação e armazenamento que o trace exige.
 
-**Sem atributos.** Um span sem contexto responde pouco.
+**Sem orçamento para o volume.** Spans por requisição vezes requisições por segundo dão a
+ordem de grandeza: 20 spans a 2.000 req/s são 40 mil spans por segundo, mais de 3 bilhões
+por dia antes de amostragem. Se não há decisão de amostragem e retenção que caiba no
+orçamento, a coleta integral vira a maior conta de observabilidade — ver
+[telemetria](/13-observability/telemetry.md) para as alavancas de custo e
+[rastreamento distribuído](/13-observability/distributed-tracing.md) para a amostragem.
 
-**Como substituto de métricas** para tendência.
+**Em caminho quente de altíssima frequência.** Num laço interno que executa milhões de
+vezes por segundo, criar e exportar um span custa da mesma ordem que o trabalho útil; ali o
+instrumento certo é contador agregado ou perfilamento contínuo.
 
-**Como substituto de logs** para contexto detalhado.
-
-**Sem marcar erros.**
-
-**Em sistema de componente único**, onde um perfilador local resolve melhor.
+**Como substituto de métricas** para tendência e alerta: com amostragem, o trace não conta
+todos os eventos, e taxa e percentil calculados sobre a amostra distorcem.
 
 ## Alternativas
 
@@ -215,17 +223,24 @@ diz onde.
 
 ## Erros Comuns
 
-**Instrumentar funções internas triviais.**
+**Instrumentar funções internas triviais.** Um span por função multiplica o volume e o
+custo, e a árvore fica ilegível: o span que importa se perde entre centenas de 1 ms.
 
-**Não adicionar atributos de domínio.**
+**Não adicionar atributos de domínio.** Sem tipo de cliente, tamanho do lote ou
+identificador do recurso, não se separa a execução lenta da rápida dentro da mesma rota — o
+trace diz que demorou, não o que a diferencia.
 
-**Não marcar status de erro.**
+**Não marcar status de erro.** Não existe consulta por "traces que falharam"; achar a
+falha vira inspeção manual, trace a trace.
 
-**Não conectar traces a logs.**
+**Não conectar traces a logs.** O identificador do trace não aparece no log, e a
+investigação volta a cruzar duas ferramentas por carimbo de tempo.
 
-**Depender só da instrumentação automática.**
+**Depender só da instrumentação automática.** Os spans ficam com nomes técnicos — "GET",
+"SELECT" — e a operação de negócio cara que não cruza fronteira nenhuma fica invisível.
 
-**Não instrumentar esperas** — bloqueios, filas internas, aquisição de conexão.
+**Não instrumentar esperas** — bloqueios, filas internas, aquisição de conexão. O tempo
+aparece como lacuna no pai, e quem lê o trace precisa adivinhar o que a preenche.
 
 ## Exemplo Real
 
@@ -244,10 +259,13 @@ consultar_exames        45 ms
   buscar_laboratorio    22 ms   ×  146 vezes  = 3.212 ms
 ```
 
-Nenhuma métrica revelaria isso: a latência do serviço de laboratórios estava em 22 ms,
-excelente. O problema era a quantidade de chamadas.
+As métricas que a equipe tinha não revelariam isso: a latência do serviço de laboratórios
+estava em 22 ms, excelente. O problema era a quantidade de chamadas, e ninguém media
+chamadas a jusante por requisição.
 
-A correção foi uma consulta em lote: de 147 spans para 3, e de 4 segundos para 180 ms.
+A correção foi uma consulta em lote: de 147 spans para 3, e de 4 segundos para cerca de
+800 ms. Os ~740 ms fora do laço N+1 continuaram — e parte deles era a espera descrita
+logo abaixo.
 
 A instrumentação revelou mais três coisas na mesma semana:
 
@@ -261,8 +279,10 @@ histórico de refatoração incompleta.
 aquisição de uma conexão de banco — o pool estava subdimensionado. Ver
 [escala de banco de dados](/11-scalability/database-scaling.md).
 
-Nenhum dos três aparecia em métricas ou logs. Os três foram visíveis no primeiro dia de
-traces.
+Nenhum dos três aparecia nas métricas e logs que a equipe tinha. O terceiro teria
+aparecido numa métrica de saturação do pool de conexões — um dos
+[sinais dourados](/13-observability/golden-signals.md) —, mas ela não existia; os três
+foram visíveis no primeiro dia de traces, sem que alguém precisasse saber o que procurar.
 
 O que a equipe registra: eles tinham métricas e logs maduros, e passaram meses
 investigando a lentidão por eliminação. O trace respondeu em minutos porque mostrava a
@@ -293,4 +313,4 @@ tempo gasto onde ninguém está olhando.
 - Sigelman, Benjamin et al. *Dapper, a Large-Scale Distributed Systems Tracing
   Infrastructure*. Google, 2010.
 - Majors, Charity et al. *Observability Engineering*. O'Reilly, 2022.
-- OpenTelemetry — especificação de traces.
+- OpenTelemetry Authors. *OpenTelemetry Specification — Tracing API*, v1.0. CNCF, 2021.

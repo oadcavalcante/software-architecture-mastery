@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [integration-landscapes, application-architecture, data-ownership]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -91,16 +91,16 @@ organizational structure
 These fragment the most, because every system needs them and none wants to depend on
 another.
 
-The approaches, in order of cost:
+The approaches, in order of implementation and operating cost:
 
 **Record by consensus.** An existing system is declared the source; the others migrate to
 consume it. Cheap, and it depends on the chosen system being able to serve.
 
-**Dedicated service.** A system whose only function is to be the source. Costs a team,
-and solves the problem well.
-
 **Virtual consolidation.** An index that points to the records in the origin systems,
 without moving data. Less invasive, and it does not resolve divergence.
+
+**Dedicated service.** A system whose only function is to be the source. Costs a team,
+and solves the problem well.
 
 **Hub with synchronization.** A central system that reconciles and distributes. Complex,
 and the reconciliation is never perfect.
@@ -182,16 +182,21 @@ has a permanent cost that needs to be measured.
 
 ## When Not to Use
 
-**Chasing a single database.** Single authority is not single storage.
+**An entity used by one system, or by systems of the same team.** There is no
+organizational boundary to cross; ownership is settled inside the team, with no
+enterprise decision.
 
-**Creating a central hub** without resolving ownership.
+**Measured divergence is low and carries no regulatory exposure.** If reconciliation
+costs a fraction of a person and no mandatory report depends on the data, the
+consolidation project costs more than it prevents.
 
-**Without measuring the cost of fragmentation.**
+**No candidate source can serve.** If the system with the best data cannot handle the
+consumers' synchronous reads and cannot be strengthened, declaring it the source trades
+divergence for unavailability. Fix the capacity first, or accept the fragmentation for
+now.
 
-**Without an owner per data set.**
-
-**Consolidating everything.** Not all data needs a single source — data local to one
-system belongs to it.
+**Data local to one system.** Not all data needs a single source — what only one system
+uses belongs to it.
 
 ## Alternatives
 
@@ -219,6 +224,13 @@ project, and it does not always pay off.
 | Costs a team | Cheap |
 | Designed to serve | May not serve well |
 
+The dependency in the first table is operational. The source becomes an availability
+dependency for every consumer that writes or reads the data, and needs an SLO matching
+the most demanding of them. Each consumer must decide what it does when the source is
+down — refuse the operation, or proceed with its copy and accept stale data — and the
+derived copies need an invalidation policy: time-based expiry, or a change event
+published by the source.
+
 ## Failure Modes
 
 **No defined source.** Permanent divergence.
@@ -236,17 +248,24 @@ it.
 
 ## Common Mistakes
 
-**Not declaring a system of record.**
+**Not declaring a system of record.** Every system keeps considering itself the source,
+and reconciliation becomes a permanent activity, with people dedicated to it.
 
-**Confusing single authority with a single database.**
+**Confusing single authority with a single database.** The project turns into migrating
+every system onto one store, the cost explodes, and the initiative dies before declaring
+any source.
 
-**Creating a hub as the solution.**
+**Creating a hub as the solution.** Without deciding who owns each field, the hub becomes
+one more divergent record — reconciliation now has ten sides instead of nine.
 
-**Not measuring the cost of fragmentation.**
+**Not measuring the cost of fragmentation.** Without a number, the ownership decision
+loses every priority contest to new features.
 
-**Not assigning a quality owner.**
+**Not assigning a quality owner.** The source exists, but wrong data in it is propagated
+with authority to every consumer.
 
-**Consolidating everything** instead of choosing what matters.
+**Consolidating everything** instead of choosing what matters. Effort spreads over data
+only one system uses, and the master data that causes the divergence is left for later.
 
 ## Real-World Example
 
@@ -273,15 +292,18 @@ where quality is highest.
 
 Execution, in phases:
 
-**Phase 1.** The nine systems started querying the source for reads, keeping their own
-records for writes. This alone reduced divergences visible to the patient.
+**Phase 1.** The other eight systems started reading from the source, keeping their own
+records for writes — and every local write was also sent to the source. On conflict, the
+source's value prevailed and the case went to a review queue. This alone reduced
+divergences visible to the patient.
 
 **Phase 2.** Writes were centralized. Each system, one at a time, stopped accepting
 records and started redirecting to the source.
 
 **Phase 3.** Local records were removed, leaving cached copies, explicitly derived.
 
-Total time: 26 months.
+Total execution time: 26 months, not counting the four months of negotiation that
+preceded it.
 
 Result: the 6 reconciliation people were reassigned, divergences dropped to under 0.2%,
 and the question of how many unique patients came to have an answer.

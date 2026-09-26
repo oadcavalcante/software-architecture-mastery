@@ -13,7 +13,7 @@ objective: >
 prerequisites: [architecture-levels]
 related: [architecture-levels, architecture-review, enterprise-principles]
 canonical_for: [governança de arquitetura, atrito de processo, governança por exceção]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -133,8 +133,11 @@ quanto custa em tempo agregado?
 poderia ser automatizado?
 ```
 
-A terceira pergunta costuma ser reveladora: controles que nunca pegaram nada em anos são
-custo puro.
+A terceira pergunta costuma ser reveladora: um controle que não pegou nada em anos é
+candidato a remoção — desde que a segunda confirme que o incidente deixou de ser possível,
+porque um controle que dissuade também não registra capturas. Ver
+[medição de governança](/19-architecture-governance/measuring-governance.md) sobre risco
+evitado.
 
 ### Governança de conteúdo, não de processo
 
@@ -145,7 +148,8 @@ de processo   verifica se os passos foram seguidos — documento preenchido, reu
 de conteúdo   verifica se a decisão é boa — alternativas, premissas, consequências
 ```
 
-A primeira é fácil de operar e não melhora nada. A segunda exige julgamento e é a que
+A primeira é fácil de operar e não melhora a decisão — no máximo produz a trilha de
+evidência que uma auditoria regulatória exige. A segunda exige julgamento e é a que
 justifica o custo.
 
 Um processo que verifica se o formulário foi preenchido, sem ler o conteúdo, é
@@ -153,25 +157,16 @@ cerimônia.
 
 ### Governança precisa de um dono que a reduza
 
-Uma característica organizacional dos controles: eles têm quem os crie e não têm quem os
-remova.
+Controles têm quem os crie e não têm quem os remova: cada um nasce de um incidente, com um
+defensor claro, e removê-lo exige alguém disposto a assumir o risco de que o incidente
+volte. A assimetria e a saída estrutural — prazo de validade e revisão periódica — são
+tratadas em [patologias de governança](/19-architecture-governance/governance-pathologies.md).
 
-Cada controle nasce de um incidente, com um defensor claro. Removê-lo exige alguém
-disposto a assumir o risco de que o incidente volte — e ninguém tem esse incentivo.
+O que cabe à governança corporativa é dar a alguém, com a mesma legitimidade de quem cria
+controles, a responsabilidade de **reduzir** o processo — e as métricas de atrito acima são
+o instrumento dessa pessoa.
 
-O que corrige é atribuir explicitamente a responsabilidade de **reduzir** o processo, com
-a mesma legitimidade de quem o cria:
-
-```text
-revisão periódica obrigatória, com dados de eficácia
-prazo de validade em controles novos — expiram se não forem renovados
-métrica de atrito acompanhada como qualquer outra
-```
-
-A segunda é a mais eficaz e a menos usada: um controle criado com prazo de doze meses
-precisa ser justificado para continuar, o que inverte o ônus.
-
-Sem isso, a governança só cresce — e a organização atribui a lentidão a causas difusas,
+Sem esse dono, a governança cresce a cada incidente — e a organização atribui a lentidão a causas difusas,
 em vez de à soma de decisões individualmente razoáveis.
 
 ## Modelo Mental
@@ -188,17 +183,21 @@ atrito.
 
 ## Quando Não Usar
 
-**Com rigor uniforme.**
+**Poucos times com comunicação direta.** Com três ou quatro times que conversam toda
+semana, a divergência aparece e se resolve na conversa; um mecanismo formal custa mais que
+a coordenação informal que ele substitui.
 
-**Verificando o que já é padrão.**
+**Decisões reversíveis e locais.** A tabela de reversibilidade já as isenta: desfazer o
+erro custa menos que preveni-lo, e o controle só consome a atenção que falta no
+irreversível.
 
-**Sem medir atrito.**
+**Onde a divergência não tem custo.** Se dois times escolhem ferramentas diferentes sem
+integração, dados ou pessoas compartilhadas entre eles, uniformizar compra uma coerência
+que ninguém consome.
 
-**Sem revisar controles.**
-
-**De processo em vez de conteúdo.**
-
-**Como estrutura de poder** em vez de fluxo de decisão.
+**Antes de o padrão virar caminho.** Governar por exceção um padrão que não está embutido
+em nada obriga a verificar tudo; nesse estágio, o investimento vai no caminho pavimentado,
+não no controle.
 
 ## Alternativas
 
@@ -239,7 +238,7 @@ atrito.
 
 **Criar controle para cada incidente.** Cada resposta parece razoável isolada; o acúmulo produz um processo que ninguém consegue cumprir por inteiro, e o descumprimento vira norma.
 
-**Não remover controles.** Controles só entram. Sem revisão que retire os que deixaram de fazer sentido, o custo cresce indefinidamente sobre todo mundo.
+**Não remover controles.** Sem revisão que retire os que deixaram de fazer sentido, controles só entram, e o custo cresce a cada incidente sobre todo mundo.
 
 **Rigor uniforme.** Exigir o mesmo de uma mudança de texto e de uma migração de dados desperdiça o rigor onde não é preciso e desmoraliza o processo onde é.
 
@@ -313,7 +312,9 @@ anos depois, e o controle permaneceu — como quase todos.
 Liste os controles de governança da sua organização e, para cada um, responda: quantas
 vezes ele pegou algo nos últimos doze meses, e quanto custou em horas?
 
-Os que não pegaram nada são custo puro.
+Os que não pegaram nada são candidatos a remoção, não custo puro: antes de cortar, pergunte
+se o incidente que motivou cada um ainda é possível — zero capturas também é o que produz
+um controle que dissuade.
 
 ## Perguntas de Entrevista
 

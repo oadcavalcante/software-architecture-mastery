@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-architecture]
 related: [technology-radar, standards, platform-engineering]
 canonical_for: [arquitetura de tecnologia, variedade tecnológica, custo de suporte, obsolescência]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -150,7 +150,8 @@ que oferece as suportadas prontas torna a escolha certa a mais fácil.
 Ver [plataformas internas](/14-devops-and-platform/internal-developer-platforms.md) e
 [padrões](/15-enterprise-architecture/standards.md).
 
-É a diferença entre governar por documento e por caminho pavimentado.
+É a diferença entre governar por documento e por
+[caminho pavimentado](/14-devops-and-platform/platform-engineering.md).
 
 ### A variedade cresce por acréscimo e nunca por decisão
 
@@ -194,17 +195,20 @@ boa, é se a organização consegue operá-la bem.
 
 ## Quando Não Usar
 
-**Avaliando apenas custo de licença.**
+**Organização pequena com um único conjunto de tecnologias.** Com uma dúzia de
+engenheiros, um banco, uma linguagem e um provedor de nuvem, todos já sabem o que está em
+uso; inventário formal e processo de aprovação custam mais que a variedade que
+controlariam.
 
-**Padronizando em uma tecnologia só.**
+**Produto em fase de descoberta.** Quando o produto pode mudar de rumo em meses, a
+tecnologia que pesaria no sobreaviso talvez não sobreviva ao próximo pivô. A conta de
+custo agregado passa a valer quando os sistemas se estabilizam e começam a acumular
+operação.
 
-**Consolidando sistemas estáveis** sem benefício claro.
-
-**Sem plano de obsolescência.**
-
-**Governando por documento** em vez de plataforma.
-
-**Sem distinguir gerenciado de autogerido** na conta de variedade.
+**Tudo em serviços gerenciados de um provedor.** Se nenhum armazenamento é autogerido,
+boa parte do custo que este documento mede — operação, correção, sobreaviso — está do lado
+do provedor. Sobram conhecimento e contratação, que cabem na decisão de cada time sem
+análise organizacional.
 
 ## Alternativas
 
@@ -257,7 +261,7 @@ quem a faz paga por ela.
 
 **Consolidar por princípio.** Reduzir o número de tecnologias é bom até forçar casos que não cabem — e aí o custo do encaixe supera o da diversidade.
 
-**Governar por lista.** Uma lista de tecnologias aprovadas envelhece e vira obstáculo. O que sustenta é o critério de avaliação, que continua válido quando a lista não está.
+**Governar por lista.** Uma lista de tecnologias aprovadas envelhece e vira obstáculo. O que sustenta é o critério de avaliação, que continua válido quando a lista não está — e ele decide o que a plataforma oferece pronto, enquanto a plataforma é o que faz o critério ser seguido sem que alguém consulte lista nenhuma.
 
 ## Exemplo Real
 
@@ -287,7 +291,7 @@ colunar                        2
 chave-valor secundário         1
 ```
 
-Quatro tecnologias com uma ou duas pessoas capazes de atendê-las em incidente.
+Cinco tecnologias com uma ou duas pessoas capazes de atendê-las em incidente.
 
 E a análise de uso mostrou que três delas suportavam um único serviço cada, de
 criticidade baixa.
@@ -298,8 +302,9 @@ As decisões:
 com o custo operacional explicitado, e aprovação de alcance amplo. Ver
 [níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
 
-**Migrar o que era barato.** Os três serviços de baixa criticidade com tecnologias de um
-conhecedor migraram para o banco relacional principal — em nenhum deles a escolha
+**Migrar o que era barato.** Os três serviços de baixa criticidade — no segundo banco de
+documento, no colunar e no chave-valor secundário — migraram para o banco relacional
+principal — em nenhum deles a escolha
 original tinha justificativa que sobrevivesse à revisão.
 
 **Manter o que se justificava.** A busca e a série temporal permaneceram, com
@@ -312,8 +317,9 @@ migraram, reduzindo o custo operacional sem reduzir a variedade.
 **O grafo permaneceu**, com uma pessoa. Foi registrado como risco aceito, com plano de
 transferência de conhecimento em doze meses.
 
-Resultado: de nove para seis bancos, e nenhum com menos de cinco pessoas capazes de
-atendê-lo.
+Resultado: de nove para seis bancos. Relacional, cache, busca e série temporal com cinco
+pessoas ou mais capazes de atendê-los, o banco de documento restante com três, e o grafo
+como único abaixo do mínimo, registrado e com prazo.
 
 O que se registrou depois: nenhuma das nove escolhas tinha sido errada no momento em que
 foi feita. Cada uma resolvia um problema real. O erro foi nunca somar — ninguém tinha,

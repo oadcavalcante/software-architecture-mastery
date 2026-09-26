@@ -13,7 +13,7 @@ objective: >
 prerequisites: [ci-cd]
 related: [ci-cd, feature-flags, deployment-strategies]
 canonical_for: [gestão de releases, congelamento de código, coordenação de release, versionamento de release]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -110,8 +110,9 @@ gerado a cada implantação
 o que é visível ao usuário, separado do interno
 ```
 
-A última distinção importa: um cliente não quer ler cem entradas de refatoração. A nota
-externa é curada; a interna é completa.
+A última distinção importa: um cliente não quer ler cem entradas de refatoração. As duas
+notas partem da mesma lista derivada; a interna é a lista completa, e na externa a
+redação humana se limita a selecionar e reescrever, a partir dela, o que o cliente vê.
 
 ### Versionar quando alguém depende
 
@@ -122,8 +123,8 @@ aplicação interna   frequentemente não precisa — o identificador da implant
 aplicativo móvel    versionamento obrigatório, com versões antigas em circulação
 ```
 
-A terceira linha contraria o hábito: um serviço implantado continuamente não se
-beneficia de números de versão. O que importa é o identificador do artefato e o
+A terceira linha contraria o hábito: um serviço interno implantado continuamente, sem
+consumidor que fixe versão, raramente se beneficia de números de versão. O que importa é o identificador do artefato e o
 histórico de implantações.
 
 O último caso é o mais restritivo: versões antigas de aplicativo móvel permanecem em uso
@@ -187,24 +188,31 @@ coordenação é pequeno e específico.
 
 ## Quando Não Usar
 
-**Como processo padrão para toda mudança.**
+**Como processo padrão para toda mudança.** Uma correção de texto esperando o mesmo
+comitê que uma migração transforma a espera no custo dominante da entrega.
 
-**Congelamento longo.**
+**Congelamento que dura mais que o evento que protege.** O limiar é o volume: quando o
+acumulado passa do que o time consegue revisar no descongelamento, o congelamento gera o
+risco que devia evitar.
 
-**Notas de release escritas à mão.**
+**Registro de mudanças mantido à mão.** Ele diverge do que foi implantado; a redação
+humana cabe na seleção da nota externa, não na lista.
 
-**Versionando aplicações internas** sem consumidor externo.
+**Versionando aplicações internas** sem consumidor que fixe versão — o número vira
+cerimônia sem ninguém para lê-lo.
 
-**Plano de reversão por release** em vez de mecanismo.
+**Plano de reversão por release** em vez de mecanismo: cada plano é uma reversão nunca
+testada.
 
-**Aprovação em cadeia** para mudanças de baixo risco.
+**Aprovação em cadeia** para mudança reversível por flag ou canary, em que a aprovação
+só acrescenta espera a um risco que a automação já contém.
 
 ## Alternativas
 
 - **[Feature flags](/14-devops-and-platform/feature-flags.md)** — separam liberação de implantação, removendo a
   maior parte da coordenação.
 - **[Canary](/14-devops-and-platform/canary.md)** — reduz o risco sem coordenação humana.
-- **Liberação progressiva por segmento** — internos, beta, geral.
+- **[Liberação progressiva](/14-devops-and-platform/feature-flags.md) por segmento** — internos, beta, geral.
 - **Aprovação por classe de risco** — só o que é arriscado passa por aprovação.
 
 ## Trade-offs
@@ -221,6 +229,8 @@ coordenação é pequeno e específico.
 | Nenhuma mudança | Mudanças cuidadosas |
 | Lote acumulado | Fluxo contínuo |
 | Descongelamento arriscado | Sem evento |
+| Nada a revisar no período crítico | Plantão revisando canary estendido e dupla aprovação |
+| Risco zero de mudança durante o evento | Mudança pequena ainda pode falhar no pico |
 
 ## Modos de Falha
 
@@ -246,9 +256,11 @@ coordenação é pequeno e específico.
 
 **Não separar implantar de liberar.** Quando as duas coisas são a mesma, toda entrega de código é exposição ao usuário, e a única forma de controlar risco passa a ser não entregar.
 
-**Escrever notas de release à mão.** Ficam desatualizadas na primeira semana. Geradas a partir dos commits e das mudanças, elas continuam verdadeiras sem esforço.
+**Manter o registro de mudanças à mão.** Ele diverge do que foi implantado assim que alguém esquece de atualizá-lo. Derivado das mudanças mescladas, continua fiel ao que foi para produção — desde que os títulos e rótulos das mudanças sigam uma convenção aplicada de forma consistente, porque a nota derivada é tão boa quanto eles.
 
 **Não classificar mudanças por risco.** Sem classificação, ou tudo passa pelo processo mais rígido, ou nada passa. A distinção é o que permite ser rápido no trivial e cuidadoso no perigoso.
+
+**Confiar só na autodeclaração de risco.** Se o autor escolhe a classe e a classe baixa escapa da aprovação, o incentivo é subclassificar — e uma migração declarada como "baixo" vai para produção automática. A declaração precisa de contrapeso: critérios objetivos por classe, promoção automática quando a mudança toca caminhos sensíveis, e auditoria amostral das mudanças classificadas como baixas.
 
 **Manter aprovações que ninguém avalia de fato.** Aprovação carimbada dá a impressão de controle e não fornece nenhum, além de diluir a responsabilidade entre quem assinou sem olhar.
 
@@ -284,7 +296,10 @@ médio   mudança de comportamento → canary obrigatório, sem aprovação
 alto    migração, contrato externo, regulatório → aprovação
 ```
 
-O comitê passou a ver cerca de 8% das mudanças, e a discussão nele ficou substantiva.
+A declaração não era a última palavra: mudança que tocava migrações, contratos ou
+módulos regulatórios era promovida a alto pela esteira, e incidente causado por mudança
+"baixa" levava à revisão do critério. O comitê passou a ver cerca de 8% das mudanças, e
+a discussão nele ficou substantiva.
 
 **Feature flags** para separar liberação de implantação. As mudanças passaram a ir a
 produção desativadas, e a liberação virou decisão de produto — sem envolver o comitê.
