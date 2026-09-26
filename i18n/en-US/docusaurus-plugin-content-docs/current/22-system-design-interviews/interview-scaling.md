@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-identification]
 related: [bottleneck-identification, failure-handling, high-level-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -46,7 +46,8 @@ Two error patterns.
 Partitioning is the most visible answer and one of the most expensive: it introduces distributed
 queries, rebalancing, hot keys and transactions that cross partitions.
 
-If the bottleneck is reads, partitioning solves nothing — replicas do. If the bottleneck is a hot
+If the bottleneck is reads only, partitioning also splits the load, but it pays for distributed
+queries and rebalancing to fix what replicas or a cache fix without changing the data model. If the bottleneck is a hot
 set larger than memory, partitioning the cache solves it; partitioning the database does not.
 
 **Answering "I'll add machines" to everything.** It works for stateless components and fails for the
@@ -180,7 +181,7 @@ the error.
  exceed 10 thousand."
 ```
 
-Declaring the stopping point with a numeric trigger is the most mature possible answer to a scaling
+Declaring the stopping point with a numeric trigger is one of the strongest answers to a scaling
 question. It shows the candidate knows how to scale and knows when not to.
 
 There is a reason that is so valued: in production, most scaling decisions are about **when**, not
@@ -199,7 +200,7 @@ complexity than the previous one.
 
 ## When to Use
 
-- After identifying the bottleneck, never before.
+- After identifying the bottleneck; before that, the choice of step has no basis.
 - In order, mentioning the steps you skipped and why.
 - With a numeric trigger for the steps left out.
 
@@ -215,6 +216,13 @@ complexity than the previous one.
 
 **Without saying where to stop** — scaling indefinitely in an interview suggests there is no
 criterion.
+
+The order itself stops applying when the prompt already fixes a volume above a single node's
+ceiling: writes or data no machine can hold make partitioning the starting point, not the sixth
+step. The same holds when the availability requirement rules out a single instance — then
+vertical scaling alone leaves the ladder — or when the stated growth makes a later migration
+costlier than the upfront complexity. In those cases, skipping steps is the answer, as long as
+the number that justifies the skip is stated.
 
 ## Alternatives
 
@@ -236,7 +244,7 @@ counter approximate solve scaling problems with no additional infrastructure.
 
 | Vertical | Horizontal |
 |---|---|
-| Simple, no design change | No ceiling |
+| Simple, no design change | Ceiling set by shared state, not by the machine |
 | Real ceiling | Requires statelessness |
 | Single point of failure | Fault tolerance |
 
@@ -295,8 +303,8 @@ there are 15 thousand opens per second — 1.4 million queries per second on the
  publication, I write the post to each follower's list. The read
  becomes one query instead of 96.
 
- The consequence: 500 million posts per day × average
- followers. For most, that is cheap. For accounts with millions
+ The consequence: 9 million posts per day × average
+ followers in writes. For small accounts, that is cheap. For accounts with millions
  of followers, it is prohibitive — so I use a hybrid strategy:
  materialize for small accounts, query on read for the
  large ones, and merge."
@@ -307,8 +315,10 @@ there are 15 thousand opens per second — 1.4 million queries per second on the
 ```text
 "I would stop here. Partitioning the materialized feed
  storage would be the next step, and the trigger would be the
- volume of feeds not fitting in the current storage — something
- around 600 GB by my calculation, with wide headroom.
+ volume of feeds not fitting in the current storage. With the
+ feed capped at 600 entries: 24 million users × 600 × ~40
+ bytes ≈ 600 GB, regardless of the posting rate — it fits
+ with wide headroom.
 
  I would not do that now."
 ```
@@ -339,9 +349,9 @@ real capacity plan.
 
 ## Interview Questions
 
-- Why does partitioning not solve a read bottleneck?
+- Why do replicas come before partitioning when the bottleneck is reads?
 - Why does vertical scaling deserve consideration before horizontal?
-- Why is declaring where you would stop the most mature answer?
+- Why does declaring where you would stop strengthen the answer?
 
 ## Further Reading
 

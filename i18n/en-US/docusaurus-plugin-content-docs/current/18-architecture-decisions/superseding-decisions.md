@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -53,8 +53,8 @@ synchronous.
 
 And there is a problem that precedes all of them: the decision that **needs** to be
 superseded and isn't. It stays recorded as in force while the system already does something
-else — which is the worst possible state, because the record starts lying with the
-appearance of authority.
+else — a state worse than having no record at all, because the record starts lying with
+the appearance of authority.
 
 ## Core Concepts
 
@@ -178,15 +178,17 @@ about its own moment.
 
 ## When Not to Use
 
-**Editing the old ADR.**
+**When only part of the scope changes and the original declared that scope clearly** — an
+ADR that narrows the previous one preserves the part that still holds, whereas superseding
+it wholesale forces the successor to re-decide what nobody questioned.
 
-**Deleting the superseded one.**
+**When the context hasn't changed** and the review stems from the preference of whoever
+arrived later — with no new premise to cite, the successor has nothing to put in its "what
+changed" section, and the chain gains a link that only records a change of opinion.
 
-**Without explaining what changed** in the successor's context.
-
-**As an amendment** — the successor has to be complete.
-
-**With no bidirectional reference.**
+**When the reassessment keeps the decision** — superseding an ADR with an identical one
+bearing a new date lengthens the chain without adding information; the right record is a
+review with no change.
 
 **For decisions that were never implemented** — the correct status is deprecated.
 
@@ -234,11 +236,13 @@ checked, which is different from nobody having looked.
 
 **Writing the successor as an amendment** to the previous one.
 
-**Not dating the superseding.**
+**Not dating the superseding** — without a date, nobody can tell how long the decision was
+in force, and the "superseded in less than 1 year" signal becomes unreadable in the chain.
 
 **Not acknowledging divergence from practice**, keeping a fictional ADR.
 
-**Not recording reviews that kept the decision.**
+**Not recording reviews that kept the decision** — a decision that was checked and kept
+becomes indistinguishable from one nobody looked at.
 
 **Numbering the successor with the predecessor's number** plus a suffix — it breaks
 referenceability.

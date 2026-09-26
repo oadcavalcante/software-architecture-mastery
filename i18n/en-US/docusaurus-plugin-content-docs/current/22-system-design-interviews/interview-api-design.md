@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [interview-data-modeling, high-level-architecture, interview-structure]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -42,8 +42,8 @@ fluid. Twenty minutes later, they are designing an analytics subsystem nobody as
 nothing delimited what the system exposes.
 
 **Detailing the API.** The candidate spends eight minutes writing error codes, headers, versioning,
-pagination format and validation schema. None of that is evaluated, and the time came out of the
-design.
+pagination format and validation schema. None of that is what gets evaluated at this stage, and
+the time came out of the design.
 
 ```text
 evaluated          which operations exist, with which parameters
@@ -130,8 +130,9 @@ too coarse   POST /operation {type: "create_url", ...}
 appropriate  POST /urls, PATCH /urls/{code}
 ```
 
-Appropriate granularity follows the domain's units of change: what changes together stays together.
-In an interview, the rule of thumb is one operation per user intent.
+The granularity criterion lives in [APIs](/05-system-design/apis.md#resource-granularity): model
+the consumer's operations. In an interview it becomes a two-second rule — one operation per user
+intent.
 
 ### Asynchronous when the operation is long
 
@@ -195,13 +196,16 @@ not be detailed said out loud.
 
 ## When Not to Use
 
-**Detailing errors, headers and versioning.**
+**When the interviewer asks for the architecture directly.** If the prompt already fixed the scope
+and they say they want to see the design, two minutes of API delimit what is already delimited.
 
-**With many endpoints** — more than six or seven indicates the scope was not delimited.
+**In data-centered domains.** In an analytics pipeline or a data warehouse, the exposed surface is
+a generic query; what fixes the scope is the entities and the volumes, and starting with the data
+model pays off more.
 
-**Debating style** for several minutes.
-
-**Without connecting it to the data model** and the design.
+**In infrastructure problems with no user-facing surface.** A rate limiter or a distributed cache
+exposes one or two trivial calls — `allow(key)`, `get/set`. Writing them reveals no model and
+separates no profiles; the problem lives in the algorithm and the coordination.
 
 **Before the non-functional requirements** — without them, there is no way to group by profile.
 
@@ -239,15 +243,20 @@ not be detailed said out loud.
 
 ## Common Mistakes
 
-**Writing ten endpoints** for a system with four requirements.
+**Writing ten endpoints** for a system with four requirements. The design now has to serve all of
+them, and the time spreads across operations that decide nothing.
 
-**Not marking which operation dominates the volume.**
+**Not marking which operation dominates the volume.** Cache and replicas end up applied uniformly,
+and the interviewer concludes you don't know what sizes the system.
 
-**Detailing pagination and errors.**
+**Detailing pagination and errors.** The minutes come out of the internal design, which is where
+the evaluation is.
 
-**Forgetting the highest-volume operation** — in shorteners, the redirect.
+**Forgetting the highest-volume operation** — in shorteners, the redirect. The whole sizing ends up
+computed over the wrong operation.
 
-**Not saying what was left out.**
+**Not saying what was left out.** The omission becomes indistinguishable from ignorance, and the
+interviewer asks — spending the time the sentence would have saved.
 
 ## Interview Example
 
@@ -267,18 +276,19 @@ POST /posts/{id}/reactions {type}          →  204
 
 ```text
 "GET /feed is the operation that sizes the system: 300 million
- daily users, five opens each, gives 15 thousand per second.
+ daily users, five opens each, gives ~17 thousand per second.
  It is a read, tolerates 30 seconds of staleness, and needs
  p95 under 500 ms.
 
  POST /posts is 500 million per day, or ~6 thousand per second —
- forty times less. It needs durability, tolerates 1 second of
+ a third of the reads, and each post written is read in many
+ feeds. It needs durability, tolerates 1 second of
  latency.
 
  POST /reactions has the highest absolute volume, but it is fire
  and forget: it can be asynchronous, and the count can be approximate.
 
- follows are rare: a few thousand per second, with no special
+ follows are rare: a few hundred per second, with no special
  requirement."
 ```
 

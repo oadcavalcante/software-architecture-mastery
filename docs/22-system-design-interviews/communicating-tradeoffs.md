@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-structure, failure-handling, interview-common-mistakes]
 canonical_for: [comunicação de trade-off, pensar em voz alta, condição que inverte a escolha]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -137,8 +137,8 @@ demonstra que o método foi seguido, não decorado. Ver
  o síncrono."
 ```
 
-Apresentar a alternativa com seus méritos reais — e não como espantalho — é o sinal mais forte de
-maturidade técnica. Ver
+Apresentar a alternativa com seus méritos reais — e não como espantalho — mostra que a escolha
+venceu um concorrente de verdade, e não uma versão enfraquecida montada para perder. Ver
 [alternativas em ADR](/18-architecture-decisions/adr-alternatives.md).
 
 ### Discorde com base, e mude de ideia com base
@@ -193,15 +193,17 @@ demonstra arquitetura.
 
 ## Quando Não Usar
 
-**Sem decidir** — hedge permanente é pior que escolha errada.
+**Decisão sem alternativa real no contexto.** Um balanceador de carga na frente de instâncias sem
+estado não tem concorrente plausível; enunciar custo e condição de inversão ali gasta tempo para
+demonstrar o que ninguém duvida. Basta nomear a caixa.
 
-**Com custo genérico** — "adiciona complexidade" não informa.
+**Decisão já coberta por uma prioridade declarada.** Se "disponibilidade acima de consistência"
+foi dito no início, cada escolha que só aplica essa prioridade dispensa a frase inteira — a
+condição de inversão é a mesma, e repeti-la dilui as decisões que de fato divergem dela.
 
-**Só ao final**, quando o desenho já está fechado.
-
-**Defendendo por defender** uma escolha diante de informação nova.
-
-**Sem a condição de inversão** — sem ela, a escolha parece dogma.
+**Tempo apertado com o entrevistador pedindo outro ponto.** Nos minutos finais, quando o
+entrevistador pediu para aprofundar um componente específico, a frase de três partes sobre
+decisões periféricas compete com o que ele quer avaliar. Diga a escolha e siga.
 
 ## Alternativas
 
@@ -220,7 +222,7 @@ cada decisão.
 |---|---|
 | Demonstra a cada decisão | Mais rápido |
 | Consome tempo | Menos explícito |
-| Convida correção cedo | Exige coerência |
+| Convida correção a cada decisão | Uma objeção à prioridade derruba várias escolhas de uma vez |
 
 | Defender a escolha | Ceder à sugestão |
 |---|---|
@@ -288,7 +290,7 @@ escolha, e pedir a informação que decidiria.
 ```
 
 Quatro elementos numa resposta de um minuto: a escolha, a razão ligada a um número, dois custos
-nomeados com mitigação, e duas condições que inverteriam a decisão.
+nomeados com mitigação, e a condição que inverteria a decisão.
 
 **Entrevistador propõe alternativa:**
 

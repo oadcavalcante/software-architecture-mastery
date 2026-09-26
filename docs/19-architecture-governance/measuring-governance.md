@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-pathologies, compliance, governance-basics]
 canonical_for: [atrito medido, efeito de mecanismo, indicador de governança, risco evitado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -21,12 +21,14 @@ last_reviewed: 2026-08-29
 
 ## Visão Geral
 
-Governança é a única área da engenharia em que mecanismos são criados sem nenhuma medição e
-mantidos indefinidamente sem nenhuma evidência.
+Em governança, um mecanismo pode ser criado sem nenhuma medição e mantido indefinidamente sem
+nenhuma evidência — ao contrário de um serviço em produção, que tem monitoramento para acusar
+quando deixa de cumprir a função.
 
 A razão é estrutural: o **efeito** de um mecanismo é um evento que não aconteceu, e o
 **custo** está distribuído em pequenos atrasos que ninguém soma. Os dois lados da conta são
-invisíveis, e uma conta invisível é sempre favorável ao que já existe.
+invisíveis, e, enquanto o ônus da prova recair sobre quem propõe remover, uma conta invisível
+favorece o que já existe.
 
 Medir governança é tornar os dois lados visíveis:
 
@@ -107,6 +109,14 @@ decisões alteradas por sessão       efeito
 A coluna da esquerda é o que aparece em relatórios de governança. A da direita é o que
 permite decidir.
 
+A coluna da direita tem o seu próprio risco: indicador que vira meta deixa de medir
+(Goodhart, 1975). Se "decisões alteradas por sessão" entra na avaliação do comitê, alterações
+cosméticas passam a ser registradas como efeito. A defesa é quem coleta: o registro de
+alteração é feito por quem teve a proposta alterada, não pelo revisor, e o indicador serve
+para decidir sobre o mecanismo, nunca para avaliar quem o opera. O custo de coletar é o de
+um campo a mais no registro de cada revisão — minutos por ocorrência, contra horas para
+reconstruir o dado depois.
+
 ### Indicadores que funcionam
 
 ```text
@@ -184,17 +194,16 @@ corte vier.
 
 ## Quando Não Usar
 
-**Medindo atividade.**
+**Mecanismo de volume baixo.** Uma aprovação que ocorre três vezes por ano custa menos em
+atrito total do que instrumentá-la; uma conversa anual com quem a usa basta.
 
-**Só o atrito** — leva a remover tudo.
+**Controle cuja existência não está em discussão.** Um requisito regulatório não será
+removido qualquer que seja o efeito medido; medir serve para ajustar como ele é cumprido,
+não para decidir se fica — e suspendê-lo para teste está fora de questão.
 
-**Só o efeito** — leva a manter tudo.
-
-**Com contrafactual não testado**, quando o teste seria viável.
-
-**Sem perguntar aos times.**
-
-**Suspendendo controle regulatório ou de segurança crítica** para testar.
+**Sem processo que aja sobre o resultado.** Se nenhum fórum tem autoridade para remover ou
+reformular mecanismos, a medição vira relatório sem consequência e consome o esforço de
+coleta sem retorno. Crie o processo de revisão antes de instrumentar.
 
 ## Alternativas
 
@@ -212,14 +221,14 @@ um suspeito.
 
 | Medir | Não medir |
 |---|---|
-| Decisão com evidência | Nenhum custo de medição |
-| Custo de instrumentação | Decisão por autoridade |
+| Decisão com evidência | Decisão por autoridade |
+| Custo de instrumentação | Nenhum custo de medição |
 | Expõe o inútil | Preserva o status quo |
 
 | Suspender e observar | Analisar |
 |---|---|
-| Conclusivo | Sem risco |
-| Exige tolerância | Inconclusivo |
+| Conclusivo | Inconclusivo |
+| Exige tolerância a risco | Sem risco |
 | Rápido | Indefinido |
 
 ## Modos de Falha
@@ -238,16 +247,20 @@ um suspeito.
 
 ## Erros Comuns
 
-**Criar mecanismo sem definir como medi-lo.**
+**Criar mecanismo sem definir como medi-lo** — o efeito nunca é registrado, e o mecanismo
+fica protegido pelo argumento contrafactual.
 
 **Não registrar quando uma revisão mudou uma decisão** — o dado que não se coleta na hora se
 perde.
 
-**Comparar organizações** em vez de comparar a mesma organização ao longo do tempo.
+**Comparar organizações** em vez de comparar a mesma organização ao longo do tempo — a
+comparação ignora diferenças de risco e de volume, e leva a cortar controles que o contexto
+local exige.
 
 **Não somar o atrito** — cada espera parece pequena isoladamente.
 
-**Não medir mecanismos removidos por ano.**
+**Não medir mecanismos removidos por ano** — sem esse número, a acumulação só é percebida
+quando o atrito já virou reclamação generalizada.
 
 ## Exemplo Real
 
@@ -276,10 +289,10 @@ aprovação de nova tecnologia      7 dec.    ~120 dias       reduzir escopo
 relatório mensal de aderência     0          ~90 dias       remover
 formulário de impacto              1        ~180 dias       remover
 verificação de licenças          14 itens     ~2 dias       manter
-... (7 outros)
+... (7 outros, somados)           6 itens   ~300 dias
 ```
 
-O contraste entre a terceira e a última linha foi o que mudou a conversa. A verificação
+O contraste entre a terceira e a sétima linha foi o que mudou a conversa. A verificação
 automática de licenças pegava 14 itens por ano com atrito quase nulo; o comitê de
 arquitetura alterava 3 decisões por ano ao custo de mais de um ano-pessoa de espera.
 
@@ -298,7 +311,7 @@ teria pego.
 — antes valia para qualquer biblioteca.
 
 **Sete mecanismos convertidos em verificação automática**, escolhidos pela razão entre
-atrito e efeito.
+atrito e efeito, e consolidados em quatro verificações na esteira.
 
 **Regra permanente**: nenhum mecanismo novo é criado sem definição prévia de como seu efeito
 será medido, e nenhum sobrevive a dois anos sem evidência de efeito.
@@ -307,8 +320,8 @@ Dezoito meses depois:
 
 ```text
 mecanismos                                  14 → 9
-atrito agregado                             de ~900 para ~220 dias/ano
-efeito agregado registrado                  de 55 para 71 itens/ano
+atrito agregado                             de ~1.200 para ~300 dias/ano
+efeito agregado registrado                  de 61 para 71 itens/ano
 incidentes nas classes de risco endereçadas  estável
 tempo de ciclo de projetos arquiteturais     -38%
 ```

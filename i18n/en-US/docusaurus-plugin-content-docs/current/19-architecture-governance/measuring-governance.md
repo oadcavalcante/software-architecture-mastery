@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-pathologies, compliance, governance-basics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,12 +21,14 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Governance is the one area of engineering in which mechanisms are created with no measurement
-at all and kept indefinitely with no evidence at all.
+In governance, a mechanism can be created with no measurement at all and kept indefinitely
+with no evidence at all — unlike a service in production, which has monitoring to flag when
+it stops doing its job.
 
 The reason is structural: a mechanism's **effect** is an event that didn't happen, and its
 **cost** is spread across small delays nobody adds up. Both sides of the ledger are
-invisible, and an invisible ledger always favors what already exists.
+invisible, and, as long as the burden of proof falls on whoever proposes removal, an
+invisible ledger favors what already exists.
 
 Measuring governance is making both sides visible:
 
@@ -109,6 +111,14 @@ decisions changed per session      effect
 The left-hand column is what appears in governance reports. The right-hand one is what lets
 you decide.
 
+The right-hand column carries its own risk: an indicator that becomes a target stops measuring
+(Goodhart, 1975). If "decisions changed per session" enters the committee's evaluation,
+cosmetic changes start being recorded as effect. The defense is who collects it: the change
+is recorded by whoever had the proposal changed, not by the reviewer, and the indicator serves
+to decide about the mechanism, never to evaluate whoever runs it. The cost of collecting is
+one more field in the record of each review — minutes per occurrence, against hours to
+reconstruct the data later.
+
 ### Indicators that work
 
 ```text
@@ -187,17 +197,16 @@ authority.
 
 ## When Not to Use
 
-**Measuring activity.**
+**A low-volume mechanism.** An approval that happens three times a year costs less in total
+friction than instrumenting it; a yearly conversation with the people who use it is enough.
 
-**Only friction** — it leads to removing everything.
+**A control whose existence is not up for discussion.** A regulatory requirement won't be
+removed whatever effect is measured; measuring serves to adjust how it is met, not to decide
+whether it stays — and suspending it to test is out of the question.
 
-**Only effect** — it leads to keeping everything.
-
-**With an untested counterfactual**, when the test would be viable.
-
-**Without asking the teams.**
-
-**Suspending a regulatory or critical security control** in order to test.
+**No process that acts on the result.** If no forum has the authority to remove or rework
+mechanisms, measurement becomes a report with no consequence and consumes the collection
+effort with no return. Create the review process before instrumenting.
 
 ## Alternatives
 
@@ -215,14 +224,14 @@ governance is a suspect.
 
 | Measure | Don't measure |
 |---|---|
-| Decisions with evidence | No measurement cost |
-| Instrumentation cost | Decisions by authority |
+| Decisions with evidence | Decisions by authority |
+| Instrumentation cost | No measurement cost |
 | Exposes the useless | Preserves the status quo |
 
 | Suspend and observe | Analyze |
 |---|---|
-| Conclusive | No risk |
-| Requires tolerance | Inconclusive |
+| Conclusive | Inconclusive |
+| Requires risk tolerance | No risk |
 | Fast | Open-ended |
 
 ## Failure Modes
@@ -241,15 +250,19 @@ governance is a suspect.
 
 ## Common Mistakes
 
-**Creating a mechanism without defining how to measure it.**
+**Creating a mechanism without defining how to measure it** — the effect is never recorded,
+and the mechanism stays shielded by the counterfactual argument.
 
 **Not recording when a review changed a decision** — data not collected at the time is lost.
 
-**Comparing organizations** instead of comparing the same organization over time.
+**Comparing organizations** instead of comparing the same organization over time — the
+comparison ignores differences in risk and volume, and leads to cutting controls the local
+context requires.
 
 **Not adding up the friction** — each wait looks small in isolation.
 
-**Not measuring mechanisms removed per year.**
+**Not measuring mechanisms removed per year** — without that number, accumulation is only
+noticed once friction has already become widespread complaint.
 
 ## Real-World Example
 
@@ -278,10 +291,10 @@ new technology approval           7 dec.     ~120 days      narrow scope
 monthly adherence report          0           ~90 days      remove
 impact form                       1          ~180 days      remove
 license check                    14 items      ~2 days      keep
-... (7 others)
+... (7 others, combined)          6 items   ~300 days
 ```
 
-The contrast between the third and the last line was what changed the conversation. The
+The contrast between the third and the seventh line was what changed the conversation. The
 automated license check caught 14 items a year with almost no friction; the architecture
 committee changed 3 decisions a year at a cost of more than a person-year of waiting.
 
@@ -300,7 +313,7 @@ caught.
 before it applied to any library.
 
 **Seven mechanisms converted into automated checks**, chosen by their ratio of friction to
-effect.
+effect, and consolidated into four checks in the pipeline.
 
 **A permanent rule**: no new mechanism is created without a prior definition of how its
 effect will be measured, and none survives two years with no evidence of effect.
@@ -309,8 +322,8 @@ Eighteen months later:
 
 ```text
 mechanisms                                   14 → 9
-aggregate friction                           from ~900 to ~220 days/year
-aggregate recorded effect                    from 55 to 71 items/year
+aggregate friction                           from ~1,200 to ~300 days/year
+aggregate recorded effect                    from 61 to 71 items/year
 incidents in the risk classes addressed       stable
 cycle time for architectural projects        -38%
 ```

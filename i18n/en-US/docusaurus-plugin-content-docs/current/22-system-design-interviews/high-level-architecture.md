@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-data-modeling]
 related: [bottleneck-identification, interview-scaling, interview-structure]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -98,7 +98,8 @@ answer, and the absence of one is more informative than any drawing.
 
 ### Start monolithic and split under pressure
 
-A choice that causes discomfort and is the correct one:
+A choice that causes discomfort and is the defensible starting point when the estimate has not yet
+pointed at a component with its own load profile:
 
 ```text
 first version   "application service" — one box
@@ -107,7 +108,7 @@ then            split where there is a reason: a different load
                 or a different team
 ```
 
-Drawing six microservices from the start is the most common error in mid-level interviews. It
+Drawing six microservices from the start is a frequent error in mid-level interviews. It
 signals that the split came from a mental template and not from the problem. See
 [monolith vs. microservices](/20-trade-offs/monolith-vs-microservices.md).
 
@@ -151,7 +152,7 @@ clarifies:
 
 ```text
 write   client → application → database → (event) → processing
-read    client → cache → application → replica
+read    client → application → cache → (miss) → replica
 ```
 
 That separation makes it obvious why the cache is on the read side, why the replica exists, and
@@ -181,19 +182,22 @@ something like Redis" — without taking center stage.
 
 ## When Not to Use
 
-**With fifteen boxes out of the gate.**
+**When the interviewer asks for depth directly.** "Design just the rate limiter" or "how would you
+shard this database?" already scopes the component. Drawing the complete flow first spends five
+minutes on a context they declared known, and signals that you did not hear the question.
 
-**Going deep before closing the flow.**
+**When the question is low-level or about an API.** Designing the interface of a payment client or
+the classes of a parking lot has no infrastructure boxes to justify; the equivalent here is the
+contract and the model, and forcing a load balancer onto the board is noise.
 
-**With unjustified components.**
-
-**Splitting into services with no declared reason.**
-
-**Naming by product** instead of by responsibility.
+**When the estimate has already revealed a dominant bottleneck.** If the problem is a feed with
+fan-out to millions of followers, a first drawing without the fan-out strategy omits exactly what
+will be evaluated. Following the rule here costs a whole round: the interviewer will ask for the
+component, and you will have drawn twice.
 
 ## Alternatives
 
-- **Describe the flow in text** — when there is no board; less effective and viable.
+- **Describe the flow in text** — when there is no board; less effective, but viable.
 - **Draw two flows** — read and write separately; better when the profiles diverge.
 - **Start with the bottleneck** — if the estimate has already pointed at one, drawing around it is
   legitimate.
@@ -204,12 +208,18 @@ something like Redis" — without taking center stage.
 |---|---|
 | Easy to explain and critique | Covers more |
 | Expands on demand | Consumes time |
-| Every box justified | Suggests memorization |
+| Less initial coverage | Shows repertoire up front |
 
 | Monolithic first | Split from the start |
 |---|---|
-| Split justified later | Looks more modern |
+| Split justified later | Discusses service boundaries from the start |
 | Fewer boxes to explain | More surface to defend |
+
+The cost of the simple design is being read as a lack of repertoire, and the risk grows with the
+seniority of the role: five boxes from a senior candidate can look like naivety, not discipline. The
+mitigation fits in one sentence said before asking where to go deeper — "the expansion points I
+foresee are the read path, if the cache hit rate drops, and click analytics, which would move off
+the synchronous path". That shows the repertoire exists and was left off the board by choice.
 
 ## Failure Modes
 
@@ -238,7 +248,8 @@ something like Redis" — without taking center stage.
 ## Interview Example
 
 **Problem.** "Design a URL shortener." Requirements and estimates already done: 12 thousand
-redirects per second, 120 creations per second, a 30 GB hot set.
+redirects per second, 120 creations per second, a 30 GB hot set, 10 TB stored in total (see
+[capacity estimation](/22-system-design-interviews/capacity-estimation.md)).
 
 **First drawing, in four minutes:**
 

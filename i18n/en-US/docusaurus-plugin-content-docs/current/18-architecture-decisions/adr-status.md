@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [superseding-decisions, adr-structure, what-is-an-adr]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,12 +21,13 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Status is the only field in the ADR that changes after it is written, and the change is
-always **additive**, never a rewrite.
+Status is the only field in the ADR that changes after acceptance — apart from correcting a
+factual or typographic error —, and a status change is **additive**, never a rewrite.
 
 ```text
 proposed           written, under discussion
 accepted           in force
+rejected           proposed and not accepted, kept as a record
 superseded by N    replaced, with a reference to the successor
 deprecated         no longer holds, with no replacement
 ```
@@ -68,14 +69,14 @@ The ADR exists, the reasoning is written, the decision is still under discussion
 ```text
 serves to          discuss on the basis of a document, not a conversation
 typical duration   days to two weeks
-outcome            accepted, or deprecated without ever having held
+outcome            accepted or rejected
 ```
 
 That status is underused. Writing the ADR **before** deciding is what captures the
 practice's most valuable effect — the decision that changes during the writing. See
 [why ADRs matter](/18-architecture-decisions/why-adrs-matter.md).
 
-A proposed ADR that is never accepted is not waste: it records that the option was
+A proposed ADR that ends up `rejected` is not waste: it records that the option was
 considered and why it didn't proceed.
 
 ### Accepted
@@ -120,12 +121,27 @@ Status: deprecated on 2025-08-04 — the recommendation service
         was decommissioned; the decision lost its subject.
 ```
 
-Used when the subject of the decision disappeared — the system was shut down, the problem
-ceased to exist, the requirement was removed.
+Used when the subject of a decision that was once accepted disappeared — the system was
+shut down, the problem ceased to exist, the requirement was removed. A proposal that never
+held is not deprecated: it is rejected.
 
 The reason is mandatory. "Deprecated" with no explanation is worse than nothing: someone
 finds the decision, sees it doesn't hold, and doesn't know whether it was replaced,
 reversed or forgotten.
+
+### Rejected
+
+The proposal was analyzed and not accepted. It is not a local variation: the MADR template
+lists `rejected` alongside `proposed`, `accepted`, `deprecated` and `superseded`.
+
+```text
+Status: rejected on 2025-03-18 — the latency gain did not pay
+        for operating a second database.
+```
+
+It is the status that preserves proposals that were analyzed and refused, which otherwise
+disappear — and it is what answers, years later, the question "has anyone thought about
+this before?".
 
 ### Why not edit
 
@@ -140,18 +156,20 @@ The acceptable exception: correcting a factual, typographic or link error, witho
 the reasoning. Corrections that change the meaning are not corrections — they are new
 decisions.
 
+Some teams allow an amendment: a dated addendum at the end of the accepted ADR, for an
+adjustment that does not reverse the decision. It preserves the original text, and so it
+coexists with immutability; the limit is the same as for corrections — an addendum that
+changes what was decided is a badly recorded successor. See
+[superseding](/18-architecture-decisions/superseding-decisions.md).
+
 ### Intermediate statuses some teams use
 
 ```text
-rejected      proposed and not accepted, kept as a record
 under review  accepted, but being reassessed
 conditional   accepted with a condition still to be confirmed
 ```
 
-Each addition increases the set's cognitive load. `rejected` is the one that pays off most —
-it preserves proposals that were analyzed and refused, which otherwise disappear.
-
-`under review` is useful in large organizations, to signal that nothing should be built on
+Each addition increases the set's cognitive load. `under review` is useful in large organizations, to signal that nothing should be built on
 that decision at the moment.
 
 ### Status has to be visible in the index
@@ -160,8 +178,8 @@ A set of ADRs with no index showing status forces you to open files to know what
 
 ```text
 ADR-001  Use PostgreSQL as the primary database    accepted     2022-04-11
-ADR-014  Process orders synchronously              superseded   2024-09-02
-ADR-047  Process orders asynchronously             accepted     2024-09-02
+ADR-014  Process orders synchronously              superseded   2026-01-20
+ADR-047  Process orders asynchronously             accepted     2026-01-20
 ADR-032  Adopt a distributed cache                 deprecated   2025-08-04
 ```
 
@@ -181,43 +199,53 @@ edit.
 
 ## When Not to Use
 
-**Editing the text** when the decision changes.
+**A small set, kept by a single team.** With a dozen ADRs and their authors still on the
+team, status with a date is enough: whoever asks "does this still hold?" asks whoever
+decided. A generated index and bidirectional references start paying off when the set grows
+past what someone remembers offhand, or when the people who decided leave.
 
-**Deleting superseded ADRs.**
+**A decision that is cheap to reverse.** The `proposed` window — days of discussion over a
+document — costs more than getting wrong a choice that can be undone in an afternoon. There
+the record can be born `accepted`; the lifecycle still applies to superseding, not to the
+proposal.
 
-**With no date** on the transitions.
-
-**With too many statuses** — each additional one has to pay for itself.
-
-**With no reason on `deprecated`.**
-
-**With no bidirectional reference** between the superseded one and its successor.
+**Statuses beyond MADR's five, with nobody consulting the distinction.** `under review` and
+`conditional` only pay off when someone refrains from building on the decision because of
+them; in a team that doesn't look at the index, they are load with no effect.
 
 ## Alternatives
 
-- **Version control history** — it records the edits, and nobody consults a file's history
-  to understand a decision.
+- **Version control history** — it records the edits, but whoever wants to understand a
+  decision opens the file, not its commit log.
 - **One living document per topic**, with internal history — loses granularity and
   referenceability.
 - **No status, only a date** — works in very small sets and fails as they grow.
 
 The first deserves a note: version control technically preserves the history, and does not
-make it accessible. "It's in the repository history" is, in practice, the same as not being
-there.
+make it accessible. "It's in the repository history", for someone who doesn't know there was
+an edit, is the same as not being there.
 
 ## Trade-offs
 
 | Immutable | Editable |
 |---|---|
-| Preserves the reasoning | Always reflects the current state |
-| Requires reading the index | Direct reading |
+| Changing a decision costs a new document | Changing a decision costs an edit |
+| Current state requires the index or the superseding chain | Current state read in the document itself |
 | Navigable history | History lost |
 
 | Few statuses | Many |
 |---|---|
-| Simple | More expressive |
+| Nuances such as reassessment stay out of the status | Nuances such as reassessment go into the status |
 | Less ambiguity | More load |
 | Sufficient in most cases | Useful at scale |
+
+The cost of the immutable column shows up in three places. Someone who reaches an ADR
+through a link — from a commit, from an internal page — may be reading a superseded
+decision, and only the status at the top of the document warns them. Long superseding chains
+force reading several documents to reconstruct the current state, and the generated index
+is what keeps that cheap. And when only part of the decision changes, the successor has to
+narrow the predecessor's scope instead of replacing it — a case covered in
+[superseding](/18-architecture-decisions/superseding-decisions.md).
 
 ## Failure Modes
 
@@ -236,15 +264,20 @@ record.
 
 ## Common Mistakes
 
-**Keeping ADRs up to date**, as if they were system documentation.
+**Keeping ADRs up to date**, as if they were system documentation — each update overwrites
+the context that justified the previous version.
 
-**Deleting the superseded one** for looking confusing.
+**Deleting the superseded one** for looking confusing — the successor ends up pointing to a
+document that doesn't exist, and "why did we change?" goes unanswered.
 
-**Not dating transitions.**
+**Not dating transitions** — there is no way to know whether a decision already held when an
+incident happened, nor how long the proposal stayed open.
 
-**Not referencing the predecessor** in the successor.
+**Not referencing the predecessor** in the successor — whoever reads the new decision doesn't
+find out that it reverses another, nor the reasons the previous one had.
 
-**Leaving the index manual**, which goes out of date.
+**Leaving the index manual** — it goes out of date and starts listing as in force a decision
+already superseded, which someone will then build on.
 
 ## Real-World Example
 
@@ -256,8 +289,8 @@ One episode exposed the problem. A team proposed migrating a service from synchr
 asynchronous communication. During the analysis, someone vaguely remembered that "this had
 been discussed before".
 
-The ADR found, from 2021, said the communication was asynchronous. The history at the end
-had three lines:
+The ADR found, from 2021, said the communication was synchronous, and nothing in the text
+indicated it had ever been anything else. The history at the end had three lines:
 
 ```text
 2021-05  created

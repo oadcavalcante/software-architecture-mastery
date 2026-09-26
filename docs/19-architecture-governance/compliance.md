@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, fitness-functions-governance, exceptions]
 canonical_for: [conformidade arquitetural, deriva de conformidade, evidência de conformidade, conformidade contínua]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -32,8 +32,9 @@ verificação contínua filme, barata por execução, não preparável
 ```
 
 A diferença não é de rigor. É que a primeira mede um momento escolhido, e a segunda mede o
-estado real. Sistemas preparados para auditoria passam em auditoria; sistemas verificados
-continuamente ou estão conformes, ou o desvio aparece no mesmo dia.
+estado real. Sistemas preparados para auditoria passam em auditoria; nos controles
+verificados continuamente, ou o sistema está conforme, ou o desvio aparece no mesmo dia. O
+que não foi codificado em verificação continua com a janela da auditoria.
 
 E há uma armadilha específica desta área: o que é fácil de verificar não é o que mais
 importa, e mede-se o fácil.
@@ -80,6 +81,15 @@ conformidade vira uma propriedade mantida — como um teste que não pode quebra
 
 Ver [funções de aptidão](/19-architecture-governance/fitness-functions-governance.md), que são a implementação
 natural.
+
+A verificação contínua é software, e traz o custo de software. Cada verificação precisa de
+um dono, porque o sistema que ela observa muda: um serviço migrado para outro armazenamento
+deixa a consulta de retenção olhando para um banco vazio, e ela passa a reportar conformidade
+sobre nada. Falso positivo tem custo próprio — o time que recebe três alertas indevidos numa
+semana aprende a fechar o quarto sem ler. E a verificação pode desviar do controle que
+deveria medir sem quebrar: continua verde, só que sobre outra coisa. Por isso a verificação
+também precisa ser verificada — um desvio plantado de propósito, de tempos em tempos, que
+ela tem de acusar.
 
 ### Verifique o efeito, não o artefato
 
@@ -188,13 +198,19 @@ preparação.
 
 **Sobre artefatos**, quando o efeito é verificável.
 
-**Para tudo com o mesmo rigor.**
-
 **Com evidência manual**, se houver alternativa automática.
 
-**Como prova de segurança.**
+**Contínua, quando o sistema muda menos que o ciclo de auditoria.** Um sistema alterado uma
+vez por ano não deriva entre revisões; a verificação diária confirma todo dia o mesmo
+resultado, e mantê-la custa mais do que a informação que ela acrescenta.
 
-**Sem chegar a quem pode corrigir.**
+**Contínua, quando o controle só se avalia por julgamento.** "A decisão foi tomada com a
+informação certa" não vira consulta; codificá-lo produz um proxy que volta a medir artefato.
+São os 3 de 14 controles que o banco do exemplo manteve em revisão trimestral.
+
+**Contínua, quando o parque é pequeno.** Com uma dúzia de sistemas que o mesmo grupo conhece,
+revisar à mão custa menos que construir e manter as verificações; o argumento de escala da
+evidência automática vale a partir do ponto em que o esforço manual deixa de caber na equipe.
 
 ## Alternativas
 
@@ -217,8 +233,8 @@ preparação.
 
 | Verificar efeito | Verificar artefato |
 |---|---|
-| Informa | Fácil e barato |
-| Caro de construir | Escala trivialmente |
+| Informa sobre o controle | Informa sobre o documento |
+| Caro de construir e de manter | Barato de construir |
 | Difícil de burlar | Burlável |
 
 ## Modos de Falha
@@ -237,11 +253,13 @@ preparação.
 
 ## Erros Comuns
 
-**Medir existência de documento.**
+**Medir existência de documento**, o que produz taxa alta com controle ausente — 9 dos 14
+controles do exemplo abaixo mediam assim.
 
 **Não expirar exceções**, que viram deriva permanente. Ver [exceções](/19-architecture-governance/exceptions.md).
 
-**Relatar só para cima.**
+**Relatar só para cima**, o que faz o desvio ser discutido em comitê em vez de corrigido
+pelo time, e o tempo até a correção passa a ser o intervalo entre reuniões.
 
 **Verificar apenas o que já está automatizado**, sem cobrir o que importa e é difícil.
 
@@ -297,14 +315,16 @@ Resultados após 14 meses:
 
 ```text
 conformidade real, medida diariamente         89%
-tempo médio entre desvio e correção            2,4 dias (antes: até 6 meses)
+tempo médio entre desvio e correção            2,4 dias (antes: não medido — semestres, ou nunca)
 sistemas fora do inventário                    0
 exceções vencidas em uso                       0
 esforço de preparação para auditoria          de ~600 h/ano para ~40 h/ano
 ```
 
 Na retrospectiva: o número de 94% nunca foi mentira — ele era verdadeiro sobre a
-amostra e sobre o dia. O erro estava em lê-lo como afirmação sobre a organização.
+amostra e sobre o dia. Mas era verdadeiro sobre documentos: em 9 dos 14 controles, o que se
+contava era o artefato, não o efeito. O erro estava em lê-lo como afirmação sobre a
+organização.
 
 E o dado que mais mudou o comportamento não foi a taxa de conformidade, e sim o tempo entre
 desvio e correção. Ele transformou conformidade de evento em propriedade mantida.

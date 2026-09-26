@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-status]
 related: [adr-status, adr-context, adr-alternatives]
 canonical_for: [superação de decisão, cadeia de decisões, mudança de contexto registrada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -51,8 +51,8 @@ O terceiro é o mais comum na prática e o mais confuso: alguém encontra o ADR-
 "síncrono", não encontra o ADR-047, e conclui que a decisão vigente é síncrona.
 
 E há um problema anterior a todos: a decisão que **precisa** ser superada e não é. Ela
-continua registrada como vigente enquanto o sistema já faz outra coisa — o que é o pior
-estado possível, porque o registro passa a mentir com aparência de autoridade.
+continua registrada como vigente enquanto o sistema já faz outra coisa — estado pior que a
+ausência de registro, porque o registro passa a mentir com aparência de autoridade.
 
 ## Conceitos Centrais
 
@@ -174,15 +174,16 @@ sobre o seu momento.
 
 ## Quando Não Usar
 
-**Editando o ADR antigo.**
+**Quando só parte do escopo muda e o original declarou esse escopo com clareza** — um ADR
+que restringe o anterior preserva a parte que continua valendo, enquanto superar por
+inteiro obriga o sucessor a redecidir o que ninguém questionou.
 
-**Apagando o superado.**
+**Quando o contexto não mudou** e a revisão nasce da preferência de quem chegou depois — sem
+premissa nova para citar, o sucessor não tem o que pôr na seção "o que mudou", e a cadeia
+ganha um elo que só registra troca de opinião.
 
-**Sem explicar o que mudou** no contexto do sucessor.
-
-**Como emenda** — o sucessor precisa ser completo.
-
-**Sem referência bidirecional.**
+**Quando a reavaliação mantém a decisão** — superar um ADR por outro idêntico com data nova
+alonga a cadeia sem informação; o registro certo é uma revisão sem mudança.
 
 **Para decisões que nunca foram implementadas** — o status correto é descontinuado.
 
@@ -229,11 +230,13 @@ alguém verificou, o que é diferente de ninguém ter olhado.
 
 **Escrever o sucessor como emenda** ao anterior.
 
-**Não datar a superação.**
+**Não datar a superação** — sem data, não se sabe por quanto tempo a decisão vigorou, e o
+sinal de "superada em menos de 1 ano" deixa de ser legível na cadeia.
 
 **Não reconhecer divergência da prática**, mantendo o ADR ficcional.
 
-**Não registrar revisões que mantiveram a decisão.**
+**Não registrar revisões que mantiveram a decisão** — uma decisão verificada e mantida fica
+indistinguível de uma que ninguém olhou.
 
 **Numerar o sucessor com o mesmo número** do antecessor, com sufixo — quebra a
 referenciabilidade.

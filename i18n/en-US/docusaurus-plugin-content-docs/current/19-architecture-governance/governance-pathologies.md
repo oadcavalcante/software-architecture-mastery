@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-review, measuring-governance]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -114,8 +114,8 @@ effect    a recurring cost with no effect
 way out   suspend it for a quarter and observe what breaks
 ```
 
-Temporary suspension is the most efficient test available, and the hardest to get
-authorization for.
+When the risk the ritual covers would occur more than once a quarter, temporary suspension
+is the most efficient test available, and the hardest to get authorization for.
 
 ### Ivory tower architecture
 
@@ -150,8 +150,8 @@ effect    decisions get worse; the architecture group becomes an adversary
 way out   hard — it requires changing incentives, not the process
 ```
 
-This is the most serious one, because the others have a technical solution and this one does
-not. The warning signal: the mechanism is defended by arguments from authority and not by
+This is the most serious one, because the others are solved by changing the process and this
+one is not. The warning signal: the mechanism is defended by arguments from authority and not by
 evidence of risk prevented.
 
 ### The absence of a removal mechanism
@@ -214,8 +214,9 @@ large organizations.
 **Without measuring first** — removing a mechanism without knowing what it prevents is a
 gamble.
 
-**In small organizations**, where the diagnosis is usually excess formality and not
-pathology.
+**When one person knows every mechanism and its owner.** The catalog diagnoses accumulation
+without removal; in a set that size, excess formality shows up in individual mechanisms and
+is fixed one at a time, with no inventory.
 
 ## Alternatives
 
@@ -226,7 +227,10 @@ pathology.
 - **Replacement by automation** — the human mechanism becomes a check.
 
 The first is the most underused and the most informative: it produces evidence instead of an
-argument.
+argument — provided the window covers at least one expected event. A mechanism that catches
+something once every 24 months goes a quarter in silence about 88% of the time (e^(-3/24)),
+suspended or not; for rare, severe risk, a quiet quarter does not authorize removal, and the
+evidence has to come from the record of catches.
 
 ## Trade-offs
 
@@ -238,9 +242,9 @@ argument.
 
 | Suspend and observe | Decide by analysis |
 |---|---|
-| Real evidence | No risk |
+| Observed evidence | Inferred evidence |
 | Requires risk tolerance | Endless discussion |
-| Conclusive | Inconclusive |
+| Conclusive for frequent risk | Inconclusive without a record |
 
 ## Failure Modes
 
@@ -258,9 +262,11 @@ argument.
 
 **Proposing a new mechanism** as the response to a mechanism that failed.
 
-**Not dating mechanisms** at creation.
+**Not dating mechanisms** at creation. With no date, no review is ever due, and the mechanism
+is only reexamined when someone dares to propose taking it out.
 
-**Not measuring friction.**
+**Not measuring friction.** The removal proposal has no argument against whoever defends the
+mechanism by the risk it prevents: one side brings an incident, the other an impression.
 
 **Confusing ritual with culture** — the meeting that "has always existed" is rarely culture.
 
@@ -324,7 +330,7 @@ set starts growing again.
 Results after 12 months:
 
 ```text
-mechanisms                                    34 → 15
+manual mechanisms (excluding 11 automated)   34 → 16
 average approval time for a new project       from 26 to 4 days
 incidents attributable to a removed mechanism  1 — the dependency check,
                                               reinstated
@@ -360,7 +366,7 @@ mechanism you examine first.
 
 - Why doesn't looking for culprits help in diagnosing degenerate governance?
 - Why is temporarily suspending better than discussing whether a mechanism is necessary?
-- Which pathology has no technical solution, and why?
+- Which pathology can't be solved by changing the process, and why?
 
 ## Further Reading
 

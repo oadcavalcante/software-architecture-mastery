@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-structure]
 related: [interview-structure, communicating-tradeoffs, requirement-clarification]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -270,11 +270,14 @@ The practical resolution: pick two behaviors per mock, and not ten.
 
 ## Common Mistakes
 
-The ones in this document, and a meta-mistake: **preparing by memorizing solutions instead of
-training the method**.
+The ones in this document, and a preparation meta-mistake: **practicing without a counterpart**,
+solving prompts alone or on paper.
 
-The method transfers to new prompts; the memorized solution does not. And experienced interviewers
-introduce variations precisely because they know that.
+Half of the catalog above only shows up when someone interrupts: the follow-up question that exposes
+the memorized architecture, the objection that tests whether you ignore or cave, the clock someone
+else controls. Alone, the candidate practices the part they already master — producing a design —
+and arrives at the interview without having exercised the part that fails. What closes that gap is
+a mock with someone playing the interviewer, free to change the prompt midway.
 
 ## Interview Example
 
@@ -311,8 +314,9 @@ candidate     "Before drawing, a few questions.
               for the same user?"
 ```
 
-Four questions, each one changing the architecture: the channels define the adapters; scheduling
-defines a whole component; a delivery guarantee defines persistence and acknowledgment; ordering
+Four questions and one proposed assumption, each one changing the architecture: the channels
+define the adapters; scheduling defines a whole component; a delivery guarantee defines persistence
+and acknowledgment; the scale, with its 10× peak, sizes the queue and the consumers; ordering
 defines partitioning.
 
 **The design that follows, with justification:**

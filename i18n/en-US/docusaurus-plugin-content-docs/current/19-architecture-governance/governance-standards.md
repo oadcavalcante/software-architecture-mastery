@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-principles]
 related: [governance-principles, exceptions, compliance]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -130,7 +130,8 @@ communicated but not adopted     the standard is wrong, or the path is missing
 adopted but not converged        the migration lacks a plan and sponsorship
 ```
 
-Reinforcing the obligation — the default institutional response — solves none of the three.
+Reinforcing the obligation without a path or funding — the default institutional response —
+solves none of the three.
 
 ### Retirement is part of the cycle
 
@@ -195,9 +196,11 @@ date, it is already rotting.
 
 **Without answering who pays for the migration.**
 
-**Where the context genuinely varies** — that is a principle.
+**Where the context genuinely varies** — teams or platforms with divergent needs, who would
+request exceptions often; that is a principle.
 
-**In large numbers.**
+**Above ~15 active standards, without removing another** — the new one dilutes attention to
+the existing ones.
 
 **Without measuring adoption** — without that, you don't know whether it exists.
 
@@ -283,9 +286,10 @@ And the 9 referencing a discontinued technology were still being cited in review
 
 The restructuring took nine months:
 
-**From 71 to 19 standards.** The 18 non-measurable ones were removed or reworded until they
-became verifiable; the 22 with adoption below 30% were examined one by one — 15 removed, 7
-kept with a funded adoption plan.
+**From 71 to 19 standards.** Of the 18 non-measurable ones, 15 were removed and 3 reworded
+until they became verifiable; the 22 with adoption below 30% were examined one by one — 15
+removed, 7 kept with a funded adoption plan; the 31 above 30% were consolidated into 9,
+merged with each other or embedded in templates, where they no longer needed a document.
 
 **Ownership as a role** for each remaining standard, with the owner being someone on a team
 that applies the standard, not from the central group.
@@ -305,13 +309,16 @@ the standard, not with the teams.
 Two years later:
 
 ```text
-standards                                      23
-with adoption above 80%                        19
-with an owner and a review date                23
+standards                                      20
+with adoption above 80%                        16
+with an owner and a review date                20
 retired during the period                       6
 promoted from recommendation to mandatory       7
 recommendations revised for low adoption        4
 ```
+
+Seven in against six out: the net one is the only regulatory exception to the swap rule
+during the period.
 
 The 4 revised for low adoption are the figure the team values most. In three of them the
 problem was a missing migration path; in one, the standard was simply wrong — it prescribed

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [bottleneck-identification]
 related: [bottleneck-identification, failure-handling, high-level-architecture]
 canonical_for: [escala em entrevista, ordem de escalada, escalada barata primeiro]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -46,7 +46,8 @@ Dois padrões de erro.
 usuário." Particionar é a resposta mais visível e uma das mais caras: ela introduz consultas
 distribuídas, rebalanceamento, chaves quentes e transações que atravessam partições.
 
-Se o gargalo é leitura, particionar não resolve nada — réplicas resolvem. Se o gargalo é conjunto
+Se o gargalo é só leitura, particionar também divide a carga, mas paga consultas distribuídas e
+rebalanceamento por algo que réplicas ou cache resolvem sem mudar o modelo de dados. Se o gargalo é conjunto
 quente maior que a memória, particionar o cache resolve; particionar o banco não.
 
 **Responder "adiciono máquinas" a tudo.** Funciona para componentes sem estado e falha para os
@@ -182,7 +183,7 @@ primeiro é o erro.
  passar de 10 mil."
 ```
 
-Declarar o ponto de parada com gatilho numérico é a resposta mais madura possível a uma pergunta
+Declarar o ponto de parada com gatilho numérico é uma das respostas mais fortes a uma pergunta
 de escala. Ela mostra que o candidato sabe escalar e sabe quando não.
 
 Há uma razão para isso ser tão valorizado: em produção, a maior parte das decisões de escala é
@@ -201,7 +202,7 @@ permanente que o anterior.
 
 ## Quando Usar
 
-- Depois de identificar o gargalo, nunca antes.
+- Depois de identificar o gargalo; antes disso, a escolha do degrau não tem base.
 - Na ordem, mencionando os degraus que você pulou e por quê.
 - Com gatilho numérico para os degraus que ficaram de fora.
 
@@ -216,6 +217,13 @@ permanente que o anterior.
 **Sem declarar a consequência** de cada degrau — atraso de replicação, invalidação, chave quente.
 
 **Sem dizer onde parar** — escalar indefinidamente numa entrevista sugere que não há critério.
+
+A ordem em si deixa de valer quando o enunciado já fixa um volume acima do teto de um nó: escrita
+ou dados que nenhuma máquina comporta tornam o particionamento o ponto de partida, não o sexto
+degrau. O mesmo vale quando o requisito de disponibilidade exclui uma instância única — aí a
+escala vertical sozinha sai da escada — ou quando o crescimento declarado torna a migração
+posterior mais cara que a complexidade antecipada. Nesses casos, pular degraus é a resposta,
+desde que o número que justifica o pulo seja dito.
 
 ## Alternativas
 
@@ -236,7 +244,7 @@ contador aproximado resolvem problemas de escala sem nenhuma infraestrutura adic
 
 | Vertical | Horizontal |
 |---|---|
-| Simples, sem mudança de desenho | Sem teto |
+| Simples, sem mudança de desenho | Teto dado pelo estado compartilhado, não pela máquina |
 | Teto real | Exige ausência de estado |
 | Ponto único de falha | Tolerância a falha |
 
@@ -297,8 +305,8 @@ abertura, e são 15 mil aberturas por segundo — 1,4 milhão de consultas por s
  publicação, escrevo o post na lista de cada seguidor. A leitura
  vira uma consulta em vez de 96.
 
- A consequência: 500 milhões de posts por dia × seguidores
- médios. Para a maioria, isso é barato. Para contas com milhões
+ A consequência: 9 milhões de posts por dia × seguidores
+ médios em escritas. Para contas pequenas, isso é barato. Para contas com milhões
  de seguidores, é proibitivo — então uso estratégia híbrida:
  materializo para contas pequenas, consulto na leitura para as
  grandes, e mesclo."
@@ -309,8 +317,10 @@ abertura, e são 15 mil aberturas por segundo — 1,4 milhão de consultas por s
 ```text
 "Eu pararia aqui. Particionar o armazenamento do feed
  materializado seria o próximo degrau, e o gatilho seria o
- volume de feeds não caber no armazenamento atual — algo em
- torno de 600 GB no meu cálculo, com folga larga.
+ volume de feeds não caber no armazenamento atual. Com feed
+ limitado a 600 entradas: 24 milhões de usuários × 600 × ~40
+ bytes ≈ 600 GB, independente da taxa de publicação — cabe
+ com folga.
 
  Não faria isso agora."
 ```
@@ -340,9 +350,9 @@ entrevista pronta e um plano de capacidade real.
 
 ## Perguntas de Entrevista
 
-- Por que particionar não resolve gargalo de leitura?
+- Por que réplicas vêm antes de particionar quando o gargalo é leitura?
 - Por que escala vertical merece ser considerada antes de horizontal?
-- Por que declarar onde você pararia é a resposta mais madura?
+- Por que declarar onde você pararia fortalece a resposta?
 
 ## Para Aprofundar
 

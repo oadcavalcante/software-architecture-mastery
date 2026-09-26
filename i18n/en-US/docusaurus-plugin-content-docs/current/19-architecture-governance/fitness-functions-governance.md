@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [compliance, governance-standards, governance-basics]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -33,10 +33,19 @@ a fitness function  the dependency graph is checked at build time;
 ```
 
 The difference between the two lines is the difference between an intention and a mechanism.
-The first is true when someone remembers; the second is always true.
+The first is true when someone remembers; the second, for as long as the check runs in the
+pipeline — and it stops being true when someone disables it or hollows it out with
+exclusions, which is how it erodes.
 
-It is the governance instrument with the best ratio of effect to friction — and the one that
-demands the most up-front investment.
+For measurable properties, it costs less friction per unit of effect than manual review,
+which demands attention on every change — and it demands more up-front investment than any
+written rule.
+
+The mechanics of building and operating a function — atomic and holistic, message, false
+positives — are in [Fitness Functions](/23-architecture-leadership/fitness-functions.md).
+This document covers the governance slice: the function as an intervention point, its
+relationship with exceptions and review, and the line between what it checks and what is
+left to judgment.
 
 ## Problem
 
@@ -74,21 +83,20 @@ resilience     recovery time measured in a chaos test
 The criterion is always the same: **is the property statable and measurable?** If so, it is a
 candidate.
 
-### Atomic and holistic, continuous and triggered
+### Continuous or triggered
 
 ```text
-atomic      checks an isolated component — a module, a service
-holistic    checks a property of the whole — end-to-end latency
 continuous  runs on every change, in the pipeline
 triggered   runs periodically or on demand — too expensive for every change
 ```
 
-Most of the value is in the atomic and continuous ones, which are cheap. The holistic and
-triggered ones cover properties that only exist in the whole, and therefore they are the ones
-that uncover the most expensive problems.
-
-See [observability](/13-observability/index.md) — several holistic functions are queries over
-data that is already being collected.
+For governance, the difference is the moment of intervention: a continuous function stops
+the violation before it gets in; a triggered one finds it afterwards, and so it needs a
+destination — an alert with an owner or a review item — or it becomes a report nobody reads.
+The distinction between atomic and holistic is in the
+[canonical document](/23-architecture-leadership/fitness-functions.md#atomic-and-holistic);
+several holistic functions are queries over data that
+[observability](/13-observability/index.md) already collects.
 
 ### Fail or warn
 
@@ -105,17 +113,13 @@ The right choice depends on one question: **if this fails, is it always an error
 answer is "sometimes it is legitimate", the check should warn, not block — and the legitimate
 case should become a [recorded exception](/19-architecture-governance/exceptions.md).
 
-### The function has to say what to do
+### The message is the door to the exception process
 
-```text
-bad    "architectural rule violation ARCH-014"
-good   "the orders module imports from the billing module directly
-       (Order.java:82). Use the public interface BillingService.
-       If the dependency is legitimate, record an exception at <path>."
-```
-
-A check that fails without explaining produces the reaction of working around it rather than
-fixing it. The message text is part of the function's design, not a detail.
+The actionable message — file, line, correct alternative — is covered in the
+[canonical document](/23-architecture-leadership/fitness-functions.md#the-message-is-part-of-the-design).
+What belongs to governance is its last line: the path to record an exception. Without that
+path, someone with a legitimate case has only two ways out — asking for the check to be
+turned off or adding a silent exclusion — and both take the rule out of governance's reach.
 
 ### What cannot be automated
 
@@ -136,34 +140,15 @@ why fitness functions replace part of governance, not all of it.
 The useful split: automated verification frees human attention for the questions only it can
 answer.
 
-### Start where it already hurts
+### Adoption, ownership and review
 
-The most common adoption error is building a comprehensive set before having any of them in
-production.
-
-```text
-1. pick a rule that has already been violated and caused damage
-2. implement the simplest check that catches it
-3. run it in warning mode for a few weeks
-4. fix the backlog
-5. only then make it fail
-```
-
-Step 3 is what prevents rejection: turning on a blocking check over a codebase that violates
-it in 40 places interrupts everyone's work on the same day.
-
-### They also need an owner and review
-
-A fitness function is code, with maintenance, false positives and obsolescence.
-
-```text
-no owner                    it breaks and gets disabled
-no review                   it checks a rule that no longer holds
-high false positive rate    it gets ignored, then removed
-```
-
-The false positive rate is the most important health metric. Above a low threshold, the check
-loses credibility and starts being worked around by reflex.
+The adoption protocol — start with the rule that has already caused damage, warn before
+blocking — and the operation of each function — owner, review, false positive rate — are in
+the [canonical document](/23-architecture-leadership/fitness-functions.md#start-with-the-rule-that-has-already-caused-damage).
+On the governance side, what changes is where this is recorded: each function points to the
+[decision](/19-architecture-governance/governance-standards.md) that originated it, and the
+periodic review of the standard includes the function's exclusion list — that is where the
+rule loses validity without anyone deciding so.
 
 ## Mental Model
 
@@ -179,17 +164,25 @@ the human is what requires judgment.
 
 ## When Not to Use
 
-**For judgment** — appropriateness, boundaries, trade-offs.
+**For judgment** — boundary appropriateness, modeling, trade-offs. There is no measure to
+compare against, and a check that pretends to measure pulls the conversation away from
+review, where it needs to happen.
 
-**Blocking from day one**, over a backlog that violates it.
+**When the rule still changes faster than the check can settle.** A disputed convention,
+revised every quarter, produces false positives at every revision; until it settles, human
+review costs less.
 
-**With no actionable message.**
+**When the codebase is small or short-lived.** A service to be decommissioned in months, or a
+system where three people read every change: building and maintaining the check costs more
+than the violations it would catch.
 
-**With no owner.**
+**When measuring requires an environment the pipeline lacks.** Latency under real load or
+recovery in a chaos test don't pay off as continuous checks; they become triggered functions
+or reports.
 
-**With a high false positive rate.**
-
-**As a substitute for all governance.**
+**When nobody can own it.** A function with no owner breaks at the first platform change and
+gets disabled — and the disabling teaches that the rule is negotiable, which is worse than
+never having created it.
 
 ## Alternatives
 
@@ -200,7 +193,9 @@ the human is what requires judgment.
   mechanism, with a regulatory focus.
 - **A periodic report** — when the property is a trend and not an event.
 
-The first is always preferable where applicable: a mesh that rejects unauthenticated traffic
+The first is preferable when the platform can enforce the property with no legitimate
+exception case — where legitimate exceptions exist, the built-in block becomes rigidity and
+the case moves outside the platform: a mesh that rejects unauthenticated traffic
 makes the corresponding check unnecessary. See
 [governance basics](/19-architecture-governance/governance-basics.md).
 
@@ -293,9 +288,10 @@ service boundary, domain modeling, justification of complexity and choice of con
 Results after 11 months:
 
 ```text
-functions in operation                          9
-remaining violations                           26 (against 411)
-exceptions recorded with a deadline            18
+functions in operation                          9 (9 of the 22 verifiable rules)
+violations in the 9 covered rules              26 (against 187 in the survey)
+  of which with a recorded exception and deadline  18
+verifiable rules still without a function      13 (still in review)
 average time between introduction and detection minutes (before: months)
 average false positive rate                   1.8%
 incidents caused by direct access to
@@ -304,7 +300,10 @@ code review time spent on
   rule checking                                reduced by ~60%
 ```
 
-The last number is what the team considers most important and the easiest to overlook:
+The 8 violations without an exception are being fixed, under warning. The 13 verifiable
+rules without a function were not measured again: the 26 says nothing about them.
+
+The last number in the table is what the team considers most important and the easiest to overlook:
 automation did not replace review, it freed review. The conversations came to be about
 boundaries and modeling — the four rules no function verifies.
 

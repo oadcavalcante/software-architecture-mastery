@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-structure, failure-handling, interview-common-mistakes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -138,8 +138,8 @@ demonstrates that the method was followed, not memorized. See
  the synchronous version."
 ```
 
-Presenting the alternative with its real merits — and not as a straw man — is the strongest sign of
-technical maturity. See
+Presenting the alternative with its real merits — and not as a straw man — shows that the choice
+beat a real competitor, not a weakened version set up to lose. See
 [alternatives in an ADR](/18-architecture-decisions/adr-alternatives.md).
 
 ### Disagree on a basis, and change your mind on a basis
@@ -195,15 +195,18 @@ demonstrates architecture.
 
 ## When Not to Use
 
-**Without deciding** — permanent hedging is worse than a wrong choice.
+**A decision with no real alternative in context.** A load balancer in front of stateless
+instances has no plausible competitor; stating a cost and an inversion condition there spends time
+demonstrating what nobody doubts. Naming the box is enough.
 
-**With a generic cost** — "adds complexity" informs nothing.
+**A decision already covered by a declared priority.** If "availability over consistency" was
+said at the start, every choice that merely applies that priority can skip the full sentence — the
+inversion condition is the same, and repeating it dilutes the decisions that actually diverge from
+it.
 
-**Only at the end**, when the design is already closed.
-
-**Defending for the sake of defending** a choice in the face of new information.
-
-**Without the inversion condition** — without it, the choice looks like dogma.
+**Tight time with the interviewer asking about something else.** In the final minutes, when the
+interviewer has asked to go deeper on a specific component, the three-part sentence about
+peripheral decisions competes with what they want to evaluate. State the choice and move on.
 
 ## Alternatives
 
@@ -222,7 +225,7 @@ decision.
 |---|---|
 | Demonstrates at each decision | Faster |
 | Consumes time | Less explicit |
-| Invites early correction | Requires coherence |
+| Invites correction at each decision | One objection to the priority topples several choices at once |
 
 | Defend the choice | Yield to the suggestion |
 |---|---|
@@ -290,7 +293,7 @@ basis of the choice, and ask for the information that would decide it.
 ```
 
 Four elements in a one-minute answer: the choice, the reason tied to a number, two named costs with
-mitigations, and two conditions that would invert the decision.
+mitigations, and the condition that would invert the decision.
 
 **The interviewer proposes an alternative:**
 

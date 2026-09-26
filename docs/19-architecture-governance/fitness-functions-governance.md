@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [compliance, governance-standards, governance-basics]
 canonical_for: [função de aptidão, governança executável, aptidão contínua, regra não automatizável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -33,10 +33,18 @@ função de aptidão o grafo de dependências é verificado na construção;
 ```
 
 A diferença entre as duas linhas é a diferença entre uma intenção e um mecanismo. A
-primeira é verdadeira quando alguém lembra; a segunda é verdadeira sempre.
+primeira é verdadeira quando alguém lembra; a segunda, enquanto a verificação roda na
+esteira — e deixa de ser quando alguém a desabilita ou a esvazia com exclusões, que é o
+modo como ela erode.
 
-É o instrumento de governança com a melhor relação entre efeito e atrito — e o que mais
-exige investimento inicial.
+Para propriedades mensuráveis, cobra menos atrito por efeito que a revisão manual, que
+exige atenção a cada mudança — e exige mais investimento inicial que qualquer regra escrita.
+
+A mecânica de construir e operar uma função — atômica e holística, mensagem, falso
+positivo — está em [Funções de Aptidão](/23-architecture-leadership/fitness-functions.md).
+Este documento trata do recorte de governança: a função como ponto de intervenção, sua
+relação com exceções e revisão, e a fronteira entre o que ela verifica e o que fica para
+julgamento.
 
 ## Problema
 
@@ -74,21 +82,19 @@ resiliência    tempo de recuperação medido em teste de caos
 O critério é sempre o mesmo: **a propriedade é afirmável e mensurável?** Se sim, é
 candidata.
 
-### Atômica e holística, contínua e disparada
+### Contínua ou disparada
 
 ```text
-atômica     verifica um componente isolado — um módulo, um serviço
-holística   verifica uma propriedade do conjunto — latência ponta a ponta
 contínua    executa a cada mudança, na esteira
 disparada   executa periodicamente ou sob demanda — caro demais para toda mudança
 ```
 
-A maior parte do valor está nas atômicas e contínuas, que são baratas. As holísticas e
-disparadas cobrem propriedades que só existem no conjunto, e por isso são as que descobrem
-os problemas mais caros.
-
-Ver [observabilidade](/13-observability/index.md) — várias funções holísticas são
-consultas sobre dados que já estão sendo coletados.
+Para a governança, a diferença é o momento da intervenção: a contínua barra a violação
+antes de ela entrar; a disparada a encontra depois, e por isso precisa de um destino — um
+alerta com dono ou um item de revisão —, senão vira relatório que ninguém lê. A distinção
+entre atômica e holística está no [documento canônico](/23-architecture-leadership/fitness-functions.md#atômica-e-holística);
+várias funções holísticas são consultas sobre dados que
+[observabilidade](/13-observability/index.md) já coleta.
 
 ### Falhar ou avisar
 
@@ -105,17 +111,13 @@ A escolha correta depende de uma pergunta: **se isto falhar, é sempre um erro?*
 resposta for "às vezes é legítimo", a verificação deveria avisar, não bloquear — e o caso
 legítimo deveria virar [exceção registrada](/19-architecture-governance/exceptions.md).
 
-### A função precisa dizer o que fazer
+### A mensagem é a porta do processo de exceção
 
-```text
-ruim   "violação de regra arquitetural ARCH-014"
-bom    "o módulo de pedidos importa do módulo de faturamento diretamente
-       (Pedido.java:82). Use a interface pública FaturamentoService.
-       Se a dependência for legítima, registre exceção em <caminho>."
-```
-
-Uma verificação que falha sem explicar produz a reação de contornar em vez de corrigir. O
-texto da mensagem é parte do desenho da função, não um detalhe.
+A mensagem acionável — arquivo, linha, alternativa correta — é tratada no
+[documento canônico](/23-architecture-leadership/fitness-functions.md#a-mensagem-é-parte-do-desenho).
+O que cabe à governança é a última linha dela: o caminho para registrar exceção. Sem esse
+caminho, quem tem um caso legítimo só tem duas saídas — pedir para desligar a verificação ou
+acrescentar uma exclusão silenciosa — e as duas tiram a regra do alcance da governança.
 
 ### O que não pode ser automatizado
 
@@ -136,34 +138,15 @@ substituem parte da governança, não toda.
 A repartição útil: a verificação automática libera a atenção humana para as perguntas que só
 ela responde.
 
-### Começar por onde já dói
+### Adoção, dono e revisão
 
-O erro de adoção mais comum é construir um conjunto abrangente antes de ter qualquer um em
-produção.
-
-```text
-1. escolha uma regra que já foi violada e causou dano
-2. implemente a verificação mais simples que a pegue
-3. rode em modo de aviso por algumas semanas
-4. corrija o acervo
-5. só então faça falhar
-```
-
-O passo 3 é o que evita a rejeição: ligar uma verificação em modo bloqueante sobre uma base
-de código que a viola em 40 lugares interrompe o trabalho de todos no mesmo dia.
-
-### Elas também precisam de dono e revisão
-
-Uma função de aptidão é código, com manutenção, falsos positivos e obsolescência.
-
-```text
-sem dono          quebra e é desabilitada
-sem revisão       verifica uma regra que não vale mais
-com falso positivo alto  é ignorada, depois removida
-```
-
-A taxa de falso positivo é a métrica de saúde mais importante. Acima de um patamar baixo, a
-verificação perde credibilidade e passa a ser contornada por reflexo.
+O protocolo de adoção — começar pela regra que já causou dano, avisar antes de bloquear — e
+a operação de cada função — dono, revisão, taxa de falso positivo — estão no
+[documento canônico](/23-architecture-leadership/fitness-functions.md#comece-pela-regra-que-já-causou-dano).
+Do lado da governança, o que muda é onde isso é registrado: cada função aponta para a
+[decisão](/19-architecture-governance/governance-standards.md) que a originou, e a revisão
+periódica do padrão inclui a lista de exclusões da função — é ali que a regra perde validade
+sem que ninguém decida isso.
 
 ## Modelo Mental
 
@@ -179,17 +162,25 @@ verificação perde credibilidade e passa a ser contornada por reflexo.
 
 ## Quando Não Usar
 
-**Para julgamento** — adequação, fronteira, trade-off.
+**Para julgamento** — adequação de fronteira, modelagem, trade-off. Não há medida contra a
+qual comparar, e uma verificação que finge medir afasta a conversa da revisão, onde ela
+precisa acontecer.
 
-**Bloqueando desde o primeiro dia**, sobre acervo que viola.
+**Quando a regra ainda muda mais rápido do que a verificação se estabiliza.** Uma convenção
+em disputa, revista a cada trimestre, gera falso positivo a cada revisão; enquanto ela não
+assenta, a revisão humana custa menos.
 
-**Sem mensagem acionável.**
+**Quando a base é pequena ou de vida curta.** Um serviço que será desativado em meses, ou um
+sistema em que três pessoas leem toda mudança: construir e manter a verificação custa mais do
+que as violações que ela pegaria.
 
-**Sem dono.**
+**Quando medir exige um ambiente que a esteira não tem.** Latência sob carga real ou
+recuperação em teste de caos não se pagam como verificação contínua; viram função disparada
+ou relatório.
 
-**Com falso positivo alto.**
-
-**Como substituto de toda a governança.**
+**Quando ninguém pode ser dono dela.** Uma função sem dono quebra na primeira mudança de
+plataforma e é desabilitada — e a desabilitação ensina que a regra é negociável, o que é pior
+do que nunca tê-la criado.
 
 ## Alternativas
 
@@ -198,7 +189,9 @@ verificação perde credibilidade e passa a ser contornada por reflexo.
 - **[Conformidade contínua](/19-architecture-governance/compliance.md)** — o mesmo mecanismo, com foco regulatório.
 - **Relatório periódico** — quando a propriedade é tendência e não evento.
 
-A primeira é sempre preferível quando aplicável: uma malha que rejeita tráfego não
+A primeira é preferível quando a plataforma consegue impor a propriedade sem caso legítimo
+de exceção — onde há exceção legítima, o bloqueio embutido vira rigidez e o caso vai para
+fora da plataforma: uma malha que rejeita tráfego não
 autenticado torna a verificação correspondente desnecessária. Ver
 [fundamentos de governança](/19-architecture-governance/governance-basics.md).
 
@@ -292,9 +285,10 @@ escolha de consistência.
 Resultados após 11 meses:
 
 ```text
-funções em operação                            9
-violações remanescentes                       26 (contra 411)
-exceções registradas com prazo                18
+funções em operação                            9 (9 das 22 regras verificáveis)
+violações nas 9 regras cobertas              26 (contra 187 no levantamento)
+  das quais com exceção registrada e prazo    18
+regras verificáveis ainda sem função          13 (seguem em revisão)
 tempo médio entre introdução e detecção        minutos (antes: meses)
 falso positivo médio                          1,8%
 incidentes com causa em acesso direto a
@@ -303,7 +297,10 @@ tempo de revisão de código gasto em
   verificação de regras                       reduzido em ~60%
 ```
 
-O último número é o que a equipe considera mais importante e o mais fácil de ignorar: a
+As 8 violações sem exceção estão em correção, sob aviso. As 13 regras verificáveis sem função
+não foram medidas de novo: os 26 não dizem nada sobre elas.
+
+O último número da tabela é o que a equipe considera mais importante e o mais fácil de ignorar: a
 automação não substituiu a revisão, ela liberou a revisão. As conversas passaram a ser sobre
 fronteira e modelagem — as quatro regras que nenhuma função verifica.
 

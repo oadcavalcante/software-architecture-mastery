@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, fitness-functions-governance, exceptions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -32,8 +32,9 @@ continuous verification a film, cheap per run, not preparable
 ```
 
 The difference is not one of rigor. It is that the first measures a chosen moment, and the
-second measures the real state. Systems prepared for an audit pass the audit; systems
-verified continuously are either compliant, or the deviation shows up the same day.
+second measures the real state. Systems prepared for an audit pass the audit; for the
+controls verified continuously, either the system is compliant or the deviation shows up the
+same day. Whatever was not encoded as a check still lives inside the audit window.
 
 And there is a trap specific to this area: what is easy to verify is not what matters most,
 and what gets measured is the easy thing.
@@ -80,6 +81,15 @@ compliance becomes a maintained property — like a test that cannot break.
 
 See [fitness functions](/19-architecture-governance/fitness-functions-governance.md), which
 are the natural implementation.
+
+Continuous verification is software, and it carries the cost of software. Every check needs
+an owner, because the system it observes changes: a service migrated to another store leaves
+the retention query pointed at an empty database, and it goes on reporting compliance about
+nothing. False positives have a cost of their own — a team that gets three bogus alerts in a
+week learns to close the fourth without reading it. And a check can drift away from the
+control it was meant to measure without breaking: it stays green, only about something else.
+So the verification itself needs verifying — a deviation planted on purpose, from time to
+time, that it has to catch.
 
 ### Verify the effect, not the artifact
 
@@ -188,13 +198,20 @@ measure is preparation.
 
 **Over artifacts**, when the effect is verifiable.
 
-**For everything with the same rigor.**
-
 **With manual evidence**, if an automated alternative exists.
 
-**As proof of security.**
+**Continuously, when the system changes less often than the audit cycle.** A system changed
+once a year doesn't drift between reviews; a daily check confirms the same result every day,
+and keeping it running costs more than the information it adds.
 
-**Without reaching whoever can fix it.**
+**Continuously, when the control can only be assessed by judgment.** "The decision was made
+with the right information" doesn't become a query; encoding it yields a proxy that goes back
+to measuring an artifact. Those are the 3 of 14 controls the bank in the example kept on a
+quarterly review.
+
+**Continuously, when the estate is small.** With a dozen systems the same group knows, reviewing
+by hand costs less than building and maintaining the checks; the scale argument for automatic
+evidence holds from the point where manual effort no longer fits the team.
 
 ## Alternatives
 
@@ -217,8 +234,8 @@ measure is preparation.
 
 | Verifying the effect | Verifying the artifact |
 |---|---|
-| Informs | Easy and cheap |
-| Expensive to build | Scales trivially |
+| Informs about the control | Informs about the document |
+| Expensive to build and maintain | Cheap to build |
 | Hard to game | Gameable |
 
 ## Failure Modes
@@ -237,12 +254,14 @@ measure is preparation.
 
 ## Common Mistakes
 
-**Measuring the existence of a document.**
+**Measuring the existence of a document**, which produces a high rate with the control
+absent — 9 of the 14 controls in the example below were measured that way.
 
 **Not expiring exceptions**, which become permanent drift. See
 [exceptions](/19-architecture-governance/exceptions.md).
 
-**Reporting only upward.**
+**Reporting only upward**, which gets the deviation discussed in committee instead of fixed
+by the team, and the time to fix becomes the interval between meetings.
 
 **Verifying only what is already automated**, without covering what matters and is hard.
 
@@ -297,14 +316,15 @@ Results after 14 months:
 
 ```text
 real compliance, measured daily              89%
-average time between deviation and fix        2.4 days (before: up to 6 months)
+average time between deviation and fix        2.4 days (before: unmeasured — semesters, or never)
 systems missing from the inventory            0
 expired exceptions in use                     0
 audit preparation effort                     from ~600 h/year to ~40 h/year
 ```
 
 In the retrospective: the 94% figure was never a lie — it was true about the sample and about
-the day. The error was reading it as a statement about the organization.
+the day. But it was true about documents: in 9 of the 14 controls, what was counted was the
+artifact, not the effect. The error was reading it as a statement about the organization.
 
 And the figure that changed behavior most was not the compliance rate, but the time between
 deviation and fix. It turned compliance from an event into a maintained property.

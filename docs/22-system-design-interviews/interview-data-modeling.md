@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-api-design]
 related: [interview-api-design, high-level-architecture, interview-scaling]
 canonical_for: [modelagem em entrevista, padrão de acesso como ponto de partida, escolha de armazenamento em entrevista]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -80,8 +80,8 @@ as decisões — as demais se acomodam.
 E as escritas, com seus volumes:
 
 ```text
-criar post           6 mil/s
-seguir alguém        alguns milhares/s
+criar post           ~100/s em média, ~400/s no pico
+seguir alguém        algumas centenas/s
 reagir               ~30 mil/s
 ```
 
@@ -173,8 +173,8 @@ Justificar por que **não** adotar algo vale tanto quanto justificar por que ado
 Propor chave de partição é esperado quando o volume justifica, e é erro quando não.
 
 ```text
-"6 bilhões de posts, 4 TB — um relacional particionado por
- período atende. A chave de partição seria a data de criação,
+"16 bilhões de posts em cinco anos, ~4 TB — um relacional
+ particionado por período atende. A chave de partição seria a data de criação,
  porque as consultas são sempre recentes."
 
 "O feed materializado é particionado por usuario_id, porque
@@ -215,15 +215,20 @@ derivado do modelo — cada um com uma justificativa em voz alta.
 
 ## Quando Não Usar
 
-**Listando entidades sem consultas.**
+**Quando o problema é analítico ou exploratório.** Num sistema de relatórios ou de investigação
+de dados, as consultas não são conhecidas de antemão — é a própria razão de o relacional aparecer
+na tabela acima como a escolha para "consulta não prevista". Insistir em listar consultas produz
+uma lista inventada, e um modelo otimizado para ela piora exatamente as perguntas que ninguém
+previu.
 
-**Escolhendo armazenamento antes dos padrões de acesso.**
+**Quando o entrevistador leva a conversa para outro componente.** Se o interesse dele é a fila de
+distribuição ou a estratégia de cache, o modelo cabe numa frase — "posts por `post_id`, feed por
+`usuario_id`" —, e derivá-lo consulta a consulta consome o tempo que ele quer gastar em outro
+lugar.
 
-**Detalhando todos os campos** — chaves e relacionamentos bastam.
-
-**Propondo poliglota** sem justificar cada armazenamento.
-
-**Particionando** volumes que não pedem.
+**Quando o tempo restante só comporta uma consulta.** Listar as cinco leituras e as três escritas
+custa minutos; com dez minutos de entrevista, derive o modelo só da consulta dominante e diga em
+voz alta que as demais se acomodam a ele.
 
 ## Alternativas
 
@@ -258,13 +263,16 @@ derivado do modelo — cada um com uma justificativa em voz alta.
 
 ## Erros Comuns
 
-**Começar por diagrama de entidades.**
+**Começar por diagrama de entidades** — produz o modelo lembrado, e a pergunta do feed chega sem
+resposta derivada.
 
-**Não considerar as duas direções** de um relacionamento.
+**Não considerar as duas direções** de um relacionamento — a consulta que ficou sem índice vira
+varredura quando o entrevistador a pede.
 
-**Propor NoSQL por "escala"** sem número.
+**Propor NoSQL por "escala"** sem número — a primeira pergunta ("quantas leituras?") deixa a
+escolha sem sustentação.
 
-**Detalhar tipos de coluna.**
+**Detalhar tipos de coluna** — consome minutos que não geram sinal e adia a pergunta do feed.
 
 **Não mencionar índices** onde eles decidem a viabilidade da consulta.
 

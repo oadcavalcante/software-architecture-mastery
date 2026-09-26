@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-principles]
 related: [governance-principles, exceptions, compliance]
 canonical_for: [ciclo de vida de padrão, aposentadoria de padrão, custo de adoção, autoria de padrão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -127,7 +127,8 @@ comunicado mas não adotado       o padrão está errado, ou falta caminho
 adotado mas não convergido       falta plano e patrocínio para a migração
 ```
 
-Reforçar obrigatoriedade — a resposta institucional padrão — não resolve nenhum dos três.
+Reforçar obrigatoriedade sem caminho nem financiamento — a resposta institucional padrão —
+não resolve nenhum dos três.
 
 ### Aposentadoria é parte do ciclo
 
@@ -192,9 +193,10 @@ ele já está apodrecendo.
 
 **Sem responder quem paga a migração.**
 
-**Onde o contexto varia de verdade** — isso é princípio.
+**Onde o contexto varia de verdade** — times ou plataformas com necessidades divergentes, que
+pediriam exceção com frequência; isso é princípio.
 
-**Em número alto.**
+**Acima de ~15 padrões ativos, sem remover outro** — o novo dilui a atenção dos existentes.
 
 **Sem medir adoção** — sem isso, não se sabe se existe.
 
@@ -280,9 +282,11 @@ E os 9 que referenciavam tecnologia descontinuada continuavam sendo citados em r
 
 A reestruturação levou nove meses:
 
-**De 71 para 19 padrões.** Os 18 não mensuráveis foram removidos ou reformulados até
+**De 71 para 19 padrões.** Dos 18 não mensuráveis, 15 foram removidos e 3 reformulados até
 ficarem verificáveis; os 22 com adoção abaixo de 30% foram examinados um a um — 15
-removidos, 7 mantidos com plano de adoção financiado.
+removidos, 7 mantidos com plano de adoção financiado; os 31 acima de 30% foram
+consolidados em 9, fundidos entre si ou embutidos em gabarito, onde deixaram de precisar
+de documento.
 
 **Dono como papel** para cada padrão remanescente, com o dono sendo alguém de um time que
 aplica o padrão, não da área central.
@@ -302,13 +306,16 @@ não nos times.
 Dois anos depois:
 
 ```text
-padrões                                       23
-com adoção acima de 80%                       19
-com dono e data de revisão                    23
+padrões                                       20
+com adoção acima de 80%                       16
+com dono e data de revisão                    20
 aposentados no período                         6
 promovidos de recomendação a obrigatório       7
 recomendações revisadas por baixa adoção       4
 ```
+
+Sete entradas contra seis saídas: o saldo de um é a única exceção regulatória à regra de
+troca no período.
 
 Os 4 revisados por baixa adoção são o dado que a equipe mais valoriza. Em três deles o
 problema era falta de caminho de migração; em um, o padrão estava simplesmente errado — ele

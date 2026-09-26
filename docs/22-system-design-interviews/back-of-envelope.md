@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-estimation]
 related: [capacity-estimation, interview-scaling, bottleneck-identification]
 canonical_for: [cálculo de guardanapo, ordem de magnitude, número de referência, aritmética de entrevista]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -48,8 +48,8 @@ entrevistador   "estime"
 candidato       (silêncio)
 ```
 
-O travamento não é falta de inteligência — é falta de âncoras. Quem não sabe que uma leitura de
-disco leva cerca de um milissegundo e uma de memória cerca de cem nanossegundos não tem como
+O travamento não é falta de inteligência — é falta de âncoras. Quem não sabe que uma leitura
+aleatória em SSD leva cerca de um décimo de milissegundo e uma de memória cerca de cem nanossegundos não tem como
 comparar as duas de cabeça.
 
 E há o erro oposto: fazer contas complicadas. Multiplicar 86.400 por 347 mentalmente durante uma
@@ -90,8 +90,8 @@ seja tudo o mais — a física impõe o piso. Um sistema que lê de memória em 
 por três ordens de grandeza, o que nenhuma otimização de código alcança.
 
 Reconhecer que a latência é dominada pelo elo mais lento da cadeia é o que permite responder
-rapidamente a "como reduzir a latência disso?" — a resposta é sempre remover ou paralelizar o
-elo dominante, e as referências são o que permite identificá-lo sem medir.
+rapidamente a "como reduzir a latência disso?" — a resposta é atacar o elo dominante (removê-lo,
+encurtá-lo ou paralelizá-lo), e as referências são o que permite identificá-lo sem medir.
 
 ### Tamanhos de referência
 
@@ -183,8 +183,8 @@ ordem de grandeza é ruído num contexto em que as premissas de entrada são est
 Um hábito que evita erros grosseiros: comparar o resultado com algo conhecido.
 
 ```text
-"cheguei a 40 PB por dia — isso é mais que o tráfego de
- uma rede social global inteira. Devo ter errado uma
+"cheguei a 400 EB por dia — isso é mais que o tráfego
+ diário da internet inteira. Devo ter errado uma
  ordem de grandeza."
 
 "cheguei a 3 requisições por segundo — isso é menos que um
@@ -216,15 +216,15 @@ confira se o resultado é plausível.
 
 ## Quando Não Usar
 
-**Buscando precisão** — o exercício não é esse.
+**Quando a decisão depende de uma diferença menor que 2× a 3×** — escolher entre duas instâncias
+de tamanho vizinho, ou decidir se um cache de 30% de acerto compensa. A margem de erro do cálculo
+é maior que a diferença que se quer resolver.
 
-**Com contas complicadas** — arredonde.
+**Quando o que importa é a latência de cauda ou a contenção** — os números de referência são
+médias de operações isoladas; o p99 sob fila, lock ou coleta de lixo não sai deles.
 
-**Sem verificar plausibilidade.**
-
-**Como substituto de medição** em contexto real; aqui é entrevista, lá é perfilamento.
-
-**Recitando números** sem usá-los para decidir.
+**Quando a estimativa vira compromisso** — compra de hardware, contrato de capacidade, SLA
+assinado. Aí a ordem de grandeza orienta, mas quem decide é medição ou teste de carga.
 
 ## Alternativas
 
@@ -237,9 +237,9 @@ confira se o resultado é plausível.
 
 | Calcular | Declarar ordem de grandeza |
 |---|---|
-| Demonstra método | Mais rápido |
+| Demonstra método | Pode parecer chute |
 | Ancora as premissas | Menos verificável |
-| Consome tempo | Pode parecer chute |
+| Consome tempo | Mais rápido |
 
 | Mais referências memorizadas | Menos |
 |---|---|
@@ -262,9 +262,11 @@ confira se o resultado é plausível.
 
 **Propor particionamento** para volumes que um banco atende.
 
-**Confundir bits e bytes** em cálculos de banda.
+**Confundir bits e bytes** em cálculos de banda — ler 10 Gbps como 10 GB/s superestima a vazão
+em 8×.
 
-**Esquecer replicação e índices** no armazenamento.
+**Esquecer replicação e índices** no armazenamento — replicação 3× mais índices multiplica o
+volume bruto por 3 a 5.
 
 **Não verificar se o resultado é plausível.**
 

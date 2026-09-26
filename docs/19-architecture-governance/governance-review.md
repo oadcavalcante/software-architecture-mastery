@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-pathologies, exceptions]
 canonical_for: [revisão antecipada, aconselhamento contra portão, pauta de revisão, produto da revisão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -32,7 +32,8 @@ tarde, sem poder de veto    ritual
 cedo, com poder de veto     ninguém traz nada cedo
 ```
 
-Apenas a primeira combinação produz efeito. E ela é a menos escolhida, porque parece a mais
+Para a maior parte das decisões, apenas a primeira combinação produz efeito — o veto se
+justifica num conjunto pequeno de classes, descrito abaixo. E ela é a menos escolhida, porque parece a mais
 fraca — uma revisão sem autoridade formal soa como uma revisão sem consequência.
 
 A prática mostra o contrário: a autoridade de vetar é o que empurra a revisão para o fim,
@@ -145,7 +146,7 @@ E o registro dessa separação é o que permite avaliar a revisão depois — ve
 ### Quem participa
 
 ```text
-quem decide          o time, sempre
+quem decide          o time, fora das classes com portão
 quem tem histórico   arquitetos, pessoas com cicatrizes relevantes
 quem responde pelo risco  segurança, operação, dados — quando aplicável
 quem consome         times afetados, quando há contrato entre eles
@@ -184,15 +185,16 @@ que não há mais nada a melhorar.
 
 ## Quando Não Usar
 
-**Como portão para tudo.**
+**Decisão recorrente já coberta por gabarito ou função de aptidão** — a revisão repete o que
+o gabarito já decide e só acrescenta latência.
 
-**Depois da implementação.**
+**Decisão reversível e local a um time** — esperar a sessão custa mais que corrigir o erro,
+se ele aparecer.
 
-**Sem pauta.**
+**Desenho já implementado** — sem espaço para mudar, a revisão só pode aprovar ou gerar
+retrabalho; o que cabe ali é registrar a decisão em ADR.
 
-**Com grupo grande.**
-
-**Sem separar bloqueante de recomendação.**
+**Como portão para tudo** — a fila cresce, e o veto empurra cada decisão para tarde.
 
 **Como único mecanismo de governança** — revisão não escala, e é corretiva por natureza.
 
@@ -241,6 +243,8 @@ de que o mecanismo é percebido como útil.
 **Pedir "o desenho pronto"** para revisar.
 
 **Não perguntar ao time onde ele tem dúvida.**
+
+**Revisar sem pauta**, com grupo grande.
 
 **Misturar preferência com bloqueio.**
 
@@ -307,9 +311,9 @@ casos em que a divergência se mostrou
 ```
 
 Os 9 casos em que o time acertou contra a recomendação foram usados internamente como
-argumento para manter o modelo. A conclusão registrada: quem tem o contexto do problema
-acerta mais que quem tem o contexto histórico — e o modelo de aconselhamento é o único que
-permite descobrir isso.
+argumento para manter o modelo. A conclusão registrada se limita ao dado: nas 14 vezes em que o time divergiu, acertou em 9 —
+numa amostra enviesada, porque o time só diverge quando tem convicção. Sem o registro de
+divergência, nem esse dado existiria: sob o portão, a divergência não acontecia.
 
 Um efeito colateral: a taxa de comparecimento voluntário fez a área de arquitetura ganhar
 informação que a revisão obrigatória não dava. Ao ser procurada cedo, ela passou a saber o

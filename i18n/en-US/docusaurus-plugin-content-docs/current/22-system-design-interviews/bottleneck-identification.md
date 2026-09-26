@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [high-level-architecture, interview-scaling, failure-handling]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -119,7 +119,9 @@ If not, it is structure.
 ```
 
 Three levels of bottleneck, in order. That demonstrates the candidate understands the system has a
-sequence of limits, and that each fix moves the pressure forward.
+sequence of limits, and that each fix moves the pressure forward. The mechanism is in
+[bottleneck analysis](/05-system-design/bottleneck-analysis.md#the-bottleneck-moves); here it becomes
+interview speech.
 
 That sequence is also what lets you decide where to stop. If the second bottleneck appears at a
 scale ten times larger than the current one, solving it now is premature optimization; if it appears
@@ -140,8 +142,8 @@ cache memory                   partition, or reduce the hot set
 ```
 
 Proposing the right fix for the right type of bottleneck is the content of the evaluation. Proposing
-partitioning for a read bottleneck, for example, indicates the nature of the problem was not
-understood.
+to partition the database for a read bottleneck that replicas or a cache would solve, for example,
+indicates the nature of the problem was not understood.
 
 ### The bottleneck may be outside your system
 
@@ -186,21 +188,19 @@ second answer is worth more than the first.
 
 ## When Not to Use
 
-**Without propagated numbers.** Without carrying the load estimate to each component, identifying
-the bottleneck is guesswork — and the interviewer notices.
+**When the interviewer has steered the conversation to another axis.** If they asked for the data
+model or the API contract, opening a saturation analysis answers a question nobody asked. The cost is
+session time spent on an axis they do not want to evaluate, plus the signal that you do not follow
+their lead.
 
-**Scaling everything uniformly.** Doubling every component spends an imaginary budget and
-demonstrates no reasoning; the value is in pointing at which one saturates first.
+**When the prompt has no scale requirement.** An internal system for two hundred users has no load to
+propagate, and inventing volume to find a bottleneck produces architecture for an absent problem. One
+sentence is enough — "at this scale, nothing saturates" — and the time goes to what the prompt does
+demand, such as consistency or modeling.
 
-**Solving bottlenecks that do not exist** at the given scale. Proposing partitioning for a volume
-that fits on one instance shows reflex, not analysis.
-
-**Without distinguishing capacity from structure.** A lack of capacity is solved with more machines;
-a structural problem is not. Confusing them leads to proposing scale where the answer was to change
-the model.
-
-**Ignoring external dependencies.** Third-party rate limits and provider quotas usually saturate
-before your own infrastructure, and they are not elastic.
+**When there is not enough time left to close the main path.** With ten minutes remaining and the
+write flow still undrawn, bottleneck analysis trades a complete, naive system for an optimized
+fragment. The interviewer evaluates the former; the latter does not stand on its own.
 
 And there is a wrong use of the technique itself: looking for a bottleneck before the design is
 complete. Analyzing saturation of a half-finished flow produces conclusions about a system that does
@@ -223,7 +223,8 @@ increasing it reveals the order of the limits.
 | Analyze by component | By resource |
 |---|---|
 | Follows the design | Covers what the design hides |
-| More natural to explain | Finds contention |
+| More natural to explain | Requires translating each resource back into a box in the design |
+| Misses contention across components | Finds contention |
 
 | Solve the bottleneck | Note it and move on |
 |---|---|
@@ -246,7 +247,7 @@ increasing it reveals the order of the limits.
 
 **Not propagating the volumes** through the design.
 
-**Proposing partitioning** for a read bottleneck.
+**Proposing to partition the database** for a read bottleneck that replicas or a cache would solve.
 
 **Forgetting external dependencies.**
 
@@ -272,7 +273,7 @@ thousand redirects per second, 120 creations.
  I add instances.
 
  The cache receives 12 thousand per second. One in-memory instance
- handles hundreds of thousands of simple operations per second,
+ handles around 100 thousand simple operations per second,
  so there is a lot of headroom. The cache's limit is not throughput, it is
  memory: a 30 GB hot set. If the set grows
  beyond the capacity, the hit rate drops.
@@ -299,7 +300,8 @@ thousand redirects per second, 120 creations.
  responses at ~200 bytes is ~100 MB/s — it fits, but requires
  geographic distribution for latency, not for throughput.
 
- Third: writes stay at 5 thousand per second, which
+ Third: writes rise in the same proportion, to ~5 thousand
+ per second, which
  a relational database handles. It would only become a problem above
  tens of thousands.
 

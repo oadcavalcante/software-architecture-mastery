@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, compliance, governance-pathologies]
 canonical_for: [exceção com prazo, expiração de exceção, exceção permanente, exceção como diagnóstico]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -34,7 +34,8 @@ Um processo de exceção não é uma concessão à indisciplina. Ele é o mecani
 governança informada sobre a realidade** — e uma governança que não sabe onde está sendo
 descumprida não governa nada.
 
-E há um uso secundário, mais valioso que o primeiro: o conjunto de exceções é o único sinal que vem de quem **consome** o padrão, e por isso diz
+E há um uso secundário, mais valioso que o primeiro: o conjunto de exceções é o sinal mais direto que vem de quem **consome** o padrão — cada
+pedido traz o caso concreto e o custo estimado, o que uma pesquisa com times não traz —, e por isso diz
 sobre o custo de cumpri-lo o que nenhuma métrica de conformidade diz.
 
 ## Problema
@@ -115,7 +116,8 @@ maior parte dos casos.
 
 ### Exceção permanente é sinal, não é exceção
 
-Quando uma exceção é renovada três vezes, ela deixou de ser exceção:
+Quando uma exceção é renovada duas vezes — três prazos seguidos sem convergir —, ela deixou de
+ser exceção:
 
 ```text
 o padrão está errado                → corrija o padrão
@@ -177,7 +179,8 @@ do mesmo jeito — só que invisível.
 
 ## Quando Usar
 
-- Sempre que houver padrão obrigatório.
+- Quando há padrão obrigatório e mais times do que o dono do padrão acompanha diretamente —
+  a partir daí, desvio sem registro é desvio que ninguém vê.
 - Com registro sem aprovação para desvios de baixo risco.
 - Com expiração automática, sempre que o número de exceções ultrapassar o que uma pessoa
   acompanha de memória — na prática, a partir de uma dúzia.
@@ -185,17 +188,20 @@ do mesmo jeito — só que invisível.
 
 ## Quando Não Usar
 
-**Sem prazo.**
+**Organização pequena, com poucos times.** Quando o dono do padrão conversa com cada time
+toda semana e conhece cada desvio pelo nome, o registro formal duplica o que já é visível e
+acrescenta formulário sem acrescentar informação. Basta anotar o desvio junto à decisão —
+num [ADR](/18-architecture-decisions/what-is-an-adr.md), por exemplo — e revisitar quando a organização crescer.
 
-**Sem plano de saída.**
+**Requisito que a organização não tem autoridade para dispensar.** Uma exigência de PCI DSS
+ou de LGPD não admite exceção interna: não há quem, dentro da empresa, possa conceder prazo
+para descumprir a lei ou o contrato com a bandeira. Aqui o processo de exceção vira teatro;
+o caminho é cumprir ou levar o risco à instância que responde por ele — jurídico, diretoria
+— como aceite formal de risco, com a consequência nomeada.
 
-**Com processo pesado para risco baixo.**
-
-**Sem expiração automática.**
-
-**Renovando indefinidamente** sem reconhecer que o padrão precisa mudar.
-
-**Sem registrar o custo de cumprir.**
+**Padrão que ainda é recomendação.** Se o padrão não é obrigatório, não há o que excetuar;
+o desvio é uma escolha legítima, e registrá-lo como exceção dá ao padrão uma força que ele
+não tem.
 
 ## Alternativas
 
@@ -237,11 +243,14 @@ do mesmo jeito — só que invisível.
 
 ## Erros Comuns
 
-**Exigir aprovação para tudo.**
+**Exigir aprovação para tudo.** A fila cresce com desvios de baixo risco, a resposta atrasa
+para todos, e o time que não pode esperar deixa de pedir.
 
-**Não registrar o custo de cumprir.**
+**Não registrar o custo de cumprir.** A renovação vira discussão qualitativa, e a exceção é
+renovada por inércia, porque ninguém consegue mostrar que convergir ficou mais barato.
 
-**Não ter plano de saída.**
+**Não ter plano de saída.** No vencimento não há o que verificar; a única decisão possível é
+renovar, e a exceção vira permanente com aparência de temporária.
 
 **Tratar pedido de exceção como falha do time**, o que empurra o desvio para o silêncio.
 
@@ -299,10 +308,10 @@ desvios sem exceção (verificação técnica)     23
 prazo médio até resposta                       1,2 dia (baixo risco: imediato)
 exceções expiradas e convergidas              61
 exceções renovadas uma vez                    31
-renovadas três vezes ou mais                   9
+renovadas duas vezes ou mais                   9
 ```
 
-As 9 renovadas três vezes foram examinadas, e todas apontavam para o mesmo diagnóstico: dois
+As 9 renovadas duas vezes ou mais foram examinadas, e todas apontavam para o mesmo diagnóstico: dois
 padrões estavam largos demais. Um deles exigia que todo serviço publicasse eventos no
 barramento corporativo — o que não fazia sentido para serviços de leitura pura. O escopo foi
 restringido, e 7 das 9 exceções deixaram de ser necessárias.

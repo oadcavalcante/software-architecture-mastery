@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-scaling, bottleneck-identification, communicating-tradeoffs]
 canonical_for: [tratamento de falha em entrevista, degradação proposta, percurso de falha]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -106,7 +106,9 @@ componente         se cair, o sistema...
 cache              vai ao banco; latência sobe, funciona
 réplica de leitura lê da primária; latência sobe
 primária           escritas falham; leituras continuam
-fila               eventos acumulam; processamento atrasa
+consumidor da fila eventos acumulam na fila; processamento atrasa
+broker da fila     produtor guarda em outbox ou buffer local;
+                   sem isso, eventos se perdem
 serviço externo    aciona o disjuntor; usa alternativa ou recusa
                    explicitamente
 índice de busca    busca indisponível; navegação funciona
@@ -138,7 +140,7 @@ ninguém sabe quando ela começou nem quantos registros afetou.
 ### Os mecanismos, com a condição de uso
 
 ```text
-prazo (timeout)   sempre; sem prazo, uma dependência lenta derruba
+prazo (timeout)   em toda chamada remota síncrona; sem prazo, uma dependência lenta derruba
                   o chamador
 repetição         para falhas transitórias, com recuo exponencial
                   e limite; nunca para operação não idempotente
@@ -183,7 +185,8 @@ A parte mais esquecida e a mais valorizada:
 
 ```text
 "durante a indisponibilidade da fila, o pedido continua sendo
- aceito e o usuário vê 'processando'. Se passar de 10 minutos,
+ aceito — gravado num outbox junto com a transação, que
+ publica quando a fila voltar — e o usuário vê 'processando'. Se passar de 10 minutos,
  ele recebe notificação com novo prazo.
 
  Sem isso, ele fica olhando uma tela que não muda e reenvia —
@@ -212,15 +215,16 @@ tudo pode degradar.
 
 ## Quando Não Usar
 
-**Respondendo apenas "tem réplica".**
+**Quando o entrevistador já conduziu para outra fase.** Se ele pediu para aprofundar o modelo de
+dados ou a escala de um componente, abrir o percurso de falhas gasta o tempo que ele quer ver
+aplicado ali — e ignorar o redirecionamento pesa mais que a cobertura ganha.
 
-**Considerando só queda completa.**
+**Antes de fechar o requisito de disponibilidade.** Sem saber se o sistema precisa de 99,9% ou de
+99,99%, nem qual operação é o núcleo, não há critério para dizer que degradação é aceitável; o
+percurso vira lista de hipóteses sem decisão.
 
-**Inventando degradação** onde ela criaria inconsistência.
-
-**Citando mecanismos** sem a condição de uso.
-
-**Sem dizer o que o usuário vê.**
+**Com poucos minutos restantes.** Percorrer todas as caixas superficialmente impede detalhar a que
+decide a disponibilidade; aí vale a primeira alternativa abaixo.
 
 ## Alternativas
 
@@ -311,10 +315,13 @@ tudo pode degradar.
  requisições que nem dependem do cache.
 
  Trato com prazo agressivo: 50 ms para o cache. Estourou,
- vou ao banco. E com disjuntor: se a taxa de estouro passar
- de um limiar, paro de consultar o cache por alguns segundos,
- o que dá tempo de ele se recuperar em vez de continuar
- recebendo 12 mil requisições por segundo enquanto está mal."
+ vou ao banco — mas só até o limite de taxa que ele aguenta,
+ ~600 por segundo mais a folga; o excedente recebe erro
+ rápido em vez de derrubar o banco. E com disjuntor: se a
+ taxa de estouro passar de um limiar, paro de consultar o
+ cache por alguns segundos, o que dá tempo de ele se
+ recuperar em vez de continuar recebendo 12 mil requisições
+ por segundo enquanto está mal."
 ```
 
 **Pergunta de acompanhamento provável:** "e se uma região inteira cair?"

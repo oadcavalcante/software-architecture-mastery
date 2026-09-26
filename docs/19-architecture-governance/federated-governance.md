@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-standards, governance-pathologies]
 canonical_for: [governança federada, decisão local, externalidade de decisão, contrato entre times]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -169,24 +169,30 @@ organograma.
 
 ## Quando Usar
 
-- Em organizações a partir de alguns times, com autonomia real.
+- Quando os times já não cabem num mesmo fórum de decisão, e têm autonomia real.
 - Onde há plataforma capaz de sustentar o caminho fácil.
 - Quando a centralização já virou gargalo mensurável.
 - Com representação dos times na definição do que é central.
 
 ## Quando Não Usar
 
-**Sem plataforma.**
+**Sem plataforma que já entregue identidade, observabilidade e esteira** — cada time
+reconstrói esses itens, e a soma custa mais que a fila central.
 
-**Sem representação** — vira centralização com outro nome.
+**Sem representação** — o conjunto central passa a ser definido para os times, não por eles,
+e vira centralização com outro nome.
 
-**Com maturidade muito desigual**, sem apoio diferenciado.
+**Com maturidade muito desigual**, sem apoio diferenciado — o escopo local igual para todos
+entrega aos times menos maduros decisões que eles ainda não sustentam.
 
-**Em organizações pequenas.**
+**Quando todos os times cabem num mesmo fórum de decisão** — a fila central ainda é curta, e
+conselho, contratos e plataforma custam mais que ela.
 
-**Sem consequência** para descumprimento de contrato.
+**Sem consequência** para descumprimento de contrato — o contrato vira recomendação, e a
+coerência volta a depender de boa vontade.
 
-**Com conjunto central crescente** — sinal de regressão.
+**Com conjunto central crescente** — o modelo já está regredindo para centralização, e
+federar no papel só esconde isso.
 
 ## Alternativas
 
@@ -202,16 +208,16 @@ A última é o arranjo mais comum na prática, e frequentemente o certo.
 
 | Federada | Centralizada |
 |---|---|
-| Decisão perto do contexto | Coerência garantida |
+| Decisão com contexto local | Decisão com menos contexto |
 | Escala com o número de times | Vira fila |
 | Exige plataforma | Exige menos |
-| Divergência no local | Uniformidade |
+| Coerência por contrato verificado | Coerência por uniformidade imposta |
 
 | Conjunto central pequeno | Grande |
 |---|---|
 | Autonomia real | Coerência maior |
 | Exige confiança | Exige verificação |
-| Rápido | Previsível |
+| Decisão local no mesmo dia | Decisão na fila central |
 
 ## Modos de Falha
 
@@ -235,10 +241,12 @@ A última é o arranjo mais comum na prática, e frequentemente o certo.
 
 **Não investir em plataforma** antes de distribuir a decisão.
 
-**Não medir se o conjunto central está crescendo.**
+**Não medir se o conjunto central está crescendo** — a regressão para centralização só é
+percebida quando a fila já voltou.
 
-**Não tratar formato de evento como decisão de alta externalidade** — é o erro mais comum e
-o mais caro.
+**Não tratar formato de evento como decisão de alta externalidade** — a incompatibilidade
+entre produtor e consumidor aparece em produção, como incidente, e não na revisão do time que
+publicou.
 
 ## Exemplo Real
 
@@ -298,8 +306,11 @@ adoção de gabarito em serviços novos          91%
 ```
 
 A saída de dois itens do conjunto central é o dado que a equipe destaca. Identidade e
-observabilidade deixaram de ser regras porque viraram padrão embutido — nenhum time precisa
-lembrar de algo que já vem configurado.
+observabilidade deixaram de ser regras escritas porque viraram padrão embutido e verificado:
+o gabarito as traz configuradas, e a esteira da plataforma recusa implantar serviço sem elas
+— é essa verificação, e não o gabarito, que cobre os 9% de serviços novos fora dele e o
+legado, migrado para a esteira. Nenhum time precisa lembrar da regra, e nenhum consegue
+ignorá-la.
 
 E um item foi adicionado no segundo ano: política de custo de infraestrutura, depois que
 três times fizeram escolhas com efeito agregado significativo na fatura. A externalidade não

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-governance]
 related: [governance-review, fitness-functions-governance, governance-pathologies]
 canonical_for: [mecanismo de governança, ponto de intervenção, custo de coordenação, governança preventiva]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -93,7 +93,7 @@ diferentes:
 ```text
 objetivo: "todo serviço exposto exige autenticação"
 
-no ambiente      a malha rejeita tráfego não autenticado — impossível errar
+no ambiente      a malha rejeita tráfego não autenticado — não depende de alguém lembrar
 no gabarito      o serviço já nasce com autenticação configurada
 na esteira       a verificação falha se faltar
 na revisão       alguém percebe e comenta
@@ -101,11 +101,13 @@ no comitê        alguém percebe semanas depois
 na auditoria     alguém percebe meses depois
 ```
 
-As opções são ordenadas por custo crescente e eficácia decrescente, e a diferença entre as
-duas primeiras e o resto não é marginal — mas elas próprias não são equivalentes. O
+As opções são ordenadas por custo crescente por decisão, e a diferença entre as duas
+primeiras e o resto não é marginal — mas a eficácia não acompanha essa ordem linha a linha. O
 **ambiente** impede: o que não passa pelo controle não acontece, com as ressalvas do que
 escapa ao proxy. O **gabarito** não impede nada; ele torna o certo o caminho padrão, e o
-resíduo é medido — no Exemplo Real, os 6% de serviços novos que não passaram por ele.
+resíduo é medido — no Exemplo Real, os 6% de serviços novos que não passaram por ele. A
+esteira custa mais que o gabarito e bloqueia de fato: por isso os dois são complementares,
+com a verificação pegando o resíduo que o caminho padrão deixa passar.
 
 Escolher o ponto mais cedo viável é onde o custo por decisão cai mais rápido: cada passo
 para a direita nessa lista multiplica o número de vezes que alguém precisa gastar atenção.
@@ -190,17 +192,27 @@ da plataforma — e um caminho errado que não existe não precisa ser inspecion
 
 ## Quando Não Usar
 
-**Uniformemente para todas as decisões.**
+**Uniformemente para todas as decisões.** Quando decisões reversíveis numa tarde passam pelo
+mesmo rito das irreversíveis, o atraso é pago em todas e a atenção acaba antes do caso que
+importa.
 
-**Como comitê de aprovação de desenho.**
+**Como comitê de aprovação de desenho.** Se o objetivo cabe numa verificação da esteira ou
+num gabarito, o comitê paga atenção humana por decisão para chegar, semanas depois, ao que a
+automação diria na hora.
 
-**Sem dono e sem custo medido.**
+**Sem dono e sem custo medido.** Ninguém consegue responder quanto atraso ele adiciona, e
+por isso ninguém o ajusta nem o remove.
 
-**Em organizações pequenas**, onde a conversa resolve — mecanismo formal é custo puro.
+**Enquanto a conversa resolve.** O sinal é que toda decisão com efeito entre times chega a
+todos os afetados antes de ser implementada, sem canal formal. Enquanto isso vale, mecanismo
+formal é custo puro; ele passa a se pagar quando um time descobre, por incidente ou
+retrabalho, uma decisão de outro que o afetava.
 
-**Para problemas que a plataforma resolveria melhor.**
+**Para problemas que a plataforma resolveria melhor.** Um processo que pede a cada time que
+lembre de configurar autenticação cobra por decisão o que um gabarito cobraria uma vez.
 
-**Sem prazo de revisão** — mecanismos são permanentes por omissão.
+**Sem prazo de revisão.** Mecanismos são permanentes por omissão, e continuam cobrando
+depois que o problema que os justificou desapareceu.
 
 ## Alternativas
 
@@ -243,11 +255,14 @@ espera em organizações com cultura técnica forte.
 
 ## Erros Comuns
 
-**Criar um comitê** como primeira resposta a um problema de coerência.
+**Criar um comitê** como primeira resposta a um problema de coerência. O comitê vira fila,
+e a fila passa a receber trabalho já implementado.
 
-**Não perguntar qual seria o ponto de intervenção mais cedo.**
+**Não perguntar qual seria o ponto de intervenção mais cedo.** O objetivo passa a ser
+perseguido na revisão, onde custa atenção a cada decisão, quando poderia estar no gabarito.
 
-**Confundir governança com autoridade** — o mecanismo é o meio, não o poder.
+**Confundir governança com autoridade** — o mecanismo é o meio, não o poder. Quando o veto
+vira o produto, os times deixam de consultar e passam a contornar.
 
 **Não medir o atrito** que o mecanismo introduz.
 
@@ -272,7 +287,8 @@ tempo agregado de espera                ~10 anos-pessoa de calendário
 ```
 
 Os cinco casos com alteração substantiva foram examinados um a um. Em quatro deles, o
-problema apontado era de **segurança** ou de **formato de dado compartilhado**. Em nenhum
+problema apontado era de **segurança** ou de **formato de dado compartilhado**; o quinto
+tinha implicação **regulatória**. Em nenhum
 dos cinco a questão era de desenho interno do sistema.
 
 E os dois rejeitados tinham sido implementados de qualquer forma, com exceção concedida
@@ -308,11 +324,11 @@ decisões sob revisão obrigatória          31 (contra 214)
 tempo médio de espera                      3 dias
 consultas voluntárias                     142
 incidentes com causa em divergência
-  de formato de dado                       0 (contra 7 no período anterior)
+  de formato de dado                       0 (contra 7 nos 18 meses anteriores)
 adoção de gabarito em serviços novos      94%
 ```
 
-O dado que a equipe considera decisivo: as consultas voluntárias superaram em quatro vezes
+O dado que a equipe considera decisivo: as consultas voluntárias superaram em mais de quatro vezes
 o volume da revisão obrigatória. Times procuram orientação quando ela é barata, cedo e não
 tem poder de veto.
 
@@ -338,7 +354,7 @@ Se a resposta for "no ambiente" ou "no gabarito", o mecanismo atual está caro d
 
 - Por que um comitê que aprova 90% do que recebe não está funcionando?
 - Qual a diferença entre governança preventiva, detectiva e corretiva?
-- Por que aplicar o mesmo mecanismo a todas as decisões é o erro mais caro?
+- Por que aplicar o mesmo mecanismo a todas as decisões sai caro, mesmo quando cada mecanismo faz sentido isoladamente?
 
 ## Para Aprofundar
 

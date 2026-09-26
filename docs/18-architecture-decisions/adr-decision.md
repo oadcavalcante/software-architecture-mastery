@@ -12,7 +12,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-consequences, adr-status]
 canonical_for: [voz da decisão, escopo da decisão, decisão inequívoca]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -28,7 +28,7 @@ Três propriedades a definem:
 ```text
 voz ativa      "vamos usar X", não "recomenda-se avaliar X"
 escopo claro   onde vale e onde não vale
-sem hedge      nenhum "provavelmente", "por enquanto", "salvo se"
+sem hedge      nenhum "provavelmente", "por enquanto", "a princípio"
 ```
 
 O tamanho típico é de duas a cinco linhas. Se ela cresce, geralmente é porque virou
@@ -63,8 +63,10 @@ ruim   "PostgreSQL parece adequado."
 bom    "Vamos usar PostgreSQL como banco primário dos serviços de pedidos."
 ```
 
-A segunda parece aceitável e não é: a voz passiva apaga quem decidiu, e é justamente essa
-informação que alguém vai querer daqui a dois anos.
+A segunda parece aceitável e não é: a voz passiva constata um fato sem sujeito, e ninguém
+fica comprometido com ele. "Vamos" também não nomeia pessoas — isso é trabalho do
+[registro de decisores](#registrar-quem-decidiu) —, mas põe quem assina o ADR como
+responsável pelo que a decisão exige daqui a dois anos.
 
 A escolha de "vamos" ou "usaremos" não é estilística. Ela sinaliza que houve compromisso —
 o que distingue um ADR de uma avaliação técnica.
@@ -186,16 +188,21 @@ ou é implementação.
 
 ## Quando Não Usar
 
-**Com hedge.** "Provavelmente", "por ora", "sujeito a revisão" — a revisão é o mecanismo de
-superação, não uma ressalva.
+**Com hedge.** "Provavelmente", "por ora", "sujeito a revisão" sem critério — a revisão é o
+mecanismo de superação, não uma ressalva. Um gatilho com prazo ou limiar mensurável
+("reavaliar quando algum domínio passar de 50 eventos/s") não é hedge: é a
+[condição de reversão](/18-architecture-decisions/adr-alternatives.md) escrita junto da
+decisão. Da mesma forma, uma exceção nomeada ("exceto o domínio de relatórios") é escopo.
 
-**Em voz passiva.**
+**Separando decisões acopladas por dependência real.** A regra de uma decisão por ADR vale
+quando uma parte pode ser revertida sem a outra. Se adotar Kafka só se sustenta com o
+registro de esquemas que o acompanha, dividir em dois ADRs cria superação inconsistente: um
+é superado, o outro continua aceito e aponta para uma premissa que não existe mais.
 
-**Descrevendo implementação.**
-
-**Com várias decisões juntas.**
-
-**Sem escopo**, quando o sistema tem mais de um domínio.
+**Listando domínios numa decisão transversal.** Quando a decisão vale para a organização
+inteira — padrão de autenticação, política de retenção de dados —, enumerar domínios
+afetados envelhece a cada domínio novo e sugere que os omitidos estão fora. O escopo
+correto é "todos"; o que precisa ser delimitado é a exceção.
 
 **Como proposta.** Uma proposta tem status `proposto`; a seção de decisão continua
 afirmativa.
@@ -212,21 +219,21 @@ afirmativa.
 
 | Escopo estreito | Amplo |
 |---|---|
-| Aplicação clara | Menos ADRs |
-| Mais ADRs | Ambíguo na aplicação |
+| Aplicação clara | Ambígua na aplicação |
+| Mais ADRs para manter | Menos ADRs |
 | Superável isoladamente | Superação em bloco |
 
 | Discordância registrada | Consenso aparente |
 |---|---|
-| Honesto e útil depois | Menos atrito imediato |
-| Preserva a objeção | Parece mais sólido |
+| Atrito maior na revisão | Atrito menor na revisão |
+| Objeção disponível quando o risco se materializa | Objeção perdida |
 | Exige maturidade do time | Fácil |
 
 ## Modos de Falha
 
 **Hedge.** A decisão não pode ser seguida nem contestada.
 
-**Voz passiva.** Ninguém decidiu.
+**Voz passiva.** Ninguém se compromete.
 
 **Sem escopo.** Aplicada onde não deveria, ou ignorada onde deveria.
 
@@ -242,9 +249,11 @@ afirmativa.
 
 **Omitir o que não muda** — o que abre espaço para interpretação expansiva.
 
-**Não registrar decisores.**
+**Não registrar decisores** — quando a decisão precisar de revisão, ninguém sabe a quem
+pedir.
 
-**Não registrar decisões de não fazer.**
+**Não registrar decisões de não fazer** — a mesma proposta volta a cada ciclo, sem registro
+de por que foi recusada.
 
 **Suavizar a decisão** para reduzir atrito na revisão — o que transfere o atrito para o
 futuro.
@@ -268,7 +277,7 @@ serviços com abordagem mista sem critério                       9
 interpretações distintas do ADR encontradas em entrevistas      5
 ```
 
-Os quatro primeiros eram os mais problemáticos: consultas síncronas simples tinham sido
+Os quatro serviços da primeira linha eram os mais problemáticos: consultas síncronas simples tinham sido
 convertidas em pares de eventos requisição-resposta, com correlação manual e tempo de
 resposta de segundos. Ver
 [integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
@@ -294,8 +303,8 @@ operacional. Reavaliar quando algum deles passar de 50 eventos/s."
 ```
 
 E uma regra de escrita foi adotada: **toda decisão precisa de uma frase começando com "não
-vamos"**. A justificativa foi empírica — dos 12 ADRs que tinham gerado interpretação
-divergente, 11 não delimitavam o que ficava de fora.
+vamos"**. A justificativa foi empírica: a auditoria foi estendida aos demais ADRs da empresa, e
+dos 12 que tinham gerado interpretação divergente, 11 não delimitavam o que ficava de fora.
 
 A correção dos quatro serviços levou sete meses. O tempo de resposta das consultas
 convertidas caiu de 2,4 s para 90 ms.

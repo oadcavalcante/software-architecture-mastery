@@ -13,7 +13,7 @@ objective: >
 prerequisites: [capacity-estimation]
 related: [capacity-estimation, interview-scaling, bottleneck-identification]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -49,7 +49,7 @@ candidate     (silence)
 ```
 
 The freeze is not a lack of intelligence — it is a lack of anchors. Someone who does not know that
-a disk read takes about a millisecond and a memory read about a hundred nanoseconds has no way to
+a random SSD read takes about a tenth of a millisecond and a memory read about a hundred nanoseconds has no way to
 compare the two in their head.
 
 And there is the opposite error: doing complicated math. Multiplying 86,400 by 347 mentally during
@@ -90,8 +90,8 @@ else is — physics imposes the floor. A system that reads from memory instead o
 three orders of magnitude, which no code optimization reaches.
 
 Recognizing that latency is dominated by the slowest link in the chain is what lets you answer
-"how do we reduce the latency of this?" quickly — the answer is always to remove or parallelize the
-dominant link, and the references are what let you identify it without measuring.
+"how do we reduce the latency of this?" quickly — the answer is to attack the dominant link (remove
+it, shorten it or parallelize it), and the references are what let you identify it without measuring.
 
 ### Reference sizes
 
@@ -182,8 +182,8 @@ beyond the order of magnitude is noise in a context where the input assumptions 
 A habit that prevents gross errors: comparing the result with something known.
 
 ```text
-"I got 40 PB per day — that's more than the traffic of
- an entire global social network. I must have gotten an
+"I got 400 EB per day — that's more than the daily
+ traffic of the entire internet. I must have gotten an
  order of magnitude wrong."
 
 "I got 3 requests per second — that's less than a personal
@@ -214,16 +214,15 @@ that the result is plausible.
 
 ## When Not to Use
 
-**Seeking precision** — that is not the exercise.
+**When the decision hinges on a difference smaller than 2× to 3×** — choosing between two
+neighboring instance sizes, or deciding whether a cache with a 30% hit rate pays off. The
+calculation's margin of error is larger than the difference you want to resolve.
 
-**With complicated math** — round.
+**When what matters is tail latency or contention** — the reference numbers are averages of
+isolated operations; p99 under queueing, locks or garbage collection does not come out of them.
 
-**Without checking plausibility.**
-
-**As a substitute for measurement** in a real context; here it is an interview, there it is
-profiling.
-
-**Reciting numbers** without using them to decide.
+**When the estimate becomes a commitment** — a hardware purchase, a capacity contract, a signed
+SLA. There the order of magnitude guides, but measurement or load testing decides.
 
 ## Alternatives
 
@@ -236,9 +235,9 @@ profiling.
 
 | Compute | Declare the order of magnitude |
 |---|---|
-| Demonstrates method | Faster |
+| Demonstrates method | Can look like a guess |
 | Anchors the assumptions | Less verifiable |
-| Consumes time | Can look like a guess |
+| Consumes time | Faster |
 
 | More memorized references | Fewer |
 |---|---|
@@ -261,9 +260,11 @@ profiling.
 
 **Proposing partitioning** for volumes a database handles.
 
-**Confusing bits and bytes** in bandwidth calculations.
+**Confusing bits and bytes** in bandwidth calculations — reading 10 Gbps as 10 GB/s overstates
+throughput by 8×.
 
-**Forgetting replication and indexes** in storage.
+**Forgetting replication and indexes** in storage — 3× replication plus indexes multiplies the raw
+volume by 3 to 5.
 
 **Not checking whether the result is plausible.**
 

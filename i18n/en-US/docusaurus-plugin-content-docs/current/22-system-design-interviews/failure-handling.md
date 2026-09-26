@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [interview-scaling, bottleneck-identification, communicating-tradeoffs]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -106,7 +106,9 @@ component          if it goes down, the system...
 cache              goes to the database; latency rises, it works
 read replica       reads from the primary; latency rises
 primary            writes fail; reads keep working
-queue              events pile up; processing is delayed
+queue consumer     events pile up in the queue; processing is delayed
+queue broker       producer keeps them in an outbox or local buffer;
+                   without that, events are lost
 external service   trips the circuit breaker; uses a fallback or refuses
                    explicitly
 search index       search unavailable; navigation works
@@ -138,7 +140,7 @@ many records it affected.
 ### The mechanisms, with the condition of use
 
 ```text
-timeout           always; with no timeout, a slow dependency takes down
+timeout           on every synchronous remote call; with no timeout, a slow dependency takes down
                   the caller
 retry             for transient failures, with exponential backoff
                   and a limit; never for a non-idempotent operation
@@ -183,7 +185,8 @@ The most forgotten and most valued part:
 
 ```text
 "during the queue's unavailability, the order keeps being
- accepted and the user sees 'processing'. If it goes beyond 10 minutes,
+ accepted — written to an outbox in the same transaction,
+ which publishes once the queue is back — and the user sees 'processing'. If it goes beyond 10 minutes,
  they get a notification with a new deadline.
 
  Without that, they stare at a screen that does not change and resubmit —
@@ -212,15 +215,16 @@ not everything can degrade.
 
 ## When Not to Use
 
-**Answering only "there's a replica".**
+**When the interviewer has already steered to another phase.** If they asked to go deeper into the
+data model or the scaling of one component, opening the failure walk spends the time they want to
+see applied there — and ignoring the redirect costs more than the coverage gained.
 
-**Considering only a complete outage.**
+**Before the availability requirement is settled.** Without knowing whether the system needs 99.9%
+or 99.99%, or which operation is the core, there is no criterion for saying which degradation is
+acceptable; the walk becomes a list of hypotheses with no decision.
 
-**Inventing degradation** where it would create inconsistency.
-
-**Citing mechanisms** without the condition of use.
-
-**Without saying what the user sees.**
+**With only a few minutes left.** Walking every box superficially prevents detailing the one that
+decides availability; then the first alternative below is the better move.
 
 ## Alternatives
 
@@ -312,7 +316,9 @@ not everything can degrade.
  requests that do not even depend on the cache.
 
  I handle it with an aggressive timeout: 50 ms for the cache. If it blows,
- I go to the database. And with a circuit breaker: if the timeout rate exceeds
+ I go to the database — but only up to the rate limit it can take,
+ ~600 per second plus headroom; the excess gets a fast error
+ instead of taking the database down. And with a circuit breaker: if the timeout rate exceeds
  a threshold, I stop querying the cache for a few seconds,
  which gives it time to recover instead of continuing to
  receive 12 thousand requests per second while it is unwell."

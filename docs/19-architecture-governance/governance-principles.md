@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: [teste do inverso, conflito entre princípios, princípio como critério, hierarquia de princípios]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-29
 ---
 
@@ -34,7 +34,7 @@ O teste mais eficiente cabe numa pergunta — **alguém defenderia o inverso?**
 ```
 
 Ver [princípios corporativos](/15-enterprise-architecture/enterprise-principles.md) para
-a formulação; aqui o foco é como eles operam no momento da decisão, e o que fazer quando
+como escrever um princípio — lado perdedor e implicações; aqui o foco é como eles operam no momento da decisão, e o que fazer quando
 dois deles apontam para lados opostos.
 
 ## Problema
@@ -197,17 +197,25 @@ precedência, quem decide é o poder.
 
 ## Quando Não Usar
 
-**Como slogan.**
+**Quando quem decide está presente em todas as decisões que importam.** Num grupo pequeno
+o critério circula em conversa e se corrige na hora. Um princípio escrito serve ao leitor
+ausente da decisão; sem esse leitor, formular, manter implicações e revisar todo ano custa
+mais do que devolve.
 
-**Sem implicações declaradas.**
+**Quando a regulação já fixa a decisão.** Se a norma obriga a reter dados por cinco anos, o
+inverso não é posição defensável — é infração. O princípio só repete a norma, falha no teste
+do inverso por construção, e o instrumento certo é
+[conformidade](/19-architecture-governance/compliance.md).
 
-**Sem regra de precedência** entre princípios que conflitam.
+**Quando o acervo de ADRs já cobre o espaço de decisão.** Se os precedentes mostram o
+critério caso a caso, o princípio abstrato vira uma segunda fonte que precisa ser mantida
+coerente com a primeira, e ganha pouco sobre ela.
 
-**Em número alto.**
+**Quando não há momento em que ele seria citado.** Sem revisão, ADR ou fórum em que a
+decisão é argumentada, o princípio não tem onde operar; formulá-lo produz o slogan que o
+teste do inverso existe para barrar.
 
 **Para decisões recorrentes de resultado previsível** — isso é padrão.
-
-**Sem revisão periódica.**
 
 ## Alternativas
 
@@ -232,7 +240,7 @@ menos princípios, porque o critério fica visível nos precedentes.
 | Poucos princípios | Muitos |
 |---|---|
 | Lembrados e usados | Cobrem mais casos |
-| Conflitam menos | Lista de consulta |
+| Conflitam menos | Conflitam mais — mais pares exigem precedência |
 | Exigem escolha dura | Evitam escolher |
 
 ## Modos de Falha
@@ -309,8 +317,10 @@ tecnologia que aparece em contrato entre times              → padronização v
 tecnologia que entra no plantão compartilhado               → padronização vence
 ```
 
-**Dois princípios promovidos a padrão.** As ponderações se repetiam com o mesmo resultado —
-escolha de banco relacional e de protocolo de integração síncrona. Ver
+**Duas ponderações promovidas a padrão.** Dentro dos quatro princípios, duas decisões se
+repetiam com o mesmo resultado — escolha de banco relacional e de protocolo de integração
+síncrona — e viraram padrões derivados. Os princípios continuaram na lista, governando os
+casos que os padrões não cobrem. Ver
 [padrões](/19-architecture-governance/governance-standards.md).
 
 **Revisão anual** com a pergunta única: as condições que produziram este princípio ainda
@@ -319,20 +329,23 @@ valem?
 No ano seguinte:
 
 ```text
-princípios                                     4
+princípios em vigor no início do ano           4
 citações em ADRs                              38 (contra 9 no ano anterior)
 decisões com conflito de princípio            7 — todas resolvidas
                                               pela regra de precedência
-princípios removidos na revisão anual         1
+princípios removidos na revisão anual         1 (restaram 3)
 ```
 
 O princípio removido era "preferimos serviços gerenciados a componentes operados por nós".
 A revisão constatou que ele havia se tornado consenso e não eliminava mais nenhuma opção em
 discussão — tinha virado descrição, não escolha.
 
-A conclusão registrada: reduzir de nove para quatro aumentou o uso em quatro vezes. A lista
-longa não era consultada porque não cabia na cabeça de ninguém no momento da decisão, que é
-o único momento em que um princípio serve.
+A conclusão registrada: a reformulação multiplicou as citações por quatro. Os números não
+separam o efeito de cada mudança — lista curta, implicações e precedência entraram juntas, e
+as 7 decisões com conflito resolvido são efeito direto da precedência, não da redução. O
+argumento para a lista curta é o mecanismo, não a conta: a lista longa não era consultada
+porque não cabia na cabeça de ninguém no momento da decisão, que é o único momento em que um
+princípio serve.
 
 ## Conceitos Relacionados
 

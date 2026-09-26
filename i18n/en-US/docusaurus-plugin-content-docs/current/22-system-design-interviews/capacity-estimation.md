@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [back-of-envelope, high-level-architecture, interview-scaling]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -28,8 +28,9 @@ criterion.
 ```text
 without an estimate   "I'll use a cache"           why? how much does it help?
 with an estimate      "12 thousand reads/s against
-                      100 writes/s — a cache
-                      solves 99% of the problem"   the decision has a basis
+                      100 writes/s — reads are
+                      ~99% of traffic, and that
+                      is what the cache targets"   the decision has a basis
 ```
 
 That changes what should be estimated. Not every possible number — only the ones that change a
@@ -92,8 +93,8 @@ orders of magnitude.
 ```text
 1 day          ≈ 100 thousand seconds  (86,400, rounded)
 1 month        ≈ 2.5 million seconds
-1 million/day  ≈ 12/s
-1 billion/day  ≈ 12 thousand/s
+1 million/day  ≈ 10/s
+1 billion/day  ≈ 10 thousand/s
 ```
 
 Rounding to powers of ten and to round numbers is expected and demonstrates fluency. Nobody expects
@@ -112,8 +113,9 @@ and latency references.
  With a 3× peak, I get to 45 thousand per second."
 ```
 
-The reasoning is what is being evaluated, not the total. A candidate who gets the arithmetic wrong
-and explains the path correctly is evaluated better than one who gets it right in silence.
+The reasoning is what is being evaluated, not the total. Under a rubric that scores the process —
+the usual format for system design —, a candidate who gets the arithmetic wrong and explains the
+path correctly is evaluated better than one who gets it right in silence.
 
 And declaring each assumption — "5 opens per user" — lets the interviewer adjust: "it's actually
 20". The number changes, the method does not.
@@ -180,15 +182,21 @@ judgment, which is worth more than the calculation.
 
 ## When Not to Use
 
-**Computing everything.**
+**When the interviewer already gives the numbers.** "It's 50 thousand reads per second and 2 TB"
+closes the step: recomputing what was handed over spends minutes that pay off more in the design.
+Derive only what is missing — almost always the hot set.
 
-**Without connecting it to a decision.**
+**When the problem has no scale dimension.** API design, object-oriented modeling, the state
+machine of an order: no decision depends on requests per second, and the time pays off more in
+contracts, invariants, and edge cases.
 
-**With excessive precision** — "43,287 requests per second" is worse than "about 45 thousand".
+**When the scale fits on one server with room to spare.** An internal tool with 200 users has no
+number that changes the design; say so in one sentence — "any relational database handles it" —
+and move on to what is actually hard in the problem.
 
-**Using the average** when the peak is what sizes it.
-
-**In silence** — the value is in the verbalized reasoning.
+**When the interview format skips the step.** Rounds focused on deep-diving a single component
+start from a given scale; insisting on estimating from the start signals the candidate did not
+listen to the question.
 
 ## Alternatives
 
@@ -208,7 +216,7 @@ something is evidently connected, with no connecting effort.
 |---|---|
 | Scale declared from the start | Every number has immediate use |
 | Some numbers go unused | Interrupts the design's flow |
-| Visible structure | Requires agility |
+| Structure visible to the evaluator | Structure stays implicit in the design |
 
 | More numbers | Fewer |
 |---|---|

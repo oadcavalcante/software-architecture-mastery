@@ -13,7 +13,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [adr-context, adr-decision, adr-consequences, adr-status]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -157,11 +157,11 @@ The third line is what turns the ADR into an instrument for future revision. See
 Nygard          5 sections, minimal, the most used
 MADR            markdown, with alternatives and explicit criteria
 Y-Statement     one structured sentence: "in the context of X, facing Y,
-                we decided Z, to achieve W, accepting V"
+                we decided Z and neglected A, to achieve W, accepting V"
 Tyree & Akerman more complete, with stakeholders and implications
 ```
 
-The Y-Statement deserves a note: it fits in a sentence and forces the five elements. It is
+The Y-Statement deserves a note: it fits in a sentence and forces six elements — context, concern, decision, neglected alternatives, goal and accepted cost (Zdun et al., 2013). It has no field for the reversal condition. It is
 a good format for smaller decisions that don't justify a document.
 
 The choice between formats matters less than consistency: one format used across the whole
@@ -187,7 +187,7 @@ doesn't fit in two pages, it is probably several decisions.
 
 ## When to Use
 
-- Whenever you write an ADR — the format is the common minimum.
+- When writing an ADR that warrants its own document — the five sections are the common minimum.
 - As a checklist: if a section is empty, something hasn't been thought through.
 - When standardizing the practice across an organization.
 
@@ -196,15 +196,13 @@ doesn't fit in two pages, it is probably several decisions.
 **Adding sections for completeness** — every extra section reduces the chance the ADR gets
 written.
 
-**As a rigid template** — a small decision fits in a Y-Statement.
+**When the only real alternative is the status quo** — with no competing option to
+compare, the alternatives and context sections end up empty or restating the decision; a
+Y-Statement records the same thing in one sentence.
 
-**With generic context** that would serve any decision.
-
-**With the decision in the passive voice.**
-
-**With no negative consequences.**
-
-**Different formats per team**, which prevents cross-reading.
+**When the decision is local and reversible within hours** — a choice internal to a module,
+with no effect on a contract, persisted data or another team. The right record is a comment
+next to the code; an ADR file costs more than redoing the decision.
 
 ## Alternatives
 
@@ -221,7 +219,8 @@ comment next to the code they explain.
 
 | Minimal format | Complete format |
 |---|---|
-| Written frequently | More informative |
+| Written frequently | Written less often |
+| Less informative | More informative |
 | Fast to read | Slower |
 | Omits criteria | Makes them explicit |
 | Sustainable | Tends toward abandonment |
@@ -294,7 +293,8 @@ alternative is sent back in review.
 **At least one negative consequence.** The premise: every architectural decision has a
 cost, and an ADR that doesn't name it hasn't thought about it.
 
-**The Y-Statement authorized** for smaller decisions — which raised the volume, because
+**The Y-Statement authorized** for smaller decisions, exempt from the reversal condition —
+its neglected-alternatives clause counts as an alternative. This raised the volume, because
 many decisions that didn't warrant a document started being recorded in one sentence.
 
 **The title checked** by a simple rule: it has to start with a verb.

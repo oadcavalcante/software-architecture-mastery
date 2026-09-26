@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-standards, governance-review, governance-basics]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -32,8 +32,8 @@ The most efficient test fits in one question — **would anyone defend the oppos
  where the capability is a competitive edge"   the opposite is defensible → principle
 ```
 
-See [enterprise principles](/15-enterprise-architecture/enterprise-principles.md) for the
-formulation; here the focus is how they operate at the moment of decision, and what to do
+See [enterprise principles](/15-enterprise-architecture/enterprise-principles.md) for how
+to write a principle — the losing side and the implications; here the focus is how they operate at the moment of decision, and what to do
 when two of them point in opposite directions.
 
 ## Problem
@@ -197,17 +197,25 @@ precedence rule, what decides is power.
 
 ## When Not to Use
 
-**As a slogan.**
+**When whoever decides is present at every decision that matters.** In a small group the
+criterion travels in conversation and gets corrected on the spot. A written principle serves
+the reader who is absent from the decision; without that reader, formulating it, maintaining
+implications and reviewing it every year costs more than it returns.
 
-**With no declared implications.**
+**When regulation already fixes the decision.** If the rule requires retaining data for five
+years, the opposite is not a defensible position — it is a violation. The principle merely
+repeats the rule, fails the opposite test by construction, and the right instrument is
+[compliance](/19-architecture-governance/compliance.md).
 
-**With no precedence rule** between principles that conflict.
+**When the ADR archive already covers the decision space.** If the precedents show the
+criterion case by case, the abstract principle becomes a second source that must be kept
+consistent with the first, and adds little over it.
 
-**In large numbers.**
+**When there is no moment at which it would be cited.** With no review, ADR or forum where
+the decision is argued, the principle has nowhere to operate; formulating it produces the
+slogan the opposite test exists to stop.
 
 **For recurring decisions with a predictable outcome** — that is a standard.
-
-**With no periodic review.**
 
 ## Alternatives
 
@@ -233,7 +241,7 @@ principles, because the criteria are visible in the precedents.
 | Few principles | Many |
 |---|---|
 | Remembered and used | Cover more cases |
-| Conflict less | A reference list |
+| Conflict less | Conflict more — more pairs need precedence |
 | Require a hard choice | Avoid choosing |
 
 ## Failure Modes
@@ -309,8 +317,10 @@ technology that appears in a contract between teams     → standardization wins
 technology that enters the shared on-call rotation      → standardization wins
 ```
 
-**Two principles promoted to standards.** The weighings repeated with the same outcome —
-choice of relational database and of synchronous integration protocol. See
+**Two weighings promoted to standards.** Within the four principles, two decisions repeated
+with the same outcome — choice of relational database and of synchronous integration
+protocol — and became derived standards. The principles stayed on the list, governing the
+cases the standards don't cover. See
 [standards](/19-architecture-governance/governance-standards.md).
 
 **An annual review** with a single question: do the conditions that produced this principle
@@ -319,18 +329,21 @@ still hold?
 The following year:
 
 ```text
-principles                                     4
+principles in force at the start of the year   4
 citations in ADRs                             38 (against 9 the previous year)
 decisions with a principle conflict            7 — all resolved
                                               by the precedence rule
-principles removed in the annual review        1
+principles removed in the annual review        1 (3 remained)
 ```
 
 The principle removed was "we prefer managed services over components operated by us". The
 review found it had become consensus and no longer eliminated any option under discussion —
 it had become description, not choice.
 
-The recorded conclusion: reducing from nine to four increased usage fourfold. The long list
+The recorded conclusion: the rework multiplied citations fourfold. The numbers don't separate
+the effect of each change — the short list, implications and precedence came in together, and
+the 7 decisions with a resolved conflict are a direct effect of precedence, not of the
+reduction. The case for the short list rests on the mechanism, not the count: the long list
 wasn't consulted because it didn't fit in anyone's head at the moment of decision, which is
 the only moment a principle is any use.
 

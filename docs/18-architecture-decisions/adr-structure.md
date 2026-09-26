@@ -12,7 +12,7 @@ objective: >
 prerequisites: [what-is-an-adr]
 related: [adr-context, adr-decision, adr-consequences, adr-status]
 canonical_for: [estrutura do ADR, formato MADR, título de decisão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -156,11 +156,11 @@ A terceira linha é a que transforma o ADR em instrumento de revisão futura. Ve
 Nygard          5 seções, mínimo, o mais usado
 MADR            markdown, com alternativas e critérios explícitos
 Y-Statement     uma frase estruturada: "no contexto de X, diante de Y,
-                decidimos Z, para obter W, aceitando V"
+                decidimos Z e descartamos A, para obter W, aceitando V"
 Tyree & Akerman mais completo, com interessados e implicações
 ```
 
-O Y-Statement merece nota: ele cabe numa frase e força os cinco elementos. É um bom formato
+O Y-Statement merece nota: ele cabe numa frase e força seis elementos — contexto, preocupação, decisão, alternativas descartadas, objetivo e custo aceito (Zdun et al., 2013). Não tem campo para a condição de reversão. É um bom formato
 para decisões menores que não justificam um documento.
 
 A escolha entre formatos importa menos que a consistência: um formato usado em toda a
@@ -186,7 +186,7 @@ cabe em duas páginas, provavelmente são várias decisões.
 
 ## Quando Usar
 
-- Sempre que escrever um ADR — o formato é o mínimo comum.
+- Ao escrever um ADR que justifica documento próprio — as cinco seções são o mínimo comum.
 - Como lista de verificação: se uma seção está vazia, falta pensar.
 - Ao padronizar a prática numa organização.
 
@@ -195,15 +195,13 @@ cabe em duas páginas, provavelmente são várias decisões.
 **Acrescentando seções por completude** — cada seção a mais reduz a chance de o ADR ser
 escrito.
 
-**Como gabarito rígido** — uma decisão pequena cabe num Y-Statement.
+**Quando a única alternativa real é o status quo** — sem opção concorrente a comparar, as
+seções de alternativas e contexto ficam vazias ou repetem a decisão; um Y-Statement registra
+o mesmo em uma frase.
 
-**Com contexto genérico** que serviria a qualquer decisão.
-
-**Com decisão em voz passiva.**
-
-**Sem consequências negativas.**
-
-**Formatos diferentes por time**, o que impede leitura cruzada.
+**Quando a decisão é local e se reverte em horas** — escolha interna a um módulo, sem efeito
+em contrato, dado persistido ou outro time. O registro certo é um comentário ao lado do
+código; um arquivo de ADR custa mais que refazer a decisão.
 
 ## Alternativas
 
@@ -220,7 +218,8 @@ comentário ao lado do código que elas explicam.
 
 | Formato mínimo | Formato completo |
 |---|---|
-| Escrito com frequência | Mais informativo |
+| Escrito com frequência | Escrito com menos frequência |
+| Menos informativo | Mais informativo |
 | Rápido de ler | Mais lento |
 | Omite critérios | Explicita |
 | Sustentável | Tende ao abandono |
@@ -293,7 +292,8 @@ devolvido na revisão.
 **Ao menos uma consequência negativa.** A premissa: toda decisão arquitetural tem custo, e
 um ADR que não o nomeia não pensou nele.
 
-**Y-Statement autorizado** para decisões menores — o que fez o volume subir, porque muitas
+**Y-Statement autorizado** para decisões menores, dispensado da condição de reversão — a
+cláusula de alternativas descartadas conta como alternativa. Isso fez o volume subir, porque muitas
 decisões que não valiam um documento passaram a ser registradas em uma frase.
 
 **Título verificado** por uma regra simples: precisa começar com um verbo.

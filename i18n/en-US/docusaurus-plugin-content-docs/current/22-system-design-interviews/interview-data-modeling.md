@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-api-design]
 related: [interview-api-design, high-level-architecture, interview-scaling]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -80,8 +80,8 @@ that should guide the decisions — the rest accommodate.
 And the writes, with their volumes:
 
 ```text
-create a post        6 thousand/s
-follow someone       a few thousand/s
+create a post        ~100/s on average, ~400/s at peak
+follow someone       a few hundred/s
 react                ~30 thousand/s
 ```
 
@@ -175,8 +175,8 @@ Proposing a partition key is expected when the volume justifies it, and is an er
 not.
 
 ```text
-"6 billion posts, 4 TB — a relational database partitioned by
- period handles it. The partition key would be the creation date,
+"16 billion posts over five years, ~4 TB — a relational database
+ partitioned by period handles it. The partition key would be the creation date,
  because the queries are always recent."
 
 "The materialized feed is partitioned by user_id, because
@@ -217,15 +217,18 @@ from the model — each one with a justification out loud.
 
 ## When Not to Use
 
-**Listing entities with no queries.**
+**When the problem is analytical or exploratory.** In a reporting or data-investigation system,
+the queries are not known in advance — which is the very reason the relational database appears in
+the table above as the choice for "unanticipated query". Insisting on listing queries produces an
+invented list, and a model optimized for it makes worse exactly the questions nobody anticipated.
 
-**Choosing storage before the access patterns.**
+**When the interviewer steers the conversation to another component.** If their interest is the
+fan-out queue or the caching strategy, the model fits in one sentence — "posts by `post_id`, feed by
+`user_id`" —, and deriving it query by query eats the time they want to spend elsewhere.
 
-**Detailing every field** — keys and relationships are enough.
-
-**Proposing polyglot persistence** without justifying each storage system.
-
-**Partitioning** volumes that do not call for it.
+**When the remaining time only fits one query.** Listing the five reads and three writes costs
+minutes; with ten minutes of interview left, derive the model from the dominant query alone and say
+out loud that the others fit around it.
 
 ## Alternatives
 
@@ -260,13 +263,16 @@ from the model — each one with a justification out loud.
 
 ## Common Mistakes
 
-**Starting with an entity diagram.**
+**Starting with an entity diagram** — it produces the remembered model, and the feed question
+arrives with no derived answer.
 
-**Not considering both directions** of a relationship.
+**Not considering both directions** of a relationship — the query left without an index becomes a
+scan when the interviewer asks for it.
 
-**Proposing NoSQL for "scale"** with no number.
+**Proposing NoSQL for "scale"** with no number — the first question ("how many reads?") leaves
+the choice unsupported.
 
-**Detailing column types.**
+**Detailing column types** — it burns minutes that produce no signal and delays the feed question.
 
 **Not mentioning indexes** where they decide the query's viability.
 

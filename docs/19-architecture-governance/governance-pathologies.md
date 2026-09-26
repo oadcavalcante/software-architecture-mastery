@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-review, measuring-governance]
 canonical_for: [patologia de governança, conformidade teatral, ritual de processo, governança sem remoção]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -114,8 +114,9 @@ efeito     custo recorrente sem efeito
 saída      suspender por um trimestre e observar o que quebra
 ```
 
-A suspensão temporária é o teste mais eficiente disponível, e o mais difícil de conseguir
-autorização para fazer.
+Quando o risco que o ritual cobre aconteceria mais de uma vez por trimestre, a suspensão
+temporária é o teste mais eficiente disponível, e o mais difícil de conseguir autorização
+para fazer.
 
 ### Arquitetura de torre de marfim
 
@@ -150,7 +151,7 @@ efeito     decisões pioram; a área de arquitetura vira adversária
 saída      difícil — exige mudança de incentivo, não de processo
 ```
 
-Esta é a mais grave, porque as demais têm solução técnica e esta não. O sinal de alerta: o
+Esta é a mais grave, porque as demais se resolvem mudando processo e esta não. O sinal de alerta: o
 mecanismo é defendido por argumentos de autoridade e não por evidência de risco evitado.
 
 ### Ausência de mecanismo de remoção
@@ -212,8 +213,9 @@ organizações grandes.
 
 **Sem medir antes** — remover um mecanismo sem saber o que ele previne é aposta.
 
-**Em organizações pequenas**, onde o diagnóstico costuma ser excesso de formalismo e não
-patologia.
+**Quando uma pessoa conhece todos os mecanismos e seus donos.** O catálogo diagnostica
+acumulação sem remoção; num conjunto desse tamanho, o excesso de formalismo aparece em
+mecanismos individuais e se corrige um a um, sem inventário.
 
 ## Alternativas
 
@@ -224,7 +226,10 @@ patologia.
 - **Substituição por automação** — o mecanismo humano vira verificação.
 
 A primeira é a mais subutilizada e a mais informativa: ela produz evidência em vez de
-argumento.
+argumento — desde que a janela cubra ao menos um evento esperado. Um mecanismo que pega algo
+uma vez a cada 24 meses passa um trimestre em silêncio em cerca de 88% das vezes
+(e^(-3/24)), suspenso ou não; para risco raro e severo, o trimestre calmo não autoriza a
+remoção, e a evidência precisa vir do histórico de acertos.
 
 ## Trade-offs
 
@@ -236,9 +241,9 @@ argumento.
 
 | Suspender e observar | Decidir por análise |
 |---|---|
-| Evidência real | Sem risco |
+| Evidência observada | Evidência inferida |
 | Exige tolerância a risco | Discussão sem fim |
-| Conclusivo | Inconclusivo |
+| Conclusivo para risco frequente | Não conclui sem histórico |
 
 ## Modos de Falha
 
@@ -256,9 +261,11 @@ argumento.
 
 **Propor mecanismo novo** como resposta a um mecanismo que falhou.
 
-**Não datar mecanismos** na criação.
+**Não datar mecanismos** na criação. Sem data, nenhuma revisão é devida, e o mecanismo só
+é reexaminado quando alguém tem coragem de propor tirá-lo.
 
-**Não medir atrito.**
+**Não medir atrito.** A proposta de remoção fica sem argumento contra quem defende o
+mecanismo pelo risco que ele previne: um lado traz um incidente, o outro traz uma impressão.
 
 **Confundir ritual com cultura** — a reunião que "sempre existiu" raramente é cultura.
 
@@ -322,7 +329,7 @@ conjunto volta a crescer.
 Resultados após 12 meses:
 
 ```text
-mecanismos                                    34 → 15
+mecanismos manuais (sem os 11 automatizados)  34 → 16
 tempo médio de aprovação para projeto novo    de 26 para 4 dias
 incidentes atribuíveis a mecanismo removido    1 — o de dependências,
                                               restabelecido
@@ -355,7 +362,7 @@ mecanismo você examine primeiro.
 
 - Por que procurar culpados não ajuda no diagnóstico de governança degenerada?
 - Por que suspender temporariamente é melhor que discutir se um mecanismo é necessário?
-- Qual patologia não tem solução técnica, e por quê?
+- Qual patologia não se resolve mudando processo, e por quê?
 
 ## Para Aprofundar
 

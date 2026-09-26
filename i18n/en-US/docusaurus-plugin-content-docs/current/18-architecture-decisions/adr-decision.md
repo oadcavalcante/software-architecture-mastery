@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-context, adr-consequences, adr-status]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -29,7 +29,7 @@ Three properties define it:
 ```text
 active voice   "we will use X", not "it is recommended to evaluate X"
 clear scope    where it applies and where it doesn't
-no hedging     no "probably", "for now", "unless"
+no hedging     no "probably", "for now", "in principle"
 ```
 
 The typical size is two to five lines. If it grows, it is generally because it has become
@@ -65,8 +65,10 @@ bad    "PostgreSQL seems appropriate."
 good   "We will use PostgreSQL as the primary database for the orders services."
 ```
 
-The second looks acceptable and isn't: the passive voice erases who decided, and that is
-exactly the information someone will want two years from now.
+The second looks acceptable and isn't: the passive voice states a fact with no subject, and
+nobody is committed to it. "We will" doesn't name people either — that is the job of the
+[record of deciders](#recording-who-decided) —, but it makes whoever signs the ADR
+answerable for what the decision demands two years from now.
 
 Choosing "we will" is not stylistic. It signals that a commitment was made — which is what
 distinguishes an ADR from a technical evaluation.
@@ -189,16 +191,22 @@ several decisions or it is implementation.
 
 ## When Not to Use
 
-**With hedging.** "Probably", "for now", "subject to review" — review is the superseding
-mechanism, not a caveat.
+**With hedging.** "Probably", "for now", "subject to review" with no criterion — review is
+the superseding mechanism, not a caveat. A trigger with a deadline or a measurable threshold
+("reassess when any domain exceeds 50 events/s") is not hedging: it is the
+[reversal condition](/18-architecture-decisions/adr-alternatives.md) written next to the
+decision. Likewise, a named exception ("except the reporting domain") is scope.
 
-**In the passive voice.**
+**Splitting decisions coupled by a real dependency.** The one-decision-per-ADR rule holds
+when one part can be reversed without the other. If adopting Kafka only stands with the
+schema registry that comes with it, splitting it into two ADRs creates inconsistent
+superseding: one is superseded, the other stays accepted and points to a premise that no
+longer exists.
 
-**Describing implementation.**
-
-**With several decisions together.**
-
-**With no scope**, when the system has more than one domain.
+**Listing domains in a cross-cutting decision.** When the decision applies to the whole
+organization — an authentication standard, a data retention policy —, enumerating the
+affected domains ages with every new domain and suggests the omitted ones are out. The
+correct scope is "all"; what needs bounding is the exception.
 
 **As a proposal.** A proposal has status `proposed`; the decision section stays
 affirmative.
@@ -216,21 +224,21 @@ affirmative.
 
 | Narrow scope | Broad |
 |---|---|
-| Clear application | Fewer ADRs |
-| More ADRs | Ambiguous in application |
+| Clear application | Ambiguous in application |
+| More ADRs to maintain | Fewer ADRs |
 | Supersedable on its own | Superseded as a block |
 
 | Recorded disagreement | Apparent consensus |
 |---|---|
-| Honest and useful later | Less immediate friction |
-| Preserves the objection | Looks more solid |
+| More friction in review | Less friction in review |
+| Objection available when the risk materializes | Objection lost |
 | Requires team maturity | Easy |
 
 ## Failure Modes
 
 **Hedging.** The decision can be neither followed nor challenged.
 
-**Passive voice.** Nobody decided.
+**Passive voice.** Nobody is committed.
 
 **No scope.** Applied where it shouldn't be, or ignored where it should be.
 
@@ -246,9 +254,10 @@ affirmative.
 
 **Omitting what doesn't change** — which leaves room for expansive interpretation.
 
-**Not recording the deciders.**
+**Not recording the deciders** — when the decision needs review, nobody knows whom to ask.
 
-**Not recording decisions not to act.**
+**Not recording decisions not to act** — the same proposal comes back every cycle, with no
+record of why it was turned down.
 
 **Softening the decision** to reduce friction in review — which transfers the friction to
 the future.
@@ -272,7 +281,7 @@ services with a mixed approach and no criterion                   9
 distinct interpretations of the ADR found in interviews           5
 ```
 
-The first four were the most problematic: simple synchronous queries had been converted
+The four services in the first row were the most problematic: simple synchronous queries had been converted
 into request-response event pairs, with manual correlation and response times in seconds.
 See [event-driven integration](/08-integration-architecture/event-driven-integration.md).
 
@@ -297,8 +306,8 @@ operational cost. Reassess when any of them exceeds 50 events/s."
 ```
 
 And a writing rule was adopted: **every decision needs a sentence starting with "we will
-not"**. The justification was empirical — of the 12 ADRs that had produced divergent
-interpretation, 11 did not bound what was left out.
+not"**. The justification was empirical: the audit was extended to the company's other ADRs, and
+of the 12 that had produced divergent interpretation, 11 did not bound what was left out.
 
 Fixing the four services took seven months. Response time for the converted queries dropped
 from 2.4 s to 90 ms.

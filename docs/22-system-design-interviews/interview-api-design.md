@@ -12,8 +12,8 @@ objective: >
   escopo antes do desenho interno.
 prerequisites: [functional-vs-nonfunctional]
 related: [interview-data-modeling, high-level-architecture, interview-structure]
-canonical_for: [desenho de API em entrevista, contrato como fronteira, granularidade de endpoint]
-content_version: 1
+canonical_for: [desenho de API em entrevista, contrato como fronteira]
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -42,8 +42,8 @@ minutos depois, ele está desenhando um subsistema de análise que ninguém pedi
 delimitou o que o sistema expõe.
 
 **Detalhar a API.** O candidato gasta oito minutos escrevendo códigos de erro, cabeçalhos,
-versionamento, formato de paginação e esquema de validação. Nada disso é avaliado, e o tempo
-saiu do desenho.
+versionamento, formato de paginação e esquema de validação. Nada disso é o que se avalia nessa
+fase, e o tempo saiu do desenho.
 
 ```text
 avaliado           quais operações existem, com quais parâmetros
@@ -131,8 +131,9 @@ grossa demais  POST /operacao {tipo: "criar_url", ...}
 adequada       POST /urls, PATCH /urls/{codigo}
 ```
 
-A granularidade adequada segue as unidades de mudança do domínio: o que muda junto fica junto.
-Numa entrevista, a regra prática é uma operação por intenção do usuário.
+O critério de granularidade está em [APIs](/05-system-design/apis.md#granularidade-do-recurso):
+modele operações do consumidor. Numa entrevista, ele vira uma regra de dois segundos — uma
+operação por intenção do usuário.
 
 ### Assíncrono quando a operação é longa
 
@@ -194,13 +195,16 @@ não será detalhado dito em voz alta.
 
 ## Quando Não Usar
 
-**Detalhando erros, cabeçalhos e versionamento.**
+**Quando o entrevistador pede a arquitetura direto.** Se ele já fixou o escopo no enunciado e
+diz que quer ver o desenho, os dois minutos da API delimitam o que já está delimitado.
 
-**Com muitos endpoints** — mais de seis ou sete indica que o escopo não foi delimitado.
+**Em domínios centrados em dados.** Num pipeline de análise ou num data warehouse, a superfície
+exposta é uma consulta genérica; o que fixa o escopo são as entidades e os volumes, e começar
+pelo modelo de dados rende mais.
 
-**Debatendo estilo** por vários minutos.
-
-**Sem conectar ao modelo de dados** e ao desenho.
+**Em problemas de infraestrutura sem superfície para o usuário.** Um rate limiter ou um cache
+distribuído expõem uma ou duas chamadas triviais — `permitir(chave)`, `get/set`. Escrevê-las não
+revela modelo nem separa perfis; o problema está no algoritmo e na coordenação.
 
 **Antes dos requisitos não funcionais** — sem eles, não há como agrupar por perfil.
 
@@ -238,15 +242,19 @@ não será detalhado dito em voz alta.
 
 ## Erros Comuns
 
-**Escrever dez endpoints** para um sistema com quatro requisitos.
+**Escrever dez endpoints** para um sistema com quatro requisitos. O desenho passa a ter que
+atender a todos, e o tempo se espalha por operações que não decidem nada.
 
-**Não marcar qual operação domina o volume.**
+**Não marcar qual operação domina o volume.** Cache e réplicas acabam aplicados de maneira
+uniforme, e o entrevistador conclui que você não sabe o que dimensiona o sistema.
 
-**Detalhar paginação e erros.**
+**Detalhar paginação e erros.** Os minutos saem do desenho interno, que é onde está a avaliação.
 
-**Esquecer a operação de maior volume** — em encurtadores, o redirecionamento.
+**Esquecer a operação de maior volume** — em encurtadores, o redirecionamento. O dimensionamento
+inteiro fica calculado sobre a operação errada.
 
-**Não dizer o que ficou de fora.**
+**Não dizer o que ficou de fora.** A omissão fica indistinguível de desconhecimento, e o
+entrevistador pergunta — gastando o tempo que a frase teria economizado.
 
 ## Exemplo de Entrevista
 
@@ -266,18 +274,19 @@ POST /posts/{id}/reacoes {tipo}            →  204
 
 ```text
 "GET /feed é a operação que dimensiona o sistema: 300 milhões
- de usuários diários, cinco aberturas cada, dá 15 mil por segundo.
+ de usuários diários, cinco aberturas cada, dá ~17 mil por segundo.
  Ela é leitura, tolera 30 segundos de defasagem, e precisa de
  p95 abaixo de 500 ms.
 
  POST /posts é 500 milhões por dia, ou ~6 mil por segundo —
- quarenta vezes menos. Precisa de durabilidade, tolera latência
+ um terço da leitura, e cada post escrito é lido em muitos
+ feeds. Precisa de durabilidade, tolera latência
  de 1 segundo.
 
  POST /reacoes é o de maior volume absoluto, mas é fogo e esquece:
  pode ser assíncrono, e a contagem pode ser aproximada.
 
- follows são raros: alguns milhares por segundo, sem requisito
+ follows são raros: algumas centenas por segundo, sem requisito
  especial."
 ```
 

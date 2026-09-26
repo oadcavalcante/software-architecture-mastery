@@ -13,7 +13,7 @@ objective: >
 prerequisites: [high-level-architecture]
 related: [high-level-architecture, interview-scaling, failure-handling]
 canonical_for: [identificação de gargalo em entrevista, primeiro recurso a saturar, gargalo deslocado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -118,7 +118,9 @@ estrutura.
 ```
 
 Três níveis de gargalo, em ordem. Isso demonstra que o candidato entende que o sistema tem uma
-sequência de limites, e que cada correção move a pressão adiante.
+sequência de limites, e que cada correção move a pressão adiante. O mecanismo está em
+[análise de gargalos](/05-system-design/bottleneck-analysis.md#o-gargalo-se-move); aqui ele vira
+fala de entrevista.
 
 Essa sequência também é o que permite decidir onde parar. Se o segundo gargalo aparece a uma
 escala dez vezes maior que a atual, resolvê-lo agora é otimização prematura; se ele aparece a uma
@@ -139,8 +141,8 @@ memória de cache               particionar, ou reduzir o conjunto quente
 ```
 
 Propor a correção certa para o tipo certo de gargalo é o conteúdo da avaliação. Propor
-particionamento para um gargalo de leitura, por exemplo, indica que a natureza do problema não
-foi entendida.
+particionar o banco para um gargalo de leitura que réplicas ou cache resolvem, por exemplo,
+indica que a natureza do problema não foi entendida.
 
 ### O gargalo pode estar fora do seu sistema
 
@@ -186,15 +188,11 @@ a segunda resposta vale mais que a primeira.
 
 ## Quando Não Usar
 
-**Sem números propagados.** Sem levar a estimativa de carga até cada componente, a identificação do gargalo é palpite — e o entrevistador percebe.
+**Quando o entrevistador direcionou a conversa para outro eixo.** Se ele pediu o modelo de dados ou o contrato da API, abrir uma análise de saturação responde a uma pergunta que não foi feita. O custo é o tempo da sessão gasto no eixo que ele não quer avaliar, e o sinal de que você não escuta a condução.
 
-**Escalando tudo uniformemente.** Dobrar todos os componentes gasta orçamento imaginário e não demonstra raciocínio; o valor está em apontar qual satura primeiro.
+**Quando o enunciado não tem requisito de escala.** Um sistema interno para duzentos usuários não tem carga a propagar, e inventar volume para achar gargalo produz arquitetura para um problema ausente. Uma frase basta — "nesta escala, nada satura" — e o tempo vai para o que o enunciado exige, como consistência ou modelagem.
 
-**Resolvendo gargalos que não existem** na escala dada. Propor particionamento para um volume que cabe numa instância mostra reflexo, não análise.
-
-**Sem distinguir capacidade de estrutura.** Falta de capacidade se resolve com mais máquina; problema estrutural, não. Confundi-los leva a propor escala onde a resposta era mudar o modelo.
-
-**Ignorando dependências externas.** Limite de taxa de terceiro e cota de provedor costumam saturar antes da sua própria infraestrutura, e não são elásticos.
+**Quando falta tempo para fechar o caminho principal.** Com dez minutos restantes e o fluxo de escrita ainda sem desenho, a análise de gargalo troca um sistema completo e ingênuo por um fragmento otimizado. O entrevistador avalia o primeiro; o segundo não se sustenta sozinho.
 
 E há um uso errado da própria técnica: buscar gargalo antes de o desenho estar completo. Analisar
 saturação de um fluxo pela metade produz conclusões sobre um sistema que não existe, e consome o
@@ -217,7 +215,8 @@ ordem dos limites.
 | Analisar por componente | Por recurso |
 |---|---|
 | Segue o desenho | Cobre o que o desenho esconde |
-| Mais natural de explicar | Encontra contenção |
+| Mais natural de explicar | Exige traduzir cada recurso de volta para uma caixa do desenho |
+| Deixa passar contenção entre componentes | Encontra contenção |
 
 | Resolver o gargalo | Anotar e seguir |
 |---|---|
@@ -240,7 +239,7 @@ ordem dos limites.
 
 **Não propagar os volumes** pelo desenho.
 
-**Propor particionamento** para gargalo de leitura.
+**Propor particionar o banco** para gargalo de leitura que réplicas ou cache resolvem.
 
 **Esquecer dependências externas.**
 
@@ -266,7 +265,7 @@ redirecionamentos por segundo, 120 criações.
  adiciono instâncias.
 
  O cache recebe 12 mil por segundo. Uma instância em memória
- atende centenas de milhares de operações simples por segundo,
+ atende por volta de 100 mil operações simples por segundo,
  então há folga grande. O limite do cache não é vazão, é
  memória: 30 GB de conjunto quente. Se o conjunto crescer
  além da capacidade, o acerto cai.
@@ -293,7 +292,8 @@ redirecionamentos por segundo, 120 criações.
  redirecionamento a ~200 bytes dá ~100 MB/s — cabe, mas exige
  distribuição geográfica por latência, não por vazão.
 
- Terceiro: as escritas continuam em 5 mil por segundo, o que
+ Terceiro: as escritas sobem na mesma proporção, para ~5 mil
+ por segundo, o que
  um banco relacional atende. Só passaria a ser problema acima
  de dezenas de milhares.
 

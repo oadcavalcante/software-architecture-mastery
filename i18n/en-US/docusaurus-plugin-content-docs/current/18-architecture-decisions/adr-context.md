@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-structure, adr-alternatives, superseding-decisions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -133,21 +133,19 @@ And it helps identify the right moment to revisit: when the uncertainty is resol
 
 ### Reversibility matters and belongs in the context
 
-Not every decision carries the same weight:
+The reversibility scale, and the rule that rigor follows the cost of reversal, live in
+[decision-making](/23-architecture-leadership/decision-making.md). What belongs to the ADR is
+recording the category in the context, with the concrete reason:
 
 ```text
-reversible               can be undone in days, at low cost
-costly                   weeks or months of work
-irreversible in practice a public data format, a customer contract,
-                         a service boundary with many consumers
+"irreversible in practice: the event format is consumed by 11 services across 4 teams"
+"reversible in days: the library sits behind an interface we own"
 ```
 
-Recording which category the decision falls into indicates how much rigor it deserved — and
-tells whoever comes later how much it costs to change.
-
-Reversible decisions deserve to be made fast and with little ceremony; irreversible ones
-deserve the opposite. See
-[architecture levels](/15-enterprise-architecture/architecture-levels.md).
+That tells whoever comes later two things the decision text does not: how much it costs to
+change, and how much rigor went into it. A decision marked reversible and settled in an
+afternoon can be revisited just as lightly; one marked irreversible asks the review to redo
+the analysis.
 
 ### The context is dated by nature
 
@@ -171,7 +169,8 @@ context   "4 engineers, none with operational experience in distributed systems"
 trigger   when the team grows or gains that experience, reassess
 
 context   "the partner has 4% measured downtime"
-trigger   when the partner improves, reassess
+trigger   when measured downtime stays below 0.5% for two consecutive
+          quarters, reassess
 ```
 
 Making that trigger explicit is what separates an ADR that merely records from one that
@@ -191,17 +190,18 @@ decision, it isn't context.
 
 ## When Not to Use
 
-**As a description of the system.** That is documentation, not context.
+Detailed context — numbered forces, origins, uncertainties — costs hours of gathering. There
+are decisions where that cost doesn't pay back:
 
-**With no numbers** when they exist.
+**A decision reversible in days.** If undoing it costs less than gathering the numbers, a
+Y-Statement records enough; reassessing later is cheaper by simply redoing the decision.
 
-**In the present tense.** "We are 12 people" ages into falsehood.
+**A decision of local scope**, affecting only one team's code, which the team can reverse
+without negotiating with anyone. The memory of whoever made it is still around.
 
-**Omitting uncomfortable constraints** — a deadline, internal politics, a team limitation.
-Those are exactly the ones that explain decisions that look strange later.
-
-**Too long.** Three to six paragraphs suffice; a two-page context is usually describing
-rather than recording forces.
+**A constraint already recorded in an immutable, dated document** — a contract, a legal
+opinion, an incident report. Copying it into the ADR creates two versions that can diverge;
+referencing it, with the date, preserves the origin.
 
 ## Alternatives
 
@@ -210,21 +210,23 @@ rather than recording forces.
   dated; doesn't work if it is a living document.
 - **A list of forces** instead of prose — easier to write and to verify later.
 
-The last is underrated: a list of seven numbered forces is more useful, and more honest,
-than three paragraphs of prose.
+The last is underrated when the forces are independent and each can be checked on its own:
+in a review, each list item is struck out or kept, while prose hides which premise fell.
+When the forces condition each other — the deadline only mattered because of the team's
+size — three to six paragraphs of prose carry the relationship the list loses.
 
 ## Trade-offs
 
-| Detailed context | Short |
-|---|---|
-| Revisitable in the future | Fast to write |
-| Verifiable numbers | Less mental maintenance |
-| Longer | May be missing when it matters |
+| Axis | Detailed context | Short |
+|---|---|---|
+| Writing cost | Hours, gathering numbers and origins | Minutes |
+| Future reassessment | Checkable against dated numbers | Depends on the memory of whoever was there |
+| Content risk | Drifting into describing the system | Omitting exactly the force that decided |
 
-| Explicit constraints | Implicit |
-|---|---|
-| Lets you check validity | Less political exposure |
-| Explains strange decisions | Looks more technical |
+| Axis | Explicit constraints | Implicit |
+|---|---|---|
+| Political exposure | Deadline and politics recorded in writing | None |
+| Future explanation | Strange decisions are explained by the constraint | They look like the author's technical mistake |
 
 The second table hides a real tension: recording "we decided this way because of the
 deadline" is honest and uncomfortable. Omitting it produces an ADR that looks better and
@@ -246,13 +248,24 @@ is worth less.
 
 ## Common Mistakes
 
-**Writing the context after the decision**, as justification.
+**Writing the context after the decision**, as justification. The text selects the forces
+that pointed to the chosen option and leaves out the ones pointing the other way — which are
+the ones a future review would need to weigh.
 
 **Omitting the deadline** as a force — one of the most common and the least recorded.
+Without it, a choice made under urgency looks like technical preference, and outlives the
+deadline that justified it.
 
-**Not stating the team's size and experience.**
+**Not stating the team's size and experience.** Without "4 people, none with Kafka", nobody
+knows whether rejecting Kafka still holds when the team doubles.
 
-**Not declaring reversibility.**
+**Not declaring reversibility.** The decision gets revisited with the wrong rigor: heavy
+analysis reopens what was cheap to swap, or something expensive to undo gets swapped in a
+hurry.
+
+**Writing too long.** Three to six paragraphs suffice; a two-page context is usually
+describing the system rather than recording forces, and the decisive force gets lost in the
+middle.
 
 **Confusing context with requirements**: requirements are what the system needs to do;
 context also includes what limited the options.
@@ -319,6 +332,7 @@ evaporates.
 - [Superseding](/18-architecture-decisions/superseding-decisions.md) — what you do when the
   context changes.
 - [Quality Attributes](/01-fundamentals/quality-attributes.md) — the numbers.
+- [Decision-Making](/23-architecture-leadership/decision-making.md) — reversibility and rigor.
 
 ## Practical Exercise
 
@@ -337,4 +351,3 @@ reopening the decision.
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.
-- Bezos, Jeff. *2015 letter to shareholders* — one-way and two-way door decisions.

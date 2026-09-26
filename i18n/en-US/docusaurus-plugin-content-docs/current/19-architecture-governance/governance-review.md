@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-pathologies, exceptions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -32,7 +32,8 @@ late, with no veto power      ritual
 early, with veto power        nobody brings anything early
 ```
 
-Only the first combination has any effect. And it is the least chosen, because it looks like
+For most decisions, only the first combination has any effect — veto is justified for a
+small set of classes, described below. And it is the least chosen, because it looks like
 the weakest — a review with no formal authority sounds like a review with no consequence.
 
 Practice shows the opposite: the authority to veto is what pushes the review to the end,
@@ -145,7 +146,7 @@ And recording that separation is what makes it possible to assess the review aft
 ### Who takes part
 
 ```text
-whoever decides           the team, always
+whoever decides           the team, outside the gated classes
 whoever has the history   architects, people with relevant scars
 whoever owns the risk     security, operations, data — where applicable
 whoever consumes          affected teams, when there is a contract between them
@@ -184,15 +185,16 @@ when there is nothing left to improve.
 
 ## When Not to Use
 
-**As a gate for everything.**
+**Recurring decision already covered by a template or fitness function** — the review repeats
+what the template already decides and only adds latency.
 
-**After implementation.**
+**Reversible decision local to one team** — waiting for the session costs more than fixing
+the mistake, if it shows up.
 
-**With no agenda.**
+**Design already implemented** — with no room to change, the review can only approve or cause
+rework; what fits there is recording the decision in an ADR.
 
-**With a large group.**
-
-**Without separating blocking from recommendation.**
+**As a gate for everything** — the queue grows, and the veto pushes every decision late.
 
 **As the only governance mechanism** — review doesn't scale, and it is corrective by nature.
 
@@ -241,6 +243,8 @@ that the mechanism is perceived as useful.
 **Asking for "the finished design"** to review.
 
 **Not asking the team where they have doubts.**
+
+**Reviewing with no agenda**, with a large group.
 
 **Mixing preference with blocking.**
 
@@ -306,9 +310,9 @@ cases where the divergence proved
 ```
 
 The 9 cases where the team was right against the recommendation were used internally as an
-argument for keeping the model. The recorded conclusion: whoever has the context of the
-problem is right more often than whoever has the historical context — and the advice model is
-the only one that lets you discover that.
+argument for keeping the model. The recorded conclusion is limited to the data: in the 14 times the team diverged, it was right
+in 9 — a biased sample, because the team only diverges when it is convinced. Without the
+divergence record, not even that data would exist: under the gate, divergence didn't happen.
 
 A side effect: the voluntary attendance rate gave the architecture group information the
 mandatory review never provided. By being approached early, it came to know what was being

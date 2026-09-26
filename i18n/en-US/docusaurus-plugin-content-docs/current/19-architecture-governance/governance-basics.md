@@ -13,7 +13,7 @@ objective: >
 prerequisites: [enterprise-governance]
 related: [governance-review, fitness-functions-governance, governance-pathologies]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -93,7 +93,7 @@ The same objective can be pursued at very different moments, at very different c
 ```text
 objective: "every exposed service requires authentication"
 
-in the environment   the mesh rejects unauthenticated traffic — impossible to get wrong
+in the environment   the mesh rejects unauthenticated traffic — no one has to remember
 in the template      the service is born with authentication configured
 in the pipeline      the check fails if it is missing
 in review            someone notices and comments
@@ -101,12 +101,14 @@ in the committee     someone notices weeks later
 in the audit         someone notices months later
 ```
 
-The options are ordered by increasing cost and decreasing effectiveness, and the difference
-between the first two and the rest is not marginal — but those two are not equivalent to
-each other. The **environment** prevents: what does not go through the control does not
+The options are ordered by increasing cost per decision, and the difference between the
+first two and the rest is not marginal — but effectiveness does not follow that order line by
+line. The **environment** prevents: what does not go through the control does not
 happen, with the caveats of whatever escapes the proxy. The **template** prevents nothing;
 it makes the right thing the default path, and the residue is measured — in the Real-World
-Example, the 6% of new services that did not go through it.
+Example, the 6% of new services that did not go through it. The pipeline costs more than
+the template and actually blocks: that is why the two are complementary, with the check
+catching the residue the default path lets through.
 
 Choosing the earliest viable point is where the cost per decision falls fastest: every step
 to the right in that list multiplies the number of times somebody has to spend attention.
@@ -191,18 +193,27 @@ the platform — and a wrong path that doesn't exist doesn't need inspecting.
 
 ## When Not to Use
 
-**Uniformly for every decision.**
+**Uniformly for every decision.** When decisions reversible in an afternoon go through the
+same ritual as irreversible ones, the delay is paid on all of them and attention runs out
+before the case that matters.
 
-**As a design approval committee.**
+**As a design approval committee.** If the objective fits in a pipeline check or a template,
+the committee spends human attention per decision to reach, weeks later, what automation
+would say on the spot.
 
-**With no owner and no measured cost.**
+**With no owner and no measured cost.** Nobody can say how much delay it adds, and so nobody
+adjusts or removes it.
 
-**In small organizations**, where a conversation resolves it — a formal mechanism is pure
-cost.
+**While conversation resolves it.** The signal is that every decision with cross-team effects
+reaches everyone affected before it is implemented, with no formal channel. While that holds,
+a formal mechanism is pure cost; it starts paying for itself when a team discovers, through an
+incident or rework, another team's decision that affected it.
 
-**For problems the platform would solve better.**
+**For problems the platform would solve better.** A process that asks every team to remember
+to configure authentication charges per decision what a template would charge once.
 
-**With no review deadline** — mechanisms are permanent by default.
+**With no review deadline.** Mechanisms are permanent by default, and keep charging after the
+problem that justified them has gone.
 
 ## Alternatives
 
@@ -245,11 +256,14 @@ expected in organizations with a strong technical culture.
 
 ## Common Mistakes
 
-**Creating a committee** as the first response to a coherence problem.
+**Creating a committee** as the first response to a coherence problem. The committee
+becomes a queue, and the queue starts receiving work that is already implemented.
 
-**Not asking what the earliest intervention point would be.**
+**Not asking what the earliest intervention point would be.** The objective ends up pursued
+in review, where it costs attention on every decision, when it could live in the template.
 
-**Confusing governance with authority** — the mechanism is the means, not the power.
+**Confusing governance with authority** — the mechanism is the means, not the power. When the
+veto becomes the product, teams stop consulting and start working around it.
 
 **Not measuring the friction** the mechanism introduces.
 
@@ -274,7 +288,8 @@ aggregate waiting time              ~10 person-years of calendar time
 ```
 
 The five cases with substantive changes were examined one by one. In four of them, the
-problem raised was one of **security** or of **shared data format**. In none of the five was
+problem raised was one of **security** or of **shared data format**; the fifth had a
+**regulatory** implication. In none of the five was
 the question about the system's internal design.
 
 And the two rejected had been implemented anyway, with an exception granted afterwards.
@@ -309,12 +324,12 @@ decisions under mandatory review           31 (against 214)
 average waiting time                        3 days
 voluntary consultations                    142
 incidents caused by data format
-  divergence                                0 (against 7 in the previous period)
+  divergence                                0 (against 7 in the previous 18 months)
 template adoption in new services           94%
 ```
 
 The figure the team considers decisive: voluntary consultations exceeded the volume of
-mandatory reviews fourfold. Teams seek guidance when it is cheap, early and carries no veto.
+mandatory reviews more than fourfold. Teams seek guidance when it is cheap, early and carries no veto.
 
 The reading the team takes from this: the committee was never the problem. The problem was
 that it intervened at the one point where the only available action was too expensive to
@@ -342,7 +357,7 @@ expensive.
 
 - Why is a committee that approves 90% of what it receives not working?
 - What is the difference between preventive, detective and corrective governance?
-- Why is applying the same mechanism to every decision the most expensive mistake?
+- Why is applying the same mechanism to every decision expensive, even when each mechanism makes sense on its own?
 
 ## Further Reading
 

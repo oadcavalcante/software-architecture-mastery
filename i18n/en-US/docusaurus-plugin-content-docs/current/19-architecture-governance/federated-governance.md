@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [governance-basics, governance-standards, governance-pathologies]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -169,24 +169,30 @@ chart.
 
 ## When to Use
 
-- In organizations from a few teams up, with real autonomy.
+- When the teams no longer fit in a single decision forum, and have real autonomy.
 - Where there is a platform able to sustain the easy path.
 - When centralization has already become a measurable bottleneck.
 - With team representation in defining what is central.
 
 ## When Not to Use
 
-**With no platform.**
+**With no platform that already delivers identity, observability and a pipeline** — each
+team rebuilds those pieces, and the sum costs more than the central queue.
 
-**With no representation** — it becomes centralization under another name.
+**With no representation** — the central set gets defined for the teams, not by them, and
+becomes centralization under another name.
 
-**With very uneven maturity**, and no differentiated support.
+**With very uneven maturity**, and no differentiated support — the same local scope for
+everyone hands the less mature teams decisions they cannot yet sustain.
 
-**In small organizations.**
+**When all the teams fit in a single decision forum** — the central queue is still short, and
+a council, contracts and a platform cost more than it does.
 
-**With no consequence** for breaking a contract.
+**With no consequence** for breaking a contract — the contract becomes a recommendation, and
+coherence goes back to depending on goodwill.
 
-**With a growing central set** — a sign of regression.
+**With a growing central set** — the model is already regressing to centralization, and
+federating on paper only hides it.
 
 ## Alternatives
 
@@ -202,16 +208,16 @@ The last is the most common arrangement in practice, and frequently the right on
 
 | Federated | Centralized |
 |---|---|
-| Decisions close to the context | Coherence guaranteed |
+| Decisions with local context | Decisions with less context |
 | Scales with the number of teams | Becomes a queue |
 | Requires a platform | Requires less |
-| Local divergence | Uniformity |
+| Coherence through verified contracts | Coherence through imposed uniformity |
 
 | Small central set | Large |
 |---|---|
 | Real autonomy | Greater coherence |
 | Requires trust | Requires verification |
-| Fast | Predictable |
+| Local decision the same day | Decision in the central queue |
 
 ## Failure Modes
 
@@ -235,10 +241,12 @@ The last is the most common arrangement in practice, and frequently the right on
 
 **Not investing in a platform** before distributing the decision.
 
-**Not measuring whether the central set is growing.**
+**Not measuring whether the central set is growing** — the regression to centralization is
+only noticed once the queue is already back.
 
-**Not treating event format as a high-externality decision** — the most common and the most
-expensive mistake.
+**Not treating event format as a high-externality decision** — the incompatibility between
+producer and consumer shows up in production, as an incident, and not in the review of the
+team that published it.
 
 ## Real-World Example
 
@@ -296,8 +304,11 @@ template adoption in new services             91%
 ```
 
 Two items leaving the central set is the figure the team highlights. Identity and
-observability stopped being rules because they became a built-in default — no team has to
-remember something that already comes configured.
+observability stopped being written rules because they became a built-in, verified default:
+the template ships them configured, and the platform pipeline refuses to deploy a service
+without them — it is that check, not the template, that covers the 9% of new services outside
+it and the legacy services, migrated onto the pipeline. No team has to remember the rule, and
+none can ignore it.
 
 And one item was added in the second year: an infrastructure cost policy, after three teams
 made choices with a significant aggregate effect on the bill. The externality had not been

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-data-modeling]
 related: [bottleneck-identification, interview-scaling, interview-structure]
 canonical_for: [arquitetura de alto nível em entrevista, fluxo principal desenhado, caixa justificada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -98,7 +98,8 @@ e a ausência dela é mais informativa que qualquer desenho.
 
 ### Comece monolítico e divida sob pressão
 
-Uma escolha que causa desconforto e é a correta:
+Uma escolha que causa desconforto e é o ponto de partida defensável quando a estimativa ainda não
+apontou um componente com perfil de carga próprio:
 
 ```text
 primeira versão   "serviço de aplicação" — uma caixa
@@ -107,7 +108,7 @@ depois            dividir onde houver razão: perfil de carga
                   ou time diferente
 ```
 
-Desenhar seis microsserviços desde o início é o erro mais comum em entrevistas de nível
+Desenhar seis microsserviços desde o início é um erro frequente em entrevistas de nível
 intermediário. Ele sinaliza que a divisão veio de um modelo mental e não do problema. Ver
 [monólito vs. microsserviços](/20-trade-offs/monolith-vs-microservices.md).
 
@@ -151,7 +152,7 @@ Quando os dois têm perfis diferentes — e quase sempre têm —, desenhá-los 
 
 ```text
 escrita   cliente → aplicação → banco → (evento) → processamento
-leitura   cliente → cache → aplicação → réplica
+leitura   cliente → aplicação → cache → (falha) → réplica
 ```
 
 Essa separação torna óbvio por que o cache está do lado da leitura, por que a réplica existe, e
@@ -181,19 +182,22 @@ Redis" — sem ocupar o centro.
 
 ## Quando Não Usar
 
-**Com quinze caixas de saída.**
+**Quando o entrevistador pede aprofundamento direto.** "Projete só o rate limiter" ou "como você
+fatiaria esse banco?" já delimita o componente. Desenhar o fluxo completo antes gasta cinco minutos
+num contexto que ele declarou conhecido, e sinaliza que você não ouviu a pergunta.
 
-**Aprofundando antes de fechar o fluxo.**
+**Quando a pergunta é de baixo nível ou de API.** Projetar a interface de um cliente de pagamento
+ou as classes de um estacionamento não tem caixas de infraestrutura para justificar; o equivalente
+aqui é o contrato e o modelo, e forçar um balanceador no quadro é ruído.
 
-**Com componentes não justificados.**
-
-**Dividindo em serviços sem razão declarada.**
-
-**Nomeando por produto** em vez de por responsabilidade.
+**Quando a estimativa já revelou um gargalo dominante.** Se o problema é um feed com fan-out de
+milhões de seguidores, o primeiro desenho sem a estratégia de fan-out omite justamente o que será
+avaliado. Seguir a regra aqui custa uma rodada inteira: o entrevistador vai pedir o componente, e
+você terá desenhado duas vezes.
 
 ## Alternativas
 
-- **Descrever o fluxo em texto** — quando não há quadro; menos eficaz e viável.
+- **Descrever o fluxo em texto** — quando não há quadro; menos eficaz, mas viável.
 - **Desenhar dois fluxos** — leitura e escrita separados; melhor quando os perfis divergem.
 - **Começar pelo gargalo** — se a estimativa já apontou um, desenhar em torno dele é legítimo.
 
@@ -203,12 +207,18 @@ Redis" — sem ocupar o centro.
 |---|---|
 | Fácil de explicar e criticar | Cobre mais |
 | Expande sob demanda | Consome tempo |
-| Cada caixa justificada | Sugere memorização |
+| Menos cobertura inicial | Mostra repertório de antemão |
 
 | Monolítico primeiro | Dividido desde o início |
 |---|---|
-| Divisão justificada depois | Parece mais moderno |
+| Divisão justificada depois | Discute fronteiras de serviço desde o início |
 | Menos caixas para explicar | Mais superfície a defender |
+
+O custo do desenho simples é ser lido como falta de repertório, e o risco cresce com a senioridade
+da vaga: cinco caixas de um candidato sênior podem parecer ingenuidade, não disciplina. A mitigação
+cabe numa frase dita antes de perguntar onde aprofundar — "os pontos de expansão que prevejo são a
+leitura, se o acerto do cache cair, e a análise de cliques, que sairia do caminho síncrono". Isso
+mostra que o repertório existe e que ficou fora do quadro por escolha.
 
 ## Modos de Falha
 
@@ -237,7 +247,8 @@ Redis" — sem ocupar o centro.
 ## Exemplo de Entrevista
 
 **Problema.** "Projete um encurtador de URL." Requisitos e estimativas já feitos: 12 mil
-redirecionamentos por segundo, 120 criações por segundo, conjunto quente de 30 GB.
+redirecionamentos por segundo, 120 criações por segundo, conjunto quente de 30 GB, 10 TB armazenados no total (ver
+[estimativa de capacidade](/22-system-design-interviews/capacity-estimation.md)).
 
 **Primeiro desenho, em quatro minutos:**
 

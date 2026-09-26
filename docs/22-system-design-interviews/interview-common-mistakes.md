@@ -13,7 +13,7 @@ objective: >
 prerequisites: [interview-structure]
 related: [interview-structure, communicating-tradeoffs, requirement-clarification]
 canonical_for: [erro em entrevista de system design, arquitetura decorada, desenho prematuro]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -269,11 +269,14 @@ A resolução prática: escolher dois comportamentos por simulação, e não dez
 
 ## Erros Comuns
 
-Os deste documento, e um meta-erro: **preparar-se decorando soluções em vez de treinando o
-método**.
+Os deste documento, e um meta-erro de preparação: **treinar sem interlocutor**, resolvendo
+enunciados sozinho ou por escrito.
 
-O método transfere para enunciados novos; a solução decorada não. E entrevistadores experientes
-introduzem variações justamente porque sabem disso.
+Metade do catálogo acima só aparece quando alguém interrompe: a pergunta de acompanhamento que
+expõe a arquitetura decorada, a objeção que testa se você ignora ou cede, o relógio que outra
+pessoa controla. Sozinho, o candidato treina a parte que já domina — produzir um desenho — e chega
+à entrevista sem ter exercitado a que falha. O que fecha essa lacuna é a simulação com alguém no
+papel de entrevistador, livre para mudar o enunciado no meio.
 
 ## Exemplo de Entrevista
 
@@ -310,8 +313,9 @@ candidato      "Antes de desenhar, algumas perguntas.
                do mesmo usuário?"
 ```
 
-Quatro perguntas, cada uma mudando a arquitetura: os canais definem os adaptadores; agendamento
-define um componente inteiro; garantia de entrega define persistência e confirmação; ordem define
+Quatro perguntas e uma premissa proposta, cada uma mudando a arquitetura: os canais definem os
+adaptadores; agendamento define um componente inteiro; garantia de entrega define persistência e
+confirmação; a escala, com o pico de 10×, dimensiona a fila e os consumidores; ordem define
 particionamento.
 
 **O desenho que vem depois, com justificativa:**

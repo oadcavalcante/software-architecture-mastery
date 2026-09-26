@@ -13,7 +13,7 @@ objective: >
 prerequisites: [functional-vs-nonfunctional]
 related: [back-of-envelope, high-level-architecture, interview-scaling]
 canonical_for: [estimativa em entrevista, escala declarada, número âncora, estimativa que decide]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -28,8 +28,9 @@ tem critério.
 ```text
 sem estimativa   "vou usar cache"           por quê? quanto ajuda?
 com estimativa   "12 mil leituras/s contra
-                 100 escritas/s — cache
-                 resolve 99% do problema"    a decisão tem base
+                 100 escritas/s — leitura é
+                 ~99% do tráfego, e é ela
+                 que o cache ataca"          a decisão tem base
 ```
 
 Isso muda o que se deve estimar. Não todos os números possíveis — apenas os que mudam uma
@@ -92,8 +93,8 @@ ordens de grandeza.
 ```text
 1 dia          ≈ 100 mil segundos  (86 400, arredondado)
 1 mês          ≈ 2,5 milhões de segundos
-1 milhão/dia   ≈ 12/s
-1 bilhão/dia   ≈ 12 mil/s
+1 milhão/dia   ≈ 10/s
+1 bilhão/dia   ≈ 10 mil/s
 ```
 
 Arredondar para potências de dez e para números redondos é esperado e demonstra fluência.
@@ -111,8 +112,9 @@ Ver [cálculo de guardanapo](/22-system-design-interviews/back-of-envelope.md) p
  Com pico de 3×, chego a 45 mil por segundo."
 ```
 
-O raciocínio é o que está sendo avaliado, não o total. Um candidato que erra a aritmética e
-explica o caminho corretamente é avaliado melhor que um que acerta em silêncio.
+O raciocínio é o que está sendo avaliado, não o total. Numa rubrica que pontua o processo — o
+formato usual de system design —, um candidato que erra a aritmética e explica o caminho
+corretamente é avaliado melhor que um que acerta em silêncio.
 
 E declarar cada premissa — "5 aberturas por usuário" — permite ao entrevistador ajustar: "na
 verdade são 20". O número muda, o método não.
@@ -180,15 +182,21 @@ produz.
 
 ## Quando Não Usar
 
-**Calculando tudo.**
+**Quando o entrevistador já dá os números.** "São 50 mil leituras por segundo e 2 TB" encerra
+a etapa: recalcular o que foi entregue gasta minutos que rendem mais no desenho. Resta derivar
+só o que falta — o conjunto quente, quase sempre.
 
-**Sem conectar à decisão.**
+**Quando o problema não tem dimensão de escala.** Desenho de API, modelagem orientada a objetos,
+máquina de estados de um pedido: nenhuma decisão depende de requisições por segundo, e o tempo
+rende mais em contratos, invariantes e casos de borda.
 
-**Com precisão excessiva** — "43.287 requisições por segundo" é pior que "cerca de 45 mil".
+**Quando a escala cabe num servidor com folga.** Uma ferramenta interna com 200 usuários não
+tem número que mude o desenho; basta dizer isso em uma frase — "qualquer banco relacional
+atende" — e seguir para o que de fato é difícil no problema.
 
-**Usando a média** quando o pico é o que dimensiona.
-
-**Em silêncio** — o valor está no raciocínio verbalizado.
+**Quando o formato da entrevista pula a etapa.** Rodadas focadas em aprofundar um componente
+já partem de uma escala dada; insistir em estimar desde o início sinaliza que o candidato não
+ouviu a pergunta.
 
 ## Alternativas
 
@@ -208,7 +216,7 @@ fica evidentemente conectado, sem esforço de conexão.
 |---|---|
 | Escala declarada desde o início | Cada número tem uso imediato |
 | Alguns números não são usados | Interrompe o fluxo do desenho |
-| Estrutura visível | Exige agilidade |
+| Estrutura visível ao avaliador | Estrutura fica implícita no desenho |
 
 | Mais números | Menos |
 |---|---|

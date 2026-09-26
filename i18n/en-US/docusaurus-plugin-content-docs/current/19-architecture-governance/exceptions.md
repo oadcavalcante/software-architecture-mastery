@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-standards]
 related: [governance-standards, compliance, governance-pathologies]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -34,8 +34,9 @@ An exception process is not a concession to indiscipline. It is the mechanism th
 governance informed about reality** — and governance that doesn't know where it is being
 disregarded governs nothing.
 
-And there is a secondary use, more valuable than the first: the set of exceptions is the only
-signal that comes from whoever **consumes** the standard, and so it says about the cost of
+And there is a secondary use, more valuable than the first: the set of exceptions is the most direct
+signal that comes from whoever **consumes** the standard — each request carries the concrete
+case and the estimated cost, which a survey of teams does not —, and so it says about the cost of
 complying with it what no compliance metric says.
 
 ## Problem
@@ -115,7 +116,8 @@ and they are most of the cases.
 
 ### A permanent exception is a signal, not an exception
 
-When an exception is renewed three times, it has stopped being an exception:
+When an exception is renewed twice — three deadlines in a row without converging —, it has
+stopped being an exception:
 
 ```text
 the standard is wrong                     → fix the standard
@@ -179,7 +181,8 @@ deviation exists anyway — only invisible.
 
 ## When to Use
 
-- Whenever there is a mandatory standard.
+- When there is a mandatory standard and more teams than the standard's owner follows
+  directly — from that point on, an unrecorded deviation is a deviation nobody sees.
 - With recording and no approval for low-risk deviations.
 - With automatic expiry, whenever the number of exceptions exceeds what one person tracks
   from memory — in practice, from a dozen on.
@@ -187,17 +190,21 @@ deviation exists anyway — only invisible.
 
 ## When Not to Use
 
-**With no deadline.**
+**A small organization, with few teams.** When the standard's owner talks to every team each
+week and knows every deviation by name, formal recording duplicates what is already visible
+and adds a form without adding information. Noting the deviation alongside the decision — in
+an [ADR](/18-architecture-decisions/what-is-an-adr.md), for instance — is enough, to be
+revisited when the organization grows.
 
-**With no exit plan.**
+**A requirement the organization has no authority to waive.** A PCI DSS or LGPD requirement
+admits no internal exception: nobody inside the company can grant a deadline for breaking the
+law or the contract with the card network. Here the exception process becomes theater; the
+path is to comply or to take the risk to the body that answers for it — legal, the executive
+board — as a formal risk acceptance, with the consequence named.
 
-**With a heavy process for low risk.**
-
-**With no automatic expiry.**
-
-**Renewing indefinitely** without acknowledging that the standard has to change.
-
-**Without recording the cost of complying.**
+**A standard that is still a recommendation.** If the standard is not mandatory, there is
+nothing to except; the deviation is a legitimate choice, and recording it as an exception
+gives the standard a force it does not have.
 
 ## Alternatives
 
@@ -240,11 +247,14 @@ deviation exists anyway — only invisible.
 
 ## Common Mistakes
 
-**Requiring approval for everything.**
+**Requiring approval for everything.** The queue fills with low-risk deviations, the answer
+slows down for everyone, and the team that cannot wait stops asking.
 
-**Not recording the cost of complying.**
+**Not recording the cost of complying.** Renewal becomes a qualitative discussion, and the
+exception is renewed by inertia, because nobody can show that converging got cheaper.
 
-**Having no exit plan.**
+**Having no exit plan.** At expiry there is nothing to check; the only possible decision is to
+renew, and the exception becomes permanent while looking temporary.
 
 **Treating an exception request as a team failure**, which pushes the deviation into
 silence.
@@ -303,10 +313,10 @@ deviations with no exception (technical check) 23
 average time to an answer                      1.2 days (low risk: immediate)
 exceptions expired and converged               61
 exceptions renewed once                        31
-renewed three times or more                     9
+renewed twice or more                           9
 ```
 
-The 9 renewed three times were examined, and all pointed to the same diagnosis: two standards
+The 9 renewed twice or more were examined, and all pointed to the same diagnosis: two standards
 were too broad. One of them required every service to publish events to the corporate bus —
 which made no sense for read-only services. The scope was narrowed, and 7 of the 9 exceptions
 ceased to be necessary.

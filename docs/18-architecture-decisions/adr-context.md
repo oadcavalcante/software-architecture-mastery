@@ -13,7 +13,7 @@ objective: >
 prerequisites: [adr-structure]
 related: [adr-structure, adr-alternatives, superseding-decisions]
 canonical_for: [contexto da decisão, força em jogo, restrição vigente, decisão irreversível]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-29
 ---
 
@@ -132,21 +132,19 @@ E ajuda a identificar o momento certo de revisar: quando a incerteza se resolve.
 
 ### Reversibilidade importa e pertence ao contexto
 
-Nem toda decisão tem o mesmo peso:
+A escala de reversibilidade, e a regra de que o rigor acompanha o custo de reverter, estão em
+[tomada de decisão](/23-architecture-leadership/decision-making.md). O que cabe ao ADR é
+registrar a categoria no contexto, com o motivo concreto:
 
 ```text
-reversível        pode ser desfeita em dias, com custo baixo
-custosa           semanas ou meses de trabalho
-irreversível na prática  formato de dado público, contrato com cliente,
-                  fronteira de serviço com muitos consumidores
+"irreversível na prática: o formato do evento é consumido por 11 serviços de 4 times"
+"reversível em dias: a biblioteca fica atrás de uma interface nossa"
 ```
 
-Registrar em qual categoria a decisão cai orienta quanto rigor ela merecia — e orienta quem
-vier depois sobre quanto custa mudá-la.
-
-Decisões reversíveis merecem ser tomadas rápido e com pouca cerimônia; irreversíveis
-merecem o oposto. Ver
-[níveis de arquitetura](/15-enterprise-architecture/architecture-levels.md).
+Isso diz a quem vier depois duas coisas que o texto da decisão não diz: quanto custa mudá-la,
+e com que rigor ela foi tomada. Uma decisão marcada como reversível e decidida em uma tarde
+pode ser revista com a mesma leveza; uma marcada como irreversível pede que a revisão
+refaça a análise.
 
 ### O contexto é datado por natureza
 
@@ -170,7 +168,8 @@ contexto   "4 engenheiros, nenhum com experiência operacional em sistemas distr
 gatilho    quando o time crescer ou ganhar essa experiência, reavaliar
 
 contexto   "o parceiro tem 4% de indisponibilidade medida"
-gatilho    quando o parceiro melhorar, reavaliar
+gatilho    quando a indisponibilidade medida ficar abaixo de 0,5% por dois
+           trimestres seguidos, reavaliar
 ```
 
 Tornar esse gatilho explícito é o que diferencia um ADR que apenas registra de um que
@@ -189,17 +188,18 @@ ele não é contexto.
 
 ## Quando Não Usar
 
-**Como descrição do sistema.** Isso é documentação, não contexto.
+O contexto detalhado — forças numeradas, origens, incertezas — custa horas de levantamento.
+Há decisões em que esse custo não volta:
 
-**Sem números** quando eles existem.
+**Decisão reversível em dias.** Se desfazer custa menos que levantar os números, um
+Y-Statement registra o suficiente; a reavaliação futura é mais barata refazendo a decisão.
 
-**No presente.** "Somos 12 pessoas" envelhece para falso.
+**Decisão de alcance local**, que afeta só o código de um time e que o próprio time pode
+reverter sem negociar com ninguém. A memória de quem a tomou ainda está por perto.
 
-**Omitindo restrições incômodas** — prazo, política interna, limitação de time. São
-exatamente as que explicam decisões que parecem estranhas depois.
-
-**Longo demais.** Três a seis parágrafos bastam; um contexto de duas páginas costuma estar
-descrevendo em vez de registrar forças.
+**Restrição já registrada num documento imutável e datado** — um contrato, um parecer
+jurídico, um relatório de incidente. Copiar para o ADR cria duas versões que podem
+divergir; referenciar, com a data, preserva a origem.
 
 ## Alternativas
 
@@ -208,21 +208,23 @@ descrevendo em vez de registrar forças.
   datado; não funciona se ele for vivo.
 - **Lista de forças** em vez de prosa — mais fácil de escrever e de verificar depois.
 
-A última é subestimada: uma lista com sete forças numeradas é mais útil, e mais honesta,
-que três parágrafos de prosa.
+A última é subestimada quando as forças são independentes e cada uma pode ser verificada
+sozinha: numa revisão, cada item da lista é riscado ou mantido, e a prosa esconde qual
+premissa caiu. Quando as forças se condicionam — o prazo só pesou por causa do tamanho do
+time —, os três a seis parágrafos de prosa carregam a relação que a lista perde.
 
 ## Trade-offs
 
-| Contexto detalhado | Curto |
-|---|---|
-| Revisável no futuro | Rápido de escrever |
-| Números verificáveis | Menos manutenção mental |
-| Mais longo | Pode faltar quando importar |
+| Eixo | Contexto detalhado | Curto |
+|---|---|---|
+| Custo de escrita | Horas, com levantamento de números e origens | Minutos |
+| Reavaliação futura | Verificável contra números datados | Depende da memória de quem estava lá |
+| Risco de conteúdo | Derivar para descrição do sistema | Omitir justamente a força que decidiu |
 
-| Restrições explícitas | Implícitas |
-|---|---|
-| Permite verificar validade | Menos exposição política |
-| Explica decisões estranhas | Parece mais técnico |
+| Eixo | Restrições explícitas | Implícitas |
+|---|---|---|
+| Exposição política | Prazo e política registrados por escrito | Nenhuma |
+| Explicação futura | Decisões estranhas se explicam pela restrição | Parecem erro técnico do autor |
 
 A segunda tabela esconde uma tensão real: registrar "decidimos assim por causa do prazo" é
 honesto e desconfortável. Omitir produz um ADR que parece melhor e vale menos.
@@ -243,13 +245,21 @@ honesto e desconfortável. Omitir produz um ADR que parece melhor e vale menos.
 
 ## Erros Comuns
 
-**Escrever o contexto depois da decisão**, como justificativa.
+**Escrever o contexto depois da decisão**, como justificativa. O texto seleciona as forças
+que apontavam para a opção escolhida e omite as que apontavam para o outro lado — que são as
+que a revisão futura precisaria pesar.
 
-**Omitir o prazo** como força — é uma das mais comuns e das menos registradas.
+**Omitir o prazo** como força — é uma das mais comuns e das menos registradas. Sem ele, uma
+escolha feita por urgência parece preferência técnica, e sobrevive ao prazo que a justificava.
 
-**Não dizer o tamanho e a experiência do time.**
+**Não dizer o tamanho e a experiência do time.** Sem "4 pessoas, nenhuma com Kafka", ninguém
+sabe se a rejeição de Kafka ainda vale quando o time dobra.
 
-**Não declarar reversibilidade.**
+**Não declarar reversibilidade.** A decisão é revista com o rigor errado: reabre-se com
+análise pesada o que era barato de trocar, ou troca-se às pressas o que era caro de desfazer.
+
+**Escrever longo demais.** Três a seis parágrafos bastam; um contexto de duas páginas costuma
+estar descrevendo o sistema em vez de registrar forças, e a força decisiva se perde no meio.
 
 **Confundir contexto com requisitos**: requisitos são o que o sistema precisa fazer;
 contexto inclui também o que limitava as opções.
@@ -313,6 +323,7 @@ sabiam em 2021. O problema é que "todos sabiam" é exatamente a informação qu
 - [Alternativas](/18-architecture-decisions/adr-alternatives.md) — a condição de reversão.
 - [Superação](/18-architecture-decisions/superseding-decisions.md) — o que se faz quando o contexto muda.
 - [Atributos de Qualidade](/01-fundamentals/quality-attributes.md) — os números.
+- [Tomada de Decisão](/23-architecture-leadership/decision-making.md) — reversibilidade e rigor.
 
 ## Exercício Prático
 
@@ -331,4 +342,3 @@ reabrir a decisão.
 
 - Nygard, Michael. *Documenting Architecture Decisions*. 2011.
 - Ford, Neal et al. *Software Architecture: The Hard Parts*. O'Reilly, 2021.
-- Bezos, Jeff. *Carta aos acionistas de 2015* — decisões de mão única e de mão dupla.
