@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [compliance, governance-standards, governance-basics]
 canonical_for: [função de aptidão, governança executável, aptidão contínua, regra não automatizável]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-29
 ---
 
@@ -317,16 +317,21 @@ dois terços do problema antes de qualquer bloqueio.
 
 ## Exercício Prático
 
-Liste as regras arquiteturais do seu contexto e marque quais são afirmáveis e mensuráveis.
+Escolha uma função de aptidão que já roda no seu contexto — ou, se não houver nenhuma, a regra
+arquitetural mais antiga que ainda depende de revisão manual. Responda três perguntas sobre ela:
+quem é dono da regra, qual é o caminho para registrar exceção quando o caso é legítimo, e
+quantas exclusões silenciosas ela acumulou desde que foi criada.
 
-Depois escolha a que já causou dano e implemente a verificação mais simples que a pegue, em
-modo de aviso. O número de violações que aparecer é a medida da erosão acumulada.
+Se o caminho de exceção não existe, ou se as exclusões silenciosas são mais numerosas que as
+exceções registradas, a regra já saiu do alcance da governança. Isso precisa ser consertado
+antes de qualquer verificação nova — para escolher e construir a próxima, o roteiro está no
+[documento canônico](/23-architecture-leadership/fitness-functions.md).
 
 ## Perguntas de Entrevista
 
 - Que classes de regra arquitetural não podem virar função de aptidão?
 - Por que rodar em modo de aviso antes de bloquear?
-- Por que a taxa de falso positivo é a métrica de saúde mais importante?
+- O que acontece com uma regra cuja verificação não oferece caminho de exceção?
 
 ## Para Aprofundar
 

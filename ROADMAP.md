@@ -611,17 +611,18 @@ corrigidos.
 | Contradições entre documentos | 🟩 §13.3 item 7 nos 446, mais o validador de colisão de `canonical_for` |
 | Fatos técnicos | 🟩 §13.3 item 9 nos 446 — conferência contra fonte primária foi pontual (RFC 9110/9111, c4model.com, Protocol Buffers, IBM 2024), não sistemática |
 | Bugs no site | 🟩 acervo inteiro, nos dois idiomas e dois temas |
-| Divergência numérica entre canônico e tradução | 🟨 toda correção foi espelhada, mas a comparação automática foi abandonada por ruído |
+| Divergência numérica entre canônico e tradução | 🟩 comparação dos 446 pares com a conversão de moeda aplicada — duas divergências reais achadas e corrigidas; o resíduo conferido à mão |
 
-A comparação numérica entre canônico e tradução foi **abandonada por ruído**, não
-por falta de tempo: a conversão de moeda que o acervo aplica na tradução gera
-divergência legítima em quase todo par, e o sinal não se separa do ruído sem um
-filtro que ainda não existe.
+A comparação numérica não se faz por igualdade: a tradução converte moeda (R$ → US$ a
+5:1), escreve hora em 12h e escala em palavra. O comparador aplica essas conversões antes de
+comparar, e o que sobra foi lido par a par — duas divergências reais, as duas na tradução:
+uma análise de sensibilidade com números errados e um custo omitido.
 
-Fica fora de defeito, e é decisão editorial: **31 pares de documentos com
-sobreposição de texto** que poderiam ser fundidos. A revisão §13.3 checou duplicação
-contra o canônico em cada documento e corrigiu a que achou; os pares que restam não
-foram reavaliados como par, e fundir ou não é escolha de desenho do acervo.
+**Sobreposição entre documentos** foi medida de novo depois das correções de §7.4: o maior par
+tem 6% de texto em comum. O que aparece entre case studies (~2,5%) é o esqueleto do template de
+§7.6, e o que aparece entre índice e documento é o índice resumindo a seção. O único par com
+duplicação de conteúdo — as duas `fitness-functions` — teve o exercício e a pergunta repetidos
+trocados pelo recorte de governança. Nenhuma fusão de documento foi necessária.
 
 ## O que a revisão encontrou
 

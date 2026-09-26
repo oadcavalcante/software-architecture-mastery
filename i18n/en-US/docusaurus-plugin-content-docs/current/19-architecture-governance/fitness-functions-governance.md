@@ -13,7 +13,7 @@ objective: >
 prerequisites: [governance-basics]
 related: [compliance, governance-standards, governance-basics]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -323,17 +323,21 @@ visible solved two thirds of the problem before any blocking.
 
 ## Practical Exercise
 
-List your context's architectural rules and mark which are statable and measurable.
+Pick a fitness function that already runs in your context — or, if there is none, the oldest
+architectural rule that still depends on manual review. Answer three questions about it: who
+owns the rule, what the path is to record an exception when the case is legitimate, and how
+many silent exclusions it has accumulated since it was created.
 
-Then pick the one that has already caused damage and implement the simplest check that
-catches it, in warning mode. The number of violations that appears is the measure of the
-accumulated erosion.
+If the exception path does not exist, or if the silent exclusions outnumber the recorded
+exceptions, the rule has already left the reach of governance. That needs fixing before any
+new check — to choose and build the next one, the path is in the
+[canonical document](/23-architecture-leadership/fitness-functions.md).
 
 ## Interview Questions
 
 - Which classes of architectural rule cannot become fitness functions?
 - Why run in warning mode before blocking?
-- Why is the false positive rate the most important health metric?
+- What happens to a rule whose check offers no exception path?
 
 ## Further Reading
 
