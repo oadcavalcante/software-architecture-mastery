@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, rest]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -71,15 +71,17 @@ always compatible
   relaxing input validation
   adding an endpoint or an operation
 
-break forward compatibility
+break backward compatibility (new code cannot read old data)
   adding a required field
   making a previously optional field required
+  tightening validation
 
-break backward compatibility
-  removing a field
+break forward compatibility (old code cannot read new data)
+  removing a field the old code reads
+
+break both
   renaming a field
   changing a type
-  tightening validation
 
 break silently — the worst case
   changing a field's meaning while keeping the name and type
@@ -87,7 +89,7 @@ break silently — the worst case
   changing a boolean's criterion
 ```
 
-The last category deserves emphasis: no validation detects it. The schema remains valid, the tests pass,
+The last category deserves emphasis: no schema validation detects it. The schema remains valid, the tests pass,
 and the data comes to mean something else. A semantic change requires a **new field**, always.
 
 ### Ignoring the unknown is a prerequisite
@@ -102,8 +104,8 @@ deserialization by default.
 
 ### Renaming is removing plus adding
 
-There is no compatible rename. Every rename is a removal — which breaks backward compatibility — plus an
-addition.
+There is no compatible rename. Every rename is a removal — which breaks forward compatibility — plus an
+addition, which the new code does not find in old data.
 
 The compatible path is coexistence:
 
@@ -129,7 +131,9 @@ into automation: an incompatible change is refused before reaching production.
 Without it, compatibility depends on discipline and review — which work until the day someone is in a
 hurry.
 
-It is the highest-return investment in any system with event-based integration.
+It pays for the cost of operating it when there are several consumers, consumers outside the team's
+control, or persisted events — the conditions under which a break only shows up after it has been written
+or deployed by someone you do not coordinate with.
 
 ### Versioning, when there is no way out
 
@@ -142,7 +146,7 @@ When the change is genuinely incompatible, coexistence remains:
 **In the content itself** — the schema carries its version; common in events.
 
 The real cost is not the choice between the three. It is that **each live version is code to maintain**,
-and removal depends on every consumer migrating — which always takes longer than planned.
+and removal depends on every consumer migrating — which takes longer than planned whenever some consumer is outside the team's control.
 
 The question before versioning: can this be done as a compatible addition? Most of the time it can, with a
 little more modeling work.
@@ -176,8 +180,8 @@ Compatible evolution is the default. Whenever:
 **Versioning before there is a consumer.** While the API is internal and has one consumer, changing
 directly is cheaper.
 
-**A semantic change disguised as compatible.** Changing a field's unit passes any validation and breaks
-everything.
+**When the change alters meaning.** Changing a field's unit has no compatible form in the same field: it
+passes structural validation and breaks the consumers. The path is a new field.
 
 **Coexistence with no deadline.** An old version with no removal date never goes away.
 
@@ -220,7 +224,7 @@ of the process.
 
 **A zombie version.** Never removed, with one forgotten consumer.
 
-**A required field added.** It breaks the old producer.
+**A required field added.** The new consumer rejects what the old producer still emits.
 
 **A missing converter.** An old event can no longer be read.
 
@@ -248,12 +252,13 @@ decided to standardize on cents, to avoid rounding.
 The change was made keeping the name and the type — integer. The schema remained valid. The schema
 registry approved it. Every test passed.
 
-For **nine days**, the six consumers processed values a hundred times smaller. Claims were approved with
-wrong limits. Financial reports came out inconsistent. Reconciliation identified the problem, and the fix
+For **nine days**, the six consumers processed values a hundred times larger. Claims were approved against
+coverage limits inflated a hundredfold. Financial reports came out inconsistent. Reconciliation identified the problem, and the fix
 involved reprocessing nine days of events and reviewing hundreds of decisions made.
 
-No automated mechanism could have caught that: the change was compatible in structure and incompatible in
-meaning.
+The registry's structural validation had no way to catch that: the change was compatible in structure and
+incompatible in meaning. Controls of another kind would have — a value-range alert, a range assertion in the
+consumer's contract test, daily reconciliation — and the team only had reconciliation, running too late.
 
 The process changes:
 
@@ -264,7 +269,8 @@ old one was removed eight months later, when the six consumers had migrated.
 name. Ugly, and it solves a whole class of defect.
 
 **Mandatory semantic review.** The schema registry validates structure; meaning changes came to require
-approval from a second team, because there is no way to automate it.
+approval from a second team, because no structural compatibility rule tells them apart. Value-range
+alerts on monetary fields came in as a second line.
 
 **Strict consumer verification.** The audit discovered that two of the six consumers failed on an unknown
 field — that is, even a pure addition would have broken them. It was fixed before any other change.

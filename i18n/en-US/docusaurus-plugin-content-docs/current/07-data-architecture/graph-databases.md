@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, nosql]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -60,7 +60,7 @@ If all your queries have a known and small depth, you have related data, not a g
 In a relational join, the optimizer works over whole tables. In a graph, the traversal starts from one
 node and visits only the reachable ones.
 
-A three-level search from one person visits tens or hundreds of nodes, regardless of whether the graph
+In a low-degree graph, a three-level search from one person visits tens or hundreds of nodes, regardless of whether the graph
 has a thousand or a hundred million.
 
 It is the property that justifies the model when it is justified.
@@ -100,8 +100,8 @@ traversal.
 
 ## Mental Model
 
-**A graph is for variable depth.** If your queries' depth is known and small, relational is better at
-everything else.
+**A graph is for variable depth.** If your queries' depth is known and small, relational solves the same
+thing with joins, without a second technology to operate.
 
 ## When to Use
 
@@ -116,11 +116,14 @@ everything else.
 
 **When the queries have a fixed and small depth.** Joins solve it.
 
-**For a general transactional workload.**
+**For a general transactional workload.** Registration, orders, payments: concurrent writes
+with integrity constraints and key lookups, where relational has decades of tooling and a graph
+offers no traversal to make up for it.
 
 **For aggregation over large volumes.** See [columnar](/07-data-architecture/column-stores.md).
 
-**When the write volume is high.**
+**When the write volume is high.** Each inserted edge updates the adjacency of both nodes and
+the indexes involved, and without horizontal partitioning that load stays on a single server.
 
 **As the system's only store.** Project the relevant subgraph.
 
@@ -166,9 +169,11 @@ until a traversal touches a heavily connected node.
 
 ## Common Mistakes
 
-**Adopting it because "the data is connected".**
+**Adopting it because "the data is connected".** The team ends up operating, syncing and
+monitoring a second technology for queries that two joins would solve.
 
-**Not limiting depth and results.**
+**Not limiting depth and results.** An unbounded traversal through a dense region consumes
+memory and CPU until it brings the server down, taking the other queries with it.
 
 **Not handling supernodes** — which require specific modeling, like splitting the category into
 subcategories.
@@ -183,10 +188,11 @@ An insurer needed to detect organized fraud: groups of people connected by addre
 or vehicle, filing related claims.
 
 In the relational model, the query was of variable depth — "find everyone connected to this person by any
-path of up to five steps". The existing implementation ran as a nightly batch and took 6 hours.
+path of up to five steps". The existing implementation ran as a nightly batch over the day's claims and took 6 hours — too
+expensive to run claim by claim, at filing time.
 
 A graph database with the projected data — people, contacts, accounts, vehicles, claims — answered the
-same question in 200 milliseconds, allowing a check at the moment the claim was filed.
+question for a single claim in 200 milliseconds, allowing a check at the moment the claim was filed.
 
 The gain was real and brought two problems.
 

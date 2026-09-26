@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-warehouses]
 related: [data-lakehouses, data-ownership, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -77,7 +77,8 @@ what the update frequency is, what the retention is.
 Without it, each new question starts with weeks of archaeology — and frequently ends with someone
 ingesting the same data again, because they did not find what was already there.
 
-This is the difference between a lake and a swamp, and it is practically the only one.
+This is the first difference between a lake and a swamp: ownership, quality and retention need the
+catalog as the place where they are recorded.
 
 ### The file format matters more than it seems
 
@@ -219,10 +220,11 @@ unaware of each other.
 
 **Everything in compressed JSON.** A query over one month of telemetry read 8 TB to use three fields.
 
-**14 million small files.** Ingestion wrote one file per minute per vehicle. Queries took hours opening
+**Around 390 million small files.** Ingestion wrote one file per minute per vehicle, across a fleet of
+500 — files of a few hundred KB each. Queries took hours opening
 files.
 
-**No retention.** Two years of application logs, which nobody queried, occupied 60% of the volume.
+**No retention.** Application logs accumulated since day one, which nobody queried, occupied 60% of the volume.
 
 **Personal data scattered.** Drivers' names and documents spread across several data sets, with no
 inventory. A deletion request could not be met with confidence.
@@ -240,8 +242,8 @@ dropped from 8 TB to 40 GB read.
 
 **Personal data classification** at ingestion, with a restricted zone.
 
-The lesson that stuck: none of those measures is hard or expensive — they are all cheap if adopted at the
-ingestion of the first data set. Retrofitting cost eight months because each decision had to be applied
+The lesson that stuck: the cost of each measure, adopted at the ingestion of the first data set, is a
+fraction of the cost of retrofitting it. Retrofitting cost eight months because each decision had to be applied
 to data that was already there, with no documentation of its origin.
 
 ## Related Concepts

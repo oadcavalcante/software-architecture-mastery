@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [olap, indexing, transactions]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -82,7 +82,9 @@ the system works well for months and gets worse on its own.
 
 ### Concurrent writes are the real bottleneck
 
-Unlike OLAP, OLTP writes a lot. That brings contention: two operations on the same record serialize.
+Unlike OLAP, OLTP writes a lot. That brings contention: two writes on the same record serialize.
+Reads depend on the isolation level — under MVCC, as in PostgreSQL and InnoDB, readers do not block
+writers.
 
 That is why [transactions](/07-data-architecture/transactions.md) and isolation levels matter here and
 barely matter in analytics. And why the bottleneck in a mature OLTP system is rarely CPU — it is
@@ -96,8 +98,10 @@ to move it out.
 A [read replica](/07-data-architecture/data-replication.md), a separate analytical store, or a
 projection — any of them removes the competition.
 
-Keeping both workloads in the same place for simplicity works up to a certain volume, and the moment
-to separate arrives sooner than most teams expect.
+Keeping both workloads in the same place for simplicity works as long as transactional latency does
+not notice the report. The signal to separate is observable: the operations' p99 rises during the
+reporting window and drops back when it ends. That signal tends to show up sooner than most teams
+expect.
 
 ### The bottleneck changes as the system matures
 
@@ -120,8 +124,9 @@ contention — splitting a single counter into several partial ones summed on re
 not switching storage.
 
 The progression matters because the answer is different at each stage: index, query review,
-concurrency redesign and workload separation, respectively. Increasing the machine only clearly helps
-at the second stage, and it is the answer applied at all of them.
+concurrency redesign and workload separation, respectively. A bigger machine only solves the second
+stage; at the others it buys time, because the competition returns as the system grows. And it is
+the answer applied at all of them.
 
 ## Mental Model
 
@@ -145,27 +150,31 @@ every dimension.
 
 **For bulk export.** It will compete with the operation.
 
-**As the only store when there is already a relevant analytical workload.** The separation has
-stopped being optional.
+**As the only store when there is already a relevant analytical workload** — relevant in the sense
+above: transactional latency moves when it runs. The separation has stopped being optional.
 
 ## Alternatives
 
-- **[OLAP](/07-data-architecture/olap.md)** — for the analytical workload.
-- **Read replica** — a cheap separation, the same model.
-- **[CQRS](/03-design-patterns/cqrs.md)** — separate models.
-- **Cache** — for repeated reads of hot data.
+- **[OLAP](/07-data-architecture/olap.md)** — wins when the query aggregates history and the
+  normalized model forces large scans and joins.
+- **Read replica** — wins when the model serves the query and it is enough to take the reads off the
+  primary; tolerates seconds of lag.
+- **[CQRS](/03-design-patterns/cqrs.md)** — wins when the shape of the query, not just the load, is
+  incompatible with the write model.
+- **Cache** — wins for repeated reads of hot data that can be momentarily stale.
 
 ## Trade-offs
 
-| OLTP | OLAP |
-|---|---|
-| Many small operations | Few large operations |
-| Access by key | Scan |
-| Significant writes | Predominantly reads |
-| Normalized | Denormalized |
-| Current state | History |
-| Millisecond latency | Seconds to minutes acceptable |
-| Row-oriented | Frequently columnar |
+The profile comparison between the two workloads lives in [OLAP](/07-data-architecture/olap.md).
+Within OLTP, the decisions trade one thing for another:
+
+| Decision | Gains | Loses |
+|---|---|---|
+| Keep operations and reports on the same database | One system, always-current data | Transactional latency held hostage by the report |
+| Separate the workloads | Predictable latency for operations | A pipeline to maintain, lag in the analytical data |
+| More indexes | Fast selective reads | Cost on every write, index contention |
+| Stronger isolation | Fewer concurrency anomalies | Throughput under contention, more blocking and aborts |
+| Normalized model | One source per fact, cheap writes | Joins when the query goes beyond the record |
 
 ## Failure Modes
 

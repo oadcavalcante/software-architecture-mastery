@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-consistency, data-modeling, data-lifecycle]
 canonical_for: [propriedade do dado, fonte da verdade, banco compartilhado, contrato de dados]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -121,10 +121,14 @@ natural.
 **Serviço dedicado** para o dado transversal. Custa um time.
 
 **Replicação com dono único de escrita.** Cada consumidor tem sua cópia, atualizada
-por eventos.
+por eventos. Custa operação contínua: medir o atraso de cada cópia contra o que o
+contrato promete, reprocessar eventos perdidos, detectar cópias que divergiram da
+fonte e versionar o formato do evento sem quebrar quem ainda lê o antigo.
 
 **Banco compartilhado com governança explícita.** Aceitável quando documentado, com
-processo de mudança — e a pior opção quando acontece por omissão.
+processo de mudança — e a pior opção quando acontece por omissão. Custa manter o
+inventário de consumidores atualizado e fazer cada mudança de esquema passar pelo
+processo, inclusive as que parecem triviais.
 
 ### Malha de dados leva o princípio ao analítico
 
@@ -139,8 +143,10 @@ produz conjuntos de dados publicados sem qualidade e sem manutenção.
 
 ## Modelo Mental
 
-**Sem dono declarado, o dado é de ninguém.** E dado de ninguém não evolui, não tem
-qualidade e bloqueia todo mundo.
+**Todo esquema que outro time lê é API.** Diante de cada tabela, a pergunta é uma
+só: isto é modelo interno, que o dono muda quando quiser, ou contrato publicado, que
+muda com aviso e convivência de versões? Onde ninguém sabe responder, a tabela já é
+contrato — só que sem dono para honrá-lo.
 
 ## Quando Usar
 
@@ -207,17 +213,24 @@ governança.
 
 ## Erros Comuns
 
-**Não declarar donos.**
+**Não declarar donos.** Problemas de qualidade circulam entre times sem que
+nenhum tenha mandato para corrigi-los, e o dado degrada por falta de quem decida.
 
-**Tratar o esquema do banco como detalhe interno** quando outros o leem.
+**Tratar o esquema do banco como detalhe interno** quando outros o leem. Uma
+refatoração local quebra um consumidor em produção, e o dono descobre pelo chamado.
 
-**Permitir escrita de fora do dono.**
+**Permitir escrita de fora do dono.** As validações do dono deixam de valer, porque
+há caminhos que não passam por elas — e o dado inválido aparece sem autor.
 
-**Não inventariar consumidores.**
+**Não inventariar consumidores.** A remoção de uma coluna quebra uma aplicação que
+ninguém sabia que lia a tabela, e a descoberta é o incidente.
 
-**Separar bancos sem separar responsabilidade.**
+**Separar bancos sem separar responsabilidade.** O acoplamento continua, agora por
+chamadas de rede e cópias sincronizadas, e com a migração já paga.
 
-**Confundir "quem armazena" com "quem é dono".**
+**Confundir "quem armazena" com "quem é dono".** O time de plataforma que opera o
+banco vira aprovador de mudanças de esquema cujo significado não conhece, e as
+decisões de negócio ficam sem quem as tome.
 
 ## Exemplo Real
 
@@ -262,14 +275,19 @@ Resultado: adicionar um campo passou de onze semanas para dias, sem mover nenhum
 banco de lugar.
 
 A lição registrada: a proposta inicial era dividir em bancos separados por
-domínio — um projeto estimado em dois anos e meio. A propriedade declarada com
-visões publicadas entregou o mesmo desbloqueio sem a migração.
+domínio — um projeto estimado em dois anos e meio, que teria de tomar as mesmas
+decisões de propriedade e, além delas, migrar os dados e cortar onze aplicações.
+O ganho não foi de prazo, próximo nos dois caminhos: a propriedade declarada com
+visões publicadas entregou o mesmo desbloqueio sem janela de corte, sem migração a
+reverter se desse errado, e deixando a separação física disponível para depois,
+onde algum domínio de fato precisasse dela.
 
 O problema era de responsabilidade, não de topologia.
 
 ## Conceitos Relacionados
 
-- [Consistência de Dados](/07-data-architecture/data-consistency.md) — fonte da verdade.
+- [Consistência de Dados](/07-data-architecture/data-consistency.md) — reconciliação
+  entre cópias que deveriam concordar com a fonte.
 - [Modelagem de Dados](/07-data-architecture/data-modeling.md).
 - [Bounded Context](/04-domain-driven-design/bounded-context.md) — a fronteira
   correspondente.

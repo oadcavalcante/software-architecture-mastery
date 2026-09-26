@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [security-failure-modes, data-protection, least-privilege]
 canonical_for: [trilha de auditoria, não repúdio, registro imutável, detecção de anomalia]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -82,8 +82,8 @@ As propriedades necessárias:
 **Verificação de integridade.** Encadeamento por resumo, ou assinatura, permitindo
 detectar alteração.
 
-Sem isso, um atacante com acesso administrativo apaga o rastro — e essa é a primeira
-coisa que ele faz.
+Sem isso, um atacante com acesso administrativo consegue apagar o rastro — e, se ele
+pretende continuar no ambiente sem ser notado, tem motivo para fazê-lo cedo.
 
 ### Não repúdio exige mais que registro
 
@@ -102,8 +102,10 @@ elas tornam qualquer investigação inconclusiva.
 
 ### Retenção é definida pelo tempo até a descoberta
 
-Incidentes levam meses para serem descobertos. Uma retenção de 30 dias significa que a
-investigação começa sem os dados do início.
+O tempo até a descoberta se mede em meses: o relatório *Cost of a Data Breach* (IBM e
+Ponemon Institute, 2024) estima média de 194 dias para identificar uma violação. Com esse
+intervalo, uma retenção de 30 dias significa que a investigação começa sem os dados do
+início.
 
 A retenção precisa cobrir o tempo típico até a detecção, mais margem — o que
 tipicamente significa um ano ou mais para eventos de segurança, e o que a regulação
@@ -158,20 +160,20 @@ falhou, não resta nada.
 
 ## Quando Não Usar
 
-**Registro de auditoria na mesma conta que o sistema auditado.**
+**Sistema sem dado sensível, sem operação privilegiada e sem exigência regulatória.**
+Uma ferramenta interna de consulta a dados públicos não tem o que uma investigação
+precisaria provar. Registro de aplicação com retenção curta basta; trilha separada,
+imutável e retida por um ano é custo sem pergunta a responder.
 
-**Sem identidade individual.** Contas compartilhadas.
+**Ações sem identidade individual a atribuir, quando criá-la custa mais que o risco.**
+Um processo em lote que só lê e agrega não tem "quem" além do próprio serviço. Não
+repúdio ali não prova nada. O registro de execução resolve.
 
-**Registrando conteúdo sensível.**
-
-**Retenção curta demais.**
-
-**Só sucessos.** As negações são o sinal.
-
-**Sem alertas.** Vira arquivo morto.
-
-**Auditar tudo indiscriminadamente.** Volume que ninguém consegue analisar, com custo
-alto — audite o que importa.
+**Eventos de alto volume e baixo valor investigativo.** Leituras de catálogo, consultas
+de saúde e cada requisição de um endpoint público geram volume que ninguém analisa. Com
+retenção de um ano, o custo de armazenar supera o valor da investigação que ele
+permitiria. Audite o que toca dado sensível, permissão ou configuração, e deixe o resto
+na observabilidade, com a retenção dela.
 
 ## Alternativas
 
@@ -274,7 +276,7 @@ integridade por encadeamento.
 **Alertas** de volume anômalo por usuário, acesso fora do horário e sequência de
 consultas a clientes sem relação com o trabalho do operador.
 
-Onze meses depois, o alerta de volume anômalo detectou um caso semelhante em dois
+Onze meses depois, o alerta de consultas sem relação com o trabalho do operador detectou um caso semelhante em dois
 dias — com identificação da pessoa, dos 14 registros acessados, e sem necessidade de
 notificação em massa.
 
@@ -308,3 +310,4 @@ As perguntas que você não conseguir responder são as lacunas da sua auditoria
 - NIST SP 800-92 — guia de gestão de registros de segurança.
 - Schneier, Bruce; Kelsey, John. *Secure Audit Logs*, 1999.
 - OWASP. *Logging Cheat Sheet*.
+- IBM; Ponemon Institute. *Cost of a Data Breach Report*, 2024.

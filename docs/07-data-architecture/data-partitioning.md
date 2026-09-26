@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-replication, indexing, data-lifecycle]
 canonical_for: [partição de tabela, descarte de partição, partição por intervalo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -74,11 +74,13 @@ O benefício mais confiável e o menos citado.
 Apagar seis meses de dados numa tabela grande é uma operação de horas, com bloqueio
 e crescimento de registro de transação.
 
-Descartar uma partição é uma operação de metadados — milissegundos, sem bloqueio,
-sem crescimento.
+Descartar uma partição é uma operação de metadados — milissegundos, sem crescimento
+de registro. O bloqueio existe, mas é exclusivo e breve; o risco é ele esperar atrás de
+uma transação longa e enfileirar todas as consultas da tabela atrás de si, por isso o
+descarte roda com tempo limite de espera por bloqueio.
 
-Para qualquer tabela com política de retenção, isso sozinho justifica particionar
-por tempo. Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
+Quando o apagamento por retenção já é a restrição operacional — horas de execução,
+janela disputada —, isso sozinho justifica particionar por tempo. Ver [ciclo de vida do dado](/07-data-architecture/data-lifecycle.md).
 
 ### As estratégias
 
@@ -142,13 +144,15 @@ ele adiciona custo.
 
 **Quando as consultas não filtram pela chave.** Piora.
 
-**Em tabela pequena.** Complexidade sem retorno.
+**Em tabela pequena.** Se apagar, reindexar e atualizar estatísticas da tabela
+inteira cabe folgado na janela de manutenção, particionar é complexidade sem retorno.
 
 **Sem automação de criação de partições.**
 
 **Quando não há dimensão natural de partição.**
 
-**Com granularidade fina demais.**
+**Com granularidade fina demais.** Na casa dos milhares de partições, o tempo de
+planejamento começa a competir com o de execução.
 
 **Para resolver consulta lenta.** Verifique [índice](/07-data-architecture/indexing.md) antes — é a
 causa mais provável.
@@ -196,15 +200,19 @@ causa mais provável.
 
 ## Erros Comuns
 
-**Particionar sem verificar o padrão de consulta.**
+**Particionar sem verificar o padrão de consulta.** A consulta que não filtra pela
+chave passa a varrer todas as partições e fica mais lenta que antes.
 
-**Não automatizar a criação de partições.**
+**Não automatizar a criação de partições.** A inserção falha na primeira virada de
+período sem partição.
 
-**Granularidade fina demais.**
+**Granularidade fina demais.** O planejamento passa a dominar o tempo da consulta.
 
-**Particionar para resolver problema de índice.**
+**Particionar para resolver problema de índice.** A consulta continua lenta, agora com
+a operação de partições por cima.
 
-**Não considerar a restrição de unicidade** antes de decidir a chave.
+**Não considerar a restrição de unicidade** antes de decidir a chave. A unicidade
+global do campo deixa de ser garantida pelo banco e vira responsabilidade da aplicação.
 
 ## Exemplo Real
 
@@ -215,7 +223,7 @@ retenção já se equilibraram.
 Dois problemas dominavam a operação.
 
 **Apagar dados antigos.** O processo noturno apagava as leituras com mais de 3
-anos. Levava 5 horas, gerava 200 GB de registro de transação e degradava o sistema
+anos. Levava 5 horas, gerava 40 GB de registro de transação e degradava o sistema
 durante a execução.
 
 **Reconstrução de índice.** Impossível — a janela necessária não existia.

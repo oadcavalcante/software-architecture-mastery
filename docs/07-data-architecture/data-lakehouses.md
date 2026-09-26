@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor avalia o lakehouse pelo que a camada transacional de fato
   entrega, sem tratá-lo como substituto universal.
 prerequisites: [data-lakes]
-related: [data-warehouses, column-stores, data-partitioning]
+related: [data-warehouses, column-stores, data-partitioning, transactions]
 canonical_for: [lakehouse, formato de tabela aberto, viagem no tempo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -83,7 +83,9 @@ e sozinha justifica a adoção em muitos casos.
 
 ### Evolução de esquema controlada
 
-Adicionar coluna, renomear, mudar tipo — com o histórico permanecendo legível.
+Adicionar coluna, renomear, promover tipo por alargamento (inteiro para longo, mais
+precisão decimal) — com o histórico permanecendo legível. Troca de tipo
+incompatível, como texto para número, não entra: exige reescrever a tabela.
 
 É a diferença entre esquema declarado e esquema implícito: o formato sabe que
 aquela coluna existe desde a versão 12, e leitores antigos não quebram.
@@ -114,16 +116,18 @@ conflito no log e repetições.
 **Ferramental e governança.** Controle de acesso em nível de coluna e linha,
 auditoria e catálogo integrado são mais maduros em warehouses.
 
-**Otimização automática.** Compactação e ordenação exigem processos explícitos no
-lakehouse.
+**Otimização automática.** No formato aberto, compactação e ordenação exigem
+processos explícitos; plataformas gerenciadas que as automatizam cobram isso em
+acoplamento ao fornecedor, parte do que o formato aberto prometia evitar.
 
 ### A manutenção é explícita
 
 Compactar arquivos pequenos, expirar versões, reordenar dados fisicamente,
 atualizar estatísticas.
 
-Nada disso acontece sozinho. Um lakehouse sem rotinas de manutenção degrada da
-mesma forma que um lake — e o diagnóstico é o mesmo: consultas ficam lentas sem que
+Nada disso acontece sozinho no formato em si: ou um processo agendado executa, ou
+uma plataforma gerenciada executa sob uma política que alguém precisa definir. Um
+lakehouse sem rotinas de manutenção degrada da mesma forma que um lake — e o diagnóstico é o mesmo: consultas ficam lentas sem que
 o volume tenha mudado.
 
 ## Modelo Mental
@@ -144,16 +148,27 @@ vem daí, e tudo o que falta é o que um log não resolve.
 
 **Para carga transacional.** Não é um banco operacional.
 
-**Para consulta interativa de latência muito baixa e alta concorrência.**
+**Para consulta interativa de latência muito baixa e alta concorrência.** Painel
+que precisa responder em menos de um segundo para dezenas de usuários simultâneos
+paga, a cada consulta, a leitura do log e a abertura de arquivos no armazenamento
+de objetos — custo fixo que um warehouse com cache e índices locais não tem.
 
-**Com muitos escritores simultâneos na mesma tabela.**
+**Com muitos escritores simultâneos na mesma tabela.** Cada escrita é uma entrada
+no log, e duas escritas que tocam a mesma partição ao mesmo tempo conflitam.
+Quando vários processos gravam a mesma partição a cada poucos segundos, a taxa de
+repetição cresce até dominar o trabalho útil.
 
 **Quando um warehouse existente atende bem.** Migrar por arquitetura é custo sem
 retorno.
 
-**Sem rotinas de manutenção.**
+**Sem rotinas de manutenção.** Se ninguém vai ser dono da compactação e da
+retenção de versões, o lakehouse vira um lake mais caro: paga os metadados e
+degrada do mesmo jeito.
 
-**Quando o volume é pequeno.** Um banco relacional resolve.
+**Quando os dados cabem num banco relacional.** Na casa das dezenas ou centenas
+de gigabytes, um banco relacional com índices responde consultas analíticas em
+segundos, sem log de versões, sem compactação e sem armazenamento de objetos para
+operar. O lakehouse só compensa quando o volume torna esse banco caro ou lento.
 
 ## Alternativas
 
@@ -207,7 +222,7 @@ retorno.
 
 **Migrar tudo de uma vez.** As definições de negócio embutidas nas cargas antigas só aparecem quando um número diverge do relatório que a diretoria já conhece — e aí a migração inteira perde credibilidade.
 
-**Muitos escritores na mesma tabela.** O controle de concorrência é otimista: escritas simultâneas na mesma partição conflitam e uma delas é rejeitada. Com escritores demais, o retrabalho passa a dominar.
+**Muitos escritores na mesma tabela.** O [controle de concorrência](/07-data-architecture/transactions.md) é otimista: escritas simultâneas na mesma partição conflitam e uma delas é rejeitada. Com escritores demais, o retrabalho passa a dominar.
 
 **Tratar como substituto de banco transacional.** Transações no formato de tabela cobrem a carga analítica, não milhares de escritas pequenas e concorrentes por segundo com leitura de baixa latência.
 
@@ -231,7 +246,8 @@ existir uma tabela só.
 antes exigiam reescrever partições inteiras do lake, um processo manual que levava
 dias.
 
-**Custo de armazenamento** caiu 60% em relação ao warehouse.
+**Custo de armazenamento** caiu 60% em relação ao warehouse, medido depois de
+ajustada a retenção de versões (ver adiante).
 
 **Viagem no tempo** permitiu auditar mudanças de número, resolvendo uma classe
 inteira de disputas.

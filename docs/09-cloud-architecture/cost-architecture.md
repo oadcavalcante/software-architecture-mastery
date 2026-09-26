@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor estima o custo de uma decisão de arquitetura antes de
   implementá-la, e reconhece os desperdícios estruturais.
 prerequisites: [cloud-architecture]
-related: [managed-services, serverless, cloud-storage]
+related: [managed-services, serverless, cloud-storage, cost-management]
 canonical_for: [arquitetura de custo, custo por transação, desperdício estrutural]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -71,7 +71,10 @@ Se o custo total dobra e o número de pedidos dobra, está tudo bem. Se o custo 
 e os pedidos crescem 20%, a arquitetura piorou.
 
 Essa métrica raramente existe, e sem ela não há como distinguir crescimento
-saudável de degradação.
+saudável de degradação. A escolha da unidade econômica é tratada em
+[gestão de custo](/23-architecture-leadership/cost-management.md); aqui interessa
+que, na nuvem, ela pode ser calculada direto da fatura, por serviço, quando a
+marcação existe.
 
 ### Os desperdícios estruturais
 
@@ -102,7 +105,9 @@ Nenhum deles é otimização micro. Todos são de arquitetura ou de disciplina.
 ### Marcação é pré-requisito de tudo
 
 Sem etiquetar recursos por time, produto e ambiente, não há como atribuir custo — e
-sem atribuição, ninguém é responsável.
+sem atribuição, ninguém é responsável. Por que atribuir e a quem está em
+[gestão de custo](/23-architecture-leadership/cost-management.md); na nuvem, a
+etiqueta é o mecanismo que torna isso possível.
 
 O efeito de tornar o custo visível por time costuma ser maior que o de qualquer
 otimização técnica: gente que vê o próprio número age sobre ele.
@@ -184,7 +189,6 @@ Para reduzir custo sem mudar arquitetura:
 | Menor capacidade ociosa | Folga para picos |
 | Escalonamento reativo | Capacidade pronta |
 | Armazenamento mais frio | Acesso imediato |
-| Menos redundância | Mais |
 | Mais risco sob pico | Mais previsível |
 
 | Reservado | Sob demanda | Interrompível |
@@ -199,11 +203,16 @@ Para reduzir custo sem mudar arquitetura:
 
 **Fatura surpresa.** Um laço que consulta em excesso, um processo que não terminou.
 
-**Recursos órfãos acumulando.**
+**Recursos órfãos acumulando.** A varredura encontra volumes e endereços sem
+etiqueta nem dono, e a linha de armazenamento cresce sem que nenhum serviço novo
+tenha subido.
 
-**Transferência entre zonas dominando a conta.**
+**Transferência entre zonas dominando a conta.** A linha de transferência sobe mês a
+mês sem aumento correspondente de tráfego externo — chamadas que passaram a cruzar
+zonas depois de uma mudança de roteamento ou de implantação.
 
-**Retenção infinita.** Registros de anos que ninguém consulta.
+**Retenção infinita.** A linha de armazenamento de registros cresce com o tempo,
+não com o uso, e ninguém sabe dizer quem consulta os dados de mais de um ano.
 
 **Escalonamento sem teto.** Um defeito gera carga e a conta acompanha.
 
@@ -278,6 +287,7 @@ e ela era vista como burocracia antes disso.
 - [Serverless](/09-cloud-architecture/serverless.md) — outro modelo de cobrança.
 - [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md) — retenção.
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — transferência.
+- [Gestão de Custo](/23-architecture-leadership/cost-management.md) — unidade econômica e atribuição de custo, fora do recorte de nuvem.
 
 ## Exercício Prático
 
@@ -295,7 +305,7 @@ A tendência dessa razão diz mais que o valor absoluto.
 
 ## Para Aprofundar
 
-- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023.
 - Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023 — atribuição de
   custo por marcação de recursos.
-- Documentação de boas práticas de custo dos principais provedores.
+- Amazon Web Services. *Cost Optimization Pillar — AWS Well-Architected Framework*.
+  AWS, 2023 — as dimensões cobradas e os desperdícios estruturais do ponto de vista de um provedor.

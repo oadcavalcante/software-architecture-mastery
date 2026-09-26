@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor concede permissões pelo menor privilégio necessário e
   elimina credenciais de longa duração.
 prerequisites: [cloud-architecture]
-related: [cloud-networking, vendor-lock-in, managed-services]
+related: [cloud-networking, vendor-lock-in, managed-services, identity, least-privilege, auditability]
 canonical_for: [identidade em nuvem, credencial de curta duração, papel de serviço]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -86,45 +86,52 @@ integração contínua.
 
 ### Federação em vez de contas separadas
 
-Pessoas devem entrar com a identidade corporativa, não com contas criadas dentro da
-nuvem.
+Pessoas devem entrar com a identidade corporativa, não com usuários criados dentro
+do provedor. O mecanismo e o ganho de desprovisionamento estão em
+[identidade](/10-security/identity.md); o que é próprio da nuvem é onde a conta local
+nasce.
 
-Isso resolve o problema mais persistente: **desprovisionamento**. Quando alguém sai
-da empresa, o acesso à nuvem termina junto, porque não existe conta separada.
-
-Sem federação, contas de ex-funcionários permanecem — e elas aparecem em toda
-auditoria.
+Todo provedor oferece usuário local com senha e chave de acesso, e é o caminho mais
+curto no primeiro dia. Esse usuário fica fora do diretório corporativo: desativar a
+pessoa lá não o alcança, e a chave emitida para ele continua válida.
 
 ### Fronteiras de conta são o isolamento real
 
 Permissões dentro de uma conta são configuração; contas separadas são fronteira.
 
-Separar produção de desenvolvimento em contas distintas garante que um erro em
-desenvolvimento não alcance produção, independentemente de qualquer política.
+Separar produção de desenvolvimento em contas distintas faz com que o padrão seja
+nenhum acesso entre elas: um erro em desenvolvimento só alcança produção por um
+caminho concedido explicitamente — papel de confiança entre contas, rede
+interconectada, esteira com permissão nas duas. Cada um desses caminhos é uma
+política, e precisa do mesmo rigor; a diferença é que eles são poucos, nomeados e
+auditáveis.
 
 É também o que permite isolar cópias de segurança de forma significativa. Ver
 [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
-A separação por conta é mais robusta e menos sujeita a erro humano que qualquer
-política dentro de uma conta única.
+Por isso a separação por conta é menos sujeita a erro humano que política dentro de
+uma conta única: lá, isolar exige acertar todas as negações; aqui, romper o isolamento
+exige errar uma concessão explícita.
 
 ### Escalonamento de privilégio é sutil
 
-Uma permissão para alterar políticas de permissão é, efetivamente, permissão para
-tudo — quem pode se conceder acesso já o tem.
+A lista de permissões que equivalem a permissão para tudo está em
+[menor privilégio](/10-security/least-privilege.md). Duas delas têm forma própria na
+nuvem.
 
-O mesmo vale para: criar identidades, anexar papéis a instâncias, alterar
-configuração de registro de auditoria, e assumir papéis mais amplos.
+**Anexar papel a instância.** Quem pode lançar uma máquina com um papel mais amplo que
+o seu, e entrar nela, passa a agir com esse papel.
 
-Essas permissões merecem tratamento à parte, e raramente pertencem a uma aplicação.
+**Assumir papel em outra conta.** Uma relação de confiança escrita como "qualquer
+identidade da conta X" transfere para a conta de destino tudo o que a conta X tiver de
+mais frouxo.
 
 ### Auditoria precisa ser inviolável
 
-O registro de quem fez o quê é o que permite investigar. Se ele pode ser apagado
-por quem tem acesso ao ambiente, ele não serve para investigar comprometimento.
-
-Registro de auditoria em conta separada, com escrita permitida e exclusão negada, é
-a configuração que sustenta a investigação.
+As propriedades do registro inviolável estão em
+[auditabilidade](/10-security/auditability.md). A decisão de nuvem é onde ele mora:
+numa conta dedicada, para a qual as demais só escrevem — assim, comprometer a conta
+auditada não dá acesso ao registro dela.
 
 ## Modelo Mental
 
@@ -133,7 +140,10 @@ exatamente o que aquela identidade podia fazer.
 
 ## Quando Usar
 
-Estas práticas se aplicam sempre. Prioridade especial quando:
+Credencial temporária e menor privilégio valem assim que existe uma identidade com
+acesso ao ambiente. Federação passa a compensar quando há diretório corporativo e mais
+de uma pessoa; conta separada por ambiente, quando há alguém para operar a conta
+adicional. Prioridade especial quando:
 
 - Há dados sensíveis ou regulados.
 - Várias equipes compartilham o ambiente.
@@ -142,17 +152,24 @@ Estas práticas se aplicam sempre. Prioridade especial quando:
 
 ## Quando Não Usar
 
-**Permissão ampla para resolver rápido.** Ela permanece.
+**Federação num ambiente de uma pessoa e uma conta.** Sem diretório corporativo, montar
+um provedor de identidade só para federar custa mais que desativar um usuário local à
+mão. O corte é quando o número de pessoas torna o desprovisionamento manual algo que
+alguém pode esquecer.
 
-**Credenciais de longa duração**, quando há alternativa temporária.
+**Credencial temporária para integração que não a suporta.** Serviço de terceiro que só
+aceita chave estática não vira papel por decisão sua. Aí a chave fica, com o alcance
+mínimo, em gerenciador de segredos e com rotação — tentar forçar um intermediário de
+troca de credencial acrescenta uma peça que falha sem reduzir o risco da chave.
 
-**Contas locais para pessoas**, em vez de federação.
+**Granularidade por recurso além do limite do provedor.** Políticas têm tamanho máximo.
+Listar milhares de recursos individualmente estoura esse limite e produz política que
+ninguém consegue ler; nesse ponto, restringir por etiqueta ou por prefixo de nome é o
+menor privilégio praticável.
 
-**Produção e desenvolvimento na mesma conta.**
-
-**Permissão de alterar políticas** em identidade de aplicação.
-
-**Registro de auditoria na mesma conta** que ele audita.
+**Conta separada por ambiente sem quem a opere.** Uma conta a mais exige rede, linha de
+base de segurança, faturamento e acesso próprios. Uma equipe de duas pessoas num
+protótipo sem dado real paga esse custo antes de ter o que isolar.
 
 ## Alternativas
 
@@ -174,6 +191,7 @@ Para reduzir risco sem reescrever a política:
 | Dano contido | Alcance total |
 | Configuração trabalhosa | Rápida |
 | Erros de permissão em desenvolvimento | Nenhum |
+| Permissão faltante que quebra caminho raro em produção | Nenhuma |
 | Revisão periódica necessária | Nenhuma |
 
 | Credencial temporária | Chave de longa duração |
@@ -181,6 +199,12 @@ Para reduzir risco sem reescrever a política:
 | Nada a vazar permanentemente | Vaza e não expira |
 | Rotação automática | Manual, ou nunca |
 | Configuração inicial maior | Trivial |
+
+| Contas separadas | Conta única |
+|---|---|
+| Isolamento por padrão | Isolamento depende de cada política |
+| Rede, linha de base e faturamento por conta | Uma de cada |
+| Acesso entre contas a projetar | Acesso implícito |
 
 ## Modos de Falha
 
@@ -208,7 +232,9 @@ o necessário.
 
 **Não federar identidade.** Usuários locais no provedor não somem quando a pessoa sai da empresa, porque a desativação acontece no diretório corporativo e não chega até lá.
 
-**Não separar ambientes em contas.** Sem fronteira de conta, um erro de permissão em desenvolvimento alcança produção. A separação é o limite mais forte que o provedor oferece e custa nada.
+**Não separar ambientes em contas.** Sem fronteira de conta, um erro de permissão em desenvolvimento alcança produção. A separação é o limite mais forte que o provedor oferece e não tem custo de licença;
+o custo é operacional — rede, linha de base e acesso por conta —, e é menor que o de
+descobrir o problema em produção.
 
 **Não revisar permissões não utilizadas.** Permissões só crescem por acúmulo. Os provedores relatam o que não é exercido há meses, e essa lista é a de remoção mais segura que existe.
 
@@ -245,7 +271,7 @@ meses.
 
 A reconstrução do modelo de acesso levou cinco meses:
 
-**Todas as chaves de longa duração eliminadas.** Aplicações passaram a usar papéis;
+**32 das 34 chaves de longa duração eliminadas.** Aplicações passaram a usar papéis;
 a esteira passou a usar federação. Restaram duas chaves, para integrações externas
 que não suportavam outra coisa — ambas com rotação automática e alcance mínimo.
 
@@ -259,9 +285,10 @@ automático.
 **Revisão trimestral** com base em uso real. A primeira reduziu as permissões
 concedidas em cerca de 80% sem quebrar nada.
 
-A conclusão registrada: o último número é o mais revelador. Quatro quintos das
-permissões concedidas nunca tinham sido exercidas — elas existiam apenas por
-precaução, e foi exatamente essa precaução que definiu o tamanho do dano.
+A conclusão registrada: o tamanho do dano foi definido por uma única identidade — um
+script de relatório, que precisava ler, com permissão de administrador concedida por
+conveniência. E a primeira revisão mostrou que o padrão sobrevive até a um modelo
+reconstruído com cuidado: quatro quintos do que ele concedia ainda não era exercido.
 
 ## Conceitos Relacionados
 
@@ -286,6 +313,7 @@ com o que ela de fato fez nos últimos 90 dias.
 
 ## Para Aprofundar
 
-- Documentação de boas práticas de identidade dos principais provedores.
-- NIST SP 800-207 — arquitetura de confiança zero.
-- OWASP. *Cloud-Native Application Security Top 10*.
+- Rose, S. et al. *Zero Trust Architecture*. NIST SP 800-207, 2020.
+- Grassi, P. et al. *Digital Identity Guidelines*. NIST SP 800-63-3, 2017.
+- Jones, M. et al. *OAuth 2.0 Token Exchange*. RFC 8693, 2020 — a base da troca de
+  token que permite federar esteiras sem chave estática.

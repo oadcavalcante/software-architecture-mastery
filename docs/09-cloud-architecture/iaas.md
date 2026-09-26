@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor reconhece o que IaaS transfere e o que continua sendo
   responsabilidade sua, e evita usá-lo como padrão por hábito.
 prerequisites: [cloud-architecture]
-related: [paas, managed-services, cloud-compute]
+related: [paas, managed-services, cloud-compute, cloud-native]
 canonical_for: [IaaS, infraestrutura como serviço, modelo de responsabilidade compartilhada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -96,7 +96,7 @@ nada de configuração manual, tudo reproduzível a partir de código.
 
 Uma instância que ninguém consegue recriar do zero é um passivo.
 
-### Infraestrutura como código não é opcional
+### Sem infraestrutura como código, IaaS é servidor alugado
 
 Criar recursos pelo console é conveniente e produz um ambiente que ninguém sabe
 reconstruir.
@@ -115,8 +115,8 @@ configuração específica.
 **Licenciamento que exige máquina dedicada.**
 
 **Migração de sistema legado.** Mover como está é o caminho mais rápido para sair de
-um datacenter, e é uma decisão legítima — desde que a modernização venha depois, e
-não seja adiada indefinidamente.
+um datacenter — etapa legítima, não destino; o argumento completo está em
+[nativo de nuvem](/09-cloud-architecture/cloud-native.md).
 
 **Escala muito grande com carga previsível.** Onde a diferença de preço paga um
 time.
@@ -165,7 +165,8 @@ concreto, está pagando o trabalho à toa.
 **Para componentes que existem como serviço gerenciado** — banco, fila, cache — sem
 razão específica.
 
-**Com time pequeno** e sem experiência operacional.
+**Sem quem opere a camada** — ninguém de sobreaviso para a instância que cai e
+ninguém responsável pela esteira de correções.
 
 **Tratando instâncias como servidores permanentes.**
 
@@ -181,7 +182,7 @@ razão específica.
 
 | IaaS | Modelos mais altos |
 |---|---|
-| Controle total | Limitado |
+| Controle do sistema operacional para cima | Limitado à configuração exposta |
 | Todo o trabalho operacional | Menos |
 | Preço unitário menor | Maior |
 | Qualquer software | O que a plataforma suporta |
@@ -208,17 +209,22 @@ conveniência e nunca fechadas.
 
 ## Erros Comuns
 
-**Criar recursos pelo console.**
+**Criar recursos pelo console.** O ambiente passa a existir só na memória de quem o
+criou, e recriá-lo vira engenharia reversa.
 
-**Não automatizar correções.**
+**Não automatizar correções.** A correção manual perde para o volume de instâncias,
+e as vulnerabilidades conhecidas ficam em produção.
 
-**Guardar estado em disco local.**
+**Guardar estado em disco local.** A primeira instância substituída leva os dados
+junto.
 
-**Não distribuir entre zonas.**
+**Não distribuir entre zonas.** A falha de uma zona derruba o sistema inteiro.
 
-**Escolher IaaS por reflexo** quando existe gerenciado equivalente.
+**Escolher IaaS por reflexo** quando existe gerenciado equivalente. O time paga em
+operação o que não usa em controle.
 
-**Migrar o legado como está e parar por aí.**
+**Migrar o legado como está e parar por aí.** A fatura cresce e o risco de segurança
+se acumula, como no Exemplo Real abaixo.
 
 ## Exemplo Real
 
@@ -257,7 +263,8 @@ reversa do que estava rodando.
 
 **Distribuição entre três zonas.**
 
-**Redimensionamento** com base em utilização real. A fatura caiu 45%.
+**Redimensionamento** com base em utilização real. Ao fim da fase, a fatura tinha caído
+45% no líquido, já somados o custo dos serviços gerenciados e das três zonas.
 
 **Correções automatizadas**, com substituição de instância em vez de atualização no
 lugar.
@@ -272,6 +279,7 @@ papel e ficou dois anos sem prioridade, acumulando risco de segurança e custo.
 - [Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 - [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
+- [Nativo de Nuvem](/09-cloud-architecture/cloud-native.md) — por que a migração como está é etapa, não destino.
 
 ## Exercício Prático
 
@@ -291,4 +299,5 @@ que não é reproduzível.
 
 - Morris, Kief. *Infrastructure as Code*. 2ª ed. O'Reilly, 2020.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- Documentação de modelo de responsabilidade compartilhada dos provedores.
+- Mell, Peter; Grance, Timothy. *The NIST Definition of Cloud Computing* (SP 800-145). NIST, 2011.
+- Cloud Security Alliance. *Security Guidance for Critical Areas of Focus in Cloud Computing v4.0*. CSA, 2017.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [kubernetes, serverless, cloud-compute]
 canonical_for: [contêiner, imagem de contêiner, camada de imagem]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -86,7 +86,8 @@ Isso é o que dá previsibilidade e o que torna reversão trivial: voltar é rei
 a imagem anterior.
 
 E implica uma regra: **nada de mudança manual dentro do contêiner**. Uma correção
-aplicada com acesso direto some no próximo reinício, e cria divergência que ninguém
+aplicada com acesso direto some quando o contêiner é recriado a partir da imagem —
+o que o orquestrador faz a cada substituição —, e cria divergência que ninguém
 rastreia.
 
 ### Estado precisa sair
@@ -167,7 +168,8 @@ sistema mal desenhado em contêiner.
 
 - **Máquina virtual** — isolamento forte, mais pesado.
 - **Pacote do sistema operacional** — para aplicação única e estável.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — sem empacotamento nem capacidade.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a dimensionar,
+  com restrições de duração e de estado.
 - **Tempos de execução com isolamento reforçado** — quando se quer contêiner com
   fronteira de segurança mais próxima da máquina virtual.
 
@@ -190,17 +192,17 @@ sistema mal desenhado em contêiner.
 
 **Sem limite de recurso.** Um contêiner derruba o nó.
 
-**Estado perdido no reinício.**
+**Estado perdido na recriação do contêiner.**
 
 **Execução como administrador.** Amplifica qualquer falha.
 
 **Imagem enorme.** Implantação lenta, superfície grande.
 
-**Alteração manual dentro do contêiner.** Some no reinício.
+**Alteração manual dentro do contêiner.** Some quando ele é recriado.
 
 **Etiqueta móvel em produção.** Apontar para a mais recente torna a implantação não
-reproduzível — duas implantações da mesma referência podem rodar códigos
-diferentes.
+reproduzível. Ver
+[contêineres na entrega](/14-devops-and-platform/containers-in-delivery.md).
 
 ## Erros Comuns
 
@@ -266,7 +268,7 @@ contêineres.
 ## Conceitos Relacionados
 
 - [Kubernetes](/09-cloud-architecture/kubernetes.md) — a orquestração.
-- [Serverless](/09-cloud-architecture/serverless.md) — o modelo sem empacotamento.
+- [Serverless](/09-cloud-architecture/serverless.md) — o modelo sem capacidade a dimensionar.
 - [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
 - [Segurança](/10-security/index.md).
 
@@ -276,7 +278,7 @@ Pegue a imagem de produção do seu serviço e responda: quando ela foi constru�
 pela última vez, e quantas vulnerabilidades conhecidas ela tem hoje?
 
 Depois verifique se ela roda como administrador e se tem limite de memória. Essas
-três respostas costumam ser desconfortáveis.
+quatro respostas costumam ser desconfortáveis.
 
 ## Perguntas de Entrevista
 

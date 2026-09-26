@@ -2,7 +2,7 @@
 id: data-modeling
 title: Modelagem de Dados
 sidebar_position: 12
-description: A decisão mais difícil de reverter — e por que ela deve partir do padrão de acesso, não do diagrama.
+description: Uma das decisões mais difíceis de reverter — e por que ela deve partir do padrão de acesso, não do diagrama.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [normalization, denormalization, data-ownership]
 canonical_for: [modelagem de dados, modelo conceitual, modelo lógico, modelo físico]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -24,8 +24,9 @@ last_reviewed: 2026-08-27
 Modelar dados é decidir quais entidades existem, quais atributos elas têm, como se
 relacionam e onde ficam as fronteiras entre elas.
 
-É a decisão mais cara de reverter em qualquer sistema, porque diferente do código
-— que se reescreve — o modelo carrega todos os registros já gravados.
+Em sistemas cujos dados acumulam e sobrevivem às versões do código, está entre as
+decisões mais caras de reverter, porque diferente do código — que se reescreve — o
+modelo carrega todos os registros já gravados.
 
 E é frequentemente tomada cedo, com pouca informação, por quem tem menos contexto
 de negócio.
@@ -63,7 +64,9 @@ funcionam.
 
 ### O padrão de acesso decide
 
-As perguntas que precedem qualquer diagrama:
+O critério de padrão de acesso, e o que ele decide na escolha entre bancos, está em
+[SQL contra NoSQL](/20-trade-offs/sql-vs-nosql.md). Aqui, o recorte é o modelo: as
+perguntas que precedem qualquer diagrama:
 
 ```text
 como o dado é criado?        um por vez, em lote, por evento
@@ -170,7 +173,7 @@ qualquer coisa não serve bem para nada.
 |---|---|
 | Garantias no armazenamento | Validação na aplicação |
 | Evolução planejada | Incremental |
-| Consultas não previstas | Limitadas |
+| Atende consulta não prevista | Consulta não prevista limitada |
 | Migração custosa | Barata |
 
 | Com histórico | Só estado atual |
@@ -196,15 +199,19 @@ qualquer coisa não serve bem para nada.
 
 ## Erros Comuns
 
-**Modelar a partir da tela.**
+**Modelar a partir da tela.** O modelo serve à primeira tela e precisa ser refeito
+na segunda, já com dados gravados no formato errado.
 
-**Não decidir sobre o tempo.**
+**Não decidir sobre o tempo.** Cada atualização sobrescreve o valor anterior, e o
+histórico do período até a decisão não existe mais.
 
-**Chave natural como identidade.**
+**Chave natural como identidade.** Quando o negócio muda a regra do identificador,
+a mudança se propaga por todas as referências.
 
 **Normalizar ou desnormalizar por hábito** em vez de por padrão de acesso.
 
-**Não versionar migrações desde o início.**
+**Não versionar migrações desde o início.** Ambientes divergem em esquema, e
+ninguém sabe reproduzir o estado de produção a partir do repositório.
 
 **Adiar a conversa com o negócio.** O modelo conceitual não é trabalho técnico.
 
@@ -214,7 +221,7 @@ Um sistema de gestão de planos de saúde modelou beneficiários com estado atua
 nome, plano, categoria, dependentes.
 
 Funcionou por três anos. Então a auditoria regulatória pediu: "qual era a categoria
-deste beneficiário em cada mês dos últimos cinco anos?".
+deste beneficiário em cada mês dos últimos três anos?".
 
 A resposta não existia. Cada mudança de categoria sobrescrevia a anterior.
 

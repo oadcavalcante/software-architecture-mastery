@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [oltp, relational-databases, denormalization]
 canonical_for: [índice, índice composto, plano de execução, seletividade]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -24,11 +24,13 @@ last_reviewed: 2026-08-27
 Um índice é uma estrutura auxiliar que permite encontrar registros sem varrer a
 tabela inteira.
 
-É a decisão de melhor retorno desta seção: um índice adequado transforma segundos
-em milissegundos, custa uma linha de comando e não muda o modelo.
+Entre as decisões desta seção, é a de maior ganho de latência por esforço: um
+índice adequado transforma segundos em milissegundos, custa uma linha de comando
+e não muda o modelo.
 
-E é a mais negligenciada — a maioria dos problemas de desempenho atribuídos a
-escala é, na verdade, índice ausente ou índice errado.
+E é a mais negligenciada — é comum que o problema de desempenho atribuído a
+escala seja, na verdade, índice ausente ou índice errado. Por isso o plano de
+execução vem antes de qualquer proposta de arquitetura.
 
 ## Problema
 
@@ -92,7 +94,11 @@ tocar a tabela.
 SELECT valor FROM pedidos WHERE cliente = ? AND data > ?
 ```
 
-Todas as colunas estão no índice. A tabela não é lida.
+Todas as colunas estão no índice, e a tabela não precisa ser lida. Em bancos
+MVCC há uma ressalva: o índice não guarda a visibilidade das linhas, e o
+PostgreSQL só dispensa a tabela nas páginas que o mapa de visibilidade marca como
+todas visíveis — em tabela recém-escrita, o ganho depende de o vacuum estar em
+dia.
 
 É uma otimização poderosa para consultas críticas, e cobrar colunas demais
 transforma o índice numa cópia da tabela, com o custo de escrita correspondente.
@@ -119,9 +125,9 @@ ruins mesmo com índices corretos.
 ### Função na coluna anula o índice
 
 ```sql
-WHERE UPPER(nome) = 'MARIA'        -- não usa índice em nome
-WHERE ano(data) = 2025             -- não usa índice em data
-WHERE data BETWEEN ? AND ?         -- usa
+WHERE UPPER(nome) = 'MARIA'           -- não usa índice em nome
+WHERE EXTRACT(YEAR FROM data) = 2025  -- não usa índice em data
+WHERE data BETWEEN ? AND ?            -- usa
 ```
 
 Aplicar função à coluna indexada impede o uso do índice. A solução é reescrever a
@@ -165,7 +171,7 @@ frequentemente um composto substitui três simples.
 - **Visão materializada** — para agregações repetidas.
 - **[Particionamento](/07-data-architecture/data-partitioning.md)** — descarta partições inteiras antes
   de qualquer índice.
-- **Índice invertido** — para busca textual com relevância.
+- **[Índice invertido](/05-system-design/search.md)** — para busca textual com relevância.
 
 ## Trade-offs
 

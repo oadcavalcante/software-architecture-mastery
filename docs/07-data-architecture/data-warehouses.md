@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-lakes, column-stores, denormalization]
 canonical_for: [data warehouse, modelo dimensional, tabela fato, tabela dimensão]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -124,7 +124,8 @@ com números diferentes, ambos corretos segundo definições distintas.
 ### O custo real é a transformação
 
 A tecnologia de armazenamento é commodity. O que custa é escrever e manter as
-transformações — e elas quebram sempre que um sistema de origem muda.
+transformações — e cada mudança numa origem que altere um campo, um tipo ou uma
+regra consumida pela transformação a quebra.
 
 Um warehouse com dezenas de fontes tem um fluxo constante de manutenção. Orçar o
 projeto sem orçar essa manutenção é o erro de planejamento característico.
@@ -146,7 +147,9 @@ uma só, você não precisa de um.
 
 **Com uma única fonte.** Réplica ou colunar resolvem.
 
-**Quando o volume não justifica.**
+**Quando o cruzamento cabe numa consulta sobre uma réplica.** Se poucas fontes
+podem ser juntadas com alguns índices e minutos de resposta são aceitáveis, o
+custo de carga e modelagem não se paga.
 
 **Para análise exploratória de dados brutos não estruturados.** Ver
 [data lake](/07-data-architecture/data-lakes.md).
@@ -181,7 +184,7 @@ uma só, você não precisa de um.
 | Qualquer pergunta futura | Só as previstas |
 | Volume maior | Menor |
 | Consulta mais cara | Barata |
-| Irreversível se grossa demais | — |
+| Reagregável em qualquer corte | Irreversível: o detalhe não foi guardado |
 
 ## Modos de Falha
 
@@ -221,7 +224,8 @@ Funcionou bem por dois anos e a confiança desmoronou em uma semana.
 O diretor comercial e o financeiro apresentaram números de faturamento diferentes
 para o mesmo trimestre — 4% de diferença. Ambos vinham do warehouse.
 
-A investigação encontrou três causas simultâneas:
+A investigação explicou os 4% pela primeira causa abaixo e, no caminho, achou
+mais dois defeitos que distorciam os números dos dois relatórios:
 
 **Definições divergentes.** Um relatório incluía vendas canceladas no mesmo dia; o
 outro não. Nenhuma definição estava publicada; cada analista tinha escrito a sua.
@@ -275,4 +279,4 @@ discussão de números divergentes antes que ela aconteça.
 
 - Kimball, Ralph; Ross, Margy. *The Data Warehouse Toolkit*. 3ª ed. Wiley, 2013.
 - Inmon, W. H. *Building the Data Warehouse*. 4ª ed. Wiley, 2005.
-- Linstedt, Dan. *Building a Scalable Data Warehouse with Data Vault 2.0*, 2015.
+- Linstedt, Dan; Olschimke, Michael. *Building a Scalable Data Warehouse with Data Vault 2.0*. Morgan Kaufmann, 2015.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [timeouts, idempotency]
 related: [backoff, idempotency, retry-storms]
 canonical_for: [retentativa, retry]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -50,7 +50,7 @@ Pior em cadeia. Se cada nível repete três vezes:
 Uma requisição vira 81. Sob degradação, quando todas as requisições estão
 falhando, a carga no fundo da cadeia multiplica por 81.
 
-Isso é [retry storm](/12-reliability/index.md), e é um dos modos de falha mais
+Isso é [retry storm](/12-reliability/retry-storms.md), e é um dos modos de falha mais
 comuns em sistemas distribuídos.
 
 ## Conceitos Centrais
@@ -78,11 +78,14 @@ três vezes o mesmo erro, com três vezes a carga.
 Uma operação que falhou por timeout pode ter sido executada. Repetir sem
 [idempotência](/06-distributed-systems/idempotency.md) duplica o efeito.
 
-Essa é a regra que não admite exceção: **se não é idempotente, não repita
-automaticamente.**
+Daí a regra: **se não é idempotente, não repita automaticamente** — com uma
+única exceção, a falha em que se sabe que a requisição não chegou ao servidor
+(conexão recusada, erro de DNS, falha ao estabelecer a conexão). Timeout não entra
+nela: depois do envio, o chamador não sabe se houve efeito.
 
-Muitos clientes HTTP repetem por padrão apenas métodos considerados seguros —
-`GET`, `PUT`, `DELETE` — e não `POST`. Isso é uma proteção razoável e frequentemente
+Muitos clientes HTTP repetem por padrão apenas métodos idempotentes — os seguros,
+como `GET`, e os idempotentes que alteram estado, `PUT` e `DELETE` (RFC 9110, 2022)
+— e não `POST`. Isso é uma proteção razoável e frequentemente
 contornada por quem configura retentativa genérica sem olhar.
 
 ### Limite de tentativas e orçamento
@@ -96,7 +99,7 @@ ainda triplica a carga.
 por exemplo, no máximo 10% de tentativas extras numa janela. Quando muitas coisas
 falham, a retentativa se auto-limita.
 
-O orçamento é a proteção mais eficaz contra tempestade, e a menos implementada.
+Contra tempestade, o orçamento protege onde a contagem falha: sob falha generalizada, a carga extra fica presa em 10% em vez de triplicar.
 
 ### Repita em um nível, não em todos
 
@@ -152,7 +155,7 @@ suporta.
 
 **Falha permanente.** Requisição inválida, permissão negada, conflito.
 
-**Operação não idempotente.** Duplicação garantida sob timeout.
+**Operação não idempotente.** Sob timeout, duplicação possível e não detectável pelo chamador.
 
 **Em todos os níveis da cadeia.** Amplificação multiplicativa.
 
@@ -221,7 +224,7 @@ O serviço de autorização ficou lento — não caiu. As respostas passaram de 
 para 4 segundos.
 
 O gateway tinha três tentativas configuradas, sem backoff. O serviço de pedidos,
-que chamava o gateway, também tinha três. O aplicativo móvel repetia duas vezes.
+que chamava o gateway, também tinha três. O aplicativo móvel fazia duas tentativas.
 
 Uma tentativa do usuário produzia até 18 chamadas ao serviço de autorização.
 
@@ -257,7 +260,7 @@ A degradação original nunca foi o problema. A resposta a ela é que era.
 - [Timeouts](/06-distributed-systems/timeouts.md) — o que precede a retentativa.
 - [Backoff](/06-distributed-systems/backoff.md) — como espaçar as tentativas.
 - [Idempotência](/06-distributed-systems/idempotency.md) — o pré-requisito.
-- [Retry Storms](/12-reliability/index.md) — o modo de falha em detalhe.
+- [Retry Storms](/12-reliability/retry-storms.md) — o modo de falha em detalhe.
 
 ## Exercício Prático
 

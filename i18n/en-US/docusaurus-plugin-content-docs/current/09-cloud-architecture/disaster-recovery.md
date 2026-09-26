@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [multi-region, availability-zones, data-replication]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -34,7 +34,7 @@ And it comes down to two numbers — which need to come from the business, not f
 
 Almost every company has backups. Far fewer companies can restore them when they need to.
 
-The reasons are always the same: the restore was never tested, the procedure is out of date, the backup
+The reasons repeat from one case to the next: the restore was never tested, the procedure is out of date, the backup
 does not contain everything, or the restore takes too long to be useful.
 
 The result is a plan that exists in a document and not in capability.
@@ -43,32 +43,28 @@ The result is a plan that exists in a document and not in capability.
 
 ### The two numbers
 
-**RTO — recovery time objective.** How long until you are operating again.
+**[RTO](/12-reliability/rto.md) — recovery time objective.** How long until you are operating again.
 
-**RPO — recovery point objective.** How much data can be lost.
+**[RPO](/12-reliability/rpo.md) — recovery point objective.** How much data can be lost.
 
 ```text
 RPO ─────────────┤ disaster ├───────────── RTO
      data lost                downtime
 ```
 
-They are business decisions, with an associated cost, and they need to be defined by whoever pays the bill
-for the downtime — not estimated by engineering.
-
-The correct conversation is: "recovering in 4 hours costs X; in 15 minutes it costs 10X. How much is each
-hour of downtime worth?"
-
-Without those two numbers, any strategy is a guess.
+Why both are priced business decisions rather than technical estimates is covered in each one's own
+document. What matters here is what they buy in the cloud: each strategy below is a point on the trade
+between continuous cost and the two numbers, and without them the choice among them is a guess.
 
 ### The strategies, by price
 
 ```text
-                       typical RTO    typical RPO   cost
-backups only           days           hours         very low
-backups + automation   hours          minutes       low
-pilot light            tens of min    minutes       medium
-warm standby           minutes        seconds       high
-active-active          seconds        ~zero         very high
+                       typical RTO        typical RPO   cost
+backups only           days               hours         very low
+backups + automation   hours              minutes       low
+pilot light            tens of minutes    minutes       medium
+warm standby           minutes            seconds       high
+active-active          seconds            ~zero         very high
 ```
 
 **Pilot light** deserves attention: a minimal version of the environment stays on — the database
@@ -76,6 +72,13 @@ replicating, the network ready — and the compute capacity is created at activa
 a warm standby and delivers an RTO of tens of minutes.
 
 It is the best cost-to-result ratio for most systems that need more than backups, and it is underused.
+
+The price the table does not show: the standby environment drifts from production between one activation
+and the next. Production gets a new image version, a configuration variable, a permission, and the standby
+region does not; the account's instance quota in the target region stays at the default, sized for the
+pilot and not for the load. The standby design only delivers the table's RTO if activation is exercised at
+the same cadence as deployments — and if failing back to the origin region, which requires replicating
+back the data written during the disaster, has been rehearsed too.
 
 See [multi-region](/09-cloud-architecture/multi-region.md) for the higher designs.
 
@@ -108,37 +111,23 @@ missing.
 
 **Who knows how to do it.** A procedure only one person knows is not a plan.
 
-### The plan needs to cover what is not data
+### The plan goes beyond data
 
-The list of what is usually missing:
+The plan's scope — configuration, secrets, certificates, communication —, the triggering authority and the
+order in which functions come back are covered in
+[recovery planning](/12-reliability/disaster-recovery-planning.md). This document deals with the technical
+strategy the plan triggers.
 
-**Configuration and secrets.** Where they are, and how to recover them.
-
-**DNS.** Who changes it, with what propagation time.
-
-**Certificates.**
-
-**External dependencies.** SaaS, payment gateways — what happens if the source address changes.
-
-**Communication.** Who notifies customers, who talks to the regulator.
-
-**The decision.** Who has the authority to declare the disaster and trigger the plan. Without that defined,
-the first hour is lost deciding whether it is time to trigger it.
-
-### Degrading is a legitimate strategy
-
-Not everything needs to come back at once. Defining which functions are essential allows restoring them
-first and operating in reduced mode.
-
-An e-commerce site that comes back accepting orders, with no recommendations and no history, is operating.
-Waiting for everything to come back is frequently the wrong choice.
-
-That prioritization needs to be decided beforehand — during the incident, nobody has the composure to
-negotiate it.
+Two items of that scope change nature when recovery is to another region. **DNS**: a record with a one-day
+time to live keeps clients pointed at the dead region for a day, however fast everything else comes up —
+the time to live needs to fit in the RTO before the disaster. **External dependencies**: the payment
+gateway or partner that allows calls by a list of source addresses refuses the new region until someone on
+their side updates the list.
 
 ## Mental Model
 
-**A recovery plan nobody executed is documentation, not capability.** The test is the plan.
+**Each strategy is a continuous rent paid to shorten the two numbers — and what is rented only exists if
+activation has been rehearsed.** Standby capacity that never received traffic is cost, not RTO.
 
 ## When to Use
 
@@ -151,24 +140,30 @@ Every system needs some strategy. The level depends on:
 
 ## When Not to Use
 
-**Investing in a low RTO with no number from the business.**
+**Warm standby or active-active when downtime does not pay for the capacity.** If the loss from an outage
+of tens of minutes, multiplied by the expected frequency of region loss, falls below the annual difference
+in continuous cost between pilot light and warm standby, the standby capacity buys an RTO the business
+will not use.
 
-**Active-active when a pilot light serves.**
+**Backups only when the volume does not fit in the RTO.** Restoring 20 TB at 2 TB per hour takes ten
+hours; with a four-hour RTO, no test makes the backup sufficient, and the strategy needs data already
+replicated at the target.
 
-**Relying on replication as protection against human error.**
+**A multi-region strategy with no viable second target.** When data residency binds you to a single
+region, or when a managed service the system depends on does not exist in the target region, the standby
+design does not come up. Recovery becomes same-region, from an isolated backup, or at another provider —
+with an RTO of a different order.
 
-**A documented plan with no exercise.**
-
-**Covering only the data.** Configuration, DNS and secrets are left out.
-
-**Backups accessible with the same credentials as production.**
+**A minutes-level RTO for a system with a manual fallback.** If the operation can run for a day on a manual
+process, backups with restore automation serve, and any step above that is cost that does not pay for itself.
 
 ## Alternatives
 
 - **Three [availability zones](/09-cloud-architecture/availability-zones.md)** — it covers most real
   failures and is not disaster recovery.
 - **Backups with restore automation** — the minimum viable, and sufficient for many systems.
-- **A pilot light** — the best cost-benefit ratio in the intermediate range.
+- **A pilot light** — the best cost-benefit ratio when the required RTO is in the tens of minutes and the
+  cost of downtime does not pay for a warm standby.
 - **A delayed replica** — cheap protection against human error. See
   [data replication](/07-data-architecture/data-replication.md).
 
@@ -203,6 +198,13 @@ Every system needs some strategy. The level depends on:
 **Nobody knows how to execute it.**
 
 **Undefined authority.** The first hour is lost deciding whether to trigger it.
+
+**Activation that fails at the target.** Compute does not come up because of the account's quota in the
+region, an outdated image or a permission that only exists at the origin. It shows up as an RTO of hours
+in a strategy sold as tens of minutes.
+
+**No way back.** The origin region recovers, but the data written at the target during the disaster has no
+reverse replication configured, and the system is stuck in the standby region, sized for the pilot.
 
 ## Common Mistakes
 
@@ -274,6 +276,9 @@ The audit never asked for a test, and nobody offered one.
 - [Multi-Region](/09-cloud-architecture/multi-region.md) — the low-RTO designs.
 - [Availability Zones](/09-cloud-architecture/availability-zones.md).
 - [Data Replication](/07-data-architecture/data-replication.md).
+- [Recovery Planning](/12-reliability/disaster-recovery-planning.md) — the plan's scope, the triggering
+  authority and the order of return.
+- [RTO](/12-reliability/rto.md) and [RPO](/12-reliability/rpo.md) — the two numbers.
 - [Reliability](/12-reliability/index.md).
 
 ## Practical Exercise

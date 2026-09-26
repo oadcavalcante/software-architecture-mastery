@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [schema-evolution, integration-anti-corruption, rest]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -80,8 +80,8 @@ side effect.
 A liberal provider accepts malformed input, and the consumers come to depend on being accepted that way.
 Fixing it later breaks all of them.
 
-The practice that ages better: **strictness on input, tolerance on output**. Reject invalid input from day
-one; ignore unknown fields in the response you receive.
+The practice that ages better: **strict in what you accept, tolerant in what you read**. As a provider,
+reject invalid input from day one; as a consumer, ignore unknown fields in the response you receive.
 
 ### Consumer-driven contracts
 
@@ -93,8 +93,15 @@ executable form. The provider runs those declarations in its own continuous inte
 The effect: the provider knows, before deploying, exactly which consumer breaks. And it can safely remove
 what nobody uses.
 
-It is this section's highest-return technique, and the least adopted. It requires the consumers to be
-known, which makes it suitable within an organization and unviable for a public API.
+Where the consumers are known, it is the technique in this section that most reduces breakage from
+undeclared dependencies. That condition makes it suitable within an organization and unviable for a
+public API.
+
+And it costs something to operate. The published contracts need a shared place the provider fetches them
+from; continuous integration starts crossing repositories; the provider's deployment gets blocked by a red
+test that may be the consumer's fault — a stale expectation, a field it declared and no longer uses.
+Without an owner for each contract and a deadline for the consumer to fix its own test, the gate becomes a
+roadblock, and the provider team learns to switch it off.
 
 ### A contract test is not an integration test
 
@@ -150,7 +157,8 @@ to be verifiable.
 
 - **An executable schema** — a definition from which server and client derive code, eliminating
   divergence between the document and the implementation.
-- **A schema registry** — the central contract, with compatibility validated at publication.
+- **A [schema registry](/08-integration-architecture/schema-evolution.md)** — when the integration is
+  event-driven and the consumers do not run tests in the provider's pipeline.
 - **Consumer-driven contract testing** — within the organization.
 - **Explicit versioning** — when coexisting is unavoidable. See
   [schema evolution](/08-integration-architecture/schema-evolution.md).
@@ -224,7 +232,8 @@ display any of them.
 **The identifier's format.** The ids started with `tx_`. A partner validated that prefix. The migration to
 random identifiers broke their integration, in production, on a Saturday.
 
-**A field made optional.** A description field always came filled in. It became optional for a new
+**A field made optional.** A description field always came filled in, although the document did not
+declare it required. It became optional for a new
 transaction type. Three consumers broke — none handled its absence.
 
 **A new error.** An error code came into existence for a transaction under review. Consumers that only

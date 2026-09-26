@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-replication, indexing, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -69,9 +69,13 @@ The most reliable benefit and the least cited.
 Deleting six months of data from a large table is an hours-long operation, with locking and transaction
 log growth.
 
-Dropping a partition is a metadata operation — milliseconds, no locking, no growth.
+Dropping a partition is a metadata operation — milliseconds, no log growth. The lock
+exists, but it is exclusive and brief; the risk is that it waits behind a long transaction
+and queues every query on the table behind itself, which is why the drop runs with a lock
+wait timeout.
 
-For any table with a retention policy, that alone justifies partitioning by time. See
+When retention deletes are already the operational constraint — hours of runtime, a
+contested window — that alone justifies partitioning by time. See
 [data lifecycle](/07-data-architecture/data-lifecycle.md).
 
 ### The strategies
@@ -131,13 +135,15 @@ gives 84, which is comfortable.
 
 **When the queries do not filter by the key.** It makes things worse.
 
-**On a small table.** Complexity with no return.
+**On a small table.** If deleting, reindexing and refreshing statistics on the whole
+table fits comfortably in the maintenance window, partitioning is complexity with no return.
 
 **With no partition creation automation.**
 
 **When there is no natural partition dimension.**
 
-**With granularity that is too fine.**
+**With granularity that is too fine.** In the thousands of partitions, planning time
+starts to compete with execution time.
 
 **To solve a slow query.** Check the [index](/07-data-architecture/indexing.md) first — it is the most
 likely cause.
@@ -184,15 +190,19 @@ likely cause.
 
 ## Common Mistakes
 
-**Partitioning without checking the query pattern.**
+**Partitioning without checking the query pattern.** The query that does not filter by
+the key comes to scan every partition and gets slower than before.
 
-**Not automating partition creation.**
+**Not automating partition creation.** Inserts fail at the first period rollover with no
+partition.
 
-**Granularity that is too fine.**
+**Granularity that is too fine.** Planning comes to dominate query time.
 
-**Partitioning to solve an index problem.**
+**Partitioning to solve an index problem.** The query stays slow, now with partition
+operations on top.
 
-**Not considering the uniqueness constraint** before deciding the key.
+**Not considering the uniqueness constraint** before deciding the key. Global uniqueness
+of the field is no longer enforced by the database and becomes the application's job.
 
 ## Real-World Example
 
@@ -202,7 +212,7 @@ with 3 years of retention — the regime in which rate and retention have alread
 Two problems dominated operations.
 
 **Deleting old data.** The nightly process deleted readings older than 3 years. It took 5 hours,
-generated 200 GB of transaction log and degraded the system while running.
+generated 40 GB of transaction log and degraded the system while running.
 
 **Index rebuilds.** Impossible — the necessary window did not exist.
 

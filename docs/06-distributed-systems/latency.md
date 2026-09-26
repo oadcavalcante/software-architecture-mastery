@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [timeouts, network-failure, bottleneck-analysis]
 canonical_for: [latência, percentil, cauda de latência]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -61,6 +61,11 @@ o p999 são mil requisições — pessoas suficientes para gerar reclamação.
 E percentis **não somam**. O p99 de uma cadeia não é a soma dos p99 de cada elo —
 é preciso medir de ponta a ponta.
 
+Pela mesma razão, **não se tira média de percentis**. A média dos p99 de dez
+instâncias, ou dos p99 de cada minuto para obter o da hora, não é o percentil de
+nada. Agregar exige guardar a distribuição — um histograma que se soma entre
+instâncias e janelas — e calcular o percentil só no fim.
+
 ### A cauda domina em cadeia
 
 O resultado mais importante deste documento, e o menos intuitivo.
@@ -85,8 +90,8 @@ cauda importa mais que reduzir a média em sistemas com muitas chamadas.
 | Componente | Ordem de grandeza |
 |---|---|
 | Referência de memória | ~100 ns |
-| Ida e volta na mesma zona | ~0,5 ms |
 | Leitura aleatória em disco de estado sólido | ~100 µs |
+| Ida e volta na mesma zona | ~0,5 ms |
 | Ida e volta entre regiões, mesmo continente | ~30 ms |
 | Ida e volta intercontinental | ~150 ms |
 
@@ -98,7 +103,8 @@ que [CDN](/05-system-design/cdn.md) e multi-região existem.
 
 Um recurso responde de forma estável até cerca de 70% de utilização e degrada
 rapidamente depois, porque o tempo de espera na fila cresce de forma não linear
-conforme a utilização se aproxima de 100%.
+conforme a utilização se aproxima de 100%. O mecanismo, com a lei de Little, está
+em [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md).
 
 A consequência prática: um sistema que responde bem a 60% de carga pode ficar
 inutilizável a 90% — não porque algo quebrou, mas porque a fila cresceu.
@@ -147,7 +153,8 @@ Para reduzir latência percebida, quando otimizar não basta:
 - **Assíncrono** — responder antes de completar. Ver
   [request/response](/05-system-design/request-response.md).
 - **Requisição de reserva** — enviar a mesma requisição a duas réplicas e usar a
-  primeira resposta. Reduz a cauda ao custo de trabalho duplicado.
+  primeira resposta. Reduz a cauda ao custo de trabalho duplicado: o dobro da carga
+  se a segunda sai sempre, cerca de 5% se ela só sai quando a primeira passa do p95.
 - **Degradar** — servir resposta parcial em vez de esperar a lenta.
 
 ## Trade-offs
@@ -186,6 +193,9 @@ fila, que é o que o usuário sente.
 
 **Assumir que percentis somam.**
 
+**Tirar média de p99 pré-calculados.** Por instância ou por minuto, o resultado
+parece um percentil e não é; só o histograma agregado dá o número real.
+
 **Ignorar a variabilidade.** Latência instável custa mais que latência alta e
 estável.
 
@@ -214,9 +224,11 @@ Três dos seis serviços eram enriquecimento — avaliações, recomendações, 
 Passaram a ter prazo próprio de 200 ms, e a página é renderizada sem eles se
 estourarem. Degradação em vez de espera.
 
-E o serviço com a pior cauda ganhou requisição de reserva: a chamada vai para duas
-réplicas e a primeira resposta vence. O trabalho duplicado custa cerca de 5% mais
-carga e cortou o p99 daquele serviço para 240 ms.
+E os três serviços essenciais ganharam requisição de reserva adiada: se a
+resposta não chega no p95 do serviço, a mesma chamada vai para outra réplica e a
+primeira resposta vence. Como a segunda só sai em cerca de 5% das chamadas, o
+trabalho duplicado custa perto de 5% mais carga, e o p99 de cada um caiu para
+240 ms.
 
 Resultado de ponta a ponta: p95 de 310 ms, p99 de 520 ms.
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-ownership, data-partitioning, data-lakes]
 canonical_for: [ciclo de vida do dado, política de retenção, arquivamento, apagamento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -66,7 +66,7 @@ A maioria dos sistemas tem apenas o primeiro estágio — e uma tabela que só c
 
 ### Retenção é decisão de negócio e jurídica
 
-O time de engenharia não pode definir por quanto tempo guardar dados. A pergunta
+O time de engenharia não decide sozinho por quanto tempo guardar dados. A pergunta
 tem três respostas que precisam ser reconciliadas:
 
 **Requisito legal mínimo.** Fiscal, trabalhista, setorial.
@@ -103,26 +103,31 @@ exigem decisão de arquitetura antes, não depois.
 Quando o dado histórico tem valor analítico e o dado pessoal não pode ser mantido,
 a saída é remover o que identifica e preservar o resto.
 
-Duas armadilhas:
+A saída só vale se for anonimização de fato, e não pseudonimização — a diferença, e
+por que "removemos o nome" não basta, está em
+[proteção de dados](/10-security/data-protection.md#pseudonimização-e-anonimização-não-são-a-mesma-coisa).
 
-**Anonimização insuficiente.** Um conjunto sem nome mas com CEP, data de nascimento
-e sexo frequentemente reidentifica indivíduos.
-
-**Anonimização quebrada por cruzamento.** Dois conjuntos anonimizados
-separadamente podem reidentificar quando combinados.
-
-Anonimizar é mais difícil do que parece, e "removemos o nome" não é anonimização.
+O que o ciclo de vida acrescenta: dado pseudonimizado continua pessoal e continua
+sujeito ao máximo de retenção; só o anonimizado sai do relógio. Por isso a
+anonimização é uma transição com data — executada quando o prazo do dado pessoal
+vence —, e quando a análise precisa só de totais, a
+agregação é a transição mais segura, porque descarta o detalhe que permitiria
+reidentificar.
 
 ### Criptografia por titular resolve o caso imutável
 
 Para dados que não podem ser apagados fisicamente — event sourcing, arquivos
-imutáveis — a técnica é guardar os dados pessoais cifrados com uma chave por
-titular.
+imutáveis — a técnica é a
+[cifragem por titular](/10-security/encryption.md#cifragem-por-titular-resolve-o-apagamento):
+apagar passa a ser descartar a chave, e retroagir exige reescrever o histórico.
 
-Apagar passa a ser descartar a chave. O registro permanece, e o conteúdo pessoal
-fica irrecuperável.
-
-Precisa ser projetado desde o início. Retroagir exige reescrever o histórico.
+O que ela traz para o ciclo de vida é que a retenção se desloca do dado para a
+chave. O cofre de chaves passa a ter a política mais sensível do sistema: se as
+cópias de segurança dele guardam chaves por mais tempo que a retenção do titular, a
+chave "descartada" volta na restauração, e o apagamento é desfeito. O descarte
+intencional convive com a regra oposta da
+[gestão de chaves](/10-security/key-management.md), que proíbe descartar chave
+enquanto houver dado que dependa dela.
 
 ### O inventário é o pré-requisito
 
@@ -152,18 +157,20 @@ Política de ciclo de vida se paga sempre que:
 
 ## Quando Não Usar
 
-**Apagar dados com requisito legal de retenção.** O mínimo legal vem primeiro.
+**Conjunto pequeno, de volume estável e sem dado pessoal.** Tabelas de referência e
+catálogos de configuração: o custo de construir e operar transições automáticas
+supera o de guardar tudo, e não há máximo legal a respeitar. Basta a decisão
+registrada de guardar.
 
-**Apagar sem inventariar as cópias.** Apagar da origem e manter no warehouse não
-cumpre nada.
+**Dado sob obrigação de preservação.** Litígio, investigação ou fiscalização em
+curso congelam o apagamento daquele conjunto ou titular. O ciclo automático não se
+aplica enquanto durar a obrigação — apagar nesse período é destruição de prova —, e
+por isso a política precisa de um mecanismo de suspensão antes de precisar dele.
 
-**Arquivar sem testar a recuperação.** Arquivo irrecuperável é dado perdido.
-
-**Anonimização ingênua.** Remover o nome não basta.
-
-**Retenção definida só pela engenharia.**
-
-**Apagamento sem trilha de auditoria.** É preciso provar que foi feito.
+**Sistema com desligamento datado.** Se o sistema sai de operação em meses e os
+dados migram com ele, a política vale para o destino. Construir estágios no sistema
+que vai morrer é trabalho perdido; basta garantir que a migração não carregue o que
+já deveria ter sido apagado.
 
 ## Alternativas
 
@@ -189,7 +196,7 @@ cumpre nada.
 | Recuperável | Irreversível |
 | Custo residual | Zero |
 | Ainda é exposição | Elimina |
-| Recuperação lenta | — |
+| Pedido de exclusão exige varrer o arquivo | Nada a varrer |
 
 ## Modos de Falha
 
@@ -210,47 +217,58 @@ entrar na conta.
 
 ## Erros Comuns
 
-**Não definir retenção.**
+**Não definir retenção.** O padrão vira guardar para sempre, e a primeira discussão
+de prazo acontece sob pressão — na conta que dobrou ou no pedido de exclusão que não
+se consegue atender.
 
-**Definir sem consultar o jurídico.**
+**Definir retenção só na engenharia, sem o jurídico.** A engenharia escolhe um
+número redondo, e ele fica abaixo do mínimo fiscal ou acima do máximo de proteção de
+dados; o erro só aparece na fiscalização ou no pedido de exclusão.
 
-**Não inventariar as cópias.**
+**Apagar da origem sem inventariar as cópias.** O dado some do banco e continua no
+warehouse, no índice de busca e nas cópias de segurança; a resposta ao titular diz
+"apagado" e não é verdade.
 
-**Não testar recuperação de arquivo.**
+**Arquivar sem testar a recuperação.** Formato obsoleto, mídia falha ou chave
+perdida só se revelam no dia em que uma auditoria ou um processo pede o dado — e aí
+o arquivo é dado perdido.
 
-**Não projetar apagamento em sistemas imutáveis.**
+**Tratar remoção do nome como anonimização.** O conjunto é mantido além do prazo
+como se tivesse saído do escopo, e continua reidentificável: é dado pessoal guardado
+além do máximo.
+
+**Não projetar apagamento em sistemas imutáveis.** O primeiro pedido de exclusão num
+lake ou num log de eventos exige reescrever o histórico; no exemplo abaixo, retroagir
+levou quatro meses.
+
+**Apagar sem trilha de auditoria.** O apagamento foi feito, mas não há como provar
+ao titular nem ao regulador o quê, quando e de onde.
 
 **Ignorar registros de aplicação.** Eles frequentemente contêm dados pessoais e
 raramente entram na política.
 
 ## Exemplo Real
 
-Uma empresa de comércio eletrônico recebeu uma solicitação de exclusão de dados
-pessoais de um cliente.
+Uma empresa de comércio eletrônico guardava tudo num único estágio. Sete anos de
+pedidos, eventos de navegação e registros de aplicação viviam no banco transacional
+e na camada bruta do lake, sem transição para morno ou frio e sem nada jamais
+apagado.
 
-A resposta levou cinco semanas e foi incompleta.
+O custo aparecia de forma difusa: a conta de armazenamento e de cópias de segurança
+crescia junto com o volume, e a manutenção de índices da tabela de pedidos já não
+cabia na janela noturna. Ninguém tratava isso como problema de política até que a
+solicitação de exclusão de um único cliente levou cinco semanas para ser respondida
+— e foi respondida de forma incompleta.
 
-O inventário feito às pressas encontrou o dado pessoal em onze lugares:
+A resposta travou em dois pontos que só existiam porque o dado nunca tinha saído do
+primeiro estágio:
 
-```text
-banco transacional          esperado
-réplicas                    consequência da replicação
-cópias de segurança         retenção de 90 dias
-warehouse                   dimensão de cliente
-data lake                   camada bruta, arquivos imutáveis
-índice de busca             perfil indexado
-cache                       sessões
-registros de aplicação      retenção de 1 ano, com dados de cadastro
-sistema de atendimento      terceiro
-plataforma de e-mail        terceiro
-exportações em planilha     compartilhadas por analistas
-```
+**O lake.** Arquivos imutáveis, sem registro de quais continham dados daquele
+cliente. Apagar exigia reescrever anos de camada bruta que ninguém consultava.
 
-Os três últimos não estavam sob controle direto. As exportações eram
-desconhecidas até alguém mencioná-las numa reunião.
-
-O lake era o problema mais difícil: arquivos imutáveis, sem inventário de quais
-continham dados daquele cliente.
+**As cópias sem política.** Registros de aplicação guardavam dados de cadastro por
+um ano, e exportações em planilha, compartilhadas por analistas, eram desconhecidas
+até alguém mencioná-las numa reunião.
 
 O que foi feito depois:
 
@@ -260,9 +278,9 @@ classificação declarada, a ingestão é recusada.
 **Criptografia por titular** na camada bruta do lake, permitindo apagar por
 descarte de chave. Retroagir sobre o histórico existente levou quatro meses.
 
-**Retenção definida por conjunto**, com jurídico, produto e engenharia. A discussão
-revelou que 60% dos dados guardados não tinham nem requisito legal nem uso de
-negócio.
+**Retenção definida por conjunto**, com jurídico, produto e engenharia, e transição
+automática entre estágios. A discussão revelou que 60% dos dados guardados não
+tinham nem requisito legal nem uso de negócio.
 
 **Registros de aplicação** com filtro de dados pessoais na origem, e retenção
 reduzida de 1 ano para 90 dias.
@@ -284,6 +302,11 @@ existisse desde o início.
 - [Particionamento de Dados](/07-data-architecture/data-partitioning.md) — descarte eficiente.
 - [Data Lake](/07-data-architecture/data-lakes.md) — onde o problema é mais difícil.
 - [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
+- [Proteção de Dados](/10-security/data-protection.md) — pseudonimização,
+  anonimização e o inventário do ponto de vista da segurança.
+- [Criptografia](/10-security/encryption.md) — cifragem por titular.
+- [Gestão de Chaves](/10-security/key-management.md) — por que descartar chave é
+  exceção, e não regra.
 
 ## Exercício Prático
 

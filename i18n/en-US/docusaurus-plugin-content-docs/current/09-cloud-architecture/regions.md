@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [availability-zones, multi-region, cloud-networking]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -44,7 +44,7 @@ services will be available.
 
 ### What the region isolates
 
-A region is designed to fail alone. Power, network, cooling and control planes are separate.
+A region is designed to fail alone. Power, network, cooling and the control planes of regional services are separate.
 
 That is what makes [multi-region](/09-cloud-architecture/multi-region.md) a continuity strategy: if an
 entire region goes down — which happens — the other continues.
@@ -58,7 +58,8 @@ customers who believed they were protected.
 ```text
 regional   compute, databases, object storage, queues, virtual networks
 global     DNS, content delivery network, identity and access
-           management, billing, the control plane
+           management, billing, the global control plane
+           (account organization, policies)
 ```
 
 Global services are the coupling point between regions. They have high availability and they are not
@@ -76,7 +77,9 @@ same continent               20 to 60 ms
 intercontinental             100 to 250 ms
 ```
 
-Those numbers come from the speed of light in fiber plus routing hops. No optimization reduces them.
+Those numbers come from the speed of light in fiber plus routing hops. No optimization reduces the physical
+floor; the provider's backbone and a better route shorten only the routing share, and what is left to optimize
+is the number of round trips.
 
 The design consequence: an operation that makes five cross-region calls pays that value five times. See
 [PACELC](/06-distributed-systems/pacelc.md) — strong consistency between distant regions is expensive by
@@ -126,8 +129,9 @@ follows from choosing it.
 The region choice should be deliberate when:
 
 - There is a data residency requirement.
-- Latency to users matters.
-- The transfer cost is significant.
+- Users are on another continent from the candidate region — a round trip above 100 ms, multiplied by
+  each screen's sequential calls.
+- The design expects continuous cross-region traffic, not just occasional copying.
 - A specific service is necessary.
 - There is a continuity plan in another region.
 
@@ -136,13 +140,17 @@ The region choice should be deliberate when:
 **Multiple regions with no need.** See [multi-region](/09-cloud-architecture/multi-region.md) — the cost is
 high and most systems do not need it.
 
-**Choosing by the console's default.**
+**Choosing by the console's default** when none of the four determinants — latency, jurisdiction, cost,
+services — was compared across candidates. The default serves whoever set it, not your users.
 
-**Assuming every service exists in every region.**
+**Settling on the region before checking the critical path.** If any service the main flow depends on is
+missing from the region's list, either the choice is wrong or the design is.
 
-**Depending on a global service with no plan for its failure.**
+**Counting on a global service as if it were redundant** when the system's recovery goes through it —
+switching DNS or credentials during the incident depends on the same global plane that may be down.
 
-**Frequent cross-region calls** on the critical path.
+**Synchronous cross-region calls** on the critical path, when the operation makes more than one: each
+intercontinental round trip costs 100 to 250 ms.
 
 **Presuming data residency** without checking backups, replicas and logs.
 
@@ -208,8 +216,8 @@ was the default and had every service.
 
 Three problems appeared, in increasing order of severity:
 
-**Latency.** Each request paid around 130 ms round trip. The application made several calls per screen, and
-the load time reached 2 seconds with the server responding in 40 ms. The diagnosis took a while because the
+**Latency.** Each request paid around 130 ms round trip. The application made about twelve sequential calls per
+screen, and the load time reached 2 seconds (12 × (130 + 40) ms) with the server responding in 40 ms. The diagnosis took a while because the
 server's metrics looked excellent.
 
 **Transfer cost.** After a partial migration to a Brazilian region, the two sides started talking to each

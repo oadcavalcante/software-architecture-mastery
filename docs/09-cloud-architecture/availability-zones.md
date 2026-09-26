@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, multi-region, cloud-networking]
 canonical_for: [zona de disponibilidade, multi-zona, distribuição entre zonas]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -131,8 +131,8 @@ transforma degradação em remoção automática.
 
 ## Modelo Mental
 
-**Zona é onde a redundância é barata.** Se você não está usando três, está pagando
-nuvem e operando como datacenter único.
+**Zona é onde a redundância é barata.** Num sistema cuja parada custa caro, rodar
+em menos de três é pagar nuvem e operar como datacenter único.
 
 ## Quando Usar
 
@@ -183,7 +183,7 @@ distribuir o estado não resolve.
 |---|---|
 | Maioria preservada | Perdida |
 | 33% de perda por falha | 50% |
-| Custo maior | Menor |
+| Mais recursos e tráfego cruzado, mas capacidade provisionada de 1,5× a carga | 2× a carga |
 
 ## Modos de Falha
 
@@ -204,7 +204,7 @@ provedor pode alocar onde há capacidade — que pode ser uma zona só.
 
 ## Erros Comuns
 
-**Não distribuir, por omissão.** Distribuir entre zonas custa quase nada dentro de uma região e é a defesa mais barata que existe. Ficar numa zona só raramente é decisão — é o padrão que ninguém revisou.
+**Não distribuir, por omissão.** Dentro de uma região, distribuir entre zonas custa a folga de capacidade e o tráfego entre zonas — uma fração do que custa multi-região, e cobre a falha de datacenter, que é a mais frequente das duas. Ficar numa zona só raramente é decisão — é o padrão que ninguém revisou.
 
 **Usar duas zonas.** Perder uma significa perder metade da capacidade, então cada zona precisa rodar a 50% para absorver a outra. Com três, a perda de uma exige folga de um terço, e o custo total sai menor.
 
@@ -230,9 +230,11 @@ automático começou a subir instâncias, e levou 9 minutos — durante os quais
 sistema estava saturado.
 
 **Banco em duas zonas.** O banco primário e sua réplica síncrona estavam em duas
-zonas, não três. A zona que caiu tinha a réplica; a promoção funcionou. Mas o
-serviço de coordenação usado para eleição também estava em duas zonas, perdeu
-maioria, e não conseguiu decidir por 6 minutos.
+zonas, não três. A zona que caiu tinha o primário. A promoção da réplica
+dependia do serviço de coordenação usado para eleição, que também estava em duas
+zonas e perdeu maioria — sem maioria, não havia quem decidisse. A promoção só
+saiu quando a equipe reconfigurou manualmente os membros da coordenação, 6 minutos
+depois.
 
 **Volumes presos.** Quatro serviços gravavam em disco local. As instâncias foram
 recriadas em outras zonas, sem os dados. Dois deles eram cache e se recuperaram;

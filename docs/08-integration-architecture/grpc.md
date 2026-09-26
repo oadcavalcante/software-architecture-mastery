@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, service-mesh, schema-evolution]
 canonical_for: [gRPC, chamada de procedimento remoto, fluxo bidirecional]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -37,8 +37,10 @@ Entre serviços internos, uma API HTTP com JSON paga por coisas que ali não tê
 valor.
 
 Serializar e desserializar texto custa CPU. O contrato frouxo permite divergência
-entre o que uma ponta envia e a outra espera — descoberta em produção. Uma
-conexão por requisição não aproveita nada.
+entre o que uma ponta envia e a outra espera — descoberta em produção. Em
+HTTP/1.1, mesmo com pool de conexões, cada conexão atende uma requisição por
+vez: chamadas concorrentes pedem mais conexões, e uma resposta lenta bloqueia as
+que vêm atrás dela.
 
 Numa malha com dezenas de serviços e milhões de chamadas internas por minuto,
 esses custos deixam de ser detalhe.
@@ -77,8 +79,10 @@ message Pedido {
 ```
 
 Consequências práticas: renomear um campo é compatível, porque o número não muda.
-Reusar um número removido é catastrófico, porque dados antigos serão
-interpretados com o tipo novo.
+Reusar um número removido é catastrófico: se o tipo novo compartilha a
+codificação de fio do antigo (`int32` e `bool`, por exemplo), dados antigos
+serão interpretados com o significado novo, sem erro; se não compartilha, o
+leitor descarta o campo em silêncio e fica com o valor padrão.
 
 Por isso `reserved` existe e por isso ele não é opcional. Ver
 [evolução de esquema](/08-integration-architecture/schema-evolution.md).
@@ -92,7 +96,9 @@ fluxo do cliente  muitas requisições, uma resposta
 bidirecional      ambos os lados enviam continuamente
 ```
 
-Os três modos de fluxo são a capacidade que REST não tem sem recorrer a outro
+Fluxo do servidor tem forma nativa em HTTP, com resposta em blocos ou eventos
+enviados pelo servidor; o que gRPC acrescenta ali é contrato tipado. Fluxo do
+cliente e bidirecional são a capacidade que REST não tem sem recorrer a outro
 protocolo. Sincronização contínua, telemetria e feeds ao vivo cabem
 naturalmente.
 
@@ -181,7 +187,7 @@ diferentes.
 |---|---|
 | Binário e compacto | Texto, legível |
 | Contrato forte gerado | Frequentemente frouxo |
-| Fluxo nativo | Precisa de outro protocolo |
+| Fluxo nativo nos quatro modos | Fluxo do cliente e bidirecional pedem outro protocolo |
 | Ferramental especializado | Universal |
 | Sem cache de HTTP | Com cache |
 | Prazo propagado | Manual |
@@ -225,7 +231,8 @@ de HTTP com JSON para gRPC.
 Os números medidos após a migração:
 
 **Latência entre serviços** caiu de 12 ms para 4 ms na mediana — a maior parte do
-ganho veio de conexão persistente multiplexada, não de serialização.
+ganho veio da multiplexação de chamadas concorrentes sobre poucas conexões, no
+lugar do pool HTTP/1.1 com uma requisição por conexão, não de serialização.
 
 **Uso de CPU** dos serviços caiu cerca de 18%, majoritariamente em serialização.
 
@@ -241,8 +248,9 @@ diagnóstico levou duas semanas, porque as métricas agregadas pareciam normais.
 Resolvido com balanceamento no cliente e, depois, com malha de serviço.
 
 **Número de campo reusado.** Um desenvolvedor removeu um campo `int32 status = 4`
-e, meses depois, outro adicionou `string categoria = 4`. Serviços com a versão
-antiga do contrato leram a categoria como inteiro. Os dados corrompidos entraram
+e, meses depois, outro adicionou `int32 prioridade = 4`. Como os dois tipos têm a
+mesma codificação de fio, serviços com a versão antiga do contrato leram a
+prioridade como status, sem erro. Os dados corrompidos entraram
 no banco. A revisão passou porque o contrato antigo já não estava no repositório
 para comparação. `reserved` passou a ser exigido por verificação automatizada.
 
@@ -250,7 +258,7 @@ E uma decisão deliberada: **a API pública permaneceu em REST**, com o gateway
 traduzindo. A proposta de expor gRPC a parceiros foi recusada depois de dois
 deles informarem que não tinham suporte.
 
-A avaliação posterior aponta: o balanceamento é o risco que ninguém antecipa. gRPC é
+A avaliação posterior aponta: o balanceamento é o risco que passa despercebido em adoções sem malha de serviço. gRPC é
 apresentado como substituto direto de HTTP, e a diferença no comportamento de
 conexão muda a operação de forma que não aparece em nenhuma comparação de
 desempenho.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [normalization]
 related: [olap, data-modeling, indexing]
 canonical_for: [desnormalização, duplicação controlada]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -124,7 +124,9 @@ quando se lê muito mais do que se escreve.
 ## Quando Usar
 
 - Modelo analítico. Ver [OLAP](/07-data-architecture/olap.md).
-- Leitura desproporcionalmente mais frequente que escrita.
+- Leitura desproporcionalmente mais frequente que escrita — a conta que decide é
+  leituras × custo da junção evitada contra escritas no original × número de
+  cópias a atualizar.
 - A junção foi medida e é o gargalo.
 - O dado copiado muda raramente.
 - Armazenamento sem junção eficiente.
@@ -134,28 +136,38 @@ quando se lê muito mais do que se escreve.
 
 **Sem medir.** O gargalo pode ser índice.
 
-**Sem plano de manutenção.**
+**Sem plano de manutenção.** Se ninguém sabe dizer qual das três estratégias
+mantém a cópia, nenhuma mantém.
 
-**Sem verificação de divergência.**
+**Sem verificação de divergência.** Qualquer estratégia falha um dia, e sem
+verificação a falha não aparece.
 
-**Quando o dado copiado muda com frequência.** O custo de propagação supera o
-ganho.
+**Quando o dado copiado muda com frequência.** Cada mudança do original custa uma
+escrita por cópia: um nome copiado em dez mil pedidos custa dez mil escritas por
+renomeação, e o custo de propagação supera o ganho.
 
-**Quando há múltiplos caminhos de escrita não controlados.**
+**Quando há múltiplos caminhos de escrita não controlados.** A divergência deixa
+de ser risco e vira questão de tempo.
 
-**Em modelo transacional, por hábito.**
+**Em modelo transacional, por hábito.** Ali a junção indexada costuma custar
+quase nada, e a cópia fica sem ganho que a pague.
 
 ## Alternativas
 
-- **[Índice](/07-data-architecture/indexing.md) adequado** — verifique primeiro, sempre.
-- **Visão materializada** — o banco mantém a cópia e a atualiza; menos código e
-  menos risco de divergência.
-- **Cache** — duplicação com prazo, e a expiração cuida da coerência.
+- **[Índice](/07-data-architecture/indexing.md) adequado** — em modelo transacional,
+  verifique primeiro; em modelo dimensional a desnormalização é o ponto de partida.
+- **Visão materializada** — o banco mantém a cópia, e o risco de divergência
+  depende de como ele a atualiza. Visão indexada do SQL Server e refresh ON COMMIT
+  do Oracle atualizam junto com a escrita; no PostgreSQL o `REFRESH MATERIALIZED
+  VIEW` é sob demanda, e a visão herda a janela da estratégia periódica. O MySQL
+  não tem o recurso.
+- **Cache** — duplicação com prazo: a expiração não garante coerência, só fixa o
+  teto de quanto tempo a cópia pode divergir.
 - **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — separação explícita
   com projeção reconstruível.
 
-A visão materializada é subutilizada: ela entrega o benefício da desnormalização
-com a manutenção a cargo do banco.
+A visão materializada é subutilizada: onde o banco a atualiza junto com a escrita,
+ela entrega o benefício da desnormalização sem código de manutenção na aplicação.
 
 ## Trade-offs
 
@@ -193,16 +205,19 @@ as cópias ficam para trás.
 
 ## Erros Comuns
 
-**Desnormalizar sem medir.**
+**Desnormalizar sem medir.** A complexidade fica permanente, e o gargalo real —
+muitas vezes um índice ausente — continua lá.
 
-**Não implementar verificação de divergência.**
+**Não implementar verificação de divergência.** A primeira notícia da falha vem de
+um cliente ou de uma conciliação, meses depois.
 
 **Confundir cópia de valor histórico com desnormalização.**
 
 **Não documentar quais campos são cópias.** Quem chega depois não distingue
 original de cópia.
 
-**Copiar dado que muda com frequência.**
+**Copiar dado que muda com frequência.** O sistema passa a gastar mais escrevendo
+cópias do que economizava evitando junções.
 
 ## Exemplo Real
 
@@ -224,10 +239,11 @@ diretamente.
 
 **Importação de pedidos** de um canal parceiro, que inseria itens em lote.
 
-A divergência cresceu em silêncio. Quando foi finalmente medida — por acaso,
-durante outra investigação — **1,8% dos pedidos** tinham total diferente da soma
-dos itens. Alguns a mais, alguns a menos. O impacto financeiro acumulado foi
-significativo e levou meses para ser conciliado.
+A divergência cresceu em silêncio por um ano e meio. Quando foi finalmente medida —
+por acaso, durante outra investigação — **1,8% dos pedidos** tinham total diferente
+da soma dos itens. Com cerca de 40 mil pedidos por mês, eram uns 13 mil pedidos,
+alguns a mais, alguns a menos. A diferença média de R$ 40 por pedido somava mais de
+R$ 500 mil cobrados errado, e a conciliação levou meses.
 
 As correções:
 

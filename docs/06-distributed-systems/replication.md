@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [partitioning, leader-election, conflict-resolution]
 canonical_for: [replicação, réplica, atraso de replicação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -54,8 +54,9 @@ escrita, e o líder é gargalo de escrita e ponto de falha — mitigado por
 [eleição de líder](/06-distributed-systems/leader-election.md).
 
 **Múltiplos líderes.** Vários nós aceitam escritas, tipicamente um por região.
-Escrita local e rápida, e **conflitos são inevitáveis** — a mesma linha alterada
-em dois lugares. Ver [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
+Escrita local e rápida, e **conflito sempre que o mesmo registro é escrito em
+duas regiões** — evitável só roteando as escritas de cada registro para um líder
+fixo (afinidade de escrita). Ver [resolução de conflitos](/06-distributed-systems/conflict-resolution.md).
 
 **Sem líder.** Qualquer nó aceita escrita e leitura; a consistência vem de exigir
 quóruns. Alta disponibilidade, e a aplicação lida com versões concorrentes.
@@ -76,18 +77,23 @@ O modo de confirmação decide o que se perde numa falha:
 Síncrono total é raro na prática: uma réplica lenta ou fora torna toda escrita
 lenta ou impossível.
 
-**Semi-síncrono é o meio-termo usado pela maioria dos sistemas sérios** — e a
-configuração por quórum é a forma moderna dele.
+**Semi-síncrono é o ponto a escolher quando a janela de perda aceitável é próxima
+de zero e uma ida e volta cabe no orçamento de latência** — e a configuração por
+quórum é a forma generalizada dele.
 
 ### Quórum
 
 A generalização: com N réplicas, exigir W confirmações na escrita e R na leitura.
 
-Se `W + R > N`, leitura e escrita se sobrepõem em ao menos uma réplica, e a
-leitura observa a escrita mais recente.
+Se `W + R > N`, leitura e escrita se sobrepõem em ao menos uma réplica: alguma
+réplica consultada carrega a escrita mais recente, e a leitura a reconhece se as
+versões forem comparáveis (número de versão, relógio vetorial). A regra não basta
+com quórum relaxado (sloppy quorum), com escrita que falhou após gravar em parte
+das réplicas, nem com escritas concorrentes — Kleppmann (2017, cap. 5) detalha
+esses limites.
 
 ```text
-N = 3, W = 2, R = 2  →  2 + 2 > 3  ✓ consistente
+N = 3, W = 2, R = 2  →  2 + 2 > 3  ✓ conjuntos se sobrepõem
 N = 3, W = 1, R = 1  →  1 + 1 < 3  ✗ pode ler dado velho
 ```
 
@@ -252,4 +258,6 @@ Se a resposta da terceira for "nunca", o mecanismo de recuperação é uma hipó
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 —
   capítulo 5.
-- Documentação de replicação do PostgreSQL sobre modos síncronos.
+- PostgreSQL Global Development Group. *PostgreSQL 16 Documentation*, 2023 —
+  cap. 27, *High Availability, Load Balancing, and Replication*, seção 27.2.8
+  (Synchronous Replication), e o parâmetro `synchronous_commit` (seção 20.5).

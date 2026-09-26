@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [cloud-identity, availability-zones, cost-architecture]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -72,7 +72,7 @@ Two principles that resolve most of it:
 **Reference groups, not address ranges.** Allowing the application's group to reach the database's group is
 more readable and more robust than allowing a range — because it stays correct when the addresses change.
 
-The rule that appears in every audit: administrative access open to any source on the internet. It usually
+The rule that recurs in audits: administrative access open to any source on the internet. It usually
 was created "temporarily".
 
 ### A private endpoint avoids the internet
@@ -128,7 +128,8 @@ everything it describes.
 
 ## When to Use
 
-These decisions always come up. Special attention when:
+Every cloud workload runs inside a virtual network, so these decisions exist even when nobody makes them.
+Special attention when:
 
 - There is sensitive data.
 - A connection to the corporate network exists.
@@ -138,17 +139,22 @@ These decisions always come up. Special attention when:
 
 ## When Not to Use
 
-**Resources in a public subnet with no need.**
+**A private endpoint for low traffic.** It is billed per hour and per zone where it is deployed, regardless
+of use. A service queried a few times a day, from three zones, pays for three endpoints all month to save
+cents of transfer; the gain left is the surface one, and it only exists if the service is configured to
+refuse access from outside. For object storage and some managed tables, some providers offer a gateway
+endpoint with no hourly charge — it is the first thing to check.
 
-**Administrative access open to the internet.**
+**Several virtual networks when one is enough.** Splitting into separate networks and accounts gives fault
+and permission isolation, but each new boundary requires interconnection, routes and name resolution between
+them — the layer where incidents hide. A team with one environment and one application gains little
+isolation and pays all the complexity; the split is justified when there are teams, environments or
+compliance requirements that need an administrative boundary.
 
-**Rules by address range** when a group reference solves it.
-
-**Traffic to managed services over the internet** when a private endpoint exists.
-
-**Ranges chosen with no plan.**
-
-**Networking as manual configuration**, with no infrastructure as code.
+**Renumbering when the overlap is localized.** The addressing plan solves the future, not the past. If two
+overlapping networks exchange traffic between a few known services, address translation at those points
+costs weeks; renumbering a production network costs months and risk. Renumbering pays off when the
+integration will be broad and permanent.
 
 ## Alternatives
 
@@ -187,7 +193,7 @@ These decisions always come up. Special attention when:
 
 **Address exhaustion.** A subnet too small, and resizing requires recreating it.
 
-**A broad egress rule.** The focus is usually on ingress; unrestricted egress facilitates exfiltration.
+**A broad egress rule.** The security group's default allowance, never reviewed.
 
 ## Common Mistakes
 
@@ -207,8 +213,7 @@ internet — which adds exposure, latency and, frequently, egress cost.
 **Ignoring the cost of the traffic path.** Transfer between zones, between regions and to the internet have
 very different prices. An architecture that crosses zones with no need pays that on every request.
 
-**Not restricting egress traffic.** Almost everyone filters ingress and opens egress — and egress is the
-path of exfiltration and of contact with a command server.
+**Not restricting egress traffic.** Why egress matters is in [network security](/10-security/network-security.md). What is specific to the cloud: the default security group allows all egress, and the translation gateway forwards any destination the route reaches. Restricting it requires an egress rule on the group and, for destinations identified by name, a filter on the egress path — the security group only understands addresses.
 
 ## Real-World Example
 
@@ -248,6 +253,7 @@ having been treated as a prerequisite to resolve quickly, and not as part of the
 - [Cloud Identity](/09-cloud-architecture/cloud-identity.md) — the other boundary layer.
 - [Availability Zones](/09-cloud-architecture/availability-zones.md) — cross-zone traffic.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
+- [Network Security](/10-security/network-security.md) — segmentation and egress filtering.
 - [Security](/10-security/index.md).
 
 ## Practical Exercise

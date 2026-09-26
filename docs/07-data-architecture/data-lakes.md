@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-warehouses]
 related: [data-lakehouses, data-ownership, data-lifecycle]
 canonical_for: [data lake, esquema na leitura, pântano de dados]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -82,7 +82,8 @@ Sem ele, cada nova pergunta começa com semanas de arqueologia — e frequenteme
 termina com alguém ingerindo os mesmos dados de novo, porque não achou o que já
 estava lá.
 
-Esta é a diferença entre lake e pântano, e ela é praticamente a única.
+Esta é a primeira diferença entre lake e pântano: dono, qualidade e retenção
+precisam do catálogo para ter onde ser registrados.
 
 ### Formato de arquivo importa mais do que parece
 
@@ -218,10 +219,10 @@ fiscais, em formatos diferentes, sem saber uma da outra.
 **Tudo em JSON compactado.** Uma consulta sobre um mês de telemetria lia 8 TB para
 usar três campos.
 
-**14 milhões de arquivos pequenos.** A ingestão gravava um arquivo por minuto por
-veículo. Consultas levavam horas abrindo arquivos.
+**Cerca de 390 milhões de arquivos pequenos.** A ingestão gravava um arquivo por
+minuto por veículo, numa frota de 500 — arquivos de poucas centenas de KB. Consultas levavam horas abrindo arquivos.
 
-**Sem retenção.** Registros de aplicação de dois anos, que ninguém consultava,
+**Sem retenção.** Registros de aplicação acumulados desde o primeiro dia, que ninguém consultava,
 ocupavam 60% do volume.
 
 **Dado pessoal disperso.** Nomes e documentos de motoristas espalhados em vários
@@ -242,8 +243,8 @@ data. A consulta de telemetria caiu de 8 TB para 40 GB lidos.
 
 **Classificação de dado pessoal** na ingestão, com zona restrita.
 
-O aprendizado que ficou: nenhuma dessas medidas é difícil ou cara — todas são
-baratas se adotadas na ingestão do primeiro conjunto. Retroagir custou oito meses
+O aprendizado que ficou: o custo de cada medida, adotada na ingestão do primeiro
+conjunto, é uma fração do custo de retroagi-la. Retroagir custou oito meses
 porque cada decisão precisou ser aplicada a dados que já estavam lá, sem
 documentação de origem.
 

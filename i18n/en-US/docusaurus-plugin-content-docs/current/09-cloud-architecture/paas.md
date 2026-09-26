@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, saas, serverless]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -75,7 +75,8 @@ None is a defect — all of them are the price of convention.
 ### The twelve rules still hold
 
 The twelve-factor app methodology was born from PaaS and describes what an application needs to be to fit
-well:
+well. Six of the twelve factors, the ones that most decide whether the application fits — the full list is in
+Wiggins (2011):
 
 ```text
 configuration in the environment, not in a file
@@ -98,21 +99,10 @@ standards, on top of [Kubernetes](/09-cloud-architecture/kubernetes.md) or IaaS.
 
 The goal is the same — removing repetitive work — with the shape defined by the organization itself.
 
-The risk is known: building an internal PaaS is a product, with users, maintenance and evolution. Teams
-that treat it as an infrastructure project produce a layer nobody wants to use, and people go back to doing
-it directly.
-
-### Where it pays off most
-
-**Small teams** with no dedicated operational capacity.
-
-**Conventional web applications**, which is the majority.
-
-**Delivery speed as a priority.**
-
-**Standardization across many teams**, in the internal platform's case.
-
-**Ephemeral environments** per branch — one of the model's best capabilities, and one of the least used.
+The risk is known: an internal PaaS needs to be treated as a
+[product](/14-devops-and-platform/platform-engineering.md), with users, maintenance and evolution. Treated
+as an infrastructure project, it becomes a layer nobody wants to use, and people go back to doing it
+directly.
 
 ### The way out should be known before the way in
 
@@ -132,8 +122,10 @@ What usually holds you, in increasing order:
 Knowing where you are on that scale is what allows the exit to be estimated before it is needed. See
 [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
-The practical rule that preserves most of the option at no relevant cost: use the platform to run the code,
-and prefer portable managed services for the rest.
+The practical rule that preserves most of the option: use the platform to run the code, and prefer portable
+managed services for the rest. The cost is integrating and configuring each service from outside, giving up
+the ready-made integration that is part of the platform's productivity — small next to rebuilding the top
+two rungs of the scale.
 
 ## Mental Model
 
@@ -147,7 +139,7 @@ when it is not.
 - Delivery speed is a priority.
 - The platform's defaults meet the requirements.
 - Standardizing deployment across many teams.
-- Ephemeral environments for review.
+- Ephemeral per-branch environments for review — one of the model's least-used capabilities.
 
 ## When Not to Use
 
@@ -155,13 +147,15 @@ when it is not.
 
 **For long or intensive processing.**
 
-**When the cost at scale makes it unviable.** The per-unit premium is high.
+**When the estimated bill at the target volume exceeds the cost of running containers.** The per-unit
+premium is high and the total cost grows with volume; do the math beforehand, as in the example below, where
+the bill reached 4 times the equivalent.
 
 **For legacy software** that assumes a file system and persistent processes.
 
-**An internal platform without treating it as a product.**
-
-**When the dependency is unacceptable.** See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
+**When the system will depend on the platform's proprietary auxiliary services and automation** and the
+organization does not accept the cost of rebuilding them on the way out — the top two rungs of the lock-in
+scale. See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Alternatives
 
@@ -210,12 +204,9 @@ on the next deployment, and the defect appears days later as data that disappear
 **Putting background work inside the request.** The platform can terminate the process as soon as the
 response is sent, and a task fired after it dies halfway, silently.
 
-**Not estimating the cost at the target volume.** The per-unit price is comfortable at low volume and grows
-linearly. At the volume of two years from now, it frequently exceeds that of running your own
+**Not estimating the cost at the target volume.** The per-unit price is high, and the total cost grows
+linearly with volume, while that of your own infrastructure amortizes. At the volume of two years from now, it frequently exceeds that of running your own
 infrastructure.
-
-**Building an internal platform without treating it as a product.** With no declared users, no
-documentation and nobody responsible for evolving it, it becomes one more system the teams work around.
 
 ## Real-World Example
 

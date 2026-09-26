@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [kubernetes, serverless, cloud-compute]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -80,7 +80,7 @@ That is what gives predictability and what makes a rollback trivial: going back 
 image.
 
 And it implies a rule: **no manual change inside the container**. A fix applied with direct access vanishes
-on the next restart, and creates a divergence nobody tracks.
+when the container is recreated from the image — which the orchestrator does on every replacement — and creates a divergence nobody tracks.
 
 ### State needs to go elsewhere
 
@@ -155,7 +155,7 @@ container.
 
 - **A virtual machine** — strong isolation, heavier.
 - **An operating system package** — for a single, stable application.
-- **[Serverless](/09-cloud-architecture/serverless.md)** — with neither packaging nor capacity.
+- **[Serverless](/09-cloud-architecture/serverless.md)** — no capacity to size, with limits on duration and state.
 - **Runtimes with hardened isolation** — when you want a container with a security boundary closer to a
   virtual machine's.
 
@@ -178,16 +178,16 @@ container.
 
 **No resource limit.** One container takes down the node.
 
-**State lost on restart.**
+**State lost when the container is recreated.**
 
 **Running as root.** It amplifies any flaw.
 
 **A huge image.** Slow deployment, a large surface.
 
-**A manual change inside the container.** It vanishes on restart.
+**A manual change inside the container.** It vanishes when the container is recreated.
 
-**A moving tag in production.** Pointing at the latest makes the deployment non-reproducible — two
-deployments of the same reference can run different code.
+**A moving tag in production.** Pointing at the latest makes the deployment non-reproducible. See
+[containers in delivery](/14-devops-and-platform/containers-in-delivery.md).
 
 ## Common Mistakes
 
@@ -247,7 +247,7 @@ part of adopting containers.
 ## Related Concepts
 
 - [Kubernetes](/09-cloud-architecture/kubernetes.md) — the orchestration.
-- [Serverless](/09-cloud-architecture/serverless.md) — the model with no packaging.
+- [Serverless](/09-cloud-architecture/serverless.md) — the model with no capacity to size.
 - [Cloud Compute](/09-cloud-architecture/cloud-compute.md).
 - [Security](/10-security/index.md).
 
@@ -256,7 +256,7 @@ part of adopting containers.
 Take your service's production image and answer: when was it last built, and how many known vulnerabilities
 does it have today?
 
-Then check whether it runs as root and whether it has a memory limit. Those three answers are usually
+Then check whether it runs as root and whether it has a memory limit. Those four answers are usually
 uncomfortable.
 
 ## Interview Questions

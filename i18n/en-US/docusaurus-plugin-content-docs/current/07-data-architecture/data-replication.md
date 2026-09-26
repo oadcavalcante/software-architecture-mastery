@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -54,15 +54,13 @@ in seconds to every replica. So is data corruption.
 
 A backup has history: it allows going back to the state before the error.
 
-```text
-protects against            replication   backup
-hardware failure            yes           yes (with restore time)
-data center failure         depends on where the replicas are   depends on where it is
-human error                 no, if real-time; yes, with a delayed replica
-                            and within its window        yes
-logical corruption          no            yes
-an attack with deletion     no            yes, if isolated
-```
+| Protects against | Replication | Backup |
+|---|---|---|
+| Hardware failure | Yes | Yes, with restore time |
+| Data center failure | Depends on where the replicas are | Depends on where the backup is |
+| Human error | No, if real-time; yes, with a delayed replica and within its window | Yes |
+| Logical corruption | No | Yes |
+| An attack with deletion | No | Yes, if isolated |
 
 Teams that trust replication as data protection discover the difference at the worst possible moment.
 
@@ -79,37 +77,26 @@ Monitoring the lag is mandatory, and the metric has to be in seconds of stalenes
 
 ### Reading from a replica requires deciding what tolerates lag
 
-The pattern that works is classifying the reads:
+Which reads go to the primary and which accept a replica is the
+[read classification](/11-scalability/scaling-replication.md#classifying-the-reads-is-the-work) defined
+in scaling with replication. From the storage angle, what it adds is that the classification depends on a
+number only operations knows: the replica's real lag. "Primary for N seconds after writing" only works if
+N is greater than the lag measured at peak, and that lag is exactly what heavy reports on a shared replica
+make grow.
 
-```text
-critical read              primary — the balance before debiting
-the user's own read        primary for N seconds after writing
-general read               replica
-report                     replica, or a dedicated replica
-```
+### What failover inherits from replication
 
-The second line is what eliminates most of the complaints. See
-[eventual consistency](/06-distributed-systems/eventual-consistency.md).
-
-And there is an operational detail that bites: heavy reports on a shared replica increase its lag for
-everyone. A reporting replica should be dedicated.
-
-### Failover is where everything goes wrong
-
-The riskiest moment in the life of a replicated system.
+The switchover procedure — triggering, split brain, failing back, and the need to exercise it — is
+[failover](/12-reliability/failover.md). What is specific to data replication are two consequences of the
+lag at the moment of promotion:
 
 **Lost writes.** With asynchronous replication, what the primary acknowledged and did not replicate is
-lost when another replica is promoted.
+lost when another replica is promoted. The size of the loss is the lag at that instant — which is why
+choosing the least-lagged replica to promote matters, and why the lag monitored in seconds is also an
+estimate of the loss in case of failover.
 
-**Split brain.** The old primary comes back and still considers itself primary. Two sources accepting
-writes. See
-[leader election](/06-distributed-systems/leader-election.md).
-
-**Inconsistent cache.** The application keeps pointing at the old address.
-
-**Divergent sequences.** Identifier counters can repeat values.
-
-The failover has to be tested. A failover never exercised is not a plan — it is a hope.
+**Divergent sequences.** Identifier counters on the promoted replica can be behind the values already
+handed out by the old primary, and repeat identifiers other systems have already stored.
 
 ### Deliberately delayed replication
 
@@ -118,7 +105,9 @@ A replica configured to stay deliberately one hour behind the primary.
 It does not serve for reading or for taking over. It serves one purpose: when someone executes a
 destructive command, there is an hour to notice and extract the data before the deletion arrives there.
 
-It is cheap and covers exactly the case normal replication does not cover.
+Its cost is that of any replica — a full copy of the storage and a node — with no read load to amortize
+it. What it buys is the case normal replication does not cover, recovered in minutes instead of a full
+restore that discards the day's transactions.
 
 ### Multiple primaries requires a conflict plan
 
@@ -182,7 +171,7 @@ do not replace each other.
 |---|---|
 | More read capacity | Less |
 | More fault tolerance | Less |
-| Cost and operations | Simplicity |
+| More cost and more operations | Less |
 | More lag to monitor | Less |
 
 ## Failure Modes

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, kubernetes, vendor-lock-in]
 canonical_for: [cloud native, aplicação nativa de nuvem, migração como está]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -134,7 +134,10 @@ infraestrutura.** As ferramentas ajudam a exercê-las; elas não as criam.
 
 **Como selo.** "Somos cloud native" não é uma propriedade verificável.
 
-**Para sistemas internos pequenos e estáveis.**
+**Para sistemas internos com dezenas de usuários, carga previsível, implantação
+trimestral e sem exigência de disponibilidade.** Não há elasticidade a aproveitar
+nem frequência de implantação a sustentar, e a complexidade da plataforma fica sem
+retorno.
 
 **Reescrevendo o que funciona** sem problema concreto.
 
@@ -151,7 +154,7 @@ não implica a segunda.
 - **Modernização incremental** — aplicar as propriedades por ordem de retorno.
 - **Estrangulamento gradual** — substituir partes por versões novas, mantendo o
   legado funcionando. Ver
-  [modernização de legado](/16-legacy-modernization/index.md).
+  [estrangulamento](/16-legacy-modernization/strangler-fig.md).
 - **Manter como está** — quando o sistema é estável e o custo de mudar não se paga.
 
 ## Trade-offs
@@ -238,8 +241,8 @@ virtuais**. Eram sistemas internos estáveis, com carga previsível e implantaç
 trimestral. A orquestração não entregava nada ali e custava operação.
 
 O aprendizado que ficou: o programa media a coisa errada. O indicador era "aplicações
-migradas para Kubernetes", e ele chegou a 100% sem que nenhuma propriedade tivesse
-sido adquirida.
+migradas para Kubernetes", e ele chegou a 100% sem que nenhuma das aplicações
+deficientes adquirisse propriedade nova.
 
 Se o indicador fosse "aplicações que escalam horizontalmente", o programa teria
 terminado em 23 dos 40 — e teria atacado o problema certo desde o início.

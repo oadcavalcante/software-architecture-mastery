@@ -2,7 +2,7 @@
 id: data-modeling
 title: Data Modeling
 sidebar_position: 12
-description: The hardest decision to reverse — and why it should start from the access pattern, not from the diagram.
+description: One of the hardest decisions to reverse — and why it should start from the access pattern, not from the diagram.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [normalization, denormalization, data-ownership]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -24,8 +24,9 @@ last_reviewed: 2026-08-31
 Modeling data is deciding which entities exist, which attributes they have, how they relate and where
 the boundaries between them lie.
 
-It is the most expensive decision to reverse in any system, because unlike code — which gets
-rewritten — the model carries every record already written.
+In systems whose data accumulates and outlives each version of the code, it is among the most
+expensive decisions to reverse, because unlike code — which gets rewritten — the model carries every
+record already written.
 
 And it is frequently made early, with little information, by whoever has the least business context.
 
@@ -58,7 +59,9 @@ instead of the business. Stopping at the conceptual produces beautiful models th
 
 ### The access pattern decides
 
-The questions that precede any diagram:
+The access-pattern criterion, and what it decides when choosing between databases, is in
+[SQL vs NoSQL](/20-trade-offs/sql-vs-nosql.md). Here the focus is the model: the questions that
+precede any diagram:
 
 ```text
 how is the data created?      one at a time, in batches, by event
@@ -159,7 +162,7 @@ well.
 |---|---|
 | Guarantees in the store | Validation in the application |
 | Planned evolution | Incremental |
-| Unforeseen queries | Limited |
+| Serves unforeseen queries | Unforeseen queries limited |
 | Costly migration | Cheap |
 
 | With history | Current state only |
@@ -185,15 +188,19 @@ well.
 
 ## Common Mistakes
 
-**Modeling from the screen.**
+**Modeling from the screen.** The model serves the first screen and has to be redone for the
+second, with data already written in the wrong shape.
 
-**Not deciding about time.**
+**Not deciding about time.** Each update overwrites the previous value, and the history of the period
+before the decision no longer exists.
 
-**A natural key as identity.**
+**A natural key as identity.** When the business changes the identifier's rule, the change
+propagates through every reference.
 
 **Normalizing or denormalizing out of habit** instead of by access pattern.
 
-**Not versioning migrations from the start.**
+**Not versioning migrations from the start.** Environments drift apart in schema, and nobody can
+reproduce production's state from the repository.
 
 **Deferring the conversation with the business.** The conceptual model is not technical work.
 
@@ -203,7 +210,7 @@ A health plan management system modeled beneficiaries with current state: name, 
 dependents.
 
 It worked for three years. Then the regulatory audit asked: "what was this beneficiary's tier in each
-month of the last five years?".
+month of the last three years?".
 
 The answer did not exist. Each tier change overwrote the previous one.
 

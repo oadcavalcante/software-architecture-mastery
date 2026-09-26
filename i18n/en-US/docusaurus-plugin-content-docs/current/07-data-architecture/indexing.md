@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [oltp, relational-databases, denormalization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -23,11 +23,12 @@ last_reviewed: 2026-08-31
 
 An index is an auxiliary structure that allows finding records without scanning the whole table.
 
-It is the highest-return decision in this section: an adequate index turns seconds into milliseconds,
-costs one line of command and does not change the model.
+Among the decisions in this section, it has the largest latency gain per unit of effort: an adequate
+index turns seconds into milliseconds, costs one line of command and does not change the model.
 
-And it is the most neglected — most performance problems attributed to scale are, in fact, a missing
-index or the wrong index.
+And it is the most neglected — the performance problem attributed to scale is often, in fact, a
+missing index or the wrong index. That is why the execution plan comes before any architecture
+proposal.
 
 ## Problem
 
@@ -88,7 +89,9 @@ table.
 SELECT amount FROM orders WHERE customer = ? AND date > ?
 ```
 
-Every column is in the index. The table is not read.
+Every column is in the index, so the table need not be read. MVCC databases add a caveat: the index
+does not store row visibility, and PostgreSQL skips the table only for pages the visibility map marks
+as all-visible — on a freshly written table, the gain depends on vacuum being up to date.
 
 It is a powerful optimization for critical queries, and covering too many columns turns the index into
 a copy of the table, with the corresponding write cost.
@@ -114,9 +117,9 @@ from the estimates, and stale statistics produce bad plans even with correct ind
 ### A function on the column nullifies the index
 
 ```sql
-WHERE UPPER(name) = 'MARIA'        -- does not use the index on name
-WHERE year(date) = 2025            -- does not use the index on date
-WHERE date BETWEEN ? AND ?         -- uses it
+WHERE UPPER(name) = 'MARIA'           -- does not use the index on name
+WHERE EXTRACT(YEAR FROM date) = 2025  -- does not use the index on date
+WHERE date BETWEEN ? AND ?            -- uses it
 ```
 
 Applying a function to the indexed column prevents using the index. The solution is rewriting the
@@ -157,7 +160,7 @@ replaces three simple ones.
 - **Materialized view** — for repeated aggregations.
 - **[Partitioning](/07-data-architecture/data-partitioning.md)** — it discards whole partitions before
   any index.
-- **Inverted index** — for full-text search with relevance.
+- **[Inverted index](/05-system-design/search.md)** — for full-text search with relevance.
 
 ## Trade-offs
 

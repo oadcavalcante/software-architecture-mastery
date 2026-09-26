@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-consistency, data-modeling, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -114,10 +114,14 @@ The options, in order of practical preference:
 
 **A dedicated service** for the cross-cutting data. It costs a team.
 
-**Replication with a single write owner.** Each consumer has its copy, updated by events.
+**Replication with a single write owner.** Each consumer has its copy, updated by events. It costs
+ongoing operations: measuring each copy's lag against what the contract promises, reprocessing lost
+events, detecting copies that drifted from the source, and versioning the event format without breaking
+whoever still reads the old one.
 
 **A shared database with explicit governance.** Acceptable when documented, with a change process — and
-the worst option when it happens by omission.
+the worst option when it happens by omission. It costs keeping the consumer inventory current and
+putting every schema change through the process, including the ones that look trivial.
 
 ### A data mesh takes the principle to analytics
 
@@ -132,8 +136,10 @@ produces published data sets with no quality and no maintenance.
 
 ## Mental Model
 
-**With no declared owner, the data belongs to nobody.** And data that belongs to nobody does not evolve,
-has no quality and blocks everyone.
+**Every schema another team reads is an API.** Facing each table, there is one question: is this an
+internal model, which the owner changes at will, or a published contract, which changes with notice and
+coexisting versions? Where nobody can answer, the table is already a contract — only with no owner to
+honor it.
 
 ## When to Use
 
@@ -200,17 +206,24 @@ governance.
 
 ## Common Mistakes
 
-**Not declaring owners.**
+**Not declaring owners.** Quality problems circulate between teams with none of them mandated to fix
+them, and the data degrades for lack of anyone to decide.
 
-**Treating the database schema as an internal detail** when others read it.
+**Treating the database schema as an internal detail** when others read it. A local refactoring breaks a
+consumer in production, and the owner finds out from the ticket.
 
-**Allowing writes from outside the owner.**
+**Allowing writes from outside the owner.** The owner's validations stop holding, because there are paths
+that bypass them — and invalid data shows up with no author.
 
-**Not inventorying consumers.**
+**Not inventorying consumers.** Removing a column breaks an application nobody knew read the table, and
+the discovery is the incident.
 
-**Splitting databases without splitting responsibility.**
+**Splitting databases without splitting responsibility.** The coupling remains, now through network calls
+and synchronized copies, and with the migration already paid for.
 
-**Confusing "who stores it" with "who owns it".**
+**Confusing "who stores it" with "who owns it".** The platform team that operates the database becomes the
+approver of schema changes whose meaning it does not know, and the business decisions are left with no
+one to make them.
 
 ## Real-World Example
 
@@ -251,14 +264,18 @@ changeable with no coordination.
 Result: adding a field went from eleven weeks to days, with no database moved anywhere.
 
 The recorded lesson: the initial proposal was to split into separate databases per domain — a project
-estimated at two and a half years. Declared ownership with published views delivered the same unblocking
-with no migration.
+estimated at two and a half years, which would have had to make the same ownership decisions and, on top
+of them, migrate the data and cut over eleven applications. The gain was not in schedule, which was close
+on both paths: declared ownership with published views delivered the same unblocking with no cutover
+window, no migration to roll back if it went wrong, and with physical separation still available later,
+wherever some domain actually needed it.
 
 The problem was one of responsibility, not of topology.
 
 ## Related Concepts
 
-- [Data Consistency](/07-data-architecture/data-consistency.md) — the source of truth.
+- [Data Consistency](/07-data-architecture/data-consistency.md) — reconciliation between copies that
+  should agree with the source.
 - [Data Modeling](/07-data-architecture/data-modeling.md).
 - [Bounded Context](/04-domain-driven-design/bounded-context.md) — the corresponding boundary.
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md).

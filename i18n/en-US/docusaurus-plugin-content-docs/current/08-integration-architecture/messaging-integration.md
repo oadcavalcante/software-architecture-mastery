@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [event-driven-integration, webhooks, rest]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -37,7 +37,8 @@ In a synchronous integration, the caller depends on the callee being available *
 is down, the operation fails.
 
 In a chain of four services with 99.9% each, the combined availability drops to 99.6% — and the user feels
-the fourth link's failure even when their order was already validated.
+the fourth link's failure even when their order was already validated. That is
+[compound unavailability](/20-trade-offs/sync-vs-async.md).
 
 Worse: a slow destination propagates the slowness. The caller's connections get stuck waiting, and the
 saturation climbs the entire chain. See [partial failure](/06-distributed-systems/partial-failure.md).
@@ -53,7 +54,8 @@ That decouples **availability**, not format or semantics — the consumer still 
 message.
 
 And it moves the dependency: now both ends depend on the broker. It becomes a critical component, with all
-the operations that implies.
+the operations that implies — and with a cost of its own: a managed broker bills by volume or by node, and
+the dashboard, alert and on-call rotation that a stopped consumer demands become a recurring team cost.
 
 ### Queue or topic decides the topology
 
@@ -92,13 +94,18 @@ This is what the usual comparison omits. On adopting messaging, you take on:
 idempotency       at-least-once delivery is the realistic default
 ordering          it is not guaranteed across partitions
 duplicates        they will happen
-poison messages   a message that always fails jams the consumption
+poison messages   a message that always fails jams the partition or recirculates
 a dead-letter queue  and the process for handling it
 consumer lag      monitored, with an alert
 schema            evolution of the message's format
 ```
 
-Seven responsibilities the synchronous call did not have. Each one is covered in
+Seven responsibilities, and not all of them are born with the queue. Poison messages, the dead-letter
+queue, consumer lag and redelivery duplicates come from the broker.
+[Idempotency](/06-distributed-systems/idempotency.md) and
+[schema evolution](/08-integration-architecture/schema-evolution.md) already existed in a synchronous call
+with retries and independent deployment; messaging takes away the option of postponing them, because
+redelivery is the default. Each one is covered in
 [distributed systems](/06-distributed-systems/index.md), and all of them need to exist before the first
 message goes into production.
 
@@ -126,7 +133,7 @@ That solves it with no distributed transaction. See
 ## Mental Model
 
 **Messaging trades availability coupling for operational responsibility.** The seven responsibilities above
-are the price, and it is fixed.
+are the floor of the price, not the ceiling: the example below charged two more.
 
 ## When to Use
 
@@ -147,7 +154,8 @@ are the price, and it is fixed.
 
 **With no idempotency in the consumer.** A duplicate is certain.
 
-**With no poison message handling.** One message jams the whole queue.
+**With no poison message handling.** With ordered or serial consumption, one message jams the whole
+partition; with parallel consumption, it recirculates and consumes capacity indefinitely.
 
 **When strict ordering across distinct entities is mandatory.**
 
@@ -172,9 +180,9 @@ transport for gigabytes.
 | The destination may be down | It needs to be available |
 | Absorbs spikes | Propagates load |
 | The sender does not wait | It waits |
-| Seven new responsibilities | None of them |
+| Four new responsibilities; idempotency and schema become mandatory | Idempotency and schema, only if there are retries |
 | A silent failure is possible | An immediate error |
-| A broker to operate | No extra component |
+| A broker to operate and pay for | No extra component |
 | Debugging requires tracing | A call stack |
 
 ## Failure Modes
@@ -225,8 +233,8 @@ checkout screen.
 The migration to a queue solved both: the sale came to publish the decrement and conclude. Inventory
 consumes at its own pace.
 
-Five problems appeared in the first months, and all of them were among the responsibilities the team had
-not implemented:
+Five problems appeared in the first months. Three came from the responsibilities listed above, which the
+team had not implemented; two were outside the list:
 
 **A consumer stopped for 6 hours.** A defective deployment took the consumer down overnight. Nobody
 noticed. Inventory was 6 hours stale, and sold-out products kept being sold.
@@ -235,7 +243,7 @@ noticed. Inventory was 6 hours stale, and sold-out products kept being sold.
 not idempotent.
 
 **A poison message.** A sale with an unexpected field made the consumer fail and reprocess indefinitely.
-The queue stopped for 90 minutes, with a single message blocking everything.
+Because the consumer processed in order, one at a time, the queue stopped for 90 minutes, with a single message blocking everything.
 
 **Publishing outside the transaction.** In process crashes between writing the sale and publishing, the
 decrement never happened. Rare, and it accumulated divergence.

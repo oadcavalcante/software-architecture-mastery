@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-modeling]
 related: [denormalization, relational-databases, oltp]
 canonical_for: [normalização, forma normal, anomalia de atualização]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -133,9 +133,14 @@ junção; o retorno é integridade que o banco cobra sozinho.
 **Quando o dado é uma fotografia do momento.** O preço no instante da compra deve
 ser copiado, não referenciado — ele não muda quando o preço do catálogo muda.
 
-**Por princípio, sem avaliar o acesso.**
+**Quando a consulta dominante sempre remonta o mesmo agregado.** Se toda leitura
+junta as mesmas quatro tabelas para montar uma entidade que ninguém atualiza em
+partes, a decomposição cobra junção e não compra integridade.
 
-**Além da terceira forma normal sem razão concreta.**
+**Além da terceira forma normal sem dependência multivalorada à vista.** Quarta e
+quinta formas só compensam quando uma tabela combina dois fatos independentes —
+habilidades e idiomas do mesmo funcionário, por exemplo — e o produto cartesiano
+já aparece nas linhas.
 
 **Em armazenamento sem junção.** Ver [documentos](/07-data-architecture/document-databases.md) — ali o
 modelo é outro.
@@ -183,15 +188,20 @@ retroativamente sem que ninguém tenha alterado o histórico.
 
 ## Erros Comuns
 
-**Normalizar por hábito.**
+**Normalizar por hábito.** A decomposição sai igual para o cadastro que muda todo
+dia e para o registro que nunca muda, e o segundo paga junção sem ganhar nada.
 
-**Não declarar chaves estrangeiras.**
+**Não declarar chaves estrangeiras.** O banco aceita itens apontando para pedidos
+apagados, e os órfãos só aparecem quando um relatório soma errado.
 
 **Referenciar quando o correto era copiar** — o caso do valor histórico.
 
-**Aplicar o mesmo critério a OLTP e OLAP.**
+**Aplicar o mesmo critério a OLTP e OLAP.** O modelo analítico herda as junções
+do transacional e a consulta de agregação passa a varrer o volume inteiro várias
+vezes.
 
-**Desnormalizar sem documentar.**
+**Desnormalizar sem documentar.** A cópia deixa de ser tratada como cópia, alguém
+atualiza só um dos lados, e a divergência vira dado.
 
 ## Exemplo Real
 
@@ -201,7 +211,8 @@ pedido, item de pedido. Chaves estrangeiras declaradas, terceira forma normal.
 O item de pedido referenciava o produto e obtinha o preço da tabela de preços.
 
 O problema apareceu numa auditoria fiscal: o valor das notas emitidas em 2023 não
-batia com o que o sistema calculava ao reemitir o relatório em 2025.
+batia com o que o sistema calculava ao reemitir o relatório em 2025. Das cerca de
+40 mil notas do ano, a maioria divergia, algumas em mais de 10%.
 
 A causa: os preços tinham mudado. Como o item referenciava a tabela de preços
 atual, todo relatório histórico refletia os preços de hoje.
@@ -211,7 +222,7 @@ produto" e "o preço cobrado neste item" são fatos diferentes — o segundo é
 imutável e pertence ao item.
 
 A correção foi copiar para o item de pedido, no momento da emissão: preço
-unitário, alíquota aplicada, descrição do produto e desconto. Cinco campos.
+unitário, alíquota aplicada, descrição do produto e desconto. Quatro campos.
 
 Isso parece duplicação e não é: nenhum desses valores tem relação com a tabela de
 preços depois da emissão. Eles não podem mudar nunca.

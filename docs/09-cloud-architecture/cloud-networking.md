@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [cloud-identity, availability-zones, cost-architecture]
 canonical_for: [rede virtual, sub-rede, grupo de segurança, ponto de extremidade privado]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -75,7 +75,7 @@ Dois princípios que resolvem a maior parte:
 alcance o grupo do banco é mais legível e mais robusto que permitir uma faixa —
 porque continua correto quando os endereços mudam.
 
-A regra que aparece em toda auditoria: acesso administrativo aberto para qualquer
+A regra recorrente em auditorias: acesso administrativo aberto para qualquer
 origem na internet. Ela costuma ter sido criada "temporariamente".
 
 ### Ponto de extremidade privado evita a internet
@@ -137,7 +137,8 @@ afeta tudo que ela descreve.
 
 ## Quando Usar
 
-Estas decisões aparecem sempre. Atenção especial quando:
+Toda carga em nuvem roda dentro de uma rede virtual, então estas decisões existem
+mesmo quando ninguém as toma. Atenção especial quando:
 
 - Há dados sensíveis.
 - Existe conexão com rede corporativa.
@@ -147,18 +148,26 @@ Estas decisões aparecem sempre. Atenção especial quando:
 
 ## Quando Não Usar
 
-**Recursos em sub-rede pública sem necessidade.**
+**Ponto de extremidade privado para tráfego baixo.** Ele é cobrado por hora e por
+zona em que é implantado, independente do uso. Um serviço consultado poucas vezes por
+dia, a partir de três zonas, paga três pontos de extremidade o mês inteiro para
+economizar centavos de transferência; o ganho que sobra é o de superfície, e ele só
+existe se o serviço for configurado para recusar acesso de fora. Para armazenamento de
+objetos e algumas tabelas gerenciadas, há provedores que oferecem ponto de extremidade
+de gateway, sem cobrança por hora — é o primeiro a verificar.
 
-**Acesso administrativo aberto para a internet.**
+**Várias redes virtuais quando uma basta.** Separar em redes e contas distintas dá
+isolamento de falha e de permissão, mas cada fronteira nova exige interconexão, rotas
+e resolução de nomes entre elas — a camada onde os incidentes se escondem. Uma equipe
+com um ambiente e uma aplicação ganha pouco isolamento e paga toda a complexidade; a
+divisão se justifica quando há equipes, ambientes ou requisitos de conformidade que
+precisam de fronteira administrativa.
 
-**Regras por faixa de endereço** quando referência a grupo resolve.
-
-**Tráfego para serviços gerenciados pela internet** quando há ponto de extremidade
-privado.
-
-**Faixas escolhidas sem plano.**
-
-**Rede como configuração manual**, sem infraestrutura como código.
+**Renumerar quando a sobreposição é pontual.** O plano de endereçamento resolve o
+futuro, não o passado. Se duas redes sobrepostas trocam tráfego entre poucos serviços
+conhecidos, tradução de endereços nesses pontos custa semanas; renumerar uma rede em
+produção custa meses e risco. A renumeração compensa quando a integração vai ser ampla
+e permanente.
 
 ## Alternativas
 
@@ -200,8 +209,7 @@ privado.
 **Esgotamento de endereços.** Sub-rede pequena demais, e redimensionar exige
 recriar.
 
-**Regra de saída ampla.** Foco costuma estar na entrada; a saída irrestrita facilita
-exfiltração.
+**Regra de saída ampla.** A liberação padrão do grupo de segurança, nunca revisada.
 
 ## Erros Comuns
 
@@ -215,7 +223,7 @@ exfiltração.
 
 **Ignorar o custo do caminho do tráfego.** Transferência entre zonas, entre regiões e para a internet têm preços muito diferentes. Uma arquitetura que atravessa zonas sem necessidade paga isso em toda requisição.
 
-**Não restringir tráfego de saída.** Quase todo mundo filtra entrada e libera saída — e a saída é o caminho da exfiltração e do contato com servidor de controle.
+**Não restringir tráfego de saída.** Por que a saída importa está em [segurança de rede](/10-security/network-security.md). O que é próprio da nuvem: o grupo de segurança padrão libera toda saída, e o gateway de tradução encaminha qualquer destino que a rota alcance. Restringir exige regra de saída no grupo e, para destinos identificados por nome, um filtro no caminho de saída — o grupo de segurança só entende endereço.
 
 ## Exemplo Real
 
@@ -260,6 +268,7 @@ parte do desenho.
 - [Identidade em Nuvem](/09-cloud-architecture/cloud-identity.md) — a outra camada de fronteira.
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — tráfego entre zonas.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Segurança de Rede](/10-security/network-security.md) — segmentação e filtragem de saída.
 - [Segurança](/10-security/index.md).
 
 ## Exercício Prático

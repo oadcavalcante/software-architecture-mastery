@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, nosql]
 canonical_for: [banco de grafo, travessia de grafo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -63,8 +63,8 @@ relacionados, não um problema de grafo.
 Numa junção relacional, o otimizador trabalha sobre tabelas inteiras. Num grafo, a
 travessia parte de um nó e visita apenas os alcançados.
 
-Uma busca de três níveis a partir de uma pessoa visita dezenas ou centenas de nós,
-independentemente de o grafo ter mil ou cem milhões.
+Num grafo de grau baixo, uma busca de três níveis a partir de uma pessoa visita
+dezenas ou centenas de nós, independentemente de o grafo ter mil ou cem milhões.
 
 É a propriedade que justifica o modelo quando ele se justifica.
 
@@ -110,7 +110,8 @@ consulta precisa de travessia.
 ## Modelo Mental
 
 **Grafo é para profundidade variável.** Se a profundidade das suas consultas é
-conhecida e pequena, o relacional é melhor em tudo o mais.
+conhecida e pequena, o relacional resolve o mesmo com junções, sem uma segunda
+tecnologia para operar.
 
 ## Quando Usar
 
@@ -125,11 +126,15 @@ conhecida e pequena, o relacional é melhor em tudo o mais.
 
 **Quando as consultas têm profundidade fixa e pequena.** Junções resolvem.
 
-**Para carga transacional geral.**
+**Para carga transacional geral.** Cadastro, pedido, pagamento: escrita concorrente
+com restrições de integridade e consultas por chave, em que o relacional tem décadas
+de ferramental e o grafo não oferece travessia que compense.
 
 **Para agregação sobre grandes volumes.** Ver [colunar](/07-data-architecture/column-stores.md).
 
-**Quando o volume de escrita é alto.**
+**Quando o volume de escrita é alto.** Cada aresta inserida atualiza a adjacência
+dos dois nós e os índices envolvidos, e sem particionamento horizontal essa carga
+fica num servidor só.
 
 **Como armazenamento único do sistema.** Projete o subgrafo relevante.
 
@@ -181,9 +186,11 @@ funciona bem até que uma travessia toque um nó muito conectado.
 
 ## Erros Comuns
 
-**Adotar porque "os dados são conectados".**
+**Adotar porque "os dados são conectados".** A equipe passa a operar, sincronizar
+e monitorar uma segunda tecnologia para consultas que duas junções resolveriam.
 
-**Não limitar profundidade e resultados.**
+**Não limitar profundidade e resultados.** Uma travessia sem teto num trecho denso
+consome memória e CPU até derrubar o servidor, levando junto as demais consultas.
 
 **Não tratar supernós** — que exigem modelagem específica, como dividir a categoria
 em subcategorias.
@@ -201,10 +208,11 @@ relacionados.
 
 No modelo relacional, a consulta era de profundidade variável — "encontre todos
 conectados a esta pessoa por qualquer caminho de até cinco passos". A
-implementação existente rodava em lote noturno e levava 6 horas.
+implementação existente rodava em lote noturno sobre os sinistros do dia e levava
+6 horas — cara demais para rodar sinistro a sinistro, no momento do registro.
 
 Um banco de grafo com os dados projetados — pessoas, contatos, contas, veículos,
-sinistros — respondia a mesma pergunta em 200 milissegundos, permitindo verificação
+sinistros — respondia a pergunta para um sinistro em 200 milissegundos, permitindo verificação
 no momento do registro do sinistro.
 
 O ganho foi real e trouxe dois problemas.

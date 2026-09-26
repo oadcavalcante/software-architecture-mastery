@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [graphql, grpc, integration-contracts]
 canonical_for: [REST, recurso, verbo HTTP, HATEOAS]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -42,8 +42,8 @@ POST /buscarPedidoPorId
 POST /cancelarPedido
 ```
 
-Isso funciona, e joga fora o que o protocolo dá. Tudo é `POST`, então nada é
-cacheável nem seguro de repetir. Erros viram `200` com um campo `sucesso: false`,
+Isso funciona, e joga fora o que o protocolo dá. Tudo é `POST`, então nenhum
+intermediário real cacheia a resposta, e nada é seguro de repetir. Erros viram `200` com um campo `sucesso: false`,
 então nenhum intermediário — proxy, gateway, cliente — entende o que aconteceu.
 
 O resultado é uma API que precisa reimplementar, em convenção própria, coisas que
@@ -136,16 +136,12 @@ código a manter.
 
 ### Paginação, filtro e ordenação são contrato
 
-Coleções grandes precisam de paginação, e a escolha tem consequência:
+Coleções grandes precisam de paginação; a escolha entre deslocamento e cursor, e
+o que cada um custa, está em [paginação](/05-system-design/pagination.md).
 
-**Por deslocamento** — simples, e a página muda se registros são inseridos
-durante a navegação.
-
-**Por cursor** — estável sob inserção, e não permite pular para uma página
-arbitrária.
-
-Qualquer que seja, ela precisa estar no contrato — inclusive o limite máximo e o
-que acontece ao pedir mais.
+O que é próprio de uma API HTTP: qualquer que seja a estratégia, ela precisa
+estar no contrato — inclusive o limite máximo, a ordem garantida e o que
+acontece ao pedir mais.
 
 ## Modelo Mental
 
@@ -169,13 +165,19 @@ ignorada é uma que você vai reimplementar pior.
 **Quando o cliente precisa de campos muito variáveis.** Ver
 [GraphQL](/08-integration-architecture/graphql.md).
 
-**Comunicação interna de altíssima frequência.** Ver [gRPC](/08-integration-architecture/grpc.md) — o custo de
-serialização e de conexão pesa.
+**Comunicação interna de altíssima frequência.** Ver [gRPC](/08-integration-architecture/grpc.md). O ponto de
+virada é quando o mesmo par de serviços troca milhares de chamadas por segundo,
+ou uma requisição do usuário se desdobra em dezenas de chamadas internas em
+cadeia: serializar JSON e abrir conexão em cada salto passa a ser fração
+mensurável da latência e da CPU.
 
 **Fluxos bidirecionais ou de longa duração.**
 
 **Transferência de grandes volumes em lote.** Ver
-[integração em lote](/08-integration-architecture/batch-integration.md).
+[integração em lote](/08-integration-architecture/batch-integration.md). Vale
+quando o volume é de milhões de registros ou gigabytes por execução: percorrer
+página a página leva mais que a janela disponível, e uma falha no meio não tem
+ponto de retomada claro.
 
 **Quando a operação não é sobre um recurso.** Forçar substantivo em cálculos e
 buscas complexas produz modelagem torturada — ali um endpoint de operação é mais
@@ -207,7 +209,7 @@ honesto.
 
 ## Modos de Falha
 
-**Tudo via `POST`.** Nada é cacheável nem seguro de repetir.
+**Tudo via `POST`.** Nenhum intermediário cacheia, e nada é seguro de repetir.
 
 **`200` com erro no corpo.** O cliente não sabe se repete.
 
@@ -222,15 +224,22 @@ tela — o problema que motiva [GraphQL](/08-integration-architecture/graphql.md
 
 ## Erros Comuns
 
-**Modelar operações em vez de recursos.**
+**Modelar operações em vez de recursos.** A ação some depois de executada: não
+há o que consultar nem auditar, e cada ação nova vira mais um endpoint cuja
+semântica nenhum intermediário entende.
 
-**Não usar os códigos de status.**
+**Não usar os códigos de status.** Cada cliente reimplementa a classificação de
+erro, e o que classifica errado repete indefinidamente um erro permanente.
 
-**Não oferecer chave de idempotência em `POST`.**
+**Não oferecer chave de idempotência em `POST`.** A primeira retentativa por
+falha de rede cria o segundo registro, e a deduplicação vira trabalho manual.
 
-**Versionar por reflexo.**
+**Versionar por reflexo.** Cada versão nova é mais uma superfície a manter e a
+desligar, criada para uma mudança que caberia em evolução compatível.
 
-**Paginação fora do contrato.**
+**Paginação fora do contrato.** O cliente passa a depender do comportamento
+observado — tamanho padrão, ordem implícita — e quebra quando o servidor impõe
+um limite que antes não existia.
 
 **Expor o modelo interno do banco como recurso.** O recurso é parte do contrato
 público; o modelo interno precisa poder mudar.
@@ -248,15 +257,15 @@ nova. Cerca de 300 remessas duplicadas por mês, tratadas manualmente pelo
 suporte.
 
 **Nenhum cache.** A consulta de status de remessa era o endpoint mais chamado —
-40% do tráfego — e não podia ser cacheada por ser `POST`. O banco absorvia tudo.
+40% do tráfego — e nenhum cache no caminho a guardava, por ser `POST`. O banco absorvia tudo.
 
 **Classificação de erro na aplicação.** Cada um dos onze clientes tinha sua
 própria lógica para decidir se o texto do campo `erro` era retentável. Três
 estavam errados, e repetiam indefinidamente em erros permanentes.
 
-**Gateway inútil.** O gateway não conseguia aplicar limite de taxa por tipo de
-operação, nem cachear, nem reportar taxa de erro — porque tudo era `POST` com
-`200`.
+**Gateway inútil.** O gateway só separava leitura de escrita, para limite de
+taxa, enumerando os 40 caminhos um a um; não conseguia cachear nem reportar taxa
+de erro — porque tudo era `POST` com `200`.
 
 A migração foi feita em paralelo, com a API antiga mantida por catorze meses.
 
@@ -287,8 +296,10 @@ que estava sendo desperdiçada.
 Pegue a API do seu time e conte quantos endpoints são `POST`. Para cada um,
 pergunte: isto altera estado?
 
-Os que não alteram deveriam ser `GET` — e cada um é cache e retentativa segura
-que você está deixando na mesa.
+Os que não alteram deveriam ser `GET`, salvo a busca complexa demais para caber
+na URL — o caso de Quando Não Usar em que um endpoint de operação é mais
+honesto. Cada um dos restantes é cache e retentativa segura que você está
+deixando na mesa.
 
 ## Perguntas de Entrevista
 

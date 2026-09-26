@@ -13,7 +13,7 @@ objective: >
 prerequisites: [consistency]
 related: [partitioning, leader-election, conflict-resolution]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -54,7 +54,8 @@ and the leader is a write bottleneck and a point of failure — mitigated by
 [leader election](/06-distributed-systems/leader-election.md).
 
 **Multiple leaders.** Several nodes accept writes, typically one per region. Local, fast writes,
-and **conflicts are inevitable** — the same row changed in two places. See
+and **a conflict whenever the same record is written in two regions** — avoidable only by
+routing each record's writes to a fixed leader (write affinity). See
 [conflict resolution](/06-distributed-systems/conflict-resolution.md).
 
 **Leaderless.** Any node accepts writes and reads; consistency comes from requiring quorums. High
@@ -76,18 +77,20 @@ The acknowledgment mode decides what is lost in a failure:
 Fully synchronous is rare in practice: a slow or absent replica makes every write slow or
 impossible.
 
-**Semi-synchronous is the middle ground used by most serious systems** — and quorum configuration
-is its modern form.
+**Semi-synchronous is the point to choose when the acceptable loss window is close to zero and a
+round trip fits the latency budget** — and quorum configuration is its generalized form.
 
 ### Quorum
 
 The generalization: with N replicas, require W acknowledgments on write and R on read.
 
-If `W + R > N`, read and write overlap on at least one replica, and the read observes the most
-recent write.
+If `W + R > N`, read and write overlap on at least one replica: some queried replica holds the
+most recent write, and the read recognizes it if versions are comparable (version number, vector
+clock). The rule is not enough with a sloppy quorum, with a write that failed after landing on
+some of the replicas, or with concurrent writes — Kleppmann (2017, ch. 5) details these limits.
 
 ```text
-N = 3, W = 2, R = 2  →  2 + 2 > 3  ✓ consistent
+N = 3, W = 2, R = 2  →  2 + 2 > 3  ✓ sets overlap
 N = 3, W = 1, R = 1  →  1 + 1 < 3  ✗ can read stale data
 ```
 
@@ -246,4 +249,6 @@ If the answer to the third is "never", the recovery mechanism is a hypothesis.
 ## Further Reading
 
 - Kleppmann, Martin. *Designing Data-Intensive Applications*. O'Reilly, 2017 — chapter 5.
-- PostgreSQL's replication documentation on synchronous modes.
+- PostgreSQL Global Development Group. *PostgreSQL 16 Documentation*, 2023 — ch. 27, *High
+  Availability, Load Balancing, and Replication*, section 27.2.8 (Synchronous Replication), and
+  the `synchronous_commit` parameter (section 20.5).

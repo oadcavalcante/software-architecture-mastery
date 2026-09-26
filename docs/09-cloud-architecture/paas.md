@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, saas, serverless]
 canonical_for: [PaaS, plataforma como serviço, contorno da plataforma]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -78,7 +78,8 @@ Nenhuma é defeito — todas são o preço da convenção.
 ### As doze regras continuam valendo
 
 A metodologia de aplicação em doze fatores nasceu de PaaS e descreve o que uma
-aplicação precisa ser para caber bem:
+aplicação precisa ser para caber bem. Seis dos doze fatores, os que mais decidem se
+a aplicação cabe — a lista inteira está em Wiggins (2011):
 
 ```text
 configuração no ambiente, não em arquivo
@@ -103,22 +104,10 @@ camada com implantação, observabilidade e padrões prontos, sobre
 O objetivo é o mesmo — remover trabalho repetitivo — com o contorno definido pela
 própria organização.
 
-O risco é conhecido: construir uma PaaS interna é um produto, com usuários,
-manutenção e evolução. Times que a tratam como projeto de infraestrutura produzem
-uma camada que ninguém quer usar, e as pessoas voltam a fazer direto.
-
-### Onde ela mais rende
-
-**Times pequenos** sem capacidade operacional dedicada.
-
-**Aplicações web convencionais**, que é a maioria.
-
-**Velocidade de entrega como prioridade.**
-
-**Padronização entre muitos times**, no caso da plataforma interna.
-
-**Ambientes efêmeros** por ramo — uma das melhores capacidades do modelo, e uma das
-menos usadas.
+O risco é conhecido: uma PaaS interna precisa ser tratada como
+[produto](/14-devops-and-platform/platform-engineering.md), com usuários,
+manutenção e evolução. Tratada como projeto de infraestrutura, vira uma camada que
+ninguém quer usar, e as pessoas voltam a fazer direto.
 
 ### O caminho de saída deveria ser conhecido antes da entrada
 
@@ -140,9 +129,11 @@ ser reconstruída.
 Saber onde você está nessa escala é o que permite estimar a saída antes de precisar
 dela. Ver [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
-A regra prática que preserva a maior parte da opção sem custo relevante: use a
-plataforma para executar o código, e prefira serviços gerenciados portáveis para o
-resto.
+A regra prática que preserva a maior parte da opção: use a plataforma para
+executar o código, e prefira serviços gerenciados portáveis para o resto. O custo é
+integrar e configurar cada serviço por fora, abrindo mão da integração pronta que é
+parte da produtividade da plataforma — pequeno perto da reconstrução dos dois
+últimos degraus da escala.
 
 ## Modelo Mental
 
@@ -156,7 +147,8 @@ convencional; aperta quando ela não é.
 - Velocidade de entrega é prioridade.
 - O padrão da plataforma atende os requisitos.
 - Padronizar implantação entre muitos times.
-- Ambientes efêmeros para revisão.
+- Ambientes efêmeros por ramo para revisão — uma das capacidades menos usadas do
+  modelo.
 
 ## Quando Não Usar
 
@@ -164,13 +156,15 @@ convencional; aperta quando ela não é.
 
 **Para processamento longo ou intensivo.**
 
-**Quando o custo em escala inviabiliza.** O prêmio por unidade é alto.
+**Quando a fatura estimada no volume alvo supera o custo de operar contêineres.** O
+prêmio por unidade é alto e o custo total cresce com o volume; faça a conta antes,
+como no exemplo abaixo, em que a fatura chegou a 4 vezes o equivalente.
 
 **Para software legado** que assume sistema de arquivos e processos persistentes.
 
-**Plataforma interna sem tratá-la como produto.**
-
-**Quando a dependência é inaceitável.** Ver
+**Quando o sistema vai depender dos serviços auxiliares proprietários e da automação
+da plataforma** e a organização não aceita o custo de reconstruí-los numa saída —
+os dois degraus mais altos da escala de aprisionamento. Ver
 [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Alternativas
@@ -216,9 +210,7 @@ convencional; aperta quando ela não é.
 
 **Colocar trabalho em segundo plano dentro da requisição.** A plataforma pode encerrar o processo assim que a resposta é enviada, e a tarefa disparada depois dela morre no meio, silenciosamente.
 
-**Não estimar o custo no volume alvo.** O preço por unidade é confortável em volume baixo e cresce linearmente. No volume de daqui a dois anos, frequentemente supera o de gerir a própria infraestrutura.
-
-**Construir plataforma interna sem tratá-la como produto.** Sem usuários declarados, documentação e alguém responsável por evoluí-la, ela vira mais um sistema que os times contornam.
+**Não estimar o custo no volume alvo.** O preço por unidade é alto, e o custo total cresce linearmente com o volume, enquanto o de infraestrutura própria se amortiza. No volume de daqui a dois anos, frequentemente supera o de gerir a própria infraestrutura.
 
 ## Exemplo Real
 

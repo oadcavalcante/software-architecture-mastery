@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [olap, indexing, transactions]
 canonical_for: [OLTP, carga transacional]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -84,8 +84,9 @@ crescimento dos dados: o sistema funciona bem por meses e piora sozinho.
 
 ### Escrita concorrente é o gargalo real
 
-Diferente de OLAP, OLTP escreve muito. Isso traz contenção: duas operações sobre
-o mesmo registro serializam.
+Diferente de OLAP, OLTP escreve muito. Isso traz contenção: duas escritas sobre
+o mesmo registro serializam. Leituras dependem do nível de isolamento — sob MVCC,
+como no PostgreSQL e no InnoDB, leitor não bloqueia escritor.
 
 Por isso [transações](/07-data-architecture/transactions.md) e níveis de isolamento importam aqui e
 quase não importam em analítico. E por isso o gargalo de um sistema OLTP maduro
@@ -99,8 +100,10 @@ relatório. É tirá-lo dali.
 Uma [réplica de leitura](/07-data-architecture/data-replication.md), um armazenamento analítico
 separado, ou uma projeção — qualquer uma remove a competição.
 
-Manter as duas cargas no mesmo lugar por simplicidade funciona até certo volume,
-e o momento de separar chega antes do que a maioria dos times espera.
+Manter as duas cargas no mesmo lugar por simplicidade funciona enquanto a
+latência transacional não percebe o relatório. O sinal de separar é observável:
+o p99 das operações sobe durante a janela de relatório e volta quando ela acaba.
+Esse sinal costuma aparecer antes do que a maioria dos times espera.
 
 ### O gargalo muda conforme o sistema amadurece
 
@@ -125,8 +128,9 @@ de armazenamento.
 
 A progressão importa porque a resposta é diferente em cada estágio: índice,
 revisão de consulta, redesenho de concorrência e separação de cargas,
-respectivamente. Aumentar a máquina só ajuda de forma clara no segundo estágio, e
-é a resposta aplicada em todos.
+respectivamente. Aumentar a máquina só resolve no segundo estágio; nos outros
+compra prazo, porque a competição volta com o crescimento. E é a resposta aplicada
+em todos.
 
 ## Modelo Mental
 
@@ -150,27 +154,33 @@ dimensões.
 
 **Para exportação em massa.** Vai competir com a operação.
 
-**Como único armazenamento quando já há carga analítica relevante.** A separação
+**Como único armazenamento quando já há carga analítica relevante** — relevante
+no sentido acima: a latência transacional se move quando ela roda. A separação
 deixou de ser opcional.
 
 ## Alternativas
 
-- **[OLAP](/07-data-architecture/olap.md)** — para a carga analítica.
-- **Réplica de leitura** — separação barata, mesmo modelo.
-- **[CQRS](/03-design-patterns/cqrs.md)** — modelos separados.
-- **Cache** — para leitura repetida de dados quentes.
+- **[OLAP](/07-data-architecture/olap.md)** — vence quando a consulta agrega
+  histórico e o modelo normalizado obriga a varrer e juntar muito.
+- **Réplica de leitura** — vence quando o modelo serve à consulta e basta tirar a
+  leitura do primário; tolera atraso de segundos.
+- **[CQRS](/03-design-patterns/cqrs.md)** — vence quando a forma da consulta, e
+  não só a carga, é incompatível com o modelo de escrita.
+- **Cache** — vence para leitura repetida de dados quentes que toleram ficar
+  momentaneamente desatualizados.
 
 ## Trade-offs
 
-| OLTP | OLAP |
-|---|---|
-| Muitas operações pequenas | Poucas operações grandes |
-| Acesso por chave | Varredura |
-| Escrita significativa | Predominantemente leitura |
-| Normalizado | Desnormalizado |
-| Estado atual | Histórico |
-| Latência de milissegundos | Segundos a minutos aceitáveis |
-| Orientado a linha | Frequentemente colunar |
+A comparação de perfil entre as duas cargas está em [OLAP](/07-data-architecture/olap.md).
+Dentro de OLTP, as decisões trocam uma coisa por outra:
+
+| Decisão | Ganha | Perde |
+|---|---|---|
+| Manter operação e relatório na mesma base | Um sistema só, dado sempre atual | Latência transacional refém do relatório |
+| Separar as cargas | Latência previsível na operação | Pipeline a manter, atraso no dado analítico |
+| Mais índices | Leitura seletiva rápida | Custo em toda escrita, contenção de índice |
+| Isolamento mais forte | Menos anomalias de concorrência | Vazão sob contenção, mais bloqueio e aborto |
+| Modelo normalizado | Uma fonte por fato, escrita barata | Junções quando a consulta sai do registro |
 
 ## Modos de Falha
 

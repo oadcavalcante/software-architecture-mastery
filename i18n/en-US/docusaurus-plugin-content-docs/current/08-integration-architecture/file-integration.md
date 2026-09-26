@@ -13,7 +13,7 @@ objective: >
 prerequisites: [batch-integration]
 related: [batch-integration, integration-contracts, data-lifecycle]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -49,7 +49,7 @@ what separates reliable file integration from a permanent source of incidents.
 The reader can start reading while the writer is still writing. The result is a half-processed file — and
 the half looks complete.
 
-The solution is universal and simple:
+The standard solution is simple:
 
 ```text
 1. write under a temporary name    data.csv.tmp
@@ -57,12 +57,14 @@ The solution is universal and simple:
 3. rename to the final name        data.csv
 ```
 
-The rename is atomic on most file systems. The reader never sees a partial file.
+The rename is atomic when source and target are on the same file system — which is why the temporary file
+goes in the same directory as the final name. Under that condition, the reader never sees a partial file.
+Across mount points, the rename becomes a copy plus a delete and the window reopens.
 
-The alternative, when the rename is not atomic: a **control file** written afterward, with the reader only
+The alternative, when the rename is not atomic — network mounts, object storage: a **control file** written afterward, with the reader only
 processing when it exists.
 
-This is the category's most common defect and the easiest to avoid.
+It is among the category's most frequent defects, and avoiding it costs one rename.
 
 ### The file name is part of the contract
 
@@ -74,7 +76,7 @@ PAYMENTS_20260827_001.csv
 The name carries information the processing needs: what it is, from when, and in what order. With no
 sequence, two files from the same day are ambiguous.
 
-And the name is what allows **deduplication**: processing the same file twice is the second most common
+And the name is what allows **deduplication**: processing the same file twice is another frequent
 defect, and a record of already-processed files solves it.
 
 ### Detecting absence matters as much as processing
@@ -95,8 +97,10 @@ ones simply are not there.
 The defense is a footer or a control file with the record count and the sum of the values. The reader
 checks before processing.
 
-That detects truncation, corruption and the line lost in an intermediate filter — none of which show up any
-other way.
+That detects whatever changes the count or the summed field: truncation and the line lost in an
+intermediate filter. It does not detect corruption outside the summed field — this document's Real-World
+Example has a case that ran for three weeks with count and sum matching. For that class, the defense is
+schema and encoding validation on input.
 
 ### Format: delimited text is treacherous
 
@@ -141,7 +145,8 @@ away for free, here you build.
 
 **When latency matters.** The cycle is hours.
 
-**Internally, when there is an alternative.** See
+**Between systems of the same organization that already share a bus.** The file adds a naming contract,
+a footer and retention to operate without gaining anything the bus does not give. See
 [messaging](/08-integration-architecture/messaging-integration.md).
 
 **With no atomic writing.** Partial files processed.
@@ -237,7 +242,8 @@ thousand beneficiaries were not processed, and nobody knew for 11 days. A footer
 sum came to exist, and the processing came to refuse files that do not match.
 
 **Encoding.** One company changed its source system and started sending in another encoding. Every name
-with an accent was written corrupted for three weeks. The contract did not fix the encoding; it came to,
+with an accent was written corrupted for three weeks, with the footer's count and sum matching the whole time — the summed
+field was the amount, and the amount has no accents. The contract did not fix the encoding; it came to,
 with validation on input.
 
 **Accumulated files.** The directory had three years of files with national ID numbers, names and health

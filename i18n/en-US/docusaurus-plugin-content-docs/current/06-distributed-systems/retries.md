@@ -13,7 +13,7 @@ objective: >
 prerequisites: [timeouts, idempotency]
 related: [backoff, idempotency, retry-storms]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -48,7 +48,7 @@ Worse in a chain. If each level retries three times:
 One request becomes 81. Under degradation, when every request is failing, the load at the bottom
 of the chain multiplies by 81.
 
-That is a [retry storm](/12-reliability/index.md), and it is one of the most common failure modes
+That is a [retry storm](/12-reliability/retry-storms.md), and it is one of the most common failure modes
 in distributed systems.
 
 ## Core Concepts
@@ -76,11 +76,13 @@ times, with three times the load.
 An operation that failed with a timeout may have been executed. Retrying with no
 [idempotency](/06-distributed-systems/idempotency.md) duplicates the effect.
 
-That is the rule that admits no exception: **if it is not idempotent, do not retry
-automatically.**
+Hence the rule: **if it is not idempotent, do not retry automatically** — with a
+single exception, the failure in which the request is known not to have reached the server
+(connection refused, DNS error, failure to establish the connection). A timeout does not
+qualify: once the request was sent, the caller cannot tell whether it took effect.
 
-Many HTTP clients retry by default only methods considered safe — `GET`, `PUT`, `DELETE` — and
-not `POST`. That is a reasonable protection and is frequently circumvented by whoever configures
+Many HTTP clients retry by default only idempotent methods — the safe ones, such as `GET`,
+and the state-changing idempotent ones, `PUT` and `DELETE` (RFC 9110, 2022) — and not `POST`. That is a reasonable protection and is frequently circumvented by whoever configures
 generic retries without looking.
 
 ### Attempt limit and budget
@@ -93,7 +95,7 @@ triples the load.
 **Budget.** Limiting the proportion of retries over the total number of requests — for example,
 at most 10% extra attempts in a window. When many things fail, the retry limits itself.
 
-The budget is the most effective protection against a storm, and the least implemented.
+Against a storm, the budget protects where the count fails: under widespread failure, the extra load stays capped at 10% instead of tripling.
 
 ### Retry at one level, not at all of them
 
@@ -148,7 +150,7 @@ When it is degraded, it is exactly what it cannot take.
 
 **Permanent failure.** An invalid request, denied permission, a conflict.
 
-**A non-idempotent operation.** Guaranteed duplication under a timeout.
+**A non-idempotent operation.** Under a timeout, duplication is possible and undetectable by the caller.
 
 **At every level of the chain.** Multiplicative amplification.
 
@@ -225,7 +227,7 @@ The authorization service became slow — it did not go down. Responses went fro
 seconds.
 
 The gateway had three attempts configured, with no backoff. The orders service, which called the
-gateway, also had three. The mobile app retried twice.
+gateway, also had three. The mobile app made two attempts.
 
 One user attempt produced up to 18 calls to the authorization service.
 
@@ -259,7 +261,7 @@ The original degradation was never the problem. The response to it was.
 - [Timeouts](/06-distributed-systems/timeouts.md) — what precedes the retry.
 - [Backoff](/06-distributed-systems/backoff.md) — how to space the attempts.
 - [Idempotency](/06-distributed-systems/idempotency.md) — the prerequisite.
-- [Retry Storms](/12-reliability/index.md) — the failure mode in detail.
+- [Retry Storms](/12-reliability/retry-storms.md) — the failure mode in detail.
 
 ## Practical Exercise
 

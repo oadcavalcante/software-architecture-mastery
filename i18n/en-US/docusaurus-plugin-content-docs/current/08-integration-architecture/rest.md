@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [graphql, grpc, integration-contracts]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -41,8 +41,8 @@ POST /getOrderById
 POST /cancelOrder
 ```
 
-That works, and throws away what the protocol gives. Everything is a `POST`, so nothing is cacheable or
-safe to retry. Errors become a `200` with a `success: false` field, so no intermediary — proxy, gateway,
+That works, and throws away what the protocol gives. Everything is a `POST`, so no real intermediary caches
+the response, and nothing is safe to retry. Errors become a `200` with a `success: false` field, so no intermediary — proxy, gateway,
 client — understands what happened.
 
 The result is an API that has to reimplement, in its own convention, things HTTP already solves.
@@ -128,14 +128,11 @@ maintain.
 
 ### Pagination, filtering and sorting are contract
 
-Large collections need pagination, and the choice has a consequence:
+Large collections need pagination; the choice between offset and cursor, and what each one costs, is in
+[pagination](/05-system-design/pagination.md).
 
-**By offset** — simple, and the page changes if records are inserted during navigation.
-
-**By cursor** — stable under insertion, and it does not allow jumping to an arbitrary page.
-
-Whichever it is, it has to be in the contract — including the maximum limit and what happens when you ask
-for more.
+What is specific to an HTTP API: whichever strategy it is, it has to be in the contract — including the
+maximum limit, the guaranteed ordering and what happens when you ask for more.
 
 ## Mental Model
 
@@ -159,13 +156,17 @@ reimplement worse.
 **When the client needs highly variable fields.** See
 [GraphQL](/08-integration-architecture/graphql.md).
 
-**Very high frequency internal communication.** See [gRPC](/08-integration-architecture/grpc.md) — the
-serialization and connection cost weighs.
+**Very high frequency internal communication.** See [gRPC](/08-integration-architecture/grpc.md). The
+turning point is when the same pair of services exchanges thousands of calls per second, or one user
+request fans out into dozens of chained internal calls: serializing JSON and opening a connection on every
+hop becomes a measurable share of latency and CPU.
 
 **Bidirectional or long-lived flows.**
 
 **Transferring large volumes in batches.** See
-[batch integration](/08-integration-architecture/batch-integration.md).
+[batch integration](/08-integration-architecture/batch-integration.md). It applies when the volume is
+millions of records or gigabytes per run: walking it page by page takes longer than the available window,
+and a failure midway has no clear resume point.
 
 **When the operation is not about a resource.** Forcing a noun onto computations and complex searches
 produces tortured modeling — there an operation endpoint is more honest.
@@ -196,7 +197,7 @@ produces tortured modeling — there an operation endpoint is more honest.
 
 ## Failure Modes
 
-**Everything via `POST`.** Nothing is cacheable or safe to retry.
+**Everything via `POST`.** No intermediary caches, and nothing is safe to retry.
 
 **A `200` with an error in the body.** The client does not know whether to retry.
 
@@ -211,15 +212,20 @@ motivates [GraphQL](/08-integration-architecture/graphql.md).
 
 ## Common Mistakes
 
-**Modeling operations instead of resources.**
+**Modeling operations instead of resources.** The action vanishes once executed: there is nothing to
+query or audit, and each new action becomes one more endpoint whose semantics no intermediary understands.
 
-**Not using the status codes.**
+**Not using the status codes.** Every client reimplements error classification, and the one that gets
+it wrong retries a permanent error indefinitely.
 
-**Not offering an idempotency key on `POST`.**
+**Not offering an idempotency key on `POST`.** The first retry after a network failure creates the
+second record, and deduplication becomes manual work.
 
-**Versioning by reflex.**
+**Versioning by reflex.** Each new version is one more surface to maintain and to retire, created for a
+change that would have fit in compatible evolution.
 
-**Pagination outside the contract.**
+**Pagination outside the contract.** The client comes to depend on observed behavior — default page
+size, implicit ordering — and breaks when the server imposes a limit that did not exist before.
 
 **Exposing the internal database model as a resource.** The resource is part of the public contract; the
 internal model has to be able to change.
@@ -235,15 +241,16 @@ Four consequences, all discovered separately:
 `POST` with no idempotency key, each retry created a new shipment. About 300 duplicated shipments per
 month, handled manually by support.
 
-**No caching.** The shipment status lookup was the most called endpoint — 40% of the traffic — and could
-not be cached because it was a `POST`. The database absorbed everything.
+**No caching.** The shipment status lookup was the most called endpoint — 40% of the traffic — and no cache
+along the path would keep it, because it was a `POST`. The database absorbed everything.
 
 **Error classification in the application.** Each of the eleven clients had its own logic to decide
 whether the text in the `error` field was retryable. Three were wrong, and retried indefinitely on
 permanent errors.
 
-**A useless gateway.** The gateway could not apply rate limits per operation type, nor cache, nor report
-error rates — because everything was a `POST` with a `200`.
+**A useless gateway.** The gateway could only separate reads from writes for rate limiting by enumerating
+the 40 paths one by one; it could not cache nor report error rates — because everything was a `POST` with
+a `200`.
 
 The migration was done in parallel, with the old API kept for fourteen months.
 
@@ -271,8 +278,9 @@ that existed only to compensate for a protocol guarantee that was being wasted.
 
 Take your team's API and count how many endpoints are `POST`. For each one, ask: does this change state?
 
-The ones that do not should be `GET` — and each one is caching and safe retries you are leaving on the
-table.
+The ones that do not should be `GET`, except the search too complex to fit in the URL — the When Not to
+Use case where an operation endpoint is more honest. Each of the rest is caching and safe retries you are
+leaving on the table.
 
 ## Interview Questions
 

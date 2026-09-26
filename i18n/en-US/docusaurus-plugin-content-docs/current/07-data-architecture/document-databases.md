@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, denormalization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -176,16 +176,21 @@ column. That covers a good part of the cases without giving up transactions and 
 
 ## Common Mistakes
 
-**Nesting a collection that grows without limit.**
+**Nesting a collection that grows without limit.** The bill arrives when the document hits the
+ceiling: moving the collection out requires migrating data in production and rewriting every read
+that relied on it being nested.
 
-**Not declaring any validation.**
+**Not declaring any validation.** Each writer stores the format it thinks is right, and the cost
+shows up in the reading code, which ends up handling every variant.
 
-**Copying live data with no update plan.**
+**Copying live data with no update plan.** The first change to the original value becomes a bulk
+update, and until it finishes the documents disagree with each other.
 
 **Modeling as if they were tables** — one document per entity, with references between them,
 reproducing relational without its guarantees.
 
-**Choosing it for being "schemaless".**
+**Choosing it for being "schemaless".** The decision was made on what the database waives, not on
+the access pattern — and when queries cross entities, the model charges for joins in the application.
 
 ## Real-World Example
 
@@ -193,12 +198,13 @@ A content platform modeled articles as documents: title, body, author, tags and 
 
 It worked for two years. Then:
 
-**Documents overflowing.** Popular articles accumulated thousands of comments. One reached 14 MB and
-started failing on write — the database's limit was 16 MB. The comments were moved to their own
+**Documents overflowing.** Popular articles accumulated thousands of comments. One got close to the
+database's 16 MB limit, and every write that added a comment and would push the document past the
+ceiling started being rejected. The comments were moved to their own
 collection, with a reference to the article.
 
 **The author's name duplicated.** Each article stored the author's name. When an author changed their
-name, 40 thousand documents had to be updated. The name became a reference, and the interface fetches
+name, the 3 thousand articles carrying the old name had to be rewritten. The name became a reference, and the interface fetches
 it separately.
 
 **Coexisting formats.** With no validation, three tag formats coexisted: a list of strings, a list of

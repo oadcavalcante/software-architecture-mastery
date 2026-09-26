@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, service-mesh, schema-evolution]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -35,8 +35,9 @@ edge, the tooling cost usually exceeds the benefit.
 Between internal services, an HTTP API with JSON pays for things that have no value there.
 
 Serializing and deserializing text costs CPU. The loose contract allows divergence between what one side
-sends and the other expects — discovered in production. One connection per request takes advantage of
-nothing.
+sends and the other expects — discovered in production. With HTTP/1.1, even with a connection pool, each connection
+serves one request at a time: concurrent calls need more connections, and a slow response blocks the ones
+behind it.
 
 In a mesh with dozens of services and millions of internal calls per minute, those costs stop being a
 detail.
@@ -75,7 +76,9 @@ message Order {
 ```
 
 Practical consequences: renaming a field is compatible, because the number does not change. Reusing a
-removed number is catastrophic, because old data will be interpreted with the new type.
+removed number is catastrophic: if the new type shares the old one's wire encoding (`int32` and `bool`, for
+example), old data will be interpreted with the new meaning, with no error; if it does not, the reader
+silently discards the field and keeps the default value.
 
 That is why `reserved` exists and why it is not optional. See
 [schema evolution](/08-integration-architecture/schema-evolution.md).
@@ -89,7 +92,9 @@ client streaming  many requests, one response
 bidirectional     both sides send continuously
 ```
 
-The three streaming modes are the capability REST does not have without resorting to another protocol.
+Server streaming has a native form in HTTP, through chunked responses or server-sent events; what gRPC adds
+there is a typed contract. Client streaming and bidirectional streaming are the capability REST does not
+have without resorting to another protocol.
 Continuous synchronization, telemetry and live feeds fit naturally.
 
 ### The cost is tooling, and it is serious
@@ -173,7 +178,7 @@ The last deserves emphasis: the two choices do not compete when they occupy diff
 |---|---|
 | Binary and compact | Text, readable |
 | Strong generated contract | Frequently loose |
-| Native streaming | Needs another protocol |
+| Native streaming in all four modes | Client and bidirectional streaming need another protocol |
 | Specialized tooling | Universal |
 | No HTTP caching | With caching |
 | Propagated deadline | Manual |
@@ -225,8 +230,9 @@ gRPC.
 
 The numbers measured after the migration:
 
-**Latency between services** dropped from 12 ms to 4 ms at the median — most of the gain came from the
-persistent multiplexed connection, not from the serialization.
+**Latency between services** dropped from 12 ms to 4 ms at the median — most of the gain came from
+multiplexing concurrent calls over a few connections, in place of the HTTP/1.1 pool with one request per
+connection, not from the serialization.
 
 **CPU usage** of the services dropped about 18%, mostly in serialization.
 
@@ -241,14 +247,15 @@ diagnosis took two weeks, because the aggregate metrics looked normal. Solved wi
 and, later, with a service mesh.
 
 **A reused field number.** A developer removed a field `int32 status = 4` and, months later, another added
-`string category = 4`. Services with the old contract version read the category as an integer. The
+`int32 priority = 4`. Since both types share the same wire encoding, services with the old contract version
+read the priority as the status, with no error. The
 corrupted data went into the database. The review passed because the old contract was no longer in the
 repository for comparison. `reserved` came to be enforced by an automated check.
 
 And a deliberate decision: **the public API stayed in REST**, with the gateway translating. The proposal to
 expose gRPC to partners was refused after two of them reported having no support.
 
-The later assessment points out: balancing is the risk nobody anticipates. gRPC is presented as a direct
+The later assessment points out: balancing is the risk that goes unnoticed in adoptions without a service mesh. gRPC is presented as a direct
 replacement for HTTP, and the difference in connection behavior changes operations in a way that appears in
 no performance comparison.
 

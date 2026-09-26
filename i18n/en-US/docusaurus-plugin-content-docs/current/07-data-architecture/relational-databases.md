@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [nosql, transactions, normalization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -78,6 +78,11 @@ The schema is the only point where the rule holds for everyone.
 The argument that relational does not scale is from an era with different hardware. A modern instance
 holds tens of terabytes and tens of thousands of transactions per second.
 
+The ceiling that usually arrives first is cost, not technology. Instances are bought in steps that
+double the price, the failover replica has to be the same size, and on a commercial database the
+license is charged per core. The honest calculation compares that bill with the cost of operating a
+distributed model — not the performance of the two.
+
 Most systems that abandon relational for scale never came close to that limit — and frequently the
 problem was an [index](/07-data-architecture/indexing.md) or mixed workloads.
 
@@ -88,7 +93,9 @@ Being specific, because the list is short:
 **Globally distributed writes.** Multiple regions accepting writes for the same data. See
 [PACELC](/06-distributed-systems/pacelc.md).
 
-**Extreme volume of simple writes.** Telemetry, events, time series at millions per second.
+**Extreme volume of simple writes.** Telemetry, events, time series in the millions of writes per
+second, sustained. Below that, batched writes and time-based partitioning keep the load on one
+instance; in that range, they do not.
 
 **Deep relationship traversal.** Queries of several levels of depth. See
 [graph databases](/07-data-architecture/graph-databases.md).
@@ -97,7 +104,9 @@ Being specific, because the list is short:
 
 **Large-scale analytics.** See [columnar](/07-data-architecture/column-stores.md).
 
-**Full-text search with relevance.** An inverted index solves it; relational does not.
+**Full-text search beyond what the database offers.** Native full-text search already tokenizes and
+ranks by relevance, and serves many collections. A dedicated inverted index is justified by facets,
+typo tolerance and tunable relevance at scale. See [search](/05-system-design/search.md).
 
 ### A system can use more than one
 
@@ -123,17 +132,25 @@ comparison.**
 
 ## When Not to Use
 
-**Globally distributed writes active in several regions.**
+Each case in the list above becomes a mistake from a certain condition on, and the condition is what
+you should check:
 
-**Massive ingestion of events or time series.**
+**Writes active in several regions** when a write cannot wait for the round trip between them — tens
+to hundreds of milliseconds per coordination.
 
-**Deep graph traversal.**
+**Ingestion of events or time series** when the sustained throughput exceeds what the instance absorbs
+even with batched writes.
 
-**Documents with no common schema.**
+**Graph traversal** when the depth is variable or goes past three or four hops: each level is one more
+join, and the cost grows with each node's degree.
 
-**Analytics over billions of rows.**
+**Documents with no common schema** when the variable fields are queried, not just stored and read
+whole.
 
-**Full-text search with relevance.**
+**Analytics over billions of rows** when queries scan few columns of many rows — row storage reads
+every column.
+
+**Full-text search** when the requirement exceeds what native search provides.
 
 **Cache.** A relational database as a cache is a waste; use a
 [key-value](/07-data-architecture/key-value-databases.md) store.
@@ -157,7 +174,8 @@ comparison.**
 | Unforeseen queries | Optimized for the foreseen |
 | Integrity in the store | In the code |
 | Vertical scaling, distributing is expensive | Native horizontal scaling |
-| Mature tooling | Varies |
+| Mature tooling, interchangeable across products | Tooling specific to each product |
+| Schema migration on a large table needs a strategy | Schema changes with no migration; the cost moves to reads |
 | Efficient joins | Frequently absent |
 
 ## Failure Modes
@@ -165,14 +183,16 @@ comparison.**
 **A slow query from a missing index.** The most common cause, and the one most confused with a scale
 limit.
 
-**Contention on a hot record.**
+**Contention on a hot record.** Write latency rises only for certain keys — a balance, a counter —,
+with lock waits and timeouts concentrated on one endpoint.
 
 **A schema migration locking the table.** On large tables, a badly planned change causes
 unavailability.
 
 **Exhausted connections.** The connection limit is usually reached before any data limit.
 
-**A long transaction holding locks.**
+**A long transaction holding locks.** Queries that were fast start waiting without using CPU; the
+session list shows one transaction open for minutes ahead of all of them.
 
 **A join over analytical volume.** The wrong workload in the wrong place.
 

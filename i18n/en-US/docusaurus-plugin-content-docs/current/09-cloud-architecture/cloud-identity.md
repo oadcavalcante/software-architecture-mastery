@@ -11,9 +11,9 @@ objective: >
   By the end, the reader grants permissions by the least privilege necessary and
   eliminates long-lived credentials.
 prerequisites: [cloud-architecture]
-related: [cloud-networking, vendor-lock-in, managed-services]
+related: [cloud-networking, vendor-lock-in, managed-services, identity, least-privilege, auditability]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -79,43 +79,46 @@ That holds for compute inside the cloud, and increasingly for external systems, 
 
 ### Federation instead of separate accounts
 
-People should sign in with the corporate identity, not with accounts created inside the cloud.
+People should sign in with the corporate identity, not with users created inside the provider. The
+mechanism and the deprovisioning gain are in [identity](/10-security/identity.md); what is specific to the
+cloud is where the local account is born.
 
-That solves the most persistent problem: **deprovisioning**. When somebody leaves the company, cloud access
-ends with it, because no separate account exists.
-
-Without federation, former employees' accounts remain — and they show up in every audit.
+Every provider offers a local user with a password and an access key, and it is the shortest path on day
+one. That user sits outside the corporate directory: deactivating the person there does not reach it, and
+the key issued to it stays valid.
 
 ### Account boundaries are the real isolation
 
 Permissions inside an account are configuration; separate accounts are a boundary.
 
-Separating production from development into distinct accounts guarantees that a mistake in development does
-not reach production, regardless of any policy.
+Separating production from development into distinct accounts makes the default no access between them: a
+mistake in development only reaches production through an explicitly granted path — a cross-account trust
+role, interconnected networks, a pipeline with permission in both. Each of those paths is a policy and needs
+the same rigor; the difference is that they are few, named and auditable.
 
 It is also what allows backups to be isolated meaningfully. See
 [disaster recovery](/09-cloud-architecture/disaster-recovery.md).
 
-Separation by account is more robust and less subject to human error than any policy inside a single
-account.
+That is why separation by account is less subject to human error than policy inside a single account:
+there, isolating requires getting every denial right; here, breaking the isolation requires getting one
+explicit grant wrong.
 
 ### Privilege escalation is subtle
 
-A permission to change permission policies is, effectively, permission for everything — whoever can grant
-themselves access already has it.
+The list of permissions that amount to permission for everything is in
+[least privilege](/10-security/least-privilege.md). Two of them take a form of their own in the cloud.
 
-The same holds for: creating identities, attaching roles to instances, changing audit log configuration,
-and assuming broader roles.
+**Attaching a role to an instance.** Whoever can launch a machine with a role broader than their own, and
+log into it, gets to act with that role.
 
-Those permissions deserve separate treatment, and they rarely belong to an application.
+**Assuming a role in another account.** A trust relationship written as "any identity in account X"
+transfers to the target account whatever is loosest in account X.
 
 ### Auditing needs to be tamper-proof
 
-The record of who did what is what allows investigation. If it can be deleted by whoever has access to the
-environment, it does not serve to investigate a compromise.
-
-An audit log in a separate account, with writes allowed and deletion denied, is the configuration that
-sustains the investigation.
+The properties of a tamper-proof record are in [auditability](/10-security/auditability.md). The cloud
+decision is where it lives: in a dedicated account that the others can only write to — so compromising the
+audited account gives no access to its record.
 
 ## Mental Model
 
@@ -124,7 +127,9 @@ do.
 
 ## When to Use
 
-These practices always apply. Special priority when:
+Temporary credentials and least privilege apply as soon as an identity has access to the environment.
+Federation pays off once there is a corporate directory and more than one person; a separate account per
+environment, once somebody is there to operate the extra account. Special priority when:
 
 - There is sensitive or regulated data.
 - Several teams share the environment.
@@ -133,17 +138,22 @@ These practices always apply. Special priority when:
 
 ## When Not to Use
 
-**A broad permission to fix it quickly.** It stays.
+**Federation in a one-person, one-account environment.** With no corporate directory, standing up an
+identity provider just to federate costs more than deactivating a local user by hand. The cutoff is when the
+headcount makes manual deprovisioning something somebody can forget.
 
-**Long-lived credentials**, when a temporary alternative exists.
+**Temporary credentials for an integration that does not support them.** A third-party service that only
+accepts a static key does not become a role by your decision. The key stays, with minimal reach, in a
+secrets manager and with rotation — forcing a credential-exchange intermediary adds a part that fails
+without reducing the key's risk.
 
-**Local accounts for people**, instead of federation.
+**Per-resource granularity beyond the provider's limit.** Policies have a maximum size. Listing thousands of
+resources individually blows that limit and produces a policy nobody can read; at that point, restricting by
+tag or by name prefix is the practicable least privilege.
 
-**Production and development in the same account.**
-
-**Permission to change policies** on an application identity.
-
-**An audit log in the same account** it audits.
+**A separate account per environment with nobody to operate it.** One more account needs its own network,
+security baseline, billing and access. A two-person team on a prototype with no real data pays that cost
+before it has anything to isolate.
 
 ## Alternatives
 
@@ -162,6 +172,7 @@ To reduce risk without rewriting the policy:
 | Contained damage | Total reach |
 | Laborious configuration | Fast |
 | Permission errors in development | None |
+| A missing permission that breaks a rare path in production | None |
 | Periodic review necessary | None |
 
 | A temporary credential | A long-lived key |
@@ -169,6 +180,12 @@ To reduce risk without rewriting the policy:
 | Nothing to leak permanently | It leaks and does not expire |
 | Automatic rotation | Manual, or never |
 | More initial configuration | Trivial |
+
+| Separate accounts | A single account |
+|---|---|
+| Isolation by default | Isolation depends on every policy |
+| Network, baseline and billing per account | One of each |
+| Cross-account access to design | Implicit access |
 
 ## Failure Modes
 
@@ -200,8 +217,9 @@ key.
 company, because the deactivation happens in the corporate directory and does not reach there.
 
 **Not separating environments into accounts.** With no account boundary, a permission mistake in
-development reaches production. The separation is the strongest limit the provider offers and it costs
-nothing.
+development reaches production. The separation is the strongest limit the provider offers and carries no license
+cost; the cost is operational — network, baseline and access per account — and it is smaller than
+discovering the problem in production.
 
 **Not reviewing unused permissions.** Permissions only grow by accumulation. The providers report what has
 not been exercised in months, and that list is the safest removal list there is.
@@ -237,7 +255,7 @@ What the later audit found in the environment:
 
 Rebuilding the access model took five months:
 
-**Every long-lived key eliminated.** Applications came to use roles; the pipeline came to use federation.
+**32 of the 34 long-lived keys eliminated.** Applications came to use roles; the pipeline came to use federation.
 Two keys remained, for external integrations that supported nothing else — both with automatic rotation and
 minimal reach.
 
@@ -250,9 +268,9 @@ minimal reach.
 **A quarterly review** based on actual usage. The first reduced the granted permissions by around 80%
 without breaking anything.
 
-The recorded conclusion: the last number is the most revealing. Four fifths of the granted permissions had
-never been exercised — they existed only out of caution, and it was exactly that caution that defined the
-size of the damage.
+The recorded conclusion: the size of the damage was defined by a single identity — a reporting script that
+needed to read, holding administrator permission granted for convenience. And the first review showed the
+pattern survives even a carefully rebuilt model: four fifths of what it granted was still not exercised.
 
 ## Related Concepts
 
@@ -276,6 +294,7 @@ Then take your main application's identity and compare what it can do with what 
 
 ## Further Reading
 
-- The major providers' identity best practices documentation.
-- NIST SP 800-207 — zero trust architecture.
-- OWASP. *Cloud-Native Application Security Top 10*.
+- Rose, S. et al. *Zero Trust Architecture*. NIST SP 800-207, 2020.
+- Grassi, P. et al. *Digital Identity Guidelines*. NIST SP 800-63-3, 2017.
+- Jones, M. et al. *OAuth 2.0 Token Exchange*. RFC 8693, 2020 — the basis of the token exchange that lets
+  pipelines federate without a static key.

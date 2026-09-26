@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, schema-evolution, integration-anti-corruption]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -148,7 +148,9 @@ any public endpoint.
 **With no consumer monitoring.** See
 [messaging integration](/08-integration-architecture/messaging-integration.md).
 
-**As a global choice.** Mixing it with synchronous integration is the correct design.
+**As a global choice.** Where a query's caller needs the answer to continue, forcing it into events
+recreates the wait through reply correlation; there synchronous integration fits, and events are left for
+the asynchronous consequences.
 
 ## Alternatives
 
@@ -159,8 +161,11 @@ any public endpoint.
   adopt, and it publishes the internal model — with all the coupling that brings.
 - **Periodic polling** — simpler, and sufficient when the delay is acceptable.
 
-The third deserves the warning: capturing database changes is frequently sold as event-driven integration,
-and it is exactly the anti-pattern described above — the table's schema becomes a public contract.
+The third deserves the warning: capturing changes to the model's tables is frequently sold as event-driven
+integration, and it is exactly the anti-pattern described above — the table's schema becomes a public
+contract. Applied to a [transactional outbox](/08-integration-architecture/messaging-integration.md), whose
+rows are already the translated integration event, capture is only the publishing mechanism: the contract is
+still what the translation decided.
 
 ## Trade-offs
 
@@ -217,8 +222,8 @@ requires every consumer to update at the same instant — the coordination the e
 addition of a new field, which should be a compatible change. Reading only what you use is what lets the
 publisher evolve.
 
-**Confusing database change capture with event integration.** Capturing table changes publishes the
-physical schema outward. It is coupling to the database with the appearance of an event — and the worst
+**Confusing database change capture with event integration.** Capturing changes to the model's tables
+publishes the physical schema outward. It is coupling to the database with the appearance of an event — and the worst
 kind, because it looks decoupled.
 
 ## Real-World Example
@@ -286,7 +291,7 @@ public contract.
 
 - What is the difference between an internal and an integration event, and why does it matter?
 - When is a fat event preferable to a thin one, and vice versa?
-- Why is capturing database changes not event-driven integration?
+- Why is capturing changes to the model's tables not event-driven integration, and what changes when the capture reads an outbox?
 
 ## Further Reading
 

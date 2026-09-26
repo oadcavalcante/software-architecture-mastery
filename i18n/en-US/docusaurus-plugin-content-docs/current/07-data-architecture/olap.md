@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oltp]
 related: [data-warehouses, column-stores, denormalization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -73,7 +73,7 @@ The criterion that holds in [OLTP](/07-data-architecture/oltp.md) inverts. Since
 concurrent writes and the queries scan, [denormalizing](/07-data-architecture/denormalization.md)
 eliminates joins with no relevant maintenance cost.
 
-It is the reason dimensional models — a fact at the center, dimensions around it — dominate analytical
+It is the reason [dimensional models](/07-data-architecture/data-warehouses.md) — a fact at the center, dimensions around it — dominate analytical
 design.
 
 ### Pre-aggregation trades space for time
@@ -86,10 +86,13 @@ periodic check that the two match is the control that is usually missing.
 
 ### Analytical data is historical, and that changes everything
 
-Analytical records do not change after being written. That allows partitioning by time, compressing
-aggressively, archiving to cheap storage and reprocessing with no coordination.
+A recorded fact — a sale, a click — does not change after being written. That allows partitioning by
+time, compressing aggressively, archiving to cheap storage and reprocessing with no coordination.
 
-An analytical system that treats the data as mutable is paying a cost it does not have to pay.
+The changes that do happen — a late-arriving fact, a load correction, deletion for retention — arrive
+in batches and by period, not row by row. That is why the unit of change is the partition: the whole
+day is deleted and rewritten, as in the Real-World Example below. An analytical system that treats
+each record as individually mutable is paying a cost it does not have to pay.
 
 ### Self-service has a cost nobody budgets
 
@@ -232,8 +235,9 @@ mandatory partition filter and a per-user quota.
 Decisions were made on stale information. The fix was trivial and should have existed from the start:
 a "data through" stamp on each dashboard.
 
-The team records the third as the most embarrassing — it cost one line of interface and generated the
-only real business consequence of the three.
+The team records the third as the most embarrassing — it cost one line of interface, the cheapest fix
+of the three, and it was the only one whose damage fell on decisions rather than on cost or on a number
+someone eventually checked.
 
 ## Related Concepts
 

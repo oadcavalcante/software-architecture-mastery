@@ -13,7 +13,7 @@ objective: >
 prerequisites: [paas]
 related: [paas, vendor-lock-in, managed-services]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -45,7 +45,8 @@ not building by reflex what already exists ready-made.
 
 The criterion that resolves most cases:
 
-**Is this a source of competitive advantage?** If customers choose you because of it, build. If not, buy.
+**Is this a source of competitive advantage?** If customers choose you because of it, build. If not, buy. The total-cost
+math, with staff and maintenance, is in [Build vs. Buy](/20-trade-offs/build-vs-buy.md).
 
 A shipping company that builds its own routing engine may be right — route efficiency is the business. The
 same company building a ticketing system is spending capacity on what does not distinguish it.
@@ -59,7 +60,9 @@ typically because "our case is different" — and it is almost never different e
 
 **Their data model.** Your data goes into the structure they define.
 
-**Their availability.** If they go down, you go down — with no action possible. That needs to enter your
+**Their availability.** If they go down, the functionality goes down with them, and you have no action on
+their system; the only action is the one prepared beforehand — degradation, or a minimal independent path
+for what is critical. That needs to enter your
 availability calculation. See [availability](/06-distributed-systems/availability.md).
 
 **Continuity risk.** Vendors are acquired, change strategy, discontinue products.
@@ -129,17 +132,24 @@ becomes a cost problem.
 
 ## When Not to Use
 
-**When it is the competitive differentiator.**
+**When it is the competitive differentiator.** Customers choose you because of it; buying hands the vendor
+the roadmap of what distinguishes you.
 
-**When data export is poor.**
+**When data export is poor.** It does not bring the history, or it comes out in a format you cannot reload
+into another system within the time a vendor switch would tolerate.
 
-**When their availability does not fit your requirement.**
+**When their availability does not fit your requirement.** They sit on the synchronous path, and the
+composite availability in series — theirs multiplied by yours — falls below what you promise.
 
-**When compliance cannot be outsourced.**
+**When compliance cannot be outsourced.** Regulation requires direct control over where the data resides or
+over the audit of the flow, and the vendor does not provide that guarantee.
 
-**Without evaluating the integration cost.**
+**When integration costs more than building.** Two-way synchronization, identity and anti-corruption, added
+up, can exceed the cost of maintaining the functionality — and without that math done, the decision has not
+been made.
 
-**Many overlapping SaaS products** with neither inventory nor governance.
+**When the function is already covered by another SaaS in the house.** An overlapping tool, with neither
+inventory nor governance, adds scattered data and accounts to deprovision, not capability.
 
 ## Alternatives
 
@@ -154,7 +164,7 @@ becomes a cost problem.
 | Buying | Building |
 |---|---|
 | Available now | Months |
-| No maintenance | Continuous |
+| No product maintenance; the integration's remains | Product and integration, continuous |
 | The vendor's functionality | Exactly what you need |
 | Predictable subscription cost | Engineering cost |
 | Dependency and continuity risk | Control |
@@ -162,7 +172,8 @@ becomes a cost problem.
 
 ## Failure Modes
 
-**Vendor unavailability.** With no action possible.
+**Vendor unavailability.** Nothing to do about their system; only what was prepared beforehand remains —
+degradation or a minimal independent path.
 
 **A price change.**
 
@@ -209,8 +220,8 @@ nothing the company sold.
 
 The replacement with SaaS was done for three of the four:
 
-**Ticketing, monitoring and human resources** replaced. The four engineers went back to the routing engine,
-which is the product's real differentiator.
+**Ticketing, monitoring and human resources** replaced. Three of the four full-time equivalents went back to the
+routing engine, which is the product's real differentiator; the fourth stayed on document management.
 
 **Document management stayed internal.** The approval flow was specific to the regulated sector the company
 operates in, and no product served it without extensive customization. A recorded decision, with the
@@ -229,7 +240,8 @@ the internal system took twice the estimate, and became recurring maintenance.
 that was supposed to warn about problems had a problem, and there was no alternative. A minimal independent
 monitoring came to exist, for the critical path only.
 
-In retrospect: the decision to buy was clearly positive. What was missing was budgeting the integration as
+In retrospect: the decision to buy was positive by the criterion that motivated it — capacity returned to
+the differentiator — even with the recurring integration consuming part of what was freed. What was missing was budgeting the integration as
 a project — it was treated as a detail of the acquisition and consumed more time than evaluating the
 vendors.
 
@@ -237,6 +249,7 @@ vendors.
 
 - [PaaS](/09-cloud-architecture/paas.md) and [IaaS](/09-cloud-architecture/iaas.md) — the models below.
 - [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md).
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — total cost and build bias.
 - [Integration Contracts](/08-integration-architecture/integration-contracts.md).
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md).
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [relational-databases, data-modeling, denormalization]
 canonical_for: [banco de documentos, agregado de documento]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -185,16 +185,23 @@ documentos precisa mudar.
 
 ## Erros Comuns
 
-**Aninhar coleção que cresce sem limite.**
+**Aninhar coleção que cresce sem limite.** A conta chega quando o documento
+encosta no teto: mover a coleção para fora exige migrar dados em produção e
+reescrever toda leitura que contava com ela aninhada.
 
-**Não declarar nenhuma validação.**
+**Não declarar nenhuma validação.** Cada escritor grava o formato que acha certo,
+e o custo aparece no código de leitura, que passa a tratar todas as variantes.
 
-**Copiar dado vivo sem plano de atualização.**
+**Copiar dado vivo sem plano de atualização.** A primeira mudança do valor
+original vira atualização em massa, e até ela terminar os documentos discordam
+entre si.
 
 **Modelar como se fossem tabelas** — um documento por entidade, com referências
 entre eles, reproduzindo o relacional sem as garantias dele.
 
-**Escolher por "sem esquema".**
+**Escolher por "sem esquema".** A decisão foi tomada pelo que o banco dispensa,
+não pelo padrão de acesso — e quando as consultas cruzam entidades, o modelo
+cobra junções na aplicação.
 
 ## Exemplo Real
 
@@ -204,11 +211,13 @@ etiquetas e comentários aninhados.
 Funcionou por dois anos. Depois:
 
 **Documentos estourando.** Artigos populares acumulavam milhares de comentários.
-Um chegou a 14 MB e passou a falhar na escrita — o limite do banco era 16 MB. Os
+Um chegou perto dos 16 MB do limite do banco, e toda gravação que acrescentava
+comentário e faria o documento ultrapassar o teto passou a ser recusada. Os
 comentários foram movidos para coleção própria, com referência ao artigo.
 
 **Nome do autor duplicado.** Cada artigo guardava o nome do autor. Quando um autor
-mudou de nome, foi preciso atualizar 40 mil documentos. O nome virou referência, e
+mudou de nome, foi preciso reescrever os 3 mil artigos que carregavam o nome
+antigo. O nome virou referência, e
 a interface passa a buscá-lo separadamente.
 
 **Formatos coexistindo.** Sem validação, três formatos de etiqueta conviviam:

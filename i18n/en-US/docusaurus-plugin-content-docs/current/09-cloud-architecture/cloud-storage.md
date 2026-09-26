@@ -11,9 +11,9 @@ objective: >
   By the end, the reader chooses the storage type by the access pattern and
   configures classes and retention consciously.
 prerequisites: [cloud-architecture]
-related: [cloud-compute, cost-architecture, data-lifecycle]
+related: [file-storage, cdn, cloud-compute, cost-architecture, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -34,6 +34,9 @@ high durability, and it is not a file system.
 Choosing wrong among them is the origin of high costs and of limitations that appear late.
 
 ## Problem
+
+Why user files on a local disk break under horizontal scaling is covered in
+[file storage](/05-system-design/file-storage.md). What matters here is what the cloud adds.
 
 The reflex is to use what is familiar: a disk. An application that writes files to the file system keeps
 doing that in the cloud, with an attached disk.
@@ -57,8 +60,9 @@ The superficial resemblance is deceptive:
 **Listing is expensive.** Listing millions of keys with a prefix is a costly operation, in time and in
 billing.
 
-**Consistency.** Today, read-after-write is strong at most providers; listing can take a while to reflect
-changes.
+**Consistency.** At the three major providers, read-after-write and listing are strongly consistent: a
+freshly written object already shows up in the listing. What arrives late are the asynchronous copies —
+cross-region replication and inventory reports.
 
 Treating objects like a disk produces bad access patterns — the most common is listing to find something,
 when the key should be derivable.
@@ -133,21 +137,22 @@ shared.** The wrong choice shows up on the invoice or at the limit.
 
 ## When Not to Use
 
-**Objects as a file system**, with listing to locate things.
+**Objects as a file system**, when the application depends on partial modification, bulk renames or
+listing to locate things — a sign that the key is not derivable and the wrong model was chosen.
 
-**Blocks for user files.** Expensive, stuck in a zone, with a size to manage.
+**Blocks for user files**, from the moment more than one instance needs to read the same file or the volume
+grows with no predictable ceiling. Expensive, stuck in a zone, with a size to manage.
 
-**Files out of convenience**, when objects solve it. It is the most expensive of the three.
+**Files out of convenience**, when the application can read and write whole objects. It is the most
+expensive of the three and only pays off when several machines need shared file system semantics — locks,
+partial writes — and rewriting is not an option.
 
-**A cold class without checking the access pattern.**
-
-**With no lifecycle rules.**
-
-**Versioning with no rule for the old versions.**
+**A cold class** when a month's retrieval charges exceed the month's storage saving, or when the
+application does not tolerate the class's retrieval latency.
 
 ## Alternatives
 
-- **A content delivery network** in front of objects — it reduces egress cost and latency.
+- **[A content delivery network](/05-system-design/cdn.md)** in front of objects — it reduces egress cost and latency.
 - **A database** for structured data — storage is not a substitute.
 - **A cache** for what is read repeatedly.
 - **Local ephemeral storage** for temporary processing data — faster and cheaper than a persistent disk.
@@ -238,6 +243,7 @@ generated an incident before becoming a configuration.
 
 ## Related Concepts
 
+- [File Storage](/05-system-design/file-storage.md).
 - [Cloud Compute](/09-cloud-architecture/cloud-compute.md).
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md).

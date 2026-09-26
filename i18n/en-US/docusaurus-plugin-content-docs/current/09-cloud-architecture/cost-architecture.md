@@ -11,9 +11,9 @@ objective: >
   By the end, the reader estimates the cost of an architectural decision before
   implementing it, and recognizes the structural forms of waste.
 prerequisites: [cloud-architecture]
-related: [managed-services, serverless, cloud-storage]
+related: [managed-services, serverless, cloud-storage, cost-management]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -70,6 +70,9 @@ If the total cost doubles and the number of orders doubles, everything is fine. 
 orders grow 20%, the architecture got worse.
 
 That metric rarely exists, and without it there is no way to distinguish healthy growth from degradation.
+Choosing the economic unit is covered in [cost management](/23-architecture-leadership/cost-management.md);
+what matters here is that, in the cloud, it can be computed straight from the invoice, per service, once
+tagging is in place.
 
 ### The structural forms of waste
 
@@ -99,7 +102,9 @@ None of them is micro-optimization. All of them are architecture or discipline.
 ### Tagging is a prerequisite for everything
 
 Without tagging resources by team, product and environment, there is no way to attribute cost — and with no
-attribution, nobody is responsible.
+attribution, nobody is responsible. Why to attribute, and to whom, is in
+[cost management](/23-architecture-leadership/cost-management.md); in the cloud, the tag is the mechanism that
+makes it possible.
 
 The effect of making cost visible per team is usually greater than that of any technical optimization:
 people who see their own number act on it.
@@ -176,7 +181,6 @@ To reduce cost without changing architecture:
 | Less idle capacity | Headroom for peaks |
 | Reactive scaling | Capacity ready |
 | Colder storage | Immediate access |
-| Less redundancy | More |
 | More risk under peak | More predictable |
 
 | Reserved | On demand | Interruptible |
@@ -191,11 +195,14 @@ To reduce cost without changing architecture:
 
 **A surprise invoice.** A loop that queries excessively, a process that did not finish.
 
-**Orphan resources accumulating.**
+**Orphan resources accumulating.** The sweep finds volumes and addresses with no tag and no owner, and
+the storage line grows without any new service having gone up.
 
-**Cross-zone transfer dominating the bill.**
+**Cross-zone transfer dominating the bill.** The transfer line climbs month after month with no matching
+increase in external traffic — calls that started crossing zones after a routing or deployment change.
 
-**Infinite retention.** Years of logs nobody queries.
+**Infinite retention.** The log storage line grows with time, not with use, and nobody can say who
+queries the data older than a year.
 
 **Scaling with no ceiling.** A defect generates load and the bill follows.
 
@@ -269,6 +276,7 @@ bureaucracy before that.
 - [Serverless](/09-cloud-architecture/serverless.md) — another billing model.
 - [Data Lifecycle](/07-data-architecture/data-lifecycle.md) — retention.
 - [Availability Zones](/09-cloud-architecture/availability-zones.md) — transfer.
+- [Cost Management](/23-architecture-leadership/cost-management.md) — the economic unit and cost attribution, beyond the cloud scope.
 
 ## Practical Exercise
 
@@ -286,7 +294,7 @@ trend says more than the absolute value.
 
 ## Further Reading
 
-- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2nd ed. O'Reilly, 2023.
-- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2ª ed. O'Reilly, 2023 — atribuição de
-  custo por marcação de recursos.
-- The major providers' cost best practices documentation.
+- Storment, J.R.; Fuller, Mike. *Cloud FinOps*. 2nd ed. O'Reilly, 2023 — cost attribution through resource
+  tagging.
+- Amazon Web Services. *Cost Optimization Pillar — AWS Well-Architected Framework*.
+  AWS, 2023 — the billed dimensions and the structural forms of waste from a provider's point of view.

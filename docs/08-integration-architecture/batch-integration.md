@@ -2,7 +2,7 @@
 id: batch-integration
 title: Integração em Lote
 sidebar_position: 7
-description: Processar muitos registros de uma vez — o estilo que move mais dados corporativos que todos os outros somados.
+description: Processar muitos registros de uma vez — o estilo que sustenta fechamento, conciliação e carga analítica entre sistemas corporativos.
 doc_type: concept
 level: 5
 difficulty: intermediário
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [file-integration, messaging-integration, data-lifecycle]
 canonical_for: [integração em lote, janela de processamento, carga incremental]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -24,9 +24,9 @@ last_reviewed: 2026-08-27
 Integração em lote processa um conjunto grande de registros de uma vez, em
 intervalos definidos.
 
-É o estilo menos discutido e o mais usado: folha de pagamento, conciliação
-bancária, faturamento, carga analítica, arquivos regulatórios. A maior parte dos
-dados que atravessa fronteiras corporativas ainda anda assim.
+É o estilo menos discutido e o que continua dominante onde o resultado depende
+de um período fechado: folha de pagamento, conciliação bancária, faturamento,
+carga analítica, arquivos regulatórios.
 
 Ele é frequentemente tratado como legado a ser substituído. Para uma classe grande
 de problemas, ele é simplesmente a resposta certa — e substituí-lo por
@@ -91,12 +91,16 @@ quando uma transação longa confirma depois da marca já ter passado. Ver
 
 **Número de sequência.** Mais confiável, e exige que a origem o mantenha.
 
-**Log de mudanças do banco.** O mais confiável, e o mais invasivo.
+**Log de mudanças do banco.** O mais confiável; é o mais invasivo na operação do
+banco — privilégio de replicação, retenção do log, dependência do formato
+interno — e o que menos toca a aplicação.
 
 O modo de falha do primeiro é sutil e comum: uma transação iniciada antes do
 recorte e confirmada depois nunca é capturada. Uma sobreposição deliberada da
-janela — reprocessar alguns minutos a mais — cobre isso, e só é segura se o
-processo for idempotente.
+janela — reprocessar um trecho a mais — cobre isso, e só é segura se o processo
+for idempotente. Ela só recupera transações que duram menos que a sobreposição:
+o tamanho vem de medir a maior duração de transação na origem, e o que passar
+disso continua perdido.
 
 ### O lote tem que caber na janela
 
@@ -149,19 +153,20 @@ requisito, essa é uma troca favorável.
 
 ## Quando Não Usar
 
-**Quando a latência é requisito.** Se o usuário espera o efeito agora.
+**Quando a latência é requisito.** Se o usuário espera o efeito agora, o lote o
+entrega horas depois, e nenhuma otimização da janela muda isso.
 
-**Sem reprocessamento idempotente.**
+**Quando a janela já está apertada e não há plano de crescimento.** Volume
+crescendo sobre janela fixa tem data para estourar; micro-lote ou processamento
+contínuo distribuem ao longo do dia a carga que a janela não comporta.
 
-**Quando a janela já está apertada.** Sem plano de crescimento.
-
-**Sem política de falha parcial.**
-
-**Para eventos que precisam ser reagidos individualmente.** Ver
+**Para eventos que precisam ser reagidos individualmente.** Uma transação suspeita
+aprovada às 15h e detectada no lote das 2h já produziu o prejuízo. Ver
 [integração orientada a eventos](/08-integration-architecture/event-driven-integration.md).
 
-**Quando o volume por execução não cabe em memória** e o processo não foi escrito
-para fluxo.
+Reprocessamento idempotente, política de falha parcial e processamento em fluxo
+não são motivos para abandonar o lote: são lacunas de implementação, tratadas em
+Erros Comuns, e o processamento contínuo exige as mesmas decisões.
 
 ## Alternativas
 
@@ -215,7 +220,7 @@ executado** é raro, e é o modo que passa despercebido por mais tempo.
 
 **Não monitorar o consumo da janela como tendência.** A carga que hoje leva duas horas de uma janela de seis chega ao limite por crescimento gradual. Sem a tendência, o aviso é a primeira noite em que ela não termina.
 
-**Não sobrepor a janela incremental.** Buscar exatamente desde a última execução perde registros gravados durante ela, por diferença de relógio ou por transação que confirmou depois. Sobrepor alguns minutos e depender de idempotência resolve.
+**Não sobrepor a janela incremental.** Buscar exatamente desde a última execução perde registros gravados durante ela, por diferença de relógio ou por transação que confirmou depois. Sobrepor por mais que a maior duração de transação da origem, e depender de idempotência, resolve.
 
 **Não definir política de falha parcial.** Cem mil registros e três inválidos: abortar tudo, ignorar os três, ou separá-los para revisão? Sem decisão prévia, cada execução resolve de um jeito.
 
@@ -260,7 +265,9 @@ As correções:
 de ser operação de risco.
 
 **Sobreposição de 30 minutos** na janela incremental, viável porque o processo
-passou a ser idempotente. As transações perdidas foram a zero.
+passou a ser idempotente, e dimensionada pela medição: a transação mais longa da
+origem durava 12 minutos. As transações perdidas foram a zero, e um alerta passou
+a disparar se alguma transação ultrapassar a sobreposição.
 
 **Processamento em fluxo**, em blocos, em vez de carregar tudo. A execução caiu de
 5h20 para 1h10 — a maior parte do tempo era pressão de memória, não trabalho útil.

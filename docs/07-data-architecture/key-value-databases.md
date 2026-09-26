@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [document-databases, data-lifecycle, relational-databases]
 canonical_for: [chave-valor, armazenamento chave-valor]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -28,8 +28,8 @@ Não há consulta por conteúdo, não há junção, não há agregação. Essa l
 que permite latência de microssegundos e vazão de milhões de operações por
 segundo.
 
-É o modelo mais fácil de escolher corretamente, porque a pergunta é objetiva: **o
-acesso é sempre por chave conhecida?**
+Entre os modelos de dados, é o que a escolha decide por uma única pergunta
+objetiva: **o acesso é sempre por chave conhecida?**
 
 ## Problema
 
@@ -48,10 +48,13 @@ com a operação real.
 ### A limitação é a feature
 
 Sem consulta por conteúdo, o armazenamento pode particionar por chave sem
-coordenação. Sem junção, não há operação que cruze partições.
+coordenação. Sem junção, o modelo não obriga nenhuma operação a cruzar partições.
 
-Isso é o que torna a escala horizontal trivial: dobrar a capacidade é adicionar
-nós e redistribuir chaves. Ver
+Operação multi-chave existe — leitura em lote, varredura por prefixo —, e é ela que
+cobra o preço: vários produtos recusam atomicidade entre chaves de partições
+diferentes, e a saída é forçar chaves relacionadas para a mesma partição ou pagar
+uma consulta a todos os nós. Enquanto o acesso é a uma chave por vez, a escala
+horizontal é simples: dobrar a capacidade é adicionar nós e redistribuir chaves. Ver
 [particionamento](/06-distributed-systems/partitioning.md).
 
 ### O desenho da chave é a modelagem inteira
@@ -91,8 +94,9 @@ rápido.
 alguns confirmam a escrita antes de persistir, e uma queda perde os últimos
 segundos.
 
-Tratar um armazenamento em memória como fonte da verdade sem verificar isso é o
-erro mais caro do modelo.
+Tratar um armazenamento em memória como fonte da verdade sem verificar isso produz
+um dado que não se recupera, e o prejuízo só aparece na primeira queda — quando já
+não há o que fazer.
 
 ### Operações atômicas cobrem mais do que se espera
 
@@ -127,13 +131,17 @@ precisa perguntar algo que não seja "me dê a chave X", é o modelo errado.
 
 **Quando é preciso consultar por conteúdo.** Não é o que ele faz.
 
-**Como fonte da verdade sem verificar a durabilidade.**
+**Como fonte da verdade sem verificar a durabilidade.** A perda só se revela na
+queda.
 
-**Para dados com relacionamentos.**
+**Para dados com relacionamentos.** A integridade entre valores vira código da
+aplicação, e cada leitura relacionada é uma ida à rede a mais.
 
-**Para agregação ou relatório.**
+**Para agregação ou relatório.** Somar exige ler todas as chaves, uma varredura que
+disputa memória e rede com a carga que o armazenamento existe para servir.
 
-**Quando o valor é grande e só um pedaço é usado.** Ver
+**Quando o valor é grande e só um pedaço é usado.** Acima de dezenas de kilobytes
+por valor, cada leitura move o valor inteiro para usar uma fração. Ver
 [documentos](/07-data-architecture/document-databases.md).
 
 **Para fila com garantias.** Funciona de forma aproximada e não oferece
@@ -154,7 +162,7 @@ reentrega, ordenação nem
 |---|---|
 | Só por chave | Consulta por campo |
 | Latência mínima | Maior |
-| Escala horizontal trivial | Mais complexa |
+| Escala horizontal simples no acesso por chave única | Mais complexa |
 | Modelagem só na chave | Modelagem de agregado |
 | Valor opaco | Estrutura conhecida |
 
@@ -172,7 +180,8 @@ reentrega, ordenação nem
 **Chaves sem expiração acumulando.** A memória enche e o armazenamento passa a
 despejar dados — inclusive os que importam.
 
-**Chave quente.** Uma chave muito acessada concentra carga num nó.
+**Chave quente.** Uma chave muito acessada concentra carga num nó — ver
+[pontos quentes](/11-scalability/hotspots.md).
 
 **Formato de valor incompatível.** Uma implantação muda a serialização e os
 valores gravados não são mais legíveis.
@@ -195,26 +204,31 @@ expirar por categoria.
 **Usar como fila.**
 
 **Não monitorar a taxa de despejo.** É o sinal de que o armazenamento está
-descartando dados por falta de memória.
+descartando dados por falta de memória — ver
+[cache para escala](/11-scalability/scaling-cache.md).
 
 ## Exemplo Real
 
 Uma plataforma de comércio usava um armazenamento chave-valor em memória para
-sessão, cache e carrinho de compras.
+sessão, cache e carrinho de compras. Os carrinhos — cerca de 80 mil ativos em
+horário de pico — viviam numa instância separada, de 16 GB, dividida com parte do
+cache.
 
 Sessão e cache: uso correto — perda aceitável, expiração nativa, acesso por chave.
 
 Carrinho: uso incorreto, e levou catorze meses para aparecer.
 
-Numa reinicialização não planejada do nó, **todos os carrinhos ativos foram
-perdidos**. A configuração persistia a cada segundo, mas o nó específico estava com
-persistência desativada por uma mudança feita meses antes para reduzir latência —
+Numa reinicialização não planejada dessa instância, **todos os carrinhos ativos
+foram perdidos**. A configuração padrão da frota persistia a cada segundo, mas essa
+instância estava com persistência desativada por uma mudança feita meses antes para reduzir latência —
 sem que ninguém relacionasse a mudança ao carrinho.
 
-Prejuízo estimado em uma tarde de vendas interrompidas.
+A loja continuou no ar; o prejuízo foram os carrinhos que sumiram e não foram
+refeitos. Nas horas seguintes, a conversão caiu à metade do normal para a faixa
+horária.
 
 Um segundo problema apareceu na investigação: a taxa de despejo estava alta havia
-semanas. Chaves de cache sem expiração enchiam a memória, e o armazenamento
+semanas, na casa de centenas de chaves por segundo no pico. Chaves de cache sem expiração enchiam a memória, e o armazenamento
 descartava as menos usadas — que às vezes eram carrinhos de clientes que
 demoravam a fechar a compra.
 

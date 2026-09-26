@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [document-databases, key-value-databases, column-stores]
 canonical_for: [NoSQL]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -105,9 +105,9 @@ palavra "NoSQL" nunca aparece.
 
 ### Poliglota tem custo operacional real
 
-Usar o armazenamento certo para cada caso é correto em princípio e cada tecnologia
-adicional traz: conhecimento operacional, monitoramento, procedimento de cópia e
-recuperação, plano de atualização, e alguém que saiba depurar às três da manhã.
+Usar o armazenamento certo para cada caso é correto em princípio, mas cada
+tecnologia adicional repete, para si, as perguntas de operação da seção seguinte.
+A conta completa está em [custo do segundo banco](/20-trade-offs/sql-vs-nosql.md).
 
 A regra prática: adicione um armazenamento quando houver um problema concreto que
 o atual não resolve — não por adequação teórica.
@@ -170,11 +170,16 @@ e a oposição nunca foi sobre a linguagem.
 
 ## Alternativas
 
-Em vez do termo, use a categoria específica. Em vez da pergunta binária, use as
-quatro perguntas de padrão de acesso.
+**Relacional com extensões.** Colunas JSON indexadas, busca textual embutida e
+tabelas particionadas por tempo atendem a carga especializada enquanto ela é
+pequena perto do resto e o desempenho "adequado" basta. Vence quando a equipe opera
+um único banco e a carga especializada ainda não gerou incidente nem consulta lenta
+medida.
 
-E considere que a resposta pode ser mais de um armazenamento — com o custo
-operacional na conta.
+**Armazenamento especializado.** Vence quando a medição mostra que o geral não
+atende o padrão de acesso — agregação que leva minutos, expiração implementada por
+varredura, relevância que expressão regular não entrega — e o ganho paga um
+procedimento operacional a mais.
 
 ## Trade-offs
 
@@ -186,7 +191,9 @@ O trade-off real não é entre SQL e NoSQL. É entre generalidade e especializa�
 | Consultas não previstas possíveis | Limitadas ao previsto |
 | Uma tecnologia a operar | Uma a mais por caso |
 | Desempenho adequado | Ordens de grandeza melhor no caso dele |
-| Migrar depois é caro | Migrar depois é caro |
+
+O custo de migrar depois não entra na tabela porque não diferencia as colunas: sair
+de qualquer um dos dois é caro, e só o sentido da migração muda.
 
 ## Modos de Falha
 
@@ -242,8 +249,9 @@ Lenta e sem relevância. Migrada para índice invertido.
 Das cinco cargas, o banco de documentos era a escolha certa para uma.
 
 A avaliação posterior aponta: a decisão original não foi entre modelos — foi entre
-"NoSQL" e "SQL", e por isso não podia estar certa. Nenhuma das cinco cargas foi
-descrita em termos de padrão de acesso antes de escolher.
+"NoSQL" e "SQL", tomada uma vez para as cinco cargas sem descrever o padrão de
+acesso de nenhuma. Por isso não podia acertar para as cinco; acertou para os
+prontuários por coincidência.
 
 ## Conceitos Relacionados
 

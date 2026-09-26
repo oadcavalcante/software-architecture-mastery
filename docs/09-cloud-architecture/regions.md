@@ -13,7 +13,7 @@ objective: >
 prerequisites: [cloud-architecture]
 related: [availability-zones, multi-region, cloud-networking]
 canonical_for: [região de nuvem, serviço regional, serviço global]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -47,8 +47,8 @@ dados, custo, e quais serviços estarão disponíveis.
 
 ### O que a região isola
 
-Uma região é projetada para falhar sozinha. Energia, rede, refrigeração e planos de
-controle são separados.
+Uma região é projetada para falhar sozinha. Energia, rede, refrigeração e os planos
+de controle dos serviços regionais são separados.
 
 Isso é o que torna [multi-região](/09-cloud-architecture/multi-region.md) uma estratégia de continuidade:
 se uma região inteira cai — o que acontece — a outra continua.
@@ -64,6 +64,7 @@ regionais     computação, banco de dados, armazenamento de objetos,
               fila, rede virtual
 globais       DNS, rede de distribuição de conteúdo, identidade e
               gerenciamento de acesso, faturamento, plano de controle
+              global (organização de contas, políticas)
 ```
 
 Os serviços globais são o ponto de acoplamento entre regiões. Eles têm alta
@@ -82,8 +83,10 @@ mesmo continente              20 a 60 ms
 intercontinental              100 a 250 ms
 ```
 
-Esses números vêm da velocidade da luz na fibra mais os saltos de roteamento.
-Nenhuma otimização os reduz.
+Esses números vêm da velocidade da luz na fibra mais os saltos de roteamento. O
+piso físico nenhuma otimização reduz; backbone do provedor e rota melhor encurtam
+só a parcela de roteamento, e o que sobra para otimizar é o número de idas e
+voltas.
 
 A consequência de projeto: uma operação que faz cinco chamadas entre regiões paga
 cinco vezes esse valor. Ver [PACELC](/06-distributed-systems/pacelc.md) —
@@ -138,8 +141,9 @@ disponibilidade de serviço — decorre de escolhê-la.
 A escolha de região deve ser deliberada quando:
 
 - Há requisito de residência de dados.
-- A latência para os usuários importa.
-- O custo de transferência é significativo.
+- Os usuários estão em outro continente em relação à região candidata — ida e
+  volta acima de 100 ms, multiplicada pelas chamadas sequenciais de cada tela.
+- O desenho prevê tráfego contínuo entre regiões, não só cópia ocasional.
 - Um serviço específico é necessário.
 - Há plano de continuidade em outra região.
 
@@ -148,13 +152,20 @@ A escolha de região deve ser deliberada quando:
 **Múltiplas regiões sem necessidade.** Ver [multi-região](/09-cloud-architecture/multi-region.md) — o
 custo é alto e a maioria dos sistemas não precisa.
 
-**Escolher pela padrão do console.**
+**Escolher pela padrão do console** quando nenhum dos quatro determinantes —
+latência, jurisdição, custo, serviços — foi comparado entre as candidatas. A
+padrão serve a quem a definiu, não aos seus usuários.
 
-**Assumir que todos os serviços existem em todas as regiões.**
+**Fechar a região antes de conferir o caminho crítico.** Se algum serviço de que o
+fluxo principal depende não consta na lista da região, a escolha está errada ou o
+desenho está.
 
-**Depender de serviço global sem plano para a falha dele.**
+**Contar com serviço global como se fosse redundante** quando a recuperação do
+sistema passa por ele — trocar DNS ou credenciais durante o incidente depende do
+mesmo plano global que pode estar fora.
 
-**Chamadas frequentes entre regiões** no caminho crítico.
+**Chamadas síncronas entre regiões** no caminho crítico, quando a operação faz
+mais de uma: cada ida e volta intercontinental custa de 100 a 250 ms.
 
 **Presumir residência de dados** sem verificar cópias, réplicas e registros.
 
@@ -217,8 +228,8 @@ no início do projeto por ser a padrão e por ter todos os serviços.
 Três problemas apareceram, em ordem de gravidade crescente:
 
 **Latência.** Cada requisição pagava cerca de 130 ms de ida e volta. A aplicação
-fazia várias chamadas por tela, e o tempo de carregamento chegava a 2 segundos com
-o servidor respondendo em 40 ms. O diagnóstico demorou porque as métricas do
+fazia cerca de doze chamadas sequenciais por tela, e o tempo de carregamento
+chegava a 2 segundos (12 × (130 + 40) ms) com o servidor respondendo em 40 ms. O diagnóstico demorou porque as métricas do
 servidor pareciam ótimas.
 
 **Custo de transferência.** Após uma migração parcial para uma região brasileira,

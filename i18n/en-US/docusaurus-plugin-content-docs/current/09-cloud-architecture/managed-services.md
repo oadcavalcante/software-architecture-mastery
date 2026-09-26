@@ -11,9 +11,9 @@ objective: >
   By the end, the reader decides between managed and self-managed by comparing
   total cost of operation, not list price.
 prerequisites: [cloud-architecture]
-related: [vendor-lock-in, cost-architecture, serverless]
+related: [vendor-lock-in, cost-architecture, serverless, managed-vs-self-hosted]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -105,8 +105,10 @@ It reduces the work, not the responsibility:
 **Modeling and queries remain yours.** A managed service does not fix a missing index. See
 [indexing](/07-data-architecture/indexing.md).
 
-**The provider has incidents.** And there is nothing you can do beyond waiting — which needs to be in the
-plan.
+**The provider has incidents.** With the service in a single region and a single vendor, the only action is
+waiting — which needs to be in the plan. What changes that condition is redundancy paid for separately:
+[multi-region](/09-cloud-architecture/multi-region.md) and
+[disaster recovery](/09-cloud-architecture/disaster-recovery.md).
 
 ### The degrees
 
@@ -146,9 +148,8 @@ something else, the trade is good.
 
 **When the dependency is unacceptable.** See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
-**Without checking backups, retention and multi-zone.**
-
-**Assuming managed means no responsibility.**
+**When the durability requirement exceeds the service's ceiling** — regulatory retention longer than the
+configurable maximum, or multi-zone that the contracted plan does not expose.
 
 ## Alternatives
 
@@ -182,7 +183,7 @@ something else, the trade is good.
 
 **Maintenance restarting with no tolerance in the application.**
 
-**A provider incident.** With no action possible.
+**A provider incident.** Without redundancy across regions, no action possible beyond waiting.
 
 **A discontinued version.** A forced migration on the provider's deadline.
 
@@ -223,8 +224,9 @@ was out of date.
 
 The migration to managed services was done for three of the four components:
 
-**The database, cache and queue** migrated. The infrastructure bill rose, and the total bill fell: the 1.5
-people went back to the product, and the related incidents went from 9 to 1 the following year.
+**The database, cache and queue** migrated. The infrastructure bill rose, and the total bill fell: about 1.1 of
+the 1.5 people went back to the product — search kept consuming the rest —, and the incidents of the three
+migrated components, 7 of the 9, went to 1 the following year.
 
 **Search stayed self-managed.** The available managed service did not support a relevance feature the
 product used, and that was a real differentiator. A deliberate decision, recorded, with the operational
@@ -247,6 +249,7 @@ and irrelevant. Nobody had put the cost of the people on the same spreadsheet, b
 - [Vendor Lock-In](/09-cloud-architecture/vendor-lock-in.md) — the other side.
 - [Serverless](/09-cloud-architecture/serverless.md) — the next degree.
 - [Cost Architecture](/09-cloud-architecture/cost-architecture.md).
+- [Managed vs. Self-Hosted](/20-trade-offs/managed-vs-self-hosted.md) — the detailed math.
 - [Availability Zones](/09-cloud-architecture/availability-zones.md) — what to check.
 
 ## Practical Exercise

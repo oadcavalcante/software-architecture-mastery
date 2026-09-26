@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [multi-region, availability-zones, data-replication]
 canonical_for: [estratégia de recuperação em nuvem, piloto aceso, espera quente]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -36,7 +36,7 @@ E ela se resume a dois números — que precisam vir do negócio, não da engenh
 Quase toda empresa tem cópias de segurança. Muito menos empresas conseguem
 restaurá-las quando precisam.
 
-Os motivos são sempre os mesmos: a restauração nunca foi testada, o procedimento
+Os motivos se repetem de um caso para outro: a restauração nunca foi testada, o procedimento
 está desatualizado, a cópia não contém tudo, ou a restauração leva tempo demais para
 ser útil.
 
@@ -46,32 +46,29 @@ O resultado é um plano que existe em documento e não em capacidade.
 
 ### Os dois números
 
-**RTO — objetivo de tempo de recuperação.** Quanto tempo até voltar a operar.
+**[RTO](/12-reliability/rto.md) — objetivo de tempo de recuperação.** Quanto tempo até voltar a operar.
 
-**RPO — objetivo de ponto de recuperação.** Quanto dado se pode perder.
+**[RPO](/12-reliability/rpo.md) — objetivo de ponto de recuperação.** Quanto dado se pode perder.
 
 ```text
 RPO ─────────────┤ desastre ├───────────── RTO
     dados perdidos            tempo parado
 ```
 
-Eles são decisões de negócio, com custo associado, e precisam ser definidos por
-quem paga a conta da parada — não estimados pela engenharia.
-
-A conversa correta é: "recuperar em 4 horas custa X; em 15 minutos custa 10X.
-Quanto vale cada hora parada?"
-
-Sem esses dois números, qualquer estratégia é palpite.
+Por que os dois são decisões de negócio com preço, e não estimativas técnicas, está
+nos documentos de cada um. Aqui interessa o que eles compram em nuvem: cada
+estratégia abaixo é um ponto na troca entre custo contínuo e os dois números, e sem
+eles a escolha entre elas é palpite.
 
 ### As estratégias, por preço
 
 ```text
-                     RTO típico    RPO típico   custo
-só cópias            dias          horas        muito baixo
-cópias + automação   horas         minutos      baixo
-piloto aceso         dezenas de min minutos     médio
-espera quente        minutos       segundos     alto
-ativo-ativo          segundos      ~zero        muito alto
+                     RTO típico           RPO típico   custo
+só cópias            dias                 horas        muito baixo
+cópias + automação   horas                minutos      baixo
+piloto aceso         dezenas de minutos   minutos      médio
+espera quente        minutos              segundos     alto
+ativo-ativo          segundos             ~zero        muito alto
 ```
 
 **Piloto aceso** merece atenção: uma versão mínima do ambiente permanece ligada — o
@@ -80,6 +77,14 @@ ativação. Custa uma fração da espera quente e entrega RTO de dezenas de minu
 
 É o ponto de melhor relação entre custo e resultado para a maioria dos sistemas que
 precisam de mais que cópias, e é subutilizado.
+
+O preço que a tabela não mostra: o ambiente em espera diverge da produção entre uma
+ativação e outra. A produção ganha versão nova de imagem, variável de configuração,
+permissão, e a região de espera não; a cota de instâncias da conta na região de
+destino continua no padrão, dimensionada para o piloto e não para a carga. O
+desenho em espera só entrega o RTO da tabela se a ativação for exercitada com a
+mesma cadência das implantações — e se o retorno à região de origem, que exige
+replicar de volta os dados escritos durante o desastre, também tiver sido ensaiado.
 
 Ver [multi-região](/09-cloud-architecture/multi-region.md) para os desenhos superiores.
 
@@ -114,39 +119,25 @@ trânsito. Costuma faltar algo.
 
 **Quem sabe fazer.** Um procedimento que só uma pessoa conhece não é um plano.
 
-### O plano precisa cobrir o que não é dado
+### O plano vai além dos dados
 
-A lista do que costuma faltar:
+O escopo do plano — configuração, segredos, certificados, comunicação —, a
+autoridade de acionamento e a ordem em que as funções voltam estão em
+[planejamento de recuperação](/12-reliability/disaster-recovery-planning.md). Este
+documento trata da estratégia técnica que o plano aciona.
 
-**Configuração e segredos.** Onde estão, e como recuperá-los.
-
-**DNS.** Quem muda, com qual tempo de propagação.
-
-**Certificados.**
-
-**Dependências externas.** SaaS, gateways de pagamento — o que acontece se o
-endereço de origem mudar.
-
-**Comunicação.** Quem avisa clientes, quem fala com o regulador.
-
-**Decisão.** Quem tem autoridade para declarar o desastre e acionar o plano. Sem
-isso definido, perde-se a primeira hora decidindo se é hora de acionar.
-
-### Degradar é uma estratégia legítima
-
-Nem tudo precisa voltar junto. Definir quais funções são essenciais permite
-restaurá-las primeiro e operar em modo reduzido.
-
-Um comércio eletrônico que volta aceitando pedidos, sem recomendações nem histórico,
-está operando. Esperar tudo para voltar é frequentemente a escolha errada.
-
-Essa priorização precisa estar decidida antes — durante o incidente, ninguém tem
-serenidade para negociá-la.
+Dois itens do escopo mudam de natureza quando a recuperação é para outra região.
+**DNS**: o registro com tempo de vida de um dia mantém clientes apontando para a
+região morta por um dia, por mais rápido que o resto suba — o tempo de vida precisa
+caber no RTO antes do desastre. **Dependências externas**: o gateway de pagamento ou
+o parceiro que libera chamadas por lista de endereços de origem recusa a região nova
+até que alguém, do lado de lá, atualize a lista.
 
 ## Modelo Mental
 
-**Plano de recuperação que ninguém executou é documentação, não capacidade.** O
-teste é o plano.
+**Cada estratégia é um aluguel contínuo pago para encurtar os dois números — e o
+que se aluga só existe se a ativação foi ensaiada.** Capacidade em espera que nunca
+recebeu tráfego é custo, não RTO.
 
 ## Quando Usar
 
@@ -159,17 +150,24 @@ Todo sistema precisa de alguma estratégia. O nível depende de:
 
 ## Quando Não Usar
 
-**Investir em RTO baixo sem o número do negócio.**
+**Espera quente ou ativo-ativo quando a parada não paga a capacidade.** Se a perda
+de uma parada de dezenas de minutos, multiplicada pela frequência esperada de perda
+de região, fica abaixo da diferença anual de custo contínuo entre piloto aceso e
+espera quente, a capacidade em espera compra um RTO que o negócio não vai usar.
 
-**Ativo-ativo quando piloto aceso atende.**
+**Só cópias quando o volume não cabe no RTO.** Restaurar 20 TB a 2 TB por hora leva
+dez horas; com RTO de quatro, nenhum teste torna a cópia suficiente, e a estratégia
+precisa de dado já replicado no destino.
 
-**Confiar em replicação como proteção contra erro humano.**
+**Estratégia multi-região sem segundo destino viável.** Quando a residência de
+dados obriga a uma única região, ou quando um serviço gerenciado do qual o sistema
+depende não existe na região de destino, o desenho em espera não sobe. A
+recuperação passa a ser na mesma região, a partir de cópia isolada, ou em outro
+provedor — com RTO de outra ordem.
 
-**Plano documentado sem exercício.**
-
-**Cobrir só os dados.** Configuração, DNS e segredos ficam de fora.
-
-**Cópias acessíveis com as mesmas credenciais da produção.**
+**RTO de minutos para sistema com contingência manual.** Se a operação consegue
+funcionar um dia em processo manual, cópias com automação de restauração atendem, e
+qualquer degrau acima é custo que não se paga.
 
 ## Alternativas
 
@@ -177,7 +175,8 @@ Todo sistema precisa de alguma estratégia. O nível depende de:
   das falhas reais e não é recuperação de desastre.
 - **Cópias com automação de restauração** — o mínimo viável, e suficiente para
   muitos sistemas.
-- **Piloto aceso** — a melhor relação custo-benefício na faixa intermediária.
+- **Piloto aceso** — a melhor relação custo-benefício quando o RTO exigido está na
+  faixa de dezenas de minutos e o custo de parada não paga espera quente.
 - **Réplica atrasada** — proteção barata contra erro humano. Ver
   [replicação de dados](/07-data-architecture/data-replication.md).
 
@@ -212,6 +211,14 @@ Todo sistema precisa de alguma estratégia. O nível depende de:
 **Ninguém sabe executar.**
 
 **Autoridade indefinida.** A primeira hora se perde decidindo se aciona.
+
+**Ativação que falha no destino.** A computação não sobe por cota da conta na
+região, imagem desatualizada ou permissão que só existe na origem. Aparece como
+RTO de horas numa estratégia vendida como de dezenas de minutos.
+
+**Sem caminho de volta.** A região de origem se recupera, mas os dados escritos no
+destino durante o desastre não têm replicação reversa configurada, e o sistema fica
+preso na região de espera, dimensionada para o piloto.
 
 ## Erros Comuns
 
@@ -281,6 +288,9 @@ havia documento. A auditoria nunca pediu um teste, e ninguém ofereceu.
 - [Multi-Região](/09-cloud-architecture/multi-region.md) — os desenhos de RTO baixo.
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md).
 - [Replicação de Dados](/07-data-architecture/data-replication.md).
+- [Planejamento de Recuperação](/12-reliability/disaster-recovery-planning.md) — o
+  escopo do plano, a autoridade de acionamento e a ordem de retomada.
+- [RTO](/12-reliability/rto.md) e [RPO](/12-reliability/rpo.md) — os dois números.
 - [Confiabilidade](/12-reliability/index.md).
 
 ## Exercício Prático

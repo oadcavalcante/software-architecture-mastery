@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [data-ownership, data-partitioning, data-lakes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -61,7 +61,7 @@ Most systems have only the first stage — and a table that only grows.
 
 ### Retention is a business and legal decision
 
-The engineering team cannot define how long to keep data. The question has three answers that have to be
+The engineering team does not decide alone how long to keep data. The question has three answers that have to be
 reconciled:
 
 **The legal minimum.** Tax, employment, sector-specific.
@@ -98,24 +98,26 @@ an architectural decision beforehand, not afterwards.
 When the historical data has analytical value and the personal data cannot be kept, the way out is
 removing what identifies and preserving the rest.
 
-Two traps:
+The way out only holds if it is actual anonymization, not pseudonymization — the difference, and why
+"we removed the name" is not enough, is in
+[data protection](/10-security/data-protection.md#pseudonymization-and-anonymization-are-not-the-same-thing).
 
-**Insufficient anonymization.** A data set with no name but with a postal code, a birth date and a gender
-frequently re-identifies individuals.
-
-**Anonymization broken by cross-referencing.** Two separately anonymized data sets can re-identify when
-combined.
-
-Anonymizing is harder than it looks, and "we removed the name" is not anonymization.
+What the lifecycle adds: pseudonymized data is still personal and still subject to the retention maximum;
+only anonymized data leaves the clock. That is why anonymization is a dated transition — executed when the
+personal data's deadline expires —, and when the analysis only needs totals, aggregation is the safer
+transition, because it discards the detail that would allow re-identification.
 
 ### Per-subject encryption solves the immutable case
 
-For data that cannot be physically erased — event sourcing, immutable files — the technique is storing the
-personal data encrypted with a per-subject key.
+For data that cannot be physically erased — event sourcing, immutable files — the technique is
+[per-subject encryption](/10-security/encryption.md#per-subject-encryption-solves-deletion): erasing
+becomes discarding the key, and retrofitting requires rewriting the history.
 
-Erasing becomes discarding the key. The record remains, and the personal content becomes unrecoverable.
-
-It has to be designed from the start. Retrofitting requires rewriting the history.
+What it brings to the lifecycle is that retention moves from the data to the key. The key vault now holds
+the most sensitive policy in the system: if its backups keep keys longer than the subject's retention, the
+"discarded" key comes back on restore, and the erasure is undone. Intentional discard coexists with the
+opposite rule of [key management](/10-security/key-management.md), which forbids discarding a key while
+any data still depends on it.
 
 ### The inventory is the prerequisite
 
@@ -144,18 +146,18 @@ A lifecycle policy pays off whenever:
 
 ## When Not to Use
 
-**Erasing data with a legal retention requirement.** The legal minimum comes first.
+**A small data set, with stable volume and no personal data.** Reference tables and configuration
+catalogs: the cost of building and operating automatic transitions exceeds the cost of keeping everything,
+and there is no legal maximum to respect. A recorded decision to keep it is enough.
 
-**Erasing without inventorying the copies.** Erasing from the source and keeping it in the warehouse
-complies with nothing.
+**Data under a preservation obligation.** Ongoing litigation, investigation or audit freezes erasure for
+that data set or subject. The automatic cycle does not apply while the obligation lasts — erasing during
+that period is destruction of evidence —, which is why the policy needs a suspension mechanism before it
+needs one.
 
-**Archiving without testing recovery.** An unrecoverable archive is lost data.
-
-**Naive anonymization.** Removing the name is not enough.
-
-**Retention defined by engineering alone.**
-
-**Erasure with no audit trail.** You have to be able to prove it was done.
+**A system with a scheduled shutdown.** If the system goes out of operation in months and the data migrates
+with it, the policy applies to the destination. Building stages in the system that is about to die is wasted
+work; it is enough to make sure the migration does not carry what should already have been erased.
 
 ## Alternatives
 
@@ -181,7 +183,7 @@ complies with nothing.
 | Recoverable | Irreversible |
 | Residual cost | Zero |
 | Still an exposure | Eliminates it |
-| Slow recovery | — |
+| An erasure request requires scanning the archive | Nothing to scan |
 
 ## Failure Modes
 
@@ -201,45 +203,48 @@ complies with nothing.
 
 ## Common Mistakes
 
-**Not defining retention.**
+**Not defining retention.** The default becomes keeping forever, and the first discussion about deadlines
+happens under pressure — over the bill that doubled or the deletion request that cannot be fulfilled.
 
-**Defining it without consulting legal counsel.**
+**Defining retention in engineering alone, without legal counsel.** Engineering picks a round number, and
+it lands below the tax minimum or above the data protection maximum; the error only shows up in an audit
+or a deletion request.
 
-**Not inventorying the copies.**
+**Erasing from the source without inventorying the copies.** The data disappears from the database and
+stays in the warehouse, the search index and the backups; the answer to the subject says "erased" and it
+is not true.
 
-**Not testing archive recovery.**
+**Archiving without testing recovery.** An obsolete format, failed media or a lost key only reveal
+themselves on the day an audit or a lawsuit asks for the data — and then the archive is lost data.
 
-**Not designing erasure in immutable systems.**
+**Treating name removal as anonymization.** The data set is kept past the deadline as if it had left the
+scope, and it is still re-identifiable: it is personal data kept beyond the maximum.
+
+**Not designing erasure in immutable systems.** The first deletion request in a lake or an event log
+requires rewriting the history; in the example below, retrofitting took four months.
+
+**Erasing with no audit trail.** The erasure was done, but there is no way to prove to the subject or the
+regulator what, when and from where.
 
 **Ignoring application logs.** They frequently contain personal data and rarely enter the policy.
 
 ## Real-World Example
 
-An e-commerce company received a personal data deletion request from a customer.
+An e-commerce company kept everything in a single stage. Seven years of orders, browsing events and
+application logs lived in the transactional database and in the lake's raw layer, with no transition to
+warm or cold and nothing ever erased.
 
-The response took five weeks and was incomplete.
+The cost showed up diffusely: the storage and backup bill grew along with the volume, and index
+maintenance on the orders table no longer fit in the nightly window. Nobody treated it as a policy problem
+until a single customer's deletion request took five weeks to answer — and was answered incompletely.
 
-The hastily assembled inventory found the personal data in eleven places:
+The response stalled on two points that only existed because the data had never left the first stage:
 
-```text
-transactional database      expected
-replicas                    a consequence of replication
-backups                     90-day retention
-warehouse                   customer dimension
-data lake                   raw layer, immutable files
-search index                indexed profile
-cache                       sessions
-application logs            1-year retention, with registration data
-support system              third party
-email platform              third party
-spreadsheet exports         shared by analysts
-```
+**The lake.** Immutable files, with no record of which ones contained that customer's data. Erasing
+required rewriting years of a raw layer nobody queried.
 
-The last three were not under direct control. The exports were unknown until someone mentioned them in a
-meeting.
-
-The lake was the hardest problem: immutable files, with no inventory of which ones contained that
-customer's data.
+**The copies with no policy.** Application logs kept registration data for a year, and spreadsheet
+exports, shared by analysts, were unknown until someone mentioned them in a meeting.
 
 What was done afterwards:
 
@@ -249,7 +254,8 @@ ingestion is refused.
 **Per-subject encryption** in the lake's raw layer, allowing erasure by discarding the key. Retrofitting
 it onto the existing history took four months.
 
-**Retention defined per data set**, with legal, product and engineering. The discussion revealed that 60%
+**Retention defined per data set**, with legal, product and engineering, and automatic transition between
+stages. The discussion revealed that 60%
 of the stored data had neither a legal requirement nor a business use.
 
 **Application logs** with personal data filtering at the source, and retention reduced from 1 year to 90
@@ -270,6 +276,10 @@ months, and would have been a fraction of that if the classification had existed
 - [Data Partitioning](/07-data-architecture/data-partitioning.md) — efficient discard.
 - [Data Lake](/07-data-architecture/data-lakes.md) — where the problem is hardest.
 - [Event Sourcing](/06-distributed-systems/distributed-event-sourcing.md).
+- [Data Protection](/10-security/data-protection.md) — pseudonymization, anonymization and the inventory
+  from the security point of view.
+- [Encryption](/10-security/encryption.md) — per-subject encryption.
+- [Key Management](/10-security/key-management.md) — why discarding a key is the exception, not the rule.
 
 ## Practical Exercise
 

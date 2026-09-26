@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oltp]
 related: [data-warehouses, column-stores, denormalization]
 canonical_for: [OLAP, carga analítica]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -74,8 +74,8 @@ O critério que vale em [OLTP](/07-data-architecture/oltp.md) se inverte. Como n
 concorrente e as consultas varrem, [desnormalizar](/07-data-architecture/denormalization.md) elimina
 junções sem custo de manutenção relevante.
 
-É a razão de modelos dimensionais — fato no centro, dimensões ao redor —
-dominarem o desenho analítico.
+É a razão de [modelos dimensionais](/07-data-architecture/data-warehouses.md) — fato
+no centro, dimensões ao redor — dominarem o desenho analítico.
 
 ### Pré-agregação troca espaço por tempo
 
@@ -88,12 +88,15 @@ faltar.
 
 ### O dado analítico é histórico, e isso muda tudo
 
-Registros analíticos não mudam depois de escritos. Isso permite particionar por
-tempo, comprimir agressivamente, arquivar em armazenamento barato e reprocessar
-sem coordenação.
+Um fato registrado — uma venda, um clique — não muda depois de escrito. Isso
+permite particionar por tempo, comprimir agressivamente, arquivar em armazenamento
+barato e reprocessar sem coordenação.
 
-Um sistema analítico que trata os dados como mutáveis está pagando um custo que
-não precisa pagar.
+As mudanças que existem — fato atrasado, correção de carga, apagamento por
+retenção — chegam em lote e por período, não linha a linha. Por isso a unidade de
+mudança é a partição: apaga-se e regrava-se o dia inteiro, como no Exemplo Real
+abaixo. Um sistema analítico que trata cada registro como mutável individualmente
+está pagando um custo que não precisa pagar.
 
 ### Auto-atendimento tem um custo que ninguém orça
 
@@ -240,7 +243,8 @@ isso. Decisões foram tomadas com informação velha. A correção foi trivial e
 deveria ter existido desde o início: um carimbo de "dados até" em cada painel.
 
 A equipe registra a terceira como a mais constrangedora — custou uma linha de
-interface e gerou a única consequência de negócio real das três.
+interface, a correção mais barata das três, e foi a única cujo dano caiu sobre as
+decisões e não sobre o custo ou sobre um número que alguém acabou conferindo.
 
 ## Conceitos Relacionados
 

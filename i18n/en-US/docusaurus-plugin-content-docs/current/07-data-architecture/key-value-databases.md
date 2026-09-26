@@ -13,7 +13,7 @@ objective: >
 prerequisites: [nosql]
 related: [document-databases, data-lifecycle, relational-databases]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -27,8 +27,8 @@ for.
 There is no querying by content, no joins, no aggregation. That limitation is what allows microsecond
 latency and throughput of millions of operations per second.
 
-It is the easiest model to choose correctly, because the question is objective: **is the access always
-by a known key?**
+Among data models, it is the one whose choice comes down to a single objective question: **is the
+access always by a known key?**
 
 ## Problem
 
@@ -45,11 +45,13 @@ operation.
 
 ### The limitation is the feature
 
-With no querying by content, the store can partition by key with no coordination. With no joins, there
-is no operation that crosses partitions.
+With no querying by content, the store can partition by key with no coordination. With no joins, the
+model forces no operation to cross partitions.
 
-That is what makes horizontal scaling trivial: doubling the capacity is adding nodes and redistributing
-keys. See
+Multi-key operations exist — batch reads, prefix scans — and they are what charge the price: several
+products refuse atomicity across keys in different partitions, and the way out is forcing related keys
+into the same partition or paying for a query to every node. As long as access is one key at a time,
+horizontal scaling is simple: doubling the capacity is adding nodes and redistributing keys. See
 [partitioning](/06-distributed-systems/partitioning.md).
 
 ### The key's design is the entire modeling
@@ -84,8 +86,8 @@ Many are primarily in memory, with optional persistence. That changes what you c
 **If the loss is not acceptable**, check exactly what the configuration guarantees: some acknowledge
 the write before persisting, and a crash loses the last few seconds.
 
-Treating an in-memory store as the source of truth without checking that is the model's most expensive
-error.
+Treating an in-memory store as the source of truth without checking that produces data that cannot be
+recovered, and the damage only shows on the first crash — when nothing can be done anymore.
 
 ### Atomic operations cover more than expected
 
@@ -120,13 +122,16 @@ avoids an unpleasant migration.
 
 **When you need to query by content.** That is not what it does.
 
-**As the source of truth without checking durability.**
+**As the source of truth without checking durability.** The loss only reveals itself on a crash.
 
-**For data with relationships.**
+**For data with relationships.** Integrity between values becomes application code, and every related
+read is one more network round trip.
 
-**For aggregation or reporting.**
+**For aggregation or reporting.** Summing requires reading every key, a scan that competes for memory
+and network with the load the store exists to serve.
 
-**When the value is large and only a piece of it is used.** See
+**When the value is large and only a piece of it is used.** Above tens of kilobytes per value, every
+read moves the whole value to use a fraction. See
 [documents](/07-data-architecture/document-databases.md).
 
 **For a queue with guarantees.** It works approximately and offers no redelivery, no ordering and no
@@ -146,7 +151,7 @@ avoids an unpleasant migration.
 |---|---|
 | By key only | Querying by field |
 | Minimal latency | Higher |
-| Trivial horizontal scaling | More complex |
+| Simple horizontal scaling for single-key access | More complex |
 | Modeling only in the key | Aggregate modeling |
 | Opaque value | Known structure |
 
@@ -164,7 +169,8 @@ avoids an unpleasant migration.
 **Keys with no expiry accumulating.** Memory fills and the store starts evicting data — including what
 matters.
 
-**A hot key.** A heavily accessed key concentrates load on one node.
+**A hot key.** A heavily accessed key concentrates load on one node — see
+[hotspots](/11-scalability/hotspots.md).
 
 **An incompatible value format.** A deployment changes the serialization and the stored values are no
 longer readable.
@@ -187,23 +193,27 @@ category.
 **Using it as a queue.**
 
 **Not monitoring the eviction rate.** It is the sign that the store is discarding data for lack of
-memory.
+memory — see [caching for scale](/11-scalability/scaling-cache.md).
 
 ## Real-World Example
 
-A commerce platform used an in-memory key-value store for sessions, cache and the shopping cart.
+A commerce platform used an in-memory key-value store for sessions, cache and the shopping cart. The
+carts — about 80 thousand active at peak — lived on a separate 16 GB instance, shared with part of the
+cache.
 
 Sessions and cache: correct use — acceptable loss, native expiry, access by key.
 
 The cart: incorrect use, and it took fourteen months to surface.
 
-During an unplanned node restart, **every active cart was lost**. The configuration persisted every
-second, but that specific node had persistence disabled by a change made months earlier to reduce
+During an unplanned restart of that instance, **every active cart was lost**. The fleet's default
+configuration persisted every second, but that instance had persistence disabled by a change made months earlier to reduce
 latency — with nobody connecting the change to the cart.
 
-The estimated loss was an afternoon of interrupted sales.
+The store stayed up; the damage was the carts that vanished and were never rebuilt. Over the following
+hours, conversion fell to half the normal rate for that time of day.
 
-A second problem appeared during the investigation: the eviction rate had been high for weeks. Cache
+A second problem appeared during the investigation: the eviction rate had been high for weeks, in the
+hundreds of keys per second at peak. Cache
 keys with no expiry filled memory, and the store discarded the least used ones — which were sometimes
 the carts of customers who took a while to check out.
 

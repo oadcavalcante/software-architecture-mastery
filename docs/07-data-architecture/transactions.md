@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [data-consistency, oltp, indexing]
 canonical_for: [transação, ACID, nível de isolamento, leitura suja, leitura não repetível, leitura fantasma]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -79,19 +79,23 @@ As duas últimas são as que mais causam prejuízo real, e a última é a mais s
 ### Os níveis e o que cada um admite
 
 ```text
-                        leitura   não        leitura   atualização
-                        suja      repetível  fantasma  perdida
-não confirmado          sim       sim        sim       sim
-confirmado              não       sim        sim       sim
-leitura repetível       não       não        varia     não
-serializável            não       não        não       não
+                        leitura   não        leitura   atualização  distorção
+                        suja      repetível  fantasma  perdida      de escrita
+não confirmado          sim       sim        sim       sim          sim
+confirmado              não       sim        sim       sim          sim
+leitura repetível       não       não        varia     varia        sim
+serializável            não       não        não       não          não
 ```
+
+"Varia" em leitura repetível depende da implementação: o PostgreSQL detecta a
+atualização perdida e aborta uma das transações; o InnoDB do MySQL, com o mesmo
+nome de nível, não detecta.
 
 **Leitura confirmada** é o padrão da maioria dos bancos. Ele permite leitura não
 repetível, fantasma e atualização perdida.
 
-Isso significa que o comportamento padrão do seu banco admite atualização perdida —
-e é a origem do defeito clássico de "ler saldo, calcular, gravar saldo".
+Se o seu banco roda em leitura confirmada — o padrão do PostgreSQL, do Oracle e do
+SQL Server —, o comportamento padrão admite atualização perdida, e essa é a origem do defeito clássico de "ler saldo, calcular, gravar saldo".
 
 ### Distorção de escrita é a que engana
 
@@ -136,7 +140,8 @@ Uma transação aberta segura bloqueios e impede limpeza de versões antigas.
 O erro característico: abrir transação, chamar um serviço externo, e confirmar
 depois. Se o serviço demora 30 segundos, os bloqueios duram 30 segundos.
 
-Regra: nenhuma chamada de rede dentro de transação.
+Regra: chamada de rede fica fora da transação, porque ela amarra a duração dos
+bloqueios ao tempo de resposta de um sistema que você não controla.
 
 ## Modelo Mental
 
@@ -153,15 +158,18 @@ funciona na maior parte das vezes.
 
 ## Quando Não Usar
 
-**Isolamento serializável para tudo.** Custo alto e contenção.
+**Isolamento serializável para tudo.** Quando a taxa de abortos por conflito de
+serialização sobe sob contenção e as repetições passam a consumir a vazão, reserve
+serializável para as transações que protegem invariante entre registros e use
+bloqueio explícito no resto.
 
-**Transação envolvendo chamada externa.**
+**Transação para cobrir chamada externa.** O serviço externo não participa do
+rollback; a transação só prolonga os bloqueios. Coordene com
+[sagas](/06-distributed-systems/sagas.md).
 
 **Transação para operação de leitura única.** Não há o que isolar.
 
 **Transação longa para processamento em lote.** Divida em lotes menores.
-
-**Contar com o padrão do banco sem saber qual é.**
 
 **Transação distribuída.** Ver
 [transações distribuídas](/06-distributed-systems/distributed-transactions.md) —
@@ -239,7 +247,7 @@ Duas transações liam 100, ambas subtraíam 30, ambas gravavam 70. Duas operaç
 consumiram 60 e o saldo caiu 30.
 
 Clientes com integração intensa acumularam saldo indevido por dezoito meses. O
-total chegou à casa das centenas de milhares.
+total chegou à casa das centenas de milhares de créditos.
 
 O defeito não aparecia em teste porque exigia concorrência real sobre o mesmo
 registro.

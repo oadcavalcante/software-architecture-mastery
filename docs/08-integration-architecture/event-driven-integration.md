@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging-integration]
 related: [messaging-integration, schema-evolution, integration-anti-corruption]
 canonical_for: [catálogo de eventos, evento fino, evento gordo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -156,7 +156,9 @@ versionamento e depreciação que qualquer endpoint público.
 **Sem monitoramento de consumidor.** Ver
 [integração por mensageria](/08-integration-architecture/messaging-integration.md).
 
-**Como escolha global.** A mistura com integração síncrona é o desenho correto.
+**Como escolha global.** Onde há consultas cuja resposta o chamador precisa para
+continuar, forçá-las a eventos recria a espera por correlação de respostas; ali a
+integração síncrona cabe, e os eventos ficam para as consequências assíncronas.
 
 ## Alternativas
 
@@ -169,9 +171,12 @@ versionamento e depreciação que qualquer endpoint público.
 - **Consulta periódica** — mais simples, e suficiente quando o atraso é
   aceitável.
 
-A terceira merece o alerta: capturar mudanças do banco é frequentemente vendida
-como integração orientada a eventos, e é exatamente o antipadrão descrito acima —
-o esquema da tabela vira contrato público.
+A terceira merece o alerta: capturar mudanças das tabelas do modelo é
+frequentemente vendida como integração orientada a eventos, e é exatamente o
+antipadrão descrito acima — o esquema da tabela vira contrato público. Aplicada a
+uma [caixa de saída transacional](/08-integration-architecture/messaging-integration.md),
+cujas linhas já são o evento de integração traduzido, a captura é só o mecanismo
+de publicação: o contrato continua sendo o que a tradução decidiu.
 
 ## Trade-offs
 
@@ -224,7 +229,7 @@ origem.
 
 **Consumidor desserializando o evento inteiro.** Exigir todos os campos faz o consumidor quebrar com a adição de um campo novo, que deveria ser mudança compatível. Ler só o que se usa é o que permite o publicador evoluir.
 
-**Confundir captura de mudanças do banco com integração por eventos.** Capturar alterações de tabela publica o esquema físico para fora. É acoplamento ao banco com aparência de evento — e o pior tipo, porque parece desacoplado.
+**Confundir captura de mudanças do banco com integração por eventos.** Capturar alterações das tabelas do modelo publica o esquema físico para fora. É acoplamento ao banco com aparência de evento — e o pior tipo, porque parece desacoplado.
 
 ## Exemplo Real
 
@@ -295,7 +300,7 @@ exposto como contrato público.
 
 - Qual a diferença entre evento interno e de integração, e por que ela importa?
 - Quando um evento gordo é preferível a um fino, e vice-versa?
-- Por que capturar mudanças do banco não é integração orientada a eventos?
+- Por que capturar mudanças das tabelas do modelo não é integração orientada a eventos, e o que muda quando a captura lê uma caixa de saída?
 
 ## Para Aprofundar
 

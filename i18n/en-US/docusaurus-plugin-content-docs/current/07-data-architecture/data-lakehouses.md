@@ -11,9 +11,9 @@ objective: >
   By the end, the reader evaluates the lakehouse by what the transactional layer actually
   delivers, without treating it as a universal replacement.
 prerequisites: [data-lakes]
-related: [data-warehouses, column-stores, data-partitioning]
+related: [data-warehouses, column-stores, data-partitioning, transactions]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -78,7 +78,9 @@ it justifies the adoption in many cases.
 
 ### Controlled schema evolution
 
-Adding a column, renaming, changing a type — with the history remaining readable.
+Adding a column, renaming, promoting a type by widening (int to long, more decimal precision) — with
+the history remaining readable. An incompatible type change, such as text to number, is not covered: it
+requires rewriting the table.
 
 It is the difference between a declared and an implicit schema: the format knows that column has existed
 since version 12, and old readers do not break.
@@ -107,13 +109,17 @@ retries.
 **Tooling and governance.** Column- and row-level access control, auditing and an integrated catalog are
 more mature in warehouses.
 
-**Automatic optimization.** Compaction and ordering require explicit processes in the lakehouse.
+**Automatic optimization.** In the open format, compaction and ordering require explicit processes;
+managed platforms that automate them charge for it in vendor coupling, part of what the open format
+promised to avoid.
 
 ### Maintenance is explicit
 
 Compacting small files, expiring versions, physically reordering data, updating statistics.
 
-None of that happens on its own. A lakehouse with no maintenance routines degrades the same way a lake
+None of that happens on its own in the format itself: either a scheduled process runs it, or a managed
+platform runs it under a policy someone has to define. A lakehouse with no maintenance routines degrades
+the same way a lake
 does — and the diagnosis is the same: queries get slow with no change in volume.
 
 ## Mental Model
@@ -134,15 +140,23 @@ everything missing is what a log does not solve.
 
 **For a transactional workload.** It is not an operational database.
 
-**For very low latency, high concurrency interactive queries.**
+**For very low latency, high concurrency interactive queries.** A dashboard that must answer in under a
+second for dozens of simultaneous users pays, on every query, for reading the log and opening files in
+object storage — a fixed cost that a warehouse with a cache and local indexes does not have.
 
-**With many simultaneous writers on the same table.**
+**With many simultaneous writers on the same table.** Each write is an entry in the log, and two writes
+touching the same partition at the same time conflict. When several processes write the same partition
+every few seconds, the retry rate grows until it dominates the useful work.
 
 **When an existing warehouse serves well.** Migrating for architecture's sake is cost with no return.
 
-**With no maintenance routines.**
+**With no maintenance routines.** If nobody is going to own compaction and version retention, the
+lakehouse becomes a more expensive lake: it pays for the metadata and degrades the same way.
 
-**When the volume is small.** A relational database solves it.
+**When the data fits in a relational database.** In the tens or hundreds of gigabytes, a relational
+database with indexes answers analytical queries in seconds, with no version log, no compaction and no
+object storage to operate. The lakehouse only pays off when the volume makes that database expensive or
+slow.
 
 ## Alternatives
 
@@ -203,7 +217,7 @@ is noticeable.
 number diverges from the report the executives already know — and then the whole migration loses
 credibility.
 
-**Too many writers on the same table.** The concurrency control is optimistic: simultaneous writes to the
+**Too many writers on the same table.** The [concurrency control](/07-data-architecture/transactions.md) is optimistic: simultaneous writes to the
 same partition conflict and one of them is rejected. With too many writers, the rework starts dominating.
 
 **Treating it as a replacement for a transactional database.** Transactions in the table format cover the
@@ -226,7 +240,8 @@ table.
 **Regulation-driven deletion.** Deletion requests became executable — previously they required rewriting
 whole partitions of the lake, a manual process that took days.
 
-**Storage cost** dropped 60% relative to the warehouse.
+**Storage cost** dropped 60% relative to the warehouse, measured after the version retention was
+adjusted (see below).
 
 **Time travel** allowed auditing number changes, resolving a whole class of disputes.
 

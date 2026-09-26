@@ -13,7 +13,7 @@ objective: >
 prerequisites: [batch-integration]
 related: [batch-integration, integration-contracts, data-lifecycle]
 canonical_for: [integração por arquivo, arquivo de controle, escrita atômica]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -51,7 +51,7 @@ confiável de fonte permanente de incidente.
 Quem lê pode começar a ler enquanto quem escreve ainda está escrevendo. O
 resultado é um arquivo processado pela metade — e a metade parece completa.
 
-A solução é universal e simples:
+A solução padrão é simples:
 
 ```text
 1. escrever em nome temporário    dados.csv.tmp
@@ -59,13 +59,16 @@ A solução é universal e simples:
 3. renomear para o nome final     dados.csv
 ```
 
-A renomeação é atômica na maioria dos sistemas de arquivo. O leitor nunca vê um
-arquivo parcial.
+A renomeação é atômica quando origem e destino estão no mesmo sistema de arquivos —
+por isso o temporário vai no mesmo diretório do nome final. Nessa condição, o leitor
+nunca vê um arquivo parcial. Entre pontos de montagem, a renomeação vira cópia mais
+remoção e a janela reabre.
 
-A alternativa, quando a renomeação não é atômica: um **arquivo de controle**
-escrito depois, e o leitor só processa quando ele existe.
+A alternativa, quando a renomeação não é atômica — montagens de rede, armazenamento
+de objetos: um **arquivo de controle** escrito depois, e o leitor só processa quando
+ele existe.
 
-Este é o defeito mais comum e o mais fácil de evitar da categoria.
+Está entre os defeitos mais frequentes da categoria, e evitá-lo custa uma renomeação.
 
 ### O nome do arquivo é parte do contrato
 
@@ -77,8 +80,8 @@ PAGAMENTOS_20260827_001.csv
 O nome carrega informação que o processamento precisa: o que é, de quando, e qual
 a ordem. Sem sequência, dois arquivos do mesmo dia são ambíguos.
 
-E o nome é o que permite **deduplicar**: processar o mesmo arquivo duas vezes é o
-segundo defeito mais comum, e um registro de arquivos já processados resolve.
+E o nome é o que permite **deduplicar**: processar o mesmo arquivo duas vezes é outro
+defeito frequente, e um registro de arquivos já processados resolve.
 
 ### Detectar ausência é tão importante quanto processar
 
@@ -152,8 +155,9 @@ outros estilos dão de graça, aqui você constrói.
 
 **Quando a latência importa.** O ciclo é de horas.
 
-**Internamente, quando há alternativa.** Ver
-[mensageria](/08-integration-architecture/messaging-integration.md).
+**Entre sistemas da mesma organização que já compartilham um barramento.** O
+arquivo adiciona contrato de nome, rodapé e retenção para operar sem ganhar nada
+que o barramento não dê. Ver [mensageria](/08-integration-architecture/messaging-integration.md).
 
 **Sem escrita atômica.** Arquivos parciais processados.
 
@@ -246,7 +250,8 @@ soma de conferência, e o processamento passou a recusar arquivos que não batem
 
 **Codificação.** Uma empresa mudou o sistema de origem e passou a enviar em outra
 codificação. Todos os nomes com acento foram gravados corrompidos por três
-semanas. O contrato não fixava codificação; passou a fixar, com validação na
+semanas, com contagem e soma do rodapé batendo o tempo todo — o campo somado era o
+valor, e o valor não tem acento. O contrato não fixava codificação; passou a fixar, com validação na
 entrada.
 
 **Arquivos acumulados.** O diretório tinha três anos de arquivos com CPF, nome e

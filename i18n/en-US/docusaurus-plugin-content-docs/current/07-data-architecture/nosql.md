@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [document-databases, key-value-databases, column-stores]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -97,9 +97,9 @@ With those four answered, the storage choice is nearly mechanical — and the wo
 
 ### Polyglot persistence has a real operational cost
 
-Using the right store for each case is correct in principle and each additional technology brings:
-operational knowledge, monitoring, backup and restore procedures, an upgrade plan, and someone who
-knows how to debug it at three in the morning.
+Using the right store for each case is correct in principle, but each additional technology repeats,
+for itself, the operational questions in the next section. The full account is in
+[cost of the second database](/20-trade-offs/sql-vs-nosql.md).
 
 The rule of thumb: add a store when there is a concrete problem the current one does not solve — not
 for theoretical fit.
@@ -160,11 +160,14 @@ opposition was never about the language.
 
 ## Alternatives
 
-Instead of the term, use the specific category. Instead of the binary question, use the four
-access-pattern questions.
+**Relational with extensions.** Indexed JSON columns, built-in text search and time-partitioned tables
+serve the specialized workload while it is small next to the rest and "adequate" performance is enough.
+It wins when the team operates a single database and the specialized workload has not yet produced an
+incident or a measured slow query.
 
-And consider that the answer may be more than one store — with the operational cost included in the
-calculation.
+**Specialized store.** It wins when measurement shows the general store does not serve the access
+pattern — an aggregation that takes minutes, expiry implemented by scanning, relevance that a regular
+expression cannot deliver — and the gain pays for one more operational procedure.
 
 ## Trade-offs
 
@@ -176,7 +179,9 @@ The real trade-off is not between SQL and NoSQL. It is between generality and sp
 | Unforeseen queries possible | Limited to the foreseen |
 | One technology to operate | One more per case |
 | Adequate performance | Orders of magnitude better in its case |
-| Migrating later is expensive | Migrating later is expensive |
+
+The cost of migrating later stays out of the table because it does not distinguish the columns:
+leaving either one is expensive, and only the direction of the migration changes.
 
 ## Failure Modes
 
@@ -238,8 +243,8 @@ Migrated to an inverted index.
 Of the five workloads, the document database was the right choice for one.
 
 The later assessment points out: the original decision was not between models — it was between "NoSQL"
-and "SQL", and that is why it could not be right. None of the five workloads was described in terms of
-its access pattern before choosing.
+and "SQL", made once for all five workloads without describing the access pattern of any. That is why
+it could not be right for all five; it was right for the medical records by coincidence.
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [distributed-fundamentals]
 related: [timeouts, network-failure, bottleneck-analysis]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -58,6 +58,11 @@ thousand requests — enough people to generate complaints.
 And percentiles **do not add up**. A chain's p99 is not the sum of each link's p99 — you have to
 measure end to end.
 
+For the same reason, **you cannot average percentiles**. The average of ten instances' p99s, or of
+each minute's p99 to get the hour's, is not the percentile of anything. Aggregating requires keeping
+the distribution — a histogram that sums across instances and windows — and computing the
+percentile only at the end.
+
 ### The tail dominates in a chain
 
 The most important result in this document, and the least intuitive.
@@ -82,8 +87,8 @@ than reducing the average in systems with many calls.
 | Component | Order of magnitude |
 |---|---|
 | Memory reference | ~100 ns |
-| Round trip within the same zone | ~0.5 ms |
 | Random read on a solid-state disk | ~100 µs |
+| Round trip within the same zone | ~0.5 ms |
 | Round trip between regions, same continent | ~30 ms |
 | Intercontinental round trip | ~150 ms |
 
@@ -94,7 +99,8 @@ never straight. No code optimization compensates for distance, and that is why
 ### Latency under load is not linear
 
 A resource responds stably up to about 70% utilization and degrades rapidly after that, because
-queue wait time grows non-linearly as utilization approaches 100%.
+queue wait time grows non-linearly as utilization approaches 100%. The mechanism, with Little's
+law, is in [performance versus scalability](/11-scalability/performance-vs-scalability.md).
 
 The practical consequence: a system that responds well at 60% load can become unusable at 90% —
 not because something broke, but because the queue grew.
@@ -144,7 +150,8 @@ To reduce perceived latency, when optimizing is not enough:
 - **Asynchronous** — respond before completing. See
   [request/response](/05-system-design/request-response.md).
 - **Hedged request** — send the same request to two replicas and use the first response. It
-  reduces the tail at the cost of duplicated work.
+  reduces the tail at the cost of duplicated work: double the load if the second always goes out,
+  about 5% if it only goes out once the first passes the p95.
 - **Degrade** — serve a partial response instead of waiting for the slow one.
 
 ## Trade-offs
@@ -183,6 +190,9 @@ which is what the user feels.
 
 **Assuming percentiles add up.**
 
+**Averaging precomputed p99s.** Per instance or per minute, the result looks like a percentile and
+is not one; only the aggregated histogram gives the real number.
+
 **Ignoring variability.** Unstable latency costs more than high and stable latency.
 
 **Measuring only under normal conditions.** The tail appears under load.
@@ -209,9 +219,10 @@ Three of the six services were enrichment — reviews, recommendations, history.
 200 ms deadline, and the page is rendered without them if they blow it. Degradation instead of
 waiting.
 
-And the service with the worst tail got a hedged request: the call goes to two replicas and the
-first response wins. The duplicated work costs about 5% more load and cut that service's p99 to
-240 ms.
+And the three essential services got deferred hedged requests: if the response has not arrived by
+the service's p95, the same call goes to another replica and the first response wins. Since the
+second one goes out in only about 5% of calls, the duplicated work costs close to 5% more load, and
+each one's p99 dropped to 240 ms.
 
 End-to-end result: a 310 ms p95, a 520 ms p99.
 

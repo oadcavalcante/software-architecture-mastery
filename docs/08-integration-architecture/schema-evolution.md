@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-contracts]
 related: [integration-contracts, event-driven-integration, rest]
 canonical_for: [evolução de esquema, compatibilidade retroativa, compatibilidade futura, registro de esquema]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -75,15 +75,17 @@ sempre compatíveis
   relaxar validação de entrada
   adicionar endpoint ou operação
 
-quebram compatibilidade futura
+quebram compatibilidade retroativa (código novo não lê dado antigo)
   adicionar campo obrigatório
   tornar obrigatório um campo que era opcional
+  restringir validação
 
-quebram compatibilidade retroativa
-  remover campo
+quebram compatibilidade futura (código antigo não lê dado novo)
+  remover campo que o código antigo lê
+
+quebram as duas
   renomear campo
   mudar tipo
-  restringir validação
 
 quebram silenciosamente — o pior caso
   mudar o significado de um campo mantendo nome e tipo
@@ -91,7 +93,7 @@ quebram silenciosamente — o pior caso
   mudar o critério de um booleano
 ```
 
-A última categoria merece o destaque: nenhuma validação detecta. O esquema
+A última categoria merece o destaque: nenhuma validação de esquema detecta. O esquema
 continua válido, os testes passam, e o dado passa a significar outra coisa.
 Mudança de semântica exige **campo novo**, sempre.
 
@@ -109,7 +111,7 @@ geradores de código produzem, por padrão, desserialização estrita.
 ### Renomear é remover mais adicionar
 
 Não existe renomear compatível. Toda renomeação é uma remoção — que quebra
-retroativa — mais uma adição.
+a futura — mais uma adição, que o código novo não encontra nos dados antigos.
 
 O caminho compatível é a convivência:
 
@@ -136,8 +138,9 @@ recusada antes de chegar a produção.
 Sem ele, a compatibilidade depende de disciplina e revisão — que funcionam até o
 dia em que alguém tem pressa.
 
-É o investimento de melhor retorno em qualquer sistema com integração por
-eventos.
+Ele paga o custo de operá-lo quando há vários consumidores, consumidores fora do
+controle do time ou eventos persistidos — as condições em que uma quebra só
+aparece depois de gravada ou implantada por quem você não coordena.
 
 ### Versionar, quando não há saída
 
@@ -150,8 +153,8 @@ Quando a mudança é genuinamente incompatível, resta conviver:
 **No próprio conteúdo** — o esquema carrega sua versão; comum em eventos.
 
 O custo real não é a escolha entre as três. É que **cada versão viva é código a
-manter**, e a remoção depende de todos os consumidores migrarem — o que sempre
-demora mais do que o planejado.
+manter**, e a remoção depende de todos os consumidores migrarem — o que demora mais
+do que o planejado sempre que algum consumidor está fora do controle do time.
 
 A pergunta antes de versionar: dá para fazer isso como adição compatível? Na
 maioria das vezes dá, com um pouco mais de trabalho de modelagem.
@@ -187,8 +190,9 @@ Evolução compatível é o padrão. Sempre que:
 **Versionar antes de haver consumidor.** Enquanto a API é interna e tem um
 consumidor, mudar direto é mais barato.
 
-**Mudança de semântica disfarçada de compatível.** Trocar a unidade de um campo
-passa em qualquer validação e quebra tudo.
+**Quando a mudança altera significado.** Trocar a unidade de um campo não tem
+forma compatível no mesmo campo: passa na validação estrutural e quebra os
+consumidores. O caminho é campo novo.
 
 **Convivência sem prazo.** Uma versão antiga sem data de remoção nunca sai.
 
@@ -233,7 +237,8 @@ catálogo, não gate.
 
 **Versão zumbi.** Nunca removida, com um consumidor esquecido.
 
-**Campo obrigatório adicionado.** Quebra o produtor antigo.
+**Campo obrigatório adicionado.** O consumidor novo rejeita o que o produtor
+antigo ainda emite.
 
 **Conversor faltando.** Um evento antigo não pode mais ser lido.
 
@@ -263,13 +268,16 @@ A mudança foi feita mantendo nome e tipo — inteiro. O esquema continuou váli
 O registro de esquema aprovou. Todos os testes passaram.
 
 Durante **nove dias**, os seis consumidores processaram valores cem vezes
-menores. Sinistros foram aprovados com limites errados. Relatórios financeiros
+maiores. Sinistros foram aprovados contra limites de cobertura inflados em cem vezes. Relatórios financeiros
 saíram inconsistentes. A conciliação identificou o problema, e a correção
 envolveu reprocessar nove dias de eventos e revisar centenas de decisões
 tomadas.
 
-Nenhum mecanismo automatizado poderia ter pego isso: a mudança era compatível em
-estrutura e incompatível em significado.
+A validação estrutural do registro não tinha como pegar isso: a mudança era
+compatível em estrutura e incompatível em significado. Pegariam controles de
+outra natureza — alerta de faixa de valores, asserção de faixa no teste de
+contrato do consumidor, conciliação diária — e a equipe só tinha a conciliação,
+rodando tarde demais.
 
 As mudanças de processo:
 
@@ -282,7 +290,8 @@ carrega a unidade no nome. Feio, e resolve uma classe inteira de defeito.
 
 **Revisão obrigatória de semântica.** O registro de esquema valida estrutura;
 mudanças de significado passaram a exigir aprovação de um segundo time, porque
-não há como automatizar.
+nenhuma regra de compatibilidade estrutural as distingue. Alertas de faixa de
+valores nos campos monetários entraram como segunda linha.
 
 **Verificação de consumidor estrito.** A auditoria descobriu que dois dos seis
 consumidores falhavam com campo desconhecido — ou seja, mesmo uma adição pura

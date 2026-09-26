@@ -11,9 +11,9 @@ objective: >
   By the end, the reader recognizes what IaaS transfers and what remains their
   responsibility, and avoids using it as a default out of habit.
 prerequisites: [cloud-architecture]
-related: [paas, managed-services, cloud-compute]
+related: [paas, managed-services, cloud-compute, cloud-native]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -92,7 +92,7 @@ everything reproducible from code.
 
 An instance nobody can recreate from scratch is a liability.
 
-### Infrastructure as code is not optional
+### Without infrastructure as code, IaaS is a rented server
 
 Creating resources through the console is convenient and produces an environment nobody knows how to
 rebuild.
@@ -108,8 +108,8 @@ Without it, the model's main gain is lost.
 
 **Licensing that requires a dedicated machine.**
 
-**Legacy system migration.** Moving it as is is the fastest path out of a datacenter, and it is a
-legitimate decision — as long as the modernization comes afterward, and is not postponed indefinitely.
+**Legacy system migration.** Moving it as is is the fastest path out of a datacenter — a legitimate step,
+not a destination; the full argument is in [cloud native](/09-cloud-architecture/cloud-native.md).
 
 **Very large scale with predictable load.** Where the price difference pays for a team.
 
@@ -154,7 +154,8 @@ the work for nothing.
 **For components that exist as a managed service** — a database, a queue, a cache — with no specific
 reason.
 
-**With a small team** and no operational experience.
+**With nobody to operate the layer** — no one on call for the instance that goes down and no one
+owning the patching pipeline.
 
 **Treating instances as permanent servers.**
 
@@ -169,7 +170,7 @@ reason.
 
 | IaaS | Higher models |
 |---|---|
-| Full control | Limited |
+| Control from the operating system up | Limited to the exposed configuration |
 | All the operational work | Less |
 | A lower unit price | Higher |
 | Any software | What the platform supports |
@@ -194,17 +195,21 @@ reason.
 
 ## Common Mistakes
 
-**Creating resources through the console.**
+**Creating resources through the console.** The environment exists only in the memory of whoever
+created it, and recreating it becomes reverse engineering.
 
-**Not automating patching.**
+**Not automating patching.** Manual patching loses to the number of instances, and known
+vulnerabilities stay in production.
 
-**Keeping state on a local disk.**
+**Keeping state on a local disk.** The first replaced instance takes the data with it.
 
-**Not distributing across zones.**
+**Not distributing across zones.** The failure of one zone takes down the whole system.
 
-**Choosing IaaS by reflex** when an equivalent managed service exists.
+**Choosing IaaS by reflex** when an equivalent managed service exists. The team pays in operations
+for control it does not use.
 
-**Migrating the legacy as is and stopping there.**
+**Migrating the legacy as is and stopping there.** The bill grows and security risk accumulates,
+as in the Real-World Example below.
 
 ## Real-World Example
 
@@ -238,7 +243,8 @@ they had to be rebuilt from reverse-engineering what was running.
 
 **Distribution across three zones.**
 
-**Resizing** based on actual utilization. The bill fell 45%.
+**Resizing** based on actual utilization. By the end of the phase, the bill had fallen 45% net, already
+including the cost of the managed services and the three zones.
 
 **Automated patching**, with instance replacement instead of in-place updating.
 
@@ -252,6 +258,7 @@ cost.
 - [Managed Services](/09-cloud-architecture/managed-services.md).
 - [Cloud Compute](/09-cloud-architecture/cloud-compute.md).
 - [Availability Zones](/09-cloud-architecture/availability-zones.md).
+- [Cloud Native](/09-cloud-architecture/cloud-native.md) — why migrating as is is a step, not a destination.
 
 ## Practical Exercise
 
@@ -270,4 +277,5 @@ reproducible.
 
 - Morris, Kief. *Infrastructure as Code*. 2nd ed. O'Reilly, 2020.
 - Beyer, Betsy et al. *Site Reliability Engineering*. O'Reilly, 2016.
-- The providers' shared responsibility model documentation.
+- Mell, Peter; Grance, Timothy. *The NIST Definition of Cloud Computing* (SP 800-145). NIST, 2011.
+- Cloud Security Alliance. *Security Guidance for Critical Areas of Focus in Cloud Computing v4.0*. CSA, 2017.

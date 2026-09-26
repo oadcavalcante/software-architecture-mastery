@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-architecture]
 related: [nosql, transactions, normalization]
 canonical_for: [banco relacional, modelo relacional]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -84,6 +84,12 @@ O argumento de que relacional não escala é de uma época com hardware diferent
 Uma instância moderna comporta dezenas de terabytes e dezenas de milhares de
 transações por segundo.
 
+O teto que costuma chegar primeiro é o de custo, não o técnico. A instância é
+comprada em degraus que dobram de preço, a réplica de failover precisa ter o mesmo
+porte, e em banco comercial a licença é cobrada por núcleo. A conta honesta
+compara essa fatura com o custo de operar um modelo distribuído — não o
+desempenho dos dois.
+
 A maioria dos sistemas que abandona o relacional por escala nunca chegou perto
 desse limite — e frequentemente o problema era
 [índice](/07-data-architecture/indexing.md) ou mistura de cargas.
@@ -95,8 +101,9 @@ Sendo específico, porque a lista é curta:
 **Escrita distribuída global.** Múltiplas regiões aceitando escrita para o mesmo
 dado. Ver [PACELC](/06-distributed-systems/pacelc.md).
 
-**Volume extremo de escrita simples.** Telemetria, eventos, séries temporais em
-milhões por segundo.
+**Volume extremo de escrita simples.** Telemetria, eventos, séries temporais na
+casa dos milhões de escritas por segundo, sustentadas. Abaixo disso, escrita em
+lote e particionamento por tempo mantêm a carga numa instância; nessa faixa, não.
 
 **Travessia de relacionamentos profundos.** Consultas de vários níveis de
 profundidade. Ver [bancos de grafo](/07-data-architecture/graph-databases.md).
@@ -105,7 +112,10 @@ profundidade. Ver [bancos de grafo](/07-data-architecture/graph-databases.md).
 
 **Analítico em grande escala.** Ver [colunar](/07-data-architecture/column-stores.md).
 
-**Busca textual com relevância.** Índice invertido resolve; relacional não.
+**Busca textual além do que o banco oferece.** A busca textual nativa já tokeniza
+e ordena por relevância, e atende muitos acervos. O índice invertido dedicado se
+justifica com facetas, tolerância a erro de digitação e relevância ajustável em
+escala. Ver [busca](/05-system-design/search.md).
 
 ### Um sistema pode usar mais de um
 
@@ -132,17 +142,25 @@ escolhe por comparação.**
 
 ## Quando Não Usar
 
-**Escrita distribuída globalmente ativa em várias regiões.**
+Cada caso da lista acima vira erro a partir de uma condição, e é a condição que
+se deve verificar:
 
-**Ingestão massiva de eventos ou séries temporais.**
+**Escrita ativa em várias regiões** quando a escrita não pode esperar a ida e
+volta entre elas — dezenas a centenas de milissegundos por coordenação.
 
-**Travessia de grafo profunda.**
+**Ingestão de eventos ou séries temporais** quando a vazão sustentada passa do que
+a instância absorve mesmo com escrita em lote.
 
-**Documentos sem esquema comum.**
+**Travessia de grafo** quando a profundidade é variável ou passa de três ou quatro
+saltos: cada nível é mais uma junção, e o custo cresce com o grau de cada nó.
 
-**Analítico sobre bilhões de linhas.**
+**Documentos sem esquema comum** quando os campos variáveis são consultados, não
+só guardados e lidos inteiros.
 
-**Busca textual com relevância.**
+**Analítico sobre bilhões de linhas** quando as consultas varrem poucas colunas de
+muitas linhas — o armazenamento por linha lê todas as colunas.
+
+**Busca textual** quando o requisito passa do que a busca nativa atende.
 
 **Cache.** Um banco relacional como cache é desperdício; use um armazenamento
 [chave-valor](/07-data-architecture/key-value-databases.md).
@@ -166,7 +184,8 @@ escolhe por comparação.**
 | Consultas não previstas | Otimizado para o previsto |
 | Integridade no armazenamento | No código |
 | Escala vertical, distribuir é caro | Escala horizontal nativa |
-| Ferramental maduro | Varia |
+| Ferramental maduro e intercambiável entre produtos | Ferramental específico de cada produto |
+| Migração de esquema em tabela grande exige estratégia | Esquema muda sem migração; o custo vai para a leitura |
 | Junções eficientes | Frequentemente ausentes |
 
 ## Modos de Falha
@@ -174,7 +193,9 @@ escolhe por comparação.**
 **Consulta lenta por índice ausente.** A causa mais comum, e a mais confundida com
 limite de escala.
 
-**Contenção em registro quente.**
+**Contenção em registro quente.** A latência de escrita sobe só para certas
+chaves — um saldo, um contador —, com fila de espera por bloqueio e tempo esgotado
+concentrados num endpoint.
 
 **Migração de esquema travando a tabela.** Em tabelas grandes, uma alteração mal
 planejada causa indisponibilidade.
@@ -182,7 +203,9 @@ planejada causa indisponibilidade.
 **Conexões esgotadas.** O limite de conexões costuma ser atingido antes de
 qualquer limite de dados.
 
-**Transação longa segurando bloqueios.**
+**Transação longa segurando bloqueios.** Consultas que eram rápidas passam a
+esperar sem consumir CPU; a lista de sessões mostra uma transação aberta há minutos
+na frente de todas.
 
 **Junção sobre volume analítico.** Carga errada no lugar errado.
 

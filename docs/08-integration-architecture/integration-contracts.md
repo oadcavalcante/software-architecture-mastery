@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [schema-evolution, integration-anti-corruption, rest]
 canonical_for: [contrato de integração, contrato dirigido pelo consumidor, teste de contrato]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -86,9 +86,9 @@ tem um efeito colateral conhecido.
 Um provedor liberal aceita entrada malformada, e os consumidores passam a
 depender de ser aceitos assim. Corrigir depois quebra todos eles.
 
-A prática que envelhece melhor: **rigor na entrada, tolerância na saída**.
-Rejeite entrada inválida desde o primeiro dia; ignore campos desconhecidos na
-resposta que você recebe.
+A prática que envelhece melhor: **rigor no que você aceita, tolerância no que
+você lê**. Como provedor, rejeite entrada inválida desde o primeiro dia; como
+consumidor, ignore campos desconhecidos na resposta que você recebe.
 
 ### Contrato dirigido pelo consumidor
 
@@ -101,9 +101,17 @@ integração contínua.
 O efeito: o provedor sabe, antes de implantar, exatamente qual consumidor quebra.
 E pode remover com segurança o que ninguém usa.
 
-É a técnica de maior retorno desta seção, e a menos adotada. Ela exige que os
-consumidores sejam conhecidos, o que a torna adequada dentro de uma organização e
-inviável para uma API pública.
+Onde os consumidores são conhecidos, é a técnica desta seção que mais reduz
+quebra por dependência não declarada. Essa condição a torna adequada dentro de
+uma organização e inviável para uma API pública.
+
+E ela custa para operar. Os contratos publicados precisam de um lugar comum de
+onde o provedor os busque; a integração contínua passa a atravessar
+repositórios; a implantação do provedor fica barrada por um teste vermelho que
+pode ser culpa do consumidor — uma expectativa desatualizada, um campo que ele
+declarou e já não usa. Sem um dono para cada contrato e um prazo para o
+consumidor corrigir o próprio teste, a trava vira bloqueio, e o time do provedor
+aprende a desligá-la.
 
 ### Teste de contrato não é teste de integração
 
@@ -161,8 +169,8 @@ semana; o contrato precisa ser verificável.
 
 - **Esquema executável** — definição de que servidor e cliente derivam código,
   eliminando divergência entre documento e implementação.
-- **Registro de esquema** — o contrato central, com compatibilidade validada na
-  publicação.
+- **[Registro de esquema](/08-integration-architecture/schema-evolution.md)** —
+  quando a integração é por eventos e os consumidores não rodam teste no provedor.
 - **Teste de contrato dirigido pelo consumidor** — dentro da organização.
 - **Versionamento explícito** — quando conviver é inevitável. Ver
   [evolução de esquema](/08-integration-architecture/schema-evolution.md).
@@ -230,8 +238,8 @@ primeira transação como "a mais recente" — passou a exibir qualquer uma.
 esse prefixo. A migração para identificadores aleatórios quebrou a integração
 dele, em produção, num sábado.
 
-**Campo tornado opcional.** Um campo de descrição sempre vinha preenchido.
-Tornou-se opcional para um novo tipo de transação. Três consumidores quebraram —
+**Campo tornado opcional.** Um campo de descrição sempre vinha preenchido,
+embora o documento não o declarasse obrigatório. Tornou-se opcional para um novo tipo de transação. Três consumidores quebraram —
 nenhum tratava ausência.
 
 **Erro novo.** Passou a existir um código de erro para transação em análise.

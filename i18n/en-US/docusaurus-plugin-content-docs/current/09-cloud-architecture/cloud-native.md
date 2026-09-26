@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, kubernetes, vendor-lock-in]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -126,7 +126,9 @@ help exercise them; they do not create them.
 
 **As a badge.** "We are cloud native" is not a verifiable property.
 
-**For small and stable internal systems.**
+**For internal systems with dozens of users, predictable load, quarterly deployment and no
+availability requirement.** There is no elasticity to exploit and no deployment frequency to sustain,
+and the platform's complexity brings no return.
 
 **Rewriting what works** with no concrete problem.
 
@@ -142,7 +144,7 @@ second.
 - **An as-is migration** — a legitimate first step.
 - **Incremental modernization** — applying the properties in order of return.
 - **Gradual strangulation** — replacing parts with new versions, keeping the legacy running. See
-  [legacy modernization](/16-legacy-modernization/index.md).
+  [strangler fig](/16-legacy-modernization/strangler-fig.md).
 - **Keeping it as is** — when the system is stable and the cost of changing does not pay off.
 
 ## Trade-offs
@@ -231,7 +233,7 @@ stable internal systems, with predictable load and quarterly deployment. The orc
 nothing there and cost operations.
 
 The learning that stuck: the program measured the wrong thing. The indicator was "applications migrated to
-Kubernetes", and it reached 100% without a single property having been acquired.
+Kubernetes", and it reached 100% without any of the deficient applications acquiring a new property.
 
 If the indicator had been "applications that scale horizontally", the program would have finished at 23 of
 40 — and it would have attacked the right problem from the start.

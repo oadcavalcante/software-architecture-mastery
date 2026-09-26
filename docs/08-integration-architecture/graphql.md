@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, api-gateways, integration-contracts]
 canonical_for: [GraphQL, resolver, sobrebusca, subbusca]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -94,18 +94,23 @@ As defesas — nenhuma opcional em API exposta:
 **Custo estimado.** Atribuir peso a cada campo e recusar acima de um teto.
 
 **Consultas persistidas.** Só consultas previamente registradas são aceitas. É a
-defesa mais forte, e ela remove a liberdade que motivou a adoção — o que é a
-troca certa em API pública.
+defesa mais forte. Para o cliente próprio, que registra as consultas no build, a
+autonomia do frontend continua; o que some é a composição arbitrária em tempo de
+execução por consumidor desconhecido — a troca certa em API pública.
 
-**Prazo de execução.**
+**Prazo de execução.** Interromper a consulta que passa de um tempo máximo. Pega
+o que profundidade e custo estimado deixam passar: a consulta válida, abaixo do
+teto, que ainda assim ocupa o servidor por causa do volume real dos dados.
 
 ### Cache é o que se perde
 
 Em [REST](/08-integration-architecture/rest.md), cache de HTTP funciona: uma URL, um `GET`, um resultado
 cacheável por qualquer intermediário.
 
-Em GraphQL, tudo é `POST` numa única URL, com o conteúdo variando. Nenhum
-intermediário consegue cachear.
+Na forma usual de GraphQL — `POST` numa única URL, com o conteúdo variando —
+nenhum intermediário consegue cachear. Consultas persistidas servidas por `GET`,
+com o identificador na URL, recuperam parte desse cache, ao custo de registrar
+toda consulta antes de usá-la.
 
 O cache migra para dentro: cache por campo no servidor, cache normalizado no
 cliente. Ambos funcionam e ambos são complexidade que o HTTP dava de graça.
@@ -181,7 +186,7 @@ modelo interno em contrato público.
 |---|---|
 | Cliente escolhe os campos | Recurso fixo |
 | Uma chamada compõe a tela | Várias |
-| Cache de HTTP não funciona | Funciona |
+| Cache de HTTP só com consultas persistidas via `GET` | Funciona |
 | Custo de consulta imprevisível | Previsível |
 | Esquema tipado por definição | Contrato varia |
 | N+1 exige carregadores | Endpoint otimiza |
@@ -229,7 +234,7 @@ divergentes, e o backend virara gargalo — cada tela nova era uma semana de
 espera.
 
 O ganho apareceu: o time de frontend passou a construir telas sem pedir nada ao
-backend. O tempo de entrega de uma tela caiu de semanas para dias.
+backend. O tempo de entrega de uma tela caiu de uma semana para dias.
 
 Quatro problemas em produção:
 
@@ -251,11 +256,14 @@ movida para o nível do campo.
 **Cache perdido.** O catálogo público de cursos, antes servido de CDN com cache
 de horas, passou a bater no servidor a cada requisição. A solução foi manter esse
 recorte específico em REST — o catálogo voltou para `GET` cacheável, e o resto
-permaneceu em GraphQL.
+permaneceu em GraphQL. Consultas persistidas via `GET` eram a alternativa; a
+equipe não a escolheu porque o catálogo também era consumido por buscadores e
+por sites de terceiros, que não passariam por um registro de consultas.
 
 O ponto que a equipe sublinha: a decisão de adotar continua correta para os três
 clientes autenticados. O erro foi tratá-la como escolha global e migrar também o
-conteúdo público de leitura intensa, onde REST era estritamente melhor.
+conteúdo público de leitura intensa, onde REST servia o mesmo dado com cache de
+HTTP e sem registro de consultas.
 
 ## Conceitos Relacionados
 

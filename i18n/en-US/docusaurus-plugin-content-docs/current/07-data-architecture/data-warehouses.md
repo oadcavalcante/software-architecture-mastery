@@ -13,7 +13,7 @@ objective: >
 prerequisites: [olap]
 related: [data-lakes, column-stores, denormalization]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -119,7 +119,7 @@ both correct according to distinct definitions.
 ### The real cost is the transformation
 
 The storage technology is a commodity. What costs is writing and maintaining the transformations — and
-they break whenever a source system changes.
+every source change that alters a field, type or rule the transformation consumes breaks it.
 
 A warehouse with dozens of sources has a constant stream of maintenance. Budgeting the project without
 budgeting that maintenance is the characteristic planning error.
@@ -141,7 +141,8 @@ source, you do not need one.
 
 **With a single source.** A replica or columnar storage solves it.
 
-**When the volume does not justify it.**
+**When the join fits in a query over a replica.** If a few sources can be joined with a handful of
+indexes and minutes of response time are acceptable, the cost of loading and modeling does not pay off.
 
 **For exploratory analysis of raw unstructured data.** See
 [data lake](/07-data-architecture/data-lakes.md).
@@ -176,7 +177,7 @@ source, you do not need one.
 | Any future question | Only the foreseen ones |
 | Larger volume | Smaller |
 | More expensive queries | Cheap |
-| Irreversible if too coarse | — |
+| Re-aggregable along any cut | Irreversible: the detail was not kept |
 
 ## Failure Modes
 
@@ -223,7 +224,8 @@ It worked well for two years and the trust collapsed in one week.
 The commercial director and the finance director presented different revenue numbers for the same quarter
 — a 4% difference. Both came from the warehouse.
 
-The investigation found three simultaneous causes:
+The investigation traced the 4% to the first cause below and, along the way, found two more defects
+that distorted the numbers in both reports:
 
 **Divergent definitions.** One report included sales cancelled the same day; the other did not. No
 definition was published; each analyst had written their own.
@@ -276,4 +278,4 @@ happens.
 
 - Kimball, Ralph; Ross, Margy. *The Data Warehouse Toolkit*. 3rd ed. Wiley, 2013.
 - Inmon, W. H. *Building the Data Warehouse*. 4th ed. Wiley, 2005.
-- Linstedt, Dan. *Building a Scalable Data Warehouse with Data Vault 2.0*, 2015.
+- Linstedt, Dan; Olschimke, Michael. *Building a Scalable Data Warehouse with Data Vault 2.0*. Morgan Kaufmann, 2015.

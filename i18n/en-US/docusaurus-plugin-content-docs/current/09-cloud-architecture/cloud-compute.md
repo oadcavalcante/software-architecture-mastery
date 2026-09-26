@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, cost-architecture, containers]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -74,7 +74,7 @@ different build cycle.
 ### The purchase models
 
 ```text
-on demand      full price, no commitment, always available
+on demand      full price, no commitment, subject to regional capacity
 commitment     a discount for a 1 to 3 year reservation, for stable load
 interruptible  much cheaper, can be reclaimed with short notice
 ```
@@ -112,8 +112,9 @@ The ways to improve it:
 
 **Scaling on a leading metric** — queue depth, connections — instead of CPU, which reacts late.
 
-**Scheduled scaling** for predictable peaks. It is the most effective technique and the least used: if the
-peak is every Monday at 9 a.m., do not wait for the metric.
+**Scheduled scaling** for predictable peaks. When the peak has a known time, it is the only one of the five
+that puts capacity online before the peak, and so it removes the 2-to-5-minute window instead of shortening
+it: if the peak is every Monday at 9 a.m., do not wait for the metric.
 
 **Capacity headroom** to absorb the interval.
 
@@ -140,7 +141,8 @@ decisions are independent.
 
 ## When to Use
 
-- **A commitment** for the base load that always runs.
+- **A commitment** for the usage floor that has held over the last few months and does not depend on a
+  planned migration — reserving above that floor is paying a discount for idle capacity.
 - **On demand** for variation.
 - **Interruptible** for interruption-tolerant processing.
 - **Scheduled scaling** for predictable peaks.
@@ -152,7 +154,9 @@ decisions are independent.
 
 **A commitment before the load stabilizes.**
 
-**Interruptible for load that does not tolerate interruption.**
+**Interruptible for load that does not tolerate interruption** — work that cannot be redone from the start,
+whose checkpoint costs more than redoing it, or whose unit of work lasts longer than the reclaim notice with
+no checkpoint in between.
 
 **Relying on scaling for peaks of seconds.**
 
@@ -164,8 +168,10 @@ decisions are independent.
 
 - **[Containers](/09-cloud-architecture/containers.md)** — better density, faster scaling.
 - **[Serverless](/09-cloud-architecture/serverless.md)** — with no capacity to manage.
-- **Vertical scaling** — a bigger instance instead of more instances; simple, with a ceiling and a restart.
-- **A queue with workers** — it absorbs the peak without scaling, when the operation is asynchronous. See
+- **[Vertical scaling](/11-scalability/vertical-scaling.md)** — a bigger instance instead of more instances;
+  simple, with a ceiling and a restart.
+- **[A queue with workers](/11-scalability/queue-based-scaling.md)** — it absorbs the peak without scaling,
+  when the operation is asynchronous. The mechanism is in
   [messaging](/06-distributed-systems/messaging.md).
 
 The last deserves emphasis: for many peaks, the right answer is not more capacity — it is not needing to
@@ -175,7 +181,8 @@ process everything at that instant.
 
 | A bigger instance | More instances |
 |---|---|
-| Simple | Failure distribution |
+| Simple to operate | More pieces to operate |
+| A single failure takes everything down | A failure hits part of the capacity |
 | The largest size's ceiling | Scales beyond |
 | A restart to change | No interruption |
 | No coordination | State needs to go elsewhere |

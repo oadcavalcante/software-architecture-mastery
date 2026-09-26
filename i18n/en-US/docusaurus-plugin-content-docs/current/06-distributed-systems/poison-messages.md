@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [dead-letter-queues, retries, duplicate-messages]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -26,7 +26,8 @@ A *poison message* is a message that fails on every processing attempt.
 With no handling, it goes back to the queue indefinitely, consumes the consumer, and — in ordered
 queues — **blocks all the messages that follow**.
 
-It is the most common failure mode of newly adopted messaging systems, and the easiest to prevent.
+It is a frequent failure mode of newly adopted messaging systems, and the handling costs little next
+to the damage: an attempt limit, a dead-letter, and an alert.
 
 ## Problem
 
@@ -60,7 +61,9 @@ Distinguishing requires context the consumer does not always have.
 
 ### Transient versus permanent
 
-The consumer's central decision on each failure: **will this work if I try again?**
+The general classification of retryable failures belongs to
+[retries](/06-distributed-systems/retries.md); the focus here is what it becomes in message
+consumption. The consumer's central decision on each failure: **will this work if I try again?**
 
 | Failure | Nature |
 |---|---|
@@ -69,9 +72,6 @@ The consumer's central decision on each failure: **will this work if I try again
 | Deserialization error | Permanent — do not retry |
 | Business validation rejected it | Permanent |
 | The referenced entity does not exist | Ambiguous |
-
-Retrying a permanent failure is guaranteed waste. Treating a transient one as permanent discards
-work that would have succeeded.
 
 The consumer has to classify — and the "try three times and send to dead-letter" pattern treats them
 all the same, which is acceptable as a safety net and bad as the only strategy.
@@ -109,7 +109,7 @@ second, it stays forever.
 
 ## When to Use
 
-The handling is mandatory in any consumer. The decisions that remain:
+The attempt limit is mandatory in any consumer. The decisions that remain:
 
 - How many attempts before giving up.
 - Whether to classify failures by nature or treat them all the same.
@@ -117,17 +117,21 @@ The handling is mandatory in any consumer. The decisions that remain:
 
 ## When Not to Use
 
-**Retrying indefinitely.** It is never the answer.
+The limit stays; what changes shape is the rest of the handling.
 
-**Discarding with no record.** It loses the information and hides the problem.
+**Disposable, unordered consumption.** Sampled telemetry, cache invalidation: if losing a message
+changes no result anyone will check, discarding with a counter and a log beats the dead-letter.
+Nobody will reprocess what sits there, and a queue nobody drains becomes storage and an alert with no
+owner.
 
-**Treating every failure as permanent.** It discards work that would have succeeded on the second
-attempt.
+**Low volume, a single dependency.** In a consumer that reads dozens of messages a day and only talks
+to one database, mapping errors by nature costs more than the fixed N attempts waste. Treating them
+all the same, with a small N, holds until the consumer gains new dependencies.
 
-**Treating every failure as transient.** It retries a deserialization error three times, with no
-chance of success.
-
-**With no alert.** A dead-letter queue nobody monitors is a graveyard.
+**Batch consumption.** When the consumer acknowledges the whole batch, isolating the bad message
+requires breaking the batch — reprocessing item by item or halving it until you find it — and the
+handling stops being configuration and becomes code. If the batch is all-or-nothing by business rule,
+sending the whole batch to the dead-letter is more honest than faking isolation.
 
 ## Alternatives
 
@@ -147,7 +151,7 @@ chance of success.
 
 | Classify the failure | Treat them all the same |
 |---|---|
-| No useless retries | Simple |
+| A mis-mapped error becomes a defect: a transient one goes straight to the dead-letter | No mapping error possible |
 | Requires mapping the errors | Nothing to maintain |
 | Leaves faster in the permanent case | Always N attempts |
 
@@ -168,11 +172,15 @@ thousands.
 
 ## Common Mistakes
 
-**Not configuring an attempt limit.**
+**Not configuring an attempt limit.** The partition stops, and the damage only shows when the
+customer calls — in the Real-World Example, nine hours later.
 
-**Not distinguishing transient from permanent.**
+**Not distinguishing transient from permanent.** One way, three deserialization attempts delay the
+message's exit with no chance of success; the other way, a two-minute network outage sends to the
+dead-letter work that would have succeeded on the second attempt.
 
-**Not alerting on the dead-letter.**
+**Not alerting on the dead-letter.** It piles up in silence. A dead-letter nobody monitors is a
+graveyard.
 
 **Not recording the content and the error.** Without that, diagnosing requires reproducing.
 
@@ -210,9 +218,11 @@ prevention, which does not replace the handling.
 Over the following two years, the dead-letter received 34 messages. All were analyzed in minutes,
 and none blocked anything.
 
-The later assessment points out: the four fixes cost one day of work, and all of them were in the
-queue service's documentation. The nine-hour incident was entirely avoidable with a standard
-best-practice configuration.
+The later assessment points out: the four fixes cost one day of work. Two — the dead-letter with a
+limit and the age alert — were configuration described in the queue service's documentation, and
+they were enough to avoid the nine hours: the message would have left the partition after three
+attempts, and the alert would have fired in 15 minutes. Classification and sanitization are code;
+they reduce what reaches the dead-letter, not the risk of stalling.
 
 ## Related Concepts
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, serverless, managed-services]
 canonical_for: [Kubernetes, orquestração de contêineres, reconciliação declarativa]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -173,13 +173,20 @@ orquestração em escala, e cobra em conhecimento continuamente.
 
 ## Quando Não Usar
 
-**Com poucos serviços.** Plataformas mais simples resolvem.
+**Com poucos serviços.** Na casa de uma dezena de serviços com carga previsível,
+uma plataforma de contêineres mais simples cobre réplicas, recuperação e
+implantação; o Exemplo Real pagou dois engenheiros em tempo integral por 9 serviços.
 
 **Sem quem opere.** A instalação é fácil; a operação, não.
 
-**Para uma aplicação única.**
+**Para uma aplicação única.** Agendamento, descoberta e implantação padronizada
+entre times são problemas de muitos serviços. Com um só, não há o que orquestrar,
+e o custo de operar o cluster não diminui por isso.
 
-**Como sinônimo de modernização.**
+**Como sinônimo de modernização.** Se a justificativa não nomeia um problema atual
+— implantação inconsistente entre times, recuperação manual de nós, escala que as
+máquinas não acompanham —, a adoção compra o custo de operação sem o benefício que
+o paga.
 
 **Autogerido, sem time dedicado.** Use gerenciado.
 
@@ -207,10 +214,11 @@ erradas — só as distribui melhor.
 
 | Gerenciado | Autogerido |
 |---|---|
-| Plano de controle do provedor | Seu |
-| Menos operação crítica | Toda |
-| Custo do serviço | Custo do time |
-| Versões conforme o provedor | Sua escolha |
+| Plano de controle do provedor — etcd, certificados, atualizações | Seu, com o time dedicado que ele exige |
+
+O restante da comparação — trabalho operacional, preço, controle de versão — é o de
+qualquer serviço gerenciado; ver
+[Serviços Gerenciados](/09-cloud-architecture/managed-services.md).
 
 ## Modos de Falha
 
@@ -221,8 +229,8 @@ outro serviço.
 
 **Segredo tratado como cifrado** quando não está.
 
-**Interrupção sem orçamento definido.** Uma manutenção de nós remove todas as
-réplicas ao mesmo tempo.
+**Interrupção sem orçamento definido.** Uma manutenção de nós pode remover todas
+as réplicas ao mesmo tempo, se estiverem nos nós drenados.
 
 **Escalonamento sem teto.** Custo dispara com um defeito.
 
@@ -299,7 +307,11 @@ que o de qualquer migração hipotética. Ver
 
 ## Exercício Prático
 
-Se você usa Kubernetes, verifique quantos dos seus serviços têm requisições,
+Se ainda está decidindo, liste os problemas de implantação e operação que você tem
+hoje e marque quais uma plataforma de contêineres gerenciada resolveria. O que
+sobrar é o argumento para Kubernetes — se sobrar algo.
+
+Se já usa Kubernetes, verifique quantos dos seus serviços têm requisições,
 limites e verificações de saúde corretamente configurados.
 
 Depois olhe as verificações de liveness: alguma consulta um banco ou outro serviço?

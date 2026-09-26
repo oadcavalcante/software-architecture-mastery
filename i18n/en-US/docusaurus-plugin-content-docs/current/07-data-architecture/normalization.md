@@ -13,7 +13,7 @@ objective: >
 prerequisites: [data-modeling]
 related: [denormalization, relational-databases, oltp]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -124,9 +124,13 @@ return is integrity the database enforces on its own.
 **When the data is a snapshot of the moment.** The price at the instant of purchase should be copied,
 not referenced — it does not change when the catalog price changes.
 
-**On principle, without evaluating the access.**
+**When the dominant query always reassembles the same aggregate.** If every read joins the same
+four tables to build an entity nobody updates in parts, the decomposition charges joins and buys no
+integrity.
 
-**Beyond third normal form with no concrete reason.**
+**Beyond third normal form with no multivalued dependency in sight.** Fourth and fifth forms only
+pay off when a table combines two independent facts — an employee's skills and languages, for
+example — and the Cartesian product already shows up in the rows.
 
 **In storage with no joins.** See [documents](/07-data-architecture/document-databases.md) — there the
 model is different.
@@ -172,15 +176,19 @@ nobody having altered the history.
 
 ## Common Mistakes
 
-**Normalizing out of habit.**
+**Normalizing out of habit.** The decomposition comes out the same for the record that changes
+daily and the one that never changes, and the second pays for joins while gaining nothing.
 
-**Not declaring foreign keys.**
+**Not declaring foreign keys.** The database accepts items pointing to deleted orders, and the
+orphans only surface when a report sums wrong.
 
 **Referencing when copying was correct** — the historical value case.
 
-**Applying the same criterion to OLTP and OLAP.**
+**Applying the same criterion to OLTP and OLAP.** The analytical model inherits the transactional
+joins, and the aggregation query ends up scanning the whole volume several times.
 
-**Denormalizing with no documentation.**
+**Denormalizing with no documentation.** The copy stops being treated as a copy, someone updates
+only one side, and the divergence becomes data.
 
 ## Real-World Example
 
@@ -190,7 +198,8 @@ declared, third normal form.
 The order item referenced the product and obtained the price from the price table.
 
 The problem appeared during a tax audit: the value of the invoices issued in 2023 did not match what
-the system computed when reissuing the report in 2025.
+the system computed when reissuing the report in 2025. Of
+the roughly 40,000 invoices from that year, most diverged, some by more than 10%.
 
 The cause: the prices had changed. Since the item referenced the current price table, every
 historical report reflected today's prices.
@@ -199,7 +208,7 @@ The model was formally normalized and conceptually wrong. "The product's price" 
 on this item" are different facts — the second is immutable and belongs to the item.
 
 The fix was to copy to the order item, at the moment of issuance: unit price, applied tax rate,
-product description and discount. Five fields.
+product description and discount. Four fields.
 
 That looks like duplication and is not: none of those values has any relationship with the price table
 after issuance. They can never change.

@@ -2,7 +2,7 @@
 id: batch-integration
 title: Batch Integration
 sidebar_position: 7
-description: Processing many records at once — the style that moves more corporate data than all the others combined.
+description: Processing many records at once — the style that underpins closing, reconciliation, and analytical loads between corporate systems.
 doc_type: concept
 level: 5
 difficulty: intermediate
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [file-integration, messaging-integration, data-lifecycle]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -23,8 +23,8 @@ last_reviewed: 2026-08-31
 
 Batch integration processes a large set of records at once, at defined intervals.
 
-It is the least discussed and the most used style: payroll, bank reconciliation, billing, analytical loads,
-regulatory files. Most of the data that crosses corporate boundaries still travels this way.
+It is the least discussed style, and it remains dominant wherever the result depends on a closed period:
+payroll, bank reconciliation, billing, analytical loads, regulatory files.
 
 It is frequently treated as legacy to be replaced. For a large class of problems, it is simply the right
 answer — and replacing it with continuous processing makes everything worse.
@@ -82,11 +82,15 @@ the marker has already passed. See [clock and time](/06-distributed-systems/cloc
 
 **A sequence number.** More reliable, and it requires the source to maintain it.
 
-**The database's change log.** The most reliable, and the most invasive.
+**The database's change log.** The most reliable; it is the most invasive in database operations —
+replication privileges, log retention, dependence on the internal format — and the one that touches the
+application least.
 
 The first one's failure mode is subtle and common: a transaction started before the cutoff and committed
-after it is never captured. A deliberate overlap of the window — reprocessing a few extra minutes — covers
-that, and is only safe if the process is idempotent.
+after it is never captured. A deliberate overlap of the window — reprocessing an extra stretch — covers
+that, and is only safe if the process is idempotent. It only recovers transactions that last less than the
+overlap: the size comes from measuring the longest transaction duration at the source, and anything longer
+is still lost.
 
 ### The batch has to fit in the window
 
@@ -136,18 +140,18 @@ favorable trade.
 
 ## When Not to Use
 
-**When latency is a requirement.** If the user expects the effect now.
+**When latency is a requirement.** If the user expects the effect now, batch delivers it hours later, and
+no window optimization changes that.
 
-**With no idempotent reprocessing.**
+**When the window is already tight and there is no growth plan.** Volume growing over a fixed window has a
+date to blow it; micro-batch or continuous processing spread across the day the load the window cannot hold.
 
-**When the window is already tight.** With no growth plan.
-
-**With no partial failure policy.**
-
-**For events that need to be reacted to individually.** See
+**For events that need to be reacted to individually.** A suspicious transaction approved at 3 p.m. and
+detected in the 2 a.m. batch has already caused the loss. See
 [event-driven integration](/08-integration-architecture/event-driven-integration.md).
 
-**When the volume per run does not fit in memory** and the process was not written to stream.
+Idempotent reprocessing, a partial failure policy, and streaming are not reasons to abandon batch: they are
+implementation gaps, covered in Common Mistakes, and continuous processing demands the same decisions.
 
 ## Alternatives
 
@@ -205,8 +209,8 @@ reaches the limit through gradual growth. Without the trend, the warning is the 
 finish.
 
 **Not overlapping the incremental window.** Fetching exactly since the last run loses records written
-during it, through clock differences or through a transaction that committed later. Overlapping a few
-minutes and relying on idempotency solves it.
+during it, through clock differences or through a transaction that committed later. Overlapping by more than
+the source's longest transaction duration, and relying on idempotency, solves it.
 
 **Not defining a partial failure policy.** A hundred thousand records and three invalid ones: abort
 everything, ignore the three, or set them aside for review? With no prior decision, each run resolves it a
@@ -248,8 +252,9 @@ The fixes:
 
 **Reprocessing by partition** — delete the day and reload. The rerun stopped being a risky operation.
 
-**A 30-minute overlap** on the incremental window, feasible because the process became idempotent. The lost
-transactions went to zero.
+**A 30-minute overlap** on the incremental window, feasible because the process became idempotent, and sized
+by measurement: the source's longest transaction lasted 12 minutes. The lost transactions went to zero, and an
+alert started firing if any transaction exceeds the overlap.
 
 **Streaming processing**, in chunks, instead of loading everything. The run fell from 5 hours 20 to 1 hour
 10 — most of the time was memory pressure, not useful work.

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [integration-architecture]
 related: [event-driven-integration, webhooks, rest]
 canonical_for: [integração por mensageria, fila de integração, intermediário de mensagens]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -37,7 +37,7 @@ Numa integração síncrona, o chamador depende de o chamado estar disponível
 **agora**. Se o destino está fora, a operação falha.
 
 Numa cadeia de quatro serviços com 99,9% cada, a disponibilidade combinada cai
-para 99,6% — e o usuário sente a falha do quarto elo mesmo quando o pedido dele
+para 99,6% — a [indisponibilidade composta](/20-trade-offs/sync-vs-async.md) — e o usuário sente a falha do quarto elo mesmo quando o pedido dele
 já estava validado.
 
 Pior: um destino lento propaga a lentidão. As conexões do chamador ficam presas
@@ -55,7 +55,9 @@ Isso desacopla **disponibilidade**, não formato nem semântica — o consumidor
 continua precisando entender a mensagem.
 
 E move a dependência: agora as duas pontas dependem do intermediário. Ele passa a
-ser componente crítico, com toda a operação que isso implica.
+ser componente crítico, com toda a operação que isso implica — e com custo
+próprio: o intermediário gerenciado cobra por volume ou por nó, e o painel, o
+alerta e o plantão que o consumidor parado exige viram custo recorrente de equipe.
 
 ### Fila ou tópico decide a topologia
 
@@ -95,13 +97,18 @@ Isto é o que a comparação usual omite. Ao adotar mensageria, você assume:
 idempotência        entrega ao menos uma vez é o padrão realista
 ordem               não é garantida entre partições
 duplicatas          vão acontecer
-mensagens venenosas  uma mensagem que sempre falha trava o consumo
+mensagens venenosas  uma mensagem que sempre falha trava a partição ou recircula
 fila de mortas      e o processo de tratá-la
 atraso do consumidor monitorado, com alerta
 esquema             evolução do formato da mensagem
 ```
 
-Sete responsabilidades que a chamada síncrona não tinha. Cada uma está tratada em
+Sete responsabilidades, e nem todas nascem com a fila. Mensagem venenosa, fila de
+mortas, atraso do consumidor e duplicata por reentrega vêm do intermediário.
+[Idempotência](/06-distributed-systems/idempotency.md) e
+[evolução de esquema](/08-integration-architecture/schema-evolution.md) já existiam
+na chamada síncrona com retentativa e implantação independente; a mensageria
+tira delas a opção de adiar, porque a reentrega é o padrão. Cada uma está tratada em
 [sistemas distribuídos](/06-distributed-systems/index.md), e todas precisam
 existir antes de a primeira mensagem entrar em produção.
 
@@ -131,7 +138,8 @@ Isso resolve sem transação distribuída. Ver
 ## Modelo Mental
 
 **Mensageria troca acoplamento de disponibilidade por responsabilidade
-operacional.** As sete responsabilidades acima são o preço, e ele é fixo.
+operacional.** As sete responsabilidades acima são o piso do preço, não o teto:
+o exemplo abaixo cobrou mais duas.
 
 ## Quando Usar
 
@@ -152,7 +160,9 @@ operacional.** As sete responsabilidades acima são o preço, e ele é fixo.
 
 **Sem idempotência no consumidor.** Duplicata é certa.
 
-**Sem tratamento de mensagem venenosa.** Uma mensagem trava a fila inteira.
+**Sem tratamento de mensagem venenosa.** Com consumo ordenado ou serial, uma
+mensagem trava a partição inteira; com consumo paralelo, ela recircula e consome
+capacidade indefinidamente.
 
 **Quando a ordem estrita entre entidades distintas é obrigatória.**
 
@@ -177,9 +187,9 @@ certo para gigabytes.
 | Destino pode estar fora | Precisa estar disponível |
 | Absorve picos | Propaga carga |
 | Remetente não espera | Espera |
-| Sete responsabilidades novas | Nenhuma delas |
+| Quatro responsabilidades novas; idempotência e esquema viram obrigatórias | Idempotência e esquema, só se houver retentativa |
 | Falha silenciosa possível | Erro imediato |
-| Intermediário a operar | Sem componente extra |
+| Intermediário a operar e pagar | Sem componente extra |
 | Depurar exige rastreamento | Pilha de chamadas |
 
 ## Modos de Falha
@@ -232,8 +242,8 @@ tela do caixa.
 A migração para fila resolveu as duas: a venda passou a publicar a baixa e
 concluir. O estoque consome no ritmo dele.
 
-Cinco problemas apareceram nos primeiros meses, e todos eram das responsabilidades
-que a equipe não tinha implementado:
+Cinco problemas apareceram nos primeiros meses. Três vinham das responsabilidades
+listadas acima, que a equipe não tinha implementado; dois estavam fora da lista:
 
 **Consumidor parado por 6 horas.** Uma implantação com defeito derrubou o
 consumidor de madrugada. Ninguém percebeu. O estoque ficou 6 horas defasado, e
@@ -243,7 +253,8 @@ produtos esgotados continuaram sendo vendidos.
 itens. O consumidor não era idempotente.
 
 **Mensagem venenosa.** Uma venda com um campo inesperado fazia o consumidor
-falhar e reprocessar indefinidamente. A fila parou por 90 minutos, com uma única
+falhar e reprocessar indefinidamente. Como o consumidor processava em ordem, um
+por vez, a fila parou por 90 minutos, com uma única
 mensagem bloqueando tudo.
 
 **Publicação fora da transação.** Em quedas do processo entre a gravação da venda

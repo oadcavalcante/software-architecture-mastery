@@ -13,7 +13,7 @@ objective: >
 prerequisites: [containers]
 related: [containers, serverless, managed-services]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -161,13 +161,20 @@ in knowledge continuously.
 
 ## When Not to Use
 
-**With few services.** Simpler platforms solve it.
+**With few services.** Around a dozen services with predictable load, a simpler
+container platform covers replicas, recovery and deployment; the Real Example paid
+two full-time engineers for 9 services.
 
 **With nobody to operate it.** The installation is easy; the operation is not.
 
-**For a single application.**
+**For a single application.** Scheduling, discovery and deployment standardized
+across teams are problems of many services. With one, there is nothing to
+orchestrate, and the cost of operating the cluster does not shrink because of it.
 
-**As a synonym for modernization.**
+**As a synonym for modernization.** If the justification does not name a current
+problem — inconsistent deployment across teams, manual node recovery, scale the
+machines cannot keep up with —, the adoption buys the operating cost without the
+benefit that pays for it.
 
 **Self-managed, with no dedicated team.** Use managed.
 
@@ -195,10 +202,11 @@ better.
 
 | Managed | Self-managed |
 |---|---|
-| The provider's control plane | Yours |
-| Less critical operation | All of it |
-| The service's cost | The team's cost |
-| Versions on the provider's terms | Your choice |
+| The provider's control plane — etcd, certificates, upgrades | Yours, with the dedicated team it demands |
+
+The rest of the comparison — operational work, price, version control — is that of
+any managed service; see
+[Managed Services](/09-cloud-architecture/managed-services.md).
 
 ## Failure Modes
 
@@ -208,7 +216,8 @@ better.
 
 **A secret treated as encrypted** when it is not.
 
-**Disruption with no defined budget.** A node maintenance removes every replica at the same time.
+**Disruption with no defined budget.** A node maintenance can remove every replica at the same time, if they sit on the
+drained nodes.
 
 **Scaling with no ceiling.** Cost explodes with a defect.
 
@@ -286,7 +295,11 @@ migration. See [vendor lock-in](/09-cloud-architecture/vendor-lock-in.md).
 
 ## Practical Exercise
 
-If you use Kubernetes, check how many of your services have requests, limits and health checks correctly
+If you are still deciding, list the deployment and operations problems you have
+today and mark which ones a managed container platform would solve. Whatever is
+left is the case for Kubernetes — if anything is left.
+
+If you already use Kubernetes, check how many of your services have requests, limits and health checks correctly
 configured.
 
 Then look at the liveness checks: does any of them query a database or another service? Each one of those

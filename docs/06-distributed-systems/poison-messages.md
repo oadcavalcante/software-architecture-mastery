@@ -13,7 +13,7 @@ objective: >
 prerequisites: [messaging]
 related: [dead-letter-queues, retries, duplicate-messages]
 canonical_for: [poison message, mensagem envenenada]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -26,8 +26,9 @@ Uma *poison message* é uma mensagem que falha em toda tentativa de processament
 Sem tratamento, ela volta para a fila indefinidamente, consome o consumidor, e —
 em filas com ordem — **bloqueia todas as mensagens seguintes**.
 
-É o modo de falha mais comum de sistemas de mensageria recém-adotados, e o mais
-fácil de prevenir.
+É um modo de falha frequente em sistemas de mensageria recém-adotados, e o
+tratamento custa pouco perto do dano: um limite de tentativas, uma dead-letter e
+um alerta.
 
 ## Problema
 
@@ -64,8 +65,10 @@ permanente. Distinguir exige contexto que o consumidor nem sempre tem.
 
 ### Transitória versus permanente
 
-A decisão central do consumidor a cada falha: **isto vai funcionar se eu tentar de
-novo?**
+A classificação geral de falhas retentáveis é de
+[retentativas](/06-distributed-systems/retries.md); aqui o foco é o que ela vira
+no consumo de mensagens. A decisão central do consumidor a cada falha: **isto vai
+funcionar se eu tentar de novo?**
 
 | Falha | Natureza |
 |---|---|
@@ -74,9 +77,6 @@ novo?**
 | Erro de desserialização | Permanente — não repita |
 | Validação de negócio rejeitou | Permanente |
 | Entidade referenciada não existe | Ambígua |
-
-Repetir uma falha permanente é desperdício garantido. Tratar uma transitória como
-permanente descarta trabalho que teria sucesso.
 
 O consumidor precisa classificar — e o padrão de "tente três vezes e mande para
 dead-letter" trata todas igual, o que é aceitável como rede de segurança e ruim
@@ -117,7 +117,7 @@ desistência. Sem o segundo, ela fica para sempre.
 
 ## Quando Usar
 
-O tratamento é obrigatório em qualquer consumidor. As decisões que restam:
+O limite de tentativas é obrigatório em qualquer consumidor. As decisões que restam:
 
 - Quantas tentativas antes de desistir.
 - Se classificar falhas por natureza ou tratar todas igual.
@@ -125,17 +125,23 @@ O tratamento é obrigatório em qualquer consumidor. As decisões que restam:
 
 ## Quando Não Usar
 
-**Repetir indefinidamente.** Nunca é a resposta.
+O limite fica; o que muda de forma é o resto do tratamento.
 
-**Descartar sem registrar.** Perde a informação e esconde o problema.
+**Consumo descartável, sem ordem.** Telemetria amostrada, invalidação de cache:
+se perder uma mensagem não muda nenhum resultado que alguém vá conferir, descartar
+com contador e log vence a dead-letter. Ninguém vai reprocessar o que está lá, e
+uma fila que ninguém esvazia vira armazenamento e alerta sem dono.
 
-**Tratar toda falha como permanente.** Descarta trabalho que teria sucesso na
-segunda tentativa.
+**Volume baixo, uma dependência só.** Num consumidor que lê dezenas de mensagens
+por dia e só fala com um banco, mapear erros por natureza custa mais do que as N
+tentativas fixas desperdiçam. Tratar todas igual, com N pequeno, vale enquanto o
+consumidor não ganhar dependências novas.
 
-**Tratar toda falha como transitória.** Repete erro de desserialização três vezes,
-sem chance de sucesso.
-
-**Sem alerta.** Uma dead-letter queue que ninguém monitora é um cemitério.
+**Consumo em lote.** Quando o consumidor confirma o lote inteiro, isolar a
+mensagem ruim exige quebrar o lote — reprocessar item a item ou dividir ao meio
+até achá-la — e o tratamento deixa de ser configuração para virar código. Se o
+lote é tudo-ou-nada por regra de negócio, mandar o lote inteiro para a
+dead-letter é mais honesto que fingir isolamento.
 
 ## Alternativas
 
@@ -156,7 +162,7 @@ sem chance de sucesso.
 
 | Classificar a falha | Tratar todas igual |
 |---|---|
-| Sem retentativa inútil | Simples |
+| Erro mal mapeado vira defeito: transitória vai direto para dead-letter | Nenhum erro de mapeamento possível |
 | Exige mapear os erros | Nada a manter |
 | Sai mais rápido no caso permanente | Sempre N tentativas |
 
@@ -178,11 +184,16 @@ uma vez, e a dead-letter recebe milhares.
 
 ## Erros Comuns
 
-**Não configurar limite de tentativas.**
+**Não configurar limite de tentativas.** A partição para, e o dano só aparece
+quando o cliente liga — no Exemplo Real, nove horas depois.
 
-**Não distinguir transitório de permanente.**
+**Não distinguir transitório de permanente.** Num sentido, três tentativas de
+desserialização atrasam a saída da mensagem sem chance de sucesso; no outro, uma
+queda de rede de dois minutos manda para a dead-letter trabalho que teria sucesso
+na segunda tentativa.
 
-**Não alertar sobre a dead-letter.**
+**Não alertar sobre a dead-letter.** Ela acumula em silêncio. Uma dead-letter
+que ninguém monitora é um cemitério.
 
 **Não registrar o conteúdo e o erro.** Sem isso, diagnosticar exige reproduzir.
 
@@ -222,9 +233,12 @@ origem — a prevenção, que não substitui o tratamento.
 Nos dois anos seguintes, a dead-letter recebeu 34 mensagens. Todas foram
 analisadas em minutos, e nenhuma bloqueou nada.
 
-A avaliação posterior aponta: as quatro correções custaram um dia de trabalho, e todas
-estavam na documentação do serviço de fila. O incidente de nove horas foi
-inteiramente evitável com configuração padrão de boa prática.
+A avaliação posterior aponta: as quatro correções custaram um dia de trabalho.
+Duas — dead-letter com limite e alerta de idade — eram configuração descrita na
+documentação do serviço de fila, e bastavam para evitar as nove horas: a mensagem
+sairia da partição após três tentativas, e o alerta dispararia em 15 minutos.
+Classificação e sanitização são código; reduzem o que chega à dead-letter, não o
+risco de travar.
 
 ## Conceitos Relacionados
 

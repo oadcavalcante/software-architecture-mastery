@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor decide entre gerenciado e autogerido comparando custo total
   de operação, não preço de lista.
 prerequisites: [cloud-architecture]
-related: [vendor-lock-in, cost-architecture, serverless]
+related: [vendor-lock-in, cost-architecture, serverless, managed-vs-self-hosted]
 canonical_for: [serviço gerenciado, autogerido, custo total de operação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -112,8 +112,10 @@ serviços têm retenção padrão curta.
 **Modelagem e consulta continuam suas.** Serviço gerenciado não conserta índice
 ausente. Ver [indexação](/07-data-architecture/indexing.md).
 
-**O provedor tem incidentes.** E você não tem o que fazer além de esperar — o que
-precisa estar no plano.
+**O provedor tem incidentes.** Com o serviço numa única região e num único
+fornecedor, a única ação é esperar — o que precisa estar no plano. O que muda essa
+condição é redundância paga à parte: [multi-região](/09-cloud-architecture/multi-region.md)
+e [recuperação de desastre](/09-cloud-architecture/disaster-recovery.md).
 
 ### Os graus
 
@@ -155,9 +157,9 @@ configuração.
 **Quando a dependência é inaceitável.** Ver
 [dependência de fornecedor](/09-cloud-architecture/vendor-lock-in.md).
 
-**Sem verificar cópia de segurança, retenção e multi-zona.**
-
-**Assumindo que gerenciado significa sem responsabilidade.**
+**Quando a exigência de durabilidade passa do teto do serviço** — retenção
+regulatória maior que o máximo configurável, ou multi-zona que o plano contratado
+não expõe.
 
 ## Alternativas
 
@@ -191,7 +193,7 @@ configuração.
 
 **Manutenção reiniciando sem tolerância da aplicação.**
 
-**Incidente do provedor.** Sem ação possível.
+**Incidente do provedor.** Sem redundância entre regiões, sem ação possível além de esperar.
 
 **Versão descontinuada.** Migração forçada com prazo do provedor.
 
@@ -234,8 +236,9 @@ falhou — o procedimento documentado estava desatualizado.
 A migração para gerenciado foi feita em três dos quatro componentes:
 
 **Banco, cache e fila** migrados. A fatura de infraestrutura subiu, e a conta total
-caiu: a 1,5 pessoa voltou para o produto, e os incidentes relacionados foram de 9
-para 1 no ano seguinte.
+caiu: cerca de 1,1 das 1,5 pessoa voltou para o produto — a busca continuou
+consumindo o restante —, e os incidentes dos três componentes migrados, 7 dos 9,
+foram para 1 no ano seguinte.
 
 **Busca permaneceu autogerida.** O serviço gerenciado disponível não suportava um
 recurso de relevância que o produto usava, e que era diferencial real. Decisão
@@ -260,6 +263,7 @@ mesma planilha, porque ele já estava pago.
 - [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md) — o outro lado.
 - [Serverless](/09-cloud-architecture/serverless.md) — o grau seguinte.
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
+- [Gerenciado vs. Autogerido](/20-trade-offs/managed-vs-self-hosted.md) — a conta detalhada.
 - [Zonas de Disponibilidade](/09-cloud-architecture/availability-zones.md) — o que verificar.
 
 ## Exercício Prático

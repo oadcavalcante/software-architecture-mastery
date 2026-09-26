@@ -13,7 +13,7 @@ objective: >
 prerequisites: [paas]
 related: [paas, vendor-lock-in, managed-services]
 canonical_for: [SaaS, software como serviço, construir ou comprar]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-27
 ---
 
@@ -49,7 +49,8 @@ linha — e não construir por reflexo o que já existe pronto.
 O critério que resolve a maioria dos casos:
 
 **Isto é fonte de vantagem competitiva?** Se os clientes escolhem você por causa
-disso, construa. Se não, compre.
+disso, construa. Se não, compre. A conta de custo total, com pessoal e manutenção,
+está em [Build vs. Buy](/20-trade-offs/build-vs-buy.md).
 
 Uma transportadora que constrói o próprio roteirizador pode estar certa — a
 eficiência de rota é o negócio. A mesma empresa construindo um sistema de chamados
@@ -66,8 +67,9 @@ pode nunca ser atendida.
 
 **Modelo de dados dele.** Seus dados vão para a estrutura que ele define.
 
-**Disponibilidade dele.** Se ele cai, você cai — sem ação possível. Isso precisa
-entrar no seu cálculo de disponibilidade. Ver
+**Disponibilidade dele.** Se ele cai, a funcionalidade cai com ele, e sobre o
+sistema dele você não tem ação; a única ação é a preparada antes — degradação, ou
+um caminho mínimo independente para o que é crítico. Isso precisa entrar no seu cálculo de disponibilidade. Ver
 [disponibilidade](/06-distributed-systems/availability.md).
 
 **Risco de continuidade.** Fornecedores são adquiridos, mudam de estratégia,
@@ -141,17 +143,28 @@ desconhecidos — antes de virar problema de custo.
 
 ## Quando Não Usar
 
-**Quando é o diferencial competitivo.**
+**Quando é o diferencial competitivo.** Os clientes escolhem você por causa disso;
+comprar entrega ao fornecedor o roadmap do que te distingue.
 
-**Quando a exportação de dados é ruim.**
+**Quando a exportação de dados é ruim.** Ela não traz o histórico, ou sai num
+formato que você não consegue recarregar em outro sistema no prazo que uma troca de
+fornecedor toleraria.
 
-**Quando a disponibilidade dele não cabe no seu requisito.**
+**Quando a disponibilidade dele não cabe no seu requisito.** Ele está no caminho
+síncrono, e a disponibilidade composta em série — a dele multiplicada pela sua —
+fica abaixo do que você promete.
 
-**Quando a conformidade não pode ser terceirizada.**
+**Quando a conformidade não pode ser terceirizada.** A regulação exige controle
+direto sobre onde o dado reside ou sobre a auditoria do fluxo, e o fornecedor não dá
+essa garantia.
 
-**Sem avaliar o custo de integração.**
+**Quando a integração custa mais que construir.** Sincronização nos dois sentidos,
+identidade e anticorrupção, somadas, podem passar do custo de manter a
+funcionalidade — e sem essa conta feita a decisão não está tomada.
 
-**Muitos SaaS sobrepostos** sem inventário nem governança.
+**Quando a função já está coberta por outro SaaS da casa.** Uma ferramenta
+sobreposta, sem inventário nem governança, acrescenta dados espalhados e contas a
+desprovisionar, não capacidade.
 
 ## Alternativas
 
@@ -166,7 +179,7 @@ desconhecidos — antes de virar problema de custo.
 | Comprar | Construir |
 |---|---|
 | Disponível agora | Meses |
-| Sem manutenção | Contínua |
+| Sem manutenção do produto; a da integração permanece | Produto e integração, contínua |
 | Funcionalidade do fornecedor | Exatamente o que precisa |
 | Custo previsível por assinatura | Custo de engenharia |
 | Dependência e risco de continuidade | Controle |
@@ -174,7 +187,8 @@ desconhecidos — antes de virar problema de custo.
 
 ## Modos de Falha
 
-**Indisponibilidade do fornecedor.** Sem ação possível.
+**Indisponibilidade do fornecedor.** Nada a fazer sobre o sistema dele; resta só o que
+ficou preparado antes — degradação ou caminho mínimo independente.
 
 **Mudança de preço.**
 
@@ -216,8 +230,9 @@ O levantamento mostrou **4 engenheiros equivalentes** mantendo esses quatro sist
 
 A substituição por SaaS foi feita em três dos quatro:
 
-**Chamados, monitoramento e recursos humanos** substituídos. Os quatro engenheiros
-voltaram para o roteirizador, que é o diferencial real do produto.
+**Chamados, monitoramento e recursos humanos** substituídos. Três dos quatro engenheiros
+equivalentes voltaram para o roteirizador, que é o diferencial real do produto; o
+quarto seguiu com a gestão de documentos.
 
 **Gestão de documentos permaneceu interna.** O fluxo de aprovação era específico do
 setor regulado em que a empresa opera, e nenhum produto atendia sem customização
@@ -238,7 +253,9 @@ passou despercebida: o sistema que deveria avisar sobre problemas estava com
 problema, e não havia alternativa. Passou a existir um monitoramento mínimo
 independente, apenas para o caminho crítico.
 
-Na retrospectiva: a decisão de comprar foi claramente positiva. O que faltou
+Na retrospectiva: a decisão de comprar foi positiva pelo critério que a motivou —
+capacidade devolvida ao diferencial —, mesmo com a integração recorrente consumindo
+parte do que foi liberado. O que faltou
 foi orçar a integração como projeto — ela foi tratada como detalhe da aquisição e
 consumiu mais tempo que a avaliação dos fornecedores.
 
@@ -246,6 +263,7 @@ consumiu mais tempo que a avaliação dos fornecedores.
 
 - [PaaS](/09-cloud-architecture/paas.md) e [IaaS](/09-cloud-architecture/iaas.md) — os modelos abaixo.
 - [Dependência de Fornecedor](/09-cloud-architecture/vendor-lock-in.md).
+- [Build vs. Buy](/20-trade-offs/build-vs-buy.md) — custo total e viés de construção.
 - [Contratos de Integração](/08-integration-architecture/integration-contracts.md).
 - [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).
 

@@ -12,8 +12,8 @@ objective: >
   não protege e qual atraso o negócio aceita.
 prerequisites: [data-architecture]
 related: [data-partitioning, data-consistency, olap]
-canonical_for: [réplica de leitura, troca de primário, réplica atrasada]
-content_version: 3
+canonical_for: [réplica de leitura, réplica atrasada]
+content_version: 4
 last_reviewed: 2026-08-27
 ---
 
@@ -56,15 +56,13 @@ replicado em segundos para todas as réplicas. Uma corrupção de dados também.
 
 Cópia de segurança tem histórico: ela permite voltar ao estado de antes do erro.
 
-```text
-protege contra              replicação   cópia de segurança
-falha de hardware           sim          sim (com tempo de restauração)
-falha de datacenter         depende de onde estão as réplicas   depende de onde está
-erro humano                 não, se em tempo real; sim, com réplica atrasada
-                            e dentro da janela dela      sim
-corrupção lógica            não          sim
-ataque com apagamento       não          sim, se isolada
-```
+| Protege contra | Replicação | Cópia de segurança |
+|---|---|---|
+| Falha de hardware | Sim | Sim, com tempo de restauração |
+| Falha de datacenter | Depende de onde estão as réplicas | Depende de onde está a cópia |
+| Erro humano | Não, se em tempo real; sim, com réplica atrasada e dentro da janela dela | Sim |
+| Corrupção lógica | Não | Sim |
+| Ataque com apagamento | Não | Sim, se isolada |
 
 Times que confiam em replicação como proteção de dados descobrem a diferença no
 pior momento possível.
@@ -82,38 +80,29 @@ defasagem, não em bytes pendentes — bytes não dizem nada ao negócio.
 
 ### Ler da réplica exige decidir o que tolera atraso
 
-O padrão que funciona é classificar as leituras:
+Quais leituras vão para o primário e quais aceitam réplica é a
+[classificação de leitura](/11-scalability/scaling-replication.md#classificar-as-leituras-é-o-trabalho),
+definida em replicação para escala. Do ângulo do armazenamento, o que ela acrescenta é
+que a classificação depende de um número que só a operação conhece: o atraso real da
+réplica. "Primário por N segundos após escrever" só funciona se N for maior que o atraso
+medido no pico, e esse atraso é justamente o que relatórios pesados numa réplica
+compartilhada fazem crescer.
 
-```text
-leitura crítica            primário  — saldo antes de debitar
-leitura do próprio usuário primário por N segundos após escrever
-leitura geral              réplica
-relatório                  réplica, ou réplica dedicada
-```
+### O que a troca de primário herda da replicação
 
-A segunda linha é a que elimina a maior parte das queixas. Ver
-[consistência eventual](/06-distributed-systems/eventual-consistency.md).
-
-E há um detalhe operacional que morde: relatórios pesados numa réplica compartilhada
-aumentam o atraso dela para todo mundo. Réplica de relatório deve ser dedicada.
-
-### Troca de primário é onde tudo dá errado
-
-O momento mais arriscado da vida de um sistema replicado.
+O procedimento de troca — acionamento, cérebro dividido, retorno ao primário, e a
+necessidade de exercitá-lo — é o [failover](/12-reliability/failover.md). O que é
+específico de replicação de dados são duas consequências do atraso no instante da
+promoção:
 
 **Perda de escritas.** Com replicação assíncrona, o que o primário confirmou e não
-replicou se perde ao promover outra réplica.
+replicou se perde ao promover outra réplica. O tamanho da perda é o atraso daquele
+instante — por isso escolher a réplica menos atrasada para promover importa, e por isso
+o atraso monitorado em segundos é também uma estimativa da perda em caso de troca.
 
-**Cérebro dividido.** O primário antigo volta e ainda se considera primário. Duas
-fontes aceitando escrita. Ver
-[eleição de líder](/06-distributed-systems/leader-election.md).
-
-**Cache inconsistente.** A aplicação continua apontando para o endereço antigo.
-
-**Sequências divergentes.** Contadores de identificador podem repetir valores.
-
-A troca precisa ser testada. Uma troca nunca exercitada não é um plano — é uma
-esperança.
+**Sequências divergentes.** Contadores de identificador na réplica promovida podem estar
+atrás dos valores já entregues pelo primário antigo, e repetir identificadores que outros
+sistemas já guardaram.
 
 ### Replicação atrasada de propósito
 
@@ -123,7 +112,10 @@ Ela não serve para leitura nem para assumir. Serve para uma coisa: quando algu�
 executa um comando destrutivo, há uma hora para perceber e extrair os dados antes
 que a exclusão chegue ali.
 
-É barato e cobre exatamente o caso que replicação normal não cobre.
+O custo é o de qualquer réplica — uma cópia inteira do armazenamento e um nó — sem carga
+de leitura para amortizá-lo. O que ela compra é o caso que replicação normal não cobre,
+recuperado em minutos em vez de uma restauração completa que descarta as transações do
+dia.
 
 ### Múltiplos primários exige plano de conflito
 
@@ -187,7 +179,7 @@ necessárias e não se substituem.
 |---|---|
 | Mais capacidade de leitura | Menos |
 | Mais tolerância a falha | Menos |
-| Custo e operação | Simplicidade |
+| Mais custo e mais operação | Menos |
 | Mais atraso a monitorar | Menos |
 
 ## Modos de Falha

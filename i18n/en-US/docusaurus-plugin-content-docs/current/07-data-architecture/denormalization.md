@@ -13,7 +13,7 @@ objective: >
 prerequisites: [normalization]
 related: [olap, data-modeling, indexing]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -118,7 +118,8 @@ more than you write.
 ## When to Use
 
 - An analytical model. See [OLAP](/07-data-architecture/olap.md).
-- Reads disproportionately more frequent than writes.
+- Reads disproportionately more frequent than writes — the deciding arithmetic is reads × cost of
+  the avoided join against writes to the original × number of copies to update.
 - The join has been measured and is the bottleneck.
 - The copied data changes rarely.
 - Storage with no efficient joins.
@@ -128,27 +129,37 @@ more than you write.
 
 **Without measuring.** The bottleneck may be the index.
 
-**With no maintenance plan.**
+**With no maintenance plan.** If nobody can say which of the three strategies keeps the copy current,
+none does.
 
-**With no divergence checking.**
+**With no divergence checking.** Every strategy fails someday, and without checking the failure does
+not show.
 
-**When the copied data changes frequently.** The propagation cost exceeds the gain.
+**When the copied data changes frequently.** Each change to the original costs one write per copy: a
+name copied into ten thousand orders costs ten thousand writes per rename, and the propagation cost
+exceeds the gain.
 
-**When there are multiple uncontrolled write paths.**
+**When there are multiple uncontrolled write paths.** Divergence stops being a risk and becomes a
+matter of time.
 
-**In a transactional model, out of habit.**
+**In a transactional model, out of habit.** There an indexed join tends to cost almost nothing, and
+the copy has no gain to pay for it.
 
 ## Alternatives
 
-- **An adequate [index](/07-data-architecture/indexing.md)** — check first, always.
-- **Materialized view** — the database maintains the copy and updates it; less code and less risk of
-  divergence.
-- **Cache** — duplication with a deadline, and the expiry takes care of coherence.
+- **An adequate [index](/07-data-architecture/indexing.md)** — in a transactional model, check first;
+  in a dimensional model denormalization is the starting point.
+- **Materialized view** — the database maintains the copy, and the divergence risk depends on how it
+  refreshes it. SQL Server indexed views and Oracle ON COMMIT refresh update along with the write; in
+  PostgreSQL `REFRESH MATERIALIZED VIEW` is on demand, and the view inherits the window of the periodic
+  strategy. MySQL does not have the feature.
+- **Cache** — duplication with a deadline: the expiry does not guarantee coherence, it only caps how
+  long the copy can diverge.
 - **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — explicit separation with a rebuildable
   projection.
 
-The materialized view is underused: it delivers denormalization's benefit with the maintenance handled
-by the database.
+The materialized view is underused: where the database refreshes it along with the write, it delivers
+denormalization's benefit with no maintenance code in the application.
 
 ## Trade-offs
 
@@ -185,16 +196,19 @@ copies fall behind.
 
 ## Common Mistakes
 
-**Denormalizing without measuring.**
+**Denormalizing without measuring.** The complexity becomes permanent, and the real bottleneck —
+often a missing index — is still there.
 
-**Not implementing divergence checking.**
+**Not implementing divergence checking.** The first news of the failure comes from a customer or a
+reconciliation, months later.
 
 **Confusing a historical value copy with denormalization.**
 
 **Not documenting which fields are copies.** Whoever arrives later cannot distinguish the original
 from the copy.
 
-**Copying data that changes frequently.**
+**Copying data that changes frequently.** The system ends up spending more writing copies than it
+saved by avoiding joins.
 
 ## Real-World Example
 
@@ -213,9 +227,10 @@ Then three new write paths appeared, and none updated the total:
 
 **Order import** from a partner channel, which inserted items in bulk.
 
-The divergence grew in silence. When it was finally measured — by chance, during another investigation
-— **1.8% of orders** had a total different from the sum of the items. Some higher, some lower. The
-accumulated financial impact was significant and took months to reconcile.
+The divergence grew in silence for a year and a half. When it was finally measured — by chance, during
+another investigation — **1.8% of orders** had a total different from the sum of the items. At about
+40,000 orders a month, that was some 13,000 orders, some higher, some lower. The average difference of
+$8 per order added up to more than $100,000 charged wrongly, and reconciliation took months.
 
 The fixes:
 

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [iaas]
 related: [iaas, cost-architecture, containers]
 canonical_for: [família de instância, modelo de compra, capacidade interrompível, escalonamento automático]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -79,7 +79,7 @@ porque exige um ciclo de construção diferente.
 ### Os modelos de compra
 
 ```text
-sob demanda      preço cheio, sem compromisso, disponível sempre
+sob demanda      preço cheio, sem compromisso, sujeito à capacidade da região
 compromisso      desconto por reserva de 1 a 3 anos, para carga estável
 interrompível    muito mais barato, pode ser retomado com aviso curto
 ```
@@ -120,8 +120,10 @@ inicialização.
 **Escalonar por métrica antecedente** — profundidade de fila, conexões — em vez de
 CPU, que reage tarde.
 
-**Escalonamento programado** para picos previsíveis. É a técnica mais eficaz e a
-menos usada: se o pico é toda segunda às 9h, não espere a métrica.
+**Escalonamento programado** para picos previsíveis. Quando o pico tem hora
+conhecida, é a única das cinco que põe a capacidade no ar antes do pico, e assim
+elimina a janela de 2 a 5 minutos em vez de encurtá-la: se o pico é toda segunda
+às 9h, não espere a métrica.
 
 **Folga de capacidade** para absorver o intervalo.
 
@@ -151,7 +153,9 @@ de precisar.** As três decisões são independentes.
 
 ## Quando Usar
 
-- **Compromisso** para a carga base que sempre roda.
+- **Compromisso** para o piso de uso que se manteve nos últimos meses e que não
+  depende de uma migração planejada — reservar acima desse piso é pagar desconto
+  por capacidade ociosa.
 - **Sob demanda** para variação.
 - **Interrompível** para processamento tolerante a interrupção.
 - **Escalonamento programado** para picos previsíveis.
@@ -163,7 +167,9 @@ de precisar.** As três decisões são independentes.
 
 **Compromisso antes de a carga estabilizar.**
 
-**Interrompível para carga que não tolera interrupção.**
+**Interrompível para carga que não tolera interrupção** — trabalho que não pode ser
+refeito do início, cujo ponto de salvamento custa mais que refazer, ou cuja unidade
+de trabalho dura mais que o aviso de retomada sem ponto de salvamento no meio.
 
 **Confiar no escalonamento para picos de segundos.**
 
@@ -175,10 +181,10 @@ de precisar.** As três decisões são independentes.
 
 - **[Contêineres](/09-cloud-architecture/containers.md)** — melhor densidade, escalonamento mais rápido.
 - **[Serverless](/09-cloud-architecture/serverless.md)** — sem capacidade a gerenciar.
-- **Escalonamento vertical** — instância maior em vez de mais instâncias; simples,
-  com teto e reinício.
-- **Fila com trabalhadores** — absorve o pico sem escalar, quando a operação é
-  assíncrona. Ver
+- **[Escala vertical](/11-scalability/vertical-scaling.md)** — instância maior em
+  vez de mais instâncias; simples, com teto e reinício.
+- **[Fila com trabalhadores](/11-scalability/queue-based-scaling.md)** — absorve o
+  pico sem escalar, quando a operação é assíncrona. O mecanismo está em
   [mensageria](/06-distributed-systems/messaging.md).
 
 A última merece destaque: para muitos picos, a resposta certa não é mais capacidade
@@ -188,7 +194,8 @@ A última merece destaque: para muitos picos, a resposta certa não é mais capa
 
 | Instância maior | Mais instâncias |
 |---|---|
-| Simples | Distribuição de falha |
+| Operação simples | Mais peças para operar |
+| Falha única derruba tudo | Falha atinge parte da capacidade |
 | Teto do maior tamanho | Escala além |
 | Reinício para mudar | Sem interrupção |
 | Sem coordenação | Estado precisa sair |

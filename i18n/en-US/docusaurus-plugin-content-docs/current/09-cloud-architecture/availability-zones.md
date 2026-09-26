@@ -13,7 +13,7 @@ objective: >
 prerequisites: [regions]
 related: [regions, multi-region, cloud-networking]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -120,8 +120,8 @@ automatic removal.
 
 ## Mental Model
 
-**A zone is where redundancy is cheap.** If you are not using three, you are paying for cloud and operating
-like a single datacenter.
+**A zone is where redundancy is cheap.** For a system whose downtime is expensive, running in fewer than
+three is paying for cloud and operating like a single datacenter.
 
 ## When to Use
 
@@ -172,7 +172,7 @@ solve it.
 |---|---|
 | The majority is preserved | Lost |
 | 33% loss per failure | 50% |
-| Higher cost | Lower |
+| More resources and cross-zone traffic, but provisioned capacity of 1.5× the load | 2× the load |
 
 ## Failure Modes
 
@@ -193,8 +193,9 @@ is capacity — which may be a single zone.
 
 ## Common Mistakes
 
-**Not distributing, by omission.** Distributing across zones costs almost nothing within a region and is
-the cheapest defense there is. Staying in one zone is rarely a decision — it is the default nobody
+**Not distributing, by omission.** Within a region, distributing across zones costs capacity headroom and
+cross-zone traffic — a fraction of what multi-region costs, and it covers datacenter failure, the more
+frequent of the two. Staying in one zone is rarely a decision — it is the default nobody
 reviewed.
 
 **Using two zones.** Losing one means losing half the capacity, so each zone needs to run at 50% to absorb
@@ -225,8 +226,10 @@ need to absorb 112% of what they could handle. Auto scaling started bringing up 
 minutes — during which the system was saturated.
 
 **A database in two zones.** The primary database and its synchronous replica were in two zones, not three.
-The zone that went down had the replica; the promotion worked. But the coordination service used for
-election was also in two zones, lost its majority, and could not decide for 6 minutes.
+The zone that went down had the primary. Promoting the replica depended on the coordination service used
+for election, which was also in two zones and lost its majority — with no majority, nothing could decide.
+The promotion only happened when the team manually reconfigured the coordination membership, 6 minutes
+later.
 
 **Stuck volumes.** Four services wrote to a local disk. The instances were recreated in other zones,
 without the data. Two of them were caches and recovered; the other two required a restore.

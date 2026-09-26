@@ -13,7 +13,7 @@ objective: >
 prerequisites: [relational-databases]
 related: [data-consistency, oltp, indexing]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -74,18 +74,22 @@ The last two cause the most real damage, and the last is the subtlest.
 ### The levels and what each one admits
 
 ```text
-                        dirty   non-        phantom  lost
-                        read    repeatable  read     update
-read uncommitted        yes     yes         yes      yes
-read committed          no      yes         yes      yes
-repeatable read         no      no          varies   no
-serializable            no      no          no       no
+                        dirty   non-        phantom  lost     write
+                        read    repeatable  read     update   skew
+read uncommitted        yes     yes         yes      yes      yes
+read committed          no      yes         yes      yes      yes
+repeatable read         no      no          varies   varies   yes
+serializable            no      no          no       no       no
 ```
+
+"Varies" under repeatable read depends on the implementation: PostgreSQL detects the lost update
+and aborts one of the transactions; MySQL's InnoDB, under the same level name, does not.
 
 **Read committed** is the default in most databases. It allows non-repeatable reads, phantoms and lost
 updates.
 
-That means your database's default behavior admits lost updates — and it is the origin of the classic
+If your database runs at read committed — the default in PostgreSQL, Oracle and SQL Server — its
+default behavior admits lost updates, and that is the origin of the classic
 "read balance, compute, write balance" defect.
 
 ### Write skew is the one that fools you
@@ -131,7 +135,8 @@ An open transaction holds locks and prevents cleaning up old versions.
 The characteristic error: opening a transaction, calling an external service, and committing
 afterwards. If the service takes 30 seconds, the locks last 30 seconds.
 
-The rule: no network call inside a transaction.
+The rule: network calls stay outside the transaction, because they tie the duration of the locks to
+the response time of a system you do not control.
 
 ## Mental Model
 
@@ -147,15 +152,17 @@ each level admits is the difference between correct code and code that works mos
 
 ## When Not to Use
 
-**Serializable isolation for everything.** High cost and contention.
+**Serializable isolation for everything.** When the rate of serialization-conflict aborts climbs
+under contention and retries start eating throughput, reserve serializable for the transactions that
+protect a cross-record invariant and use explicit locking for the rest.
 
-**A transaction involving an external call.**
+**A transaction to cover an external call.** The external service does not take part in the
+rollback; the transaction only prolongs the locks. Coordinate with
+[sagas](/06-distributed-systems/sagas.md).
 
 **A transaction for a single read operation.** There is nothing to isolate.
 
 **A long transaction for batch processing.** Split it into smaller batches.
-
-**Relying on the database's default without knowing what it is.**
 
 **A distributed transaction.** See
 [distributed transactions](/06-distributed-systems/distributed-transactions.md) — another problem,
@@ -231,7 +238,7 @@ Two transactions read 100, both subtracted 30, both wrote 70. Two operations con
 balance dropped 30.
 
 Customers with heavy integrations accumulated undue balance for eighteen months. The total reached the
-hundreds of thousands.
+hundreds of thousands of credits.
 
 The defect did not show up in testing because it required real concurrency on the same record.
 

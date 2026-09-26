@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor escolhe o tipo de armazenamento pelo padrão de acesso e
   configura classes e retenção conscientemente.
 prerequisites: [cloud-architecture]
-related: [cloud-compute, cost-architecture, data-lifecycle]
+related: [file-storage, cdn, cloud-compute, cost-architecture, data-lifecycle]
 canonical_for: [armazenamento de blocos, classe de armazenamento, regra de ciclo de vida]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-27
 ---
 
@@ -36,6 +36,10 @@ Escolher errado entre eles é a origem de custos altos e de limitações que apa
 tarde.
 
 ## Problema
+
+Por que arquivo de usuário em disco local quebra na escala horizontal está em
+[armazenamento de arquivos](/05-system-design/file-storage.md). Aqui interessa o
+que a nuvem acrescenta.
 
 O reflexo é usar o que é familiar: disco. Uma aplicação que grava arquivos no
 sistema de arquivos continua fazendo isso na nuvem, com disco anexado.
@@ -60,8 +64,10 @@ A semelhança superficial engana:
 **Listar é caro.** Listar milhões de chaves com um prefixo é uma operação
 custosa, em tempo e em cobrança.
 
-**Consistência.** Hoje a leitura após escrita é forte na maioria dos provedores;
-listagem pode demorar a refletir.
+**Consistência.** Nos três principais provedores, leitura após escrita e listagem
+são fortemente consistentes: um objeto recém-gravado já aparece na listagem. O que
+chega atrasado são as cópias assíncronas — replicação entre regiões e relatórios de
+inventário.
 
 Tratar objetos como disco produz padrões de acesso ruins — o mais comum é listar
 para encontrar, quando a chave deveria ser derivável.
@@ -145,22 +151,26 @@ reescrever a aplicação não é opção.
 
 ## Quando Não Usar
 
-**Objetos como sistema de arquivos**, com listagem para localizar.
+**Objetos como sistema de arquivos**, quando a aplicação depende de alteração
+parcial, de renomear em lote ou de listar para localizar — sinal de que a chave não
+é derivável e o modelo errado foi escolhido.
 
-**Bloco para arquivos de usuário.** Caro, preso a uma zona, com tamanho a
-gerenciar.
+**Bloco para arquivos de usuário**, a partir do momento em que mais de uma instância
+precisa ler o mesmo arquivo ou o volume cresce sem teto previsível. Caro, preso a uma
+zona, com tamanho a gerenciar.
 
-**Arquivo por conveniência**, quando objetos resolvem. É o mais caro dos três.
+**Arquivo por conveniência**, quando a aplicação pode ler e gravar objetos inteiros.
+É o mais caro dos três e só se paga quando várias máquinas precisam de semântica de
+sistema de arquivos compartilhado — travas, escrita parcial — e reescrever não é
+opção.
 
-**Classe fria sem verificar o padrão de acesso.**
-
-**Sem regras de ciclo de vida.**
-
-**Versionamento sem regra para as versões antigas.**
+**Classe fria** quando a cobrança de recuperação de um mês supera a economia de
+armazenamento do mês, ou quando a aplicação não tolera a latência de recuperação da
+classe.
 
 ## Alternativas
 
-- **Rede de distribuição de conteúdo** na frente de objetos — reduz custo de saída e
+- **[Rede de distribuição de conteúdo](/05-system-design/cdn.md)** na frente de objetos — reduz custo de saída e
   latência.
 - **Banco de dados** para dados estruturados — armazenamento não substitui.
 - **Cache** para o que é lido repetidamente.
@@ -257,6 +267,7 @@ configuração.
 
 ## Conceitos Relacionados
 
+- [Armazenamento de Arquivos](/05-system-design/file-storage.md).
 - [Computação em Nuvem](/09-cloud-architecture/cloud-compute.md).
 - [Arquitetura de Custo](/09-cloud-architecture/cost-architecture.md).
 - [Ciclo de Vida do Dado](/07-data-architecture/data-lifecycle.md).

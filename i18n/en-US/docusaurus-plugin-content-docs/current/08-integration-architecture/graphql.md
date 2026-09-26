@@ -13,7 +13,7 @@ objective: >
 prerequisites: [rest]
 related: [rest, api-gateways, integration-contracts]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -89,17 +89,22 @@ The defenses — none of them optional in an exposed API:
 
 **An estimated cost.** Assign a weight to each field and refuse above a ceiling.
 
-**Persisted queries.** Only previously registered queries are accepted. It is the strongest defense, and it
-removes the freedom that motivated the adoption — which is the right trade in a public API.
+**Persisted queries.** Only previously registered queries are accepted. It is the strongest defense. For a
+first-party client that registers its queries at build time, frontend autonomy remains; what goes away is
+arbitrary composition at run time by an unknown consumer — the right trade in a public API.
 
-**An execution deadline.**
+**An execution deadline.** Abort any query that runs past a maximum time. It catches what depth and estimated
+cost let through: the valid query, under the ceiling, that still occupies the server because of the real
+volume of the data.
 
 ### Caching is what you lose
 
 In [REST](/08-integration-architecture/rest.md), HTTP caching works: one URL, one `GET`, one result
 cacheable by any intermediary.
 
-In GraphQL, everything is a `POST` to a single URL, with a varying body. No intermediary can cache it.
+In GraphQL's usual form — a `POST` to a single URL, with a varying body — no intermediary can cache it.
+Persisted queries served over `GET`, with the identifier in the URL, recover part of that caching, at the cost
+of registering every query before it is used.
 
 The cache migrates inward: per-field caching on the server, a normalized cache on the client. Both work and
 both are complexity HTTP gave away for free.
@@ -171,7 +176,7 @@ public contract.
 |---|---|
 | The client chooses the fields | A fixed resource |
 | One call composes the screen | Several |
-| HTTP caching does not work | It works |
+| HTTP caching only with persisted queries over `GET` | It works |
 | Unpredictable query cost | Predictable |
 | A typed schema by definition | The contract varies |
 | N+1 requires loaders | The endpoint optimizes |
@@ -215,7 +220,7 @@ legitimate: three clients, divergent needs, and the backend had become a bottlen
 week of waiting.
 
 The gain appeared: the frontend team started building screens without asking the backend for anything. The
-delivery time for a screen fell from weeks to days.
+delivery time for a screen fell from a week to days.
 
 Four problems in production:
 
@@ -233,11 +238,13 @@ Authorization was moved to the field level.
 
 **Caching lost.** The public course catalog, previously served from a CDN with hours of caching, started
 hitting the server on every request. The solution was to keep that specific slice in REST — the catalog
-went back to a cacheable `GET`, and the rest stayed in GraphQL.
+went back to a cacheable `GET`, and the rest stayed in GraphQL. Persisted queries over `GET` were the
+alternative; the team did not choose it because the catalog was also consumed by search engines and
+third-party sites, which would not go through a query registry.
 
 The point the team underlines: the decision to adopt remains correct for the three authenticated clients.
 The mistake was treating it as a global choice and migrating the read-heavy public content too, where REST
-was strictly better.
+served the same data with HTTP caching and no query registry.
 
 ## Related Concepts
 

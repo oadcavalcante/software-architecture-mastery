@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [security-failure-modes, data-protection, least-privilege]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -77,8 +77,8 @@ The necessary properties:
 
 **Integrity verification.** Hash chaining, or signing, allowing alteration to be detected.
 
-Without that, an attacker with administrative access deletes the trail — and that is the first thing they
-do.
+Without that, an attacker with administrative access can delete the trail — and, if they intend to stay in
+the environment unnoticed, they have every reason to do it early.
 
 ### Non-repudiation requires more than a log
 
@@ -97,8 +97,9 @@ investigation inconclusive.
 
 ### Retention is defined by the time to discovery
 
-Incidents take months to be discovered. A 30-day retention means the investigation starts with no data from
-the beginning.
+Time to discovery is measured in months: the *Cost of a Data Breach* report (IBM and Ponemon Institute,
+2024) estimates an average of 194 days to identify a breach. Against that interval, a 30-day retention means
+the investigation starts with no data from the beginning.
 
 The retention needs to cover the typical time to detection, plus margin — which typically means a year or
 more for security events, and whatever regulation requires for the rest.
@@ -149,19 +150,19 @@ remains.
 
 ## When Not to Use
 
-**An audit log in the same account as the audited system.**
+**A system with no sensitive data, no privileged operations and no regulatory requirement.** An internal
+tool that queries public data has nothing an investigation would need to prove. An application log with
+short retention is enough; a separate, immutable trail retained for a year is cost with no question to
+answer.
 
-**With no individual identity.** Shared accounts.
+**Actions with no individual identity to attribute, when creating one costs more than the risk.** A batch
+process that only reads and aggregates has no "who" beyond the service itself. Non-repudiation proves
+nothing there. The execution log does the job.
 
-**Recording sensitive content.**
-
-**Retention that is too short.**
-
-**Successes only.** Denials are the signal.
-
-**With no alerts.** It becomes a dead archive.
-
-**Auditing everything indiscriminately.** A volume nobody can analyze, at a high cost — audit what matters.
+**High-volume events with low investigative value.** Catalog reads, health checks and every request to a
+public endpoint generate volume nobody analyzes. With a one-year retention, the cost of storing it exceeds
+the value of the investigation it would enable. Audit what touches sensitive data, permissions or
+configuration, and leave the rest to observability, with its retention.
 
 ## Alternatives
 
@@ -257,7 +258,7 @@ chaining.
 **Alerts** for anomalous volume per user, access outside business hours and a sequence of queries about
 customers unrelated to the operator's work.
 
-Eleven months later, the anomalous volume alert detected a similar case in two days — with identification of
+Eleven months later, the alert on queries unrelated to the operator's work detected a similar case in two days — with identification of
 the person, of the 14 records accessed, and with no need for mass notification.
 
 The detail the team highlights: they met the regulatory requirement to "maintain an audit trail". The trail
@@ -288,3 +289,4 @@ The questions you cannot answer are your auditing's gaps.
 - NIST SP 800-92 — guide to security log management.
 - Schneier, Bruce; Kelsey, John. *Secure Audit Logs*, 1999.
 - OWASP. *Logging Cheat Sheet*.
+- IBM; Ponemon Institute. *Cost of a Data Breach Report*, 2024.
