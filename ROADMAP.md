@@ -598,26 +598,29 @@ risco segundo triagem mecânica.
 
 ### Aberto, e por quê
 
-Sete classes de defeito ficaram sem varredura sobre o acervo inteiro. Três foram
-fechadas depois, e as outras seguem abertas:
+Sete classes de defeito foram definidas como alvo de varredura. A revisão de
+profundidade (SPEC §13.3), feita documento a documento nos 446, cobriu cinco delas por
+dentro — os itens do checklist correspondem a elas — e todos os achados foram
+corrigidos.
 
 | Classe | Estado |
 |---|---|
-| Contas que não fecham | 🟩 acervo inteiro — nenhum erro real |
+| Contas que não fecham | 🟩 §13.3 item 6 nos 446 — dezenas achadas e corrigidas (a varredura anterior, que dizia "nenhum erro real", não as pegava) |
+| Absolutos §8.1 | 🟩 §13.3 item 4 nos 446 |
+| Exemplos incoerentes | 🟩 §13.3 item 6 nos 446 |
+| Contradições entre documentos | 🟩 §13.3 item 7 nos 446, mais o validador de colisão de `canonical_for` |
+| Fatos técnicos | 🟩 §13.3 item 9 nos 446 — conferência contra fonte primária foi pontual (RFC 9110/9111, c4model.com, Protocol Buffers, IBM 2024), não sistemática |
 | Bugs no site | 🟩 acervo inteiro, nos dois idiomas e dois temas |
-| Divergência entre canônico e tradução | 🟨 resíduo de idioma varrido; comparação numérica não |
-| Contradições entre documentos | 🟨 sobreposição textual varrida; achou e corrigiu a grave |
-| Absolutos §8.1 | ⬜ |
-| Fatos técnicos | ⬜ |
-| Exemplos incoerentes | ⬜ |
+| Divergência numérica entre canônico e tradução | 🟨 toda correção foi espelhada, mas a comparação automática foi abandonada por ruído |
 
 A comparação numérica entre canônico e tradução foi **abandonada por ruído**, não
 por falta de tempo: a conversão de moeda que o acervo aplica na tradução gera
 divergência legítima em quase todo par, e o sinal não se separa do ruído sem um
 filtro que ainda não existe.
 
-Retomar o que falta não bloqueia nada: o site está publicável, os validadores
-passam, e nenhum defeito conhecido está aberto.
+Fica fora de defeito, e é decisão editorial: **31 pares de documentos com
+sobreposição de texto** que poderiam ser fundidos. Nenhum viola §7.4 — cada um tem
+recorte próprio e aponta o canônico —, mas o acervo ficaria mais enxuto.
 
 ## O que a revisão encontrou
 
