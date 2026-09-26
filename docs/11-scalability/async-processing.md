@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [queue-based-scaling, performance-vs-scalability, statelessness]
 canonical_for: [caminho crítico, processamento assíncrono, estado intermediário]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -81,25 +81,22 @@ Cada um precisa ser representado no modelo, exibido na interface, e tratado pelo
 suporte.
 
 Esse é o custo real, e ele é subestimado. Times que tornam uma operação assíncrona sem
-modelar os estados produzem a experiência pior possível: o usuário recebe "sucesso" e
-descobre depois que não funcionou, sem saber onde olhar.
+modelar os estados produzem uma falha que nem o usuário nem o suporte localizam: o usuário
+recebe "sucesso" e descobre depois que não funcionou, sem saber onde olhar.
 
 ### O usuário precisa de retorno
 
-Três padrões, do mais simples ao mais elaborado:
+Os mecanismos — consulta, notificação, conexão persistente — e o critério de duração
+entre eles estão em
+[processamento em background](/05-system-design/background-processing.md). O que muda
+em escala é que o retorno também é carga.
 
-**Consulta pelo cliente.** A resposta traz um identificador; o cliente consulta o
-estado. Simples, funciona em qualquer lugar, gera tráfego de consulta.
-
-**Notificação.** O sistema avisa quando termina — mensagem, e-mail, notificação.
-Adequado para operações longas.
-
-**Conexão persistente.** O cliente recebe atualizações em tempo real. Melhor
-experiência, e adiciona estado de conexão. Ver
+Consulta a cada 2 segundos durante um atraso de 8 minutos são 240 requisições por
+operação aceita. Sob pico, justamente quando o atraso cresce, o tráfego de consulta
+cresce junto e pode superar o tráfego que o assíncrono tirou do caminho crítico.
+Intervalo crescente ou notificação evitam isso; conexão persistente troca esse tráfego
+por estado de conexão, que pesa ao escalar horizontalmente. Ver
 [ausência de estado](/11-scalability/statelessness.md).
-
-A escolha depende da duração: segundos favorecem conexão ou consulta; minutos ou horas
-favorecem notificação.
 
 ### O que o assíncrono exige
 
@@ -161,7 +158,8 @@ e eles precisam ser modelados, não descobertos.
 
 **Sem durabilidade.** Aceitar e guardar em memória perde trabalho.
 
-**Sem idempotência.**
+**Sem idempotência.** Toda entrega repetida — retentativa do consumidor, reenvio do
+usuário — vira efeito duplicado: cobrança em dobro, e-mail repetido.
 
 **Para sobrecarga sustentada.** A fila cresce e o problema volta pior.
 
@@ -175,7 +173,9 @@ e eles precisam ser modelados, não descobertos.
 - **Paralelizar dentro da requisição** — cinco chamadas independentes em paralelo
   custam o tempo da mais lenta, não a soma.
 - **Timeout agressivo com degradação** — responder sem o resultado opcional.
-- **[Fila](/11-scalability/queue-based-scaling.md)** — a forma mais robusta de assíncrono.
+- **[Fila](/11-scalability/queue-based-scaling.md)** — quando o trabalho aceito precisa
+  sobreviver a quedas, o pico excede a capacidade e a falha deve ser retentada sem
+  intervenção; nas três alternativas anteriores, nada disso é garantido.
 
 A segunda merece consideração: muitas requisições lentas são sequências de chamadas
 independentes, e paralelizá-las resolve sem introduzir estado intermediário.
@@ -252,15 +252,17 @@ e para o suporte.
 **Idempotência** por chave de solicitação, impedindo emissão duplicada quando o
 usuário reenviava.
 
-Resultado: o pico do fim do mês passou a ser absorvido, com atraso de processamento de
+Resultado: com os consumidores dimensionados para cerca de 100 emissões por segundo, o
+pico do fim do mês passou a ser absorvido, com atraso de processamento de
 até 8 minutos nos momentos mais intensos — aceito pelo negócio, porque a emissão tem
 prazo legal de horas.
 
 Dois problemas apareceram depois:
 
 **Sobrecarga sustentada.** Numa indisponibilidade de 6 horas do serviço da receita, a
-fila acumulou 400 mil emissões. Quando o serviço voltou, o consumo levou 9 horas — e
-durante esse período as emissões novas entravam atrás das antigas. Foi adicionada
+fila acumulou 400 mil emissões, cerca de 18 por segundo. O serviço voltou limitando cada
+emissor a cerca de 30 chamadas por segundo, pouco acima da taxa que continuava chegando,
+e o consumo levou quase 10 horas — e durante esse período as emissões novas entravam atrás das antigas. Foi adicionada
 priorização por prazo.
 
 **Usuários confusos.** A primeira versão exibia apenas "processando", sem estimativa. O

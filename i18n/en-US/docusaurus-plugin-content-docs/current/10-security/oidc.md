@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, jwt, identity]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -48,12 +48,13 @@ OpenID Connect solves it with a token that declares the audience and is verifiab
 
 ```text
 ID token       for the client — asserts who authenticated
-               verified by the client, never sent to the API
+               verified by the client (or its backend),
+               never used as a credential for the resource API
 access token   for the API — asserts permission
                sent to the API, opaque to the client
 ```
 
-Confusing them is the most common implementation mistake. Sending the ID token to the API, or trying to
+Confusing them is a recurring implementation mistake. Sending the ID token to the resource API, or trying to
 read the access token in the client, indicates the distinction was not understood.
 
 ### The claims that need to be verified
@@ -62,12 +63,15 @@ An ID token is a signed [JWT](/10-security/jwt.md), and receiving it is not enou
 validated:
 
 ```text
-signature   checks out with the issuer's public key
-iss         the issuer is the one you expect
-aud         the audience is your application — the central check
-exp         it has not expired
-iat         issued recently
-nonce       matches the value you sent in the request
+always
+  signature   checks out with the issuer's public key
+  iss         the issuer is the one you expect
+  aud         the audience is your application — the central check
+  exp         it has not expired
+conditional
+  nonce       matches the value sent — required if you sent one,
+              and in the implicit or hybrid flow
+  iat         within the recency window the client defined
 ```
 
 **`aud` is the check that prevents the attack described above.** A token issued for another application has
@@ -76,7 +80,9 @@ a different audience and must be rejected.
 **`nonce` prevents reuse**: the client generates a random value, sends it in the authentication request,
 and the token comes back with it. A captured token does not work in a new session.
 
-Skipping any of these turns the authentication into theater.
+Skipping any of the four unconditional checks turns the authentication into theater. In the code flow
+with PKCE, a missing `nonce` does not open the same hole: the code verifier already binds the response to
+the request that originated it.
 
 ### `sub` is the identifier, and it is local to the issuer
 
@@ -135,21 +141,24 @@ assertions are what makes the authentication safe.
 - Single sign-on across several applications.
 - Social login for consumers.
 - Corporate federation.
-- You want to delegate authentication instead of managing credentials.
+- Several applications need the same authentication policy — second factor, lockout, audit trail —
+  enforced and audited in one place.
 
 ## When Not to Use
 
 **For authorization.** The ID token is not an API access credential.
 
-**Without verifying `aud`.** It nullifies the main protection.
+**Without an identity provider you trust.** Delegating authentication to an issuer whose operation,
+jurisdiction or account policy you neither control nor audit trades a risk you manage for one you do not.
 
-**Without `nonce`.** It allows reuse.
+**A single application, with neither federation nor third parties.** There is no second client for single
+sign-on to serve; the protocol adds redirects, keys and checks to solve a problem that is not there.
 
-**Accepting an unverified email as identity.**
+**Operating without connectivity to the provider.** Embedded systems, air-gapped environments or field
+operations that must authenticate offline cannot depend on a remote issuer at every login.
 
-**An ID token sent to the API.**
-
-**A public key pinned in the code.** It breaks at rotation.
+**Downtime tolerance lower than the provider's SLA.** If the provider goes down, nobody signs in; when login
+needs higher availability than the provider offers, the dependency becomes the system's ceiling.
 
 **When there is no user.** A service talking to a service uses client credentials.
 
@@ -169,6 +178,7 @@ assertions are what makes the authentication safe.
 | A second factor ready | To be implemented |
 | Single sign-on | Separate sessions |
 | Provider dependency | Autonomy |
+| Recurring cost, usually per active user | Cost of building and running authentication |
 | Checks to get right | A simpler flow |
 
 | Attributes in the token | A user info endpoint |
@@ -195,13 +205,15 @@ assertions are what makes the authentication safe.
 
 ## Common Mistakes
 
-**Not verifying every claim.**
+**Not verifying `aud`.** It nullifies the main protection.
 
-**Using the ID token as an access token.**
+**Skipping `nonce` where it is required** — when one was sent, or in the implicit flow.
+
+**Using the ID token as an access token**, sending it to the resource API.
 
 **Identifying by email.**
 
-**Not handling key rotation.**
+**Not handling key rotation** — a public key pinned in the code breaks at rotation.
 
 **Not deciding the logout behavior.**
 
@@ -257,7 +269,7 @@ than the dependency would have.
 ## Practical Exercise
 
 Take your system's ID token validation and check whether it verifies signature, issuer, audience,
-expiration and `nonce`.
+expiration and, when one was sent, `nonce`.
 
 The absence of any one is exploitable, and the absence of the audience check is the most serious.
 

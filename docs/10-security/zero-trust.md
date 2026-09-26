@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, network-security, least-privilege]
 canonical_for: [confiança zero, perímetro implícito, verificação contínua]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -98,20 +98,12 @@ pessoas procurarem contornos — e o contorno é pior que a política frouxa.
 
 ### Microssegmentação limita o movimento lateral
 
-Em vez de uma rede plana onde tudo alcança tudo, políticas que permitem apenas a
-comunicação necessária.
-
-```text
-rede plana        serviço comprometido alcança todos os outros
-segmentada        alcança apenas os que a política permite
-```
-
-É o controle que mais reduz o alcance de um comprometimento, e o mais trabalhoso de
-implementar em ambiente existente — porque exige saber quem fala com quem, e quase
-ninguém sabe.
-
-O caminho viável: começar registrando o tráfego real, derivar a política dele, aplicar
-em modo de aviso, e só então bloquear.
+O mecanismo — e o caminho de registrar o tráfego antes de bloquear — está em
+[segurança de rede](/10-security/network-security.md). O que confiança zero muda é o
+critério da política: a regra entre segmentos passa a nomear identidades de serviço,
+não faixas de endereço. Por isso ela entra depois da identidade na ordem de adoção:
+política escrita sobre endereço, num ambiente em que os serviços ainda se autenticam
+com chave estática, precisa ser reescrita quando a autenticação entre serviços chega.
 
 ### Não é produto, e é gradual
 
@@ -130,7 +122,10 @@ A adoção realista é por etapas, em ordem de retorno:
 6. contexto de dispositivo na decisão
 ```
 
-Os quatro primeiros entregam a maior parte do benefício e não exigem produto novo.
+A ordem é por retorno por esforço, não por redução de alcance: a segmentação é o
+controle que mais limita o alcance de um serviço comprometido, mas é também o mais
+caro em ambiente existente. Os quatro primeiros entregam a maior redução de risco por
+unidade de esforço e não exigem produto novo.
 
 ### O que ele não elimina
 
@@ -159,25 +154,32 @@ limitar o que ele alcança.
 
 ## Quando Não Usar
 
-**Como produto a comprar.**
+**Quando não há "dentro" a proteger além do provedor de identidade.** Uma equipe
+que usa só serviços gerenciados de terceiros, sem serviços internos que se chamem
+entre si, já tem todo acesso passando por login; o que resta é autenticação forte,
+que não precisa do programa.
 
-**Tudo de uma vez.** Programas de dois anos sem entrega intermediária são abandonados.
+**Quando não há quem opere o serviço de política.** Avaliação de política em toda
+requisição cria uma dependência que precisa de sobreaviso, cache e comportamento de
+falha definido. Sem uma equipe que assuma isso, o serviço de política vira o ponto
+único que para tudo — e o ganho de contenção não compensa.
 
-**Com atrito que gera contorno.**
+**Quando a segmentação e o contexto de dispositivo custam mais que o alcance que
+cortam.** Com poucos serviços internos, sem acesso de terceiros e sem dado sensível,
+o movimento lateral disponível já é pequeno. Pare nas etapas de identidade e menor
+privilégio, que servem a qualquer tamanho.
 
-**Como substituto de higiene básica** — correções, validação, revisão.
-
-**Segmentação sem conhecer o tráfego real.** Bloqueia produção.
-
-**Em ambiente pequeno e simples**, onde o custo supera o risco.
+**Quando o atrito medido passa a gerar contorno.** Se a verificação adicional produz
+conta compartilhada ou pedido de exceção permanente, a etapa está custando mais
+segurança do que dá; recue a política antes de avançar para a próxima.
 
 ## Alternativas
 
 - **Segmentação de rede tradicional** — parte do benefício, menos esforço. Ver
   [segurança de rede](/10-security/network-security.md).
-- **[Menor privilégio](/10-security/least-privilege.md) rigoroso** — a maior parte do benefício de
-  contenção.
-- **Autenticação forte** — o item isolado de melhor retorno.
+- **[Menor privilégio](/10-security/least-privilege.md) rigoroso** — limita o que uma identidade
+  comprometida alcança sem mudar a rede.
+- **Autenticação forte** — o item isolado de melhor retorno por esforço.
 - **Acesso por corretor** em vez de rede privada — remove o acesso amplo à rede que a
   conexão privada concede.
 
@@ -213,23 +215,30 @@ limitar o que ele alcança.
 
 ## Erros Comuns
 
-**Comprar em vez de aplicar.**
+**Comprar em vez de aplicar.** A plataforma é instalada, mas as credenciais estáticas
+e o acesso administrativo permanente continuam — e o orçamento do programa se esgota
+antes de chegar a eles.
 
-**Começar pela segmentação** em vez da identidade.
+**Começar pela segmentação** em vez da identidade. A política é derivada de tráfego
+que ainda circula com credencial estática e escrita sobre endereços; quando a
+autenticação entre serviços chega, precisa ser refeita.
 
-**Não medir o atrito.**
+**Não medir o atrito.** Sem tempo de aprovação e taxa de exceção medidos, o contorno
+aparece antes do alarme — no exemplo abaixo, uma conta compartilhada de emergência.
 
-**Segmentar sem conhecer o tráfego.**
+**Segmentar sem conhecer o tráfego.** A primeira regra de bloqueio derruba uma
+dependência que ninguém tinha documentado.
 
-**Tratar como substituto de higiene básica.**
+**Tratar como substituto de higiene básica.** O relatório diz "confiança zero" e a
+injeção de SQL no serviço exposto continua lá.
 
 **Não ter caminho de emergência** quando o serviço de política falha.
 
 ## Exemplo Real
 
 Uma empresa de serviços financeiros iniciou um programa de confiança zero após um
-incidente em que uma credencial de fornecedor foi usada para acessar sistemas
-internos.
+incidente em que a credencial de um fornecedor, obtida por phishing que capturou o
+código enviado por mensagem, foi usada para acessar sistemas internos.
 
 A abordagem inicial foi comprar uma plataforma e planejar dois anos de implantação.
 Depois de oito meses, nada estava em produção, e o programa perdeu apoio.
@@ -237,7 +246,7 @@ Depois de oito meses, nada estava em produção, e o programa perdeu apoio.
 O reinício foi por etapas, com entrega a cada trimestre:
 
 **Trimestre 1 — autenticação forte.** Segundo fator resistente a phishing para todos,
-substituindo códigos por mensagem. Isso sozinho eliminou a classe de ataque que
+fornecedores incluídos, substituindo códigos por mensagem. Isso sozinho eliminou a classe de ataque que
 tinha causado o incidente original.
 
 **Trimestre 2 — credenciais de serviço.** Eliminação de chaves estáticas, com

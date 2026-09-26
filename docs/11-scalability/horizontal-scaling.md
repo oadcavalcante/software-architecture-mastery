@@ -2,7 +2,7 @@
 id: horizontal-scaling
 title: Escala Horizontal
 sidebar_position: 2
-description: Mais máquinas — o que ela exige do sistema e por que o ganho nunca é linear.
+description: Mais máquinas — o que ela exige do sistema e por que o ganho deixa de ser linear.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vertical-scaling]
 related: [vertical-scaling, statelessness, hotspots]
 canonical_for: [escala horizontal, escala linear, coeficiente de contenção, ponto de saturação]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -28,8 +28,9 @@ proporcional ao investimento.
 
 A realidade tem duas ressalvas que decidem o projeto. Primeira: ela exige que o sistema
 seja **capaz** de rodar em várias máquinas — o que é uma propriedade do desenho, não
-uma configuração. Segunda: o ganho **nunca é linear**, e existe um ponto além do qual
-adicionar nós piora o resultado.
+uma configuração. Segunda: o ganho **deixa de ser linear** assim que os nós
+disputam algum recurso, e quando mantê-los de acordo custa comunicação existe um ponto
+além do qual adicionar nós piora o resultado.
 
 ## Problema
 
@@ -63,7 +64,10 @@ Sem os três, adicionar máquinas cria comportamento inconsistente em vez de cap
 
 ### O ganho não é linear
 
-O que se observa medindo sistemas reais:
+**Escala linear** é o caso ideal em que N nós entregam N vezes a capacidade de um —
+eficiência de 100% em qualquer tamanho. A curva abaixo é ilustrativa, com a forma que a
+lei da escalabilidade universal (Gunther, 2007) prevê para um sistema com contenção e
+custo de coerência:
 
 ```text
 nós    capacidade    eficiência
@@ -78,31 +82,32 @@ nós    capacidade    eficiência
 Duas forças causam a degradação:
 
 **Contenção.** Recursos compartilhados — banco, cache, fila — são disputados por mais
-clientes.
+clientes. Gunther chama a intensidade dessa força de **coeficiente de contenção** (σ): a
+fração do trabalho que espera em fila por um recurso compartilhado. Sozinha, ela faz a
+curva achatar até um teto, sem cair.
 
 **Coerência.** Manter os nós de acordo custa comunicação, e esse custo cresce mais
 rápido que o número de nós.
 
 A segunda é a que produz o ponto em que **mais nós entregam menos**. Ele existe em
-todo sistema, e conhecê-lo — medindo — evita gastar com capacidade que não entrega.
+todo sistema cujos nós precisam se coordenar — estado compartilhado, bloqueio, cache
+mantido coerente —, e conhecê-lo — medindo — evita gastar com capacidade que não entrega.
 
 ### A fração serial é o teto real
 
 Ver [desempenho versus escalabilidade](/11-scalability/performance-vs-scalability.md). Tudo o que não
 paraleliza limita o ganho, independentemente do número de nós.
 
-Numa arquitetura distribuída, a fração serial costuma ser:
+A tabela acima é compatível com uma fração serial de cerca de 4%: pela lei de Amdahl,
+2, 4, 8 e 16 nós dariam 1,9×, 3,6×, 6,3× e 10×. Em 32 nós, Amdahl ainda prometeria
+14×; a distância até os 11× da tabela é o custo de coerência, que Amdahl não modela.
 
-```text
-o banco de dados          escrita centralizada
-um bloqueio distribuído   coordenação
-uma sequência única       geração de identificadores
-uma partição quente       ver pontos quentes
-um serviço central        autorização, configuração
-```
-
-Acima de certo número de nós, **remover a fração serial rende mais que adicionar
-nós**. Essa inversão é o insight prático mais útil desta seção.
+A mesma conta mostra onde a inversão acontece. Em 16 nós, levar a fração serial de 4%
+para 2% daria cerca de 12× — mais que os 11× obtidos dobrando para 32 nós, e sem pagar
+16 máquinas a mais. Nessa curva, a partir de algo entre 8 e 16 nós, reduzir a fração
+serial rende mais que adicionar nós. Uma
+[partição quente](/11-scalability/hotspots.md) é a forma dessa fração que menos
+aparece no desenho e mais aparece na medição.
 
 ### Escalar não é só multiplicar a aplicação
 
@@ -121,8 +126,9 @@ Escalar horizontalmente exige olhar **toda a cadeia**: conexões, cache, fila, s
 externos, limites de terceiros. Cada um tem seu próprio limite, e o primeiro a ser
 atingido define o teto do conjunto.
 
-O intermediário de conexões — que multiplexa muitas conexões de aplicação em poucas de
-banco — é o controle que resolve o caso mais comum.
+O [intermediário de conexões](/11-scalability/database-scaling.md) desfaz a
+proporcionalidade entre nós e conexões ao banco — é o controle que resolve o caso mais
+comum.
 
 ### Elasticidade tem custo de inicialização
 
@@ -149,8 +155,8 @@ A premissa de que todos os nós são equivalentes quebra por razões concretas:
 **Distribuição desigual.** Conexões persistentes fixam clientes a nós. Ver
 [balanceamento para escala](/11-scalability/scaling-load-balancing.md).
 
-Por isso o balanceamento sensível a latência e a carga real supera o distribuído
-uniformemente.
+Quando os nós divergem assim, o balanceamento sensível a latência e a carga real supera
+o distribuído uniformemente.
 
 ## Modelo Mental
 
@@ -270,8 +276,9 @@ distribuição passou a seguir a carga.
 **Cache compartilhado** para as respostas do serviço de recomendação, reduzindo as
 chamadas externas em 85%.
 
-Após as correções, 40 instâncias entregavam 6,2 vezes a capacidade de 6 — e a medição
-mostrou que acima de 45 o ganho ficava marginal.
+Após as correções, 40 instâncias entregavam 4,1 vezes a capacidade de 6 — eficiência
+perto de 60%, na faixa da curva acima — e a medição mostrou que acima de 45 cada
+instância adicional rendia menos de 1% de vazão.
 
 Esse número virou o teto configurado do escalonamento automático, com alerta quando
 ele é atingido.

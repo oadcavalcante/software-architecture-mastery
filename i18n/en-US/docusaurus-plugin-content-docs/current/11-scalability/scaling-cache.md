@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, hotspots, statelessness]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,9 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-Caching is the highest-return technique at scale, because it **removes work** instead of adding capacity to
-execute it.
+When reads repeat and the response is expensive to produce, a cache cuts the load on the origin by a
+larger factor than any realistic capacity increase would deliver, because it **removes work** instead of
+adding capacity to execute it.
 
 The fundamentals — what to cache, invalidation, time to live — are in
 [caching](/05-system-design/caching.md). Here what matters is what changes under high load: the failure
@@ -140,8 +141,9 @@ or none.
 
 ## Mental Model
 
-**A cache removes work; capacity adds means to execute it.** Removing is always cheaper — and it creates a
-dependency that needs to be treated as such.
+**A cache removes work; capacity adds means to execute it.** With repeated reads and an expensive response,
+removing costs less per request served than adding capacity — at the price of a cluster to pay for,
+invalidation to maintain, and a dependency that needs to be treated as such.
 
 ## When to Use
 
@@ -156,15 +158,21 @@ dependency that needs to be treated as such.
 
 **For data that has to be up to the instant.** A balance before debiting.
 
-**With no plan for losing the cache.**
+**With no plan for losing the cache.** If the origin cannot take the full load and there is no load
+shedding and no cache-loss drill, adding the cache trades a bottleneck for a single point of failure.
 
-**With no stampede protection** on popular keys.
+**With no stampede protection** on popular keys. With hundreds of simultaneous requests per key, every
+expiration becomes a spike on the origin equal to that key's concurrency.
 
-**An authoritative local cache.**
+**A local cache as the authoritative source.** When an instance decides based on its own cache — a limit, a
+permission, stock —, different instances give different answers to the same question.
 
-**A cache key with no identity** on a personalized response.
+**A cache key with no identity** on a personalized response. If the response varies per user and the key
+does not carry who asked, there is no safe cache — only a leak.
 
-**Caching writes.** A cache resolves reads; writes require something else.
+**To absorb writes that admit no loss window.** Write-behind speeds up writes by accepting the loss of what
+has not yet been persisted (see [the write strategies](/05-system-design/caching.md#the-write-strategies));
+when that loss is unacceptable, scaling writes calls for partitioning or a queue, not a cache.
 
 **When the hit rate is low.** A cache with a 30% hit rate adds latency and complexity for little gain.
 
@@ -218,7 +226,7 @@ dependency that needs to be treated as such.
 the origin — and with no metric, nobody knows that is the case.
 
 **Not protecting against a stampede.** When a popular key expires, all the simultaneous requests go to the
-origin at once. It is how a cache that was working becomes the cause of the outage.
+origin at once. It is the moment a cache that was working becomes the cause of the outage.
 
 **Expiration with no jitter.** Entries created together expire together, and the load on the origin becomes
 periodic spikes. Adding randomness to the deadline spreads that out.

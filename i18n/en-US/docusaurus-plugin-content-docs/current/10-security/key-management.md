@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -196,7 +196,7 @@ window, rotation is already cheap, and the hierarchy only adds one more piece to
 **A version not recorded.** Decrypting means trying every known key against every object — a cost
 proportional to keys times objects.
 
-**A key alongside the data.**
+**A key alongside the data.** Whoever reads the storage decrypts — the encryption exists and protects nothing.
 
 **A compromised signing key.** It allows forging.
 

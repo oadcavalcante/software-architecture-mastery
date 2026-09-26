@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: [escala de banco de dados, pool de conexões, contenção de escrita, escada de escalada]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-O banco de dados é o gargalo real da maioria dos sistemas, e o componente mais difícil
-de escalar — porque é onde o estado mora, e estado não se multiplica de graça.
+O banco de dados é o gargalo real da maioria dos sistemas, e o componente cuja escalada
+é mais cara de desfazer — porque é onde o estado mora, e estado não se multiplica de graça.
 
 Existe uma ordem de escalada, do mais barato para o mais caro. Segui-la evita a
 decisão que mais custa nesta seção: **distribuir o banco antes de necessário**.
@@ -42,7 +42,8 @@ O problema não é o particionamento. É a ordem.
 
 ### A escada de escalada
 
-Do mais barato para o mais caro:
+Do mais barato para o mais caro — somando tempo de engenharia, custo recorrente e
+irreversibilidade. A coluna abaixo mostra só o primeiro eixo:
 
 ```text
 1. índice e consulta        dias — o ganho mais frequente
@@ -56,6 +57,10 @@ Do mais barato para o mais caro:
 9. dividir por domínio      meses — bancos separados por contexto
 10. particionar entre nós   meses — a última opção
 ```
+
+Por isso a máquina maior, que se executa em horas, não é o degrau 1: ela aumenta a conta
+todo mês, tem teto na família de instâncias, e não conserta a consulta sem índice — só adia
+o dia em que ela volta a doer.
 
 A regra: **não pule degraus**. Cada um resolve uma classe diferente de problema, e o
 degrau 10 não conserta o que o degrau 1 resolveria.
@@ -151,8 +156,10 @@ sempre mais baixo do que a discussão sugere.
 
 Cada degrau tem seu momento:
 
-- **1 a 3:** sempre, antes de qualquer outra coisa.
-- **4:** quando a máquina tem folga disponível.
+- **1 a 3:** antes de qualquer degrau acima do 4 — salvo sob incidente, quando comprar
+  tempo com máquina maior vem primeiro.
+- **4:** quando ainda há tamanho de instância acima do atual e a folga dele cobre a
+  projeção de crescimento. Ver [escala vertical](/11-scalability/vertical-scaling.md).
 - **5:** quando a leitura domina e tolera atraso.
 - **6:** quando há carga analítica misturada.
 - **7:** quando há dados antigos raramente acessados.
@@ -175,14 +182,17 @@ Cada degrau tem seu momento:
 
 ## Alternativas
 
-- **Reduzir a escrita** — agrupar, tornar assíncrona, eliminar a desnecessária.
+- **Reduzir a escrita**, pelas saídas já listadas — vence a escada quando o gargalo é
+  de escrita e parte dela pode ser adiada ou descartada sem mudar o que o negócio vê.
 - **[CQRS distribuído](/06-distributed-systems/distributed-cqrs.md)** — modelo de leitura
-  separado.
+  separado; vence réplica e cache quando a leitura precisa de um formato que o modelo de
+  escrita não tem.
 - **Armazenamento adequado por carga** — busca num índice invertido, série temporal
-  num banco próprio. Ver
-  [NoSQL](/07-data-architecture/nosql.md).
+  num banco próprio; vence quando o gargalo é uma carga que o relacional atende mal, não o
+  volume. Ver [NoSQL](/07-data-architecture/nosql.md).
 - **Banco relacional distribuído** — mantém o modelo e distribui a escrita, ao custo de
-  latência de coordenação.
+  latência de coordenação; vence o degrau 10 quando a escrita é genuinamente o gargalo e
+  junções e transações entre entidades precisam ser preservadas.
 
 ## Trade-offs
 
@@ -250,6 +260,9 @@ reais. Os timeouts de pico desapareceram nesse mesmo dia.
 
 **Degrau 3 — cache.** Dados de comerciante, lidos em toda transação e alterados
 raramente, foram para cache com invalidação por evento. Menos 30% de leitura.
+
+Os degraus 4 e 5 ficaram de fora: o primário já estava no maior tamanho da família de
+instâncias, e a leitura, depois de cair 45% e mais 30%, deixou de justificar réplica.
 
 **Degrau 6 — separar cargas.** Relatórios de conciliação rodavam na base transacional.
 Movidos para uma réplica dedicada.

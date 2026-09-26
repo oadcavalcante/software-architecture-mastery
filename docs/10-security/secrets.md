@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, supply-chain-trust, least-privilege]
 canonical_for: [segredo, gerenciador de segredos, rotação de credencial, vazamento de segredo]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -54,7 +54,7 @@ continua válido em 2026, a menos que alguém o rotacione.
 
 ## Conceitos Centrais
 
-### A melhor gestão é a ausência
+### Segredo eliminado não precisa de gestão
 
 A mudança de maior impacto: substituir credenciais estáticas por mecanismos que não
 exigem segredo armazenado.
@@ -88,7 +88,8 @@ O que ele entrega além de "guardar cifrado":
 **Injeção em tempo de execução**, sem passar por disco.
 
 A auditoria é o item subestimado: sem ela, um acesso indevido não deixa rastro, e
-uma investigação não tem como saber o que foi comprometido.
+uma investigação não tem como saber o que foi comprometido. O papel geral da trilha de auditoria
+está em [auditabilidade](/10-security/auditability.md).
 
 ### Rotação é o que limita o dano
 
@@ -287,10 +288,11 @@ Na retrospectiva: a chave exposta no repositório público foi o gatilho, e cont
 achado mais **grave** — é a única com permissão de administrador e a única com uso confirmado
 por terceiros, durante quatro meses. O que a auditoria revelou depois é maior em **escala**, e
 é outra categoria de risco: 31 credenciais válidas em repositórios internos, sem nenhuma
-auditoria de uso, nenhuma delas com abuso registrado. Uma é incidente consumado; as outras são
-a superfície que torna o próximo incidente provável. Confundir as duas coisas leva a priorizar
-errado, e não tinha
-gerado nenhum alerta em dois anos.
+auditoria de uso e sem nenhum alerta em dois anos — nenhuma com abuso detectável, porque não havia
+registro que pudesse mostrá-lo. O que separa as duas é o que se sabe: uma é incidente consumado,
+com permissão de administrador e exposição pública; as outras têm escopo interno e uso
+desconhecido, e são a superfície que torna o próximo incidente provável. Confundir as duas coisas
+leva a priorizar errado.
 
 ## Conceitos Relacionados
 

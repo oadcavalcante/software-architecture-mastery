@@ -2,7 +2,7 @@
 id: supply-chain-trust
 title: Supply Chain Trust
 sidebar_position: 17
-description: You run far more third-party code than you write — and it is the fastest-growing vector.
+description: You run far more third-party code than you write — and code review does not look at it.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -11,9 +11,9 @@ objective: >
   By the end, the reader controls what enters the artifact and what can deploy it,
   with traceability of what runs in production.
 prerequisites: [security]
-related: [secrets, least-privilege, containers]
+related: [secrets, least-privilege, containers, supply-chain-security]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -26,8 +26,8 @@ images, build tools and the pipeline that assembles everything.
 
 Each of those is third-party code executing with your system's privileges.
 
-It is the fastest-growing vector, and the least covered by traditional controls — because code review,
-testing and vulnerability scanning look at what you wrote, not at what you imported.
+It is a vector that traditional controls leave uncovered — because code review, testing and
+vulnerability scanning of your own code look at what you wrote, not at what you imported.
 
 ## Problem
 
@@ -105,31 +105,24 @@ The verification needs to be **mandatory at deployment**. Signing without verify
 ### The pipeline is a production environment
 
 It is worth repeating, because it changes the posture: the pipeline has access to the code, to the secrets
-and to the production environment.
+and to the production environment. In the chain, it is the link where everything imported gains production's
+privileges — which is why it is a trust boundary, not a development tool.
 
-Consequences:
-
-**Least privilege.** See [least privilege](/10-security/least-privilege.md). A pipeline that can deploy to
-production should not be able to change access policies.
-
-**Ephemeral credentials.** Federation instead of a static key. See [secrets](/10-security/secrets.md).
-
-**Isolation between runs.** A run from an arbitrary branch should not reach production secrets.
-
-**Approval to change its own configuration.** If anybody can change the pipeline's file on a branch and see
-it execute with privileges, repository access control is production access control.
-
-The last is the most common mistake and the most exploited.
+The controls that follow from that — minimal scope, ephemeral credentials, isolation between runs, approval
+to change its own configuration — are in [pipeline security](/14-devops-and-platform/supply-chain-security.md).
+What this document needs from them is one consequence: if anybody can change the pipeline's file on a branch
+and see it execute with privileges, repository access control is production access control, and no
+dependency control makes up for that.
 
 ### Updating is the continuous control
 
-Most dependency compromises do not use a sophisticated attack — they use a known vulnerability, with a fix
+Many dependency compromises need no sophisticated attack — they exploit a known vulnerability, with a fix
 available for months.
 
-That makes regular updating more effective than any exotic control. And it depends on two things:
+Against that case, regular updating pays off more than any exotic control. And it depends on two things:
 automation that proposes the updates, and tests that give confidence to accept them.
 
-Teams with no automated tests do not update, and accumulate risk out of fear of breaking things.
+Without automated tests, updating becomes a gamble, and postponing becomes the rational short-term choice — which accumulates the very risk updating was meant to remove.
 
 ## Mental Model
 
@@ -138,7 +131,8 @@ that it did not change, and limiting what it reaches.
 
 ## When to Use
 
-Controls always apply. Priority when:
+The basic controls — pinned versions, a versioned lock file, an inventory — fit any system that goes to
+production. The heavy ones — a mirrored registry, signing with verified provenance — take priority when:
 
 - The application has many dependencies.
 - The pipeline has access to production.
@@ -148,19 +142,19 @@ Controls always apply. Priority when:
 
 ## When Not to Use
 
-**Open version ranges.** Accepting any future version of a dependency means a compromise of the package
-enters your pipeline on the next build, with no review at all.
+**An artifact that never leaves where it was built.** Signing and provenance verify that what runs is what
+the pipeline built. An internal tool built and executed on the same machine, with no registry in between,
+has no such gap to protect — the cost of keys and verification buys nothing there.
 
-**An unversioned lock file.**
+**A mirrored registry with no owner.** The mirror only protects while somebody keeps it available and
+current. In a small team, with few dependencies and nobody assigned to it, the mirror freezes versions —
+and trades the rare risk of name confusion for the frequent one of an unfixed known vulnerability. With no
+owner, fetch from the public registry with a lock file and a reserved name scope.
 
-**Signing with no mandatory verification.**
-
-**A pipeline with administrator permission.**
-
-**A pipeline configuration changeable with no approval.**
-
-**Blocking everything the scan points at.** With no exploitation context, the alert volume paralyzes — and
-the team comes to ignore all of them.
+**Hash pinning with no fast update path.** Pinning by cryptographic hash makes every fix go through a
+reviewed change. If that review takes days and no automation proposes the swap, the control delays exactly
+the urgent security fix. Until that path exists, pin by exact version with a lock file, which already gives
+integrity.
 
 ## Alternatives
 
@@ -169,7 +163,7 @@ the team comes to ignore all of them.
 - **Minimal base images** — fewer components, less surface. See
   [containers](/09-cloud-architecture/containers.md).
 - **Pinning by cryptographic hash** instead of by tag.
-- **Reducing dependencies** — the most effective and the least considered. A library added for a
+- **Reducing dependencies** — the only one that shrinks the surface instead of watching it. A library added for a
   three-line function brings its whole tree.
 
 ## Trade-offs
@@ -187,6 +181,15 @@ the team comes to ignore all of them.
 | Resists name confusion | Vulnerable |
 | Additional operations | None |
 
+The "infrastructure to maintain" and "additional operations" cells hide the ongoing cost, which comes in
+three kinds. **Key custody:** the signing key needs safekeeping, rotation and a plan for the day it leaks —
+or, with keyless signing, a dependency on an identity service and a transparency log. **Availability:** the
+mirrored registry and the verification service now sit on the path of every deployment; if they go down,
+nothing ships, including the incident fix. **Exception:** when verification refuses a legitimate artifact in
+the middle of an incident, a break-glass path is needed — logged, with dual approval and an expiry. Without
+it, the team turns verification off in the first emergency and never turns it back on. Triage of the scan
+alerts also needs an owner; without one, it becomes the volume everybody ignores.
+
 ## Failure Modes
 
 **A malicious dependency installed.**
@@ -199,13 +202,20 @@ the team comes to ignore all of them.
 
 **An artifact published without going through the pipeline.**
 
-**A known vulnerability not fixed.** The most common case.
+**A known vulnerability not fixed.** The case that needs no skilled attacker.
 
 **Alerts ignored.** High volume with no prioritization.
 
 ## Common Mistakes
 
-**Open version ranges.**
+**Open version ranges.** Accepting any future version of a dependency means a compromise of the package
+enters your pipeline on the next build, with no review at all.
+
+**A lock file outside version control.** Each machine resolves versions on its own, and the cryptographic
+hash that would guarantee the content does not exist where the build runs.
+
+**Blocking everything the scan points at.** With no exploitation context, the alert volume paralyzes — and
+the team comes to ignore all of them.
 
 **Not maintaining an inventory.** When a critical vulnerability is announced, the question is "do we use
 that, and where?". With no component inventory, the answer takes days you do not have.
@@ -272,6 +282,7 @@ documented and known — and that nobody had assessed as a trust boundary.
 
 - [Secrets](/10-security/secrets.md) — what the pipeline accesses.
 - [Least Privilege](/10-security/least-privilege.md) — the pipeline's scope.
+- [Pipeline Security](/14-devops-and-platform/supply-chain-security.md) — the pipeline's controls as a production environment.
 - [Containers](/09-cloud-architecture/containers.md) — base images.
 - [Secure Boundaries](/10-security/secure-boundaries.md).
 

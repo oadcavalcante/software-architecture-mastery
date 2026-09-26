@@ -13,7 +13,7 @@ objective: >
 prerequisites: [encryption]
 related: [encryption, secrets, data-protection]
 canonical_for: [gestão de chaves, chave mestra, cifragem envelopada, rotação de chave]
-content_version: 3
+content_version: 4
 last_reviewed: 2026-08-28
 ---
 
@@ -207,7 +207,7 @@ operar e a perder.
 **Versão não registrada.** Decifrar exige tentar cada chave conhecida contra cada
 objeto — custo proporcional a chaves vezes objetos.
 
-**Chave junto do dado.**
+**Chave junto do dado.** Quem lê o armazenamento decifra — a cifragem existe e não protege.
 
 **Chave de assinatura comprometida.** Permite forjar.
 

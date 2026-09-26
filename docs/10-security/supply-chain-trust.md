@@ -2,7 +2,7 @@
 id: supply-chain-trust
 title: Confiança na Cadeia de Suprimentos
 sidebar_position: 17
-description: Você executa muito mais código de terceiros do que escreve — e o vetor que mais cresceu.
+description: Você executa muito mais código de terceiros do que escreve — e a revisão de código não olha para ele.
 doc_type: concept
 level: 5
 difficulty: avançado
@@ -11,9 +11,9 @@ objective: >
   Ao terminar, o leitor controla o que entra no artefato e o que pode implantá-lo,
   com rastreabilidade do que roda em produção.
 prerequisites: [security]
-related: [secrets, least-privilege, containers]
+related: [secrets, least-privilege, containers, supply-chain-security]
 canonical_for: [cadeia de suprimentos de software, inventário de dependências, assinatura de artefato, proveniência]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -26,9 +26,9 @@ de dependências, imagens base, ferramentas de construção e da esteira que mon
 
 Cada um desses é código de terceiros executando com os privilégios do seu sistema.
 
-É o vetor que mais cresceu, e o menos coberto por controles tradicionais — porque
-revisão de código, teste e varredura de vulnerabilidade olham o que você escreveu, não
-o que você importou.
+É um vetor que os controles tradicionais deixam descoberto — porque revisão de
+código, teste e varredura de vulnerabilidade do código próprio olham o que você
+escreveu, não o que você importou.
 
 ## Problema
 
@@ -112,35 +112,28 @@ cerimônia.
 ### A esteira é ambiente de produção
 
 Vale repetir, porque muda a postura: a esteira tem acesso ao código, aos segredos e
-ao ambiente produtivo.
+ao ambiente produtivo. Na cadeia, ela é o elo em que tudo o que foi importado ganha os
+privilégios de produção — por isso é fronteira de confiança, e não ferramenta de
+desenvolvimento.
 
-Consequências:
-
-**Menor privilégio.** Ver [menor privilégio](/10-security/least-privilege.md). Uma esteira que
-pode implantar em produção não deveria poder alterar políticas de acesso.
-
-**Credenciais efêmeras.** Federação em vez de chave estática. Ver
-[segredos](/10-security/secrets.md).
-
-**Isolamento entre execuções.** Uma execução de um ramo qualquer não deveria alcançar
-segredos de produção.
-
-**Aprovação para alterar a própria configuração.** Se qualquer pessoa pode alterar o
-arquivo da esteira num ramo e vê-lo executar com privilégios, o controle de acesso ao
-repositório é o controle de acesso à produção.
-
-O último é o erro mais comum e o mais explorado.
+Os controles que decorrem disso — escopo mínimo, credencial efêmera, isolamento entre
+execuções, aprovação para alterar a própria configuração — estão em
+[segurança da esteira](/14-devops-and-platform/supply-chain-security.md). O que este
+documento precisa deles é uma consequência: se qualquer pessoa pode alterar o arquivo
+da esteira num ramo e vê-lo executar com privilégios, o controle de acesso ao
+repositório é o controle de acesso à produção, e nenhum controle de dependência
+compensa isso.
 
 ### Atualizar é o controle contínuo
 
-A maior parte dos comprometimentos por dependência não usa ataque sofisticado — usa
+Boa parte dos comprometimentos por dependência não exige ataque sofisticado — explora
 vulnerabilidade conhecida, com correção disponível há meses.
 
-Isso torna a atualização regular mais eficaz que qualquer controle exótico. E ela
+Contra esse caso, a atualização regular rende mais que qualquer controle exótico. E ela
 depende de duas coisas: automação que propõe as atualizações, e testes que dão
 confiança para aceitá-las.
 
-Times sem testes automatizados não atualizam, e acumulam risco por medo de quebrar.
+Sem testes automatizados, atualizar vira aposta, e adiar passa a ser a escolha racional de curto prazo — que acumula o risco que a atualização existia para retirar.
 
 ## Modelo Mental
 
@@ -149,7 +142,9 @@ o que entrou, verificar que não mudou, e limitar o que ele alcança.
 
 ## Quando Usar
 
-Controles se aplicam sempre. Prioridade quando:
+Os controles básicos — versão fixa, arquivo de bloqueio versionado, inventário — cabem
+em qualquer sistema que vai a produção. Os pesados — registro espelhado, assinatura com
+proveniência verificada — têm prioridade quando:
 
 - A aplicação tem muitas dependências.
 - A esteira tem acesso a produção.
@@ -159,18 +154,22 @@ Controles se aplicam sempre. Prioridade quando:
 
 ## Quando Não Usar
 
-**Faixas abertas de versão.** Aceitar qualquer versão futura de uma dependência significa que um comprometimento do pacote entra na sua esteira na próxima construção, sem revisão nenhuma.
+**Artefato que não sai de onde foi construído.** Assinatura e proveniência verificam
+que o que roda é o que a esteira construiu. Uma ferramenta interna construída e
+executada na mesma máquina, sem registro no meio, não tem esse intervalo para proteger —
+o custo de chave e verificação não compra nada ali.
 
-**Arquivo de bloqueio não versionado.**
+**Registro espelhado sem dono.** O espelho só protege enquanto alguém o mantém
+disponível e atualizado. Num time pequeno, com poucas dependências e ninguém designado
+para ele, o espelho congela versões — e troca o risco raro de confusão de nomes pelo
+frequente de vulnerabilidade conhecida não corrigida. Sem dono, busque do público com
+arquivo de bloqueio e escopo de nome reservado.
 
-**Assinatura sem verificação obrigatória.**
-
-**Esteira com permissão de administrador.**
-
-**Configuração de esteira alterável sem aprovação.**
-
-**Bloquear tudo que a varredura aponta.** Sem contexto de exploração, o volume de
-alertas paralisa — e o time passa a ignorar todos.
+**Fixação por resumo sem caminho rápido de atualização.** Fixar por resumo
+criptográfico faz cada correção passar por alteração revisada. Se essa revisão leva
+dias e nenhuma automação propõe a troca, o controle atrasa justamente a correção de
+segurança urgente. Enquanto não houver esse caminho, fixe por versão exata com arquivo
+de bloqueio, que já dá integridade.
 
 ## Alternativas
 
@@ -179,7 +178,7 @@ alertas paralisa — e o time passa a ignorar todos.
 - **Imagens base mínimas** — menos componentes, menos superfície. Ver
   [contêineres](/09-cloud-architecture/containers.md).
 - **Fixar por resumo criptográfico** em vez de por etiqueta.
-- **Reduzir dependências** — a mais eficaz e a menos considerada. Uma biblioteca
+- **Reduzir dependências** — a única que diminui a superfície em vez de vigiá-la. Uma biblioteca
   adicionada para uma função de três linhas traz sua árvore inteira.
 
 ## Trade-offs
@@ -197,6 +196,18 @@ alertas paralisa — e o time passa a ignorar todos.
 | Resiste a confusão de nomes | Vulnerável |
 | Operação adicional | Nenhuma |
 
+As células "infraestrutura a manter" e "operação adicional" escondem o custo contínuo,
+que é de três tipos. **Custódia de chave:** a chave de assinatura precisa de guarda,
+rotação e plano para o dia em que vaza — ou, na assinatura sem chave longa, de
+dependência de um serviço de identidade e de um registro de transparência.
+**Disponibilidade:** o registro espelhado e o serviço de verificação passam a estar no
+caminho de toda implantação; se caem, nada sobe, inclusive a correção do incidente.
+**Exceção:** quando a verificação recusa um artefato legítimo no meio de um incidente,
+é preciso um caminho de quebra-vidro — registrado, com dupla aprovação e prazo de
+expiração. Sem ele, o time desliga a verificação na primeira emergência e não a religa.
+A triagem dos alertas da varredura também precisa de dono; sem dono, ela vira o volume
+que todos ignoram.
+
 ## Modos de Falha
 
 **Dependência maliciosa instalada.**
@@ -209,13 +220,17 @@ alertas paralisa — e o time passa a ignorar todos.
 
 **Artefato publicado sem passar pela esteira.**
 
-**Vulnerabilidade conhecida não corrigida.** O caso mais comum.
+**Vulnerabilidade conhecida não corrigida.** O caso que não exige atacante habilidoso.
 
 **Alertas ignorados.** Volume alto sem priorização.
 
 ## Erros Comuns
 
-**Faixas abertas de versão.**
+**Faixas abertas de versão.** Aceitar qualquer versão futura de uma dependência significa que um comprometimento do pacote entra na sua esteira na próxima construção, sem revisão nenhuma.
+
+**Arquivo de bloqueio fora do controle de versão.** Cada máquina resolve as versões por conta própria, e o resumo criptográfico que garantiria o conteúdo não existe onde a construção roda.
+
+**Bloquear tudo que a varredura aponta.** Sem contexto de exploração, o volume de alertas paralisa — e o time passa a ignorar todos.
 
 **Não manter inventário.** Quando uma vulnerabilidade crítica é anunciada, a pergunta é "nós usamos isso, e onde?". Sem inventário de componentes, a resposta leva dias que não existem.
 
@@ -283,6 +298,7 @@ era conhecida — e que ninguém tinha avaliado como fronteira de confiança.
 
 - [Segredos](/10-security/secrets.md) — o que a esteira acessa.
 - [Menor Privilégio](/10-security/least-privilege.md) — o escopo da esteira.
+- [Segurança da Esteira](/14-devops-and-platform/supply-chain-security.md) — os controles da esteira como ambiente de produção.
 - [Contêineres](/09-cloud-architecture/containers.md) — imagens base.
 - [Fronteiras Seguras](/10-security/secure-boundaries.md).
 

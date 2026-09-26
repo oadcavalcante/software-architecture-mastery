@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, least-privilege, security-failure-modes]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -72,8 +72,14 @@ It is not the pretty architecture diagram. It is a sketch with:
 
 **Trust boundaries** — the lines separating different levels of trust.
 
-The boundaries are the point. **Every interesting threat crosses one of them.** See
+The boundaries are where to start: they are where data or a command changes hands, and
+that is why the highest-impact threats concentrate there — which does not excuse you from
+looking at the elements inside each domain. See
 [secure boundaries](/10-security/secure-boundaries.md).
+
+The set of flows that cross a boundary from outside — every point where an actor can hand
+data or a command to the system — is the **attack surface**. Each of those flows is
+something to defend; each one removed is something that no longer needs defending.
 
 ### STRIDE gives vocabulary for question 2
 
@@ -91,8 +97,8 @@ elevation of privilege  somebody obtains more access than they have
 The value is not in the acronym. It is in having a list that keeps the team from thinking only about the
 threats they already know — which is the natural bias.
 
-Walking the six categories for each boundary, with discipline, finds things free conversation does not
-find.
+Walking the six categories for each element, starting with the flows that cross a boundary, with
+discipline, finds things free conversation does not find.
 
 ### The threat actor defines what is reasonable
 
@@ -168,14 +174,11 @@ one.
 
 **For every small change.** It becomes a ritual.
 
-**Without defining the actors.** It produces a generic list.
-
 **As an audit after it is built.** That is a security review, which is something else and arrives too late
 for structural changes.
 
-**Without prioritizing.** A list of 80 threats with no order is not actionable.
-
-**With no owner and deadline.**
+**On a system with no valuable data and no new boundary.** A throwaway prototype or a local tool with no
+real data: two three-hour sessions cost more than the worst scenario they would find.
 
 **With only the security team.** Whoever knows the system is whoever builds it; without them, the model is
 wrong.
@@ -187,7 +190,9 @@ wrong.
 - **Automated analysis** — it finds known defect classes, not bad architectural decisions.
 - **Attack trees** — more detailed, for one specific high-risk scenario.
 
-None substitutes for modeling, because none happens before the design exists.
+None substitutes for modeling. The first three happen after the design exists; the attack tree happens
+at design time, but it deepens a scenario somebody already chose and does not cover the whole system — it
+is the modeling that says which scenario deserves the tree.
 
 ## Trade-offs
 
@@ -264,7 +269,8 @@ actionable ones.
 The decisions:
 
 **Eliminate.** The portal came to receive only the result of the test being viewed, not the complete
-record. That removed 6 of the 31 threats at once, and it was the highest-impact decision — made because
+record. That removed 6 of the 31 threats at once — 4 of them among the 9 actionable ones — and it was the
+highest-impact decision — made because
 somebody asked "why are we bringing that in?".
 
 **Mitigate.** Authorization verified per test, not per patient — the original version checked whether the
@@ -298,7 +304,7 @@ the patient's data came in and went out.
 
 Draw the data flow of a feature your team is going to build, with the trust boundaries marked.
 
-For each boundary, walk the six STRIDE categories. You will find at least one thing nobody had considered —
+Walk the six STRIDE categories for each element, starting with the flows that cross a boundary. You will find at least one thing nobody had considered —
 and probably a data path somebody forgot to mention.
 
 ## Interview Questions

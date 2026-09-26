@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [oidc, jwt, identity]
 canonical_for: [OAuth 2.0, delegação de acesso, fluxo de autorização, escopo]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -70,14 +70,17 @@ Dos fluxos originais, apenas um é recomendado para clientes que agem por um usu
 4. cliente troca o código pelo token, provando conhecer o segredo original
 ```
 
-O passo 4 é o ponto: o token nunca passa pelo navegador, e o código interceptado é
-inútil sem o segredo.
+O passo 4 é o ponto: o token nunca trafega pelo canal frontal — não aparece na URL
+de redirecionamento nem no histórico —, e o código interceptado é inútil sem o
+segredo. Em cliente público o token ainda chega ao navegador ou ao aparelho;
+protegê-lo ali é problema de armazenamento, não de fluxo.
 
 **PKCE não é mais opcional nem exclusivo de aplicações móveis.** Ele é recomendado
 para todos os clientes, inclusive os que têm segredo próprio.
 
-Os demais fluxos originais foram desencorajados ou removidos: o implícito expunha o
-token na URL; o de senha do usuário derrota o propósito do protocolo.
+Os demais fluxos originais saíram de cena: a RFC 9700 (2025) diz que o implícito
+não deve ser usado, porque expunha o token na URL, e proíbe o de senha do usuário,
+que entrega a senha ao cliente e derrota o propósito do protocolo.
 
 **Credenciais de cliente** permanece, e é o fluxo correto quando não há usuário —
 serviço falando com serviço.
@@ -159,15 +162,15 @@ usuário, precisa de OpenID Connect.
 
 **Para autenticação.** Use [OpenID Connect](/10-security/oidc.md).
 
-**Fluxo implícito.** Desencorajado.
+**Quando o cliente só consegue operar pelo fluxo implícito ou pelo de senha.** Um
+legado que não comporta código de autorização com PKCE não ganha segurança com
+OAuth — ganha a aparência dela. Adotar o protocolo nesse caso é adotar os dois
+fluxos que a RFC 9700 retirou; melhor migrar o cliente antes.
 
-**Fluxo de senha do usuário.** Derrota o propósito.
-
-**Sem PKCE.**
-
-**Redirecionamento com curinga ou prefixo.**
-
-**Escopo como autorização final.**
+**Quando as duas pontas são suas e não há terceiro.** Delegação pressupõe alguém
+concedendo acesso a outra parte. Entre serviços do mesmo dono, com a mesma
+fronteira de confiança, o servidor de autorização vira intermediário sem função —
+um token interno de curta duração ou TLS mútuo resolve com menos peças.
 
 **Quando uma chave de API resolve.** Integração servidor a servidor, sem usuário e
 sem escopo variável, não precisa de OAuth — a complexidade não se paga.
@@ -196,6 +199,14 @@ sem escopo variável, não precisa de OAuth — a complexidade não se paga.
 | Renovação frequente | Rara |
 | Revogação menos crítica | Crítica e difícil |
 
+O custo que as tabelas não mostram é operacional. O servidor de autorização entra
+no caminho crítico de todo login e de toda renovação: se ele cai, nenhum usuário
+novo entra e os tokens de acesso vão expirando. As chaves de assinatura precisam de
+rotação publicada sem derrubar os servidores de recurso que as validam, e cada
+cliente passa a ter um ciclo de vida — cadastro, URLs de redirecionamento, escopos
+permitidos, desativação — que alguém precisa administrar. Com três parceiros isso é
+planilha; com trezentos, é produto.
+
 ## Modos de Falha
 
 **Redirecionamento aberto.** Código entregue ao atacante.
@@ -215,15 +226,21 @@ outra.
 
 ## Erros Comuns
 
-**Usar OAuth como autenticação.**
+**Usar OAuth como autenticação.** Qualquer token válido vira login: um token
+emitido para outra aplicação abre a sessão de quem o apresentar.
 
-**Não usar PKCE.**
+**Não usar PKCE.** Em cliente público, o código interceptado no redirecionamento — por outro aplicativo
+registrado no mesmo esquema de URL, por exemplo — pode ser trocado pelo token por
+quem o interceptou.
 
-**Correspondência frouxa de redirecionamento.**
+**Correspondência frouxa de redirecionamento.** Um domínio do atacante que começa
+com o nome do parceiro recebe códigos de usuários legítimos.
 
-**Não rotacionar token de renovação em cliente público.**
+**Não rotacionar token de renovação em cliente público.** Um token extraído do
+aparelho dá acesso até expirar, e nada sinaliza o roubo.
 
-**Não verificar o destinatário do token.**
+**Não verificar o destinatário do token.** Um token obtido por uma aplicação de
+menor privilégio passa a ser aceito por serviços de maior.
 
 **Implementar o servidor de autorização** em vez de usar um pronto. É o tipo de
 componente em que erros são sutis e caros.
@@ -231,7 +248,7 @@ componente em que erros são sutis e caros.
 ## Exemplo Real
 
 Uma plataforma de gestão financeira expunha uma API para aplicações parceiras
-acessarem dados dos clientes, com OAuth 2.0.
+acessarem dados dos correntistas, com OAuth 2.0.
 
 Quatro problemas encontrados numa avaliação de segurança:
 
@@ -242,7 +259,7 @@ receber códigos de autorização de usuários legítimos.
 
 **Escopo como autorização.** O servidor de recurso verificava se o token tinha
 `contas:ler` e devolvia a conta pedida na URL — sem verificar se aquela conta
-pertencia ao usuário do token. Qualquer parceiro autorizado por qualquer cliente
+pertencia ao usuário do token. Qualquer parceiro autorizado por qualquer correntista
 podia ler qualquer conta, trocando o identificador.
 
 Esse foi classificado como o mais grave, e existia havia dois anos.

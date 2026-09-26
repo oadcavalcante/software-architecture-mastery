@@ -13,7 +13,7 @@ objective: >
 prerequisites: [identity]
 related: [oidc, jwt, identity]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -69,14 +69,16 @@ Of the original flows, only one is recommended for clients acting on behalf of a
 4. the client exchanges the code for the token, proving it knows the original secret
 ```
 
-Step 4 is the point: the token never passes through the browser, and an intercepted code is useless without
-the secret.
+Step 4 is the point: the token never travels through the front channel — it does not show up in the redirect
+URL or in the history —, and an intercepted code is useless without the secret. In a public client the token
+still reaches the browser or the device; protecting it there is a storage problem, not a flow problem.
 
 **PKCE is no longer optional nor exclusive to mobile applications.** It is recommended for all clients,
 including those that have a secret of their own.
 
-The other original flows were discouraged or removed: the implicit one exposed the token in the URL; the
-user password one defeats the protocol's purpose.
+The other original flows are gone: RFC 9700 (2025) says the implicit one should not be used, because it
+exposed the token in the URL, and forbids the user password one, which hands the password to the client and
+defeats the protocol's purpose.
 
 **Client credentials** remains, and it is the correct flow when there is no user — a service talking to a
 service.
@@ -153,15 +155,13 @@ OpenID Connect.
 
 **For authentication.** Use [OpenID Connect](/10-security/oidc.md).
 
-**The implicit flow.** Discouraged.
+**When the client can only operate through the implicit or the password flow.** A legacy client that cannot
+handle authorization code with PKCE gains no security from OAuth — it gains the appearance of it. Adopting the
+protocol in that case means adopting the two flows RFC 9700 retired; better to migrate the client first.
 
-**The user password flow.** It defeats the purpose.
-
-**Without PKCE.**
-
-**A redirect with a wildcard or a prefix.**
-
-**Scope as final authorization.**
+**When both ends are yours and there is no third party.** Delegation presupposes someone granting access to
+another party. Between services with the same owner, inside the same trust boundary, the authorization server
+becomes an intermediary with no job — a short-lived internal token or mutual TLS does it with fewer parts.
 
 **When an API key solves it.** A server-to-server integration, with no user and no variable scope, does not
 need OAuth — the complexity does not pay off.
@@ -190,6 +190,12 @@ need OAuth — the complexity does not pay off.
 | Frequent renewal | Rare |
 | Revocation less critical | Critical and difficult |
 
+The cost the tables do not show is operational. The authorization server enters the critical path of every
+login and every renewal: if it goes down, no new user gets in and access tokens keep expiring. Signing keys
+need rotation published without breaking the resource servers that validate them, and every client acquires a
+lifecycle — registration, redirect URLs, allowed scopes, deactivation — that someone has to administer. With
+three partners that is a spreadsheet; with three hundred, it is a product.
+
 ## Failure Modes
 
 **An open redirect.** The code delivered to the attacker.
@@ -208,22 +214,27 @@ need OAuth — the complexity does not pay off.
 
 ## Common Mistakes
 
-**Using OAuth as authentication.**
+**Using OAuth as authentication.** Any valid token becomes a login: a token issued for another application
+opens a session for whoever presents it.
 
-**Not using PKCE.**
+**Not using PKCE.** In a public client, the code intercepted at the redirect — by another app registered for
+the same URL scheme, for example — can be exchanged for the token by whoever intercepted it.
 
-**Loose redirect matching.**
+**Loose redirect matching.** An attacker's domain that starts with the partner's name receives codes from
+legitimate users.
 
-**Not rotating the refresh token in a public client.**
+**Not rotating the refresh token in a public client.** A token extracted from the device grants access until
+it expires, and nothing signals the theft.
 
-**Not verifying the token's audience.**
+**Not verifying the token's audience.** A token obtained by a lower-privilege application comes to be accepted
+by higher-privilege services.
 
 **Implementing the authorization server** instead of using a ready-made one. It is the kind of component
 where mistakes are subtle and expensive.
 
 ## Real-World Example
 
-A financial management platform exposed an API for partner applications to access customers' data, with
+A financial management platform exposed an API for partner applications to access account holders' data, with
 OAuth 2.0.
 
 Four problems found in a security assessment:
@@ -234,7 +245,7 @@ attacker would be able to receive authorization codes from legitimate users.
 
 **Scope as authorization.** The resource server checked whether the token had `accounts:read` and returned
 the account requested in the URL — without checking whether that account belonged to the token's user. Any
-partner authorized by any customer could read any account, by swapping the identifier.
+partner authorized by any account holder could read any account, by swapping the identifier.
 
 That one was classified as the most serious, and it had existed for two years.
 

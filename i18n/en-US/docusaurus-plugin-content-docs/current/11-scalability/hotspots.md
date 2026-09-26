@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-partitioning, performance-vs-scalability, database-scaling]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -71,11 +71,13 @@ The rule: **every metric of a partitioned resource needs to exist per partition,
 
 ```text
 aggregate       average utilization 23%   → looks healthy
-per partition   maximum 100%, minimum 8%  → saturated
+per partition   maximum 100%, minimum 15% → saturated
 ```
 
 And the metric that matters is the **ratio between the maximum and the median**. Above 3, there is
-imbalance; above 10, there is a hotspot.
+imbalance; above 10, there is a hotspot even before saturation. The ratio does not replace
+the absolute maximum: a partition at 100% is a hotspot whatever the ratio — in the scenario
+above, it comes out below 7.
 
 Without that, the diagnosis depends on somebody being suspicious and going to look — which happens after
 the incident.
@@ -153,7 +155,9 @@ Attention to hotspots is necessary when:
 
 **Isolating large customers too early.** Operational complexity before the concentration hurts.
 
-**Adding capacity** as the answer.
+**Adding capacity when the per-partition metric shows concentration.** Capacity is the
+answer when all partitions rise together and the maximum-to-median ratio stays low; with one
+partition saturated and the rest idle, the new nodes receive only the idle share.
 
 ## Alternatives
 
@@ -179,7 +183,7 @@ Attention to hotspots is necessary when:
 
 | Isolating the hot one | Spreading |
 |---|---|
-| Simple operation to understand | Transparent |
+| Simple to understand and operate | Requires understanding the key distribution |
 | Dedicated infrastructure to maintain | Shared |
 | A clear limit per customer | Diffuse |
 
@@ -228,7 +232,7 @@ The result: **all the writes went to the last partition**. The other fifteen rec
 orders.
 
 The symptom in production: order creation latency degrading over the course of the day, recovering at
-night, and getting worse week by week. The partitions' average utilization was 12%.
+night, and getting worse week by week. The partitions' average utilization was 11%.
 
 The first reaction, months earlier, had been to double the number of partitions. It changed nothing — the
 last partition still received everything, now with half the historical data.

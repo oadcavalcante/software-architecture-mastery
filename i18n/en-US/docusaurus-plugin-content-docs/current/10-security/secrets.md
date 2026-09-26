@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [key-management, supply-chain-trust, least-privilege]
 canonical_for: []
-translated_from_version: 2
+translated_from_version: 3
 last_reviewed: 2026-08-31
 ---
 
@@ -52,7 +52,7 @@ valid in 2026, unless somebody rotates it.
 
 ## Core Concepts
 
-### The best management is absence
+### An eliminated secret needs no management
 
 The highest-impact change: replacing static credentials with mechanisms that require no stored secret.
 
@@ -83,7 +83,8 @@ What it delivers beyond "storing it encrypted":
 **Injection at runtime**, with no trip through disk.
 
 Auditing is the underestimated item: without it, an improper access leaves no trace, and an investigation
-has no way to know what was compromised.
+has no way to know what was compromised. The general role of the audit trail is covered in
+[auditability](/10-security/auditability.md).
 
 ### Rotation is what limits the damage
 
@@ -277,9 +278,11 @@ one stopped affecting the others.
 In retrospect: the key exposed in the public repository was the trigger, and it remains the most **serious**
 finding — it is the only one with administrator permission and the only one with confirmed third-party use,
 over four months. What the audit revealed afterwards is larger in **scale**, and is a different category of
-risk: 31 valid credentials in internal repositories, with no usage auditing at all, none of them with
-recorded abuse. One is a consummated incident; the others are the surface that makes the next incident
-likely. Confusing the two leads to prioritizing wrong, and it had generated no alert in two years.
+risk: 31 valid credentials in internal repositories, with no usage auditing at all and no alert in two years —
+none with detectable abuse, because there was no record that could have shown it. What separates the two
+is what is known: one is a consummated incident, with administrator permission and public exposure; the
+others have internal scope and unknown usage, and are the surface that makes the next incident likely.
+Confusing the two leads to prioritizing wrong.
 
 ## Related Concepts
 

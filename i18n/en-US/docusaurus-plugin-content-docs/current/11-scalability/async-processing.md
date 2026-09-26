@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [queue-based-scaling, performance-vs-scalability, statelessness]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -75,24 +75,20 @@ received → processing → completed
 Each one needs to be represented in the model, displayed in the interface, and handled by support.
 
 That is the real cost, and it is underestimated. Teams that make an operation asynchronous without modeling
-the states produce the worst possible experience: the user receives "success" and finds out later that it
-did not work, with no idea where to look.
+the states produce a failure that neither the user nor support can locate: the user receives "success" and
+finds out later that it did not work, with no idea where to look.
 
 ### The user needs feedback
 
-Three patterns, from the simplest to the most elaborate:
+The mechanisms — polling, notification, a persistent connection — and the duration criterion between them
+are in [background processing](/05-system-design/background-processing.md). What changes at scale is that
+feedback is load too.
 
-**Polling by the client.** The response brings an identifier; the client queries the state. Simple, works
-anywhere, generates query traffic.
-
-**Notification.** The system announces when it finishes — a message, an email, a notification. Appropriate
-for long operations.
-
-**A persistent connection.** The client receives real-time updates. The best experience, and it adds
-connection state. See [statelessness](/11-scalability/statelessness.md).
-
-The choice depends on the duration: seconds favor a connection or polling; minutes or hours favor
-notification.
+Polling every 2 seconds during an 8-minute lag is 240 requests per accepted operation. Under a peak, exactly
+when lag grows, polling traffic grows with it and can exceed the traffic that asynchrony took off the
+critical path. Backoff intervals or notification avoid this; a persistent connection trades that traffic
+for connection state, which weighs on horizontal scaling. See
+[statelessness](/11-scalability/statelessness.md).
 
 ### What asynchronous requires
 
@@ -151,7 +147,8 @@ they need to be modeled, not discovered.
 
 **With no durability.** Accepting and keeping it in memory loses work.
 
-**With no idempotency.**
+**With no idempotency.** Every repeated delivery — a consumer retry, a user resubmission — becomes a
+duplicated effect: a double charge, a repeated email.
 
 **For sustained overload.** The queue grows and the problem comes back worse.
 
@@ -166,7 +163,9 @@ they need to be modeled, not discovered.
 - **Parallelizing inside the request** — five independent calls in parallel cost the time of the slowest,
   not the sum.
 - **An aggressive timeout with degradation** — responding without the optional result.
-- **A [queue](/11-scalability/queue-based-scaling.md)** — the most robust form of asynchronous processing.
+- **A [queue](/11-scalability/queue-based-scaling.md)** — when accepted work must survive crashes, the peak
+  exceeds capacity, and failures must be retried without intervention; none of the three alternatives
+  above guarantees any of that.
 
 The second deserves consideration: many slow requests are sequences of independent calls, and
 parallelizing them resolves it without introducing intermediate state.
@@ -248,13 +247,14 @@ displayed in the interface, with a clear meaning for the user and for support.
 
 **Idempotency** by request key, preventing duplicate issuance when the user resubmitted.
 
-Result: the month-end peak came to be absorbed, with processing lag of up to 8 minutes at the most intense
+Result: with consumers sized for around 100 issuances per second, the month-end peak came to be absorbed, with processing lag of up to 8 minutes at the most intense
 moments — accepted by the business, because issuance has a legal deadline in hours.
 
 Two problems appeared later:
 
 **Sustained overload.** During a 6-hour outage of the tax authority's service, the queue accumulated 400,000
-issuances. When the service came back, consuming them took 9 hours — and during that period the new
+issuances, around 18 per second. The service came back limiting each issuer to around 30 calls per second,
+slightly above the rate still arriving, and consuming the backlog took almost 10 hours — and during that period the new
 issuances went behind the old ones. Prioritization by deadline was added.
 
 **Confused users.** The first version displayed only "processing", with no estimate. The volume of support

@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, auditability, authz-models]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -44,8 +44,8 @@ policy indefinitely. A timeout that returns empty, and logic that interprets emp
 
 None of those was decided. All of them become security policy at the moment something fails.
 
-And the language's default is usually generous: an empty permission list, a check that does not run, a
-swallowed exception — they almost always result in allowing.
+And the path of least resistance in the implementation is usually generous: a check that does not run and a
+swallowed exception almost always result in allowing.
 
 ## Core Concepts
 
@@ -58,7 +58,7 @@ financial transaction authorization   closed — refusing is acceptable
 public catalog reads                  open — unavailability is the damage
 a physical door lock                  it depends: fire versus intrusion
 rate limiting                         open — degrading is not worth stopping
-token verification                    closed — no exception
+token verification                    closed — accepting unverified is accepting anyone
 second factor verification            closed
 ```
 
@@ -111,12 +111,9 @@ the same effect?**
 
 ### A silent failure is the worst
 
-A control that fails and gives no warning is worse than one that fails loudly.
-
-```text
-a loud failure     an error, an alert, somebody investigates
-a silent failure   the system keeps working, without the protection
-```
+The general concept is in [fault tolerance](/12-reliability/fault-tolerance.md). In a security control it
+has an aggravating factor: the system keeps working, only without the protection, and nothing in the visible
+behavior betrays the absence — whoever notices first is usually whoever exploits it.
 
 Real examples: a signature check that returns true when it cannot fetch the key; a sensitive-data filter
 that does not run because of a configuration error; a firewall rule that was not applied.
@@ -152,18 +149,17 @@ Deciding explicitly is necessary for every control. Priority when:
 
 ## When Not to Use
 
-**Failing open in authorization** with no recorded decision.
-
-**A policy cache with no maximum age.**
-
-**A control with no metric.**
-
-**A detailed error message** on the outside.
+**Failing open in authorization with no recorded decision.** When the damage of granting improper access
+outweighs the damage of denying — medical records, financial transactions —, failing open is defensible only
+if somebody weighed both sides and wrote it down. With no record, the one who decided was the catch block.
 
 **"Always closed" as a blind rule.** For rate limiting and abuse protection, it is frequently the wrong
-choice.
+choice: when the damage of denying is unavailability itself, closing turns a policy-service failure into a
+product outage.
 
-**Generic exception handling** around a security check.
+**Graduated degradation in a control with no external dependency.** When the decision is evaluated locally
+and cannot become unavailable separately from the application, the intermediate modes are code to maintain
+and test for a failure that does not happen.
 
 ## Alternatives
 
@@ -206,17 +202,23 @@ during the incident — and not to re-enable it.
 
 ## Common Mistakes
 
-**Not deciding the behavior under failure.**
+**Not deciding the behavior under failure.** The policy becomes that of whoever wrote each exception handler
+— in the example below, twelve applications, three behaviors in the face of the same outage.
 
-**Generic exception handling around checks.**
+**Wrapping the check in generic exception handling** so as "not to block the user". The security policy
+becomes the catch block's, and it outlives whoever wrote it.
 
-**A cache with no maximum age.**
+**Caching the policy with no maximum age.** Revocation stops taking effect while the cache serves — in the
+example, a policy from three weeks earlier, with already-revoked accesses.
 
-**Not instrumenting the control.**
+**Not instrumenting the control.** Failing open shows up on no dashboard; the improper accesses only surface
+in the later audit, if there is one.
 
-**Not testing the failure path.**
+**Not testing the failure path.** The behavior under failure is only learned in the first real incident,
+under pressure and with users affected.
 
-**Not anticipating the procedure** for when the control fails closed.
+**Not anticipating the procedure** for when the control fails closed. Support receives calls with nothing to
+say, and the pressure to disable the control grows with every minute of outage.
 
 ## Real-World Example
 
@@ -254,8 +256,9 @@ second factor                             closed
 
 **A mandatory cache age**, a maximum of 15 minutes.
 
-**A metric per control** — how many checks per minute, and an alert if it drops to zero. That would have
-detected the five applications' silent failure in two minutes.
+**A metric per control** — completed authorization decisions per minute, and an alert if it drops to zero.
+That would have detected the five applications' silent failure in two minutes; counting call attempts would
+not have, because the five kept calling the service and catching the exception.
 
 **A procedure and communication** for the fail-closed case, including a message to the user.
 

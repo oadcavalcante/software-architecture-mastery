@@ -13,7 +13,7 @@ objective: >
 prerequisites: [threat-modeling]
 related: [threat-modeling, zero-trust, least-privilege]
 canonical_for: [fronteira de confiança, defesa em profundidade, validação na borda]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -35,9 +35,9 @@ confiável. É isso que faz um comprometimento pequeno virar total.
 O modelo mental herdado é o do castelo: um muro forte no perímetro, e dentro todo
 mundo é amigo.
 
-Ele falha porque a premissa é falsa. Atacantes entram — por credencial vazada, por
-serviço comprometido, por dependência maliciosa. E funcionários legítimos já estão
-dentro.
+Ele falha porque a premissa é falsa: atacantes entram, e funcionários legítimos já
+estão dentro. A crítica completa do perímetro implícito está em
+[confiança zero](/10-security/zero-trust.md); aqui interessa a consequência.
 
 Uma vez lá, se nada mais verifica nada, o alcance é total. A diferença entre um
 incidente contido e um catastrófico raramente é o muro — é o que existe atrás dele.
@@ -59,8 +59,8 @@ código → dependência de terceiro código que você não escreveu
 esteira → produção              o que pode implantar
 ```
 
-As quatro últimas são as menos consideradas, e três delas estão entre os vetores que
-mais cresceram.
+As quatro últimas são as menos consideradas: nenhuma aparece como tráfego de entrada
+num diagrama de rede, e quem desenha só o perímetro não as vê.
 
 Marcá-las num diagrama é o produto principal de uma
 [modelagem de ameaças](/10-security/threat-modeling.md).
@@ -146,7 +146,9 @@ arquitetura é decidir o que é verificado em cada uma.
 
 ## Quando Usar
 
-Fronteiras explícitas se pagam sempre. Prioridade quando:
+Marcar as fronteiras custa pouco perto de descobri-las depois de um incidente; em
+qualquer sistema com mais de um nível de confiança, a marcação se paga. A prioridade
+de reforçá-las sobe quando:
 
 - Há dados sensíveis ou regulados.
 - O sistema serve vários clientes.
@@ -156,28 +158,40 @@ Fronteiras explícitas se pagam sempre. Prioridade quando:
 
 ## Quando Não Usar
 
-**Perímetro único como toda a defesa.**
+**Dentro de um único processo, entre partes que só se alcançam uma pela outra.**
+Revalidar entre duas funções do mesmo módulo não cria fronteira — a confiança não
+muda ali. A verificação pertence ao ponto onde o dado entra no processo.
 
-**Validar só na borda.**
+**Verificação que repete a anterior no mesmo contexto.** Defesa em profundidade não é
+acumular verificações iguais: se a camada seguinte checa exatamente o que a anterior
+já impôs, com a mesma informação, ela custa latência e manutenção e não impede nada
+novo.
 
-**Confiar em identificador enviado pelo chamador.**
+**Isolamento forte quando o vazamento custa pouco.** Esquema ou conta por cliente num
+sistema cujos dados não são sensíveis entre clientes — catálogo público, ferramenta
+interna com poucos inquilinos que já se conhecem — paga o custo operacional da tabela
+abaixo sem risco correspondente. O filtro imposto na camada de acesso basta.
 
-**Isolamento por filtro de consulta** quando o custo de vazamento é alto.
-
-**Camadas sem propósito claro.** Defesa em profundidade não é acumular verificações
-iguais; cada camada precisa impedir algo diferente.
-
-**Fronteiras sem registro.**
+**Registro de toda travessia aceita em caminho de alto volume.** As negações precisam
+ser registradas; cada acesso aceito num caminho quente gera volume que ninguém lê.
+Reserve o registro de aceites para as fronteiras em que a auditoria o exige.
 
 ## Alternativas
 
-- **[Confiança zero](/10-security/zero-trust.md)** — a formulação que elimina o perímetro
-  implícito.
-- **Segmentação de rede** — fronteira na camada de rede. Ver
+- **[Confiança zero](/10-security/zero-trust.md)** — vence quando a rede interna deixou
+  de ser um "dentro" (nuvem, trabalho remoto, dezenas de serviços): em vez de marcar
+  fronteiras pontuais, trata toda requisição como travessia. Custa identidade forte
+  para cada serviço.
+- **Segmentação de rede** — vence quando a fronteira é atravessada por protocolo que a
+  aplicação não controla (banco legado, equipamento, serviço de terceiro sem
+  autenticação própria): a rede impõe o que o código não consegue. Ver
   [segurança de rede](/10-security/network-security.md).
-- **Isolamento por processo ou por conta** — mais forte que por configuração.
-- **Cifragem por cliente** — a fronteira passa a ser a chave. Ver
-  [gestão de chaves](/10-security/key-management.md).
+- **Isolamento por processo ou por conta** — vence quando um componente executa código
+  menos confiável (plugin, carga de cliente, dependência de risco): a fronteira passa
+  a ser do sistema operacional ou do provedor, não da configuração da aplicação.
+- **Cifragem por cliente** — vence quando o operador do banco ou do backup está fora
+  do perímetro de confiança: com acesso aos dados e sem a chave do cliente, nada é
+  legível. Ver [gestão de chaves](/10-security/key-management.md).
 
 ## Trade-offs
 
@@ -252,6 +266,22 @@ por um erro de configuração de rota, respondia a requisições externas — o 
 permitido acessar qualquer empresa passando o identificador.
 
 Isso não tinha sido explorado, e era o problema mais grave.
+
+O grafo mostra o sistema como a investigação o encontrou. Observe que os dois
+caminhos tracejados chegam aos dados de qualquer cliente sem passar pela única
+verificação de cliente que existia, a camada de acesso.
+
+```mermaid
+graph LR
+  EXT[Requisição externa] --> GW[Gateway autenticado]
+  GW --> APP[Aplicação]
+  APP --> CA[Camada de acesso<br/>adiciona filtro]
+  CA --> DB[(Esquema único<br/>coluna empresa_id)]
+  REL[Relatório novo] -. consulta direta sem filtro .-> DB
+  APP --> SVC[Serviço interno<br/>aceita empresa_id]
+  EXT -. rota mal configurada .-> SVC
+  SVC --> DB
+```
 
 As correções, ao longo de oito meses:
 

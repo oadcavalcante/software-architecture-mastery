@@ -13,7 +13,7 @@ objective: >
 prerequisites: [threat-modeling]
 related: [threat-modeling, zero-trust, least-privilege]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -34,8 +34,9 @@ is what makes a small compromise become a total one.
 
 The inherited mental model is the castle: a strong wall at the perimeter, and inside everybody is a friend.
 
-It fails because the premise is false. Attackers get in — through a leaked credential, a compromised
-service, a malicious dependency. And legitimate employees are already inside.
+It fails because the premise is false: attackers get in, and legitimate employees are already inside. The
+full critique of the implicit perimeter is in [zero trust](/10-security/zero-trust.md); what matters here
+is the consequence.
 
 Once there, if nothing else verifies anything, the reach is total. The difference between a contained
 incident and a catastrophic one is rarely the wall — it is what exists behind it.
@@ -57,7 +58,8 @@ code → third-party dependency  code you did not write
 pipeline → production          what can deploy
 ```
 
-The last four are the least considered, and three of them are among the vectors that have grown the most.
+The last four are the least considered: none of them shows up as inbound traffic on a network diagram, and
+whoever draws only the perimeter does not see them.
 
 Marking them on a diagram is the main output of a
 [threat modeling](/10-security/threat-modeling.md) session.
@@ -136,7 +138,8 @@ verified at each one.
 
 ## When to Use
 
-Explicit boundaries always pay off. Priority when:
+Marking the boundaries costs little next to discovering them after an incident; in any system with more
+than one level of trust, the marking pays off. The priority of reinforcing them rises when:
 
 - There is sensitive or regulated data.
 - The system serves several customers.
@@ -146,26 +149,36 @@ Explicit boundaries always pay off. Priority when:
 
 ## When Not to Use
 
-**A single perimeter as the whole defense.**
+**Inside a single process, between parts that can only reach each other.** Revalidating between two
+functions of the same module does not create a boundary — trust does not change there. The check belongs at
+the point where the data enters the process.
 
-**Validating only at the edge.**
+**A check that repeats the previous one in the same context.** Defense in depth is not accumulating
+identical checks: if the next layer verifies exactly what the previous one already enforced, with the same
+information, it costs latency and maintenance and prevents nothing new.
 
-**Trusting an identifier sent by the caller.**
+**Strong isolation when a leak costs little.** A schema or account per customer in a system whose data is
+not sensitive across customers — a public catalog, an internal tool with a few tenants who already know each
+other — pays the operational cost in the table below with no matching risk. A filter enforced in the
+access layer is enough.
 
-**Isolation by query filter** when the cost of a leak is high.
-
-**Layers with no clear purpose.** Defense in depth is not accumulating identical checks; each layer needs
-to prevent something different.
-
-**Boundaries with no logging.**
+**Logging every accepted crossing on a high-volume path.** Denials need to be logged; every accepted access
+on a hot path generates volume nobody reads. Keep logging of accepted crossings for the boundaries where
+audit requires it.
 
 ## Alternatives
 
-- **[Zero trust](/10-security/zero-trust.md)** — the formulation that eliminates the implicit perimeter.
-- **Network segmentation** — a boundary at the network layer. See
-  [network security](/10-security/network-security.md).
-- **Isolation by process or by account** — stronger than by configuration.
-- **Per-customer encryption** — the boundary becomes the key. See
+- **[Zero trust](/10-security/zero-trust.md)** — wins when the internal network has stopped being an
+  "inside" (cloud, remote work, dozens of services): instead of marking specific boundaries, it treats every
+  request as a crossing. It costs strong identity for every service.
+- **Network segmentation** — wins when the boundary is crossed by a protocol the application does not
+  control (a legacy database, equipment, a third-party service with no authentication of its own): the
+  network enforces what the code cannot. See [network security](/10-security/network-security.md).
+- **Isolation by process or by account** — wins when a component runs less trusted code (a plugin, a
+  customer workload, a risky dependency): the boundary becomes the operating system's or the provider's,
+  not the application's configuration.
+- **Per-customer encryption** — wins when the database or backup operator is outside the trust perimeter:
+  with access to the data and without the customer's key, nothing is readable. See
   [key management](/10-security/key-management.md).
 
 ## Trade-offs
@@ -237,6 +250,21 @@ verifying. One of them was reachable through an endpoint that, because of a rout
 answered external requests — which would have allowed accessing any company by passing the identifier.
 
 That had not been exploited, and it was the most serious problem.
+
+The graph shows the system as the investigation found it. Notice that the two dashed paths reach any
+customer's data without passing through the only customer check that existed, the access layer.
+
+```mermaid
+graph LR
+  EXT[External request] --> GW[Authenticated gateway]
+  GW --> APP[Application]
+  APP --> CA[Access layer<br/>adds filter]
+  CA --> DB[(Single schema<br/>company_id column)]
+  REL[New report] -. direct query without filter .-> DB
+  APP --> SVC[Internal service<br/>accepts company_id]
+  EXT -. misconfigured route .-> SVC
+  SVC --> DB
+```
 
 The fixes, over eight months:
 

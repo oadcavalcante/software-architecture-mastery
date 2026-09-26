@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, auditability, authz-models]
 canonical_for: [falhar fechado, falhar aberto, degradação segura, controle contornável]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -46,8 +46,8 @@ lógica que interpreta vazio como "sem restrições".
 Nenhuma dessas foi decidida. Todas viram política de segurança no momento em que
 algo falha.
 
-E o padrão da linguagem costuma ser generoso: uma lista de permissões vazia, uma
-verificação que não roda, uma exceção engolida — quase sempre resultam em permitir.
+E o caminho de menor resistência na implementação costuma ser generoso: uma
+verificação que não roda e uma exceção engolida quase sempre resultam em permitir.
 
 ## Conceitos Centrais
 
@@ -61,7 +61,7 @@ autorização de transação financeira   fechado — recusar é aceitável
 leitura de catálogo público           aberto — indisponibilidade é o dano
 trava de porta física                 depende: incêndio contra invasão
 limite de taxa                        aberto — degradar não vale parar
-verificação de token                  fechado — sem exceção
+verificação de token                  fechado — aceitar sem verificar é aceitar qualquer um
 verificação de segundo fator          fechado
 ```
 
@@ -120,12 +120,10 @@ caminho para o mesmo efeito?**
 
 ### Falha silenciosa é a pior
 
-Um controle que falha e não avisa é pior que um que falha ruidosamente.
-
-```text
-falha ruidosa   erro, alerta, alguém investiga
-falha silenciosa  o sistema segue funcionando, sem a proteção
-```
+O conceito geral está em [tolerância a falhas](/12-reliability/fault-tolerance.md).
+Num controle de segurança, ele tem um agravante: o sistema segue funcionando, só que
+sem a proteção, e nada no comportamento visível denuncia a ausência — quem nota
+primeiro costuma ser quem explora.
 
 Exemplos reais: uma verificação de assinatura que retorna verdadeiro quando não
 consegue buscar a chave; um filtro de dados sensíveis que não roda por erro de
@@ -162,18 +160,19 @@ Decidir explicitamente é necessário para todo controle. Prioridade quando:
 
 ## Quando Não Usar
 
-**Falhar aberto em autorização** sem decisão registrada.
-
-**Cache de política sem prazo.**
-
-**Controle sem métrica.**
-
-**Mensagem de erro detalhada** para fora.
+**Falhar aberto em autorização sem decisão registrada.** Quando o dano de conceder
+acesso indevido supera o de negar — prontuário, transação financeira —, falhar aberto
+só se defende se alguém pesou os dois lados e deixou isso escrito. Sem registro, quem
+decidiu foi o bloco de captura.
 
 **"Sempre fechado" como regra cega.** Para limite de taxa e proteção contra abuso,
-frequentemente é a escolha errada.
+frequentemente é a escolha errada: quando o dano de negar é a própria
+indisponibilidade, fechar transforma uma falha do serviço de política numa parada do
+produto.
 
-**Tratamento de exceção genérico** em torno de verificação de segurança.
+**Degradação graduada em controle sem dependência externa.** Quando a decisão é
+avaliada localmente e não fica indisponível separada da aplicação, os modos
+intermediários são código a manter e testar para uma falha que não ocorre.
 
 ## Alternativas
 
@@ -216,17 +215,27 @@ o controle durante o incidente — e a não reabilitar.
 
 ## Erros Comuns
 
-**Não decidir o comportamento sob falha.**
+**Não decidir o comportamento sob falha.** A política passa a ser a de quem escreveu
+cada tratamento de exceção — no exemplo abaixo, doze aplicações, três comportamentos
+diante da mesma indisponibilidade.
 
-**Tratamento de exceção genérico em torno de verificações.**
+**Envolver a verificação num tratamento de exceção genérico** para "não bloquear o
+usuário". A política de segurança passa a ser a do bloco de captura, e sobrevive a
+quem a escreveu.
 
-**Cache sem prazo.**
+**Pôr a política em cache sem prazo máximo.** A revogação deixa de valer enquanto o
+cache servir — no exemplo, uma política de três semanas antes, com acessos já
+revogados.
 
-**Não instrumentar o controle.**
+**Não instrumentar o controle.** A falha aberta não aparece em painel nenhum; os
+acessos indevidos só aparecem na auditoria posterior, se ela existir.
 
-**Não testar o caminho de falha.**
+**Não testar o caminho de falha.** O comportamento sob falha só é conhecido no
+primeiro incidente real, sob pressão e com usuários afetados.
 
-**Não prever o procedimento** para quando o controle falhar fechado.
+**Não prever o procedimento** para quando o controle falhar fechado. O suporte recebe
+chamados sem ter o que responder, e a pressão para desabilitar o controle cresce a
+cada minuto de parada.
 
 ## Exemplo Real
 
@@ -271,8 +280,10 @@ de doze.
 
 **Cache com prazo obrigatório**, máximo de 15 minutos.
 
-**Métrica por controle** — quantas verificações por minuto, e alerta se cair a zero.
-Isso teria detectado a falha silenciosa das cinco aplicações em dois minutos.
+**Métrica por controle** — decisões de autorização concluídas por minuto, e alerta se
+cair a zero. Isso teria detectado a falha silenciosa das cinco aplicações em dois
+minutos; contar tentativas de chamada não teria, porque as cinco continuavam chamando
+o serviço e capturando a exceção.
 
 **Procedimento e comunicação** para o caso de falha fechada, incluindo mensagem ao
 usuário.

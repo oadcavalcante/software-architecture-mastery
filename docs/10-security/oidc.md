@@ -13,7 +13,7 @@ objective: >
 prerequisites: [oauth2]
 related: [oauth2, jwt, identity]
 canonical_for: [OpenID Connect, token de identidade, login único]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -50,13 +50,14 @@ OpenID Connect resolve com um token que declara o destinatário e é verificáve
 
 ```text
 token de identidade  para o cliente — afirma quem autenticou
-                     verificado pelo cliente, nunca enviado à API
+                     verificado pelo cliente (ou pelo backend dele),
+                     nunca usado como credencial para a API de recursos
 token de acesso      para a API — afirma permissão
                      enviado à API, opaco para o cliente
 ```
 
-Confundi-los é o erro mais comum de implementação. Enviar o token de identidade para
-a API, ou tentar ler o token de acesso no cliente, indica que a distinção não foi
+Confundi-los é um erro recorrente de implementação. Enviar o token de identidade para
+a API de recursos, ou tentar ler o token de acesso no cliente, indica que a distinção não foi
 compreendida.
 
 ### As afirmações que precisam ser verificadas
@@ -65,12 +66,15 @@ Um token de identidade é um [JWT](/10-security/jwt.md) assinado, e recebê-lo n
 precisa ser validado:
 
 ```text
-assinatura   confere com a chave pública do emissor
-iss          o emissor é quem você espera
-aud          o destinatário é a sua aplicação — a verificação central
-exp          não expirou
-iat          emitido recentemente
-nonce        corresponde ao valor que você enviou na requisição
+sempre
+  assinatura   confere com a chave pública do emissor
+  iss          o emissor é quem você espera
+  aud          o destinatário é a sua aplicação — a verificação central
+  exp          não expirou
+condicionais
+  nonce        corresponde ao valor enviado — obrigatório se você o enviou,
+               e no fluxo implícito ou híbrido
+  iat          dentro da janela de recência que o cliente definiu
 ```
 
 **`aud` é a verificação que impede o ataque descrito acima.** Um token emitido para
@@ -80,7 +84,9 @@ outra aplicação tem outro destinatário e deve ser rejeitado.
 autenticação, e o token volta com ele. Um token capturado não serve numa sessão
 nova.
 
-Pular qualquer uma dessas transforma a autenticação em teatro.
+Pular qualquer uma das quatro incondicionais transforma a autenticação em teatro. No
+fluxo de código com PKCE, a ausência de `nonce` não abre o mesmo buraco: o
+verificador de código já amarra a resposta à requisição que a originou.
 
 ### `sub` é o identificador, e ele é local ao emissor
 
@@ -144,21 +150,28 @@ emitido.** As duas afirmações são o que torna a autenticação segura.
 - Login único entre várias aplicações.
 - Login social para consumidores.
 - Federação corporativa.
-- Você quer delegar autenticação em vez de gerenciar credenciais.
+- Várias aplicações precisam da mesma política de autenticação — segundo fator,
+  bloqueio, trilha de auditoria — aplicada e auditada num só lugar.
 
 ## Quando Não Usar
 
 **Para autorização.** O token de identidade não é credencial de acesso a API.
 
-**Sem verificar `aud`.** Anula a proteção principal.
+**Sem provedor de identidade em que você confie.** Delegar autenticação a um emissor
+cuja operação, jurisdição ou política de contas você não controla nem audita troca um
+risco que você gerencia por um que não gerencia.
 
-**Sem `nonce`.** Permite reuso.
+**Uma única aplicação, sem federação nem terceiros.** Não há segundo cliente para
+quem o login único sirva; o protocolo acrescenta redirecionamentos, chaves e
+verificações para resolver um problema ausente.
 
-**Aceitando e-mail não verificado como identidade.**
+**Operação sem conectividade com o provedor.** Sistemas embarcados, ambientes
+isolados ou operação em campo que precisam autenticar offline não podem depender de
+um emissor remoto a cada login.
 
-**Token de identidade enviado à API.**
-
-**Chave pública fixa no código.** Quebra na rotação.
+**Tolerância a indisponibilidade menor que o SLA do provedor.** Se o provedor cai,
+ninguém entra; quando o login precisa de disponibilidade maior do que a oferecida
+por ele, a dependência vira o limite do sistema.
 
 **Quando não há usuário.** Serviço falando com serviço usa credenciais de cliente.
 
@@ -180,6 +193,7 @@ emitido.** As duas afirmações são o que torna a autenticação segura.
 | Segundo fator pronto | A implementar |
 | Login único | Sessões separadas |
 | Dependência do provedor | Autonomia |
+| Custo recorrente, em geral por usuário ativo | Custo de construir e operar a autenticação |
 | Verificações a acertar | Fluxo mais simples |
 
 | Atributos no token | Endpoint de informações |
@@ -206,13 +220,15 @@ emitido.** As duas afirmações são o que torna a autenticação segura.
 
 ## Erros Comuns
 
-**Não verificar todas as afirmações.**
+**Não verificar `aud`.** Anula a proteção principal.
 
-**Usar o token de identidade como token de acesso.**
+**Pular `nonce` onde ele é obrigatório** — quando foi enviado, ou no fluxo implícito.
+
+**Usar o token de identidade como token de acesso**, enviando-o à API de recursos.
 
 **Identificar por e-mail.**
 
-**Não tratar rotação de chaves.**
+**Não tratar rotação de chaves** — chave pública fixa no código quebra na rotação.
 
 **Não decidir o comportamento de logout.**
 
@@ -273,7 +289,7 @@ teria custado.
 ## Exercício Prático
 
 Pegue a validação de token de identidade do seu sistema e verifique se ela confere
-assinatura, emissor, destinatário, expiração e `nonce`.
+assinatura, emissor, destinatário, expiração e, quando enviado, `nonce`.
 
 A ausência de qualquer uma é explorável, e a de destinatário é a mais grave.
 

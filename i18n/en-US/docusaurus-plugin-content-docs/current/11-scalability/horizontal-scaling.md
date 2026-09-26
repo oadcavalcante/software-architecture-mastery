@@ -2,7 +2,7 @@
 id: horizontal-scaling
 title: Horizontal Scaling
 sidebar_position: 2
-description: More machines — what it requires of the system and why the gain is never linear.
+description: More machines — what it requires of the system and why the gain stops being linear.
 doc_type: concept
 level: 5
 difficulty: advanced
@@ -13,7 +13,7 @@ objective: >
 prerequisites: [vertical-scaling]
 related: [vertical-scaling, statelessness, hotspots]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -27,8 +27,9 @@ The promise is attractive: no physical ceiling, built-in failure tolerance, capa
 investment.
 
 The reality has two caveats that decide the design. First: it requires the system to be **able** to run on
-several machines — which is a property of the design, not a configuration. Second: the gain is **never
-linear**, and there is a point beyond which adding nodes makes the result worse.
+several machines — which is a property of the design, not a configuration. Second: the gain **stops being
+linear** as soon as the nodes contend for some resource, and when keeping them in agreement costs
+communication there is a point beyond which adding nodes makes the result worse.
 
 ## Problem
 
@@ -61,7 +62,9 @@ Without all three, adding machines creates inconsistent behavior instead of capa
 
 ### The gain is not linear
 
-What is observed by measuring real systems:
+**Linear scaling** is the ideal case in which N nodes deliver N times the capacity of one — 100%
+efficiency at any size. The curve below is illustrative, with the shape the universal scalability law
+(Gunther, 2007) predicts for a system with contention and coherence cost:
 
 ```text
 nodes   capacity    efficiency
@@ -76,30 +79,30 @@ nodes   capacity    efficiency
 Two forces cause the degradation:
 
 **Contention.** Shared resources — the database, the cache, the queue — are contended by more clients.
+Gunther calls this force's intensity the **contention coefficient** (σ): the fraction of the work that
+waits in line for a shared resource. On its own, it flattens the curve toward a ceiling, without a drop.
 
 **Coherence.** Keeping the nodes in agreement costs communication, and that cost grows faster than the
 number of nodes.
 
-The second is what produces the point at which **more nodes deliver less**. It exists in every system, and
-knowing it — by measuring — avoids spending on capacity that does not deliver.
+The second is what produces the point at which **more nodes deliver less**. It exists in every system whose
+nodes need to coordinate — shared state, locks, a cache kept coherent — and knowing it — by measuring —
+avoids spending on capacity that does not deliver.
 
 ### The serial fraction is the real ceiling
 
 See [performance versus scalability](/11-scalability/performance-vs-scalability.md). Everything that does
 not parallelize limits the gain, regardless of the number of nodes.
 
-In a distributed architecture, the serial fraction is usually:
+The table above is consistent with a serial fraction of about 4%: by Amdahl's law, 2, 4, 8 and 16
+nodes would give 1.9×, 3.6×, 6.3× and 10×. At 32 nodes, Amdahl would still promise 14×; the gap down to
+the table's 11× is the coherence cost, which Amdahl does not model.
 
-```text
-the database          centralized writes
-a distributed lock    coordination
-a single sequence     identifier generation
-a hot partition       see hotspots
-a central service     authorization, configuration
-```
-
-Above a certain number of nodes, **removing the serial fraction returns more than adding nodes**. That
-inversion is this section's most useful practical insight.
+The same arithmetic shows where the inversion happens. At 16 nodes, taking the serial fraction from 4% to
+2% would give about 12× — more than the 11× obtained by doubling to 32 nodes, and without paying for 16
+more machines. On this curve, from somewhere between 8 and 16 nodes, reducing the serial fraction returns
+more than adding nodes. A [hot partition](/11-scalability/hotspots.md) is the form of that fraction that
+shows up least in the design and most in the measurement.
 
 ### Scaling is not only multiplying the application
 
@@ -117,8 +120,8 @@ proportionally.
 Scaling horizontally requires looking at **the whole chain**: connections, cache, queue, external services,
 third-party limits. Each one has its own limit, and the first one reached defines the whole's ceiling.
 
-A connection pooler — which multiplexes many application connections into few database ones — is the
-control that resolves the most common case.
+A [connection pooler](/11-scalability/database-scaling.md) undoes the proportionality between nodes and
+database connections — it is the control that resolves the most common case.
 
 ### Elasticity has a startup cost
 
@@ -143,7 +146,7 @@ The premise that all nodes are equivalent breaks for concrete reasons:
 **Uneven distribution.** Persistent connections pin clients to nodes. See
 [balancing for scale](/11-scalability/scaling-load-balancing.md).
 
-That is why balancing sensitive to latency and real load beats distributing uniformly.
+When nodes diverge like this, balancing sensitive to latency and real load beats distributing uniformly.
 
 ## Mental Model
 
@@ -265,8 +268,9 @@ load.
 
 **A shared cache** for the recommendation service's responses, reducing external calls by 85%.
 
-After the fixes, 40 instances delivered 6.2 times the capacity of 6 — and the measurement showed that above
-45 the gain became marginal.
+After the fixes, 40 instances delivered 4.1 times the capacity of 6 — an efficiency near 60%, within the
+curve above — and the measurement showed that above 45 each additional instance added less than 1% of
+throughput.
 
 That number became the auto scaling's configured ceiling, with an alert when it is reached.
 

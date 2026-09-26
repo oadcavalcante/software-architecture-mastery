@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-replication, scaling-partitioning, hotspots]
 canonical_for: []
-translated_from_version: 3
+translated_from_version: 4
 last_reviewed: 2026-08-31
 ---
 
@@ -21,8 +21,8 @@ last_reviewed: 2026-08-31
 
 ## Overview
 
-The database is most systems' real bottleneck, and the hardest component to scale — because it is where the
-state lives, and state does not multiply for free.
+The database is most systems' real bottleneck, and the component whose scaling is most expensive to undo —
+because it is where the state lives, and state does not multiply for free.
 
 There is an escalation order, from cheapest to most expensive. Following it avoids this section's costliest
 decision: **distributing the database before it is necessary**.
@@ -41,7 +41,8 @@ The problem is not partitioning. It is the order.
 
 ### The escalation ladder
 
-From cheapest to most expensive:
+From cheapest to most expensive — adding up engineering time, recurring cost and irreversibility. The
+column below shows only the first axis:
 
 ```text
 1. indexes and queries      days — the most frequent gain
@@ -55,6 +56,10 @@ From cheapest to most expensive:
 9. splitting by domain      months — separate databases per context
 10. partitioning across nodes  months — the last option
 ```
+
+That is why a bigger machine, which takes hours to execute, is not rung 1: it raises the bill every month,
+has a ceiling in the instance family, and does not fix the query missing an index — it only postpones the
+day it starts hurting again.
 
 The rule: **do not skip rungs**. Each one resolves a different class of problem, and rung 10 does not fix
 what rung 1 would resolve.
@@ -144,8 +149,10 @@ the discussion suggests.
 
 Each rung has its moment:
 
-- **1 to 3:** always, before anything else.
-- **4:** when the machine has headroom available.
+- **1 to 3:** before any rung above 4 — except during an incident, when buying time with a bigger machine
+  comes first.
+- **4:** when there is still an instance size above the current one and its headroom covers the growth
+  projection. See [vertical scaling](/11-scalability/vertical-scaling.md).
 - **5:** when reads dominate and tolerate lag.
 - **6:** when there is analytical load mixed in.
 - **7:** when there is old, rarely accessed data.
@@ -167,12 +174,16 @@ Each rung has its moment:
 
 ## Alternatives
 
-- **Reducing the writes** — batching, making them asynchronous, eliminating the unnecessary ones.
-- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a separate read model.
+- **Reducing the writes**, through the ways out already listed — beats the ladder when the bottleneck is
+  on writes and part of them can be deferred or dropped without changing what the business sees.
+- **[Distributed CQRS](/06-distributed-systems/distributed-cqrs.md)** — a separate read model; beats
+  replicas and caches when reads need a shape the write model does not have.
 - **Appropriate storage per workload** — search in an inverted index, time series in a database of their
-  own. See [NoSQL](/07-data-architecture/nosql.md).
+  own; wins when the bottleneck is a workload the relational database serves poorly, not the volume. See
+  [NoSQL](/07-data-architecture/nosql.md).
 - **A distributed relational database** — it keeps the model and distributes the writes, at the cost of
-  coordination latency.
+  coordination latency; beats rung 10 when writes are genuinely the bottleneck and joins and transactions
+  across entities must be preserved.
 
 ## Trade-offs
 
@@ -245,6 +256,9 @@ reduced it to 180 real connections. The peak timeouts disappeared that same day.
 
 **Rung 3 — caching.** Merchant data, read on every transaction and changed rarely, went to a cache with
 event-based invalidation. 30% fewer reads.
+
+Rungs 4 and 5 were left out: the primary was already at the largest size in its instance family, and reads,
+after falling 45% and a further 30%, no longer justified a replica.
 
 **Rung 6 — separating workloads.** Reconciliation reports ran on the transactional database. Moved to a
 dedicated replica.

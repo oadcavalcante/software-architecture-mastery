@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [database-scaling, hotspots, statelessness]
 canonical_for: [taxa de acerto, estampida de cache, cache em camadas, aquecimento de cache]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -21,8 +21,9 @@ last_reviewed: 2026-08-28
 
 ## Visão Geral
 
-Cache é a técnica de melhor retorno em escala, porque ela **remove trabalho** em vez de
-adicionar capacidade para executá-lo.
+Quando a leitura se repete e a resposta é cara de produzir, cache reduz a carga na
+origem por um fator maior do que qualquer aumento realista de capacidade entregaria,
+porque ele **remove trabalho** em vez de adicionar capacidade para executá-lo.
 
 Os fundamentos — o que cachear, invalidação, tempo de vida — estão em
 [caching](/05-system-design/caching.md). Aqui interessa o que muda sob carga alta:
@@ -147,8 +148,10 @@ para respostas de erro, ou nenhum.
 
 ## Modelo Mental
 
-**Cache remove trabalho; capacidade adiciona meios de executá-lo.** Remover é sempre
-mais barato — e cria uma dependência que precisa ser tratada como tal.
+**Cache remove trabalho; capacidade adiciona meios de executá-lo.** Com leitura
+repetida e resposta cara, remover sai mais barato por requisição atendida do que
+adicionar capacidade — ao preço de um cluster a pagar, uma invalidação a manter e uma
+dependência que precisa ser tratada como tal.
 
 ## Quando Usar
 
@@ -163,15 +166,25 @@ mais barato — e cria uma dependência que precisa ser tratada como tal.
 
 **Para dados que precisam ser do instante.** Saldo antes de debitar.
 
-**Sem plano para a perda do cache.**
+**Sem plano para a perda do cache.** Se a origem não suporta a carga integral e não há
+descarte de carga nem exercício de perda, adicionar o cache troca um gargalo por um ponto
+único de falha.
 
-**Sem proteção contra estampida** em chaves populares.
+**Sem proteção contra estampida** em chaves populares. Com centenas de requisições
+simultâneas por chave, cada expiração vira um pico na origem igual à concorrência daquela
+chave.
 
-**Cache local autoritativo.**
+**Cache local como fonte autoritativa.** Quando a instância decide com base no próprio
+cache — limite, permissão, estoque —, instâncias diferentes respondem diferente à mesma
+pergunta.
 
-**Chave de cache sem identidade** em resposta personalizada.
+**Chave de cache sem identidade** em resposta personalizada. Se a resposta varia por
+usuário e a chave não carrega quem pediu, não há cache seguro — só vazamento.
 
-**Cachear escrita.** Cache resolve leitura; escrita exige outra coisa.
+**Para absorver escrita que não admite janela de perda.** Write-behind acelera escrita
+aceitando perder o que ainda não persistiu (ver
+[as estratégias de escrita](/05-system-design/caching.md#as-estratégias-de-escrita));
+quando essa perda é inaceitável, escalar escrita pede particionamento ou fila, não cache.
 
 **Quando a taxa de acerto é baixa.** Um cache com 30% de acerto adiciona latência e
 complexidade por pouco ganho.
@@ -224,7 +237,7 @@ complexidade por pouco ganho.
 
 **Não monitorar a taxa de acerto.** Um cache com 20% de acerto adiciona latência e complexidade sem aliviar a origem — e sem a métrica, ninguém sabe que é o caso.
 
-**Não proteger contra estampida.** Quando uma chave popular expira, todas as requisições simultâneas vão à origem de uma vez. É como um cache que funcionava vira a causa da queda.
+**Não proteger contra estampida.** Quando uma chave popular expira, todas as requisições simultâneas vão à origem de uma vez. É o momento em que um cache que funcionava vira a causa da queda.
 
 **Expiração sem variação.** Entradas criadas juntas expiram juntas, e a carga na origem vira picos periódicos. Adicionar aleatoriedade ao prazo dispersa isso.
 

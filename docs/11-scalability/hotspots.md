@@ -13,7 +13,7 @@ objective: >
 prerequisites: [scalability]
 related: [scaling-partitioning, performance-vs-scalability, database-scaling]
 canonical_for: [ponto quente, chave quente, distribuição desigual, dispersão de chave]
-content_version: 2
+content_version: 3
 last_reviewed: 2026-08-28
 ---
 
@@ -74,11 +74,13 @@ agregada.**
 
 ```text
 agregado         utilização média 23%   → parece saudável
-por partição     máximo 100%, mínimo 8% → saturado
+por partição     máximo 100%, mínimo 15% → saturado
 ```
 
 E a métrica que importa é a **razão entre o máximo e a mediana**. Acima de 3, há
-desequilíbrio; acima de 10, há ponto quente.
+desequilíbrio; acima de 10, há ponto quente mesmo antes da saturação. A razão não
+substitui o máximo absoluto: uma partição a 100% é ponto quente qualquer que seja a
+razão — no cenário acima, ela dá menos de 7.
 
 Sem isso, o diagnóstico depende de alguém suspeitar e ir olhar — o que acontece depois
 do incidente.
@@ -163,7 +165,10 @@ a custar N vezes.
 **Isolar clientes grandes cedo demais.** Complexidade operacional antes de a
 concentração doer.
 
-**Adicionar capacidade** como resposta.
+**Adicionar capacidade quando a métrica por partição mostra concentração.** Capacidade
+responde quando todas as partições sobem juntas e a razão entre máximo e mediana fica
+baixa; com uma partição saturada e as demais ociosas, os nós novos recebem só a parte
+ociosa.
 
 ## Alternativas
 
@@ -190,7 +195,7 @@ concentração doer.
 
 | Isolar o quente | Dispersar |
 |---|---|
-| Operação simples de entender | Transparente |
+| Simples de entender e operar | Exige entender a distribuição da chave |
 | Infraestrutura dedicada a manter | Compartilhada |
 | Limite claro por cliente | Difuso |
 
@@ -236,7 +241,7 @@ apenas leituras de pedidos antigos.
 
 O sintoma em produção: latência de criação de pedido degradando ao longo do dia,
 recuperando à noite, e piorando semana a semana. A utilização média das partições era
-de 12%.
+de 11%.
 
 A primeira reação, meses antes, tinha sido dobrar o número de partições. Não mudou
 nada — a última partição continuou recebendo tudo, agora com metade dos dados

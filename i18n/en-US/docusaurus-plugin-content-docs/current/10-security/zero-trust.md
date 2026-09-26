@@ -13,7 +13,7 @@ objective: >
 prerequisites: [secure-boundaries]
 related: [secure-boundaries, network-security, least-privilege]
 canonical_for: []
-translated_from_version: 1
+translated_from_version: 2
 last_reviewed: 2026-08-31
 ---
 
@@ -90,19 +90,11 @@ workarounds — and the workaround is worse than the loose policy.
 
 ### Microsegmentation limits lateral movement
 
-Instead of a flat network where everything reaches everything, policies that allow only the necessary
-communication.
-
-```text
-a flat network   a compromised service reaches all the others
-segmented        it reaches only those the policy allows
-```
-
-It is the control that most reduces a compromise's reach, and the most laborious to implement in an
-existing environment — because it requires knowing who talks to whom, and almost nobody knows.
-
-The viable path: start by recording the real traffic, derive the policy from it, apply it in warning mode,
-and only then block.
+The mechanism — and the path of recording traffic before blocking — is in
+[network security](/10-security/network-security.md). What zero trust changes is the policy's criterion: the
+rule between segments names service identities, not address ranges. That is why it comes after identity in
+the adoption order: a policy written over addresses, in an environment where services still authenticate
+with static keys, has to be rewritten when service-to-service authentication arrives.
 
 ### It is not a product, and it is gradual
 
@@ -120,7 +112,9 @@ Realistic adoption is in stages, in order of return:
 6. device context in the decision
 ```
 
-The first four deliver most of the benefit and require no new product.
+The order is by return on effort, not by reach reduction: segmentation is the control that most limits
+what a compromised service reaches, but it is also the most expensive in an existing environment. The first
+four deliver the largest risk reduction per unit of effort and require no new product.
 
 ### What it does not eliminate
 
@@ -146,24 +140,29 @@ Treating it as a complete answer is the most common positioning mistake.
 
 ## When Not to Use
 
-**As a product to buy.**
+**When there is no "inside" to protect beyond the identity provider.** A team that uses only managed
+third-party services, with no internal services calling each other, already has every access going through
+a login; what remains is strong authentication, which does not need the program.
 
-**All at once.** Two-year programs with no intermediate delivery are abandoned.
+**When nobody can operate the policy service.** Evaluating policy on every request creates a dependency that
+needs on-call, caching and defined failure behavior. Without a team that owns it, the policy service becomes
+the single point that stops everything — and the containment gain does not pay for it.
 
-**With friction that generates workarounds.**
+**When segmentation and device context cost more than the reach they cut.** With few internal services, no
+third-party access and no sensitive data, the available lateral movement is already small. Stop at the
+identity and least-privilege stages, which serve any size.
 
-**As a substitute for basic hygiene** — patching, validation, review.
-
-**Segmentation without knowing the real traffic.** It blocks production.
-
-**In a small and simple environment**, where the cost exceeds the risk.
+**When measured friction starts generating workarounds.** If the extra verification produces a shared account
+or a permanent exception request, the stage is costing more security than it gives; roll the policy back
+before moving to the next one.
 
 ## Alternatives
 
 - **Traditional network segmentation** — part of the benefit, less effort. See
   [network security](/10-security/network-security.md).
-- **Rigorous [least privilege](/10-security/least-privilege.md)** — most of the containment benefit.
-- **Strong authentication** — the single item with the best return.
+- **Rigorous [least privilege](/10-security/least-privilege.md)** — limits what a compromised identity
+  reaches without changing the network.
+- **Strong authentication** — the single item with the best return on effort.
 - **Broker-based access** instead of a private network — it removes the broad network access a private
   connection grants.
 
@@ -199,30 +198,37 @@ Treating it as a complete answer is the most common positioning mistake.
 
 ## Common Mistakes
 
-**Buying instead of applying.**
+**Buying instead of applying.** The platform is installed, but static credentials and permanent
+administrative access remain — and the program's budget runs out before reaching them.
 
-**Starting with segmentation** instead of identity.
+**Starting with segmentation** instead of identity. The policy is derived from traffic still flowing with
+static credentials and written over addresses; when service-to-service authentication arrives, it has to be
+redone.
 
-**Not measuring the friction.**
+**Not measuring the friction.** Without approval time and exception rate measured, the workaround shows up
+before the alarm — in the example below, a shared emergency account.
 
-**Segmenting without knowing the traffic.**
+**Segmenting without knowing the traffic.** The first blocking rule takes down a dependency nobody had
+documented.
 
-**Treating it as a substitute for basic hygiene.**
+**Treating it as a substitute for basic hygiene.** The report says "zero trust" and the SQL injection in the
+exposed service is still there.
 
 **Having no emergency path** when the policy service fails.
 
 ## Real-World Example
 
 A financial services company started a zero trust program after an incident in which a supplier's
-credential was used to access internal systems.
+credential, obtained through phishing that captured the code sent by message, was used to access internal
+systems.
 
 The initial approach was buying a platform and planning a two-year rollout. After eight months, nothing was
 in production, and the program lost support.
 
 The restart was in stages, with a delivery each quarter:
 
-**Quarter 1 — strong authentication.** A phishing-resistant second factor for everybody, replacing codes by
-message. That alone eliminated the attack class that had caused the original incident.
+**Quarter 1 — strong authentication.** A phishing-resistant second factor for everybody, suppliers included,
+replacing codes by message. That alone eliminated the attack class that had caused the original incident.
 
 **Quarter 2 — service credentials.** Elimination of static keys, with platform identity and temporary
 credentials. See [secrets](/10-security/secrets.md).

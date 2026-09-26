@@ -13,7 +13,7 @@ objective: >
 prerequisites: [security]
 related: [secure-boundaries, least-privilege, security-failure-modes]
 canonical_for: [modelagem de ameaças, STRIDE, superfície de ataque, ator de ameaça]
-content_version: 1
+content_version: 2
 last_reviewed: 2026-08-28
 ---
 
@@ -74,8 +74,15 @@ Não é o diagrama de arquitetura bonito. É um esboço com:
 
 **Fronteiras de confiança** — as linhas que separam níveis de confiança diferentes.
 
-As fronteiras são o ponto. **Toda ameaça interessante atravessa uma delas.** Ver
+As fronteiras são por onde começar: é nelas que o dado ou o comando muda de dono, e
+por isso é nelas que se concentram as ameaças de maior impacto — o que não dispensa
+olhar os elementos de dentro de cada domínio. Ver
 [fronteiras seguras](/10-security/secure-boundaries.md).
+
+O conjunto de fluxos que cruzam uma fronteira vindos de fora — cada ponto em que um
+ator consegue entregar dado ou comando ao sistema — é a **superfície de ataque**. Cada
+fluxo desses é algo a defender; cada um que se remove é algo que deixa de precisar de
+defesa.
 
 ### STRIDE dá vocabulário para a pergunta 2
 
@@ -93,8 +100,8 @@ elevação de privilégio       alguém obtém mais acesso do que tem
 O valor não está na sigla. Está em ter uma lista que impede o time de pensar só nas
 ameaças que já conhece — que é o viés natural.
 
-Percorrer as seis categorias para cada fronteira, com disciplina, encontra coisas
-que a conversa livre não encontra.
+Percorrer as seis categorias para cada elemento, começando pelos fluxos que cruzam
+fronteira, com disciplina, encontra coisas que a conversa livre não encontra.
 
 ### Ator de ameaça define o que é razoável
 
@@ -173,14 +180,12 @@ são decisões.
 
 **Para cada alteração pequena.** Vira ritual.
 
-**Sem definir os atores.** Produz lista genérica.
-
 **Como auditoria depois de pronto.** Aí é revisão de segurança, que é outra coisa e
 chega tarde para mudanças estruturais.
 
-**Sem priorizar.** Uma lista de 80 ameaças sem ordem não é acionável.
-
-**Sem dono e prazo.**
+**Em sistema sem dado de valor nem fronteira nova.** Um protótipo descartável ou uma
+ferramenta local sem dado real: duas sessões de três horas custam mais que o pior
+cenário que elas encontrariam.
 
 **Só com o time de segurança.** Quem conhece o sistema é quem o constrói; sem eles,
 o modelo fica errado.
@@ -193,7 +198,10 @@ o modelo fica errado.
   ruins de arquitetura.
 - **Árvores de ataque** — mais detalhado, para um cenário específico de alto risco.
 
-Nenhuma substitui a modelagem, porque nenhuma acontece antes de o desenho existir.
+Nenhuma substitui a modelagem. As três primeiras acontecem depois de o desenho
+existir; a árvore de ataque acontece no desenho, mas aprofunda um cenário que alguém já
+escolheu, e não cobre o sistema inteiro — é a modelagem que diz qual cenário merece a
+árvore.
 
 ## Trade-offs
 
@@ -266,8 +274,8 @@ com acesso interno", reduziu para 9 acionáveis.
 As decisões:
 
 **Eliminar.** O portal passou a receber apenas o resultado do exame consultado, não
-o registro completo. Isso removeu 6 das 31 ameaças de uma vez, e foi a decisão de
-maior impacto — tomada porque alguém perguntou "por que estamos trazendo isso?".
+o registro completo. Isso removeu 6 das 31 ameaças de uma vez — 4 delas entre as 9
+acionáveis —, e foi a decisão de maior impacto — tomada porque alguém perguntou "por que estamos trazendo isso?".
 
 **Mitigar.** Autorização verificada por exame, não por paciente — a versão original
 verificava se o usuário era o paciente e depois listava tudo. Um identificador
@@ -303,7 +311,8 @@ entrava e saía.
 Desenhe o fluxo de dados de uma funcionalidade que seu time vai construir, com as
 fronteiras de confiança marcadas.
 
-Para cada fronteira, percorra as seis categorias do STRIDE. Você vai encontrar pelo
+Percorra as seis categorias do STRIDE para cada elemento, começando pelos fluxos que
+cruzam fronteira. Você vai encontrar pelo
 menos uma coisa que ninguém tinha considerado — e provavelmente um caminho de dado
 que alguém esqueceu de mencionar.
 
