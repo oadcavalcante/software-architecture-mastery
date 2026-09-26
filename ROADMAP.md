@@ -619,8 +619,9 @@ divergência legítima em quase todo par, e o sinal não se separa do ruído sem
 filtro que ainda não existe.
 
 Fica fora de defeito, e é decisão editorial: **31 pares de documentos com
-sobreposição de texto** que poderiam ser fundidos. Nenhum viola §7.4 — cada um tem
-recorte próprio e aponta o canônico —, mas o acervo ficaria mais enxuto.
+sobreposição de texto** que poderiam ser fundidos. A revisão §13.3 checou duplicação
+contra o canônico em cada documento e corrigiu a que achou; os pares que restam não
+foram reavaliados como par, e fundir ou não é escolha de desenho do acervo.
 
 ## O que a revisão encontrou
 
