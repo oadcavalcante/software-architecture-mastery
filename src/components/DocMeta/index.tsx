@@ -6,7 +6,7 @@
  * respondem a perguntas que o leitor faz antes de começar: que tipo de
  * documento é este — conceito, padrão, exercício, case — e o quanto ele exige.
  *
- * O nível não entra aqui porque a trilha de navegação já o mostra ("Nível 01 —
+ * O nível não entra aqui porque a trilha de navegação já o mostra ("1.
  * Fundamentos"), e repeti-lo seria ruído.
  *
  * `doc_type` é neutro de idioma e por isso é traduzido aqui. `difficulty` já

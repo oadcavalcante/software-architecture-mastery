@@ -3,25 +3,25 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.curriculum.category.Nível 01 — Fundamentos": {
-    "message": "Nível 01 — Fundamentos",
-    "description": "The label for category 'Nível 01 — Fundamentos' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.1. Fundamentos": {
+    "message": "1. Fundamentos",
+    "description": "The label for category '1. Fundamentos' in sidebar 'curriculum'"
   },
-  "sidebar.curriculum.category.Nível 02 — Design de Software": {
-    "message": "Nível 02 — Design de Software",
-    "description": "The label for category 'Nível 02 — Design de Software' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.2. Design de Software": {
+    "message": "2. Design de Software",
+    "description": "The label for category '2. Design de Software' in sidebar 'curriculum'"
   },
-  "sidebar.curriculum.category.Nível 03 — Design de Sistemas": {
-    "message": "Nível 03 — Design de Sistemas",
-    "description": "The label for category 'Nível 03 — Design de Sistemas' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.3. Design de Sistemas": {
+    "message": "3. Design de Sistemas",
+    "description": "The label for category '3. Design de Sistemas' in sidebar 'curriculum'"
   },
-  "sidebar.curriculum.category.Nível 04 — Sistemas Distribuídos": {
-    "message": "Nível 04 — Sistemas Distribuídos",
-    "description": "The label for category 'Nível 04 — Sistemas Distribuídos' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.4. Sistemas Distribuídos": {
+    "message": "4. Sistemas Distribuídos",
+    "description": "The label for category '4. Sistemas Distribuídos' in sidebar 'curriculum'"
   },
-  "sidebar.curriculum.category.Nível 05 — Arquitetura": {
-    "message": "Nível 05 — Arquitetura",
-    "description": "The label for category 'Nível 05 — Arquitetura' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.5. Arquitetura": {
+    "message": "5. Arquitetura",
+    "description": "The label for category '5. Arquitetura' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Dados": {
     "message": "Dados",
@@ -67,13 +67,13 @@
     "message": "Trade-offs",
     "description": "The label for category 'Trade-offs' in sidebar 'curriculum'"
   },
-  "sidebar.curriculum.category.Nível 06 — Arquitetura Corporativa": {
-    "message": "Nível 06 — Arquitetura Corporativa",
-    "description": "The label for category 'Nível 06 — Arquitetura Corporativa' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.6. Arquitetura Corporativa": {
+    "message": "6. Arquitetura Corporativa",
+    "description": "The label for category '6. Arquitetura Corporativa' in sidebar 'curriculum'"
   },
-  "sidebar.curriculum.category.Nível 07 — Liderança em Arquitetura": {
-    "message": "Nível 07 — Liderança em Arquitetura",
-    "description": "The label for category 'Nível 07 — Liderança em Arquitetura' in sidebar 'curriculum'"
+  "sidebar.curriculum.category.7. Liderança em Arquitetura": {
+    "message": "7. Liderança em Arquitetura",
+    "description": "The label for category '7. Liderança em Arquitetura' in sidebar 'curriculum'"
   },
   "sidebar.curriculum.category.Aplicação": {
     "message": "Aplicação",

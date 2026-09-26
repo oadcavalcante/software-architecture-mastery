@@ -20,7 +20,7 @@ const level = (label: string, dirs: string[], collapsed = true) => ({
 /** Nível 05 tem seções demais para uma lista plana; cada uma vira subgrupo. */
 const architectureLevel = {
   type: 'category' as const,
-  label: 'Nível 05 — Arquitetura',
+  label: '5. Arquitetura',
   collapsed: true,
   items: [
     {type: 'category' as const, label: 'Dados', collapsed: true,
@@ -54,21 +54,21 @@ const sidebars: SidebarsConfig = {
     'how-to-use',
     'maturity-model',
 
-    level('Nível 01 — Fundamentos', ['01-fundamentals'], false),
-    level('Nível 02 — Design de Software', [
+    level('1. Fundamentos', ['01-fundamentals'], false),
+    level('2. Design de Software', [
       '02-software-design',
       '03-design-patterns',
       '04-domain-driven-design',
     ]),
-    level('Nível 03 — Design de Sistemas', ['05-system-design']),
-    level('Nível 04 — Sistemas Distribuídos', ['06-distributed-systems']),
+    level('3. Design de Sistemas', ['05-system-design']),
+    level('4. Sistemas Distribuídos', ['06-distributed-systems']),
     architectureLevel,
-    level('Nível 06 — Arquitetura Corporativa', [
+    level('6. Arquitetura Corporativa', [
       '15-enterprise-architecture',
       '16-legacy-modernization',
       '19-architecture-governance',
     ]),
-    level('Nível 07 — Liderança em Arquitetura', ['23-architecture-leadership']),
+    level('7. Liderança em Arquitetura', ['23-architecture-leadership']),
 
     // Transversais: aplicação e avaliação, não pertencem a um nível.
     level('Aplicação', ['21-case-studies', '22-system-design-interviews']),
