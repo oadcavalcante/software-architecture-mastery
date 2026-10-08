@@ -8,6 +8,13 @@ achados marcados como corrigidos foram verificados um a um contra o arquivo ante
 da correção — o revisor erra, e um laudo aceito sem conferência é pior que
 nenhum.
 
+## Estado final
+
+**Fechada em 26/09/2026.** A varredura cobriu os 446 documentos (commit `16c79e1`) e a
+correção dos achados terminou no bloco 6 (commit `e1cb1c9`). O resto deste arquivo é o
+registro das ondas na ordem em que aconteceram; as contagens do que faltava descrevem o
+dia em que cada onda foi registrada.
+
 ## Cobertura
 
 | | Revisados | Reprovados | Com ressalvas | Aprovados |
@@ -21,8 +28,8 @@ nenhum.
 | **Total** | **49** | | | **0** |
 
 Os 20 `tradeoff` estão fechados. Depois desta linha vieram os 53 `pattern` restantes
-e a onda de 2026-09-06/07, registrada no fim deste arquivo. **Faltam apenas os 254
-`concept`** que a triagem por risco não alcançou.
+e a onda de 2026-09-06/07, registrada no fim deste arquivo. Nesta altura faltavam os 254
+`concept` que a triagem por risco não alcançou; a varredura os fechou depois.
 
 **Cinco `tradeoff` não estavam em `docs/20-trade-offs/`** — o `doc_type` não segue
 o diretório, e varrer por pasta os teria deixado de fora. Um deles,
@@ -910,7 +917,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +24 documentos
 
-**119 achados** — 25 altos, 46 médios, 48 baixos. Não corrigidos: a varredura vem antes.
+**119 achados** — 25 altos, 46 médios, 48 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `02-software-design/component-design.md` — ressalvas
 
@@ -1105,7 +1112,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +4 documentos
 
-**18 achados** — 6 altos, 8 médios, 4 baixos. Não corrigidos: a varredura vem antes.
+**18 achados** — 6 altos, 8 médios, 4 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `05-system-design/components.md` — reprovado
 
@@ -1139,7 +1146,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**63 achados** — 16 altos, 27 médios, 20 baixos. Não corrigidos: a varredura vem antes.
+**63 achados** — 16 altos, 27 médios, 20 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `05-system-design/cdn.md` — reprovado
 
@@ -1242,7 +1249,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**67 achados** — 13 altos, 28 médios, 26 baixos. Não corrigidos: a varredura vem antes.
+**67 achados** — 13 altos, 28 médios, 26 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `06-distributed-systems/availability.md` — ressalvas
 
@@ -1349,7 +1356,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +8 documentos
 
-**43 achados** — 6 altos, 22 médios, 15 baixos. Não corrigidos: a varredura vem antes.
+**43 achados** — 6 altos, 22 médios, 15 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `06-distributed-systems/eventual-consistency.md` — reprovado
 
@@ -1420,7 +1427,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +6 documentos
 
-**23 achados** — 5 altos, 11 médios, 7 baixos. Não corrigidos: a varredura vem antes.
+**23 achados** — 5 altos, 11 médios, 7 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `06-distributed-systems/messaging.md` — reprovado
 
@@ -1465,7 +1472,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**61 achados** — 5 altos, 34 médios, 22 baixos. Não corrigidos: a varredura vem antes.
+**61 achados** — 5 altos, 34 médios, 22 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `06-distributed-systems/latency.md` — reprovado
 
@@ -1566,7 +1573,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**56 achados** — 7 altos, 24 médios, 25 baixos. Não corrigidos: a varredura vem antes.
+**56 achados** — 7 altos, 24 médios, 25 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `07-data-architecture/denormalization.md` — reprovado
 
@@ -1662,7 +1669,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**62 achados** — 17 altos, 27 médios, 18 baixos. Não corrigidos: a varredura vem antes.
+**62 achados** — 17 altos, 27 médios, 18 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `08-integration-architecture/event-driven-integration.md` — reprovado
 
@@ -1764,7 +1771,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**58 achados** — 3 altos, 32 médios, 23 baixos. Não corrigidos: a varredura vem antes.
+**58 achados** — 3 altos, 32 médios, 23 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `09-cloud-architecture/cloud-networking.md` — ressalvas
 
@@ -1862,7 +1869,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**60 achados** — 6 altos, 33 médios, 21 baixos. Não corrigidos: a varredura vem antes.
+**60 achados** — 6 altos, 33 médios, 21 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `10-security/auditability.md` — ressalvas
 
@@ -1962,7 +1969,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**64 achados** — 9 altos, 37 médios, 18 baixos. Não corrigidos: a varredura vem antes.
+**64 achados** — 9 altos, 37 médios, 18 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `10-security/security-failure-modes.md` — ressalvas
 
@@ -2066,7 +2073,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**57 achados** — 10 altos, 29 médios, 18 baixos. Não corrigidos: a varredura vem antes.
+**57 achados** — 10 altos, 29 médios, 18 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `11-scalability/scaling-replication.md` — reprovado
 
@@ -2163,7 +2170,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**62 achados** — 11 altos, 32 médios, 19 baixos. Não corrigidos: a varredura vem antes.
+**62 achados** — 11 altos, 32 médios, 19 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `12-reliability/sli.md` — reprovado
 
@@ -2265,7 +2272,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +6 documentos
 
-**30 achados** — 3 altos, 20 médios, 7 baixos. Não corrigidos: a varredura vem antes.
+**30 achados** — 3 altos, 20 médios, 7 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `14-devops-and-platform/containers-in-delivery.md` — ressalvas
 
@@ -2317,7 +2324,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**64 achados** — 4 altos, 33 médios, 27 baixos. Não corrigidos: a varredura vem antes.
+**64 achados** — 4 altos, 33 médios, 27 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `14-devops-and-platform/ci-cd.md` — reprovado
 
@@ -2421,7 +2428,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**58 achados** — 7 altos, 31 médios, 20 baixos. Não corrigidos: a varredura vem antes.
+**58 achados** — 7 altos, 31 médios, 20 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `15-enterprise-architecture/enterprise-governance.md` — ressalvas
 
@@ -2519,7 +2526,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**62 achados** — 5 altos, 31 médios, 26 baixos. Não corrigidos: a varredura vem antes.
+**62 achados** — 5 altos, 31 médios, 26 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `16-legacy-modernization/modernization-risk.md` — ressalvas
 
@@ -2621,7 +2628,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**68 achados** — 4 altos, 36 médios, 28 baixos. Não corrigidos: a varredura vem antes.
+**68 achados** — 4 altos, 36 médios, 28 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `17-architecture-documentation/deployment-diagrams.md` — reprovado
 
@@ -2729,7 +2736,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**65 achados** — 4 altos, 41 médios, 20 baixos. Não corrigidos: a varredura vem antes.
+**65 achados** — 4 altos, 41 médios, 20 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `18-architecture-decisions/superseding-decisions.md` — ressalvas
 
@@ -2834,7 +2841,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +12 documentos
 
-**60 achados** — 5 altos, 29 médios, 26 baixos. Não corrigidos: a varredura vem antes.
+**60 achados** — 5 altos, 29 médios, 26 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `22-system-design-interviews/bottleneck-identification.md` — ressalvas
 
@@ -2934,7 +2941,7 @@ correção. Médios e baixos ficam na fila, com arquivo e linha.
 
 ### Levas de `concept` — +23 documentos
 
-**153 achados** — 16 altos, 92 médios, 45 baixos. Não corrigidos: a varredura vem antes.
+**153 achados** — 16 altos, 92 médios, 45 baixos. Corrigidos depois da varredura, nos blocos 1 a 6.
 
 #### `23-architecture-leadership/architecture-leadership-basics.md` — ressalvas
 

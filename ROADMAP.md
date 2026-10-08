@@ -576,7 +576,7 @@ leia o 🟩 como "cada parágrafo dos 446 documentos foi lido por um revisor".
 | Varredura por classe de defeito — referências e código | 🟩 100% do acervo |
 | Verificação visual da interface | 🟩 120 combinações de página × largura × tema |
 
-A revisão de profundidade cobriu **os tipos onde o defeito se concentra**:
+A revisão de profundidade cobriu **todos os tipos**:
 
 | `doc_type` | Revisados | Total | |
 |---|---:|---:|---|
@@ -588,13 +588,13 @@ A revisão de profundidade cobriu **os tipos onde o defeito se concentra**:
 | `exercise` | 9 | 9 | ✓ |
 | `adr` | 5 | 5 | ✓ |
 | `reference` | 4 | 4 | ✓ |
-| `concept` | 73 | 275 | varredura em andamento, por seção |
+| `concept` | 275 | 275 | ✓ |
 
-Não é amostra aleatória, e a escolha foi deliberada: `tradeoff` e `case-study`
-têm 2.054 e 4.171 palavras de média, densas em contas e exemplos numéricos, que
-é onde a família dominante de defeito mora. `concept` tem 1.624 e `index` tem
-596, com muito menos aritmética. Os 21 `concept` revisados foram os de maior
-risco segundo triagem mecânica.
+A ordem foi deliberada: `tradeoff` e `case-study` vieram primeiro, com 2.054 e
+4.171 palavras de média, densas em contas e exemplos numéricos, que é onde a
+família dominante de defeito mora. `concept` (1.624 palavras) e `index` (596) têm
+muito menos aritmética e vieram depois; dentro de `concept`, os primeiros foram os
+de maior risco segundo triagem mecânica.
 
 ### Aberto, e por quê
 
